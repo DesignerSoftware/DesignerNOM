@@ -534,7 +534,7 @@
                         <p:panel id="nuevaP" style="border: none;">
 
                             <strong><h:outputText value="#{msg['empresaN']}" style=" position: absolute; top: 75px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaEmpresaP" value="#{controlProyecto.nuevaProyectos.empresa.nombre}" style="width: 122px; position: absolute; left: 200px; top: 70px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevaEmpresaP" value="#{controlProyecto.nuevaProyectos.empresa.nombre}" style="width: 122px; position: absolute; left: 200px; top: 70px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlProyecto.asignarIndex(info,0,1)}"/>
                                 <p:ajax event="click" listener="#{controlProyecto.valoresBackupAutocompletarProyecto(1, 'EMPRESAS')}" />
                                 <p:ajax event="change" listener="#{controlProyecto.autocompletarNuevoyDuplicadoProyecto('EMPRESAS', controlProyecto.nuevaProyectos.empresa.nombre,1)}" process="@this" update="nuevaEmpresaP"/>
@@ -543,19 +543,19 @@
                             <p:watermark for="nuevaEmpresaP" value="#{msg['empresa']}" />
 
                             <strong><h:outputText value="#{msg['codigoN']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaCodigoP" maxlength="20" value="#{controlProyecto.nuevaProyectos.codigo}"  style="width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase" onclick="PF('select();" >
+                            <p:inputText id="nuevaCodigoP" maxlength="20" value="#{controlProyecto.nuevaProyectos.codigo}"  style="width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" update="nuevaCodigoP"/>
                             </p:inputText>
                             <p:watermark for="nuevaCodigoP" value="#{msg['codigo']}" />
 
                             <strong><h:outputText value="#{msg['nombreN']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaProyectoP" maxlength="50" value="#{controlProyecto.nuevaProyectos.nombreproyecto}"  style="width: 122px; position: absolute; left: 200px; top: 130px; text-transform: uppercase" onclick="PF('select();" >
+                            <p:inputText id="nuevaProyectoP" maxlength="50" value="#{controlProyecto.nuevaProyectos.nombreproyecto}"  style="width: 122px; position: absolute; left: 200px; top: 130px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" update="nuevaProyectoP"/>
                             </p:inputText>
                             <p:watermark for="nuevaProyectoP" value="#{msg['nombreproyecto']}" />
 
                             <strong><h:outputText value="#{msg['clienteN']}" style="position: absolute; top: 165px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaClienteP" value="#{controlProyecto.nuevaProyectos.pryCliente.nombre}" style="width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevaClienteP" value="#{controlProyecto.nuevaProyectos.pryCliente.nombre}" style="width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlProyecto.asignarIndex(info,1,1)}"/>
                                 <p:ajax event="click" listener="#{controlProyecto.valoresBackupAutocompletarProyecto(1, 'CLIENTES')}" />
                                 <p:ajax event="change" listener="#{controlProyecto.autocompletarNuevoyDuplicadoProyecto('CLIENTES', controlProyecto.nuevaProyectos.pryCliente.nombre,1)}" process="@this" update="nuevaClienteP"/>
@@ -564,7 +564,7 @@
                             <p:watermark for="nuevaClienteP" value="#{msg['cliente']}" />
 
                             <strong><h:outputText value="#{msg['plataformaN']}" style="position: absolute; top: 195px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaPlataformaP" value="#{controlProyecto.nuevaProyectos.pryPlataforma.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 190px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevaPlataformaP" value="#{controlProyecto.nuevaProyectos.pryPlataforma.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 190px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlProyecto.asignarIndex(info,2,1)}"/>
                                 <p:ajax event="click" listener="#{controlProyecto.valoresBackupAutocompletarProyecto(1, 'PLATAFORMAS')}" />
                                 <p:ajax event="change" listener="#{controlProyecto.autocompletarNuevoyDuplicadoProyecto('PLATAFORMAS', controlProyecto.nuevaProyectos.pryPlataforma.descripcion,1)}" process="@this" update="nuevaPlataformaP"/>
@@ -573,13 +573,13 @@
                             <p:watermark for="nuevaPlataformaP" value="#{msg['plataforma']}" />
 
                             <strong><h:outputText value="#{msg['montoN']}" style="position: absolute; top: 225px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaMontoP" value="#{controlProyecto.nuevaProyectos.monto}"  style="width: 122px; position: absolute; left: 200px; top: 220px; text-transform: uppercase" onclick="PF('select();" >
+                            <p:inputText id="nuevaMontoP" value="#{controlProyecto.nuevaProyectos.monto}"  style="width: 122px; position: absolute; left: 200px; top: 220px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" update="nuevaMontoP"/>
                             </p:inputText>
                             <p:watermark for="nuevaMontoP" value="#{msg['monto']}" />
 
                             <strong><h:outputText value="#{msg['tipomonedaN']}" style="position: absolute; top: 255px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaMonedaP" value="#{controlProyecto.nuevaProyectos.tipomoneda.nombre}" style="width: 122px; position: absolute; left: 200px; top: 250px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevaMonedaP" value="#{controlProyecto.nuevaProyectos.tipomoneda.nombre}" style="width: 122px; position: absolute; left: 200px; top: 250px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlProyecto.asignarIndex(info,3,1)}"/>
                                 <p:ajax event="click" listener="#{controlProyecto.valoresBackupAutocompletarProyecto(1, 'MONEDAS')}" />
                                 <p:ajax event="change" listener="#{controlProyecto.autocompletarNuevoyDuplicadoProyecto('MONEDAS', controlProyecto.nuevaProyectos.tipomoneda.nombre,1)}" process="@this" update="nuevaMonedaP"/>
@@ -604,7 +604,7 @@
 
 
                             <strong><h:outputText value="#{msg['descripcionN']}" style="position: absolute; top: 345px ; left: 50px;" /></strong>
-                            <p:inputTextarea id="nuevaDescripcionP" maxlength="200" value="#{controlProyecto.nuevaProyectos.descripcionproyecto}"  style="width: 122px; position: absolute; left: 200px; top: 340px; text-transform: uppercase" onclick="PF('select();" >
+                            <p:inputTextarea id="nuevaDescripcionP" maxlength="200" value="#{controlProyecto.nuevaProyectos.descripcionproyecto}"  style="width: 122px; position: absolute; left: 200px; top: 340px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" update="nuevaDescripcionP"/>
                             </p:inputTextarea>
                             <p:watermark for="nuevaDescripcionP" value="#{msg['descripciondelproyecto']}" />
@@ -622,7 +622,7 @@
                         <p:panel id="duplicarP" style="border: none;">
 
                             <strong><h:outputText value="#{msg['empresaN']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarEmpresaP" value="#{controlProyecto.duplicarProyecto.empresa.nombre}" style="width: 122px; position: absolute; left: 200px; top: 70px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarEmpresaP" value="#{controlProyecto.duplicarProyecto.empresa.nombre}" style="width: 122px; position: absolute; left: 200px; top: 70px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlProyecto.asignarIndex(info,0,2)}"/>
                                 <p:ajax event="click" listener="#{controlProyecto.valoresBackupAutocompletarProyecto(2, 'EMPRESAS')}" />
                                 <p:ajax event="change" listener="#{controlProyecto.autocompletarNuevoyDuplicadoProyecto('EMPRESAS', controlProyecto.duplicarProyecto.empresa.nombre,2)}" process="@this" update="duplicarEmpresaP"/>
@@ -631,19 +631,19 @@
                             <p:watermark for="duplicarEmpresaP" value="#{msg['empresa']}" />
 
                             <strong><h:outputText value="#{msg['codigoN']}" style=" position: absolute; top: 105px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarCodigoP" maxlength="20" value="#{controlProyecto.duplicarProyecto.codigo}"  style=" width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase" onclick="PF('select();" >
+                            <p:inputText id="duplicarCodigoP" maxlength="20" value="#{controlProyecto.duplicarProyecto.codigo}"  style=" width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" update="duplicarCodigoP"/>
                             </p:inputText>
                             <p:watermark for="duplicarCodigoP" value="#{msg['codigo']}" />
 
                             <strong><h:outputText value="#{msg['nombreN']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarProyectoP" maxlength="50" value="#{controlProyecto.duplicarProyecto.nombreproyecto}"  style="width: 122px; position: absolute; left: 200px; top: 130px; text-transform: uppercase" onclick="PF('select();" >
+                            <p:inputText id="duplicarProyectoP" maxlength="50" value="#{controlProyecto.duplicarProyecto.nombreproyecto}"  style="width: 122px; position: absolute; left: 200px; top: 130px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" update="duplicarProyectoP"/>
                             </p:inputText>
                             <p:watermark for="duplicarProyectoP" value="#{msg['nombreproyecto']}" />
 
                             <strong><h:outputText value="#{msg['clienteN']}" style="position: absolute; top: 165px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarClienteP" value="#{controlProyecto.duplicarProyecto.pryCliente.nombre}" style="width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarClienteP" value="#{controlProyecto.duplicarProyecto.pryCliente.nombre}" style="width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlProyecto.asignarIndex(info,1,2)}"/>
                                 <p:ajax event="click" listener="#{controlProyecto.valoresBackupAutocompletarProyecto(2, 'CLIENTES')}" />
                                 <p:ajax event="change" listener="#{controlProyecto.autocompletarNuevoyDuplicadoProyecto('CLIENTES', controlProyecto.duplicarProyecto.pryCliente.nombre,2)}" process="@this" update="duplicarClienteP"/>
@@ -652,7 +652,7 @@
                             <p:watermark for="duplicarClienteP" value="#{msg['cliente']}" />
 
                             <strong><h:outputText value="#{msg['plataformaN']}" style="position: absolute; top: 195px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarPlataformaP" value="#{controlProyecto.duplicarProyecto.pryPlataforma.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 190px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarPlataformaP" value="#{controlProyecto.duplicarProyecto.pryPlataforma.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 190px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlProyecto.asignarIndex(info,2,2)}"/>
                                 <p:ajax event="click" listener="#{controlProyecto.valoresBackupAutocompletarProyecto(2, 'PLATAFORMAS')}" />
                                 <p:ajax event="change" listener="#{controlProyecto.autocompletarNuevoyDuplicadoProyecto('PLATAFORMAS', controlProyecto.duplicarProyecto.pryPlataforma.descripcion,2)}" process="@this" update="duplicarPlataformaP"/>
@@ -661,13 +661,13 @@
                             <p:watermark for="duplicarPlataformaP" value="#{msg['plataforma']}" />
 
                             <strong><h:outputText value="#{msg['montoN']}" style="position: absolute; top: 225px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarMontoP" value="#{controlProyecto.duplicarProyecto.monto}"  style="width: 122px; position: absolute; left: 200px; top: 220px; text-transform: uppercase" onclick="PF('select();" >
+                            <p:inputText id="duplicarMontoP" value="#{controlProyecto.duplicarProyecto.monto}"  style="width: 122px; position: absolute; left: 200px; top: 220px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" update="duplicarMontoP"/>
                             </p:inputText>
                             <p:watermark for="duplicarMontoP" value="#{msg['monto']}" />
 
                             <strong><h:outputText value="#{msg['tipomonedaN']}" style="position: absolute; top: 255px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarMonedaP" value="#{controlProyecto.duplicarProyecto.tipomoneda.nombre}" style="width: 122px; position: absolute; left: 200px; top: 250px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarMonedaP" value="#{controlProyecto.duplicarProyecto.tipomoneda.nombre}" style="width: 122px; position: absolute; left: 200px; top: 250px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlProyecto.asignarIndex(info,3,2)}"/>
                                 <p:ajax event="click" listener="#{controlProyecto.valoresBackupAutocompletarProyecto(2, 'MONEDAS')}" />
                                 <p:ajax event="change" listener="#{controlProyecto.autocompletarNuevoyDuplicadoProyecto('MONEDAS', controlProyecto.duplicarProyecto.tipomoneda.nombre,2)}" process="@this" update="duplicarMonedaP"/>
@@ -690,7 +690,7 @@
                             </p:calendar>
 
                             <strong><h:outputText value="#{msg['descripcionN']}" style="position: absolute; top: 345px ; left: 50px;" /></strong>
-                            <p:inputTextarea id="duplicarDescripcionP" maxlength="200" value="#{controlProyecto.duplicarProyecto.descripcionproyecto}"  style=" width: 122px; position: absolute; left: 200px; top: 340px; text-transform: uppercase" onclick="PF('select();" >
+                            <p:inputTextarea id="duplicarDescripcionP" maxlength="200" value="#{controlProyecto.duplicarProyecto.descripcionproyecto}"  style=" width: 122px; position: absolute; left: 200px; top: 340px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" update="duplicarDescripcionP"/>
                             </p:inputTextarea>
                             <p:watermark for="duplicarDescripcionP" value="#{msg['descripciondelproyecto']}" />

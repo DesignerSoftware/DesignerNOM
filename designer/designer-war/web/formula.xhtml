@@ -303,17 +303,17 @@
 
                         <p:panel id="nuevaFormula" style="border: none; position: relative; top: -50px">
                             <strong><h:outputText value="*#{msg['nombrecortoN']}" style="position: absolute; top: 75px;" /></strong>
-                            <p:inputText value="#{controlFormula.nuevaFormula.nombrecorto}" maxlength="6" style="width: 50px;position: absolute; top: 70px; left: 160px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText value="#{controlFormula.nuevaFormula.nombrecorto}" maxlength="6" style="width: 50px;position: absolute; top: 70px; left: 160px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this" />
                             </p:inputText>
 
                             <strong><h:outputText value="*#{msg['nombrelargoN']}" style="position: absolute; top: 105px;" /></strong>
-                            <p:inputText value="#{controlFormula.nuevaFormula.nombrelargo}" style="width: 150px; position: absolute; left: 160px; top: 100px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText value="#{controlFormula.nuevaFormula.nombrelargo}" style="width: 150px; position: absolute; left: 160px; top: 100px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['notaN']}" style="position: absolute; top: 135px;" /></strong>
-                            <p:inputText value="#{controlFormula.nuevaFormula.observaciones}" style="width: 150px; position: absolute; left: 160px; top: 130px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText value="#{controlFormula.nuevaFormula.observaciones}" style="width: 150px; position: absolute; left: 160px; top: 130px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
@@ -353,7 +353,7 @@
                             </p:inputText>
 
                             <strong><h:outputText value="*#{msg['nombrelargoN']}" style="position: absolute; top: 105px;" /></strong>
-                            <p:inputText value="#{controlFormula.duplicarFormula.nombrelargo}" style="position: absolute; left: 180px; top: 100px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText value="#{controlFormula.duplicarFormula.nombrelargo}" style="position: absolute; left: 180px; top: 100px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
@@ -365,7 +365,7 @@
                             </p:selectOneMenu>
 
                             <strong><h:outputText value="#{msg['notaN']}" style="position: absolute; top: 165px;" /></strong>
-                            <p:inputText value="#{controlFormula.duplicarFormula.observaciones}" style="width: 122px; position: absolute; left: 180px; top: 160px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText value="#{controlFormula.duplicarFormula.observaciones}" style="width: 122px; position: absolute; left: 180px; top: 160px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 

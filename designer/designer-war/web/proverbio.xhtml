@@ -256,7 +256,7 @@
                         <p:panel id="nuevoRegistroProverbio" style="border: none;">
 
                             <strong><h:outputText value="#{msg['mensajeNP']}" style=" position: absolute; top: 70px;" /></strong>
-                            <p:inputText id="nuevoMensaje" value="#{controlProverbio.nuevoProverbio.mensaje}" style=" width: 180px; position: absolute; left: 130px; top: 65px; text-transform: uppercase" onclick="PF('select();" >
+                            <p:inputText id="nuevoMensaje" value="#{controlProverbio.nuevoProverbio.mensaje}" style=" width: 180px; position: absolute; left: 130px; top: 65px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
@@ -275,7 +275,7 @@
                         <p:panel id="duplicarRegistroProverbio" style="border: none;">
 
                             <strong><h:outputText value="#{msg['mensajeNP']}" style=" position: absolute; top: 70px;" /></strong>
-                            <p:inputText id="duplicarMensaje" value="#{controlProverbio.duplicarProverbio.mensaje}" style=" width: 180px; position: absolute; left: 130px; top: 65px; text-transform: uppercase" onclick="PF('select();" >
+                            <p:inputText id="duplicarMensaje" value="#{controlProverbio.duplicarProverbio.mensaje}" style=" width: 180px; position: absolute; left: 130px; top: 65px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
@@ -358,7 +358,7 @@
                             </p:selectOneMenu>
 
                             <strong><h:outputText value="#{msg['mensajeNM']}" style=" position: absolute; top: 190px;" /></strong>
-                            <p:inputText id="nuevoMensajeMU" value="#{controlProverbio.nuevoRegistroMensajesUsuarios.mensaje}" style=" width: 122px; position: absolute; left: 120px; top: 185px; text-transform: uppercase" onclick="PF('select();" >
+                            <p:inputText id="nuevoMensajeMU" value="#{controlProverbio.nuevoRegistroMensajesUsuarios.mensaje}" style=" width: 122px; position: absolute; left: 120px; top: 185px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
@@ -441,7 +441,7 @@
                             </p:selectOneMenu>
 
                             <strong><h:outputText value="#{msg['mensajeNM']}" style=" position: absolute; top: 190px;" /></strong>
-                            <p:inputText id="duplicarMensajeMU" value="#{controlProverbio.duplicarRegistroMensajesUsuarios.mensaje}" style=" width: 122px; position: absolute; left: 120px; top: 185px; text-transform: uppercase" onclick="PF('select();" >
+                            <p:inputText id="duplicarMensajeMU" value="#{controlProverbio.duplicarRegistroMensajesUsuarios.mensaje}" style=" width: 122px; position: absolute; left: 120px; top: 185px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 

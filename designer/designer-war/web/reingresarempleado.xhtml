@@ -75,13 +75,13 @@
                             <legend style="font-size: 14px; color: blue"><strong>Reingresar un Empleado</strong></legend>
 
                             <h:outputText value="#{msg['nombredelempleado']}" style="position: absolute; left: 15px; top: 25px; font-weight: bold"/>
-                            <p:inputText id="nombreEmpleado" value="#{controlReingresarEmpleado.empleado.persona.nombreCompleto}" style="position: absolute; left: 15px; top: 65px; height: 15px; width: 128px;" onclick="PF('select();">
+                            <p:inputText id="nombreEmpleado" value="#{controlReingresarEmpleado.empleado.persona.nombreCompleto}" style="position: absolute; left: 15px; top: 65px; height: 15px; width: 128px;" onclick="select();">
                                 <p:ajax event="change" listener="#{controlReingresarEmpleado.modificarReingreso('EMPLEADO', controlReingresarEmpleado.empleado.persona.nombreCompleto)}"/>
                                 <p:ajax event="dblclick" listener="#{controlReingresarEmpleado.asignarIndex(0)}"/>
                             </p:inputText>
 
                             <h:outputText value="#{msg['estructura']}" style="position: absolute; left: 15px; top: 105px; font-weight: bold"/>
-                            <p:inputText id="estructura" value="#{controlReingresarEmpleado.estructura.nombre}" style="position: absolute; left: 15px; top: 145px; height: 15px; width: 128px;" onclick="PF('select();">
+                            <p:inputText id="estructura" value="#{controlReingresarEmpleado.estructura.nombre}" style="position: absolute; left: 15px; top: 145px; height: 15px; width: 128px;" onclick="select();">
                                 <p:ajax event="change" listener="#{controlReingresarEmpleado.modificarReingreso('ESTRUCTURA', controlReingresarEmpleado.estructura.nombre)}"/>
                                 <p:ajax event="dblclick" listener="#{controlReingresarEmpleado.asignarIndex(1)}"/>
                             </p:inputText>

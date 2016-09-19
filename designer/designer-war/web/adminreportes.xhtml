@@ -540,22 +540,22 @@
                         <p:panel id="nuevoInforeporte" style="border: none;">
 
                             <strong><h:outputText value="#{msg['codigoN']}" style=" position: absolute; top: 65px;" /></strong>
-                            <p:inputText id="nuevoCodigoInforeporte" value="#{controlAdminreportes.nuevoInforeporte.codigo}" style=" width: 122px; position: absolute; left: 180px; top: 60px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevoCodigoInforeporte" value="#{controlAdminreportes.nuevoInforeporte.codigo}" style=" width: 122px; position: absolute; left: 180px; top: 60px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['reporteN']}" style=" position: absolute; top: 105px;" /></strong>
-                            <p:inputText id="nuevoNombreInforeporte" value="#{controlAdminreportes.nuevoInforeporte.nombre}" style=" width: 122px; position: absolute; left: 180px; top: 100px; text-transform: uppercase" onclick="PF('select();" >
+                            <p:inputText id="nuevoNombreInforeporte" value="#{controlAdminreportes.nuevoInforeporte.nombre}" style=" width: 122px; position: absolute; left: 180px; top: 100px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['contadorN']}" style=" position: absolute; top: 145px;" /></strong>
-                            <p:inputText id="nuevoContadorInforeporte" value="#{controlAdminreportes.nuevoInforeporte.contador}" style=" width: 122px; position: absolute; left: 180px; top: 140px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevoContadorInforeporte" value="#{controlAdminreportes.nuevoInforeporte.contador}" style=" width: 122px; position: absolute; left: 180px; top: 140px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['nombrereporteN']}" style=" position: absolute; top: 185px;" /></strong>
-                            <p:inputText id="nuevoNombreReporteInforeporte" value="#{controlAdminreportes.nuevoInforeporte.nombrereporte}" style=" width: 122px; position: absolute; left: 180px; top: 180px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevoNombreReporteInforeporte" value="#{controlAdminreportes.nuevoInforeporte.nombrereporte}" style=" width: 122px; position: absolute; left: 180px; top: 180px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
@@ -572,7 +572,7 @@
 
 
                             <strong><h:outputText value="#{msg['moduloN']}" style=" position: absolute; top: 265px;" /></strong>
-                            <p:inputText id="nuevoModuloInforeporte" value="#{controlAdminreportes.nuevoInforeporte.modulo.nombre}" style=" width: 122px; position: absolute; left: 180px; top: 260px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevoModuloInforeporte" value="#{controlAdminreportes.nuevoInforeporte.modulo.nombre}" style=" width: 122px; position: absolute; left: 180px; top: 260px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlAdminreportes.valoresBackupAutocompletar(1, 'MODULO')}" />
                                 <p:ajax event="change" listener="#{controlAdminreportes.autocompletarNuevoyDuplicado('MODULO', controlAdminreportes.nuevoInforeporte.modulo.nombre, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlAdminreportes.asignarIndex(indice, 1, 1)}" />
@@ -695,23 +695,23 @@
                         <p:panel id="duplicarInforeporte" style="border: none;">
 
                             <strong><h:outputText value="#{msg['codigoN']}" style=" position: absolute; top: 65px;" /></strong>
-                            <p:inputText id="duplicarCodigoInforeporte" value="#{controlAdminreportes.duplicarInforeporte.codigo}" style=" width: 122px; position: absolute; left: 180px; top: 65px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarCodigoInforeporte" value="#{controlAdminreportes.duplicarInforeporte.codigo}" style=" width: 122px; position: absolute; left: 180px; top: 65px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
 
                             <strong><h:outputText value="#{msg['reporteN']}" style=" position: absolute; top: 105px;" /></strong>
-                            <p:inputText id="duplicarNombreInforeporte" value="#{controlAdminreportes.duplicarInforeporte.nombre}" style=" width: 122px; position: absolute; left: 180px; top: 105px; text-transform: uppercase" onclick="PF('select();" >
+                            <p:inputText id="duplicarNombreInforeporte" value="#{controlAdminreportes.duplicarInforeporte.nombre}" style=" width: 122px; position: absolute; left: 180px; top: 105px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['contadorN']}" style=" position: absolute; top: 145px;" /></strong>
-                            <p:inputText id="duplicarContadorInforeporte" value="#{controlAdminreportes.duplicarInforeporte.contador}" style=" width: 122px; position: absolute; left: 180px; top: 145px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarContadorInforeporte" value="#{controlAdminreportes.duplicarInforeporte.contador}" style=" width: 122px; position: absolute; left: 180px; top: 145px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['nombrereporteN']}" style=" position: absolute; top: 185px;" /></strong>
-                            <p:inputText id="duplicarNombreReporteInforeporte" value="#{controlAdminreportes.duplicarInforeporte.nombrereporte}" style=" width: 122px; position: absolute; left: 180px; top: 185px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarNombreReporteInforeporte" value="#{controlAdminreportes.duplicarInforeporte.nombrereporte}" style=" width: 122px; position: absolute; left: 180px; top: 185px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
@@ -728,7 +728,7 @@
 
 
                             <strong><h:outputText value="#{msg['moduloN']}" style=" position: absolute; top: 265px;" /></strong>
-                            <p:inputText id="duplicarModuloInforeporte" value="#{controlAdminreportes.duplicarInforeporte.modulo.nombre}" style=" width: 122px; position: absolute; left: 180px; top: 265px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarModuloInforeporte" value="#{controlAdminreportes.duplicarInforeporte.modulo.nombre}" style=" width: 122px; position: absolute; left: 180px; top: 265px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlAdminreportes.valoresBackupAutocompletar(2, 'MODULO')}" />
                                 <p:ajax event="change" listener="#{controlAdminreportes.autocompletarNuevoyDuplicado('MODULO', controlAdminreportes.duplicarInforeporte.modulo.nombre, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlAdminreportes.asignarIndex(indice, 1, 2)}" />

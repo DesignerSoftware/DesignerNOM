@@ -368,13 +368,13 @@
                             </div>
 
                             <strong><h:outputText value="*#{msg['codigoN']}" style="position: absolute; top: 105px;" /></strong>
-                            <p:inputText id="nuevoCodigo" value="#{controlEstructura.nuevoOrganigrama.codigo}" style="width: 122px; position: absolute; left: 120px; top: 100px; text-transform: uppercase" maxlength="4" onclick="PF('select();">
+                            <p:inputText id="nuevoCodigo" value="#{controlEstructura.nuevoOrganigrama.codigo}" style="width: 122px; position: absolute; left: 120px; top: 100px; text-transform: uppercase" maxlength="4" onclick="select();">
                                 <p:ajax event="change" update="@this" />
                             </p:inputText>
                             <p:watermark for="nuevoCodigo" value="#{msg['codigo']}" />
 
                             <strong><h:outputText value="*#{msg['empresaN']}" style="position: absolute; top: 135px;" /></strong>
-                            <p:inputText id="nuevaEmpresa" value="#{controlEstructura.nuevoOrganigrama.empresa.nombre}" style="width: 122px; position: absolute; left: 120px; top: 130px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevaEmpresa" value="#{controlEstructura.nuevoOrganigrama.empresa.nombre}" style="width: 122px; position: absolute; left: 120px; top: 130px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlEstructura.valoresBackupAutocompletar(1)}" />
                                 <p:ajax event="change" listener="#{controlEstructura.autocompletarNuevoyDuplicado(controlEstructura.nuevoOrganigrama.empresa.nombre, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlEstructura.asignarIndexDialogos(1)}" />
@@ -384,7 +384,7 @@
                                              id="btnNuevaEmpresa" process="@this" value="" actionListener="#{controlEstructura.asignarIndexDialogos(1)}"/>
 
                             <strong><h:outputText value="*#{msg['nitN']}" style="position: absolute; top: 165px;" /></strong>
-                            <p:inputText id="nuevoNit" readonly="true" value="#{controlEstructura.nuevoOrganigrama.empresa.nit}" style="width: 122px; position: absolute; left: 120px; top: 160px; text-transform: uppercase" onclick="PF('select();">                                
+                            <p:inputText id="nuevoNit" readonly="true" value="#{controlEstructura.nuevoOrganigrama.empresa.nit}" style="width: 122px; position: absolute; left: 120px; top: 160px; text-transform: uppercase" onclick="select();">                                
                                 <p:ajax event="change" update="@this" />
                             </p:inputText>
                             <p:watermark for="nuevoNit" value="#{msg['nit']}" />
@@ -418,13 +418,13 @@
                             </div>
 
                             <strong><h:outputText value="*#{msg['codigoN']}" style="position: absolute; top: 105px;" /></strong>
-                            <p:inputText id="duplicarCodigo" value="#{controlEstructura.duplicarOrganigrama.codigo}" style="width: 122px; position: absolute; left: 120px; top: 100px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarCodigo" value="#{controlEstructura.duplicarOrganigrama.codigo}" style="width: 122px; position: absolute; left: 120px; top: 100px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarCodigo" value="#{msg['codigo']}" />
 
                             <strong><h:outputText value="*#{msg['empresaN']}" style="position: absolute; top: 135px;" /></strong>
-                            <p:inputText id="duplicarEmpresa" value="#{controlEstructura.duplicarOrganigrama.empresa.nombre}" style="width: 122px; position: absolute; left: 120px; top: 130px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarEmpresa" value="#{controlEstructura.duplicarOrganigrama.empresa.nombre}" style="width: 122px; position: absolute; left: 120px; top: 130px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlEstructura.valoresBackupAutocompletar(2)}" />
                                 <p:ajax event="change" listener="#{controlEstructura.autocompletarNuevoyDuplicado(controlEstructura.nuevoOrganigrama.empresa.nombre, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlEstructura.asignarIndexDialogos(2)}" />
@@ -434,7 +434,7 @@
                                              id="btnDuplicarEmpresa" process="@this" value="" actionListener="#{controlEstructura.asignarIndexDialogos(2)}"/>
 
                             <strong><h:outputText value="*#{msg['nitN']}" style="position: absolute; top: 165px;" /></strong>
-                            <p:inputText id="duplicarNit" readonly="true" value="#{controlEstructura.duplicarOrganigrama.empresa.nit}" style="width: 122px; position: absolute; left: 120px; top: 160px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarNit" readonly="true" value="#{controlEstructura.duplicarOrganigrama.empresa.nit}" style="width: 122px; position: absolute; left: 120px; top: 160px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarNit" value="#{msg['nit']}" />

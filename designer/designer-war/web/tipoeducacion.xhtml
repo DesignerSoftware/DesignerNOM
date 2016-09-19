@@ -183,19 +183,19 @@
 
                         <p:panel id="nuevoTipoEducacion" style="border: none;">
                             <strong><h:outputText value="Código: " style=" position: absolute; top: 63px;" /></strong>
-                            <p:inputText id="nuevoCodigoTipoEducacion" value="#{controlTiposEducaciones.nuevoTipoEducacion.codigo}" maxlength="4" style=" width: 122px; position: absolute; left: 130px; top: 59px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevoCodigoTipoEducacion" value="#{controlTiposEducaciones.nuevoTipoEducacion.codigo}" maxlength="4" style=" width: 122px; position: absolute; left: 130px; top: 59px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoCodigoTipoEducacion" value="Código" />
 
                             <strong><h:outputText value="Nombre: " style=" position: absolute; top: 93px;" /></strong>
-                            <p:inputText id="nuevoNombreTipoEducacion" value="#{controlTiposEducaciones.nuevoTipoEducacion.nombre}" maxlength="20" style=" width: 122px; position: absolute; left: 130px; top: 89px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevoNombreTipoEducacion" value="#{controlTiposEducaciones.nuevoTipoEducacion.nombre}" maxlength="20" style=" width: 122px; position: absolute; left: 130px; top: 89px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
                             <p:watermark for="nuevoNombreTipoEducacion" value="Nombre" />
 
                             <strong><h:outputText value="Nivel Educativo: " style=" position: absolute; top: 124px;" /></strong>
-                            <p:inputText id="nuevoNivelTipoEducacion" value="#{controlTiposEducaciones.nuevoTipoEducacion.niveleducativo}" maxlength="20" style=" width: 122px; position: absolute; left: 130px; top: 119px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevoNivelTipoEducacion" value="#{controlTiposEducaciones.nuevoTipoEducacion.niveleducativo}" maxlength="20" style=" width: 122px; position: absolute; left: 130px; top: 119px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
                             <p:watermark for="nuevoNivelTipoEducacion" value="Nivel Educativo" />
@@ -215,19 +215,19 @@
                         <p:panel id="duplicarTipoEducacion" style="border: none;">
 
                             <strong><h:outputText value="Codigo: " style=" position: absolute; top: 63px;" /></strong>
-                            <p:inputText id="duplicarCodigo" value="#{controlTiposEducaciones.duplicarTipoEducacion.codigo}" maxlength="4" style=" width: 122px; position: absolute; left: 130px; top: 59px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarCodigo" value="#{controlTiposEducaciones.duplicarTipoEducacion.codigo}" maxlength="4" style=" width: 122px; position: absolute; left: 130px; top: 59px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="duplicarTipoEducacion"/>
                             </p:inputText>
                             <p:watermark for="duplicarCodigo" value="Código" />
 
                             <strong><h:outputText value="Nombre: " style=" position: absolute; top: 93px;" /></strong>
-                            <p:inputText id="duplicarNombre" value="#{controlTiposEducaciones.duplicarTipoEducacion.nombre}" maxlength="20" style=" width: 122px; position: absolute; left: 130px; top: 89px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarNombre" value="#{controlTiposEducaciones.duplicarTipoEducacion.nombre}" maxlength="20" style=" width: 122px; position: absolute; left: 130px; top: 89px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="duplicarTipoEducacion"/>
                             </p:inputText>
                             <p:watermark for="duplicarNombre" value="Nombre" />
 
                             <strong><h:outputText value="Nivel Educativo: " style=" position: absolute; top: 124px;" /></strong>
-                            <p:inputText id="duplicarNivel" value="#{controlTiposEducaciones.duplicarTipoEducacion.niveleducativo}" maxlength="20" style=" width: 122px; position: absolute; left: 130px; top: 119px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarNivel" value="#{controlTiposEducaciones.duplicarTipoEducacion.niveleducativo}" maxlength="20" style=" width: 122px; position: absolute; left: 130px; top: 119px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="duplicarTipoEducacion"/>
                             </p:inputText>
                             <p:watermark for="duplicarNivel" value="Nivel Educativo" />

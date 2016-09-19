@@ -107,7 +107,7 @@
                                         <p:tab id="tabDatosCargo" title="#{msg['tabDatosCargo']}">
                                             <div style="height: 65px; position: relative; left: 0px; top: 0px;">
                                                 <h:outputText value="#{msg['cargo']}" style="position: absolute; left: 10px; top: 0px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText id="parametroCargo" onclick="PF('select();" style="position: absolute; left: 110px; top: -5px;text-transform: uppercase; height: 10px; width: 170px"
+                                                <p:inputText id="parametroCargo" onclick="select();" style="position: absolute; left: 110px; top: -5px;text-transform: uppercase; height: 10px; width: 170px"
                                                              value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaCargo.cargo != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaCargo.cargo.nombre : controlBusquedaAvanzada.valorPorDefecto}" onfocus="document.getElementById('form:valorCopia').value = this.value;
                                                                      actualizarValorCopia();">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada.autocompletarParametros('CARGO', controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaCargo.cargo != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaCargo.cargo.nombre : controlBusquedaAvanzada.valorPorDefecto)}" process="@this" update="parametroCargo"/>
@@ -115,7 +115,7 @@
                                                 </p:inputText>
 
                                                 <h:outputText value="#{msg['estructura']}" style="position: absolute; left: 10px; top: 25px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText id="parametroEstructura" onclick="PF('select();" style="position: absolute; left: 110px; top: 20px;text-transform: uppercase; height: 10px; width: 170px"
+                                                <p:inputText id="parametroEstructura" onclick="select();" style="position: absolute; left: 110px; top: 20px;text-transform: uppercase; height: 10px; width: 170px"
                                                              value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaCargo.estructura != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaCargo.estructura.nombre : controlBusquedaAvanzada.valorPorDefecto}" onfocus="document.getElementById('form:valorCopia').value = this.value;
                                                                      actualizarValorCopia();">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada.autocompletarParametros('ESTRUCTURA', controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaCargo.estructura != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaCargo.estructura.nombre : controlBusquedaAvanzada.valorPorDefecto)}" process="@this" update="parametroEstructura, parametroCentroCosto"/>
@@ -123,7 +123,7 @@
                                                 </p:inputText>
 
                                                 <h:outputText value="#{msg['empleadoJefe']}" style="position: absolute; left: 10px; top: 50px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText id="parametroJefe" onclick="PF('select();" style="position: absolute; left: 110px; top: 45px;text-transform: uppercase; height: 10px; width: 170px"
+                                                <p:inputText id="parametroJefe" onclick="select();" style="position: absolute; left: 110px; top: 45px;text-transform: uppercase; height: 10px; width: 170px"
                                                              value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaCargo.empleadojefe != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaCargo.empleadojefe.persona.nombreCompleto : controlBusquedaAvanzada.valorPorDefecto}" onfocus="document.getElementById('form:valorCopia').value = this.value;
                                                                      actualizarValorCopia();">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada.autocompletarParametros('JEFE', controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaCargo.empleadojefe != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaCargo.empleadojefe.persona.nombreCompleto : controlBusquedaAvanzada.valorPorDefecto)}" process="@this" update="parametroJefe"/>
@@ -131,7 +131,7 @@
                                                 </p:inputText>
 
                                                 <h:outputText value="#{msg['motivoCargo']}" style="position: absolute; left: 300px; top: 0px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText id="parametroMotivo" onclick="PF('select();" style="position: absolute; left: 410px; top: -5px;text-transform: uppercase; height: 10px; width: 170px"
+                                                <p:inputText id="parametroMotivo" onclick="select();" style="position: absolute; left: 410px; top: -5px;text-transform: uppercase; height: 10px; width: 170px"
                                                              value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaCargo.motivocambiocargo != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaCargo.motivocambiocargo.nombre : controlBusquedaAvanzada.valorPorDefecto}" onfocus="document.getElementById('form:valorCopia').value = this.value;
                                                                      actualizarValorCopia();">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada.autocompletarParametros('MOTIVOCARGO', controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaCargo.motivocambiocargo != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaCargo.motivocambiocargo.nombre : controlBusquedaAvanzada.valorPorDefecto)}" process="@this" update="parametroMotivo"/>
@@ -139,13 +139,13 @@
                                                 </p:inputText>
 
                                                 <h:outputText value="#{msg['centroCosto']}" style="position: absolute; left: 300px; top: 25px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText id="parametroCentroCosto" onclick="PF('select();" style="position: absolute; left: 410px; top: 20px;text-transform: uppercase; height: 10px; width: 170px"
+                                                <p:inputText id="parametroCentroCosto" onclick="select();" style="position: absolute; left: 410px; top: 20px;text-transform: uppercase; height: 10px; width: 170px"
                                                              value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaCargo.estructura != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaCargo.estructura.centrocosto.nombre : controlBusquedaAvanzada.valorPorDefecto}" onfocus="document.getElementById('form:valorCopia').value = this.value;
                                                                      actualizarValorCopia();"
                                                              readonly="true"/>
 
                                                 <h:outputText value="#{msg['papel']}" style="position: absolute; left: 300px; top: 50px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText id="parametroPapel" onclick="PF('select();" style="position: absolute; left: 410px; top: 45px;text-transform: uppercase; height: 10px; width: 170px"
+                                                <p:inputText id="parametroPapel" onclick="select();" style="position: absolute; left: 410px; top: 45px;text-transform: uppercase; height: 10px; width: 170px"
                                                              value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaCargo.papel != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaCargo.papel.descripcion : controlBusquedaAvanzada.valorPorDefecto}" onfocus="document.getElementById('form:valorCopia').value = this.value;
                                                                      actualizarValorCopia();">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada.autocompletarParametros('PAPEL', controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaCargo.papel != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaCargo.papel.descripcion : controlBusquedaAvanzada.valorPorDefecto)}" process="@this" update="parametroPapel"/>
@@ -202,7 +202,7 @@
                                         <p:tab id="tabDatosCentroCosto" title="#{msg['tabDatosCentroCosto']}">
                                             <div style="height: 55px; position: relative; left: 0px; top: 0px;">
                                                 <h:outputText value="#{msg['localizacion']}" style="position: absolute; left: 10px; top: 20px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText id="parametroLocalizacion" onclick="PF('select();" style="position: absolute; left: 110px; top: 15px;text-transform: uppercase; height: 10px; width: 170px"
+                                                <p:inputText id="parametroLocalizacion" onclick="select();" style="position: absolute; left: 110px; top: 15px;text-transform: uppercase; height: 10px; width: 170px"
                                                              value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaLocalizacion.localizacion != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaLocalizacion.localizacion.nombre : controlBusquedaAvanzada.valorPorDefecto}" onfocus="document.getElementById('form:valorCopia').value = this.value;
                                                                      actualizarValorCopia();">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada.autocompletarParametros('LOCALIZACION', controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaLocalizacion.localizacion != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaLocalizacion.localizacion.nombre : controlBusquedaAvanzada.valorPorDefecto)}" process="@this" update="parametroLocalizacion"/>
@@ -210,7 +210,7 @@
                                                 </p:inputText>
 
                                                 <h:outputText value="#{msg['motivoLocalizacion']}" style="position: absolute; left: 300px; top: 20px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText id="parametroMotivoLocalizacion" onclick="PF('select();" style="position: absolute; left: 430px; top: 15px;text-transform: uppercase; height: 10px; width: 170px"
+                                                <p:inputText id="parametroMotivoLocalizacion" onclick="select();" style="position: absolute; left: 430px; top: 15px;text-transform: uppercase; height: 10px; width: 170px"
                                                              value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaLocalizacion.motivo != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaLocalizacion.motivo.descripcion : controlBusquedaAvanzada.valorPorDefecto}" onfocus="document.getElementById('form:valorCopia').value = this.value;
                                                                      actualizarValorCopia();">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada.autocompletarParametros('MOTIVOLOCALIZACION', controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaLocalizacion.motivo != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaLocalizacion.motivo.descripcion : controlBusquedaAvanzada.valorPorDefecto)}" process="@this" update="parametroMotivoLocalizacion"/>
@@ -268,7 +268,7 @@
                                             <div style="height: 65px; position: relative; left: 0px; top: 0px;">
 
                                                 <h:outputText value="#{msg['tipoSueldo']}" style="position: absolute; left: 10px; top: 10px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText id="parametroTipoSueldo" onclick="PF('select();" style="position: absolute; left: 110px; top: 5px;text-transform: uppercase; height: 10px; width: 170px"
+                                                <p:inputText id="parametroTipoSueldo" onclick="select();" style="position: absolute; left: 110px; top: 5px;text-transform: uppercase; height: 10px; width: 170px"
                                                              value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaSueldo.tiposueldo != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaSueldo.tiposueldo.descripcion : controlBusquedaAvanzada.valorPorDefecto}" onfocus="document.getElementById('form:valorCopia').value = this.value;
                                                                      actualizarValorCopia();">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada.autocompletarParametros('TIPOSUELDO', controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaSueldo.tiposueldo != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaSueldo.tiposueldo.descripcion : controlBusquedaAvanzada.valorPorDefecto)}" process="@this" update="parametroTipoSueldo"/>
@@ -276,7 +276,7 @@
                                                 </p:inputText>
 
                                                 <h:outputText value="#{msg['motivoSueldo']}" style="position: absolute; left: 10px; top: 35px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText id="parametroMotivoSueldo" onclick="PF('select();" style="position: absolute; left: 110px; top: 30px;text-transform: uppercase; height: 10px; width: 170px"
+                                                <p:inputText id="parametroMotivoSueldo" onclick="select();" style="position: absolute; left: 110px; top: 30px;text-transform: uppercase; height: 10px; width: 170px"
                                                              value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaSueldo.motivocambiosueldo != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaSueldo.motivocambiosueldo.nombre : controlBusquedaAvanzada.valorPorDefecto}" onfocus="document.getElementById('form:valorCopia').value = this.value;
                                                                      actualizarValorCopia();">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada.autocompletarParametros('MOTIVOSUELDO', controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaSueldo.motivocambiosueldo != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaSueldo.motivocambiosueldo.nombre : controlBusquedaAvanzada.valorPorDefecto)}" process="@this" update="parametroMotivoSueldo"/>
@@ -285,13 +285,13 @@
 
 
                                                 <h:outputText value="#{msg['sueldoMinimo']}" style="position: absolute; left: 300px; top: 10px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText id="parametroSueldoMinimo" onclick="PF('select();" style="position: absolute; left: 410px; top: 5px;text-transform: uppercase; height: 10px; width: 170px"
+                                                <p:inputText id="parametroSueldoMinimo" onclick="select();" style="position: absolute; left: 410px; top: 5px;text-transform: uppercase; height: 10px; width: 170px"
                                                              value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.sueldoMinimo}">
                                                     <p:ajax event="change" update="@this" process="@this"/>
                                                 </p:inputText>
 
                                                 <h:outputText value="#{msg['sueldoMaximo']}" style="position: absolute; left: 300px; top: 35px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText id="parametroSueldoMaximo" onclick="PF('select();" style="position: absolute; left: 410px; top: 30px;text-transform: uppercase; height: 10px; width: 170px"
+                                                <p:inputText id="parametroSueldoMaximo" onclick="select();" style="position: absolute; left: 410px; top: 30px;text-transform: uppercase; height: 10px; width: 170px"
                                                              value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.sueldoMaximo}">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada.modificarSueldoMaximo()}" update="@this" process="@this"/>
                                                 </p:inputText>
@@ -346,7 +346,7 @@
                                         <p:tab id="tabDatosFechaContrato" title="#{msg['tabDatosFechaContrato']}">
                                             <div style="height: 65px; position: relative; left: 0px; top: 0px;">
                                                 <h:outputText value="#{msg['tipoContrato']}" style="position: absolute; left: 10px; top: 20px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText id="parametroTipoContrato" onclick="PF('select();" style="position: absolute; left: 100px; top: 15px;text-transform: uppercase; height: 10px; width: 170px"
+                                                <p:inputText id="parametroTipoContrato" onclick="select();" style="position: absolute; left: 100px; top: 15px;text-transform: uppercase; height: 10px; width: 170px"
                                                              value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaTipoContrato.tipocontrato != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaTipoContrato.tipocontrato.nombre : controlBusquedaAvanzada.valorPorDefecto}" onfocus="document.getElementById('form:valorCopia').value = this.value;
                                                                      actualizarValorCopia();">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada.autocompletarParametros('TIPOCONTRATO', controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaTipoContrato.tipocontrato != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaTipoContrato.tipocontrato.nombre : controlBusquedaAvanzada.valorPorDefecto)}" process="@this" update="parametroTipoContrato"/>
@@ -354,7 +354,7 @@
                                                 </p:inputText>
 
                                                 <h:outputText value="#{msg['motivoContrato']}" style="position: absolute; left: 300px; top: 20px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText id="parametroMotivoContrato" onclick="PF('select();" style="position: absolute; left: 410px; top: 15px;text-transform: uppercase; height: 10px; width: 170px"
+                                                <p:inputText id="parametroMotivoContrato" onclick="select();" style="position: absolute; left: 410px; top: 15px;text-transform: uppercase; height: 10px; width: 170px"
                                                              value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaTipoContrato.motivocontrato != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaTipoContrato.motivocontrato.nombre : controlBusquedaAvanzada.valorPorDefecto}" onfocus="document.getElementById('form:valorCopia').value = this.value;
                                                                      actualizarValorCopia();">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada.autocompletarParametros('MOTIVOCONTRATO', controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaTipoContrato.motivocontrato != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaTipoContrato.motivocontrato.nombre : controlBusquedaAvanzada.valorPorDefecto)}" process="@this" update="parametroMotivoContrato"/>
@@ -411,7 +411,7 @@
                                         <p:tab id="tabDatosTipoTrabajador" title="#{msg['tabDatosTipoTrabajador']}">
                                             <div style="height: 45px; position: relative; left: 0px; top: 0px;">
                                                 <h:outputText value="#{msg['tipoTrabajador']}" style="position: absolute; left: 55px; top: 10px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText id="parametroTipoTrabajador" onclick="PF('select();" style="position: absolute; left: 10px; top: 25px;text-transform: uppercase; height: 10px; width: 170px"
+                                                <p:inputText id="parametroTipoTrabajador" onclick="select();" style="position: absolute; left: 10px; top: 25px;text-transform: uppercase; height: 10px; width: 170px"
                                                              value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaTipoTrabajador.tipotrabajador != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaTipoTrabajador.tipotrabajador.nombre : controlBusquedaAvanzada.valorPorDefecto}" onfocus="document.getElementById('form:valorCopia').value = this.value;
                                                                      actualizarValorCopia();">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada.autocompletarParametros('TIPOTRABAJADOR', controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaTipoTrabajador.tipotrabajador != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaTipoTrabajador.tipotrabajador.nombre : controlBusquedaAvanzada.valorPorDefecto)}" process="@this" update="parametroTipoTrabajador"/>
@@ -468,7 +468,7 @@
                                         <p:tab id="tabDatosTipoSalario" title="#{msg['tabDatosTipoSalario']}">
                                             <div style="height: 45px; position: relative; left: 0px; top: 0px;">
                                                 <h:outputText value="#{msg['reformaLaboral']}" style="position: absolute; left: 55px; top: 10px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText id="parametroReformaLaboral" onclick="PF('select();" style="position: absolute; left: 10px; top: 25px;text-transform: uppercase; height: 10px; width: 170px"
+                                                <p:inputText id="parametroReformaLaboral" onclick="select();" style="position: absolute; left: 10px; top: 25px;text-transform: uppercase; height: 10px; width: 170px"
                                                              value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaReformasLaboral.reformalaboral != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaReformasLaboral.reformalaboral.nombre : controlBusquedaAvanzada.valorPorDefecto}" onfocus="document.getElementById('form:valorCopia').value = this.value;
                                                                      actualizarValorCopia();">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada.autocompletarParametros('REFORMALABORAL', controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaReformasLaboral.reformalaboral != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaReformasLaboral.reformalaboral.nombre : controlBusquedaAvanzada.valorPorDefecto)}" process="@this" update="parametroReformaLaboral"/>
@@ -526,7 +526,7 @@
                                         <p:tab id="tabDatosLegislacionLaboral" title="#{msg['tabDatosLegislacionLaboral']}">
                                             <div style="height: 55px; position: relative; left: 0px; top: 0px;">
                                                 <h:outputText value="#{msg['legislacion']}" style="position: absolute; left: 10px; top: 30px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText id="parametroLegislacion" onclick="PF('select();" style="position: absolute; left: 110px; top: 25px;text-transform: uppercase; height: 10px; width: 170px"
+                                                <p:inputText id="parametroLegislacion" onclick="select();" style="position: absolute; left: 110px; top: 25px;text-transform: uppercase; height: 10px; width: 170px"
                                                              value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaContrato.contrato != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaContrato.contrato.descripcion : controlBusquedaAvanzada.valorPorDefecto}" onfocus="document.getElementById('form:valorCopia').value = this.value;
                                                                      actualizarValorCopia();">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada.autocompletarParametros('CONTRATO', controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaContrato.contrato != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaContrato.contrato.descripcion : controlBusquedaAvanzada.valorPorDefecto)}" process="@this" update="parametroLegislacion"/>
@@ -610,7 +610,7 @@
                                         <p:tab id="tabDatosUbicacion" title="#{msg['tabDatosUbicacion']}">
                                             <div style="height: 55px; position: relative; left: 0px; top: 0px;">
                                                 <h:outputText value="#{msg['ubicacion']}" style="position: absolute; left: 10px; top: 20px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText id="parametroUbicacion" onclick="PF('select();" style="position: absolute; left: 110px; top: 15px;text-transform: uppercase; height: 10px; width: 170px"
+                                                <p:inputText id="parametroUbicacion" onclick="select();" style="position: absolute; left: 110px; top: 15px;text-transform: uppercase; height: 10px; width: 170px"
                                                              value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaUbicacion.ubicacion != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaUbicacion.ubicacion.descripcion : controlBusquedaAvanzada.valorPorDefecto}" onfocus="document.getElementById('form:valorCopia').value = this.value;
                                                                      actualizarValorCopia();">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada.autocompletarParametros('UBICACION', controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaUbicacion.ubicacion != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaUbicacion.ubicacion.descripcion : controlBusquedaAvanzada.valorPorDefecto)}" process="@this" update="parametroUbicacion, parametroCiudad"/>
@@ -618,7 +618,7 @@
                                                 </p:inputText>
 
                                                 <h:outputText value="#{msg['ciudad']}" style="position: absolute; left: 320px; top: 20px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText onclick="PF('select();" style="position: absolute; left: 400px; top: 15px;text-transform: uppercase; height: 10px; width: 170px"
+                                                <p:inputText onclick="select();" style="position: absolute; left: 400px; top: 15px;text-transform: uppercase; height: 10px; width: 170px"
                                                              id="parametroCiudad" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaUbicacion.ubicacion != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaUbicacion.ubicacion.ciudad.nombre : controlBusquedaAvanzada.valorPorDefecto}"
                                                              readonly="true"/>
 
@@ -672,7 +672,7 @@
                                         <p:tab id="tabDatosAfiliacion" title="#{msg['tabDatosAfiliacion']}">
                                             <div style="height: 55px; position: relative; left: 0px; top: 0px;">
                                                 <h:outputText value="#{msg['tercero']}" style="position: absolute; left: 10px; top: 10px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText id="parametroTercero" onclick="PF('select();" style="position: absolute; left: 110px; top: 5px;text-transform: uppercase; height: 10px; width: 170px"
+                                                <p:inputText id="parametroTercero" onclick="select();" style="position: absolute; left: 110px; top: 5px;text-transform: uppercase; height: 10px; width: 170px"
                                                              value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaAfiliacion.tercerosucursal != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaAfiliacion.tercerosucursal.descripcion : controlBusquedaAvanzada.valorPorDefecto}" onfocus="document.getElementById('form:valorCopia').value = this.value;
                                                                      actualizarValorCopia();">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada.autocompletarParametros('TERCEROSUCURSAL', controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaAfiliacion.tercerosucursal != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaAfiliacion.tercerosucursal.descripcion : controlBusquedaAvanzada.valorPorDefecto)}" process="@this" update="parametroTercero"/>
@@ -680,7 +680,7 @@
                                                 </p:inputText>
 
                                                 <h:outputText value="#{msg['tipoEntidad']}" style="position: absolute; left: 10px; top: 40px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText id="parametroTipoEntidad" onclick="PF('select();" style="position: absolute; left: 110px; top: 35px;text-transform: uppercase; height: 10px; width: 170px"
+                                                <p:inputText id="parametroTipoEntidad" onclick="select();" style="position: absolute; left: 110px; top: 35px;text-transform: uppercase; height: 10px; width: 170px"
                                                              value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaAfiliacion.tipoentidad != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaAfiliacion.tipoentidad.nombre : controlBusquedaAvanzada.valorPorDefecto}" onfocus="document.getElementById('form:valorCopia').value = this.value;
                                                                      actualizarValorCopia();">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada.autocompletarParametros('TIPOENTIDAD', controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaAfiliacion.tipoentidad != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaAfiliacion.tipoentidad.nombre : controlBusquedaAvanzada.valorPorDefecto)}" process="@this" update="parametroTipoEntidad"/>
@@ -688,7 +688,7 @@
                                                 </p:inputText>
 
                                                 <h:outputText value="#{msg['estado']}" style="position: absolute; left: 320px; top: 10px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText id="parametroEstado"  onclick="PF('select();" style="position: absolute; left: 400px; top: 5px;text-transform: uppercase; height: 10px; width: 170px"
+                                                <p:inputText id="parametroEstado"  onclick="select();" style="position: absolute; left: 400px; top: 5px;text-transform: uppercase; height: 10px; width: 170px"
                                                              value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaAfiliacion.estadoafiliacion != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaAfiliacion.estadoafiliacion.nombre : controlBusquedaAvanzada.valorPorDefecto}" onfocus="document.getElementById('form:valorCopia').value = this.value;
                                                                      actualizarValorCopia();">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada.autocompletarParametros('ESTADOAFILIACION', controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaAfiliacion.estadoafiliacion != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaAfiliacion.estadoafiliacion.nombre : controlBusquedaAvanzada.valorPorDefecto)}" process="@this" update="parametroEstado"/>
@@ -746,7 +746,7 @@
                                         <p:tab id="tabDatosFormaPago" title="#{msg['tabDatosFormaPago']}">
                                             <div style="height: 60px; position: relative; left: 0px; top: 0px;">
                                                 <h:outputText value="#{msg['formaPago']}" style="position: absolute; left: 10px; top: 20px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText id="parametroFormaPago" onclick="PF('select();" style="position: absolute; left: 110px; top: 15px;text-transform: uppercase; height: 10px; width: 170px"
+                                                <p:inputText id="parametroFormaPago" onclick="select();" style="position: absolute; left: 110px; top: 15px;text-transform: uppercase; height: 10px; width: 170px"
                                                              value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaFormaPago.formapago != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaFormaPago.formapago.nombre : controlBusquedaAvanzada.valorPorDefecto}" onfocus="document.getElementById('form:valorCopia').value = this.value;
                                                                      actualizarValorCopia();">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada.autocompletarParametros('FORMAPAGO', controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaFormaPago.formapago != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaFormaPago.formapago.nombre : controlBusquedaAvanzada.valorPorDefecto)}" process="@this" update="parametroFormaPago"/>
@@ -754,7 +754,7 @@
                                                 </p:inputText>
 
                                                 <h:outputText value="#{msg['sucursal']}" style="position: absolute; left: 320px; top: 20px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText id="parametroSucursal" onclick="PF('select();" style="position: absolute; left: 400px; top: 15px;text-transform: uppercase; height: 10px; width: 170px"
+                                                <p:inputText id="parametroSucursal" onclick="select();" style="position: absolute; left: 400px; top: 15px;text-transform: uppercase; height: 10px; width: 170px"
                                                              value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaFormaPago.sucursal != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaFormaPago.sucursal.nombre : controlBusquedaAvanzada.valorPorDefecto}" onfocus="document.getElementById('form:valorCopia').value = this.value;
                                                                      actualizarValorCopia();">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada.autocompletarParametros('SUCURSAL', controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaFormaPago.sucursal != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaFormaPago.sucursal.nombre : controlBusquedaAvanzada.valorPorDefecto)}" process="@this" update="parametroSucursal"/>
@@ -814,7 +814,7 @@
                                             <div style="height: 65px; position: relative; left: 0px; top: 0px;">
 
                                                 <h:outputText value="#{msg['motivo']}" style="position: absolute; left: 10px; top: 10px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText id="parametroMotivoMvrs" onclick="PF('select();" style="position: absolute; left: 90px; top: 5px;text-transform: uppercase; height: 10px; width: 170px"
+                                                <p:inputText id="parametroMotivoMvrs" onclick="select();" style="position: absolute; left: 90px; top: 5px;text-transform: uppercase; height: 10px; width: 170px"
                                                              value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.mvrs.motivo != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.mvrs.motivo.nombre : controlBusquedaAvanzada.valorPorDefecto}" onfocus="document.getElementById('form:valorCopia').value = this.value;
                                                                      actualizarValorCopia();">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada.autocompletarParametros('MOTIVOMVR', controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.mvrs.motivo != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.mvrs.motivo.nombre : controlBusquedaAvanzada.valorPorDefecto)}" process="@this" update="parametroMotivoMvrs"/>
@@ -822,13 +822,13 @@
                                                 </p:inputText>
 
                                                 <h:outputText value="#{msg['sueldoMinimo']}" style="position: absolute; left: 300px; top: 10px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText id="parametroSueldoMinimoMvrs" onclick="PF('select();" style="position: absolute; left: 410px; top: 5px;text-transform: uppercase; height: 10px; width: 170px"
+                                                <p:inputText id="parametroSueldoMinimoMvrs" onclick="select();" style="position: absolute; left: 410px; top: 5px;text-transform: uppercase; height: 10px; width: 170px"
                                                              value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.sueldoMinimoMvr}">
                                                     <p:ajax event="change" update="@this" process="@this"/>
                                                 </p:inputText>
 
                                                 <h:outputText value="#{msg['sueldoMaximo']}" style="position: absolute; left: 300px; top: 35px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText id="parametroSueldoMaximoMvrs" onclick="PF('select();" style="position: absolute; left: 410px; top: 30px;text-transform: uppercase; height: 10px; width: 170px"
+                                                <p:inputText id="parametroSueldoMaximoMvrs" onclick="select();" style="position: absolute; left: 410px; top: 30px;text-transform: uppercase; height: 10px; width: 170px"
                                                              value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.sueldoMaximoMvr}">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada.modificarSueldoMaximoMvr()}" update="@this" process="@this"/>
                                                 </p:inputText>
@@ -884,13 +884,13 @@
                                         <p:tab id="tabDatosSets" title="#{msg['tabDatosSets']}">
                                             <div style="height: 55px; position: relative; left: 0px; top: 0px;">
                                                 <h:outputText value="#{msg['promedioMinimo']}" style="position: absolute; left: 32px; top: 0px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText id="parametroPromedioMinSets" onclick="PF('select();" style="position: absolute; left: 10px; top: 15px;text-transform: uppercase; height: 10px; width: 140px"
+                                                <p:inputText id="parametroPromedioMinSets" onclick="select();" style="position: absolute; left: 10px; top: 15px;text-transform: uppercase; height: 10px; width: 140px"
                                                              value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.promedioMinimoSet}">
                                                     <p:ajax event="change" update="@this" process="@this"/>
                                                 </p:inputText>
 
                                                 <h:outputText value="#{msg['promedioMaximo']}" style="position: absolute; left: 227px; top: 0px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText id="parametroPromedioMaxSets" onclick="PF('select();" style="position: absolute; left: 210px; top: 15px;text-transform: uppercase; height: 10px; width: 140px"
+                                                <p:inputText id="parametroPromedioMaxSets" onclick="select();" style="position: absolute; left: 210px; top: 15px;text-transform: uppercase; height: 10px; width: 140px"
                                                              value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.promedioMaximoSet}">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada.modificarPromedioMaximoSet()}" process="@this" update="@this"/>
                                                 </p:inputText>
@@ -981,7 +981,7 @@
                                         <p:tab id="tabDatosNormaLaboral" title="#{msg['tabDatosNormaLaboral']}">
                                             <div style="height: 45px; position: relative; left: 0px; top: 0px;">
                                                 <h:outputText value="#{msg['normaLaboral']}" style="position: absolute; left: 35px; top: 10px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText id="parametroNormaLaboral" onclick="PF('select();" style="position: absolute; left: 10px; top: 25px;text-transform: uppercase; height: 10px; width: 130px"
+                                                <p:inputText id="parametroNormaLaboral" onclick="select();" style="position: absolute; left: 10px; top: 25px;text-transform: uppercase; height: 10px; width: 130px"
                                                              value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaNormaEmpleado.normalaboral != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaNormaEmpleado.normalaboral.nombre : controlBusquedaAvanzada.valorPorDefecto}" onfocus="document.getElementById('form:valorCopia').value = this.value;
                                                                      actualizarValorCopia();">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada.autocompletarParametros('NORMALABORAL', controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaNormaEmpleado.normalaboral != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaNormaEmpleado.normalaboral.nombre : controlBusquedaAvanzada.valorPorDefecto)}" process="@this" update="parametroNormaLaboral"/>
@@ -1110,7 +1110,7 @@
                                         <p:tab id="tabDatosJornadaLaboral" title="#{msg['tabDatosJornadaLaboral']}">
                                             <div style="height: 45px; position: relative; left: 0px; top: 0px;">
                                                 <h:outputText value="#{msg['jornadaLaboral']}" style="position: absolute; left: 35px; top: 10px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText id="parametroJornada" onclick="PF('select();" style="position: absolute; left: 10px; top: 25px;text-transform: uppercase; height: 10px; width: 130px"
+                                                <p:inputText id="parametroJornada" onclick="select();" style="position: absolute; left: 10px; top: 25px;text-transform: uppercase; height: 10px; width: 130px"
                                                              value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaJornada.jornadatrabajo != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaJornada.jornadatrabajo.descripcion : controlBusquedaAvanzada.valorPorDefecto}" onfocus="document.getElementById('form:valorCopia').value = this.value;
                                                                      actualizarValorCopia();">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada.autocompletarParametros('JORNADALABORAL', controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaJornada.jornadatrabajo != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.vigenciaJornada.jornadatrabajo.descripcion : controlBusquedaAvanzada.valorPorDefecto)}" process="@this" update="parametroJornada"/>
@@ -1161,7 +1161,7 @@
                                         <p:tab id="tabDatosFechaRetiro" title="#{msg['tabDatosFechaRetiro']}">
                                             <div style="height: 45px; position: relative; left: 0px; top: 0px;">
                                                 <h:outputText value="#{msg['motivoRetiro']}" style="position: absolute; left: 35px; top: 10px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText id="parametroMotivoRetiro" onclick="PF('select();" style="position: absolute; left: 10px; top: 25px;text-transform: uppercase; height: 10px; width: 130px"
+                                                <p:inputText id="parametroMotivoRetiro" onclick="select();" style="position: absolute; left: 10px; top: 25px;text-transform: uppercase; height: 10px; width: 130px"
                                                              value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.motivosRetiros != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.motivosRetiros.nombre : controlBusquedaAvanzada.valorPorDefecto}" onfocus="document.getElementById('form:valorCopia').value = this.value;
                                                                      actualizarValorCopia();">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada.autocompletarParametros('MOTIVORETIRO', controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.motivosRetiros != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaNomina.motivosRetiros.nombre : controlBusquedaAvanzada.valorPorDefecto)}" process="@this" update="parametroMotivoRetiro"/>
@@ -1216,7 +1216,7 @@
                                             <div style="height: 65px; position: relative; left: 0px; top: 0px;">
 
                                                 <h:outputText value="#{msg['ciudadNacimiento']}" style="position: absolute; left: 10px; top: 10px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText id="parametroCiudadNacimientoDatosPersonales" onclick="PF('select();" style="position: absolute; left: 140px; top: 5px;text-transform: uppercase; height: 10px; width: 140px"
+                                                <p:inputText id="parametroCiudadNacimientoDatosPersonales" onclick="select();" style="position: absolute; left: 140px; top: 5px;text-transform: uppercase; height: 10px; width: 140px"
                                                              value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.empleado.persona.ciudadnacimiento != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.empleado.persona.ciudadnacimiento.nombre : controlBusquedaAvanzada.valorPorDefecto}" onfocus="document.getElementById('form:valorCopia').value = this.value;
                                                                      actualizarValorCopia();">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada.autocompletarParametros('CIUDADNACIMIENDO', controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.empleado.persona.ciudadnacimiento != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.empleado.persona.ciudadnacimiento.nombre : controlBusquedaAvanzada.valorPorDefecto)}" process="@this" update="parametroCiudadNacimientoDatosPersonales"/>
@@ -1224,7 +1224,7 @@
                                                 </p:inputText>
 
                                                 <h:outputText value="#{msg['ciudadDocumento']}" style="position: absolute; left: 10px; top: 45px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText id="parametroCiudadDocumentoDatosPersonales" onclick="PF('select();" style="position: absolute; left: 140px; top: 40px;text-transform: uppercase; height: 10px; width: 140px"
+                                                <p:inputText id="parametroCiudadDocumentoDatosPersonales" onclick="select();" style="position: absolute; left: 140px; top: 40px;text-transform: uppercase; height: 10px; width: 140px"
                                                              value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.empleado.persona.ciudaddocumento != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.empleado.persona.ciudaddocumento.nombre : controlBusquedaAvanzada.valorPorDefecto}" onfocus="document.getElementById('form:valorCopia').value = this.value;
                                                                      actualizarValorCopia();">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada.autocompletarParametros('CIUDADDOCUMENTO', controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.empleado.persona.ciudaddocumento != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.empleado.persona.ciudaddocumento.nombre : controlBusquedaAvanzada.valorPorDefecto)}" process="@this" update="parametroCiudadDocumentoDatosPersonales"/>
@@ -1232,7 +1232,7 @@
                                                 </p:inputText>
 
                                                 <h:outputText value="#{msg['numeroDocumento']}" style="position: absolute;  left: 300px; top: 10px; color: #14388B;font-weight: bold"/>
-                                                <p:inputText id="parametroNDocDatosPersonales" maxlength="15" onclick="PF('select();" style="position: absolute; left: 440px; top: 5px;width: 140px;height: 13px;"
+                                                <p:inputText id="parametroNDocDatosPersonales" maxlength="15" onclick="select();" style="position: absolute; left: 440px; top: 5px;width: 140px;height: 13px;"
                                                              value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.empleado.persona.numerodocumento}">
                                                     <p:ajax event="change" process="@this" update="@this"/>
                                                 </p:inputText>
@@ -1325,7 +1325,7 @@
                                         <p:tab id="tabDatosEstadoCivil" title="#{msg['tabDatosEstadoCivil']}">
                                             <div style="height: 45px; position: relative; left: 0px; top: 0px;">
                                                 <h:outputText value="#{msg['estadoCivil']}" style="position: absolute; left: 90px; top: 10px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText id="parametroEstadoCivil" onclick="PF('select();" style="position: absolute; left: 30px; top: 25px;text-transform: uppercase; height: 10px; width: 170px"
+                                                <p:inputText id="parametroEstadoCivil" onclick="select();" style="position: absolute; left: 30px; top: 25px;text-transform: uppercase; height: 10px; width: 170px"
                                                              value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.estadoCivil!= null ? controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.estadoCivil.descripcion : controlBusquedaAvanzada.valorPorDefecto}" onfocus="document.getElementById('form:valorCopia').value = this.value;
                                                                      actualizarValorCopia();">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada.autocompletarParametros('ESTADOCIVIL', controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.estadoCivil!= null ? controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.estadoCivil.descripcion : controlBusquedaAvanzada.valorPorDefecto)}" process="@this" update="parametroEstadoCivil"/>
@@ -1381,7 +1381,7 @@
                                         <p:tab id="tabDatosIdioma" title="#{msg['tabDatosIdioma']}">
                                             <div style="height: 55px; position: relative; left: 0px; top: 0px;">
                                                 <h:outputText value="#{msg['idioma']}" style="position: absolute; left: 10px; top: 30px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText id="parametroIdioma" onclick="PF('select();" style="position: absolute; left: 110px; top: 25px;text-transform: uppercase; height: 10px; width: 170px"
+                                                <p:inputText id="parametroIdioma" onclick="select();" style="position: absolute; left: 110px; top: 25px;text-transform: uppercase; height: 10px; width: 170px"
                                                              value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.idiomaPersona.idioma != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.idiomaPersona.idioma.nombre : controlBusquedaAvanzada.valorPorDefecto}" onfocus="document.getElementById('form:valorCopia').value = this.value;
                                                                      actualizarValorCopia();">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada.autocompletarParametros('IDIOMA', controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.idiomaPersona.idioma != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.idiomaPersona.idioma.nombre : controlBusquedaAvanzada.valorPorDefecto)}" process="@this" update="parametroIdioma"/>
@@ -1392,13 +1392,13 @@
                                                     <legend style="font-size: 12px; color: blue"><strong>#{msg['conversacion']}</strong></legend>
 
                                                     <h:outputText value="% #{msg['desde']}" style="position: relative; left: 0px; top: 0px; color: #14388B; font-weight: bold"/>
-                                                    <p:inputText onclick="PF('select();" style="position: relative; top:0px; left: 10px; width: 30px; height: 14px;"
+                                                    <p:inputText onclick="select();" style="position: relative; top:0px; left: 10px; width: 30px; height: 14px;"
                                                                  id="parametroConversacionDesdeIdioma" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.conversacionDesde}">
                                                         <p:ajax event="change" update="@this" process="@this"/>
                                                     </p:inputText>
 
                                                     <h:outputText value="% #{msg['hasta']}" style="display: inline-block; position: relative; left: 0px; top: 3px;color: #14388B;font-weight: bold"/>
-                                                    <p:inputText onclick="PF('select();" style="position: relative; top: 3px; left: 12px; width: 30px; "
+                                                    <p:inputText onclick="select();" style="position: relative; top: 3px; left: 12px; width: 30px; "
                                                                  id="parametroConversacionHastaIdioma" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.conversacionHasta}">
                                                         <p:ajax event="change" listener="#{controlBusquedaAvanzada.modificarHastaConversacionIdioma()}" process="@this" update="@this"/>
                                                     </p:inputText>
@@ -1410,13 +1410,13 @@
                                                     <legend style="font-size: 12px; color: blue"><strong>#{msg['lectura']}</strong></legend>
 
                                                     <h:outputText value="% #{msg['desde']}" style="position: relative; left: 0px; top: 0px; color: #14388B; font-weight: bold"/>
-                                                    <p:inputText onclick="PF('select();" style="position: relative; top:0px; left: 10px; width: 30px; height: 14px;"
+                                                    <p:inputText onclick="select();" style="position: relative; top:0px; left: 10px; width: 30px; height: 14px;"
                                                                  id="parametroLecturaDesdeIdioma" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.lecturaDesde}">
                                                         <p:ajax event="change" update="@this" process="@this"/>
                                                     </p:inputText>
 
                                                     <h:outputText value="% #{msg['hasta']}" style="display: inline-block; position: relative; left: 0px; top: 3px;color: #14388B;font-weight: bold"/>
-                                                    <p:inputText onclick="PF('select();" style="position: relative; top: 3px; left: 12px; width: 30px; "
+                                                    <p:inputText onclick="select();" style="position: relative; top: 3px; left: 12px; width: 30px; "
                                                                  id="parametroLecturaHastaIdioma" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.lecturaHasta}">
                                                         <p:ajax event="change" listener="#{controlBusquedaAvanzada.modificarHastaLecturaIdioma()}" process="@this" update="@this"/>
                                                     </p:inputText>
@@ -1427,13 +1427,13 @@
                                                     <legend style="font-size: 12px; color: blue"><strong>#{msg['escritura']}</strong></legend>
 
                                                     <h:outputText value="% #{msg['desde']}" style="position: relative; left: 0px; top: 0px; color: #14388B; font-weight: bold"/>
-                                                    <p:inputText onclick="PF('select();" style="position: relative; top:0px; left: 10px; width: 30px; height: 14px;"
+                                                    <p:inputText onclick="select();" style="position: relative; top:0px; left: 10px; width: 30px; height: 14px;"
                                                                  id="parametroEscrituraDesdeIdioma" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.escrituraDesde}">
                                                         <p:ajax event="change" update="@this" process="@this"/>
                                                     </p:inputText>
 
                                                     <h:outputText value="% #{msg['hasta']}" style="display: inline-block; position: relative; left: 0px; top: 3px;color: #14388B;font-weight: bold"/>
-                                                    <p:inputText onclick="PF('select();" style="position: relative; top: 3px; left: 12px; width: 30px; "
+                                                    <p:inputText onclick="select();" style="position: relative; top: 3px; left: 12px; width: 30px; "
                                                                  id="parametroEscrituraHastaIdioma" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.escrituraHasta}">
                                                         <p:ajax event="change" listener="#{controlBusquedaAvanzada.modificarHastaEscrituraIdioma()}" process="@this" update="@this"/>
                                                     </p:inputText>
@@ -1466,7 +1466,7 @@
                                         <p:tab id="tabDatosCenso" title="#{msg['tabDatosCenso']}">
                                             <div style="height: 65px; position: relative; left: 0px; top: 0px;">
                                                 <h:outputText value="#{msg['tipoIndicador']}" style="position: absolute; left: 10px; top: 20px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText id="parametroTipoIndicadorCenso" onclick="PF('select();" style="position: absolute; left: 110px; top: 15px;text-transform: uppercase; height: 10px; width: 170px"
+                                                <p:inputText id="parametroTipoIndicadorCenso" onclick="select();" style="position: absolute; left: 110px; top: 15px;text-transform: uppercase; height: 10px; width: 170px"
                                                              value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.vigenciaIndicador.tipoindicador != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.vigenciaIndicador.tipoindicador.descripcion : controlBusquedaAvanzada.valorPorDefecto}" onfocus="document.getElementById('form:valorCopia').value = this.value;
                                                                      actualizarValorCopia();">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada.autocompletarParametros('TIPOINDICADOR', controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.vigenciaIndicador.tipoindicador != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.vigenciaIndicador.tipoindicador.descripcion : controlBusquedaAvanzada.valorPorDefecto)}" process="@this" update="parametroTipoIndicadorCenso"/>
@@ -1474,7 +1474,7 @@
                                                 </p:inputText>
 
                                                 <h:outputText value="#{msg['indicador']}" style="position: absolute; left: 310px; top: 20px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText id="parametroIndicadorCenso" onclick="PF('select();" style="position: absolute; left: 400px; top: 15px;text-transform: uppercase; height: 10px; width: 170px"
+                                                <p:inputText id="parametroIndicadorCenso" onclick="select();" style="position: absolute; left: 400px; top: 15px;text-transform: uppercase; height: 10px; width: 170px"
                                                              value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.vigenciaIndicador.indicador != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.vigenciaIndicador.indicador.descripcion : controlBusquedaAvanzada.valorPorDefecto}" onfocus="document.getElementById('form:valorCopia').value = this.value;
                                                                      actualizarValorCopia();">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada.autocompletarParametros('INDICADOR', controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.vigenciaIndicador.indicador != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.vigenciaIndicador.indicador.descripcion : controlBusquedaAvanzada.valorPorDefecto)}" process="@this" update="parametroIndicadorCenso"/>
@@ -1532,7 +1532,7 @@
                                         <p:tab id="tabDatosEducacionFormal" title="#{msg['tabDatosEducacionFormal']}">
                                             <div style="height: 55px; position: relative; left: 0px; top: 0px;">
                                                 <h:outputText value="#{msg['profesion']}" style="position: absolute; left: 10px; top: 10px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText id="parametroProfesionEducacionFormal" onclick="PF('select();" style="position: absolute; left: 110px; top: 5px;text-transform: uppercase; height: 10px; width: 170px"
+                                                <p:inputText id="parametroProfesionEducacionFormal" onclick="select();" style="position: absolute; left: 110px; top: 5px;text-transform: uppercase; height: 10px; width: 170px"
                                                              value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.vigenciaFormal.profesion != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.vigenciaFormal.profesion.descripcion : controlBusquedaAvanzada.valorPorDefecto}" onfocus="document.getElementById('form:valorCopia').value = this.value;
                                                                      actualizarValorCopia();">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada.autocompletarParametros('PROFESION', controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.vigenciaFormal.profesion != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.vigenciaFormal.profesion.descripcion : controlBusquedaAvanzada.valorPorDefecto)}" process="@this" update="@this"/>
@@ -1540,7 +1540,7 @@
                                                 </p:inputText>
 
                                                 <h:outputText value="#{msg['institucion']}" style="position: absolute; left: 10px; top: 40px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText id="parametroInstitucionEducacionFormal" onclick="PF('select();" style="position: absolute; left: 110px; top: 35px;text-transform: uppercase; height: 10px; width: 170px"
+                                                <p:inputText id="parametroInstitucionEducacionFormal" onclick="select();" style="position: absolute; left: 110px; top: 35px;text-transform: uppercase; height: 10px; width: 170px"
                                                              value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.vigenciaFormal.institucion != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.vigenciaFormal.institucion.descripcion : controlBusquedaAvanzada.valorPorDefecto}" onfocus="document.getElementById('form:valorCopia').value = this.value;
                                                                      actualizarValorCopia();">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada.autocompletarParametros('INSTITUCIONF', controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.vigenciaFormal.institucion != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.vigenciaFormal.institucion.descripcion : controlBusquedaAvanzada.valorPorDefecto)}" process="@this" update="@this"/>
@@ -1605,7 +1605,7 @@
                                         <p:tab id="tabDatosEducacionNoFormal" title="#{msg['tabDatosEducacionNoFormal']}">
                                             <div style="height: 55px; position: relative; left: 0px; top: 0px;">
                                                 <h:outputText value="#{msg['curso']}" style="position: absolute; left: 10px; top: 10px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText onclick="PF('select();" style="position: absolute; left: 110px; top: 5px;text-transform: uppercase; height: 10px; width: 170px"
+                                                <p:inputText onclick="select();" style="position: absolute; left: 110px; top: 5px;text-transform: uppercase; height: 10px; width: 170px"
                                                              id="parametroCursoEducacionNoFormal" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.vigenciaNoFormal.curso != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.vigenciaNoFormal.curso.nombre : controlBusquedaAvanzada.valorPorDefecto}" onfocus="document.getElementById('form:valorCopia').value = this.value;
                                                                      actualizarValorCopia();">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada.autocompletarParametros('CURSO', controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.vigenciaNoFormal.curso != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.vigenciaNoFormal.curso.nombre : controlBusquedaAvanzada.valorPorDefecto)}" process="@this" update="@this"/>
@@ -1613,7 +1613,7 @@
                                                 </p:inputText>
 
                                                 <h:outputText value="#{msg['institucion']}" style="position: absolute; left: 10px; top: 40px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText onclick="PF('select();" style="position: absolute; left: 110px; top: 35px;text-transform: uppercase; height: 10px; width: 170px"
+                                                <p:inputText onclick="select();" style="position: absolute; left: 110px; top: 35px;text-transform: uppercase; height: 10px; width: 170px"
                                                              id="parametroInstitucionEducacionNoFormal" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.vigenciaNoFormal.institucion != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.vigenciaNoFormal.institucion.descripcion : controlBusquedaAvanzada.valorPorDefecto}" onfocus="document.getElementById('form:valorCopia').value = this.value;
                                                                      actualizarValorCopia();">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada.autocompletarParametros('INSTITUCIONNF', controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.vigenciaNoFormal.institucion != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.vigenciaNoFormal.institucion.descripcion : controlBusquedaAvanzada.valorPorDefecto)}" process="@this" update="@this"/>
@@ -1679,7 +1679,7 @@
                                             <div style="height: 65px; position: relative; left: 0px; top: 0px;">
 
                                                 <h:outputText value="#{msg['sectorEconomico']}" style="position: absolute; left: 10px; top: 10px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText onclick="PF('select();" style="position: absolute; left: 110px; top: 5px;text-transform: uppercase; height: 10px; width: 170px"
+                                                <p:inputText onclick="select();" style="position: absolute; left: 110px; top: 5px;text-transform: uppercase; height: 10px; width: 170px"
                                                              id="parametroSectorEconomicoExperienciaLaboral" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.hvExperienciaLaboral.sectoreconomico != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.hvExperienciaLaboral.sectoreconomico.descripcion : controlBusquedaAvanzada.valorPorDefecto}" onfocus="document.getElementById('form:valorCopia').value = this.value;
                                                                      actualizarValorCopia();">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada.autocompletarParametros('SECTORECONOMICO', controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.hvExperienciaLaboral.sectoreconomico != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.hvExperienciaLaboral.sectoreconomico.descripcion : controlBusquedaAvanzada.valorPorDefecto)}" process="@this" update="@this"/>
@@ -1687,7 +1687,7 @@
                                                 </p:inputText>
 
                                                 <h:outputText value="#{msg['motivoRetiro']}" style="position: absolute; left: 10px; top: 45px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText onclick="PF('select();" style="position: absolute; left: 110px; top: 40px;text-transform: uppercase; height: 10px; width: 170px"
+                                                <p:inputText onclick="select();" style="position: absolute; left: 110px; top: 40px;text-transform: uppercase; height: 10px; width: 170px"
                                                              id="parametroMotivoRetiroExperienciaLaboral" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.hvExperienciaLaboral.motivoretiro != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.hvExperienciaLaboral.motivoretiro.nombre : controlBusquedaAvanzada.valorPorDefecto}" onfocus="document.getElementById('form:valorCopia').value = this.value;
                                                                      actualizarValorCopia();">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada.autocompletarParametros('MOTIVORETIROPERSONAL', controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.hvExperienciaLaboral.motivoretiro != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.hvExperienciaLaboral.motivoretiro.nombre : controlBusquedaAvanzada.valorPorDefecto)}" process="@this" update="@this"/>
@@ -1696,13 +1696,13 @@
 
 
                                                 <h:outputText value="#{msg['cargo']}" style="position: absolute; left: 300px; top: 10px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText onclick="PF('select();" style="position: absolute; left: 410px; top: 5px;text-transform: uppercase; height: 10px; width: 170px"
+                                                <p:inputText onclick="select();" style="position: absolute; left: 410px; top: 5px;text-transform: uppercase; height: 10px; width: 170px"
                                                              id="parametroCargoExperienciaLaboral" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.cargoExperienciaLaboral}">
                                                     <p:ajax event="change" process="@this" update="@this"/>
                                                 </p:inputText>
 
                                                 <h:outputText value="#{msg['empresa']}" style="position: absolute; left: 300px; top: 45px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText onclick="PF('select();" style="position: absolute; left: 410px; top: 40px;text-transform: uppercase; height: 10px; width: 170px"
+                                                <p:inputText onclick="select();" style="position: absolute; left: 410px; top: 40px;text-transform: uppercase; height: 10px; width: 170px"
                                                              id="parametroEmpresaExperienciaLaboral" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.empresaExperienciaLaboral}">
                                                     <p:ajax event="change" process="@this" update="@this"/>
                                                 </p:inputText>
@@ -1750,7 +1750,7 @@
                                         <p:tab id="tabDatosProyecto" title="#{msg['tabDatosProyecto']}">
                                             <div style="display: inline-block; height: 65px; position: relative; left: 0px; top: 0px;">
                                                 <h:outputText value="#{msg['proyecto']}" style="position: absolute; left: 10px; top: 10px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText onclick="PF('select();" style="position: absolute; left: 90px; top: 5px;text-transform: uppercase; height: 10px; width: 140px"
+                                                <p:inputText onclick="select();" style="position: absolute; left: 90px; top: 5px;text-transform: uppercase; height: 10px; width: 140px"
                                                              id="parametroProyecto" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.vigenciaProyecto.proyecto != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.vigenciaProyecto.proyecto.nombreproyecto : controlBusquedaAvanzada.valorPorDefecto}" onfocus="document.getElementById('form:valorCopia').value = this.value;
                                                                      actualizarValorCopia();">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada.autocompletarParametros('PROYECTO', controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.vigenciaProyecto.proyecto != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.vigenciaProyecto.proyecto.nombreproyecto : controlBusquedaAvanzada.valorPorDefecto)}" process="@this" update="@this"/>
@@ -1758,7 +1758,7 @@
                                                 </p:inputText>
 
                                                 <h:outputText value="#{msg['rol']}" style="position: absolute; left: 10px; top: 40px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText onclick="PF('select();" style="position: absolute; left: 90px; top: 35px;text-transform: uppercase; height: 10px; width: 140px"
+                                                <p:inputText onclick="select();" style="position: absolute; left: 90px; top: 35px;text-transform: uppercase; height: 10px; width: 140px"
                                                              id="parametroRolProyecto" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.vigenciaProyecto.pryRol != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.vigenciaProyecto.pryRol.descripcion : controlBusquedaAvanzada.valorPorDefecto}" onfocus="document.getElementById('form:valorCopia').value = this.value;
                                                                      actualizarValorCopia();">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada.autocompletarParametros('ROL', controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.vigenciaProyecto.pryRol != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.vigenciaProyecto.pryRol.descripcion : controlBusquedaAvanzada.valorPorDefecto)}" process="@this" update="@this"/>
@@ -1802,7 +1802,7 @@
                                         <p:tab id="tabDatosCargoPostularse" title="#{msg['tabDatosCargoPostularse']}">
                                             <div style="display: inline-block; position: relative; left: 0px; top: 5px; height: 45px;">
                                                 <h:outputText value="#{msg['cargo']}" style="position: absolute; left: 155px; top: 10px;color: #14388B;font-weight: bold"/>
-                                                <p:inputText onclick="PF('select();" style="position: absolute; left: 40px; top: 25px;text-transform: uppercase; height: 10px; width: 250px"
+                                                <p:inputText onclick="select();" style="position: absolute; left: 40px; top: 25px;text-transform: uppercase; height: 10px; width: 250px"
                                                              id="parametroCargoPostularse" value="#{controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.cargo != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.cargo.nombre : controlBusquedaAvanzada.valorPorDefecto}" onfocus="document.getElementById('form:valorCopia').value = this.value;
                                                                      actualizarValorCopia();">
                                                     <p:ajax event="change" listener="#{controlBusquedaAvanzada.autocompletarParametros('CARGOPERSONAL', controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.cargo != null ? controlBusquedaAvanzada.parametros.parametrosBusquedaPersonal.cargo.nombre : controlBusquedaAvanzada.valorPorDefecto)}" process="@this" update="@this"/>

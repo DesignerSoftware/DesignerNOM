@@ -310,19 +310,19 @@
                         <fieldset style="position: absolute; left: 10px; top: 410px;  width: 830px; height: 50px; border-radius: 10px; ">
                             <legend style="font-size: 14px; color: #14388B"><strong>Tipos Cotizantes</strong></legend>
                             <h:outputText value="#{msg['codigo']}" style=" top: 15px; position: absolute" />
-                            <p:inputText id="ClonarTipoCotizante" value="#{controlTipoCotizante.clonarTipoCotizante.codigo}" style=" width: 122px; position: absolute; left: 5px; top: 31px; text-transform: uppercase;height:12px;" onclick="PF('select();" >
+                            <p:inputText id="ClonarTipoCotizante" value="#{controlTipoCotizante.clonarTipoCotizante.codigo}" style=" width: 122px; position: absolute; left: 5px; top: 31px; text-transform: uppercase;height:12px;" onclick="select();" >
                                 <p:ajax event="dblclick" listener="#{controlTipoCotizante.asignarIndexC(1, 0)}" update="@this"/>
                             </p:inputText>
                             <h:outputText value="#{msg['nombredeltipocotizanteorigen']}" style=" top: 15px; position: absolute; left: 150px;" />
-                            <p:inputText readonly="true" id="ClonarTipoCotizanteDescripcion" value="#{controlTipoCotizante.clonarTipoCotizante.descripcion}" style=" width: 222px; position: absolute; left: 140px; top: 31px; text-transform: uppercase;height:12px;" onclick="PF('select();" >
+                            <p:inputText readonly="true" id="ClonarTipoCotizanteDescripcion" value="#{controlTipoCotizante.clonarTipoCotizante.descripcion}" style=" width: 222px; position: absolute; left: 140px; top: 31px; text-transform: uppercase;height:12px;" onclick="select();" >
                             </p:inputText>
 
                             <h:outputText value="#{msg['codigo']}" style=" top: 15px; left: 380px; position: absolute" />
-                            <p:inputText id="ClonarNuevoTipoCotizante" value="#{controlTipoCotizante.clonarCodigo}" style=" width: 122px; position: absolute; left: 380px; top: 31px; text-transform: uppercase;height:12px;" onclick="PF('select();" >
+                            <p:inputText id="ClonarNuevoTipoCotizante" value="#{controlTipoCotizante.clonarCodigo}" style=" width: 122px; position: absolute; left: 380px; top: 31px; text-transform: uppercase;height:12px;" onclick="select();" >
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <h:outputText value="#{msg['nombredelnuevotipocotizante']}" style="top: 15px; position: absolute; left: 520px;" />
-                            <p:inputText id="ClonarDescripcionNuevoTipoCotizante" value="#{controlTipoCotizante.clonarDescripcion}" style=" width: 222px; position: absolute; left: 515px; top: 31px; text-transform: uppercase;height:12px;" onclick="PF('select();">
+                            <p:inputText id="ClonarDescripcionNuevoTipoCotizante" value="#{controlTipoCotizante.clonarDescripcion}" style=" width: 222px; position: absolute; left: 515px; top: 31px; text-transform: uppercase;height:12px;" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
@@ -446,12 +446,12 @@
                         <p:panel id="nuevoRegistroTipoCotizante" style="border: none;">
 
                             <strong><h:outputText value="#{msg['codigoNTC']}" style=" position: absolute; top: 85px;" /></strong>
-                            <p:inputText id="nuevoCodigoTipoCotizante" value="#{controlTipoCotizante.nuevoTipoCotizante.codigo}" style=" width: 122px; position: absolute; left: 180px; top: 80px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevoCodigoTipoCotizante" value="#{controlTipoCotizante.nuevoTipoCotizante.codigo}" style=" width: 122px; position: absolute; left: 180px; top: 80px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['descripcionNTC']}" style=" position: absolute; top: 125px;" /></strong>
-                            <p:inputText id="nuevaDescripcionTipoCotizante" value="#{controlTipoCotizante.nuevoTipoCotizante.descripcion}" style=" width: 122px; position: absolute; left: 180px; top: 120px; text-transform: uppercase" onclick="PF('select();" >
+                            <p:inputText id="nuevaDescripcionTipoCotizante" value="#{controlTipoCotizante.nuevoTipoCotizante.descripcion}" style=" width: 122px; position: absolute; left: 180px; top: 120px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
@@ -503,7 +503,7 @@
                             </p:selectOneMenu>
 
                             <strong><h:outputText value="#{msg['codigoalternativoNTC']}" style=" position: absolute;left:350px; top: 205px;" /></strong>
-                            <p:inputText id="nuevoCodigoAlternativoTipoCotizante" value="#{controlTipoCotizante.nuevoTipoCotizante.codigoalternativo}" style=" width: 122px; position: absolute; left: 470px; top: 200px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevoCodigoAlternativoTipoCotizante" value="#{controlTipoCotizante.nuevoTipoCotizante.codigoalternativo}" style=" width: 122px; position: absolute; left: 470px; top: 200px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
@@ -522,7 +522,7 @@
                         <p:panel id="nuevoRegistroDetalleTipoCotizante" style="border: none;">
 
                             <strong><h:outputText value="#{msg['tipoentidadNDTC']}" style=" position: absolute; top: 85px;" /></strong>
-                            <p:inputText id="nuevoTipoEntidad" value="#{controlTipoCotizante.nuevaDetalleTipoCotizante.tipoentidad.nombre}" style=" width: 122px; position: absolute; left: 180px; top: 80px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevoTipoEntidad" value="#{controlTipoCotizante.nuevaDetalleTipoCotizante.tipoentidad.nombre}" style=" width: 122px; position: absolute; left: 180px; top: 80px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlTipoCotizante.valoresBackupAutocompletarNF(1, 'TIPOENTIDAD')}" />
                                 <p:ajax event="change" listener="#{controlTipoCotizante.autocompletarNuevoyDuplicadoNF('TIPOENTIDAD', controlTipoCotizante.nuevaDetalleTipoCotizante.tipoentidad.nombre, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlTipoCotizante.asignarIndexNF(indiceNF, 0, 1)}" />
@@ -531,12 +531,12 @@
 
 
                             <strong><h:outputText value="#{msg['minimosmlNDTC']}" style=" position: absolute; top: 125px;" /></strong>
-                            <p:inputText id="nuevoMinimoSML" value="#{controlTipoCotizante.nuevaDetalleTipoCotizante.minimosml}" style=" width: 122px; position: absolute; left: 180px; top: 120px; text-transform: uppercase" onclick="PF('select();" >
+                            <p:inputText id="nuevoMinimoSML" value="#{controlTipoCotizante.nuevaDetalleTipoCotizante.minimosml}" style=" width: 122px; position: absolute; left: 180px; top: 120px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['maximosmlNDTC']}" style=" position: absolute; top: 165px;" /></strong>
-                            <p:inputText id="nuevoMaximoSML" value="#{controlTipoCotizante.nuevaDetalleTipoCotizante.maximosml}" style=" width: 122px; position: absolute; left: 180px; top: 160px; text-transform: uppercase" onclick="PF('select();" >
+                            <p:inputText id="nuevoMaximoSML" value="#{controlTipoCotizante.nuevaDetalleTipoCotizante.maximosml}" style=" width: 122px; position: absolute; left: 180px; top: 160px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
@@ -564,12 +564,12 @@
                         <p:panel id="duplicarRegistroTipoCotizante" style="border: none;">
 
                             <strong><h:outputText value="#{msg['codigoNTC']}" style=" position: absolute; top: 85px;" /></strong>
-                            <p:inputText id="duplicarCodigoTipoCotizante" value="#{controlTipoCotizante.duplicarTipoCotizante.codigo}" style=" width: 122px; position: absolute; left: 180px; top: 80px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarCodigoTipoCotizante" value="#{controlTipoCotizante.duplicarTipoCotizante.codigo}" style=" width: 122px; position: absolute; left: 180px; top: 80px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['descripcionNTC']}" style=" position: absolute; top: 125px;" /></strong>
-                            <p:inputText id="duplicarDescripcionTipoCotizante" value="#{controlTipoCotizante.duplicarTipoCotizante.descripcion}" style=" width: 122px; position: absolute; left: 180px; top: 120px; text-transform: uppercase" onclick="PF('select();" >
+                            <p:inputText id="duplicarDescripcionTipoCotizante" value="#{controlTipoCotizante.duplicarTipoCotizante.descripcion}" style=" width: 122px; position: absolute; left: 180px; top: 120px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
@@ -621,7 +621,7 @@
                             </p:selectOneMenu>
 
                             <strong><h:outputText value="#{msg['codigoalternativoNTC']}" style=" position: absolute;left:350px; top: 205px;" /></strong>
-                            <p:inputText id="duplicarCodigoAlternativoTipoCotizante" value="#{controlTipoCotizante.duplicarTipoCotizante.codigoalternativo}" style=" width: 122px; position: absolute; left: 470px; top: 200px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarCodigoAlternativoTipoCotizante" value="#{controlTipoCotizante.duplicarTipoCotizante.codigoalternativo}" style=" width: 122px; position: absolute; left: 470px; top: 200px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
@@ -640,7 +640,7 @@
                         <p:panel id="duplicarRegistroDetalleTipoCotizante" style="border: none;">
 
                             <strong><h:outputText value="#{msg['tipoentidadNDTC']}" style=" position: absolute; top: 85px;" /></strong>
-                            <p:inputText id="duplicarTipoEntidad" value="#{controlTipoCotizante.duplicarDetalleTipoCotizante.tipoentidad.nombre}" style=" width: 122px; position: absolute; left: 180px; top: 80px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarTipoEntidad" value="#{controlTipoCotizante.duplicarDetalleTipoCotizante.tipoentidad.nombre}" style=" width: 122px; position: absolute; left: 180px; top: 80px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlTipoCotizante.valoresBackupAutocompletarNF(2, 'TIPOENTIDAD')}" />
                                 <p:ajax event="change" listener="#{controlTipoCotizante.autocompletarNuevoyDuplicadoNF('TIPOENTIDAD', controlTipoCotizante.nuevaDetalleTipoCotizante.tipoentidad.nombre, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlTipoCotizante.asignarIndexNF(indiceNF, 0, 2)}" />
@@ -648,12 +648,12 @@
                             <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 312px; top: 80px;  " id="btnDuplicarTipoEntidad" icon="ui-icon-search" process="@this"  actionListener="#{controlTipoCotizante.asignarIndexNF(indiceNF, 0, 2)}"/>   
 
                             <strong><h:outputText value="#{msg['minimosmlNDTC']}" style=" position: absolute; top: 125px;" /></strong>
-                            <p:inputText id="duplicarMinimoSML" value="#{controlTipoCotizante.duplicarDetalleTipoCotizante.minimosml}" style=" width: 122px; position: absolute; left: 180px; top: 120px; text-transform: uppercase" onclick="PF('select();" >
+                            <p:inputText id="duplicarMinimoSML" value="#{controlTipoCotizante.duplicarDetalleTipoCotizante.minimosml}" style=" width: 122px; position: absolute; left: 180px; top: 120px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['maximosmlNDTC']}" style=" position: absolute; top: 165px;" /></strong>
-                            <p:inputText id="duplicarMaximoSML" value="#{controlTipoCotizante.duplicarDetalleTipoCotizante.maximosml}" style=" width: 122px; position: absolute; left: 180px; top: 160px; text-transform: uppercase" onclick="PF('select();" >
+                            <p:inputText id="duplicarMaximoSML" value="#{controlTipoCotizante.duplicarDetalleTipoCotizante.maximosml}" style=" width: 122px; position: absolute; left: 180px; top: 160px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 

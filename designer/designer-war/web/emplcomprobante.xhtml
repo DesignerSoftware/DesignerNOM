@@ -680,7 +680,7 @@
                         <p:panel id="nuevoComprobante" style="border: none;">
 
                             <strong><h:outputText value="*#{msg['numeroC']}" style=" position: absolute; top: 60px;" /></strong>
-                            <p:inputText id="nuevoNumeroComprobante" value="#{controlEmplComprobantes.nuevoComprobante.numero}" style=" position: absolute; top: 55px; left: 200px; width: 100px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevoNumeroComprobante" value="#{controlEmplComprobantes.nuevoComprobante.numero}" style=" position: absolute; top: 55px; left: 200px; width: 100px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this" />
                             </p:inputText>
 
@@ -716,7 +716,7 @@
 
                         <p:panel id="duplicadoComprobante" style="border: none;">
                             <strong><h:outputText value="*#{msg['numeroC']}" style=" position: absolute; top: 60px;" /></strong>
-                            <p:inputText id="duplicadoNumeroComprobante" value="#{controlEmplComprobantes.duplicarComprobante.numero}" style=" position: absolute; top: 55px; left: 200px; width: 100px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicadoNumeroComprobante" value="#{controlEmplComprobantes.duplicarComprobante.numero}" style=" position: absolute; top: 55px; left: 200px; width: 100px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this" />
                             </p:inputText>
 
@@ -762,7 +762,7 @@
                             </div>
 
                             <strong><h:outputText value="*#{msg['procesoP']}" style=" position: absolute; top: 90px;" /></strong>
-                            <p:inputText id="nuevoProceso" value="#{controlEmplComprobantes.nuevoCorteProceso.proceso.descripcion}" style=" position: absolute; top: 85px; left: 150px; width: 122px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevoProceso" value="#{controlEmplComprobantes.nuevoCorteProceso.proceso.descripcion}" style=" position: absolute; top: 85px; left: 150px; width: 122px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlEmplComprobantes.valoresBackupAutocompletar(1, 'PROCESO')}" />
                                 <p:ajax event="change" listener="#{controlEmplComprobantes.autocompletarNuevoyDuplicado('PROCESO', controlEmplComprobantes.nuevoCorteProceso.proceso.descripcion, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlEmplComprobantes.llamarLOVProcesosNuevo_Duplicado(1)}" />
@@ -790,7 +790,7 @@
                             </div>
 
                             <strong><h:outputText value="*#{msg['procesoP']}" style=" position: absolute; top: 90px;" /></strong>
-                            <p:inputText id="duplicadoProceso" value="#{controlEmplComprobantes.duplicarCorteProceso.proceso.descripcion}" style=" position: absolute; top: 85px; left: 150px; width: 122px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicadoProceso" value="#{controlEmplComprobantes.duplicarCorteProceso.proceso.descripcion}" style=" position: absolute; top: 85px; left: 150px; width: 122px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlEmplComprobantes.valoresBackupAutocompletar(2, 'PROCESO')}" />
                                 <p:ajax event="change" listener="#{controlEmplComprobantes.autocompletarNuevoyDuplicado('PROCESO', controlEmplComprobantes.duplicarCorteProceso.proceso.descripcion, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlEmplComprobantes.llamarLOVProcesosNuevo_Duplicado(2)}" />

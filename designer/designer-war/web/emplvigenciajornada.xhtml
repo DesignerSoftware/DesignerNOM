@@ -525,7 +525,7 @@
 
                             <strong><h:outputText value="*#{msg['nombrejornadavj']}" style=" position: absolute; top: 100px; left: 40px;" /></strong>
                             <p:inputText maxlength="30" id="nuevaJornadaLaboral" value="#{controlVigenciaJornada.nuevaVigencia.jornadatrabajo.descripcion}" 
-                                         style=" width: 110px; position: absolute; left: 180px; top: 95px; text-transform: uppercase" onclick="PF('select();" >
+                                         style=" width: 110px; position: absolute; left: 180px; top: 95px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="dblclick" listener="#{controlVigenciaJornada.asignarIndex(0,1,0)}"/>
                                 <p:ajax event="click" listener="#{controlVigenciaJornada.valoresBackupAutocompletar(1, 'NOMBREJORNADA')}" />
                                 <p:ajax event="change" listener="#{controlVigenciaJornada.autocompletarNuevoyDuplicado('NOMBREJORNADA', controlVigenciaJornada.nuevaVigencia.jornadatrabajo.descripcion, 1)}" />
@@ -535,7 +535,7 @@
                             <p:watermark for="nuevaJornadaLaboral" value="#{msg['jornadaJ']}" />
 
                             <strong><h:outputText value="#{msg['tipodescansovj']}" style=" position: absolute; top: 140px; left: 40px;" /></strong>
-                            <p:inputText id="nuevaTipoDescanso" value="#{controlVigenciaJornada.nuevaVigencia.tipodescanso.descripcion}" style=" width: 110px; position: absolute; left: 180px; top: 135px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevaTipoDescanso" value="#{controlVigenciaJornada.nuevaVigencia.tipodescanso.descripcion}" style=" width: 110px; position: absolute; left: 180px; top: 135px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlVigenciaJornada.asignarIndex(1,1,0)}"/>
                                 <p:ajax event="click" listener="#{controlVigenciaJornada.valoresBackupAutocompletar(1, 'TIPODESCANSO')}" />
                                 <p:ajax event="change" listener="#{controlVigenciaJornada.autocompletarNuevoyDuplicado('TIPODESCANSO', controlVigenciaJornada.nuevaVigencia.tipodescanso.descripcion, 1)}" update="nuevaTipoDescanso"/>
@@ -680,7 +680,7 @@
                             </div>
 
                             <strong><h:outputText value="#{msg['comentariotd']}"  style=" position: absolute; top: 135px; left: 50px;" /></strong>
-                            <p:inputTextarea id="nuevaComentarioVCD" value="#{controlVigenciaJornada.nuevaVigenciaCD.comentario}" style=" width: 140px; position: absolute; left: 170px; top: 130px; text-transform: uppercase" onclick="PF('select();" >
+                            <p:inputTextarea id="nuevaComentarioVCD" value="#{controlVigenciaJornada.nuevaVigenciaCD.comentario}" style=" width: 140px; position: absolute; left: 170px; top: 130px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" update="nuevaComentarioVCD"/>
                             </p:inputTextarea>
                             <p:watermark for="nuevaComentarioVCD" value="#{msg['comentario']}" /> 
@@ -712,7 +712,7 @@
                             </div>
 
                             <strong><h:outputText value="#{msg['comentariotd']}"  style=" position: absolute; top: 135px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarComentarioVCD" value="#{controlVigenciaJornada.duplicarVCD.comentario}" style=" width: 140px; position: absolute; left: 170px; top: 130px; text-transform: uppercase" onclick="PF('select();" >
+                            <p:inputText id="duplicarComentarioVCD" value="#{controlVigenciaJornada.duplicarVCD.comentario}" style=" width: 140px; position: absolute; left: 170px; top: 130px; text-transform: uppercase" onclick="select();" >
                             </p:inputText>
                             <p:watermark for="duplicarComentarioVCD" value="#{msg['comentario']}" />
 

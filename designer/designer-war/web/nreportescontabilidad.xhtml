@@ -103,14 +103,14 @@
                                 <p:separator id="separator"  style="vertical-align: central;position: absolute;height: 70px;width: 1px;top: 5px;left: 240px "/>  
 
                                 <h:outputText value="#{msg['empleadodesde']}:" style="position: absolute; top: 20px; left: 260px;"/>
-                                <p:inputText value="#{controlNReporteContabilidad.parametroDeInforme.codigoempleadodesde}" id="empleadoDesdeParametroL" style="position: absolute; top: 40px; left: 260px;height: 15px;width: 90px;" onclick="PF('select();">
+                                <p:inputText value="#{controlNReporteContabilidad.parametroDeInforme.codigoempleadodesde}" id="empleadoDesdeParametroL" style="position: absolute; top: 40px; left: 260px;height: 15px;width: 90px;" onclick="select();">
                                     <p:ajax event="click" listener="#{controlNReporteContabilidad.posicionCelda(2)}" process="@this"/> 
                                     <p:ajax event="change" update="empleadoDesdeParametroL" listener="#{controlNReporteContabilidad.autocompletarGeneral('DESDE',controlNReporteContabilidad.parametroDeInforme.codigoempleadodesde)}"  process="@this"/>
                                     <p:ajax event="dblclick" listener="#{controlNReporteContabilidad.mostrarDialogosListas()}"/>
                                 </p:inputText>
 
                                 <h:outputText value="#{msg['empleadohasta']}:" style="position: absolute; top: 20px; left: 400px"/>
-                                <p:inputText value="#{controlNReporteContabilidad.parametroDeInforme.codigoempleadohasta}" id="empleadoHastaParametroL" style="position: absolute; top: 40px; left: 400px;height: 15px;width: 90px;" onclick="PF('select();">
+                                <p:inputText value="#{controlNReporteContabilidad.parametroDeInforme.codigoempleadohasta}" id="empleadoHastaParametroL" style="position: absolute; top: 40px; left: 400px;height: 15px;width: 90px;" onclick="select();">
                                     <p:ajax event="click" listener="#{controlNReporteContabilidad.posicionCelda(4)}" process="@this"/> 
                                     <p:ajax event="change" update="empleadoHastaParametroL" listener="#{controlNReporteContabilidad.autocompletarGeneral('HASTA',controlNReporteContabilidad.parametroDeInforme.codigoempleadohasta)}" process="@this"/>
                                     <p:ajax event="dblclick" listener="#{controlNReporteContabilidad.mostrarDialogosListas()}"/>
@@ -119,7 +119,7 @@
                                 <p:separator id="separator2"  style="vertical-align: central;position: absolute;height: 70px;width: 1px;top: 5px;left: 520px "/>  
 
                                 <h:outputText value="#{msg['proceso']}:" style="position: absolute; top: 20px; left: 565px;"/>
-                                <p:inputText value="#{controlNReporteContabilidad.parametroDeInforme.proceso.descripcion}" id="procesoParametroL" style="position: absolute; top: 40px; left: 540px;height: 15px;width: 100px;" onclick="PF('select()">
+                                <p:inputText value="#{controlNReporteContabilidad.parametroDeInforme.proceso.descripcion}" id="procesoParametroL" style="position: absolute; top: 40px; left: 540px;height: 15px;width: 100px;" onclick="select()">
                                     <p:ajax event="click" listener="#{controlNReporteContabilidad.posicionCelda(5)}" process="@this"/> 
                                     <p:ajax event="change" update="procesoParametroL" listener="#{controlNReporteContabilidad.autocompletarGeneral('PROCESO',controlNReporteContabilidad.parametroDeInforme.proceso.descripcion)}"  process="@this"/>
                                     <p:ajax event="dblclick" listener="#{controlNReporteContabilidad.mostrarDialogosListas()}" process="@this"/>

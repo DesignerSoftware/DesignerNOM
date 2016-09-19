@@ -531,7 +531,7 @@
                             <p:watermark for="duplicarDescripcion" value="Descripcion" />
 
                             <strong><h:outputText value="Ciudad" style="left: 10px; position: absolute; top: 120px;" /></strong>
-                            <p:inputText id="duplicarTipoCentroCostos" value="#{controlUbicacionesGeograficas.duplicarUbicacionGeografica.ciudad.nombre}" style=" width: 135px; position: absolute; left: 120px; top: 115px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarTipoCentroCostos" value="#{controlUbicacionesGeograficas.duplicarUbicacionGeografica.ciudad.nombre}" style=" width: 135px; position: absolute; left: 120px; top: 115px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlUbicacionesGeograficas.valoresBackupAutocompletar(2, 'CIUDADES')}" />
                                 <p:ajax event="change" listener="#{controlUbicacionesGeograficas.autocompletarDuplicado('CIUDADES', controlBetaCentrosCostos.duplicarCentroCosto.tipocentrocosto.nombre , 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlUbicacionesGeograficas.asignarVariableTiposCC(1)}" />
@@ -582,7 +582,7 @@
 
 
                             <strong><h:outputText value="Sucural :" style=" position: absolute;left: 320px; top: 150px;" /></strong>
-                            <p:inputText id="duplicarSucursalPila" value="#{controlUbicacionesGeograficas.duplicarUbicacionGeografica.sucursalPila.descripcion}" style=" width: 135px; position: absolute; left: 480px; top: 145px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarSucursalPila" value="#{controlUbicacionesGeograficas.duplicarUbicacionGeografica.sucursalPila.descripcion}" style=" width: 135px; position: absolute; left: 480px; top: 145px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlUbicacionesGeograficas.valoresBackupAutocompletar(2, 'SUCURSALESPILA')}" />
                                 <p:ajax event="change" listener="#{controlUbicacionesGeograficas.autocompletarDuplicado('SUCURSALESPILA', controlUbicacionesGeograficas.duplicarUbicacionGeografica.sucursalPila.descripcion , 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlUbicacionesGeograficas.asignarVariableSucursalesPila(1)}" />

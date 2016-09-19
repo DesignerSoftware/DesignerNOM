@@ -466,7 +466,7 @@
                             </div>
 
                             <strong><h:outputText value="#{msg['sucursalN']}" style=" position: absolute; top: 205px;" /></strong>
-                            <p:inputText id="nuevoNombreSucursal" value="#{controlVigenciasFormasPagos.nuevaVigenciaFormasPago.sucursal.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 200px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevoNombreSucursal" value="#{controlVigenciasFormasPagos.nuevaVigenciaFormasPago.sucursal.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 200px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlVigenciasFormasPagos.valoresBackupAutocompletar(1, 'SUCURSAL')}" />
                                 <p:ajax event="change" listener="#{controlVigenciasFormasPagos.autocompletarNuevoyDuplicado('SUCURSAL', controlVigenciasFormasPagos.nuevaVigenciaFormasPago.sucursal.nombre,1)}" />
                                 <p:ajax event="dblclick" listener="#{controlVigenciasFormasPagos.asignarVariableSucursalNueva(0)}" />
@@ -476,7 +476,7 @@
                             <p:watermark for="nuevoNombreSucursal" value="#{msg['sucursal']}" />
 
                             <strong><h:outputText value="*#{msg['formaPagoN']}" style=" position: absolute; top: 245px;" /></strong>
-                            <p:inputText id="nuevaFormaPago" value="#{controlVigenciasFormasPagos.nuevaVigenciaFormasPago.formapago.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 240px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevaFormaPago" value="#{controlVigenciasFormasPagos.nuevaVigenciaFormasPago.formapago.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 240px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlVigenciasFormasPagos.valoresBackupAutocompletar(1, 'FORMAPAGO')}" />
                                 <p:ajax event="change" listener="#{controlVigenciasFormasPagos.autocompletarNuevoyDuplicado('FORMAPAGO', controlVigenciasFormasPagos.nuevaVigenciaFormasPago.formapago.nombre, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlVigenciasFormasPagos.asignarVariablePeriodicidadNueva(0)}" />
@@ -492,7 +492,7 @@
                             <p:watermark for="nuevoTC" value="#{msg['tc']}" />
 
                             <strong><h:outputText value="*#{msg['metodoPagoN']}" style=" position: absolute; top: 325px;" /></strong>
-                            <p:inputText id="nuevaMetodoPago" value="#{controlVigenciasFormasPagos.nuevaVigenciaFormasPago.metodopago.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 320px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevaMetodoPago" value="#{controlVigenciasFormasPagos.nuevaVigenciaFormasPago.metodopago.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 320px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlVigenciasFormasPagos.valoresBackupAutocompletar(1, 'METODOPAGO')}" />
                                 <p:ajax event="change" listener="#{controlVigenciasFormasPagos.autocompletarNuevoyDuplicado('METODOPAGO', controlVigenciasFormasPagos.nuevaVigenciaFormasPago.metodopago.descripcion ,1)}" />
                                 <p:ajax event="dblclick" listener="#{controlVigenciasFormasPagos.asignarVariableMetodosPagosNueva(0)}" />
@@ -536,7 +536,7 @@
                             </div>
 
                             <strong><h:outputText value="#{msg['sucursalM']}"  style=" position: absolute; top: 205px;" /></strong>
-                            <p:inputText id="duplicarNombreSucursal" value="#{controlVigenciasFormasPagos.duplicarVigenciaFormasPago.sucursal.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 200px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarNombreSucursal" value="#{controlVigenciasFormasPagos.duplicarVigenciaFormasPago.sucursal.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 200px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlVigenciasFormasPagos.valoresBackupAutocompletar(2, 'SUCURSAL')}" />
                                 <p:ajax event="change" listener="#{controlVigenciasFormasPagos.autocompletarNuevoyDuplicado('SUCURSAL', controlVigenciasFormasPagos.duplicarVigenciaFormasPago.sucursal.nombre,2)}" />
                                 <p:ajax event="dblclick" listener="#{controlVigenciasFormasPagos.asignarVariableSucursalNueva(1)}" />
@@ -546,7 +546,7 @@
                             <p:watermark for="duplicarNombreSucursal" value="#{msg['sucursal']}" />
 
                             <strong><h:outputText value="*#{msg['formaPagoN']}" style=" position: absolute; top: 245px;" /></strong>
-                            <p:inputText id="duplicarFormaPago" value="#{controlVigenciasFormasPagos.duplicarVigenciaFormasPago.formapago.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 240px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarFormaPago" value="#{controlVigenciasFormasPagos.duplicarVigenciaFormasPago.formapago.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 240px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlVigenciasFormasPagos.valoresBackupAutocompletar(2, 'FORMAPAGO')}" />
                                 <p:ajax event="change" listener="#{controlVigenciasFormasPagos.autocompletarNuevoyDuplicado('FORMAPAGO', controlVigenciasFormasPagos.duplicarVigenciaFormasPago.formapago.nombre, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlVigenciasFormasPagos.asignarVariablePeriodicidadNueva(1)}" />
@@ -562,7 +562,7 @@
                             <p:watermark for="duplicarTC" value="#{msg['tc']}" />
 
                             <strong><h:outputText value="*#{msg['metodoPagoN']}" style=" position: absolute; top: 325px;" /></strong>
-                            <p:inputText id="duplicarMetodoPago" value="#{controlVigenciasFormasPagos.duplicarVigenciaFormasPago.metodopago.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 320px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarMetodoPago" value="#{controlVigenciasFormasPagos.duplicarVigenciaFormasPago.metodopago.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 320px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlVigenciasFormasPagos.valoresBackupAutocompletar(2, 'METODOPAGO')}" />
                                 <p:ajax event="change" listener="#{controlVigenciasFormasPagos.autocompletarNuevoyDuplicado('METODOPAGO', controlVigenciasFormasPagos.duplicarVigenciaFormasPago.metodopago.descripcion ,2)}" />
                                 <p:ajax event="dblclick" listener="#{controlVigenciasFormasPagos.asignarVariableMetodosPagosNueva(1)}" />

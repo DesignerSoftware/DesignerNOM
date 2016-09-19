@@ -254,13 +254,13 @@
                             </div>
 
                             <strong><h:outputText value="#{msg['seguimientoN']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaSeguimiento" value="#{controlEmplDemanda.nuevaDemandaEmpleado.seguimiento}" maxlength="500" style="width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevaSeguimiento" value="#{controlEmplDemanda.nuevaDemandaEmpleado.seguimiento}" maxlength="500" style="width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="nuevaSeguimiento"/>
                             </p:inputText>
                             <p:watermark for="nuevaSeguimiento" value="#{msg['seguimiento']}" />
 
                             <strong><h:outputText value="*#{msg['motivoN']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaMotivo" value="#{controlEmplDemanda.nuevaDemandaEmpleado.motivo.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 130px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevaMotivo" value="#{controlEmplDemanda.nuevaDemandaEmpleado.motivo.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 130px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlEmplDemanda.asignarIndex(indice,0,1)}"/>
                                 <p:ajax event="click" listener="#{controlEmplDemanda.valoresBackupAutocompletarDemanda(1, 'MOTIVOS')}" />
                                 <p:ajax event="change" listener="#{controlEmplDemanda.autocompletarNuevoyDuplicadoDemanda('MOTIVOS', controlEmplDemanda.nuevaDemandaEmpleado.motivo.descripcion,1)}" process="@this" update="nuevaMotivo"/>
@@ -291,13 +291,13 @@
 
 
                             <strong><h:outputText value="#{msg['seguimientoN']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarSeguimiento" maxlength="500" value="#{controlEmplDemanda.duplicarDemandaEmpleado.seguimiento}" style="width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarSeguimiento" maxlength="500" value="#{controlEmplDemanda.duplicarDemandaEmpleado.seguimiento}" style="width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="duplicarSeguimiento"/>
                             </p:inputText>
                             <p:watermark for="duplicarSeguimiento" value="#{msg['seguimiento']}" />
 
                             <strong><h:outputText value="*#{msg['motivoN']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarMotivo" value="#{controlEmplDemanda.duplicarDemandaEmpleado.motivo.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 130px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarMotivo" value="#{controlEmplDemanda.duplicarDemandaEmpleado.motivo.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 130px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlEmplDemanda.asignarIndex(indice,0,2)}"/>
                                 <p:ajax event="click" listener="#{controlEmplDemanda.valoresBackupAutocompletarDemanda(2, 'MOTIVOS')}" />
                                 <p:ajax event="change" listener="#{controlEmplDemanda.autocompletarNuevoyDuplicadoDemanda('MOTIVOS', controlEmplDemanda.duplicarDemandaEmpleado.motivo.descripcion,2)}" process="@this" update="duplicarMotivo"/>

@@ -83,20 +83,20 @@
                                 <p:commandButton  value=" " style="position: absolute; top: 20px; left: 10px;text-align: left; width: 45px; height: 45px;"  actionListener="#{controlInterfaseContableTotalGEO.actionBtnRecontabilizar()}" process="@this"/>
 
                                 <strong><h:outputText value="#{msg['empresa']}" style="position: absolute; top: 20px; left: 60px"/></strong>
-                                <p:inputText id="parametroEmpresa" onclick="PF('select();" value="#{controlInterfaseContableTotalGEO.parametroContableActual.empresaRegistro.nombre}" style="position: absolute; top: 15px; left: 160px;width: 300px;text-transform: uppercase">
+                                <p:inputText id="parametroEmpresa" onclick="select();" value="#{controlInterfaseContableTotalGEO.parametroContableActual.empresaRegistro.nombre}" style="position: absolute; top: 15px; left: 160px;width: 300px;text-transform: uppercase">
                                     <p:ajax event="change" listener="#{controlInterfaseContableTotalGEO.modificarParametroContable(controlInterfaseContableTotalGEO.parametroContableActual.empresaRegistro.nombre, 'EMPRESA')}" update="@this"/>
                                     <p:ajax event="click" listener="#{controlInterfaseContableTotalGEO.cambiarIndiceParametro(0)}" />
                                     <p:ajax event="dblclick" listener="#{controlInterfaseContableTotalGEO.asignarIndex(0, 0, 0)}"/>
                                 </p:inputText>
 
                                 <strong><h:outputText value="#{msg['docContable']}" style="position: absolute; top: 50px; left: 60px"/></strong>
-                                <p:inputText maxlength="4" id="parametroDocContable" onclick="PF('select();" value="#{controlInterfaseContableTotalGEO.parametroContableActual.documentoContable}" style="position: absolute; top: 45px; left: 160px;text-transform: uppercase;width: 100px;">
+                                <p:inputText maxlength="4" id="parametroDocContable" onclick="select();" value="#{controlInterfaseContableTotalGEO.parametroContableActual.documentoContable}" style="position: absolute; top: 45px; left: 160px;text-transform: uppercase;width: 100px;">
                                     <p:ajax event="change" listener="#{controlInterfaseContableTotalGEO.modificarParametroContable()}" update="@this"/>
                                     <p:ajax event="click" listener="#{controlInterfaseContableTotalGEO.cambiarIndiceParametro(1)}" />
                                 </p:inputText>
 
                                 <strong><h:outputText value="#{msg['proceso']}" style="position: absolute; top: 50px; left: 280px"/></strong>
-                                <p:inputText id="parametroProceso" onclick="PF('select();" value="#{controlInterfaseContableTotalGEO.parametroContableActual.proceso.descripcion}" style="position: absolute; top: 45px; left: 340px;text-transform: uppercase">
+                                <p:inputText id="parametroProceso" onclick="select();" value="#{controlInterfaseContableTotalGEO.parametroContableActual.proceso.descripcion}" style="position: absolute; top: 45px; left: 340px;text-transform: uppercase">
                                     <p:ajax event="change" listener="#{controlInterfaseContableTotalGEO.modificarParametroContable(controlInterfaseContableTotalGEO.parametroContableActual.proceso.descripcion, 'PROCESO')}"  update="@this"/>
                                     <p:ajax event="click" listener="#{controlInterfaseContableTotalGEO.cambiarIndiceParametro(2)}" />
                                     <p:ajax event="dblclick" listener="#{controlInterfaseContableTotalGEO.asignarIndex(2, 1, 0)}"/>

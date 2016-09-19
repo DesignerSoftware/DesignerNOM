@@ -635,41 +635,41 @@
 
 
                         <h:outputText value="#{msg['empleadodesde']}:" style="position: absolute; top: 38px; left: 10px;font-size: 11px;"/>
-                        <p:inputText value="#{controlNReportePersonal.parametroDeInforme.codigoempleadodesde}" id="empleadoDesdeParametro" style="position: absolute; top: 33px; left: 110px;height: 10px;width: 70px;" onclick="PF('select();">
+                        <p:inputText value="#{controlNReportePersonal.parametroDeInforme.codigoempleadodesde}" id="empleadoDesdeParametro" style="position: absolute; top: 33px; left: 110px;height: 10px;width: 70px;" onclick="select();">
                             <p:ajax event="click" listener="#{controlNReportePersonal.posicionCelda(2)}" process="@this"/> 
                             <p:ajax event="change" listener="#{controlNReportePersonal.autocompletarGeneral('DESDE',controlNReportePersonal.parametroDeInforme.codigoempleadodesde)}" update="empleadoDesdeParametro" process="@this"/>
                             <p:ajax event="dblclick" listener="#{controlNReportePersonal.listasValores(2)}" process="@this"/>
                         </p:inputText>
 
                         <h:outputText value="#{msg['solicitud']}:" style="position: absolute; top: 60px; left: 10px;font-size: 11px;"/>
-                        <p:inputText value="#{controlNReportePersonal.parametroDeInforme.observaciones}" id="solicitudParametro" style="position: absolute; top: 54px; left: 110px;height: 10px;width: 250px;text-transform: uppercase" onclick="PF('select();">
+                        <p:inputText value="#{controlNReportePersonal.parametroDeInforme.observaciones}" id="solicitudParametro" style="position: absolute; top: 54px; left: 110px;height: 10px;width: 250px;text-transform: uppercase" onclick="select();">
                             <p:ajax event="click" listener="#{controlNReportePersonal.posicionCelda(3)}" process="@this"/> 
                             <p:ajax event="change" listener="#{controlNReportePersonal.modificarParametroInforme()}" update="solicitudParametro" process="@this"/>
                         </p:inputText>
 
                         <h:outputText value="#{msg['estadocivil']}:" style="position: absolute; top: 82px; left: 10px;font-size: 11px;"/>
-                        <p:inputText value="#{controlNReportePersonal.parametroDeInforme.estadocivil.descripcion}" id="estadoCivilParametro" style="position: absolute; top: 75px; left: 110px;height: 10px;width: 120px;" onclick="PF('select();">
+                        <p:inputText value="#{controlNReportePersonal.parametroDeInforme.estadocivil.descripcion}" id="estadoCivilParametro" style="position: absolute; top: 75px; left: 110px;height: 10px;width: 120px;" onclick="select();">
                             <p:ajax event="click" listener="#{controlNReportePersonal.posicionCelda(4)}" process="@this"/> 
                             <p:ajax event="change" listener="#{controlNReportePersonal.autocompletarGeneral('ESTADOCIVIL', controlNReportePersonal.parametroDeInforme.estadocivil.descripcion)}" update="estadoCivilParametro" process="@this"/>
                             <p:ajax event="dblclick" listener="#{controlNReportePersonal.listasValores(4)}" process="@this"/>
                         </p:inputText>
 
                         <h:outputText value="#{msg['tipotelefono']}:" style="position: absolute; top: 102px; left: 10px;font-size: 11px;"/>
-                        <p:inputText value="#{controlNReportePersonal.parametroDeInforme.tipotelefono.nombre}" id="tipoTelefonoParametro" style="position: absolute; top: 96px; left: 110px;height: 10px;width: 120px;" onclick="PF('select();">
+                        <p:inputText value="#{controlNReportePersonal.parametroDeInforme.tipotelefono.nombre}" id="tipoTelefonoParametro" style="position: absolute; top: 96px; left: 110px;height: 10px;width: 120px;" onclick="select();">
                             <p:ajax event="click" listener="#{controlNReportePersonal.posicionCelda(5)}" process="@this"/> 
                             <p:ajax event="change" update="tipoTelefonoParametro" listener="#{controlNReportePersonal.autocompletarGeneral('TIPOTELEFONO',controlNReportePersonal.parametroDeInforme.tipotelefono.nombre)}" process="@this"/>
                             <p:ajax event="dblclick" listener="#{controlNReportePersonal.listasValores(5)}" process="@this"/>
                         </p:inputText>
 
                         <h:outputText value="#{msg['jefedivisionrh']}:" style="position: absolute; top: 124px; left: 10px;font-size: 11px;"/>
-                        <p:inputText value="#{controlNReportePersonal.parametroDeInforme.nombregerente.persona.nombreCompleto}" id="jefeDivisionParametro" style="position: absolute; top: 117px; left: 110px;height: 10px;width: 250px;" onclick="PF('select();">
+                        <p:inputText value="#{controlNReportePersonal.parametroDeInforme.nombregerente.persona.nombreCompleto}" id="jefeDivisionParametro" style="position: absolute; top: 117px; left: 110px;height: 10px;width: 250px;" onclick="select();">
                             <p:ajax event="click" listener="#{controlNReportePersonal.posicionCelda(6)}" process="@this"/> 
                             <p:ajax event="change" listener="#{controlNReportePersonal.autocompletarGeneral('JEFEDIV', controlNReportePersonal.parametroDeInforme.nombregerente.persona.nombreCompleto)}" update="jefeDivisionParametro" process="@this"/>
                             <p:ajax event="dblclick" listener="#{controlNReportePersonal.listasValores(6)}" process="@this"/>
                         </p:inputText>
 
                         <h:outputText value="#{msg['rodamiento']}:" style="position: absolute; top: 144px; left: 10px;font-size: 11px;"/>
-                        <p:inputText value="#{controlNReportePersonal.parametroDeInforme.rodamineto}" id="rodamientoParametro" style="position: absolute; top: 138px; left: 110px;height: 10px;width: 250px;text-transform: uppercase" onclick="PF('select();">
+                        <p:inputText value="#{controlNReportePersonal.parametroDeInforme.rodamineto}" id="rodamientoParametro" style="position: absolute; top: 138px; left: 110px;height: 10px;width: 250px;text-transform: uppercase" onclick="select();">
                             <p:ajax event="click" listener="#{controlNReportePersonal.posicionCelda(7)}" process="@this"/> 
                             <p:ajax event="change" listener="#{controlNReportePersonal.modificarParametroInforme()}" update="rodamientoParametro" process="@this"/>
                         </p:inputText>
@@ -702,7 +702,7 @@
                         </div>
 
                         <h:outputText value="#{msg['hasta']}:" style="position: absolute; top: 35px; left: 210px;font-size: 11px;"/>
-                        <p:inputText value="#{controlNReportePersonal.parametroDeInforme.codigoempleadohasta}" id="empleadoHastaParametro" style="position: absolute; top: 33px; left: 270px;height: 10px;width: 90px;" onclick="PF('select();">
+                        <p:inputText value="#{controlNReportePersonal.parametroDeInforme.codigoempleadohasta}" id="empleadoHastaParametro" style="position: absolute; top: 33px; left: 270px;height: 10px;width: 90px;" onclick="select();">
                             <p:ajax event="click" listener="#{controlNReportePersonal.posicionCelda(9)}" process="@this"/> 
                             <p:ajax event="change" listener="#{controlNReportePersonal.autocompletarGeneral('HASTA',controlNReportePersonal.parametroDeInforme.codigoempleadohasta)}" update="empleadoHastaParametro" process="@this"/>
                             <p:ajax event="dblclick" listener="#{controlNReportePersonal.listasValores(9)}" process="@this"/>
@@ -711,28 +711,28 @@
                         <p:separator id="separator"  style="vertical-align: central;position: absolute;height: 175px;width: 1px;top: 5px;left: 400px "/>  
 
                         <h:outputText value="#{msg['estructura']}:" style="position: absolute; top: 15px; left: 430px;font-size: 11px;"/>
-                        <p:inputText value="#{controlNReportePersonal.parametroDeInforme.localizacion.nombre}" id="estructuraParametro" style="position: absolute; top: 10px; left: 510px;height: 10px;width: 280px;" onclick="PF('select();">
+                        <p:inputText value="#{controlNReportePersonal.parametroDeInforme.localizacion.nombre}" id="estructuraParametro" style="position: absolute; top: 10px; left: 510px;height: 10px;width: 280px;" onclick="select();">
                             <p:ajax event="click" listener="#{controlNReportePersonal.posicionCelda(10)}" process="@this"/> 
                             <p:ajax event="change" listener="#{controlNReportePersonal.autocompletarGeneral('ESTRUCTURA', controlNReportePersonal.parametroDeInforme.localizacion.nombre)}" update="estructuraParametro" process="@this"/>
                             <p:ajax event="dblclick" listener="#{controlNReportePersonal.listasValores(10)}" process="@this"/>
                         </p:inputText>
 
                         <h:outputText value="#{msg['trabajador']}:" style="position: absolute; top: 37px; left: 430px;font-size: 11px;"/>
-                        <p:inputText value="#{controlNReportePersonal.parametroDeInforme.tipotrabajador.nombre}" id="tipoTrabajadorParametro" style="position: absolute; top: 31px; left: 510px;height: 10px;width: 280px;" onclick="PF('select();">
+                        <p:inputText value="#{controlNReportePersonal.parametroDeInforme.tipotrabajador.nombre}" id="tipoTrabajadorParametro" style="position: absolute; top: 31px; left: 510px;height: 10px;width: 280px;" onclick="select();">
                             <p:ajax event="click" listener="#{controlNReportePersonal.posicionCelda(11)}" process="@this"/> 
                             <p:ajax event="change" listener="#{controlNReportePersonal.autocompletarGeneral('TIPOTRABAJADOR', controlNReportePersonal.parametroDeInforme.tipotrabajador.nombre)}" update="tipoTrabajadorParametro" process="@this"/>
                             <p:ajax event="dblclick" listener="#{controlNReportePersonal.listasValores(11)}" process="@this"/>
                         </p:inputText>
 
                         <h:outputText value="#{msg['ciudad']}:" style="position: absolute; top: 58px; left: 430px;font-size: 11px;"/>
-                        <p:inputText value="#{controlNReportePersonal.parametroDeInforme.ciudad.nombre}" id="ciudadParametro" style="position: absolute; top: 52px; left: 510px;height: 10px;width: 280px;" onclick="PF('select();">
+                        <p:inputText value="#{controlNReportePersonal.parametroDeInforme.ciudad.nombre}" id="ciudadParametro" style="position: absolute; top: 52px; left: 510px;height: 10px;width: 280px;" onclick="select();">
                             <p:ajax event="click" listener="#{controlNReportePersonal.posicionCelda(12)}" process="@this"/> 
                             <p:ajax event="change" listener="#{controlNReportePersonal.autocompletarGeneral('CIUDAD', controlNReportePersonal.parametroDeInforme.ciudad.nombre)}" update="ciudadParametro" process="@this"/>
                             <p:ajax event="dblclick" listener="#{controlNReportePersonal.listasValores(12)}" process="@this"/>
                         </p:inputText>
 
                         <h:outputText value="#{msg['deporte']}:" style="position: absolute; top: 78px; left: 430px;font-size: 11px;"/>
-                        <p:inputText value="#{controlNReportePersonal.parametroDeInforme.deporte.nombre}" id="deporteParametro" style="position: absolute; top: 73px; left: 510px;height: 10px;width: 280px;" onclick="PF('select();">
+                        <p:inputText value="#{controlNReportePersonal.parametroDeInforme.deporte.nombre}" id="deporteParametro" style="position: absolute; top: 73px; left: 510px;height: 10px;width: 280px;" onclick="select();">
                             <p:ajax event="click" listener="#{controlNReportePersonal.posicionCelda(13)}" process="@this"/> 
                             <p:ajax event="change" listener="#{controlNReportePersonal.autocompletarGeneral('DEPORTE', controlNReportePersonal.parametroDeInforme.deporte.nombre)}" update="deporteParametro" process="@this"/>
                             <p:ajax event="dblclick" listener="#{controlNReportePersonal.listasValores(13)}" process="@this"/>
@@ -740,14 +740,14 @@
 
 
                         <h:outputText value="#{msg['aficion']}:" style="position: absolute; top: 100px; left: 430px;font-size: 11px;"/>
-                        <p:inputText value="#{controlNReportePersonal.parametroDeInforme.aficion.descripcion}" id="aficionParametro" style="position: absolute; top: 94px; left: 510px;height: 10px;width: 280px;" onclick="PF('select();">
+                        <p:inputText value="#{controlNReportePersonal.parametroDeInforme.aficion.descripcion}" id="aficionParametro" style="position: absolute; top: 94px; left: 510px;height: 10px;width: 280px;" onclick="select();">
                             <p:ajax event="click" listener="#{controlNReportePersonal.posicionCelda(14)}" process="@this"/> 
                             <p:ajax event="change" listener="#{controlNReportePersonal.autocompletarGeneral('AFICION', controlNReportePersonal.parametroDeInforme.asociacion.descripcion)}" update="aficionParametro" process="@this"/>
                             <p:ajax event="dblclick" listener="#{controlNReportePersonal.listasValores(14)}" process="@this"/>
                         </p:inputText>
 
                         <h:outputText value="#{msg['idioma']}:" style="position: absolute; top: 121px; left: 430px;font-size: 11px;"/>
-                        <p:inputText value="#{controlNReportePersonal.parametroDeInforme.idioma.nombre}" id="idiomaParametro" style="position: absolute; top: 115px; left: 510px;height: 10px;width: 280px;" onclick="PF('select();">
+                        <p:inputText value="#{controlNReportePersonal.parametroDeInforme.idioma.nombre}" id="idiomaParametro" style="position: absolute; top: 115px; left: 510px;height: 10px;width: 280px;" onclick="select();">
                             <p:ajax event="click" listener="#{controlNReportePersonal.posicionCelda(15)}" process="@this"/> 
                             <p:ajax event="change" listener="#{controlNReportePersonal.autocompletarGeneral('IDIOMA', controlNReportePersonal.parametroDeInforme.idioma.nombre)}" update="idiomaParametro" process="@this"/>
                             <p:ajax event="dblclick" listener="#{controlNReportePersonal.listasValores(15)}" process="@this"/>
@@ -763,7 +763,7 @@
                         </p:selectOneMenu>
 
                         <h:outputText value="#{msg['empresa']}:" style="position: absolute; top: 165px; left: 430px;font-size: 11px;"/>
-                        <p:inputText value="#{controlNReportePersonal.parametroDeInforme.empresa.nombre}" id="empresaParametro" style="position: absolute; top: 161px; left: 510px;height: 10px;width: 180px;" onclick="PF('select();">
+                        <p:inputText value="#{controlNReportePersonal.parametroDeInforme.empresa.nombre}" id="empresaParametro" style="position: absolute; top: 161px; left: 510px;height: 10px;width: 180px;" onclick="select();">
                             <p:ajax event="click" listener="#{controlNReportePersonal.posicionCelda(16)}" process="@this"/> 
                             <p:ajax event="change" listener="#{controlNReportePersonal.autocompletarGeneral('EMPRESA', controlNReportePersonal.parametroDeInforme.empresa.nombre)}" update="empresaParametro" process="@this"/>
                             <p:ajax event="dblclick" listener="#{controlNReportePersonal.listasValores(16)}" process="@this"/>

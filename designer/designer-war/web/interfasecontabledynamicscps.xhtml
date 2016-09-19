@@ -83,14 +83,14 @@
                                 <p:commandButton  value=" " style="position: absolute; top: 20px; left: 10px;text-align: left; width: 45px; height: 45px;"  actionListener="#{controlInterfaseContableDynamicsCPS.actionBtnRecontabilizar()}" process="@this"/>
 
                                 <h:outputText value="#{msg['empresa']}" style="position: absolute; top: 20px; left: 60px"/>
-                                <p:inputText id="parametroEmpresa" onclick="PF('select();" value="#{controlInterfaseContableDynamicsCPS.parametroContableActual.empresaRegistro.nombre}" style="position: absolute; top: 15px;width: 100px; left: 130px;text-transform: uppercase">
+                                <p:inputText id="parametroEmpresa" onclick="select();" value="#{controlInterfaseContableDynamicsCPS.parametroContableActual.empresaRegistro.nombre}" style="position: absolute; top: 15px;width: 100px; left: 130px;text-transform: uppercase">
                                     <p:ajax event="change" listener="#{controlInterfaseContableDynamicsCPS.modificarParametroContable(controlInterfaseContableDynamicsCPS.parametroContableActual.empresaRegistro.nombre, 'EMPRESA')}" update="@this"/>
                                     <p:ajax event="click" listener="#{controlInterfaseContableDynamicsCPS.cambiarIndiceParametro(0)}" process="@this"/>
                                     <p:ajax event="dblclick" listener="#{controlInterfaseContableDynamicsCPS.asignarIndex(0, 0, 0)}" process="@this"/>
                                 </p:inputText>
 
                                 <h:outputText value="#{msg['proceso']}" style="position: absolute; top: 50px; left: 60px"/>
-                                <p:inputText id="parametroProceso" onclick="PF('select();" value="#{controlInterfaseContableDynamicsCPS.parametroContableActual.proceso.descripcion}" style="position: absolute; top: 45px; left: 130px;width: 100px; text-transform: uppercase; height: 12px">
+                                <p:inputText id="parametroProceso" onclick="select();" value="#{controlInterfaseContableDynamicsCPS.parametroContableActual.proceso.descripcion}" style="position: absolute; top: 45px; left: 130px;width: 100px; text-transform: uppercase; height: 12px">
                                     <p:ajax event="change" listener="#{controlInterfaseContableDynamicsCPS.modificarParametroContable(controlInterfaseContableDynamicsCPS.parametroContableActual.proceso.descripcion, 'PROCESO')}"  update="@this"/>
                                     <p:ajax event="click" listener="#{controlInterfaseContableDynamicsCPS.cambiarIndiceParametro(1)}" process="@this"/>
                                     <p:ajax event="dblclick" listener="#{controlInterfaseContableDynamicsCPS.asignarIndex(1, 1, 0)}" process="@this"/>
@@ -128,14 +128,14 @@
                                 <!-- -->
                                 
                                 <h:outputText value="#{msg['desde']}" style="position: absolute; top: 20px; left: 550px"/>
-                                <p:inputText id="parametroEmplDesde" onclick="PF('select();" value="#{controlInterfaseContableDynamicsCPS.parametroContableActual.strCodigoEmpleadoDesde}" style="position: absolute; top: 15px;width: 90px; left: 600px;text-transform: uppercase;">
+                                <p:inputText id="parametroEmplDesde" onclick="select();" value="#{controlInterfaseContableDynamicsCPS.parametroContableActual.strCodigoEmpleadoDesde}" style="position: absolute; top: 15px;width: 90px; left: 600px;text-transform: uppercase;">
                                     <p:ajax event="change" listener="#{controlInterfaseContableDynamicsCPS.modificarParametroContable(controlInterfaseContableDynamicsCPS.parametroContableActual.strCodigoEmpleadoDesde, 'EMPLDESDE')}" update="@this"/>
                                     <p:ajax event="click" listener="#{controlInterfaseContableDynamicsCPS.cambiarIndiceParametro(5)}" process="@this"/>
                                     <p:ajax event="dblclick" listener="#{controlInterfaseContableDynamicsCPS.asignarIndex(5, 2, 0)}" process="@this"/>
                                 </p:inputText>
 
                                 <h:outputText value="#{msg['hasta']}" style="position: absolute; top: 50px; left: 550px"/>
-                                <p:inputText id="parametroEmplHasta" onclick="PF('select();" value="#{controlInterfaseContableDynamicsCPS.parametroContableActual.strCodigoEmpleadoHasta}" style="position: absolute; top: 45px; left: 600px;text-transform: uppercase;width: 90px;">
+                                <p:inputText id="parametroEmplHasta" onclick="select();" value="#{controlInterfaseContableDynamicsCPS.parametroContableActual.strCodigoEmpleadoHasta}" style="position: absolute; top: 45px; left: 600px;text-transform: uppercase;width: 90px;">
                                     <p:ajax event="change" listener="#{controlInterfaseContableDynamicsCPS.modificarParametroContable(controlInterfaseContableDynamicsCPS.parametroContableActual.strCodigoEmpleadoHasta, 'EMPLHASTA')}" update="@this"/>
                                     <p:ajax event="click" listener="#{controlInterfaseContableDynamicsCPS.cambiarIndiceParametro(6)}" process="@this"/>
                                     <p:ajax event="dblclick" listener="#{controlInterfaseContableDynamicsCPS.asignarIndex(6, 3, 0)}" process="@this"/>

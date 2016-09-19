@@ -266,7 +266,7 @@
                   <p:panel id="nuevoFormula" style="border: none;">
 
                      <strong><h:outputText value="*#{msg['procesoN']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                     <p:inputText id="nuevoFormulaProceso" value="#{controlFormulaProceso.nuevoFormulaProceso.proceso.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 70px;" onclick="PF('select();">
+                     <p:inputText id="nuevoFormulaProceso" value="#{controlFormulaProceso.nuevoFormulaProceso.proceso.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 70px;" onclick="select();">
                         <p:ajax event="dblclick" listener="#{controlFormulaProceso.asignarIndex(indice,0,1)}"/>
                         <p:ajax event="click" listener="#{controlFormulaProceso.valoresBackupAutocompletar(1, 'PROCESO')}" />
                         <p:ajax event="change" listener="#{controlFormulaProceso.autocompletarNuevoyDuplicadoFormulaProceso('PROCESO', controlFormulaProceso.nuevoFormulaProceso.proceso.descripcion, 1)}" />
@@ -292,7 +292,7 @@
                   <p:panel id="duplicarFormula" style="border: none;">
 
                      <strong><h:outputText value="*#{msg['procesoN']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                     <p:inputText id="duplicarFormulaProceso" value="#{controlFormulaProceso.duplicarFormulaProceso.proceso.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 70px;" onclick="PF('select();">
+                     <p:inputText id="duplicarFormulaProceso" value="#{controlFormulaProceso.duplicarFormulaProceso.proceso.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 70px;" onclick="select();">
                         <p:ajax event="dblclick" listener="#{controlFormulaProceso.asignarIndex(indice,0,2)}"/>
                         <p:ajax event="click" listener="#{controlFormulaProceso.valoresBackupAutocompletar(2, 'PROCESO')}" />
                         <p:ajax event="change" listener="#{controlFormulaProceso.autocompletarNuevoyDuplicadoFormulaProceso('PROCESO', controlFormulaProceso.duplicarFormulaProceso.proceso.descripcion, 2)}" />

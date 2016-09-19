@@ -83,20 +83,20 @@
                                 <p:commandButton  value=" " style="position: absolute; top: 20px; left: 10px;text-align: left; width: 45px; height: 45px;"  actionListener="#{controlInterfaseContableSapBOVCA.actionBtnRecontabilizar()}" process="@this"/>
 
                                 <strong><h:outputText value="#{msg['empresa']}" style="position: absolute; top: 20px; left: 60px"/></strong>
-                                <p:inputText id="parametroEmpresa" onclick="PF('select();" value="#{controlInterfaseContableSapBOVCA.parametroContableActual.empresaRegistro.nombre}" style="position: absolute; top: 15px; left: 120px;width: 180px;text-transform: uppercase">
+                                <p:inputText id="parametroEmpresa" onclick="select();" value="#{controlInterfaseContableSapBOVCA.parametroContableActual.empresaRegistro.nombre}" style="position: absolute; top: 15px; left: 120px;width: 180px;text-transform: uppercase">
                                     <p:ajax event="change" listener="#{controlInterfaseContableSapBOVCA.modificarParametroContable(controlInterfaseContableSapBOVCA.parametroContableActual.empresaRegistro.nombre, 'EMPRESA')}" update="@this"/>
                                     <p:ajax event="click" listener="#{controlInterfaseContableSapBOVCA.cambiarIndiceParametro(0)}" />
                                     <p:ajax event="dblclick" listener="#{controlInterfaseContableSapBOVCA.asignarIndex(0, 0, 0)}"/>
                                 </p:inputText>
 
                                 <strong><h:outputText value="#{msg['docContable']}" style="position: absolute; top: 20px; left: 320px"/></strong>
-                                <p:inputText maxlength="4" id="parametroDocContable" onclick="PF('select();" value="#{controlInterfaseContableSapBOVCA.parametroContableActual.documentoContable}" style="position: absolute; top: 15px; left: 420px;width: 40px;text-transform: uppercase">
+                                <p:inputText maxlength="4" id="parametroDocContable" onclick="select();" value="#{controlInterfaseContableSapBOVCA.parametroContableActual.documentoContable}" style="position: absolute; top: 15px; left: 420px;width: 40px;text-transform: uppercase">
                                     <p:ajax event="change" listener="#{controlInterfaseContableSapBOVCA.modificarParametroContable()}" update="@this"/>
                                     <p:ajax event="click" listener="#{controlInterfaseContableSapBOVCA.cambiarIndiceParametro(1)}" />
                                 </p:inputText>
 
                                 <strong><h:outputText value="#{msg['proceso']}" style="position: absolute; top: 50px; left: 60px"/></strong>
-                                <p:inputText id="parametroProceso" onclick="PF('select();" value="#{controlInterfaseContableSapBOVCA.parametroContableActual.proceso.descripcion}" style="position: absolute; top: 45px; left: 120px;width: 95px;text-transform: uppercase">
+                                <p:inputText id="parametroProceso" onclick="select();" value="#{controlInterfaseContableSapBOVCA.parametroContableActual.proceso.descripcion}" style="position: absolute; top: 45px; left: 120px;width: 95px;text-transform: uppercase">
                                     <p:ajax event="change" listener="#{controlInterfaseContableSapBOVCA.modificarParametroContable(controlInterfaseContableSapBOVCA.parametroContableActual.proceso.descripcion, 'PROCESO')}"  update="@this"/>
                                     <p:ajax event="click" listener="#{controlInterfaseContableSapBOVCA.cambiarIndiceParametro(2)}" />
                                     <p:ajax event="dblclick" listener="#{controlInterfaseContableSapBOVCA.asignarIndex(2, 1, 0)}"/>
@@ -121,7 +121,7 @@
                                 </div>
 
                                 <strong><h:outputText value="#{msg['numDocumento']}" style="position: absolute; top: 50px; left: 235px"/></strong>
-                                <p:inputText id="parametroNumDocumento" onclick="PF('select();" value="#{controlInterfaseContableSapBOVCA.parametroContableActual.ultimonumerodocumento}" style="position: absolute; top: 45px; left: 360px;width: 100px;">
+                                <p:inputText id="parametroNumDocumento" onclick="select();" value="#{controlInterfaseContableSapBOVCA.parametroContableActual.ultimonumerodocumento}" style="position: absolute; top: 45px; left: 360px;width: 100px;">
                                     <p:ajax event="change" listener="#{controlInterfaseContableSapBOVCA.modificarParametroContable()}" update="@this"/>
                                     <p:ajax event="click" listener="#{controlInterfaseContableSapBOVCA.cambiarIndiceParametro(5)}" />
                                 </p:inputText>

@@ -176,17 +176,17 @@
 
                         <p:panel id="nuevaUnidad" style="border: none;">
                             <strong><h:outputText value="#{msg['codigoN']}" style=" position: absolute; top: 85px;" /></strong>
-                            <p:inputText maxlength="4" id="nuevoCodigo" value="#{controlUnidad.nuevaUnidad.codigo}" style=" width: 122px; position: absolute; left: 130px; top: 80px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText maxlength="4" id="nuevoCodigo" value="#{controlUnidad.nuevaUnidad.codigo}" style=" width: 122px; position: absolute; left: 130px; top: 80px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['nombreN']}" style=" position: absolute; top: 125px;" /></strong>
-                            <p:inputText id="nuevoNombreUnidad" value="#{controlUnidad.nuevaUnidad.nombre}" style=" width: 122px; position: absolute; left: 130px; top: 120px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevoNombreUnidad" value="#{controlUnidad.nuevaUnidad.nombre}" style=" width: 122px; position: absolute; left: 130px; top: 120px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
 
                             <strong><h:outputText value="#{msg['tipounidadN']}" style=" position: absolute; top: 165px;" /></strong>
-                            <p:inputText id="nuevoTipoUnidad" value="#{controlUnidad.nuevaUnidad.tipounidad.nombre}" style=" width: 122px; position: absolute; left: 130px; top: 160px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevoTipoUnidad" value="#{controlUnidad.nuevaUnidad.tipounidad.nombre}" style=" width: 122px; position: absolute; left: 130px; top: 160px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlUnidad.valoresBackupAutocompletar(1)}" />
                                 <p:ajax event="change" listener="#{controlUnidad.autocompletarNuevoyDuplicado(controlUnidad.nuevaUnidad.tipounidad.nombre,1)}"/>
                                 <p:ajax event="dblclick" listener="#{controlUnidad.llamarLovTiposUnidades(1)}" />
@@ -208,17 +208,17 @@
                         <p:panel id="duplicarUnidad" style="border: none;">
 
                             <strong><h:outputText value="#{msg['codigoN']}" style=" position: absolute; top: 85px;" /></strong>
-                            <p:inputText maxlength="4" id="duplicarCodigo" value="#{controlUnidad.duplicarUnidad.codigo}" style=" width: 122px; position: absolute; left: 130px; top: 80px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText maxlength="4" id="duplicarCodigo" value="#{controlUnidad.duplicarUnidad.codigo}" style=" width: 122px; position: absolute; left: 130px; top: 80px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['nombreN']}" style=" position: absolute; top: 125px;" /></strong>
-                            <p:inputText id="duplicarNombre" value="#{controlUnidad.duplicarUnidad.nombre}" style=" width: 122px; position: absolute; left: 130px; top: 120px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarNombre" value="#{controlUnidad.duplicarUnidad.nombre}" style=" width: 122px; position: absolute; left: 130px; top: 120px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['tipounidadN']}" style=" position: absolute; top: 165px;" /></strong>
-                            <p:inputText id="duplicarTipoUnidad" value="#{controlUnidad.duplicarUnidad.tipounidad.nombre}" style=" width: 122px; position: absolute; left: 130px; top: 160px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarTipoUnidad" value="#{controlUnidad.duplicarUnidad.tipounidad.nombre}" style=" width: 122px; position: absolute; left: 130px; top: 160px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlUnidad.valoresBackupAutocompletar(2)}" />
                                 <p:ajax event="change" listener="#{controlUnidad.autocompletarNuevoyDuplicado(controlUnidad.duplicarUnidad.tipounidad.nombre, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlUnidad.llamarLovTiposUnidades(2)}" />

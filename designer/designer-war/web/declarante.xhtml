@@ -255,12 +255,12 @@
                                 </p:selectBooleanCheckbox>
 
                                 <strong><h:outputText value="#{msg['deseadoN']}"   style=" position: absolute;  top: 137px;" /></strong>
-                                <p:inputText id="nuevoDeseado" value="#{controlDeclarantes.nuevoDeclarante.retenciondeseada}" style=" width: 122px; position: absolute; top: 135px; left: 152px; text-transform: uppercase" onclick="PF('select();">
+                                <p:inputText id="nuevoDeseado" value="#{controlDeclarantes.nuevoDeclarante.retenciondeseada}" style=" width: 122px; position: absolute; top: 135px; left: 152px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="change" update="nuevoDeseado"/>
                                 </p:inputText>
 
                                 <strong><h:outputText value="#{msg['tarifadeseoN']}"  style=" position: absolute; top: 177px;" /></strong>
-                                <p:inputText id="nuevoTarifaDeseo" value="#{controlDeclarantes.nuevoDeclarante.retencionminima.retencion}" style=" width: 122px; position: absolute; top: 175px; left: 152px; text-transform:uppercase" onclick="PF('select();">
+                                <p:inputText id="nuevoTarifaDeseo" value="#{controlDeclarantes.nuevoDeclarante.retencionminima.retencion}" style=" width: 122px; position: absolute; top: 175px; left: 152px; text-transform:uppercase" onclick="select();">
                                     <p:ajax event="click" listener="#{controlDeclarantes.valoresBackupAutocompletar(1, 'MINIMA')}" />
                                     <p:ajax event="change" listener="#{controlDeclarantes.autocompletarNuevoyDuplicado('MINIMA', controlDeclarantes.nuevoDeclarante.retencionminima.retencion, 1)}" />
                                     <p:ajax event="dblclick" listener="#{controlDeclarantes.asignarIndex(indice, -1, 1)}" />
@@ -306,12 +306,12 @@
                                 </p:selectBooleanCheckbox>
 
                                 <strong><h:outputText value="#{msg['deseadoN']}"   style=" position: absolute;  top: 137px;" /></strong>
-                                <p:inputText id="duplicarDeseado" value="#{controlDeclarantes.duplicarDeclarante.retenciondeseada}" style=" width: 122px; position: absolute; top: 135px; left: 152px; text-transform: uppercase" onclick="PF('select();">
+                                <p:inputText id="duplicarDeseado" value="#{controlDeclarantes.duplicarDeclarante.retenciondeseada}" style=" width: 122px; position: absolute; top: 135px; left: 152px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="change" update="duplicarDeseado"/>
                                 </p:inputText>
 
                                 <strong><h:outputText value="#{msg['tarifadeseoN']}"  style=" position: absolute; top: 177px;" /></strong>
-                                <p:inputText id="duplicarTarifaDeseo" value="#{controlDeclarantes.duplicarDeclarante.retencionminima.retencion}" style=" width: 122px; position: absolute; top: 175px; left: 152px; text-transform:uppercase" onclick="PF('select();">
+                                <p:inputText id="duplicarTarifaDeseo" value="#{controlDeclarantes.duplicarDeclarante.retencionminima.retencion}" style=" width: 122px; position: absolute; top: 175px; left: 152px; text-transform:uppercase" onclick="select();">
                                     <p:ajax event="click" listener="#{controlDeclarantes.valoresBackupAutocompletar(2, 'MINIMA')}" />
                                     <p:ajax event="change" listener="#{controlDeclarantes.autocompletarNuevoyDuplicado('MINIMA', controlDeclarantes.duplicarDeclarante.retencionminima.retencion, 2)}" />
                                     <p:ajax event="dblclick" listener="#{controlDeclarantes.asignarIndex(indice, -1, 2)}" />

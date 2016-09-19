@@ -601,7 +601,7 @@
                             <p:watermark for="duplicarNombreCentroCostos" value="#{msg['nombrecentrocostoWM']}" />
                             <!--2-->
                             <strong><h:outputText value="*#{msg['tipocentrocostoN']}" style=" position: absolute; top: 120px;" /></strong>
-                            <p:inputText id="duplicarTipoCentroCostos" value="#{controlBetaCentrosCostos.duplicarCentroCosto.tipocentrocosto.nombre}" style=" width: 140px; position: absolute; left: 190px; top: 115px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarTipoCentroCostos" value="#{controlBetaCentrosCostos.duplicarCentroCosto.tipocentrocosto.nombre}" style=" width: 140px; position: absolute; left: 190px; top: 115px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlBetaCentrosCostos.valoresBackupAutocompletar(2, 'TIPOSCENTROSCOSTOS')}" />
                                 <p:ajax event="change" listener="#{controlBetaCentrosCostos.autocompletarDuplicado('TIPOSCENTROSCOSTOS', controlBetaCentrosCostos.duplicarCentroCosto.tipocentrocosto.nombre , 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlBetaCentrosCostos.asignarVariableTiposCC(1)}" />

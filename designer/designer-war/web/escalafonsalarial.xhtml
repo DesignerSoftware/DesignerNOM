@@ -344,7 +344,7 @@
                             <p:watermark value="#{msg['descripcion']}" for="nuevoEscalafonSalarialDescripcion"/>
 
                             <strong><h:outputText value="*#{msg['tipotrabajadorNES']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
-                            <p:inputText id="nuevoEscalafonSalarialTipoTrabajador" value="#{controlEscalafonSalarial.nuevoEscalafonSalarial.tipotrabajador.nombre}" style="width: 122px; position: absolute; left: 200px; top: 130px;text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevoEscalafonSalarialTipoTrabajador" value="#{controlEscalafonSalarial.nuevoEscalafonSalarial.tipotrabajador.nombre}" style="width: 122px; position: absolute; left: 200px; top: 130px;text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlEscalafonSalarial.asignarIndex(indice,0,1)}"/> 
                                 <p:ajax event="click" listener="#{controlEscalafonSalarial.valoresBackupAutocompletarGeneral(1, 'TIPOTRABAJADOR')}" /> 
                                 <p:ajax event="change" listener="#{controlEscalafonSalarial.autocompletarNuevoyDuplicadoEscalafonSalarial('TIPOTRABAJADOR', controlEscalafonSalarial.nuevoEscalafonSalarial.tipotrabajador.nombre, 1)}" />
@@ -377,7 +377,7 @@
                             <p:watermark value="#{msg['descripcion']}" for="duplicarEscalafonSalarialDescripcion"/>
 
                             <strong><h:outputText value="*#{msg['tipotrabajadorNES']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarEscalafonSalarialTipoTrabajador" value="#{controlEscalafonSalarial.duplicarEscalafonSalarial.tipotrabajador.nombre}" style="width: 122px; position: absolute; left: 200px; top: 130px;text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarEscalafonSalarialTipoTrabajador" value="#{controlEscalafonSalarial.duplicarEscalafonSalarial.tipotrabajador.nombre}" style="width: 122px; position: absolute; left: 200px; top: 130px;text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlEscalafonSalarial.asignarIndex(indice,0,2)}"/> 
                                 <p:ajax event="click" listener="#{controlEscalafonSalarial.valoresBackupAutocompletarGeneral(2, 'TIPOTRABAJADOR')}" /> 
                                 <p:ajax event="change" listener="#{controlEscalafonSalarial.autocompletarNuevoyDuplicadoEscalafonSalarial('TIPOTRABAJADOR', controlEscalafonSalarial.duplicarEscalafonSalarial.tipotrabajador.nombre, 2)}" />

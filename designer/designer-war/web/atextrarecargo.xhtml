@@ -718,7 +718,7 @@
                             <p:watermark value="#{msg['descripcionWM']}" for="nuevoExtraDescripcion"/>
 
                             <strong><h:outputText value="*#{msg['tipodiaNER']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
-                            <p:inputText id="nuevoExtraTipoDia" value="#{controlATExtraRecargo.nuevoExtraRecargo.tipodia.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 130px;" onclick="PF('select();">
+                            <p:inputText id="nuevoExtraTipoDia" value="#{controlATExtraRecargo.nuevoExtraRecargo.tipodia.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 130px;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlATExtraRecargo.asignarIndex(indice,0,1,0)}"/>
                                 <p:ajax event="click" listener="#{controlATExtraRecargo.valoresBackupAutocompletarGeneral(1, 'DIAS',0)}" />
                                 <p:ajax event="change" listener="#{controlATExtraRecargo.autocompletarNuevoyDuplicadoExtraRecargo('DIAS', controlATExtraRecargo.nuevoExtraRecargo.tipodia.descripcion, 1)}" />
@@ -726,7 +726,7 @@
                             <p:watermark value="#{msg['tipodiaWM']}" for="nuevoExtraTipoDia"/>
 
                             <strong><h:outputText value="*#{msg['tipojornadaNER']}" style="position: absolute; top: 165px; left: 50px;" /></strong>
-                            <p:inputText id="nuevoExtraTipoJornada" value="#{controlATExtraRecargo.nuevoExtraRecargo.tipojornada.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 160px;" onclick="PF('select();">
+                            <p:inputText id="nuevoExtraTipoJornada" value="#{controlATExtraRecargo.nuevoExtraRecargo.tipojornada.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 160px;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlATExtraRecargo.asignarIndex(indice,1,1,0)}"/>
                                 <p:ajax event="click" listener="#{controlATExtraRecargo.valoresBackupAutocompletarGeneral(1, 'JORNADA',0)}" />
                                 <p:ajax event="change" listener="#{controlATExtraRecargo.autocompletarNuevoyDuplicadoExtraRecargo('JORNADA', controlATExtraRecargo.nuevoExtraRecargo.tipojornada.descripcion, 1)}" />
@@ -734,7 +734,7 @@
                             <p:watermark value="#{msg['tipojornadaWM']}" for="nuevoExtraTipoJornada"/>
 
                             <strong><h:outputText value="*#{msg['legislacionlaboralNER']}" style="position: absolute; top: 195px; left: 50px;" /></strong>
-                            <p:inputText id="nuevoExtraLegislacion" value="#{controlATExtraRecargo.nuevoExtraRecargo.tipolegislacion.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 190px;" onclick="PF('select();">
+                            <p:inputText id="nuevoExtraLegislacion" value="#{controlATExtraRecargo.nuevoExtraRecargo.tipolegislacion.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 190px;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlATExtraRecargo.asignarIndex(indice,2,1,0)}"/>
                                 <p:ajax event="click" listener="#{controlATExtraRecargo.valoresBackupAutocompletarGeneral(1, 'LEGISLACION',0)}" />
                                 <p:ajax event="change" listener="#{controlATExtraRecargo.autocompletarNuevoyDuplicadoExtraRecargo('LEGISLACION', controlATExtraRecargo.nuevoExtraRecargo.tipolegislacion.descripcion, 1)}" />
@@ -915,7 +915,7 @@
                             <p:watermark value="#{msg['horafinalWM']}" for="duplicarDetalleHF"/>
 
                             <strong><h:outputText value="#{msg['conceptoNDER']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarDetalleConcepto" value="#{controlATExtraRecargo.duplicarDetalleExtraRecargo.concepto.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 130px;" onclick="PF('select();">
+                            <p:inputText id="duplicarDetalleConcepto" value="#{controlATExtraRecargo.duplicarDetalleExtraRecargo.concepto.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 130px;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlATExtraRecargo.asignarIndex(indice,0,2,1)}"/>
                                 <p:ajax event="click" listener="#{controlATExtraRecargo.valoresBackupAutocompletarGeneral(2, 'CONCEPTO',1)}" />
                                 <p:ajax event="change" listener="#{controlATExtraRecargo.autocompletarNuevoyDuplicadoDetalleExtraRecargo('CONCEPTO', controlATExtraRecargo.nuevoDetalleExtraRecargo.concepto.descripcion, 2)}" />
@@ -923,7 +923,7 @@
                             <p:watermark value="#{msg['conceptoWM']}" for="duplicarDetalleConcepto"/>
 
                             <strong><h:outputText value="#{msg['empresaNDER']}" style="position: absolute; top: 165px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarExtraEmpresa" value="#{controlATExtraRecargo.duplicarDetalleExtraRecargo.concepto.empresa.nombre}" style="width: 122px; position: absolute; left: 200px; top: 160px;" onclick="PF('select();">
+                            <p:inputText id="duplicarExtraEmpresa" value="#{controlATExtraRecargo.duplicarDetalleExtraRecargo.concepto.empresa.nombre}" style="width: 122px; position: absolute; left: 200px; top: 160px;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlATExtraRecargo.asignarIndex(indice,1,2,1)}"/>
                                 <p:ajax event="click" listener="#{controlATExtraRecargo.valoresBackupAutocompletarGeneral(2, 'EMPRESA',1)}" />
                                 <p:ajax event="change" listener="#{controlATExtraRecargo.autocompletarNuevoyDuplicadoDetalleExtraRecargo('EMPRESA', controlATExtraRecargo.nuevoDetalleExtraRecargo.concepto.empresa.nombre, 2)}" />
@@ -950,7 +950,7 @@
                             </p:selectBooleanCheckbox>
 
                             <strong><h:outputText value="#{msg['mincantminutosNDER']}" style="position: absolute; top: 255px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarDetalleMinuto" value="#{controlATExtraRecargo.duplicarDetalleExtraRecargo.minimominutospagar}" style="width: 122px; position: absolute; left: 200px; top: 250px;" onclick="PF('select();">
+                            <p:inputText id="duplicarDetalleMinuto" value="#{controlATExtraRecargo.duplicarDetalleExtraRecargo.minimominutospagar}" style="width: 122px; position: absolute; left: 200px; top: 250px;" onclick="select();">
                                 <p:ajax event="change" update="duplicarDetalleMinuto"/>
                             </p:inputText>
                             <p:watermark value="#{msg['mincantminutosWM']}" for="duplicarDetalleMinuto"/>

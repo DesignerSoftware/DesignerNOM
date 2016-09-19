@@ -715,7 +715,7 @@
                                 <div align="right">
                                     <h:outputText value="#{msg['empleadodesde']}:" style=""/>
                                     <p:inputText id="empleadoDesdeParametro" value="#{controlNReporteNomina.parametroDeInforme.codigoempleadodesde}"  
-                                                 style="width: 80px; vertical-align: middle;" onclick="PF('select();">
+                                                 style="width: 80px; vertical-align: middle;" onclick="select();">
                                         <p:ajax event="click" listener="#{controlNReporteNomina.posicionCelda(2)}" process="@this"/> 
                                         <p:ajax listener="#{controlNReporteNomina.autocompletarGeneral('DESDE', controlNReporteNomina.parametroDeInforme.codigoempleadodesde)}" 
                                                 event="change"  update="empleadoDesdeParametro" process="@this"/>
@@ -736,7 +736,7 @@
                                 <div align="right">
                                     <h:outputText value="#{msg['grupo']}:" style="position: relative;"/>
                                     <p:inputText id="grupoParametro" value="#{controlNReporteNomina.parametroDeInforme.grupo.descripcion}"  
-                                                 style="vertical-align: middle; width: 150px;" onclick="PF('select();">
+                                                 style="vertical-align: middle; width: 150px;" onclick="select();">
                                         <p:ajax event="click" listener="#{controlNReporteNomina.posicionCelda(4)}" process="@this"/> 
                                         <p:ajax listener="#{controlNReporteNomina.autocompletarGeneral('GRUPO', controlNReporteNomina.parametroDeInforme.grupo.descripcion)}" 
                                                 event="change"  update="grupoParametro" process="@this"/>
@@ -758,7 +758,7 @@
                                 <div align="right">
                                     <h:outputText value="#{msg['hasta']}:" style="max-width: 66px;"/>
                                     <p:inputText id="empleadoHastaParametro" value="#{controlNReporteNomina.parametroDeInforme.codigoempleadohasta}" 
-                                                 style="vertical-align: middle; width: 80px;" onclick="PF('select();">
+                                                 style="vertical-align: middle; width: 80px;" onclick="select();">
                                         <p:ajax event="click" listener="#{controlNReporteNomina.posicionCelda(8)}" process="@this"/> 
                                         <p:ajax listener="#{controlNReporteNomina.autocompletarGeneral('HASTA',controlNReporteNomina.parametroDeInforme.codigoempleadohasta)}"
                                                 event="change" update="empleadoHastaParametro" />
@@ -779,7 +779,7 @@
                                 <div align="right">
                                     <h:outputText value="#{msg['empresa']}:" style=""/>
                                     <p:inputText id="empresaParametro" value="#{controlNReporteNomina.parametroDeInforme.empresa.nombre}"  
-                                                 style="vertical-align: middle; width: 135px;" onclick="PF('select();">
+                                                 style="vertical-align: middle; width: 135px;" onclick="select();">
                                         <p:ajax event="click" listener="#{controlNReporteNomina.posicionCelda(10)}" process="@this"/> 
                                         <p:ajax listener="#{controlNReporteNomina.autocompletarGeneral('EMPRESA', controlNReporteNomina.parametroDeInforme.empresa.nombre)}" 
                                                 event="change" update="empresaParametro" process="@this"/>
@@ -791,7 +791,7 @@
                                 <div align="right">
                                     <h:outputText value="#{msg['estructura']}:" style=""/>
                                     <p:inputText id="estructuraParametro" value="#{controlNReporteNomina.parametroDeInforme.localizacion.nombre}" 
-                                                 onclick="PF('select();" maxlength="50" style="vertical-align: middle; width: 295px;">
+                                                 onclick="select();" maxlength="50" style="vertical-align: middle; width: 295px;">
                                         <p:ajax event="click" listener="#{controlNReporteNomina.posicionCelda(11)}" process="@this"/> 
                                         <p:ajax listener="#{controlNReporteNomina.autocompletarGeneral('ESTRUCTURA', controlNReporteNomina.parametroDeInforme.localizacion.nombre)}" 
                                                 event="change" update="estructuraParametro" process="@this"/>
@@ -801,7 +801,7 @@
                                 <div align="right">
                                     <h:outputText value="#{msg['tipotrabajador']}:" style=""/>
                                     <p:inputText value="#{controlNReporteNomina.parametroDeInforme.tipotrabajador.nombre}" id="tipoTrabajadorParametro" 
-                                                 style="vertical-align: middle; width: 295px;" onclick="PF('select();">
+                                                 style="vertical-align: middle; width: 295px;" onclick="select();">
                                         <p:ajax event="click" listener="#{controlNReporteNomina.posicionCelda(12)}" process="@this"/> 
                                         <p:ajax listener="#{controlNReporteNomina.autocompletarGeneral('TIPOTRABAJADOR', controlNReporteNomina.parametroDeInforme.tipotrabajador.nombre)}" 
                                                 event="change" update="tipoTrabajadorParametro" process="@this"/>
@@ -811,7 +811,7 @@
                                 <div align="right">
                                     <h:outputText value="#{msg['tercero']}:" style=""/>
                                     <p:inputText id="terceroParametro" value="#{controlNReporteNomina.parametroDeInforme.tercero.nombre}"  
-                                                 style="vertical-align: middle; width: 295px;" onclick="PF('select();">
+                                                 style="vertical-align: middle; width: 295px;" onclick="select();">
                                         <p:ajax event="click" listener="#{controlNReporteNomina.posicionCelda(13)}" process="@this"/> 
                                         <p:ajax listener="#{controlNReporteNomina.autocompletarGeneral('TERCERO', controlNReporteNomina.parametroDeInforme.tercero.nombre)}" 
                                                 event="change" update="terceroParametro" process="@this"/>
@@ -821,7 +821,7 @@
                                 <div align="right">
                                     <h:outputText value="#{msg['proceso']}:" style=""/>
                                     <p:inputText id="procesoParametro" maxlength="30" value="#{controlNReporteNomina.parametroDeInforme.proceso.descripcion}"  
-                                                 style="vertical-align: middle; width: 295px;" onclick="PF('select();">
+                                                 style="vertical-align: middle; width: 295px;" onclick="select();">
                                         <p:ajax event="click" listener="#{controlNReporteNomina.posicionCelda(14)}" process="@this"/> 
                                         <p:ajax listener="#{controlNReporteNomina.autocompletarGeneral('PROCESO', controlNReporteNomina.parametroDeInforme.proceso.descripcion)}" 
                                                 event="change" update="procesoParametro" process="@this"/>
@@ -835,7 +835,7 @@
                                 <div align="right">
                                     <h:outputText value="#{msg['ubigeografica']}:" style="position: relative;"/>
                                     <p:inputText id="ubicacionGeograficaParametro" value="#{controlNReporteNomina.parametroDeInforme.ubicaciongeografica.descripcion}" 
-                                                 style="position: relative; width: 288px;" onclick="PF('select();">
+                                                 style="position: relative; width: 288px;" onclick="select();">
                                         <p:ajax event="click" listener="#{controlNReporteNomina.posicionCelda(5)}" process="@this"/> 
                                         <p:ajax listener="#{controlNReporteNomina.autocompletarGeneral('UBIGEOGRAFICA', controlNReporteNomina.parametroDeInforme.ubicaciongeografica.descripcion)}" 
                                                 event="change"  update="ubicacionGeograficaParametro" process="@this"/>
@@ -845,7 +845,7 @@
                                 <div align="right">
                                     <h:outputText value="#{msg['tipoasociacion']}:" style=""/>
                                     <p:inputText id="tipoAsociacionParametro" maxlength="200" value="#{controlNReporteNomina.parametroDeInforme.tipoasociacion.descripcion}"  
-                                                 style="vertical-align: middle; width: 288px;" onclick="PF('select();">
+                                                 style="vertical-align: middle; width: 288px;" onclick="select();">
                                         <p:ajax event="click" listener="#{controlNReporteNomina.posicionCelda(6)}" process="@this"/> 
                                         <p:ajax listener="#{controlNReporteNomina.autocompletarGeneral('TIPOASOCIACION', controlNReporteNomina.parametroDeInforme.tipoasociacion.descripcion)}" 
                                                 event="change"  update="tipoAsociacionParametro" process="@this"/>
@@ -856,7 +856,7 @@
                             <div style="display: table-cell; width: 50%;">
                                 <div align="right">
                                     <h:outputText value="#{msg['notas']}:" style=""/>
-                                    <p:inputText id="notasParametro" value="#{controlNReporteNomina.parametroDeInforme.mensajedesprendible}" onclick="PF('select();"
+                                    <p:inputText id="notasParametro" value="#{controlNReporteNomina.parametroDeInforme.mensajedesprendible}" onclick="select();"
                                                  style="vertical-align: middle; width: 295px; text-transform: uppercase;" >
                                         <p:ajax event="click" listener="#{controlNReporteNomina.posicionCelda(15)}" process="@this"/> 
                                         <p:ajax event="change" listener="#{controlNReporteNomina.modificarParametroInforme()}" process="@this"/>
@@ -865,7 +865,7 @@
                                 <div align="right">
                                     <h:outputText value="#{msg['asociacion']}:" style=""/>
                                     <p:inputText id="asociacionParametro" maxlength="200" value="#{controlNReporteNomina.parametroDeInforme.asociacion.descripcion}"  
-                                                 style="vertical-align: middle; width: 295px;" onclick="PF('select();">
+                                                 style="vertical-align: middle; width: 295px;" onclick="select();">
                                         <p:ajax event="click" listener="#{controlNReporteNomina.posicionCelda(16)}" process="@this"/> 
                                         <p:ajax listener="#{controlNReporteNomina.autocompletarGeneral('ASOCIACION', controlNReporteNomina.parametroDeInforme.asociacion.descripcion)}" 
                                                 event="change" update="asociacionParametro" process="@this"/>

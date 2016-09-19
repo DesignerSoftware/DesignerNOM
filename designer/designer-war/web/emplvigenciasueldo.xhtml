@@ -638,7 +638,7 @@
                                 </p:calendar>
                             </div>
                             <strong><h:outputText value="#{msg['motivocambiosueldoVS']}" style=" position: absolute; top: 110px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaMotivoCambioSueldo" value="#{controlVigenciaSueldo.nuevaVigencia.motivocambiosueldo.nombre}" style=" width: 122px; position: absolute; left: 220px; top: 110px; text-transform: uppercase" onclick="PF('select();" >
+                            <p:inputText id="nuevaMotivoCambioSueldo" value="#{controlVigenciaSueldo.nuevaVigencia.motivocambiosueldo.nombre}" style=" width: 122px; position: absolute; left: 220px; top: 110px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="dblclick" listener="#{controlVigenciaSueldo.asignarIndex(infoDVS,0,1,0)}" oncomplete="PF('lovMotivoCambioSueldo').unselectAllRows()"/>
                                 <p:ajax event="click" listener="#{controlVigenciaSueldo.valoresBackupAutocompletar(1, 'MOTIVOCAMBIOSUELDO')}" />
                                 <p:ajax event="change" listener="#{controlVigenciaSueldo.autocompletarNuevoyDuplicado('MOTIVOCAMBIOSUELDO', controlVigenciaSueldo.nuevaVigencia.motivocambiosueldo.nombre,1)}" />
@@ -648,7 +648,7 @@
                             <p:watermark for="nuevaMotivoCambioSueldo" value="#{msg['motivocambiosueldoVS']}" />
 
                             <strong><h:outputText value="#{msg['tiposueldoVS']}" style=" position: absolute; top: 150px; left: 50px;" /></strong>
-                            <p:inputText maxlength="30" id="nuevaTipoSueldo" value="#{controlVigenciaSueldo.nuevaVigencia.tiposueldo.descripcion}" style=" width: 122px; position: absolute; left: 220px; top: 150px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText maxlength="30" id="nuevaTipoSueldo" value="#{controlVigenciaSueldo.nuevaVigencia.tiposueldo.descripcion}" style=" width: 122px; position: absolute; left: 220px; top: 150px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlVigenciaSueldo.asignarIndex(infoDVS,1,1,0)}" oncomplete="PF('lovTipoSueldo').unselectAllRows()"/>
                                 <p:ajax event="click" listener="#{controlVigenciaSueldo.valoresBackupAutocompletar(1, 'TIPOSUELDO')}" />
                                 <p:ajax event="change" listener="#{controlVigenciaSueldo.autocompletarNuevoyDuplicado('TIPOSUELDO', controlVigenciaSueldo.nuevaVigencia.tiposueldo.descripcion,1)}" update="nuevaTipoSueldo"/>
@@ -702,7 +702,7 @@
                             </div>
 
                             <strong><h:outputText value="#{msg['motivocambiosueldoVS']}" style=" position: absolute; top: 110px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarMotivoCambioSueldo" value="#{controlVigenciaSueldo.duplicarVS.motivocambiosueldo.nombre}" style=" width: 122px; position: absolute; left: 220px; top: 110px; text-transform: uppercase" onclick="PF('select();" >
+                            <p:inputText id="duplicarMotivoCambioSueldo" value="#{controlVigenciaSueldo.duplicarVS.motivocambiosueldo.nombre}" style=" width: 122px; position: absolute; left: 220px; top: 110px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="dblclick" listener="#{controlVigenciaSueldo.asignarIndex(infoDVS,0,2,0)}" oncomplete="PF('lovMotivoCambioSueldo').unselectAllRows()"/>
                                 <p:ajax event="click" listener="#{controlVigenciaSueldo.valoresBackupAutocompletar(2, 'MOTIVOCAMBIOSUELDO')}" />
                                 <p:ajax event="change" listener="#{controlVigenciaSueldo.autocompletarNuevoyDuplicado('MOTIVOCAMBIOSUELDO', controlVigenciaSueldo.duplicarVS.motivocambiosueldo.nombre, 2)}" update="duplicarMotivoCambioSueldo"/>
@@ -712,7 +712,7 @@
                             <p:watermark for="duplicarMotivoCambioSueldo" value="#{msg['motivocambiosueldo']}" />
 
                             <strong><h:outputText value="#{msg['tiposueldoVS']}" style=" position: absolute; top: 150px; left: 50px;" /></strong>
-                            <p:inputText maxlength="30" id="duplicarTipoSueldo" value="#{controlVigenciaSueldo.duplicarVS.tiposueldo.descripcion}" style=" width: 122px; position: absolute; left: 220px; top: 150px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText maxlength="30" id="duplicarTipoSueldo" value="#{controlVigenciaSueldo.duplicarVS.tiposueldo.descripcion}" style=" width: 122px; position: absolute; left: 220px; top: 150px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlVigenciaSueldo.asignarIndex(infoDVS,1,2,0)}" oncomplete="PF('lovTipoSueldo').unselectAllRows()"/>
                                 <p:ajax event="click" listener="#{controlVigenciaSueldo.valoresBackupAutocompletar(2, 'TIPOSUELDO')}" />
                                 <p:ajax event="change" listener="#{controlVigenciaSueldo.autocompletarNuevoyDuplicado('TIPOSUELDO', controlVigenciaSueldo.duplicarVS.tiposueldo.descripcion, 2)}" update="duplicarTipoSueldo"/>
@@ -774,7 +774,7 @@
                                 </p:calendar>
                             </div>
                             <strong><h:outputText value="#{msg['terceroVA']}" style=" position: absolute; top: 150px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaTerceroVA" value="#{controlVigenciaSueldo.nuevaVigenciaA.tercerosucursal.tercero.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 150px; text-transform: uppercase" onclick="PF('select();" >
+                            <p:inputText id="nuevaTerceroVA" value="#{controlVigenciaSueldo.nuevaVigenciaA.tercerosucursal.tercero.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 150px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="dblclick" listener="#{controlVigenciaSueldo.asignarIndex(infoDVS,0,1,1)}" oncomplete="PF('lovTercero').unselectAllRows()" process="@this"/>
                                 <p:ajax event="click" listener="#{controlVigenciaSueldo.valoresBackupAutocompletarVA(1, 'TERCERO')}" process="@this"/>
                                 <p:ajax event="change" listener="#{controlVigenciaSueldo.autocompletarNuevoyDuplicadoVA('TERCERO', controlVigenciaSueldo.nuevaVigenciaA.tercerosucursal.tercero.nombre,1)}" process="@this" update="nuevaTerceroVA"/>
@@ -784,7 +784,7 @@
                             <p:watermark for="nuevaTerceroVA" value="#{msg['tercero']}" />
 
                             <strong><h:outputText value="#{msg['tipoentidadVA']}" style=" position: absolute; top: 190px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaTipoEntidadVA" value="#{controlVigenciaSueldo.nuevaVigenciaA.tipoentidad.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 190px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevaTipoEntidadVA" value="#{controlVigenciaSueldo.nuevaVigenciaA.tipoentidad.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 190px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlVigenciaSueldo.asignarIndex(infoDVS,1,1,1)}" oncomplete="PF('lovTipoEntidad').unselectAllRows()"/>
                                 <p:ajax event="click" listener="#{controlVigenciaSueldo.valoresBackupAutocompletarVA(1,'TIPOENTIDAD')}" />
                                 <p:ajax event="change" listener="#{controlVigenciaSueldo.autocompletarNuevoyDuplicadoVA('TIPOENTIDAD', controlVigenciaSueldo.nuevaVigenciaA.tipoentidad.nombre, 1)}" update="nuevaTipoEntidadVA"/>
@@ -827,7 +827,7 @@
                             </div>
 
                             <strong><h:outputText value="#{msg['terceroVA']}" style=" position: absolute; top: 150px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarTerceroVA" value="#{controlVigenciaSueldo.duplicarVA.tercerosucursal.tercero.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 150px; text-transform: uppercase" onclick="PF('select();" >
+                            <p:inputText id="duplicarTerceroVA" value="#{controlVigenciaSueldo.duplicarVA.tercerosucursal.tercero.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 150px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="dblclick" listener="#{controlVigenciaSueldo.asignarIndex(infoDVS,0,2,1)}"/>
                                 <p:ajax event="click" listener="#{controlVigenciaSueldo.valoresBackupAutocompletarVA(2,'TERCERO')}" />
                                 <p:ajax event="change" listener="#{controlVigenciaSueldo.autocompletarNuevoyDuplicadoVA('TERCERO', controlVigenciaSueldo.duplicarVA.tercerosucursal.tercero.nombre, 2)}" update="duplicarTerceroVA"/>
@@ -837,7 +837,7 @@
                             <p:watermark for="duplicarTerceroVA" value="#{msg['tercero']}" />
 
                             <strong><h:outputText value="#{msg['tipoentidadVA']}" style=" position: absolute; top: 190px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarTipoEntidadVA" value="#{controlVigenciaSueldo.duplicarVA.tipoentidad.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 190px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarTipoEntidadVA" value="#{controlVigenciaSueldo.duplicarVA.tipoentidad.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 190px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlVigenciaSueldo.asignarIndex(infoDVS,1,2,1)}"/>
                                 <p:ajax event="click" listener="#{controlVigenciaSueldo.valoresBackupAutocompletarVA(2, 'TIPOENTIDAD')}" />
                                 <p:ajax event="change" listener="#{controlVigenciaSueldo.autocompletarNuevoyDuplicadoVA('TIPOENTIDAD',controlVigenciaSueldo.duplicarVA.tipoentidad.nombre,2)}" update="duplicarTipoEntidadVA"/>

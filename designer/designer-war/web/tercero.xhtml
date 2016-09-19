@@ -765,7 +765,7 @@
                             <p:watermark for="nuevaCSCT" value="#{msg['codigoscWM']}" />
 
                             <strong><h:outputText value="#{msg['consolidadorNT']}" style="position: absolute; top: 75px; left: 360px;" /></strong>
-                            <p:inputText id="nuevaTerceroCT" value="#{controlTercero.nuevoTercero.terceroconsolidador.nombre}" style="width: 122px; position: absolute; left: 540px; top: 70px; text-transform: uppercase" onclick="PF('select();" >
+                            <p:inputText id="nuevaTerceroCT" value="#{controlTercero.nuevoTercero.terceroconsolidador.nombre}" style="width: 122px; position: absolute; left: 540px; top: 70px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="dblclick" listener="#{controlTercero.asignarIndex(indice,0,1,0)}"/>
                                 <p:ajax event="click" listener="#{controlTercero.valoresBackupAutocompletar(1, 'TERCEROCONSOLIDADOR',0)}" />
                                 <p:ajax event="change" listener="#{controlTercero.autocompletarNuevoyDuplicadoTercero('TERCEROCONSOLIDADOR', controlTercero.nuevoTercero.terceroconsolidador.nombre, 1)}" />
@@ -779,7 +779,7 @@
                             <p:watermark for="nuevaTerceroCNITT" value="#{msg['nitconsolidadorWM']}" />
 
                             <strong><h:outputText value="#{msg['ciudadNT']}" style="position: absolute; top: 135px; left: 360px;" /></strong>
-                            <p:inputText id="nuevaCiudadT" value="#{controlTercero.nuevoTercero.ciudad.nombre}" style="width: 122px; position: absolute; left: 540px; top: 130px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevaCiudadT" value="#{controlTercero.nuevoTercero.ciudad.nombre}" style="width: 122px; position: absolute; left: 540px; top: 130px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlTercero.asignarIndex(indice,1,1,0)}"/>
                                 <p:ajax event="click" listener="#{controlTercero.valoresBackupAutocompletar(1, 'CIUDAD',0)}" />
                                 <p:ajax event="change" listener="#{controlTercero.autocompletarNuevoyDuplicadoTercero('CIUDAD', controlTercero.nuevoTercero.ciudad.nombre, 1)}" update="nuevaCiudadT"/>
@@ -867,7 +867,7 @@
                             <p:watermark for="duplicarTCSCT" value="#{msg['codigoscWM']}" />
 
                             <strong><h:outputText value="#{msg['consolidadorNT']}" style="position: absolute; top: 75px; left: 360px;" /></strong>
-                            <p:inputText id="duplicarTTerceroCT" value="#{controlTercero.duplicarTecero.terceroconsolidador.nombre}" style="width: 122px; position: absolute; left: 540px; top: 70px; text-transform: uppercase" onclick="PF('select();" >
+                            <p:inputText id="duplicarTTerceroCT" value="#{controlTercero.duplicarTecero.terceroconsolidador.nombre}" style="width: 122px; position: absolute; left: 540px; top: 70px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="dblclick" listener="#{controlTercero.asignarIndex(indice,0,2,0)}"/>
                                 <p:ajax event="click" listener="#{controlTercero.valoresBackupAutocompletar(2, 'TERCEROCONSOLIDADOR',0)}" />
                                 <p:ajax event="change" listener="#{controlTercero.autocompletarNuevoyDuplicadoTercero('TERCEROCONSOLIDADOR', controlTercero.duplicarTecero.terceroconsolidador.nombre, 2)}" />
@@ -881,7 +881,7 @@
                             <p:watermark for="duplicarTTerceroCNITT" value="#{msg['nitconsolidadorWM']}" />
 
                             <strong><h:outputText value="#{msg['ciudadNT']}" style="position: absolute; top: 135px; left: 360px;" /></strong>
-                            <p:inputText id="duplicarTCiudadT" value="#{controlTercero.duplicarTecero.ciudad.nombre}" style="width: 122px; position: absolute; left: 540px; top: 130px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarTCiudadT" value="#{controlTercero.duplicarTecero.ciudad.nombre}" style="width: 122px; position: absolute; left: 540px; top: 130px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlTercero.asignarIndex(indice,1,2,0)}"/>
                                 <p:ajax event="click" listener="#{controlTercero.valoresBackupAutocompletar(2, 'CIUDAD',0)}" />
                                 <p:ajax event="change" listener="#{controlTercero.autocompletarNuevoyDuplicadoTercero('CIUDAD', controlTercero.duplicarTecero.ciudad.nombre, 2)}" update="duplicarTCiudadT"/>
@@ -945,7 +945,7 @@
                             <p:watermark for="nuevaObservacionTS" value="#{msg['observacionWM']}" />
 
                             <strong><h:outputText value="#{msg['ciudadNS']}" style="position: absolute; top: 165px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaCiudadTS" value="#{controlTercero.nuevoTerceroSucursal.ciudad.nombre}" style="width: 122px; position: absolute; left: 220px; top: 160px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevaCiudadTS" value="#{controlTercero.nuevoTerceroSucursal.ciudad.nombre}" style="width: 122px; position: absolute; left: 220px; top: 160px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlTercero.asignarIndex(indice,0,1,1)}"/>
                                 <p:ajax event="click" listener="#{controlTercero.valoresBackupAutocompletar(1, 'CIUDAD',1)}" />
                                 <p:ajax event="change" listener="#{controlTercero.autocompletarNuevoyDuplicadoTerceroSucursal('CIUDAD', controlTercero.nuevoTerceroSucursal.ciudad.nombre, 1)}" update="nuevaCiudadTS" process="@this"/>
@@ -982,7 +982,7 @@
                             <p:watermark for="duplicarObservacionTS" value="#{msg['observacionWM']}" />
 
                             <strong><h:outputText value="#{msg['ciudadNS']}" style=" position: absolute; top: 165px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarCiudadTS" value="#{controlTercero.duplicarTerceroSucursal.ciudad.nombre}" style="width: 122px; position: absolute; left: 220px; top: 160px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarCiudadTS" value="#{controlTercero.duplicarTerceroSucursal.ciudad.nombre}" style="width: 122px; position: absolute; left: 220px; top: 160px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlTercero.asignarIndex(indice,0,2,1)}"/>
                                 <p:ajax event="click" listener="#{controlTercero.valoresBackupAutocompletar(2, 'CIUDAD',1)}" />
                                 <p:ajax event="change" listener="#{controlTercero.autocompletarNuevoyDuplicadoTerceroSucursal('CIUDAD', controlTercero.duplicarTerceroSucursal.ciudad.nombre, 1)}" update="duplicarCiudadTS" process="@this"/>

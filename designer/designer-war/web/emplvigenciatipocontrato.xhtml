@@ -393,7 +393,7 @@
 
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarT']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="PF('lovTiposContrato').filter();" value="#{filtrado}" style="width:170px; position: relative; left: 60px;" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovTiposContrato').filter();" style="width:170px; position: relative; left: 60px;" />  
                             </f:facet>
                             <p:column filterBy="#{TiposC.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 85% !important">
                                 <f:facet name="header">
@@ -465,7 +465,7 @@
                             </div>
 
                             <strong><h:outputText value="#{msg['motivoN']}" style=" position: absolute; top: 118px;" /></strong>
-                            <p:inputText id="nuevoMotivoContrato" value="#{controlVigenciasTiposContratos.nuevaVigencia.motivocontrato.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 115px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevoMotivoContrato" value="#{controlVigenciasTiposContratos.nuevaVigencia.motivocontrato.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 115px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlVigenciasTiposContratos.valoresBackupAutocompletar(1, 'MOTIVOC')}" />
                                 <p:ajax event="change" listener="#{controlVigenciasTiposContratos.autocompletarNuevoyDuplicado('MOTIVOC', controlVigenciasTiposContratos.nuevaVigencia.motivocontrato.nombre, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlVigenciasTiposContratos.asignarIndexNueYDup(0, 1)}" />
@@ -475,7 +475,7 @@
                             <p:watermark for="nuevoMotivoContrato" value="#{msg['motivo']}" />
 
                             <strong><h:outputText value="#{msg['tipoN']}" style=" position: absolute; top: 153px;" /></strong>
-                            <p:inputText id="nuevoTipoContrato" value="#{controlVigenciasTiposContratos.nuevaVigencia.tipocontrato.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 150px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevoTipoContrato" value="#{controlVigenciasTiposContratos.nuevaVigencia.tipocontrato.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 150px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlVigenciasTiposContratos.valoresBackupAutocompletar(1, 'TIPOC')}" />
                                 <p:ajax event="change" listener="#{controlVigenciasTiposContratos.autocompletarNuevoyDuplicado('TIPOC', controlVigenciasTiposContratos.nuevaVigencia.tipocontrato.nombre, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlVigenciasTiposContratos.asignarIndexNueYDup(1, 1)}" />
@@ -485,7 +485,7 @@
                                              id="btnNuevoTipoContrato" process="@this" value="" actionListener="#{controlVigenciasTiposContratos.asignarIndexNueYDup(1, 1)}"/>
 
                             <strong><h:outputText value="#{msg['ciudadN']}" style=" position: absolute; top: 188px;" /></strong>
-                            <p:inputText id="nuevaCiudad" value="#{controlVigenciasTiposContratos.nuevaVigencia.ciudad.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 185px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevaCiudad" value="#{controlVigenciasTiposContratos.nuevaVigencia.ciudad.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 185px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlVigenciasTiposContratos.valoresBackupAutocompletar(1, 'CIUDAD')}" />
                                 <p:ajax event="change" listener="#{controlVigenciasTiposContratos.autocompletarNuevoyDuplicado('CIUDAD', controlVigenciasTiposContratos.nuevaVigencia.ciudad.nombre, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlVigenciasTiposContratos.asignarIndexNueYDup(2, 1)}" />
@@ -511,7 +511,7 @@
                             </div>
 
                             <strong><h:outputText value="#{msg['observacionesN']}"  style=" position: absolute; top: 293px;" /></strong>
-                            <p:inputTextarea id="nuevoObservacion" value="#{controlVigenciasTiposContratos.nuevaVigencia.observaciones}" style=" width: 150px; height: 50px; overflow: auto; position: absolute; left: 200px; top: 290px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputTextarea id="nuevoObservacion" value="#{controlVigenciasTiposContratos.nuevaVigencia.observaciones}" style=" width: 150px; height: 50px; overflow: auto; position: absolute; left: 200px; top: 290px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="nuevoObservacion"/>
                             </p:inputTextarea>
                             <p:watermark for="nuevoObservacion" value="#{msg['observaciones']}" />
@@ -536,7 +536,7 @@
                             </div>
 
                             <strong><h:outputText value="#{msg['motivoN']}" style=" position: absolute; top: 118px;" /></strong>
-                            <p:inputText id="duplicarMotivoContrato" value="#{controlVigenciasTiposContratos.duplicarVTC.motivocontrato.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 115px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarMotivoContrato" value="#{controlVigenciasTiposContratos.duplicarVTC.motivocontrato.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 115px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlVigenciasTiposContratos.valoresBackupAutocompletar(2, 'MOTIVOC')}" />
                                 <p:ajax event="change" listener="#{controlVigenciasTiposContratos.autocompletarNuevoyDuplicado('MOTIVOC', controlVigenciasTiposContratos.duplicarVTC.motivocontrato.nombre, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlVigenciasTiposContratos.asignarIndexNueYDup(0, 2)}" />
@@ -546,7 +546,7 @@
                             <p:watermark for="duplicarMotivoContrato" value="#{msg['motivo']}" />
 
                             <strong><h:outputText value="#{msg['tipoN']}" style=" position: absolute; top: 153px;" /></strong>
-                            <p:inputText id="duplicarTipoContrato" value="#{controlVigenciasTiposContratos.duplicarVTC.tipocontrato.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 150px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarTipoContrato" value="#{controlVigenciasTiposContratos.duplicarVTC.tipocontrato.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 150px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlVigenciasTiposContratos.valoresBackupAutocompletar(2, 'TIPOC')}" />
                                 <p:ajax event="change" listener="#{controlVigenciasTiposContratos.autocompletarNuevoyDuplicado('TIPOC', controlVigenciasTiposContratos.duplicarVTC.tipocontrato.nombre, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlVigenciasTiposContratos.asignarIndexNueYDup(1, 2)}" />
@@ -556,7 +556,7 @@
                                              id="btnDuplcarTipoContrato" process="@this" value="" actionListener="#{controlVigenciasTiposContratos.asignarIndexNueYDup(1, 2)}"/>
 
                             <strong><h:outputText value="#{msg['ciudadN']}" style=" position: absolute; top: 188px;" /></strong>
-                            <p:inputText id="duplicarCiudad" value="#{controlVigenciasTiposContratos.duplicarVTC.ciudad.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 185px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarCiudad" value="#{controlVigenciasTiposContratos.duplicarVTC.ciudad.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 185px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlVigenciasTiposContratos.valoresBackupAutocompletar(2, 'CIUDAD')}" />
                                 <p:ajax event="change" listener="#{controlVigenciasTiposContratos.autocompletarNuevoyDuplicado('CIUDAD', controlVigenciasTiposContratos.duplicarVTC.ciudad.nombre, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlVigenciasTiposContratos.asignarIndexNueYDup(2, 2)}"/>
@@ -582,7 +582,7 @@
                             </div>
 
                             <strong><h:outputText value="#{msg['observacionesN']}"  style=" position: absolute; top: 293px;" /></strong>
-                            <p:inputTextarea id="duplicarObservacion" value="#{controlVigenciasTiposContratos.duplicarVTC.observaciones}" style=" width: 150px; height: 50px; overflow: auto; position: absolute; left: 200px; top: 290px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputTextarea id="duplicarObservacion" value="#{controlVigenciasTiposContratos.duplicarVTC.observaciones}" style=" width: 150px; height: 50px; overflow: auto; position: absolute; left: 200px; top: 290px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="duplicarObservacion"/>
                             </p:inputTextarea>
                             <p:watermark for="duplicarObservacion" value="#{msg['observaciones']}" />

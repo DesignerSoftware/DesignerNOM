@@ -86,7 +86,7 @@
 
                                 <div id="pempresa" style="position: relative; top: -35px; left: 10px" > 
                                     <strong><h:outputText value="#{msg['empresa']}" style="position: relative; top: -10px; left: 45px"/></strong>
-                                    <p:inputText id="parametroEmpresa" onclick="PF('select();" value="#{controlInterfaseContableTotal.parametroContableActual.empresaRegistro.nombre}" style="position: relative; top: -10px; left: 50px;width: 300px;text-transform: uppercase">
+                                    <p:inputText id="parametroEmpresa" onclick="select();" value="#{controlInterfaseContableTotal.parametroContableActual.empresaRegistro.nombre}" style="position: relative; top: -10px; left: 50px;width: 300px;text-transform: uppercase">
                                         <p:ajax event="change" listener="#{controlInterfaseContableTotal.modificarParametroContable(controlInterfaseContableTotal.parametroContableActual.empresaRegistro.nombre, 'EMPRESA')}" update="@this"/>
                                         <p:ajax event="click" listener="#{controlInterfaseContableTotal.cambiarIndiceParametro(0)}" />
                                         <p:ajax event="dblclick" listener="#{controlInterfaseContableTotal.asignarIndex(0, 0, 0)}"/>
@@ -95,13 +95,13 @@
 
                                 <div id="pdoccontable" style="position: relative; top: -60px; left: 410px" >
                                     <strong><h:outputText value="#{msg['docContable']}" style="position: relative; top: 20px; left: -352px"/></strong>
-                                    <p:inputText maxlength="4" id="parametroDocContable" onclick="PF('select();" value="#{controlInterfaseContableTotal.parametroContableActual.documentoContable}" style="position: relative; top: 20px; left: -347px;text-transform: uppercase;width: 100px;">
+                                    <p:inputText maxlength="4" id="parametroDocContable" onclick="select();" value="#{controlInterfaseContableTotal.parametroContableActual.documentoContable}" style="position: relative; top: 20px; left: -347px;text-transform: uppercase;width: 100px;">
                                         <p:ajax event="change" listener="#{controlInterfaseContableTotal.modificarParametroContable()}" update="@this"/>
                                         <p:ajax event="click" listener="#{controlInterfaseContableTotal.cambiarIndiceParametro(1)}" />
                                     </p:inputText> 
 
                                     <strong><h:outputText value="#{msg['proceso']}" style="position: relative; top: 20px; left: -340px; display: inline-block"/></strong>
-                                    <p:inputText id="parametroProceso" onclick="PF('select();" value="#{controlInterfaseContableTotal.parametroContableActual.proceso.descripcion}" style="position: relative; top: 20px; left: -335px;text-transform: uppercase">
+                                    <p:inputText id="parametroProceso" onclick="select();" value="#{controlInterfaseContableTotal.parametroContableActual.proceso.descripcion}" style="position: relative; top: 20px; left: -335px;text-transform: uppercase">
                                         <p:ajax event="change" listener="#{controlInterfaseContableTotal.modificarParametroContable(controlInterfaseContableTotal.parametroContableActual.proceso.descripcion, 'PROCESO')}"  update="@this"/>
                                         <p:ajax event="click" listener="#{controlInterfaseContableTotal.cambiarIndiceParametro(2)}" />
                                         <p:ajax event="dblclick" listener="#{controlInterfaseContableTotal.asignarIndex(2, 1, 0)}"/>

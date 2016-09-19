@@ -145,7 +145,7 @@
                             <fieldset style="position: absolute; left: 10px; top: 40px; font-size: 11px; width: 345px; height: 108px; border-radius: 10px; ">
 
                                 <strong><h:outputText value="#{msg['operandoN']}" style="font-size: 12px; position: absolute; top: 17px;" /></strong>
-                                <p:inputText id="nuevoOperando" value="#{controlOperandoGrupoConcepto.nuevoOperando.operando.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 15px; text-transform: uppercase" onclick="PF('select();">
+                                <p:inputText id="nuevoOperando" value="#{controlOperandoGrupoConcepto.nuevoOperando.operando.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 15px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="click" listener="#{controlOperandoGrupoConcepto.valoresBackupAutocompletar(1, 'OPERANDO')}" />
                                     <p:ajax event="change" listener="#{controlOperandoGrupoConcepto.autocompletarNuevoyDuplicado('OPERANDO', controlOperandoGrupoConcepto.nuevoOperando.operando.descripcion, 1)}" />
                                     <p:ajax event="dblclick" listener="#{controlOperandoGrupoConcepto.asignarIndex(indice, 0, 1)}" />
@@ -153,7 +153,7 @@
                                 <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top:17px;  " id="btnNuevoOperando" actionListener="#{controlOperandoGrupoConcepto.asignarIndex(indice,0, 1)}" icon="ui-icon-search" process="@this" />
 
                                 <strong><h:outputText value="#{msg['grupoconceptoN']}" style="font-size: 12px; position: absolute; top: 57px;" /></strong>
-                                <p:inputText id="nuevoGrupo" value="#{controlOperandoGrupoConcepto.nuevoOperando.grupoconcepto.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 55px; text-transform: uppercase" onclick="PF('select();">
+                                <p:inputText id="nuevoGrupo" value="#{controlOperandoGrupoConcepto.nuevoOperando.grupoconcepto.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 55px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="click" listener="#{controlOperandoGrupoConcepto.valoresBackupAutocompletar(1, 'GRUPO')}" />
                                     <p:ajax event="change" listener="#{controlOperandoGrupoConcepto.autocompletarNuevoyDuplicado('GRUPO', controlOperandoGrupoConcepto.nuevoOperando.operando.descripcion, 1)}" />
                                     <p:ajax event="dblclick" listener="#{controlOperandoGrupoConcepto.asignarIndex(indice, 1, 1)}" />
@@ -180,7 +180,7 @@
                             <fieldset style="position: absolute; left: 10px; top: 40px; font-size: 11px; width: 345px; height: 108px; border-radius: 10px; ">
 
                                 <strong><h:outputText value="#{msg['operandoN']}" style="font-size: 12px; position: absolute; top: 17px;" /></strong>
-                                <p:inputText id="duplicarOperando" value="#{controlOperandoGrupoConcepto.duplicarOperando.operando.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 15px; text-transform: uppercase" onclick="PF('select();">
+                                <p:inputText id="duplicarOperando" value="#{controlOperandoGrupoConcepto.duplicarOperando.operando.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 15px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="click" listener="#{controlOperandoGrupoConcepto.valoresBackupAutocompletar(2, 'OPERANDO')}" />
                                     <p:ajax event="change" listener="#{controlOperandoGrupoConcepto.autocompletarNuevoyDuplicado('OPERANDO', controlOperandoGrupoConcepto.nuevoOperando.operando.descripcion, 2)}" />
                                     <p:ajax event="dblclick" listener="#{controlOperandoGrupoConcepto.asignarIndex(indice, 0, 2)}" />
@@ -188,7 +188,7 @@
                                 <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top:17px;  " id="btnDuplicarOperando" actionListener="#{controlOperandoGrupoConcepto.asignarIndex(indice,0, 2)}" icon="ui-icon-search" process="@this" />
 
                                 <strong><h:outputText value="#{msg['grupoconceptoN']}" style="font-size: 12px; position: absolute; top: 57px;" /></strong>
-                                <p:inputText id="duplicarGrupo" value="#{controlOperandoGrupoConcepto.duplicarOperando.grupoconcepto.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 55px; text-transform: uppercase" onclick="PF('select();">
+                                <p:inputText id="duplicarGrupo" value="#{controlOperandoGrupoConcepto.duplicarOperando.grupoconcepto.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 55px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="click" listener="#{controlOperandoGrupoConcepto.valoresBackupAutocompletar(2, 'GRUPO')}" />
                                     <p:ajax event="change" listener="#{controlOperandoGrupoConcepto.autocompletarNuevoyDuplicado('GRUPO', controlOperandoGrupoConcepto.nuevoOperando.operando.descripcion, 2)}" />
                                     <p:ajax event="dblclick" listener="#{controlOperandoGrupoConcepto.asignarIndex(indice, 1, 2)}" />

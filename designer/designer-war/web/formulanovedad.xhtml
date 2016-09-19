@@ -296,7 +296,7 @@
                         <p:panel id="nuevoFormula" style="border: none;">
 
                             <strong><h:outputText value="*#{msg['nombreCortoN']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                            <p:inputText id="nuevoFormulaCorto" value="#{controlFormulaNovedad.nuevoFormulaNovedad.formula.nombrecorto}" style="width: 122px; position: absolute; left: 200px; top: 70px;" onclick="PF('select();">
+                            <p:inputText id="nuevoFormulaCorto" value="#{controlFormulaNovedad.nuevoFormulaNovedad.formula.nombrecorto}" style="width: 122px; position: absolute; left: 200px; top: 70px;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlFormulaNovedad.asignarIndex(indice,0,1)}"/>
                                 <p:ajax event="click" listener="#{controlFormulaNovedad.valoresBackupAutocompletar(1, 'FORMULA')}" />
                                 <p:ajax event="change" listener="#{controlFormulaNovedad.autocompletarNuevoyDuplicadoFormulaNovedad('FORMULA', controlFormulaNovedad.nuevoFormulaNovedad.formula.nombrecorto, 1)}" />

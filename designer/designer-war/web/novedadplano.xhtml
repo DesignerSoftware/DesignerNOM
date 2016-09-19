@@ -91,7 +91,7 @@
                                            invalidSizeMessage="#{msg['tamaño']}" auto="true"
                                            styleClass="ui-fileupload"/>
                             <h:outputText value="#{msg['formula']}" style="font-weight: bold; position: absolute; top: 70px"/>
-                            <p:inputText id="formula" value="#{cargarArchivoPlano.formulaUsada.nombrecorto}" disabled="#{cargarArchivoPlano.botones}" style="position:  absolute; top: 88px; left: 8px; font-weight: bold; text-transform: uppercase" maxlength="6" onclick="PF('select();">
+                            <p:inputText id="formula" value="#{cargarArchivoPlano.formulaUsada.nombrecorto}" disabled="#{cargarArchivoPlano.botones}" style="position:  absolute; top: 88px; left: 8px; font-weight: bold; text-transform: uppercase" maxlength="6" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{cargarArchivoPlano.botonListaValores()}" process="@this"/>
                                 <p:ajax event="select" listener="#{cargarArchivoPlano.valorAnteriorFormula()}"/>
                                 <p:ajax event="change" listener="#{cargarArchivoPlano.autocompletarFormula(cargarArchivoPlano.formulaUsada.nombrecorto)}"/>
@@ -385,7 +385,7 @@
                                 </p:column>
                             </p:dataTable>
                             <h:outputText value="#{msg['subtotal']}" style="font-weight: bold; position: absolute; top: 181px; left: 500px"/>
-                            <p:inputText id="subtotal" value="#{cargarArchivoPlano.subTotal}" style="position:  absolute; top: 177px; left: 560px; font-weight: bold; width: 63px; border-radius: 0px; text-align: right" readonly="true" onclick="PF('select();">
+                            <p:inputText id="subtotal" value="#{cargarArchivoPlano.subTotal}" style="position:  absolute; top: 177px; left: 560px; font-weight: bold; width: 63px; border-radius: 0px; text-align: right" readonly="true" onclick="select();">
                                 <f:convertNumber currencyCode="COP"/>
                             </p:inputText> 
                         </fieldset>
@@ -433,7 +433,7 @@
                             <fieldset style="position: absolute; left: 10px; width: 260px; height: 85px; border-radius: 10px; ">
                                 <legend style="color: blue"><strong>Reversar Cargue Novedades</strong></legend>
                                 <strong><h:outputText value="#{msg['documentosoporte']}" style="position: absolute; top: 30px; width: 200px;" /></strong>
-                                <p:inputText id="documentoR" value="#{cargarArchivoPlano.documentoSoporteReversar}" style="position: absolute; left: 100px; top: 26px; text-transform: uppercase;" onclick="PF('select();"> 
+                                <p:inputText id="documentoR" value="#{cargarArchivoPlano.documentoSoporteReversar}" style="position: absolute; left: 100px; top: 26px; text-transform: uppercase;" onclick="select();"> 
                                     <p:ajax event="dblclick" listener="#{cargarArchivoPlano.llamarDialogoDocumentoSoporte()}" />
                                     <p:ajax event="change" listener="#{cargarArchivoPlano.autocompletarDocumentoSoporte}" update="@this"/>
                                 </p:inputText>

@@ -308,12 +308,12 @@
                             </p:inputText>
 
                             <strong><h:outputText value="*#{msg['descripcionN']}"  style="position: absolute; top: 105px;" /></strong>
-                            <p:inputText value="#{controlLegislacion.nuevoContrato.descripcion}" maxlength="50" style="width: 110px; position: absolute; left: 180px; top: 100px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText value="#{controlLegislacion.nuevoContrato.descripcion}" maxlength="50" style="width: 110px; position: absolute; left: 180px; top: 100px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this" />
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['tipocotizanteN']}"  style="position: absolute; top: 135px;" /></strong>
-                            <p:inputText id="nuevaDescripcionTipoCotizante" value="#{controlLegislacion.nuevoContrato.tipocotizante.descripcion}" style="width: 110px; position: absolute; left: 180px; top: 130px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevaDescripcionTipoCotizante" value="#{controlLegislacion.nuevoContrato.tipocotizante.descripcion}" style="width: 110px; position: absolute; left: 180px; top: 130px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlLegislacion.valoresBackupAutocompletar(1)}" />
                                 <p:ajax event="change" listener="#{controlLegislacion.autocompletarNuevoyDuplicado(controlLegislacion.nuevoContrato.tipocotizante.descripcion, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlLegislacion.llamarLOVNuevo_Duplicado(1)}"/>
@@ -346,12 +346,12 @@
                             </p:inputText>
 
                             <strong><h:outputText value="*#{msg['descripcionN']}"  style="position: absolute; top: 105px;" /></strong>
-                            <p:inputText maxlength="50" value="#{controlLegislacion.duplicarContrato.descripcion}" style="width: 110px; position: absolute; left: 180px; top: 100px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText maxlength="50" value="#{controlLegislacion.duplicarContrato.descripcion}" style="width: 110px; position: absolute; left: 180px; top: 100px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this" />
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['tipocotizanteN']}"  style="position: absolute; top: 135px;" /></strong>
-                            <p:inputText id="duplicarDescripcionTipoCotizante" value="#{controlLegislacion.duplicarContrato.tipocotizante.descripcion}" style="width: 110px; position: absolute; left: 180px; top: 130px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarDescripcionTipoCotizante" value="#{controlLegislacion.duplicarContrato.tipocotizante.descripcion}" style="width: 110px; position: absolute; left: 180px; top: 130px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlLegislacion.valoresBackupAutocompletar(2)}" />
                                 <p:ajax event="change" listener="#{controlLegislacion.autocompletarNuevoyDuplicado(controlLegislacion.duplicarContrato.tipocotizante.descripcion, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlLegislacion.llamarLOVNuevo_Duplicado(2)}"/>

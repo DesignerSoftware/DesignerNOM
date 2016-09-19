@@ -297,7 +297,7 @@
                             <p:watermark for="nuevoNombre" value="Nombre" />
 
                             <strong><h:outputText value="*Grupo Tipo CC: " style=" position: absolute; top: 120px;" /></strong>
-                            <p:inputText id="nuevoGrupoTipoCC" value="#{controlTiposCentrosCostos.nuevoTipoCentroCosto.grupotipocc.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 115px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevoGrupoTipoCC" value="#{controlTiposCentrosCostos.nuevoTipoCentroCosto.grupotipocc.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 115px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlTiposCentrosCostos.valoresBackupAutocompletar(1, 'GRUPOSTIPOSCC')}" />
                                 <p:ajax event="change" listener="#{controlTiposCentrosCostos.autocompletarNuevoyDuplicado('GRUPOSTIPOSCC', controlTiposCentrosCostos.nuevoTipoCentroCosto.grupotipocc.descripcion, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlTiposCentrosCostos.asignarVariableGrupoTipoCC(0)}" />
@@ -332,7 +332,7 @@
 
 
                             <strong><h:outputText value="*Grupo Tipo CC:" style=" position: absolute; top: 120px;" /></strong>
-                            <p:inputText id="duplicarGrupoTipoCentroCosto" value="#{controlTiposCentrosCostos.duplicarTipoCentroCosto.grupotipocc.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 115px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarGrupoTipoCentroCosto" value="#{controlTiposCentrosCostos.duplicarTipoCentroCosto.grupotipocc.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 115px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlTiposCentrosCostos.valoresBackupAutocompletar(2, 'GRUPOSTIPOSCC')}" />
                                 <p:ajax event="change" listener="#{controlTiposCentrosCostos.autocompletarNuevoyDuplicado('GRUPOSTIPOSCC',controlTiposCentrosCostos.duplicarTipoCentroCosto.grupotipocc.descripcion, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlTiposCentrosCostos.asignarVariableGrupoTipoCC(1)}" />

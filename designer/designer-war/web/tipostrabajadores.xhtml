@@ -562,12 +562,12 @@
                             <h:outputText value="#{msg['codigoNClonarTT']}" style="display: inline-block; position: relative; top : 7px; left: 30px"/> 
                             <h:outputText value="#{msg['nombreNClonarTT']}" style="display: inline-block; position: relative; top : 7px; left: 90px"/>
 
-                            <p:inputText onclick="PF('select();" id="codigoTipoTClonar" value="#{controlTiposTrabajadores.codigoNuevoClonado}" 
+                            <p:inputText onclick="select();" id="codigoTipoTClonar" value="#{controlTiposTrabajadores.codigoNuevoClonado}" 
                                          style="display: block; position: relative; top : 9px; left: 25px; width: 90px; height: 12px; text-transform: uppercase;">
                                  <p:keyFilter for="codigoTipoTClonar" mask="num"/>
                                 <p:ajax event="change" update="codigoTipoTClonar" process="@this"/>
                             </p:inputText>
-                            <p:inputText onclick="PF('select();" id="nombreTipoTClonar" value="#{controlTiposTrabajadores.nombreNuevoClonado}" 
+                            <p:inputText onclick="select();" id="nombreTipoTClonar" value="#{controlTiposTrabajadores.nombreNuevoClonado}" 
                                          style="display: inline-block; position: relative; top : -13px; left: 160px; width: 280px; height: 12px; text-transform: uppercase">
                                 <p:ajax event="change" update="nombreTipoTClonar" process="@this"/>
                             </p:inputText>
@@ -575,13 +575,13 @@
                             <h:outputText value="#{msg['codigo']}" style="display: block; position: relative; top : -5px; left: 50px"/> 
                             <h:outputText value="#{msg['nombreBClonarTT']}" style="display: inline-block; position: relative; top : -20px; left: 163px"/> 
 
-                            <p:inputText onclick="PF('select();" id="codigoTipoTClonarBase" value="#{controlTiposTrabajadores.tipoTrabajadorAClonar.codigo}"
+                            <p:inputText onclick="select();" id="codigoTipoTClonarBase" value="#{controlTiposTrabajadores.tipoTrabajadorAClonar.codigo}"
                                          style="display: block; position: relative; top : -20px; left: 25px; width: 90px; height: 12px;">
                                  <p:keyFilter for="codigoTipoTClonarBase" mask="num"/>
                                 <p:ajax event="change" update="codigoTipoTClonarBase" process="@this" listener="#{controlTiposTrabajadores.autocompletarClonado('COD')}"/>
                                 <p:ajax event="dblclick" process="@this" listener="#{controlTiposTrabajadores.llamadoDialogoTT(3)}"/>
                             </p:inputText>
-                            <p:inputText onclick="PF('select();" id="nombreTipoTClonarBase" value="#{controlTiposTrabajadores.tipoTrabajadorAClonar.nombre}" 
+                            <p:inputText onclick="select();" id="nombreTipoTClonarBase" value="#{controlTiposTrabajadores.tipoTrabajadorAClonar.nombre}" 
                                          style="display: inline-block; position: relative; top : -42px; left: 160px; width: 280px; height: 12px; text-transform: uppercase">
                                 <p:ajax event="change" update="nombreTipoTClonarBase" process="@this" listener="#{controlTiposTrabajadores.autocompletarClonado('Nom')}"/>
                                 <p:ajax event="dblclick" process="@this" listener="#{controlTiposTrabajadores.llamadoDialogoTT(3)}"/>

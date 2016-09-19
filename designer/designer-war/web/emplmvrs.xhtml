@@ -577,7 +577,7 @@
                             <p:watermark for="nuevaValorMMVRS" value="#{msg['valor']}" />
 
                             <strong><h:outputText value="*#{msg['motivoMVRS']}" style=" position: absolute; top: 165px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaMotivoMVRS" value="#{controlEmplMvr.nuevaMvrs.motivo.nombre}" style=" width: 122px; position: absolute; left: 170px; top: 160px; text-transform: uppercase" onclick="PF('select();" >
+                            <p:inputText id="nuevaMotivoMVRS" value="#{controlEmplMvr.nuevaMvrs.motivo.nombre}" style=" width: 122px; position: absolute; left: 170px; top: 160px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="dblclick" listener="#{controlEmplMvr.asignarIndex(0,1,0)}"/>
                                 <p:ajax event="click" listener="#{controlEmplMvr.valoresBackupAutocompletarMvr(1, 'MOTIVO')}" />
                                 <p:ajax event="change" listener="#{controlEmplMvr.autocompletarNuevoyDuplicadoMvr('MOTIVO', controlEmplMvr.nuevaMvrs.motivo.nombre, 1)}" />
@@ -630,7 +630,7 @@
                             <p:watermark for="duplicarValorMMVRS" value="#{msg['valor']}" />
 
                             <strong><h:outputText value="*#{msg['motivoMVRS']}" style=" position: absolute; top: 165px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarMotivoMVRS" value="#{controlEmplMvr.duplicarMvrs.motivo.nombre}" style=" width: 122px; position: absolute; left: 170px; top: 160px; text-transform: uppercase" onclick="PF('select();" >
+                            <p:inputText id="duplicarMotivoMVRS" value="#{controlEmplMvr.duplicarMvrs.motivo.nombre}" style=" width: 122px; position: absolute; left: 170px; top: 160px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="dblclick" listener="#{controlEmplMvr.asignarIndex(0,2,0)}"/>
                                 <p:ajax event="click" listener="#{controlEmplMvr.valoresBackupAutocompletarMvr(2, 'MOTIVO')}" />
                                 <p:ajax event="change" listener="#{controlEmplMvr.autocompletarNuevoyDuplicadoMvr('MOTIVO', controlEmplMvr.duplicarMvrs.motivo.nombre, 2)}" />
@@ -688,7 +688,7 @@
                             <p:watermark for="nuevaEstadoOC" value="#{msg['estado']}" />
 
                             <strong><h:outputText value="*#{msg['certificadoOC']}" style=" position: absolute; top: 195px; left: 50px;" /></strong>
-                            <p:inputText maxlength="50" id="nuevaCertificadoOC" value="#{controlEmplMvr.nuevaOtroCertificado.tipocertificado.descripcion}" style=" width: 122px; position: absolute; left: 170px; top: 190px; text-transform: uppercase" onclick="PF('select();" >
+                            <p:inputText maxlength="50" id="nuevaCertificadoOC" value="#{controlEmplMvr.nuevaOtroCertificado.tipocertificado.descripcion}" style=" width: 122px; position: absolute; left: 170px; top: 190px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="dblclick" listener="#{controlEmplMvr.asignarIndex(0,1,1)}"/>
                                 <p:ajax event="click" listener="#{controlEmplMvr.valoresBackupAutocompletarOtrosCertificados(1, 'CERTIFICADOS')}" />
                                 <p:ajax event="change" listener="#{controlEmplMvr.autocompletarNuevoyDuplicadoOtrosCertificados('CERTIFICADOS', controlEmplMvr.nuevaOtroCertificado.tipocertificado.descripcion, 1)}" />
@@ -747,7 +747,7 @@
                             <p:watermark for="duplicarEstadoOC" value="#{msg['estado']}" />
 
                             <strong><h:outputText value="*#{msg['certificadoOC']}" style=" position: absolute; top: 195px; left: 50px;" /></strong>
-                            <p:inputText maxlength="50" id="duplicarCertificadoOC" value="#{controlEmplMvr.duplicarOtrosCertificados.tipocertificado.descripcion}" style=" width: 122px; position: absolute; left: 170px; top: 190px; text-transform: uppercase" onclick="PF('select();" >
+                            <p:inputText maxlength="50" id="duplicarCertificadoOC" value="#{controlEmplMvr.duplicarOtrosCertificados.tipocertificado.descripcion}" style=" width: 122px; position: absolute; left: 170px; top: 190px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="dblclick" listener="#{controlEmplMvr.asignarIndex(0,2,1)}"/>
                                 <p:ajax event="click" listener="#{controlEmplMvr.valoresBackupAutocompletarOtrosCertificados(2, 'CERTIFICADOS')}" />
                                 <p:ajax event="change" listener="#{controlEmplMvr.autocompletarNuevoyDuplicadoOtrosCertificados('CERTIFICADOS', controlEmplMvr.duplicarOtrosCertificados.tipocertificado.descripcion, 2)}" />

@@ -93,7 +93,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText onclick="PF('select();" value="#{info.codigoempleadoSTR}" id="editarCodigoEmpleado" 
+                                            <p:inputText onclick="select();" value="#{info.codigoempleadoSTR}" id="editarCodigoEmpleado" 
                                                          style=" border-radius: 0px; width: 99%;text-transform: uppercase;" readonly="true"
                                                          onselect="posicionEmpleado([{name: 'n', value: '0'}, {name: 't', value: '#{indice}'}]);"> 
                                             </p:inputText>
@@ -106,7 +106,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.persona.nombreCompleto}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText onclick="PF('select();" value="#{info.persona.nombreCompleto}" id="editarNombreEmpleadoEmpleado" 
+                                            <p:inputText onclick="select();" value="#{info.persona.nombreCompleto}" id="editarNombreEmpleadoEmpleado" 
                                                          style=" border-radius: 0px; width: 99%;text-transform: uppercase;" readonly="true"
                                                          onselect="posicionEmpleado([{name: 'n', value: '1'}, {name: 't', value: '#{indice}'}]);"> 
                                             </p:inputText>
@@ -311,7 +311,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText onclick="PF('select();" value="#{infoD.conceptodescripcion}" id="editarConceptoDetalle" 
+                                            <p:inputText onclick="select();" value="#{infoD.conceptodescripcion}" id="editarConceptoDetalle" 
                                                          style=" border-radius: 0px; width: 99%;text-transform: uppercase;" readonly="true"
                                                          onselect="posicionDetalleHoraExtra([{name: 'n', value: '0'}, {name: 't', value: '#{indiceD}'}]);"> 
                                             </p:inputText>
@@ -326,7 +326,7 @@
                                             <f:convertDateTime pattern="dd/MM/yyyy" />
                                             </h:outputText></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText onclick="PF('select();" value="#{infoD.fechapago}" id="editarFechaPagoDetalle" 
+                                            <p:inputText onclick="select();" value="#{infoD.fechapago}" id="editarFechaPagoDetalle" 
                                                          style=" border-radius: 0px; width: 99%;text-transform: uppercase;" readonly="true"
                                                          onselect="posicionDetalleHoraExtra([{name: 'n', value: '1'}, {name: 't', value: '#{indiceD}'}]);"> 
                                                 <f:convertDateTime pattern="dd/MM/yyyy" />
@@ -343,7 +343,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText onclick="PF('select();" value="#{infoD.horas}" id="editarHorasDetalle" 
+                                            <p:inputText onclick="select();" value="#{infoD.horas}" id="editarHorasDetalle" 
                                                          style=" border-radius: 0px; width: 99%;" readonly="true"
                                                          onselect="posicionDetalleHoraExtra([{name: 'n', value: '2'}, {name: 't', value: '#{indiceD}'}]);"> 
                                             </p:inputText>
@@ -359,7 +359,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText onclick="PF('select();" value="#{infoD.minutos}" id="editarMinutosDetalle" 
+                                            <p:inputText onclick="select();" value="#{infoD.minutos}" id="editarMinutosDetalle" 
                                                          style=" border-radius: 0px; width: 99%;" readonly="true"
                                                          onselect="posicionDetalleHoraExtra([{name: 'n', value: '3'}, {name: 't', value: '#{indiceD}'}]);"> 
                                             </p:inputText>
@@ -375,7 +375,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText onclick="PF('select();" value="#{infoD.aprobado}" id="editarApobadoDetalle" 
+                                            <p:inputText onclick="select();" value="#{infoD.aprobado}" id="editarApobadoDetalle" 
                                                          style=" border-radius: 0px; width: 99%;text-transform: uppercase;" readonly="true"
                                                          onselect="posicionDetalleHoraExtra([{name: 'n', value: '4'}, {name: 't', value: '#{indiceD}'}]);"> 
                                             </p:inputText>
@@ -391,7 +391,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText onclick="PF('select();" value="#{infoD.descripcion}" id="editarDescripcionDetalle" 
+                                            <p:inputText onclick="select();" value="#{infoD.descripcion}" id="editarDescripcionDetalle" 
                                                          style=" border-radius: 0px; width: 99%;text-transform: uppercase;" readonly="true"
                                                          onselect="posicionDetalleHoraExtra([{name: 'n', value: '5'}, {name: 't', value: '#{indiceD}'}]);"> 
                                             </p:inputText>
@@ -407,7 +407,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText onclick="PF('select();" value="#{infoD.opcion}" id="editarOpcionDetalle" 
+                                            <p:inputText onclick="select();" value="#{infoD.opcion}" id="editarOpcionDetalle" 
                                                          style=" border-radius: 0px; width: 99%;text-transform: uppercase;" readonly="true"
                                                          onselect="posicionDetalleHoraExtra([{name: 'n', value: '6'}, {name: 't', value: '#{indiceD}'}]);"> 
                                             </p:inputText>
@@ -694,7 +694,7 @@
                             </div>
 
                             <strong><h:outputText value="#{msg['motivoTurnoN']}" style=" position: absolute; top: 165px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaMotivoTurnoHoraExtra" value="#{controlATHoraExtra.nuevaTurno.motivoturno.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevaMotivoTurnoHoraExtra" value="#{controlATHoraExtra.nuevaTurno.motivoturno.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlATHoraExtra.valoresBackupAutocompletar(1, 'MOTIVO')}" />
                                 <p:ajax event="change" listener="#{controlATHoraExtra.autocompletarNuevoyDuplicado('MOTIVO', controlATHoraExtra.nuevaTurno.motivoturno.nombre, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlATHoraExtra.asignarIndex(indiceHE, 0 , 1)}" />
@@ -721,7 +721,7 @@
                             </p:selectBooleanCheckbox> 
                             
                             <strong><h:outputText value="#{msg['estructuraAprobacionN']}" style=" position: absolute; top: 285px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaEstructuraHoraExtra" value="#{controlATHoraExtra.nuevaTurno.estructuraaprueba.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 280px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevaEstructuraHoraExtra" value="#{controlATHoraExtra.nuevaTurno.estructuraaprueba.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 280px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlATHoraExtra.valoresBackupAutocompletar(1, 'ESTRUCTURA')}" />
                                 <p:ajax event="change" listener="#{controlATHoraExtra.autocompletarNuevoyDuplicado('ESTRUCTURA', controlATHoraExtra.nuevaTurno.estructuraaprueba.nombre, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlATHoraExtra.asignarIndex(indiceHE, 1 , 1)}" />
@@ -769,7 +769,7 @@
                             </div>
 
                             <strong><h:outputText value="#{msg['motivoTurnoN']}" style=" position: absolute; top: 165px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarMotivoTurnoHoraExtra" value="#{controlATHoraExtra.duplicarTurno.motivoturno.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarMotivoTurnoHoraExtra" value="#{controlATHoraExtra.duplicarTurno.motivoturno.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlATHoraExtra.valoresBackupAutocompletar(2, 'MOTIVO')}" />
                                 <p:ajax event="change" listener="#{controlATHoraExtra.autocompletarNuevoyDuplicado('MOTIVO', controlATHoraExtra.duplicarTurno.motivoturno.nombre, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlATHoraExtra.asignarIndex(indiceHE, 0 , 2)}" />
@@ -796,7 +796,7 @@
                             </p:selectBooleanCheckbox> 
                             
                             <strong><h:outputText value="#{msg['estructuraAprobacionN']}" style=" position: absolute; top: 285px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarEstructuraHoraExtra" value="#{controlATHoraExtra.duplicarTurno.estructuraaprueba.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 280px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarEstructuraHoraExtra" value="#{controlATHoraExtra.duplicarTurno.estructuraaprueba.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 280px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlATHoraExtra.valoresBackupAutocompletar(2, 'ESTRUCTURA')}" />
                                 <p:ajax event="change" listener="#{controlATHoraExtra.autocompletarNuevoyDuplicado('ESTRUCTURA', controlATHoraExtra.duplicarTurno.estructuraaprueba.nombre, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlATHoraExtra.asignarIndex(indiceHE, 1 , 2)}" />

@@ -284,7 +284,7 @@
                             <p:watermark for="nuevoNombre" value="Nombre" />
 
                             <strong><h:outputText value="*Grupo Asociado: " style="left: 10px; position: absolute; top: 120px;" /></strong>
-                            <p:inputText id="nuevoGrupoAsociado" value="#{controlTiposEntidades.nuevoTipoEntidad.grupo.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 115px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevoGrupoAsociado" value="#{controlTiposEntidades.nuevoTipoEntidad.grupo.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 115px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlTiposEntidades.valoresBackupAutocompletar(1, 'GRUPOSTIPOSENTIDADES')}" />
                                 <p:ajax event="change" listener="#{controlTiposEntidades.autocompletarNuevoyDuplicado('GRUPOSTIPOSENTIDADES', controlTiposEntidades.nuevoTipoEntidad.grupo.nombre, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlTiposEntidades.asignarVariableGrupoTipoEntidadNueva(0)}" />
@@ -318,7 +318,7 @@
 
 
                             <strong><h:outputText value="*Grupo Asociado: " style="left: 10px; position: absolute; top: 120px;" /></strong>
-                            <p:inputText id="duplicarGrupoTipoEntidad" value="#{controlTiposEntidades.duplicarTipoEntidad.grupo.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 115px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarGrupoTipoEntidad" value="#{controlTiposEntidades.duplicarTipoEntidad.grupo.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 115px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlTiposEntidades.valoresBackupAutocompletar(2, 'GRUPOSTIPOSENTIDADES')}" />
                                 <p:ajax event="change" listener="#{controlTiposEntidades.autocompletarNuevoyDuplicado('GRUPOSTIPOSENTIDADES', controlTiposEntidades.duplicarTipoEntidad.grupo.nombre, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlTiposEntidades.asignarVariableGrupoTipoEntidadNueva(1)}" />

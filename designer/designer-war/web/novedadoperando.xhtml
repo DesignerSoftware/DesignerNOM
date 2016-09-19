@@ -152,7 +152,7 @@
                         <p:panel id="nuevoNovedadOperando" style="border: none;">
 
                             <strong><h:outputText value="#{msg['nombreN']}" style="font-size: 12px; position: absolute; top: 67px;" /></strong>
-                            <p:inputText id="nuevoOperando" value="#{controlNovedadOperando.nuevoNovedadOperando.operando.nombre}" style="font-size: 12px; width: 122px; position: absolute; left: 180px; top: 65px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevoOperando" value="#{controlNovedadOperando.nuevoNovedadOperando.operando.nombre}" style="font-size: 12px; width: 122px; position: absolute; left: 180px; top: 65px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlNovedadOperando.valoresBackupAutocompletar(1, 'OPERANDO')}" />
                                 <p:ajax event="change" listener="#{controlNovedadOperando.autocompletarNuevoyDuplicado('OPERANDO', controlNovedadOperando.nuevoNovedadOperando.operando.nombre, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlNovedadOperando.asignarIndex(indice, 0, 1)}" />
@@ -174,7 +174,7 @@
                         <p:panel id="duplicarNovedadOperando" style="border: none;">
 
                             <strong><h:outputText value="#{msg['nombreN']}" style="font-size: 12px; position: absolute; top: 145px;" /></strong>
-                            <p:inputText id="duplicarOperando" value="#{controlNovedadOperando.duplicarNovedadOperando.operando.nombre}" style="font-size: 12px; width: 122px; position: absolute; left: 180px; top: 145px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarOperando" value="#{controlNovedadOperando.duplicarNovedadOperando.operando.nombre}" style="font-size: 12px; width: 122px; position: absolute; left: 180px; top: 145px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlNovedadOperando.valoresBackupAutocompletar(2, 'OPERANDO')}" />
                                 <p:ajax event="change" listener="#{controlNovedadOperando.autocompletarNuevoyDuplicado('OPERANDO', controlNovedadOperando.duplicarNovedadOperando.operando.nombre, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlNovedadOperando.asignarIndex(indice, 0, 2)}" />

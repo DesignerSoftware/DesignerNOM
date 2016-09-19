@@ -333,17 +333,17 @@ and open the template in the editor.
 
                         <p:panel id="nuevaCausasAusentismos" style="border: none;">
                             <strong><h:outputText value="#{msg['codigoN']}" style=" position: absolute; top: 75px;" /></strong>
-                            <p:inputText maxlength="4" id="nuevoCodigo" value="#{controlCausasAusentismos.nuevaCausasAusentismos.codigo}" style=" width: 122px; position: absolute; left: 185px; top: 70px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText maxlength="4" id="nuevoCodigo" value="#{controlCausasAusentismos.nuevaCausasAusentismos.codigo}" style=" width: 122px; position: absolute; left: 185px; top: 70px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['descripcionN']}" style=" position: absolute; top: 105px;" /></strong>
-                            <p:inputText id="nuevoDescripcion" value="#{controlCausasAusentismos.nuevaCausasAusentismos.descripcion}" style=" width: 122px; position: absolute; left: 185px; top: 100px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevoDescripcion" value="#{controlCausasAusentismos.nuevaCausasAusentismos.descripcion}" style=" width: 122px; position: absolute; left: 185px; top: 100px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
 
                             <strong><h:outputText value="#{msg['claseN']}" style=" position: absolute; top: 135px;" /></strong>
-                            <p:inputText id="nuevoClase" value="#{controlCausasAusentismos.nuevaCausasAusentismos.clase.descripcion}" style=" width: 122px; position: absolute; left: 185px; top: 130px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevoClase" value="#{controlCausasAusentismos.nuevaCausasAusentismos.clase.descripcion}" style=" width: 122px; position: absolute; left: 185px; top: 130px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlCausasAusentismos.valoresBackupAutocompletar(1)}" />
                                 <p:ajax event="change" listener="#{controlCausasAusentismos.autocompletarNuevoyDuplicado(controlCausasAusentismos.nuevaCausasAusentismos.clase.descripcion,1)}"/>
                                 <p:ajax event="dblclick" listener="#{controlCausasAusentismos.llamarLovClasesAusentismos(1)}" />
@@ -362,12 +362,12 @@ and open the template in the editor.
                             </p:selectOneMenu>
 
                             <strong><h:outputText value="#{msg['porcentajeliquidacionN']}" style=" position: absolute; top: 195px;" /></strong>
-                            <p:inputText id="nuevoPorcentajeLiquidacion" value="#{controlCausasAusentismos.nuevaCausasAusentismos.porcentajeliquidacion}" style=" width: 122px; position: absolute; left: 185px; top: 190px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevoPorcentajeLiquidacion" value="#{controlCausasAusentismos.nuevaCausasAusentismos.porcentajeliquidacion}" style=" width: 122px; position: absolute; left: 185px; top: 190px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
 
                             <strong><h:outputText value="#{msg['restadiasincapacidadN']}" style=" position: absolute; top: 225px;" /></strong>
-                            <p:inputText id="nuevoRestaDiasIncapacidad" value="#{controlCausasAusentismos.nuevaCausasAusentismos.restadiasincapacidad}" style=" width: 122px; position: absolute; left: 185px; top: 220px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevoRestaDiasIncapacidad" value="#{controlCausasAusentismos.nuevaCausasAusentismos.restadiasincapacidad}" style=" width: 122px; position: absolute; left: 185px; top: 220px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
 
@@ -419,17 +419,17 @@ and open the template in the editor.
                         <p:panel id="duplicarCausaAusentismo" style="border: none;">
 
                             <strong><h:outputText value="#{msg['codigoN']}" style=" position: absolute; top: 75px;" /></strong>
-                            <p:inputText maxlength="4" id="duplicadoCodigo" value="#{controlCausasAusentismos.duplicarCausasAusentismos.codigo}" style=" width: 122px; position: absolute; left: 185px; top: 70px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText maxlength="4" id="duplicadoCodigo" value="#{controlCausasAusentismos.duplicarCausasAusentismos.codigo}" style=" width: 122px; position: absolute; left: 185px; top: 70px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['descripcionN']}" style=" position: absolute; top: 105px;" /></strong>
-                            <p:inputText id="duplicadoDescripcion" value="#{controlCausasAusentismos.duplicarCausasAusentismos.descripcion}" style=" width: 122px; position: absolute; left: 185px; top: 100px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicadoDescripcion" value="#{controlCausasAusentismos.duplicarCausasAusentismos.descripcion}" style=" width: 122px; position: absolute; left: 185px; top: 100px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
 
                             <strong><h:outputText value="#{msg['claseN']}" style=" position: absolute; top: 135px;" /></strong>
-                            <p:inputText id="duplicadoClase" value="#{controlCausasAusentismos.duplicarCausasAusentismos.clase.descripcion}" style=" width: 122px; position: absolute; left: 185px; top: 130px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicadoClase" value="#{controlCausasAusentismos.duplicarCausasAusentismos.clase.descripcion}" style=" width: 122px; position: absolute; left: 185px; top: 130px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlCausasAusentismos.valoresBackupAutocompletar(2)}" />
                                 <p:ajax event="change" listener="#{controlCausasAusentismos.autocompletarNuevoyDuplicado(controlCausasAusentismos.duplicarCausasAusentismos.clase.descripcion,2)}"/>
                                 <p:ajax event="dblclick" listener="#{controlCausasAusentismos.llamarLovClasesAusentismos(2)}" />
@@ -448,12 +448,12 @@ and open the template in the editor.
                             </p:selectOneMenu>
 
                             <strong><h:outputText value="#{msg['porcentajeliquidacionN']}" style=" position: absolute; top: 195px;" /></strong>
-                            <p:inputText id="duplicadoPorcentajeLiquidacion" value="#{controlCausasAusentismos.duplicarCausasAusentismos.porcentajeliquidacion}" style=" width: 122px; position: absolute; left: 185px; top: 190px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicadoPorcentajeLiquidacion" value="#{controlCausasAusentismos.duplicarCausasAusentismos.porcentajeliquidacion}" style=" width: 122px; position: absolute; left: 185px; top: 190px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
 
                             <strong><h:outputText value="#{msg['restadiasincapacidadN']}" style=" position: absolute; top: 225px;" /></strong>
-                            <p:inputText id="duplicadoRestaDiasIncapacidad" value="#{controlCausasAusentismos.duplicarCausasAusentismos.restadiasincapacidad}" style=" width: 122px; position: absolute; left: 185px; top: 220px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicadoRestaDiasIncapacidad" value="#{controlCausasAusentismos.duplicarCausasAusentismos.restadiasincapacidad}" style=" width: 122px; position: absolute; left: 185px; top: 220px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
 

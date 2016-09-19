@@ -351,7 +351,7 @@
 
                             <strong><h:outputText value="Período: " style=" position: absolute; top: 105px;" /></strong>
                             <p:inputText id="nuevoPeriodo" value="#{controlNovedadesVacaciones.nuevaNovedad.vacacion.periodo}" 
-                                         style=" width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase" onclick="PF('select();">
+                                         style=" width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase" onclick="select();">
                                 <!-- Evento Click, sí es nulo el campo Que aparezca la lista de valores de Periodo -->
                                 <p:ajax event="dblclick" listener="#{controlNovedadesVacaciones.lovPeriodo(controlNovedadesVacaciones.empleadoSeleccionado.secuencia,1)}" />
                             <!--<p:ajax event="dblclick"  listener="formularioDialogos:periodosDialogo').show()" />-->
@@ -360,7 +360,7 @@
 
                             <strong><h:outputText value="*Días: " style=" position: absolute; top: 145px;" /></strong>
                             <p:inputText readonly="true" id="nuevoDias" value="#{controlNovedadesVacaciones.nuevaNovedad.vacacion.diaspendientes}" 
-                                         style=" width: 122px; position: absolute; left: 200px; top: 140px; text-transform: uppercase" onclick="PF('select();">
+                                         style=" width: 122px; position: absolute; left: 200px; top: 140px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" listener="#{controlNovedadesVacaciones.diasMayor(controlNovedadesVacaciones.nuevaNovedad.dias)}" />
                             </p:inputText>
                              <p:keyFilter for="nuevoDias" mask="num"/>
@@ -400,7 +400,7 @@
 
                             <strong><h:outputText value="Dias Aplazados" style=" position: absolute; top: 345px;" /></strong>
                             <p:inputText id="nuevoDiasAplazados" value="#{controlNovedadesVacaciones.nuevaNovedad.vacadiasaplazados}" 
-                                         style=" width: 122px; position: absolute; left: 200px; top: 340px; text-transform: uppercase" onclick="PF('select();">
+                                         style=" width: 122px; position: absolute; left: 200px; top: 340px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                              <p:keyFilter for="nuevoDiasAplazados" mask="num"/>
@@ -429,7 +429,7 @@
 
                             <strong><h:outputText value="Período: " style=" position: absolute; top: 105px;" /></strong>
                             <p:inputText id="duplicarPeriodo" value="#{controlNovedadesVacaciones.duplicarNovedad.vacacion.periodo}" 
-                                         style=" width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase" onclick="PF('select();">
+                                         style=" width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase" onclick="select();">
                                 <!-- Evento Click, sí es nulo el campo Que aparezca la lista de valores de Periodo -->
                                 <p:ajax event="click" listener="#{controlNovedadesVacaciones.lovPeriodo(secuenciaEmpleado,2)}" />
                                 <p:ajax event="change" listener="#{controlNovedadesVacaciones.lovPeriodo(secuenciaEmpleado,2)}" />
@@ -437,7 +437,7 @@
 
                             <strong><h:outputText value="*Días: " style=" position: absolute; top: 145px;" /></strong>
                             <p:inputText readonly="true" id="duplicarDias" value="#{controlNovedadesVacaciones.duplicarNovedad.vacacion.diaspendientes}" 
-                                         style=" width: 122px; position: absolute; left: 200px; top: 140px; text-transform: uppercase" onclick="PF('select();">
+                                         style=" width: 122px; position: absolute; left: 200px; top: 140px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" listener="#{controlNovedadesVacaciones.diasMayor(controlNovedadesVacaciones.duplicarNovedad.dias)}" />
                             </p:inputText>
 
@@ -476,7 +476,7 @@
 
                             <strong><h:outputText value="Dias Aplazados" style=" position: absolute; top: 345px;" /></strong>
                             <p:inputText id="duplicarDiasAplazados" value="#{controlNovedadesVacaciones.duplicarNovedad.vacadiasaplazados}" 
-                                         style=" width: 122px; position: absolute; left: 200px; top: 340px; text-transform: uppercase" onclick="PF('select();">
+                                         style=" width: 122px; position: absolute; left: 200px; top: 340px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 

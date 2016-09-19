@@ -197,7 +197,7 @@
                             </div>
 
                             <strong><h:outputText value="* #{msg['tipoN']}" style=" position: absolute; top: 120px;" /></strong>
-                            <p:inputText id="nuevoTipoTelefono" value="#{controlPerTelefonos.nuevoTelefono.tipotelefono.nombre}" style=" width: 122px; position: absolute; left: 150px; top: 115px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevoTipoTelefono" value="#{controlPerTelefonos.nuevoTelefono.tipotelefono.nombre}" style=" width: 122px; position: absolute; left: 150px; top: 115px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlPerTelefonos.valoresBackupAutocompletar(1, 'TIPOT')}" />
                                 <p:ajax event="change" listener="#{controlPerTelefonos.autocompletarNuevoyDuplicado('TIPOT', controlPerTelefonos.nuevoTelefono.tipotelefono.nombre, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlPerTelefonos.asignarIndex(telefono, 0, 1)}" />
@@ -205,13 +205,13 @@
                             <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 285px; top: 115px;  " id="btnNuevoTipoTelefono" value=" " process="@this"  actionListener="#{controlPerTelefonos.asignarIndex(telefono, 0, 1)}"/>   
 
                             <strong><h:outputText value="* #{msg['numeroN']}"  style=" position: absolute; top: 155px;" /></strong>
-                            <p:inputText maxlength="12" id="nuevoNumero" value="#{controlPerTelefonos.nuevoTelefono.numerotelefono}" style=" width: 122px; position: absolute; left: 150px; top: 150px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText maxlength="12" id="nuevoNumero" value="#{controlPerTelefonos.nuevoTelefono.numerotelefono}" style=" width: 122px; position: absolute; left: 150px; top: 150px; text-transform: uppercase" onclick="select();">
                                  <p:keyFilter for="nuevoNumero" mask="num"/>
                                 <p:ajax event="change" update="nuevoNumero"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['ciudadN']}" style=" position: absolute; top: 190px;" /></strong>
-                            <p:inputText id="nuevaCiudad" value="#{controlPerTelefonos.nuevoTelefono.ciudad.nombre}" style=" width: 122px; position: absolute; left: 150px; top: 185px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevaCiudad" value="#{controlPerTelefonos.nuevoTelefono.ciudad.nombre}" style=" width: 122px; position: absolute; left: 150px; top: 185px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlPerTelefonos.valoresBackupAutocompletar(1, 'CIUDAD')}" />
                                 <p:ajax event="change" listener="#{controlPerTelefonos.autocompletarNuevoyDuplicado('CIUDAD', controlPerTelefonos.nuevoTelefono.ciudad.nombre, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlPerTelefonos.asignarIndex(telefono, 1, 1)}" />
@@ -241,7 +241,7 @@
                             </div>
 
                             <strong><h:outputText value="* #{msg['tipoN']}" style=" position: absolute; top: 120px;" /></strong>
-                            <p:inputText id="duplicarTipoTelefono" value="#{controlPerTelefonos.duplicarTelefono.tipotelefono.nombre}" style=" width: 122px; position: absolute; left: 150px; top: 115px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarTipoTelefono" value="#{controlPerTelefonos.duplicarTelefono.tipotelefono.nombre}" style=" width: 122px; position: absolute; left: 150px; top: 115px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlPerTelefonos.valoresBackupAutocompletar(2, 'TIPOT')}" />
                                 <p:ajax event="change" listener="#{controlPerTelefonos.autocompletarNuevoyDuplicado('TIPOT', controlPerTelefonos.duplicarTelefono.tipotelefono.nombre, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlPerTelefonos.asignarIndex(telefono, 0, 2)}" />
@@ -249,14 +249,14 @@
                             <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png);background-size: 100% 100%; background-repeat: no-repeat; border: none;  width: 23px; height: 23px; position: absolute; left: 285px; top: 115px;  " id="btnDuplicarTipoTelefono" value=" " process="@this"  actionListener="#{controlPerTelefonos.asignarIndex(telefono, 0, 2)}"/>   
 
                             <strong><h:outputText value="* #{msg['numeroN']}" style=" position: absolute; top: 155px;" /></strong>
-                            <p:inputText maxlength="12" id="duplicarNumero" value="#{controlPerTelefonos.duplicarTelefono.numerotelefono}" style=" width: 122px; position: absolute; left: 150px; top: 150px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText maxlength="12" id="duplicarNumero" value="#{controlPerTelefonos.duplicarTelefono.numerotelefono}" style=" width: 122px; position: absolute; left: 150px; top: 150px; text-transform: uppercase" onclick="select();">
                                  <p:keyFilter for="duplicarNumero" mask="num"/>
                                 <p:ajax event="change" update="duplicarNumero"/>
                             </p:inputText>
                             <p:watermark for="duplicarNumero" value="Numero" />
 
                             <strong><h:outputText value="#{msg['ciudadN']}" style=" position: absolute; top: 190px;" /></strong>
-                            <p:inputText id="duplicarCiudad" value="#{controlPerTelefonos.duplicarTelefono.ciudad.nombre}" style=" width: 122px; position: absolute; left: 150px; top: 185px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarCiudad" value="#{controlPerTelefonos.duplicarTelefono.ciudad.nombre}" style=" width: 122px; position: absolute; left: 150px; top: 185px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlPerTelefonos.valoresBackupAutocompletar(2, 'CIUDAD')}" />
                                 <p:ajax event="change" listener="#{controlPerTelefonos.autocompletarNuevoyDuplicado('CIUDAD', controlPerTelefonos.duplicarTelefono.ciudad.nombre, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlPerTelefonos.asignarIndex(telefono, 1 , 2)}" />

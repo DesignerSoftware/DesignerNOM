@@ -343,7 +343,7 @@
                             <p:watermark for="nuevaUbicacionPrincipal" value="Ubicacion Principal" />
 
                             <strong><h:outputText value="*Descripcion U. Principal:  " style=" position: absolute; top: 155px;" /></strong>
-                            <p:inputText id="nuevaDescripcionUbicacionPrincipal" value="#{controlPerDirecciones.nuevaDireccion.ppal}" style=" width: 122px; position: absolute; left: 200px; top: 150px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevaDescripcionUbicacionPrincipal" value="#{controlPerDirecciones.nuevaDireccion.ppal}" style=" width: 122px; position: absolute; left: 200px; top: 150px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="nuevaDescripcionUbicacionPrincipal"/>
                             </p:inputText>
                             <p:watermark for="nuevaDescripcionUbicacionPrincipal" value="Descripcion Ubicacion Principal" />
@@ -362,19 +362,19 @@
                             <p:watermark for="nuevaUbicacionSecundaria" value="Ubicacion Secundaria" />
 
                             <strong><h:outputText value="*Descripcion U. Secundaria: " style=" position: absolute; top: 225px;" /></strong>
-                            <p:inputText id="nuevaDescripcionUbicacionSecundaria" value="#{controlPerDirecciones.nuevaDireccion.secundario}" style=" width: 122px; position: absolute; left: 200px; top: 220px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevaDescripcionUbicacionSecundaria" value="#{controlPerDirecciones.nuevaDireccion.secundario}" style=" width: 122px; position: absolute; left: 200px; top: 220px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="nuevaDescripcionUbicacionSecundaria"/>
                             </p:inputText>
                             <p:watermark for="nuevaDescripcionUbicacionSecundaria" value="Descripcion Ubicacion Secundaria" />
 
                             <strong><h:outputText value="* Barrio: " style=" position: absolute; top: 260px;" /></strong>
-                            <p:inputText id="nuevoInterior" value="#{controlPerDirecciones.nuevaDireccion.interior}" style=" width: 122px; position: absolute; left: 200px; top: 255px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevoInterior" value="#{controlPerDirecciones.nuevaDireccion.interior}" style=" width: 122px; position: absolute; left: 200px; top: 255px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="nuevoInterior"/>
                             </p:inputText>
                             <p:watermark for="nuevoInterior" value="Barrio" />                            
 
                             <strong><h:outputText value="*Ciudad: " style=" position: absolute; top: 295px;" /></strong>
-                            <p:inputText id="nuevaCiudad" value="#{controlPerDirecciones.nuevaDireccion.ciudad.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 290px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevaCiudad" value="#{controlPerDirecciones.nuevaDireccion.ciudad.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 290px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlPerDirecciones.valoresBackupAutocompletar(1)}" />
                                 <p:ajax event="change" listener="#{controlPerDirecciones.autocompletarNuevoyDuplicado(controlPerDirecciones.nuevaDireccion.ciudad.nombre, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlPerDirecciones.llamarLovCiudad(1)}" />
@@ -400,7 +400,7 @@
                             <p:watermark for="nuevaHipoteca" value="Hipoteca" />
 
                             <strong><h:outputText value="Direccion Alternativa: "  style=" position: absolute; top: 400px;" /></strong>
-                            <p:inputText id="nuevaDireccionAlternativa" value="#{controlPerDirecciones.nuevaDireccion.direccionalternativa}" style=" width: 122px; position: absolute; left: 200px; top: 395px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevaDireccionAlternativa" value="#{controlPerDirecciones.nuevaDireccion.direccionalternativa}" style=" width: 122px; position: absolute; left: 200px; top: 395px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="nuevaDireccionAlternativa"/>
                                 <p:ajax event="click" listener="#{controlPerDirecciones.pregunta(1)}"/>
                             </p:inputText>
@@ -442,7 +442,7 @@
                             <p:watermark for="duplicarUbicacionPrincipal" value="Ubicacion Principal" />
 
                             <strong><h:outputText value="*Descripcion U. Principal:  " style=" position: absolute; top: 155px;" /></strong>
-                            <p:inputText id="duplicarDescripcionUbicacionPrincipal" value="#{controlPerDirecciones.duplicarDireccion.ppal}" style=" width: 122px; position: absolute; left: 200px; top: 150px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarDescripcionUbicacionPrincipal" value="#{controlPerDirecciones.duplicarDireccion.ppal}" style=" width: 122px; position: absolute; left: 200px; top: 150px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="duplicarDescripcionUbicacionPrincipal"/>
                             </p:inputText>
                             <p:watermark for="duplicarDescripcionUbicacionPrincipal" value="Descripcion Ubicacion Principal" />
@@ -461,19 +461,19 @@
                             <p:watermark for="duplicarUbicacionSecundaria" value="Ubicacion Secundaria" />
 
                             <strong><h:outputText value="*Descripcion U. Secundaria: " style=" position: absolute; top: 225px;" /></strong>
-                            <p:inputText id="duplicarDescripcionUbicacionSecundaria" value="#{controlPerDirecciones.duplicarDireccion.secundario}" style=" width: 122px; position: absolute; left: 200px; top: 220px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarDescripcionUbicacionSecundaria" value="#{controlPerDirecciones.duplicarDireccion.secundario}" style=" width: 122px; position: absolute; left: 200px; top: 220px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="duplicarDescripcionUbicacionSecundaria"/>
                             </p:inputText>
                             <p:watermark for="duplicarDescripcionUbicacionSecundaria" value="Descripcion Ubicacion Secundaria" />
 
                             <strong><h:outputText value="* Barrio: " style=" position: absolute; top: 260px;" /></strong>
-                            <p:inputText id="duplicarInterior" value="#{controlPerDirecciones.duplicarDireccion.interior}" style=" width: 122px; position: absolute; left: 200px; top: 255px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarInterior" value="#{controlPerDirecciones.duplicarDireccion.interior}" style=" width: 122px; position: absolute; left: 200px; top: 255px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="duplicarInterior"/>
                             </p:inputText>
                             <p:watermark for="duplicarInterior" value="Barrio" />                            
 
                             <strong><h:outputText value="*Ciudad: " style=" position: absolute; top: 295px;" /></strong>
-                            <p:inputText id="duplicarCiudad" value="#{controlPerDirecciones.duplicarDireccion.ciudad.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 290px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarCiudad" value="#{controlPerDirecciones.duplicarDireccion.ciudad.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 290px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlPerDirecciones.valoresBackupAutocompletar(2)}" />
                                 <p:ajax event="change" listener="#{controlPerDirecciones.autocompletarNuevoyDuplicado(controlPerDirecciones.duplicarDireccion.ciudad.nombre, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlPerDirecciones.llamarLovCiudad(2)}" />
@@ -499,7 +499,7 @@
                             <p:watermark for="duplicarHipoteca" value="Hipoteca" />
 
                             <strong><h:outputText value="Direccion Alternativa: "  style=" position: absolute; top: 400px;" /></strong>
-                            <p:inputText id="duplicarDireccionAlternativa" value="#{controlPerDirecciones.duplicarDireccion.direccionalternativa}" style=" width: 122px; position: absolute; left: 200px; top: 395px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarDireccionAlternativa" value="#{controlPerDirecciones.duplicarDireccion.direccionalternativa}" style=" width: 122px; position: absolute; left: 200px; top: 395px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="duplicarDireccionAlternativa"/>
                                 <p:ajax event="click" listener="#{controlPerDirecciones.pregunta(2)}"/>
                             </p:inputText>

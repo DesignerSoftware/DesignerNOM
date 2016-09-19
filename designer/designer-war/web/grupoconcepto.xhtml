@@ -284,12 +284,12 @@
                      <fieldset style="position: absolute; left: 10px; top: 40px; font-size: 11px; width: 285px; height: 138px; border-radius: 10px; ">
 
                         <strong><h:outputText value="#{msg['codigoN']}" style="font-size: 12px; position: absolute; top: 19px;" /></strong>
-                        <p:inputText maxlength="7" id="nuevoCodigo" value="#{controlGrupoConcepto.nuevoGruposConceptos.codigo}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 15px; text-transform: uppercase" onclick="PF('select();">
+                        <p:inputText maxlength="7" id="nuevoCodigo" value="#{controlGrupoConcepto.nuevoGruposConceptos.codigo}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 15px; text-transform: uppercase" onclick="select();">
                            <p:ajax event="change" update="nuevoCodigo" />
                         </p:inputText>
 
                         <strong><h:outputText value="#{msg['descripcionN']}" style="font-size: 12px; position: absolute; top: 59px;" /></strong>
-                        <p:inputText maxlength="50" id="nuevoDescripcion" value="#{controlGrupoConcepto.nuevoGruposConceptos.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 57px; text-transform: uppercase" onclick="PF('select();">
+                        <p:inputText maxlength="50" id="nuevoDescripcion" value="#{controlGrupoConcepto.nuevoGruposConceptos.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 57px; text-transform: uppercase" onclick="select();">
                            <p:ajax event="change" update="nuevoDescripcion" />
                         </p:inputText>
 
@@ -320,12 +320,12 @@
                      <fieldset style="position: absolute; left: 10px; top: 40px; font-size: 11px; width: 285px; height: 138px; border-radius: 10px; ">
 
                         <strong><h:outputText value="#{msg['codigoN']}" style="font-size: 12px; position: absolute; top: 19px;" /></strong>
-                        <p:inputText maxlength="7" id="duplicarCodigo" value="#{controlGrupoConcepto.duplicarGruposConceptos.codigo}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 15px; text-transform: uppercase" onclick="PF('select();">
+                        <p:inputText maxlength="7" id="duplicarCodigo" value="#{controlGrupoConcepto.duplicarGruposConceptos.codigo}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 15px; text-transform: uppercase" onclick="select();">
                            <p:ajax event="change" update="duplicarCodigo" />
                         </p:inputText>
 
                         <strong><h:outputText value="#{msg['descripcionN']}" style="font-size: 12px; position: absolute; top: 59px;" /></strong>
-                        <p:inputText maxlength="50" id="duplicarDescripcion" value="#{controlGrupoConcepto.duplicarGruposConceptos.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 57px; text-transform: uppercase" onclick="PF('select();">
+                        <p:inputText maxlength="50" id="duplicarDescripcion" value="#{controlGrupoConcepto.duplicarGruposConceptos.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 57px; text-transform: uppercase" onclick="select();">
                            <p:ajax event="change" update="duplicarDescripcion" />
                         </p:inputText>
 
@@ -352,7 +352,7 @@
                      <fieldset style="position: absolute; left: 10px; top: 40px; font-size: 11px; width: 295px; height: 238px; border-radius: 10px; ">
 
                         <strong><h:outputText value="#{msg['codigoN']}" style="font-size: 12px; position: absolute; top: 17px;" /></strong>
-                        <p:inputText id="nuevoCodigoV" value="#{controlGrupoConcepto.nuevoVigenciaGruposConceptos.concepto.codigoSTR}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 15px; text-transform: uppercase" onclick="PF('select();">
+                        <p:inputText id="nuevoCodigoV" value="#{controlGrupoConcepto.nuevoVigenciaGruposConceptos.concepto.codigoSTR}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 15px; text-transform: uppercase" onclick="select();">
                            <p:ajax event="click" listener="#{controlGrupoConcepto.valoresBackupAutocompletar(1, 'CONCEPTO')}" />
                            <p:ajax event="change" listener="#{controlGrupoConcepto.autocompletarNuevoyDuplicado('CONCEPTO', controlGrupoConcepto.nuevoVigenciaGruposConceptos.concepto.codigoSTR, 1)}" />
                            <p:ajax event="dblclick" listener="#{controlGrupoConcepto.asignarIndex(indice, 0, 1)}" />
@@ -360,12 +360,12 @@
                         <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 285px; top: 15px;  " id="btnNuevoConcepto" actionListener="#{controlGrupoConcepto.asignarIndex(indice, 0, 1)}" icon="ui-icon-search" process="@this" />
 
                         <strong><h:outputText value="#{msg['descripcionN']}"  style="font-size: 12px; position: absolute; top: 57px;" /></strong>
-                        <p:inputText id="nuevoDescripcionV" value="#{controlGrupoConcepto.nuevoVigenciaGruposConceptos.concepto.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 55px; text-transform: uppercase" onclick="PF('select();">
+                        <p:inputText id="nuevoDescripcionV" value="#{controlGrupoConcepto.nuevoVigenciaGruposConceptos.concepto.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 55px; text-transform: uppercase" onclick="select();">
                            <p:ajax event="change" update="nuevoDescripcionV"/>
                         </p:inputText>
 
                         <strong><h:outputText value="#{msg['naturalezaN']}"  style="font-size: 12px; position: absolute; top: 97px;" /></strong>
-                        <p:inputText id="nuevoNaturaleza" value="#{controlGrupoConcepto.nuevoVigenciaGruposConceptos.concepto.naturalezaConcepto}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 95px; text-transform: uppercase" onclick="PF('select();">
+                        <p:inputText id="nuevoNaturaleza" value="#{controlGrupoConcepto.nuevoVigenciaGruposConceptos.concepto.naturalezaConcepto}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 95px; text-transform: uppercase" onclick="select();">
                            <p:ajax event="change" update="nuevoNaturaleza"/>
                         </p:inputText>
 
@@ -386,7 +386,7 @@
                         </div>
 
                         <strong><h:outputText value="#{msg['empresaN']}" style="font-size: 12px; position: absolute; top: 217px;" /></strong>
-                        <p:inputText id="nuevoEmpresa" value="#{controlGrupoConcepto.nuevoVigenciaGruposConceptos.concepto.empresa.nombre}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 215px; text-transform: uppercase" onclick="PF('select();">
+                        <p:inputText id="nuevoEmpresa" value="#{controlGrupoConcepto.nuevoVigenciaGruposConceptos.concepto.empresa.nombre}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 215px; text-transform: uppercase" onclick="select();">
                            <p:ajax event="click" listener="#{controlGrupoConcepto.valoresBackupAutocompletar(1, 'EMPRESA')}" />
                            <p:ajax event="change" listener="#{controlGrupoConcepto.autocompletarNuevoyDuplicado('EMPRESA', controlGrupoConcepto.nuevoVigenciaGruposConceptos.concepto.empresa.nombre, 1)}" />
                            <p:ajax event="dblclick" listener="#{controlGrupoConcepto.asignarIndex(indice, 0, 1)}" />
@@ -409,7 +409,7 @@
                      <fieldset style="position: absolute; left: 10px; top: 40px; font-size: 11px; width: 295px; height: 238px; border-radius: 10px; ">
 
                         <strong><h:outputText value="#{msg['codigoN']}" style="font-size: 12px; position: absolute; top: 17px;" /></strong>
-                        <p:inputText id="duplicarCodigoV" value="#{controlGrupoConcepto.duplicarVigenciaGruposConceptos.concepto.codigoSTR}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 15px; text-transform: uppercase" onclick="PF('select();">
+                        <p:inputText id="duplicarCodigoV" value="#{controlGrupoConcepto.duplicarVigenciaGruposConceptos.concepto.codigoSTR}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 15px; text-transform: uppercase" onclick="select();">
                            <p:ajax event="click" listener="#{controlGrupoConcepto.valoresBackupAutocompletar(2, 'CONCEPTO')}" />
                            <p:ajax event="change" listener="#{controlGrupoConcepto.autocompletarNuevoyDuplicado('CONCEPTO', controlGrupoConcepto.duplicarVigenciaGruposConceptos.concepto.codigoSTR, 2)}" />
                            <p:ajax event="dblclick" listener="#{controlGrupoConcepto.asignarIndex(indice, 0, 2)}" />
@@ -417,12 +417,12 @@
                         <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 285px; top: 15px;  " id="btnDuplicarConcepto" actionListener="#{controlGrupoConcepto.asignarIndex(indice, 0, 2)}" icon="ui-icon-search" process="@this" />
 
                         <strong><h:outputText value="#{msg['descripcionN']}"  style="font-size: 12px; position: absolute; top: 57px;" /></strong>
-                        <p:inputText id="duplicarDescripcionV" value="#{controlGrupoConcepto.duplicarVigenciaGruposConceptos.concepto.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 55px; text-transform: uppercase" onclick="PF('select();">
+                        <p:inputText id="duplicarDescripcionV" value="#{controlGrupoConcepto.duplicarVigenciaGruposConceptos.concepto.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 55px; text-transform: uppercase" onclick="select();">
                            <p:ajax event="change" update="duplicarDescripcionV"/>
                         </p:inputText>
 
                         <strong><h:outputText value="#{msg['naturalezaN']}"  style="font-size: 12px; position: absolute; top: 97px;" /></strong>
-                        <p:inputText id="duplicarNaturaleza" value="#{controlGrupoConcepto.duplicarVigenciaGruposConceptos.concepto.naturalezaConcepto}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 95px; text-transform: uppercase" onclick="PF('select();">
+                        <p:inputText id="duplicarNaturaleza" value="#{controlGrupoConcepto.duplicarVigenciaGruposConceptos.concepto.naturalezaConcepto}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 95px; text-transform: uppercase" onclick="select();">
                            <p:ajax event="change" update="duplicarNaturaleza"/>
                         </p:inputText>
 
@@ -443,7 +443,7 @@
                         </div>
 
                         <strong><h:outputText value="#{msg['empresaN']}" style="font-size: 12px; position: absolute; top: 217px;" /></strong>
-                        <p:inputText id="duplicarEmpresa" value="#{controlGrupoConcepto.duplicarVigenciaGruposConceptos.concepto.empresa.nombre}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 215px; text-transform: uppercase" onclick="PF('select();">
+                        <p:inputText id="duplicarEmpresa" value="#{controlGrupoConcepto.duplicarVigenciaGruposConceptos.concepto.empresa.nombre}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 215px; text-transform: uppercase" onclick="select();">
                            <p:ajax event="click" listener="#{controlGrupoConcepto.valoresBackupAutocompletar(2, 'EMPRESA')}" />
                            <p:ajax event="change" listener="#{controlGrupoConcepto.autocompletarNuevoyDuplicado('EMPRESA', controlGrupoConcepto.duplicarVigenciaGruposConceptos.concepto.empresa.nombre, 2)}" />
                            <p:ajax event="dblclick" listener="#{controlGrupoConcepto.asignarIndex(indice, 0, 2)}" />

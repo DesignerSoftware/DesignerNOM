@@ -204,7 +204,7 @@
                 <h:form id="formTexto" style="position: absolute; top: 200px; left: 265px;">
                     <fieldset style="position: absolute;top: 260px;height: 100px;width: 805px; border-radius: 10px; text-align: left">
                         <legend style="color: blue"><strong>#{msg['logrosalcanzados']}</strong></legend>
-                        <p:inputTextarea id="editarTexto" value="#{controlConceptoJuridico.textoNormativo}" style="text-transform: uppercase;width: 790px;height: 70px;" readonly="#{controlConceptoJuridico.readOnlyTexto}" onclick="PF('select();">
+                        <p:inputTextarea id="editarTexto" value="#{controlConceptoJuridico.textoNormativo}" style="text-transform: uppercase;width: 790px;height: 70px;" readonly="#{controlConceptoJuridico.readOnlyTexto}" onclick="select();">
                             <p:ajax event="click" listener="#{controlConceptoJuridico.posicionTextoNormativo(3)}" process="@this" /> 
                             <p:ajax event="select" listener="#{controlConceptoJuridico.posicionTextoNormativo(3)}" process="@this" /> 
                             <p:ajax event="change" listener="#{controlConceptoJuridico.modificarTextoNormativo()}" process="@this" update="editarTexto" />
@@ -286,19 +286,19 @@
                             </div>
 
                             <strong><h:outputText value="*#{msg['nombreN']}" style=" position: absolute; top: 105px; left: 40px;" /></strong>
-                            <p:inputText id="nuevaNombreC" value="#{controlConceptoJuridico.nuevoConcepto.expedidopor}" style="width: 140px; position: absolute; left: 200px; top: 100px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevaNombreC" value="#{controlConceptoJuridico.nuevoConcepto.expedidopor}" style="width: 140px; position: absolute; left: 200px; top: 100px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" process="@this" update="nuevaNombreC"/>
                             </p:inputText>
                             <p:watermark for="nuevaNombreC" value="#{msg['nombreWM']}" />
 
                             <strong><h:outputText value="*#{msg['profesionN']}" style="  position: absolute; top: 135px; left: 40px;" /></strong>
-                            <p:inputText id="nuevaCargoC" value="#{controlConceptoJuridico.nuevoConcepto.quien}" style="  width: 140px; position: absolute; left: 200px; top: 130px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevaCargoC" value="#{controlConceptoJuridico.nuevoConcepto.quien}" style="  width: 140px; position: absolute; left: 200px; top: 130px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" process="@this" update="nuevaCargoC"/>
                             </p:inputText>
                             <p:watermark for="nuevaCargoC" value="#{msg['profesionWM']}" />
 
                             <strong><h:outputText value="*#{msg['textoN']}" style="  position: absolute; top: 165px; left: 40px;" /></strong>
-                            <p:inputTextarea id="nuevaTextoC" value="#{controlConceptoJuridico.nuevoConcepto.texto}"  style="width: 140px; position: absolute; left: 200px; top: 160px; text-transform: uppercase" onclick="PF('select();" styleClass="textarea">
+                            <p:inputTextarea id="nuevaTextoC" value="#{controlConceptoJuridico.nuevoConcepto.texto}"  style="width: 140px; position: absolute; left: 200px; top: 160px; text-transform: uppercase" onclick="select();" styleClass="textarea">
                                 <p:ajax event="change" process="@this" update="nuevaTextoC"/>
                             </p:inputTextarea>
                             <p:watermark for="nuevaTextoC" value="#{msg['textoWM']}" />
@@ -323,19 +323,19 @@
                             </div>
 
                             <strong><h:outputText value="*#{msg['nombreN']}" style=" position: absolute; top: 105px; left: 40px;" /></strong>
-                            <p:inputText id="duplicarNombreC" value="#{controlConceptoJuridico.duplicarConcepto.expedidopor}" style=" width: 140px; position: absolute; left: 200px; top: 100px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarNombreC" value="#{controlConceptoJuridico.duplicarConcepto.expedidopor}" style=" width: 140px; position: absolute; left: 200px; top: 100px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="duplicarNombreC"/>
                             </p:inputText>
                             <p:watermark for="duplicarNombreC" value="#{msg['nombreWM']}" />
 
                             <strong><h:outputText value="*#{msg['profesionN']}" style=" position: absolute; top: 135px; left: 40px;" /></strong>
-                            <p:inputText id="duplicarCargoC" value="#{controlConceptoJuridico.duplicarConcepto.quien}" style="  width: 140px; position: absolute; left: 200px; top: 130px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarCargoC" value="#{controlConceptoJuridico.duplicarConcepto.quien}" style="  width: 140px; position: absolute; left: 200px; top: 130px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="duplicarCargoC"/>
                             </p:inputText>
                             <p:watermark for="duplicarCargoC" value="#{msg['profesionWM']}" />
 
                             <strong><h:outputText value="*#{msg['textoN']}" style=" position: absolute; top: 165px; left: 40px;" /></strong>
-                            <p:inputTextarea id="duplicarTextoC" value="#{controlConceptoJuridico.duplicarConcepto.texto}" style=" width: 140px; position: absolute; left: 200px; top: 160px; text-transform: uppercase" onclick="PF('select();" styleClass="textarea">
+                            <p:inputTextarea id="duplicarTextoC" value="#{controlConceptoJuridico.duplicarConcepto.texto}" style=" width: 140px; position: absolute; left: 200px; top: 160px; text-transform: uppercase" onclick="select();" styleClass="textarea">
                                 <p:ajax event="change" process="@this" update="duplicarTextoC"/>
                             </p:inputTextarea>
                             <p:watermark for="duplicarTextoC" value="#{msg['textoWM']}" />

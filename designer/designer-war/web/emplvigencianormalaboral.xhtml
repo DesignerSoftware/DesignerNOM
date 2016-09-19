@@ -298,7 +298,7 @@
                             <p:watermark for="nuevaFecha" value="#{msg['fecha']}" />
 
                             <strong><h:outputText value="*#{msg['normaLaboralN']}" style=" position: absolute; top: 90px;" /></strong>
-                            <p:inputText maxlength="40" id="nuevoNombreSucursal" value="#{controlBetaEmplVigenciaNormaLaboral.nuevoEmplVigenciaNormaLaboral.normalaboral.nombre}" style=" width: 127px; position: absolute; left: 135px; top: 85px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText maxlength="40" id="nuevoNombreSucursal" value="#{controlBetaEmplVigenciaNormaLaboral.nuevoEmplVigenciaNormaLaboral.normalaboral.nombre}" style=" width: 127px; position: absolute; left: 135px; top: 85px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlBetaEmplVigenciaNormaLaboral.valoresBackupAutocompletar(1)}" />
                                 <p:ajax event="change" listener="#{controlBetaEmplVigenciaNormaLaboral.autocompletarNuevo('NORMASLABORALES',controlBetaEmplVigenciaNormaLaboral.nuevoEmplVigenciaNormaLaboral.normalaboral.nombre, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlBetaEmplVigenciaNormaLaboral.asignarVariableNormasLaborales(0)}" />
@@ -329,7 +329,7 @@
                             <p:watermark for="duplicarFechaa" value="#{msg['fecha']}" />
 
                             <strong><h:outputText value="*#{msg['normaLaboralN']}" style=" position: absolute; top: 95px;" /></strong>
-                            <p:inputText maxlength="40" id="duplicarTipoCentroCostos" value="#{controlBetaEmplVigenciaNormaLaboral.duplicarEmplVigenciaNormaLaboral.normalaboral.nombre}" style=" width: 127px; position: absolute; left: 135px; top: 90px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText maxlength="40" id="duplicarTipoCentroCostos" value="#{controlBetaEmplVigenciaNormaLaboral.duplicarEmplVigenciaNormaLaboral.normalaboral.nombre}" style=" width: 127px; position: absolute; left: 135px; top: 90px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="select" listener="#{controlBetaEmplVigenciaNormaLaboral.valoresBackupAutocompletar(2)}" />
                                 <p:ajax event="click" listener="#{controlBetaEmplVigenciaNormaLaboral.valoresBackupAutocompletar(2)}" />
                                 <p:ajax event="change" listener="#{controlBetaEmplVigenciaNormaLaboral.autocompletarDuplicado('NORMASLABORALES',controlBetaEmplVigenciaNormaLaboral.duplicarEmplVigenciaNormaLaboral.normalaboral.nombre, 2)}" />

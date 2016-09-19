@@ -1345,7 +1345,7 @@
                             </div>
 
                             <strong><h:outputText value="*#{msg['tipoccN']}" style="position: absolute; top: 120px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaTipoCCVC" value="#{controlDetalleConcepto.nuevaVigenciaCuenta.tipocc.nombre}" style="width: 122px; position: absolute; left: 220px; top: 115px; text-transform: uppercase" onclick="PF('select();" >
+                            <p:inputText id="nuevaTipoCCVC" value="#{controlDetalleConcepto.nuevaVigenciaCuenta.tipocc.nombre}" style="width: 122px; position: absolute; left: 220px; top: 115px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(0,1,0)}"/>
                                 <p:ajax event="click" listener="#{controlDetalleConcepto.valoresBackupAutocompletarGeneral(1, 'TIPOCC',0)}" />
                                 <p:ajax event="change" listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoVigenciaCuenta('TIPOCC', controlDetalleConcepto.nuevaVigenciaCuenta.tipocc.nombre, 1)}" />
@@ -1355,7 +1355,7 @@
                             <p:watermark for="nuevaTipoCCVC" value="#{msg['tipoccWM']}" />
 
                             <strong><h:outputText value="*#{msg['cuentadebitoN']}" style="position: absolute; top: 150px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaDebitoVC" value="#{controlDetalleConcepto.nuevaVigenciaCuenta.cuentad.codigo}" style="width: 122px; position: absolute; left: 220px; top: 145px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevaDebitoVC" value="#{controlDetalleConcepto.nuevaVigenciaCuenta.cuentad.codigo}" style="width: 122px; position: absolute; left: 220px; top: 145px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(1,1,0)}"/>
                                 <p:ajax event="click" listener="#{controlDetalleConcepto.valoresBackupAutocompletarGeneral(1, 'CODDEBITO',0)}" />
                                 <p:ajax event="change" listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoVigenciaCuenta('CODDEBITO', controlDetalleConcepto.nuevaVigenciaCuenta.cuentad.codigo, 1)}" />
@@ -1365,7 +1365,7 @@
                             <p:watermark for="nuevaDebitoVC" value="#{msg['cuentadebitoWM']}" />
 
                             <strong><h:outputText value="*#{msg['descripciondebitoN']}" style="position: absolute; top: 180px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaDesDebitoVC" value="#{controlDetalleConcepto.nuevaVigenciaCuenta.cuentad.descripcion}" style="width: 122px; position: absolute; left: 220px; top: 175px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevaDesDebitoVC" value="#{controlDetalleConcepto.nuevaVigenciaCuenta.cuentad.descripcion}" style="width: 122px; position: absolute; left: 220px; top: 175px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(2,1,0)}"/>
                                 <p:ajax event="click" listener="#{controlDetalleConcepto.valoresBackupAutocompletarGeneral(1, 'DESDEBITO',0)}" />
                                 <p:ajax event="change" listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoVigenciaCuenta('DESDEBITO', controlDetalleConcepto.nuevaVigenciaCuenta.cuentad.descripcion, 1)}" />
@@ -1375,7 +1375,7 @@
                             <p:watermark for="nuevaDesDebitoVC" value="#{msg['descripciondebitoWM']}" />
 
                             <strong><h:outputText value="*#{msg['ccconsolidadorN']}" style="position: absolute; top: 210px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaConsoliDebVC" value="#{controlDetalleConcepto.nuevaVigenciaCuenta.consolidadord.nombre}" style="width: 122px; position: absolute; left: 220px; top: 205px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevaConsoliDebVC" value="#{controlDetalleConcepto.nuevaVigenciaCuenta.consolidadord.nombre}" style="width: 122px; position: absolute; left: 220px; top: 205px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(3,1,0)}"/>
                                 <p:ajax event="click" listener="#{controlDetalleConcepto.valoresBackupAutocompletarGeneral(1, 'CONSOLIDADORDEBITO',0)}" />
                                 <p:ajax event="change" listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoVigenciaCuenta('CONSOLIDADORDEBITO', controlDetalleConcepto.nuevaVigenciaCuenta.consolidadord.nombre, 1)}" />
@@ -1385,7 +1385,7 @@
                             <p:watermark for="nuevaConsoliDebVC" value="#{msg['ccconsolidadorWM']}" />
 
                             <strong><h:outputText value="*#{msg['cuentacreditoN']}" style="position: absolute; top: 240px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaCreditoVC" value="#{controlDetalleConcepto.nuevaVigenciaCuenta.cuentac.codigo}" style="width: 122px; position: absolute; left: 220px; top: 235px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevaCreditoVC" value="#{controlDetalleConcepto.nuevaVigenciaCuenta.cuentac.codigo}" style="width: 122px; position: absolute; left: 220px; top: 235px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(4,1,0)}"/>
                                 <p:ajax event="click" listener="#{controlDetalleConcepto.valoresBackupAutocompletarGeneral(1, 'CODCREDITO',0)}" />
                                 <p:ajax event="change" listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoVigenciaCuenta('CODCREDITO', controlDetalleConcepto.nuevaVigenciaCuenta.cuentac.codigo, 1)}" />
@@ -1395,7 +1395,7 @@
                             <p:watermark for="nuevaCreditoVC" value="#{msg['cuentacreditoWM']}" />
 
                             <strong><h:outputText value="#{msg['descripcioncreditoN']}" style="position: absolute; top: 270px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaDesCreditoVC" value="#{controlDetalleConcepto.nuevaVigenciaCuenta.cuentac.descripcion}" style="width: 122px; position: absolute; left: 220px; top: 265px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevaDesCreditoVC" value="#{controlDetalleConcepto.nuevaVigenciaCuenta.cuentac.descripcion}" style="width: 122px; position: absolute; left: 220px; top: 265px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(5,1,0)}"/>
                                 <p:ajax event="click" listener="#{controlDetalleConcepto.valoresBackupAutocompletarGeneral(1, 'DESCREDITO',0)}" />
                                 <p:ajax event="change" listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoVigenciaCuenta('DESCREDITO', controlDetalleConcepto.nuevaVigenciaCuenta.cuentac.descripcion, 1)}" />
@@ -1405,7 +1405,7 @@
                             <p:watermark for="nuevaDesCreditoVC" value="#{msg['descripcioncreditoWM']}" />
 
                             <strong><h:outputText value="*#{msg['ccconsolidadorcuentacreditoN']}" style="position: absolute; top: 300px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaConsoliCreVC" value="#{controlDetalleConcepto.nuevaVigenciaCuenta.consolidadorc.nombre}" style="width: 122px; position: absolute; left: 220px; top: 295px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevaConsoliCreVC" value="#{controlDetalleConcepto.nuevaVigenciaCuenta.consolidadorc.nombre}" style="width: 122px; position: absolute; left: 220px; top: 295px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(6,1,0)}"/>
                                 <p:ajax event="click" listener="#{controlDetalleConcepto.valoresBackupAutocompletarGeneral(1, 'CONSOLIDADORCREDITO',0)}" />
                                 <p:ajax event="change" listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoVigenciaCuenta('CONSOLIDADORCREDITO', controlDetalleConcepto.nuevaVigenciaCuenta.consolidadorc.nombre, 1)}" />
@@ -1415,7 +1415,7 @@
                             <p:watermark for="nuevaConsoliCreVC" value="#{msg['ccconsolidadorcuentacreditoWM']}"/>
 
                             <strong><h:outputText value="*#{msg['proceso']}:" style="position: absolute; top: 330px; left: 50px;"/></strong>
-                            <p:inputText id="nuevoProceso" value="#{controlDetalleConcepto.nuevaVigenciaCuenta.nombreProceso}" style="width: 122px; position: absolute; left: 220px; top: 325px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevoProceso" value="#{controlDetalleConcepto.nuevaVigenciaCuenta.nombreProceso}" style="width: 122px; position: absolute; left: 220px; top: 325px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(9,1,0)}"/>
                                 <p:ajax event="click" listener="#{controlDetalleConcepto.valoresBackupAutocompletarGeneral(1, 'PROCESO',0)}" />
                                 <p:ajax event="change" listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoVigenciaCuenta('PROCESO', controlDetalleConcepto.nuevaVigenciaCuenta.nombreProceso, 1)}" />
@@ -1457,7 +1457,7 @@
                             </div>
 
                             <strong><h:outputText value="*#{msg['tipoccN']}" style="position: absolute; top: 120px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarTipoCCVC" value="#{controlDetalleConcepto.duplicarVigenciaCuenta.tipocc.nombre}" style="width: 122px; position: absolute; left: 220px; top: 115px; text-transform: uppercase;" onclick="PF('select();">
+                            <p:inputText id="duplicarTipoCCVC" value="#{controlDetalleConcepto.duplicarVigenciaCuenta.tipocc.nombre}" style="width: 122px; position: absolute; left: 220px; top: 115px; text-transform: uppercase;" onclick="select();">
                                 <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(0,2,0)}"/>
                                 <p:ajax event="click" listener="#{controlDetalleConcepto.valoresBackupAutocompletarGeneral(2, 'TIPOCC',0)}"/>
                                 <p:ajax event="change" listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoVigenciaCuenta('TIPOCC', controlDetalleConcepto.duplicarVigenciaCuenta.tipocc.nombre, 2)}" />
@@ -1467,7 +1467,7 @@
                             <p:watermark for="duplicarTipoCCVC" value="#{msg['tipoccWM']}"/>
 
                             <strong><h:outputText value="*#{msg['cuentadebitoN']}" style="position: absolute; top: 150px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarDebitoVC" value="#{controlDetalleConcepto.duplicarVigenciaCuenta.cuentad.codigo}" style="width: 122px; position: absolute; left: 220px; top: 145px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarDebitoVC" value="#{controlDetalleConcepto.duplicarVigenciaCuenta.cuentad.codigo}" style="width: 122px; position: absolute; left: 220px; top: 145px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(1,2,0)}"/>
                                 <p:ajax event="click" listener="#{controlDetalleConcepto.valoresBackupAutocompletarGeneral(2, 'CODDEBITO',0)}" />
                                 <p:ajax event="change" listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoVigenciaCuenta('CODDEBITO', controlDetalleConcepto.duplicarVigenciaCuenta.cuentad.codigo, 2)}" />
@@ -1477,7 +1477,7 @@
                             <p:watermark for="duplicarDebitoVC" value="#{msg['cuentadebitoWM']}" />
 
                             <strong><h:outputText value="*#{msg['descripciondebitoN']}" style="position: absolute; top: 180px; left: 50px;" /></strong>
-                            <p:inputText id="duplicaDesDebitoVC" value="#{controlDetalleConcepto.duplicarVigenciaCuenta.cuentad.descripcion}" style="width: 122px; position: absolute; left: 220px; top: 175px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicaDesDebitoVC" value="#{controlDetalleConcepto.duplicarVigenciaCuenta.cuentad.descripcion}" style="width: 122px; position: absolute; left: 220px; top: 175px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(2,2,0)}"/>
                                 <p:ajax event="click" listener="#{controlDetalleConcepto.valoresBackupAutocompletarGeneral(2, 'DESDEBITO',0)}" />
                                 <p:ajax event="change" listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoVigenciaCuenta('DESDEBITO', controlDetalleConcepto.duplicarVigenciaCuenta.cuentad.descripcion, 2)}" />
@@ -1487,7 +1487,7 @@
                             <p:watermark for="duplicaDesDebitoVC" value="#{msg['descripciondebitoWM']}"/>
 
                             <strong><h:outputText value="*#{msg['ccconsolidadorN']}" style="position: absolute; top: 210px; left: 50px;" /></strong>
-                            <p:inputText id="duplicaConsoliDebVC" value="#{controlDetalleConcepto.duplicarVigenciaCuenta.consolidadord.nombre}" style="width: 122px; position: absolute; left: 220px; top: 205px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicaConsoliDebVC" value="#{controlDetalleConcepto.duplicarVigenciaCuenta.consolidadord.nombre}" style="width: 122px; position: absolute; left: 220px; top: 205px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(3,2,0)}"/>
                                 <p:ajax event="click" listener="#{controlDetalleConcepto.valoresBackupAutocompletarGeneral(2, 'CONSOLIDADORDEBITO',0)}" />
                                 <p:ajax event="change" listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoVigenciaCuenta('CONSOLIDADORDEBITO', controlDetalleConcepto.duplicarVigenciaCuenta.consolidadord.nombre, 2)}" />
@@ -1497,7 +1497,7 @@
                             <p:watermark for="duplicaConsoliDebVC" value="#{msg['ccconsolidadorWM']}" />
 
                             <strong><h:outputText value="*#{msg['cuentacreditoN']}" style="position: absolute; top: 240px; left: 50px;" /></strong>
-                            <p:inputText id="duplicaCreditoVC" value="#{controlDetalleConcepto.duplicarVigenciaCuenta.cuentac.codigo}" style="width: 122px; position: absolute; left: 220px; top: 235px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicaCreditoVC" value="#{controlDetalleConcepto.duplicarVigenciaCuenta.cuentac.codigo}" style="width: 122px; position: absolute; left: 220px; top: 235px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(4,2,0)}"/>
                                 <p:ajax event="click" listener="#{controlDetalleConcepto.valoresBackupAutocompletarGeneral(2, 'CODCREDITO',0)}" />
                                 <p:ajax event="change" listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoVigenciaCuenta('CODCREDITO', controlDetalleConcepto.duplicarVigenciaCuenta.cuentac.codigo, 2)}" />
@@ -1507,7 +1507,7 @@
                             <p:watermark for="duplicaCreditoVC" value="#{msg['cuentacreditoWM']}" />
 
                             <strong><h:outputText value="*#{msg['descripcioncreditoN']}" style="position: absolute; top: 270px; left: 50px;" /></strong>
-                            <p:inputText id="duplicaDesCreditoVC" value="#{controlDetalleConcepto.duplicarVigenciaCuenta.cuentac.descripcion}" style="width: 122px; position: absolute; left: 220px; top: 265px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicaDesCreditoVC" value="#{controlDetalleConcepto.duplicarVigenciaCuenta.cuentac.descripcion}" style="width: 122px; position: absolute; left: 220px; top: 265px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(5,2,0)}"/>
                                 <p:ajax event="click" listener="#{controlDetalleConcepto.valoresBackupAutocompletarGeneral(2, 'DESCREDITO',0)}" />
                                 <p:ajax event="change" listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoVigenciaCuenta('DESCREDITO', controlDetalleConcepto.duplicarVigenciaCuenta.cuentac.descripcion, 2)}" />
@@ -1517,7 +1517,7 @@
                             <p:watermark for="duplicaDesCreditoVC" value="#{msg['descripcioncreditoWM']}" />
 
                             <strong><h:outputText value="*#{msg['ccconsolidadorcuentacreditoN']}" style="position: absolute; top: 300px; left: 50px;" /></strong>
-                            <p:inputText id="duplicaConsoliCreVC" value="#{controlDetalleConcepto.duplicarVigenciaCuenta.consolidadorc.nombre}" style="width: 122px; position: absolute; left: 220px; top: 295px; text-transform: uppercase;" onclick="PF('select();">
+                            <p:inputText id="duplicaConsoliCreVC" value="#{controlDetalleConcepto.duplicarVigenciaCuenta.consolidadorc.nombre}" style="width: 122px; position: absolute; left: 220px; top: 295px; text-transform: uppercase;" onclick="select();">
                                 <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(6,2,0)}"/>
                                 <p:ajax event="click" listener="#{controlDetalleConcepto.valoresBackupAutocompletarGeneral(2, 'CONSOLIDADORCREDITO',0)}" />
                                 <p:ajax event="change" listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoVigenciaCuenta('CONSOLIDADORCREDITO', controlDetalleConcepto.duplicarVigenciaCuenta.consolidadorc.nombre, 2)}" />
@@ -1527,7 +1527,7 @@
                             <p:watermark for="duplicaConsoliCreVC" value="#{msg['ccconsolidadorcuentacreditoWM']}" />
 
                             <strong><h:outputText value="*#{msg['proceso']}:" style="position: absolute; top: 330px; left: 50px;" /></strong>
-                            <p:inputText id="duplicadoProceso" value="#{controlDetalleConcepto.duplicarVigenciaCuenta.nombreProceso}" style="width: 122px; position: absolute; left: 220px; top: 325px; text-transform: uppercase;" onclick="PF('select();">
+                            <p:inputText id="duplicadoProceso" value="#{controlDetalleConcepto.duplicarVigenciaCuenta.nombreProceso}" style="width: 122px; position: absolute; left: 220px; top: 325px; text-transform: uppercase;" onclick="select();">
                                 <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(9,2,0)}"/>
                                 <p:ajax event="click" listener="#{controlDetalleConcepto.valoresBackupAutocompletarGeneral(2, 'PROCESO',0)}" />
                                 <p:ajax event="change" listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoVigenciaCuenta('PROCESO', controlDetalleConcepto.duplicarVigenciaCuenta.nombreProceso, 2)}" />
@@ -1570,7 +1570,7 @@
                             </div>
 
                             <strong><h:outputText value="*#{msg['codigoN']}" style="position: absolute; top: 120px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaCodigoVGC" value="#{controlDetalleConcepto.nuevaVigenciaGrupoConcepto.grupoconcepto.strCodigo}" style="width: 122px; position: absolute; left: 220px; top: 115px; text-transform: uppercase;" onclick="PF('select();" >
+                            <p:inputText id="nuevaCodigoVGC" value="#{controlDetalleConcepto.nuevaVigenciaGrupoConcepto.grupoconcepto.strCodigo}" style="width: 122px; position: absolute; left: 220px; top: 115px; text-transform: uppercase;" onclick="select();" >
                                 <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(0,1,1)}"/>
                                 <p:ajax event="click" listener="#{controlDetalleConcepto.valoresBackupAutocompletarGeneral(1, 'CODIGO',1)}" />
                                 <p:ajax event="change" listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoVigenciaGrupoConcepto('CODIGO', controlDetalleConcepto.nuevaVigenciaGrupoConcepto.grupoconcepto.strCodigo, 1)}" />
@@ -1580,7 +1580,7 @@
                             <p:watermark for="nuevaCodigoVGC" value="#{msg['codigogrupo']}" />
 
                             <strong><h:outputText value="*#{msg['descripciongrupoN']}" style="position: absolute; top: 150px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaDescripcionVGC" value="#{controlDetalleConcepto.nuevaVigenciaGrupoConcepto.grupoconcepto.descripcion}" style="width: 122px; position: absolute; left: 220px; top: 145px; text-transform: uppercase;" onclick="PF('select();">
+                            <p:inputText id="nuevaDescripcionVGC" value="#{controlDetalleConcepto.nuevaVigenciaGrupoConcepto.grupoconcepto.descripcion}" style="width: 122px; position: absolute; left: 220px; top: 145px; text-transform: uppercase;" onclick="select();">
                                 <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(1,1,1)}"/>
                                 <p:ajax event="click" listener="#{controlDetalleConcepto.valoresBackupAutocompletarGeneral(1, 'DESCRIPCION',1)}" />
                                 <p:ajax event="change" listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoVigenciaGrupoConcepto('DESCRIPCION', controlDetalleConcepto.nuevaVigenciaGrupoConcepto.grupoconcepto.descripcion, 1)}" />
@@ -1621,7 +1621,7 @@
                             </div>
 
                             <strong><h:outputText value="*#{msg['codigoN']}" style="position: absolute; top: 120px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarCodigoVGC" value="#{controlDetalleConcepto.duplicarVigenciaGrupoConcepto.grupoconcepto.strCodigo}" style="width: 122px; position: absolute; left: 220px; top: 115px; text-transform: uppercase" onclick="PF('select();" >
+                            <p:inputText id="duplicarCodigoVGC" value="#{controlDetalleConcepto.duplicarVigenciaGrupoConcepto.grupoconcepto.strCodigo}" style="width: 122px; position: absolute; left: 220px; top: 115px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(0,2,1)}"/>
                                 <p:ajax event="click" listener="#{controlDetalleConcepto.valoresBackupAutocompletarGeneral(2, 'CODIGO',1)}" />
                                 <p:ajax event="change" listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoVigenciaGrupoConcepto('CODIGO', controlDetalleConcepto.duplicarVigenciaGrupoConcepto.grupoconcepto.strCodigo, 2)}" />
@@ -1631,7 +1631,7 @@
                             <p:watermark for="duplicarCodigoVGC" value="#{msg['codigogrupo']}" />
 
                             <strong><h:outputText value="*#{msg['descripciongrupoN']}" style="position: absolute; top: 150px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarDescripcionVGC" value="#{controlDetalleConcepto.duplicarVigenciaGrupoConcepto.grupoconcepto.descripcion}" style="width: 122px; position: absolute; left: 220px; top: 145px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarDescripcionVGC" value="#{controlDetalleConcepto.duplicarVigenciaGrupoConcepto.grupoconcepto.descripcion}" style="width: 122px; position: absolute; left: 220px; top: 145px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(1,2,1)}"/>
                                 <p:ajax event="click" listener="#{controlDetalleConcepto.valoresBackupAutocompletarGeneral(2, 'DESCRIPCION',1)}" />
                                 <p:ajax event="change" listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoVigenciaGrupoConcepto('DESCRIPCION', controlDetalleConcepto.duplicarVigenciaGrupoConcepto.grupoconcepto.descripcion, 2)}" />
@@ -1674,7 +1674,7 @@
                             </div>
 
                             <strong><h:outputText value="*#{msg['tipotrabajadorN']}" style="position: absolute; top: 120px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaTrabajadorVCTT" value="#{controlDetalleConcepto.nuevaVigenciaConceptoTT.tipotrabajador.nombre}" style="width: 122px; position: absolute; left: 220px; top: 115px; text-transform: uppercase" onclick="PF('select();" >
+                            <p:inputText id="nuevaTrabajadorVCTT" value="#{controlDetalleConcepto.nuevaVigenciaConceptoTT.tipotrabajador.nombre}" style="width: 122px; position: absolute; left: 220px; top: 115px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(0,1,2)}"/>
                                 <p:ajax event="click" listener="#{controlDetalleConcepto.valoresBackupAutocompletarGeneral(1, 'TRABAJADOR',2)}" />
                                 <p:ajax event="change" listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoVigenciaConceptoTT('TRABAJADOR', controlDetalleConcepto.nuevaVigenciaConceptoTT.tipotrabajador.nombre, 1)}" />
@@ -1716,7 +1716,7 @@
                             </div>
 
                             <strong><h:outputText value="*#{msg['tipotrabajadorN']}" style="position: absolute; top: 120px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarTrabajadorVCTT" value="#{controlDetalleConcepto.duplicarVigenciaConceptoTT.tipotrabajador.nombre}" style="width: 122px; position: absolute; left: 220px; top: 115px; text-transform: uppercase" onclick="PF('select();" >
+                            <p:inputText id="duplicarTrabajadorVCTT" value="#{controlDetalleConcepto.duplicarVigenciaConceptoTT.tipotrabajador.nombre}" style="width: 122px; position: absolute; left: 220px; top: 115px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(0,2,2)}"/>
                                 <p:ajax event="click" listener="#{controlDetalleConcepto.valoresBackupAutocompletarGeneral(2, 'TRABAJADOR',2)}" />
                                 <p:ajax event="change" listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoVigenciaConceptoTT('TRABAJADOR', controlDetalleConcepto.duplicarVigenciaConceptoTT.tipotrabajador.nombre, 2)}" />
@@ -1758,7 +1758,7 @@
                             </div> 
 
                             <strong><h:outputText value="*#{msg['tipocontratoN']}" style="position: absolute; top: 120px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaContratoVCTC" value="#{controlDetalleConcepto.nuevaVigenciaConceptoTC.tipocontrato.nombre}" style="width: 122px; position: absolute; left: 220px; top: 115px; text-transform: uppercase" onclick="PF('select();" >
+                            <p:inputText id="nuevaContratoVCTC" value="#{controlDetalleConcepto.nuevaVigenciaConceptoTC.tipocontrato.nombre}" style="width: 122px; position: absolute; left: 220px; top: 115px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(0,1,3)}"/>
                                 <p:ajax event="click" listener="#{controlDetalleConcepto.valoresBackupAutocompletarGeneral(1, 'CONTRATO',3)}" />
                                 <p:ajax event="change" listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoVigenciaConceptoTC('CONTRATO', controlDetalleConcepto.nuevaVigenciaConceptoTC.tipocontrato.nombre, 1)}" />
@@ -1800,7 +1800,7 @@
                             </div>
 
                             <strong><h:outputText value="*#{msg['tipocontratoN']}" style="position: absolute; top: 120px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarContratoVCTC" value="#{controlDetalleConcepto.duplicarVigenciaConceptoTC.tipocontrato.nombre}" style="width: 122px; position: absolute; left: 220px; top: 115px; text-transform: uppercase" onclick="PF('select();" >
+                            <p:inputText id="duplicarContratoVCTC" value="#{controlDetalleConcepto.duplicarVigenciaConceptoTC.tipocontrato.nombre}" style="width: 122px; position: absolute; left: 220px; top: 115px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(0,2,3)}"/>
                                 <p:ajax event="click" listener="#{controlDetalleConcepto.valoresBackupAutocompletarGeneral(2, 'CONTRATO',3)}" />
                                 <p:ajax event="change" listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoVigenciaConceptoTC('CONTRATO', controlDetalleConcepto.duplicarVigenciaConceptoTC.tipocontrato.nombre, 2)}" />
@@ -1842,7 +1842,7 @@
                             </div> 
 
                             <strong><h:outputText value="*#{msg['tiposalarioN']}" style="position: absolute; top: 120px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaReformaVCRL" value="#{controlDetalleConcepto.nuevaVigenciaConceptoRL.tiposalario.nombre}" style="width: 122px; position: absolute; left: 220px; top: 115px; text-transform: uppercase" onclick="PF('select();" >
+                            <p:inputText id="nuevaReformaVCRL" value="#{controlDetalleConcepto.nuevaVigenciaConceptoRL.tiposalario.nombre}" style="width: 122px; position: absolute; left: 220px; top: 115px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(0,1,4)}"/>
                                 <p:ajax event="click" listener="#{controlDetalleConcepto.valoresBackupAutocompletarGeneral(1, 'REFORMA',4)}" />
                                 <p:ajax event="change" listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoVigenciaConceptoRL('REFORMA', controlDetalleConcepto.nuevaVigenciaConceptoRL.tiposalario.nombre, 1)}" />
@@ -1884,7 +1884,7 @@
                             </div>
 
                             <strong><h:outputText value="*#{msg['tiposalarioN']}" style="position: absolute; top: 120px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarReformaVCRL" value="#{controlDetalleConcepto.duplicarVigenciaConceptoRL.tiposalario.nombre}" style="width: 122px; position: absolute; left: 220px; top: 115px; text-transform: uppercase" onclick="PF('select();" >
+                            <p:inputText id="duplicarReformaVCRL" value="#{controlDetalleConcepto.duplicarVigenciaConceptoRL.tiposalario.nombre}" style="width: 122px; position: absolute; left: 220px; top: 115px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(0,2,4)}"/>
                                 <p:ajax event="click" listener="#{controlDetalleConcepto.valoresBackupAutocompletarGeneral(2, 'REFORMA',4)}" />
                                 <p:ajax event="change" listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoVigenciaConceptoRL('REFORMA', controlDetalleConcepto.duplicarVigenciaConceptoRL.tiposalario.nombre, 2)}" />
@@ -1926,7 +1926,7 @@
                             </div> 
 
                             <strong><h:outputText value="*#{msg['nombreformulaN']}" style="position: absolute; top: 120px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaFormulaFC" value="#{controlDetalleConcepto.nuevaFormulasConceptos.formula.nombrelargo}" style="width: 122px; position: absolute; left: 220px; top: 115px; text-transform: uppercase" onclick="PF('select();" >
+                            <p:inputText id="nuevaFormulaFC" value="#{controlDetalleConcepto.nuevaFormulasConceptos.formula.nombrelargo}" style="width: 122px; position: absolute; left: 220px; top: 115px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(0,1,5)}"/>
                                 <p:ajax event="click" listener="#{controlDetalleConcepto.valoresBackupAutocompletarGeneral(1, 'FORMULA',5)}" />
                                 <p:ajax event="change" listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoFormulasConceptos('FORMULA', controlDetalleConcepto.nuevaVigenciaConceptoRL.tiposalario.nombre, 1)}" />
@@ -1936,7 +1936,7 @@
                             <p:watermark for="nuevaFormulaFC" value="#{msg['nombreformulaWM']}" />
 
                             <strong><h:outputText value="*#{msg['ordenN']}" style="position: absolute; top: 150px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaOrdenFC" value="#{controlDetalleConcepto.nuevaFormulasConceptos.strOrden}" style="width: 122px; position: absolute; left: 220px; top: 145px; text-transform: uppercase" onclick="PF('select();" >
+                            <p:inputText id="nuevaOrdenFC" value="#{controlDetalleConcepto.nuevaFormulasConceptos.strOrden}" style="width: 122px; position: absolute; left: 220px; top: 145px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(1,1,5)}"/>
                                 <p:ajax event="click" listener="#{controlDetalleConcepto.valoresBackupAutocompletarGeneral(1, 'ORDEN',5)}" />
                                 <p:ajax event="change" listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoFormulasConceptos('ORDEN', controlDetalleConcepto.nuevaFormulasConceptos.strOrden, 1)}" />
@@ -1978,7 +1978,7 @@
                             </div>
 
                             <strong><h:outputText value="*#{msg['nombreformulaN']}" style="position: absolute; top: 120px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarFormulaFC" value="#{controlDetalleConcepto.duplicarFormulasConceptos.formula.nombrelargo}" style="width: 122px; position: absolute; left: 220px; top: 115px; text-transform: uppercase" onclick="PF('select();" >
+                            <p:inputText id="duplicarFormulaFC" value="#{controlDetalleConcepto.duplicarFormulasConceptos.formula.nombrelargo}" style="width: 122px; position: absolute; left: 220px; top: 115px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(0,2,5)}"/>
                                 <p:ajax event="click" listener="#{controlDetalleConcepto.valoresBackupAutocompletarGeneral(2, 'FORMULA',5)}" />
                                 <p:ajax event="change" listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoFormulasConceptos('REFORMA', controlDetalleConcepto.duplicarFormulasConceptos.formula.nombrelargo, 2)}" />
@@ -1988,7 +1988,7 @@
                             <p:watermark for="duplicarFormulaFC" value="#{msg['nombreformulaWM']}" />
 
                             <strong><h:outputText value="*#{msg['ordenN']}" style="position: absolute; top: 150px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarOrdenFC" value="#{controlDetalleConcepto.duplicarFormulasConceptos.strOrden}" style="width: 122px; position: absolute; left: 220px; top: 145px; text-transform: uppercase" onclick="PF('select();" >
+                            <p:inputText id="duplicarOrdenFC" value="#{controlDetalleConcepto.duplicarFormulasConceptos.strOrden}" style="width: 122px; position: absolute; left: 220px; top: 145px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(1,2,5)}"/>
                                 <p:ajax event="click" listener="#{controlDetalleConcepto.valoresBackupAutocompletarGeneral(2, 'ORDEN',5)}" />
                                 <p:ajax event="change" listener="#{controlDetalleConcepto.autocompletarNuevoyDuplicadoFormulasConceptos('ORDEN', controlDetalleConcepto.duplicarFormulasConceptos.strOrden, 2)}" />

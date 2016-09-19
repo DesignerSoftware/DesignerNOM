@@ -512,7 +512,7 @@ button .ui-widget-header{
 .ui-datatable tbody th, 
 .ui-datatable tbody td
 {
-   padding: 0px 0px !important;
+   padding: 3px 3px !important;
 }
 
 .ui-datatable-scrollable input,
@@ -544,7 +544,7 @@ button .ui-widget-header{
 }
 
 .ui-datatable-scrollable td div .ui-cell-editor-output {
-   height: 10px; position: relative; width: -moz-max-content;
+   height: 18px; position: relative; width: -moz-max-content;
 }
 
 .ui-datatable-scrollable .ui-state-highlight input,
@@ -579,3 +579,13 @@ button .ui-widget-header{
    width: 50% !important;
    display: inline-block; margin-left: 15px;
 } 
+
+/*.ui-datatable td{
+   padding: 3px 3px !important;
+}*/
+
+.ui-datatable-scrollable-theadclone tr th {
+  height: 0px !important;
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+}

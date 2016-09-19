@@ -211,7 +211,7 @@
                   <p:panel id="nuevoDependenciaOperando" style="border: none;">
 
                      <strong><h:outputText value="#{msg['codigoN']}" style="font-size: 12px; position: absolute; top: 65px;" /></strong>
-                     <p:inputText id="nuevoCodigo" value="#{controlDependenciaOperando.nuevoDependenciaOperando.codigo}" style="font-size: 12px; width: 122px; position: absolute; left: 180px; top: 65px; text-transform: uppercase" onclick="PF('select();">
+                     <p:inputText id="nuevoCodigo" value="#{controlDependenciaOperando.nuevoDependenciaOperando.codigo}" style="font-size: 12px; width: 122px; position: absolute; left: 180px; top: 65px; text-transform: uppercase" onclick="select();">
                         <p:ajax event="click" listener="#{controlDependenciaOperando.valoresBackupAutocompletar(1, 'OPERANDO')}" />
                         <p:ajax event="change" listener="#{controlDependenciaOperando.autocompletarNuevoyDuplicado('OPERANDO', controlDependenciaOperando.nuevoDependenciaOperando.codigo, 1)}" />
                         <p:ajax event="dblclick" listener="#{controlDependenciaOperando.asignarIndex(indice, 0, 1)}" />
@@ -243,7 +243,7 @@
                   <p:panel id="duplicarDependenciaOperando" style="border: none;">
 
                      <strong><h:outputText value="#{msg['codigoN']}" style="font-size: 12px; position: absolute; top: 65px;" /></strong>
-                     <p:inputText id="duplicarCodigo" value="#{controlDependenciaOperando.duplicarDependenciaOperando.codigo}" style="font-size: 12px; width: 122px; position: absolute; left: 180px; top: 65px; text-transform: uppercase" onclick="PF('select();">
+                     <p:inputText id="duplicarCodigo" value="#{controlDependenciaOperando.duplicarDependenciaOperando.codigo}" style="font-size: 12px; width: 122px; position: absolute; left: 180px; top: 65px; text-transform: uppercase" onclick="select();">
                         <p:ajax event="click" listener="#{controlDependenciaOperando.valoresBackupAutocompletar(2, 'OPERANDO')}" />
                         <p:ajax event="change" listener="#{controlDependenciaOperando.autocompletarNuevoyDuplicado('OPERANDO', controlDependenciaOperando.duplicarDependenciaOperando.codigo, 2)}" />
                         <p:ajax event="dblclick" listener="#{controlDependenciaOperando.asignarIndex(indice, 0, 2)}" />

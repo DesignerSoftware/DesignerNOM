@@ -451,22 +451,22 @@
                         <p:panel id="nuevaJornadaLaboral" style="border: none;">
 
                             <strong><h:outputText value="#{msg['codigojl']}"  style=" position: absolute; top: 75px;" /></strong>
-                            <p:inputText id="nuevoCodigo" value="#{controlJornadasLaborales.nuevaJornadaLaboral.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 70px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevoCodigo" value="#{controlJornadasLaborales.nuevaJornadaLaboral.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 70px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="nuevoCodigo"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['descripcionjl']} " style=" position: absolute; top: 105px;" /></strong>
-                            <p:inputText id="nuevaDescripcion" value="#{controlJornadasLaborales.nuevaJornadaLaboral.descripcion}" style=" width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevaDescripcion" value="#{controlJornadasLaborales.nuevaJornadaLaboral.descripcion}" style=" width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="nuevaDescripcion"/>
                             </p:inputText>   
 
                             <strong><h:outputText value="#{msg['horasdiariasjl']}"  style=" position: absolute; top: 135px;" /></strong>
-                            <p:inputText id="nuevaHoraDiaria" value="#{controlJornadasLaborales.nuevaJornadaLaboral.horasdiarias}" style=" width: 122px; position: absolute; left: 200px; top: 130px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevaHoraDiaria" value="#{controlJornadasLaborales.nuevaJornadaLaboral.horasdiarias}" style=" width: 122px; position: absolute; left: 200px; top: 130px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="nuevaHoraDiaria"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['horasmensualesjl']}"  style=" position: absolute; top: 165px;" /></strong>
-                            <p:inputText id="nuevaHoraMensual" value="#{controlJornadasLaborales.nuevaJornadaLaboral.horasmensuales}" style=" width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevaHoraMensual" value="#{controlJornadasLaborales.nuevaJornadaLaboral.horasmensuales}" style=" width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="nuevaHoraMensual"/>
                             </p:inputText>
 
@@ -481,12 +481,12 @@
                             </p:selectBooleanCheckbox>
 
                             <strong><h:outputText value="#{msg['cuadrillahorasdiariasjl']}"  style=" position: absolute; top: 255px;" /></strong>
-                            <p:inputText id="nuevaCuadrillaHorasDiarias" value="#{controlJornadasLaborales.nuevaJornadaLaboral.cuadrillahorasdiarias}" style=" width: 122px; position: absolute; left: 200px; top: 250px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevaCuadrillaHorasDiarias" value="#{controlJornadasLaborales.nuevaJornadaLaboral.cuadrillahorasdiarias}" style=" width: 122px; position: absolute; left: 200px; top: 250px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="nuevaCuadrillaHorasDiarias"/>
                             </p:inputText> 
 
                             <strong><h:outputText value="#{msg['jornadajl']}" style=" position: absolute; top: 285px;" /></strong>
-                            <p:inputText id="nuevaJornada" value="#{controlJornadasLaborales.nuevaJornadaLaboral.jornada.descripcion}" style=" width: 122px; position: absolute; left: 200px; top: 285px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevaJornada" value="#{controlJornadasLaborales.nuevaJornadaLaboral.jornada.descripcion}" style=" width: 122px; position: absolute; left: 200px; top: 285px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlJornadasLaborales.valoresBackupAutocompletar(1, 'JORNADA')}" />
                                 <p:ajax event="change" listener="#{controlJornadasLaborales.autocompletarNuevoyDuplicado('JORNADA', controlJornadasLaborales.nuevaJornadaLaboral.jornada.descripcion, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlJornadasLaborales.asignarIndex(indice, 0, 1)}" />
@@ -508,22 +508,22 @@
                         <p:panel id="duplicarJornadaLaboral" style="border: none;">
 
                             <strong><h:outputText value="#{msg['codigojl']}" style=" position: absolute; top: 75px;" /></strong>
-                            <p:inputText maxlength="4" id="duplicarCodigo" value="#{controlJornadasLaborales.duplicarJornadaLaboral.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 70px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText maxlength="4" id="duplicarCodigo" value="#{controlJornadasLaborales.duplicarJornadaLaboral.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 70px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['descripcionjl']}" style=" position: absolute; top: 105px;" /></strong>
-                            <p:inputText maxlength="30" id="duplicarDescripcion" value="#{controlJornadasLaborales.duplicarJornadaLaboral.descripcion}" style=" width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText maxlength="30" id="duplicarDescripcion" value="#{controlJornadasLaborales.duplicarJornadaLaboral.descripcion}" style=" width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['horasdiariasjl']}" style=" position: absolute; top: 135px;" /></strong>
-                            <p:inputText maxlength="4" id="duplicarHorasDiarias" value="#{controlJornadasLaborales.duplicarJornadaLaboral.horasdiarias}" style=" width: 122px; position: absolute; left: 200px; top: 130px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText maxlength="4" id="duplicarHorasDiarias" value="#{controlJornadasLaborales.duplicarJornadaLaboral.horasdiarias}" style=" width: 122px; position: absolute; left: 200px; top: 130px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['horasmensualesjl']}" style=" position: absolute; top: 165px;" /></strong>
-                            <p:inputText maxlength="4" id="duplicarHorasMensuales" value="#{controlJornadasLaborales.duplicarJornadaLaboral.horasmensuales}" style=" width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText maxlength="4" id="duplicarHorasMensuales" value="#{controlJornadasLaborales.duplicarJornadaLaboral.horasmensuales}" style=" width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
@@ -538,12 +538,12 @@
                             </p:selectBooleanCheckbox>                          
 
                             <strong><h:outputText value="#{msg['cuadrillahorasdiariasjl']}" style=" position: absolute; top: 255px;" /></strong>
-                            <p:inputText maxlength="4" id="duplicarCuadrillaHorasDiarias" value="#{controlJornadasLaborales.duplicarJornadaLaboral.cuadrillahorasdiarias}" style=" width: 122px; position: absolute; left: 200px; top: 250px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText maxlength="4" id="duplicarCuadrillaHorasDiarias" value="#{controlJornadasLaborales.duplicarJornadaLaboral.cuadrillahorasdiarias}" style=" width: 122px; position: absolute; left: 200px; top: 250px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['jornadajl']}" style=" position: absolute; top: 285px;" /></strong>
-                            <p:inputText id="duplicarJornada" value="#{controlJornadasLaborales.duplicarJornadaLaboral.jornada.descripcion}" style=" width: 122px; position: absolute; left: 200px; top: 285px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarJornada" value="#{controlJornadasLaborales.duplicarJornadaLaboral.jornada.descripcion}" style=" width: 122px; position: absolute; left: 200px; top: 285px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlJornadasLaborales.valoresBackupAutocompletar(2, 'JORNADA')}" />
                                 <p:ajax event="change" listener="#{controlJornadasLaborales.autocompletarNuevoyDuplicado('JORNADA', controlJornadasLaborales.nuevaJornadaLaboral.jornada.descripcion, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlJornadasLaborales.llamarLovJornadas(2)}" />
@@ -577,35 +577,35 @@
                             </p:selectOneMenu>
 
                             <strong><h:outputText value="#{msg['horainicialsl']}"  style=" position: absolute; top: 105px;" /></strong>
-                            <p:inputText id="nuevaHoraInicial" value="#{controlJornadasLaborales.nuevaJornadaSemanal.horainicial}" style=" width: 122px; position: absolute; left: 210px; top: 100px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevaHoraInicial" value="#{controlJornadasLaborales.nuevaJornadaSemanal.horainicial}" style=" width: 122px; position: absolute; left: 210px; top: 100px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="nuevaHoraInicial"/>
                             </p:inputText>
                             <strong><h:outputText value="#{msg['minutoinicialsl']}"  style=" position: absolute; top: 135px;" /></strong>
-                            <p:inputText id="nuevoMinutoInicial" value="#{controlJornadasLaborales.nuevaJornadaSemanal.minutoinicial}" style=" width: 122px; position: absolute; left: 210px; top: 130px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevoMinutoInicial" value="#{controlJornadasLaborales.nuevaJornadaSemanal.minutoinicial}" style=" width: 122px; position: absolute; left: 210px; top: 130px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="nuevoMinutoInicial"/>
                             </p:inputText>
                             <strong><h:outputText value="#{msg['horainicialalimentacionsl']}"  style=" position: absolute; top: 165px;" /></strong>
-                            <p:inputText id="nuevaHoraInicialAlimentacion" value="#{controlJornadasLaborales.nuevaJornadaSemanal.horainicialalimentacion}" style=" width: 122px; position: absolute; left: 210px; top: 160px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevaHoraInicialAlimentacion" value="#{controlJornadasLaborales.nuevaJornadaSemanal.horainicialalimentacion}" style=" width: 122px; position: absolute; left: 210px; top: 160px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="nuevaHoraInicialAlimentacion"/>
                             </p:inputText>
                             <strong><h:outputText value="#{msg['minutoinicialalimentacionsl']}"  style=" position: absolute; top: 195px;" /></strong>
-                            <p:inputText id="nuevoMinutoInicialAlimentacion" value="#{controlJornadasLaborales.nuevaJornadaSemanal.minutoinicialalimentacion}" style=" width: 122px; position: absolute; left: 210px; top: 190px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevoMinutoInicialAlimentacion" value="#{controlJornadasLaborales.nuevaJornadaSemanal.minutoinicialalimentacion}" style=" width: 122px; position: absolute; left: 210px; top: 190px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="nuevoMinutoInicialAlimentacion"/>
                             </p:inputText>
                             <strong><h:outputText value="#{msg['horafinalalimentacionsl']}"  style=" position: absolute; top: 225px;" /></strong>
-                            <p:inputText id="nuevaHoraFinalAlimentacion" value="#{controlJornadasLaborales.nuevaJornadaSemanal.horafinalalimentacion}" style=" width: 122px; position: absolute; left: 210px; top: 220px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevaHoraFinalAlimentacion" value="#{controlJornadasLaborales.nuevaJornadaSemanal.horafinalalimentacion}" style=" width: 122px; position: absolute; left: 210px; top: 220px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="nuevaHoraFinalAlimentacion"/>
                             </p:inputText>
                             <strong><h:outputText value="#{msg['minutofinalalimentacionsl']}"  style=" position: absolute; top: 255px;" /></strong>
-                            <p:inputText id="nuevoMinutoFinalAlimentacion" value="#{controlJornadasLaborales.nuevaJornadaSemanal.minutofinalalimentacion}" style=" width: 122px; position: absolute; left: 210px; top: 250px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevoMinutoFinalAlimentacion" value="#{controlJornadasLaborales.nuevaJornadaSemanal.minutofinalalimentacion}" style=" width: 122px; position: absolute; left: 210px; top: 250px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="nuevoMinutoFinalAlimentacion"/>
                             </p:inputText>
                             <strong><h:outputText value="#{msg['horafinalsl']}"  style=" position: absolute; top: 285px;" /></strong>
-                            <p:inputText id="nuevaHoraFinal" value="#{controlJornadasLaborales.nuevaJornadaSemanal.horafinal}" style=" width: 122px; position: absolute; left: 210px; top: 280px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevaHoraFinal" value="#{controlJornadasLaborales.nuevaJornadaSemanal.horafinal}" style=" width: 122px; position: absolute; left: 210px; top: 280px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="nuevaHoraFinal"/>
                             </p:inputText>
                             <strong><h:outputText value="#{msg['minutofinalsl']}"  style=" position: absolute; top: 315px;" /></strong>
-                            <p:inputText id="nuevoMinutoFinal" value="#{controlJornadasLaborales.nuevaJornadaSemanal.minutofinal}" style=" width: 122px; position: absolute; left: 210px; top: 310px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevoMinutoFinal" value="#{controlJornadasLaborales.nuevaJornadaSemanal.minutofinal}" style=" width: 122px; position: absolute; left: 210px; top: 310px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="nuevoMinutoFinal"/>
                             </p:inputText>
 
@@ -636,35 +636,35 @@
                             </p:selectOneMenu>                           
 
                             <strong><h:outputText value="#{msg['horainicialsl']}"  style=" position: absolute; top: 105px;" /></strong>
-                            <p:inputText id="duplicarHoraInicial" value="#{controlJornadasLaborales.duplicarSemanaLaboral.horainicial}" style=" width: 122px; position: absolute; left: 210px; top: 100px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarHoraInicial" value="#{controlJornadasLaborales.duplicarSemanaLaboral.horainicial}" style=" width: 122px; position: absolute; left: 210px; top: 100px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <strong><h:outputText value="#{msg['minutoinicialsl']}"  style=" position: absolute; top: 135px;" /></strong>
-                            <p:inputText id="duplicarMinutoInicial" value="#{controlJornadasLaborales.duplicarSemanaLaboral.minutoinicial}" style=" width: 122px; position: absolute; left: 210px; top: 130px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarMinutoInicial" value="#{controlJornadasLaborales.duplicarSemanaLaboral.minutoinicial}" style=" width: 122px; position: absolute; left: 210px; top: 130px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <strong><h:outputText value="#{msg['horainicialalimentacionsl']}"  style=" position: absolute; top: 165px;" /></strong>
-                            <p:inputText id="duplicarHoraInicialAlimentacion" value="#{controlJornadasLaborales.duplicarSemanaLaboral.horainicialalimentacion}" style=" width: 122px; position: absolute; left: 210px; top: 160px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarHoraInicialAlimentacion" value="#{controlJornadasLaborales.duplicarSemanaLaboral.horainicialalimentacion}" style=" width: 122px; position: absolute; left: 210px; top: 160px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <strong><h:outputText value="#{msg['minutoinicialalimentacionsl']}"  style=" position: absolute; top: 195px;" /></strong>
-                            <p:inputText id="duplicarMinutoInicialAlimentacion" value="#{controlJornadasLaborales.duplicarSemanaLaboral.minutoinicialalimentacion}" style=" width: 122px; position: absolute; left: 210px; top: 190px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarMinutoInicialAlimentacion" value="#{controlJornadasLaborales.duplicarSemanaLaboral.minutoinicialalimentacion}" style=" width: 122px; position: absolute; left: 210px; top: 190px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <strong><h:outputText value="#{msg['horafinalalimentacionsl']}"  style=" position: absolute; top: 225px;" /></strong>
-                            <p:inputText id="duplicarHoraFinalAlimentacion" value="#{controlJornadasLaborales.duplicarSemanaLaboral.horafinalalimentacion}" style=" width: 122px; position: absolute; left: 210px; top: 220px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarHoraFinalAlimentacion" value="#{controlJornadasLaborales.duplicarSemanaLaboral.horafinalalimentacion}" style=" width: 122px; position: absolute; left: 210px; top: 220px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <strong><h:outputText value="#{msg['minutofinalalimentacionsl']}"  style=" position: absolute; top: 255px;" /></strong>
-                            <p:inputText id="duplicarMinutoFinalAlimentacion" value="#{controlJornadasLaborales.duplicarSemanaLaboral.minutofinalalimentacion}" style=" width: 122px; position: absolute; left: 210px; top: 250px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarMinutoFinalAlimentacion" value="#{controlJornadasLaborales.duplicarSemanaLaboral.minutofinalalimentacion}" style=" width: 122px; position: absolute; left: 210px; top: 250px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <strong><h:outputText value="#{msg['horafinalsl']}"  style=" position: absolute; top: 285px;" /></strong>
-                            <p:inputText id="duplicarHoraFinal" value="#{controlJornadasLaborales.duplicarSemanaLaboral.horafinal}" style=" width: 122px; position: absolute; left: 210px; top: 280px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarHoraFinal" value="#{controlJornadasLaborales.duplicarSemanaLaboral.horafinal}" style=" width: 122px; position: absolute; left: 210px; top: 280px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <strong><h:outputText value="#{msg['minutofinalsl']}"  style=" position: absolute; top: 315px;" /></strong>
-                            <p:inputText id="duplicarMinutoFinal" value="#{controlJornadasLaborales.duplicarSemanaLaboral.minutofinal}" style=" width: 122px; position: absolute; left: 210px; top: 310px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarMinutoFinal" value="#{controlJornadasLaborales.duplicarSemanaLaboral.minutofinal}" style=" width: 122px; position: absolute; left: 210px; top: 310px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 

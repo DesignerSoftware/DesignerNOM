@@ -259,7 +259,7 @@
                             </p:calendar>
 
                             <strong><h:outputText value="#{msg['formulaN']}" style=" position: absolute; top: 145px;" /></strong>
-                            <p:inputText id="nuevaFormula" value="#{controlTipoFormula.nuevoTipoFormula.formula.nombrecorto}" style=" width: 122px; position: absolute; left: 180px; top: 145px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevaFormula" value="#{controlTipoFormula.nuevoTipoFormula.formula.nombrecorto}" style=" width: 122px; position: absolute; left: 180px; top: 145px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlTipoFormula.valoresBackupAutocompletar(1, 'FORMULA')}" />
                                 <p:ajax event="change" listener="#{controlTipoFormula.autocompletarNuevoyDuplicado('FORMULA', controlTipoFormula.nuevoTipoFormula.formula.nombrecorto, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlTipoFormula.asignarIndex(indice, 0, 1)}" />
@@ -267,7 +267,7 @@
                             <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 311px; top: 145px;  " id="btnNuevaFormula" actionListener="#{controlTipoFormula.asignarIndex(indice, 0, 1)}" icon="ui-icon-search" process="@this" />
 
                             <strong><h:outputText value="#{msg['estadoN']}" style=" position: absolute; top: 185px;" /></strong>
-                            <p:inputText readonly="true" id="nuevoEstado" value="#{controlTipoFormula.nuevoTipoFormula.formula.estado}" style=" width: 122px; position: absolute; left: 180px; top: 185px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText readonly="true" id="nuevoEstado" value="#{controlTipoFormula.nuevoTipoFormula.formula.estado}" style=" width: 122px; position: absolute; left: 180px; top: 185px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
@@ -300,7 +300,7 @@
                             </p:calendar>
 
                             <strong><h:outputText value="#{msg['formulaN']}" style=" position: absolute; top: 145px;" /></strong>
-                            <p:inputText id="duplicarFormula" value="#{controlTipoFormula.duplicarTipoFormula.formula.nombrecorto}" style=" width: 122px; position: absolute; left: 180px; top: 145px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarFormula" value="#{controlTipoFormula.duplicarTipoFormula.formula.nombrecorto}" style=" width: 122px; position: absolute; left: 180px; top: 145px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlTipoFormula.valoresBackupAutocompletar(2, 'FORMULA')}" />
                                 <p:ajax event="change" listener="#{controlTipoFormula.autocompletarNuevoyDuplicado('FORMULA', controlTipoFormula.duplicarTipoFormula.formula.nombrecorto, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlTipoFormula.asignarIndex(indice, 0, 2)}" />
@@ -308,7 +308,7 @@
                             <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 311px; top: 145px;  " id="btnDuplicarFormula" actionListener="#{controlTipoFormula.asignarIndex(indice, 0, 2)}" icon="ui-icon-search" process="@this" />
 
                             <strong><h:outputText value="#{msg['estadoN']}" style=" position: absolute; top: 185px;" /></strong>
-                            <p:inputText readonly="true" id="duplicarEstado" value="#{controlTipoFormula.duplicarTipoFormula.formula.estado}" style=" width: 122px; position: absolute; left: 180px; top: 185px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText readonly="true" id="duplicarEstado" value="#{controlTipoFormula.duplicarTipoFormula.formula.estado}" style=" width: 122px; position: absolute; left: 180px; top: 185px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 

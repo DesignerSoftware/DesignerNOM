@@ -455,7 +455,7 @@
                             <p:watermark for="duplicarNombreUnidads" value="Nombre" />
                             <!--2-->
                             <strong><h:outputText value="*Codigo Unidad :" style="left: 15px; position: absolute; top: 120px;" /></strong>
-                            <p:inputText id="duplicarCodigoUnidades" value="#{controlPeriodicidades.duplicarPeriodicidad.unidad.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 115px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarCodigoUnidades" value="#{controlPeriodicidades.duplicarPeriodicidad.unidad.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 115px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlPeriodicidades.valoresBackupAutocompletar(2, 'UNIDADCODIGO')}" />
                                 <p:ajax event="change" listener="#{controlPeriodicidades.autocompletarDuplicado('UNIDADCODIGO', controlPeriodicidades.duplicarPeriodicidad.unidad.codigo , 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlPeriodicidades.asignarVariableUnidad(1)}" />
@@ -464,7 +464,7 @@
                             <p:watermark for="duplicarCodigoUnidades" value="Codigo Unidad" />
 
                             <strong><h:outputText value="*Nombre Unidad :" style="left: 15px; position: absolute; top: 150px;" /></strong>
-                            <p:inputText id="duplicarTipoUnidads" value="#{controlPeriodicidades.duplicarPeriodicidad.unidad.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 145px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarTipoUnidads" value="#{controlPeriodicidades.duplicarPeriodicidad.unidad.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 145px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlPeriodicidades.valoresBackupAutocompletar(2, 'UNIDADNOMBRE')}" />
                                 <p:ajax event="change" listener="#{controlPeriodicidades.autocompletarDuplicado('UNIDADNOMBRE', controlPeriodicidades.duplicarPeriodicidad.unidad.nombre , 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlPeriodicidades.asignarVariableUnidad(1)}" />
@@ -473,7 +473,7 @@
                             <p:watermark for="duplicarTipoUnidads" value="Nombre Unidad" />
 
                             <strong><h:outputText value="*Codigo Unidad Base:" style="left: 15px; position: absolute; top: 180px;" /></strong>
-                            <p:inputText id="duplicarCodigoUnidadesBase" value="#{controlPeriodicidades.duplicarPeriodicidad.unidadbase.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 175px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarCodigoUnidadesBase" value="#{controlPeriodicidades.duplicarPeriodicidad.unidadbase.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 175px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlPeriodicidades.valoresBackupAutocompletar(2, 'UNIDADBASECODIGO')}" />
                                 <p:ajax event="change" listener="#{controlPeriodicidades.autocompletarDuplicado('UNIDADBASECODIGO', controlPeriodicidades.duplicarPeriodicidad.unidadbase.codigo  , 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlPeriodicidades.asignarVariableUnidad(1)}" />
@@ -482,7 +482,7 @@
                             <p:watermark for="duplicarCodigoUnidadesBase" value="Codigo Unidad Base" />
 
                             <strong><h:outputText value="*Descripcion Unidad Base:" style="left: 15px; position: absolute; top: 210px;" /></strong>
-                            <p:inputText id="duplicarDescripcionUnidadesBase" value="#{controlPeriodicidades.duplicarPeriodicidad.unidadbase.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 205px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarDescripcionUnidadesBase" value="#{controlPeriodicidades.duplicarPeriodicidad.unidadbase.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 205px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlPeriodicidades.valoresBackupAutocompletar(2, 'UNIDADBASENOMBRE')}" />
                                 <p:ajax event="change" listener="#{controlPeriodicidades.autocompletarDuplicado('UNIDADBASENOMBRE', controlPeriodicidades.duplicarPeriodicidad.unidadbase.nombre , 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlPeriodicidades.asignarVariableUnidad(1)}" />

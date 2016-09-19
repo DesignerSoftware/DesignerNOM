@@ -165,13 +165,13 @@
 
                         <p:panel id="nuevaProfesion" style="border: none;">
                             <strong><h:outputText value="Código: " style=" position: absolute; top: 63px;" /></strong>
-                            <p:inputText id="nuevoCodigoProfesion" value="#{controlProfesiones.nuevaProfesion.codigo}" maxlength="4" style=" width: 122px; position: absolute; left: 130px; top: 59px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevoCodigoProfesion" value="#{controlProfesiones.nuevaProfesion.codigo}" maxlength="4" style=" width: 122px; position: absolute; left: 130px; top: 59px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoCodigoProfesion" value="Código" />
 
                             <strong><h:outputText value="Nombre: " style=" position: absolute; top: 93px;" /></strong>
-                            <p:inputText id="nuevoNombreProfesion" value="#{controlProfesiones.nuevaProfesion.descripcion}" maxlength="20" style=" width: 122px; position: absolute; left: 130px; top: 89px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevoNombreProfesion" value="#{controlProfesiones.nuevaProfesion.descripcion}" maxlength="20" style=" width: 122px; position: absolute; left: 130px; top: 89px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
                             <p:watermark for="nuevoNombreProfesion" value="Nombre" />
@@ -191,13 +191,13 @@
                         <p:panel id="duplicarProfesion" style="border: none;">
 
                             <strong><h:outputText value="Codigo: " style=" position: absolute; top: 63px;" /></strong>
-                            <p:inputText id="duplicarCodigo" value="#{controlProfesiones.duplicarProfesion.codigo}" maxlength="4" style=" width: 122px; position: absolute; left: 130px; top: 59px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarCodigo" value="#{controlProfesiones.duplicarProfesion.codigo}" maxlength="4" style=" width: 122px; position: absolute; left: 130px; top: 59px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="duplicarProfesion"/>
                             </p:inputText>
                             <p:watermark for="duplicarCodigo" value="Código" />
 
                             <strong><h:outputText value="Nombre: " style=" position: absolute; top: 93px;" /></strong>
-                            <p:inputText id="duplicarNombre" value="#{controlProfesiones.duplicarProfesion.descripcion}" maxlength="20" style=" width: 122px; position: absolute; left: 130px; top: 89px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarNombre" value="#{controlProfesiones.duplicarProfesion.descripcion}" maxlength="20" style=" width: 122px; position: absolute; left: 130px; top: 89px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="duplicarProfesion"/>
                             </p:inputText>
                             <p:watermark for="duplicarNombre" value="Nombre" />

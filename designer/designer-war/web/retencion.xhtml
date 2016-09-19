@@ -267,7 +267,7 @@
                             <fieldset style="position: absolute; left: 10px; top: 40px; font-size: 11px; width: 285px; height: 138px; border-radius: 10px; ">
 
                                 <strong><h:outputText value="#{msg['codigoN']}" style="font-size: 12px; position: absolute; top: 19px;" /></strong>
-                                <p:inputText maxlength="4" id="nuevoCodigo" value="#{controlRetencion.nuevoVigenciasRetenciones.codigo}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 15px; text-transform: uppercase" onclick="PF('select();">
+                                <p:inputText maxlength="4" id="nuevoCodigo" value="#{controlRetencion.nuevoVigenciasRetenciones.codigo}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 15px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="change" update="nuevoCodigo" />
                                 </p:inputText>
 
@@ -280,7 +280,7 @@
                                 </div>
 
                                 <strong><h:outputText value="#{msg['uvtN']}"  style="font-size: 12px; position: absolute; top: 99px;" /></strong>
-                                <p:inputText id="nuevoUvt" value="#{controlRetencion.nuevoVigenciasRetenciones.uvt}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 95px; text-transform: uppercase" onclick="PF('select();">
+                                <p:inputText id="nuevoUvt" value="#{controlRetencion.nuevoVigenciasRetenciones.uvt}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 95px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="change" update="nuevoUvt"/>
                                 </p:inputText>
 
@@ -304,7 +304,7 @@
                             <fieldset style="position: absolute; left: 10px; top: 40px; font-size: 11px; width: 285px; height: 138px; border-radius: 10px; ">
 
                                 <strong><h:outputText value="#{msg['codigoN']}" style="font-size: 12px; position: absolute; top: 17px;" /></strong>
-                                <p:inputText maxlength="4" id="duplicarCodigo" value="#{controlRetencion.duplicarVigenciasRetenciones.codigo}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 15px; text-transform: uppercase" onclick="PF('select();">
+                                <p:inputText maxlength="4" id="duplicarCodigo" value="#{controlRetencion.duplicarVigenciasRetenciones.codigo}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 15px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="change" update="duplicarCodigo" />
                                 </p:inputText>
 
@@ -317,7 +317,7 @@
                                 </div>
 
                                 <strong><h:outputText value="#{msg['uvtN']}"  style="font-size: 12px; position: absolute; top: 97px;" /></strong>
-                                <p:inputText id="duplicarUvt" value="#{controlRetencion.duplicarVigenciasRetenciones.uvt}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 95px; text-transform: uppercase" onclick="PF('select();">
+                                <p:inputText id="duplicarUvt" value="#{controlRetencion.duplicarVigenciasRetenciones.uvt}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 95px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="change" update="duplicarUvt"/>
                                 </p:inputText>
 
@@ -337,27 +337,27 @@
                             <fieldset style="position: absolute; left: 10px; top: 40px; font-size: 11px; width: 295px; height: 218px; border-radius: 10px; ">
 
                                 <strong><h:outputText value="#{msg['valorminimoN']}" style="font-size: 12px; position: absolute; top: 17px;" /></strong>
-                                <p:inputText id="nuevoValorMinimo" value="#{controlRetencion.nuevoRetencion.valorminimo}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 15px; text-transform: uppercase" onclick="PF('select();">
+                                <p:inputText id="nuevoValorMinimo" value="#{controlRetencion.nuevoRetencion.valorminimo}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 15px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="change" update="nuevoValorMinimo" />
                                 </p:inputText>
 
                                 <strong><h:outputText value="#{msg['valormaximoN']}"  style="font-size: 12px; position: absolute; top: 57px;" /></strong>
-                                <p:inputText id="nuevoValorMaximo" value="#{controlRetencion.nuevoRetencion.valormaximo}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 55px; text-transform: uppercase" onclick="PF('select();">
+                                <p:inputText id="nuevoValorMaximo" value="#{controlRetencion.nuevoRetencion.valormaximo}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 55px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="change" update="nuevoValorMaximo"/>
                                 </p:inputText>
 
                                 <strong><h:outputText value="#{msg['porcentajeN']}"  style="font-size: 12px; position: absolute; top: 97px;" /></strong>
-                                <p:inputText id="nuevoPorcentaje" value="#{controlRetencion.nuevoRetencion.porcentaje}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 95px; text-transform: uppercase" onclick="PF('select();">
+                                <p:inputText id="nuevoPorcentaje" value="#{controlRetencion.nuevoRetencion.porcentaje}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 95px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="change" update="nuevoPorcentaje"/>
                                 </p:inputText>
 
                                 <strong><h:outputText value="#{msg['valorN']}"  style="font-size: 12px; position: absolute; top: 137px;" /></strong>
-                                <p:inputText id="nuevoValor" value="#{controlRetencion.nuevoRetencion.valor}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 135px; text-transform: uppercase" onclick="PF('select();">
+                                <p:inputText id="nuevoValor" value="#{controlRetencion.nuevoRetencion.valor}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 135px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="change" update="nuevoValor"/>
                                 </p:inputText>
 
                                 <strong><h:outputText value="#{msg['adicionauvtN']}"  style="font-size: 12px; position: absolute; top: 177px;" /></strong>
-                                <p:inputText id="nuevoAdiciona" value="#{controlRetencion.nuevoRetencion.adicionauvt}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 177px; text-transform: uppercase" onclick="PF('select();">
+                                <p:inputText id="nuevoAdiciona" value="#{controlRetencion.nuevoRetencion.adicionauvt}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 177px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="change" update="nuevoAdiciona"/>
                                 </p:inputText>
 
@@ -377,27 +377,27 @@
                             <fieldset style="position: absolute; left: 10px; top: 40px; font-size: 11px; width: 295px; height: 218px; border-radius: 10px; ">
 
                                 <strong><h:outputText value="#{msg['valorminimoN']}" style="font-size: 12px; position: absolute; top: 17px;" /></strong>
-                                <p:inputText id="duplicarValorMinimo" value="#{controlRetencion.duplicarRetencion.valorminimo}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 15px; text-transform: uppercase" onclick="PF('select();">
+                                <p:inputText id="duplicarValorMinimo" value="#{controlRetencion.duplicarRetencion.valorminimo}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 15px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="change" update="duplicarValorMinimo" />
                                 </p:inputText>
 
                                 <strong><h:outputText value="#{msg['valormaximoN']}" style="font-size: 12px; position: absolute; top: 57px;" /></strong>
-                                <p:inputText id="duplicarValorMaximo" value="#{controlRetencion.duplicarRetencion.valormaximo}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 55px; text-transform: uppercase" onclick="PF('select();">
+                                <p:inputText id="duplicarValorMaximo" value="#{controlRetencion.duplicarRetencion.valormaximo}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 55px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="change" update="duplicarValorMaximo"/>
                                 </p:inputText>
 
                                 <strong><h:outputText value="#{msg['porcentajeN']}"  style="font-size: 12px; position: absolute; top: 97px;" /></strong>
-                                <p:inputText id="duplicarPorcentaje" value="#{controlRetencion.duplicarRetencion.porcentaje}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 95px; text-transform: uppercase" onclick="PF('select();">
+                                <p:inputText id="duplicarPorcentaje" value="#{controlRetencion.duplicarRetencion.porcentaje}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 95px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="change" update="duplicarPorcentaje"/>
                                 </p:inputText>
 
                                 <strong><h:outputText value="#{msg['valorN']}"  style="font-size: 12px; position: absolute; top: 137px;" /></strong>
-                                <p:inputText id="duplicarValor" value="#{controlRetencion.duplicarRetencion.valor}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 135px; text-transform: uppercase" onclick="PF('select();">
+                                <p:inputText id="duplicarValor" value="#{controlRetencion.duplicarRetencion.valor}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 135px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="change" update="duplicarValor"/>
                                 </p:inputText>
 
                                 <strong><h:outputText value="#{msg['adicionauvtN']}"  style="font-size: 12px; position: absolute; top: 177px;" /></strong>
-                                <p:inputText id="duplicarAdiciona" value="#{controlRetencion.duplicarRetencion.adicionauvt}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 175px; text-transform: uppercase" onclick="PF('select();">
+                                <p:inputText id="duplicarAdiciona" value="#{controlRetencion.duplicarRetencion.adicionauvt}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 175px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="change" update="duplicarAdiciona"/>
                                 </p:inputText>
 

@@ -276,7 +276,7 @@
                         <p:panel id="nuevaUsuario" style="border: none;">                           
 
                             <strong><h:outputText value="#{msg['personaN']}" style=" position: absolute; top: 65px;" /></strong>
-                            <p:inputText id="nuevoPersona" value="#{controlUsuariosClon.nuevaUsuarios.persona.nombreCompleto}" style=" width: 122px; position: absolute; left: 185px; top: 60px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevoPersona" value="#{controlUsuariosClon.nuevaUsuarios.persona.nombreCompleto}" style=" width: 122px; position: absolute; left: 185px; top: 60px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlUsuariosClon.valoresBackupAutocompletarPersonas(1)}" />
                                 <p:ajax event="change" listener="#{controlUsuariosClon.autocompletarNuevoyDuplicadoPersona(controlUsuariosClon.nuevaUsuarios.persona.nombreCompleto,1)}"/>
                                 <p:ajax event="dblclick" listener="#{controlUsuariosClon.llamarLovPersonas(1)}" />
@@ -284,7 +284,7 @@
                             <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 317px; top: 60px;  " id="btnNuevoPersona" icon="ui-icon-search" process="@this"  actionListener="#{controlUsuariosClon.llamarLovPersonas(1)}"/>
 
                             <strong><h:outputText value="#{msg['perfilN']}" style=" position: absolute; top: 95px;" /></strong>
-                            <p:inputText id="nuevoPerfil" value="#{controlUsuariosClon.nuevaUsuarios.perfil.descripcion}" style=" width: 122px; position: absolute; left: 185px; top: 90px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevoPerfil" value="#{controlUsuariosClon.nuevaUsuarios.perfil.descripcion}" style=" width: 122px; position: absolute; left: 185px; top: 90px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlUsuariosClon.valoresBackupAutocompletarPerfiles(1)}" />
                                 <p:ajax event="change" listener="#{controlUsuariosClon.autocompletarNuevoyDuplicadoPerfil(controlUsuariosClon.nuevaUsuarios.perfil.descripcion,1)}"/>
                                 <p:ajax event="dblclick" listener="#{controlUsuariosClon.llamarLovPerfiles(1)}" />
@@ -292,12 +292,12 @@
                             <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 317px; top: 90px;  " id="btnNuevoPerfil" icon="ui-icon-search" process="@this"  actionListener="#{controlUsuariosClon.llamarLovPerfiles(1)}"/>
 
                             <strong><h:outputText value="#{msg['aliasN']}" style=" position: absolute; top: 125px;" /></strong>
-                            <p:inputText id="nuevoAlias" value="#{controlUsuariosClon.nuevaUsuarios.alias}" style=" width: 122px; position: absolute; left: 185px; top: 120px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevoAlias" value="#{controlUsuariosClon.nuevaUsuarios.alias}" style=" width: 122px; position: absolute; left: 185px; top: 120px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
 
                             <strong><h:outputText value="#{msg['pantallaN']}" style=" position: absolute; top: 155px;" /></strong>
-                            <p:inputText id="nuevoPantalla" value="#{controlUsuariosClon.nuevaUsuarios.pantallainicio.nombre}" style=" width: 122px; position: absolute; left: 185px; top: 150px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevoPantalla" value="#{controlUsuariosClon.nuevaUsuarios.pantallainicio.nombre}" style=" width: 122px; position: absolute; left: 185px; top: 150px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlUsuariosClon.valoresBackupAutocompletarPantallas(1)}" />
                                 <p:ajax event="change" listener="#{controlUsuariosClon.autocompletarNuevoyDuplicadoPantalla(controlUsuariosClon.nuevaUsuarios.pantallainicio.nombre,1)}"/>
                                 <p:ajax event="dblclick" listener="#{controlUsuariosClon.llamarLovPantallas(1)}" />
@@ -324,7 +324,7 @@
                         <p:panel id="duplicarUsuario" style="border: none;">
 
                             <strong><h:outputText value="#{msg['personaN']}" style=" position: absolute; top: 65px;" /></strong>
-                            <p:inputText id="duplicadoPersona" value="#{controlUsuariosClon.duplicarUsuarios.persona.nombreCompleto}" style=" width: 122px; position: absolute; left: 185px; top: 60px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicadoPersona" value="#{controlUsuariosClon.duplicarUsuarios.persona.nombreCompleto}" style=" width: 122px; position: absolute; left: 185px; top: 60px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlUsuariosClon.valoresBackupAutocompletarPersonas(2)}" />
                                 <p:ajax event="change" listener="#{controlUsuariosClon.autocompletarNuevoyDuplicadoPersona(controlUsuariosClon.duplicarUsuarios.persona.nombreCompleto,2)}"/>
                                 <p:ajax event="dblclick" listener="#{controlUsuariosClon.llamarLovPersonas(2)}" />
@@ -332,7 +332,7 @@
                             <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 317px; top: 60px;  " id="btnDuplicarPersona" icon="ui-icon-search" process="@this"  actionListener="#{controlUsuariosClon.llamarLovPersonas(2)}"/>
 
                             <strong><h:outputText value="#{msg['perfilN']}" style=" position: absolute; top: 95px;" /></strong>
-                            <p:inputText id="duplicadoPerfil" value="#{controlUsuariosClon.duplicarUsuarios.perfil.descripcion}" style=" width: 122px; position: absolute; left: 185px; top: 90px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicadoPerfil" value="#{controlUsuariosClon.duplicarUsuarios.perfil.descripcion}" style=" width: 122px; position: absolute; left: 185px; top: 90px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlUsuariosClon.valoresBackupAutocompletarPerfiles(2)}" />
                                 <p:ajax event="change" listener="#{controlUsuariosClon.autocompletarNuevoyDuplicadoPerfil(controlUsuariosClon.duplicarUsuarios.persona.nombreCompleto,2)}"/>
                                 <p:ajax event="dblclick" listener="#{controlUsuariosClon.llamarLovPerfiles(2)}" />
@@ -340,12 +340,12 @@
                             <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 317px; top: 90px;  " id="btnDuplicarPerfil" icon="ui-icon-search" process="@this"  actionListener="#{controlUsuariosClon.llamarLovPerfiles(2)}"/>
 
                             <strong><h:outputText value="#{msg['aliasN']}" style=" position: absolute; top: 125px;" /></strong>
-                            <p:inputText id="duplicadoAlias" value="#{controlUsuariosClon.duplicarUsuarios.alias}" style=" width: 122px; position: absolute; left: 185px; top: 120px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicadoAlias" value="#{controlUsuariosClon.duplicarUsuarios.alias}" style=" width: 122px; position: absolute; left: 185px; top: 120px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
 
                             <strong><h:outputText value="#{msg['pantallaN']}" style=" position: absolute; top: 155px;" /></strong>
-                            <p:inputText id="duplicadoPantalla" value="#{controlUsuariosClon.duplicarUsuarios.pantallainicio.nombre}" style=" width: 122px; position: absolute; left: 185px; top: 150px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicadoPantalla" value="#{controlUsuariosClon.duplicarUsuarios.pantallainicio.nombre}" style=" width: 122px; position: absolute; left: 185px; top: 150px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlUsuariosClon.valoresBackupAutocompletarPantallas(2)}" />
                                 <p:ajax event="change" listener="#{controlUsuariosClon.autocompletarNuevoyDuplicadoPerfil(controlUsuariosClon.duplicarUsuarios.pantallainicio.nombre,2)}"/>
                                 <p:ajax event="dblclick" listener="#{controlUsuariosClon.llamarLovPantallas(2)}" />

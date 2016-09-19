@@ -166,12 +166,12 @@
 
                         <p:panel id="nuevoTipoTelefono" style="border: none;">
                             <strong><h:outputText value="Código: " style=" position: absolute; top: 63px;" /></strong>
-                            <p:inputText id="nuevoCodigo" value="#{controlTiposTelefonos.nuevoTipoTelefono.codigo}" maxlength="4" style=" width: 122px; position: absolute; left: 120px; top: 59px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevoCodigo" value="#{controlTiposTelefonos.nuevoTipoTelefono.codigo}" maxlength="4" style=" width: 122px; position: absolute; left: 120px; top: 59px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
                             <strong><h:outputText value="Nombre: " style=" position: absolute; top: 98px;" /></strong>
-                            <p:inputText id="nuevoNombreTipoTelefono" value="#{controlTiposTelefonos.nuevoTipoTelefono.nombre}" maxlength="20" style=" width: 122px; position: absolute; left: 120px; top: 89px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevoNombreTipoTelefono" value="#{controlTiposTelefonos.nuevoTipoTelefono.nombre}" maxlength="20" style=" width: 122px; position: absolute; left: 120px; top: 89px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
 
@@ -190,13 +190,13 @@
                         <p:panel id="duplicarTipoTelefono" style="border: none;">
 
                             <strong><h:outputText value="Codigo: " style=" position: absolute; top: 63px;" /></strong>
-                            <p:inputText id="duplicarCodigo" value="#{controlTiposTelefonos.duplicarTipoTelefono.codigo}" maxlength="4" style=" width: 122px; position: absolute; left: 120px; top: 59px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarCodigo" value="#{controlTiposTelefonos.duplicarTipoTelefono.codigo}" maxlength="4" style=" width: 122px; position: absolute; left: 120px; top: 59px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="duplicarTipoTelefono"/>
                             </p:inputText>
                             <p:watermark for="duplicarCodigo" value="Codigo" />
 
                             <strong><h:outputText value="Nombre: " style=" position: absolute; top: 98px;" /></strong>
-                            <p:inputText id="duplicarNombre" value="#{controlTiposTelefonos.duplicarTipoTelefono.nombre}" maxlength="20" style=" width: 122px; position: absolute; left: 120px; top: 89px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarNombre" value="#{controlTiposTelefonos.duplicarTipoTelefono.nombre}" maxlength="20" style=" width: 122px; position: absolute; left: 120px; top: 89px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="duplicarTipoTelefono"/>
                             </p:inputText>
                             <p:watermark for="duplicarNombre" value="Nombre" />

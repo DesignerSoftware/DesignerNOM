@@ -318,7 +318,7 @@
                             <p:watermark for="nuevaFecha" value="Fecha" />
 
                             <strong><h:outputText value="*Tipo Talla : " style=" position: absolute; top: 90px;" /></strong>
-                            <p:inputText id="nuevoTipoTalla" value="#{controlVigenciasTallas.nuevoVigenciaTalla.tipoTalla.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 85px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevoTipoTalla" value="#{controlVigenciasTallas.nuevoVigenciaTalla.tipoTalla.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 85px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlVigenciasTallas.valoresBackupAutocompletar(1, 'TIPOSTALLAS')}" />
                                 <p:ajax event="change" listener="#{controlVigenciasTallas.autocompletarNuevoyDuplicado('TIPOSTALLAS', controlVigenciasTallas.nuevoVigenciaTalla.tipoTalla.descripcion, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlVigenciasTallas.asignarVariableTiposTallasNuevo(0)}" />
@@ -368,7 +368,7 @@
                             <p:watermark for="duplicarFecha" value="Fecha" />
 
                             <strong><h:outputText value="*Tipo Talla : " style=" position: absolute; top: 90px;" /></strong>
-                            <p:inputText id="duplicarDescripcionTipoTallas" value="#{controlVigenciasTallas.duplicarVigenciaTalla.tipoTalla.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 85px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarDescripcionTipoTallas" value="#{controlVigenciasTallas.duplicarVigenciaTalla.tipoTalla.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 85px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlVigenciasTallas.valoresBackupAutocompletar(2, 'TIPOSTALLAS')}" />
                                 <p:ajax event="change" listener="#{controlVigenciasTallas.autocompletarDuplicado('TIPOSTALLAS', controlVigenciasTallas.duplicarVigenciaTalla.tipoTalla.descripcion, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlVigenciasTallas.asignarVariableTiposTallasNuevo(1)}" />

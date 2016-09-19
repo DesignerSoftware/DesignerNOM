@@ -373,7 +373,7 @@
                             <p:watermark for="duplicarCodigoCTT" value="Observaciones" />
 
                             <strong><h:outputText value="Ciudad: " style="font-size: 12px; position: absolute; top: 283px;" /></strong>
-                            <p:inputText id="duplicarTipoCentroCostos" value="#{controlJuzgados.duplicarJuzgado.ciudad.nombre}"  style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 278px;" onclick="PF('select();">
+                            <p:inputText id="duplicarTipoCentroCostos" value="#{controlJuzgados.duplicarJuzgado.ciudad.nombre}"  style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 278px;" onclick="select();">
                                 <p:ajax event="click" listener="#{controlJuzgados.valoresBackupAutocompletar(2)}" />
                                 <p:ajax event="change" listener="#{controlJuzgados.autocompletarDuplicado('CIUDADES', controlJuzgados.duplicarJuzgado.ciudad.nombre , 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlJuzgados.asignarVariableCiudad(1)}" />

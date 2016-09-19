@@ -310,7 +310,7 @@
                             </p:inputText>
                             <p:watermark for="nuevoCodigo" value="Clave" />
                             <strong><h:outputText value="Clave Ajuste: " style=" position: absolute; top: 90px;" /></strong>
-                            <p:inputText id="nuevoNombreSucursal" maxlength="2" value="#{controlClavesSap.nuevoClavesSap.claveAjuste.clave}" style="width: 140px; position: absolute; left: 150px; top: 85px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="nuevoNombreSucursal" maxlength="2" value="#{controlClavesSap.nuevoClavesSap.claveAjuste.clave}" style="width: 140px; position: absolute; left: 150px; top: 85px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlClavesSap.valoresBackupAutocompletar(1, 'CLAVESAJUSTES')}" />
                                 <p:ajax event="change" listener="#{controlClavesSap.autocompletarNuevoyDuplicado('CLAVESAJUSTES', controlClavesSap.nuevoClavesSap.claveAjuste.clave, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlClavesSap.asignarVariableClavesSapNuevo(0)}" />
@@ -356,7 +356,7 @@
                             <p:watermark for="duplicarCodigo" value="Código" />
 
                             <strong><h:outputText value="Clave Ajuste: " style=" position: absolute; top: 90px;" /></strong>
-                            <p:inputText id="duplicarNombreSucursal" maxlength="2" value="#{controlClavesSap.duplicarClavesSap.claveAjuste.clave}" style=" width: 140px; position: absolute; left: 150px; top: 85px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText id="duplicarNombreSucursal" maxlength="2" value="#{controlClavesSap.duplicarClavesSap.claveAjuste.clave}" style=" width: 140px; position: absolute; left: 150px; top: 85px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlClavesSap.valoresBackupAutocompletar(2, 'CLAVESAJUSTES')}" />
                                 <p:ajax event="change" listener="#{controlClavesSap.autocompletarDuplicado('CLAVESAJUSTES', controlClavesSap.duplicarClavesSap.claveAjuste.clave, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlClavesSap.asignarVariableClavesSapNuevo(1)}" />

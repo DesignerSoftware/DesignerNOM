@@ -482,7 +482,7 @@
                      </p:inputMask>
 
                      <strong><h:outputText value="*#{msg['descripcionN']}" style="position: absolute; top: 105px;" /></strong>
-                     <p:inputText value="#{controlConcepto.nuevoConcepto.descripcion}" onclick="PF('select();" style="width: 122px; position: absolute; left: 180px; top: 100px; text-transform: uppercase;" >
+                     <p:inputText value="#{controlConcepto.nuevoConcepto.descripcion}" onclick="select();" style="width: 122px; position: absolute; left: 180px; top: 100px; text-transform: uppercase;" >
                         <p:ajax event="change" update="@this" />
                      </p:inputText>
 
@@ -497,7 +497,7 @@
                      </p:selectOneMenu>
 
                      <strong><h:outputText value="*#{msg['codigounidad']}" style="position: absolute; top: 165px;" /></strong>
-                     <p:inputText id="nuevoCodigoUnidad" value="#{controlConcepto.nuevoConcepto.unidad.codigo}" style=" width: 122px; position: absolute; left: 180px; top: 160px; text-transform: uppercase;" onclick="PF('select();">
+                     <p:inputText id="nuevoCodigoUnidad" value="#{controlConcepto.nuevoConcepto.unidad.codigo}" style=" width: 122px; position: absolute; left: 180px; top: 160px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="click" listener="#{controlConcepto.valoresBackupAutocompletar(1, 'CODIGOUNIDAD')}" />
                         <p:ajax event="change" listener="#{controlConcepto.autocompletarNuevoyDuplicado('CODIGOUNIDAD', controlConcepto.nuevoConcepto.unidad.codigo, 1)}" />
                         <p:ajax event="dblclick" listener="#{controlConcepto.llamarLOVSNuevo_Duplicado(0, 1)}"/>
@@ -506,7 +506,7 @@
                                       value="" actionListener="#{controlConcepto.llamarLOVSNuevo_Duplicado(0, 1)}" process="@this" />
 
                      <strong><h:outputText value="*#{msg['nombreunidad']}" style="position: absolute; top: 195px;"/></strong>
-                     <p:inputText id="nuevoNombreUnidad" value="#{controlConcepto.nuevoConcepto.unidad.nombre}" style="width: 122px; position: absolute; left: 180px; top: 190px; text-transform: uppercase;" onclick="PF('select();">
+                     <p:inputText id="nuevoNombreUnidad" value="#{controlConcepto.nuevoConcepto.unidad.nombre}" style="width: 122px; position: absolute; left: 180px; top: 190px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="click" listener="#{controlConcepto.valoresBackupAutocompletar(1, 'NOMBREUNIDAD')}" />
                         <p:ajax event="change" listener="#{controlConcepto.autocompletarNuevoyDuplicado('NOMBREUNIDAD', controlConcepto.nuevoConcepto.unidad.nombre, 1)}" />
                         <p:ajax event="dblclick" listener="#{controlConcepto.llamarLOVSNuevo_Duplicado(0, 1)}"/>
@@ -515,14 +515,14 @@
                                       value="" actionListener="#{controlConcepto.llamarLOVSNuevo_Duplicado(0, 1)}" process="@this" />
 
                      <strong><h:outputText value="#{msg['codigodesprendible']}" style="position: absolute; top: 225px;" /></strong>
-                     <!--<p:inputText id="codDespNu" value="#/{controlConcepto.nuevoConcepto.codigodesprendible}" style="width: 122px; position: absolute; left: 180px; top: 220px; text-transform: uppercase;" onclick="PF('select();">-->
+                     <!--<p:inputText id="codDespNu" value="#/{controlConcepto.nuevoConcepto.codigodesprendible}" style="width: 122px; position: absolute; left: 180px; top: 220px; text-transform: uppercase;" onclick="select();">-->
                      <p:inputMask id="codDespNu" value="#{controlConcepto.nuevoConcepto.codigodesprendible}"
-                                  mask="99999999" style="width: 122px; position: absolute; left: 180px; top: 220px; text-transform: uppercase;" onclick="PF('select();">
+                                  mask="99999999" style="width: 122px; position: absolute; left: 180px; top: 220px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="@this" />
                      </p:inputMask >
 
                      <strong><h:outputText value="#{msg['descripciondesprendible']}" style="position: absolute; top: 255px;" /></strong>
-                     <p:inputText value="#{controlConcepto.nuevoConcepto.descripciondesprendible}" maxlength="100" style="width: 122px; position: absolute; left: 180px; top: 250px; text-transform: uppercase;" onclick="PF('select();">
+                     <p:inputText value="#{controlConcepto.nuevoConcepto.descripciondesprendible}" maxlength="100" style="width: 122px; position: absolute; left: 180px; top: 250px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="@this" />
                      </p:inputText>
 
@@ -549,7 +549,7 @@
                      </p:selectOneMenu>
 
                      <strong><h:outputText value="#{msg['nombretercero']}" style="position: absolute; top: 165px; left: 360px;" /></strong>
-                     <p:inputText id="nuevoTercero" value="#{controlConcepto.nuevoConcepto.tercero.nombre}" style="width: 122px; position: absolute; left: 520px; top: 160px; text-transform: uppercase;" onclick="PF('select();">
+                     <p:inputText id="nuevoTercero" value="#{controlConcepto.nuevoConcepto.tercero.nombre}" style="width: 122px; position: absolute; left: 520px; top: 160px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="click" listener="#{controlConcepto.valoresBackupAutocompletar(1, 'TERCERO')}" />
                         <p:ajax event="change" listener="#{controlConcepto.autocompletarNuevoyDuplicado('TERCERO', controlConcepto.nuevoConcepto.tercero.nombre, 1)}" />
                         <p:ajax event="dblclick" listener="#{controlConcepto.llamarLOVSNuevo_Duplicado(1, 1)}"/>
@@ -572,9 +572,9 @@
                      </p:selectOneMenu>
 
                      <strong><h:outputText value="#{msg['codigoalternativo']}" style="position: absolute; top: 255px; left: 360px;" /></strong>
-                     <!--<p:inputText id="codAltNu" value="#{controlConcepto.nuevoConcepto.codigoalternativo}" maxlength="15" style="width: 122px; position: absolute; left: 520px; top: 250px; text-transform: uppercase;" onclick="PF('select();">-->
+                     <!--<p:inputText id="codAltNu" value="#{controlConcepto.nuevoConcepto.codigoalternativo}" maxlength="15" style="width: 122px; position: absolute; left: 520px; top: 250px; text-transform: uppercase;" onclick="select();">-->
                         <p:inputMask id="codAltNu" value="#{controlConcepto.nuevoConcepto.codigoalternativo}" mask="999999999999999"
-                                     style="width: 122px; position: absolute; left: 520px; top: 250px; text-transform: uppercase;" onclick="PF('select();">
+                                     style="width: 122px; position: absolute; left: 520px; top: 250px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="@this"/>
                      </p:inputMask>
 
@@ -599,7 +599,7 @@
                      </p:inputText>
 
                      <strong><h:outputText value="*#{msg['descripcionN']}" style=" position: absolute; top: 105px;" /></strong>
-                     <p:inputText value="#{controlConcepto.duplicarConcepto.descripcion}" style=" width: 122px; position: absolute; left: 180px; top: 100px; text-transform: uppercase;" onclick="PF('select();">
+                     <p:inputText value="#{controlConcepto.duplicarConcepto.descripcion}" style=" width: 122px; position: absolute; left: 180px; top: 100px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="@this" />
                      </p:inputText>
 
@@ -616,7 +616,7 @@
 
                      <strong><h:outputText value="*#{msg['codigounidad']}" style="position: absolute; top: 165px"/></strong>
                      <p:inputText id="duplicarCodigoUnidad" value="#{controlConcepto.duplicarConcepto.unidad.codigo}" 
-                                  style="width: 122px; position: absolute; left: 180px; top: 160px; text-transform: uppercase" onclick="PF('select();">
+                                  style="width: 122px; position: absolute; left: 180px; top: 160px; text-transform: uppercase" onclick="select();">
                         <p:ajax event="click" listener="#{controlConcepto.valoresBackupAutocompletar(2, 'CODIGOUNIDAD')}"/>
                         <p:ajax event="change" listener="#{controlConcepto.autocompletarNuevoyDuplicado('CODIGOUNIDAD', controlConcepto.duplicarConcepto.unidad.codigo, 2)}"/>
                         <p:ajax event="dblclick" listener="#{controlConcepto.llamarLOVSNuevo_Duplicado(0, 2)}"/>
@@ -625,7 +625,7 @@
                                       value="" actionListener="#{controlConcepto.llamarLOVSNuevo_Duplicado(0, 2)}" process="@this"/>
 
                      <strong><h:outputText value="*#{msg['nombreunidad']}" style="position: absolute; top: 195px"/></strong>
-                     <p:inputText id="duplicarNombreUnidad" value="#{controlConcepto.duplicarConcepto.unidad.nombre}" onclick="PF('select();"
+                     <p:inputText id="duplicarNombreUnidad" value="#{controlConcepto.duplicarConcepto.unidad.nombre}" onclick="select();"
                                   style="width: 122px; position: absolute; left: 180px; top: 190px; text-transform: uppercase">
                         <p:ajax event="click" listener="#{controlConcepto.valoresBackupAutocompletar(2, 'NOMBREUNIDAD')}"/>
                         <p:ajax event="change" listener="#{controlConcepto.autocompletarNuevoyDuplicado('NOMBREUNIDAD', controlConcepto.duplicarConcepto.unidad.nombre, 2)}"/>
@@ -635,13 +635,13 @@
                                       value="" actionListener="#{controlConcepto.llamarLOVSNuevo_Duplicado(0, 2)}" process="@this" />
 
                      <strong><h:outputText value="#{msg['codigodesprendible']}" style="position: absolute; top: 225px"/></strong>
-                     <p:inputText value="#{controlConcepto.duplicarConcepto.codigodesprendible}" onclick="PF('select();"
+                     <p:inputText value="#{controlConcepto.duplicarConcepto.codigodesprendible}" onclick="select();"
                                   style="width: 122px; position: absolute; left: 180px; top: 220px; text-transform: uppercase" >
                         <p:ajax event="change" update="@this" />
                      </p:inputText>
 
                      <strong><h:outputText value="#{msg['descripciondesprendible']}" style="position: absolute; top: 255px;" /></strong>
-                     <p:inputText value="#{controlConcepto.duplicarConcepto.descripciondesprendible}" maxlength="100" onclick="PF('select();"
+                     <p:inputText value="#{controlConcepto.duplicarConcepto.descripciondesprendible}" maxlength="100" onclick="select();"
                                   style="width: 122px; position: absolute; left: 180px; top: 250px; text-transform: uppercase" >
                         <p:ajax event="change" update="@this" />
                      </p:inputText>
@@ -667,7 +667,7 @@
                      </p:selectOneMenu>
 
                      <strong><h:outputText value="#{msg['nombretercero']}" style="position: absolute; top: 165px; left: 360px;" /></strong>
-                     <p:inputText id="duplicarTercero" value="#{controlConcepto.duplicarConcepto.tercero.nombre}" onclick="PF('select();"
+                     <p:inputText id="duplicarTercero" value="#{controlConcepto.duplicarConcepto.tercero.nombre}" onclick="select();"
                                   style="width: 122px; position: absolute; left: 520px; top: 160px; text-transform: uppercase" >
                         <p:ajax event="click" listener="#{controlConcepto.valoresBackupAutocompletar(2, 'TERCERO')}" />
                         <p:ajax event="change" listener="#{controlConcepto.autocompletarNuevoyDuplicado('TERCERO', controlConcepto.duplicarConcepto.tercero.nombre, 2)}" />
@@ -691,7 +691,7 @@
                      </p:selectOneMenu>
 
                      <strong><h:outputText value="#{msg['codigoalternativo']}" style="position: absolute; top: 255px; left: 360px;" /></strong>
-                     <p:inputText value="#{controlConcepto.duplicarConcepto.codigoalternativo}"  maxlength="15" style="width: 122px; position: absolute; left: 520px; top: 250px; text-transform: uppercase" onclick="PF('select();">
+                     <p:inputText value="#{controlConcepto.duplicarConcepto.codigoalternativo}"  maxlength="15" style="width: 122px; position: absolute; left: 520px; top: 250px; text-transform: uppercase" onclick="select();">
                         <p:ajax event="change" update="@this" />
                      </p:inputText>
 
