@@ -4962,7 +4962,7 @@ public class ControlPersonaIndividual implements Serializable {
          System.out.println("nuevaVigenciaTipoContrato.getMotivocontrato().getNombre() :" + nuevaVigenciaTipoContrato.getMotivocontrato().getNombre());
       }
       System.out.println("nuevaVigenciaTipoTrabajador.getTipotrabajador().getSecuencia() : " + nuevaVigenciaTipoTrabajador.getTipotrabajador().getSecuencia());
-      
+
       cargarLovsConTipoTrabajador(nuevaVigenciaTipoTrabajador.getTipotrabajador().getSecuencia());
       if (nuevaVigenciaSueldo.getMotivocambiosueldo() != null) {
          System.out.println("nuevaVigenciaSueldo.getMotivocambiosueldo().getNombre() :" + nuevaVigenciaSueldo.getMotivocambiosueldo().getNombre());
@@ -4987,11 +4987,13 @@ public class ControlPersonaIndividual implements Serializable {
       PrimefacesContextUI.ejecutar("PF('TipoTrabajadorTipoTrabajadorDialogo').hide()");
       System.out.println("Va a validar disable con tipo trabajador");
       validarDisableTipoTrabajador();
-      if (lovReformasLaborales != null) {
-         if (lovReformasLaborales.size() > 1) {
-            PrimefacesContextUI.ejecutar("PF('ReformaLaboralTipoSalarioDialogo').show()");
-         }
-      }
+//      if (lovReformasLaborales != null) {
+//         if (lovReformasLaborales.size() > 1) {
+//            PrimefacesContextUI.ejecutar("PF('ReformaLaboralTipoSalarioDialogo').show()");
+//         }
+//      }
+      PrimefacesContextUI.ejecutar("$(function(){PrimeFaces.focus('form:tipoSalarioModTipoSalario');});");
+      PrimefacesContextUI.ejecutar("PF('ReformaLaboralTipoSalarioDialogo').show()");
    }
 
    public void cancelarParametroTipoTrabajadorTipoTrabajador() {
