@@ -91,14 +91,14 @@
                         <fieldset style="position: absolute;font-size: 12px; top: 40px; width: 810px; height: 180px; border-radius: 10px; text-align: left;">
                            <legend style="font-size: 12px; color: blue"><strong>#{msg['modPersonal']}</strong></legend>
 
-                           <h:outputText  value="#{msg['empresa']}*" style="position: absolute; top: 25px; left: 15px; font-weight: bold;"/>
+                           <h:outputText  value="*#{msg['empresa']}" style="position: absolute; top: 25px; left: 15px; font-weight: bold;"/>
                            <p:inputText onclick="select();" value="#{controlPersonaIndividual.nuevoEmpleado.empresa.nombre}" id="empresaModPersonal" style="position: absolute; top: 20px; left: 140px;width: 130px;text-transform: uppercase;">
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarInformacionPersonal(0,'EMPRESA', controlPersonaIndividual.nuevoEmpleado.empresa.nombre)}" process="@this" update="@this"/>
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemInformacionPersonal(0)}" process="@this"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresInformacionPersonal()}" process="@this"/>
                            </p:inputText>
 
-                           <h:outputText  value="#{msg['primerApellido']}*" style="position: absolute; top: 55px; left: 15px; font-weight: bold;"/>
+                           <h:outputText  value="*#{msg['primerApellido']}" style="position: absolute; top: 55px; left: 15px; font-weight: bold;"/>
                            <p:inputText maxlength="20" onclick="select();" value="#{controlPersonaIndividual.nuevaPersona.primerapellido}" id="primerApellidoModPersonal" style="position: absolute; top: 50px; left: 140px;width: 130px;text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemInformacionPersonal(1)}" process="@this"/>
                               <p:ajax event="change" process="@this" update="@this"/>
@@ -111,13 +111,13 @@
                               <p:ajax event="change" process="@this" update="@this"/>
                            </p:inputText>
 
-                           <h:outputText  value="#{msg['nombres']}*" style="position: absolute; top: 115px; left: 15px; font-weight: bold;"/>
+                           <h:outputText  value="*#{msg['nombres']}" style="position: absolute; top: 115px; left: 15px; font-weight: bold;"/>
                            <p:inputText onclick="select();" value="#{controlPersonaIndividual.nuevaPersona.nombre}" id="nombreModPersonal" style="position: absolute; top: 110px; left: 140px;width: 130px;text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemInformacionPersonal(3)}" process="@this"/>
                               <p:ajax event="change" process="@this" update="@this"/>
                            </p:inputText>
 
-                           <h:outputText  value="#{msg['sexo']}*" style="position: absolute; top: 145px; left: 15px; font-weight: bold;"/>
+                           <h:outputText  value="*#{msg['sexo']}" style="position: absolute; top: 145px; left: 15px; font-weight: bold;"/>
                            <p:selectOneMenu value="#{controlPersonaIndividual.nuevaPersona.sexo}" id="sexoModPersonal" style="position: absolute; top: 140px; left: 140px; font-weight: bold;width: 130px;" >  
                               <f:selectItem itemLabel="" itemValue="null"/>  
                               <f:selectItem itemLabel="#{msg['masculino']}" itemValue="M"/>  
@@ -127,28 +127,28 @@
 
                            <!-- -->
 
-                           <h:outputText value="#{msg['tipoDocumento']}*" style="position: absolute; top: 25px; left: 290px; font-weight: bold;"/>
+                           <h:outputText value="*#{msg['tipoDocumento']}" style="position: absolute; top: 25px; left: 290px; font-weight: bold;"/>
                            <p:inputText onclick="select();" value="#{controlPersonaIndividual.txt_tipoDoc}" id="tipoDocumentoModPersonal" style="position: absolute; top: 20px; left: 430px;width: 130px;text-transform: uppercase;">
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarInformacionPersonal(5,'TIPODOCUMENTO', controlPersonaIndividual.txt_tipoDoc)}" process="@this" update="@this"/>
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemInformacionPersonal(5)}" process="@this"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresInformacionPersonal()}" process="@this"/>
                            </p:inputText>
 
-                           <h:outputText  value="#{msg['numeroIdentificacion']}*" style="position: absolute; top: 55px; left: 290px; font-weight: bold;"/>
+                           <h:outputText  value="*#{msg['numeroIdentificacion']}" style="position: absolute; top: 55px; left: 290px; font-weight: bold;"/>
                            <p:inputText onclick="select();" value="#{controlPersonaIndividual.nuevaPersona.numerodocumento}" id="numeroDocumentoModPersonal" widgetVar="numeroDocumentoModPersonal" style="position: absolute; top: 50px; left: 430px; width: 130px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemInformacionPersonal(6)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarNumeroDocumentoPersona()}" process="@this"/>
                               <p:keyFilter for="numeroDocumentoModPersonal" mask="num"/>
                            </p:inputText>
 
-                           <h:outputText  value="#{msg['ciudadDocumento']}*" style="position: absolute; top: 85px; left: 290px; font-weight: bold;"/>
+                           <h:outputText  value="*#{msg['ciudadDocumento']}" style="position: absolute; top: 85px; left: 290px; font-weight: bold;"/>
                            <p:inputText widgetVar="ciudadDocumentoModPersonal" onclick="select();" value="#{controlPersonaIndividual.txt_ciudadDoc}" id="ciudadDocumentoModPersonal" style="position: absolute; top: 80px; left: 430px;width: 130px;text-transform: uppercase;">
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarInformacionPersonal(7,'DOCUMENTO', controlPersonaIndividual.txt_ciudadDoc)}" process="@this" update="@this"/>
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemInformacionPersonal(7)}" process="@this"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresInformacionPersonal()}" process="@this"/>
                            </p:inputText>
 
-                           <h:outputText  value="#{msg['fechaNacimiento']}*" style="position: absolute; top: 115px; left: 290px; font-weight: bold;"/>
+                           <h:outputText  value="*#{msg['fechaNacimiento']}" style="position: absolute; top: 115px; left: 290px; font-weight: bold;"/>
                            <div id="divFechaNacimientoModPersonal" style="position: absolute; top: 110px; left: 430px;">
                               <p:calendar mask="true" pattern="dd/MM/yyyy" value="#{controlPersonaIndividual.nuevaPersona.fechanacimiento}" id="fechaNacimientoModPersonal" >
                                  <p:ajax event="dateSelect" listener="#{controlPersonaIndividual.modificarFechaNacimientoInformacionPersonal(8)}" update="@this" process="@this"/>
@@ -156,14 +156,14 @@
                               </p:calendar>
                            </div>
 
-                           <h:outputText value="#{msg['ciudadNacimiento']}*" style="position: absolute; top: 145px; left: 290px; font-weight: bold;"/>
+                           <h:outputText value="*#{msg['ciudadNacimiento']}" style="position: absolute; top: 145px; left: 290px; font-weight: bold;"/>
                            <p:inputText widgetVar="ciudadNacimientoModPersonal" onclick="select();" value="#{controlPersonaIndividual.txt_ciudadNac}" id="ciudadNacimientoModPersonal" style="position: absolute; top: 140px; left: 430px; width: 130px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemInformacionPersonal(9)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarInformacionPersonal(9,'NACIMIENTO', controlPersonaIndividual.txt_ciudadNac)}" process="@this" update="@this"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresInformacionPersonal()}" process="@this"/>
                            </p:inputText>
 
-                           <h:outputText  value="#{msg['fechaIngreso']}*" style="position: absolute; top: 25px; left: 580px; font-weight: bold;"/>
+                           <h:outputText  value="*#{msg['fechaIngreso']}" style="position: absolute; top: 25px; left: 580px; font-weight: bold;"/>
                            <div id="divFechaIngresoModPersonal" style="position: absolute; top: 20px; left: 705px;">
                               <p:calendar mask="true" pattern="dd/MM/yyyy" id="fechaIngresoModPersonal" value="#{controlPersonaIndividual.fechaIngreso}" >
                                  <p:ajax event="dateSelect" listener="#{controlPersonaIndividual.modificarFechaIngresoInformacionPersonal(10)}" 
@@ -173,7 +173,7 @@
                               </p:calendar>
                            </div>
 
-                           <h:outputText  value="#{msg['codigoEmpleado']}*" style="position: absolute; top: 55px; left: 580px; font-weight: bold;"/>
+                           <h:outputText  value="*#{msg['codigoEmpleado']}" style="position: absolute; top: 55px; left: 580px; font-weight: bold;"/>
                            <p:inputText onclick="select();" value="#{controlPersonaIndividual.nuevoEmpleado.codigoempleado}" id="codigoEmpleadoModPersonal" style="position: absolute; top: 50px; left: 705px;width: 105px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemInformacionPersonal(11)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarCodigoEmpleado()}" process="@this" update="@this"/>
@@ -205,21 +205,21 @@
 
                            <h:outputText value="" style="position: absolute; background-image: url(Imagenes/Iconos/cargoDesempenado.png); width: 50px; height: 50px; top: 25px; left: 5px; background-repeat: no-repeat; border: none; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
 
-                           <h:outputText  value="#{msg['nombreCargo']}*" style="position: absolute; top: 25px; left: 65px; font-weight: bold;"/>
+                           <h:outputText  value="*#{msg['nombreCargo']}" style="position: absolute; top: 25px; left: 65px; font-weight: bold;"/>
                            <p:inputText id="cargoModCargoDesempeñado" onclick="select();" value="#{controlPersonaIndividual.txt_cargo}" style="position: absolute; top: 20px; left: 230px; width: 150px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemCargoDesempeñado(0)}" immediate="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarCargoDesempeñado(0,'CARGO', controlPersonaIndividual.txt_cargo)}" process="@this" update="cargoModCargoDesempeñado"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresCargoDesempenado()}" process="@this"/>
                            </p:inputText>
 
-                           <h:outputText  value="#{msg['motivoCargo']}*" style="position: absolute; top: 55px; left: 65px;font-weight: bold;"/>
+                           <h:outputText  value="*#{msg['motivoCargo']}" style="position: absolute; top: 55px; left: 65px;font-weight: bold;"/>
                            <p:inputText id="motivoModCargoDesempeñado" onclick="select();" value="#{controlPersonaIndividual.txt_motivoCargo}" style="position: absolute; top: 50px; left: 230px; width: 150px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemCargoDesempeñado(1)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarCargoDesempeñado(1,'MOTIVO', controlPersonaIndividual.txt_motivoCargo)}" process="@this" update="motivoModCargoDesempeñado"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresCargoDesempenado()}" process="@this"/>
                            </p:inputText>
 
-                           <h:outputText id="infoEstructuraCargoDesempeñado" value="#{msg['nombreEstructuraCargo']}*" style="position: absolute; top: 85px; left: 65px;font-weight: bold;"/>
+                           <h:outputText id="infoEstructuraCargoDesempeñado" value="*#{msg['nombreEstructuraCargo']}" style="position: absolute; top: 85px; left: 65px;font-weight: bold;"/>
                            <p:inputText id="estructuraModCargoDesempeñado" widgetVar="estructuraModCargoDesempeñado" disabled="#{controlPersonaIndividual.disableNombreEstructuraCargo}" onclick="select();" value="#{controlPersonaIndividual.nuevaVigenciaCargo.estructura.nombre}" style="position: absolute; top: 80px; left: 230px;width: 150px;text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemCargoDesempeñado(2)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarCargoDesempeñado(2,'ESTRUCTURA', controlPersonaIndividual.nuevaVigenciaCargo.estructura.nombre)}" process="@this" update="estructuraModCargoDesempeñado"/>
@@ -249,14 +249,14 @@
 
                            <h:outputText value="" style="position: absolute; background-image: url(Imagenes/Iconos/centroCosto.png); width: 50px; height: 50px; top: 25px; left: 5px; background-repeat: no-repeat; border: none; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
 
-                           <h:outputText  value="#{msg['descripcionMotivo']}*" style="position: absolute; top: 25px; left: 65px;font-weight: bold;"/>
+                           <h:outputText  value="*#{msg['descripcionMotivo']}" style="position: absolute; top: 25px; left: 65px;font-weight: bold;"/>
                            <p:inputText id="motivoModCentroCosto" onclick="select();" value="#{controlPersonaIndividual.txt_motivoCentroC}"  style="position: absolute; top: 20px; left: 245px;width: 155px;text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemCentroCosto(0)}" onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarCentroCosto(0,'MOTIVO', controlPersonaIndividual.txt_motivoCentroC)}" process="@this" update="motivoModCentroCosto"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresCentroCosto()}" process="@this"/>
                            </p:inputText>
 
-                           <h:outputText id="infoEstructuraCentroCosto"  value="#{msg['descripcionEstructura']}*" style="position: absolute; top: 55px; left: 65px;font-weight: bold;"/>
+                           <h:outputText id="infoEstructuraCentroCosto"  value="*#{msg['descripcionEstructura']}" style="position: absolute; top: 55px; left: 65px;font-weight: bold;"/>
                            <p:inputText id="estructuraModCentroCosto" disabled="#{controlPersonaIndividual.disableDescripcionEstructura}" onclick="select();" value="#{controlPersonaIndividual.nuevaVigenciaLocalizacion.localizacion.nombre}"  style="position: absolute; top: 50px; left: 245px;width: 155px;text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemCentroCosto(1)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarCentroCosto(1,'ESTRUCTURA', controlPersonaIndividual.nuevaVigenciaLocalizacion.localizacion.centrocosto.nombre)}" process="@this" update="estructuraModCentroCosto"/>
@@ -271,7 +271,7 @@
 
                            <h:outputText value="" style="position: absolute; background-image: url(Imagenes/Iconos/tipoTrabajador.png); width: 50px; height: 50px; top: 15px; left: 5px; background-repeat: no-repeat; border: none; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
 
-                           <h:outputText  value="#{msg['tipoTrabajador']}*" style="position: absolute; top: 35px; left: 65px;font-weight: bold;"/>
+                           <h:outputText  value="*#{msg['tipoTrabajador']}" style="position: absolute; top: 35px; left: 65px;font-weight: bold;"/>
                            <p:inputText id="tipoTrabajadorModTipoTrabajador" onclick="select();" value="#{controlPersonaIndividual.nuevaVigenciaTipoTrabajador.tipotrabajador.nombre}" style="position: absolute; top: 30px; left: 230px;width: 150px;text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemTipoTrabajador(0)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarTipoTrabajador(0,'TIPOTRABAJADOR', controlPersonaIndividual.nuevaVigenciaTipoTrabajador.tipotrabajador.nombre)}"
@@ -285,7 +285,7 @@
 
                            <h:outputText value="" style="position: absolute; background-image: url(Imagenes/Iconos/tipoSalario.png); width: 50px; height: 50px; top: 15px; left: 5px; background-repeat: no-repeat; border: none; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
 
-                           <h:outputText id="infoSalarioTipoSalario" value="#{msg['tipoSalario']}*" style="position: absolute; top: 35px; left: 65px; font-weight: bold;"/>
+                           <h:outputText id="infoSalarioTipoSalario" value="*#{msg['tipoSalario']}" style="position: absolute; top: 35px; left: 65px; font-weight: bold;"/>
                            <p:inputText id="tipoSalarioModTipoSalario" disabled="#{controlPersonaIndividual.disableCamposDependientesTipoT}" onclick="select();"
                                         value="#{controlPersonaIndividual.nuevaVigenciaReformaLaboral.reformalaboral.nombre}" style="position: absolute; top: 30px; left: 245px;width: 155px;text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemReformaLaboral(0)}" process="@this"/>
@@ -302,7 +302,7 @@
 
                            <h:outputText value="" style="position: absolute; background-image: url(Imagenes/Iconos/sueldo.png); width: 50px; height: 50px; top: 25px; left: 5px; background-repeat: no-repeat; border: none; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
 
-                           <h:outputText  value="#{msg['valorSueldo']}*" style="position: absolute; top: 25px; left: 65px;font-weight: bold">
+                           <h:outputText  value="*#{msg['valorSueldo']}" style="position: absolute; top: 25px; left: 65px;font-weight: bold">
                               <f:convertNumber currencyCode="COP"/>
                            </h:outputText>
                            
@@ -313,7 +313,7 @@
                               <f:convertNumber currencyCode="COP"/>
                            </p:inputText>
 
-                           <h:outputText  value="#{msg['motivoSueldo']}*" style="position: absolute; top: 55px; left: 65px; font-weight: bold;"/>
+                           <h:outputText  value="*#{msg['motivoSueldo']}" style="position: absolute; top: 55px; left: 65px; font-weight: bold;"/>
                            <p:inputText id="motivoSueldoModSueldo" widgetVar="motivoSueldoModSueldo" onclick="select();" value="#{controlPersonaIndividual.txt_motivoSu}" 
                                         style="position: absolute; top: 50px; left: 230px; width: 150px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemSueldo(1)}" process="@this"/>
@@ -321,7 +321,7 @@
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresSueldo()}" process="@this"/>
                            </p:inputText>
 
-                           <h:outputText id="infoSueldoSuelo" value="#{msg['tipoCompensacion']}*" style="position: absolute; top: 85px; left: 65px;font-weight: bold;"/>
+                           <h:outputText id="infoSueldoSuelo" value="*#{msg['tipoCompensacion']}" style="position: absolute; top: 85px; left: 65px;font-weight: bold;"/>
                            <p:inputText id="tipoSueldoModSueldo" widgetVar="tipoSueldoModSueldo" onclick="select();" disabled="#{controlPersonaIndividual.disableCamposDependientesTipoT}" 
                                         value="#{controlPersonaIndividual.txt_TipoSu}" style="position: absolute; top: 80px; left: 230px; width: 150px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemSueldo(2)}" process="@this"/>
@@ -332,7 +332,7 @@
                            </p:inputText>
                            <p:tooltip style="font-size: 12px;" for="infoSueldoSuelo" value="#{msg['infoSueldoSuelo']}"/>
 
-                           <h:outputText  value="#{msg['unidadPago']}*" style="position: absolute; top: 115px; left: 65px;font-weight: bold;"/>
+                           <h:outputText  value="*#{msg['unidadPago']}" style="position: absolute; top: 115px; left: 65px;font-weight: bold;"/>
                            <p:inputText id="unidadPagoModSueldo" readonly="true" onclick="select();" value="#{controlPersonaIndividual.unidadPesos.nombre}" style="position: absolute; top: 110px; left: 230px; width: 150px; text-transform: uppercase;">
                            </p:inputText>
                         </fieldset>
@@ -342,14 +342,14 @@
 
                            <h:outputText value="" style="position: absolute; background-image: url(Imagenes/Iconos/fechaContratacion.png); width: 50px; height: 50px; top: 25px; left: 5px; background-repeat: no-repeat; border: none; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
 
-                           <h:outputText  value="#{msg['motivoContrato']}*" style="position: absolute; top: 25px; left: 65px;font-weight: bold;"/>
+                           <h:outputText  value="*#{msg['motivoContrato']}" style="position: absolute; top: 25px; left: 65px;font-weight: bold;"/>
                            <p:inputText id="motivoContratoModTipoContrato" onclick="select();" value="#{controlPersonaIndividual.nuevaVigenciaTipoContrato.motivocontrato.nombre}" style="position: absolute; top: 20px; left: 245px;width: 155px;text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemTipoContrato(0)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarTipoContrato(0,'MOTIVO', controlPersonaIndividual.nuevaVigenciaTipoContrato.motivocontrato.nombre)}" process="@this" update="motivoContratoModTipoContrato"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresTipoContrato()}" process="@this"/>
                            </p:inputText>
 
-                           <h:outputText id="infoContratoTipoContrato"  value="#{msg['tipoContrato']}*" style="position: absolute; top: 55px; left: 65px;font-weight: bold;"/>
+                           <h:outputText id="infoContratoTipoContrato"  value="*#{msg['tipoContrato']}" style="position: absolute; top: 55px; left: 65px;font-weight: bold;"/>
                            <p:inputText id="tipoContratoModTipoContrato" disabled="#{controlPersonaIndividual.disableCamposDependientesTipoT}" onclick="select();" value="#{controlPersonaIndividual.nuevaVigenciaTipoContrato.tipocontrato.nombre}" style="position: absolute; top: 50px; left: 245px;width: 155px;text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemTipoContrato(1)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarTipoContrato(1,'TIPO', controlPersonaIndividual.nuevaVigenciaTipoContrato.tipocontrato.nombre)}"
@@ -374,7 +374,7 @@
 
                            <h:outputText value="" style="position: absolute; background-image: url(Imagenes/Iconos/normaLaboral.png); width: 50px; height: 50px; top: 15px; left: 5px; background-repeat: no-repeat; border: none; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
 
-                           <h:outputText id="infoNormaNormaLaboral" value="#{msg['normaLaboral']}*" style="position: absolute; top: 35px; left: 65px;font-weight: bold;"/>
+                           <h:outputText id="infoNormaNormaLaboral" value="*#{msg['normaLaboral']}" style="position: absolute; top: 35px; left: 65px;font-weight: bold;"/>
                            <p:inputText id="normaLaboralModNormaLaboral" disabled="#{controlPersonaIndividual.disableCamposDependientesTipoT}" onclick="select();" value="#{controlPersonaIndividual.nuevaVigenciaNormaEmpleado.normalaboral.nombre}" style="position: absolute; top: 30px; left: 230px;width: 150px;text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemNormaLaboral(0)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarNormaLaboral(0,'NORMA', controlPersonaIndividual.nuevaVigenciaNormaEmpleado.normalaboral.nombre)}"
@@ -391,7 +391,7 @@
 
                            <h:outputText value="" style="position: absolute; background-image: url(Imagenes/Iconos/legislacionLaboral.png); width: 50px; height: 50px; top: 15px; left: 5px; background-repeat: no-repeat; border: none; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
 
-                           <h:outputText id="infoLegislacionLegislacionLaboral"  value="#{msg['legislacionLaboral']}*" style="position: absolute; top: 35px; left: 65px;font-weight: bold;"/>
+                           <h:outputText id="infoLegislacionLegislacionLaboral"  value="*#{msg['legislacionLaboral']}" style="position: absolute; top: 35px; left: 65px;font-weight: bold;"/>
                            <p:inputText id="legislacionLaboralModLegislacionLaboral" disabled="#{controlPersonaIndividual.disableCamposDependientesTipoT}" onclick="select();" value="#{controlPersonaIndividual.nuevaVigenciaContrato.contrato.descripcion}" style="position: absolute; top: 30px; left: 245px;width: 155px;text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemLegislacionLaboral(0)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarLegislacionLaboral(0,'CONTRATO', controlPersonaIndividual.nuevaVigenciaContrato.contrato.descripcion)}" 
@@ -407,7 +407,7 @@
 
                            <h:outputText value="" style="position: absolute; background-image: url(Imagenes/Iconos/ubicacionGeografica.png); width: 50px; height: 50px; top: 15px; left: 5px; background-repeat: no-repeat; border: none; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
 
-                           <h:outputText id="infoUbicacionUbicacion" value="#{msg['ubicacionGeografica']}*" style="position: absolute; top: 25px; left: 65px;font-weight: bold;"/>
+                           <h:outputText id="infoUbicacionUbicacion" value="*#{msg['ubicacionGeografica']}" style="position: absolute; top: 25px; left: 65px;font-weight: bold;"/>
                            <p:inputText id="ubicacionGeograficaModUbicacionGeografica" onclick="select();" disabled="#{controlPersonaIndividual.disableUbicacionGeografica}"
                                         value="#{controlPersonaIndividual.txt_ubicacionG}" style="position: absolute; top: 30px; left: 230px;width: 150px;text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemUbicacionGeografica(0)}" process="@this"/>
@@ -423,7 +423,7 @@
 
                            <h:outputText value="" style="position: absolute; background-image: url(Imagenes/Iconos/jornada.png); width: 50px; height: 50px; top: 15px; left: 5px; background-repeat: no-repeat; border: none; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
 
-                           <h:outputText  value="#{msg['jornadaLaboral']}*" style="position: absolute; top: 35px; left: 65px;font-weight: bold;"/>
+                           <h:outputText  value="*#{msg['jornadaLaboral']}" style="position: absolute; top: 35px; left: 65px;font-weight: bold;"/>
                            <p:inputText id="jornadaLaboralModJornadaLaboral" onclick="select();" value="#{controlPersonaIndividual.txt_jornada}" style="position: absolute; top: 30px; left: 245px;width: 155px;text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemJornadaLaboral(0)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarJornadaLaboral(0,'JORNADA', controlPersonaIndividual.txt_jornada)}" process="@this" update="jornadaLaboralModJornadaLaboral"/>
@@ -436,7 +436,7 @@
 
                            <h:outputText value="" style="position: absolute; background-image: url(Imagenes/Iconos/formaPago.png); width: 50px; height: 50px; top: 25px; left: 5px; background-repeat: no-repeat; border: none; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
 
-                           <h:outputText  value="#{msg['formaPago']}*" style="position: absolute; top: 25px; left: 65px;font-weight: bold;"/>
+                           <h:outputText  value="*#{msg['formaPago']}" style="position: absolute; top: 25px; left: 65px;font-weight: bold;"/>
                            <p:inputText id="formaPagoModFormaPago" onclick="select();" value="#{controlPersonaIndividual.txt_formaP}" style="position: absolute; top: 20px; left: 230px;width: 170px;text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemFormaPago(0)}" immediate="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarFormaPago(0,'FORMA', controlPersonaIndividual.txt_formaP)}" process="@this" update="formaPagoModFormaPago"/>
@@ -464,7 +464,7 @@
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresFormaPago()}" process="@this"/>
                            </p:inputText>
 
-                           <h:outputText  value="#{msg['metodoPago']}*" style="position: absolute; top: 55px; left: 450px;font-weight: bold;"/>
+                           <h:outputText  value="*#{msg['metodoPago']}" style="position: absolute; top: 55px; left: 450px;font-weight: bold;"/>
                            <p:inputText id="metodoPagoModFormaPago" onclick="select();" value="#{controlPersonaIndividual.txt_metodoP}" style="position: absolute; top: 50px; left: 590px;width: 170px;text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemFormaPago(4)}" immediate="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarFormaPago(4,'METODO', controlPersonaIndividual.txt_metodoP)}" process="@this" update="metodoPagoModFormaPago"/>
@@ -478,7 +478,7 @@
                            <h:outputText value="" style="position: absolute; background-image: url(Imagenes/Iconos/afiliaciones.png); background-repeat: no-repeat; border: none;
                                          width: 50px; height: 50px; top: 22px; left: 5px;  background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
 
-                           <h:outputText id="infoAfiliacionEPS" value="#{msg['eps']}*" style="position: absolute; top: 22px; left: 65px;font-weight: bold;"/>
+                           <h:outputText id="infoAfiliacionEPS" value="*#{msg['eps']}" style="position: absolute; top: 22px; left: 65px;font-weight: bold;"/>
                            <p:inputText id="epsModAfiliaciones" disabled="#{controlPersonaIndividual.disableAfiliaciones}" onclick="select();" value="#{controlPersonaIndividual.txt_terceroEPS}" 
                                         style="position: absolute; top: 17px; left: 400px;width: 350px;text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemAfiliacionEPS(0)}" process="@this"/>
@@ -487,7 +487,7 @@
                            </p:inputText>
                            <p:tooltip style="font-size: 12px;" for="infoAfiliacionEPS" value="#{msg['infoAfiliacion']}"/>
 
-                           <h:outputText id="infoAfiliacionARP" value="#{msg['arp']}*" style="position: absolute; top: 52px; left: 65px;font-weight: bold;"/>
+                           <h:outputText id="infoAfiliacionARP" value="*#{msg['arp']}" style="position: absolute; top: 52px; left: 65px;font-weight: bold;"/>
                            <p:inputText id="arpModAfiliaciones" disabled="#{controlPersonaIndividual.disableAfiliaciones}" onclick="select();" value="#{controlPersonaIndividual.txt_terceroARL}" 
                                         style="position: absolute; top: 47px; left: 400px;width: 350px;text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemAfiliacionARP(0)}" process="@this"/>
@@ -651,7 +651,7 @@
                            </f:facet>
                            <p:column filterBy="#{empresaIP.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                               <f:facet name="header">
-                                 <h:outputText style="text-align: center" value="#{msg['nombreEmpresa']}"/>
+                                 <h:outputText style="text-align: center;" value="#{msg['nombreEmpresa']}"/>
                               </f:facet>
                               <h:outputText  value="#{empresaIP.nombre}"/>
                            </p:column>
@@ -693,7 +693,7 @@
                            </f:facet>
                            <p:column filterBy="#{tipoDIP.nombrecorto}" width="100" filterMatchMode="contains" filterStyle="width: 85% !important">
                               <f:facet name="header">
-                                 <h:outputText style="text-align: center" value="#{msg['nombreCorto']}"/>
+                                 <h:outputText style="text-align: center;" value="#{msg['nombreCorto']}"/>
                               </f:facet>
                               <h:outputText  value="#{tipoDIP.nombrecorto}"/>
                            </p:column>
@@ -737,7 +737,7 @@
 
                            <p:column filterBy="#{ciudadDIP.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                               <f:facet name="header">
-                                 <h:outputText style="text-align: center" value="#{msg['nombre']}"/>
+                                 <h:outputText style="text-align: center;" value="#{msg['nombre']}"/>
                               </f:facet>
                               <h:outputText  value="#{ciudadDIP.nombre}"/>
                            </p:column>
@@ -781,7 +781,7 @@
                            </f:facet>
                            <p:column filterBy="#{ciudadDIP.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                               <f:facet name="header">
-                                 <h:outputText style="text-align: center" value="#{msg['nombre']}"/>
+                                 <h:outputText style="text-align: center;" value="#{msg['nombre']}"/>
                               </f:facet>
                               <h:outputText  value="#{ciudadDIP.nombre}"/>
                            </p:column>
@@ -823,7 +823,7 @@
                            </f:facet>
                            <p:column filterBy="#{cargoCD.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                               <f:facet name="header">
-                                 <h:outputText style="text-align: center" value="#{msg['nombreCargo']}"/>
+                                 <h:outputText style="text-align: center;" value="#{msg['nombreCargo']}"/>
                               </f:facet>
                               <h:outputText  value="#{cargoCD.nombre}"/>
                            </p:column>
@@ -857,7 +857,7 @@
                            </f:facet>
                            <p:column filterBy="#{motivoCambioCD.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                               <f:facet name="header">
-                                 <h:outputText style="text-align: center" value="#{msg['nombreMotivoCargo']}"/>
+                                 <h:outputText style="text-align: center;" value="#{msg['nombreMotivoCargo']}"/>
                               </f:facet>
                               <h:outputText  value="#{motivoCambioCD.nombre}"/>
                            </p:column>
@@ -892,7 +892,7 @@
                            </f:facet>
                            <p:column filterBy="#{estructuraCD.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                               <f:facet name="header">
-                                 <h:outputText style="text-align: center" value="#{msg['nombreEstructura']}"/>
+                                 <h:outputText style="text-align: center;" value="#{msg['nombreEstructura']}"/>
                               </f:facet>
                               <h:outputText  value="#{estructuraCD.nombre}"/>
                            </p:column>
@@ -927,7 +927,7 @@
                            </f:facet>
                            <p:column filterBy="#{papelCD.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                               <f:facet name="header">
-                                 <h:outputText style="text-align: center" value="#{msg['nombrePapel']}"/>
+                                 <h:outputText style="text-align: center;" value="#{msg['nombrePapel']}"/>
                               </f:facet>
                               <h:outputText  value="#{papelCD.descripcion}"/>
                            </p:column>
@@ -961,7 +961,7 @@
                            </f:facet>
                            <p:column filterBy="#{jefeCD.persona.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                               <f:facet name="header">
-                                 <h:outputText style="text-align: center" value="#{msg['empleado']}"/>
+                                 <h:outputText style="text-align: center;" value="#{msg['empleado']}"/>
                               </f:facet>
                               <h:outputText  value="#{jefeCD.persona.nombreCompleto}"/>
                            </p:column>
@@ -997,7 +997,7 @@
                            </f:facet>
                            <p:column filterBy="#{motivoLCC.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                               <f:facet name="header">
-                                 <h:outputText style="text-align: center" value="#{msg['descripcionMotivo']}"/>
+                                 <h:outputText style="text-align: center;" value="#{msg['descripcionMotivo']}"/>
                               </f:facet>
                               <h:outputText  value="#{motivoLCC.descripcion}"/>
                            </p:column>
@@ -1037,13 +1037,13 @@
                            </p:column>
                            <p:column filterBy="#{estructuraCC.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                               <f:facet name="header">
-                                 <h:outputText style="text-align: center" value="#{msg['nombreEstructura']}"/>
+                                 <h:outputText style="text-align: center;" value="#{msg['nombreEstructura']}"/>
                               </f:facet>
                               <h:outputText  value="#{estructuraCC.nombre}"/>
                            </p:column>
                            <p:column filterBy="#{estructuraCC.centrocosto.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                               <f:facet name="header">
-                                 <h:outputText style="text-align: center" value="#{msg['nombreCentroCosto']}"/>
+                                 <h:outputText style="text-align: center;" value="#{msg['nombreCentroCosto']}"/>
                               </f:facet>
                               <h:outputText  value="#{estructuraCC.centrocosto.nombre}"/>
                            </p:column>
@@ -1070,16 +1070,16 @@
 
                         <p:ajax event="filter" listener="#{controlPersonaIndividual.contarRegistros_TipoTraTT()}" update=":formLovs:formDTipoTrabajador:aceptarTTTT"/>
                         <p:ajax event="rowDblselect" listener="#{controlPersonaIndividual.actualizarParametroTipoTrabajadorTipoTrabajador()}" process="@this"
-                                oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:tipoSalarioModTipoSalario');});"/>
+                                oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:tipoTrabajadorModTipoTrabajador');});"/>
                         <p:ajax event="rowSelect" process="@this" immediate="true" listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDTipoTrabajador:aceptarTTTT"/>
 
                         <f:facet name="header">  
                            <h:outputText value="#{msg['buscarTTTT']}"/>  
                            <p:inputText id="globalFilter" onkeyup="PF('lovTipoTrabajadorTipoTrabajador').filter();" class="cssFiltroLOV"/>  
                         </f:facet>
-                        <p:column filterBy="#{tipoTTT.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
+                        <p:column filterBy="#{tipoTTT.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important;" >
                            <f:facet name="header">
-                              <h:outputText style="text-align: center" value="#{msg['nombreTipoTrabajador']}"/>
+                              <h:outputText style="text-align: center;" value="#{msg['nombreTipoTrabajador']}"/>
                            </f:facet>
                            <h:outputText  value="#{tipoTTT.nombre}"/>
                         </p:column>
@@ -1088,7 +1088,7 @@
                      <div class="cssBotonesLOV"> 
                         <h:outputText id="infoRegistroTipoTrabajadorTipoTrabajador" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroTipoTrabajadorTT}" class="cssinfoRegistroLOV"/>
                         <p:commandButton id="aceptarTTTT" class="cssAceptarLOV" update="@this" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}"
-                                         onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" icon="ui-icon-check"
+                                         onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:tipoTrabajadorModTipoTrabajador');});" icon="ui-icon-check"
                                          actionListener="#{controlPersonaIndividual.actualizarParametroTipoTrabajadorTipoTrabajador()}" process="@this"/>
                         <p:commandButton id="atrasTTTT" class="cssAtrasLOV"  value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:tipoSalarioModTipoSalario');});"
                                          actionListener="#{controlPersonaIndividual.cancelarParametroTipoTrabajadorTipoTrabajador()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
@@ -1114,7 +1114,7 @@
                         </f:facet>
                         <p:column filterBy="#{reformaLTS.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                            <f:facet name="header">
-                              <h:outputText style="text-align: center" value="#{msg['nombreReformaLaboral']}"/>
+                              <h:outputText style="text-align: center;" value="#{msg['nombreReformaLaboral']}"/>
                            </f:facet>
                            <h:outputText  value="#{reformaLTS.nombre}"/>
                         </p:column>
@@ -1148,7 +1148,7 @@
                            </f:facet>
                            <p:column filterBy="#{motivoCambioSS.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                               <f:facet name="header">
-                                 <h:outputText style="text-align: center" value="#{msg['motivoSueldo']}"/>
+                                 <h:outputText style="text-align: center;" value="#{msg['motivoSueldo']}"/>
                               </f:facet>
                               <h:outputText  value="#{motivoCambioSS.nombre}"/>
                            </p:column>
@@ -1181,7 +1181,7 @@
                            </f:facet>
                            <p:column filterBy="#{tipoSueldoS.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                               <f:facet name="header">
-                                 <h:outputText style="text-align: center" value="#{msg['tipoSueldo']}"/>
+                                 <h:outputText style="text-align: center;" value="#{msg['tipoSueldo']}"/>
                               </f:facet>
                               <h:outputText  value="#{tipoSueldoS.descripcion}"/>
                            </p:column>
@@ -1214,7 +1214,7 @@
                            </f:facet>
                            <p:column filterBy="#{unidadS.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                               <f:facet name="header">
-                                 <h:outputText style="text-align: center" value="#{msg['nombreUnidad']}"/>
+                                 <h:outputText style="text-align: center;" value="#{msg['nombreUnidad']}"/>
                               </f:facet>
                               <h:outputText  value="#{unidadS.nombre}"/>
                            </p:column>
@@ -1250,7 +1250,7 @@
                            </f:facet>
                            <p:column filterBy="#{motivoContratoTC.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                               <f:facet name="header">
-                                 <h:outputText style="text-align: center" value="#{msg['motivoContrato']}"/>
+                                 <h:outputText style="text-align: center;" value="#{msg['motivoContrato']}"/>
                               </f:facet>
                               <h:outputText  value="#{motivoContratoTC.nombre}"/>
                            </p:column>
@@ -1283,7 +1283,7 @@
                            </f:facet>
                            <p:column filterBy="#{tipoContratoTC.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                               <f:facet name="header">
-                                 <h:outputText style="text-align: center" value="#{msg['tipoContrato']}"/>
+                                 <h:outputText style="text-align: center;" value="#{msg['tipoContrato']}"/>
                               </f:facet>
                               <h:outputText  value="#{tipoContratoTC.nombre}"/>
                            </p:column>
@@ -1319,7 +1319,7 @@
                         </f:facet>
                         <p:column filterBy="#{normaLaboralNL.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                            <f:facet name="header">
-                              <h:outputText style="text-align: center" value="#{msg['normaLaboral']}"/>
+                              <h:outputText style="text-align: center;" value="#{msg['normaLaboral']}"/>
                            </f:facet>
                            <h:outputText  value="#{normaLaboralNL.nombre}"/>
                         </p:column>
@@ -1355,7 +1355,7 @@
                         </f:facet>
                         <p:column filterBy="#{contratoLL.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                            <f:facet name="header">
-                              <h:outputText style="text-align: center" value="#{msg['descripcionContrato']}"/>
+                              <h:outputText style="text-align: center;" value="#{msg['descripcionContrato']}"/>
                            </f:facet>
                            <h:outputText  value="#{contratoLL.descripcion}"/>
                         </p:column>
@@ -1391,37 +1391,37 @@
                         </f:facet>
                         <p:column filterBy="#{ubicacionGUG.descripcion}" width="200" filterMatchMode="contains" filterStyle="width: 85% !important" >
                            <f:facet name="header">
-                              <h:outputText style="text-align: center" value="#{msg['descripcion']}"/>
+                              <h:outputText style="text-align: center;" value="#{msg['descripcion']}"/>
                            </f:facet>
                            <h:outputText  value="#{ubicacionGUG.descripcion}"/>
                         </p:column>
                         <p:column filterBy="#{ubicacionGUG.ciudad.nombre}" width="140" filterMatchMode="contains" filterStyle="width: 85% !important" >
                            <f:facet name="header">
-                              <h:outputText style="text-align: center" value="#{msg['ciudad']}"/>
+                              <h:outputText style="text-align: center;" value="#{msg['ciudad']}"/>
                            </f:facet>
                            <h:outputText  value="#{ubicacionGUG.ciudad.nombre}"/>
                         </p:column>
                         <p:column filterBy="#{ubicacionGUG.direccion}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                            <f:facet name="header">
-                              <h:outputText style="text-align: center" value="#{msg['direccion']}"/>
+                              <h:outputText style="text-align: center;" value="#{msg['direccion']}"/>
                            </f:facet>
                            <h:outputText  value="#{ubicacionGUG.direccion}"/>
                         </p:column>
                         <p:column filterBy="#{ubicacionGUG.telefono}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                            <f:facet name="header">
-                              <h:outputText style="text-align: center" value="#{msg['telefono']}"/>
+                              <h:outputText style="text-align: center;" value="#{msg['telefono']}"/>
                            </f:facet>
                            <h:outputText  value="#{ubicacionGUG.telefono}"/>
                         </p:column>
                         <p:column filterBy="#{ubicacionGUG.fax}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                            <f:facet name="header">
-                              <h:outputText style="text-align: center" value="#{msg['fax']}"/>
+                              <h:outputText style="text-align: center;" value="#{msg['fax']}"/>
                            </f:facet>
                            <h:outputText  value="#{ubicacionGUG.fax}"/>
                         </p:column>
                         <p:column filterBy="#{ubicacionGUG.zona}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                            <f:facet name="header">
-                              <h:outputText style="text-align: center" value="#{msg['zona']}"/>
+                              <h:outputText style="text-align: center;" value="#{msg['zona']}"/>
                            </f:facet>
                            <h:outputText  value="#{ubicacionGUG.zona}"/>
                         </p:column>
@@ -1457,7 +1457,7 @@
                         </f:facet>
                         <p:column filterBy="#{jornadaLJL.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                            <f:facet name="header">
-                              <h:outputText style="text-align: center" value="#{msg['jornadaLaboral']}"/>
+                              <h:outputText style="text-align: center;" value="#{msg['jornadaLaboral']}"/>
                            </f:facet>
                            <h:outputText  value="#{jornadaLJL.descripcion}"/>
                         </p:column>
@@ -1493,7 +1493,7 @@
                            </f:facet>
                            <p:column filterBy="#{periodicidadFP.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                               <f:facet name="header">
-                                 <h:outputText style="text-align: center" value="#{msg['nombre']}"/>
+                                 <h:outputText style="text-align: center;" value="#{msg['nombre']}"/>
                               </f:facet>
                               <h:outputText  value="#{periodicidadFP.nombre}"/>
                            </p:column>
@@ -1525,7 +1525,7 @@
                            </f:facet>
                            <p:column filterBy="#{sucursalFP.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                               <f:facet name="header">
-                                 <h:outputText style="text-align: center" value="#{msg['nombre']}"/>
+                                 <h:outputText style="text-align: center;" value="#{msg['nombre']}"/>
                               </f:facet>
                               <h:outputText  value="#{sucursalFP.nombre}"/>
                            </p:column>
@@ -1557,7 +1557,7 @@
                            </f:facet>
                            <p:column filterBy="#{metodoPFP.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                               <f:facet name="header">
-                                 <h:outputText style="text-align: center" value="#{msg['descripcion']}"/>
+                                 <h:outputText style="text-align: center;" value="#{msg['descripcion']}"/>
                               </f:facet>
                               <h:outputText  value="#{metodoPFP.descripcion}"/>
                            </p:column>
@@ -1592,19 +1592,19 @@
                         </f:facet>
                         <p:column filterBy="#{terceroSA.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                            <f:facet name="header">
-                              <h:outputText style="text-align: center" value="#{msg['tercero']}"/>
+                              <h:outputText style="text-align: center;" value="#{msg['tercero']}"/>
                            </f:facet>
                            <h:outputText  value="#{terceroSA.descripcion}"/>
                         </p:column>
                         <p:column filterBy="#{terceroSA.tercero.nit}" width="100" filterMatchMode="contains" filterStyle="width: 85% !important" >
                            <f:facet name="header">
-                              <h:outputText style="text-align: center" value="#{msg['nit']}"/>
+                              <h:outputText style="text-align: center;" value="#{msg['nit']}"/>
                            </f:facet>
                            <h:outputText  value="#{terceroSA.tercero.nit}"/>
                         </p:column>
                         <p:column filterBy="#{terceroSA.tercero.empresa.nombre}" width="200" filterMatchMode="contains" filterStyle="width: 85% !important" >
                            <f:facet name="header">
-                              <h:outputText style="text-align: center" value="#{msg['nombre']}"/>
+                              <h:outputText style="text-align: center;" value="#{msg['nombre']}"/>
                            </f:facet>
                            <h:outputText  value="#{terceroSA.tercero.empresa.nombre}"/>
                         </p:column>
@@ -1640,7 +1640,7 @@
                            </f:facet>
                            <p:column filterBy="#{tipoTT.nombre}"  filterMatchMode="contains" filterStyle="width: 85% !important" >
                               <f:facet name="header">
-                                 <h:outputText style="text-align: center" value="#{msg['nombre']}"/>
+                                 <h:outputText style="text-align: center;" value="#{msg['nombre']}"/>
                               </f:facet>
                               <h:outputText  value="#{tipoTT.nombre}"/>
                            </p:column>
@@ -1672,7 +1672,7 @@
                            </f:facet>
                            <p:column filterBy="#{ciudadT.nombre}"  filterMatchMode="contains" filterStyle="width: 85% !important" >
                               <f:facet name="header">
-                                 <h:outputText style="text-align: center" value="#{msg['nombre']}"/>
+                                 <h:outputText style="text-align: center;" value="#{msg['nombre']}"/>
                               </f:facet>
                               <h:outputText  value="#{ciudadT.nombre}"/>
                            </p:column>
@@ -1714,7 +1714,7 @@
                         </f:facet>
                         <p:column filterBy="#{ciudadD.nombre}"  filterMatchMode="contains" filterStyle="width: 85% !important" >
                            <f:facet name="header">
-                              <h:outputText style="text-align: center" value="#{msg['nombre']}"/>
+                              <h:outputText style="text-align: center;" value="#{msg['nombre']}"/>
                            </f:facet>
                            <h:outputText  value="#{ciudadD.nombre}"/>
                         </p:column>
@@ -1754,7 +1754,7 @@
                         </f:facet>
                         <p:column filterBy="#{estadoCivilEC.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                            <f:facet name="header">
-                              <h:outputText style="text-align: center" value="#{msg['descripcion']}"/>
+                              <h:outputText style="text-align: center;" value="#{msg['descripcion']}"/>
                            </f:facet>
                            <h:outputText  value="#{estadoCivilEC.descripcion}"/>
                         </p:column>

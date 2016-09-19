@@ -133,7 +133,6 @@ public class ControlVigenciasFormasPagos implements Serializable {
         } else {
             modificarInfoRegistro(0);
         }
-        RequestContext.getCurrentInstance().update("form:informacionRegistro");
     }
 
     //RASTROS 

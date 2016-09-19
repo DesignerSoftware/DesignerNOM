@@ -4992,8 +4992,8 @@ public class ControlPersonaIndividual implements Serializable {
 //            PrimefacesContextUI.ejecutar("PF('ReformaLaboralTipoSalarioDialogo').show()");
 //         }
 //      }
-      PrimefacesContextUI.ejecutar("$(function(){PrimeFaces.focus('form:tipoSalarioModTipoSalario');});");
-      PrimefacesContextUI.ejecutar("PF('ReformaLaboralTipoSalarioDialogo').show()");
+//      PrimefacesContextUI.ejecutar("$(function(){PrimeFaces.focus('form:tipoSalarioModTipoSalario');});");
+//      PrimefacesContextUI.ejecutar("PF('ReformaLaboralTipoSalarioDialogo').show()");
    }
 
    public void cancelarParametroTipoTrabajadorTipoTrabajador() {
@@ -5508,12 +5508,12 @@ public class ControlPersonaIndividual implements Serializable {
          disableCamposDependientesTipoT = true;
       }
       System.out.println("validarDisableTipoTrabajador() disableCamposDependientesTipoT : " + disableCamposDependientesTipoT);
-      RequestContext context = RequestContext.getCurrentInstance();
-      context.update("form:legislacionLaboralModLegislacionLaboral");
-      context.update("form:normaLaboralModNormaLaboral");
-      context.update("form:tipoContratoModTipoContrato");
-      context.update("form:tipoSueldoModSueldo");
-      context.update("form:tipoSalarioModTipoSalario");
+//      RequestContext context = RequestContext.getCurrentInstance();
+      RequestContext.getCurrentInstance().update("form:legislacionLaboralModLegislacionLaboral");
+      RequestContext.getCurrentInstance().update("form:tipoContratoModTipoContrato");
+      RequestContext.getCurrentInstance().update("form:normaLaboralModNormaLaboral");
+      RequestContext.getCurrentInstance().update("form:tipoSalarioModTipoSalario");
+      RequestContext.getCurrentInstance().update("form:tipoSueldoModSueldo");
    }
 
    public boolean isNumber(String numero) {
@@ -5541,12 +5541,12 @@ public class ControlPersonaIndividual implements Serializable {
             double numero = Double.parseDouble(sueldo);
             if (numero < 0) {
                valorSueldo = auxSueldoValor;
-               RequestContext.getCurrentInstance().update("form:valorSueldoModSueldo");
+               context.update("form:valorSueldoModSueldo");
                PrimefacesContextUI.ejecutar("PF('errorValorSueldo').show()");
             }
          } else {
             valorSueldo = auxSueldoValor;
-            RequestContext.getCurrentInstance().update("form:valorSueldoModSueldo");
+            context.update("form:valorSueldoModSueldo");
             PrimefacesContextUI.ejecutar("PF('errorFormatoValorSueldo').show()");
          }
       }

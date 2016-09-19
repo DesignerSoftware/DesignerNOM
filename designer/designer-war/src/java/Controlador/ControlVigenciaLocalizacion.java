@@ -238,7 +238,6 @@ public class ControlVigenciaLocalizacion implements Serializable {
         cualTabla = 0;
 
         activarLOV = true;
-        RequestContext.getCurrentInstance().update("form:listaValores");
     }
 
     @PostConstruct

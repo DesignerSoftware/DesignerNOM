@@ -76,7 +76,7 @@ button .ui-widget-header{
 .ui-widget-content .ui-state-hover,
 .ui-widget-header .ui-state-hover {
    border: 1px solid #bbbbbb;
-   /*background: #1E63A4 url("images/ui-bg_inset-hard_60_1E63A4_1x100.png") 50% 50% repeat-x;*/
+   background: #1E63A4 url("images/ui-bg_inset-hard_60_1E63A4_1x100.png") 50% 50% repeat-x;
    color: #ffffff;
 }
 .ui-state-focus,
@@ -523,7 +523,8 @@ button .ui-widget-header{
 }
 
 .ui-inputfield.ui-inputtext.ui-widget.ui-state-focus.ui-corner-all,
-.ui-inputfield.ui-widget.ui-state-focus.ui-corner-all.hasDatepicker {
+.ui-inputfield.ui-widget.ui-state-focus.ui-corner-all.hasDatepicker 
+{
    background-color: white !important;
    color: black !important;
 }

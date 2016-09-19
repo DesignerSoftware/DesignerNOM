@@ -86,9 +86,6 @@ public class ControlEmplIbcs implements Serializable {
     }
 
     public void recibirEmpleado(BigInteger sec) {
-        RequestContext context = RequestContext.getCurrentInstance();
-
-
         empleadoSeleccionado = null;
         secuenciaEmpleado = sec;
         listIbcsPorEmpleado = null;
@@ -106,7 +103,6 @@ public class ControlEmplIbcs implements Serializable {
         } else {
             modificarInfoRegistro(0);
         }
-        RequestContext.getCurrentInstance().update("form:informacionRegistro");
     }
 
     public void cancelarModificacion() {
@@ -245,7 +241,6 @@ public class ControlEmplIbcs implements Serializable {
 
     private void modificarInfoRegistro(int valor) {
         infoRegistro = String.valueOf(valor);
-        System.out.println("infoRegistro: " + infoRegistro);
     }
 
     public void recordarSeleccion() {

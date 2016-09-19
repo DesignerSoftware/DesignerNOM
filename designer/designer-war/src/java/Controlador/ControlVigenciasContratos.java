@@ -121,7 +121,6 @@ public class ControlVigenciasContratos implements Serializable {
         permitirIndex = true;
         altoTabla = "295";
         activarLOV = true;
-        RequestContext.getCurrentInstance().update("form:listaValores");
     }
 
     @PostConstruct
@@ -145,7 +144,6 @@ public class ControlVigenciasContratos implements Serializable {
      * @param sec Secuencia del Empleado
      */
     public void recibirEmpleado(Empleados empl) {
-        RequestContext context = RequestContext.getCurrentInstance();
 
         vigenciasContratos = null;
         empleado = empl;
@@ -158,7 +156,6 @@ public class ControlVigenciasContratos implements Serializable {
         } else {
             modificarInfoRegistro(0);
         }
-        RequestContext.getCurrentInstance().update("form:informacionRegistro");
     }
 
     public void modificarVC() {

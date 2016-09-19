@@ -176,7 +176,6 @@ public class ControlEmplMvr implements Serializable {
         altoTabla2 = "115";
 
         activarLOV = true;
-        RequestContext.getCurrentInstance().update("form:listaValores");
 
         estadoMientras = "";
         hMapEstados = new HashMap<Integer, String>();

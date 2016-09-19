@@ -158,7 +158,6 @@ public class ControlVigenciasReformasLaborales implements Serializable {
         } else {
             modificarInfoRegistro(0);
         }
-        RequestContext.getCurrentInstance().update("form:informacionRegistro");
     }
 
     public void modificarVRL(VigenciasReformasLaborales vrl) {
