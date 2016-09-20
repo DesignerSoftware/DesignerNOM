@@ -14,7 +14,7 @@
                     <f:loadBundle basename="Recursos.evento" var="msg" />
                     <p:growl id="growl" showDetail="true"/> 
                     <p:panel  id="PanelTotal" header="Eventos" styleClass="panelTotal">    
-                         <p:toolbar styleClass="cssToolbar" >
+                        <p:toolbar styleClass="cssToolbar" >
                             <p:toolbarGroup align="left"> 
 
                                 <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); border: none;" actionListener="#{controlEventos.guardarEventos()}" process="@this" />
@@ -60,7 +60,7 @@
                                 <p:separator style="position: relative; top: -9px"/>
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); border: none; " actionListener="#{controlEventos.cancelarModificacion()}"  oncomplete="PF('window.location.reload()" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
-                                
+
                                 <p:separator style="position: relative; top: -9px"/>
                                 <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png); border: none; " actionListener="#{controlEventos.salir()}" process="@this" action="atrasevento" />  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
@@ -70,7 +70,7 @@
 
                         <p:commandButton style=" position: absolute; left: 675px; top: 468px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" icon=" " id="ACEPTAR" value=" "  actionListener="#{controlEventos.revisarDialogoGuardar()}"  disabled="#{controlEventos.guardado}"   process="@this"   />
                         <p:commandButton style=" position: absolute; left: 765px; top: 468px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" action="atrasevento" value=" "    />
-                        
+
                         <fieldset style="position: absolute;top: 80px;left: 10px;height: 350px;width: 830px; border-radius: 10px; text-align: left">
                             <legend style="font-size: 14px; color: blue"><strong>Eventos</strong></legend>
 
@@ -93,7 +93,9 @@
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
-
+                                    <f:facet name="footer">
+                                        <h:outputText value ="" />
+                                    </f:facet>
 
                                 </p:column>
                                 <p:column headerText="Descripción" sortBy="#{info.descripcion}" filterBy="#{info.descripcion}" filterMatchMode="contains" id="descripcion" width="275" filterStyle="display: none; visibility: hidden;" >                                  
@@ -106,6 +108,9 @@
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value ="" />
+                                    </f:facet>
                                 </p:column>
 
                                 <p:column headerText="Organizador" sortBy="#{info.organizador}" filterBy="#{info.organizador}" filterMatchMode="contains" id="organizador" width="100" filterStyle="display: none; visibility: hidden;" >                                  
@@ -118,7 +123,9 @@
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
-
+                                    <f:facet name="footer">
+                                        <h:outputText value ="" />
+                                    </f:facet>
                                 </p:column>
 
                                 <p:column headerText="Objetivo" sortBy="#{info.objetivo}" filterBy="#{info.objetivo}" filterMatchMode="contains" id="objetivo" width="275" filterStyle="display: none; visibility: hidden;" >                                  
@@ -131,10 +138,12 @@
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
-
+                                    <f:facet name="footer">
+                                        <h:outputText value ="" />
+                                    </f:facet>
                                 </p:column>
                             </p:dataTable>
-                        <h:outputText id="informacionRegistro" value="#{msg['infoRegistros']} #{controlEventos.infoRegistro}" style="position: relative; left: 15px; top: 5px; font-weight: bold"/>
+                            <h:outputText id="informacionRegistro" value="#{msg['infoRegistros']} #{controlEventos.infoRegistro}" style="position: relative; left: 15px; top: 5px; font-weight: bold"/>
 
                         </fieldset>
 

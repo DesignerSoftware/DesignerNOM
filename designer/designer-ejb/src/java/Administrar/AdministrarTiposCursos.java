@@ -41,18 +41,14 @@ public class AdministrarTiposCursos implements AdministrarTiposCursosInterface {
     
     @Override
     public void modificarTiposCursos(List<TiposCursos> listaTiposCursos) {
-        //for (int i = 0; i < listaTiposCursos.size(); i++) {
-        for (TiposCursos listaTiposCurso : listaTiposCursos) {
-            System.out.println("Administrar Modificando...");
-            //persistenciaTiposCursos.editar(listaTiposCursos.get(i));
-            persistenciaTiposCursos.editar(em, listaTiposCurso);
+        for (int i = 0; i < listaTiposCursos.size(); i++) {
+            persistenciaTiposCursos.editar(em, listaTiposCursos.get(i));
         }
     }
 
     @Override
     public void borrarTiposCursos(List<TiposCursos> listaTiposCursos) {
         for (int i = 0; i < listaTiposCursos.size(); i++) {
-            System.out.println("Administrar Borrando...");
             persistenciaTiposCursos.borrar(em, listaTiposCursos.get(i));
         }
     }
@@ -60,7 +56,6 @@ public class AdministrarTiposCursos implements AdministrarTiposCursosInterface {
     @Override
     public void crearTiposCursos(List<TiposCursos> listaTiposCursos) {
         for (int i = 0; i < listaTiposCursos.size(); i++) {
-            System.out.println("Administrar Creando...");
             persistenciaTiposCursos.crear(em, listaTiposCursos.get(i));
         }
     }

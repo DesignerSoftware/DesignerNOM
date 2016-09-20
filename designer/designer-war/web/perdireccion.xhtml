@@ -527,7 +527,7 @@
 
                     <!--DIALOGO CIUDADES-->    
                     <p:dialog header="#{msg['ciudadesC']}" widgetVar="ciudadesDialogo" draggable="false" resizable="false" id="ciudadesDialogo" closable="false"  
-                              showEffect="fade" hideEffect="fade" modal="true" width="347" height="245" >
+                              showEffect="fade" hideEffect="fade" modal="true" width="347" >
 
                         <p:dataTable  id="LOVCiudades" style=" width: 300px;" var="ciudad" value="#{controlPerDirecciones.listaCiudades}"
                                       scrollable="true" scrollHeight="117" scrollWidth="315" liveScroll="true" scrollRows="8" widgetVar="LOVCiudades" 
@@ -537,8 +537,8 @@
                             <p:ajax event="rowSelect" listener="#{controlPerDirecciones.activarAceptar()}" update=":formularioDialogos:aceptarC"/>
                             <p:ajax event="rowDblselect" listener="#{controlPerDirecciones.actualizarCiudades()}" process="@this" />
                             <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarC']}"  style="position: absolute; left:27px; top: 15px"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVCiudades.filter();" style="width:150px; position: relative; left: 60px;" />  
+                                <h:outputText value="#{msg['buscarC']}" />  
+                                <p:inputText id="globalFilter" onkeyup="LOVCiudades.filter();" class="cssFiltroLOV" />  
                             </f:facet>
 
                             <p:column  filterBy="#{ciudad.nombre}" width="50" filterMatchMode="contains" filterStyle="width: 100px;" > 
@@ -547,10 +547,13 @@
                                 </f:facet>
                                 <h:outputText value="#{ciudad.nombre}" />  
                             </p:column>  
-                        </p:dataTable>   
-                        <h:outputText id="infoRegistroCiudades" value="#{msg['infoRegistros']} #{controlPerDirecciones.infoRegistroCiudades}" style="position: relative; left: 15px; top: 1px; font-weight: bold"/>
-                        <p:commandButton id="aceptarC" value="#{msg['aceptar']}" disabled="#{controlPerDirecciones.aceptar}" style="position: absolute; top: 215px; left: 130px;" icon="ui-icon-check" actionListener="#{controlPerDirecciones.actualizarCiudades()}" process="@this"/>
-                        <p:commandButton id="atrasC" value="#{msg['atras']}" style="position: absolute; top: 215px; left: 230px; " icon="ui-icon-arrowreturnthick-1-w" actionListener="#{controlPerDirecciones.cancelarCambioCiudades()}" process="@this"/>
+                        </p:dataTable>  
+                        
+                        <div class="cssBotonesLOV">
+                        <h:outputText id="infoRegistroCiudades" value="#{msg['infoRegistros']} #{controlPerDirecciones.infoRegistroCiudades}" class="cssinfoRegistroLOV" />
+                        <p:commandButton id="aceptarC" value="#{msg['aceptar']}" disabled="#{controlPerDirecciones.aceptar}" class="cssAceptarLOV" icon="ui-icon-check" actionListener="#{controlPerDirecciones.actualizarCiudades()}" process="@this"/>
+                        <p:commandButton id="atrasC" value="#{msg['atras']}" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" actionListener="#{controlPerDirecciones.cancelarCambioCiudades()}" process="@this"/>
+                        </div>
                     </p:dialog>
 
                     <!-- DIALOGOS RASTROS -->

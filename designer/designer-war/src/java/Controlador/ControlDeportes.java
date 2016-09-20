@@ -4,7 +4,6 @@
  */
 package Controlador;
 
-
 import Entidades.Deportes;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
@@ -129,9 +128,7 @@ public class ControlDeportes implements Serializable {
                 if (cualCelda == 1) {
                     backUpDescripcion = deporteSeleccionado.getNombre();
                 }
-
                 deporteSeleccionado.getSecuencia();
-
             }
         }
         System.out.println("Indice: " + deporteSeleccionado + " Celda: " + cualCelda);

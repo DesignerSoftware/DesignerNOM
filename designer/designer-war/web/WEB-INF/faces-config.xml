@@ -5898,5 +5898,38 @@
         </navigation-case>
     </navigation-rule>
     
+    <navigation-rule>
+        <from-view-id>/cursos.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>tipocurso</from-outcome>
+            <to-view-id>/tipocurso.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/tipocurso.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>atrastipocurso</from-outcome>
+            <to-view-id>/cursos.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/vigenciasproyectos.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>pryrol</from-outcome>
+            <to-view-id>/pry_rol.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/pry_rol.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>atraspryrol</from-outcome>
+            <to-view-id>/vigenciasproyectos.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
 </faces-config>
-

@@ -49,6 +49,27 @@ public class AdministrarPryRoles implements AdministrarPryRolesInterface {
         return persistenciaPryRoles.pryroles(em);
     }
 
+    @Override
+    public void modificarPryRoles(List<PryRoles> listaPryRoles) {
+        for (int i = 0; i < listaPryRoles.size(); i++) {
+            persistenciaPryRoles.editar(em, listaPryRoles.get(i));
+        }
+    }
+
+    @Override
+    public void borrarPryRoles(List<PryRoles> listaPryRoles) {
+        for (int i = 0; i < listaPryRoles.size(); i++) {
+            persistenciaPryRoles.borrar(em, listaPryRoles.get(i));
+        }
+    }
+
+    @Override
+    public void crearPryRoles(List<PryRoles> listaPryRoles) {
+        for (int i = 0; i < listaPryRoles.size(); i++) {
+            persistenciaPryRoles.crear(em, listaPryRoles.get(i));
+        }
+    }
+
 
 }
 

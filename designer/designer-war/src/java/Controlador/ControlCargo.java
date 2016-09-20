@@ -1,6 +1,5 @@
 package Controlador;
 
-
 import Entidades.Cargos;
 import Entidades.Competenciascargos;
 import Entidades.DetallesCargos;
@@ -3856,6 +3855,7 @@ public class ControlCargo implements Serializable {
             }
             cargoTablaSeleccionado = null;
             modificarInfoRegistroC(filtrarListaCargos.size());
+            RequestContext.getCurrentInstance().update("form:informacionRegistroCargo");
 
         } else if (tablaActiva.equals("SM")) {
             if (tipoListaSueldoMercado == 0) {
@@ -3863,6 +3863,7 @@ public class ControlCargo implements Serializable {
             }
             sueldoMercadoSeleccionado = null;
             modificarInfoRegistroSM(filtrarListaSueldosMercados.size());
+            RequestContext.getCurrentInstance().update("form:informacionRegistroSM");
 
         } else if (tablaActiva.equals("CC")) {
             if (tipoListaCompetencia == 0) {
@@ -3870,6 +3871,7 @@ public class ControlCargo implements Serializable {
             }
             competenciaCargoSeleccionado = null;
             modificarInfoRegistroCC(filtrarListaCompetenciasCargos.size());
+            RequestContext.getCurrentInstance().update("form:informacionRegistroCC");
 
         } else if (tablaActiva.equals("TD")) {
             if (tipoListaTipoDetalle == 0) {
@@ -3877,6 +3879,7 @@ public class ControlCargo implements Serializable {
             }
             tipoDetalleSeleccionado = null;
             modificarInfoRegistroTD(filtrarListaTiposDetalles.size());
+            RequestContext.getCurrentInstance().update("form:informacionRegistroTD");
 
         }
         activarLOV = true;
@@ -3926,22 +3929,18 @@ public class ControlCargo implements Serializable {
     ////////////////////CONTAR REGISTROS/////////////////////
     private void modificarInfoRegistroC(int valor) {
         infoRegistroC = String.valueOf(valor);
-        RequestContext.getCurrentInstance().update("form:informacionRegistroCargo");
     }
 
     private void modificarInfoRegistroCC(int valor) {
         infoRegistroCC = String.valueOf(valor);
-        RequestContext.getCurrentInstance().update("form:informacionRegistroCC");
     }
 
     private void modificarInfoRegistroSM(int valor) {
         infoRegistroSM = String.valueOf(valor);
-        RequestContext.getCurrentInstance().update("form:informacionRegistroSM");
     }
 
     private void modificarInfoRegistroTD(int valor) {
         infoRegistroTD = String.valueOf(valor);
-        RequestContext.getCurrentInstance().update("form:informacionRegistroTD");
     }
 
     private void modificarInfoRegistroLOVs(int valor) {

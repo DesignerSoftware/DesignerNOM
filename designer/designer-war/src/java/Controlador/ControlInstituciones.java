@@ -28,7 +28,6 @@ import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
 
-
 /**
  *
  * @author user
@@ -544,7 +543,7 @@ public class ControlInstituciones implements Serializable {
     
     public void eventoFiltrar(){
         if(tipoLista == 0){
-            tipoLista =1;
+            tipoLista = 1;
         }
         deshabilitarBotonLov();
         modificarInfoRegistro(filtradoListaInstituciones.size());

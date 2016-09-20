@@ -11,11 +11,11 @@
       <ui:composition template="/template.xhtml">
          <ui:define name="body">
             <h:form id="form"> 
-               <f:loadBundle basename="Recursos.nominaf" var="msg"/>
+               <f:loadBundle basename="Recursos.nominaf" var="msg" />
                <p:growl id="growl" showDetail="true"/>
                <p:panel id="paneltotal" header="#{msg['titulo']}" styleClass="panelTotal"> 
 
-                  <p:tabView  id="tabmenu" widgetVar="tabmenu" dynamic="true" style="height: 490px;" activeIndex="#{controlRemoto.numPestanha}">  
+                  <p:tabView  id="tabmenu" widgetVar="tabmenu" dynamic="true" style="height: 490px;"  activeIndex="#{controlRemoto.numPestanha}">  
                      <p:ajax event="tabChange" listener="#{controlRemoto.pestanhaActual}"/> 
 
                      <p:tab id="personal" title="#{msg['personal']}" >  
@@ -715,8 +715,8 @@
                   <p:commandButton value="#{msg['atras']}" onclick="PF('VentanaTab').hide();" style="position: absolute; top: 60px; left: 200px;" />
                </p:dialog>
 
-               <p:dialog id="lvbr" widgetVar="lvbr" header="#{msg['busquedarapida']}" resizable="false" draggable="false" modal="true" width="750" closable="false">
-                  <p:dataTable id="lvbusquedarapida" widgetVar="lvbusquedarapida" var="item" value="#{controlRemoto.busquedaRapida}" scrollable="true"
+               <p:dialog id="lvbr" widgetVar="lvbr" header="#{msg['busquedarapida']}" resizable="false" draggable="false" modal="true" height="310" width="750" closable="false">
+                  <p:dataTable id="lvbusquedarapida" widgetVar="lvbusquedarapida" style="width: 690px;" var="item" value="#{controlRemoto.busquedaRapida}" scrollable="true"
                                scrollHeight="162" scrollWidth="717" filteredValue="#{controlRemoto.filterBusquedaRapida}" emptyMessage="#{msg['lovvacio']}"
                                rowKey="#{item.rfEmpleado}" selection="#{controlRemoto.emplSeleccionado}" selectionMode="single">
 
@@ -725,8 +725,8 @@
                      <p:ajax event="filter" listener="#{controlRemoto.eventoFiltrarBusquedaRapida()}"/>
 
                      <f:facet name="header">
-                        <h:outputText value="#{msg['buscarE']}"/>
-                        <p:inputText id="globalFilter" onkeyup="PF('lvbusquedarapida').filter();" value="#{filtrado}" class="cssFiltroLOV"/>  
+                        <h:outputText value="#{msg['buscarE']}" style="position: absolute; left: 22px; top: 18px;"/>
+                        <p:inputText id="globalFilter" onkeyup="PF('lvbusquedarapida').filter();" value="#{filtrado}" style="width: 200px; position: relative; left: -80px;" />  
                         <p:watermark for="globalFilter" value="#{msg['ingresarvalor']}"/>
                      </f:facet>
 
@@ -751,17 +751,17 @@
                      </p:column>
 
                   </p:dataTable> 
-                  <div class="cssBotonesLOV">
-                     <h:outputText id="inforegistrobusquedarapida" value="#{msg['infoRegistro']} #{controlRemoto.infoRegistroBusquedaRapida}" class="cssinfoRegistroLOV"/>
-                     <p:commandButton id="buscarrap" value="#{msg['aceptar']}" process="@this" actionListener="#{controlRemoto.busquedaRapida()}"
-                                      icon="ui-icon-check" class="cssAceptarLOV" disabled="#{controlRemoto.buscar}"
-                                      onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide();"/>
-                     <p:commandButton value="#{msg['atras']}" icon="ui-icon-arrowreturnthick-1-w" class="cssAtrasLOV"/>
-                  </div>
+
+                  <h:outputText id="inforegistrobusquedarapida" value="#{msg['infoRegistro']} #{controlRemoto.infoRegistroBusquedaRapida}"
+                                style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
+                  <p:commandButton id="buscarrap" value="#{msg['aceptar']}" process="@this" actionListener="#{controlRemoto.busquedaRapida()}"
+                                   icon="ui-icon-check"  style="position: absolute; top: 270px; left: 530px;" disabled="#{controlRemoto.buscar}"
+                                   onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide();"/>
+                  <p:commandButton value="#{msg['atras']}" icon="ui-icon-arrowreturnthick-1-w"  style="position: absolute; top: 270px; left: 630px;" onclick="PF('lvbr').hide()"/>
                </p:dialog>
 
                <p:dialog id="lvbe" widgetVar="lvbe" header="#{msg['empleadosE']}" resizable="false" draggable="false" modal="true" width="750" closable="false">  
-                  <p:dataTable  id="lvbuscarempleado" widgetVar="lvbuscarempleado" var="item" value="#{controlRemoto.buscarEmplTipo}"
+                  <p:dataTable  id="lvbuscarempleado" widgetVar="lvbuscarempleado"  var="item" value="#{controlRemoto.buscarEmplTipo}"
                                 scrollable="true" scrollHeight="162" scrollWidth="717" 
                                 filteredValue="#{controlRemoto.filterBuscarEmpleado}" emptyMessage="#{msg['lovvacio']}"
                                 rowKey="#{item.rfEmpleado}" selection="#{controlRemoto.emplSeleccionadoBE}" selectionMode="single" >
@@ -772,8 +772,8 @@
                      <p:ajax event="filter" listener="#{controlRemoto.eventoFiltrarBusquedaEmpleado()}"/>
 
                      <f:facet name="header" >  
-                        <h:outputText value="#{msg['buscarE']}"/>  
-                        <p:inputText id="globalFilter" onkeyup="PF('lvbuscarempleado').filter();" class="cssFiltroLOV"/>
+                        <h:outputText value="#{msg['buscarE']}" />  
+                        <p:inputText id="globalFilter" onkeyup="PF('lvbuscarempleado').filter()" class="cssFiltroLOV" />
                         <p:watermark for="globalFilter" value="#{msg['ingresarvalor']}" />
                      </f:facet>
 
@@ -794,16 +794,16 @@
                      </p:column>  
                   </p:dataTable> 
 
-                  <div class="cssBotonesLOV">
-                     <h:outputText id="inforegistrobuscarempleados" value="#{msg['infoRegistro']} #{controlRemoto.infoRegistroBuscarEmpleados}" class="cssinfoRegistroLOV"/>
-                     <p:commandButton id="buscarempl" value="#{msg['aceptar']}" icon="ui-icon-check" actionListener="#{controlRemoto.buscarEmpleado()}" disabled="#{controlRemoto.buscar}" 
-                                      onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide();" class="cssAceptarLOV"/>
-                     <p:commandButton value="#{msg['atras']}" icon="ui-icon-arrowreturnthick-1-w" onclick="PF('lvbe').hide()" class="cssAtrasLOV"/>
-                  </div>
+                   <div class="cssBotonesLOV">
+                   <h:outputText id="inforegistrobuscarempleados" value="#{msg['infoRegistro']} #{controlRemoto.infoRegistroBuscarEmpleados}" class="cssinfoRegistroLOV"/>
+                  <p:commandButton id="buscarempl" value="#{msg['aceptar']}" icon="ui-icon-check" actionListener="#{controlRemoto.buscarEmpleado()}" disabled="#{controlRemoto.buscar}" 
+                                   onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide();" class="cssAceptarLOV"/>
+                  <p:commandButton value="#{msg['atras']}" icon="ui-icon-arrowreturnthick-1-w" onclick="PF('lvbe').hide()" class="cssAtrasLOV"/>
+                   </div>
                </p:dialog>
 
                <!-- LOV TABLAS-->
-               <p:dialog id="buscartablasdialogo" widgetVar="buscartablasdialogo" header="Tablas" draggable="false" resizable="false" closable="false"   
+               <p:dialog id="buscartablasdialogo" widgetVar="buscartablasdialogo" header="Tablas"  draggable="false" resizable="false" closable="false"   
                          showEffect="fade" hideEffect="fade" width="548" modal="true">
                   <p:dataTable id="lovtablas" widgetVar="lovtablas" var="tabla" value="#{controlRemoto.listTablasLOV}" rowKey="#{tabla.secuencia}"
                                selection="#{controlRemoto.seleccionTablaLOV}" selectionMode="single" scrollable="true" scrollWidth="527" scrollHeight="250"
@@ -812,8 +812,8 @@
                      <p:ajax event="rowDblselect" listener="#{controlRemoto.seleccionTabla()}" process="@this" />
                      <p:ajax event="filter" listener="#{controlRemoto.eventoFiltrarBusquedaTablas()}"/>
                      <f:facet name="header">  
-                        <h:outputText value="#{msg['buscarT']}"/>  
-                        <p:inputText id="globalFilter" onkeyup="PF('lovtablas').filter();" class="cssFiltroLOV"/>  
+                        <h:outputText value="#{msg['buscarT']}" />  
+                        <p:inputText id="globalFilter" onkeyup="PF('lovtablas').filter();" class="cssFiltroLOV" />  
                      </f:facet>
                      <p:column filterBy="#{tabla.nombre}" sortBy="#{tabla.nombre}" filterMatchMode="contains" filterStyle="width: 150px">
                         <f:facet name="header">
@@ -828,17 +828,16 @@
                         <h:outputText  value="#{tabla.descripcion}" />
                      </p:column>
                   </p:dataTable>
-                  <div class="cssBotonesLOV">
-                     <h:outputText id="inforegistrobuscartablas" value="#{msg['infoRegistro']} #{controlRemoto.infoRegistroBuscarTablas}" class="cssinfoRegistroLOV"/>
-                     <p:commandButton id="aceptart" class="cssAceptarLOV" value="#{msg['aceptar']}" icon="ui-icon-check"
-                                      disabled="#{controlRemoto.buscar}" actionListener="#{controlRemoto.seleccionTabla()}"  process="@this"/>
-                     <p:commandButton id="atrasf" class="cssAtrasLOV" value="#{msg['atras']}" icon="ui-icon-arrowreturnthick-1-w"
-                                      onclick="PF('buscartablasdialogo').hide()" actionListener="#{controlRemoto.cancelarSeleccionTabla()}"  process="@this"/>
-                  </div>
+                   
+                   <div class="cssBotonesLOV">
+                  <h:outputText id="inforegistrobuscartablas" class="cssinfoRegistroLOV" value="#{msg['infoRegistro']} #{controlRemoto.infoRegistroBuscarTablas}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
+                  <p:commandButton id="aceptart" class="cssAceptarLOV" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlRemoto.buscar}" actionListener="#{controlRemoto.seleccionTabla()}"  process="@this"/>
+                  <p:commandButton id="atrasf" class="cssAtrasLOV" value="#{msg['atras']}" icon="ui-icon-arrowreturnthick-1-w" onclick="PF('buscartablasdialogo').hide()" actionListener="#{controlRemoto.cancelarSeleccionTabla()}"  process="@this"/>
+                   </div>
                </p:dialog>
 
-               <p:dialog id="LovEmpresasDialogo" widgetVar="LovEmpresasDialogo" header="#{msg['empresaM']}" draggable="false" resizable="false" closable="false"
-                         showEffect="fade" hideEffect="fade" width="464">
+               <p:dialog id="LovEmpresasDialogo" widgetVar="LovEmpresasDialogo" header="#{msg['empresaM']}" draggable="false" resizable="false" closable="false" onShow="LovEmpresasTabla').filter();"
+                         showEffect="fade" hideEffect="fade" width="464" >
                   <p:dataTable id="LovEmpresasTabla" widgetVar="LovEmpresasTabla" var="empresaIPV" value="#{controlRemoto.lovEmpresas}" rowKey="#{empresaIPV.secuencia}"
                                selection="#{controlRemoto.empresaSeleccionada}" scrollWidth="440" selectionMode="single" scrollable="true" scrollHeight="120"
                                emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlRemoto.filtradoLOVEmpresas}">
@@ -849,7 +848,7 @@
                              immediate="#{controlPersonaIndividual.actualizarParametroEmpresaInformacionPersonalVisible(controlRemoto.empresaSeleccionada)}" process="@this"/>
 
                      <f:facet name="header">  
-                        <h:outputText value="#{msg['buscarEIP']} :"/>  
+                        <h:outputText value="#{msg['buscarEIP']} :" />  
                         <p:inputText id="globalFilter" onkeyup="PF('LovEmpresasTabla').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
 
@@ -868,14 +867,17 @@
                      </p:column>
                   </p:dataTable>
 
-                  <div class="cssBotonesLOV">
-                     <h:outputText id="infoRegistroEmpresas" value="#{msg['infoRegistro']} #{controlRemoto.infoRegistroEmpresas}" class="cssinfoRegistroLOV"/>
-                     <p:commandButton id="aceptaremp" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlRemoto.activarAceptarEmpresas}" 
-                                      process="@this" immediate="#{controlPersonaIndividual.actualizarParametroEmpresaInformacionPersonalVisible(controlRemoto.empresaSeleccionada)}" icon="ui-icon-check"
-                                      actionListener="#{controlRemoto.redireccionPersonaIndividual()}" widgetVar="aceptaremp"/>
-                     <p:commandButton id="atrasEmp" class="cssAtrasLOV" value="#{msg['atras']}" oncomplete="PF('LovEmpresasDialogo').hide()"
-                                      process="@this" icon="ui-icon-arrowreturnthick-1-w" actionListener="#{controlRemoto.anularBotonEmpresas()}"/>
-                  </div>
+                   <div class="cssBotonesLOV">
+                  <h:outputText id="infoRegistroEmpresas" value="#{msg['infoRegistro']} #{controlRemoto.infoRegistroEmpresas}" 
+                                class="cssinfoRegistroLOV"/>
+
+                  <p:commandButton id="aceptaremp" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlRemoto.activarAceptarEmpresas}" 
+                                   process="@this" immediate="#{controlPersonaIndividual.actualizarParametroEmpresaInformacionPersonalVisible(controlRemoto.empresaSeleccionada)}" icon="ui-icon-check"
+                                   actionListener="#{controlRemoto.redireccionPersonaIndividual()}" widgetVar="aceptaremp"/>
+
+                  <p:commandButton id="atrasEmp" class="cssAtrasLOV" value="#{msg['atras']}" oncomplete="PF('LovEmpresasDialogo').hide()"
+                                   process="@this" icon="ui-icon-arrowreturnthick-1-w" actionListener="#{controlRemoto.anularBotonEmpresas()}"/>
+                   </div>
                </p:dialog>
                <p:hotkey bind="ctrl+f11" actionListener="#{controlRemoto.lab()}"/> 
                <p:hotkey bind="ctrl+f12" actionListener="#{controlRemoto.lab2()}"/> 

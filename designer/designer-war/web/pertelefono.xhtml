@@ -86,9 +86,9 @@
                             <h:outputText id="docEmpleado" value="#{controlPerTelefonos.empleado.codigoempleado}" 
                                           style="font-weight: bold; color: #BF1A1A; position: relative; left: 130px; top: 5px;" />
                         </fieldset>
-                        
-                        
-                           <fieldset style="position: absolute;top: 115px;left: 10px;height: 350px;width: 830px; border-radius: 10px; text-align: left">
+
+
+                        <fieldset style="position: absolute;top: 115px;left: 10px;height: 350px;width: 830px; border-radius: 10px; text-align: left">
                             <legend style="font-size: 14px; color: #14388B"><strong>#{msg['telefonos']}</strong></legend>
 
                             <p:dataTable id="datosTelefonosPersona" var="telefono" value="#{controlPerTelefonos.listaTelefonos}"
@@ -147,7 +147,7 @@
                                         <f:facet name="output"><h:outputText value="#{telefono.numerotelefono}" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText value="#{telefono.numerotelefono}" id="editarNumeroTelefono" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase ;height: 12px;" > 
-                                                 <p:keyFilter for="editarNumeroTelefono" mask="num"/>
+                                                <p:keyFilter for="editarNumeroTelefono" mask="num"/>
                                                 <p:ajax event="select" listener="#{controlPerTelefonos.cambiarIndice(telefono, 2)}" />
                                                 <p:ajax event="change" listener="#{controlPerTelefonos.modificarTelefonos(telefono, 'N', telefono.numerotelefono)}"/>
                                             </p:inputText>
@@ -206,7 +206,7 @@
 
                             <strong><h:outputText value="* #{msg['numeroN']}"  style=" position: absolute; top: 155px;" /></strong>
                             <p:inputText maxlength="12" id="nuevoNumero" value="#{controlPerTelefonos.nuevoTelefono.numerotelefono}" style=" width: 122px; position: absolute; left: 150px; top: 150px; text-transform: uppercase" onclick="select();">
-                                 <p:keyFilter for="nuevoNumero" mask="num"/>
+                                <p:keyFilter for="nuevoNumero" mask="num"/>
                                 <p:ajax event="change" update="nuevoNumero"/>
                             </p:inputText>
 
@@ -250,7 +250,7 @@
 
                             <strong><h:outputText value="* #{msg['numeroN']}" style=" position: absolute; top: 155px;" /></strong>
                             <p:inputText maxlength="12" id="duplicarNumero" value="#{controlPerTelefonos.duplicarTelefono.numerotelefono}" style=" width: 122px; position: absolute; left: 150px; top: 150px; text-transform: uppercase" onclick="select();">
-                                 <p:keyFilter for="duplicarNumero" mask="num"/>
+                                <p:keyFilter for="duplicarNumero" mask="num"/>
                                 <p:ajax event="change" update="duplicarNumero"/>
                             </p:inputText>
                             <p:watermark for="duplicarNumero" value="Numero" />
@@ -297,7 +297,7 @@
 
                     <!--DIALOGO TIPOS DE TELEFONOS-->    
                     <p:dialog header="#{msg['tiposT']}" widgetVar="tiposTelefonosDialogo" draggable="false" resizable="false" id="tiposTelefonosDialogo" closable="false"  
-                              showEffect="fade" hideEffect="fade" modal="true" width="347" height="245" >
+                              showEffect="fade" hideEffect="fade" modal="true" width="347" >
 
                         <p:dataTable  id="LOVTiposTelefonos" style=" width: 300px;" var="tipoTelefono" value="#{controlPerTelefonos.listaTiposTelefonos}"
                                       scrollable="true" scrollHeight="117" scrollWidth="315" widgetVar="LOVTiposTelefonos" 
@@ -307,8 +307,8 @@
                             <p:ajax event="rowSelect" listener="#{controlPerTelefonos.activarAceptar()}" update=":formularioDialogos:aceptarTT"/>
                             <p:ajax event="rowDblselect" listener="#{controlPerTelefonos.actualizarTiposTelefonos()}" process="@this" />
                             <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarT']}"  style="position: absolute; left: 27px; top: 15px"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVTiposTelefonos.filter();" style="width:100px; position: relative; left: 80px;" />  
+                                <h:outputText value="#{msg['buscarT']}"/>  
+                                <p:inputText id="globalFilter" onkeyup="LOVTiposTelefonos.filter();" class="cssFiltroLOV" />  
                             </f:facet>
 
                             <p:column  filterBy="#{tipoTelefono.codigo}" width="50" filterMatchMode="contains" filterStyle="width: 40px;" > 
@@ -324,19 +324,22 @@
                                 </f:facet>
                                 <h:outputText value="#{tipoTelefono.nombre}" />  
                             </p:column>
-                        </p:dataTable>                         
-                            <h:outputText id="infoRegistroTT" value="#{msg['infoRegistros']} #{controlPerTelefonos.infoRegistroTT}" style="position: relative; left: 5px; top:10px; font-weight: bold"/>   
-                        <p:commandButton id="aceptarTT" value="#{msg['aceptar']}" disabled="#{controlPerTelefonos.aceptar}" style="position: absolute; top: 215px; left: 133px;" icon="ui-icon-check" actionListener="#{controlPerTelefonos.actualizarTiposTelefonos()}" process="@this"/>
+                        </p:dataTable>   
 
-                        <p:commandButton id="atrasTT" value="#{msg['atras']}" style="position: absolute; top: 215px; left: 231px; " icon="ui-icon-arrowreturnthick-1-w"  actionListener="#{controlPerTelefonos.cancelarCambioTiposTelefonos()}" process="@this"/>
+                        <div class="cssBotonesLOV">
+                            <h:outputText id="infoRegistroTT" value="#{msg['infoRegistros']} #{controlPerTelefonos.infoRegistroTT}" class="cssinfoRegistroLOV"/>   
+                            <p:commandButton id="aceptarTT" value="#{msg['aceptar']}" disabled="#{controlPerTelefonos.aceptar}" class="cssAceptarLOV" icon="ui-icon-check" actionListener="#{controlPerTelefonos.actualizarTiposTelefonos()}" process="@this"/>
+                            <p:commandButton id="atrasTT" value="#{msg['atras']}" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w"  actionListener="#{controlPerTelefonos.cancelarCambioTiposTelefonos()}" process="@this"/>
+                        </div>
+
 
                     </p:dialog>
 
                     <!--DIALOGO CIUDADES-->    
                     <p:dialog header="#{msg['ciudadesC']}" widgetVar="ciudadesDialogo" draggable="false" resizable="false" id="ciudadesDialogo" closable="false"  
-                              showEffect="fade" hideEffect="fade" modal="true" width="347" height="245" >
+                              showEffect="fade" hideEffect="fade" modal="true" width="347" >
 
-                        <p:dataTable  id="LOVCiudades" style=" width: 300px;" var="ciudad" value="#{controlPerTelefonos.listaCiudades}"
+                        <p:dataTable  id="LOVCiudades"  var="ciudad" value="#{controlPerTelefonos.listaCiudades}"
                                       scrollable="true" scrollHeight="117" scrollWidth="315" liveScroll="true" scrollRows="8" widgetVar="LOVCiudades" 
                                       filteredValue="#{controlPerTelefonos.filtradoslistaCiudades}" emptyMessage="#{msg['lovvacio']}"
                                       rowKey="#{ciudad.secuencia}" selection="#{controlPerTelefonos.seleccionCiudades}" selectionMode="single">
@@ -344,8 +347,8 @@
                             <p:ajax event="rowSelect" listener="#{controlPerTelefonos.activarAceptar()}" update=":formularioDialogos:aceptarC"/>
                             <p:ajax event="rowDblselect" listener="#{controlPerTelefonos.actualizarCiudad()}" process="@this" />
                             <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarC']}"  style="position: absolute; left:27px; top: 15px"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVCiudades.filter();" style="width:150px; position: relative; left: 60px;" />  
+                                <h:outputText value="#{msg['buscarC']}" />  
+                                <p:inputText id="globalFilter" onkeyup="LOVCiudades.filter();" class="cssFiltroLOV" />  
                             </f:facet>
 
                             <p:column  filterBy="#{ciudad.nombre}" width="50" filterMatchMode="contains" filterStyle="width: 100px;" > 
@@ -355,10 +358,12 @@
                                 <h:outputText value="#{ciudad.nombre}" />  
                             </p:column>  
                         </p:dataTable> 
-                        <h:outputText id="infoRegistroCiudades" value="#{msg['infoRegistros']} #{controlPerTelefonos.infoRegistroCiudad}" style="position: relative; left: 5px; top:10px; font-weight: bold"/>   
-                        <p:commandButton id="aceptarC" value="#{msg['aceptar']}" disabled="#{controlPerTelefonos.aceptar}" style="position: absolute; top: 215px; left: 133px;" icon="ui-icon-check" actionListener="#{controlPerTelefonos.actualizarCiudad()}" process="@this"/>
-
-                        <p:commandButton id="atrasC" value="#{msg['atras']}" style="position: absolute; top: 215px; left: 231px; " icon="ui-icon-arrowreturnthick-1-w" actionListener="#{controlPerTelefonos.cancelarCambioCiudad()}" process="@this"/>
+                        
+                        <div class="cssBotonesLOV">
+                        <h:outputText id="infoRegistroCiudades" value="#{msg['infoRegistros']} #{controlPerTelefonos.infoRegistroCiudad}" class="cssinfoRegistroLOV"/>   
+                        <p:commandButton id="aceptarC" value="#{msg['aceptar']}" disabled="#{controlPerTelefonos.aceptar}" class="cssAceptarLOV" icon="ui-icon-check" actionListener="#{controlPerTelefonos.actualizarCiudad()}" process="@this"/>
+                        <p:commandButton id="atrasC" value="#{msg['atras']}" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" actionListener="#{controlPerTelefonos.cancelarCambioCiudad()}" process="@this"/>
+                        </div>
                     </p:dialog>
                     <!-- DIALOGOS EDITAR -->
 

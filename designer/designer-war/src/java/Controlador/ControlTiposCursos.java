@@ -4,7 +4,6 @@
  */
 package Controlador;
 
-
 import Entidades.TiposCursos;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
@@ -48,23 +47,25 @@ public class ControlTiposCursos implements Serializable {
     private TiposCursos nuevoTiposCursos;
     private TiposCursos duplicarTiposCursos;
     private TiposCursos editarTiposCursos;
-    private TiposCursos clasesPensionesSeleccionado;
+    private TiposCursos tipoCursoSeleccionado;
     //otros
-    private int cualCelda, tipoLista, index, tipoActualizacion, k, bandera;
+    private int cualCelda, tipoLista, tipoActualizacion, k, bandera;
     private BigInteger l;
     private boolean aceptar, guardado;
     //AutoCompletar
     private boolean permitirIndex;
     //RASTRO
-    private BigInteger secRegistro;
     private Column codigo, descripcion;
     //borrado
     private int registrosBorrados;
-    private String mensajeValidacion;
+    private String mensajeValidacion, paginaanterior;
     //filtrado table
     private int tamano;
     private Integer backUpCodigo;
     private String backUpDescripcion;
+    private boolean activarLov;
+    private String infoRegistro;
+    private DataTable tablaC;
 
     public ControlTiposCursos() {
         listTiposCursos = null;
@@ -77,13 +78,14 @@ public class ControlTiposCursos implements Serializable {
         duplicarTiposCursos = new TiposCursos();
         guardado = true;
         tamano = 270;
-        System.out.println("controlTiposCursos Constructor");
+        cualCelda = -1;
+        tipoCursoSeleccionado = null;
+        activarLov = true;
     }
 
     @PostConstruct
     public void inicializarAdministrador() {
         try {
-            System.out.println("ControlTiposCursos PostConstruct ");
             FacesContext x = FacesContext.getCurrentInstance();
             HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
             administrarTiposCursos.obtenerConexion(ses.getId());
@@ -94,76 +96,44 @@ public class ControlTiposCursos implements Serializable {
         }
     }
 
-    public void eventoFiltrar() {
-        try {
-            System.out.println("\n ENTRE A ControlTiposCursos.eventoFiltrar \n");
-            if (tipoLista == 0) {
-                tipoLista = 1;
-            }  RequestContext context = RequestContext.getCurrentInstance();
-            infoRegistro = "Cantidad de registros: " + filtrarTiposCursos.size();
-            RequestContext.getCurrentInstance().update("form:informacionRegistro");
-        } catch (Exception e) {
-            System.out.println("ERROR ControlTiposCursos eventoFiltrar ERROR===" + e.getMessage());
+    public void recibirPaginaEntrante(String pagina) {
+        paginaanterior = pagina;
+        listTiposCursos = null;
+        getListTiposCursos();
+        deshabilitarBotonLov();
+        if (listTiposCursos != null) {
+            tipoCursoSeleccionado = listTiposCursos.get(0);
         }
+        contarRegistros();
     }
 
-    public void cambiarIndice(int indice, int celda) {
-        System.err.println("TIPO LISTA = " + tipoLista);
+    public String redirigir() {
+        return paginaanterior;
+    }
 
+    public void cambiarIndice(TiposCursos tipo, int celda) {
         if (permitirIndex == true) {
-            index = indice;
+            tipoCursoSeleccionado = tipo;
             cualCelda = celda;
             if (tipoLista == 0) {
                 if (cualCelda == 0) {
-                    backUpCodigo = listTiposCursos.get(index).getCodigo();
-                    System.out.println(" backUpCodigo : " + backUpCodigo);
+                    tipoCursoSeleccionado.getCodigo();
                 } else if (cualCelda == 1) {
-                    backUpDescripcion = listTiposCursos.get(index).getDescripcion();
-                    System.out.println(" backUpDescripcion : " + backUpDescripcion);
+                    tipoCursoSeleccionado.getDescripcion();
                 }
-                secRegistro = listTiposCursos.get(index).getSecuencia();
-            } else {
-                if (cualCelda == 0) {
-                    backUpCodigo = filtrarTiposCursos.get(index).getCodigo();
-                    System.out.println(" backUpCodigo : " + backUpCodigo);
+            } else if (cualCelda == 0) {
+                tipoCursoSeleccionado.getCodigo();
 
-                } else if (cualCelda == 1) {
-                    backUpDescripcion = filtrarTiposCursos.get(index).getDescripcion();
-                    System.out.println(" backUpDescripcion : " + backUpDescripcion);
-
-                }
-                secRegistro = filtrarTiposCursos.get(index).getSecuencia();
+            } else if (cualCelda == 1) {
+                tipoCursoSeleccionado.getDescripcion();
             }
-
-        }
-        System.out.println("Indice: " + index + " Celda: " + cualCelda);
-    }
-
-    public void asignarIndex(Integer indice, int LND, int dig) {
-        try {
-            System.out.println("\n ENTRE A ControlTiposCursos.asignarIndex \n");
-            index = indice;
-            if (LND == 0) {
-                tipoActualizacion = 0;
-            } else if (LND == 1) {
-                tipoActualizacion = 1;
-                System.out.println("Tipo Actualizacion: " + tipoActualizacion);
-            } else if (LND == 2) {
-                tipoActualizacion = 2;
-            }
-
-        } catch (Exception e) {
-            System.out.println("ERROR ControlTiposCursos.asignarIndex ERROR======" + e.getMessage());
+            tipoCursoSeleccionado.getSecuencia();
         }
     }
 
     public void activarAceptar() {
         aceptar = false;
     }
-
-    public void listaValoresBoton() {
-    }
-    private String infoRegistro;
 
     public void cancelarModificacion() {
         if (bandera == 1) {
@@ -173,37 +143,35 @@ public class ControlTiposCursos implements Serializable {
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposCursos:descripcion");
             descripcion.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosTiposCursos");
             bandera = 0;
             filtrarTiposCursos = null;
-            tipoLista = 0;
             tamano = 270;
+            RequestContext.getCurrentInstance().update("form:datosTiposCursos");
+            tipoLista = 0;
         }
 
         borrarTiposCursos.clear();
         crearTiposCursos.clear();
         modificarTiposCursos.clear();
-        index = -1;
-        secRegistro = null;
+        tipoCursoSeleccionado = null;
+        contarRegistros();
         k = 0;
         listTiposCursos = null;
         guardado = true;
         permitirIndex = true;
-        getListTiposCursos();
         RequestContext context = RequestContext.getCurrentInstance();
-        if (listTiposCursos == null || listTiposCursos.isEmpty()) {
-            infoRegistro = "Cantidad de registros: 0 ";
-        } else {
-            infoRegistro = "Cantidad de registros: " + listTiposCursos.size();
-        }
-        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+//        if (listTiposCursos == null || listTiposCursos.isEmpty()) {
+//            infoRegistro = "Cantidad de registros: 0 ";
+//        } else {
+//            infoRegistro = "Cantidad de registros: " + listTiposCursos.size();
+//        }
+//        RequestContext.getCurrentInstance().update("form:informacionRegistro");
         RequestContext.getCurrentInstance().update("form:datosTiposCursos");
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void salir() {
         if (bandera == 1) {
-            //CERRAR FILTRADO
             FacesContext c = FacesContext.getCurrentInstance();
             codigo = (Column) c.getViewRoot().findComponent("form:datosTiposCursos:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
@@ -219,15 +187,10 @@ public class ControlTiposCursos implements Serializable {
         borrarTiposCursos.clear();
         crearTiposCursos.clear();
         modificarTiposCursos.clear();
-        index = -1;
-        secRegistro = null;
+        tipoCursoSeleccionado = null;
         k = 0;
         listTiposCursos = null;
         guardado = true;
-        permitirIndex = true;
-        RequestContext context = RequestContext.getCurrentInstance();
-        RequestContext.getCurrentInstance().update("form:datosTiposCursos");
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void activarCtrlF11() {
@@ -239,7 +202,6 @@ public class ControlTiposCursos implements Serializable {
             descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposCursos:descripcion");
             descripcion.setFilterStyle("width: 85% !important;");
             RequestContext.getCurrentInstance().update("form:datosTiposCursos");
-            System.out.println("Activar");
             bandera = 1;
         } else if (bandera == 1) {
             System.out.println("Desactivar");
@@ -255,302 +217,100 @@ public class ControlTiposCursos implements Serializable {
         }
     }
 
-    public void modificarTiposCursos(int indice, String confirmarCambio, String valorConfirmar) {
-        System.err.println("ENTRE A MODIFICAR SUB CATEGORIA");
-        index = indice;
-
+    public void modificarTiposCursos(TiposCursos tipo, String confirmarCambio, String valorConfirmar) {
+        tipoCursoSeleccionado = tipo;
         int contador = 0;
         boolean banderita = false;
         Integer a;
         a = null;
         RequestContext context = RequestContext.getCurrentInstance();
-        System.err.println("TIPO LISTA = " + tipoLista);
         if (confirmarCambio.equalsIgnoreCase("N")) {
-            System.err.println("ENTRE A MODIFICAR EMPRESAS, CONFIRMAR CAMBIO ES N");
             if (tipoLista == 0) {
-                if (!crearTiposCursos.contains(listTiposCursos.get(indice))) {
-                    if (listTiposCursos.get(indice).getCodigo() == a) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                        listTiposCursos.get(indice).setCodigo(backUpCodigo);
-                    } else {
-                        for (int j = 0; j < listTiposCursos.size(); j++) {
-                            if (j != indice) {
-                                if (listTiposCursos.get(indice).getCodigo().equals(listTiposCursos.get(j).getCodigo())) {
-                                    contador++;
-                                }
-                            }
-                        }
-                        if (contador > 0) {
-                            mensajeValidacion = "CODIGOS REPETIDOS";
-                            listTiposCursos.get(indice).setCodigo(backUpCodigo);
-                            banderita = false;
-                        } else {
-                            banderita = true;
-                        }
-
+                if (!crearTiposCursos.contains(tipoCursoSeleccionado)) {
+                    if (modificarTiposCursos.isEmpty()) {
+                        modificarTiposCursos.add(tipoCursoSeleccionado);
+                    } else if (!modificarTiposCursos.contains(tipoCursoSeleccionado)) {
+                        modificarTiposCursos.add(tipoCursoSeleccionado);
                     }
-                    if (listTiposCursos.get(indice).getDescripcion().isEmpty()) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                        listTiposCursos.get(indice).setDescripcion(backUpDescripcion);
+                    if (guardado == true) {
+                        guardado = false;
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
-                    if (listTiposCursos.get(indice).getDescripcion().equals(" ")) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                        listTiposCursos.get(indice).setDescripcion(backUpDescripcion);
-                    }
-
-                    if (banderita == true) {
-                        if (modificarTiposCursos.isEmpty()) {
-                            modificarTiposCursos.add(listTiposCursos.get(indice));
-                        } else if (!modificarTiposCursos.contains(listTiposCursos.get(indice))) {
-                            modificarTiposCursos.add(listTiposCursos.get(indice));
-                        }
-                        if (guardado == true) {
-                            guardado = false;
-                        }
-
-                    } else {
-                        RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-                    }
-                    index = -1;
-                    secRegistro = null;
-                } else {
-                    if (listTiposCursos.get(indice).getCodigo() == a) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                        listTiposCursos.get(indice).setCodigo(backUpCodigo);
-                    } else {
-                        for (int j = 0; j < listTiposCursos.size(); j++) {
-                            if (j != indice) {
-                                if (listTiposCursos.get(indice).getCodigo().equals(listTiposCursos.get(j).getCodigo())) {
-                                    contador++;
-                                }
-                            }
-                        }
-                        if (contador > 0) {
-                            mensajeValidacion = "CODIGOS REPETIDOS";
-                            listTiposCursos.get(indice).setCodigo(backUpCodigo);
-                            banderita = false;
-                        } else {
-                            banderita = true;
-                        }
-
-                    }
-                    if (listTiposCursos.get(indice).getDescripcion().isEmpty()) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                        listTiposCursos.get(indice).setDescripcion(backUpDescripcion);
-                    }
-                    if (listTiposCursos.get(indice).getDescripcion().equals(" ")) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                        listTiposCursos.get(indice).setDescripcion(backUpDescripcion);
-                    }
-
-                    if (banderita == true) {
-
-                        if (guardado == true) {
-                            guardado = false;
-                        }
-
-                    } else {
-                        RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-                    }
-                    index = -1;
-                    secRegistro = null;
                 }
-            } else {
-
-                if (!crearTiposCursos.contains(filtrarTiposCursos.get(indice))) {
-                    if (filtrarTiposCursos.get(indice).getCodigo() == a) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        filtrarTiposCursos.get(indice).setCodigo(backUpCodigo);
-                        banderita = false;
-                    } else {
-
-                        for (int j = 0; j < filtrarTiposCursos.size(); j++) {
-                            if (j != indice) {
-                                if (filtrarTiposCursos.get(indice).getCodigo().equals(filtrarTiposCursos.get(j).getCodigo())) {
-                                    contador++;
-                                }
-                            }
-                        }
-                        if (contador > 0) {
-                            mensajeValidacion = "CODIGOS REPETIDOS";
-                            filtrarTiposCursos.get(indice).setCodigo(backUpCodigo);
-                            banderita = false;
-                        } else {
-                            banderita = true;
-                        }
-
+            } else if (!crearTiposCursos.contains(tipoCursoSeleccionado)) {
+                if (!crearTiposCursos.contains(tipoCursoSeleccionado)) {
+                    if (modificarTiposCursos.isEmpty()) {
+                        modificarTiposCursos.add(tipoCursoSeleccionado);
+                    } else if (!modificarTiposCursos.contains(tipoCursoSeleccionado)) {
+                        modificarTiposCursos.add(tipoCursoSeleccionado);
                     }
-
-                    if (filtrarTiposCursos.get(indice).getDescripcion().isEmpty()) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                        filtrarTiposCursos.get(indice).setDescripcion(backUpDescripcion);
+                    if (guardado == true) {
+                        guardado = false;
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
-                    if (filtrarTiposCursos.get(indice).getDescripcion().equals(" ")) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                        filtrarTiposCursos.get(indice).setDescripcion(backUpDescripcion);
-                    }
-
-                    if (banderita == true) {
-                        if (modificarTiposCursos.isEmpty()) {
-                            modificarTiposCursos.add(filtrarTiposCursos.get(indice));
-                        } else if (!modificarTiposCursos.contains(filtrarTiposCursos.get(indice))) {
-                            modificarTiposCursos.add(filtrarTiposCursos.get(indice));
-                        }
-                        if (guardado == true) {
-                            guardado = false;
-                        }
-
-                    } else {
-                        RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-                    }
-                    index = -1;
-                    secRegistro = null;
-                } else {
-                    if (filtrarTiposCursos.get(indice).getCodigo() == a) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        filtrarTiposCursos.get(indice).setCodigo(backUpCodigo);
-                        banderita = false;
-                    } else {
-
-                        for (int j = 0; j < listTiposCursos.size(); j++) {
-                            if (j != indice) {
-                                if (filtrarTiposCursos.get(indice).getCodigo().equals(filtrarTiposCursos.get(j).getCodigo())) {
-                                    contador++;
-                                }
-                            }
-                        }
-                        if (contador > 0) {
-                            mensajeValidacion = "CODIGOS REPETIDOS";
-                            filtrarTiposCursos.get(indice).setCodigo(backUpCodigo);
-                            banderita = false;
-                        } else {
-                            banderita = true;
-                        }
-
-                    }
-
-                    if (filtrarTiposCursos.get(indice).getDescripcion().isEmpty()) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                        filtrarTiposCursos.get(indice).setDescripcion(backUpDescripcion);
-                    }
-                    if (filtrarTiposCursos.get(indice).getDescripcion().equals(" ")) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                        filtrarTiposCursos.get(indice).setDescripcion(backUpDescripcion);
-                    }
-
-                    if (banderita == true) {
-
-                        if (guardado == true) {
-                            guardado = false;
-                        }
-
-                    } else {
-                        RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-                    }
-                    index = -1;
-                    secRegistro = null;
                 }
-
+                RequestContext.getCurrentInstance().update("form:datosTiposCursos");
             }
-            RequestContext.getCurrentInstance().update("form:datosTiposCursos");
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
-
     }
 
     public void borrandoTiposCursos() {
-
-        if (index >= 0) {
-            if (tipoLista == 0) {
-                System.out.println("Entro a borrandoTiposCursos");
-                if (!modificarTiposCursos.isEmpty() && modificarTiposCursos.contains(listTiposCursos.get(index))) {
-                    int modIndex = modificarTiposCursos.indexOf(listTiposCursos.get(index));
-                    modificarTiposCursos.remove(modIndex);
-                    borrarTiposCursos.add(listTiposCursos.get(index));
-                } else if (!crearTiposCursos.isEmpty() && crearTiposCursos.contains(listTiposCursos.get(index))) {
-                    int crearIndex = crearTiposCursos.indexOf(listTiposCursos.get(index));
-                    crearTiposCursos.remove(crearIndex);
-                } else {
-                    borrarTiposCursos.add(listTiposCursos.get(index));
-                }
-                listTiposCursos.remove(index);
+        if (tipoCursoSeleccionado != null) {
+            if (!modificarTiposCursos.isEmpty() && modificarTiposCursos.contains(tipoCursoSeleccionado)) {
+                modificarTiposCursos.remove(modificarTiposCursos.indexOf(tipoCursoSeleccionado));
+                borrarTiposCursos.add(tipoCursoSeleccionado);
+            } else if (!crearTiposCursos.isEmpty() && crearTiposCursos.contains(tipoCursoSeleccionado)) {
+                crearTiposCursos.remove(crearTiposCursos.indexOf(tipoCursoSeleccionado));
+            } else {
+                borrarTiposCursos.add(tipoCursoSeleccionado);
             }
+            listTiposCursos.remove(tipoCursoSeleccionado);
             if (tipoLista == 1) {
-                System.out.println("borrandoTiposCursos ");
-                if (!modificarTiposCursos.isEmpty() && modificarTiposCursos.contains(filtrarTiposCursos.get(index))) {
-                    int modIndex = modificarTiposCursos.indexOf(filtrarTiposCursos.get(index));
-                    modificarTiposCursos.remove(modIndex);
-                    borrarTiposCursos.add(filtrarTiposCursos.get(index));
-                } else if (!crearTiposCursos.isEmpty() && crearTiposCursos.contains(filtrarTiposCursos.get(index))) {
-                    int crearIndex = crearTiposCursos.indexOf(filtrarTiposCursos.get(index));
-                    crearTiposCursos.remove(crearIndex);
-                } else {
-                    borrarTiposCursos.add(filtrarTiposCursos.get(index));
-                }
-                int VCIndex = listTiposCursos.indexOf(filtrarTiposCursos.get(index));
-                listTiposCursos.remove(VCIndex);
-                filtrarTiposCursos.remove(index);
-
+                filtrarTiposCursos.remove(tipoCursoSeleccionado);
             }
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:datosTiposCursos");
-            infoRegistro = "Cantidad de registros: " + listTiposCursos.size();
-            RequestContext.getCurrentInstance().update("form:informacionRegistro");
-
-            index = -1;
-            secRegistro = null;
+            modificarInfoRegistro(listTiposCursos.size());
+            tipoCursoSeleccionado = null;
+            guardado = true;
 
             if (guardado == true) {
                 guardado = false;
             }
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
-        }
-
-    }
-
-    public void verificarBorrado() {
-        System.out.println("Estoy en verificarBorrado");
-        BigInteger contarCursosTipoCurso;
-
-        try {
-            System.err.println("Control Secuencia de ControlTiposCursos ");
-            if (tipoLista == 0) {
-                contarCursosTipoCurso = administrarTiposCursos.contarCursosTipoCurso(listTiposCursos.get(index).getSecuencia());
-            } else {
-                contarCursosTipoCurso = administrarTiposCursos.contarCursosTipoCurso(filtrarTiposCursos.get(index).getSecuencia());
-            }
-            if (contarCursosTipoCurso.equals(new BigInteger("0"))) {
-                System.out.println("Borrado==0");
-                borrandoTiposCursos();
-            } else {
-                System.out.println("Borrado>0");
-
-                RequestContext context = RequestContext.getCurrentInstance();
-                RequestContext.getCurrentInstance().update("form:validacionBorrar");
-                RequestContext.getCurrentInstance().execute("PF('validacionBorrar').show()");
-                index = -1;
-                contarCursosTipoCurso = new BigInteger("-1");
-
-            }
-        } catch (Exception e) {
-            System.err.println("ERROR ControlTiposCursos verificarBorrado ERROR " + e);
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
+//    public void verificarBorrado() {
+//        System.out.println("Estoy en verificarBorrado");
+//        BigInteger contarCursosTipoCurso;
+//
+//        try {
+//            System.err.println("Control Secuencia de ControlTiposCursos ");
+//            if (tipoLista == 0) {
+//                contarCursosTipoCurso = administrarTiposCursos.contarCursosTipoCurso(tipoCursoSeleccionado.getSecuencia());
+//            } else {
+//                contarCursosTipoCurso = administrarTiposCursos.contarCursosTipoCurso(tipoCursoSeleccionado.getSecuencia());
+//            }
+//            if (contarCursosTipoCurso.equals(new BigInteger("0"))) {
+//                System.out.println("Borrado==0");
+//                borrandoTiposCursos();
+//            } else {
+//                System.out.println("Borrado>0");
+//
+//                RequestContext context = RequestContext.getCurrentInstance();
+//                RequestContext.getCurrentInstance().update("form:validacionBorrar");
+//                RequestContext.getCurrentInstance().execute("PF('validacionBorrar').show()");
+//                tipoCursoSeleccionado = null;
+//                contarCursosTipoCurso = new BigInteger("-1");
+//
+//            }
+//        } catch (Exception e) {
+//            System.err.println("ERROR ControlTiposCursos verificarBorrado ERROR " + e);
+//        }
+//    }
     public void revisarDialogoGuardar() {
 
         if (!borrarTiposCursos.isEmpty() || !crearTiposCursos.isEmpty() || !modificarTiposCursos.isEmpty()) {
@@ -563,50 +323,50 @@ public class ControlTiposCursos implements Serializable {
 
     public void guardarTiposCursos() {
         RequestContext context = RequestContext.getCurrentInstance();
-
-        if (guardado == false) {
-            System.out.println("Realizando guardarTiposCursos");
-            if (!borrarTiposCursos.isEmpty()) {
-                administrarTiposCursos.borrarTiposCursos(borrarTiposCursos);
-                //mostrarBorrados
-                registrosBorrados = borrarTiposCursos.size();
-                RequestContext.getCurrentInstance().update("form:mostrarBorrados");
-                RequestContext.getCurrentInstance().execute("PF('mostrarBorrados').show()");
-                borrarTiposCursos.clear();
+        try {
+            if (guardado == false) {
+                if (!borrarTiposCursos.isEmpty()) {
+                    administrarTiposCursos.borrarTiposCursos(borrarTiposCursos);
+                    registrosBorrados = borrarTiposCursos.size();
+                    RequestContext.getCurrentInstance().update("form:mostrarBorrados");
+                    RequestContext.getCurrentInstance().execute("PF('mostrarBorrados').show()");
+                    borrarTiposCursos.clear();
+                }
+                if (!modificarTiposCursos.isEmpty()) {
+                    administrarTiposCursos.modificarTiposCursos(modificarTiposCursos);
+                    modificarTiposCursos.clear();
+                }
+                if (!crearTiposCursos.isEmpty()) {
+                    administrarTiposCursos.crearTiposCursos(crearTiposCursos);
+                    crearTiposCursos.clear();
+                }
+                listTiposCursos = null;
+                getListTiposCursos();
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                k = 0;
+                FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+                RequestContext.getCurrentInstance().update("form:growl");
+                contarRegistros();
+                tipoCursoSeleccionado = null;
             }
-            if (!modificarTiposCursos.isEmpty()) {
-                administrarTiposCursos.modificarTiposCursos(modificarTiposCursos);
-                modificarTiposCursos.clear();
-            }
-            if (!crearTiposCursos.isEmpty()) {
-                administrarTiposCursos.crearTiposCursos(crearTiposCursos);
-                crearTiposCursos.clear();
-            }
-            System.out.println("Se guardaron los datos con exito");
-            listTiposCursos = null;
-            RequestContext.getCurrentInstance().update("form:datosTiposCursos");
-            k = 0;
             guardado = true;
-            FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:datosTiposCursos");
+        } catch (Exception e) {
+            System.out.println("Error guardarCambios : " + e.toString());
+            FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
         }
-        index = -1;
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
     }
 
     public void editarCelda() {
-        if (index >= 0) {
-            if (tipoLista == 0) {
-                editarTiposCursos = listTiposCursos.get(index);
-            }
-            if (tipoLista == 1) {
-                editarTiposCursos = filtrarTiposCursos.get(index);
-            }
+        if (tipoCursoSeleccionado != null) {
+            editarTiposCursos = tipoCursoSeleccionado;
 
             RequestContext context = RequestContext.getCurrentInstance();
-            System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
                 RequestContext.getCurrentInstance().execute("PF('editCodigo').show()");
@@ -617,58 +377,42 @@ public class ControlTiposCursos implements Serializable {
                 cualCelda = -1;
             }
 
+        } else {
+            RequestContext context = RequestContext.getCurrentInstance();
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
-        index = -1;
-        secRegistro = null;
     }
 
     public void agregarNuevoTiposCursos() {
         System.out.println("agregarNuevoTiposCursos");
         int contador = 0;
         int duplicados = 0;
-
-        Integer a = 0;
-        a = null;
-        mensajeValidacion = " ";
         RequestContext context = RequestContext.getCurrentInstance();
-        if (nuevoTiposCursos.getCodigo() == a) {
-            mensajeValidacion = " *Codigo \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
-        } else {
-            System.out.println("codigo en Motivo Cambio Cargo: " + nuevoTiposCursos.getCodigo());
+        mensajeValidacion = " ";
 
-            for (int x = 0; x < listTiposCursos.size(); x++) {
-                if (listTiposCursos.get(x).getCodigo().equals(nuevoTiposCursos.getCodigo())) {
-                    duplicados++;
-                }
-            }
-            System.out.println("Antes del if Duplicados eses igual  : " + duplicados);
-
-            if (duplicados > 0) {
-                mensajeValidacion = " *Que NO Hayan Codigos Repetidos \n";
-                System.out.println("Mensaje validacion : " + mensajeValidacion);
-            } else {
-                System.out.println("bandera");
-                contador++;
-            }
-        }
-        if (nuevoTiposCursos.getDescripcion() == null) {
-            mensajeValidacion = mensajeValidacion + " *Descripcion \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
-
-        } else if (nuevoTiposCursos.getDescripcion().isEmpty()) {
-            mensajeValidacion = mensajeValidacion + " *Descripcion \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
-
-        } else {
-            System.out.println("bandera");
+        if (nuevoTiposCursos.getDescripcion().equals(" ") || nuevoTiposCursos.getDescripcion().equals("")) {
+            mensajeValidacion = mensajeValidacion + " * Descripción \n";
             contador++;
-
+        }
+        if (nuevoTiposCursos.getCodigo() == 0) {
+            mensajeValidacion = mensajeValidacion + " * Codigo \n";
+            contador++;
         }
 
-        System.out.println("contador " + contador);
+        for (int i = 0; i < listTiposCursos.size(); i++) {
+            if (listTiposCursos.get(i).getCodigo() == nuevoTiposCursos.getCodigo()) {
+                RequestContext.getCurrentInstance().update("formularioDialogos:existeCodigo");
+                RequestContext.getCurrentInstance().execute("PF('existeCodigo').show()");
+                duplicados++;
+            }
+            if (contador != 0) {
+                RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoTipoCurso");
+                RequestContext.getCurrentInstance().execute("PF('validacionNuevoTipoCurso').show()");
 
-        if (contador == 2) {
+            }
+        }
+
+        if (contador == 0 && duplicados == 0) {
             if (bandera == 1) {
                 FacesContext c = FacesContext.getCurrentInstance();
                 //CERRAR FILTRADO
@@ -677,136 +421,85 @@ public class ControlTiposCursos implements Serializable {
                 codigo.setFilterStyle("display: none; visibility: hidden;");
                 descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposCursos:descripcion");
                 descripcion.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosTiposCursos");
                 bandera = 0;
                 filtrarTiposCursos = null;
                 tipoLista = 0;
+                tamano = 270;
+                RequestContext.getCurrentInstance().update("form:datosTiposCursos");
             }
-            System.out.println("Despues de la bandera");
-
             k++;
             l = BigInteger.valueOf(k);
             nuevoTiposCursos.setSecuencia(l);
-
             crearTiposCursos.add(nuevoTiposCursos);
-
             listTiposCursos.add(nuevoTiposCursos);
+            modificarInfoRegistro(listTiposCursos.size());
+            tipoCursoSeleccionado = nuevoTiposCursos;
             nuevoTiposCursos = new TiposCursos();
             RequestContext.getCurrentInstance().update("form:datosTiposCursos");
-            infoRegistro = "Cantidad de registros: " + listTiposCursos.size();
-            RequestContext.getCurrentInstance().update("form:informacionRegistro");
-
             if (guardado == true) {
                 guardado = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
-
             RequestContext.getCurrentInstance().execute("PF('nuevoRegistroTiposCursos').hide()");
-            index = -1;
-            secRegistro = null;
-
         } else {
-            RequestContext.getCurrentInstance().update("form:validacionNuevaCentroCosto");
-            RequestContext.getCurrentInstance().execute("PF('validacionNuevaCentroCosto').show()");
-            contador = 0;
+            RequestContext.getCurrentInstance().update("form:validacionNuevoTipoCurso");
+            RequestContext.getCurrentInstance().execute("PF('validacionNuevoTipoCurso').show()");
         }
     }
 
     public void limpiarNuevoTiposCursos() {
-        System.out.println("limpiarNuevoTiposCursos");
         nuevoTiposCursos = new TiposCursos();
-        secRegistro = null;
-        index = -1;
-
     }
 
     //------------------------------------------------------------------------------
     public void duplicandoTiposCursos() {
-        System.out.println("duplicandoTiposCursos");
-        if (index >= 0) {
+        if (tipoCursoSeleccionado != null) {
             duplicarTiposCursos = new TiposCursos();
             k++;
             l = BigInteger.valueOf(k);
 
             if (tipoLista == 0) {
                 duplicarTiposCursos.setSecuencia(l);
-                duplicarTiposCursos.setCodigo(listTiposCursos.get(index).getCodigo());
-                duplicarTiposCursos.setDescripcion(listTiposCursos.get(index).getDescripcion());
+                duplicarTiposCursos.setCodigo(tipoCursoSeleccionado.getCodigo());
+                duplicarTiposCursos.setDescripcion(tipoCursoSeleccionado.getDescripcion());
             }
             if (tipoLista == 1) {
                 duplicarTiposCursos.setSecuencia(l);
-                duplicarTiposCursos.setCodigo(filtrarTiposCursos.get(index).getCodigo());
-                duplicarTiposCursos.setDescripcion(filtrarTiposCursos.get(index).getDescripcion());
+                duplicarTiposCursos.setCodigo(tipoCursoSeleccionado.getCodigo());
+                duplicarTiposCursos.setDescripcion(tipoCursoSeleccionado.getDescripcion());
+                tamano = 270;
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTE");
             RequestContext.getCurrentInstance().execute("PF('duplicarRegistroTiposCursos').show()");
-            index = -1;
-            secRegistro = null;
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
     public void confirmarDuplicar() {
-        System.err.println("ESTOY EN CONFIRMAR DUPLICAR TIPOS EMPRESAS");
-        int contador = 0;
-        mensajeValidacion = " ";
-        int duplicados = 0;
         RequestContext context = RequestContext.getCurrentInstance();
-        Integer a = 0;
-        a = null;
-        System.err.println("ConfirmarDuplicar codigo " + duplicarTiposCursos.getCodigo());
-        System.err.println("ConfirmarDuplicar Descripcion " + duplicarTiposCursos.getDescripcion());
+        int contador = 0;
 
-        if (duplicarTiposCursos.getCodigo() == a) {
-            mensajeValidacion = mensajeValidacion + "   *Codigo \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
-        } else {
-            for (int x = 0; x < listTiposCursos.size(); x++) {
-                if (listTiposCursos.get(x).getCodigo().equals(duplicarTiposCursos.getCodigo())) {
-                    duplicados++;
-                }
-            }
-            if (duplicados > 0) {
-                mensajeValidacion = " *Que NO Existan Codigo Repetidos \n";
-                System.out.println("Mensaje validacion : " + mensajeValidacion);
-            } else {
-                System.out.println("bandera");
+        for (int i = 0; i < listTiposCursos.size(); i++) {
+            if (duplicarTiposCursos.getCodigo() == listTiposCursos.get(i).getCodigo()) {
+                RequestContext.getCurrentInstance().update("formularioDialogos:existeCodigo");
+                RequestContext.getCurrentInstance().execute("PF('existeCodigo').show()");
                 contador++;
-                duplicados = 0;
             }
         }
-        if (duplicarTiposCursos.getDescripcion() == null) {
-            mensajeValidacion = mensajeValidacion + " *Descripcion \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
 
-        } else if (duplicarTiposCursos.getDescripcion().isEmpty()) {
-            mensajeValidacion = mensajeValidacion + " *Descripcion \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
-
-        } else {
-            System.out.println("bandera");
-            contador++;
-
-        }
-
-        if (contador == 2) {
-
-            System.out.println("Datos Duplicando: " + duplicarTiposCursos.getSecuencia() + "  " + duplicarTiposCursos.getCodigo());
-            if (crearTiposCursos.contains(duplicarTiposCursos)) {
-                System.out.println("Ya lo contengo.");
-            }
+        if (contador == 0) {
             listTiposCursos.add(duplicarTiposCursos);
             crearTiposCursos.add(duplicarTiposCursos);
+            tipoCursoSeleccionado = duplicarTiposCursos;
+            modificarInfoRegistro(listTiposCursos.size());
             RequestContext.getCurrentInstance().update("form:datosTiposCursos");
-            index = -1;
-            secRegistro = null;
             if (guardado == true) {
                 guardado = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            infoRegistro = "Cantidad de registros: " + listTiposCursos.size();
-            RequestContext.getCurrentInstance().update("form:informacionRegistro");
 
             if (bandera == 1) {
                 FacesContext c = FacesContext.getCurrentInstance();
@@ -815,19 +508,15 @@ public class ControlTiposCursos implements Serializable {
                 codigo.setFilterStyle("display: none; visibility: hidden;");
                 descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposCursos:descripcion");
                 descripcion.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosTiposCursos");
                 bandera = 0;
                 filtrarTiposCursos = null;
+                RequestContext.getCurrentInstance().update("form:datosTiposCursos");
                 tipoLista = 0;
             }
             duplicarTiposCursos = new TiposCursos();
-            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroTiposCursos').hide()");
-
-        } else {
-            contador = 0;
-            RequestContext.getCurrentInstance().update("form:validacionDuplicarVigencia");
-            RequestContext.getCurrentInstance().execute("PF('validacionDuplicarVigencia').show()");
         }
+        RequestContext.getCurrentInstance().update("formularioDialogos:duplicarRegistroTiposCursos");
+        RequestContext.getCurrentInstance().execute("PF('duplicarRegistroTiposCursos').hide()");
     }
 
     public void limpiarDuplicarTiposCursos() {
@@ -840,8 +529,6 @@ public class ControlTiposCursos implements Serializable {
         Exporter exporter = new ExportarPDF();
         exporter.export(context, tabla, "TIPOSCURSOS", false, false, "UTF-8", null, null);
         context.responseComplete();
-        index = -1;
-        secRegistro = null;
     }
 
     public void exportXLS() throws IOException {
@@ -850,54 +537,74 @@ public class ControlTiposCursos implements Serializable {
         Exporter exporter = new ExportarXLS();
         exporter.export(context, tabla, "TIPOSCURSOS", false, false, "UTF-8", null, null);
         context.responseComplete();
-        index = -1;
-        secRegistro = null;
     }
 
     public void verificarRastro() {
         RequestContext context = RequestContext.getCurrentInstance();
         System.out.println("lol");
-        if (!listTiposCursos.isEmpty()) {
-            if (secRegistro != null) {
-                System.out.println("lol 2");
-                int resultado = administrarRastros.obtenerTabla(secRegistro, "TIPOSCURSOS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-                System.out.println("resultado: " + resultado);
-                if (resultado == 1) {
-                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
-                } else if (resultado == 2) {
-                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
-                } else if (resultado == 3) {
-                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
-                } else if (resultado == 4) {
-                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
-                } else if (resultado == 5) {
-                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
-                }
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+        if (tipoCursoSeleccionado != null) {
+            System.out.println("lol 2");
+            int resultado = administrarRastros.obtenerTabla(tipoCursoSeleccionado.getSecuencia(), "TIPOSCURSOS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
+            System.out.println("resultado: " + resultado);
+            if (resultado == 1) {
+                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
+            } else if (resultado == 2) {
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
+            } else if (resultado == 3) {
+                RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
+            } else if (resultado == 4) {
+                RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
+            } else if (resultado == 5) {
+                RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
+        } else if (administrarRastros.verificarHistoricosTabla("TIPOSCURSOS")) { // igual acá
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            if (administrarRastros.verificarHistoricosTabla("TIPOSCURSOS")) { // igual acá
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-            }
-
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
-        index = -1;
     }
 
+    public void recordarSeleccion() {
+        if (tipoCursoSeleccionado != null) {
+            FacesContext c = FacesContext.getCurrentInstance();
+            tablaC = (DataTable) c.getViewRoot().findComponent("form:datosTiposCursos");
+            tablaC.setSelection(tipoCursoSeleccionado);
+        }
+    }
+
+    public void eventoFiltrar() {
+        try {
+            if (tipoLista == 0) {
+                tipoLista = 1;
+            }
+            modificarInfoRegistro(listTiposCursos.size());
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        } catch (Exception e) {
+            System.out.println("ERROR ControlTiposCursos eventoFiltrar ERROR===" + e.getMessage());
+        }
+    }
+
+    public void modificarInfoRegistro(int valor){
+        infoRegistro = String.valueOf(valor);
+//        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+    }
+    
+    public void contarRegistros(){
+        if(listTiposCursos != null){
+            modificarInfoRegistro(listTiposCursos.size());
+        } else{
+            modificarInfoRegistro(0);
+        }
+    }
+    
+    public void deshabilitarBotonLov() {
+        activarLov = true;
+    }
+    
     //*/*/*/*/*/*/*/*/*/*-/-*//-*/-*/*/*-*/-*/-*/*/*/*/*/---/*/*/*/*/-*/-*/-*/-*/-*/
     public List<TiposCursos> getListTiposCursos() {
         if (listTiposCursos == null) {
-            System.out.println("ControlTiposCursos getListTiposCursos");
             listTiposCursos = administrarTiposCursos.consultarTiposCursos();
-        }
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (listTiposCursos == null || listTiposCursos.isEmpty()) {
-            infoRegistro = "Cantidad de registros: 0 ";
-        } else {
-            infoRegistro = "Cantidad de registros: " + listTiposCursos.size();
         }
         return listTiposCursos;
     }
@@ -938,14 +645,6 @@ public class ControlTiposCursos implements Serializable {
         this.editarTiposCursos = editarTiposCursos;
     }
 
-    public BigInteger getSecRegistro() {
-        return secRegistro;
-    }
-
-    public void setSecRegistro(BigInteger secRegistro) {
-        this.secRegistro = secRegistro;
-    }
-
     public int getRegistrosBorrados() {
         return registrosBorrados;
     }
@@ -979,11 +678,11 @@ public class ControlTiposCursos implements Serializable {
     }
 
     public TiposCursos getTiposCursosSeleccionado() {
-        return clasesPensionesSeleccionado;
+        return tipoCursoSeleccionado;
     }
 
     public void setTiposCursosSeleccionado(TiposCursos clasesPensionesSeleccionado) {
-        this.clasesPensionesSeleccionado = clasesPensionesSeleccionado;
+        this.tipoCursoSeleccionado = clasesPensionesSeleccionado;
     }
 
     public String getInfoRegistro() {
@@ -994,4 +693,13 @@ public class ControlTiposCursos implements Serializable {
         this.infoRegistro = infoRegistro;
     }
 
+    public boolean isActivarLov() {
+        return activarLov;
+    }
+
+    public void setActivarLov(boolean activarLov) {
+        this.activarLov = activarLov;
+    }
+    
+    
 }

@@ -8,6 +8,7 @@ import InterfacePersistencia.PersistenciaPryRolesInterface;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 /**
@@ -28,11 +29,60 @@ public class PersistenciaPryRoles implements PersistenciaPryRolesInterface {
     public List<PryRoles> pryroles(EntityManager em) {
         try {
             em.clear();
-            Query query = em.createQuery("SELECT p FROM PryRoles p ORDER BY p.descripcion ");
+            String sql ="SELECT * FROM PRY_ROLES ORDER BY CODIGO ASC";
+            Query query = em.createNativeQuery(sql, PryRoles.class);
             List<PryRoles> pryroles = query.getResultList();
             return pryroles;
         } catch (Exception e) {
             return null;
+        }
+    }
+
+    @Override
+    public void crear(EntityManager em, PryRoles pryrol) {
+       em.clear();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            em.merge(pryrol);
+            tx.commit();
+        } catch (Exception e) {
+            System.out.println("Error PersistenciaPryRoles.crear: " + e);
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        }
+    }
+
+    @Override
+    public void editar(EntityManager em, PryRoles pryrol) {
+      em.clear();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            em.merge(pryrol);
+            tx.commit();
+        } catch (Exception e) {
+            System.out.println("Error PersistenciaPryRoles.editar: " + e);
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        }
+    }
+
+    @Override
+    public void borrar(EntityManager em, PryRoles pryrol) {
+         em.clear();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            em.remove(em.merge(pryrol));
+            tx.commit();
+        } catch (Exception e) {
+            System.out.println("Error PersistenciaPryRoles.borrar: " + e);
+            if (tx.isActive()) {
+                tx.rollback();
+            }
         }
     }
 }

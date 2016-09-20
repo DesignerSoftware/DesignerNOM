@@ -590,14 +590,14 @@
 
                             <strong><h:outputText value="#{msg['fechainicioN']}" style="position: absolute; top: 285px; left: 50px;" /></strong>
                             <p:calendar mask="true" pattern="dd/MM/yyyy"  id="nuevaFechaInicialP" value="#{controlProyecto.nuevaProyectos.fechainicial}" style="position: absolute;  top: 280px; left: 200px;" styleClass="ui-datepicker, myClass2"  
-                                         navigator="true" showButtonPanel="true" locale="es" pattern="dd/MM/yyyy">
+                                         navigator="true" showButtonPanel="true" locale="es" >
                                 <p:ajax event="dateSelect" update="nuevaFechaInicialP"/>
                                 <p:ajax event="change" update="nuevaFechaInicialP"/>
                             </p:calendar>
 
                             <strong><h:outputText value="#{msg['fechafinalizacionN']}" style="position: absolute; top: 315px; left: 50px;" /></strong>
                             <p:calendar mask="true" pattern="dd/MM/yyyy"  id="nuevaFechaFinalP" value="#{controlProyecto.nuevaProyectos.fechafinal}" style="position: absolute;  top: 310px; left: 200px;" styleClass="ui-datepicker, myClass2"  
-                                         navigator="true" showButtonPanel="true" locale="es" pattern="dd/MM/yyyy">
+                                         navigator="true" showButtonPanel="true" locale="es" >
                                 <p:ajax event="dateSelect" update="nuevaFechaFinalP"/>
                                 <p:ajax event="change" update="nuevaFechaFinalP"/>
                             </p:calendar>
@@ -677,14 +677,14 @@
 
                             <strong><h:outputText value="#{msg['fechainicioN']}" style="position: absolute; top: 285px; left: 50px;" /></strong>
                             <p:calendar mask="true" pattern="dd/MM/yyyy"  id="duplicarFechaInicialP" value="#{controlProyecto.duplicarProyecto.fechainicial}" style="position: absolute;  top: 280px; left: 200px;" styleClass="ui-datepicker, myClass2"  
-                                         navigator="true" showButtonPanel="true" locale="es" pattern="dd/MM/yyyy">
+                                         navigator="true" showButtonPanel="true" locale="es" >
                                 <p:ajax event="dateSelect" update="duplicarFechaInicialP"/>
                                 <p:ajax event="change" update="duplicarFechaInicialP"/>
                             </p:calendar>
 
                             <strong><h:outputText value="#{msg['fechafinalizacionN']}" style="position: absolute; top: 315px; left: 50px;" /></strong>
                             <p:calendar mask="true" pattern="dd/MM/yyyy"  id="duplicarFechaFinalP" value="#{controlProyecto.duplicarProyecto.fechafinal}" style="position: absolute;  top: 310px; left: 200px;" styleClass="ui-datepicker, myClass2"  
-                                         navigator="true" showButtonPanel="true" locale="es" pattern="dd/MM/yyyy">
+                                         navigator="true" showButtonPanel="true" locale="es" >
                                 <p:ajax event="dateSelect" update="duplicarFechaFinalP"/>
                                 <p:ajax event="change" update="duplicarFechaFinalP"/>
                             </p:calendar>

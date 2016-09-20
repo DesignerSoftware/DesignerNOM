@@ -4,7 +4,6 @@
  */
 package Controlador;
 
-
 import Entidades.TiposTelefonos;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
@@ -624,6 +623,7 @@ public class ControlTiposTelefonos implements Serializable {
 
     public void modificarInfoRegistro(int valor) {
         infoRegistro = String.valueOf(valor);
+//        RequestContext.getCurrentInstance().update("form:infoRegistro");
     }
 
     public void contarRegistros() {

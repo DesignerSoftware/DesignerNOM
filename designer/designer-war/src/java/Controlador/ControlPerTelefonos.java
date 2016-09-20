@@ -1,6 +1,5 @@
 package Controlador;
 
-
 import Entidades.Ciudades;
 import Entidades.Empleados;
 import Entidades.Personas;
@@ -644,9 +643,9 @@ public class ControlPerTelefonos implements Serializable {
         context.reset("formularioDialogos:LOVCiudades:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVCiudades').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('ciudadesDialogo').hide()");
-        RequestContext.getCurrentInstance().update("form:ciudadesDialogo");
-        RequestContext.getCurrentInstance().update("form:LOVCiudades");
-        RequestContext.getCurrentInstance().update("form:aceptarC");
+        RequestContext.getCurrentInstance().update("formularioDialogos:ciudadesDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:LOVCiudades");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarC");
     }
 
     public void cancelarCambioCiudad() {
@@ -660,9 +659,9 @@ public class ControlPerTelefonos implements Serializable {
         context.reset("formularioDialogos:LOVCiudades:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVCiudades').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('ciudadesDialogo').hide()");
-        RequestContext.getCurrentInstance().update("form:ciudadesDialogo");
-        RequestContext.getCurrentInstance().update("form:LOVCiudades");
-        RequestContext.getCurrentInstance().update("form:aceptarC");
+        RequestContext.getCurrentInstance().update("formularioDialogos:ciudadesDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:LOVCiudades");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarC");
     }
 
     //Ubicacion Celda.

@@ -12,64 +12,9 @@
         <ui:composition template="/template.xhtml">
             <ui:define name="body">                  
                 <h:form id="form">
-                     <f:loadBundle basename="Recursos.tipotelefono" var="msg" />
+                    <f:loadBundle basename="Recursos.tipotelefono" var="msg" />
                     <p:growl id="growl" showDetail="true"/>
                     <p:panel  id="PanelTotal" header="Tipos Telefonos" styleClass="panelTotal">  
-                        <fieldset style="position: absolute; top: 80px; left: 10px; height: 350px; width: 830px; border-radius: 10px; text-align: left">
-                            <legend style="font-size: 14px; color: blue"><strong>Tipos de Telefono</strong></legend>
-
-                            <p:dataTable id="datosTiposTelefonos" widgetVar="datosTiposTelefonos" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice"                           
-                                         value="#{controlTiposTelefonos.listaTiposTelefonos}" 
-                                         filteredValue="#{controlTiposTelefonos.filtradoListaTiposTelefonos}" emptyMessage="No se encontrarón resultados para la búsqueda"
-                                         editable="true" editMode="cell" scrollable="true" scrollWidth="830" 
-                                         scrollHeight="#{controlTiposTelefonos.altoTabla}" style="border: 1px;width: 830px"
-                                         selection="#{controlTiposTelefonos.tipoTelefonoSeleccionado}" selectionMode="single">
-                                
-                                <p:ajax event="filter" listener="#{controlTiposTelefonos.eventoFiltrar()}"/>
-                                <f:event type="preRenderView" listener="#{controlTiposTelefonos.recordarSeleccionTT()}"/>
-
-                                <p:column headerText="Codigo" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains"  width="80" id="tiposTelefonosCodigos" filterStyle="display: none; visibility: hidden;"  >  
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{info.codigo}" >
-                                            </h:outputText>
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText value="#{info.codigo}" id="editarCodigosTiposTelefonos" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase ;height: 12px;"> 
-                                                 <p:keyFilter for="editarCodigosTiposTelefonos" mask="num"/>
-                                                <p:ajax event="select" listener="#{controlTiposTelefonos.cambiarIndice(info,0)}" />
-                                                <p:ajax event="change" listener="#{controlTiposTelefonos.modificarTiposTelefonos(info, 'N', info.codigo)}" update="@this"/>
-                                            </p:inputText> 
-                                        </f:facet>   
-                                    </p:cellEditor>
-
-                                    <f:facet name="footer">
-                                        <h:outputText value=" " />
-                                    </f:facet>
-                                </p:column>
-
-                                <p:column headerText="Descripción Tipo de Teléfono" sortBy="#{info.nombre}" filterBy="#{info.nombre}" filterMatchMode="contains" id="tiposTelefonosNombres" filterStyle="display: none; visibility: hidden;"    >  
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{info.nombre}"  style="text-transform: uppercase">
-                                            </h:outputText>
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText value="#{info.nombre}" id="editarNombresTiposTelefonos" maxlength="20" style=" border-radius: 0px; width: 99%; text-transform: uppercase;height: 12px;"> 
-                                                <p:ajax event="select" listener="#{controlTiposTelefonos.cambiarIndice(info,1)}" />
-                                                <p:ajax event="change" listener="#{controlTiposTelefonos.modificarTiposTelefonos(info, 'N', info.nombre)}" update="@this" />
-                                            </p:inputText> 
-                                        </f:facet>   
-                                    </p:cellEditor>
-
-                                    <f:facet name=" ">
-                                        <h:outputText value="Nombre Tipo de Telefono" />
-                                    </f:facet>
-                                </p:column>
-                            </p:dataTable>
-                            <h:outputText id="infoRegistro" value="#{msg['infoRegistros']} #{controlTiposTelefonos.infoRegistro}" style="position: relative; left: 15px; top: 5px; font-weight: bold"/>
-                        </fieldset>
-
                         <p:toolbar styleClass="cssToolbar" >
                             <p:toolbarGroup align="left">
 
@@ -83,7 +28,7 @@
                                 <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png)" 
                                                  disabled="#{controlTiposTelefonos.activarLov}"  process="@this"/>
                                 <p:tooltip style="" for="listaValores" value="#{msg['lista']}" />
-                                
+
                                 <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlTiposTelefonos.activarCtrlF11()}" process="@this"/>
                                 <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
 
@@ -131,6 +76,61 @@
                         <p:commandButton style=" position: absolute; left: 675px; top: 462px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ACEPTAR" disabled="#{controlTiposTelefonos.guardado}" value=" " onclick="PF('confirmarGuardar').show();" update=":form:datosTiposTelefonos" process="@this" />
                         <p:commandButton style=" position: absolute; left: 765px; top: 462px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" value=" " actionListener="#{controlTiposTelefonos.salir()}" action="#{controlTiposTelefonos.redirigir()}" process="@this" />
 
+                        <fieldset style="position: absolute; top: 80px; left: 10px; height: 350px; width: 830px; border-radius: 10px; text-align: left">
+                            <legend style="font-size: 14px; color: blue"><strong>Tipos de Telefono</strong></legend>
+
+                            <p:dataTable id="datosTiposTelefonos" widgetVar="datosTiposTelefonos" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice"                           
+                                         value="#{controlTiposTelefonos.listaTiposTelefonos}" 
+                                         filteredValue="#{controlTiposTelefonos.filtradoListaTiposTelefonos}" emptyMessage="No se encontrarón resultados para la búsqueda"
+                                         editable="true" editMode="cell" scrollable="true" scrollWidth="830" 
+                                         scrollHeight="#{controlTiposTelefonos.altoTabla}" style="border: 1px;width: 830px"
+                                         selection="#{controlTiposTelefonos.tipoTelefonoSeleccionado}" selectionMode="single">
+
+                                <p:ajax event="filter" listener="#{controlTiposTelefonos.eventoFiltrar()}"/>
+                                <f:event type="preRenderView" listener="#{controlTiposTelefonos.recordarSeleccionTT()}"/>
+
+                                <p:column headerText="Codigo" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains"  width="80" id="tiposTelefonosCodigos" filterStyle="display: none; visibility: hidden;"  >  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{info.codigo}" >
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{info.codigo}" id="editarCodigosTiposTelefonos" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase ;height: 12px;"> 
+                                                <p:keyFilter for="editarCodigosTiposTelefonos" mask="num"/>
+                                                <p:ajax event="select" listener="#{controlTiposTelefonos.cambiarIndice(info,0)}" />
+                                                <p:ajax event="change" listener="#{controlTiposTelefonos.modificarTiposTelefonos(info, 'N', info.codigo)}" update="@this"/>
+                                            </p:inputText> 
+                                        </f:facet>   
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value=" " />
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="Descripción Tipo de Teléfono" sortBy="#{info.nombre}" filterBy="#{info.nombre}" filterMatchMode="contains" id="tiposTelefonosNombres" filterStyle="display: none; visibility: hidden;"    >  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{info.nombre}"  style="text-transform: uppercase">
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText value="#{info.nombre}" id="editarNombresTiposTelefonos" maxlength="20" style=" border-radius: 0px; width: 99%; text-transform: uppercase;height: 12px;"> 
+                                                <p:ajax event="select" listener="#{controlTiposTelefonos.cambiarIndice(info,1)}" />
+                                                <p:ajax event="change" listener="#{controlTiposTelefonos.modificarTiposTelefonos(info, 'N', info.nombre)}" update="@this" />
+                                            </p:inputText> 
+                                        </f:facet>   
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value=" " />
+                                    </f:facet>
+                                </p:column>
+                            </p:dataTable>
+                            <h:outputText id="infoRegistro" value="#{msg['infoRegistros']} #{controlTiposTelefonos.infoRegistro}" style="position: relative; left: 15px; top: 5px; font-weight: bold"/>
+                        </fieldset>
+
                     </p:panel>
                 </h:form>
 
@@ -151,7 +151,7 @@
                         <h:outputText value="El código digitado ya está en uso. Por favor, ingrese otro código." style="position: absolute; left: 70px; top: 20px; width: 300px; font-weight:bold;" />
                         <p:commandButton value="Aceptar" onclick="PF('existeCodigo').hide();" icon="ui-icon-check" style="position: absolute; top: 70px; left: 280px;" process="@this" />
                     </p:dialog>
-                    
+
                     <p:dialog id="existeNombre" header="#{msg['error']}" widgetVar="existeNombre"  resizable="false" draggable="false" modal="true" height="100" width="400px;"  closable ="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="El nombre digitado ya está en uso. Por favor, ingrese otro nombre." style="position: absolute; left: 70px; top: 20px; width: 300px; font-weight:bold;" />

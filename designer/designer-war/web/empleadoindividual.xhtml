@@ -75,9 +75,10 @@
                         </p:toolbar>
 
                         <div id="seca" style="position: absolute; left: 10px; top: 80px;">
-<!--                            <p:graphicImage id="btnFoto" value="#{controlEmpleadoIndividual.fotoEmpleado}" height="120" width="105" 
+                            <p:graphicImage id="btnFoto"  height="120" width="105" 
                                             alt="Foto empleado" onclick="PF('subirFoto').show();"
-                                            style="position: relative; top: 0px; left: 0px;"/>-->
+                                            style="position: relative; top: 0px; left: 0px;"/> <!--value="#/{controlEmpleadoIndividual.fotoEmpleado}"-->
+                            
                             <p:commandButton value="#{msg['tallas']}" process="@this" action="adelanteVigenciaTalla" 
                                              actionListener="#{controlVigenciasTallas.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}" 
                                              style="position: relative; left: -107px; top: 20px; height: 23px; width: 115px; font-size: 12px;"/>
@@ -150,8 +151,8 @@
                                                  style="position: absolute; left: 150px; top: 120px; width: 45px; height: 20px;" 
                                                  panelStyle="font-size: 14px">  
                                     <f:selectItem itemLabel="" itemValue="" />  
-                                    <f:selectItem itemLabel="+" itemValue="P" />  
-                                    <f:selectItem itemLabel="-" itemValue="N" />
+                                    <f:selectItem itemLabel="+" itemValue="POSITIVO" />  
+                                    <f:selectItem itemLabel="-" itemValue="NEGATIVO" />
                                     <p:ajax listener="#{controlEmpleadoIndividual.modificarCampo('P')}" update="@this" />
                                 </p:selectOneMenu>
                                 <br/>
@@ -425,7 +426,7 @@
 
                                 <p:commandButton id="btnInformacionAdicional" value="" style="background-image: url(Imagenes/Iconos/relacione.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; top: 123px; border:none; text-transform: uppercase;"
                                                  process="@this" action="infoAdicional" actionListener="#{controlEmplInformacionAdicional.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
-                                <h:commandLink value="#{msg['informacionadicional']}" style="position: absolute; left: 47px; top: 123px; font-weight: bold; color: #14388B; text-transform: uppercase; " 
+                                <h:commandLink value="#{msg['informacionadicional']}" style="position: absolute; left: 47px; top: 123px; font-weight: bold; color: #14388B;" 
                                                action="infoAdicional" actionListener="#{controlEmplInformacionAdicional.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
                                 <p:inputText id="informacionAdicional" value="#{controlEmpleadoIndividual.informacionAdicionalP}" style="position: absolute; left: 45px; top: 138px; width: 140px; box-shadow: none; border: none; text-transform: uppercase;" readonly="true"/>
 

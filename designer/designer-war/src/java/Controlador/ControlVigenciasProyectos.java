@@ -4,7 +4,6 @@
  */
 package Controlador;
 
-
 import Entidades.Cargos;
 import Entidades.Empleados;
 import Entidades.Proyectos;
@@ -19,6 +18,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -66,7 +66,6 @@ public class ControlVigenciasProyectos implements Serializable {
     private Cargos seleccionCargos;
     //OTROS
     private boolean aceptar;
-    private int index;
     private int tipoActualizacion; //Activo/Desactivo Crtl + F11
     private int bandera;
     private boolean permitirIndex;
@@ -85,8 +84,6 @@ public class ControlVigenciasProyectos implements Serializable {
     private boolean guardado, guardarOk;
     //Borrar Vigencias Proyectos
     private List<VigenciasProyectos> listaVigenciasProyectosBorrar;
-    //RASTRO
-    private BigInteger secRegistro;
     //AUTOCOMPLETAR
     private String FechaInicial, Proyecto, PryRol, Cargo;
     //Duplicar
@@ -96,10 +93,11 @@ public class ControlVigenciasProyectos implements Serializable {
     private String clienteParametroProyecto;
     private String plataformaParametroProyecto;
     private String altoTabla;
+    private String infoRegistro, infoRegistroRol, infoRegistroCargo, infoRegistroProyecto;
+    private Date fechaParametro;
 
     public ControlVigenciasProyectos() {
         permitirIndex = true;
-        //secuenciaEmpleado = BigInteger.valueOf(10661474);
         aceptar = true;
         listaVigenciasProyectosBorrar = new ArrayList<VigenciasProyectos>();
         listaVigenciasProyectosCrear = new ArrayList<VigenciasProyectos>();
@@ -108,15 +106,18 @@ public class ControlVigenciasProyectos implements Serializable {
         listaProyectos = new ArrayList<Proyectos>();
         listaPryRoles = new ArrayList<PryRoles>();
         listaCargos = new ArrayList<Cargos>();
-        secRegistro = null;
+        vigenciaProyectoSeleccionado = null;
         //Crear VC
         nuevaVigenciaProyectos = new VigenciasProyectos();
         nuevaVigenciaProyectos.setProyecto(new Proyectos());
         nuevaVigenciaProyectos.setPryRol(new PryRoles());
         nuevaVigenciaProyectos.setPryCargoproyecto(new Cargos());
         proyectoParametro = new Proyectos();
-        index = 0;
         altoTabla = "115";
+        plataformaParametroProyecto = null;
+        listaProyectos = null;
+        listaPryRoles = null;
+        listaCargos = null;
     }
 
     @PostConstruct
@@ -139,29 +140,30 @@ public class ControlVigenciasProyectos implements Serializable {
         getEmpleado();
         listaVigenciasProyectos = null;
         getListaVigenciasProyectos();
-        listaProyectos = null;
-        getListaProyectos();
-        listaPryRoles = null;
-        getListaPryRoles();
-        listaCargos = null;
-        getListaCargos();
         aceptar = true;
+        contarRegistros();
+        if (listaVigenciasProyectos != null) {
+            if (!listaVigenciasProyectos.isEmpty()) {
+                vigenciaProyectoSeleccionado = listaVigenciasProyectos.get(0);
+            }
+        }
+
     }
 
     //AUTOCOMPLETAR
-    public void modificarVigenciasProyectos(int indice, String confirmarCambio, String valorConfirmar) {
-        index = indice;
+    public void modificarVigenciasProyectos(VigenciasProyectos vigencia, String confirmarCambio, String valorConfirmar) {
+        vigenciaProyectoSeleccionado = vigencia;
         int coincidencias = 0;
         int indiceUnicoElemento = 0;
         RequestContext context = RequestContext.getCurrentInstance();
         if (confirmarCambio.equalsIgnoreCase("N")) {
             if (tipoLista == 0) {
-                if (!listaVigenciasProyectosCrear.contains(listaVigenciasProyectos.get(indice))) {
+                if (!listaVigenciasProyectosCrear.contains(vigenciaProyectoSeleccionado)) {
 
                     if (listaVigenciasProyectosModificar.isEmpty()) {
-                        listaVigenciasProyectosModificar.add(listaVigenciasProyectos.get(indice));
-                    } else if (!listaVigenciasProyectosModificar.contains(listaVigenciasProyectos.get(indice))) {
-                        listaVigenciasProyectosModificar.add(listaVigenciasProyectos.get(indice));
+                        listaVigenciasProyectosModificar.add(vigenciaProyectoSeleccionado);
+                    } else if (!listaVigenciasProyectosModificar.contains(vigenciaProyectoSeleccionado)) {
+                        listaVigenciasProyectosModificar.add(vigenciaProyectoSeleccionado);
                     }
                     if (guardado == true) {
                         guardado = false;
@@ -169,32 +171,25 @@ public class ControlVigenciasProyectos implements Serializable {
 
                     }
                 }
-                index = -1;
-                secRegistro = null;
+            } else if (!listaVigenciasProyectosCrear.contains(vigenciaProyectoSeleccionado)) {
 
-            } else {
-                if (!listaVigenciasProyectosCrear.contains(filtradosListaVigenciasProyectos.get(indice))) {
-
-                    if (listaVigenciasProyectosModificar.isEmpty()) {
-                        listaVigenciasProyectosModificar.add(filtradosListaVigenciasProyectos.get(indice));
-                    } else if (!listaVigenciasProyectosModificar.contains(filtradosListaVigenciasProyectos.get(indice))) {
-                        listaVigenciasProyectosModificar.add(filtradosListaVigenciasProyectos.get(indice));
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-
-                    }
+                if (listaVigenciasProyectosModificar.isEmpty()) {
+                    listaVigenciasProyectosModificar.add(vigenciaProyectoSeleccionado);
+                } else if (!listaVigenciasProyectosModificar.contains(vigenciaProyectoSeleccionado)) {
+                    listaVigenciasProyectosModificar.add(vigenciaProyectoSeleccionado);
                 }
-                index = -1;
-                secRegistro = null;
+                if (guardado == true) {
+                    guardado = false;
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+
+                }
             }
             RequestContext.getCurrentInstance().update("form:datosVigenciasProyectosPersona");
         } else if (confirmarCambio.equalsIgnoreCase("PROYECTO")) {
             if (tipoLista == 0) {
-                listaVigenciasProyectos.get(indice).getProyecto().setNombreproyecto(Proyecto);
+                vigenciaProyectoSeleccionado.getProyecto().setNombreproyecto(Proyecto);
             } else {
-                filtradosListaVigenciasProyectos.get(indice).getProyecto().setNombreproyecto(Proyecto);
+                vigenciaProyectoSeleccionado.getProyecto().setNombreproyecto(Proyecto);
             }
 
             for (int i = 0; i < listaProyectos.size(); i++) {
@@ -205,9 +200,9 @@ public class ControlVigenciasProyectos implements Serializable {
             }
             if (coincidencias == 1) {
                 if (tipoLista == 0) {
-                    listaVigenciasProyectos.get(indice).setProyecto(listaProyectos.get(indiceUnicoElemento));
+                    vigenciaProyectoSeleccionado.setProyecto(listaProyectos.get(indiceUnicoElemento));
                 } else {
-                    filtradosListaVigenciasProyectos.get(indice).setProyecto(listaProyectos.get(indiceUnicoElemento));
+                    vigenciaProyectoSeleccionado.setProyecto(listaProyectos.get(indiceUnicoElemento));
                 }
                 listaProyectos.clear();
                 getListaProyectos();
@@ -219,9 +214,9 @@ public class ControlVigenciasProyectos implements Serializable {
             }
         } else if (confirmarCambio.equalsIgnoreCase("PRYROL")) {
             if (tipoLista == 0) {
-                listaVigenciasProyectos.get(indice).getPryRol().setDescripcion(PryRol);
+                vigenciaProyectoSeleccionado.getPryRol().setDescripcion(PryRol);
             } else {
-                filtradosListaVigenciasProyectos.get(indice).getPryRol().setDescripcion(PryRol);
+                vigenciaProyectoSeleccionado.getPryRol().setDescripcion(PryRol);
             }
             for (int i = 0; i < listaPryRoles.size(); i++) {
                 if (listaPryRoles.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
@@ -231,9 +226,9 @@ public class ControlVigenciasProyectos implements Serializable {
             }
             if (coincidencias == 1) {
                 if (tipoLista == 0) {
-                    listaVigenciasProyectos.get(indice).setPryRol(listaPryRoles.get(indiceUnicoElemento));
+                    vigenciaProyectoSeleccionado.setPryRol(listaPryRoles.get(indiceUnicoElemento));
                 } else {
-                    filtradosListaVigenciasProyectos.get(indice).setPryRol(listaPryRoles.get(indiceUnicoElemento));
+                    vigenciaProyectoSeleccionado.setPryRol(listaPryRoles.get(indiceUnicoElemento));
                 }
                 listaPryRoles.clear();
                 getListaPryRoles();
@@ -245,9 +240,9 @@ public class ControlVigenciasProyectos implements Serializable {
             }
         } else if (confirmarCambio.equalsIgnoreCase("CARGO")) {
             if (tipoLista == 0) {
-                listaVigenciasProyectos.get(indice).getPryCargoproyecto().setNombre(Cargo);
+                vigenciaProyectoSeleccionado.getPryCargoproyecto().setNombre(Cargo);
             } else {
-                filtradosListaVigenciasProyectos.get(indice).getPryCargoproyecto().setNombre(Cargo);
+                vigenciaProyectoSeleccionado.getPryCargoproyecto().setNombre(Cargo);
             }
             for (int i = 0; i < listaPryRoles.size(); i++) {
                 if (listaPryRoles.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
@@ -257,9 +252,9 @@ public class ControlVigenciasProyectos implements Serializable {
             }
             if (coincidencias == 1) {
                 if (tipoLista == 0) {
-                    listaVigenciasProyectos.get(indice).setPryCargoproyecto(listaCargos.get(indiceUnicoElemento));
+                    vigenciaProyectoSeleccionado.setPryCargoproyecto(listaCargos.get(indiceUnicoElemento));
                 } else {
-                    filtradosListaVigenciasProyectos.get(indice).setPryCargoproyecto(listaCargos.get(indiceUnicoElemento));
+                    vigenciaProyectoSeleccionado.setPryCargoproyecto(listaCargos.get(indiceUnicoElemento));
                 }
                 listaCargos.clear();
                 getListaCargos();
@@ -272,11 +267,11 @@ public class ControlVigenciasProyectos implements Serializable {
         }
         if (coincidencias == 1) {
             if (tipoLista == 0) {
-                if (!listaVigenciasProyectosCrear.contains(listaVigenciasProyectos.get(indice))) {
+                if (!listaVigenciasProyectosCrear.contains(vigenciaProyectoSeleccionado)) {
                     if (listaVigenciasProyectosModificar.isEmpty()) {
-                        listaVigenciasProyectosModificar.add(listaVigenciasProyectos.get(indice));
-                    } else if (!listaVigenciasProyectosModificar.contains(listaVigenciasProyectos.get(indice))) {
-                        listaVigenciasProyectosModificar.add(listaVigenciasProyectos.get(indice));
+                        listaVigenciasProyectosModificar.add(vigenciaProyectoSeleccionado);
+                    } else if (!listaVigenciasProyectosModificar.contains(vigenciaProyectoSeleccionado)) {
+                        listaVigenciasProyectosModificar.add(vigenciaProyectoSeleccionado);
                     }
                     if (guardado == true) {
                         guardado = false;
@@ -284,101 +279,84 @@ public class ControlVigenciasProyectos implements Serializable {
 
                     }
                 }
-                index = -1;
-                secRegistro = null;
-            } else {
-                if (!listaVigenciasProyectosCrear.contains(filtradosListaVigenciasProyectos.get(indice))) {
+            } else if (!listaVigenciasProyectosCrear.contains(vigenciaProyectoSeleccionado)) {
 
-                    if (listaVigenciasProyectosModificar.isEmpty()) {
-                        listaVigenciasProyectosModificar.add(filtradosListaVigenciasProyectos.get(indice));
-                    } else if (!listaVigenciasProyectosModificar.contains(filtradosListaVigenciasProyectos.get(indice))) {
-                        listaVigenciasProyectosModificar.add(filtradosListaVigenciasProyectos.get(indice));
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-
-                    }
+                if (listaVigenciasProyectosModificar.isEmpty()) {
+                    listaVigenciasProyectosModificar.add(vigenciaProyectoSeleccionado);
+                } else if (!listaVigenciasProyectosModificar.contains(vigenciaProyectoSeleccionado)) {
+                    listaVigenciasProyectosModificar.add(vigenciaProyectoSeleccionado);
                 }
-                index = -1;
-                secRegistro = null;
+                if (guardado == true) {
+                    guardado = false;
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+
+                }
             }
         }
         RequestContext.getCurrentInstance().update("form:datosVigenciasProyectosPersona");
+        ////actualizar campos de detalles proyecto
+        RequestContext.getCurrentInstance().update("formularioDetalles:nomProyecto");
+        RequestContext.getCurrentInstance().update("formularioDetalles:tipoMoneda");
+        RequestContext.getCurrentInstance().update("formularioDetalles:cliente");
+        RequestContext.getCurrentInstance().update("formularioDetalles:plataforma");
+        RequestContext.getCurrentInstance().update("formularioDetalles:totalPersonas");
+        RequestContext.getCurrentInstance().update("formularioDetalles:detalleProyecto");
+        RequestContext.getCurrentInstance().update("formularioDetalles:fechaInicial");
+        RequestContext.getCurrentInstance().update("formularioDetalles:monto");
+        RequestContext.getCurrentInstance().update("formularioDetalles:fechaFinal");
+        RequestContext.getCurrentInstance().update("formularioDetalles:codigoProyecto");
     }
 
 //Ubicacion Celda.
-    public void cambiarIndice(int indice, int celda) {
+    public void cambiarIndice(VigenciasProyectos vigencia, int celda) {
         if (permitirIndex == true) {
-
-            index = indice;
+            vigenciaProyectoSeleccionado = vigencia;
             cualCelda = celda;
-            //tablaImprimir = ":formExportar:datosVigenciasFormalesExportar";
-            //nombreArchivo = "VigenciasFormalesXML";
-            //RequestContext context = RequestContext.getCurrentInstance();
-            //RequestContext.getCurrentInstance().update("form:exportarXML");
             getProyectoParametro();
-            if (proyectoParametro != null) {
-                plataformaParametroProyecto = null;
-                if (proyectoParametro.getPryPlataforma() != null) {
-                    plataformaParametroProyecto = proyectoParametro.getPryPlataforma().getDescripcion() + " - " + proyectoParametro.getPryPlataforma().getObservacion();
-                }
-                RequestContext context = RequestContext.getCurrentInstance();
-                RequestContext.getCurrentInstance().update("formularioDetalles:plataforma");
-            }
-            if (proyectoParametro != null) {
-                getClienteParametroProyecto();
-            }
-
             if (tipoLista == 0) {
-                secRegistro = listaVigenciasProyectos.get(index).getSecuencia();
+                vigenciaProyectoSeleccionado.getSecuencia();
                 if (cualCelda == 2) {
-                    Proyecto = listaVigenciasProyectos.get(index).getProyecto().getNombreproyecto();
+                    Proyecto = vigenciaProyectoSeleccionado.getProyecto().getNombreproyecto();
                 } else if (cualCelda == 3) {
-                    PryRol = listaVigenciasProyectos.get(index).getPryRol().getDescripcion();
+                    PryRol = vigenciaProyectoSeleccionado.getPryRol().getDescripcion();
                 } else if (cualCelda == 4) {
-                    Cargo = listaVigenciasProyectos.get(index).getPryCargoproyecto().getNombre();
+                    Cargo = vigenciaProyectoSeleccionado.getPryCargoproyecto().getNombre();
+                } else if (cualCelda == 5) {
+                    vigenciaProyectoSeleccionado.getCantidadpersonaacargo();
                 }
             } else {
-                secRegistro = filtradosListaVigenciasProyectos.get(index).getSecuencia();
+                vigenciaProyectoSeleccionado.getSecuencia();
                 if (cualCelda == 2) {
-                    Proyecto = filtradosListaVigenciasProyectos.get(index).getProyecto().getNombreproyecto();
+                    Proyecto = vigenciaProyectoSeleccionado.getProyecto().getNombreproyecto();
                 } else if (cualCelda == 3) {
-                    PryRol = filtradosListaVigenciasProyectos.get(index).getPryRol().getDescripcion();
+                    PryRol = vigenciaProyectoSeleccionado.getPryRol().getDescripcion();
                 } else if (cualCelda == 4) {
-                    Cargo = filtradosListaVigenciasProyectos.get(index).getPryCargoproyecto().getNombre();
+                    Cargo = vigenciaProyectoSeleccionado.getPryCargoproyecto().getNombre();
+                } else if (cualCelda == 5) {
+                    vigenciaProyectoSeleccionado.getCantidadpersonaacargo();
                 }
             }
 
         }
     }
 
-    public void asignarIndex(Integer indice, int dlg, int LND) {
-        index = indice;
+    public void asignarIndex(VigenciasProyectos vigencia, int dlg, int LND) {
+        vigenciaProyectoSeleccionado = vigencia;
         RequestContext context = RequestContext.getCurrentInstance();
-        if (LND == 0) {
-            tipoActualizacion = 0;
-        } else if (LND == 1) {
-            tipoActualizacion = 1;
-            index = -1;
-            secRegistro = null;
-            System.out.println("Tipo Actualizacion: " + tipoActualizacion);
-        } else if (LND == 2) {
-            index = -1;
-            secRegistro = null;
-            tipoActualizacion = 2;
-        }
+        tipoActualizacion = LND;
         if (dlg == 0) {
-            RequestContext.getCurrentInstance().update("form:proyectosDialogo");
+            getListaProyectos();
+            RequestContext.getCurrentInstance().update("formularioDialogos:proyectosDialogo");
             RequestContext.getCurrentInstance().execute("PF('proyectosDialogo').show()");
         } else if (dlg == 1) {
-            RequestContext.getCurrentInstance().update("form:pryRolesDialogo");
+            getListaPryRoles();
+            RequestContext.getCurrentInstance().update("formularioDialogos:pryRolesDialogo");
             RequestContext.getCurrentInstance().execute("PF('pryRolesDialogo').show()");
         } else if (dlg == 2) {
-            RequestContext.getCurrentInstance().update("form:cargosDialogo");
+            getListaCargos();
+            RequestContext.getCurrentInstance().update("formularioDialogos:cargosDialogo");
             RequestContext.getCurrentInstance().execute("PF('cargosDialogo').show()");
         }
-
     }
 
     public void activarCtrlF11() {
@@ -429,19 +407,166 @@ public class ControlVigenciasProyectos implements Serializable {
         }
     }
 
+    public boolean validarFechasRegistro(int i) {
+        fechaParametro = new Date();
+        fechaParametro.setYear(0);
+        fechaParametro.setMonth(1);
+        fechaParametro.setDate(1);
+        boolean retorno = true;
+        if (i == 0) {
+            VigenciasProyectos auxiliar = null;
+            if (tipoLista == 0) {
+                auxiliar = vigenciaProyectoSeleccionado;
+            }
+            if (tipoLista == 1) {
+                auxiliar = vigenciaProyectoSeleccionado;
+            }
+            if (auxiliar.getFechafinal() != null) {
+                if (auxiliar.getFechainicial().after(fechaParametro) && auxiliar.getFechainicial().before(auxiliar.getFechafinal())) {
+                    retorno = true;
+                } else {
+                    retorno = false;
+                    RequestContext.getCurrentInstance().execute("PF('errorFechas').show()");
+                }
+            }
+            if (auxiliar.getFechafinal() == null) {
+                if (auxiliar.getFechainicial().after(fechaParametro)) {
+                    retorno = true;
+                } else {
+                    retorno = false;
+                }
+            }
+        }
+        if (i == 1) {
+            if (nuevaVigenciaProyectos.getFechafinal() != null) {
+                if (nuevaVigenciaProyectos.getFechainicial().after(fechaParametro) && nuevaVigenciaProyectos.getFechainicial().before(nuevaVigenciaProyectos.getFechafinal())) {
+                    retorno = true;
+                } else {
+                    RequestContext.getCurrentInstance().execute("PF('errorFechas').show()");
+                    retorno = false;
+                }
+            } else {
+                if (nuevaVigenciaProyectos.getFechainicial().after(fechaParametro)) {
+                    retorno = true;
+                } else {
+                    retorno = false;
+                }
+            }
+        }
+        if (i == 2) {
+            if (duplicarVigenciaProyectos.getFechafinal() != null) {
+                if (duplicarVigenciaProyectos.getFechainicial().after(fechaParametro) && duplicarVigenciaProyectos.getFechainicial().before(duplicarVigenciaProyectos.getFechafinal())) {
+                    retorno = true;
+                } else {
+                    retorno = false;
+                    RequestContext.getCurrentInstance().execute("PF('errorFechas').show()");
+                }
+            } else {
+                if (duplicarVigenciaProyectos.getFechainicial().after(fechaParametro)) {
+                    retorno = true;
+                } else {
+                    retorno = false;
+                }
+            }
+        }
+        return retorno;
+    }
+    
+    public void modificarVigenciaDeporte(VigenciasProyectos vigenciaproyecto) {
+        vigenciaProyectoSeleccionado = vigenciaproyecto;
+        if (tipoLista == 0) {
+            if (!listaVigenciasProyectosCrear.contains(vigenciaProyectoSeleccionado)) {
+                if (listaVigenciasProyectosModificar.isEmpty()) {
+                    listaVigenciasProyectosModificar.add(vigenciaProyectoSeleccionado);
+                } else if (!listaVigenciasProyectosModificar.contains(vigenciaProyectoSeleccionado)) {
+                    listaVigenciasProyectosModificar.add(vigenciaProyectoSeleccionado);
+                }
+                if (guardado == true) {
+                    guardado = false;
+                    RequestContext context = RequestContext.getCurrentInstance();
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                }
+            }
+        } else {
+            if (!listaVigenciasProyectosCrear.contains(vigenciaProyectoSeleccionado)) {
+                if (listaVigenciasProyectosModificar.isEmpty()) {
+                    listaVigenciasProyectosModificar.add(vigenciaProyectoSeleccionado);
+                } else if (!listaVigenciasProyectosModificar.contains(vigenciaProyectoSeleccionado)) {
+                    listaVigenciasProyectosModificar.add(vigenciaProyectoSeleccionado);
+                }
+                if (guardado == true) {
+                    guardado = false;
+                    RequestContext context = RequestContext.getCurrentInstance();
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                }
+            }
+        }
+    }
+    
+    public void modificarFechas(VigenciasProyectos vigenciaproyecto, int c) {
+        VigenciasProyectos auxiliar = null;
+        if (tipoLista == 0) {
+            auxiliar = vigenciaProyectoSeleccionado;
+        }
+        if (tipoLista == 1) {
+            auxiliar = vigenciaProyectoSeleccionado;
+        }
+        if (auxiliar.getFechainicial() != null) {
+            boolean retorno = false;
+            if (auxiliar.getFechafinal() == null) {
+                retorno = true;
+            }
+            if (auxiliar.getFechafinal() != null) {
+                vigenciaProyectoSeleccionado = vigenciaproyecto;
+                retorno = validarFechasRegistro(0);
+            }
+            if (retorno == true) {
+                cambiarIndice(vigenciaproyecto, c);
+                modificarVigenciaDeporte(vigenciaproyecto);
+            } else {
+                if (tipoLista == 0) {
+                    vigenciaProyectoSeleccionado.setFechafinal(vigenciaProyectoSeleccionado.getFechafinal());
+                    vigenciaProyectoSeleccionado.setFechainicial(vigenciaProyectoSeleccionado.getFechainicial());
+                }
+                if (tipoLista == 1) {
+                    vigenciaProyectoSeleccionado.setFechafinal(vigenciaProyectoSeleccionado.getFechafinal());
+                    vigenciaProyectoSeleccionado.setFechainicial(vigenciaProyectoSeleccionado.getFechainicial());
+
+                }
+                RequestContext context = RequestContext.getCurrentInstance();
+                RequestContext.getCurrentInstance().update("form:datosVigenciasDeportes");
+                RequestContext.getCurrentInstance().execute("PF('form:errorFechas').show()");
+            }
+        } else {
+            if (tipoLista == 0) {
+                vigenciaProyectoSeleccionado.setFechainicial(vigenciaProyectoSeleccionado.getFechafinal());
+            }
+            if (tipoLista == 1) {
+                vigenciaProyectoSeleccionado.setFechainicial(vigenciaProyectoSeleccionado.getFechafinal());
+
+            }
+            RequestContext context = RequestContext.getCurrentInstance();
+            RequestContext.getCurrentInstance().update("form:datosVigenciasProyectosPersona");
+            RequestContext.getCurrentInstance().execute("PF('errorRegNew').show()");
+        }
+    }
+    
     //LISTA DE VALORES DINAMICA
     public void listaValoresBoton() {
-        if (index >= 0) {
+        if (vigenciaProyectoSeleccionado != null) {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 2) {
+                getListaProyectos();
                 RequestContext.getCurrentInstance().update("formularioDialogos:proyectosDialogo");
                 RequestContext.getCurrentInstance().execute("PF('proyectosDialogo').show()");
                 tipoActualizacion = 0;
             } else if (cualCelda == 3) {
+                getListaPryRoles();
                 RequestContext.getCurrentInstance().update("formularioDialogos:pryRolesDialogo");
                 RequestContext.getCurrentInstance().execute("PF('pryRolesDialogo').show()");
                 tipoActualizacion = 0;
             } else if (cualCelda == 4) {
+                getListaCargos();
                 RequestContext.getCurrentInstance().update("formularioDialogos:cargosDialogo");
                 RequestContext.getCurrentInstance().execute("PF('cargosDialogo').show()");
                 tipoActualizacion = 0;
@@ -456,8 +581,6 @@ public class ControlVigenciasProyectos implements Serializable {
         Exporter exporter = new ExportarPDF();
         exporter.export(context, tabla, "VigenciasProyectosPDF", false, false, "UTF-8", null, null);
         context.responseComplete();
-        index = -1;
-        secRegistro = null;
     }
 
     public void exportXLS() throws IOException {
@@ -466,8 +589,6 @@ public class ControlVigenciasProyectos implements Serializable {
         Exporter exporter = new ExportarXLS();
         exporter.export(context, tabla, "VigenciasProyectosXLS", false, false, "UTF-8", null, null);
         context.responseComplete();
-        index = -1;
-        secRegistro = null;
     }
 
     //LIMPIAR NUEVO REGISTRO VIGENCIA PROYECTO
@@ -476,8 +597,6 @@ public class ControlVigenciasProyectos implements Serializable {
         nuevaVigenciaProyectos.setProyecto(new Proyectos());
         nuevaVigenciaProyectos.setPryRol(new PryRoles());
         nuevaVigenciaProyectos.setPryCargoproyecto(new Cargos());
-        index = -1;
-        secRegistro = null;
     }
 
     public void valoresBackupAutocompletar(int tipoNuevo, String Campo) {
@@ -510,7 +629,7 @@ public class ControlVigenciasProyectos implements Serializable {
 
         if (nuevaVigenciaProyectos.getFechainicial() == null) {
             System.out.println("Entro a Fecha");
-            mensajeValidacion = " * Fecha \n";
+            mensajeValidacion = " * Fecha Inicial \n";
             pasa++;
         }
         if (nuevaVigenciaProyectos.getProyecto().getNombreproyecto().equals(" ")) {
@@ -562,20 +681,30 @@ public class ControlVigenciasProyectos implements Serializable {
                 nuevaVigenciaProyectos.setProyecto(null);
             }
             listaVigenciasProyectosCrear.add(nuevaVigenciaProyectos);
-
             listaVigenciasProyectos.add(nuevaVigenciaProyectos);
+            vigenciaProyectoSeleccionado = nuevaVigenciaProyectos;
             nuevaVigenciaProyectos = new VigenciasProyectos();
             nuevaVigenciaProyectos.setPryRol(new PryRoles());
             nuevaVigenciaProyectos.setProyecto(new Proyectos());
             nuevaVigenciaProyectos.setPryCargoproyecto(new Cargos());
             RequestContext.getCurrentInstance().update("form:datosVigenciasProyectosPersona");
+
+            ////actualizar campos de detalles proyecto
+            RequestContext.getCurrentInstance().update("formularioDetalles:nomProyecto");
+            RequestContext.getCurrentInstance().update("formularioDetalles:tipoMoneda");
+            RequestContext.getCurrentInstance().update("formularioDetalles:cliente");
+            RequestContext.getCurrentInstance().update("formularioDetalles:plataforma");
+            RequestContext.getCurrentInstance().update("formularioDetalles:totalPersonas");
+            RequestContext.getCurrentInstance().update("formularioDetalles:detalleProyecto");
+            RequestContext.getCurrentInstance().update("formularioDetalles:fechaInicial");
+            RequestContext.getCurrentInstance().update("formularioDetalles:monto");
+            RequestContext.getCurrentInstance().update("formularioDetalles:fechaFinal");
+            RequestContext.getCurrentInstance().update("formularioDetalles:codigoProyecto");
             if (guardado == true) {
                 guardado = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             RequestContext.getCurrentInstance().execute("PF('NuevoRegistroVigenciaProyecto').hide()");
-            index = -1;
-            secRegistro = null;
         } else {
             RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevaVigenciaProyecto");
             RequestContext.getCurrentInstance().execute("PF('validacionNuevaVigenciaProyecto').show()");
@@ -584,37 +713,37 @@ public class ControlVigenciasProyectos implements Serializable {
 
     //DUPLICAR VIGENCIA PROYECTO
     public void duplicarVP() {
-        if (index >= 0) {
+        if (vigenciaProyectoSeleccionado != null) {
             duplicarVigenciaProyectos = new VigenciasProyectos();
             k++;
             l = BigInteger.valueOf(k);
 
             if (tipoLista == 0) {
                 duplicarVigenciaProyectos.setSecuencia(l);
-                duplicarVigenciaProyectos.setEmpleado(listaVigenciasProyectos.get(index).getEmpleado());
-                duplicarVigenciaProyectos.setFechainicial(listaVigenciasProyectos.get(index).getFechainicial());
-                duplicarVigenciaProyectos.setFechafinal(listaVigenciasProyectos.get(index).getFechafinal());
-                duplicarVigenciaProyectos.setProyecto(listaVigenciasProyectos.get(index).getProyecto());
-                duplicarVigenciaProyectos.setPryRol(listaVigenciasProyectos.get(index).getPryRol());
-                duplicarVigenciaProyectos.setPryCargoproyecto(listaVigenciasProyectos.get(index).getPryCargoproyecto());
-                duplicarVigenciaProyectos.setCantidadpersonaacargo(listaVigenciasProyectos.get(index).getCantidadpersonaacargo());
+                duplicarVigenciaProyectos.setEmpleado(vigenciaProyectoSeleccionado.getEmpleado());
+                duplicarVigenciaProyectos.setFechainicial(vigenciaProyectoSeleccionado.getFechainicial());
+                duplicarVigenciaProyectos.setFechafinal(vigenciaProyectoSeleccionado.getFechafinal());
+                duplicarVigenciaProyectos.setProyecto(vigenciaProyectoSeleccionado.getProyecto());
+                duplicarVigenciaProyectos.setPryRol(vigenciaProyectoSeleccionado.getPryRol());
+                duplicarVigenciaProyectos.setPryCargoproyecto(vigenciaProyectoSeleccionado.getPryCargoproyecto());
+                duplicarVigenciaProyectos.setCantidadpersonaacargo(vigenciaProyectoSeleccionado.getCantidadpersonaacargo());
             }
             if (tipoLista == 1) {
                 duplicarVigenciaProyectos.setSecuencia(l);
-                duplicarVigenciaProyectos.setEmpleado(filtradosListaVigenciasProyectos.get(index).getEmpleado());
-                duplicarVigenciaProyectos.setFechainicial(filtradosListaVigenciasProyectos.get(index).getFechainicial());
-                duplicarVigenciaProyectos.setFechafinal(filtradosListaVigenciasProyectos.get(index).getFechafinal());
-                duplicarVigenciaProyectos.setProyecto(filtradosListaVigenciasProyectos.get(index).getProyecto());
-                duplicarVigenciaProyectos.setPryRol(filtradosListaVigenciasProyectos.get(index).getPryRol());
-                duplicarVigenciaProyectos.setPryCargoproyecto(filtradosListaVigenciasProyectos.get(index).getPryCargoproyecto());
-                duplicarVigenciaProyectos.setCantidadpersonaacargo(filtradosListaVigenciasProyectos.get(index).getCantidadpersonaacargo());
+                duplicarVigenciaProyectos.setEmpleado(vigenciaProyectoSeleccionado.getEmpleado());
+                duplicarVigenciaProyectos.setFechainicial(vigenciaProyectoSeleccionado.getFechainicial());
+                duplicarVigenciaProyectos.setFechafinal(vigenciaProyectoSeleccionado.getFechafinal());
+                duplicarVigenciaProyectos.setProyecto(vigenciaProyectoSeleccionado.getProyecto());
+                duplicarVigenciaProyectos.setPryRol(vigenciaProyectoSeleccionado.getPryRol());
+                duplicarVigenciaProyectos.setPryCargoproyecto(vigenciaProyectoSeleccionado.getPryCargoproyecto());
+                duplicarVigenciaProyectos.setCantidadpersonaacargo(vigenciaProyectoSeleccionado.getCantidadpersonaacargo());
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarVigenciaProyecto");
             RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroVigenciaProyecto').show()");
-            index = -1;
-            secRegistro = null;
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
@@ -622,9 +751,19 @@ public class ControlVigenciasProyectos implements Serializable {
 
         listaVigenciasProyectos.add(duplicarVigenciaProyectos);
         listaVigenciasProyectosCrear.add(duplicarVigenciaProyectos);
+        vigenciaProyectoSeleccionado = duplicarVigenciaProyectos;
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:datosVigenciasProyectosPersona");
-        index = -1;
+        RequestContext.getCurrentInstance().update("formularioDetalles:nomProyecto");
+        RequestContext.getCurrentInstance().update("formularioDetalles:tipoMoneda");
+        RequestContext.getCurrentInstance().update("formularioDetalles:cliente");
+        RequestContext.getCurrentInstance().update("formularioDetalles:plataforma");
+        RequestContext.getCurrentInstance().update("formularioDetalles:totalPersonas");
+        RequestContext.getCurrentInstance().update("formularioDetalles:detalleProyecto");
+        RequestContext.getCurrentInstance().update("formularioDetalles:fechaInicial");
+        RequestContext.getCurrentInstance().update("formularioDetalles:monto");
+        RequestContext.getCurrentInstance().update("formularioDetalles:fechaFinal");
+        RequestContext.getCurrentInstance().update("formularioDetalles:codigoProyecto");
         if (guardado == true) {
             guardado = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -646,6 +785,16 @@ public class ControlVigenciasProyectos implements Serializable {
             vPCantidadPersonas.setFilterStyle("display: none; visibility: hidden;");
             altoTabla = "115";
             RequestContext.getCurrentInstance().update("form:datosVigenciasProyectosPersona");
+            RequestContext.getCurrentInstance().update("formularioDetalles:nomProyecto");
+            RequestContext.getCurrentInstance().update("formularioDetalles:tipoMoneda");
+            RequestContext.getCurrentInstance().update("formularioDetalles:cliente");
+            RequestContext.getCurrentInstance().update("formularioDetalles:plataforma");
+            RequestContext.getCurrentInstance().update("formularioDetalles:totalPersonas");
+            RequestContext.getCurrentInstance().update("formularioDetalles:detalleProyecto");
+            RequestContext.getCurrentInstance().update("formularioDetalles:fechaInicial");
+            RequestContext.getCurrentInstance().update("formularioDetalles:monto");
+            RequestContext.getCurrentInstance().update("formularioDetalles:fechaFinal");
+            RequestContext.getCurrentInstance().update("formularioDetalles:codigoProyecto");
             bandera = 0;
             filtradosListaVigenciasProyectos = null;
             tipoLista = 0;
@@ -669,47 +818,39 @@ public class ControlVigenciasProyectos implements Serializable {
     //BORRAR VIGENCIA PROYECTO
     public void borrarVigenciasProyectos() {
 
-        if (index >= 0) {
-            if (tipoLista == 0) {
-                if (!listaVigenciasProyectosModificar.isEmpty() && listaVigenciasProyectosModificar.contains(listaVigenciasProyectos.get(index))) {
-                    int modIndex = listaVigenciasProyectosModificar.indexOf(listaVigenciasProyectos.get(index));
-                    listaVigenciasProyectosModificar.remove(modIndex);
-                    listaVigenciasProyectosBorrar.add(listaVigenciasProyectos.get(index));
-                } else if (!listaVigenciasProyectosCrear.isEmpty() && listaVigenciasProyectosCrear.contains(listaVigenciasProyectos.get(index))) {
-                    int crearIndex = listaVigenciasProyectosCrear.indexOf(listaVigenciasProyectos.get(index));
-                    listaVigenciasProyectosCrear.remove(crearIndex);
-                } else {
-                    listaVigenciasProyectosBorrar.add(listaVigenciasProyectos.get(index));
-                }
-                listaVigenciasProyectos.remove(index);
+        if (vigenciaProyectoSeleccionado != null) {
+            if (!listaVigenciasProyectosModificar.isEmpty() && listaVigenciasProyectosModificar.contains(vigenciaProyectoSeleccionado)) {
+                listaVigenciasProyectosModificar.remove(listaVigenciasProyectosModificar.indexOf(vigenciaProyectoSeleccionado));
+                listaVigenciasProyectosBorrar.add(vigenciaProyectoSeleccionado);
+            } else if (!listaVigenciasProyectosCrear.isEmpty() && listaVigenciasProyectosCrear.contains(vigenciaProyectoSeleccionado)) {
+                listaVigenciasProyectosCrear.remove(listaVigenciasProyectosCrear.indexOf(vigenciaProyectoSeleccionado));
+            } else {
+                listaVigenciasProyectosBorrar.add(vigenciaProyectoSeleccionado);
             }
+            listaVigenciasProyectos.remove(vigenciaProyectoSeleccionado);
 
             if (tipoLista == 1) {
-                if (!listaVigenciasProyectosModificar.isEmpty() && listaVigenciasProyectosModificar.contains(filtradosListaVigenciasProyectos.get(index))) {
-                    int modIndex = listaVigenciasProyectosModificar.indexOf(filtradosListaVigenciasProyectos.get(index));
-                    listaVigenciasProyectosModificar.remove(modIndex);
-                    listaVigenciasProyectosBorrar.add(filtradosListaVigenciasProyectos.get(index));
-                } else if (!listaVigenciasProyectosCrear.isEmpty() && listaVigenciasProyectosCrear.contains(filtradosListaVigenciasProyectos.get(index))) {
-                    int crearIndex = listaVigenciasProyectosCrear.indexOf(filtradosListaVigenciasProyectos.get(index));
-                    listaVigenciasProyectosCrear.remove(crearIndex);
-                } else {
-                    listaVigenciasProyectosBorrar.add(filtradosListaVigenciasProyectos.get(index));
-                }
-                int CIndex = listaVigenciasProyectos.indexOf(filtradosListaVigenciasProyectos.get(index));
-                listaVigenciasProyectos.remove(CIndex);
-                filtradosListaVigenciasProyectos.remove(index);
-                System.out.println("Realizado");
+                filtradosListaVigenciasProyectos.remove(vigenciaProyectoSeleccionado);
             }
-
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:datosVigenciasProyectosPersona");
-            index = -1;
-            secRegistro = null;
+
+            RequestContext.getCurrentInstance().update("formularioDetalles:nomProyecto");
+            RequestContext.getCurrentInstance().update("formularioDetalles:tipoMoneda");
+            RequestContext.getCurrentInstance().update("formularioDetalles:cliente");
+            RequestContext.getCurrentInstance().update("formularioDetalles:plataforma");
+            RequestContext.getCurrentInstance().update("formularioDetalles:totalPersonas");
+            RequestContext.getCurrentInstance().update("formularioDetalles:detalleProyecto");
+            RequestContext.getCurrentInstance().update("formularioDetalles:fechaInicial");
+            RequestContext.getCurrentInstance().update("formularioDetalles:monto");
+            RequestContext.getCurrentInstance().update("formularioDetalles:fechaFinal");
+            RequestContext.getCurrentInstance().update("formularioDetalles:codigoProyecto");
 
             if (guardado == true) {
                 guardado = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
+            vigenciaProyectoSeleccionado = null;
         }
     }
 
@@ -742,8 +883,7 @@ public class ControlVigenciasProyectos implements Serializable {
         listaVigenciasProyectosBorrar.clear();
         listaVigenciasProyectosCrear.clear();
         listaVigenciasProyectosModificar.clear();
-        index = -1;
-        secRegistro = null;
+        vigenciaProyectoSeleccionado = null;
 //        k = 0;
         listaVigenciasProyectos = null;
         guardado = true;
@@ -781,8 +921,7 @@ public class ControlVigenciasProyectos implements Serializable {
         listaVigenciasProyectosBorrar.clear();
         listaVigenciasProyectosCrear.clear();
         listaVigenciasProyectosModificar.clear();
-        index = -1;
-        secRegistro = null;
+        vigenciaProyectoSeleccionado = null;
         //  k = 0;
         listaVigenciasProyectos = null;
         guardado = true;
@@ -793,25 +932,19 @@ public class ControlVigenciasProyectos implements Serializable {
     //GUARDAR
     public void guardarCambiosVigenciasProyectos() {
         if (guardado == false) {
-            System.out.println("Realizando Operaciones Vigencias Proyectos");
             if (!listaVigenciasProyectosBorrar.isEmpty()) {
                 for (int i = 0; i < listaVigenciasProyectosBorrar.size(); i++) {
                     System.out.println("Borrando...");
                     if (listaVigenciasProyectosBorrar.get(i).getProyecto().getSecuencia() == null) {
                         listaVigenciasProyectosBorrar.get(i).setProyecto(null);
                         administrarVigenciasProyectos.borrarVigenciaProyecto(listaVigenciasProyectosBorrar.get(i));
+                    } else if (listaVigenciasProyectosBorrar.get(i).getPryRol().getSecuencia() == null) {
+                        listaVigenciasProyectosBorrar.get(i).setPryRol(null);
+                        administrarVigenciasProyectos.borrarVigenciaProyecto(listaVigenciasProyectosBorrar.get(i));
                     } else {
-                        if (listaVigenciasProyectosBorrar.get(i).getPryRol().getSecuencia() == null) {
-                            listaVigenciasProyectosBorrar.get(i).setPryRol(null);
-                            administrarVigenciasProyectos.borrarVigenciaProyecto(listaVigenciasProyectosBorrar.get(i));
-                        } else {
-                            administrarVigenciasProyectos.borrarVigenciaProyecto(listaVigenciasProyectosBorrar.get(i));
-                        }
-
+                        administrarVigenciasProyectos.borrarVigenciaProyecto(listaVigenciasProyectosBorrar.get(i));
                     }
-
                 }
-                System.out.println("Entra");
                 listaVigenciasProyectosBorrar.clear();
             }
 
@@ -821,18 +954,14 @@ public class ControlVigenciasProyectos implements Serializable {
                     if (listaVigenciasProyectosCrear.get(i).getProyecto().getSecuencia() == null) {
                         listaVigenciasProyectosCrear.get(i).setProyecto(null);
                         administrarVigenciasProyectos.crearVigenciaProyecto(listaVigenciasProyectosCrear.get(i));
+                    } else if (listaVigenciasProyectosCrear.get(i).getPryRol().getSecuencia() == null) {
+                        listaVigenciasProyectosCrear.get(i).setPryRol(null);
+                        administrarVigenciasProyectos.crearVigenciaProyecto(listaVigenciasProyectosCrear.get(i));
                     } else {
-                        if (listaVigenciasProyectosCrear.get(i).getPryRol().getSecuencia() == null) {
-                            listaVigenciasProyectosCrear.get(i).setPryRol(null);
-                            administrarVigenciasProyectos.crearVigenciaProyecto(listaVigenciasProyectosCrear.get(i));
-                        } else {
-                            administrarVigenciasProyectos.crearVigenciaProyecto(listaVigenciasProyectosCrear.get(i));
-
-                        }
+                        administrarVigenciasProyectos.crearVigenciaProyecto(listaVigenciasProyectosCrear.get(i));
 
                     }
                 }
-                System.out.println("LimpiaLista");
                 listaVigenciasProyectosCrear.clear();
             }
             if (!listaVigenciasProyectosModificar.isEmpty()) {
@@ -851,10 +980,6 @@ public class ControlVigenciasProyectos implements Serializable {
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
             //  k = 0;
         }
-        System.out.println("Tamaño lista: " + listaVigenciasProyectosCrear.size());
-        System.out.println("Valor k: " + k);
-        index = -1;
-        secRegistro = null;
     }
 
     public void autocompletarNuevoyDuplicado(String confirmarCambio, String valorConfirmar, int tipoNuevo) {
@@ -884,7 +1009,7 @@ public class ControlVigenciasProyectos implements Serializable {
                 listaProyectos.clear();
                 getListaProyectos();
             } else {
-                RequestContext.getCurrentInstance().update("form:proyectosDialogo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:proyectosDialogo");
                 RequestContext.getCurrentInstance().execute("PF('proyectosDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
@@ -917,7 +1042,7 @@ public class ControlVigenciasProyectos implements Serializable {
                 listaPryRoles.clear();
                 getListaPryRoles();
             } else {
-                RequestContext.getCurrentInstance().update("form:pryRolesDialogo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:pryRolesDialogo");
                 RequestContext.getCurrentInstance().execute("PF('pryRolesDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
@@ -950,7 +1075,7 @@ public class ControlVigenciasProyectos implements Serializable {
                 listaCargos.clear();
                 getListaCargos();
             } else {
-                RequestContext.getCurrentInstance().update("form:cargosDialogo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:cargosDialogo");
                 RequestContext.getCurrentInstance().execute("PF('cargosDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
@@ -965,16 +1090,10 @@ public class ControlVigenciasProyectos implements Serializable {
 
     //MOSTRAR DATOS CELDA
     public void editarCelda() {
-        if (index >= 0) {
-            if (tipoLista == 0) {
-                editarVigenciasProyectos = listaVigenciasProyectos.get(index);
-            }
-            if (tipoLista == 1) {
-                editarVigenciasProyectos = filtradosListaVigenciasProyectos.get(index);
-            }
+        if (vigenciaProyectoSeleccionado != null) {
+            editarVigenciasProyectos = vigenciaProyectoSeleccionado;
 
             RequestContext context = RequestContext.getCurrentInstance();
-            System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarFechasIniciales");
                 RequestContext.getCurrentInstance().execute("PF('editarFechasIniciales').show()");
@@ -1000,30 +1119,30 @@ public class ControlVigenciasProyectos implements Serializable {
                 RequestContext.getCurrentInstance().execute("PF('editarCantidadPersonas').show()");
                 cualCelda = -1;
             }
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
-        index = -1;
-        secRegistro = null;
     }
 
     public void actualizarProyectos() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (tipoActualizacion == 0) {
             if (tipoLista == 0) {
-                listaVigenciasProyectos.get(index).setProyecto(seleccionProyectos);
-                if (!listaVigenciasProyectosCrear.contains(listaVigenciasProyectos.get(index))) {
+                vigenciaProyectoSeleccionado.setProyecto(seleccionProyectos);
+                if (!listaVigenciasProyectosCrear.contains(vigenciaProyectoSeleccionado)) {
                     if (listaVigenciasProyectosModificar.isEmpty()) {
-                        listaVigenciasProyectosModificar.add(listaVigenciasProyectos.get(index));
-                    } else if (!listaVigenciasProyectosModificar.contains(listaVigenciasProyectos.get(index))) {
-                        listaVigenciasProyectosModificar.add(listaVigenciasProyectos.get(index));
+                        listaVigenciasProyectosModificar.add(vigenciaProyectoSeleccionado);
+                    } else if (!listaVigenciasProyectosModificar.contains(vigenciaProyectoSeleccionado)) {
+                        listaVigenciasProyectosModificar.add(vigenciaProyectoSeleccionado);
                     }
                 }
             } else {
-                filtradosListaVigenciasProyectos.get(index).setProyecto(seleccionProyectos);
-                if (!listaVigenciasProyectosCrear.contains(filtradosListaVigenciasProyectos.get(index))) {
+                vigenciaProyectoSeleccionado.setProyecto(seleccionProyectos);
+                if (!listaVigenciasProyectosCrear.contains(vigenciaProyectoSeleccionado)) {
                     if (listaVigenciasProyectosModificar.isEmpty()) {
-                        listaVigenciasProyectosModificar.add(filtradosListaVigenciasProyectos.get(index));
-                    } else if (!listaVigenciasProyectosModificar.contains(filtradosListaVigenciasProyectos.get(index))) {
-                        listaVigenciasProyectosModificar.add(filtradosListaVigenciasProyectos.get(index));
+                        listaVigenciasProyectosModificar.add(vigenciaProyectoSeleccionado);
+                    } else if (!listaVigenciasProyectosModificar.contains(vigenciaProyectoSeleccionado)) {
+                        listaVigenciasProyectosModificar.add(vigenciaProyectoSeleccionado);
                     }
                 }
             }
@@ -1044,35 +1163,35 @@ public class ControlVigenciasProyectos implements Serializable {
         filtradoslistaProyectos = null;
         seleccionProyectos = null;
         aceptar = true;
-        index = -1;
-        secRegistro = null;
         tipoActualizacion = -1;
         cualCelda = -1;
         context.reset("formularioDialogos:LOVProyectos:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVProyectos').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('proyectosDialogo').hide()");
-        //RequestContext.getCurrentInstance().update("formularioDialogos:LOVProyectos");
+        RequestContext.getCurrentInstance().update("formularioDialogos:proyectosDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:LOVProyectos");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarPr");
     }
 
     public void actualizarPryRoles() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (tipoActualizacion == 0) {
             if (tipoLista == 0) {
-                listaVigenciasProyectos.get(index).setPryRol(seleccionPryRoles);
-                if (!listaVigenciasProyectosCrear.contains(listaVigenciasProyectos.get(index))) {
+                vigenciaProyectoSeleccionado.setPryRol(seleccionPryRoles);
+                if (!listaVigenciasProyectosCrear.contains(vigenciaProyectoSeleccionado)) {
                     if (listaVigenciasProyectosModificar.isEmpty()) {
-                        listaVigenciasProyectosModificar.add(listaVigenciasProyectos.get(index));
-                    } else if (!listaVigenciasProyectosModificar.contains(listaVigenciasProyectos.get(index))) {
-                        listaVigenciasProyectosModificar.add(listaVigenciasProyectos.get(index));
+                        listaVigenciasProyectosModificar.add(vigenciaProyectoSeleccionado);
+                    } else if (!listaVigenciasProyectosModificar.contains(vigenciaProyectoSeleccionado)) {
+                        listaVigenciasProyectosModificar.add(vigenciaProyectoSeleccionado);
                     }
                 }
             } else {
-                filtradosListaVigenciasProyectos.get(index).setPryRol(seleccionPryRoles);
-                if (!listaVigenciasProyectosCrear.contains(filtradosListaVigenciasProyectos.get(index))) {
+                vigenciaProyectoSeleccionado.setPryRol(seleccionPryRoles);
+                if (!listaVigenciasProyectosCrear.contains(vigenciaProyectoSeleccionado)) {
                     if (listaVigenciasProyectosModificar.isEmpty()) {
-                        listaVigenciasProyectosModificar.add(filtradosListaVigenciasProyectos.get(index));
-                    } else if (!listaVigenciasProyectosModificar.contains(filtradosListaVigenciasProyectos.get(index))) {
-                        listaVigenciasProyectosModificar.add(filtradosListaVigenciasProyectos.get(index));
+                        listaVigenciasProyectosModificar.add(vigenciaProyectoSeleccionado);
+                    } else if (!listaVigenciasProyectosModificar.contains(vigenciaProyectoSeleccionado)) {
+                        listaVigenciasProyectosModificar.add(vigenciaProyectoSeleccionado);
                     }
                 }
             }
@@ -1094,35 +1213,35 @@ public class ControlVigenciasProyectos implements Serializable {
         filtradoslistaPryRoles = null;
         seleccionPryRoles = null;
         aceptar = true;
-        index = -1;
-        secRegistro = null;
         tipoActualizacion = -1;
         cualCelda = -1;
         context.reset("formularioDialogos:LOVPryRoles:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVPryRoles').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('pryRolesDialogo').hide()");
-        //RequestContext.getCurrentInstance().update("formularioDialogos:LOVPryRoles");
+        RequestContext.getCurrentInstance().update("formularioDialogos:pryRolesDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:LOVPryRoles");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarR");
     }
 
     public void actualizarCargos() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (tipoActualizacion == 0) {
             if (tipoLista == 0) {
-                listaVigenciasProyectos.get(index).setPryCargoproyecto(seleccionCargos);
-                if (!listaVigenciasProyectosCrear.contains(listaVigenciasProyectos.get(index))) {
+                vigenciaProyectoSeleccionado.setPryCargoproyecto(seleccionCargos);
+                if (!listaVigenciasProyectosCrear.contains(vigenciaProyectoSeleccionado)) {
                     if (listaVigenciasProyectosModificar.isEmpty()) {
-                        listaVigenciasProyectosModificar.add(listaVigenciasProyectos.get(index));
-                    } else if (!listaVigenciasProyectosModificar.contains(listaVigenciasProyectos.get(index))) {
-                        listaVigenciasProyectosModificar.add(listaVigenciasProyectos.get(index));
+                        listaVigenciasProyectosModificar.add(vigenciaProyectoSeleccionado);
+                    } else if (!listaVigenciasProyectosModificar.contains(vigenciaProyectoSeleccionado)) {
+                        listaVigenciasProyectosModificar.add(vigenciaProyectoSeleccionado);
                     }
                 }
             } else {
-                filtradosListaVigenciasProyectos.get(index).setPryCargoproyecto(seleccionCargos);
-                if (!listaVigenciasProyectosCrear.contains(filtradosListaVigenciasProyectos.get(index))) {
+                vigenciaProyectoSeleccionado.setPryCargoproyecto(seleccionCargos);
+                if (!listaVigenciasProyectosCrear.contains(vigenciaProyectoSeleccionado)) {
                     if (listaVigenciasProyectosModificar.isEmpty()) {
-                        listaVigenciasProyectosModificar.add(filtradosListaVigenciasProyectos.get(index));
-                    } else if (!listaVigenciasProyectosModificar.contains(filtradosListaVigenciasProyectos.get(index))) {
-                        listaVigenciasProyectosModificar.add(filtradosListaVigenciasProyectos.get(index));
+                        listaVigenciasProyectosModificar.add(vigenciaProyectoSeleccionado);
+                    } else if (!listaVigenciasProyectosModificar.contains(vigenciaProyectoSeleccionado)) {
+                        listaVigenciasProyectosModificar.add(vigenciaProyectoSeleccionado);
                     }
                 }
             }
@@ -1144,13 +1263,14 @@ public class ControlVigenciasProyectos implements Serializable {
         filtradoslistaPryRoles = null;
         seleccionPryRoles = null;
         aceptar = true;
-        index = -1;
-        secRegistro = null;
         tipoActualizacion = -1;
         cualCelda = -1;
         context.reset("formularioDialogos:LOVCargos:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVCargos').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('cargosDialogo').hide()");
+        RequestContext.getCurrentInstance().update("formularioDialogos:cargosDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:LOVCargos");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarC");
         //RequestContext.getCurrentInstance().update("formularioDialogos:LOVCargos");
     }
 
@@ -1158,8 +1278,6 @@ public class ControlVigenciasProyectos implements Serializable {
         filtradoslistaProyectos = null;
         seleccionProyectos = null;
         aceptar = true;
-        index = -1;
-        secRegistro = null;
         tipoActualizacion = -1;
         cualCelda = -1;
         permitirIndex = true;
@@ -1167,14 +1285,15 @@ public class ControlVigenciasProyectos implements Serializable {
         context.reset("formularioDialogos:LOVProyectos:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVProyectos').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('proyectosDialogo').hide()");
+        RequestContext.getCurrentInstance().update("formularioDialogos:proyectosDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:LOVProyectos");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarPr");
     }
 
     public void cancelarCambioPryRoles() {
         filtradoslistaPryRoles = null;
         seleccionPryRoles = null;
         aceptar = true;
-        index = -1;
-        secRegistro = null;
         tipoActualizacion = -1;
         cualCelda = -1;
         permitirIndex = true;
@@ -1182,14 +1301,15 @@ public class ControlVigenciasProyectos implements Serializable {
         context.reset("formularioDialogos:LOVPryRoles:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVPryRoles').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('pryRolesDialogo').hide()");
+        RequestContext.getCurrentInstance().update("formularioDialogos:pryRolesDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:LOVPryRoles");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarR");
     }
 
     public void cancelarCambioCargo() {
         filtradoslistaCargos = null;
         seleccionCargos = null;
         aceptar = true;
-        index = -1;
-        secRegistro = null;
         tipoActualizacion = -1;
         cualCelda = -1;
         permitirIndex = true;
@@ -1197,53 +1317,89 @@ public class ControlVigenciasProyectos implements Serializable {
         context.reset("formularioDialogos:LOVCargos:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVCargos').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('cargosDialogo').hide()");
+        RequestContext.getCurrentInstance().update("formularioDialogos:cargosDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:LOVCargos");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarC");
     }
 
     public void verificarRastro() {
         RequestContext context = RequestContext.getCurrentInstance();
         System.out.println("lol");
-        if (!listaVigenciasProyectos.isEmpty()) {
-            if (secRegistro != null) {
-                System.out.println("lol 2");
-                int resultado = administrarRastros.obtenerTabla(secRegistro, "VIGENCIASPROYECTOS");
-                System.out.println("resultado: " + resultado);
-                if (resultado == 1) {
-                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
-                } else if (resultado == 2) {
-                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
-                } else if (resultado == 3) {
-                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
-                } else if (resultado == 4) {
-                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
-                } else if (resultado == 5) {
-                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
-                }
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+        if (vigenciaProyectoSeleccionado != null) {
+            System.out.println("lol 2");
+            int resultado = administrarRastros.obtenerTabla(vigenciaProyectoSeleccionado.getSecuencia(), "VIGENCIASPROYECTOS");
+            System.out.println("resultado: " + resultado);
+            if (resultado == 1) {
+                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
+            } else if (resultado == 2) {
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
+            } else if (resultado == 3) {
+                RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
+            } else if (resultado == 4) {
+                RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
+            } else if (resultado == 5) {
+                RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
+        } else if (administrarRastros.verificarHistoricosTabla("VIGENCIASPROYECTOS")) {
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            if (administrarRastros.verificarHistoricosTabla("VIGENCIASPROYECTOS")) {
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-            }
-
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
-        index = -1;
+        vigenciaProyectoSeleccionado = null;
     }
 
-    //EVENTO FILTRAR
     public void eventoFiltrar() {
         if (tipoLista == 0) {
             tipoLista = 1;
         }
+        modificarInfoRegistro(listaVigenciasProyectos.size());
+        RequestContext.getCurrentInstance().update("form:infoRegistro");
+    }
+
+    public void eventoFiltrarProyecto() {
+        modificarInfoRegistro(filtradoslistaProyectos.size());
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroProyecto");
+    }
+
+    public void eventoFiltrarRol() {
+        modificarInfoRegistro(filtradoslistaPryRoles.size());
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroRol");
+    }
+
+    public void eventoFiltrarCargo() {
+        modificarInfoRegistro(filtradoslistaCargos.size());
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroCargo");
     }
 
     public void activarAceptar() {
         aceptar = false;
     }
 
-    //Getter And Setter
+    public void modificarInfoRegistro(int valor) {
+        infoRegistro = String.valueOf(valor);
+    }
+
+    public void modificarInfoRegistroProyecto(int valor) {
+        infoRegistroProyecto = String.valueOf(valor);
+    }
+
+    public void modificarInfoRegistroRol(int valor) {
+        infoRegistroRol = String.valueOf(valor);
+    }
+
+    public void modificarInfoRegistroCargo(int valor) {
+        infoRegistroCargo = String.valueOf(valor);
+    }
+
+    public void contarRegistros() {
+        if (listaVigenciasProyectos != null) {
+            modificarInfoRegistro(listaVigenciasProyectos.size());
+        } else {
+            modificarInfoRegistro(0);
+        }
+    }
+
+    ///////////////////Getter And Setter/////////////////////////////
     public BigInteger getSecuenciaEmpleado() {
         return secuenciaEmpleado;
     }
@@ -1406,14 +1562,14 @@ public class ControlVigenciasProyectos implements Serializable {
     }
 
     public Proyectos getProyectoParametro() {
-        if (index >= 0) {
+        if (vigenciaProyectoSeleccionado != null) {
             if (!listaVigenciasProyectos.isEmpty()) {
-                proyectoParametro = administrarVigenciasProyectos.buscarProyectoPorNombreVigencia(listaVigenciasProyectos.get(index).getProyecto().getNombreproyecto());
+                proyectoParametro = administrarVigenciasProyectos.buscarProyectoPorNombreVigencia(vigenciaProyectoSeleccionado.getProyecto().getNombreproyecto());
                 /*RequestContext context = RequestContext.getCurrentInstance();
                  RequestContext.getCurrentInstance().update("formularioDialogos:pryRolesDialogo");
                  RequestContext.getCurrentInstance().execute("PF('pryRolesDialogo').show()");*/
                 RequestContext context = RequestContext.getCurrentInstance();
-                RequestContext.getCurrentInstance().update("formularioDetalles:nombreProyecto");
+                RequestContext.getCurrentInstance().update("formularioDetalles:nomProyecto");
                 RequestContext.getCurrentInstance().update("formularioDetalles:tipoMoneda");
                 RequestContext.getCurrentInstance().update("formularioDetalles:cliente");
                 RequestContext.getCurrentInstance().update("formularioDetalles:plataforma");
@@ -1446,19 +1602,16 @@ public class ControlVigenciasProyectos implements Serializable {
     }
 
     public String getPlataformaParametroProyecto() {
+        if (proyectoParametro.getSecuencia() != null) {
+            plataformaParametroProyecto = proyectoParametro.getPryPlataforma().getDescripcion() + "-" + proyectoParametro.getPryPlataforma().getObservacion();
+            RequestContext context = RequestContext.getCurrentInstance();
+            RequestContext.getCurrentInstance().update("formularioDetalles:plataforma");
+        }
         return plataformaParametroProyecto;
     }
 
     public void setPlataformaParametroProyecto(String plataformaParametroProyecto) {
         this.plataformaParametroProyecto = plataformaParametroProyecto;
-    }
-
-    public BigInteger getSecRegistro() {
-        return secRegistro;
-    }
-
-    public void setSecRegistro(BigInteger secRegistro) {
-        this.secRegistro = secRegistro;
     }
 
     public VigenciasProyectos getVigenciaProyectoSeleccionado() {
@@ -1483,6 +1636,38 @@ public class ControlVigenciasProyectos implements Serializable {
 
     public void setAltoTabla(String altoTabla) {
         this.altoTabla = altoTabla;
+    }
+
+    public String getInfoRegistro() {
+        return infoRegistro;
+    }
+
+    public void setInfoRegistro(String infoRegistro) {
+        this.infoRegistro = infoRegistro;
+    }
+
+    public String getInfoRegistroRol() {
+        return infoRegistroRol;
+    }
+
+    public void setInfoRegistroRol(String infoRegistroRol) {
+        this.infoRegistroRol = infoRegistroRol;
+    }
+
+    public String getInfoRegistroCargo() {
+        return infoRegistroCargo;
+    }
+
+    public void setInfoRegistroCargo(String infoRegistroCargo) {
+        this.infoRegistroCargo = infoRegistroCargo;
+    }
+
+    public String getInfoRegistroProyecto() {
+        return infoRegistroProyecto;
+    }
+
+    public void setInfoRegistroProyecto(String infoRegistroProyecto) {
+        this.infoRegistroProyecto = infoRegistroProyecto;
     }
 
 }

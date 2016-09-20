@@ -4,7 +4,6 @@
  */
 package Controlador;
 
-
 import Entidades.Eventos;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
@@ -1064,12 +1063,12 @@ public class ControlEventos implements Serializable {
 
     public void habilitarBotonLov() {
         activarLov = false;
-        RequestContext.getCurrentInstance().update("info:listaValores");
+        RequestContext.getCurrentInstance().update("form:listaValores");
     }
 
     public void deshabilitarBotonLov() {
         activarLov = true;
-        RequestContext.getCurrentInstance().update("info:listaValores");
+        RequestContext.getCurrentInstance().update("form:listaValores");
     }
 
     /////////////////////////////GETS Y SETS///////////////////////////////

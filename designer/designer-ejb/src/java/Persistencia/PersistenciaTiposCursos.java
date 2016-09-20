@@ -24,6 +24,8 @@ public class PersistenciaTiposCursos implements PersistenciaTiposCursosInterface
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
+     * @param em
+     * @param tiposCursos
      */
 /*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
     private EntityManager em;*/
@@ -80,8 +82,8 @@ public class PersistenciaTiposCursos implements PersistenciaTiposCursosInterface
     public List<TiposCursos> consultarTiposCursos(EntityManager em) {
         try {
             em.clear();
-            Query query = em.createQuery("SELECT g FROM TiposCursos g ORDER BY g.codigo ASC ");
-            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            String sql="SELECT * FROM TIPOSCURSOS  ORDER BY CODIGO ASC";
+            Query query = em.createNativeQuery(sql,TiposCursos.class);
             List< TiposCursos> listMotivosDemandas = query.getResultList();
             return listMotivosDemandas;
 

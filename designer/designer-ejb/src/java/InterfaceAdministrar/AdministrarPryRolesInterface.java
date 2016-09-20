@@ -20,5 +20,8 @@ public interface AdministrarPryRolesInterface {
     public void obtenerConexion(String idSesion);
     public List<PryRoles> PryRoles();
     public List<PryRoles> lovPryRoles();
+    public void modificarPryRoles(List<PryRoles> listaPryRoles);
+    public void borrarPryRoles(List<PryRoles> listaPryRoles);
+    public void crearPryRoles(List<PryRoles> listaPryRoles);
     
 }
