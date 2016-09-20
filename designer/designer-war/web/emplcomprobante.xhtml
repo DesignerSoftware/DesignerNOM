@@ -23,7 +23,7 @@
 
                                 <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlEmplComprobantes.guardarCambios()}" process="@this" />
                                 <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
-                                
+
                                 <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlEmplComprobantes.editarCelda()}" process="@this"/>
                                 <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
@@ -123,7 +123,7 @@
                                         </f:facet>  
                                         <f:facet name="input">
                                             <p:calendar mask="true" pattern="dd/MM/yyyy" id="editarFecha" readonly="#{comprobante.readOnlyFecha}" value="#{comprobante.fecha}"
-                                                          onselect="posicionComprobante([{name: 'n', value: '1'}, {name: 't', value: '#{indiceComprobante}'}]);"> 
+                                                        onselect="posicionComprobante([{name: 'n', value: '1'}, {name: 't', value: '#{indiceComprobante}'}]);"> 
                                                 <p:ajax event="dateSelect" listener="#{controlEmplComprobantes.modificarComprobantes(comprobante)}" update="@this"/>
                                                 <p:ajax event="change" listener="#{controlEmplComprobantes.modificarComprobantes(comprobante)}" update="@this"/>
                                                 <p:ajax event="select" listener="#{controlEmplComprobantes.cambiarIndiceComprobantes(comprobante, 1)}"/>
@@ -155,12 +155,12 @@
                                         </f:facet>  
                                         <f:facet name="input">
                                             <p:calendar mask="true" pattern="dd/MM/yyyy" id="editarFechaEntregado" readonly="#{comprobante.readOnlyFechaEntregado}" value="#{comprobante.fechaentregado}"
-                                                          onselect="posicionComprobante([{name: 'n', value: '2'}, {name: 't', value: '#{indiceComprobante}'}]);"
-                                                          > 
+                                                        onselect="posicionComprobante([{name: 'n', value: '2'}, {name: 't', value: '#{indiceComprobante}'}]);"
+                                                        > 
 
                                                 <p:ajax event="dateSelect" listener="#{controlEmplComprobantes.modificarComprobantesFechaEntregado(comprobante,2)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlEmplComprobantes.modificarComprobantesFechaEntregado(comprobante,2)}" process="@this"/>
-                    <!--                            <p:ajax event="select" listener="#/{controlEmplComprobantes.cambiarIndiceComprobantes(comprobante, 2)}"/>-->
+                                                <!--                            <p:ajax event="select" listener="#/{controlEmplComprobantes.cambiarIndiceComprobantes(comprobante, 2)}"/>-->
                                             </p:calendar>
                                         </f:facet>   
                                     </p:cellEditor>
@@ -451,7 +451,7 @@
                                                  selection="#{controlEmplComprobantes.empleadorTablaSeleccionado}" selectionMode="single">
 
                                         <p:ajax event="filter" listener="#{controlEmplComprobantes.eventoFiltrarSNEmpleador()}"/>
-                                        
+
                                         <p:column width="20" style="padding: 0px !important; height: 18px; width: 18px;"> 
                                             <p:commandButton value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 19px; height: 19px;" actionListener="#{controlEmplComprobantes.parcialSolucionNodo(indiceER, 1)}"/>
                                             <f:facet name="footer">
@@ -655,10 +655,10 @@
                         .ui-datatable tbody td, .ui-datatable tfoot td{
                             padding: 0px 0px !important;
                         }
-                   
-/*                        .datosComprobantes tbody td, .datosComprobantes tfoot td{
-                            padding: 0px 0px !important;
-                        }*/
+
+                        /*                        .datosComprobantes tbody td, .datosComprobantes tfoot td{
+                                                    padding: 0px 0px !important;
+                                                }*/
                     </style>
 
                 </h:form>
@@ -925,8 +925,8 @@
 
                     <!-- LOV PROCESOS-->
                     <p:dialog header="#{msg['procesosP']}" widgetVar="ProcesosDialogo" draggable="false" resizable="false" closable="false" id="ProcesosDialogo"  
-                              showEffect="fade" hideEffect="fade" width="431" modal="true" height="360" >
-                        <p:dataTable id="lovProcesos" liveScroll="true" scrollRows="25" style=" width: 400px;" var="proceso" value="#{controlEmplComprobantes.lovProcesos}" rowKey="#{proceso.secuencia}"
+                              showEffect="fade" hideEffect="fade" width="431" modal="true" >
+                        <p:dataTable id="lovProcesos" liveScroll="true" scrollRows="25"  var="proceso" value="#{controlEmplComprobantes.lovProcesos}" rowKey="#{proceso.secuencia}"
                                      selection="#{controlEmplComprobantes.procesoSelecionado}" selectionMode="single" widgetVar="lovProcesos" scrollable="true" scrollWidth="416" scrollHeight="225"
                                      filteredValue="#{controlEmplComprobantes.filtradoProcesos}" emptyMessage="#{msg['lovvacio']}">              
 
@@ -934,8 +934,8 @@
                             <p:ajax event="rowSelect" listener="#{controlEmplComprobantes.activarAceptar()}" update=":formularioDialogos:aceptarP"/>
                             <p:ajax event="rowDblselect" listener="#{controlEmplComprobantes.actualizarProceso()}" process="@this" />
                             <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarP']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="PF('lovProcesos').filter();" style="width: 200px; position: relative; left: 40px;" />  
+                                <h:outputText value="#{msg['buscarP']}" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovProcesos').filter();" class="cssFiltroLOV" />  
                             </f:facet>
                             <p:column filterBy="#{proceso.codigo}" width="50" sortBy="#{proceso.codigo}" filterMatchMode="contains" filterStyle="width: 85% !important;">
                                 <f:facet name="header">
@@ -951,19 +951,22 @@
                             </p:column>
                         </p:dataTable>
 
-                        <h:outputText id="infoRegistroProceso" value="#{msg['infoRegistro']} #{controlEmplComprobantes.infoRegistroProceso}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
-
-                        <p:commandButton id="aceptarP" style="position: relative; left: 130px; top: 15px;" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlEmplComprobantes.aceptar}" actionListener="#{controlEmplComprobantes.actualizarProceso()}"  process="@this"/>
-
-                        <p:commandButton id="atrasP" style="position: relative; left: 130px; top: 15px;" value="#{msg['atras']}" icon="ui-icon-arrowreturnthick-1-w" actionListener="#{controlEmplComprobantes.cancelarProceso()}" process="@this"/>
-
+                        <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroProceso" value="#{msg['infoRegistro']} #{controlEmplComprobantes.infoRegistroProceso}" 
+                                          class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarP" class="cssAceptarLOV" value="#{msg['aceptar']}" 
+                                             icon="ui-icon-check" disabled="#{controlEmplComprobantes.aceptar}" 
+                                             actionListener="#{controlEmplComprobantes.actualizarProceso()}"  process="@this"/>
+                            <p:commandButton id="atrasP" class="cssAtrasLOV" value="#{msg['atras']}"
+                                             icon="ui-icon-arrowreturnthick-1-w" actionListener="#{controlEmplComprobantes.cancelarProceso()}" process="@this"/>
+                        </div>
                     </p:dialog>
 
 
                     <!-- LOV TERCEROS-->
                     <p:dialog header="#{msg['tercerosT']}" widgetVar="TercerosDialogo" draggable="false" resizable="false" closable="false" id="TercerosDialogo"  
-                              showEffect="fade" hideEffect="fade" width="431" modal="true" height="360">
-                        <p:dataTable id="lovTerceros" liveScroll="true" scrollRows="25" style=" width: 400px;" var="tercero" value="#{controlEmplComprobantes.lovTerceros}" rowKey="#{tercero.secuencia}"
+                              showEffect="fade" hideEffect="fade" width="431" modal="true" >
+                        <p:dataTable id="lovTerceros" liveScroll="true" scrollRows="25" var="tercero" value="#{controlEmplComprobantes.lovTerceros}" rowKey="#{tercero.secuencia}"
                                      selection="#{controlEmplComprobantes.terceroSelecionado}" selectionMode="single" widgetVar="lovTerceros" scrollable="true" scrollWidth="416" scrollHeight="225"
                                      filteredValue="#{controlEmplComprobantes.filtradolistaTerceros}" emptyMessage="#{msg['lovvacio']}">              
 
@@ -971,8 +974,8 @@
                             <p:ajax event="rowSelect" listener="#{controlEmplComprobantes.activarAceptar()}" update=":formularioDialogos:aceptarT"/>
                             <p:ajax event="rowDblselect" listener="#{controlEmplComprobantes.actualizarTercero()}" process="@this" />
                             <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarT']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="PF('lovTerceros').filter();" style="width: 180px; position: relative; left: 15px;" />  
+                                <h:outputText value="#{msg['buscarT']}" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovTerceros').filter();" class="cssFiltroLOV" />  
                             </f:facet>
                             <p:column filterBy="#{tercero.nombre}" sortBy="#{tercero.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important;">
                                 <f:facet name="header">
@@ -989,17 +992,20 @@
                             </p:column>
                         </p:dataTable>
 
-                        <h:outputText id="infoRegistroTercero" value="#{msg['infoRegistro']} #{controlEmplComprobantes.infoRegistroTercero}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
-
-                        <p:commandButton id="aceptarT" style="position: relative; left: 130px; top: 15px;" icon="ui-icon-check" value="#{msg['aceptar']}" disabled="#{controlEmplComprobantes.aceptar}" actionListener="#{controlEmplComprobantes.actualizarTercero()}"  process="@this"/>
-
-                        <p:commandButton id="atrasT" style="position: relative; left: 130px; top: 15px;" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlEmplComprobantes.cancelarTercero()}"  process="@this"/>
-
+                        <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroTercero" value="#{msg['infoRegistro']} #{controlEmplComprobantes.infoRegistroTercero}"
+                                          class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarT" class="cssAceptarLOV"
+                                             icon="ui-icon-check" value="#{msg['aceptar']}" disabled="#{controlEmplComprobantes.aceptar}" 
+                                             actionListener="#{controlEmplComprobantes.actualizarTercero()}"  process="@this"/>
+                            <p:commandButton id="atrasT" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" 
+                                             value="#{msg['atras']}" actionListener="#{controlEmplComprobantes.cancelarTercero()}"  process="@this"/>
+                        </div>
                     </p:dialog>
 
                     <p:dialog header="#{msg['cuentaDebitoM']}" widgetVar="CuentaDebitoDialogo" draggable="false" resizable="false" closable="false" id="CuentaDebitoDialogo"  
-                              showEffect="fade" hideEffect="fade" width="431" modal="true" height="360">
-                        <p:dataTable id="lovCuentaDebito" liveScroll="true" scrollRows="25" style=" width: 400px;" var="cuentaDebito" value="#{controlEmplComprobantes.lovCuentas}" rowKey="#{cuentaDebito.secuencia}"
+                              showEffect="fade" hideEffect="fade" width="431" modal="true" >
+                        <p:dataTable id="lovCuentaDebito" liveScroll="true" scrollRows="25"  var="cuentaDebito" value="#{controlEmplComprobantes.lovCuentas}" rowKey="#{cuentaDebito.secuencia}"
                                      selection="#{controlEmplComprobantes.cuentaSeleccionada}" selectionMode="single" widgetVar="lovCuentaDebito" scrollable="true" scrollWidth="416" scrollHeight="225"
                                      filteredValue="#{controlEmplComprobantes.filtrarLovCuentas}" emptyMessage="#{msg['lovvacio']}">              
 
@@ -1007,8 +1013,8 @@
                             <p:ajax event="rowSelect" listener="#{controlEmplComprobantes.activarAceptar()}" update=":formularioDialogos:aceptarCD"/>
                             <p:ajax event="rowDblselect" listener="#{controlEmplComprobantes.actualizarCuentaDebito()}" process="@this" />
                             <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarCD']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="PF('lovCuentaDebito').filter();" style="width: 180px; position: relative; left: 15px;"/>  
+                                <h:outputText value="#{msg['buscarCD']}" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovCuentaDebito').filter();" class="cssFiltroLOV"/>  
                             </f:facet>
                             <p:column filterBy="#{cuentaDebito.codigo}" width="70" sortBy="#{cuentaDebito.codigo}" filterMatchMode="contains" filterStyle="width: 85% !important;">
                                 <f:facet name="header">
@@ -1025,17 +1031,22 @@
                             </p:column>
                         </p:dataTable>
 
-                        <h:outputText id="infoRegistroCuentaDebito" value="#{msg['infoRegistro']} #{controlEmplComprobantes.infoRegistroCuenta}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
+                        <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroCuentaDebito" value="#{msg['infoRegistro']} #{controlEmplComprobantes.infoRegistroCuenta}" 
+                                          class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarCD" class="cssAceptarLOV" icon="ui-icon-check" 
+                                             value="#{msg['aceptar']}" disabled="#{controlEmplComprobantes.aceptar}" 
+                                             actionListener="#{controlEmplComprobantes.actualizarCuentaDebito()}"  process="@this"/>
+                            <p:commandButton id="atrasCD" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w"
+                                             value="#{msg['atras']}" actionListener="#{controlEmplComprobantes.cancelarCuentaDebito()}"  process="@this"/>
+                        </div>
 
-                        <p:commandButton id="aceptarCD" style="position: relative; left: 130px; top: 15px;" icon="ui-icon-check" value="#{msg['aceptar']}" disabled="#{controlEmplComprobantes.aceptar}" actionListener="#{controlEmplComprobantes.actualizarCuentaDebito()}"  process="@this"/>
-
-                        <p:commandButton id="atrasCD" style="position: relative; left: 130px; top: 15px;" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlEmplComprobantes.cancelarCuentaDebito()}"  process="@this"/>
 
                     </p:dialog>
 
                     <p:dialog header="#{msg['cuentaCreditoM']}" widgetVar="CuentaCreditoDialogo" draggable="false" resizable="false" closable="false" id="CuentaCreditoDialogo"  
-                              showEffect="fade" hideEffect="fade" width="431" modal="true" height="360">
-                        <p:dataTable id="lovCuentaCredito" liveScroll="true" scrollRows="25"  style=" width: 400px;" var="cuentaCredito" value="#{controlEmplComprobantes.lovCuentas}" rowKey="#{cuentaCredito.secuencia}"
+                              showEffect="fade" hideEffect="fade" width="431" modal="true" >
+                        <p:dataTable id="lovCuentaCredito" liveScroll="true" scrollRows="25"  var="cuentaCredito" value="#{controlEmplComprobantes.lovCuentas}" rowKey="#{cuentaCredito.secuencia}"
                                      selection="#{controlEmplComprobantes.cuentaSeleccionada}" selectionMode="single" widgetVar="lovCuentaCredito" scrollable="true" scrollWidth="416" scrollHeight="225"
                                      filteredValue="#{controlEmplComprobantes.filtrarLovCuentas}" emptyMessage="#{msg['lovvacio']}">              
 
@@ -1043,8 +1054,8 @@
                             <p:ajax event="rowSelect" listener="#{controlEmplComprobantes.activarAceptar()}" update=":formularioDialogos:aceptarCC"/>
                             <p:ajax event="rowDblselect" listener="#{controlEmplComprobantes.actualizarCuentaCredito()}" process="@this" />
                             <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarCC']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="PF('lovCuentaCredito').filter();" style="width: 180px; position: relative; left: 15px;" />  
+                                <h:outputText value="#{msg['buscarCC']}" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovCuentaCredito').filter();" class="cssFiltroLOV" />  
                             </f:facet>
                             <p:column filterBy="#{cuentaCredito.codigo}" width="70" sortBy="#{cuentaCredito.codigo}" filterMatchMode="contains" filterStyle="width: 85% !important;">
                                 <f:facet name="header">
@@ -1061,17 +1072,20 @@
                             </p:column>
                         </p:dataTable>
 
-                        <h:outputText id="infoRegistroCuentaCredito" value="#{msg['infoRegistro']} #{controlEmplComprobantes.infoRegistroCuenta}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
-
-                        <p:commandButton id="aceptarCC" style="position: relative; left: 130px; top: 15px;" icon="ui-icon-check" value="#{msg['aceptar']}" disabled="#{controlEmplComprobantes.aceptar}" actionListener="#{controlEmplComprobantes.actualizarCuentaCredito()}"  process="@this"/>
-
-                        <p:commandButton id="atrasCC" style="position: relative; left: 130px; top: 15px;" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}"  actionListener="#{controlEmplComprobantes.cancelarCuentaCredito()}"  process="@this"/>
+                        <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroCuentaCredito" value="#{msg['infoRegistro']} #{controlEmplComprobantes.infoRegistroCuenta}" 
+                                          class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarCC" class="cssAceptarLOV" icon="ui-icon-check" value="#{msg['aceptar']}" disabled="#{controlEmplComprobantes.aceptar}" 
+                                             actionListener="#{controlEmplComprobantes.actualizarCuentaCredito()}"  process="@this"/>
+                            <p:commandButton id="atrasCC" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" 
+                                             value="#{msg['atras']}"  actionListener="#{controlEmplComprobantes.cancelarCuentaCredito()}"  process="@this"/>
+                        </div>
 
                     </p:dialog>
 
                     <p:dialog header="#{msg['centroCostoDebitoM']}" widgetVar="CentroCostoDebitoDialogo" draggable="false" resizable="false" closable="false" id="CentroCostoDebitoDialogo"  
-                              showEffect="fade" hideEffect="fade" width="431" modal="true" height="360">
-                        <p:dataTable id="lovCentroCostoDebito" liveScroll="true" scrollRows="25" style="width: 400px;" var="centroCostoDebito" value="#{controlEmplComprobantes.lovCentrosCostos}" rowKey="#{centroCostoDebito.secuencia}"
+                              showEffect="fade" hideEffect="fade" width="431" modal="true" >
+                        <p:dataTable id="lovCentroCostoDebito" liveScroll="true" scrollRows="25"  var="centroCostoDebito" value="#{controlEmplComprobantes.lovCentrosCostos}" rowKey="#{centroCostoDebito.secuencia}"
                                      selection="#{controlEmplComprobantes.centroCostoSeleccionado}" selectionMode="single" widgetVar="lovCentroCostoDebito" scrollable="true" scrollWidth="416" scrollHeight="225"
                                      filteredValue="#{controlEmplComprobantes.filtrarLovCentrosCostos}" emptyMessage="#{msg['lovvacio']}">              
 
@@ -1079,8 +1093,8 @@
                             <p:ajax event="rowSelect" listener="#{controlEmplComprobantes.activarAceptar()}" update=":formularioDialogos:aceptarCCD"/>
                             <p:ajax event="rowDblselect" listener="#{controlEmplComprobantes.actualizarCentroCostoDebito()}" process="@this"/>
                             <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarCCD']}" style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="PF('lovCentroCostoDebito').filter();" style="width: 170px; position: relative; left: 55px;"/>  
+                                <h:outputText value="#{msg['buscarCCD']}" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovCentroCostoDebito').filter();" class="cssFiltroLOV"/>  
                             </f:facet>
                             <p:column filterBy="#{centroCostoDebito.codigo}" width="70" sortBy="#{centroCostoDebito.codigo}" filterMatchMode="contains" filterStyle="width: 85% !important;">
                                 <f:facet name="header">
@@ -1097,15 +1111,19 @@
                             </p:column>
                         </p:dataTable>
 
-                        <h:outputText id="infoRegistroCentroCostoDebito" value="#{msg['infoRegistro']} #{controlEmplComprobantes.infoRegistroCentroCosto}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
 
-                        <p:commandButton id="aceptarCCD" style="position: relative; left: 130px; top: 15px;" icon="ui-icon-check" value="#{msg['aceptar']}" disabled="#{controlEmplComprobantes.aceptar}" actionListener="#{controlEmplComprobantes.actualizarCentroCostoDebito()}" process="@this"/>
-
-                        <p:commandButton id="atrasCCD" style="position: relative; left: 130px; top: 15px;" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlEmplComprobantes.cancelarCentroCostoDebito()}" process="@this"/>
+                        <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroCentroCostoDebito" value="#{msg['infoRegistro']} #{controlEmplComprobantes.infoRegistroCentroCosto}" 
+                                          class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarCCD" class="cssAceptarLOV" icon="ui-icon-check" value="#{msg['aceptar']}" 
+                                             disabled="#{controlEmplComprobantes.aceptar}" actionListener="#{controlEmplComprobantes.actualizarCentroCostoDebito()}" process="@this"/>
+                            <p:commandButton id="atrasCCD" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" 
+                                             actionListener="#{controlEmplComprobantes.cancelarCentroCostoDebito()}" process="@this"/>
+                        </div>
                     </p:dialog>
 
                     <p:dialog header="#{msg['centroCostoCreditoM']}" widgetVar="CentroCostoCreditoDialogo" draggable="false" resizable="false" closable="false" id="CentroCostoCreditoDialogo"  
-                              showEffect="fade" hideEffect="fade" width="431" modal="true" height="360">
+                              showEffect="fade" hideEffect="fade" width="431" modal="true" >
                         <p:dataTable id="lovCentroCostoCredito" liveScroll="true" scrollRows="25" style="width: 400px;" var="centroCostoCredito" value="#{controlEmplComprobantes.lovCentrosCostos}" rowKey="#{centroCostoCredito.secuencia}"
                                      selection="#{controlEmplComprobantes.centroCostoSeleccionado}" selectionMode="single" widgetVar="lovCentroCostoCredito" scrollable="true" scrollWidth="416" scrollHeight="225"
                                      filteredValue="#{controlEmplComprobantes.filtrarLovCentrosCostos}" emptyMessage="#{msg['lovvacio']}">              
@@ -1114,8 +1132,8 @@
                             <p:ajax event="rowSelect" listener="#{controlEmplComprobantes.activarAceptar()}" update=":formularioDialogos:aceptarCCC"/>
                             <p:ajax event="rowDblselect" listener="#{controlEmplComprobantes.actualizarCentroCostoCredito()}" process="@this" />
                             <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarCCC']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="PF('lovCentroCostoCredito').filter();" style="width: 170px; position: relative; left: 55px;" />  
+                                <h:outputText value="#{msg['buscarCCC']}" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovCentroCostoCredito').filter();" class="cssFiltroLOV"  />  
                             </f:facet>
                             <p:column filterBy="#{centroCostoCredito.codigo}" width="70" sortBy="#{centroCostoCredito.codigo}" filterMatchMode="contains" filterStyle="width: 85% !important;">
                                 <f:facet name="header">
@@ -1131,11 +1149,14 @@
                             </p:column>
                         </p:dataTable>
 
-                        <h:outputText id="infoRegistroCentroCostoCredito" value="#{msg['infoRegistro']} #{controlEmplComprobantes.infoRegistroCentroCosto}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
-
-                        <p:commandButton id="aceptarCCC" style="position: relative; left: 130px; top: 15px;" icon="ui-icon-check" value="#{msg['aceptar']}" disabled="#{controlEmplComprobantes.aceptar}" actionListener="#{controlEmplComprobantes.actualizarCentroCostoCredito()}" process="@this"/>
-
-                        <p:commandButton id="atrasCCC" style="position: relative; left: 130px; top: 15px;" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlEmplComprobantes.cancelarCentroCostoCredito()}"  process="@this"/>
+                        <div class="cssBotonesLOV"> 
+                        <h:outputText id="infoRegistroCentroCostoCredito" value="#{msg['infoRegistro']} #{controlEmplComprobantes.infoRegistroCentroCosto}" 
+                                      class="cssinfoRegistroLOV"/>
+                        <p:commandButton id="aceptarCCC" class="cssAceptarLOV" icon="ui-icon-check" value="#{msg['aceptar']}" disabled="#{controlEmplComprobantes.aceptar}"
+                                         actionListener="#{controlEmplComprobantes.actualizarCentroCostoCredito()}" process="@this"/>
+                        <p:commandButton id="atrasCCC" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" 
+                                         actionListener="#{controlEmplComprobantes.cancelarCentroCostoCredito()}"  process="@this"/>
+                        </div>
 
                     </p:dialog>
 

@@ -493,8 +493,8 @@
 
                         <!-- DIALOGO L.O.V ESTATICO Localizacion Estr -->
                         <p:dialog header="#{msg['localizacionL']}" widgetVar="LocalizacionDialogo" draggable="false" resizable="false" closable="false" id="LocalizacionDialogo"  
-                                  showEffect="fade" hideEffect="fade" width="755" modal="true" height="390" >
-                            <p:dataTable id="lovLocalizacion" style=" width: 720px;" var="localizacion" value="#{controlVigenciaLocalizacion.listEstructurasCC}" rowKey="#{localizacion.secuencia}"
+                                  showEffect="fade" hideEffect="fade" width="755" modal="true" >
+                            <p:dataTable id="lovLocalizacion"  var="localizacion" value="#{controlVigenciaLocalizacion.listEstructurasCC}" rowKey="#{localizacion.secuencia}"
                                          selection="#{controlVigenciaLocalizacion.estructuraSelecionada}" selectionMode="single" widgetVar="lovLocalizacion" scrollable="true" scrollWidth="737" scrollHeight="250"
                                          filteredValue="#{controlVigenciaLocalizacion.filtradoEstructura}" emptyMessage="#{msg['lovvacio']}">              
                                 
@@ -502,8 +502,8 @@
                                 <p:ajax event="rowSelect" listener="#{controlVigenciaLocalizacion.activarAceptar()}" update=":form:aceptarL"/>
                                 <p:ajax event="rowDblselect" listener="#{controlVigenciaLocalizacion.actualizarEstructura()}" update=":form:LocalizacionDialogo" process="@this"/>
                                 <f:facet name="header">  
-                                    <h:outputText value="#{msg['buscarL']}" style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovLocalizacion').filter();" value="#{filtrado}" style="width:200px; position: relative;left: -110px"/>  
+                                    <h:outputText value="#{msg['buscarL']}" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovLocalizacion').filter();" value="#{filtrado}" class="cssFiltroLOV"/>  
                                 </f:facet>
                                 <p:column filterBy="#{localizacion.centrocosto.codigoNombre}" filterMatchMode="contains" filterStyle="width: 85% !important">
                                     <f:facet name="header">
@@ -524,19 +524,21 @@
                                     <h:outputText value="#{localizacion.centrocosto.empresa.nombre}" />
                                 </p:column>
                             </p:dataTable>
-
-                            <h:outputText id="infoRegistroLocalizacion" value="#{msg['infoRegistro']} #{controlVigenciaLocalizacion.infoRegistroEstLocalizacion}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
-                            <p:commandButton id="aceptarL" style="position: relative; left: 540px; top:15px;" value="#{msg['aceptar']}" disabled="#{controlVigenciaLocalizacion.aceptar}" 
+                            
+                            
+                            <div class="cssBotonesLOV">
+                            <h:outputText id="infoRegistroLocalizacion" value="#{msg['infoRegistro']} #{controlVigenciaLocalizacion.infoRegistroEstLocalizacion}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarL" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlVigenciaLocalizacion.aceptar}" 
                                              actionListener="#{controlVigenciaLocalizacion.actualizarEstructura()}" update=":form:datosVLEmpleado, :form:datosVPVigencia, :form:datosVPPVigencia" process="@this" icon="ui-icon-check"/>
-                            <p:commandButton id="atrasL" style="position: relative; left: 540px; top:15px;" value="#{msg['atras']}" actionListener="#{controlVigenciaLocalizacion.cancelarCambioEstructura()}" 
+                            <p:commandButton id="atrasL" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlVigenciaLocalizacion.cancelarCambioEstructura()}" 
                                              update=":form:datosVLEmpleado, :form:datosVPVigencia, :form:datosVPPVigencia" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
-
+                            </div>
                         </p:dialog>
 
                         <!-- DIALOGO L.O.V ESTATICO MOTIVOS -->
                         <p:dialog header="#{msg['motivoM']}" widgetVar="MotivoDialogo" draggable="false" resizable="false" closable="false" id="MotivoDialogo"  
-                                  showEffect="fade" hideEffect="fade" width="470" modal="true" height="390" >
-                            <p:dataTable id="lovMotivo" style=" width: 430px;" var="motivo" value="#{controlVigenciaLocalizacion.listMotivosLocalizaciones}" rowKey="#{motivo.secuencia}"
+                                  showEffect="fade" hideEffect="fade" width="470" modal="true"  >
+                            <p:dataTable id="lovMotivo"  var="motivo" value="#{controlVigenciaLocalizacion.listMotivosLocalizaciones}" rowKey="#{motivo.secuencia}"
                                          selection="#{controlVigenciaLocalizacion.motivoLocalizacionSelecionado}" selectionMode="single" widgetVar="lovMotivo" scrollable="true" scrollWidth="448" scrollHeight="250"
                                          filteredValue="#{controlVigenciaLocalizacion.filtradoMotivosLocalizaciones}" emptyMessage="#{msg['lovvacio']}">              
                                 
@@ -544,8 +546,8 @@
                                 <p:ajax event="rowSelect" listener="#{controlVigenciaLocalizacion.activarAceptar()}" update=":form:aceptarM"/>
                                 <p:ajax event="rowDblselect" listener="#{controlVigenciaLocalizacion.actualizarMotivoLocalizacion()}" update=":form:MotivoDialogo" process="@this" />
                                 <f:facet name="header">  
-                                    <h:outputText value="#{msg['buscarM']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovMotivo').filter();" value="#{filtrado}" style="width:200px; position: relative; left: 10px;" />  
+                                    <h:outputText value="#{msg['buscarM']}"  />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovMotivo').filter();" value="#{filtrado}" class="cssFiltroLOV" />  
                                 </f:facet>
                                 <p:column filterBy="#{motivo.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 85% !important">
                                     <f:facet name="header">
@@ -560,17 +562,20 @@
                                     <h:outputText value="#{motivo.descripcion}" />
                                 </p:column>
                             </p:dataTable>
-
-                            <h:outputText id="infoRegistroMotivoLocalizacion" value="#{msg['infoRegistro']} #{controlVigenciaLocalizacion.infoRegistroMotivoLocalizacion}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
-                            <p:commandButton id="aceptarM" icon="ui-icon-check" style="position: relative; left: 250px; top:15px;" value="#{msg['aceptar']}" disabled="#{controlVigenciaLocalizacion.aceptar}"  actionListener="#{controlVigenciaLocalizacion.actualizarMotivoLocalizacion()}" process="@this" />
-                            <p:commandButton id="atrasM" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 250px; top:15px;" value="#{msg['atras']}" actionListener="#{controlVigenciaLocalizacion.cancelarCambioMotivoLocalizacion()}" process="@this"  />
-
+                            
+                            <div class="cssBotonesLOV">
+                            <h:outputText id="infoRegistroMotivoLocalizacion" value="#{msg['infoRegistro']} #{controlVigenciaLocalizacion.infoRegistroMotivoLocalizacion}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarM" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlVigenciaLocalizacion.aceptar}"
+                                             actionListener="#{controlVigenciaLocalizacion.actualizarMotivoLocalizacion()}" process="@this" />
+                            <p:commandButton id="atrasM" icon="ui-icon-arrowreturnthick-1-w" class="cssAtrasLOV" value="#{msg['atras']}" 
+                                             actionListener="#{controlVigenciaLocalizacion.cancelarCambioMotivoLocalizacion()}" process="@this"  />
+                            </div>
                         </p:dialog>
 
                         <!-- DIALOGO L.O.V ESTATICO PROYECTOS -->
                         <p:dialog header="#{msg['proyectoP']}" widgetVar="ProyectosDialogo" draggable="false" resizable="false" closable="false" id="ProyectosDialogo"  
-                                  showEffect="fade" hideEffect="fade" width="630" modal="true" height="350">
-                            <p:dataTable id="lovProyectos" style=" width: 590px;" var="proyecto" value="#{controlVigenciaLocalizacion.listProyectos}" rowKey="#{proyecto.secuencia}"
+                                  showEffect="fade" hideEffect="fade" width="630" modal="true" >
+                            <p:dataTable id="lovProyectos" var="proyecto" value="#{controlVigenciaLocalizacion.listProyectos}" rowKey="#{proyecto.secuencia}"
                                          selection="#{controlVigenciaLocalizacion.proyectoSelecionado}" selectionMode="single" widgetVar="lovProyectos" scrollable="true" scrollWidth="608" scrollHeight="210"
                                          filteredValue="#{controlVigenciaLocalizacion.filtradoProyectos}" emptyMessage="#{msg['lovvacio']}">              
                                 
@@ -578,8 +583,8 @@
                                 <p:ajax event="rowSelect" listener="#{controlVigenciaLocalizacion.activarAceptar()}" update=":form:aceptarP"/>
                                 <p:ajax event="rowDblselect" listener="#{controlVigenciaLocalizacion.actualizarProyecto()}" oncomplete="PF('ProyectosDialogo').hide()" update=":form:ProyectosDialogo" process="@this" />
                                 <f:facet name="header">  
-                                    <h:outputText value="#{msg['buscarP']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovProyectos').filter();" value="#{filtrado}" style="width:200px; position: relative; left: -60px;" />  
+                                    <h:outputText value="#{msg['buscarP']}" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovProyectos').filter();" value="#{filtrado}" class="cssFiltroLOV" />  
                                 </f:facet>
                                 <p:column filterBy="#{proyecto.codigo}" width="160" filterMatchMode="contains" filterStyle="width: 85% !important">
                                     <f:facet name="header">
@@ -600,16 +605,20 @@
                                     <h:outputText value="#{proyecto.empresa.nombre}" />
                                 </p:column>
                             </p:dataTable>
-
-                            <h:outputText id="infoRegistroProyecto" value="#{msg['infoRegistro']} #{controlVigenciaLocalizacion.infoRegistroProyecto}" style="position: absolute; left: 20px; top: 315px; font-weight: bold"/>
-                            <p:commandButton id="aceptarP" icon="ui-icon-check" style="position: relative; left: 410px; top:15px;" value="#{msg['aceptar']}" disabled="#{controlVigenciaLocalizacion.aceptar}"  actionListener="#{controlVigenciaLocalizacion.actualizarProyecto()}" oncomplete="PF('ProyectosDialogo').hide()" process="@this" />
-                            <p:commandButton id="atrasP" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 410px;top:15px " value="#{msg['atras']}" actionListener="#{controlVigenciaLocalizacion.cancelarCambioProyecto()}" oncomplete="PF('ProyectosDialogo').hide()" process="@this"  />
+                            
+                            <div class="cssBotonesLOV">
+                            <h:outputText id="infoRegistroProyecto" value="#{msg['infoRegistro']} #{controlVigenciaLocalizacion.infoRegistroProyecto}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarP" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}"
+                                             disabled="#{controlVigenciaLocalizacion.aceptar}"  actionListener="#{controlVigenciaLocalizacion.actualizarProyecto()}" oncomplete="PF('ProyectosDialogo').hide()" process="@this" />
+                            <p:commandButton id="atrasP" icon="ui-icon-arrowreturnthick-1-w" class="cssAtrasLOV" value="#{msg['atras']}" 
+                                             actionListener="#{controlVigenciaLocalizacion.cancelarCambioProyecto()}" oncomplete="PF('ProyectosDialogo').hide()" process="@this"  />
+                            </div>
                         </p:dialog>
 
                         <!-- DIALOGO L.O.V ESTATICO CENTRO COSTO VIGENCIA PRORRATEO -->
                         <p:dialog header="#{msg['localizacionLP']}" widgetVar="CentroCostosDialogo" draggable="false" resizable="false" closable="false" id="CentroCostosDialogo"  
-                                  showEffect="fade" hideEffect="fade" width="760" modal="true" height="390">
-                            <p:dataTable id="lovCentroCostos" style=" width: 720px;" var="centro" value="#{controlVigenciaLocalizacion.listCentrosCostos}" rowKey="#{centro.secuencia}"
+                                  showEffect="fade" hideEffect="fade" width="760" modal="true" >
+                            <p:dataTable id="lovCentroCostos" var="centro" value="#{controlVigenciaLocalizacion.listCentrosCostos}" rowKey="#{centro.secuencia}"
                                          selection="#{controlVigenciaLocalizacion.centroCostoSeleccionado}" selectionMode="single" widgetVar="lovCentroCostos" scrollable="true" scrollWidth="737" scrollHeight="250"
                                          filteredValue="#{controlVigenciaLocalizacion.filtradoCentroCostos}" emptyMessage="#{msg['lovvacio']}">              
                                 
@@ -618,7 +627,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlVigenciaLocalizacion.actualizarCentroCostoVP()}" update=":form:lovCentroCostos" process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarLP']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovCentroCostos').filter();" value="#{filtrado}" style="width:200px; position: relative; left: -100px;" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovCentroCostos').filter();" value="#{filtrado}" class="cssFiltroLOV" />  
                                 </f:facet>
                                 <p:column filterBy="#{centro.codigo}" width="200" filterMatchMode="contains" filterStyle="width: 85% !important">
                                     <f:facet name="header">
@@ -640,10 +649,13 @@
                                 </p:column>
                             </p:dataTable>
 
-                            <h:outputText id="infoRegistroCentroCosto" value="#{msg['infoRegistro']} #{controlVigenciaLocalizacion.infoRegistroCentroCosto}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
-                            <p:commandButton id="aceptarCC" icon="ui-icon-check" style="position: relative; left: 540px;top: 15px;" update=":form:lovCentroCostos" value="#{msg['aceptar']}" actionListener="#{controlVigenciaLocalizacion.actualizarCentroCostoVP()}" disabled="#{controlVigenciaLocalizacion.aceptar}" process="@this" />
-                            <p:commandButton id="atrasCC" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 540px;top: 15px;" update=":form:lovCentroCostos" value="#{msg['atras']}" actionListener="#{controlVigenciaLocalizacion.cancelarCambioCentroCostoVP()}" process="@this"  />
-
+                            <div class="cssBotonesLOV">
+                            <h:outputText id="infoRegistroCentroCosto" value="#{msg['infoRegistro']} #{controlVigenciaLocalizacion.infoRegistroCentroCosto}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarCC" icon="ui-icon-check" class="cssAceptarLOV" update=":form:lovCentroCostos" value="#{msg['aceptar']}" 
+                                             actionListener="#{controlVigenciaLocalizacion.actualizarCentroCostoVP()}" disabled="#{controlVigenciaLocalizacion.aceptar}" process="@this" />
+                            <p:commandButton id="atrasCC" icon="ui-icon-arrowreturnthick-1-w" class="cssAtrasLOV" update=":form:lovCentroCostos" value="#{msg['atras']}" 
+                                             actionListener="#{controlVigenciaLocalizacion.cancelarCambioCentroCostoVP()}" process="@this"  />
+                            </div>
                         </p:dialog>
 
                         </p:panel>

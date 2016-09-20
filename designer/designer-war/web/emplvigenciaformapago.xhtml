@@ -86,7 +86,7 @@
                                          value="#{controlVigenciasFormasPagos.listVigenciasFormasPagosPorEmpleado}" scrollable="true" scrollWidth="835" scrollHeight="#{controlVigenciasFormasPagos.altoTabla}" 
                                          filteredValue="#{controlVigenciasFormasPagos.filtrarVigenciasFormasPagosPorEmpleado}" emptyMessage="#{msg['vacio']}"
                                          editable="true" editMode="cell" rows="20" selection="#{controlVigenciasFormasPagos.vigenciaSeleccionada}" selectionMode="single"> 
-                                
+
                                 <p:ajax event="filter" listener="#{controlVigenciasFormasPagos.eventoFiltrar()}"/>
                                 <f:event type="preRenderView" listener="#{controlVigenciasFormasPagos.recordarSeleccion()}"/>
 
@@ -213,7 +213,7 @@
 
                         <p:dialog header="#{msg['sucursalM']}" widgetVar="sucursalesDialogo" draggable="false" resizable="false" closable="false" id="sucursalesDialogo"  
                                   showEffect="fade" hideEffect="fade" width="465" modal="true" style="">
-                            <p:dataTable id="lovSucursales" style=" width: 430px;" var="sucursal" value="#{controlVigenciasFormasPagos.listaSucursales}" rowKey="#{sucursal.secuencia}"
+                            <p:dataTable id="lovSucursales" var="sucursal" value="#{controlVigenciasFormasPagos.listaSucursales}" rowKey="#{sucursal.secuencia}"
                                          selection="#{controlVigenciasFormasPagos.sucursalSeleccionada}" selectionMode="single" widgetVar="lovSucursales" scrollable="true" scrollWidth="450" scrollHeight="250"
                                          filteredValue="#{controlVigenciasFormasPagos.filtradoSucursales}" emptyMessage="#{msg['lovvacio']}">              
 
@@ -222,8 +222,8 @@
                                 <p:ajax event="rowDblselect" listener="#{controlVigenciasFormasPagos.actualizarSucursal()}" update=":form:sucursalesDialogo" immediate="true" process="@this" />
 
                                 <f:facet name="header">  
-                                    <h:outputText value="#{msg['buscarS']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovSucursales').filter();" value="#{filtrado}" style="width:150px; position: relative; left: -10px;" />  
+                                    <h:outputText value="#{msg['buscarS']}" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovSucursales').filter();" value="#{filtrado}" class="cssFiltroLOV" />  
                                 </f:facet>
                                 <p:column filterBy="#{sucursal.codigo}" width="60" filterStyle="width:50px;" filterMatchMode="contains">
                                     <f:facet name="header">
@@ -245,15 +245,17 @@
                                 </p:column>
                             </p:dataTable>
 
-                            <h:outputText id="infoRegistroSucursales" value="#{msg['infoRegistro']} #{controlVigenciasFormasPagos.infoRegistroSucursales}" style="position: absolute; left: 15px; top: 350px; font-weight: bold"/>
-
-                            <p:commandButton id="aceptarS" style="position: relative; left: 260px;height: 30px; width: 90px;" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlVigenciasFormasPagos.aceptar}" actionListener="#{controlVigenciasFormasPagos.actualizarSucursal()}" update=":form:sucursalesDialogo" process="@this"/>
-
-                            <p:commandButton id="atrasS" style="position: relative; left: 260px;height: 30px; width: 90px;" value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" actionListener="#{controlVigenciasFormasPagos.cancelarCambioSucursal()}" update=":form:sucursalesDialogo" process="@this"/>
+                            <div class="cssBotonesLOV"> 
+                                <h:outputText id="infoRegistroSucursales" value="#{msg['infoRegistro']} #{controlVigenciasFormasPagos.infoRegistroSucursales}" class="cssinfoRegistroLOV"/>
+                                <p:commandButton id="aceptarS" class="cssAceptarLOV" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlVigenciasFormasPagos.aceptar}" 
+                                                 actionListener="#{controlVigenciasFormasPagos.actualizarSucursal()}" update=":form:sucursalesDialogo" process="@this"/>
+                                <p:commandButton id="atrasS" class="cssAtrasLOV" value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w"
+                                                 actionListener="#{controlVigenciasFormasPagos.cancelarCambioSucursal()}" update=":form:sucursalesDialogo" process="@this"/>
+                            </div>
                         </p:dialog>
 
                         <p:dialog header="#{msg['formaPagoM']}" widgetVar="periodicidadesDialogo" draggable="false" resizable="false" closable="false" id="periodicidadesDialogo"  
-                                  showEffect="fade" hideEffect="fade" width="410" height="340" modal="true" style="">
+                                  showEffect="fade" hideEffect="fade" width="410" modal="true" style="">
                             <p:dataTable id="lovperiodicidades" style=" width: 350px;" var="periodicidades" value="#{controlVigenciasFormasPagos.listaPeriodicidades}" rowKey="#{periodicidades.secuencia}"
                                          selection="#{controlVigenciasFormasPagos.periodicidadSeleccionada}" selectionMode="single" widgetVar="lovperiodicidades" scrollable="true" scrollWidth="365" scrollHeight="200"
                                          filteredValue="#{controlVigenciasFormasPagos.filtradoPeriodicidades}" emptyMessage="#{msg['lovvacio']}">  
@@ -263,8 +265,8 @@
                                 <p:ajax event="rowDblselect" listener="#{controlVigenciasFormasPagos.actualizarPeriodicidad()}" immediate="true" update=":form:periodicidadesDialogo" process="@this" />
 
                                 <f:facet name="header">  
-                                    <h:outputText value="#{msg['buscarFP']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovperiodicidades').filter();" value="#{filtrado}" style="width:150px; position: relative; left: 70px;" />  
+                                    <h:outputText value="#{msg['buscarFP']}" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovperiodicidades').filter();" value="#{filtrado}" class="cssFiltroLOV" />  
                                 </f:facet>
                                 <p:column filterBy="#{periodicidades.nombre}" width="60" filterStyle="width:150px; position: relative;" filterMatchMode="contains">
                                     <f:facet name="header">
@@ -275,17 +277,20 @@
 
                             </p:dataTable>
 
-                            <h:outputText id="infoRegistroPeriodicidades" value="#{msg['infoRegistro']} #{controlVigenciasFormasPagos.infoRegistroPeriodicidades}" style="position: absolute; left: 15px; top: 300px; font-weight: bold"/>
-
-                            <p:commandButton id="aceptarP" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlVigenciasFormasPagos.aceptar}" actionListener="#{controlVigenciasFormasPagos.actualizarPeriodicidad()}" update=":form:periodicidadesDialogo" process="@this" style="position: relative; left: 185px; width: 90px; top: 10px ;"/>
-                            <p:commandButton id="atrasP" value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" actionListener="#{controlVigenciasFormasPagos.cancelarCambioPeriodicidad()}" update=":form:periodicidadesDialogo" process="@this" style="position: relative; left: 185px; width: 90px; top: 10px ;"/>  
+                            <div class="cssBotonesLOV"> 
+                                <h:outputText id="infoRegistroPeriodicidades" value="#{msg['infoRegistro']} #{controlVigenciasFormasPagos.infoRegistroPeriodicidades}" class="cssinfoRegistroLOV"/>
+                                <p:commandButton id="aceptarP" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlVigenciasFormasPagos.aceptar}" actionListener="#{controlVigenciasFormasPagos.actualizarPeriodicidad()}" 
+                                                 update=":form:periodicidadesDialogo" process="@this" class="cssAceptarLOV"/>
+                                <p:commandButton id="atrasP" value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" actionListener="#{controlVigenciasFormasPagos.cancelarCambioPeriodicidad()}" update=":form:periodicidadesDialogo"
+                                                 process="@this" class="cssAtrasLOV"/>  
+                            </div>
 
                         </p:dialog>
 
 
                         <p:dialog header="#{msg['metodoPagoM']}" widgetVar="metodosPagosialogo" draggable="false" resizable="false" closable="false" id="metodosPagosialogo"  
-                                  showEffect="fade" hideEffect="fade" width="390" height="220"   modal="true" style="">
-                            <p:dataTable id="lovmetodospagos" style=" width: 360px;" var="metodospagos" value="#{controlVigenciasFormasPagos.listaMetodosPagos}" rowKey="#{metodospagos.secuencia}"
+                                  showEffect="fade" hideEffect="fade" width="390"  modal="true" style="">
+                            <p:dataTable id="lovmetodospagos" var="metodospagos" value="#{controlVigenciasFormasPagos.listaMetodosPagos}" rowKey="#{metodospagos.secuencia}"
                                          selection="#{controlVigenciasFormasPagos.metodoPagoSeleccionado}" selectionMode="single" widgetVar="lovmetodospagos" scrollable="true" scrollWidth="370" scrollHeight="90"
                                          filteredValue="#{controlVigenciasFormasPagos.filtradoMetodosPagos }" emptyMessage="#{msg['lovvacio']}"> 
 
@@ -294,8 +299,8 @@
                                 <p:ajax event="rowDblselect" listener="#{controlVigenciasFormasPagos.actualizarMetodoPago()}" immediate="true" update=":form:metodosPagosialogo" process="@this" />
 
                                 <f:facet name="header">  
-                                    <h:outputText value="#{msg['buscarMP']}"  style=" position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovmetodospagos').filter();" value="#{filtrado}" style="width:85px; position: relative; left: 70px " />  
+                                    <h:outputText value="#{msg['buscarMP']}" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovmetodospagos').filter();" value="#{filtrado}" class="cssFiltroLOV" />  
                                 </f:facet>
                                 <p:column filterBy="#{metodospagos.descripcion}" width="60" filterStyle="width:85px; position: relative;" filterMatchMode="contains">
                                     <f:facet name="header">
@@ -305,10 +310,15 @@
                                 </p:column>
                             </p:dataTable>
 
-                            <h:outputText id="infoRegistroMetodosPagos" value="#{msg['infoRegistro']} #{controlVigenciasFormasPagos.infoRegistroMetodosPagos}" style="position: absolute; left: 15px; top: 193px; font-weight: bold"/>
+                            <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroMetodosPagos" value="#{msg['infoRegistro']} #{controlVigenciasFormasPagos.infoRegistroMetodosPagos}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarMP" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlVigenciasFormasPagos.aceptar}"
+                                             actionListener="#{controlVigenciasFormasPagos.actualizarMetodoPago()}" update=":form:metodosPagosialogo" process="@this" class="cssAceptarLOV"/>
+                            <p:commandButton id="atrasMP" value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" actionListener="#{controlVigenciasFormasPagos.cancelarCambioMetodoPago()}"
+                                             update=":form:metodosPagosialogo" class="cssAtrasLOV" process="@this"/>    
 
-                            <p:commandButton id="aceptarMP" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlVigenciasFormasPagos.aceptar}" actionListener="#{controlVigenciasFormasPagos.actualizarMetodoPago()}" update=":form:metodosPagosialogo" process="@this" style="position: relative; left: 190px; width: 90px; top: 7px ;"/>
-                            <p:commandButton id="atrasMP" value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" actionListener="#{controlVigenciasFormasPagos.cancelarCambioMetodoPago()}" update=":form:metodosPagosialogo" style="position: relative; left: 190px; width: 90px; top: 7px;" process="@this"/>    
+                            </div>
+
                         </p:dialog>
 
                         <p:dialog id="validacionNuevaVigencia" header="#{msg['precaucion']}" widgetVar="validacioNuevaVigencia"  resizable="false" draggable="false" modal="true" height="110" width="400" style="" closable="false">  

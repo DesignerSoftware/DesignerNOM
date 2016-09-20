@@ -146,7 +146,7 @@
 
                         <p:dialog header="#{msg['tipoViajeroM']}" widgetVar="sucursalesDialogo" draggable="false" resizable="false" closable="false" id="sucursalesDialogo"  
                                   showEffect="fade" hideEffect="fade" width="470" modal="true" style="">
-                            <p:dataTable id="lovTiposFamiliares" style=" width: 430px;" var="tipoviajeroD" value="#{controlVigenciasViajeros.listaTiposviajeros}" rowKey="#{tipoviajeroD.secuencia}"
+                            <p:dataTable id="lovTiposFamiliares"  var="tipoviajeroD" value="#{controlVigenciasViajeros.listaTiposviajeros}" rowKey="#{tipoviajeroD.secuencia}"
                                          selection="#{controlVigenciasViajeros.normaLaboralSeleccionada}" selectionMode="single" widgetVar="lovTiposFamiliares" scrollable="true" scrollWidth="445" scrollHeight="250"
                                          filteredValue="#{controlVigenciasViajeros.filtradoTiposviajeros}" emptyMessage="#{msg['lovvacio']}">              
 
@@ -154,8 +154,8 @@
                                 <p:ajax event="rowSelect" listener="#{controlVigenciasViajeros.activarAceptar()}" update=":form:aceptarS"/>
                                 <p:ajax event="rowDblselect" listener="#{controlVigenciasViajeros.actualizarViajero}" immediate="true" update=":form:sucursalesDialogo" process="@this" />
                                 <f:facet name="header">  
-                                    <h:outputText value="#{msg['buscarTV']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovTiposFamiliares').filter();" value="#{filtrado}" style="width:150px; position: relative; left: 10px;" />  
+                                    <h:outputText value="#{msg['buscarTV']}" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovTiposFamiliares').filter();" value="#{filtrado}" class="cssFiltroLOV" />  
                                 </f:facet>
                                 <p:column filterBy="#{tipoviajeroD.codigo}" width="60" filterStyle="width:50px;" filterMatchMode="contains">
                                     <f:facet name="header">
@@ -171,12 +171,14 @@
                                 </p:column>
 
                             </p:dataTable>
-
-                            <h:outputText id="infoRegistroTiposViajeros" value="#{msg['infoRegistro']} #{controlVigenciasViajeros.infoRegistroTiposViajeros}" style="position: absolute; left: 15px; top: 350px; font-weight: bold"/>
-
-                            <p:commandButton id="aceptarS" style="position: relative; left: 230px; top: -10px;" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlVigenciasViajeros.aceptar}" update=":form:sucursalesDialogo" actionListener="#{controlVigenciasViajeros.actualizarViajero}" process="@this"/>
-                            <p:commandButton id="atrasS" style="position: relative; left: 235px; top: -10px;" update=":form:sucursalesDialogo" value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" actionListener="#{controlVigenciasViajeros.cancelarCambioVigenciaViajero}" process="@this" />
-
+                            
+                            <div class="cssBotonesLOV">
+                            <h:outputText id="infoRegistroTiposViajeros" value="#{msg['infoRegistro']} #{controlVigenciasViajeros.infoRegistroTiposViajeros}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarS" class="cssAceptarLOV" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlVigenciasViajeros.aceptar}" 
+                                             update=":form:sucursalesDialogo" actionListener="#{controlVigenciasViajeros.actualizarViajero}" process="@this"/>
+                            <p:commandButton id="atrasS" class="cssAtrasLOV" update=":form:sucursalesDialogo" value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" 
+                                             actionListener="#{controlVigenciasViajeros.cancelarCambioVigenciaViajero}" process="@this" />
+                            </div>
                         </p:dialog>
 
                         <p:dialog id="confirmarGuardar" header="#{msg['precaucion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  

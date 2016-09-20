@@ -359,8 +359,8 @@
 
                         <!-- DIALOGO L.O.V ESTATICO MOTIVO CAMBIO SUELDO     -->
                         <p:dialog header="#{msg['mvrM']}" widgetVar="MotivoDialogo" draggable="false" resizable="false" closable="false" id="MotivoDialogo"  
-                                  showEffect="fade" hideEffect="fade" width="450" modal="true" height="290">
-                            <p:dataTable id="lovMotivo" style=" width: 420px;" var="motivo" value="#{controlEmplMvr.listMotivosMvrs}" rowKey="#{motivo.secuencia}"
+                                  showEffect="fade" hideEffect="fade" width="450" modal="true">
+                            <p:dataTable id="lovMotivo" var="motivo" value="#{controlEmplMvr.listMotivosMvrs}" rowKey="#{motivo.secuencia}"
                                          selection="#{controlEmplMvr.motivoMvrSeleccionado}" selectionMode="single" widgetVar="lovMotivo" scrollable="true" scrollHeight="150" scrollWidth="435"
                                          filteredValue="#{controlEmplMvr.filtrarListMotivosMvrs}" emptyMessage="#{msg['lovvacio']}">              
 
@@ -369,8 +369,8 @@
                                 <p:ajax event="rowDblselect" listener="#{controlEmplMvr.actualizarMotivo()}" immediate="true"
                                         oncomplete="PF('lovMotivo').unselectAllRows(), lovMotivo').clearFilters()" update=":form:MotivoDialogo"/>
                                 <f:facet name="header">  
-                                    <h:outputText value="#{msg['buscarM']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovMotivo').filter();" value="#{filtrado}" style="width:160px; position: relative; left: 5px;" />  
+                                    <h:outputText value="#{msg['buscarM']}" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovMotivo').filter();" value="#{filtrado}" class="cssFiltroLOV" />  
                                 </f:facet>
                                 <p:column filterBy="#{motivo.codigo}" width="80" filterMatchMode="contains" filterStyle="width: 85% !important">
                                     <f:facet name="header">
@@ -386,19 +386,19 @@
                                 </p:column>
                             </p:dataTable>
 
-                            <h:outputText id="infoRegistroMotivoMVR" value="#{msg['infoRegistro']} #{controlEmplMvr.infoRegistroMotivoMVR}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
-
-                            <p:commandButton id="aceptarM" icon="ui-icon-check" style="position: relative; left: 168px; top: 15px;" value="#{msg['aceptar']}" disabled="#{controlEmplMvr.aceptar}" actionListener="#{controlEmplMvr.actualizarMotivo()}" 
+                            <div class="cssBotonesLOV">
+                            <h:outputText id="infoRegistroMotivoMVR" value="#{msg['infoRegistro']} #{controlEmplMvr.infoRegistroMotivoMVR}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarM" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlEmplMvr.aceptar}" actionListener="#{controlEmplMvr.actualizarMotivo()}" 
                                              oncomplete="PF('MotivoDialogo').hide(), PF('lovMotivo').unselectAllRows(), PF('lovMotivo').clearFilters()" update=":form:MotivoDialogo" process="@this"/>
-
-                            <p:commandButton id="atrasM" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 170px; top: 15px;" value="#{msg['atras']}" actionListener="#{controlEmplMvr.cancelarCambioMotivo()}" 
+                            <p:commandButton id="atrasM" icon="ui-icon-arrowreturnthick-1-w" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlEmplMvr.cancelarCambioMotivo()}" 
                                              oncomplete="PF('MotivoDialogo').hide(), PF('lovMotivo').unselectAllRows(), PF('lovMotivo').clearFilters()" update=":form:MotivoDialogo" process="@this"/>
+                            </div>
                         </p:dialog>
 
                         <!-- DIALOGO L.O.V CERTIFICADOS-->
                         <p:dialog header="#{msg['certificadosC']}" widgetVar="CertificadosDialogo" draggable="false" resizable="false" closable="false" id="CertificadosDialogo"  
-                                  showEffect="fade" hideEffect="fade" width="450" modal="true" height="287">
-                            <p:dataTable id="lovCertificado" style=" width: 420px;" var="tipoC" value="#{controlEmplMvr.listTiposCertificados}" rowKey="#{tipoC.secuencia}"
+                                  showEffect="fade" hideEffect="fade" width="450" modal="true" >
+                            <p:dataTable id="lovCertificado" var="tipoC" value="#{controlEmplMvr.listTiposCertificados}" rowKey="#{tipoC.secuencia}"
                                          selection="#{controlEmplMvr.tipoCertificadoSeleccionado}" selectionMode="single" widgetVar="lovCertificado" scrollable="true" scrollWidth="435" scrollHeight="150"
                                          filteredValue="#{controlEmplMvr.filtrarListTiposCertificados}" emptyMessage="#{msg['lovvacio']}">              
 
@@ -407,8 +407,8 @@
                                 <p:ajax event="rowDblselect" listener="#{controlEmplMvr.actualizarTipo()}" process="@this" 
                                         oncomplete="PF('CertificadosDialogo').hide(), PF('lovCertificado').clearFilters()" update=":form:CertificadosDialogo"/>
                                 <f:facet name="header">  
-                                    <h:outputText value="#{msg['buscarC']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovCertificado').filter();" value="#{filtrado}" style="width:170px; position: relative; left: 40px;" />  
+                                    <h:outputText value="#{msg['buscarC']}"  />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovCertificado').filter();" value="#{filtrado}" class="cssFiltroLOV" />  
                                 </f:facet>
                                 <p:column filterBy="#{tipoC.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 85% !important">
                                     <f:facet name="header">
@@ -423,12 +423,14 @@
                                     <h:outputText value="#{tipoC.descripcion}" />
                                 </p:column>
                             </p:dataTable>
-
-                            <h:outputText id="infoRegistroCertificado" value="#{msg['infoRegistro']} #{controlEmplMvr.infoRegistroCertificado}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
-                            <p:commandButton id="aceptarTC" icon="ui-icon-check" style="position: relative; left: 168px; top: 15px;" value="#{msg['aceptar']}" disabled="#{controlEmplMvr.aceptar}"  actionListener="#{controlEmplMvr.actualizarTipo()}" 
+                            
+                            <div class="cssBotonesLOV">
+                            <h:outputText id="infoRegistroCertificado" value="#{msg['infoRegistro']} #{controlEmplMvr.infoRegistroCertificado}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarTC" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlEmplMvr.aceptar}"  actionListener="#{controlEmplMvr.actualizarTipo()}" 
                                              oncomplete="PF('CertificadosDialogo').hide(), PF('lovCertificado').clearFilters()" update=":form:CertificadosDialogo" process="@this"/>
-                            <p:commandButton id="atrasTC" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 170px; top: 15px;" value="#{msg['atras']}" actionListener="#{controlEmplMvr.cancelarCambioTipo()}" 
+                            <p:commandButton id="atrasTC" icon="ui-icon-arrowreturnthick-1-w" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlEmplMvr.cancelarCambioTipo()}" 
                                              oncomplete="PF('CertificadosDialogo').hide(), PF('lovCertificado').clearFilters()" update=":form:CertificadosDialogo" process="@this"/>
+                            </div>
                         </p:dialog>
                     </p:panel>
 

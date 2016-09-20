@@ -147,8 +147,8 @@
 
                         <!-- DIALOGO L.O.V ESTATICO REFORMAS LABORALES -->
                         <p:dialog header="#{msg['nombreRL']}" widgetVar="ReformasLaboralesDialogo" draggable="false" resizable="false" closable="false" id="ReformasLaboralesDialogo"  
-                                  showEffect="fade" hideEffect="fade" width="460" height="310" modal="true" >
-                            <p:dataTable id="lovReformasLaborales" style=" width: 430px;" var="reformasLaborales" value="#{controlVigenciasReformasLaborales.listaReformasLaborales}" rowKey="#{reformasLaborales.secuencia}"
+                                  showEffect="fade" hideEffect="fade" width="460" modal="true" >
+                            <p:dataTable id="lovReformasLaborales"  var="reformasLaborales" value="#{controlVigenciasReformasLaborales.listaReformasLaborales}" rowKey="#{reformasLaborales.secuencia}"
                                          selection="#{controlVigenciasReformasLaborales.reformaLaboralSelecionada}" selectionMode="single" widgetVar="lovReformasLaborales" scrollable="true" scrollWidth="445" scrollHeight="170"
                                          filteredValue="#{controlVigenciasReformasLaborales.filtradoReformasLaborales}" emptyMessage="#{msg['lovvacio']}">              
                                 
@@ -157,8 +157,8 @@
                                 <p:ajax event="rowDblselect" listener="#{controlVigenciasReformasLaborales.actualizarReformaLaboral()}" update=":form:lovReformasLaborales" process="@this" />
 
                                 <f:facet name="header">  
-                                    <h:outputText value="#{msg['buscarRL']}" style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovReformasLaborales').filter();" style="width:160px; position: relative; left: 40px;" />  
+                                    <h:outputText value="#{msg['buscarRL']}" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovReformasLaborales').filter();" class="cssFiltroLOV" />  
                                 </f:facet>
                                 <p:column filterBy="#{reformasLaborales.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 80% !important">
                                     <f:facet name="header">
@@ -173,16 +173,14 @@
                                     <h:outputText value="#{reformasLaborales.nombre}" />
                                 </p:column>
                             </p:dataTable>
-
-                            <h:outputText id="infoRegistroReformaLaboral" value="#{msg['infoRegistro']} #{controlVigenciasReformasLaborales.infoRegistroReformaLaboral}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
-
-                            <p:commandButton id="aceptarRL" style="position: relative; left: 165px; top: 15px;" value="#{msg['aceptar']}" disabled="#{controlVigenciasReformasLaborales.aceptar}" update=":form:lovReformasLaborales"
-                                             actionListener="#{controlVigenciasReformasLaborales.actualizarReformaLaboral()}" process="@this" icon="ui-icon-check"/>
                             
-                            <p:commandButton id="atrasRL" style="position: relative; left: 165px; top: 15px;" value="#{msg['atras']}" actionListener="#{controlVigenciasReformasLaborales.cancelarCambioReformaLaboral()}" 
-                                             update=":form:lovReformasLaborales" process="@this" icon="ui-icon-arrowreturnthick-1-w" >
-                                
-                            </p:commandButton>
+                            <div class="cssBotonesLOV">
+                            <h:outputText id="infoRegistroReformaLaboral" value="#{msg['infoRegistro']} #{controlVigenciasReformasLaborales.infoRegistroReformaLaboral}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarRL" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlVigenciasReformasLaborales.aceptar}" update=":form:lovReformasLaborales"
+                                             actionListener="#{controlVigenciasReformasLaborales.actualizarReformaLaboral()}" process="@this" icon="ui-icon-check"/>
+                            <p:commandButton id="atrasRL" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlVigenciasReformasLaborales.cancelarCambioReformaLaboral()}" 
+                                             update=":form:lovReformasLaborales" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                            </div>
                         </p:dialog> 
 
                     </p:panel>

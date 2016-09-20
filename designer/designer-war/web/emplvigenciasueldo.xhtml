@@ -379,8 +379,8 @@
 
                         <!-- DIALOGO L.O.V ESTATICO MOTIVO CAMBIO SUELDO -->
                         <p:dialog header="#{msg['motivoM']}" widgetVar="MotivoCambioSueldoDialogo" draggable="false" resizable="false" closable="false" id="MotivoCambioSueldoDialogo"  
-                                  showEffect="fade" hideEffect="fade" width="455" modal="true" height="340" >
-                            <p:dataTable id="lovMotivoCambioSueldo" style=" width: 420px;" var="motivoCS" value="#{controlVigenciaSueldo.listMotivosCambiosSueldos}" rowKey="#{motivoCS.secuencia}"
+                                  showEffect="fade" hideEffect="fade" width="455" modal="true" >
+                            <p:dataTable id="lovMotivoCambioSueldo" var="motivoCS" value="#{controlVigenciaSueldo.listMotivosCambiosSueldos}" rowKey="#{motivoCS.secuencia}"
                                          selection="#{controlVigenciaSueldo.motivoCambioSueldoSeleccionado}" selectionMode="single" widgetVar="lovMotivoCambioSueldo" scrollable="true" scrollHeight="200" scrollWidth="420"
                                          filteredValue="#{controlVigenciaSueldo.filtrarMotivosCambiosSueldos}" emptyMessage="#{msg['lovvacio']}">              
                                 
@@ -389,8 +389,8 @@
                                 <p:ajax event="rowDblselect" listener="#{controlVigenciaSueldo.actualizarMotivoCambioSueldo()}" process="@this" update=":form:lovMotivoCambioSueldo" oncomplete="PF('MotivoCambioSueldoDialogo').hide(), PF('lovMotivoCambioSueldo').unselectAllRows()"/>
 
                                 <f:facet name="header">  
-                                    <h:outputText value="#{msg['buscarM']}" style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovMotivoCambioSueldo').filter();" value="#{filtrado}" style="width:140px; position: relative; left: 90px;" />  
+                                    <h:outputText value="#{msg['buscarM']}"/>  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovMotivoCambioSueldo').filter();" value="#{filtrado}" class="cssFiltroLOV"/>  
                                 </f:facet>
                                 <p:column filterBy="#{motivoCS.codigo}" width="60" filterMatchMode="contains" filterStyle="width: 85% !important">
                                     <f:facet name="header">
@@ -406,20 +406,21 @@
                                 </p:column>
                             </p:dataTable>
 
-                            <h:outputText id="infoRegistroMotivoCambioSueldo" value="#{msg['infoRegistro']} #{controlVigenciaSueldo.infoRegistroMotivoCambioSueldo}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
+                            <div class="cssBotonesLOV">
+                                <h:outputText id="infoRegistroMotivoCambioSueldo" value="#{msg['infoRegistro']} #{controlVigenciaSueldo.infoRegistroMotivoCambioSueldo}" class="cssinfoRegistroLOV" />
 
-                            <p:commandButton id="aceptarMCS" style="position: relative; left: 160px; top: 15px;" value="#{msg['aceptar']}" disabled="#{controlVigenciaSueldo.aceptar}"  update=":form:lovMotivoCambioSueldo" oncomplete="PF('lovMotivoCambioSueldo').unselectAllRows()"
+                                <p:commandButton id="aceptarMCS" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlVigenciaSueldo.aceptar}"  update=":form:lovMotivoCambioSueldo" oncomplete="PF('lovMotivoCambioSueldo').unselectAllRows()"
                                              actionListener="#{controlVigenciaSueldo.actualizarMotivoCambioSueldo()}" process="@this" icon="ui-icon-check" onclick="PF('MotivoCambioSueldoDialogo').hide()"/>
 
-                            <p:commandButton id="atrasMCS" style="position: relative; left: 160px; top: 15px;" value="#{msg['atras']}" actionListener="#{controlVigenciaSueldo.cancelarCambioMotivoCambioSueldo()}" 
+                            <p:commandButton id="atrasMCS" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlVigenciaSueldo.cancelarCambioMotivoCambioSueldo()}" 
                                              oncomplete="PF('lovMotivoCambioSueldo').unselectAllRows()" process="@this" icon="ui-icon-arrowreturnthick-1-w" update=":form:lovMotivoCambioSueldo" />
-
+                            </div>
                         </p:dialog>
 
                         <!-- DIALOGO L.O.V ESTATICO TIPO SUELDO -->
                         <p:dialog header="#{msg['tiposueldoT']}" widgetVar="TipoSueldoDialogo" draggable="false" resizable="false" closable="false" id="TipoSueldoDialogo"  
-                                  showEffect="fade" hideEffect="fade" width="450" modal="true" height="340">
-                            <p:dataTable id="lovTipoSueldo" style=" width: 410px;" var="tipoS" value="#{controlVigenciaSueldo.listTiposSueldos}" rowKey="#{tipoS.secuencia}"
+                                  showEffect="fade" hideEffect="fade" width="450" modal="true" >
+                            <p:dataTable id="lovTipoSueldo"  var="tipoS" value="#{controlVigenciaSueldo.listTiposSueldos}" rowKey="#{tipoS.secuencia}"
                                          selection="#{controlVigenciaSueldo.tipoSueldoSeleccionado}" selectionMode="single" widgetVar="lovTipoSueldo" scrollable="true" scrollWidth="425" scrollHeight="200"
                                          filteredValue="#{controlVigenciaSueldo.filtrarTiposSueldos}" emptyMessage="#{msg['lovvacio']}">           
                                 
@@ -428,8 +429,8 @@
                                 <p:ajax event="rowDblselect" listener="#{controlVigenciaSueldo.actualizarTipoSueldo()}" process="@this" oncomplete="PF('TipoSueldoDialogo').hide()"/>
 
                                 <f:facet name="header">  
-                                    <h:outputText value="#{msg['buscarT']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovTipoSueldo').filter();" value="#{filtrado}" style=" width:170px; position: relative; left: 40px;" />  
+                                    <h:outputText value="#{msg['buscarT']}" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovTipoSueldo').filter();" value="#{filtrado}" class="cssFiltroLOV"/>  
                                 </f:facet>
                                 <p:column filterBy="#{tipoS.codigo}" width="60" filterMatchMode="contains" filterStyle="width: 85% !important">
                                     <f:facet name="header">
@@ -445,20 +446,21 @@
                                 </p:column>
                             </p:dataTable>
 
-                            <h:outputText id="infoRegistroTipoSueldo" value="#{msg['infoRegistro']} #{controlVigenciaSueldo.infoRegistroTipoSueldo}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
+                            <div class="cssBotonesLOV">
+                            <h:outputText id="infoRegistroTipoSueldo" value="#{msg['infoRegistro']} #{controlVigenciaSueldo.infoRegistroTipoSueldo}" class="cssinfoRegistroLOV"/>
 
-                            <p:commandButton id="aceptarTS" style="position: relative; left: 150px; top: 15px;" value="#{msg['aceptar']}" disabled="#{controlVigenciaSueldo.aceptar}"  
+                            <p:commandButton id="aceptarTS" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlVigenciaSueldo.aceptar}"  
                                              actionListener="#{controlVigenciaSueldo.actualizarTipoSueldo()}" process="@this" icon="ui-icon-check" onclick="PF('TipoSueldoDialogo').hide()"/>
 
-                            <p:commandButton id="atrasTS" style="position: relative; left: 150px; top: 15px;" value="#{msg['atras']}" actionListener="#{controlVigenciaSueldo.cancelarCambioTipoSueldo()}" 
+                            <p:commandButton id="atrasTS" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlVigenciaSueldo.cancelarCambioTipoSueldo()}" 
                                              process="@this" icon="ui-icon-arrowreturnthick-1-w" onclick="PF('TipoSueldoDialogo').hide()" update=":form:lovTipoSueldo"/>
-
+                            </div>
                         </p:dialog>
 
                         <!-- DIALOGO L.O.V ESTATICO TIPO ENTIDAD -->
                         <p:dialog header="#{msg['tiposentidadesTE']}" widgetVar="TipoEntidadDialogo" draggable="false" resizable="false" closable="false" id="TipoEntidadDialogo"  
-                                  showEffect="fade" hideEffect="fade" width="445" modal="true" height="340">
-                            <p:dataTable id="lovTipoEntidad" style=" width: 410px;" var="tipoE" value="#{controlVigenciaSueldo.listTiposEntidades}" rowKey="#{tipoE.secuencia}"
+                                  showEffect="fade" hideEffect="fade" width="445" modal="true" >
+                            <p:dataTable id="lovTipoEntidad" var="tipoE" value="#{controlVigenciaSueldo.listTiposEntidades}" rowKey="#{tipoE.secuencia}"
                                          selection="#{controlVigenciaSueldo.tipoEntidadSeleccionado}" selectionMode="single" widgetVar="lovTipoEntidad" scrollable="true" scrollWidth="430" scrollHeight="200"
                                          filteredValue="#{controlVigenciaSueldo.filtrarTiposEntidades}" emptyMessage="#{msg['lovvacio']}">              
                                 
@@ -467,8 +469,8 @@
                                 <p:ajax event="rowDblselect" listener="#{controlVigenciaSueldo.actualizarTipoEntidad()}" process="@this" oncomplete="PF('TipoEntidadDialogo').hide()"/>
 
                                 <f:facet name="header">  
-                                    <h:outputText value="#{msg['buscarTE']}"  style="position: absolute; left: 27px; top: 14px"/>
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovTipoEntidad').filter();" value="#{filtrado}" style="width:160px; position: relative; left: 40px;"/>  
+                                    <h:outputText value="#{msg['buscarTE']}" />
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovTipoEntidad').filter();" value="#{filtrado}" class="cssFiltroLOV"/>  
                                 </f:facet>
                                 <p:column filterBy="#{tipoE.codigo}" width="70" filterMatchMode="contains" filterStyle="width: 85% !important">
                                     <f:facet name="header">
@@ -484,20 +486,21 @@
                                 </p:column>
                             </p:dataTable>
 
-                            <h:outputText id="infoRegistroTipoEntidad" value="#{msg['infoRegistro']} #{controlVigenciaSueldo.infoRegistroTipoEntidad}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
+                            <div class="cssBotonesLOV">
+                            <h:outputText id="infoRegistroTipoEntidad" value="#{msg['infoRegistro']} #{controlVigenciaSueldo.infoRegistroTipoEntidad}" class="cssinfoRegistroLOV"/>
 
-                            <p:commandButton id="aceptarTE" style="position: relative; left: 150px; top: 15px;" value="#{msg['aceptar']}" disabled="#{controlVigenciaSueldo.aceptar}" 
+                            <p:commandButton id="aceptarTE" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlVigenciaSueldo.aceptar}" 
                                              actionListener="#{controlVigenciaSueldo.actualizarTipoEntidad()}" process="@this" icon="ui-icon-check" onclick="PF('TipoEntidadDialogo').hide()" />
 
-                            <p:commandButton id="atrasTE" style="position: relative; left: 150px; top: 15px;" value="#{msg['atras']}" actionListener="#{controlVigenciaSueldo.cancelarCambioTipoEntidad()}"
+                            <p:commandButton id="atrasTE" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlVigenciaSueldo.cancelarCambioTipoEntidad()}"
                                              process="@this" icon="ui-icon-arrowreturnthick-1-w" update=":form:lovTipoEntidad"/>
-
+                            </div>
                         </p:dialog>
 
 
                         <!-- DIALOGO L.O.V ESTATICO TERCEROS -->
                         <p:dialog header="#{msg['terceroTER']}" widgetVar="TerceroDialogo" draggable="false" resizable="false" closable="false" id="TerceroDialogo"  
-                                  showEffect="fade" hideEffect="fade" width="645" modal="true" height="390" >
+                                  showEffect="fade" hideEffect="fade" width="645" modal="true"  >
                             <p:dataTable id="lovTercero" style=" width: 600px;" var="tercero" value="#{controlVigenciaSueldo.listTerceros}" rowKey="#{tercero.secuencia}"
                                          selection="#{controlVigenciaSueldo.terceroSeleccionado}" selectionMode="single" widgetVar="lovTercero" scrollable="true" scrollWidth="630" scrollHeight="250"
                                          filteredValue="#{controlVigenciaSueldo.filtrarTerceros}" emptyMessage="#{msg['lovvacio']}">              
@@ -508,7 +511,7 @@
 
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarTER']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovTercero').filter();" value="#{filtrado}" style="width:200px; position: relative; left: -60px;" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovTercero').filter();" value="#{filtrado}" class="cssFiltroLOV" />  
                                 </f:facet>
                                 <p:column filterBy="#{tercero.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important">
                                     <f:facet name="header">
@@ -529,13 +532,14 @@
                                     <h:outputText value="#{tercero.nit}" />
                                 </p:column>
                             </p:dataTable>
+                            
+                            <div class="cssBotonesLOV">
+                            <h:outputText id="infoRegistroTercero" value="#{msg['infoRegistro']} #{controlVigenciaSueldo.infoRegistroTercero}" class="cssinfoRegistroLOV" />
 
-                            <h:outputText id="infoRegistroTercero" value="#{msg['infoRegistro']} #{controlVigenciaSueldo.infoRegistroTercero}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
+                            <p:commandButton id="aceptarT" class="cssAceptarLOV" value="#{msg['aceptar']}" actionListener="#{controlVigenciaSueldo.actualizarTerceros()}" disabled="#{controlVigenciaSueldo.aceptar}" process="@this" icon="ui-icon-check" onclick="PF('TerceroDialogo').hide()"/>
 
-                            <p:commandButton id="aceptarT" style="position: relative; left: 340px; top: 15px;" value="#{msg['aceptar']}" actionListener="#{controlVigenciaSueldo.actualizarTerceros()}" disabled="#{controlVigenciaSueldo.aceptar}" process="@this" icon="ui-icon-check" onclick="PF('TerceroDialogo').hide()"/>
-
-                            <p:commandButton id="atrasT" style="position: relative; left: 340px; top: 15px;" value="#{msg['atras']}" actionListener="#{controlVigenciaSueldo.cancelarCambioTerceros()}" process="@this" icon="ui-icon-arrowreturnthick-1-w" update=":form:lovTercero"/>
-
+                            <p:commandButton id="atrasT" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlVigenciaSueldo.cancelarCambioTerceros()}" process="@this" icon="ui-icon-arrowreturnthick-1-w" update=":form:lovTercero"/>
+                            </div>
                         </p:dialog>
 
                     </p:panel>

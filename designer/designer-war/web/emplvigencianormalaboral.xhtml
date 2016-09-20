@@ -145,8 +145,8 @@
                         <p:commandButton id="ATRAS" style="position: absolute; left: 765px; top: 495px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=" " action="normalaboralNominaF" />
 
                         <p:dialog header="#{msg['normaLaboralM']}" widgetVar="sucursalesDialogo" draggable="false" resizable="false" closable="false" id="sucursalesDialogo"  
-                                  showEffect="fade" hideEffect="fade" width="470" height="250" modal="true">
-                            <p:dataTable id="lovTiposFamiliares" style=" width: 430px;" var="tipofamiliar" value="#{controlBetaEmplVigenciaNormaLaboral.listaNormasLaborales}" rowKey="#{tipofamiliar.secuencia}"
+                                  showEffect="fade" hideEffect="fade" width="470" modal="true">
+                            <p:dataTable id="lovTiposFamiliares" var="tipofamiliar" value="#{controlBetaEmplVigenciaNormaLaboral.listaNormasLaborales}" rowKey="#{tipofamiliar.secuencia}"
                                          selection="#{controlBetaEmplVigenciaNormaLaboral.normaLaboralSeleccionada}" selectionMode="single" widgetVar="lovTiposFamiliares" scrollable="true" scrollWidth="445" scrollHeight="130"
                                          filteredValue="#{controlBetaEmplVigenciaNormaLaboral.filtradoNormasLaborales}" emptyMessage="#{msg['lovvacio']}">
                                 
@@ -154,8 +154,8 @@
                                 <p:ajax event="rowSelect" listener="#{controlBetaEmplVigenciaNormaLaboral.activarAceptar()}" update=":form:aceptarS"/>
                                 <p:ajax event="rowDblselect" listener="#{controlBetaEmplVigenciaNormaLaboral.actualizarNormaLaboral()}" update=":form:sucursalesDialogo" process="@this" />
                                 <f:facet name="header">  
-                                    <h:outputText value="#{msg['buscarNM']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovTiposFamiliares').filter();" value="#{filtrado}" style="width:150px; position: relative; left: 10px;" />  
+                                    <h:outputText value="#{msg['buscarNM']}" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovTiposFamiliares').filter();" value="#{filtrado}" />  
                                 </f:facet>
                                 <p:column filterBy="#{tipofamiliar.codigo}" width="60" filterStyle="width:50px;" filterMatchMode="contains">
                                     <f:facet name="header">
@@ -171,11 +171,14 @@
                                 </p:column>
 
                             </p:dataTable>
-                            <h:outputText id="infoRecursoNormasLaborales" value="#{msg['infoRegistro']} #{controlBetaEmplVigenciaNormaLaboral.infoRecursoNormasLaborales}" style="position: absolute; left: 15px; top: 220px; font-weight: bold"/>
+                            
+                            <div class="cssBotonesLOV">
+                            <h:outputText id="infoRecursoNormasLaborales" value="#{msg['infoRegistro']} #{controlBetaEmplVigenciaNormaLaboral.infoRecursoNormasLaborales}" class="cssinfoRegistroLOV"/>
                             <p:commandButton id="aceptarS" value="#{msg['aceptar']}" update=":form:sucursalesDialogo" disabled="#{controlBetaEmplVigenciaNormaLaboral.aceptar}" actionListener="#{controlBetaEmplVigenciaNormaLaboral.actualizarNormaLaboral()}"
-                                             style="position: relative; left: 230px;" icon="ui-icon-check" process="@this" />
+                                             class="cssAceptarLOV" icon="ui-icon-check" process="@this" />
                             <p:commandButton id="atrasS" value="#{msg['cancelar']}"  actionListener="#{controlBetaEmplVigenciaNormaLaboral.cancelarCambioNormaLaboral()}" 
-                                             style="position: relative; left: 232px;" update=":form:sucursalesDialogo" icon="ui-icon-arrowreturnthick-1-w" process="@this"/>
+                                             class="cssAtrasLOV" update=":form:sucursalesDialogo" icon="ui-icon-arrowreturnthick-1-w" process="@this"/>
+                            </div>
                         </p:dialog>
 
                         <p:dialog id="confirmarGuardar" header="#{msg['precaucion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  

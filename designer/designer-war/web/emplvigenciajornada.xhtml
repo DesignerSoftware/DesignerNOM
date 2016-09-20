@@ -311,8 +311,8 @@
 
                         <!-- Dialogo Jornadas Laborales -->
                         <p:dialog header="#{msg['jornadaJ']}" widgetVar="JornadaLaboralDialogo" draggable="false" resizable="false" closable="false" id="JornadaLaboralDialogo"  
-                                  showEffect="fade" hideEffect="fade" width="400" modal="true" height="305">
-                            <p:dataTable id="lovJornadaLaboral" style=" width: 365px;" var="jLaboral" value="#{controlVigenciaJornada.listJornadasLaborales}" rowKey="#{jLaboral.secuencia}"
+                                  showEffect="fade" hideEffect="fade" width="400" modal="true" >
+                            <p:dataTable id="lovJornadaLaboral" var="jLaboral" value="#{controlVigenciaJornada.listJornadasLaborales}" rowKey="#{jLaboral.secuencia}"
                                          selection="#{controlVigenciaJornada.jornadaLaboralSeleccionada}" selectionMode="single" widgetVar="lovJornadaLaboral" scrollable="true" scrollWidth="383" scrollHeight="170"
                                          filteredValue="#{controlVigenciaJornada.filtrarJornadasLaborales}" emptyMessage="#{msg['lovvacio']}">              
 
@@ -321,8 +321,8 @@
                                 <p:ajax event="rowDblselect" listener="#{controlVigenciaJornada.actualizarJornadaLaboral()}" immediate="true"
                                         oncomplete="PF('JornadaLaboralDialogo').hide(), PF('lovJornadaLaboral').unselectAllRows()" update=":form:JornadaLaboralDialogo" process="@this" />
                                 <f:facet name="header">  
-                                    <h:outputText value="#{msg['buscarJ']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovJornadaLaboral').filter();" value="#{filtrado}" style="width:130px; position: relative; left: 65px;" />  
+                                    <h:outputText value="#{msg['buscarJ']}" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovJornadaLaboral').filter();" value="#{filtrado}" class="cssFiltroLOV"/>  
                                 </f:facet>
                                 <p:column filterBy="#{jLaboral.descripcion}" width="200" filterMatchMode="contains" filterStyle="width:85%">
                                     <f:facet name="header">
@@ -337,21 +337,20 @@
                                     <h:outputText value="#{jLaboral.codigo}" />
                                 </p:column>
                             </p:dataTable>
-
-                            <h:outputText id="infoRegistroJornadaLaboral" value="#{msg['infoRegistro']} #{controlVigenciaJornada.infoRegistroJornadaLaboral}" style="position: relative; left: 15px; top: 1px; font-weight: bold"/>
-
-                            <p:commandButton id="aceptarJL" style="position: relative; left: 115px; top: 15px;" value="#{msg['aceptar']}" disabled="#{controlVigenciaJornada.aceptar}" actionListener="#{controlVigenciaJornada.actualizarJornadaLaboral()}" process="@this" icon="ui-icon-check" 
+                            
+                            <div class="cssBotonesLOV">
+                            <h:outputText id="infoRegistroJornadaLaboral" value="#{msg['infoRegistro']} #{controlVigenciaJornada.infoRegistroJornadaLaboral}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarJL" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlVigenciaJornada.aceptar}" actionListener="#{controlVigenciaJornada.actualizarJornadaLaboral()}" process="@this" icon="ui-icon-check" 
                                              oncomplete="PF('JornadaLaboralDialogo').hide(), PF('lovJornadaLaboral').unselectAllRows()" update=":form:JornadaLaboralDialogo" onclick="PF('JornadaLaboralDialogo').hide()"/>
-
-                            <p:commandButton id="atrasJL" style="position: relative; left: 115px; top: 15px;" value="#{msg['atras']}" actionListener="#{controlVigenciaJornada.cancelarCambioJornadaLaboral()}" process="@this" 
+                            <p:commandButton id="atrasJL" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlVigenciaJornada.cancelarCambioJornadaLaboral()}" process="@this" 
                                              oncomplete="PF('JornadaLaboralDialogo').hide(), PF('lovJornadaLaboral').unselectAllRows()" update=":form:JornadaLaboralDialogo" icon="ui-icon-arrowreturnthick-1-w" />
-
+                            </div>
                         </p:dialog>
 
                         <!-- Dialogo Tipo Descanso-->
                         <p:dialog header="#{msg['descripcionD']}" widgetVar="TiposDescansosDialogo" draggable="false" resizable="false" closable="false" id="TiposDescansosDialogo"  
-                                  showEffect="fade" hideEffect="fade" width="400" modal="true" height="305">
-                            <p:dataTable id="lovTipoDescanso" style=" width: 365px;" var="tDescanso" value="#{controlVigenciaJornada.listTiposDescansos}" rowKey="#{tDescanso.secuencia}"
+                                  showEffect="fade" hideEffect="fade" width="400" modal="true" >
+                            <p:dataTable id="lovTipoDescanso"  var="tDescanso" value="#{controlVigenciaJornada.listTiposDescansos}" rowKey="#{tDescanso.secuencia}"
                                          selection="#{controlVigenciaJornada.tipoDescansoSeleccionado}" selectionMode="single" widgetVar="lovTipoDescanso" scrollable="true" scrollWidth="383" scrollHeight="170"
                                          filteredValue="#{controlVigenciaJornada.filtradoTiposDescansos}" emptyMessage="#{msg['lovvacio']}">              
 
@@ -360,8 +359,8 @@
                                 <p:ajax event="rowDblselect" listener="#{controlVigenciaJornada.actualizarTipoDescanso()}" immediate="true"
                                         oncomplete="PF('TiposDescansosDialogo').hide(), PF('lovTipoDescanso').unselectAllRows()" update=":form:TiposDescansosDialogo" process="@this"  />
                                 <f:facet name="header">  
-                                    <h:outputText value="#{msg['buscarD']}:"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovTipoDescanso').filter();" value="#{filtrado}" style="width:130px; position: relative; left: 65px;" />  
+                                    <h:outputText value="#{msg['buscarD']}:" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovTipoDescanso').filter();" value="#{filtrado}" class="cssFiltroLOV" />  
                                 </f:facet>
                                 <p:column filterBy="#{tDescanso.descripcion}" width="200" filterMatchMode="contains" filterStyle="width:85%">
                                     <f:facet name="header">
@@ -376,15 +375,16 @@
                                     <h:outputText value="#{tDescanso.codigo}" />
                                 </p:column>
                             </p:dataTable>
+                            
+                            <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroTipoDescanso" value="#{msg['infoRegistro']} #{controlVigenciaJornada.infoRegistroTipoDescanso}" class="cssinfoRegistroLOV"/>
 
-                            <h:outputText id="infoRegistroTipoDescanso" value="#{msg['infoRegistro']} #{controlVigenciaJornada.infoRegistroTipoDescanso}" style="position: relative; left: 15px; top: 1px; font-weight: bold"/>
-
-                            <p:commandButton id="aceptarTD" style="position: relative; left: 115px; top: 15px;" value="#{msg['aceptar']}" disabled="#{controlVigenciaJornada.aceptar}"  actionListener="#{controlVigenciaJornada.actualizarTipoDescanso()}"  
+                            <p:commandButton id="aceptarTD" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlVigenciaJornada.aceptar}"  actionListener="#{controlVigenciaJornada.actualizarTipoDescanso()}"  
                                              oncomplete="PF('TiposDescansosDialogo').hide(), PF('lovTipoDescanso').unselectAllRows()" update=":form:TiposDescansosDialogo" process="@this" icon="ui-icon-check" onclick="PF('TiposDescansosDialogo').hide()"/>
 
-                            <p:commandButton id="atrasTD" style="position: relative; left: 115px; top: 15px;" value="#{msg['atras']}" actionListener="#{controlVigenciaJornada.cancelarCambioTipoDescanso()}"  
+                            <p:commandButton id="atrasTD" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlVigenciaJornada.cancelarCambioTipoDescanso()}"  
                                              oncomplete="PF('TiposDescansosDialogo').hide(), PF('lovTipoDescanso').unselectAllRows()" update=":form:TiposDescansosDialogo" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
-
+                            </div>
                         </p:dialog>
 
                         <p:commandButton style="position: absolute; left: 680px; top: 498px; height: 30px; width: 90px; background-image:  url(Imagenes/Iconos/aceptar.png); 
