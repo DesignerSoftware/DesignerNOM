@@ -475,8 +475,8 @@ button .ui-widget-header{
    background-size: 100% 100% !important;
    background-repeat: no-repeat !important;
    border: none !important;
-   width: 21px;
-   height: 21px;
+   width: 20px;
+   height: 20px;
 }
 
 /*.ui-datatable thead th {
@@ -512,14 +512,16 @@ button .ui-widget-header{
 .ui-datatable tbody th, 
 .ui-datatable tbody td
 {
-   padding: 3px 3px !important;
+   padding: 2px 3px !important;
 }
 
 .ui-datatable-scrollable input,
-.ui-datatable-scrollable .ui-input,
-.ui-datatable-scrollable .ui-inputfield {
-   height: 100% !important;
-   width: 100% !important;
+.ui-datatable-scrollable .ui-input
+.ui-datatable-scrollable .ui-inputfield 
+{
+   height: 99% !important;
+   width: 99% !important;
+   padding: 2px 2px !important; 
 }
 
 .ui-inputfield.ui-inputtext.ui-widget.ui-state-focus.ui-corner-all,
@@ -545,14 +547,25 @@ button .ui-widget-header{
 }
 
 .ui-datatable-scrollable td div .ui-cell-editor-output {
-   height: 18px; position: relative; width: -moz-max-content;
+   height: 18px;
+   position: relative;
+   width: -moz-max-content;
+   width: max-content;
 }
 
 .ui-datatable-scrollable .ui-state-highlight input,
-.ui-datatable-scrollable .ui-state-highlight .ui-input,
-.ui-datatable-scrollable .ui-state-highlight .ui-inputfield {
+.ui-datatable-scrollable .ui-state-highlight .ui-input
+{
    margin: 0px !important;
    background-color: #0A246A !important;
+   color: white !important;
+   margin-left: -3px !important;
+   border-radius: 3px !important;
+}
+
+.ui-datatable-scrollable .ui-state-highlight .ui-inputfield{
+   /*width: 98% !important;*/
+   margin: 0px !important;
    color: white !important;
    margin-left: -3px !important;
    border-radius: 3px !important;

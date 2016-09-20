@@ -503,7 +503,8 @@ public class ControlPersonaIndividual implements Serializable {
       RequestContext.getCurrentInstance().execute("PF('EmpresaInformacionPersonalDialogo').show()");
    }
 
-   public void listaValoresInformacionPersonal() {
+   public void listaValoresInformacionPersonal(int n) {
+      idInformacionPersonal = n;
       RequestContext context = RequestContext.getCurrentInstance();
       if (idInformacionPersonal == 0) {
          cargarLovEmpresas();
@@ -535,7 +536,8 @@ public class ControlPersonaIndividual implements Serializable {
       }
    }
 
-   public void listaValoresCargoDesempenado() {
+   public void listaValoresCargoDesempenado(int n) {
+      idCargoDesempeñado = n;
       RequestContext context = RequestContext.getCurrentInstance();
       if (idCargoDesempeñado == 0) {
          cargarLovCargos();
@@ -575,7 +577,8 @@ public class ControlPersonaIndividual implements Serializable {
       }
    }
 
-   public void listaValoresCentroCosto() {
+   public void listaValoresCentroCosto(int n) {
+      idCentroCosto = n;
       RequestContext context = RequestContext.getCurrentInstance();
       if (idCentroCosto == 0) {
          cargarLovMotivosLocalizaciones();
@@ -594,16 +597,15 @@ public class ControlPersonaIndividual implements Serializable {
    }
 
    public void listaValoresTipoTrabajador() {
-      if (idTipoTrabajador == 0) {
          cargarLovTiposTrabajadores();
          RequestContext.getCurrentInstance().update("formLovs:formDTipoTrabajador:TipoTrabajadorTipoTrabajadorDialogo");
          contarRegistros_TipoTraTT();
          RequestContext.getCurrentInstance().execute("PF('TipoTrabajadorTipoTrabajadorDialogo').show()");
          idTipoTrabajador = -1;
-      }
    }
 
-   public void listaValoresTipoSalario() {
+   public void listaValoresTipoSalario(int n) {
+      idTipoSalario = n;
       System.out.println("entro a llamar listaValoresTipoSalario()");
       if (idTipoSalario == 0) {
          contarRegistros_ReformaTipoSa();
@@ -614,7 +616,8 @@ public class ControlPersonaIndividual implements Serializable {
       }
    }
 
-   public void listaValoresSueldo() {
+   public void listaValoresSueldo(int n) {
+      idSueldo = n;
       RequestContext context = RequestContext.getCurrentInstance();
       if (idSueldo == 1) {
          cargarLovMotivosCambiosSueldos();
@@ -642,7 +645,8 @@ public class ControlPersonaIndividual implements Serializable {
       }
    }
 
-   public void listaValoresTipoContrato() {
+   public void listaValoresTipoContrato(int n) {
+      idTipoContrato = n;
       RequestContext context = RequestContext.getCurrentInstance();
       if (idTipoContrato == 0) {
          cargarLovMotivosContratos();
@@ -665,7 +669,8 @@ public class ControlPersonaIndividual implements Serializable {
       }
    }
 
-   public void listaValoresNormaLaboral() {
+   public void listaValoresNormaLaboral(int n) {
+      idNormaLaboral = n;
       RequestContext context = RequestContext.getCurrentInstance();
       if (idNormaLaboral == 0) {
          if (lovNormasLaborales == null) {
@@ -680,7 +685,8 @@ public class ControlPersonaIndividual implements Serializable {
       }
    }
 
-   public void listaValoresLegislacionLaboral() {
+   public void listaValoresLegislacionLaboral(int n) {
+      idLegislacionLaboral = n;
       RequestContext context = RequestContext.getCurrentInstance();
       if (idLegislacionLaboral == 0) {
          if (lovContratos == null) {
@@ -695,7 +701,8 @@ public class ControlPersonaIndividual implements Serializable {
       }
    }
 
-   public void listaValoresUbicacion() {
+   public void listaValoresUbicacion(int n) {
+      idUbicacionGeografica = n;
       RequestContext context = RequestContext.getCurrentInstance();
       System.out.println("Entro en listaValoresUbicacion()");
       if (idUbicacionGeografica == 0) {
@@ -708,7 +715,8 @@ public class ControlPersonaIndividual implements Serializable {
       }
    }
 
-   public void listaValoresJornadaLaboral() {
+   public void listaValoresJornadaLaboral(int n) {
+      idJornadaLaboral = n;
       RequestContext context = RequestContext.getCurrentInstance();
       System.out.println("Entro en listaValoresJornadaLaboral");
       if (idJornadaLaboral == 0) {
@@ -720,7 +728,8 @@ public class ControlPersonaIndividual implements Serializable {
       }
    }
 
-   public void listaValoresFormaPago() {
+   public void listaValoresFormaPago(int n) {
+      idFormaPago = n;
       System.out.println("Entro en listaValoresFormaPago() idFormaPago : " + idFormaPago);
       RequestContext context = RequestContext.getCurrentInstance();
       if (idFormaPago == 0) {
@@ -757,55 +766,55 @@ public class ControlPersonaIndividual implements Serializable {
    }
 
    public void listaValoresAfiliacionARP() {
-      if (idAfiliacionARP == 0) {
+//      if (idAfiliacionARP == 0) {
          cargarLovTercerosSucursales();
          tituloTercero = "A.R.L";
          siguienteFocodeTercero = "fondoCensantiasModAfiliaciones";
          RequestContext.getCurrentInstance().update("formLovs:formDAfiliacion:TerceroAfiliacionDialogo");
          contarRegistros_TerceroAfSuc();
          RequestContext.getCurrentInstance().execute("PF('TerceroAfiliacionDialogo').show()");
-      }
+//      }
    }
 
    public void listaValoresAfiliacionFondo() {
       RequestContext context = RequestContext.getCurrentInstance();
-      if (idAfiliacionFondo == 0) {
+//      if (idAfiliacionFondo == 0) {
          cargarLovTercerosSucursales();
          tituloTercero = "Fondo de Cesantías";
          siguienteFocodeTercero = "afpModAfiliaciones";
          RequestContext.getCurrentInstance().update("formLovs:formDAfiliacion:TerceroAfiliacionDialogo");
          contarRegistros_TerceroAfSuc();
          RequestContext.getCurrentInstance().execute("PF('TerceroAfiliacionDialogo').show()");
-      }
+//      }
    }
 
    public void listaValoresAfiliacionAFP() {
       RequestContext context = RequestContext.getCurrentInstance();
-      if (idAfiliacionAFP == 0) {
+//      if (idAfiliacionAFP == 0) {
          cargarLovTercerosSucursales();
          tituloTercero = "A.F.P";
          siguienteFocodeTercero = "cajaCompensacionModAfiliaciones";
          RequestContext.getCurrentInstance().update("formLovs:formDAfiliacion:TerceroAfiliacionDialogo");
          contarRegistros_TerceroAfSuc();
          RequestContext.getCurrentInstance().execute("PF('TerceroAfiliacionDialogo').show()");
-      }
+//      }
    }
 
    public void listaValoresAfiliacionCaja() {
       RequestContext context = RequestContext.getCurrentInstance();
-      if (idAfiliacionCaja == 0) {
+//      if (idAfiliacionCaja == 0) {
          cargarLovTercerosSucursales();
          tituloTercero = "C.C.F";
          siguienteFocodeTercero = "grupoSanguineoModFactorRH";
          RequestContext.getCurrentInstance().update("formLovs:formDAfiliacion:TerceroAfiliacionDialogo");
          contarRegistros_TerceroAfSuc();
          RequestContext.getCurrentInstance().execute("PF('TerceroAfiliacionDialogo').show()");
-      }
+//      }
    }
 
    public void listaValoresEstadoCivil() {
       RequestContext context = RequestContext.getCurrentInstance();
-      if (idEstadoCivil == 0) {
+//      if (idEstadoCivil == 0) {
          cargarLovTercerosSucursales();
          cargarLovEstadosCiviles();
          System.out.println("listaValoresEstadoCivil() lovEstadosCiviles : " + lovEstadosCiviles);
@@ -815,22 +824,23 @@ public class ControlPersonaIndividual implements Serializable {
          }
          RequestContext.getCurrentInstance().execute("PF('EstadoCivilEstadoCivilDialogo').show()");
          idEstadoCivil = -1;
-      }
+//      }
    }
 
    public void listaValoresDireccion() {
       RequestContext context = RequestContext.getCurrentInstance();
-      if (idDireccion == 1) {
+//      if (idDireccion == 1) {
          cargarLovTercerosSucursales();
          cargarLovCiudades();
          RequestContext.getCurrentInstance().update("formLovs:formDDireccion:CiudadDireccionDialogo");
          contarRegistros_CiudadDir();
          RequestContext.getCurrentInstance().execute("PF('CiudadDireccionDialogo').show()");
          idDireccion = -1;
-      }
+//      }
    }
 
-   public void listaValoresTelefono() {
+   public void listaValoresTelefono(int n) {
+      idTelefono = n;
       RequestContext context = RequestContext.getCurrentInstance();
       if (idTelefono == 0) {
          cargarLovTiposTelefonos();
@@ -2242,35 +2252,35 @@ public class ControlPersonaIndividual implements Serializable {
                      * administrarPersonaIndividual.obtenerEmpresa(nuevoEmpleado.getEmpresa()).getNombre();
                 */
             } else {
-               listaValoresInformacionPersonal();
+               listaValoresInformacionPersonal(idInformacionPersonal);
             }
          }
          if (idInformacionPersonal == 5) {
             if (nuevaPersona.getTipodocumento().getSecuencia() != null) {
                auxInformacionPersonalTipoDocumento = nuevaPersona.getTipodocumento().getNombrelargo();
             } else {
-               listaValoresInformacionPersonal();
+               listaValoresInformacionPersonal(idInformacionPersonal);
             }
          }
          if (idInformacionPersonal == 7) {
             if (nuevaPersona.getCiudaddocumento().getSecuencia() != null) {
                auxInformacionPersonalCiudadDocumento = nuevaPersona.getCiudaddocumento().getNombre();
             } else {
-               listaValoresInformacionPersonal();
+               listaValoresInformacionPersonal(idInformacionPersonal);
             }
          }
          if (idInformacionPersonal == 9) {
             if (nuevaPersona.getCiudadnacimiento().getSecuencia() != null) {
                auxInformacionPersonalCiudadNacimiento = nuevaPersona.getCiudadnacimiento().getNombre();
             } else {
-               listaValoresInformacionPersonal();
+               listaValoresInformacionPersonal(idInformacionPersonal);
             }
          }
 
       }
    }
 
-   public void cambiarItemCargoDesempeñado(int itemCargoD) {
+   public void cambiarItemCargoDesempeñado(int iCargo) {
       if (permitirIndexCargoDesempeñado == true) {
          idInformacionPersonal = -1;
          idCentroCosto = -1;
@@ -2291,28 +2301,28 @@ public class ControlPersonaIndividual implements Serializable {
          idEstadoCivil = -1;
          idDireccion = -1;
          idTelefono = -1;
-         idCargoDesempeñado = itemCargoD;
+         idCargoDesempeñado = iCargo;
          auxCargoDesempeñadoPapel = nuevaVigenciaCargo.getPapel().getDescripcion();
          auxCargoDesempeñadoEmpleadoJefe = nuevaVigenciaCargo.getEmpleadojefe().getPersona().getNombreCompleto();
          if (idCargoDesempeñado == 0) {
             if (nuevaVigenciaCargo.getCargo().getSecuencia() != null) {
                auxCargoDesempeñadoNombreCargo = nuevaVigenciaCargo.getCargo().getNombre();
             } else {
-               listaValoresCargoDesempenado();
+               listaValoresCargoDesempenado(idCargoDesempeñado);
             }
          }
          if (idCargoDesempeñado == 1) {
             if (nuevaVigenciaCargo.getMotivocambiocargo().getSecuencia() != null) {
                auxCargoDesempeñadoMotivoCargo = nuevaVigenciaCargo.getMotivocambiocargo().getNombre();
             } else {
-               listaValoresCargoDesempenado();
+               listaValoresCargoDesempenado(idCargoDesempeñado);
             }
          }
          if (idCargoDesempeñado == 2) {
             if (nuevaVigenciaCargo.getEstructura().getSecuencia() != null) {
                auxCargoDesempeñadoNombreEstructura = nuevaVigenciaCargo.getEstructura().getNombre();
             } else {
-               listaValoresCargoDesempenado();
+               listaValoresCargoDesempenado(idCargoDesempeñado);
             }
          }
 
@@ -2345,14 +2355,14 @@ public class ControlPersonaIndividual implements Serializable {
             if (nuevaVigenciaLocalizacion.getMotivo().getSecuencia() != null) {
                auxCentroCostoMotivo = nuevaVigenciaLocalizacion.getMotivo().getDescripcion();
             } else {
-               listaValoresCentroCosto();
+               listaValoresCentroCosto(idCentroCosto);
             }
          }
          if (idCentroCosto == 1) {
             if (nuevaVigenciaLocalizacion.getLocalizacion().getSecuencia() != null) {
                auxCentroCostoEstructura = nuevaVigenciaLocalizacion.getLocalizacion().getCentrocosto().getNombre();
             } else {
-               listaValoresCentroCosto();
+               listaValoresCentroCosto(idCentroCosto);
             }
          }
       }
@@ -2418,10 +2428,10 @@ public class ControlPersonaIndividual implements Serializable {
                if (!"".equals(nuevaVigenciaReformaLaboral.getReformalaboral().getNombre())) {
                   auxTipoSalarioReformaLaboral = nuevaVigenciaReformaLaboral.getReformalaboral().getNombre();
                } else {
-                  listaValoresTipoSalario();
+                  listaValoresTipoSalario(idTipoSalario);
                }
             } else {
-               listaValoresTipoSalario();
+               listaValoresTipoSalario(idTipoSalario);
             }
          }
       }
@@ -2454,21 +2464,21 @@ public class ControlPersonaIndividual implements Serializable {
             if (nuevaVigenciaSueldo.getMotivocambiosueldo().getSecuencia() != null) {
                auxSueldoMotivoSueldo = nuevaVigenciaSueldo.getMotivocambiosueldo().getNombre();
             } else {
-               listaValoresSueldo();
+               listaValoresSueldo(idSueldo);
             }
          }
          if (idSueldo == 2) {
             if (nuevaVigenciaSueldo.getTiposueldo().getSecuencia() != null) {
                auxSueldoTipoSueldo = nuevaVigenciaSueldo.getTiposueldo().getDescripcion();
             } else {
-               listaValoresSueldo();
+               listaValoresSueldo(idSueldo);
             }
          }
          if (idSueldo == 3) {
             if (nuevaVigenciaSueldo.getUnidadpago().getSecuencia() != null) {
                auxSueldoUnidad = nuevaVigenciaSueldo.getUnidadpago().getNombre();
             } else {
-               listaValoresSueldo();
+               listaValoresSueldo(idSueldo);
             }
          }
       }
@@ -2501,14 +2511,14 @@ public class ControlPersonaIndividual implements Serializable {
             if (nuevaVigenciaTipoContrato.getTipocontrato().getSecuencia() != null) {
                auxTipoContratoMotivo = nuevaVigenciaTipoContrato.getTipocontrato().getNombre();
             } else {
-               listaValoresTipoContrato();
+               listaValoresTipoContrato(idTipoContrato);
             }
          }
          if (idTipoContrato == 0) {
             if (nuevaVigenciaTipoContrato.getMotivocontrato().getSecuencia() != null) {
                auxTipoContratoTipoContrato = nuevaVigenciaTipoContrato.getMotivocontrato().getNombre();
             } else {
-               listaValoresTipoContrato();
+               listaValoresTipoContrato(idTipoContrato);
             }
          }
       }
@@ -2540,7 +2550,7 @@ public class ControlPersonaIndividual implements Serializable {
             if (nuevaVigenciaNormaEmpleado.getNormalaboral().getSecuencia() != null) {
                auxNormaLaboralNorma = nuevaVigenciaNormaEmpleado.getNormalaboral().getNombre();
             } else {
-               listaValoresNormaLaboral();
+               listaValoresNormaLaboral(idNormaLaboral);
             }
          }
       }
@@ -2572,7 +2582,7 @@ public class ControlPersonaIndividual implements Serializable {
             if (nuevaVigenciaContrato.getContrato().getSecuencia() != null) {
                auxLegislacionLaboralNombre = nuevaVigenciaContrato.getContrato().getDescripcion();
             } else {
-               listaValoresLegislacionLaboral();
+               listaValoresLegislacionLaboral(idLegislacionLaboral);
             }
          }
       }
@@ -2608,10 +2618,10 @@ public class ControlPersonaIndividual implements Serializable {
                if (!"".equals(txt_ubicacionG)) {
                   auxUbicacionGeograficaUbicacion = nuevaVigenciaUbicacion.getUbicacion().getDescripcion();
                } else {
-                  listaValoresUbicacion();
+                  listaValoresUbicacion(idUbicacionGeografica);
                }
             } else {
-               listaValoresUbicacion();
+               listaValoresUbicacion(idUbicacionGeografica);
             }
          }
       }
@@ -2646,10 +2656,10 @@ public class ControlPersonaIndividual implements Serializable {
                if (!"".equals(txt_formaP)) {
                   auxFormaPagoPeriodicidad = nuevaVigenciaFormaPago.getFormapago().getNombre();
                } else {
-                  listaValoresFormaPago();
+                  listaValoresFormaPago(idFormaPago);
                }
             } else {
-               listaValoresFormaPago();
+               listaValoresFormaPago(idFormaPago);
             }
          }
          if (idFormaPago == 3) {
@@ -2663,7 +2673,7 @@ public class ControlPersonaIndividual implements Serializable {
             if (nuevaVigenciaFormaPago.getMetodopago().getSecuencia() != null) {
                auxFormaPagoMetodo = nuevaVigenciaFormaPago.getMetodopago().getDescripcion();
             } else {
-               listaValoresFormaPago();
+               listaValoresFormaPago(idFormaPago);
             }
          }
       }
@@ -2695,7 +2705,7 @@ public class ControlPersonaIndividual implements Serializable {
             if (nuevaVigenciaJornada.getJornadatrabajo().getSecuencia() != null) {
                auxJornadaLaboralJornada = nuevaVigenciaJornada.getJornadatrabajo().getDescripcion();
             } else {
-               listaValoresJornadaLaboral();
+               listaValoresJornadaLaboral(idJornadaLaboral);
             }
          }
       }

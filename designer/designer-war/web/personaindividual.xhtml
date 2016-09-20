@@ -137,8 +137,8 @@
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarInformacionPersonal(5,'TIPODOCUMENTO', controlPersonaIndividual.txt_tipoDoc)}" process="@this" update="@this"/>
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemInformacionPersonal(5)}" process="@this"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresInformacionPersonal()}" process="@this"/>
-                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 20px; left: 537px; z-index: 5;"
-                                               process="@this"/>
+                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 21px; left: 537px; z-index: 5;"
+                                               actionListener="#{controlPersonaIndividual.listaValoresInformacionPersonal(5)}" process="@this"/>
                            </p:inputText>
 
                            <h:outputText  value="*#{msg['numeroIdentificacion']}:" style="position: absolute; top: 50px; left: 280px; font-weight: bold;"/>
@@ -155,8 +155,8 @@
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarInformacionPersonal(7,'DOCUMENTO', controlPersonaIndividual.txt_ciudadDoc)}" process="@this" update="@this"/>
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemInformacionPersonal(7)}" process="@this"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresInformacionPersonal()}" process="@this"/>
-                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 70px; left: 537px; z-index: 5;"
-                                               process="@this"/>
+                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 71px; left: 537px; z-index: 5;"
+                                               actionListener="#{controlPersonaIndividual.listaValoresInformacionPersonal(7)}" process="@this"/>
                            </p:inputText>
 
                            <h:outputText  value="*#{msg['fechaNacimiento']}:" style="position: absolute; top: 100px; left: 280px; font-weight: bold;"/>
@@ -173,8 +173,8 @@
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemInformacionPersonal(9)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarInformacionPersonal(9,'NACIMIENTO', controlPersonaIndividual.txt_ciudadNac)}" process="@this" update="@this"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresInformacionPersonal()}" process="@this"/>
-                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 120px; left: 537px; z-index: 5;"
-                                               process="@this"/>
+                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 121px; left: 537px; z-index: 5;"
+                                               actionListener="#{controlPersonaIndividual.listaValoresInformacionPersonal(9)}" process="@this"/>
                            </p:inputText>
 
                            <h:outputText  value="*#{msg['fechaIngreso']}:" style="position: absolute; top: 25px; left: 580px; font-weight: bold;"/>
@@ -189,7 +189,7 @@
 
                            <h:outputText  value="*#{msg['codigoEmpleado']}:" style="position: absolute; top: 50px; left: 580px; font-weight: bold;"/>
                            <p:inputText onclick="select();" value="#{controlPersonaIndividual.nuevoEmpleado.codigoempleado}" id="codigoEmpleadoModPersonal"
-                                        style="position: absolute; top: 45px; left: 695px; width: 105px; text-transform: uppercase;">
+                                        style="position: absolute; top: 45px; left: 695px; width: 110px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemInformacionPersonal(11)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarCodigoEmpleado()}" process="@this" update="@this"/>
                               <p:keyFilter for="codigoEmpleadoModPersonal" mask="num"/>
@@ -198,7 +198,7 @@
 
                            <h:outputText  value="#{msg['correoElectronico']}:" style="position: absolute; top: 75px; left: 580px; font-weight: bold;"/>
                            <p:inputText maxlength="100" onclick="select();" value="#{controlPersonaIndividual.nuevaPersona.email}" id="correoModPersonal"
-                                        style="position: absolute; top: 70px; left: 695px; width: 105px;">
+                                        style="position: absolute; top: 70px; left: 695px; width: 110px;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemInformacionPersonal(12)}" process="@this"/>
                               <p:ajax event="change" process="@this" listener="#{controlPersonaIndividual.validarEmailPersona(controlPersonaIndividual.nuevaPersona.email)}" update="correoModPersonal"/>
                            </p:inputText>
@@ -225,8 +225,8 @@
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemCargoDesempeñado(0)}" immediate="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarCargoDesempeñado(0,'CARGO', controlPersonaIndividual.txt_cargo)}" process="@this" update="cargoModCargoDesempeñado"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresCargoDesempenado()}" process="@this"/>
-                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 15px; left: 367px; z-index: 5;"
-                                               process="@this"/>
+                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 16px; left: 367px; z-index: 5;"
+                                               actionListener="#{controlPersonaIndividual.listaValoresCargoDesempenado(0)}" process="@this"/>
                            </p:inputText>
 
                            <h:outputText  value="*#{msg['motivoCargo']}:" style="position: absolute; top: 45px; left: 65px;font-weight: bold;"/>
@@ -235,8 +235,8 @@
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemCargoDesempeñado(1)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarCargoDesempeñado(1,'MOTIVO', controlPersonaIndividual.txt_motivoCargo)}" process="@this" update="motivoModCargoDesempeñado"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresCargoDesempenado()}" process="@this"/>
-                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 40px; left: 367px; z-index: 5;"
-                                               process="@this"/>
+                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 41px; left: 367px; z-index: 5;"
+                                               actionListener="#{controlPersonaIndividual.listaValoresCargoDesempenado(1)}" process="@this"/>
                            </p:inputText>
 
                            <h:outputText id="infoEstructuraCargoDesempeñado" value="*#{msg['nombreEstructuraCargo']}:" style="position: absolute; top: 70px; left: 65px;font-weight: bold;"/>
@@ -246,8 +246,8 @@
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemCargoDesempeñado(2)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarCargoDesempeñado(2,'ESTRUCTURA', controlPersonaIndividual.nuevaVigenciaCargo.estructura.nombre)}" process="@this" update="estructuraModCargoDesempeñado"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresCargoDesempenado()}" process="@this"/>
-                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 65px; left: 367px; z-index: 5;" disabled="#{controlPersonaIndividual.disableNombreEstructuraCargo}"
-                                               process="@this"/>
+                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 66px; left: 367px; z-index: 5;" disabled="#{controlPersonaIndividual.disableNombreEstructuraCargo}"
+                                               actionListener="#{controlPersonaIndividual.listaValoresCargoDesempenado(2)}" process="@this"/>
                            </p:inputText>
                            <p:tooltip style="font-size: 12px;" for="infoEstructuraCargoDesempeñado" value="#{msg['infoEstructuraCargoDesempenado']}"/>
 
@@ -258,8 +258,8 @@
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarCargoDesempeñado(3,'PAPEL', controlPersonaIndividual.txt_papel)}" 
                                       update="papelModCargoDesempeñado" process="@this"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresCargoDesempenado()}" process="@this"/>
-                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 90px; left: 367px; z-index: 5;"
-                                               process="@this"/>
+                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 91px; left: 367px; z-index: 5;"
+                                               actionListener="#{controlPersonaIndividual.listaValoresCargoDesempenado(3)}" process="@this"/>
                            </p:inputText>
 
                            <h:outputText  value="#{msg['empleadoJefe']}:" style="position: absolute; top: 120px; left: 65px;font-weight: bold;"/>
@@ -268,8 +268,8 @@
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemCargoDesempeñado(4)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarCargoDesempeñado(4,'JEFE', controlPersonaIndividual.txt_empleado)}" onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" process="@this"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresCargoDesempenado()}" process="@this"/>
-                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 115px; left: 367px; z-index: 5;"
-                                               process="@this"/>
+                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 116px; left: 367px; z-index: 5;"
+                                               actionListener="#{controlPersonaIndividual.listaValoresCargoDesempenado(4)}" process="@this"/>
                            </p:inputText>
 
                         </fieldset>
@@ -282,22 +282,22 @@
 
                            <h:outputText  value="*#{msg['descripcionMotivo']}:" style="position: absolute; top: 20px; left: 65px;font-weight: bold;"/>
                            <p:inputText id="motivoModCentroCosto" onclick="select();" value="#{controlPersonaIndividual.txt_motivoCentroC}"
-                                        style="position: absolute; top: 15px; left: 245px; width: 155px; text-transform: uppercase;">
+                                        style="position: absolute; top: 15px; left: 240px; width: 155px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemCentroCosto(0)}" onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarCentroCosto(0,'MOTIVO', controlPersonaIndividual.txt_motivoCentroC)}" process="@this" update="motivoModCentroCosto"/>
-                              <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresCentroCosto()}" process="@this"/>
-                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 15px; left: 387px; z-index: 5;"
-                                               process="@this"/>
+                              <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresCentroCosto(0)}" process="@this"/>
+                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 16px; left: 382px; z-index: 5;"
+                                               actionListener="#{controlPersonaIndividual.listaValoresCentroCosto(0)}" process="@this"/>
                            </p:inputText>
 
                            <h:outputText id="infoEstructuraCentroCosto" value="*#{msg['descripcionEstructura']}:" style="position: absolute; top: 45px; left: 65px;font-weight: bold;"/>
                            <p:inputText id="estructuraModCentroCosto" disabled="#{controlPersonaIndividual.disableDescripcionEstructura}" onclick="select();" value="#{controlPersonaIndividual.nuevaVigenciaLocalizacion.localizacion.nombre}"
-                                        style="position: absolute; top: 40px; left: 245px; width: 155px; text-transform: uppercase;">
+                                        style="position: absolute; top: 40px; left: 240px; width: 155px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemCentroCosto(1)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarCentroCosto(1,'ESTRUCTURA', controlPersonaIndividual.nuevaVigenciaLocalizacion.localizacion.centrocosto.nombre)}" process="@this" update="estructuraModCentroCosto"/>
-                              <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresCentroCosto()}" process="@this"/>
-                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 40px; left: 387px; z-index: 5;"
-                                               process="@this"/>
+                              <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresCentroCosto(1)}" process="@this"/>
+                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 41px; left: 382px; z-index: 5;" disabled="#{controlPersonaIndividual.disableDescripcionEstructura}"
+                                               actionListener="#{controlPersonaIndividual.listaValoresCargoDesempenado(1)}" process="@this"/>
                            </p:inputText>
                            <p:tooltip style="font-size: 12px;" for="infoEstructuraCentroCosto" value="#{msg['infoEstructuraCentroCosto']}"/>
 
@@ -316,8 +316,8 @@
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarTipoTrabajador(0,'TIPOTRABAJADOR', controlPersonaIndividual.nuevaVigenciaTipoTrabajador.tipotrabajador.nombre)}"
                                       process="@this" update="tipoTrabajadorModTipoTrabajador" immediate="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresTipoTrabajador()}" process="@this"/>
-                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 25px; left: 367px; z-index: 5;"
-                                               process="@this"/>
+                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 26px; left: 367px; z-index: 5;"
+                                               actionListener="#{controlPersonaIndividual.listaValoresTipoTrabajador()}" process="@this"/>
                            </p:inputText>
                         </fieldset>
 
@@ -330,14 +330,14 @@
                            <h:outputText id="infoSalarioTipoSalario" value="*#{msg['tipoSalario']}:" style="position: absolute; top: 30px; left: 65px; font-weight: bold;"/>
                            <p:inputText id="tipoSalarioModTipoSalario" disabled="#{controlPersonaIndividual.disableCamposDependientesTipoT}" onclick="select();"
                                         value="#{controlPersonaIndividual.nuevaVigenciaReformaLaboral.reformalaboral.nombre}"
-                                        style="position: absolute; top: 25px; left: 245px; width: 155px; text-transform: uppercase;">
+                                        style="position: absolute; top: 25px; left: 240px; width: 155px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemReformaLaboral(0)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarTipoSalario(0,'REFORMA', controlPersonaIndividual.nuevaVigenciaReformaLaboral.reformalaboral.nombre)}"
                                       process="@this" update="tipoSalarioModTipoSalario, :formLovs:formDTipoSalario:lovReformaLaboralTipoSalario"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresTipoSalario()}"
                                       update=":formLovs:formDTipoSalario:lovReformaLaboralTipoSalario" process="@this"/>
-                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 25px; left: 387px; z-index: 5;"
-                                               process="@this"/>
+                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 26px; left: 382px; z-index: 5;" disabled="#{controlPersonaIndividual.disableCamposDependientesTipoT}"
+                                               actionListener="#{controlPersonaIndividual.listaValoresTipoSalario(0)}" process="@this"/>
                            </p:inputText>
                            <p:tooltip style="font-size: 12px;" for="infoSalarioTipoSalario" value="#{msg['infoSalarioTipoSalario']}"/>
                         </fieldset>
@@ -365,6 +365,8 @@
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemSueldo(1)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarSueldo(1,'MOTIVO', controlPersonaIndividual.txt_motivoSu)}" process="@this" update="motivoSueldoModSueldo"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresSueldo()}" process="@this"/>
+                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 43px; left: 367px; z-index: 5;"
+                                               actionListener="#{controlPersonaIndividual.listaValoresSueldo(1) }" process="@this"/>
                            </p:inputText>
 
                            <h:outputText id="infoSueldoSuelo" value="*#{msg['tipoCompensacion']}:" style="position: absolute; top: 72px; left: 65px;font-weight: bold;"/>
@@ -375,6 +377,8 @@
                                       process="@this" update="tipoSueldoModSueldo, :formLovs:formDSueldo:formTipoSueldo:lovTipoSueldoSueldo"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresSueldo()}" 
                                       update=":formLovs:formDSueldo:formTipoSueldo:lovTipoSueldoSueldo" process="@this"/>
+                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 63px; left: 367px; z-index: 5;" disabled="#{controlPersonaIndividual.disableCamposDependientesTipoT}"
+                                               actionListener="#{controlPersonaIndividual.listaValoresSueldo(2)}" process="@this"/>
                            </p:inputText>
                            <p:tooltip style="font-size: 12px;" for="infoSueldoSuelo" value="#{msg['infoSueldoSuelo']}"/>
 
@@ -392,25 +396,30 @@
 
                            <h:outputText  value="*#{msg['motivoContrato']}:" style="position: absolute; top: 22px; left: 65px;font-weight: bold;"/>
                            <p:inputText id="motivoContratoModTipoContrato" onclick="select();" value="#{controlPersonaIndividual.nuevaVigenciaTipoContrato.motivocontrato.nombre}"
-                                        style="position: absolute; top: 17px; left: 245px;width: 155px;text-transform: uppercase;">
+                                        style="position: absolute; top: 17px; left: 240px; width: 155px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemTipoContrato(0)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarTipoContrato(0,'MOTIVO', controlPersonaIndividual.nuevaVigenciaTipoContrato.motivocontrato.nombre)}" process="@this" update="motivoContratoModTipoContrato"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresTipoContrato()}" process="@this"/>
+                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 18px; left: 382px; z-index: 5;"
+                                               actionListener="#{controlPersonaIndividual.listaValoresTipoContrato(0) }" process="@this"/>
                            </p:inputText>
 
                            <h:outputText id="infoContratoTipoContrato" value="*#{msg['tipoContrato']}:" style="position: absolute; top: 47px; left: 65px;font-weight: bold;"/>
                            <p:inputText id="tipoContratoModTipoContrato" disabled="#{controlPersonaIndividual.disableCamposDependientesTipoT}" onclick="select();"
-                                        value="#{controlPersonaIndividual.nuevaVigenciaTipoContrato.tipocontrato.nombre}" style="position: absolute; top: 42px; left: 245px;width: 155px;text-transform: uppercase;">
+                                        value="#{controlPersonaIndividual.nuevaVigenciaTipoContrato.tipocontrato.nombre}"
+                                        style="position: absolute; top: 42px; left: 240px; width: 155px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemTipoContrato(1)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarTipoContrato(1,'TIPO', controlPersonaIndividual.nuevaVigenciaTipoContrato.tipocontrato.nombre)}"
                                       process="@this" update="tipoContratoModTipoContrato, :formLovs:formDTipoContrato:formTipoContrat:lovMotivoContratoTipoContrato"/>
                               <p:ajax  event="dblclick" listener="#{controlPersonaIndividual.listaValoresTipoContrato()}" 
                                        update=":formLovs:formDTipoContrato:formTipoContrat:lovMotivoContratoTipoContrato" process="@this"/>
+                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 43px; left: 382px; z-index: 5;" disabled="#{controlPersonaIndividual.disableCamposDependientesTipoT}"
+                                               actionListener="#{controlPersonaIndividual.listaValoresTipoContrato(1)}" process="@this"/>
                            </p:inputText>
                            <p:tooltip style="font-size: 12px;" for="infoContratoTipoContrato" value="#{msg['infoContratoTipoContrato']}"/>
 
                            <h:outputText  value="#{msg['fechaFinalContrato']}:" style="position: absolute; top: 72px; left: 65px;font-weight: bold;"/>
-                           <div id="divFechaFinalContratoModTipoContrato" style="position: absolute; top: 67px; left: 245px;">
+                           <div id="divFechaFinalContratoModTipoContrato" style="position: absolute; top: 67px; left: 240px;">
                               <p:calendar mask="true" pattern="dd/MM/yyyy" value="#{controlPersonaIndividual.nuevaVigenciaTipoContrato.fechavigencia}" id="fechaFinalContratoModTipoContrato" >
                                  <p:ajax  event="dateSelect" listener="#{controlPersonaIndividual.modificarFechaFechaVigenciaTipoContrato(2)}" process="@this"/>
                                  <p:ajax event="change" listener="#{controlPersonaIndividual.modificarFechaFechaVigenciaTipoContrato(2)}" update="@this" process="@this"/>
@@ -425,12 +434,15 @@
                                          background-repeat: no-repeat; border: none; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
 
                            <h:outputText id="infoNormaNormaLaboral" value="*#{msg['normaLaboral']}:" style="position: absolute; top: 35px; left: 65px;font-weight: bold;"/>
-                           <p:inputText id="normaLaboralModNormaLaboral" disabled="#{controlPersonaIndividual.disableCamposDependientesTipoT}" onclick="select();" value="#{controlPersonaIndividual.nuevaVigenciaNormaEmpleado.normalaboral.nombre}" style="position: absolute; top: 30px; left: 230px;width: 150px;text-transform: uppercase;">
+                           <p:inputText id="normaLaboralModNormaLaboral" disabled="#{controlPersonaIndividual.disableCamposDependientesTipoT}" onclick="select();" value="#{controlPersonaIndividual.nuevaVigenciaNormaEmpleado.normalaboral.nombre}"
+                                        style="position: absolute; top: 30px; left: 230px; width: 150px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemNormaLaboral(0)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarNormaLaboral(0,'NORMA', controlPersonaIndividual.nuevaVigenciaNormaEmpleado.normalaboral.nombre)}"
                                       process="@this" update="normaLaboralModNormaLaboral, :formLovs:formDNormaLaboral:lovNormaLaboralNormaLaboral"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresNormaLaboral()}" 
                                       update=":formLovs:formDNormaLaboral:lovNormaLaboralNormaLaboral" process="@this"/>
+                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 31px; left: 367px; z-index: 5;" disabled="#{controlPersonaIndividual.disableCamposDependientesTipoT}"
+                                               actionListener="#{controlPersonaIndividual.listaValoresNormaLaboral(0)}" process="@this"/>
                            </p:inputText>
                            <p:tooltip style="font-size: 12px;" for="infoNormaNormaLaboral" value="#{msg['infoNormaNormaLaboral']}"/>
 
@@ -443,12 +455,15 @@
                                          background-repeat: no-repeat; border: none; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
 
                            <h:outputText id="infoLegislacionLegislacionLaboral"  value="*#{msg['legislacionLaboral']}:" style="position: absolute; top: 35px; left: 65px;font-weight: bold;"/>
-                           <p:inputText id="legislacionLaboralModLegislacionLaboral" disabled="#{controlPersonaIndividual.disableCamposDependientesTipoT}" onclick="select();" value="#{controlPersonaIndividual.nuevaVigenciaContrato.contrato.descripcion}" style="position: absolute; top: 30px; left: 245px;width: 155px;text-transform: uppercase;">
+                           <p:inputText id="legislacionLaboralModLegislacionLaboral" disabled="#{controlPersonaIndividual.disableCamposDependientesTipoT}" onclick="select();" value="#{controlPersonaIndividual.nuevaVigenciaContrato.contrato.descripcion}"
+                                        style="position: absolute; top: 30px; left: 240px; width: 155px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemLegislacionLaboral(0)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarLegislacionLaboral(0,'CONTRATO', controlPersonaIndividual.nuevaVigenciaContrato.contrato.descripcion)}" 
                                       process="@this" update="legislacionLaboralModLegislacionLaboral, :formLovs:formDLegislacionLaboral:lovContratoLegislacionLaboral"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresLegislacionLaboral()}"
                                       process="@this" update=":formLovs:formDLegislacionLaboral:lovContratoLegislacionLaboral"/>
+                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 31px; left: 382px; z-index: 5;" disabled="#{controlPersonaIndividual.disableCamposDependientesTipoT}"
+                                               actionListener="#{controlPersonaIndividual.listaValoresLegislacionLaboral(0)}" process="@this"/>
                            </p:inputText>
                            <p:tooltip style="font-size: 12px;" for="infoLegislacionLegislacionLaboral" value="#{msg['infoLegislacionLegislacionLaboral']}"/>
                         </fieldset>
@@ -461,10 +476,12 @@
 
                            <h:outputText id="infoUbicacionUbicacion" value="*#{msg['ubicacionGeografica']}:" style="position: absolute; top: 25px; left: 65px;font-weight: bold;"/>
                            <p:inputText id="ubicacionGeograficaModUbicacionGeografica" onclick="select();" disabled="#{controlPersonaIndividual.disableUbicacionGeografica}"
-                                        value="#{controlPersonaIndividual.txt_ubicacionG}" style="position: absolute; top: 30px; left: 230px;width: 150px;text-transform: uppercase;">
+                                        value="#{controlPersonaIndividual.txt_ubicacionG}" style="position: absolute; top: 30px; left: 230px; width: 150px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemUbicacionGeografica(0)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarUbicacionGeografica(0,'UBICACION', controlPersonaIndividual.txt_ubicacionG)}" process="@this" update="ubicacionGeograficaModUbicacionGeografica"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresUbicacion()}" process="@this"/>
+                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 31px; left: 367px; z-index: 5;" disabled="#{controlPersonaIndividual.disableUbicacionGeografica}"
+                                               actionListener="#{controlPersonaIndividual.listaValoresUbicacion(0)}" process="@this"/>
                            </p:inputText>
                            <p:tooltip style="font-size: 12px;" for="infoUbicacionUbicacion" value="#{msg['infoUbicacionUbicacion']}"/>
 
@@ -477,10 +494,13 @@
                                          background-repeat: no-repeat; border: none; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
 
                            <h:outputText  value="*#{msg['jornadaLaboral']}:" style="position: absolute; top: 35px; left: 65px;font-weight: bold;"/>
-                           <p:inputText id="jornadaLaboralModJornadaLaboral" onclick="select();" value="#{controlPersonaIndividual.txt_jornada}" style="position: absolute; top: 30px; left: 245px;width: 155px;text-transform: uppercase;">
+                           <p:inputText id="jornadaLaboralModJornadaLaboral" onclick="select();" value="#{controlPersonaIndividual.txt_jornada}"
+                                        style="position: absolute; top: 30px; left: 240px; width: 155px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemJornadaLaboral(0)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarJornadaLaboral(0,'JORNADA', controlPersonaIndividual.txt_jornada)}" process="@this" update="jornadaLaboralModJornadaLaboral"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresJornadaLaboral()}" process="@this"/>
+                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 31px; left: 382px; z-index: 5;"
+                                               actionListener="#{controlPersonaIndividual.listaValoresJornadaLaboral(0)}" process="@this"/>
                            </p:inputText>
                         </fieldset>
 
@@ -491,41 +511,49 @@
                                          background-repeat: no-repeat; border: none; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
 
                            <h:outputText  value="*#{msg['formaPago']}:" style="position: absolute; top: 20px; left: 65px;font-weight: bold;"/>
-                           <p:inputText id="formaPagoModFormaPago" onclick="select();" value="#{controlPersonaIndividual.txt_formaP}" style="position: absolute; top: 15px; left: 230px;width: 170px;text-transform: uppercase;">
+                           <p:inputText id="formaPagoModFormaPago" onclick="select();" value="#{controlPersonaIndividual.txt_formaP}"
+                                        style="position: absolute; top: 15px; left: 230px; width: 200px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemFormaPago(0)}" immediate="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarFormaPago(0,'FORMA', controlPersonaIndividual.txt_formaP)}" process="@this" update="formaPagoModFormaPago"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresFormaPago()}" process="@this"/>
+                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 16px; left: 417px; z-index: 5;"
+                                               actionListener="#{controlPersonaIndividual.listaValoresFormaPago(0)}" process="@this"/>
                            </p:inputText>
 
                            <h:outputText  value="#{msg['cuentaPago']}:" style="position: absolute; top: 45px; left: 65px;font-weight: bold;"/>
                            <p:inputText id="cuentaPagoModFormaPago" maxlength="25"  onclick="select();" value="#{controlPersonaIndividual.nuevaVigenciaFormaPago.cuenta}"
-                                        style="position: absolute; top: 40px; left: 230px;width: 170px;text-transform: uppercase;">
+                                        style="position: absolute; top: 40px; left: 230px; width: 200px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemFormaPago(1)}" process="@this"/>
                               <p:ajax event="change" process="@this" update="cuentaPagoModFormaPago"/>
                            </p:inputText>
 
-                           <h:outputText  value="#{msg['tipoCuenta']}:" style="position: absolute; top: 70px; left: 65px;font-weight: bold;"/>
+                           <h:outputText  value="#{msg['tipoCuenta']}:" style="position: absolute; top: 70px; left: 65px; font-weight: bold;"/>
                            <p:selectOneMenu id="tipoCuentaModFormaPago" value="#{controlPersonaIndividual.nuevaVigenciaFormaPago.tipocuenta}"
-                                            style="position: absolute; top: 65px; left: 230px; font-weight: bold;width: 100px;" >  
+                                            style="position: absolute; top: 65px; left: 230px; font-weight: bold; width: 100px;" >  
                               <f:selectItem itemLabel="" itemValue="null"/>  
                               <f:selectItem itemLabel="#{msg['ahorros']}" itemValue="A"/>  
                               <f:selectItem itemLabel="#{msg['corriente']}" itemValue="C"/>
                               <p:ajax event="change" update="@this"/>
                            </p:selectOneMenu>
 
-                           <h:outputText  value="#{msg['sucursalPago']}:" style="position: absolute; top: 20px; left: 450px;font-weight: bold;"/>
+                           <h:outputText  value="#{msg['sucursalPago']}:" style="position: absolute; top: 20px; left: 475px; font-weight: bold;"/>
                            <p:inputText id="sucursalPagoModFormaPago" onclick="select();" value="#{controlPersonaIndividual.nuevaVigenciaFormaPago.sucursal.nombre}"
-                                        style="position: absolute; top: 15px; left: 590px;width: 170px;text-transform: uppercase;">
+                                        style="position: absolute; top: 15px; left: 595px; width: 210px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemFormaPago(3)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarFormaPago(3,'SUCURSAL', controlPersonaIndividual.nuevaVigenciaFormaPago.sucursal.nombre)}" process="@this" update="sucursalPagoModFormaPago"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresFormaPago()}" process="@this"/>
+                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 16px; left: 792px; z-index: 5;"
+                                               actionListener="#{controlPersonaIndividual.listaValoresFormaPago(3)}" process="@this"/>
                            </p:inputText>
 
-                           <h:outputText  value="*#{msg['metodoPago']}:" style="position: absolute; top: 45px; left: 450px;font-weight: bold;"/>
-                           <p:inputText id="metodoPagoModFormaPago" onclick="select();" value="#{controlPersonaIndividual.txt_metodoP}" style="position: absolute; top: 40px; left: 590px;width: 170px;text-transform: uppercase;">
+                           <h:outputText  value="*#{msg['metodoPago']}:" style="position: absolute; top: 45px; left: 475px;font-weight: bold;"/>
+                           <p:inputText id="metodoPagoModFormaPago" onclick="select();" value="#{controlPersonaIndividual.txt_metodoP}"
+                                        style="position: absolute; top: 40px; left: 595px; width: 210px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemFormaPago(4)}" immediate="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarFormaPago(4,'METODO', controlPersonaIndividual.txt_metodoP)}" process="@this" update="metodoPagoModFormaPago"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresFormaPago()}" process="@this"/>
+                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 41px; left: 792px; z-index: 5;"
+                                               actionListener="#{controlPersonaIndividual.listaValoresFormaPago(4)}" process="@this"/>
                            </p:inputText>
                         </fieldset>
 
@@ -537,46 +565,56 @@
 
                            <h:outputText id="infoAfiliacionEPS" value="*#{msg['eps']}:" style="position: absolute; top: 17px; left: 65px;font-weight: bold;"/>
                            <p:inputText id="epsModAfiliaciones" disabled="#{controlPersonaIndividual.disableAfiliaciones}" onclick="select();" value="#{controlPersonaIndividual.txt_terceroEPS}" 
-                                        style="position: absolute; top: 12px; left: 400px;width: 350px;text-transform: uppercase;">
+                                        style="position: absolute; top: 12px; left: 400px; width: 375px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemAfiliacionEPS(0)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarAfiliacionEPS(0,'EPS', controlPersonaIndividual.txt_terceroEPS)}" process="@this" update="epsModAfiliaciones"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresAfiliacionEPS()}" process="@this"/>
+                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 13px; left: 762px; z-index: 5;" disabled="#{controlPersonaIndividual.disableAfiliaciones}"
+                                               actionListener="#{controlPersonaIndividual.listaValoresAfiliacionEPS() }" process="@this"/>
                            </p:inputText>
                            <p:tooltip style="font-size: 12px;" for="infoAfiliacionEPS" value="#{msg['infoAfiliacion']}"/>
 
                            <h:outputText id="infoAfiliacionARP" value="*#{msg['arp']}:" style="position: absolute; top: 42px; left: 65px;font-weight: bold;"/>
                            <p:inputText id="arpModAfiliaciones" disabled="#{controlPersonaIndividual.disableAfiliaciones}" onclick="select();" value="#{controlPersonaIndividual.txt_terceroARL}" 
-                                        style="position: absolute; top: 37px; left: 400px;width: 350px;text-transform: uppercase;">
+                                        style="position: absolute; top: 37px; left: 400px; width: 375px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemAfiliacionARP(0)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarAfiliacionARP(0,'ARP', controlPersonaIndividual.txt_terceroARL)}" process="@this" update="arpModAfiliaciones"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresAfiliacionARP()}" process="@this"/>
+                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 38px; left: 762px; z-index: 5;" disabled="#{controlPersonaIndividual.disableAfiliaciones}"
+                                               actionListener="#{controlPersonaIndividual.listaValoresAfiliacionARP()}" process="@this"/>
                            </p:inputText>
                            <p:tooltip style="font-size: 12px;" for="infoAfiliacionARP" value="#{msg['infoAfiliacion']}"/>
 
                            <h:outputText id="infoAfiliacionFondo" value="#{msg['fondoCensantias']}:" style="position: absolute; top: 67px; left: 65px;font-weight: bold;"/>
                            <p:inputText id="fondoCensantiasModAfiliaciones" disabled="#{controlPersonaIndividual.disableAfiliaciones}" onclick="select();" value="#{controlPersonaIndividual.txt_terceroCes}" 
-                                        style="position: absolute; top: 62px; left: 400px;width: 350px;text-transform: uppercase;">
+                                        style="position: absolute; top: 62px; left: 400px; width: 375px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemAfiliacionFondo(0)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarAfiliacionFondo(0,'FONDO', controlPersonaIndividual.txt_terceroCes)}" process="@this" update="fondoCensantiasModAfiliaciones"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresAfiliacionFondo()}" process="@this"/>
+                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 63px; left: 762px; z-index: 5;" disabled="#{controlPersonaIndividual.disableAfiliaciones}"
+                                               actionListener="#{controlPersonaIndividual.listaValoresAfiliacionFondo()}" process="@this"/>
                            </p:inputText>
                            <p:tooltip style="font-size: 12px;" for="infoAfiliacionFondo" value="#{msg['infoAfiliacion']}"/>
 
                            <h:outputText id="infoAfiliacionAFP" value="#{msg['afp']}:" style="position: absolute; top: 95px; left: 65px; font-weight: bold;"/>
                            <p:inputText id="afpModAfiliaciones" disabled="#{controlPersonaIndividual.disableAfiliaciones}" onclick="select();" value="#{controlPersonaIndividual.txt_terceroAFP}" 
-                                        style="position: absolute; top: 87px; left: 400px;width: 350px;text-transform: uppercase;">
+                                        style="position: absolute; top: 87px; left: 400px; width: 375px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemAfiliacionAFP(0)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarAfiliacionAFP(0,'AFP', controlPersonaIndividual.txt_terceroAFP)}" process="@this" update="afpModAfiliaciones"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresAfiliacionAFP()}" process="@this"/>
+                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 88px; left: 762px; z-index: 5;" disabled="#{controlPersonaIndividual.disableAfiliaciones}"
+                                               actionListener="#{controlPersonaIndividual.listaValoresAfiliacionAFP()}" process="@this"/>
                            </p:inputText>
                            <p:tooltip style="font-size: 12px;" for="infoAfiliacionAFP" value="#{msg['infoAfiliacion']}"/>
 
                            <h:outputText id="infoAfiliacionCaja" value="#{msg['cajaCompensacion']}:" style="position: absolute; top: 117px; left: 65px;font-weight: bold;"/>
                            <p:inputText id="cajaCompensacionModAfiliaciones" disabled="#{controlPersonaIndividual.disableAfiliaciones}" value="#{controlPersonaIndividual.txt_terceroCC}" onclick="select();" 
-                                        style="position: absolute; top: 112px; left: 400px; width: 350px; text-transform: uppercase;">
+                                        style="position: absolute; top: 112px; left: 400px; width: 375px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemAfiliacionCaja(0)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarAfiliacionCaja(0,'CAJA', controlPersonaIndividual.txt_terceroCC)}" process="@this" update="cajaCompensacionModAfiliaciones"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresAfiliacionCaja()}" process="@this"/>
+                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 113px; left: 762px; z-index: 5;" disabled="#{controlPersonaIndividual.disableAfiliaciones}"
+                                               actionListener="#{controlPersonaIndividual.listaValoresAfiliacionCaja()}" process="@this"/>
                            </p:inputText>
                            <p:tooltip style="font-size: 12px;" for="infoAfiliacionCaja" value="#{msg['infoAfiliacion']}"/>
                         </fieldset>
@@ -590,9 +628,9 @@
                               <h:outputText value="" style="position: absolute; background-image: url(Imagenes/Iconos/tipoTrabajador.png); width: 50px; height: 50px; top: 15px; left: 5px;
                                             background-repeat: no-repeat; border: none; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
 
-                              <h:outputText  value="#{msg['grupoSanguineo']}:" style="position: absolute; top: 20px; left: 65px;font-weight: bold;"/>
+                              <h:outputText  value="#{msg['grupoSanguineo']}:" style="position: absolute; top: 20px; left: 65px; font-weight: bold;"/>
                               <p:selectOneMenu id="grupoSanguineoModFactorRH" widgetVar="grupoSanguineoModFactorRH" value="#{controlPersonaIndividual.nuevaPersona.gruposanguineo}" 
-                                               style="position: absolute; top: 15px; left: 230px; font-weight: bold;width: 100px;" >  
+                                               style="position: absolute; top: 15px; left: 190px; font-weight: bold; width: 60px;" >  
                                  <f:selectItem itemLabel="" itemValue="null"/>  
                                  <f:selectItem itemLabel="A" itemValue="A"/>  
                                  <f:selectItem itemLabel="AB" itemValue="AB"/>
@@ -601,9 +639,9 @@
                                  <p:ajax event="change" update="@this"/>
                               </p:selectOneMenu>
 
-                              <h:outputText  value="#{msg['factorRH']}:" style="position: absolute; top: 45px; left: 65px;font-weight: bold;"/>
+                              <h:outputText  value="#{msg['factorRH']}:" style="position: absolute; top: 45px; left: 65px; font-weight: bold;"/>
                               <p:selectOneMenu id="factorRHModFactorRH" value="#{controlPersonaIndividual.nuevaPersona.factorrh}" 
-                                               style="position: absolute; top: 40px; left: 230px; font-weight: bold;width: 100px;" >  
+                                               style="position: absolute; top: 40px; left: 190px; font-weight: bold;width: 60px;" >  
                                  <f:selectItem itemLabel="" itemValue="null"/>  
                                  <f:selectItem itemLabel="+" itemValue="P"/>  
                                  <f:selectItem itemLabel="-" itemValue="N"/>
@@ -619,10 +657,12 @@
 
                               <h:outputText  value="#{msg['descripcion']}:" style="position: absolute; top: 25px; left: 65px;font-weight: bold;"/>
                               <p:inputText id="estadoCivilModEstadoCivil" onclick="select();" value="#{controlPersonaIndividual.nuevoEstadoCivil.estadocivil.descripcion}"
-                                           style="position: absolute; top: 20px;left: 205px;width: 155px;text-transform: uppercase;">
+                                           style="position: absolute; top: 20px; left: 185px; width: 175px; text-transform: uppercase;">
                                  <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemEstadoCivil(0)}" process="@this"/>
                                  <p:ajax event="change" listener="#{controlPersonaIndividual.modificarEstadoCivil(0,'ESTADO', controlPersonaIndividual.nuevoEstadoCivil.estadocivil.descripcion)}" process="@this" update="estadoCivilModEstadoCivil"/>
                                  <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresEstadoCivil()}" process="@this"/>
+                                 <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 21px; left: 347px; z-index: 5;"
+                                                  actionListener="#{controlPersonaIndividual.listaValoresEstadoCivil()}" process="@this"/>
                               </p:inputText>
                            </fieldset>
 
@@ -634,18 +674,20 @@
 
                               <h:outputText  value="#{msg['direccion']}:" style="position: absolute; top: 20px; left: 65px;font-weight: bold;"/>
                               <p:inputText maxlength="100"  id="direccionModDireccion" onclick="select();" value="#{controlPersonaIndividual.nuevaDireccion.direccionalternativa}"
-                                           style="position: absolute; top: 15px; left: 230px;width: 130px;text-transform: uppercase;">
+                                           style="position: absolute; top: 15px; left: 190px; width: 170px; text-transform: uppercase;">
                                  <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemDireccion(0)}" process="@this"/>
-                                 <p:ajax event="change"  process="@this" update="direccionModDireccion"/>
+                                 <p:ajax event="change" process="@this" update="direccionModDireccion"/>
                               </p:inputText>
 
 
                               <h:outputText  value="#{msg['ciudad']}:" style="position: absolute; top: 45px; left: 65px;font-weight: bold;"/>
                               <p:inputText id="ciudadModDireccion" onclick="select();" value="#{controlPersonaIndividual.nuevaDireccion.ciudad.nombre}"
-                                           style="position: absolute; top: 40px; left: 230px;width: 130px;text-transform: uppercase;">
+                                           style="position: absolute; top: 40px; left: 190px; width: 170px; text-transform: uppercase;">
                                  <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemDireccion(1)}" process="@this"/>
                                  <p:ajax event="change" listener="#{controlPersonaIndividual.modificarDireccion(1,'CIUDAD', controlPersonaIndividual.nuevaDireccion.ciudad.nombre)}" process="@this" update="ciudadModDireccion"/>
                                  <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresDireccion()}" process="@this"/>
+                                 <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 41px; left: 347px; z-index: 5;"
+                                                  actionListener="#{controlPersonaIndividual.listaValoresDireccion()}" process="@this"/>
                               </p:inputText>
                            </fieldset>
 
@@ -657,25 +699,29 @@
 
                               <h:outputText  value="#{msg['tipoTelefono']}:" style="position: absolute; top: 20px; left: 65px;font-weight: bold;"/>
                               <p:inputText id="tipoTelefonoModTelefono" onclick="select();" value="#{controlPersonaIndividual.nuevoTelefono.tipotelefono.nombre}" 
-                                           style="position: absolute; top: 15px; left: 205px;width: 155px;text-transform: uppercase;">
+                                           style="position: absolute; top: 15px; left: 185px; width: 175px; text-transform: uppercase;">
                                  <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemTelefono(0)}" process="@this"/>
                                  <p:ajax event="change" listener="#{controlPersonaIndividual.modificarTelefono(0,'TIPO', controlPersonaIndividual.nuevoTelefono.tipotelefono.nombre)}"
                                          process="@this" update="tipoTelefonoModTelefono"/>
                                  <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresTelefono()}" process="@this"/>
+                                 <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 16px; left: 347px; z-index: 5;"
+                                                  actionListener="#{controlPersonaIndividual.listaValoresTelefono(0)}" process="@this"/>
                               </p:inputText>
 
                               <h:outputText  value="#{msg['ciudad']}:" style="position: absolute; top: 45px; left: 65px;font-weight: bold;"/>
                               <p:inputText id="ciudadModTelefono" onclick="select();" value="#{controlPersonaIndividual.nuevoTelefono.ciudad.nombre}" 
-                                           style="position: absolute; top: 40px; left: 205px;width: 155px;text-transform: uppercase;">
+                                           style="position: absolute; top: 40px; left: 185px;width: 175px;text-transform: uppercase;">
                                  <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemTelefono(1)}" process="@this"/>
                                  <p:ajax event="change" listener="#{controlPersonaIndividual.modificarTelefono(1,'CIUDAD', controlPersonaIndividual.nuevoTelefono.ciudad.nombre)}"
                                          process="@this" update="ciudadModTelefono"/>
                                  <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresTelefono()}" process="@this"/>
+                                 <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 41px; left: 347px; z-index: 5;"
+                                                  actionListener="#{controlPersonaIndividual.listaValoresTelefono(1)}" process="@this"/>
                               </p:inputText>
 
                               <h:outputText  value="#{msg['numeroTelefono']}:" style="position: absolute; top: 70px; left: 65px;font-weight: bold;"/>
                               <p:inputText id="numeroTelefonoModTelefono" onclick="select();" value="#{controlPersonaIndividual.nuevoTelefono.numerotelefono}" 
-                                           style="position: absolute; top: 65px; left: 205px;width: 155px;text-transform: uppercase;">
+                                           style="position: absolute; top: 65px; left: 185px;width: 175px;text-transform: uppercase;">
                                  <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemTelefono(2)}" process="@this"/>
                                  <p:ajax event="change" listener="#{controlPersonaIndividual.modificarNumeroTelefonico(controlPersonaIndividual.nuevoTelefono.numerotelefono)}"
                                          process="@this" update="numeroTelefonoModTelefono"/>
@@ -1162,8 +1208,7 @@
                         <p:commandButton id="aceptarTTTT" class="cssAceptarLOV" update="@this" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}"
                                          actionListener="#{controlPersonaIndividual.actualizarParametroTipoTrabajadorTipoTrabajador()}"
                                          oncomplete="PF('operacionEnProceso').hide()" icon="ui-icon-check" process="@this"/>
-                        <p:commandButton id="atrasTTTT" class="cssAtrasLOV"  value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()"
-                                         oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:tipoTrabajadorModTipoTrabajador');});"
+                        <p:commandButton id="atrasTTTT" class="cssAtrasLOV"  value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"
                                          actionListener="#{controlPersonaIndividual.cancelarParametroTipoTrabajadorTipoTrabajador()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                      </div>
                   </p:dialog>
