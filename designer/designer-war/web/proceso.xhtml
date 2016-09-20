@@ -379,7 +379,7 @@
 
                </p:panel>
 
-               <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
+               <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                   <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlProceso.guardarGeneral()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
@@ -387,7 +387,7 @@
                   <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                </p:dialog>
 
-               <p:dialog id="confirmarGuardarSalida" header="#{msg['atencion']}" widgetVar="confirmarGuardarSalida"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
+               <p:dialog id="confirmarGuardarSalida" header="#{msg['atencion']}" widgetVar="confirmarGuardarSalida"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                   <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlProceso.guardarYSalir()}" action="#{controlProceso.valorPaginaAnterior()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
@@ -395,90 +395,90 @@
                   <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardarSalida').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                </p:dialog>
 
-               <p:dialog id="verificarRastrosTablas" widgetVar="verificarRastrosTablas" header="#{msg['rpter']}" resizable="false" draggable="false" modal="true" height="90" width="430px;"  >
+               <p:dialog id="verificarRastrosTablas" widgetVar="verificarRastrosTablas" header="#{msg['rpter']}" resizable="false" draggable="true" modal="true" height="90" width="430px;"  >
                   <h:outputText value="#{msg['seleccione']}" style="position: absolute; left: 20px; top: 20px;color: blue;font-weight: bold"/>
                   <p:commandButton value="#{msg['proceso']}" onclick="PF('verificarRastrosTablas').hide();" style="position: absolute; left: 20px; top: 50px;" actionListener="#{controlProceso.verificarRastroProceso()}" process="@this" />
                   <p:commandButton value="#{msg['formulaProceso']}" onclick="PF('verificarRastrosTablas').hide();" style="position: absolute; left: 220px; top: 50px;" actionListener="#{controlProceso.verificarRastroFormulaProceso()}" process="@this"/>
                   <p:commandButton value="#{msg['operando']}s" onclick="PF('verificarRastrosTablas').hide();" style="position: absolute; left: 310px; top: 50px;" actionListener="#{controlProceso.verificarRastroOperandoLog()}" process="@this"/>
                </p:dialog>
 
-               <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
+               <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{controlProceso.msnConfirmarRastro}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlProceso.backUp, controlProceso.nombreTablaRastro , 'rastroProceso')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
                   <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlProceso.limpiarMSNRastros()}" style="position: absolute; top: 63px; left: 270px;" process="@this" />
                </p:dialog>
 
-               <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
+               <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{controlProceso.msnConfirmarRastroHistorico}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla(controlProceso.nombreTablaRastro , 'rastroProceso')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
                   <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlProceso.limpiarMSNRastros()}" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                </p:dialog>
 
-               <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+               <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                </p:dialog>
 
-               <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+               <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                </p:dialog>
 
-               <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
+               <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
                   <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlProceso.backUp, controlProceso.nombreTablaRastro , 'rastroProceso')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
                   <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                </p:dialog>
 
-               <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285"  closable="true">  
+               <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold;text-align: center" />
                </p:dialog>
 
-               <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+               <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;text-align: center" />
                </p:dialog>
 
-               <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+               <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
                </p:dialog>
 
-               <p:dialog id="errorDatosNullProceso" header="#{msg['atencion']}" widgetVar="errorDatosNullProceso"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+               <p:dialog id="errorDatosNullProceso" header="#{msg['atencion']}" widgetVar="errorDatosNullProceso"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorDatosNullProceso']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                </p:dialog>
 
-               <p:dialog id="errorDescripcionProceso" header="#{msg['atencion']}" widgetVar="errorDescripcionProceso"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+               <p:dialog id="errorDescripcionProceso" header="#{msg['atencion']}" widgetVar="errorDescripcionProceso"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorDescripcionProceso']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                </p:dialog>
 
-               <p:dialog id="errorDatosNullFormulaProceso" header="#{msg['atencion']}" widgetVar="errorDatosNullFormulaProceso"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+               <p:dialog id="errorDatosNullFormulaProceso" header="#{msg['atencion']}" widgetVar="errorDatosNullFormulaProceso"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorDatosNullFormulaProceso']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                </p:dialog>
 
-               <p:dialog id="errorDatosNullOperando" header="#{msg['atencion']}" widgetVar="errorDatosNullOperando"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+               <p:dialog id="errorDatosNullOperando" header="#{msg['atencion']}" widgetVar="errorDatosNullOperando"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorDatosNullOperando']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                </p:dialog>
 
-               <p:dialog id="errorCodigoClon" header="#{msg['atencion']}" widgetVar="errorCodigoClon"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+               <p:dialog id="errorCodigoClon" header="#{msg['atencion']}" widgetVar="errorCodigoClon"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorCodigoClon']}" style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight:bold;" />
                </p:dialog>
 
-               <p:dialog id="errorDatosClonado" header="#{msg['atencion']}" widgetVar="errorDatosClonado"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+               <p:dialog id="errorDatosClonado" header="#{msg['atencion']}" widgetVar="errorDatosClonado"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorDatosClonado']}" style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight:bold;" />
                </p:dialog>
 
-               <p:dialog header="#{msg['formulaD']}" widgetVar="FormulaDialogo" draggable="false" resizable="false" closable="false" id="FormulaDialogo"  
+               <p:dialog header="#{msg['formulaD']}" widgetVar="FormulaDialogo" draggable="true" resizable="false" closable="false" id="FormulaDialogo"  
                          showEffect="fade" hideEffect="fade" width="531" modal="true" >
                   <p:dataTable id="lovFormula" liveScroll="true" scrollRows="25" style="width: 500px;" var="formula" value="#{controlProceso.lovFormulas}" rowKey="#{formula.secuencia}"
                                selection="#{controlProceso.formulaSeleccionado}" scrollWidth="516" selectionMode="single" widgetVar="lovFormula" scrollable="true" scrollHeight="250" 
@@ -516,7 +516,7 @@
                   <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasF" style="position: relative; left: 340px;" value="#{msg['atras']}" actionListener="#{controlProceso.cancelarCambioFormula()}" process="@this"/>
                </p:dialog>
 
-               <p:dialog header="#{msg['tipoPagoD']}" widgetVar="TipoPagoDialogo" draggable="false" resizable="false" closable="false" id="TipoPagoDialogo"  
+               <p:dialog header="#{msg['tipoPagoD']}" widgetVar="TipoPagoDialogo" draggable="true" resizable="false" closable="false" id="TipoPagoDialogo"  
                          showEffect="fade" hideEffect="fade" width="431" modal="true" >
                   <p:dataTable id="lovTipoPago" liveScroll="true" scrollRows="25" style="width: 400px;" var="tipoP" value="#{controlProceso.lovTiposPagos}" rowKey="#{tipoP.secuencia}"
                                selection="#{controlProceso.tipoPagoSeleccionado}" scrollWidth="416" selectionMode="single" widgetVar="lovTipoPago" scrollable="true" scrollHeight="250" 
@@ -542,7 +542,7 @@
                   <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasTP" style="position: relative; left: 230px;" value="#{msg['atras']}" actionListener="#{controlProceso.cancelarCambioTipoPago()}"  process="@this"/>
                </p:dialog>
 
-               <p:dialog header="#{msg['procesoD']}" widgetVar="ProcesoDialogo" draggable="false" resizable="false" closable="false" id="ProcesoDialogo"  
+               <p:dialog header="#{msg['procesoD']}" widgetVar="ProcesoDialogo" draggable="true" resizable="false" closable="false" id="ProcesoDialogo"  
                          showEffect="fade" hideEffect="fade" width="431" modal="true" >
                   <p:dataTable id="lovProceso" liveScroll="true" scrollRows="25" style="width: 400px;" var="proceso" value="#{controlProceso.lovProcesos}" rowKey="#{proceso.secuencia}"
                                selection="#{controlProceso.procesoSeleccionado}" scrollWidth="416" selectionMode="single" widgetVar="lovProceso" scrollable="true" scrollHeight="250" 
@@ -574,7 +574,7 @@
                   <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasP" style="position: relative; left: 230px;" value="#{msg['atras']}" actionListener="#{controlProceso.cancelarProcesoClonado()}" process="@this"/>
                </p:dialog>
 
-               <p:dialog header="#{msg['operandoD']}" widgetVar="OperandoDialogo" draggable="false" resizable="false" closable="false" id="OperandoDialogo"  
+               <p:dialog header="#{msg['operandoD']}" widgetVar="OperandoDialogo" draggable="true" resizable="false" closable="false" id="OperandoDialogo"  
                          showEffect="fade" hideEffect="fade" width="531" modal="true">
                   <p:dataTable id="lovOperando" liveScroll="true" scrollRows="25" style="width: 500px;" var="operando" value="#{controlProceso.lovOperandos}" rowKey="#{operando.secuencia}"
                                selection="#{controlProceso.operandoSeleccionado}" scrollWidth="516" selectionMode="single" widgetVar="lovOperando" scrollable="true" scrollHeight="250" 
@@ -617,19 +617,19 @@
             </h:form>
             <h:form id="formularioDialogos" >
 
-               <p:dialog id="errorBorrarRegistro" header="#{msg['atencion']}" widgetVar="errorBorrarRegistro"  resizable="false" draggable="false" modal="true" height="80" width="275"  closable="true">  
+               <p:dialog id="errorBorrarRegistro" header="#{msg['atencion']}" widgetVar="errorBorrarRegistro"  resizable="false" draggable="true" modal="true" height="80" width="275"  closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorBorrarRegistro']}" style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight:bold;" />
                </p:dialog>
 
-               <p:dialog id="verificarNuevoRegistro" widgetVar="verificarNuevoRegistro" header="#{msg['nuevoregistropagina']}" resizable="false" draggable="false" modal="true" height="90" width="430px;"  >
+               <p:dialog id="verificarNuevoRegistro" widgetVar="verificarNuevoRegistro" header="#{msg['nuevoregistropagina']}" resizable="false" draggable="true" modal="true" height="90" width="430px;"  >
                   <h:outputText value="#{msg['verificarNuevoRegistro']}" style="position: absolute; left: 20px; top: 20px;color: blue;font-weight: bold"/>
                   <p:commandButton value="#{msg['proceso']}" onclick="PF('verificarNuevoRegistro').hide();" style="position: absolute; left: 10px; top: 50px;" oncomplete="PF('NuevoRegistroProceso').show()" update=":formularioDialogos:nuevoProceso"  process="@this" />
                   <p:commandButton value="#{msg['formulaProceso']}" onclick="PF('verificarNuevoRegistro').hide();" style="position: absolute; left: 200px; top: 50px;" oncomplete="PF('NuevoRegistroFormulaProceso').show()" update=":formularioDialogos:nuevoFormulaProceso" process="@this"/>
                   <p:commandButton value="#{msg['operando']}s" onclick="PF('verificarNuevoRegistro').hide();" style="position: absolute; left: 310px; top: 50px;" oncomplete="PF('NuevoRegistroOperandoLog').show()" update=":formularioDialogos:nuevoOperandoLog" process="@this"/>
                </p:dialog>
 
-               <p:dialog id="NuevoRegistroProceso" header="#{msg['nuevoregistroP']}" widgetVar="NuevoRegistroProceso" closable="false" resizable="false"  draggable="false" modal="true" height="410" width="400" style="padding: 0px">  
+               <p:dialog id="NuevoRegistroProceso" header="#{msg['nuevoregistroP']}" widgetVar="NuevoRegistroProceso" closable="false" resizable="false"  draggable="true" modal="true" height="410" width="400" style="padding: 0px">  
                   <center><strong><h:outputText value="#{msg['ingresarnuevoP']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
                   <p:panel id="nuevoProceso" style="border: none;">
 
@@ -698,7 +698,7 @@
                   </p:panel>
                </p:dialog>
 
-               <p:dialog id="DuplicarRegistroProceso" header="#{msg['duplicarregistroP']}" widgetVar="DuplicarRegistroProceso" closable="false" resizable="false"  draggable="false" modal="true" height="410" width="400" style="padding: 0px">  
+               <p:dialog id="DuplicarRegistroProceso" header="#{msg['duplicarregistroP']}" widgetVar="DuplicarRegistroProceso" closable="false" resizable="false"  draggable="true" modal="true" height="410" width="400" style="padding: 0px">  
 
                   <center><strong><h:outputText value="#{msg['ingresarnuevoP']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
 
@@ -768,7 +768,7 @@
                   </p:panel>
                </p:dialog>
 
-               <p:dialog id="NuevoRegistroFormulaProceso" header="#{msg['nuevoregistroFP']}" widgetVar="NuevoRegistroFormulaProceso" closable="false" resizable="false"  draggable="false" modal="true" height="170" width="400" style="padding: 0px">  
+               <p:dialog id="NuevoRegistroFormulaProceso" header="#{msg['nuevoregistroFP']}" widgetVar="NuevoRegistroFormulaProceso" closable="false" resizable="false"  draggable="true" modal="true" height="170" width="400" style="padding: 0px">  
                   <center><strong><h:outputText value="#{msg['ingresarnuevoFP']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
                   <p:panel id="nuevoFormulaProceso" style="border: none;">
 
@@ -792,7 +792,7 @@
                   </p:panel>
                </p:dialog>
 
-               <p:dialog id="DuplicarRegistroFormulaProceso" header="#{msg['duplicarregistroFP']}" widgetVar="DuplicarRegistroFormulaProceso" closable="false" resizable="false"  draggable="false" modal="true" height="170" width="400" style="padding: 0px">  
+               <p:dialog id="DuplicarRegistroFormulaProceso" header="#{msg['duplicarregistroFP']}" widgetVar="DuplicarRegistroFormulaProceso" closable="false" resizable="false"  draggable="true" modal="true" height="170" width="400" style="padding: 0px">  
                   <center><strong><h:outputText value="#{msg['ingresarnuevoFP']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
                   <p:panel id="duplicaFormulaProceso" style="border: none;">
 
@@ -817,7 +817,7 @@
                </p:dialog>
 
 
-               <p:dialog id="NuevoRegistroOperandoLog" header="#{msg['nuevoregistroOL']}" widgetVar="NuevoRegistroOperandoLog" closable="false" resizable="false"  draggable="false" modal="true" height="170" width="400" style="padding: 0px">  
+               <p:dialog id="NuevoRegistroOperandoLog" header="#{msg['nuevoregistroOL']}" widgetVar="NuevoRegistroOperandoLog" closable="false" resizable="false"  draggable="true" modal="true" height="170" width="400" style="padding: 0px">  
                   <center><strong><h:outputText value="#{msg['ingresarnuevoOL']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
                   <p:panel id="nuevoOperandoLog" style="border: none;">
 
@@ -840,7 +840,7 @@
                   </p:panel>
                </p:dialog>
 
-               <p:dialog id="DuplicarRegistroOperandoLog" header="#{msg['duplicarregistroOL']}" widgetVar="DuplicarRegistroOperandoLog" closable="false" resizable="false"  draggable="false" modal="true" height="170" width="400" style="padding: 0px">  
+               <p:dialog id="DuplicarRegistroOperandoLog" header="#{msg['duplicarregistroOL']}" widgetVar="DuplicarRegistroOperandoLog" closable="false" resizable="false"  draggable="true" modal="true" height="170" width="400" style="padding: 0px">  
                   <center><strong><h:outputText value="#{msg['ingresarnuevoOL']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
                   <p:panel id="duplicarOperandoLog" style="border: none;">
 
@@ -866,39 +866,39 @@
 
                <!-- editar celdas proceso -->
 
-               <p:dialog id="editarCodigoProcesoD" header="#{msg['editarCodigoProcesoD']}" widgetVar="editarCodigoProcesoD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+               <p:dialog id="editarCodigoProcesoD" header="#{msg['editarCodigoProcesoD']}" widgetVar="editarCodigoProcesoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                   <p:inputTextarea value="#{controlProceso.editarProceso.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarDescripcionProcesoD" header="#{msg['editarDescripcionProcesoD']}" widgetVar="editarDescripcionProcesoD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+               <p:dialog id="editarDescripcionProcesoD" header="#{msg['editarDescripcionProcesoD']}" widgetVar="editarDescripcionProcesoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                   <p:inputTextarea value="#{controlProceso.editarProceso.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarTipoPagoProcesoD" header="#{msg['editarTipoPagoProcesoD']}" widgetVar="editarTipoPagoProcesoD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+               <p:dialog id="editarTipoPagoProcesoD" header="#{msg['editarTipoPagoProcesoD']}" widgetVar="editarTipoPagoProcesoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                   <p:inputTextarea value="#{controlProceso.editarProceso.tipopago.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarComentarioProcesoD" header="#{msg['editarComentarioProcesoD']}" widgetVar="editarComentarioProcesoD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+               <p:dialog id="editarComentarioProcesoD" header="#{msg['editarComentarioProcesoD']}" widgetVar="editarComentarioProcesoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                   <p:inputTextarea value="#{controlProceso.editarProceso.comentarios}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarNumeroProcesoD" header="#{msg['editarNumeroProcesoD']}" widgetVar="editarNumeroProcesoD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+               <p:dialog id="editarNumeroProcesoD" header="#{msg['editarNumeroProcesoD']}" widgetVar="editarNumeroProcesoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                   <p:inputTextarea value="#{controlProceso.editarProceso.numerocierrerequerido}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                </p:dialog>
 
                <!-- editar celdas formula proceso -->
 
-               <p:dialog id="editarFormulaFormulaProceso" header="#{msg['editarFormulaFormulaProceso']}" widgetVar="editarFormulaFormulaProceso" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+               <p:dialog id="editarFormulaFormulaProceso" header="#{msg['editarFormulaFormulaProceso']}" widgetVar="editarFormulaFormulaProceso" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                   <p:inputTextarea value="#{controlProceso.editarFormulaProceso.formula.nombrelargo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                </p:dialog>
 
                <!-- editar celdas operando log -->
 
-               <p:dialog id="editarOperandoOperandoLogD" header="#{msg['editarOperandoOperandoLogD']}" widgetVar="editarOperandoOperandoLogD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+               <p:dialog id="editarOperandoOperandoLogD" header="#{msg['editarOperandoOperandoLogD']}" widgetVar="editarOperandoOperandoLogD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                   <p:inputTextarea value="#{controlProceso.editarOperandoLog.operando.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarDescripcionOperandoLogD" header="#{msg['editarDescripcionOperandoLogD']}" widgetVar="editarDescripcionOperandoLogD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+               <p:dialog id="editarDescripcionOperandoLogD" header="#{msg['editarDescripcionOperandoLogD']}" widgetVar="editarDescripcionOperandoLogD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                   <p:inputTextarea value="#{controlProceso.editarOperandoLog.operando.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                </p:dialog>
 

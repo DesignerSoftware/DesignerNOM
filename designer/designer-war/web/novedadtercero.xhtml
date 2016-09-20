@@ -419,7 +419,7 @@
                 <h:form id ="formularioDialogos">
                     <!-- DIALOGO DUPLICAR REGISTRO -->
 
-                    <p:dialog id="DuplicarRegistroNovedad" header="#{msg['duplicarregistro']}" widgetVar="DuplicarRegistroNovedad" closable="false" resizable="false"  draggable="false" modal="true" height="400" width="800" style=" padding: 0px">
+                    <p:dialog id="DuplicarRegistroNovedad" header="#{msg['duplicarregistro']}" widgetVar="DuplicarRegistroNovedad" closable="false" resizable="false"  draggable="true" modal="true" height="400" width="800" style=" padding: 0px">
 
                         <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
 
@@ -523,7 +523,7 @@
                     </p:dialog>
 
                     <!-- DIALOGO NUEVO REGISTRO -->
-                    <p:dialog id="NuevaNovedadTercero" header="#{msg['nuevoregistro']}" widgetVar="NuevaNovedadTercero" closable="false" resizable="false"  draggable="false" modal="true" height="400" width="800" style=" padding: 0px">  
+                    <p:dialog id="NuevaNovedadTercero" header="#{msg['nuevoregistro']}" widgetVar="NuevaNovedadTercero" closable="false" resizable="false"  draggable="true" modal="true" height="400" width="800" style=" padding: 0px">  
 
                         <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
 
@@ -626,13 +626,13 @@
                         </p:panel>
                     </p:dialog>
 
-                    <p:dialog id="validacionNuevaNovedadTercero" header="#{msg['atencion']}" widgetVar="validacionNuevaNovedadTercero"  resizable="false" draggable="false" modal="true" height="95" width="400"  closable="false">  
+                    <p:dialog id="validacionNuevaNovedadTercero" header="#{msg['atencion']}" widgetVar="validacionNuevaNovedadTercero"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 20px; top: 10px;"  />
                         <h:outputText value="#{msg['validacionNuevo']} #{controlNovedadesTerceros.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 300px;" />
                         <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('validacionNuevaNovedadTercero').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="95" width="400"  closable="false">  
+                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
                         <p:commandButton value="#{msg['si']}" icon="ui-icon-check"  onclick="PF('confirmarGuardar').hide();" actionListener="#{controlNovedadesTerceros.guardarCambiosNovedades()}" style="position: absolute; top: 60px; left: 125px;" process="@this" />
@@ -640,13 +640,13 @@
                         <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 60px; left: 260px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="inconsistencia" header="#{msg['atencion']}" widgetVar="inconsistencia"  resizable="false" draggable="false" modal="true" height="95" width="400"  closable="false">  
+                    <p:dialog id="inconsistencia" header="#{msg['atencion']}" widgetVar="inconsistencia"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 20px; top: 10px;"  />
                         <h:outputText value="#{msg['inconsistencia']}" style="position: absolute; left: 90px; top: 20px; width: 300px;" />
                         <p:commandButton value="#{msg['aceptar']}" onclick="PF('inconsistencia').hide();" icon="ui-icon-check" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="fechas" header="#{msg['atencion']}" widgetVar="fechas"  resizable="false" draggable="false" modal="true" height="95" width="400"  closable="false">  
+                    <p:dialog id="fechas" header="#{msg['atencion']}" widgetVar="fechas"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 20px; top: 10px;"  />
                         <h:outputText value="#{msg['fecha']}" style="position: absolute; left: 90px; top: 20px; width: 300px;" />
                         <p:commandButton id="Aceptar" value="#{msg['aceptar']}" onclick="PF('fechas').hide();"  icon="ui-icon-check" style="position: absolute; left: 270px; top: 60px;" process="@this"/>                   
@@ -654,110 +654,110 @@
 
                     <!-- DIALOGOS EDITAR -->
 
-                    <p:dialog id="editarEmpleadosCodigos" header="#{msg['editarEmpleadosCodigos']}" widgetVar="editarEmpleadosCodigos" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarEmpleadosCodigos" header="#{msg['editarEmpleadosCodigos']}" widgetVar="editarEmpleadosCodigos" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlNovedadesTerceros.editarNovedades.empleado.codigoempleadoSTR}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarEmpleadosNombres" header="#{msg['editarEmpleadosNombres']}" widgetVar="editarEmpleadosNombres" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarEmpleadosNombres" header="#{msg['editarEmpleadosNombres']}" widgetVar="editarEmpleadosNombres" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlNovedadesTerceros.editarNovedades.empleado.persona.nombreCompleto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarConceptosCodigos" header="#{msg['editarConceptosCodigos']}" widgetVar="editarConceptosCodigos" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarConceptosCodigos" header="#{msg['editarConceptosCodigos']}" widgetVar="editarConceptosCodigos" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlNovedadesTerceros.editarNovedades.concepto.codigoSTR}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarConceptosDescripciones" header="#{msg['editarConceptosDescripcion']}" widgetVar="editarConceptosDescripciones" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarConceptosDescripciones" header="#{msg['editarConceptosDescripcion']}" widgetVar="editarConceptosDescripciones" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlNovedadesTerceros.editarNovedades.concepto.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editFechaInicial" header="#{msg['editFechaInicial']}" widgetVar="editFechaInicial" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editFechaInicial" header="#{msg['editFechaInicial']}" widgetVar="editFechaInicial" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputTextarea value="#{controlNovedadesTerceros.editarNovedades.fechainicial}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editFechasFinales" header="#{msg['editFechasFinales']}" widgetVar="editFechasFinales" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editFechasFinales" header="#{msg['editFechasFinales']}" widgetVar="editFechasFinales" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputTextarea value="#{controlNovedadesTerceros.editarNovedades.fechafinal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarValores" header="#{msg['editarValores']}" widgetVar="editarValores" resizable="false" draggable="false" modal="true" height="80" width="400"  >  
+                    <p:dialog id="editarValores" header="#{msg['editarValores']}" widgetVar="editarValores" resizable="false" draggable="true" modal="true" height="80" width="400"  >  
                         <p:inputTextarea value="#{controlNovedadesTerceros.editarNovedades.valortotal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarSaldos" header="#{msg['editarSaldos']}" widgetVar="editarSaldos" resizable="false" draggable="false" modal="true" height="80" width="400"  >  
+                    <p:dialog id="editarSaldos" header="#{msg['editarSaldos']}" widgetVar="editarSaldos" resizable="false" draggable="true" modal="true" height="80" width="400"  >  
                         <p:inputTextarea value="#{controlNovedadesTerceros.editarNovedades.saldo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarPeriodicidadesCodigos" header="#{msg['editarPeriodicidadesCodigos']}" widgetVar="editarPeriodicidadesCodigos" resizable="false" draggable="false" modal="true" height="80" width="400"  >  
+                    <p:dialog id="editarPeriodicidadesCodigos" header="#{msg['editarPeriodicidadesCodigos']}" widgetVar="editarPeriodicidadesCodigos" resizable="false" draggable="true" modal="true" height="80" width="400"  >  
                         <p:inputTextarea value="#{controlNovedadesTerceros.editarNovedades.periodicidad.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarPeriodicidadesDescripciones" header="#{msg['editarPeriodicidadesDescripciones']}" widgetVar="editarPeriodicidadesDescripciones" resizable="false" draggable="false" modal="true" height="80" width="400"  >  
+                    <p:dialog id="editarPeriodicidadesDescripciones" header="#{msg['editarPeriodicidadesDescripciones']}" widgetVar="editarPeriodicidadesDescripciones" resizable="false" draggable="true" modal="true" height="80" width="400"  >  
                         <p:inputTextarea value="#{controlNovedadesTerceros.editarNovedades.periodicidad.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarFormulas" header="#{msg['editarFormulas']}" widgetVar="editarFormulas" resizable="false" draggable="false" modal="true" height="80" width="400"  >  
+                    <p:dialog id="editarFormulas" header="#{msg['editarFormulas']}" widgetVar="editarFormulas" resizable="false" draggable="true" modal="true" height="80" width="400"  >  
                         <p:inputTextarea value="#{controlNovedadesTerceros.editarNovedades.formula.nombrelargo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarHorasDias" header="#{msg['editarHorasDias']}" widgetVar="editarHorasDias" resizable="false" draggable="false" modal="true" height="80" width="400"  >  
+                    <p:dialog id="editarHorasDias" header="#{msg['editarHorasDias']}" widgetVar="editarHorasDias" resizable="false" draggable="true" modal="true" height="80" width="400"  >  
                         <p:inputTextarea value="#{controlNovedadesTerceros.editarNovedades.unidadesparteentera}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarMinutosHoras" header="#{msg['editarMinutosHoras']}" widgetVar="editarMinutosHoras" resizable="false" draggable="false" modal="true" height="80" width="400"  >  
+                    <p:dialog id="editarMinutosHoras" header="#{msg['editarMinutosHoras']}" widgetVar="editarMinutosHoras" resizable="false" draggable="true" modal="true" height="80" width="400"  >  
                         <p:inputTextarea value="#{controlNovedadesTerceros.editarNovedades.unidadespartefraccion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarTipos" header="#{msg['editarTipos']}" widgetVar="editarTipos" resizable="false" draggable="false" modal="true" height="80" width="400"  >  
+                    <p:dialog id="editarTipos" header="#{msg['editarTipos']}" widgetVar="editarTipos" resizable="false" draggable="true" modal="true" height="80" width="400"  >  
                         <p:inputTextarea value="#{controlNovedadesTerceros.editarNovedades.tipo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <!-- DIALOGOS RASTROS -->
 
-                    <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
+                    <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlNovedadesTerceros.novedadSeleccionada.secuencia, 'Novedades', 'novedadtercero')}" style="position: absolute; top: 63px; left: 175px;" action="rastro" process="@this" />
                         <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 240px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
+                    <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Novedades', 'novedadtercero')}" style="position: absolute; top: 60px; left: 175px;" action="rastro" process="@this" />
                         <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
+                    <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['si']}" icon="ui-icon-check"  onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlNovedadesTerceros.novedadSeleccionada.secuencia, 'Novedades', 'novedadtercero')}" style="position: absolute; top: 70px; left: 175px;" action="rastro" process="@this" />
                         <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 70px; left: 240px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285"  closable="true">  
+                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
@@ -766,7 +766,7 @@
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlNovedadesTerceros.activarCtrlF11()}" process="@this"/> 
 
                     <!-- DIALOGO CAMBIO DE EMPLEADO -->
-                    <p:dialog id="cambiar" header="#{msg['informacion']}" widgetVar="cambiar"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
+                    <p:dialog id="cambiar" header="#{msg['informacion']}" widgetVar="cambiar"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['cambio']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('cambiar').hide();" actionListener="#{controlNovedadesTerceros.guardarCambiosNovedades()}" style="position: absolute; top: 63px; left: 175px;" process="@this" />
@@ -774,7 +774,7 @@
                     </p:dialog>
 
                     <!-- L.O.V CONCEPTOS-->
-                    <p:dialog header="#{msg['conceptosC']}" widgetVar="conceptosDialogo" draggable="false" resizable="false" id="conceptosDialogo" closable="false"  
+                    <p:dialog header="#{msg['conceptosC']}" widgetVar="conceptosDialogo" draggable="true" resizable="false" id="conceptosDialogo" closable="false"  
                               showEffect="fade" hideEffect="fade" modal="true" width="650" height="340" >
 
                         <p:dataTable  id="LOVConceptos" style=" width: 600px;" var="conceptos" value="#{controlNovedadesTerceros.lovConceptos}"
@@ -823,7 +823,7 @@
                     </p:dialog> 
 
                     <!-- L.O.V Empleado-->
-                    <p:dialog header="#{msg['empleadosE']}" widgetVar="empleadosDialogo" draggable="false" resizable="false" id="empleadosDialogo" closable="false"  
+                    <p:dialog header="#{msg['empleadosE']}" widgetVar="empleadosDialogo" draggable="true" resizable="false" id="empleadosDialogo" closable="false"  
                               showEffect="fade" hideEffect="fade" modal="true" width="390" height="340">
 
                         <p:dataTable  id="LOVEmpleados" style="width: 340px;" var="emp" value="#{controlNovedadesTerceros.lovEmpleados}"
@@ -865,7 +865,7 @@
                     </p:dialog>
 
                     <!-- L.O.V FORMULAS-->
-                    <p:dialog header="#{msg['formulasF']}" widgetVar="formulasDialogo" draggable="false" resizable="false" id="formulasDialogo" closable="false" showEffect="fade" 
+                    <p:dialog header="#{msg['formulasF']}" widgetVar="formulasDialogo" draggable="true" resizable="false" id="formulasDialogo" closable="false" showEffect="fade" 
                               hideEffect="fade" modal="true" width="380" height="340" >
 
                         <p:dataTable  id="LOVFormulas" style="width: 330px;" var="formulas" value="#{controlNovedadesTerceros.lovFormulas}" scrollable="true" scrollHeight="200" 
@@ -896,7 +896,7 @@
                     </p:dialog>
 
                     <!-- L.O.V PERIODICIDAD-->
-                    <p:dialog header="#{msg['periodicidadP']}" widgetVar="periodicidadesDialogo" draggable="false" resizable="false" id="periodicidadesDialogo" closable="false"  
+                    <p:dialog header="#{msg['periodicidadP']}" widgetVar="periodicidadesDialogo" draggable="true" resizable="false" id="periodicidadesDialogo" closable="false"  
                               showEffect="fade" hideEffect="fade" modal="true" width="390" height="340" >
 
                         <p:dataTable  id="LOVPeriodicidades" style="width: 340px;" var="periodicidades" value="#{controlNovedadesTerceros.lovPeriodicidades}"
@@ -938,7 +938,7 @@
 
 
                     <!-- L.O.V TERCEROS-->
-                    <p:dialog header="#{msg['tercerosT']}" widgetVar="tercerosDialogo" draggable="false" resizable="false" id="tercerosDialogo" closable="false"  
+                    <p:dialog header="#{msg['tercerosT']}" widgetVar="tercerosDialogo" draggable="true" resizable="false" id="tercerosDialogo" closable="false"  
                               showEffect="fade" hideEffect="fade" modal="true" width="560" height="340" >
                         <f:facet name="header">  
                             <h:outputText value="#{msg['tercerosT']}"  style="position: relative; left: -20"/>  

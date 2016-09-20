@@ -366,7 +366,7 @@
 
                     </p:panel>
 
-                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
+                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlTipoSueldo.guardarGeneral()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
@@ -374,7 +374,7 @@
                         <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
-                    <p:dialog id="confirmarGuardarSalida" header="#{msg['atencion']}" widgetVar="confirmarGuardarSalida"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
+                    <p:dialog id="confirmarGuardarSalida" header="#{msg['atencion']}" widgetVar="confirmarGuardarSalida"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlTipoSueldo.guardarYSalir()}" action="#{controlTipoSueldo.valorPaginaAnterior()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
@@ -382,7 +382,7 @@
                         <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardarSalida').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
-                    <p:dialog id="verificarRastrosTablas" widgetVar="verificarRastrosTablas" header="#{msg['rpter']}" resizable="false" draggable="false" modal="true" height="105" width="430px;"  >
+                    <p:dialog id="verificarRastrosTablas" widgetVar="verificarRastrosTablas" header="#{msg['rpter']}" resizable="false" draggable="true" modal="true" height="105" width="430px;"  >
                         <h:outputText value="#{msg['seleccione']}" style="position: absolute; left: 20px; top: 20px;color: blue;font-weight: bold"/>
                         <p:commandButton value="#{msg['tipoSueldo']}" onclick="PF('verificarRastrosTablas').hide();" style="position: absolute; left: 20px; top: 50px;" actionListener="#{controlTipoSueldo.verificarRastroTipoSueldo()}" process="@this" />
                         <p:commandButton value="#{msg['tsFormula']}" onclick="PF('verificarRastrosTablas').hide();" style="position: absolute; left: 210px; top: 50px;" actionListener="#{controlTipoSueldo.verificarRastroTSFormula()}" process="@this"/>
@@ -390,83 +390,83 @@
                         <p:commandButton value="#{msg['teFormula']}" onclick="PF('verificarRastrosTablas').hide();" style="position: absolute; left: 210px; top: 80px;" actionListener="#{controlTipoSueldo.verificarRastroTEFormula()}" process="@this"/>
                     </p:dialog>
 
-                    <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350" closable="false">  
+                    <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{controlTipoSueldo.msnConfirmarRastro}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTipoSueldo.backUp, controlTipoSueldo.nombreTablaRastro , 'rastroTipoContra')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlTipoSueldo.limpiarMSNRastros()}" style="position: absolute; top: 63px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
+                    <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{controlTipoSueldo.msnConfirmarRastroHistorico}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla(controlTipoSueldo.nombreTablaRastro , 'rastroTipoSueldo')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlTipoSueldo.limpiarMSNRastros()}" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275" closable="true">  
+                    <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350" closable="false">  
+                    <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTipoSueldo.backUp, controlTipoSueldo.nombreTablaRastro , 'rastroTipoContra')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
                         <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285"  closable="true">  
+                    <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275" closable="true">  
+                    <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorDatosNullTipoSueldo" header="#{msg['atencion']}" widgetVar="errorDatosNullTipoSueldo"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="errorDatosNullTipoSueldo" header="#{msg['atencion']}" widgetVar="errorDatosNullTipoSueldo"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorDatosNullTipoSueldo']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorDescripcionTipoSueldo" header="#{msg['atencion']}" widgetVar="errorDescripcionTipoSueldo"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="errorDescripcionTipoSueldo" header="#{msg['atencion']}" widgetVar="errorDescripcionTipoSueldo"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorDescripcionTipoSueldo']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorDatosNullTSFormula" header="#{msg['atencion']}" widgetVar="errorDatosNullTSFormula"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="errorDatosNullTSFormula" header="#{msg['atencion']}" widgetVar="errorDatosNullTSFormula"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorDatosNullTSFormula']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorDatosNullTSGrupo" header="#{msg['atencion']}" widgetVar="errorDatosNullTSGrupo"  resizable="false" draggable="false" modal="true" height="60" width="275" closable="true">  
+                    <p:dialog id="errorDatosNullTSGrupo" header="#{msg['atencion']}" widgetVar="errorDatosNullTSGrupo"  resizable="false" draggable="true" modal="true" height="60" width="275" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorDatosNullTSGrupo']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorDatosNullTEFormula" header="#{msg['atencion']}" widgetVar="errorDatosNullTEFormula"  resizable="false" draggable="false" modal="true" height="60" width="275" closable="true">  
+                    <p:dialog id="errorDatosNullTEFormula" header="#{msg['atencion']}" widgetVar="errorDatosNullTEFormula"  resizable="false" draggable="true" modal="true" height="60" width="275" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorDatosNullTEFormula']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorNuevoRegistroTEFormula" header="#{msg['atencion']}" widgetVar="errorNuevoRegistroTEFormula"  resizable="false" draggable="false" modal="true" height="60" width="275" closable="true">  
+                    <p:dialog id="errorNuevoRegistroTEFormula" header="#{msg['atencion']}" widgetVar="errorNuevoRegistroTEFormula"  resizable="false" draggable="true" modal="true" height="60" width="275" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorNuevoRegistroTEFormula']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog header="#{msg['formulaD']}" widgetVar="FormulaDialogo" draggable="false" resizable="false" closable="false" id="FormulaDialogo"  
+                    <p:dialog header="#{msg['formulaD']}" widgetVar="FormulaDialogo" draggable="true" resizable="false" closable="false" id="FormulaDialogo"  
                               showEffect="fade" hideEffect="fade" width="431" modal="true" >
                         <p:dataTable id="lovFormula" style="width: 400px;" var="formula" value="#{controlTipoSueldo.lovFormulas}" rowKey="#{formula.secuencia}"
                                      selection="#{controlTipoSueldo.formulaSeleccionado}" scrollWidth="415" selectionMode="single" widgetVar="lovFormula" scrollable="true" scrollHeight="250" 
@@ -492,7 +492,7 @@
                         <p:commandButton id="atrasF" style="position: relative; left: 230px;" value="#{msg['atras']}" actionListener="#{controlTipoSueldo.cancelarCambioFormula()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/> 
                     </p:dialog>
 
-                    <p:dialog header="#{msg['conceptoD']}" widgetVar="ConceptoDialogo" draggable="false" resizable="false" closable="false" id="ConceptoDialogo"  
+                    <p:dialog header="#{msg['conceptoD']}" widgetVar="ConceptoDialogo" draggable="true" resizable="false" closable="false" id="ConceptoDialogo"  
                               showEffect="fade" hideEffect="fade" width="531" modal="true" >
                         <p:dataTable id="lovConcepto" style="width: 500px;" var="concept" value="#{controlTipoSueldo.lovConceptos}" rowKey="#{concept.secuencia}"
                                      selection="#{controlTipoSueldo.conceptoSeleccionado}" scrollWidth="515" selectionMode="single" widgetVar="lovConcepto" scrollable="true" scrollHeight="250" 
@@ -530,7 +530,7 @@
                         <p:commandButton id="atrasC" style="position: relative; left: 330px;" value="#{msg['atras']}" actionListener="#{controlTipoSueldo.cancelarCambioConcepto()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['grupoD']}" widgetVar="GrupoDialogo" draggable="false" resizable="false" closable="false" id="GrupoDialogo"  
+                    <p:dialog header="#{msg['grupoD']}" widgetVar="GrupoDialogo" draggable="true" resizable="false" closable="false" id="GrupoDialogo"  
                               showEffect="fade" hideEffect="fade" width="431" modal="true">
                         <p:dataTable id="lovGrupo" style="width: 400px;" var="grupo" value="#{controlTipoSueldo.lovGruposTiposEntidades}" rowKey="#{grupo.secuencia}"
                                      selection="#{controlTipoSueldo.grupoTipoEntidadSeleccionado}" scrollWidth="415" selectionMode="single" widgetVar="lovGrupo" scrollable="true" scrollHeight="250" 
@@ -562,7 +562,7 @@
                         <p:commandButton id="atrasG" style="position: relative; left: 230px;" value="#{msg['atras']}" actionListener="#{controlTipoSueldo.cancelarCambioGrupo()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['tipoEntidadD']}" widgetVar="TipoEntidadDialogo" draggable="false" resizable="false" closable="false" id="TipoEntidadDialogo"  
+                    <p:dialog header="#{msg['tipoEntidadD']}" widgetVar="TipoEntidadDialogo" draggable="true" resizable="false" closable="false" id="TipoEntidadDialogo"  
                               showEffect="fade" hideEffect="fade" width="431" modal="true" >
                         <p:dataTable id="lovTipoEntidad" style="width: 400px;" var="tipoE" value="#{controlTipoSueldo.lovTiposEntidades}" rowKey="#{tipoE.secuencia}"
                                      selection="#{controlTipoSueldo.tipoEntidadSeleccionado}" scrollWidth="415" selectionMode="single" widgetVar="lovTipoEntidad" scrollable="true" scrollHeight="250" 
@@ -594,7 +594,7 @@
                         <p:commandButton id="atrasTE" style="position: relative; left: 230px;" value="#{msg['atras']}" actionListener="#{controlTipoSueldo.cancelarCambioFormulaTE()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['formulaD']}" widgetVar="FormulaTEDialogo" draggable="false" resizable="false" closable="false" id="FormulaTEDialogo"  
+                    <p:dialog header="#{msg['formulaD']}" widgetVar="FormulaTEDialogo" draggable="true" resizable="false" closable="false" id="FormulaTEDialogo"  
                               showEffect="fade" hideEffect="fade" width="431" modal="true" >
                         <p:dataTable id="lovFormulaTE" style="width: 400px;" var="formulaTE" value="#{controlTipoSueldo.lovFormulas}" rowKey="#{formulaTE.secuencia}"
                                      selection="#{controlTipoSueldo.formulaSeleccionado}" scrollWidth="415" selectionMode="single" widgetVar="lovFormulaTE" scrollable="true" scrollHeight="250" 
@@ -620,7 +620,7 @@
                         <p:commandButton id="atrasFTE" style="position: relative; left: 230px;" value="#{msg['atras']}" actionListener="#{controlTipoSueldo.cancelarCambioFormulaTE()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['conceptoD']}" widgetVar="ConceptoTEDialogo" draggable="false" resizable="false" closable="false" id="ConceptoTEDialogo"  
+                    <p:dialog header="#{msg['conceptoD']}" widgetVar="ConceptoTEDialogo" draggable="true" resizable="false" closable="false" id="ConceptoTEDialogo"  
                               showEffect="fade" hideEffect="fade" width="531" modal="true" >
                         <p:dataTable id="lovConceptoTE" style="width: 500px;" var="conceptTE" value="#{controlTipoSueldo.lovConceptos}" rowKey="#{conceptTE.secuencia}"
                                      selection="#{controlTipoSueldo.conceptoSeleccionado}" scrollWidth="515" selectionMode="single" widgetVar="lovConceptoTE" scrollable="true" scrollHeight="250" 
@@ -662,17 +662,17 @@
                 </h:form>
                 <h:form id="formularioDialogos" >
 
-                    <p:dialog id="errorBorrarRegistro" header="#{msg['atencion']}" widgetVar="errorBorrarRegistro"  resizable="false" draggable="false" modal="true" height="80" width="275" closable="true">  
+                    <p:dialog id="errorBorrarRegistro" header="#{msg['atencion']}" widgetVar="errorBorrarRegistro"  resizable="false" draggable="true" modal="true" height="80" width="275" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorBorrarRegistro']}" style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorBorrarRegistroTSGrupo" header="#{msg['atencion']}" widgetVar="errorBorrarRegistroTSGrupo"  resizable="false" draggable="false" modal="true" height="80" width="275"  closable="true">  
+                    <p:dialog id="errorBorrarRegistroTSGrupo" header="#{msg['atencion']}" widgetVar="errorBorrarRegistroTSGrupo"  resizable="false" draggable="true" modal="true" height="80" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorBorrarRegistroTSGrupo']}" style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="verificarNuevoRegistro" widgetVar="verificarNuevoRegistro" header="#{msg['nuevoregistropagina']}" resizable="false" draggable="false" modal="true" height="120" width="430px;"  >
+                    <p:dialog id="verificarNuevoRegistro" widgetVar="verificarNuevoRegistro" header="#{msg['nuevoregistropagina']}" resizable="false" draggable="true" modal="true" height="120" width="430px;"  >
                         <h:outputText value="#{msg['verificarNuevoRegistro']}" style="position: absolute; left: 20px; top: 20px;color: blue;font-weight: bold"/>
                         <p:commandButton value="#{msg['tipoSueldo']}" onclick="PF('verificarNuevoRegistro').hide();" style="position: absolute; left: 10px; top: 50px;" oncomplete="PF('NuevoRegistroTipoSueldo').show()" update=":formularioDialogos:nuevoTipoSueldo"  process="@this" />
                         <p:commandButton value="#{msg['tsFormula']}" onclick="PF('verificarNuevoRegistro').hide();" style="position: absolute; left: 10px; top: 90px;" oncomplete="PF('NuevoRegistroTSFormula').show()" update=":formularioDialogos:nuevoTSFormulaConcepto" disabled="#{controlTipoSueldo.activoFormulaConcepto}" process="@this"/>
@@ -680,7 +680,7 @@
                         <p:commandButton value="#{msg['teFormula']}" onclick="PF('verificarNuevoRegistro').hide();" style="position: absolute; left: 220px; top: 90px;" oncomplete="PF('NuevoRegistroTEFormula').show()" update=":formularioDialogos:nuevoTEFormulaConcepto" disabled="#{controlTipoSueldo.activoTipoEntidad}" process="@this"/>
                     </p:dialog>
 
-                    <p:dialog id="NuevoRegistroTipoSueldo" header="#{msg['nuevoregistroTS']}" widgetVar="NuevoRegistroTipoSueldo" closable="false" resizable="false"  draggable="false" modal="true" height="260" width="400" style="padding: 0px">  
+                    <p:dialog id="NuevoRegistroTipoSueldo" header="#{msg['nuevoregistroTS']}" widgetVar="NuevoRegistroTipoSueldo" closable="false" resizable="false"  draggable="true" modal="true" height="260" width="400" style="padding: 0px">  
                         <center><strong><h:outputText value="#{msg['ingresarnuevoTS']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
                         <p:panel id="nuevoTipoSueldo" style="border: none;">
 
@@ -723,7 +723,7 @@
                         </p:panel>
                     </p:dialog>
 
-                    <p:dialog id="DuplicarRegistroTipoSueldo" header="#{msg['duplicarregistroTS']}" widgetVar="DuplicarRegistroTipoSueldo" closable="false" resizable="false"  draggable="false" modal="true" height="260" width="400" style="padding: 0px">  
+                    <p:dialog id="DuplicarRegistroTipoSueldo" header="#{msg['duplicarregistroTS']}" widgetVar="DuplicarRegistroTipoSueldo" closable="false" resizable="false"  draggable="true" modal="true" height="260" width="400" style="padding: 0px">  
 
                         <center><strong><h:outputText value="#{msg['ingresarnuevoTS']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
 
@@ -768,7 +768,7 @@
                         </p:panel>
                     </p:dialog>
 
-                    <p:dialog id="NuevoRegistroTSFormula" header="#{msg['nuevoregistroTSF']}" widgetVar="NuevoRegistroTSFormula" closable="false" resizable="false"  draggable="false" modal="true" height="240" width="400" style="padding: 0px">  
+                    <p:dialog id="NuevoRegistroTSFormula" header="#{msg['nuevoregistroTSF']}" widgetVar="NuevoRegistroTSFormula" closable="false" resizable="false"  draggable="true" modal="true" height="240" width="400" style="padding: 0px">  
                         <center><strong><h:outputText value="#{msg['ingresarnuevoTSF']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
                         <p:panel id="nuevoTSFormulaConcepto" style="border: none;">
 
@@ -808,7 +808,7 @@
                         </p:panel>
                     </p:dialog>
 
-                    <p:dialog id="DuplicarRegistroTSFormula" header="#{msg['duplicarregistroTSF']}" widgetVar="DuplicarRegistroTSFormula" closable="false" resizable="false"  draggable="false" modal="true" height="240" width="400" style="padding: 0px">  
+                    <p:dialog id="DuplicarRegistroTSFormula" header="#{msg['duplicarregistroTSF']}" widgetVar="DuplicarRegistroTSFormula" closable="false" resizable="false"  draggable="true" modal="true" height="240" width="400" style="padding: 0px">  
                         <center><strong><h:outputText value="#{msg['ingresarnuevoTSF']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
                         <p:panel id="duplicarTSFormulaConcepto" style="border: none;">
 
@@ -848,7 +848,7 @@
                     </p:dialog>
 
 
-                    <p:dialog id="NuevoRegistroTSGrupo" header="#{msg['nuevoregistroTSG']}" widgetVar="NuevoRegistroTSGrupo" closable="false" resizable="false"  draggable="false" modal="true" height="140" width="400" style="padding: 0px">  
+                    <p:dialog id="NuevoRegistroTSGrupo" header="#{msg['nuevoregistroTSG']}" widgetVar="NuevoRegistroTSGrupo" closable="false" resizable="false"  draggable="true" modal="true" height="140" width="400" style="padding: 0px">  
                         <center><strong><h:outputText value="#{msg['ingresarnuevoTSG']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
                         <p:panel id="nuevoTSGrupoTipoEntidad" style="border: none;">
 
@@ -867,7 +867,7 @@
                         </p:panel>
                     </p:dialog>
 
-                    <p:dialog id="DuplicarRegistroTSGrupo" header="#{msg['duplicarregistroTSG']}" widgetVar="DuplicarRegistroTSGrupo" closable="false" resizable="false"  draggable="false" modal="true" height="140" width="400" style="padding: 0px">  
+                    <p:dialog id="DuplicarRegistroTSGrupo" header="#{msg['duplicarregistroTSG']}" widgetVar="DuplicarRegistroTSGrupo" closable="false" resizable="false"  draggable="true" modal="true" height="140" width="400" style="padding: 0px">  
                         <center><strong><h:outputText value="#{msg['ingresarnuevoTSG']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
                         <p:panel id="duplicarTSGrupoTipoEntidad" style="border: none;">
 
@@ -887,7 +887,7 @@
                         </p:panel>
                     </p:dialog>
 
-                    <p:dialog id="NuevoRegistroTEFormula" header="#{msg['nuevoregistroTEF']}" widgetVar="NuevoRegistroTEFormula" closable="false" resizable="false"  draggable="false" modal="true" height="240" width="400" style="padding: 0px">  
+                    <p:dialog id="NuevoRegistroTEFormula" header="#{msg['nuevoregistroTEF']}" widgetVar="NuevoRegistroTEFormula" closable="false" resizable="false"  draggable="true" modal="true" height="240" width="400" style="padding: 0px">  
                         <center><strong><h:outputText value="#{msg['ingresarnuevoTEF']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
                         <p:panel id="nuevoTEFormulaConcepto" style="border: none;">
 
@@ -929,7 +929,7 @@
                         </p:panel>
                     </p:dialog>
 
-                    <p:dialog id="DuplicarRegistroTEFormula" header="#{msg['duplicarregistroTEF']}" widgetVar="DuplicarRegistroTEFormula" closable="false" resizable="false"  draggable="false" modal="true" height="270" width="400" style="padding: 0px">  
+                    <p:dialog id="DuplicarRegistroTEFormula" header="#{msg['duplicarregistroTEF']}" widgetVar="DuplicarRegistroTEFormula" closable="false" resizable="false"  draggable="true" modal="true" height="270" width="400" style="padding: 0px">  
                         <center><strong><h:outputText value="#{msg['ingresarnuevoTEF']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
                         <p:panel id="duplicarTEFormulaConcepto" style="border: none;">
 
@@ -976,49 +976,49 @@
 
                     <!-- editar celdas tipo sueldo -->
 
-                    <p:dialog id="editarCodigoTipoSueldoD" header="#{msg['editarCodigoTipoSueldoD']}" widgetVar="editarCodigoTipoSueldoD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarCodigoTipoSueldoD" header="#{msg['editarCodigoTipoSueldoD']}" widgetVar="editarCodigoTipoSueldoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlTipoSueldo.editarTipoSueldo.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarDescripcionTipoSueldoD" header="#{msg['editarDescripcionTipoSueldoD']}" widgetVar="editarDescripcionTipoSueldoD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarDescripcionTipoSueldoD" header="#{msg['editarDescripcionTipoSueldoD']}" widgetVar="editarDescripcionTipoSueldoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlTipoSueldo.editarTipoSueldo.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <!-- editar celdas tsformula concepto -->
 
-                    <p:dialog id="editarFormulaTSFormulaD" header="#{msg['editarFormulaTSFormulaD']}" widgetVar="editarFormulaTSFormulaD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarFormulaTSFormulaD" header="#{msg['editarFormulaTSFormulaD']}" widgetVar="editarFormulaTSFormulaD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlTipoSueldo.editarTSFormulaConcepto.formula.nombrelargo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarConceptoTSFormulaD" header="#{msg['editarConceptoTSFormulaD']}" widgetVar="editarConceptoTSFormulaD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarConceptoTSFormulaD" header="#{msg['editarConceptoTSFormulaD']}" widgetVar="editarConceptoTSFormulaD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlTipoSueldo.editarTSFormulaConcepto.concepto.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarEmpresaTSFormulaD" header="#{msg['editarEmpresaTSFormulaD']}" widgetVar="editarEmpresaTSFormulaD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarEmpresaTSFormulaD" header="#{msg['editarEmpresaTSFormulaD']}" widgetVar="editarEmpresaTSFormulaD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlTipoSueldo.editarTSFormulaConcepto.concepto.empresa.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <!-- editar celdas ts grupo tipo entidad -->
 
-                    <p:dialog id="editarGrupoTSGrupoD" header="#{msg['editarGrupoTSGrupoD']}" widgetVar="editarGrupoTSGrupoD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarGrupoTSGrupoD" header="#{msg['editarGrupoTSGrupoD']}" widgetVar="editarGrupoTSGrupoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlTipoSueldo.editarTSGrupoTipoEntidad.grupotipoentidad.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <!-- editar celdas teformula concepto -->
 
-                    <p:dialog id="editarFormulaTETipoEntidadD" header="#{msg['editarFormulaTETipoEntidadD']}" widgetVar="editarFormulaTETipoEntidadD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarFormulaTETipoEntidadD" header="#{msg['editarFormulaTETipoEntidadD']}" widgetVar="editarFormulaTETipoEntidadD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlTipoSueldo.editarTEFormulaConcepto.tipoentidad.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarFormulaTEFormulaD" header="#{msg['editarFormulaTEFormulaD']}" widgetVar="editarFormulaTEFormulaD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarFormulaTEFormulaD" header="#{msg['editarFormulaTEFormulaD']}" widgetVar="editarFormulaTEFormulaD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlTipoSueldo.editarTEFormulaConcepto.formula.nombrelargo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarConceptoTEFormulaD" header="#{msg['editarConceptoTEFormulaD']}" widgetVar="editarConceptoTEFormulaD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarConceptoTEFormulaD" header="#{msg['editarConceptoTEFormulaD']}" widgetVar="editarConceptoTEFormulaD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlTipoSueldo.editarTEFormulaConcepto.concepto.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarEmpresaTEFormulaD" header="#{msg['editarEmpresaTEFormulaD']}" widgetVar="editarEmpresaTEFormulaD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarEmpresaTEFormulaD" header="#{msg['editarEmpresaTEFormulaD']}" widgetVar="editarEmpresaTEFormulaD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlTipoSueldo.editarTEFormulaConcepto.concepto.empresa.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 

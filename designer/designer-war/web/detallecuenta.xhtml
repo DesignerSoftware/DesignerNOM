@@ -371,54 +371,54 @@
 
 
 
-                    <p:dialog id="verificarRastrosTablas" widgetVar="verificarRastrosTablas" header="Rastros Para Tablas Historicos Sueldos" resizable="false" draggable="false" modal="true" height="95" width="330px;" >
+                    <p:dialog id="verificarRastrosTablas" widgetVar="verificarRastrosTablas" header="Rastros Para Tablas Historicos Sueldos" resizable="false" draggable="true" modal="true" height="95" width="330px;" >
                         <h:outputText value="#{msg['verificarRastrosTablas']}" style="position: absolute; left: 20px; top: 20px;color: blue;font-weight: bold"/>
                         <p:commandButton value="#{msg['cuentascredito']}" onclick="PF('verificarRastrosTablas').hide();" style="position: absolute; left: 30px; top: 50px;" actionListener="#{controlDetalleCuenta.verificarRastroCredito()}" process="@this" />
                         <p:commandButton value="#{msg['cuentasdebito']}" onclick="PF('verificarRastrosTablas').hide();" style="position: absolute; left: 200px; top: 50px;" actionListener="#{controlDetalleCuenta.verificarRastroDebito()}" process="@this"/>
                     </p:dialog>
 
-                    <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
+                    <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{controlDetalleCuenta.msnConfirmarRastro}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlDetalleCuenta.backUp, controlDetalleCuenta.nombreTablaRastro , 'detalleCuentaRastro')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlDetalleCuenta.limpiarMSNRastros()}" style="position: absolute; top: 63px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350" closable="false">  
+                    <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{controlDetalleCuenta.msnConfirmarRastroHistorico}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla(controlDetalleCuenta.nombreTablaRastro , 'detalleCuentaRastro')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlDetalleCuenta.limpiarMSNRastros()}" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275" closable="true">  
+                    <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275" closable="true">  
+                    <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
+                    <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlDetalleCuenta.backUp, controlDetalleCuenta.nombreTablaRastro , 'detalleCuentaRastro')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
                         <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285" closable="true">  
+                    <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275" closable="true">  
+                    <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
                     </p:dialog>
@@ -428,68 +428,68 @@
 
                     <!-- DIALOGOS DE EDITAR COLUMNAS -->
 
-                    <p:dialog id="editarFechaInicialCreditoD" header="#{msg['fechainicialE']}" widgetVar="editarFechaInicialCreditoD" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editarFechaInicialCreditoD" header="#{msg['fechainicialE']}" widgetVar="editarFechaInicialCreditoD" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputTextarea value="#{controlDetalleCuenta.editarCredito.fechainicial}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaFinalCreditoD" header="#{msg['fechafinalE']}" widgetVar="editarFechaFinalCreditoD" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editarFechaFinalCreditoD" header="#{msg['fechafinalE']}" widgetVar="editarFechaFinalCreditoD" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputTextarea value="#{controlDetalleCuenta.editarCredito.fechafinal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarCodigoCreditoD" header="#{msg['codigoE']}" widgetVar="editarCodigoCreditoD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarCodigoCreditoD" header="#{msg['codigoE']}" widgetVar="editarCodigoCreditoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlDetalleCuenta.editarCredito.concepto.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarDescripcionCreditoD" header="#{msg['descripcionE']}" widgetVar="editarDescripcionCreditoD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarDescripcionCreditoD" header="#{msg['descripcionE']}" widgetVar="editarDescripcionCreditoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlDetalleCuenta.editarCredito.concepto.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarDescripcionCCCreditoD" header="#{msg['descripcionccE']}" widgetVar="editarDescripcionCCCreditoD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarDescripcionCCCreditoD" header="#{msg['descripcionccE']}" widgetVar="editarDescripcionCCCreditoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlDetalleCuenta.editarCredito.consolidadorc.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarCCCreditoD" header="#{msg['ccE']}" widgetVar="editarCCCreditoD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarCCCreditoD" header="#{msg['ccE']}" widgetVar="editarCCCreditoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlDetalleCuenta.editarCredito.consolidadorc.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarTipoCreditoD" header="#{msg['tipoE']}" widgetVar="editarTipoCreditoD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarTipoCreditoD" header="#{msg['tipoE']}" widgetVar="editarTipoCreditoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlDetalleCuenta.editarCredito.tipocc.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <!--           -->
-                    <p:dialog id="editarFechaInicialDebitoD" header="#{msg['fechainicialED']}" widgetVar="editarFechaInicialDebitoD" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editarFechaInicialDebitoD" header="#{msg['fechainicialED']}" widgetVar="editarFechaInicialDebitoD" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputTextarea value="#{controlDetalleCuenta.editarDebito.fechainicial}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaFinalDebitoD" header="#{msg['fechafinalED']}" widgetVar="editarFechaFinalDebitoD" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editarFechaFinalDebitoD" header="#{msg['fechafinalED']}" widgetVar="editarFechaFinalDebitoD" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputTextarea value="#{controlDetalleCuenta.editarDebito.fechafinal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarCodigoDebitoD" header="#{msg['codigoED']}" widgetVar="editarCodigoDebitoD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarCodigoDebitoD" header="#{msg['codigoED']}" widgetVar="editarCodigoDebitoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlDetalleCuenta.editarDebito.concepto.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarDescripcionDebitoD" header="#{msg['descripcionED']}" widgetVar="editarDescripcionDebitoD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarDescripcionDebitoD" header="#{msg['descripcionED']}" widgetVar="editarDescripcionDebitoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlDetalleCuenta.editarDebito.concepto.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarDescripcionCCDebitoD" header="#{msg['descripcionCCED']}" widgetVar="editarDescripcionCCDebitoD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarDescripcionCCDebitoD" header="#{msg['descripcionCCED']}" widgetVar="editarDescripcionCCDebitoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlDetalleCuenta.editarDebito.consolidadorc.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarCCDebitoD" header="#{msg['ccED']}" widgetVar="editarCCDebitoD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarCCDebitoD" header="#{msg['ccED']}" widgetVar="editarCCDebitoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlDetalleCuenta.editarDebito.consolidadorc.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarTipoDebitoD" header="#{msg['tipoED']}" widgetVar="editarTipoDebitoD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarTipoDebitoD" header="#{msg['tipoED']}" widgetVar="editarTipoDebitoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlDetalleCuenta.editarDebito.tipocc.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 

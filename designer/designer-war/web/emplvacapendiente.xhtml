@@ -258,17 +258,17 @@
 
                     </p:panel>
 
-                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="seleccionarRegistroP" header="#{msg['error']}" widgetVar="seleccionarRegistroP"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="seleccionarRegistroP" header="#{msg['error']}" widgetVar="seleccionarRegistroP"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['seleccionarRegistroP']}" style="position: absolute; left: 70px; top: 17px; width: 185px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
+                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlEmplVacaPendiente.guardarGeneral()}" action="nomina" 
@@ -279,27 +279,27 @@
                                          style="position: absolute; top: 50px; left: 285px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorRegNew" header="#{msg['error']}" widgetVar="errorRegNew"  resizable="false" draggable="false" modal="true" height="80" width="380"  closable="true">  
+                    <p:dialog id="errorRegNew" header="#{msg['error']}" widgetVar="errorRegNew"  resizable="false" draggable="true" modal="true" height="80" width="380"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRegNew']}" style="position: absolute; left: 70px; top: 15px; width: 300px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorFechas" header="#{msg['error']}" widgetVar="errorFechas"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="errorFechas" header="#{msg['error']}" widgetVar="errorFechas"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorFechas']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorFechaContratacion" header="#{msg['error']}" widgetVar="errorFechaContratacion"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="errorFechaContratacion" header="#{msg['error']}" widgetVar="errorFechaContratacion"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorFechaContratacion']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorFechaContratacionMargenAnio" header="#{msg['error']}" widgetVar="errorFechaContratacionMargenAnio"  resizable="false" draggable="false" modal="true" height="70" width="275"  closable="true">  
+                    <p:dialog id="errorFechaContratacionMargenAnio" header="#{msg['error']}" widgetVar="errorFechaContratacionMargenAnio"  resizable="false" draggable="true" modal="true" height="70" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorFechaContratacionMargenAnio']}" style="position: absolute; left: 70px; top: 7px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorFechaContratacionTras" header="#{msg['error']}" widgetVar="errorFechaContratacionTras"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="errorFechaContratacionTras" header="#{msg['error']}" widgetVar="errorFechaContratacionTras"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorFechaContratacionTras']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;" />
                     </p:dialog>
@@ -340,41 +340,41 @@
 
                 <h:form id="formularioDialogos" >
 
-                    <p:dialog id="editarFechaInicialP" header="#{msg['fechainicialEP']}" widgetVar="editarFechaInicialP" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editarFechaInicialP" header="#{msg['fechainicialEP']}" widgetVar="editarFechaInicialP" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputTextarea value="#{controlEmplVacaPendiente.editarVacacion.inicialcausacion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaFinalP" header="#{msg['fechafinalEP']}" widgetVar="editarFechaFinalP" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editarFechaFinalP" header="#{msg['fechafinalEP']}" widgetVar="editarFechaFinalP" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputTextarea value="#{controlEmplVacaPendiente.editarVacacion.finalcausacion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
 
-                    <p:dialog id="editarDiasPendientesP" header="#{msg['diaspendientesEP']}" widgetVar="editarDiasPendientesP" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarDiasPendientesP" header="#{msg['diaspendientesEP']}" widgetVar="editarDiasPendientesP" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlEmplVacaPendiente.editarVacacion.diaspendientes}"  style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaInicialD" header="#{msg['fechainicialED']}" widgetVar="editarFechaInicialD" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editarFechaInicialD" header="#{msg['fechainicialED']}" widgetVar="editarFechaInicialD" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputTextarea value="#{controlEmplVacaPendiente.editarVacacion.inicialcausacion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaFinalD" header="#{msg['fechafinalED']}" widgetVar="editarFechaFinalD" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editarFechaFinalD" header="#{msg['fechafinalED']}" widgetVar="editarFechaFinalD" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputTextarea value="#{controlEmplVacaPendiente.editarVacacion.finalcausacion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
 
-                    <p:dialog id="editarDiasPendientesD" header="#{msg['diaspendientesED']}" widgetVar="editarDiasPendientesD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarDiasPendientesD" header="#{msg['diaspendientesED']}" widgetVar="editarDiasPendientesD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlEmplVacaPendiente.editarVacacion.diaspendientes}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="NuevoRegistroVP" header="#{msg['nuevoregistroVP']}" widgetVar="NuevoRegistroVP" closable="false" resizable="false"  draggable="false" modal="true" height="210" width="380" style=" padding: 0px">  
+                    <p:dialog id="NuevoRegistroVP" header="#{msg['nuevoregistroVP']}" widgetVar="NuevoRegistroVP" closable="false" resizable="false"  draggable="true" modal="true" height="210" width="380" style=" padding: 0px">  
 
                         <center><strong><h:outputText value="#{msg['ingresarnuevoVP']}" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
 
@@ -408,7 +408,7 @@
                         </p:panel>
                     </p:dialog>
 
-                    <p:dialog id="DuplicarRegistroVP" header="#{msg['duplicarregistroVP']}" widgetVar="DuplicarRegistroVP" closable="false" resizable="false"  draggable="false" modal="true" height="210" width="380"  style=" padding: 0px">  
+                    <p:dialog id="DuplicarRegistroVP" header="#{msg['duplicarregistroVP']}" widgetVar="DuplicarRegistroVP" closable="false" resizable="false"  draggable="true" modal="true" height="210" width="380"  style=" padding: 0px">  
 
                         <center><strong><h:outputText value="#{msg['ingresarnuevoVP']}" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
 

@@ -214,7 +214,7 @@
 
                     </p:panel>
                     
-                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
+                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlReformaLaboral.guardarGeneral()}"  style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
@@ -222,7 +222,7 @@
                         <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
                     
-                    <p:dialog id="confirmarGuardarSalida" header="#{msg['atencion']}" widgetVar="confirmarGuardarSalida"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
+                    <p:dialog id="confirmarGuardarSalida" header="#{msg['atencion']}" widgetVar="confirmarGuardarSalida"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlReformaLaboral.guardarYSalir()}" action="emplRefLab" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
@@ -230,90 +230,90 @@
                         <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardarSalida').hide();" style="position: absolute; top: 50px; left: 315px;" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
-                    <p:dialog id="verificarRastrosTablas" widgetVar="verificarRastrosTablas" header="#{msg['rpter']}" resizable="false" draggable="false" modal="true" height="95" width="430px">
+                    <p:dialog id="verificarRastrosTablas" widgetVar="verificarRastrosTablas" header="#{msg['rpter']}" resizable="false" draggable="true" modal="true" height="95" width="430px">
                         <h:outputText value="#{msg['seleccione']}" style="position: absolute; left: 20px; top: 20px;color: blue;font-weight: bold"/>
                         <p:commandButton value="#{msg['reformaLaboral']}" onclick="PF('verificarRastrosTablas').hide();" style="position: absolute; left: 30px; top: 50px;" actionListener="#{controlReformaLaboral.verificarRastroReformaLaboral()}" process="@this" />
                         <p:commandButton value="#{msg['detalleReforma']}" onclick="PF('verificarRastrosTablas').hide();" style="position: absolute; left: 200px; top: 50px;" actionListener="#{controlReformaLaboral.verificarRastroDetalleReformaLaboral()}" process="@this"/>
                     </p:dialog>
 
-                    <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
+                    <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{controlReformaLaboral.msnConfirmarRastro}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlReformaLaboral.backUp, controlReformaLaboral.nombreTablaRastro , 'rastroReformaLab')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlReformaLaboral.limpiarMSNRastros()}" style="position: absolute; top: 63px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350" closable="false">  
+                    <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{controlReformaLaboral.msnConfirmarRastroHistorico}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla(controlReformaLaboral.nombreTablaRastro , 'rastroReformaLab')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlReformaLaboral.limpiarMSNRastros()}" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275" closable="true">  
+                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275" closable="true">  
+                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350" closable="false">  
+                    <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlReformaLaboral.backUp, controlReformaLaboral.nombreTablaRastro , 'rastroReformaLab')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
                         <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285"  closable="true">  
+                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorDatosNullReformaLaboral" header="#{msg['error']}" widgetVar="errorDatosNullReformaLaboral"  resizable="false" draggable="false" modal="true" height="60" width="275" closable="true">  
+                    <p:dialog id="errorDatosNullReformaLaboral" header="#{msg['error']}" widgetVar="errorDatosNullReformaLaboral"  resizable="false" draggable="true" modal="true" height="60" width="275" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorDatosNullReformaLaboral']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorNombreReformaLaboral" header="#{msg['error']}" widgetVar="errorNombreReformaLaboral"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="errorNombreReformaLaboral" header="#{msg['error']}" widgetVar="errorNombreReformaLaboral"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorNombreReformaLaboral']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorDatosNullDetalleReforma" header="#{msg['error']}" widgetVar="errorDatosNullDetalleReforma"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="errorDatosNullDetalleReforma" header="#{msg['error']}" widgetVar="errorDatosNullDetalleReforma"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorDatosNullDetalleReforma']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorTipoPagoDetalleReforma" header="#{msg['error']}" widgetVar="errorTipoPagoDetalleReforma"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="errorTipoPagoDetalleReforma" header="#{msg['error']}" widgetVar="errorTipoPagoDetalleReforma"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTipoPagoDetalleReforma']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorCodigoClonado" header="#{msg['error']}" widgetVar="errorCodigoClonado"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="errorCodigoClonado" header="#{msg['error']}" widgetVar="errorCodigoClonado"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorCodigoClonado']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorClonadoReforma" header="#{msg['error']}" widgetVar="errorClonadoReforma"  resizable="false" draggable="false" modal="true" height="60" width="300" closable="true">  
+                    <p:dialog id="errorClonadoReforma" header="#{msg['error']}" widgetVar="errorClonadoReforma"  resizable="false" draggable="true" modal="true" height="60" width="300" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorClonadoReforma']}" style="position: absolute; left: 70px; top: 10px; width: 210px; font-weight:bold;" />
                     </p:dialog>
 
 
-                    <p:dialog id="continuarOperacionClonado" header="#{msg['atencion']}" widgetVar="continuarOperacionClonado"  resizable="false" draggable="false" modal="true" height="95" width="400"  closable="false">  
+                    <p:dialog id="continuarOperacionClonado" header="#{msg['atencion']}" widgetVar="continuarOperacionClonado"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['continuarOperacionClonado']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
                         <p:commandButton value="#{msg['si']}" onclick="PF('continuarOperacionClonado').hide();" style="position: absolute; top: 60px; left: 215px;" process="@this" />
@@ -321,7 +321,7 @@
                     </p:dialog>
 
 
-                    <p:dialog header="#{msg['reformaLaboralD']}" widgetVar="ReformaLaboralDialogo" draggable="false" resizable="false" closable="false" id="ReformaLaboralDialogo"  
+                    <p:dialog header="#{msg['reformaLaboralD']}" widgetVar="ReformaLaboralDialogo" draggable="true" resizable="false" closable="false" id="ReformaLaboralDialogo"  
                               showEffect="fade" hideEffect="fade" width="431" modal="true" >
                         <p:dataTable id="lovReformaLaboral" style="width: 400px;" var="reforma" value="#{controlReformaLaboral.lovReformasLaborales}" rowKey="#{reforma.secuencia}"
                                      selection="#{controlReformaLaboral.reformaLaboralSeleccionado}" scrollWidth="415" selectionMode="single" widgetVar="lovReformaLaboral" scrollable="true" scrollHeight="250" 
@@ -357,18 +357,18 @@
                 </h:form>
                 <h:form id="formularioDialogos" >
 
-                    <p:dialog id="errorBorrarRegistro" header="#{msg['atencion']}" widgetVar="errorBorrarRegistro"  resizable="false" draggable="false" modal="true" height="80" width="275"  closable="true">  
+                    <p:dialog id="errorBorrarRegistro" header="#{msg['atencion']}" widgetVar="errorBorrarRegistro"  resizable="false" draggable="true" modal="true" height="80" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorBorrarRegistro']}" style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="verificarNuevoRegistro" widgetVar="verificarNuevoRegistro" header="#{msg['nuevoregistropagina']}" resizable="false" draggable="false" modal="true" height="95" width="430px;"  >
+                    <p:dialog id="verificarNuevoRegistro" widgetVar="verificarNuevoRegistro" header="#{msg['nuevoregistropagina']}" resizable="false" draggable="true" modal="true" height="95" width="430px;"  >
                         <h:outputText value="#{msg['verificarNuevoRegistro']}" style="position: absolute; left: 20px; top: 20px;color: blue;font-weight: bold"/>
                         <p:commandButton value="#{msg['reformaLaboral']}" onclick="PF('verificarNuevoRegistro').hide();" style="position: absolute; left: 30px; top: 50px;" oncomplete="PF('NuevoRegistroReformaLaboral').show()" update=":formularioDialogos:nuevoReformaLaboral"  process="@this" />
                         <p:commandButton value="#{msg['detalleReforma']}" onclick="PF('verificarNuevoRegistro').hide();" style="position: absolute; left: 200px; top: 50px;" oncomplete="PF('NuevoRegistroDetalleReformaLaboral').show()" update=":formularioDialogos:nuevoDetalleReformaLaboral"  process="@this"/>
                     </p:dialog>
 
-                    <p:dialog id="NuevoRegistroReformaLaboral" header="#{msg['nuevoregistroRL']}" widgetVar="NuevoRegistroReformaLaboral" closable="false" resizable="false"  draggable="false" modal="true" height="200" width="400" style=" padding: 0px">  
+                    <p:dialog id="NuevoRegistroReformaLaboral" header="#{msg['nuevoregistroRL']}" widgetVar="NuevoRegistroReformaLaboral" closable="false" resizable="false"  draggable="true" modal="true" height="200" width="400" style=" padding: 0px">  
                         <center><strong><h:outputText value="#{msg['ingresarnuevoRL']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
                         <p:panel id="nuevoReformaLaboral" style="border: none;">
 
@@ -397,7 +397,7 @@
                         </p:panel>
                     </p:dialog>
 
-                    <p:dialog id="DuplicarRegistroReformaLaboral" header="#{msg['duplicarregistroRL']}" widgetVar="DuplicarRegistroReformaLaboral" closable="false" resizable="false"  draggable="false" modal="true" height="200" width="400" style="padding: 0px">  
+                    <p:dialog id="DuplicarRegistroReformaLaboral" header="#{msg['duplicarregistroRL']}" widgetVar="DuplicarRegistroReformaLaboral" closable="false" resizable="false"  draggable="true" modal="true" height="200" width="400" style="padding: 0px">  
 
                         <center><strong><h:outputText value="#{msg['ingresarnuevoRL']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
 
@@ -430,7 +430,7 @@
                         </p:panel>
                     </p:dialog>
 
-                    <p:dialog id="NuevoRegistroDetalleReformaLaboral" header="#{msg['nuevoregistroDRL']}" widgetVar="NuevoRegistroDetalleReformaLaboral" closable="false" resizable="false"  draggable="false" modal="true" height="170" width="400" style="padding: 0px">  
+                    <p:dialog id="NuevoRegistroDetalleReformaLaboral" header="#{msg['nuevoregistroDRL']}" widgetVar="NuevoRegistroDetalleReformaLaboral" closable="false" resizable="false"  draggable="true" modal="true" height="170" width="400" style="padding: 0px">  
                         <center><strong><h:outputText value="#{msg['ingresarnuevoDRL']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
                         <p:panel id="nuevoDetalleReformaLaboral" style="border: none;">
 
@@ -453,7 +453,7 @@
                         </p:panel>
                     </p:dialog>
 
-                    <p:dialog id="DuplicarRegistroDetalleReformaLaboral" header="#{msg['duplicarregistroDRL']}" widgetVar="DuplicarRegistroDetalleReformaLaboral" closable="false" resizable="false"  draggable="false" modal="true" height="170" width="400" style="padding: 0px">  
+                    <p:dialog id="DuplicarRegistroDetalleReformaLaboral" header="#{msg['duplicarregistroDRL']}" widgetVar="DuplicarRegistroDetalleReformaLaboral" closable="false" resizable="false"  draggable="true" modal="true" height="170" width="400" style="padding: 0px">  
                         <center><strong><h:outputText value="#{msg['ingresarnuevoDRL']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
                         <p:panel id="duplicarDetalleReformaLaboral" style="border: none;">
 
@@ -478,21 +478,21 @@
 
                     <!-- editar celdas reforma laboral -->
 
-                    <p:dialog id="editarCodigoReformaLaboralD" header="#{msg['editarCodigoReformaLaboralD']}" widgetVar="editarCodigoReformaLaboralD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarCodigoReformaLaboralD" header="#{msg['editarCodigoReformaLaboralD']}" widgetVar="editarCodigoReformaLaboralD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlReformaLaboral.editarReformaLaboral.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarNombreReformaLaboralD" header="#{msg['editarNombreReformaLaboralD']}" widgetVar="editarNombreReformaLaboralD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarNombreReformaLaboralD" header="#{msg['editarNombreReformaLaboralD']}" widgetVar="editarNombreReformaLaboralD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlReformaLaboral.editarReformaLaboral.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <!-- editar celdas detalles reforma laboral -->
 
-                    <p:dialog id="editarTipoPagoDetalleD" header="#{msg['editarTipoPagoDetalleD']}" widgetVar="editarTipoPagoDetalleD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarTipoPagoDetalleD" header="#{msg['editarTipoPagoDetalleD']}" widgetVar="editarTipoPagoDetalleD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlReformaLaboral.editarDetalleReformaLaboral.tipopago}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarFactorDetalleD" header="#{msg['editarFactorDetalleD']}" widgetVar="editarFactorDetalleD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarFactorDetalleD" header="#{msg['editarFactorDetalleD']}" widgetVar="editarFactorDetalleD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlReformaLaboral.editarDetalleReformaLaboral.factor}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 

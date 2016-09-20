@@ -113,7 +113,7 @@
 
                         <p:remoteCommand name="posicionColumnaEscenario" actionListener="#{controlConfigurarColumnas.posicionColumnaEscenario()}"/>
 
-                        <p:dialog header="#{msg['detalleConfiguracionD']}" widgetVar="ColumnaEscenarioDialogo" draggable="false" resizable="false" closable="false" id="ColumnaEscenarioDialogo"  
+                        <p:dialog header="#{msg['detalleConfiguracionD']}" widgetVar="ColumnaEscenarioDialogo" draggable="true" resizable="false" closable="false" id="ColumnaEscenarioDialogo"  
                                   showEffect="fade" hideEffect="fade" width="465" modal="true" style="font-size: 11px;">
                             <p:dataTable id="lovColumnaEscenario" style="width: 430px;" var="columna" value="#{controlConfigurarColumnas.lovColumnasEscenarios}" rowKey="#{columna.secuencia}"
                                          selection="#{controlConfigurarColumnas.columnaEscenarioSeleccionada}" selectionMode="single" widgetVar="lovColumnaEscenario" scrollable="true" scrollWidth="448" scrollHeight="250"
@@ -149,17 +149,17 @@
                     </p:panel>
 
 
-                    <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285" style="font-size: 12px;" closable="true">  
+                    <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="opcionInhabilitada" header="#{msg['atencion']}" widgetVar="opcionInhabilitada"  resizable="false" draggable="false" modal="true" height="60" width="285" style="font-size: 12px;" closable="true">  
+                    <p:dialog id="opcionInhabilitada" header="#{msg['atencion']}" widgetVar="opcionInhabilitada"  resizable="false" draggable="true" modal="true" height="60" width="285" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['opcionInhabilitada']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold;text-align: center" />
                     </p:dialog>
                     
-                    <p:dialog id="errorNewColumna" header="#{msg['atencion']}" widgetVar="errorNewColumna"  resizable="false" draggable="false" modal="true" height="60" width="285" style="font-size: 12px;" closable="true">  
+                    <p:dialog id="errorNewColumna" header="#{msg['atencion']}" widgetVar="errorNewColumna"  resizable="false" draggable="true" modal="true" height="60" width="285" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorNewColumna']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold;text-align: center" />
                     </p:dialog>
@@ -169,11 +169,11 @@
 
                 <h:form id="formularioDialogos" >
 
-                    <p:dialog id="editarCampoColumna" header="#{msg['editarCampoColumna']}" widgetVar="editarCampoColumna" resizable="false" draggable="false" modal="true" height="93" width="240" style="font-size: 12px">  
+                    <p:dialog id="editarCampoColumna" header="#{msg['editarCampoColumna']}" widgetVar="editarCampoColumna" resizable="false" draggable="true" modal="true" height="93" width="240" style="font-size: 12px">  
                         <p:inputTextarea value="#{controlConfigurarColumnas.editarColumna.nombrecolumna}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                         <p:commandButton id="cancelarCampoColumna" value="#{msg['atras']}" onclick="PF('editarCampoColumna').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                     </p:dialog>
-                    <p:dialog id="editarDescripcionColumna" header="#{msg['editarDescripcionColumna']}" widgetVar="editarDescripcionColumna" resizable="false" draggable="false" modal="true" height="93" width="240" style="font-size: 12px">  
+                    <p:dialog id="editarDescripcionColumna" header="#{msg['editarDescripcionColumna']}" widgetVar="editarDescripcionColumna" resizable="false" draggable="true" modal="true" height="93" width="240" style="font-size: 12px">  
                         <p:inputTextarea value="#{controlConfigurarColumnas.editarColumna.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                         <p:commandButton id="cancelarDescripcionColumna" value="#{msg['atras']}" onclick="PF('editarDescripcionColumna').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                     </p:dialog>

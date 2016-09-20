@@ -1256,7 +1256,7 @@
 
                 <h:form id="formularioLovTipoTrabajador">
 
-                    <p:dialog header="#{msg['tipoTrabajadorM']}" widgetVar="TipoTrabajadorDialogo" draggable="false" resizable="false" closable="false" id="TipoTrabajadorDialogo"  
+                    <p:dialog header="#{msg['tipoTrabajadorM']}" widgetVar="TipoTrabajadorDialogo" draggable="true" resizable="false" closable="false" id="TipoTrabajadorDialogo"  
                               showEffect="fade" hideEffect="fade" width="431" modal="true" >
                         <p:dataTable id="lovTipoTrabajador" liveScroll="true" scrollRows="20" style="width: 400px;" var="tipoT" value="#{controlParametrosCorreccionAutoL.lovTiposTrabajadores}" rowKey="#{tipoT.secuencia}"
                                      selection="#{controlParametrosCorreccionAutoL.tipoTrabajadorSeleccionado}" selectionMode="single" widgetVar="lovTipoTrabajador" scrollable="true" scrollWidth="415" scrollHeight="250"
@@ -1288,7 +1288,7 @@
 
                 <h:form id="formularioLovEmpresa">
 
-                    <p:dialog header="#{msg['empresaM']}" widgetVar="EmpresaDialogo" draggable="false" resizable="false" closable="false" id="EmpresaDialogo"  
+                    <p:dialog header="#{msg['empresaM']}" widgetVar="EmpresaDialogo" draggable="true" resizable="false" closable="false" id="EmpresaDialogo"  
                               showEffect="fade" hideEffect="fade" width="531" modal="true" >
                         <p:dataTable id="lovEmpresa" liveScroll="true" scrollRows="20" style="width: 500px;" var="empresa" value="#{controlParametrosCorreccionAutoL.lovEmpresas}" rowKey="#{empresa.secuencia}"
                                      selection="#{controlParametrosCorreccionAutoL.empresaSeleccionada}" selectionMode="single" widgetVar="lovEmpresa" scrollable="true" scrollWidth="515" scrollHeight="250"
@@ -1332,7 +1332,7 @@
 
                 <h:form id="formularioLovTipoEntidad">
 
-                    <p:dialog header="#{msg['tipoEntidadM']}" widgetVar="TipoEntidadDialogo" draggable="false" resizable="false" closable="false" id="TipoEntidadDialogo"  
+                    <p:dialog header="#{msg['tipoEntidadM']}" widgetVar="TipoEntidadDialogo" draggable="true" resizable="false" closable="false" id="TipoEntidadDialogo"  
                               showEffect="fade" hideEffect="fade" width="431" modal="true" >
                         <p:dataTable id="lovTipoEntidad" liveScroll="true" scrollRows="20" style="width: 400px;" var="tipoE" value="#{controlParametrosCorreccionAutoL.lovTiposEntidades}" rowKey="#{tipoE.secuencia}"
                                      selection="#{controlParametrosCorreccionAutoL.tipoEntidadSeleccionado}" selectionMode="single" widgetVar="lovTipoEntidad" scrollable="true" scrollWidth="415" scrollHeight="250"
@@ -1364,7 +1364,7 @@
 
                 <h:form id="formularioLovEmpleado">
 
-                    <p:dialog header="#{msg['empleadoM']}" widgetVar="EmpleadoDialogo" draggable="false" resizable="false" closable="false" id="EmpleadoDialogo"  
+                    <p:dialog header="#{msg['empleadoM']}" widgetVar="EmpleadoDialogo" draggable="true" resizable="false" closable="false" id="EmpleadoDialogo"  
                               showEffect="fade" hideEffect="fade" width="431" modal="true" >
                         <p:dataTable id="lovEmpleado" liveScroll="true" scrollRows="20" style="width: 400px;" var="empleado" value="#{controlParametrosCorreccionAutoL.lovEmpleados}" rowKey="#{empleado.secuencia}"
                                      selection="#{controlParametrosCorreccionAutoL.empleadoSeleccionado}" selectionMode="single" widgetVar="lovEmpleado" scrollable="true" scrollWidth="415" scrollHeight="250"
@@ -1403,7 +1403,7 @@
 
                 <h:form id="formularioLovTercero">
 
-                    <p:dialog header="#{msg['terceroM']}" widgetVar="TerceroDialogo" draggable="false" resizable="false" closable="false" id="TerceroDialogo"  
+                    <p:dialog header="#{msg['terceroM']}" widgetVar="TerceroDialogo" draggable="true" resizable="false" closable="false" id="TerceroDialogo"  
                               showEffect="fade" hideEffect="fade" width="531" modal="true" >
                         <p:dataTable id="lovTercero" liveScroll="true" scrollRows="20" style="width: 500px;" var="tercero" value="#{controlParametrosCorreccionAutoL.lovTerceros}" rowKey="#{tercero.secuencia}"
                                      selection="#{controlParametrosCorreccionAutoL.terceroSeleccionado}" selectionMode="single" widgetVar="lovTercero" scrollable="true" scrollWidth="515" scrollHeight="250"
@@ -1447,7 +1447,7 @@
 
                 <h:form id="formularioLovAporteEntidad">
 
-                    <p:dialog header="#{msg['aporteEntidadM']}" widgetVar="BuscarAporteDialogo" draggable="false" resizable="false" closable="false" id="BuscarAporteDialogo"  
+                    <p:dialog header="#{msg['aporteEntidadM']}" widgetVar="BuscarAporteDialogo" draggable="true" resizable="false" closable="false" id="BuscarAporteDialogo"  
                               showEffect="fade" hideEffect="fade" width="531" modal="true" >
                         <p:dataTable id="lovBuscarAporte" liveScroll="true" scrollRows="20" style="width: 500px;" var="buscarA" value="#{controlParametrosCorreccionAutoL.lovAportesCorrecciones}" rowKey="#{buscarA.secuencia}"
                                      selection="#{controlParametrosCorreccionAutoL.aporteEntidadlovSeleccionado}" selectionMode="single" widgetVar="lovBuscarAporte" scrollable="true" scrollWidth="515" scrollHeight="250"
@@ -1491,7 +1491,7 @@
 
                 <h:form id="formularioDialogos" >
 
-                    <p:dialog id="confirmarGuardarSalida" header="#{msg['atencion']}" widgetVar="confirmarGuardarSalida"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
+                    <p:dialog id="confirmarGuardarSalida" header="#{msg['atencion']}" widgetVar="confirmarGuardarSalida"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlParametrosCorreccionAutoL.guardarYSalir()}" action="#{controlParametrosCorreccionAutoL.redirigir()}" style="position: absolute; top: 50px; left: 125px;" process="@this" icon="ui-icon-check" />
@@ -1499,7 +1499,7 @@
                         <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardarSalida').hide();" style="position: absolute; top: 50px; left: 260px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
-                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
+                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlParametrosCorreccionAutoL.guardadoGeneral()}" style="position: absolute; top: 50px; left: 125px;" process="@this" icon="ui-icon-check" />
@@ -1507,82 +1507,82 @@
                         <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 260px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
-                    <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
+                    <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 8px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlParametrosCorreccionAutoL.parametroCorreccionSeleccionado.getSecuencia(), 'ParametrosCorreccionAutoL', 'ParametrosCorreccionAutoLRastro')}" style="position: absolute; top: 65px; left: 175px;" action="rastro" process="@this" />
                         <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 65px; left: 240px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="confirmarRastroAporte" header="#{msg['informacion']}" widgetVar="confirmarRastroAporte"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
+                    <p:dialog id="confirmarRastroAporte" header="#{msg['informacion']}" widgetVar="confirmarRastroAporte"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroAporte']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastroAporte').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlParametrosCorreccionAutoL.parametroCorreccionSeleccionado.getSecuencia(), 'AportesCorrecciones', 'ParametrosCorreccionAutoLRastro')}" style="position: absolute; top: 63px; left: 175px;" action="rastro" process="@this" />
                         <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastroAporte').hide();" style="position: absolute; top: 63px; left: 240px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
+                    <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('ParametrosAutoliq', 'parametroAutoliqRastro')}" style="position: absolute; top: 60px; left: 175px;" action="rastro" process="@this" />
                         <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="confirmarRastroHistoricoAporte" header="#{msg['informacion']}" widgetVar="confirmarRastroHistoricoAporte"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
+                    <p:dialog id="confirmarRastroHistoricoAporte" header="#{msg['informacion']}" widgetVar="confirmarRastroHistoricoAporte"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistoricoAporte']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastroHistoricoAporte').hide();" actionListener="#{controlRastro.historicosTabla('AportesEntidades', 'parametroAutoliqRastro')}" style="position: absolute; top: 60px; left: 175px;" action="rastro" process="@this" />
                         <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastroHistoricoAporte').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275" closable="true">  
+                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
+                    <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlParametrosCorreccionAutoL.backUpSecRegistro, 'ParametrosAutoliq', 'parametroAutoliqRastro')}" style="position: absolute; top: 70px; left: 175px;" action="rastro" process="@this" />
                         <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 70px; left: 240px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285"  closable="true">  
+                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
                         <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="85" width="295"  closable="true">  
+                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="85" width="295"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
                         <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 8px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorObjetosDBAporte" header="#{msg['error']}" widgetVar="errorObjetosDBAporte"  resizable="false" draggable="false" modal="true" height="85" width="295"  closable="true">  
+                    <p:dialog id="errorObjetosDBAporte" header="#{msg['error']}" widgetVar="errorObjetosDBAporte"  resizable="false" draggable="true" modal="true" height="85" width="295"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
                         <h:outputText value="#{msg['errorObjetosDBAporte']}" style="position: absolute; left: 70px; top: 8px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorRegNullParametro" header="#{msg['error']}" widgetVar="errorRegNullParametro"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="errorRegNullParametro" header="#{msg['error']}" widgetVar="errorRegNullParametro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRegNullParametro']}" style="position: absolute; left: 70px; top: 8px; width: 185px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorBorrarParametro" header="#{msg['error']}" widgetVar="errorBorrarParametro"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="errorBorrarParametro" header="#{msg['error']}" widgetVar="errorBorrarParametro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
                         <h:outputText value="#{msg['errorBorrarParametro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="confirmarBorrarTodoAuto" header="#{msg['informacion']}" widgetVar="confirmarBorrarTodoAuto"  resizable="false" draggable="false" modal="true" height="85" width="290"  closable="false">  
+                    <p:dialog id="confirmarBorrarTodoAuto" header="#{msg['informacion']}" widgetVar="confirmarBorrarTodoAuto"  resizable="false" draggable="true" modal="true" height="85" width="290"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarBorrarTodoAuto']}" style="position: absolute; left: 60px; top: 15px; width: 200px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['aceptar']}" onclick="PF('confirmarBorrarTodoAuto').hide();
@@ -1590,14 +1590,14 @@
                         <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarBorrarTodoAuto').hide();" style="position: absolute; top: 50px; left: 170px;" process="@this" icon="ui-icon-close" />
                     </p:dialog>
 
-                    <p:dialog id="errorProcesoLiquidacionFechas" header="#{msg['atencion']}" widgetVar="errorProcesoLiquidacionFechas"  resizable="false" draggable="false" modal="true" height="105" width="435" closable="false">  
+                    <p:dialog id="errorProcesoLiquidacionFechas" header="#{msg['atencion']}" widgetVar="errorProcesoLiquidacionFechas"  resizable="false" draggable="true" modal="true" height="105" width="435" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['errorProcesoLiquidacionFechas']}" style="position: absolute; left: 120px; top: 10px; width: 280px; font-weight:bold;" />
                         <p:commandButton value="#{msg['aceptar']}" onclick="PF('errorProcesoLiquidacionFechas').hide();" actionListener="#{controlParametrosCorreccionAutoL.cambiarFechasParametros()}" style="position: absolute; top: 70px; left: 207px;" process="@this" icon="ui-icon-check" />
                         <p:commandButton value="#{msg['cancelar']}" onclick="PF('errorProcesoLiquidacionFechas').hide();" style="position: absolute; top: 70px; left: 307px;" process="@this" icon="ui-icon-close" />
                     </p:dialog>
 
-                    <p:dialog id="procesoLiquidacionOK" header="#{msg['atencion']}" widgetVar="procesoLiquidacionOK"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
+                    <p:dialog id="procesoLiquidacionOK" header="#{msg['atencion']}" widgetVar="procesoLiquidacionOK"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['procesoLiquidacionOK']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
                         <p:commandButton value="#{msg['aceptar']}" onclick="PF('procesoLiquidacionOK').hide();
@@ -1605,7 +1605,7 @@
                         <p:commandButton value="#{msg['cancelar']}" onclick="PF('procesoLiquidacionOK').hide();" style="position: absolute; top: 50px; left: 307px;" process="@this" icon="ui-icon-close" />
                     </p:dialog>
 
-                    <p:dialog id="acumularDiferenciaOK" header="#{msg['atencion']}" widgetVar="acumularDiferenciaOK"  resizable="false" draggable="false" modal="true" height="115" width="430" closable="false">  
+                    <p:dialog id="acumularDiferenciaOK" header="#{msg['atencion']}" widgetVar="acumularDiferenciaOK"  resizable="false" draggable="true" modal="true" height="115" width="430" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['incrementarCorreccionOK']}" style="position: absolute; left: 120px; top: 8px; width: 250px; font-weight:bold;" />
                         <p:commandButton value="#{msg['aceptar']}" onclick="PF('acumularDiferenciaOK').hide();
@@ -1613,7 +1613,7 @@
                         <p:commandButton value="#{msg['cancelar']}" onclick="PF('acumularDiferenciaOK').hide();" style="position: absolute; top: 90px; left: 307px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
-                    <p:dialog id="errorAcumularDiferencia" header="#{msg['atencion']}" widgetVar="errorAcumularDiferencia"  resizable="false" draggable="false" modal="true" height="85" width="355"  closable="true">  
+                    <p:dialog id="errorAcumularDiferencia" header="#{msg['atencion']}" widgetVar="errorAcumularDiferencia"  resizable="false" draggable="true" modal="true" height="85" width="355"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 5px; top: 20px;"  />
                         <h:outputText value="#{msg['errorAcumularDiferencia']}" style="position: absolute; left: 70px; top: 10px; width: 270px; font-weight:bold;text-align: center" />
                     </p:dialog>
@@ -1621,7 +1621,7 @@
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlParametrosCorreccionAutoL.activarCtrlF11()}"/> 
 
 
-                    <p:dialog id="NuevoRegistroParametro" header="#{msg['nuevoregistro']}" widgetVar="NuevoRegistroParametro" closable="false" resizable="false"  draggable="false" modal="true" height="320" width="400" style="padding: 0px">  
+                    <p:dialog id="NuevoRegistroParametro" header="#{msg['nuevoregistro']}" widgetVar="NuevoRegistroParametro" closable="false" resizable="false"  draggable="true" modal="true" height="320" width="400" style="padding: 0px">  
 
                         <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
 
@@ -1699,7 +1699,7 @@
                         </p:panel>
                     </p:dialog>
 
-                    <p:dialog id="DuplicarRegistroParametro" header="#{msg['duplicarregistro']}" widgetVar="DuplicarRegistroParametro" closable="false" resizable="false"  draggable="false" modal="true" height="320" width="400" style="padding: 0px">  
+                    <p:dialog id="DuplicarRegistroParametro" header="#{msg['duplicarregistro']}" widgetVar="DuplicarRegistroParametro" closable="false" resizable="false"  draggable="true" modal="true" height="320" width="400" style="padding: 0px">  
 
                         <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
 
@@ -1776,7 +1776,7 @@
                         </p:panel>
                     </p:dialog>
 
-                    <p:dialog id="nuevoAporteEntidad" header="#{msg['nuevoregistro']}" widgetVar="nuevoAporteEntidad" closable="false" resizable="false"  draggable="false" modal="true"  height="450" width="800" style=" padding: 0px">  
+                    <p:dialog id="nuevoAporteEntidad" header="#{msg['nuevoregistro']}" widgetVar="nuevoAporteEntidad" closable="false" resizable="false"  draggable="true" modal="true"  height="450" width="800" style=" padding: 0px">  
 
                         <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px"/></strong></center> 
 
@@ -2109,7 +2109,7 @@
 
 
 
-                    <p:dialog id="duplicarAporteEntidad" header="#{msg['nuevoregistro']}" widgetVar="duplicarAporteEntidad" closable="false" resizable="false"  draggable="false" modal="true"  height="450" width="800" style=" padding: 0px">  
+                    <p:dialog id="duplicarAporteEntidad" header="#{msg['nuevoregistro']}" widgetVar="duplicarAporteEntidad" closable="false" resizable="false"  draggable="true" modal="true"  height="450" width="800" style=" padding: 0px">  
 
                         <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px"/></strong></center> 
 
@@ -2430,278 +2430,278 @@
                     </p:dialog>
 
 
-                    <p:dialog id="seleccionarTablaNewReg" header="Nuevo Registro" widgetVar="seleccionarTablaNewReg"  resizable="false" draggable="false" modal="true" height="180" width="365"  closable="false">  
+                    <p:dialog id="seleccionarTablaNewReg" header="Nuevo Registro" widgetVar="seleccionarTablaNewReg"  resizable="false" draggable="true" modal="true" height="180" width="365"  closable="false">  
                         <h:outputText value="Seleccione la tabla en la cual quiere insertar el nuevo Registro" style="color: blue; position: absolute; left: 15px; top: 10px; font-weight:bold; text-align: center" />
                         <p:commandButton value="Parámetros" style="position: absolute; left: 90px; top: 55px; font-weight:bold; width: 180px; text-align: center" process="@this"  actionListener="#{controlParametrosCorreccionAutoL.mostrarDialogoNuevoParametro()}" onclick="PF('seleccionarTablaNewReg').hide()" />
                         <p:commandButton value="Corrección Aportes Entidades" style="position: absolute; left: 90px; top: 85px; font-weight:bold; width: 180px; text-align: center" process="@this" actionListener="#{controlParametrosCorreccionAutoL.mostrarDialogoNuevoAporte()}" onclick="PF('seleccionarTablaNewReg').hide()" />
                         <p:commandButton value="#{msg['salir']}" icon="ui-icon-closethick" style="position: absolute; top: 150px; left: 250px;" onclick="PF('seleccionarTablaNewReg').hide()"  />
                     </p:dialog>
 
-                    <p:dialog id="editarAnoD" header="#{msg['editarAnoD']}" widgetVar="editarAnoD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarAnoD" header="#{msg['editarAnoD']}" widgetVar="editarAnoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarParametro.ano}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarMesD" header="Mes" widgetVar="editarMesD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarMesD" header="Mes" widgetVar="editarMesD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarParametro.mes}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarTipoTrabajadorD" header="#{msg['editarTipoTrabajadorD']}" widgetVar="editarTipoTrabajadorD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarTipoTrabajadorD" header="#{msg['editarTipoTrabajadorD']}" widgetVar="editarTipoTrabajadorD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarParametro.tipotrabajador.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarEmpresaD" header="#{msg['editarEmpresaD']}" widgetVar="editarEmpresaD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarEmpresaD" header="#{msg['editarEmpresaD']}" widgetVar="editarEmpresaD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarParametro.empresa.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarTipoPlanillaD" header="Tipo Planilla" widgetVar="editarTipoPlanillaD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarTipoPlanillaD" header="Tipo Planilla" widgetVar="editarTipoPlanillaD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarParametro.tipoplanilla}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarPlanillaD" header="Planilla" widgetVar="editarPlanillaD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarPlanillaD" header="Planilla" widgetVar="editarPlanillaD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarParametro.corrigeplanilla}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaPlanillaD" header="Fecha de la Planilla" widgetVar="editarFechaPlanillaD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarFechaPlanillaD" header="Fecha de la Planilla" widgetVar="editarFechaPlanillaD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarParametro.fechaplanilla}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <!-- -->
 
-                    <p:dialog id="editaraporteTipoPlanillaD" header="Tipo Planilla" widgetVar="editaraporteTipoPlanillaD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editaraporteTipoPlanillaD" header="Tipo Planilla" widgetVar="editaraporteTipoPlanillaD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarAporteEntidad.tipoplanilla}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarAnoAD" header="#{msg['editarAnoAD']}" widgetVar="editarAnoAD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarAnoAD" header="#{msg['editarAnoAD']}" widgetVar="editarAnoAD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarAporteEntidad.ano}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarMesAD" header="#{msg['editarMesAD']}" widgetVar="editarMesAD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarMesAD" header="#{msg['editarMesAD']}" widgetVar="editarMesAD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarAporteEntidad.mes}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarNombreEmplD" header="#{msg['editarNombreEmplD']}" widgetVar="editarNombreEmplD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarNombreEmplD" header="#{msg['editarNombreEmplD']}" widgetVar="editarNombreEmplD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarAporteEntidad.empleado.persona.nombreCompleto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarNitTerceroD" header="#{msg['editarNitTerceroD']}" widgetVar="editarNitTerceroD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarNitTerceroD" header="#{msg['editarNitTerceroD']}" widgetVar="editarNitTerceroD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarAporteEntidad.terceroRegistro.nit}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarNombreTerceroD" header="#{msg['editarNombreTerceroD']}" widgetVar="editarNombreTerceroD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarNombreTerceroD" header="#{msg['editarNombreTerceroD']}" widgetVar="editarNombreTerceroD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarAporteEntidad.terceroRegistro.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarTipoEntidadD" header="#{msg['editarTipoEntidadD']}" widgetVar="editarTipoEntidadD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarTipoEntidadD" header="#{msg['editarTipoEntidadD']}" widgetVar="editarTipoEntidadD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarAporteEntidad.terceroRegistro.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarEmpleadoD" header="#{msg['editarEmpleadoD']}" widgetVar="editarEmpleadoD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarEmpleadoD" header="#{msg['editarEmpleadoD']}" widgetVar="editarEmpleadoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarAporteEntidad.cotizacion1}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarEmpleadorD" header="#{msg['editarEmpleadorD']}" widgetVar="editarEmpleadorD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarEmpleadorD" header="#{msg['editarEmpleadorD']}" widgetVar="editarEmpleadorD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarAporteEntidad.cotizacion2}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarAjustePatronalD" header="#{msg['editarAjustePatronalD']}" widgetVar="editarAjustePatronalD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarAjustePatronalD" header="#{msg['editarAjustePatronalD']}" widgetVar="editarAjustePatronalD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarAporteEntidad.cotizacion5}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarSolidaridadD" header="#{msg['editarSolidaridadD']}" widgetVar="editarSolidaridadD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarSolidaridadD" header="#{msg['editarSolidaridadD']}" widgetVar="editarSolidaridadD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarAporteEntidad.novedad3}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarSubSistenciaD" header="#{msg['editarSubSistenciaD']}" widgetVar="editarSubSistenciaD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarSubSistenciaD" header="#{msg['editarSubSistenciaD']}" widgetVar="editarSubSistenciaD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarAporteEntidad.novedad4}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarSubsPensionadosD" header="#{msg['editarSubsPensionadosD']}" widgetVar="editarSubsPensionadosD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarSubsPensionadosD" header="#{msg['editarSubsPensionadosD']}" widgetVar="editarSubsPensionadosD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarAporteEntidad.novedad5}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarSalarioBasicoD" header="#{msg['editarSalarioBasicoD']}" widgetVar="editarSalarioBasicoD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarSalarioBasicoD" header="#{msg['editarSalarioBasicoD']}" widgetVar="editarSalarioBasicoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarAporteEntidad.salariobasico}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarIBCD" header="#{msg['editarIBCD']}" widgetVar="editarIBCD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarIBCD" header="#{msg['editarIBCD']}" widgetVar="editarIBCD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarAporteEntidad.ibc}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarIBCReferenciaD" header="#{msg['editarIBCReferenciaD']}" widgetVar="editarIBCReferenciaD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarIBCReferenciaD" header="#{msg['editarIBCReferenciaD']}" widgetVar="editarIBCReferenciaD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarAporteEntidad.ibcreferencia}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarDiasCotizadosD" header="#{msg['editarDiasCotizadosD']}" widgetVar="editarDiasCotizadosD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarDiasCotizadosD" header="#{msg['editarDiasCotizadosD']}" widgetVar="editarDiasCotizadosD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarAporteEntidad.diascotizados}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarTipoAportanteD" header="#{msg['editarTipoAportanteD']}" widgetVar="editarTipoAportanteD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarTipoAportanteD" header="#{msg['editarTipoAportanteD']}" widgetVar="editarTipoAportanteD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarAporteEntidad.tipoaportante}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarINGD" header="#{msg['editarINGD']}" widgetVar="editarINGD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarINGD" header="#{msg['editarINGD']}" widgetVar="editarINGD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarAporteEntidad.ing}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarRETD" header="#{msg['editarRETD']}" widgetVar="editarRETD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarRETD" header="#{msg['editarRETD']}" widgetVar="editarRETD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarAporteEntidad.ret}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarTDAD" header="#{msg['editarTDAD']}" widgetVar="editarTDAD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarTDAD" header="#{msg['editarTDAD']}" widgetVar="editarTDAD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarAporteEntidad.tda}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarTAAD" header="#{msg['editarTAAD']}" widgetVar="editarTAAD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarTAAD" header="#{msg['editarTAAD']}" widgetVar="editarTAAD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarAporteEntidad.taa}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarVSPD" header="#{msg['editarVSPD']}" widgetVar="editarVSPD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarVSPD" header="#{msg['editarVSPD']}" widgetVar="editarVSPD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarAporteEntidad.vsp}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarVTED" header="#{msg['editarVTED']}" widgetVar="editarVTED" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarVTED" header="#{msg['editarVTED']}" widgetVar="editarVTED" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarAporteEntidad.vte}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarVSTD" header="#{msg['editarVSTD']}" widgetVar="editarVSTD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarVSTD" header="#{msg['editarVSTD']}" widgetVar="editarVSTD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarAporteEntidad.vst}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarSLND" header="#{msg['editarSLND']}" widgetVar="editarSLND" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarSLND" header="#{msg['editarSLND']}" widgetVar="editarSLND" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarAporteEntidad.sln}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarIGED" header="#{msg['editarIGED']}" widgetVar="editarIGED" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarIGED" header="#{msg['editarIGED']}" widgetVar="editarIGED" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarAporteEntidad.ige}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarLMAD" header="#{msg['editarLMAD']}" widgetVar="editarLMAD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarLMAD" header="#{msg['editarLMAD']}" widgetVar="editarLMAD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarAporteEntidad.lma}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarVCAD" header="#{msg['editarVCAD']}" widgetVar="editarVCAD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarVCAD" header="#{msg['editarVCAD']}" widgetVar="editarVCAD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarAporteEntidad.vac}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarAVPD" header="#{msg['editarAVPD']}" widgetVar="editarAVPD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarAVPD" header="#{msg['editarAVPD']}" widgetVar="editarAVPD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarAporteEntidad.avp}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarVCTD" header="#{msg['editarVCTD']}" widgetVar="editarVCTD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarVCTD" header="#{msg['editarVCTD']}" widgetVar="editarVCTD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarAporteEntidad.vct}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarIRPD" header="#{msg['editarIRPD']}" widgetVar="editarIRPD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarIRPD" header="#{msg['editarIRPD']}" widgetVar="editarIRPD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarAporteEntidad.irp}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarSUSD" header="#{msg['editarSUSD']}" widgetVar="editarSUSD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarSUSD" header="#{msg['editarSUSD']}" widgetVar="editarSUSD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarAporteEntidad.sus}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarINTED" header="#{msg['editarINTED']}" widgetVar="editarINTED" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarINTED" header="#{msg['editarINTED']}" widgetVar="editarINTED" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarAporteEntidad.integral}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarTarifaEPSD" header="#{msg['editarTarifaEPSD']}" widgetVar="editarTarifaEPSD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarTarifaEPSD" header="#{msg['editarTarifaEPSD']}" widgetVar="editarTarifaEPSD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarAporteEntidad.tarifaeps}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarTarifaAAFPD" header="#{msg['editarTarifaAAFPD']}" widgetVar="editarTarifaAAFPD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarTarifaAAFPD" header="#{msg['editarTarifaAAFPD']}" widgetVar="editarTarifaAAFPD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarAporteEntidad.tarifaafp}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarTarifaACTTD" header="#{msg['editarTarifaACTTD']}" widgetVar="editarTarifaACTTD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarTarifaACTTD" header="#{msg['editarTarifaACTTD']}" widgetVar="editarTarifaACTTD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarAporteEntidad.tarifactt}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarCodigoCTTD" header="#{msg['editarCodigoCTTD']}" widgetVar="editarCodigoCTTD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarCodigoCTTD" header="#{msg['editarCodigoCTTD']}" widgetVar="editarCodigoCTTD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarAporteEntidad.codigoctt}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarAvpeValorD" header="#{msg['editarAvpeValorD']}" widgetVar="editarAvpeValorD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarAvpeValorD" header="#{msg['editarAvpeValorD']}" widgetVar="editarAvpeValorD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarAporteEntidad.avpevalor}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarAvppValorD" header="#{msg['editarAvppValorD']}" widgetVar="editarAvppValorD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarAvppValorD" header="#{msg['editarAvppValorD']}" widgetVar="editarAvppValorD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarAporteEntidad.avppvalor}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarRetcontaValorD" header="#{msg['editarRetcontaValorD']}" widgetVar="editarRetcontaValorD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarRetcontaValorD" header="#{msg['editarRetcontaValorD']}" widgetVar="editarRetcontaValorD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarAporteEntidad.retcontavpvalor}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarCodigoNEPSD" header="#{msg['editarCodigoNEPSD']}" widgetVar="editarCodigoNEPSD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarCodigoNEPSD" header="#{msg['editarCodigoNEPSD']}" widgetVar="editarCodigoNEPSD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarAporteEntidad.codigoneps}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarCodigoNAFPD" header="#{msg['editarCodigoNAFPD']}" widgetVar="editarCodigoNAFPD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarCodigoNAFPD" header="#{msg['editarCodigoNAFPD']}" widgetVar="editarCodigoNAFPD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarAporteEntidad.codigonafp}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarEgValorD" header="#{msg['editarEgValorD']}" widgetVar="editarEgValorD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarEgValorD" header="#{msg['editarEgValorD']}" widgetVar="editarEgValorD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarAporteEntidad.egvalor}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarEgAutorizacionD" header="#{msg['editarEgAutorizacionD']}" widgetVar="editarEgAutorizacionD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarEgAutorizacionD" header="#{msg['editarEgAutorizacionD']}" widgetVar="editarEgAutorizacionD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarAporteEntidad.egautorizacion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarMaternidadValorD" header="#{msg['editarMaternidadValorD']}" widgetVar="editarMaternidadValorD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarMaternidadValorD" header="#{msg['editarMaternidadValorD']}" widgetVar="editarMaternidadValorD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarAporteEntidad.maternidadvalor}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarMaternidadAutoD" header="#{msg['editarMaternidadAutoD']}" widgetVar="editarMaternidadAutoD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarMaternidadAutoD" header="#{msg['editarMaternidadAutoD']}" widgetVar="editarMaternidadAutoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarAporteEntidad.maternidadautorizacion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarUpcValorD" header="#{msg['editarUpcValorD']}" widgetVar="editarUpcValorD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarUpcValorD" header="#{msg['editarUpcValorD']}" widgetVar="editarUpcValorD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarAporteEntidad.upcvalor}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarTipoD" header="#{msg['editarTipoD']}" widgetVar="editarTipoD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarTipoD" header="#{msg['editarTipoD']}" widgetVar="editarTipoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarAporteEntidad.tipo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarTPD" header="#{msg['editarTPD']}" widgetVar="editarTPD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarTPD" header="#{msg['editarTPD']}" widgetVar="editarTPD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarAporteEntidad.tipopensionado}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarPCD" header="#{msg['editarPCD']}" widgetVar="editarPCD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarPCD" header="#{msg['editarPCD']}" widgetVar="editarPCD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarAporteEntidad.pensioncompartida}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarEXTRD" header="#{msg['editarEXTRD']}" widgetVar="editarEXTRD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarEXTRD" header="#{msg['editarEXTRD']}" widgetVar="editarEXTRD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarAporteEntidad.extranjero}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaIngreso" header="#{msg['editarFechaIngreso']}" widgetVar="editarFechaIngreso" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarFechaIngreso" header="#{msg['editarFechaIngreso']}" widgetVar="editarFechaIngreso" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarAporteEntidad.fechaingreso}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>    
                     </p:dialog>
 
-                    <p:dialog id="editarTarifaCajaD" header="#{msg['editarTarifaCajaD']}" widgetVar="editarTarifaCajaD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarTarifaCajaD" header="#{msg['editarTarifaCajaD']}" widgetVar="editarTarifaCajaD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarAporteEntidad.tarifacaja}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarTarifaSenaD" header="#{msg['editarTarifaSenaD']}" widgetVar="editarTarifaSenaD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarTarifaSenaD" header="#{msg['editarTarifaSenaD']}" widgetVar="editarTarifaSenaD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarAporteEntidad.tarifasena}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarTarifaICBFD" header="#{msg['editarTarifaICBFD']}" widgetVar="editarTarifaICBFD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarTarifaICBFD" header="#{msg['editarTarifaICBFD']}" widgetVar="editarTarifaICBFD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarAporteEntidad.tarifaicbf}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarTarifaESAPD" header="#{msg['editarTarifaESAPD']}" widgetVar="editarTarifaESAPD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarTarifaESAPD" header="#{msg['editarTarifaESAPD']}" widgetVar="editarTarifaESAPD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarAporteEntidad.tarifaesap}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarTarifaMEND" header="#{msg['editarTarifaMEND']}" widgetVar="editarTarifaMEND" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarTarifaMEND" header="#{msg['editarTarifaMEND']}" widgetVar="editarTarifaMEND" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosCorreccionAutoL.editarAporteEntidad.tarifamen}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="operacionEnProceso" header="#{msg['atencion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="false" modal="true" height="65" width="350" style="font-size: 12px;" closable="false">  
+                    <p:dialog id="operacionEnProceso" header="#{msg['atencion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="true" modal="true" height="65" width="350" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['operacionEnProceso']}" style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight:bold;" />
                     </p:dialog>

@@ -157,7 +157,7 @@
                     </p:panel>
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlNReportePersonal.activarCtrlF11()}" process="@this"/> 
 
-                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
+                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlNReportePersonal.guardarYSalir()}" action="individual" style="position: absolute; top: 50px; left: 125px;" process="@this" icon="ui-icon-check" />
@@ -165,7 +165,7 @@
                         <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 260px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
-                    <p:dialog id="confirmarGuardarSinSalida" header="#{msg['atencion']}" widgetVar="confirmarGuardarSinSalida"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
+                    <p:dialog id="confirmarGuardarSinSalida" header="#{msg['atencion']}" widgetVar="confirmarGuardarSinSalida"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardarSinSalida').hide();" actionListener="#{controlNReportePersonal.guardarCambios()}"  style="position: absolute; top: 50px; left: 125px;" process="@this" icon="ui-icon-check" />
@@ -173,7 +173,7 @@
                         <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardarSinSalida').hide();" style="position: absolute; top: 50px; left: 260px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
-                    <p:dialog header="#{msg['reportesR']}" widgetVar="ReportesDialogo" draggable="false" resizable="false" closable="false" id="ReportesDialogo"  
+                    <p:dialog header="#{msg['reportesR']}" widgetVar="ReportesDialogo" draggable="true" resizable="false" closable="false" id="ReportesDialogo"  
                               showEffect="fade" hideEffect="fade" width="460" modal="true" >
                         <p:dataTable id="lovReportesDialogo" style="width: 430px;" var="reportes" value="#{controlNReportePersonal.lovInforeportes}" rowKey="#{reportes.secuencia}"
                                      selection="#{controlNReportePersonal.reporteLovSeleccionado}" selectionMode="single" widgetVar="lovReportesDialogo" scrollable="true" scrollWidth="445" scrollHeight="250"
@@ -214,7 +214,7 @@
 
                     </p:dialog>
 
-                    <p:dialog header="#{msg['envioporcorreo']}" widgetVar="EnvioCorreoDialogo" draggable="false" resizable="false" closable="false" id="EnvioCorreoDialogo"  
+                    <p:dialog header="#{msg['envioporcorreo']}" widgetVar="EnvioCorreoDialogo" draggable="true" resizable="false" closable="false" id="EnvioCorreoDialogo"  
                               showEffect="fade" hideEffect="fade" width="460" height="320" modal="true" >
 
                         <h:outputText style="position: absolute;top: 10px; left: 10px; text-align: left" value="#{msg['enviarcorreo']}" />
@@ -238,7 +238,7 @@
 
                     </p:dialog>
 
-                    <p:dialog header="#{msg['codigoEMP']}" widgetVar="EmpleadoDesdeDialogo" draggable="false" resizable="false" closable="false" id="EmpleadoDesdeDialogo"  
+                    <p:dialog header="#{msg['codigoEMP']}" widgetVar="EmpleadoDesdeDialogo" draggable="true" resizable="false" closable="false" id="EmpleadoDesdeDialogo"  
                               showEffect="fade" hideEffect="fade" width="431" modal="true">
                         <p:dataTable id="lovEmpleadoDesde" style="width: 400px;" var="empleadoDesde" value="#{controlNReportePersonal.listEmpleados}" rowKey="#{empleadoDesde.secuencia}"
                                      selection="#{controlNReportePersonal.empleadoSeleccionado}" selectionMode="single" widgetVar="lovEmpleadoDesde" scrollable="true" scrollWidth="416" scrollHeight="250"
@@ -270,7 +270,7 @@
 
                     </p:dialog>
 
-                    <p:dialog header="#{msg['codigoEMPH']}" widgetVar="EmpleadoHastaDialogo" draggable="false" resizable="false" closable="false" id="EmpleadoHastaDialogo"  
+                    <p:dialog header="#{msg['codigoEMPH']}" widgetVar="EmpleadoHastaDialogo" draggable="true" resizable="false" closable="false" id="EmpleadoHastaDialogo"  
                               showEffect="fade" hideEffect="fade" width="431" modal="true" >
                         <p:dataTable id="lovEmpleadoHasta" style="width: 400px;" var="empleadoHasta" value="#{controlNReportePersonal.listEmpleados}" rowKey="#{empleadoHasta.secuencia}"
                                      selection="#{controlNReportePersonal.empleadoSeleccionado}" selectionMode="single" widgetVar="lovEmpleadoHasta" scrollable="true" scrollWidth="416" scrollHeight="250"
@@ -303,7 +303,7 @@
 
                     </p:dialog>
 
-                    <p:dialog header="#{msg['empresaE']}" widgetVar="EmpresaDialogo" draggable="false" resizable="false" closable="false" id="EmpresaDialogo"  
+                    <p:dialog header="#{msg['empresaE']}" widgetVar="EmpresaDialogo" draggable="true" resizable="false" closable="false" id="EmpresaDialogo"  
                               showEffect="fade" hideEffect="fade" width="431" modal="true" >
                         <p:dataTable id="lovEmpresa" style="width: 400px;" var="empresa" value="#{controlNReportePersonal.listEmpresas}" rowKey="#{empresa.secuencia}"
                                      selection="#{controlNReportePersonal.empresaSeleccionada}" selectionMode="single" widgetVar="lovEmpresa" scrollable="true" scrollWidth="416" scrollHeight="250"
@@ -337,7 +337,7 @@
                     </p:dialog>
 
 
-                    <p:dialog header="#{msg['estructurasES']}" widgetVar="EstructuraDialogo" draggable="false" resizable="false" closable="false" id="EstructuraDialogo"  
+                    <p:dialog header="#{msg['estructurasES']}" widgetVar="EstructuraDialogo" draggable="true" resizable="false" closable="false" id="EstructuraDialogo"  
                               showEffect="fade" hideEffect="fade" width="460" modal="true" >
                         <p:dataTable id="lovEstructura" style="width: 430px;" var="estructura" value="#{controlNReportePersonal.listEstructuras}" rowKey="#{estructura.secuencia}"
                                      selection="#{controlNReportePersonal.estructuraSeleccionada}" selectionMode="single" widgetVar="lovEstructura" scrollable="true" scrollWidth="445" scrollHeight="250"
@@ -376,7 +376,7 @@
 
                     </p:dialog>
 
-                    <p:dialog header="#{msg['tipotrabajadorTT']}" widgetVar="TipoTrabajadorDialogo" draggable="false" resizable="false" closable="false" id="TipoTrabajadorDialogo"  
+                    <p:dialog header="#{msg['tipotrabajadorTT']}" widgetVar="TipoTrabajadorDialogo" draggable="true" resizable="false" closable="false" id="TipoTrabajadorDialogo"  
                               showEffect="fade" hideEffect="fade" width="460" modal="true" >
                         <p:dataTable id="lovTipoTrabajador" style="width: 430px;" var="tipo" value="#{controlNReportePersonal.listTiposTrabajadores}" rowKey="#{tipo.secuencia}"
                                      selection="#{controlNReportePersonal.tipoTSeleccionado}" selectionMode="single" widgetVar="lovTipoTrabajador" scrollable="true" scrollWidth="445" scrollHeight="250"
@@ -414,7 +414,7 @@
 
                     </p:dialog>
 
-                    <p:dialog header="#{msg['estadocivilEC']}" widgetVar="EstadoCivilDialogo" draggable="false" resizable="false" closable="false" id="EstadoCivilDialogo"  
+                    <p:dialog header="#{msg['estadocivilEC']}" widgetVar="EstadoCivilDialogo" draggable="true" resizable="false" closable="false" id="EstadoCivilDialogo"  
                               showEffect="fade" hideEffect="fade" width="431" modal="true" >
                         <p:dataTable id="lovEstadoCivil" style="width: 400px;" var="estado" value="#{controlNReportePersonal.listEstadosCiviles}" rowKey="#{estado.secuencia}"
                                      selection="#{controlNReportePersonal.estadoCivilSeleccionado}" selectionMode="single" widgetVar="lovEstadoCivil" scrollable="true" scrollWidth="416" scrollHeight="250"
@@ -441,7 +441,7 @@
 
                     </p:dialog>
 
-                    <p:dialog header="#{msg['tipotelefonoTTE']}" widgetVar="TipoTelefonoDialogo" draggable="false" resizable="false" closable="false" id="TipoTelefonoDialogo"  
+                    <p:dialog header="#{msg['tipotelefonoTTE']}" widgetVar="TipoTelefonoDialogo" draggable="true" resizable="false" closable="false" id="TipoTelefonoDialogo"  
                               showEffect="fade" hideEffect="fade" width="431" modal="true" >
                         <p:dataTable id="lovTipoTelefono" style="width: 400px;" var="telefono" value="#{controlNReportePersonal.listTiposTelefonos}" rowKey="#{telefono.secuencia}"
                                      selection="#{controlNReportePersonal.tipoTelefonoSeleccionado}" selectionMode="single" widgetVar="lovTipoTelefono" scrollable="true" scrollWidth="416" scrollHeight="250"
@@ -468,7 +468,7 @@
 
                     </p:dialog>
 
-                    <p:dialog header="#{msg['ciudadesC']}" widgetVar="CiudadDialogo" draggable="false" resizable="false" closable="false" id="CiudadDialogo"  
+                    <p:dialog header="#{msg['ciudadesC']}" widgetVar="CiudadDialogo" draggable="true" resizable="false" closable="false" id="CiudadDialogo"  
                               showEffect="fade" hideEffect="fade" width="431" modal="true" >
                         <p:dataTable id="lovCiudades" style="width: 400px;" var="ciudad" value="#{controlNReportePersonal.listCiudades}" rowKey="#{ciudad.secuencia}"
                                      selection="#{controlNReportePersonal.ciudadSeleccionada}" selectionMode="single" widgetVar="lovCiudades" scrollable="true" scrollWidth="416" scrollHeight="250"
@@ -495,7 +495,7 @@
 
                     </p:dialog>
 
-                    <p:dialog header="#{msg['deportesD']}" widgetVar="DeportesDialogo" draggable="false" resizable="false" closable="false" id="DeportesDialogo"  
+                    <p:dialog header="#{msg['deportesD']}" widgetVar="DeportesDialogo" draggable="true" resizable="false" closable="false" id="DeportesDialogo"  
                               showEffect="fade" hideEffect="fade" width="431" modal="true">
                         <p:dataTable id="lovDeportes" style="width: 400px;" var="deporte" value="#{controlNReportePersonal.listDeportes}" rowKey="#{deporte.secuencia}"
                                      selection="#{controlNReportePersonal.deporteSeleccionado}" selectionMode="single" widgetVar="lovDeportes" scrollable="true" scrollWidth="416" scrollHeight="250"
@@ -522,7 +522,7 @@
 
                     </p:dialog>
 
-                    <p:dialog header="#{msg['aficionesA']}" widgetVar="AficionesDialogo" draggable="false" resizable="false" closable="false" id="AficionesDialogo"  
+                    <p:dialog header="#{msg['aficionesA']}" widgetVar="AficionesDialogo" draggable="true" resizable="false" closable="false" id="AficionesDialogo"  
                               showEffect="fade" hideEffect="fade" width="431" modal="true" >
                         <p:dataTable id="lovAficiones" style="width: 416px;" var="aficion" value="#{controlNReportePersonal.listAficiones}" rowKey="#{aficion.secuencia}"
                                      selection="#{controlNReportePersonal.aficionSeleccionada}" selectionMode="single" widgetVar="lovAficiones" scrollable="true" scrollWidth="416" scrollHeight="250"
@@ -549,7 +549,7 @@
 
                     </p:dialog>
 
-                    <p:dialog header="#{msg['idiomasI']}" widgetVar="IdiomasDialogo" draggable="false" resizable="false" closable="false" id="IdiomasDialogo"  
+                    <p:dialog header="#{msg['idiomasI']}" widgetVar="IdiomasDialogo" draggable="true" resizable="false" closable="false" id="IdiomasDialogo"  
                               showEffect="fade" hideEffect="fade" width="431" modal="true" >
                         <p:dataTable id="lovIdiomas" style="width: 400px;" var="idioma" value="#{controlNReportePersonal.listIdiomas}" rowKey="#{idioma.secuencia}"
                                      selection="#{controlNReportePersonal.idiomaSeleccionado}" selectionMode="single" widgetVar="lovIdiomas" scrollable="true" scrollWidth="416" scrollHeight="250"
@@ -575,7 +575,7 @@
 
                     </p:dialog>
 
-                    <p:dialog header="#{msg['jefedivisionJ']}" widgetVar="JefeDivisionDialogo" draggable="false" resizable="false" closable="false" id="JefeDivisionDialogo"  
+                    <p:dialog header="#{msg['jefedivisionJ']}" widgetVar="JefeDivisionDialogo" draggable="true" resizable="false" closable="false" id="JefeDivisionDialogo"  
                               showEffect="fade" hideEffect="fade" width="431" modal="true" >
                         <p:dataTable id="lovJefeD" style="width: 400px;" var="jefe" value="#{controlNReportePersonal.listEmpleados}" rowKey="#{jefe.secuencia}"
                                      selection="#{controlNReportePersonal.empleadoSeleccionado}" selectionMode="single" widgetVar="lovJefeD" scrollable="true" scrollWidth="416" scrollHeight="250"
@@ -607,12 +607,12 @@
 
                     </p:dialog>
 
-                    <p:dialog id="errorRegNew" header="#{msg['error']}" widgetVar="errorRegNew"  resizable="false" draggable="false" modal="true" height="80" width="275"  closable="true">  
+                    <p:dialog id="errorRegNew" header="#{msg['error']}" widgetVar="errorRegNew"  resizable="false" draggable="true" modal="true" height="80" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRegNew']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorFechas" header="#{msg['error']}" widgetVar="errorFechas"  resizable="false" draggable="false" modal="true" height="80" width="275"  closable="true">  
+                    <p:dialog id="errorFechas" header="#{msg['error']}" widgetVar="errorFechas"  resizable="false" draggable="true" modal="true" height="80" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorFechas']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;" />
                     </p:dialog>
@@ -771,11 +771,11 @@
 
                     </fieldset> 
 
-                    <p:dialog id="infoReporteCodigoD" header="#{msg['infoReporteCodigoD']}" widgetVar="infoReporteCodigoD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="infoReporteCodigoD" header="#{msg['infoReporteCodigoD']}" widgetVar="infoReporteCodigoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlNReportePersonal.actualInfoReporteTabla.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="infoReporteNombreD" header="#{msg['infoReporteNombreD']}" widgetVar="infoReporteNombreD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="infoReporteNombreD" header="#{msg['infoReporteNombreD']}" widgetVar="infoReporteNombreD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlNReportePersonal.actualInfoReporteTabla.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
@@ -785,102 +785,102 @@
 
                 <h:form id="formDialogos">
 
-                    <p:dialog id="editarFechaDesde" header="#{msg['editarFechaDesde']}" widgetVar="editarFechaDesde" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarFechaDesde" header="#{msg['editarFechaDesde']}" widgetVar="editarFechaDesde" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlNReportePersonal.parametroDeInforme.fechadesde}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="empleadoDesde" header="#{msg['empleadoDesde']}" widgetVar="empleadoDesde" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="empleadoDesde" header="#{msg['empleadoDesde']}" widgetVar="empleadoDesde" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlNReportePersonal.parametroDeInforme.codigoempleadodesde}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaHasta" header="#{msg['editarFechaHasta']}" widgetVar="editarFechaHasta" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarFechaHasta" header="#{msg['editarFechaHasta']}" widgetVar="editarFechaHasta" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlNReportePersonal.parametroDeInforme.fechahasta}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="empleadoHasta" header="#{msg['empleadoHasta']}" widgetVar="empleadoHasta" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="empleadoHasta" header="#{msg['empleadoHasta']}" widgetVar="empleadoHasta" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlNReportePersonal.parametroDeInforme.codigoempleadohasta}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="empresa" header="#{msg['empresaa']}" widgetVar="empresa" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="empresa" header="#{msg['empresaa']}" widgetVar="empresa" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlNReportePersonal.parametroDeInforme.empresa.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="estructura" header="#{msg['estructuraa']}" widgetVar="estructura" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="estructura" header="#{msg['estructuraa']}" widgetVar="estructura" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlNReportePersonal.parametroDeInforme.localizacion.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="tipoTrabajador" header="#{msg['tipoTrabajador']}" widgetVar="tipoTrabajador" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="tipoTrabajador" header="#{msg['tipoTrabajador']}" widgetVar="tipoTrabajador" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlNReportePersonal.parametroDeInforme.tipotrabajador.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="tipoTelefono" header="#{msg['tipoTelefono']}" widgetVar="tipoTelefono" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="tipoTelefono" header="#{msg['tipoTelefono']}" widgetVar="tipoTelefono" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlNReportePersonal.parametroDeInforme.tipotelefono.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="jefeDivision" header="#{msg['jefeDivision']}" widgetVar="jefeDivision" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="jefeDivision" header="#{msg['jefeDivision']}" widgetVar="jefeDivision" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlNReportePersonal.parametroDeInforme.nombregerente.persona.nombreCompleto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="estadoCivil" header="#{msg['estadoCivil']}" widgetVar="estadoCivil" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="estadoCivil" header="#{msg['estadoCivil']}" widgetVar="estadoCivil" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlNReportePersonal.parametroDeInforme.estadocivil.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="ciudad" header="#{msg['ciudaad']}" widgetVar="ciudad" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="ciudad" header="#{msg['ciudaad']}" widgetVar="ciudad" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlNReportePersonal.parametroDeInforme.ciudad.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="deporte" header="#{msg['deportee']}" widgetVar="deporte" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="deporte" header="#{msg['deportee']}" widgetVar="deporte" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlNReportePersonal.parametroDeInforme.deporte.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="aficion" header="#{msg['aficioon']}" widgetVar="aficion" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="aficion" header="#{msg['aficioon']}" widgetVar="aficion" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlNReportePersonal.parametroDeInforme.aficion.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="idioma" header="#{msg['idiomaa']}" widgetVar="idioma" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="idioma" header="#{msg['idiomaa']}" widgetVar="idioma" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlNReportePersonal.parametroDeInforme.idioma.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="rodamiento" header="#{msg['rodamientoo']}" widgetVar="rodamiento" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="rodamiento" header="#{msg['rodamientoo']}" widgetVar="rodamiento" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlNReportePersonal.parametroDeInforme.rodamineto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="solicitud" header="#{msg['solicituud']}" widgetVar="solicitud" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="solicitud" header="#{msg['solicituud']}" widgetVar="solicitud" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlNReportePersonal.parametroDeInforme.observaciones}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="reporteAGenerar" header="#{msg['reporteAGenerar']}" widgetVar="reporteAGenerar" resizable="false" draggable="false" modal="true" height="93" width="240" >  
+                    <p:dialog id="reporteAGenerar" header="#{msg['reporteAGenerar']}" widgetVar="reporteAGenerar" resizable="false" draggable="true" modal="true" height="93" width="240" >  
                         <h:outputText value="#{controlNReportePersonal.reporteGenerar}" style="overflow: auto; width: 360px; height: 60px"/>
                         <p:commandButton id="cancelarReporteSeleccionado" value="#{msg['atras']}" icon="ui-icon-arrowreturnthick-1-w" onclick="PF('reporteAGenerar').hide();" actionListener="#{controlNReportePersonal.cancelarGenerarReporte()}" style="position: absolute; top: 60px; left: 148px;" process="@this"/>
                     </p:dialog>
 
-                    <p:dialog id="requisitosReporte" header="#{msg['requisitosReporte']}" widgetVar="requisitosReporte" resizable="false" draggable="false" modal="true" height="93" width="240">  
+                    <p:dialog id="requisitosReporte" header="#{msg['requisitosReporte']}" widgetVar="requisitosReporte" resizable="false" draggable="true" modal="true" height="93" width="240">  
                         <h:outputText value="#{controlNReportePersonal.requisitosReporte}" style="overflow: auto; width: 360px; height: 60px"/>
                         <p:commandButton id="cancelarRequisitoReporte" value="#{msg['atras']}" icon="ui-icon-arrowreturnthick-1-w" onclick="PF('requisitosReporte').hide();" actionListener="#{controlNReportePersonal.cancelarRequisitosReporte()}" style="position: absolute; top: 60px; left: 148px;" process="@this"/>
                     </p:dialog>
 
-                    <p:dialog id="generandoReporte" header="#{msg['informacion']}" widgetVar="generandoReporte"  resizable="false" draggable="false" modal="true" height="90" width="355" style="font-size: 12px;" closable="false">  
+                    <p:dialog id="generandoReporte" header="#{msg['informacion']}" widgetVar="generandoReporte"  resizable="false" draggable="true" modal="true" height="90" width="355" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 15px; top: 20px;"  />
                         <h:outputText value="#{msg['generandoReporte']}" style="position: absolute; left: 80px; top: 20px; width: 240px; text-align: justify" />
                         <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" onclick="PF('generandoReporte').hide();" actionListener="#{controlNReportePersonal.cancelarReporte()}" style="position: absolute; top: 55px; left: 242px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="descargarReporte" widgetVar="descargarReporte" header="#{msg['informacion']}" resizable="false" draggable="false" modal="true" height="90" width="330" style="font-size: 12px;" closable="false">  
+                    <p:dialog id="descargarReporte" widgetVar="descargarReporte" header="#{msg['informacion']}" resizable="false" draggable="true" modal="true" height="90" width="330" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/descargar.gif" width="50" height="50" style="position: absolute; left: 20px; top: 10px;"  />
                         <h:outputText value="#{msg['mensajeExitoReporte']}" style="position: absolute; left: 80px; top: 20px; width: 240px; text-align: justify" />
                         <p:commandButton value="#{msg['descargar']}" icon="ui-icon-download" actionListener="#{controlNReportePersonal.exportarReporte()}" style="position: absolute; top: 50px; left: 100px;" process="@this" ajax="false" onclick="PF('descargarReporte').hide();"/>
                         <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" onclick="PF('descargarReporte').hide();" style="position: absolute; top: 50px; left: 212px;" process="@this" />
                     </p:dialog> 
 
-                    <p:dialog id="errorGenerandoReporte" header="#{msg['errorReporte']}" widgetVar="errorGenerandoReporte"  resizable="false" draggable="false" modal="true" height="90" width="350" style="font-size: 12px">  
+                    <p:dialog id="errorGenerandoReporte" header="#{msg['errorReporte']}" widgetVar="errorGenerandoReporte"  resizable="false" draggable="true" modal="true" height="90" width="350" style="font-size: 12px">  
                         <p:inputTextarea value="#{controlNReportePersonal.pathReporteGenerado}" style="position: absolute; left: 10px; top: 10px; width: 300px; height: 70px; overflow: auto;" readonly="true" />
                     </p:dialog>
 
-                    <p:dialog header="#{controlNReportePersonal.cabezeraVisor}" id="verReportePDF" widgetVar="verReportePDF" width="1024px;" height="530px;" resizable="false" draggable="false" modal="true" onHide="reiniciarStreamedContent();">
+                    <p:dialog header="#{controlNReportePersonal.cabezeraVisor}" id="verReportePDF" widgetVar="verReportePDF" width="1024px;" height="530px;" resizable="false" draggable="true" modal="true" onHide="reiniciarStreamedContent();">
                         <p:media value="#{controlNReportePersonal.reporte}" width="100%" height="500px;" player="pdf" rendered="#{controlNReportePersonal.reporte != null}"/>
                     </p:dialog>
 

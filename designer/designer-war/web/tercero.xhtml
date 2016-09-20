@@ -465,7 +465,7 @@
                                          value="" actionListener="#{controlTercero.salir()}" action="#{controlTercero.valorPaginaAnterior()}" process="@this" />
                     </p:panel>
 
-                    <p:dialog header="#{msg['tercerosT']}" widgetVar="BuscarTerceroDialogo" draggable="false" resizable="false" closable="false" id="BuscarTerceroDialogo"  
+                    <p:dialog header="#{msg['tercerosT']}" widgetVar="BuscarTerceroDialogo" draggable="true" resizable="false" closable="false" id="BuscarTerceroDialogo"  
                               showEffect="fade" hideEffect="fade" width="431" modal="true" >
                         <p:dataTable id="lovBuscarTercero" liveScroll="true" scrollRows="20" style="width: 400px;" var="tercero" value="#{controlTercero.listTercerosLOV}" rowKey="#{tercero.secuencia}"
                                      selection="#{controlTercero.terceroLOVSeleccionado}" selectionMode="single" widgetVar="lovBuscarTercero" scrollable="true" scrollWidth="416" scrollHeight="250"
@@ -499,7 +499,7 @@
                         <p:commandButton id="atrasBT" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 230px;" value="#{msg['atras']}" actionListener="#{controlTercero.cancelarSeleccionTercero()}" update=":form:BuscarTerceroDialogo" process="@this"/>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['tercerosT']}" widgetVar="TerceroDialogo" draggable="false" resizable="false" closable="false" id="TerceroDialogo"  
+                    <p:dialog header="#{msg['tercerosT']}" widgetVar="TerceroDialogo" draggable="true" resizable="false" closable="false" id="TerceroDialogo"  
                               showEffect="fade" hideEffect="fade" width="431" modal="true">
                         <p:dataTable id="lovTercero" liveScroll="true" scrollRows="20" style="width: 400px;" var="tercero" value="#{controlTercero.listTerceroConsolidador}" rowKey="#{tercero.secuencia}"
                                      selection="#{controlTercero.terceroCSeleccionado}" selectionMode="single" widgetVar="lovTercero" scrollable="true" scrollWidth="416" scrollHeight="250"
@@ -535,7 +535,7 @@
                         <p:commandButton id="atrasT" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 230px;" value="#{msg['atras']}" actionListener="#{controlTercero.cancelarCambioTerceros()}" update=":form:TerceroDialogo" process="@this"/>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['ciudadesC']}" widgetVar="CiudadDialogo" draggable="false" resizable="false" closable="false" id="CiudadDialogo"  
+                    <p:dialog header="#{msg['ciudadesC']}" widgetVar="CiudadDialogo" draggable="true" resizable="false" closable="false" id="CiudadDialogo"  
                               showEffect="fade" hideEffect="fade" width="431" modal="true" >
                         <p:dataTable id="lovCiudad" liveScroll="true" scrollRows="20" style="width: 400px;" var="ciudad" value="#{controlTercero.listCiudades}" rowKey="#{ciudad.secuencia}"
                                      selection="#{controlTercero.ciudadSeleccionada}" selectionMode="single" widgetVar="lovCiudad" scrollable="true" scrollWidth="416" scrollHeight="250"
@@ -571,7 +571,7 @@
                         <p:commandButton id="atrasC" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 230px;" value="#{msg['atras']}" actionListener="#{controlTercero.cancelarCambioCiudad()}" update=":form:CiudadDialogo" process="@this"/>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['ciudadesC']}" widgetVar="CiudadTSDialogo" draggable="false" resizable="false" closable="false" id="CiudadTSDialogo"  
+                    <p:dialog header="#{msg['ciudadesC']}" widgetVar="CiudadTSDialogo" draggable="true" resizable="false" closable="false" id="CiudadTSDialogo"  
                               showEffect="fade" hideEffect="fade" width="431" modal="true">
                         <p:dataTable id="lovCiudadTS" liveScroll="true" scrollRows="20" style="width: 400px;" var="ciudad" value="#{controlTercero.listCiudades}" rowKey="#{ciudad.secuencia}"
                                      selection="#{controlTercero.ciudadSeleccionada}" selectionMode="single" widgetVar="lovCiudadTS" scrollable="true" scrollWidth="416" scrollHeight="250"
@@ -607,59 +607,59 @@
                         <p:commandButton id="atrasCTS" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 230px;" value="#{msg['atras']}" actionListener="#{controlTercero.cancelarCambioCiudadTS()}" action="#{controlTercero.valorPaginaAnterior}" update=":form:CiudadTSDialogo" process="@this"/>
                     </p:dialog>
 
-                    <p:dialog id="verificarRastrosTablas" widgetVar="verificarRastrosTablas" header="#{msg['rastrospara']}" resizable="false" draggable="false" modal="true" height="115" width="350" >
+                    <p:dialog id="verificarRastrosTablas" widgetVar="verificarRastrosTablas" header="#{msg['rastrospara']}" resizable="false" draggable="true" modal="true" height="115" width="350" >
                         <h:outputText value="#{msg['verificarRastrosTablas']}" style="position: absolute; left: 20px; top: 20px;color: blue;font-weight: bold"/>
                         <p:commandButton value="#{msg['terceros']}" onclick="PF('verificarRastrosTablas').hide();" style="position: absolute; left: 100px; top: 50px; width: 200px; height: 30px;" actionListener="#{controlTercero.verificarRastroTercerosHist()}" process="@this" />
                         <p:commandButton value="#{msg['sucursales']}" onclick="PF('verificarRastrosTablas').hide();" style="position: absolute; left: 100px; top: 85px; width: 200px; height: 30px;" actionListener="#{controlTercero.verificarRastroTercerosSucursalesHist()}" process="@this"/>
                        </p:dialog>
 
-                    <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350" closable="false">  
+                    <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{controlTercero.msnConfirmarRastro}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTercero.backUp, controlTercero.nombreTablaRastro , 'terceroRastro')}" style="position: absolute; top: 63px; left: 200px;" action="rastro" process="@this" />
                         <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastro').hide();" actionListener="#{controlTercero.limpiarMSNRastros()}" style="position: absolute; top: 63px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
+                    <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{controlTercero.msnConfirmarRastroHistorico}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla(controlTercero.nombreTablaRastro , 'terceroRastro')}" style="position: absolute; top: 60px; left: 200px;" action="rastro" process="@this" />
                         <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlTercero.limpiarMSNRastros()}" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
+                    <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTercero.backUp, controlTercero.nombreTablaRastro , 'terceroRastro')}" style="position: absolute; top: 70px; left: 190px;" action="rastro" process="@this" />
                         <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 70px; left: 260px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285"  closable="true">  
+                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275" closable="true">  
+                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275" closable="true">  
+                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="confirmarGuardar" header="#{msg['precaucion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
+                    <p:dialog id="confirmarGuardar" header="#{msg['precaucion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlTercero.guardadoGeneral()}"  style="position: absolute; top: 50px; left: 171px;" process="@this" icon="ui-icon-check" />
@@ -667,7 +667,7 @@
                         <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 305px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
-                    <p:dialog id="confirmarGuardarSalida" header="#{msg['precaucion']}" widgetVar="confirmarGuardarSalida"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
+                    <p:dialog id="confirmarGuardarSalida" header="#{msg['precaucion']}" widgetVar="confirmarGuardarSalida"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlTercero.guardadoGeneral()}" action="#{controlTercero.valorPaginaAnterior}" style="position: absolute; top: 50px; left: 171px;" process="@this" icon="ui-icon-check" />
@@ -675,18 +675,18 @@
                         <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardarSalida').hide();" style="position: absolute; top: 50px; left: 305px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
-                    <p:dialog id="errorBorradoTercero" header="#{msg['precaucion']}" widgetVar="errorBorradoTercero"  resizable="false" draggable="false" modal="true" height="95" width="400" closable="false">  
+                    <p:dialog id="errorBorradoTercero" header="#{msg['precaucion']}" widgetVar="errorBorradoTercero"  resizable="false" draggable="true" modal="true" height="95" width="400" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['errorBorradoTercero']}" style="position: absolute; left: 100px; top: 20px; width: 270px;text-align: center" />
                         <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('errorBorradoTercero').hide();" style="position: absolute; top: 65px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorDatosNullSucursal" header="#{msg['error']}" widgetVar="errorDatosNullSucursal"  resizable="false" draggable="false" modal="true" height="60" width="285"  closable="true">  
+                    <p:dialog id="errorDatosNullSucursal" header="#{msg['error']}" widgetVar="errorDatosNullSucursal"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorDatosNullSucursal']}" style="position: absolute; left: 70px; top: 15px; width: 195px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorDatosNullTerceros" header="#{msg['error']}" widgetVar="errorDatosNullTerceros"  resizable="false" draggable="false" modal="true" height="60" width="285"  closable="true">  
+                    <p:dialog id="errorDatosNullTerceros" header="#{msg['error']}" widgetVar="errorDatosNullTerceros"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorDatosNullTerceros']}" style="position: absolute; left: 70px; top: 15px; width: 195px; font-weight:bold;text-align: center" />
                     </p:dialog>
@@ -701,7 +701,7 @@
 
                 <h:form id="formularioDialogos">
 
-      <!--           <p:dialog id="NuevoRegistroPagina" header="#{msg['nrpi']}" widgetVar="NuevoRegistroPagina" closable="false" resizable="false"  draggable="false" modal="true" height="160" width="400" style="padding: 0px">  
+      <!--           <p:dialog id="NuevoRegistroPagina" header="#{msg['nrpi']}" widgetVar="NuevoRegistroPagina" closable="false" resizable="false"  draggable="true" modal="true" height="160" width="400" style="padding: 0px">  
                       <center><strong><h:outputText value="#{msg['seleccione']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
                         <h:outputText value="#{msg['terceros']}" style="position: absolute; top: 47px;left: 60px"/>
                         <p:commandButton id="NuevoVigenciaSueldo" icon="ui-icon-circle-check" style="position: absolute; top: 45px;left: 300px; height: 25px; width: 40px;" oncomplete="PF('NuevoRegistroTercero').show()" update=":formularioDialogos:nuevaT" onclick="PF('NuevoRegistroPagina').hide();" process="@this"/>
@@ -712,14 +712,14 @@
                         <p:commandButton id="CancelarNuevosRegistros" onclick="PF('NuevoRegistroPagina').hide();"  process="@this" value="#{msg['cancelar']}" style="position: absolute; top: 125px;left: 300px"/>
                     </p:dialog>
                     -->                     
-                    <p:dialog id="NuevoRegistroPagina" header="#{msg['nrpi']}" widgetVar="NuevoRegistroPagina" closable="false" resizable="false"  draggable="false" modal="true" height="150" width="400" style=" padding: 0px">  
+                    <p:dialog id="NuevoRegistroPagina" header="#{msg['nrpi']}" widgetVar="NuevoRegistroPagina" closable="false" resizable="false"  draggable="true" modal="true" height="150" width="400" style=" padding: 0px">  
                         <center><strong><h:outputText value="#{msg['seleccione']}" style="font-size: 14px; color: blue; position: relative; top: 5px;" /></strong></center> 
                         <p:commandButton value="#{msg['terceros']}" id="NuevoTercero" style="position: absolute; left: 100px; top: 40px; width: 200px; height: 30px;" oncomplete="PF('NuevoRegistroTercero').show()" update=":formularioDialogos:nuevaT" onclick="PF('NuevoRegistroPagina').hide();" process="@this"/>
                         <p:commandButton value="#{msg['sss']}" id="NuevoTerceroSucursal" style="position: absolute; left: 100px; top: 75px; width: 200px; height: 30px;" oncomplete="PF('NuevoRegistroTerceroSucursal').show()" update=":formularioDialogos:nuevaTS" onclick="PF('NuevoRegistroPagina').hide();" process="@this"/>
                         <p:commandButton id="CancelarNuevosRegistros" onclick="PF('NuevoRegistroPagina').hide();" icon="ui-icon-close"  process="@this" value="#{msg['cancelar']}" style="position: absolute; top: 120px;left: 275px"/>
                     </p:dialog>
 
-                    <p:dialog id="NuevoRegistroTercero" header="#{msg['nuevoregistrotercero']}" widgetVar="NuevoRegistroTercero" closable="false" resizable="false"  draggable="false" modal="true" height="330" width="730" style="padding: 0px">  
+                    <p:dialog id="NuevoRegistroTercero" header="#{msg['nuevoregistrotercero']}" widgetVar="NuevoRegistroTercero" closable="false" resizable="false"  draggable="true" modal="true" height="330" width="730" style="padding: 0px">  
                         <center><strong><h:outputText value="#{msg['ingresarnuevotercero']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
                         <p:panel id="nuevaT" style="border: none;">
 
@@ -820,7 +820,7 @@
                         </p:panel>
                     </p:dialog>
 
-                    <p:dialog id="DuplicarRegistroTercero" header="#{msg['duplicarregistrotercero']}" widgetVar="DuplicarRegistroTercero" closable="false" resizable="false"  draggable="false" modal="true" height="330" width="730" style="padding: 0px">  
+                    <p:dialog id="DuplicarRegistroTercero" header="#{msg['duplicarregistrotercero']}" widgetVar="DuplicarRegistroTercero" closable="false" resizable="false"  draggable="true" modal="true" height="330" width="730" style="padding: 0px">  
                         <center><strong><h:outputText value="#{msg['ingresarnuevotercero']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
                         <p:panel id="duplicarT" style="border: none;">
 
@@ -922,7 +922,7 @@
                         </p:panel>
                     </p:dialog>
 
-                    <p:dialog id="NuevoRegistroTerceroSucursal" header="#{msg['nuevoregistrosucursal']}" widgetVar="NuevoRegistroTerceroSucursal" closable="false" resizable="false"  draggable="false" modal="true" height="230" width="400" style="padding: 0px">  
+                    <p:dialog id="NuevoRegistroTerceroSucursal" header="#{msg['nuevoregistrosucursal']}" widgetVar="NuevoRegistroTerceroSucursal" closable="false" resizable="false"  draggable="true" modal="true" height="230" width="400" style="padding: 0px">  
                         <center><strong><h:outputText value="#{msg['ingresarnuevosucursal']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
                         <p:panel id="nuevaTS" style="border: none;">
 
@@ -959,7 +959,7 @@
                         </p:panel>
                     </p:dialog>
 
-                    <p:dialog id="DuplicarRegistroTerceroSucursal" header="#{msg['duplicarregistrosucursal']}" widgetVar="DuplicarRegistroTerceroSucursal" closable="false" resizable="false"  draggable="false" modal="true" height="230" width="400" style="padding: 0px">  
+                    <p:dialog id="DuplicarRegistroTerceroSucursal" header="#{msg['duplicarregistrosucursal']}" widgetVar="DuplicarRegistroTerceroSucursal" closable="false" resizable="false"  draggable="true" modal="true" height="230" width="400" style="padding: 0px">  
                         <center><strong><h:outputText value="#{msg['ingresarnuevosucursal']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
                         <p:panel id="duplicarTS" style="border: none;">
 
@@ -997,7 +997,7 @@
                     </p:dialog>
 
                     <!-- LOV EMPRESAS -->
-                    <p:dialog header="#{msg['empresasE']}" widgetVar="EmpresasDialogo" draggable="false" resizable="false" closable="false" id="EmpresasDialogo"  
+                    <p:dialog header="#{msg['empresasE']}" widgetVar="EmpresasDialogo" draggable="true" resizable="false" closable="false" id="EmpresasDialogo"  
                               showEffect="fade" hideEffect="fade" width="441" modal="true" >
                         <p:dataTable id="lovEmpresas" style="width: 400px;" var="empresa" value="#{controlTercero.listEmpresas}" rowKey="#{empresa.secuencia}"
                                      selection="#{controlTercero.empresaSeleccionada}" selectionMode="single" widgetVar="lovEmpresas" scrollable="true" scrollWidth="416" scrollHeight="250"
@@ -1035,63 +1035,63 @@
                         </p:commandButton>
                     </p:dialog>
 
-                    <p:dialog id="editarNombreTerceroD" header="#{msg['editarNombreTerceroD']}" widgetVar="editarNombreTerceroD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarNombreTerceroD" header="#{msg['editarNombreTerceroD']}" widgetVar="editarNombreTerceroD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlTercero.editarTercero.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarNitTerceroD" header="#{msg['editarNitTerceroD']}" widgetVar="editarNitTerceroD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarNitTerceroD" header="#{msg['editarNitTerceroD']}" widgetVar="editarNitTerceroD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlTercero.editarTercero.nit}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarDigtoVTerceroD" header="#{msg['editarDigtoVTerceroD']}" widgetVar="editarDigtoVTerceroD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarDigtoVTerceroD" header="#{msg['editarDigtoVTerceroD']}" widgetVar="editarDigtoVTerceroD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlTercero.editarTercero.digitoverificacion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarNITATerceroD" header="#{msg['eidtarNITATerceroD']}" widgetVar="editarNITATerceroD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarNITATerceroD" header="#{msg['eidtarNITATerceroD']}" widgetVar="editarNITATerceroD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlTercero.editarTercero.nitalternativo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarCSSTerceroD" header="#{msg['editarCSSTerceroD']}" widgetVar="editarCSSTerceroD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarCSSTerceroD" header="#{msg['editarCSSTerceroD']}" widgetVar="editarCSSTerceroD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlTercero.editarTercero.codigoss}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarCSPTerceroD" header="#{msg['editarCSPTerceroD']}" widgetVar="editarCSPTerceroD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarCSPTerceroD" header="#{msg['editarCSPTerceroD']}" widgetVar="editarCSPTerceroD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlTercero.editarTercero.codigosp}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarCSCTerceroD" header="#{msg['editarCSCTerceroD']}" widgetVar="editarCSCTerceroD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarCSCTerceroD" header="#{msg['editarCSCTerceroD']}" widgetVar="editarCSCTerceroD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlTercero.editarTercero.codigosc}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarTCTerceroD" header="#{msg['editarTCTerceroD']}" widgetVar="editarTCTerceroD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarTCTerceroD" header="#{msg['editarTCTerceroD']}" widgetVar="editarTCTerceroD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlTercero.editarTercero.terceroconsolidador.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarNITTCTerceroD" header="#{msg['editarNITTCTerceroD']}" widgetVar="editarNITTCTerceroD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarNITTCTerceroD" header="#{msg['editarNITTCTerceroD']}" widgetVar="editarNITTCTerceroD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlTercero.editarTercero.terceroconsolidador.nit}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarCiudadTerceroD" header="#{msg['editarCiudadTerceroD']}" widgetVar="editarCiudadTerceroD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarCiudadTerceroD" header="#{msg['editarCiudadTerceroD']}" widgetVar="editarCiudadTerceroD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlTercero.editarTercero.ciudad.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarCodigoATerceroD" header="#{msg['editarCodigoATerceroD']}" widgetVar="editarCodigoATerceroD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarCodigoATerceroD" header="#{msg['editarCodigoATerceroD']}" widgetVar="editarCodigoATerceroD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlTercero.editarTercero.codigoalternativo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarSucursalTerceroSD" header="#{msg['editarSucursalTerceroSD']}" widgetVar="editarSucursalTerceroSD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarSucursalTerceroSD" header="#{msg['editarSucursalTerceroSD']}" widgetVar="editarSucursalTerceroSD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlTercero.editarTerceroSucursal.codigosucursal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarPatronalTerceroSD" header="#{msg['editarPatronalTerceroSD']}" widgetVar="editarPatronalTerceroSD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarPatronalTerceroSD" header="#{msg['editarPatronalTerceroSD']}" widgetVar="editarPatronalTerceroSD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlTercero.editarTerceroSucursal.codigopatronal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarObservacionesTerceroSD" header="#{msg['editarObservacionesTerceroSD']}" widgetVar="editarObservacionesTerceroSD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarObservacionesTerceroSD" header="#{msg['editarObservacionesTerceroSD']}" widgetVar="editarObservacionesTerceroSD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlTercero.editarTerceroSucursal.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarCiudadTerceroSD" header="#{msg['editarCiudadTerceroSD']}" widgetVar="editarCiudadTerceroSD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarCiudadTerceroSD" header="#{msg['editarCiudadTerceroSD']}" widgetVar="editarCiudadTerceroSD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlTercero.editarTerceroSucursal.ciudad.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 

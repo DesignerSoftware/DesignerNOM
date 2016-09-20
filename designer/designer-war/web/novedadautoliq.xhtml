@@ -484,7 +484,7 @@
                         
                     </p:panel>
 
-                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
+                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
                         <p:commandButton value="#{msg['si']}" action="atrasnovedadauto" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlNovedadAutoLiquidacion.guardarSalir()}" 
@@ -495,7 +495,7 @@
                                          icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
-                    <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
+                    <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlNovedadAutoLiquidacion.novedadSeleccionada.getSecuencia(), 'NovedadAutoliq', 'NovedadAutoliqRastro')}" 
@@ -503,7 +503,7 @@
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 240px;" process="@this" icon="ui-icon-close"  />
                     </p:dialog>
 
-                    <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
+                    <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('NovedadesAutoLiquidaciones', 'novedadesAutoLiqRastro')}"
@@ -511,17 +511,17 @@
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" icon="ui-icon-close" style="position: absolute; top: 60px; left: 250px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
+                    <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlNovedadAutoLiquidacion.novedadSeleccionada.getSecuencia(), 'NovedadAutoliq', 'NovedadAutoliqRastro')}" 
@@ -529,22 +529,22 @@
                         <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" icon="ui-icon-close" style="position: absolute; top: 63px; left: 240px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285"  closable="true">  
+                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; width: 185px; font-weight:bold;" />
                     </p:dialog>     
 
-                    <p:dialog id="validarNuevo" header="#{msg['atencion']}" widgetVar="validarNuevo"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
+                    <p:dialog id="validarNuevo" header="#{msg['atencion']}" widgetVar="validarNuevo"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['validarnuevo']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
                         <p:commandButton value="#{msg['aceptar']}" onclick="PF('validarNuevo').hide();"  
@@ -555,7 +555,7 @@
 
                 <h:form id="formularioDialogos" >
 
-                    <p:dialog id="nuevaNovedadAuto" header="#{msg['nuevoregistro']}" widgetVar="nuevaNovedadAuto" closable="false" resizable="false"  draggable="false" modal="true" height="500" width="800" style="padding: 0px">  
+                    <p:dialog id="nuevaNovedadAuto" header="#{msg['nuevoregistro']}" widgetVar="nuevaNovedadAuto" closable="false" resizable="false"  draggable="true" modal="true" height="500" width="800" style="padding: 0px">  
 
                         <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
 
@@ -731,7 +731,7 @@
 
 
 
-                    <p:dialog id="duplicarNovedadAuto" header="#{msg['duplicarregistro']}" widgetVar="duplicarNovedadAuto" closable="false" resizable="false"  draggable="false" modal="true" height="500" width="800" style="padding: 0px">
+                    <p:dialog id="duplicarNovedadAuto" header="#{msg['duplicarregistro']}" widgetVar="duplicarNovedadAuto" closable="false" resizable="false"  draggable="true" modal="true" height="500" width="800" style="padding: 0px">
 
                         <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
 
@@ -902,118 +902,118 @@
                         </p:panel>
                     </p:dialog>
 
-                    <p:dialog id="editarEmpresa" header="Empresa" widgetVar="editarEmpresa" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editarEmpresa" header="Empresa" widgetVar="editarEmpresa" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputTextarea value="#{controlNovedadAutoLiquidacion.novedadSeleccionada.empresa.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarSucursal" header="Sucursal" widgetVar="editarSucursal" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editarSucursal" header="Sucursal" widgetVar="editarSucursal" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputTextarea value="#{controlNovedadAutoLiquidacion.novedadSeleccionada.sucursalpila.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarAnio" header="Año" widgetVar="editarAnio" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editarAnio" header="Año" widgetVar="editarAnio" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputTextarea value="#{controlNovedadAutoLiquidacion.novedadSeleccionada.anio}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarMes" header="Mes" widgetVar="editarMes" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editarMes" header="Mes" widgetVar="editarMes" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputTextarea value="#{controlNovedadAutoLiquidacion.novedadSeleccionada.mes}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarTipoEntidad" header="Tipo Entidad" widgetVar="editarTipoEntidad" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editarTipoEntidad" header="Tipo Entidad" widgetVar="editarTipoEntidad" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputTextarea value="#{controlNovedadAutoLiquidacion.novedadSeleccionada.tipoentidad.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarFormularioUnico" header="Formulario único" widgetVar="editarFormularioUnico" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editarFormularioUnico" header="Formulario único" widgetVar="editarFormularioUnico" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputTextarea value="#{controlNovedadAutoLiquidacion.novedadSeleccionada.formulariounico}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarNumRadicado" header="Número de Radicado" widgetVar="editarNumRadicado" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editarNumRadicado" header="Número de Radicado" widgetVar="editarNumRadicado" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputTextarea value="#{controlNovedadAutoLiquidacion.novedadSeleccionada.numeroradicacion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarCorrecciones" header="Corrección" widgetVar="editarCorrecciones" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editarCorrecciones" header="Corrección" widgetVar="editarCorrecciones" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputTextarea value="#{controlNovedadAutoLiquidacion.novedadSeleccionada.correccion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarAnioMes" header="Año y Mes" widgetVar="editarAnioMes" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editarAnioMes" header="Año y Mes" widgetVar="editarAnioMes" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputTextarea value="#{controlNovedadAutoLiquidacion.novedadSeleccionada.aniomes}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarPlanilla" header="Planilla a Corregir" widgetVar="editarPlanilla" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editarPlanilla" header="Planilla a Corregir" widgetVar="editarPlanilla" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputTextarea value="#{controlNovedadAutoLiquidacion.novedadSeleccionada.planillacorregir}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarDiasM" header="Días Mora" widgetVar="editarDiasM" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editarDiasM" header="Días Mora" widgetVar="editarDiasM" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputTextarea value="#{controlNovedadAutoLiquidacion.novedadSeleccionada.diasmora}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarIntMora" header="Intereses de Mora" widgetVar="editarIntMora" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editarIntMora" header="Intereses de Mora" widgetVar="editarIntMora" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputTextarea value="#{controlNovedadAutoLiquidacion.novedadSeleccionada.valorinteresesmora}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarRadicaciondescuento" header="Radicación Descuento" widgetVar="editarRadicaciondescuento" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editarRadicaciondescuento" header="Radicación Descuento" widgetVar="editarRadicaciondescuento" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputTextarea value="#{controlNovedadAutoLiquidacion.novedadSeleccionada.radicaciondescuento}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarNitTercero" header="NIT Tercero" widgetVar="editarNitTercero" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editarNitTercero" header="NIT Tercero" widgetVar="editarNitTercero" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputTextarea value="#{controlNovedadAutoLiquidacion.novedadSeleccionada.tercero.nit}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarNombreTercero" header="Nombre Tercero" widgetVar="editarNombreTercero" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editarNombreTercero" header="Nombre Tercero" widgetVar="editarNombreTercero" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputTextarea value="#{controlNovedadAutoLiquidacion.novedadSeleccionada.tercero.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarSaldoFavor" header="Saldo a Favor" widgetVar="editarSaldoFavor" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editarSaldoFavor" header="Saldo a Favor" widgetVar="editarSaldoFavor" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputTextarea value="#{controlNovedadAutoLiquidacion.novedadSeleccionada.saldoafavor}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarValorMoraUpc" header="Valor mora UPC" widgetVar="editarValorMoraUpc" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editarValorMoraUpc" header="Valor mora UPC" widgetVar="editarValorMoraUpc" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputTextarea value="#{controlNovedadAutoLiquidacion.novedadSeleccionada.valormoraupc}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarSaldoFavorUpc" header="Saldo a favor UPC" widgetVar="editarSaldoFavorUpc" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editarSaldoFavorUpc" header="Saldo a favor UPC" widgetVar="editarSaldoFavorUpc" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputTextarea value="#{controlNovedadAutoLiquidacion.novedadSeleccionada.saldoafavorupc}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarValorMoraSolidaridad" header="Valor mora UPC" widgetVar="editarValorMoraSolidaridad" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editarValorMoraSolidaridad" header="Valor mora UPC" widgetVar="editarValorMoraSolidaridad" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputTextarea value="#{controlNovedadAutoLiquidacion.novedadSeleccionada.valormorasolidaridad}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarValorMoraSubsistencia" header="Valor mora Subsistencia" widgetVar="editarValorMoraSubsistencia" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editarValorMoraSubsistencia" header="Valor mora Subsistencia" widgetVar="editarValorMoraSubsistencia" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputTextarea value="#{controlNovedadAutoLiquidacion.novedadSeleccionada.valormorasubsistencia}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarValorOtros" header="Valor Otros" widgetVar="editarValorOtros" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editarValorOtros" header="Valor Otros" widgetVar="editarValorOtros" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputTextarea value="#{controlNovedadAutoLiquidacion.novedadSeleccionada.valorotros}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarDestino" header="Sucursal" widgetVar="editarDestino" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editarDestino" header="Sucursal" widgetVar="editarDestino" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputTextarea value="#{controlNovedadAutoLiquidacion.novedadSeleccionada.destino}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                         </p:inputTextarea>
                     </p:dialog>
 
 
-                    <p:dialog header="Empresas" widgetVar="empresasDialogo" draggable="false" resizable="false" closable="false" id="empresasDialogo"  
+                    <p:dialog header="Empresas" widgetVar="empresasDialogo" draggable="true" resizable="false" closable="false" id="empresasDialogo"  
                               showEffect="fade" hideEffect="fade" width="431" modal="true" height="375">
                         <p:dataTable id="lovEmpresas" style="width: 400px;" var="empresa" value="#{controlNovedadAutoLiquidacion.listaEmpresas}" rowKey="#{empresa.secuencia}"
                                      selection="#{controlNovedadAutoLiquidacion.empresaSeleccionada}" selectionMode="single" widgetVar="lovEmpresas" scrollable="true" scrollWidth="415" scrollHeight="250"
@@ -1046,7 +1046,7 @@
                         <p:commandButton id="atrasD" style="position: relative; left: 135px;" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlNovedadAutoLiquidacion.cancelarCambioEmpresa()}"   process="@this"/>
                     </p:dialog> 
 
-                    <p:dialog header="Terceros" widgetVar="tercerosDialogo" draggable="false" resizable="false" closable="false" id="tercerosDialogo"  
+                    <p:dialog header="Terceros" widgetVar="tercerosDialogo" draggable="true" resizable="false" closable="false" id="tercerosDialogo"  
                               showEffect="fade" hideEffect="fade" width="431" modal="true" height="375">
                         <p:dataTable id="lovTerceros" style="width: 400px;" var="terceros" value="#{controlNovedadAutoLiquidacion.listaTerceros}" rowKey="#{terceros.secuencia}"
                                      selection="#{controlNovedadAutoLiquidacion.terceroSeleccionado}" selectionMode="single" widgetVar="lovTerceros" scrollable="true" scrollWidth="415" scrollHeight="250"
@@ -1080,7 +1080,7 @@
                     </p:dialog> 
 
 
-                    <p:dialog header="Sucursales" widgetVar="sucursalesDialogo" draggable="false" resizable="false" closable="false" id="sucursalesDialogo"  
+                    <p:dialog header="Sucursales" widgetVar="sucursalesDialogo" draggable="true" resizable="false" closable="false" id="sucursalesDialogo"  
                               showEffect="fade" hideEffect="fade" width="431" modal="true" height="375">
                         <p:dataTable id="lovSucursales" style="width: 400px;" var="sucursal" value="#{controlNovedadAutoLiquidacion.listaSucursales}" rowKey="#{sucursal.secuencia}"
                                      selection="#{controlNovedadAutoLiquidacion.sucursalSeleccionada}" selectionMode="single" widgetVar="lovSucursales" scrollable="true" scrollWidth="415" scrollHeight="250"
@@ -1113,7 +1113,7 @@
                         <p:commandButton id="atrasS" style="position: relative; left: 135px;" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlNovedadAutoLiquidacion.cancelarCambioSucursal()}"   process="@this"/>
                     </p:dialog> 
 
-                    <p:dialog header="Tipos Entidades" widgetVar="tiposEntidadesDialogo" draggable="false" resizable="false" closable="false" id="tiposEntidadesDialogo"  
+                    <p:dialog header="Tipos Entidades" widgetVar="tiposEntidadesDialogo" draggable="true" resizable="false" closable="false" id="tiposEntidadesDialogo"  
                               showEffect="fade" hideEffect="fade" width="431" modal="true" height="375">
                         <p:dataTable id="lovTiposEntidades" style="width: 400px;" var="tipoentidad" value="#{controlNovedadAutoLiquidacion.listaTiposEntidades}" rowKey="#{tipoentidad.secuencia}"
                                      selection="#{controlNovedadAutoLiquidacion.tipoEntidadSeleccionada}" selectionMode="single" widgetVar="lovTiposEntidades" scrollable="true" scrollWidth="415" scrollHeight="250"

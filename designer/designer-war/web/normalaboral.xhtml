@@ -123,7 +123,7 @@
                         <p:commandButton style=" position: absolute; left: 775px; top: 470px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" value="" action="#{controlNormasLaborales.redirigir()}"   />
 
 
-                        <p:dialog id="confirmarGuardar" header="¡PRECAUCION!" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
+                        <p:dialog id="confirmarGuardar" header="¡PRECAUCION!" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                             <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                             <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
                             <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlNormasLaborales.guardarNormasLaborales()}" style="position: absolute; top: 50px; left: 160px;" process="@this" icon="ui-icon-check" />
@@ -132,31 +132,31 @@
                         </p:dialog>
                     </p:panel>
 
-                    <p:dialog id="validacionDuplicarVigencia" header="¡PRECAUCION!" widgetVar="validacionDuplicarVigencia"  resizable="false" draggable="false" modal="true" height="95" width="400" style="" closable="false">  
+                    <p:dialog id="validacionDuplicarVigencia" header="¡PRECAUCION!" widgetVar="validacionDuplicarVigencia"  resizable="false" draggable="true" modal="true" height="95" width="400" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="60" style="position: absolute; left: 10px; top: 15px;"  />
                         <h:outputText value="Necesita : #{controlNormasLaborales.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight:bold" />
                         <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('validacionDuplicarVigencia').hide();" style="position: absolute; top: 50px; left: 280px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="validacionModificar" header="¡ERROR!" widgetVar="validacionModificar"  resizable="false" draggable="false" modal="true" height="77" width="330" style="" closable="false">  
+                    <p:dialog id="validacionModificar" header="¡ERROR!" widgetVar="validacionModificar"  resizable="false" draggable="true" modal="true" height="77" width="330" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value=" #{controlNormasLaborales.mensajeValidacion}" style="position: absolute; left: 80px; top: 15px; width: 250px; font-weight:bold" />
                         <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('validacionModificar').hide();" style="position: absolute; top: 40px; left: 200px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="validacionBorrar" header="¡ERROR!" widgetVar="validacionBorrar"  resizable="false" draggable="false" modal="true" height="77" width="400" style="" closable="false">  
+                    <p:dialog id="validacionBorrar" header="¡ERROR!" widgetVar="validacionBorrar"  resizable="false" draggable="true" modal="true" height="77" width="400" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="No se puede borrar este elemento porque esta relacionado con otra tabla" style="position: absolute; left: 80px; top: 15px; width: 300px; font-weight:bold" />
                         <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('validacionBorrar').hide();" style="position: absolute; top: 50px; left: 280px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="mostrarBorrados" header="¡PRECAUCION!" widgetVar="mostrarBorrados"  resizable="false" draggable="false" modal="true" height="87" width="290" style="" closable="false">  
+                    <p:dialog id="mostrarBorrados" header="¡PRECAUCION!" widgetVar="mostrarBorrados"  resizable="false" draggable="true" modal="true" height="87" width="290" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="60" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="Se han borrado #{controlNormasLaborales.registrosBorrados}  Registros" style="position: absolute; left: 90px; top: 15px; width: 180px; font-weight:bold" />
                         <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('mostrarBorrados').hide();" style="position: absolute; top: 50px; left: 180px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="validacionNuevaCentroCosto" header="¡PRECAUCION!" widgetVar="validacionNuevaCentroCosto"  resizable="false" draggable="false" modal="true" height="95" width="400" style="" closable="false">  
+                    <p:dialog id="validacionNuevaCentroCosto" header="¡PRECAUCION!" widgetVar="validacionNuevaCentroCosto"  resizable="false" draggable="true" modal="true" height="95" width="400" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="60" style="position: absolute; left: 10px; top: 15px;"  />
                         <h:outputText value="Para agregar es necesario adicionar: #{controlNormasLaborales.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight:bold" />
                         <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('validacionNuevaCentroCosto').hide();" style="position: absolute; top: 70px; left: 280px;" process="@this" />
@@ -167,60 +167,60 @@
 
                 <h:form id="formularioDialogos">
 
-                    <p:dialog id="confirmarRastro" header="¡INFORMACION!" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350" style="" closable="false">  
+                    <p:dialog id="confirmarRastro" header="¡INFORMACION!" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla 'NORMASLABORALES' tiene rastros para el registro seleccionado, ¿desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlNormasLaborales.normaLaboralSeleccionada.secuencia, 'NormasLaborales', 'normalaboral')}" style="position: absolute; top: 63px; left: 180px;" action="rastro" process="@this" />
                         <p:commandButton value="No" icon="ui-icon-close" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 250px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="confirmarRastroHistorico" header="¡INFORMACION!" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350" style="" closable="false">  
+                    <p:dialog id="confirmarRastroHistorico" header="¡INFORMACION!" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla NORMASLABORALES tiene rastros historicos, ¿Desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('NormasLaborales', 'normalaboral')}" style="position: absolute; top: 60px; left: 180px;" action="rastro" process="@this" />
                         <p:commandButton value="No" icon="ui-icon-close" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 250px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorRastroHistorico" header="¡ERROR!" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275" style="" closable="true">  
+                    <p:dialog id="errorRastroHistorico" header="¡ERROR!" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla no tiene rastros historicos." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorRegistroRastro" header="¡ERROR!" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275" style="" closable="true">  
+                    <p:dialog id="errorRegistroRastro" header="¡ERROR!" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="El registro seleccionado no tiene rastros." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaConRastro" header="¡INFORMACION!" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350" style="" closable="false">  
+                    <p:dialog id="errorTablaConRastro" header="¡INFORMACION!" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlNormasLaborales.normaLaboralSeleccionada.secuencia, 'NormasLaborales', 'normalaboral')}" style="position: absolute; top: 70px; left: 180px;" action="rastro" process="@this" />
                         <p:commandButton value="No" icon="ui-icon-close" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 70px; left: 250px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaSinRastro" header="¡ERROR!" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285" style="" closable="true">  
+                    <p:dialog id="errorTablaSinRastro" header="¡ERROR!" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla no existe en RASTROSTABLAS, y no tiene registros asociados." style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="seleccionarRegistro" header="¡ERROR!" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275" style="" closable="true">  
+                    <p:dialog id="seleccionarRegistro" header="¡ERROR!" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="Por favor seleccione un registro." style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorObjetosDB" header="¡ERROR!" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="80" width="295" style="" closable="true">  
+                    <p:dialog id="errorObjetosDB" header="¡ERROR!" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="80" width="295" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla 'NORMASLABORALES' no se encuentra en ObjetosDB. Por favor comunicarse con soporte." style="position: absolute; left: 70px; top: 15px; width: 205px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="editCodigo" header="Código" widgetVar="editCodigo" resizable="false" draggable="false" modal="true" height="80" width="400" style="text-transform: uppercase">  
+                    <p:dialog id="editCodigo" header="Código" widgetVar="editCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" style="text-transform: uppercase">  
                         <p:inputTextarea value="#{controlNormasLaborales.editarNormaLaboral.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
-                    <p:dialog id="editDescripcion" header="Descripcion" widgetVar="editDescripcion" resizable="false" draggable="false" modal="true" height="80" width="400" style="text-transform: uppercase">  
+                    <p:dialog id="editDescripcion" header="Descripcion" widgetVar="editDescripcion" resizable="false" draggable="true" modal="true" height="80" width="400" style="text-transform: uppercase">  
                         <p:inputTextarea value="#{controlNormasLaborales.editarNormaLaboral.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>                    
 
-                    <p:dialog id="nuevoRegistroNormaLaboral" header="Nuevo Registro" widgetVar="nuevoRegistroNormaLaboral" closable="false" resizable="false"  draggable="false" modal="true" height="150" width="350" style=" padding: 0px">  
+                    <p:dialog id="nuevoRegistroNormaLaboral" header="Nuevo Registro" widgetVar="nuevoRegistroNormaLaboral" closable="false" resizable="false"  draggable="true" modal="true" height="150" width="350" style=" padding: 0px">  
                         <center><strong><h:outputText id="informacion" value="Nueva Norma Laboral" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
 
                         <p:panel id="nuevaNormaLaboral" style="border: none;">
@@ -242,7 +242,7 @@
                         </p:panel>
                     </p:dialog>
 
-                    <p:dialog id="duplicarRegistroNormasLaborales" header="duplicar Registro" widgetVar="duplicarRegistroNormasLaborales" closable="false" resizable="false"  draggable="false" modal="true" height="150" width="350" style=" padding: 0px">  
+                    <p:dialog id="duplicarRegistroNormasLaborales" header="duplicar Registro" widgetVar="duplicarRegistroNormasLaborales" closable="false" resizable="false"  draggable="true" modal="true" height="150" width="350" style=" padding: 0px">  
                         <center><strong><h:outputText id="informacionDuplicar" value="Duplicar Norma Laboral" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
 
                         <p:panel id="duplicarNormaLaboral" style="border: none;">

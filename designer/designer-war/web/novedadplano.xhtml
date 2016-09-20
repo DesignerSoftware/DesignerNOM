@@ -12,7 +12,7 @@
             <ui:define name="body"> 
                 <h:form id="form">
                     <f:loadBundle basename="Recursos.novedadplano" var="msg" />
-                    <p:dialog id="erroresNovedad" header="#{msg['erroresdelanovedad']}" widgetVar="erroresNovedad"  resizable="false" draggable="false" modal="true" height="100" width="400">  
+                    <p:dialog id="erroresNovedad" header="#{msg['erroresdelanovedad']}" widgetVar="erroresNovedad"  resizable="false" draggable="true" modal="true" height="100" width="400">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errores']}" style="font-weight: bold; position: absolute; left: 80px; top: 10px; color: red;"/>
                         <p:dataGrid var="error" value="#{cargarArchivoPlano.erroresNovedad.mensajeError}" columns="1" styleClass="ui-dataGrid-CargueNovedad">
@@ -392,44 +392,44 @@
 
                         <p:remoteCommand name="posicionTablaNovedad" actionListener="#{cargarArchivoPlano.posicionTablaNovedad()}"/>
 
-                        <p:dialog id="errorArchivo" header="#{msg['error']}" widgetVar="errorArchivo"  resizable="false" draggable="false" modal="true" height="60" width="295px">  
+                        <p:dialog id="errorArchivo" header="#{msg['error']}" widgetVar="errorArchivo"  resizable="false" draggable="true" modal="true" height="60" width="295px">  
                             <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                             <strong><h:outputText value="#{msg['errorArchivo']}" style="position: absolute; left: 75px; top: 10px; width: 200px; text-align: center;" /></strong>
                         </p:dialog>
 
-                        <p:dialog id="novedadesCargadas" header="#{msg['informacion']}" widgetVar="novedadesCargadas"  resizable="false" draggable="false" modal="true" height="90" width="295px;" >  
+                        <p:dialog id="novedadesCargadas" header="#{msg['informacion']}" widgetVar="novedadesCargadas"  resizable="false" draggable="true" modal="true" height="90" width="295px;" >  
                             <h:graphicImage value="Imagenes/Iconos/correcto.png" width="80" height="80" style="position: absolute; left: 10px; top: 10px;"  />
                             <strong><h:outputText value="#{msg['nce']}" style="position: absolute; left: 75px; top: 20px; width: 200px; text-align: center;" /></strong>
                             <strong><h:outputText value="#{msg['registroscargados']} #{cargarArchivoPlano.diferenciaRegistrosN})" style="position: absolute; left: 75px; top: 60px; width: 200px; text-align: center;" /></strong>
                         </p:dialog>
 
-                        <p:dialog id="errorExtensionArchivo" header="#{msg['error']}" widgetVar="errorExtensionArchivo"  resizable="false" draggable="false" modal="true" height="80" width="295px">  
+                        <p:dialog id="errorExtensionArchivo" header="#{msg['error']}" widgetVar="errorExtensionArchivo"  resizable="false" draggable="true" modal="true" height="80" width="295px">  
                             <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                             <strong><h:outputText value="#{msg['errorExtensionArchivo']}" style="position: absolute; left: 75px; top: 10px; width: 200px; text-align: center;" /></strong>
                         </p:dialog>
 
-                        <p:dialog id="errorNombreArchivo" header="#{msg['error']}" widgetVar="errorNombreArchivo"  resizable="false" draggable="false" modal="true" height="80" width="295px;" >  
+                        <p:dialog id="errorNombreArchivo" header="#{msg['error']}" widgetVar="errorNombreArchivo"  resizable="false" draggable="true" modal="true" height="80" width="295px;" >  
                             <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                             <strong><h:outputText value="#{msg['errorNombreArchivo']}" style="position: absolute; left: 75px; top: 20px; width: 200px; text-align: center;" /></strong>
                         </p:dialog>
 
-                        <p:dialog id="documentoNoExiste" header="#{msg['error']}" widgetVar="documentoNoExiste"  resizable="false" draggable="false" modal="true" height="80" width="295px;" >  
+                        <p:dialog id="documentoNoExiste" header="#{msg['error']}" widgetVar="documentoNoExiste"  resizable="false" draggable="true" modal="true" height="80" width="295px;" >  
                             <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                             <strong><h:outputText value="#{msg['documentoNoExiste']}" style="position: absolute; left: 75px; top: 10px; width: 200px; text-align: center;" /></strong>
                         </p:dialog>
 
-                        <p:dialog id="reversarFallo" header="#{msg['error']}" widgetVar="reversarFallo"  resizable="false" draggable="false" modal="true" height="80" width="295px;" >  
+                        <p:dialog id="reversarFallo" header="#{msg['error']}" widgetVar="reversarFallo"  resizable="false" draggable="true" modal="true" height="80" width="295px;" >  
                             <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                             <strong><h:outputText value="#{msg['reversarFallo']}" style="position: absolute; left: 75px; top: 10px; width: 200px; text-align: center;" /></strong>
                         </p:dialog>
 
-                        <p:dialog id="reversarExito" header="#{msg['informacion']}" widgetVar="reversarExito"  resizable="false" draggable="false" modal="true" height="80" width="295px;" >  
+                        <p:dialog id="reversarExito" header="#{msg['informacion']}" widgetVar="reversarExito"  resizable="false" draggable="true" modal="true" height="80" width="295px;" >  
                             <h:graphicImage value="Imagenes/Iconos/correcto.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
                             <strong><h:outputText value="#{msg['nre']}" style="position: absolute; left: 75px; top: 20px; width: 200px; text-align: center;" /></strong>
                             <strong><h:outputText value="#{msg['registrosreversados']} #{cargarArchivoPlano.resultado})" style="position: absolute; left: 75px; top: 50px; width: 200px; text-align: center;" /></strong>
                         </p:dialog>
 
-                        <p:dialog id="reversarDialogo" header="#{msg['reversarDialogo']}" widgetVar="reversarDialogo"  resizable="false" draggable="false" closable="false" modal="true" height="121" width="316px">  
+                        <p:dialog id="reversarDialogo" header="#{msg['reversarDialogo']}" widgetVar="reversarDialogo"  resizable="false" draggable="true" closable="false" modal="true" height="121" width="316px">  
                             <fieldset style="position: absolute; left: 10px; width: 260px; height: 85px; border-radius: 10px; ">
                                 <legend style="color: blue"><strong>Reversar Cargue Novedades</strong></legend>
                                 <strong><h:outputText value="#{msg['documentosoporte']}" style="position: absolute; top: 30px; width: 200px;" /></strong>
@@ -442,14 +442,14 @@
                             </fieldset>
                         </p:dialog>
 
-                        <p:dialog id="confirmarReversar" header="#{msg['atencion']}" widgetVar="confirmarReversar"  resizable="false" draggable="false" modal="true" height="110" width="355px;" >
+                        <p:dialog id="confirmarReversar" header="#{msg['atencion']}" widgetVar="confirmarReversar"  resizable="false" draggable="true" modal="true" height="110" width="355px;" >
                             <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                             <strong><h:outputText value="#{msg['confirmarReversar']} #{cargarArchivoPlano.documentoSoporteReversar}, Desea continuar?" style="position: absolute; left: 75px; top: 20px; width: 250px; text-align: center;"/></strong>
                             <p:commandButton id="aceptarC" icon="ui-icon-check" value="#{msg['continuar']}" style="position: absolute; top: 70px; left: 145px;" actionListener="#{cargarArchivoPlano.reversar()}"/>
                             <p:commandButton id="atrasC" icon="ui-icon-close" value="#{msg['atras']}" style="position: absolute; top: 70px; left: 258px;" onclick="PF('confirmarReversar').hide();"/>
                         </p:dialog>
 
-                        <p:dialog id="borrarTodoDialogo" header="#{msg['bvc']}" widgetVar="borrarTodoDialogo"  resizable="false" draggable="false" closable="false" modal="true" height="290" width="467px;" >  
+                        <p:dialog id="borrarTodoDialogo" header="#{msg['bvc']}" widgetVar="borrarTodoDialogo"  resizable="false" draggable="true" closable="false" modal="true" height="290" width="467px;" >  
                             <p:pickList id="pickListDocumentosSoporte" value="#{cargarArchivoPlano.documentosSoportes}" var="documento"   
                                         itemLabel="#{documento}" itemValue="#{documento}" style="position: relative; left: -3px;"
                                         showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains">
@@ -460,13 +460,13 @@
                             <p:commandButton value="#{msg['atras']}" icon="ui-icon-close" actionListener="#{cargarArchivoPlano.cancelarBorrarTodo()}" style="position: relative; left: 180px"/>
                         </p:dialog>
 
-                        <p:dialog id="borrarTodoExito" header="#{msg['informacion']}" widgetVar="borrarTodoExito"  resizable="false" draggable="false" modal="true" height="80" width="295px;" >  
+                        <p:dialog id="borrarTodoExito" header="#{msg['informacion']}" widgetVar="borrarTodoExito"  resizable="false" draggable="true" modal="true" height="80" width="295px;" >  
                             <h:graphicImage value="Imagenes/Iconos/correcto.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
                             <strong><h:outputText value="#{msg['novedadesborradasconexito']}" style="position: absolute; left: 75px; top: 20px; width: 200px; text-align: center;" /></strong>
                             <strong><h:outputText value="#{msg['registrosborrados']} #{cargarArchivoPlano.resultadoProceso.registrosBorrados})" style="position: absolute; left: 75px; top: 50px; width: 200px; text-align: center;" /></strong>
                         </p:dialog>
 
-                        <p:dialog id="erroresBorrarTodo" header="#{msg['erroresdelanovedad']}" widgetVar="erroresBorrarTodo"  resizable="false" draggable="false" modal="true" height="120" width="420" >  
+                        <p:dialog id="erroresBorrarTodo" header="#{msg['erroresdelanovedad']}" widgetVar="erroresBorrarTodo"  resizable="false" draggable="true" modal="true" height="120" width="420" >  
                             <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                             <h:outputText value="#{msg['erroresBorrarTodo']}" style="font-weight: bold;  position: absolute; left: 80px; top: 10px; color: red;"/>
                             <p:dataGrid var="documentoNoBorrado" value="#{cargarArchivoPlano.resultadoProceso.documentosNoBorrados}" columns="1" styleClass="ui-dataGrid-CargueNovedad" >
@@ -487,7 +487,7 @@
                     </p:panel>
                 </h:form> 
                 <h:form id="formDialogos">
-                    <p:dialog header="#{msg['formulasF']}" widgetVar="formulasDialogo" draggable="false" resizable="false" closable="false" id="formulasDialogo"  
+                    <p:dialog header="#{msg['formulasF']}" widgetVar="formulasDialogo" draggable="true" resizable="false" closable="false" id="formulasDialogo"  
                               showEffect="fade" hideEffect="fade" width="431" height="340" modal="true" >
                         <p:dataTable id="lovFormulas" style="width: 400px;" var="formula" value="#{cargarArchivoPlano.listaFormulas}" rowKey="#{formula.secuencia}"
                                      selection="#{cargarArchivoPlano.formulaSelecionada}" selectionMode="single" widgetVar="lovFormulas" scrollable="true" scrollWidth="415" scrollHeight="225"
@@ -520,7 +520,7 @@
                         <p:commandButton id="atrasF" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 230px; top: 3px;" value="#{msg['atras']}" actionListener="#{cargarArchivoPlano.cancelarSeleccionFormula()}"  process="@this"/>
                     </p:dialog> 
 
-                    <p:dialog header="#{msg['documentosDS']}" widgetVar="documentoSoporteDialogo" draggable="false" resizable="false" closable="false" id="documentoSoporteDialogo"  
+                    <p:dialog header="#{msg['documentosDS']}" widgetVar="documentoSoporteDialogo" draggable="true" resizable="false" closable="false" id="documentoSoporteDialogo"  
                               showEffect="fade" hideEffect="fade" width="431" modal="true" >
                         <p:dataTable id="lovDocumentoSoporte" style="width: 400px;" var="documentoSoporte" value="#{cargarArchivoPlano.documentosSoporteCargados}" rowKey="#{documentoSoporte}"
                                      selection="#{cargarArchivoPlano.seleccionDocumentosSoporteCargado}" selectionMode="single" widgetVar="lovDocumentoSoporte" scrollable="true" scrollWidth="415" scrollHeight="225"
@@ -550,61 +550,61 @@
 
                     <!-- Editar -->
 
-                    <p:dialog id="editarConcepto" header="#{msg['editarConcepto']}" widgetVar="editarConcepto" resizable="false" draggable="false" modal="true" height="80" width="400" >
+                    <p:dialog id="editarConcepto" header="#{msg['editarConcepto']}" widgetVar="editarConcepto" resizable="false" draggable="true" modal="true" height="80" width="400" >
                         <p:inputTextarea value="#{cargarArchivoPlano.editarNovedad.concepto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarEmpleado" header="#{msg['editarEmpleado']}" widgetVar="editarEmpleado" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarEmpleado" header="#{msg['editarEmpleado']}" widgetVar="editarEmpleado" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{cargarArchivoPlano.editarNovedad.empleado}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarFechainicial" header="#{msg['editarFechainicial']}" widgetVar="editarFechainicial" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editarFechainicial" header="#{msg['editarFechainicial']}" widgetVar="editarFechainicial" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputTextarea value="#{cargarArchivoPlano.editarNovedad.fechainicial}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaFinal" header="#{msg['editarFechaFinal']}" widgetVar="editarFechaFinal" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editarFechaFinal" header="#{msg['editarFechaFinal']}" widgetVar="editarFechaFinal" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputTextarea value="#{cargarArchivoPlano.editarNovedad.fechafinal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaReporte" header="#{msg['editarFechaReporte']}" widgetVar="editarFechaReporte" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editarFechaReporte" header="#{msg['editarFechaReporte']}" widgetVar="editarFechaReporte" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputTextarea value="#{cargarArchivoPlano.editarNovedad.fechareporte}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarDocumentoS" header="#{msg['editarDocumentoS']}" widgetVar="editarDocumentoS" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarDocumentoS" header="#{msg['editarDocumentoS']}" widgetVar="editarDocumentoS" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{cargarArchivoPlano.editarNovedad.documentosoporte}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarValor" header="#{msg['editarValor']}" widgetVar="editarValor" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarValor" header="#{msg['editarValor']}" widgetVar="editarValor" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{cargarArchivoPlano.editarNovedad.valortotal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
                             <f:convertNumber currencyCode="COP"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarPeriodicidad" header="#{msg['editarPeriodicidad']}" widgetVar="editarPeriodicidad" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarPeriodicidad" header="#{msg['editarPeriodicidad']}" widgetVar="editarPeriodicidad" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{cargarArchivoPlano.editarNovedad.periodicidad}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarTercero" header="#{msg['editarTercero']}" widgetVar="editarTercero" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarTercero" header="#{msg['editarTercero']}" widgetVar="editarTercero" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{cargarArchivoPlano.editarNovedad.tercero}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarSaldo" header="#{msg['editarSaldo']}" widgetVar="editarSaldo" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarSaldo" header="#{msg['editarSaldo']}" widgetVar="editarSaldo" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{cargarArchivoPlano.editarNovedad.saldo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
                             <f:convertNumber currencyCode="COP"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarUEntera" header="#{msg['editarUEntera']}" widgetVar="editarUEntera" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarUEntera" header="#{msg['editarUEntera']}" widgetVar="editarUEntera" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{cargarArchivoPlano.editarNovedad.unidadesparteentera}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarUFraccion" header="#{msg['editarUFraccion']}" widgetVar="editarUFraccion" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarUFraccion" header="#{msg['editarUFraccion']}" widgetVar="editarUFraccion" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{cargarArchivoPlano.editarNovedad.unidadespartefraccion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
                 </h:form>

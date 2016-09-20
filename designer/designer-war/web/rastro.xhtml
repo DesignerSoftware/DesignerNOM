@@ -142,7 +142,7 @@
                     </p:panel>
 
                     <!-- DIALOGO L.O.V ESTATICO FECHA -->
-                    <p:dialog header="#{msg['fechasF']}" widgetVar="fechaDialogo" draggable="false" resizable="false" closable="false" id="fechaDialogo"  
+                    <p:dialog header="#{msg['fechasF']}" widgetVar="fechaDialogo" draggable="true" resizable="false" closable="false" id="fechaDialogo"  
                               showEffect="fade" hideEffect="fade" width="341" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovFecha" style="font-size: 11px; width: 310px;" var="lovF" value="#{controlRastro.listaLOVRastros}" rowKey="#{lovF.secuencia}"
                                      selection="#{controlRastro.seleccionRastroLOV}" selectionMode="single" widgetVar="lovFecha" scrollable="true" scrollWidth="330" scrollHeight="250"
@@ -178,7 +178,7 @@
                     </p:dialog>
 
 
-                    <p:dialog header="#{msg['valoresdelrastro']}" widgetVar="valorRastroDialogo" draggable="false" resizable="false" closable="false" id="valorRastroDialogo"  
+                    <p:dialog header="#{msg['valoresdelrastro']}" widgetVar="valorRastroDialogo" draggable="true" resizable="false" closable="false" id="valorRastroDialogo"  
                               showEffect="fade" hideEffect="fade" width="551" modal="true" style="font-size: 11px;">
                         <p:dataTable id="valorRastro" style="font-size: 11px; width: 520px;" var="valor" value="#{controlRastro.rastroValor}" rowKey="#{valor.secuencia}"
                                      widgetVar="valorRastro" scrollable="true" scrollWidth="540" scrollHeight="300" emptyMessage="#{msg['dialogovacio']}"> 
@@ -206,26 +206,26 @@
                         <p:commandButton id="volverVR" onclick="PF('valorRastroDialogo').hide();" style="position: relative; left: 460px;" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['volver']}" process="@this"/>
                     </p:dialog>
 
-                    <p:dialog id="confirmarEliminados" header="#{msg['atencion']}" widgetVar="confirmarEliminados"  resizable="false" draggable="false" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
+                    <p:dialog id="confirmarEliminados" header="#{msg['atencion']}" widgetVar="confirmarEliminados"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarEliminados1']} #{controlRastro.nombreTablaRastro} #{msg['confirmarEliminados2']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarEliminados').hide();" actionListener="#{controlRastro.seguirDialogos()}" style="position: absolute; top: 60px; left: 230px;" process="@this" />
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarEliminados').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="confirmarEliminadosEmpleado" header="#{msg['atencion']}" widgetVar="confirmarEliminadosEmpleado"  resizable="false" draggable="false" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
+                    <p:dialog id="confirmarEliminadosEmpleado" header="#{msg['atencion']}" widgetVar="confirmarEliminadosEmpleado"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarEliminadosEmpleado']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarEliminadosEmpleado').hide();" actionListener="#{controlRastro.historicosTablaEliminadosEmpleado()}" style="position: absolute; top: 60px; left: 230px;" process="@this" />
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarEliminadosEmpleado').hide();" actionListener="#{controlRastro.historicosTablaEliminados()}" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorValorRastro" header="#{msg['atencion']}" widgetVar="errorValorRastro"  resizable="false" draggable="false" modal="true" height="60" width="285" style="font-size: 12px;" closable="true">  
+                    <p:dialog id="errorValorRastro" header="#{msg['atencion']}" widgetVar="errorValorRastro"  resizable="false" draggable="true" modal="true" height="60" width="285" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 25px; top: 10px;"  />
                         <h:outputText value="#{msg['errorValorRastro']}" style="position: absolute; left: 70px; top: 20px; width: 195px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorEliminados" header="#{msg['atencion']}" widgetVar="errorEliminados"  resizable="false" draggable="false" modal="true" height="60" width="285" style="font-size: 12px;" closable="true">  
+                    <p:dialog id="errorEliminados" header="#{msg['atencion']}" widgetVar="errorEliminados"  resizable="false" draggable="true" modal="true" height="60" width="285" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 15px; top: 10px;"  />
                         <h:outputText value="#{msg['errorEliminados']} #{controlRastro.nombreTablaRastro}." style="position: absolute; left: 70px; top: 20px; width: 195px; font-weight:bold; text-align: center" />
                     </p:dialog>

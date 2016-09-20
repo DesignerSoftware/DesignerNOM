@@ -426,7 +426,7 @@
 
                     </p:panel>
 
-                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
+                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlATExtraRecargo.guardarGeneral()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
@@ -434,74 +434,74 @@
                         <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
-                    <p:dialog id="verificarRastrosTablas" widgetVar="verificarRastrosTablas" header="#{msg['rpter']}" resizable="false" draggable="false" modal="true" height="95" width="430px;"  >
+                    <p:dialog id="verificarRastrosTablas" widgetVar="verificarRastrosTablas" header="#{msg['rpter']}" resizable="false" draggable="true" modal="true" height="95" width="430px;"  >
                         <h:outputText value="#{msg['seleccione']}" style="position: absolute; left: 20px; top: 20px;color: blue;font-weight: bold"/>
                         <p:commandButton value="#{msg['extrarecargo']}" onclick="PF('verificarRastrosTablas').hide();" style="position: absolute; left: 30px; top: 50px;" actionListener="#{controlATExtraRecargo.verificarRastroExtraRecargo()}" process="@this" />
                         <p:commandButton value="#{msg['detalleextrarecargo']}" onclick="PF('verificarRastrosTablas').hide();" style="position: absolute; left: 200px; top: 50px;" actionListener="#{controlATExtraRecargo.verificarRastroDetalleExtraRecargo()}" process="@this"/>
                     </p:dialog>
 
-                    <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
+                    <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{controlATExtraRecargo.msnConfirmarRastro}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATExtraRecargo.backUp, controlATExtraRecargo.nombreTablaRastro , 'rastroExtraRecargo')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlATExtraRecargo.limpiarMSNRastros()}" style="position: absolute; top: 63px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
+                    <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{controlATExtraRecargo.msnConfirmarRastroHistorico}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla(controlATExtraRecargo.nombreTablaRastro , 'rastroExtraRecargo')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlATExtraRecargo.limpiarMSNRastros()}" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
+                    <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATExtraRecargo.backUp, controlATExtraRecargo.nombreTablaRastro , 'rastroExtraRecargo')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
                         <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285"  closable="true">  
+                    <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
                     </p:dialog>
                     
-                    <p:dialog id="errorDatosNullExtra" header="#{msg['atencion']}" widgetVar="errorDatosNullExtra"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="errorDatosNullExtra" header="#{msg['atencion']}" widgetVar="errorDatosNullExtra"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorDatosNullExtra']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
                     
-                    <p:dialog id="errorDescripcionExtra" header="#{msg['atencion']}" widgetVar="errorDescripcionExtra"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="errorDescripcionExtra" header="#{msg['atencion']}" widgetVar="errorDescripcionExtra"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorDescripcionExtra']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
                     
-                    <p:dialog id="errorDatosNullDetalle" header="#{msg['atencion']}" widgetVar="errorDatosNullDetalle"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="errorDatosNullDetalle" header="#{msg['atencion']}" widgetVar="errorDatosNullDetalle"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorDatosNullDetalle']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog header="#{msg['tiposdiasTD']}" widgetVar="TipoDiaDialogo" draggable="false" resizable="false" closable="false" id="TipoDiaDialogo"  
+                    <p:dialog header="#{msg['tiposdiasTD']}" widgetVar="TipoDiaDialogo" draggable="true" resizable="false" closable="false" id="TipoDiaDialogo"  
                               showEffect="fade" hideEffect="fade" width="435" modal="true" >
                         <p:dataTable id="lovTipoDia" style="width: 410px;" var="dias" value="#{controlATExtraRecargo.lovTiposDias}" rowKey="#{dias.secuencia}"
                                      selection="#{controlATExtraRecargo.tipoDiaSeleccionado}" scrollWidth="410" selectionMode="single" widgetVar="lovTipoDia" scrollable="true" scrollHeight="250" 
@@ -540,7 +540,7 @@
                         
                     </p:dialog>
 
-                    <p:dialog header="#{msg['tiposjornadasTJ']}" widgetVar="TipoJornadaDialogo" draggable="false" resizable="false" closable="false" id="TipoJornadaDialogo"  
+                    <p:dialog header="#{msg['tiposjornadasTJ']}" widgetVar="TipoJornadaDialogo" draggable="true" resizable="false" closable="false" id="TipoJornadaDialogo"  
                               showEffect="fade" hideEffect="fade" width="435" modal="true" >
                         <p:dataTable id="lovTipoJornada" style=" width: 410px;" scrollWidth="410" var="jornada" value="#{controlATExtraRecargo.lovTiposJornadas}" rowKey="#{jornada.secuencia}"
                                      selection="#{controlATExtraRecargo.tipoJornadaSeleccionada}" selectionMode="single" widgetVar="lovTipoJornada" scrollable="true" scrollHeight="250" 
@@ -603,7 +603,7 @@
                         <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasTJ" style="position: relative; left: 230px;" value="#{msg['atras']}" actionListener="#{controlATExtraRecargo.cancelarCambioTipoJornada()}" process="@this"/>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['tiposlegislacionesTL']}" widgetVar="LegislacionDialogo" draggable="false" resizable="false" closable="false" id="LegislacionDialogo"  
+                    <p:dialog header="#{msg['tiposlegislacionesTL']}" widgetVar="LegislacionDialogo" draggable="true" resizable="false" closable="false" id="LegislacionDialogo"  
                               showEffect="fade" hideEffect="fade" width="435" modal="true" >
                         <p:dataTable id="lovLegislacion" style="width: 410px;" scrollWidth="410" var="legislacion" value="#{controlATExtraRecargo.lovContratos}" rowKey="#{legislacion.secuencia}"
                                      selection="#{controlATExtraRecargo.contratoSeleccionado}" selectionMode="single" widgetVar="lovLegislacion" scrollable="true" scrollHeight="250" 
@@ -641,7 +641,7 @@
                         <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasLeg" style="position: relative; left: 230px;" value="#{msg['atras']}"  actionListener="#{controlATExtraRecargo.cancelarCambioLegislacion()}" process="@this"/>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['conceptosC']}" widgetVar="ConceptoDialogo" draggable="false" resizable="false" closable="false" id="ConceptoDialogo"  
+                    <p:dialog header="#{msg['conceptosC']}" widgetVar="ConceptoDialogo" draggable="true" resizable="false" closable="false" id="ConceptoDialogo"  
                               showEffect="fade" hideEffect="fade" width="435" modal="true" >
                         <p:dataTable id="lovConcepto" style="width: 410px;" scrollWidth="410" var="concepto" value="#{controlATExtraRecargo.lovConceptos}" rowKey="#{concepto.secuencia}"
                                      selection="#{controlATExtraRecargo.conceptoSeleccionado}" selectionMode="single" widgetVar="lovConcepto" scrollable="true" scrollHeight="250" 
@@ -690,18 +690,18 @@
                 </h:form>
                 <h:form id="formularioDialogos" >
 
-                    <p:dialog id="errorBorrarRegistro" header="#{msg['atencion']}" widgetVar="errorBorrarRegistro"  resizable="false" draggable="false" modal="true" height="80" width="275"  closable="true">  
+                    <p:dialog id="errorBorrarRegistro" header="#{msg['atencion']}" widgetVar="errorBorrarRegistro"  resizable="false" draggable="true" modal="true" height="80" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorBorrarRegistro']}" style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="verificarNuevoRegistro" widgetVar="verificarNuevoRegistro" header="#{msg['nuevoregistropagina']}" resizable="false" draggable="false" modal="true" height="95" width="430px;"  >
+                    <p:dialog id="verificarNuevoRegistro" widgetVar="verificarNuevoRegistro" header="#{msg['nuevoregistropagina']}" resizable="false" draggable="true" modal="true" height="95" width="430px;"  >
                         <h:outputText value="#{msg['verificarNuevoRegistro']}" style="position: absolute; left: 20px; top: 20px;color: blue;font-weight: bold"/>
                         <p:commandButton value="#{msg['recargosextras']}" onclick="PF('verificarNuevoRegistro').hide();" style="position: absolute; left: 30px; top: 50px;" oncomplete="PF('NuevoRegistroExtraRecargo').show()" update=":formularioDialogos:nuevoExtra"  process="@this" />
                         <p:commandButton value="#{msg['detallesrecargosextras']}" onclick="PF('verificarNuevoRegistro').hide();" style="position: absolute; left: 200px; top: 50px;" oncomplete="PF('NuevoRegistroDetalleExtraRecargo').show()" update=":formularioDialogos:nuevoDetalleExtra"  process="@this"/>
                     </p:dialog>
 
-                    <p:dialog id="NuevoRegistroExtraRecargo" header="#{msg['nuevoregistroER']}" widgetVar="NuevoRegistroExtraRecargo" closable="false" resizable="false"  draggable="false" modal="true" height="330" width="400" style="padding: 0px">  
+                    <p:dialog id="NuevoRegistroExtraRecargo" header="#{msg['nuevoregistroER']}" widgetVar="NuevoRegistroExtraRecargo" closable="false" resizable="false"  draggable="true" modal="true" height="330" width="400" style="padding: 0px">  
                         <center><strong><h:outputText value="#{msg['ingresarnuevoER']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
                         <p:panel id="nuevoExtra" style="border: none;">
 
@@ -757,7 +757,7 @@
                         </p:panel>
                     </p:dialog>
 
-                    <p:dialog id="DuplicarRegistroExtraRecargo" header="#{msg['duplicarregistroER']}" widgetVar="DuplicarRegistroExtraRecargo" closable="false" resizable="false"  draggable="false" modal="true" height="330" width="400" style="padding: 0px">  
+                    <p:dialog id="DuplicarRegistroExtraRecargo" header="#{msg['duplicarregistroER']}" widgetVar="DuplicarRegistroExtraRecargo" closable="false" resizable="false"  draggable="true" modal="true" height="330" width="400" style="padding: 0px">  
 
                         <center><strong><h:outputText value="#{msg['ingresarnuevoER']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
 
@@ -815,7 +815,7 @@
                         </p:panel>
                     </p:dialog>
 
-                    <p:dialog id="NuevoRegistroDetalleExtraRecargo" header="#{msg['nuevoregistroDER']}" widgetVar="NuevoRegistroDetalleExtraRecargo" closable="false" resizable="false"  draggable="false" modal="true" height="420" width="400" style="padding: 0px">  
+                    <p:dialog id="NuevoRegistroDetalleExtraRecargo" header="#{msg['nuevoregistroDER']}" widgetVar="NuevoRegistroDetalleExtraRecargo" closable="false" resizable="false"  draggable="true" modal="true" height="420" width="400" style="padding: 0px">  
                         <center><strong><h:outputText value="#{msg['ingresarnuevoDER']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
                         <p:panel id="nuevoDetalleExtra" style="border: none;">
 
@@ -896,7 +896,7 @@
                         </p:panel>
                     </p:dialog>
 
-                    <p:dialog id="DuplicarRegistroDetalleExtraRecargo" header="#{msg['duplicarregistroDER']}" widgetVar="DuplicarRegistroDetalleExtraRecargo" closable="false" resizable="false"  draggable="false" modal="true" height="420" width="400" style="padding: 0px">  
+                    <p:dialog id="DuplicarRegistroDetalleExtraRecargo" header="#{msg['duplicarregistroDER']}" widgetVar="DuplicarRegistroDetalleExtraRecargo" closable="false" resizable="false"  draggable="true" modal="true" height="420" width="400" style="padding: 0px">  
                         <center><strong><h:outputText value="#{msg['ingresarnuevoDER']}" style=" color: blue; position: relative; top: 10px;" /></strong></center> 
                         <p:panel id="duplicarDetalleExtra" style="border: none;">
 
@@ -981,49 +981,49 @@
 
                     <!-- editar celdas extras recargos -->
 
-                    <p:dialog id="editarExtraCodigoD" header="#{msg['editarExtraCodigoD']}" widgetVar="editarExtraCodigoD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarExtraCodigoD" header="#{msg['editarExtraCodigoD']}" widgetVar="editarExtraCodigoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlATExtraRecargo.editarExtraRecargo.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarExtraDescripcionD" header="#{msg['editarExtraDescripcionD']}" widgetVar="editarExtraDescripcionD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarExtraDescripcionD" header="#{msg['editarExtraDescripcionD']}" widgetVar="editarExtraDescripcionD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlATExtraRecargo.editarExtraRecargo.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarExtraTipoDiaD" header="#{msg['editarExtraTipoDiaD']}" widgetVar="editarExtraTipoDiaD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarExtraTipoDiaD" header="#{msg['editarExtraTipoDiaD']}" widgetVar="editarExtraTipoDiaD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlATExtraRecargo.editarExtraRecargo.tipodia.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarExtraTipoJornadaD" header="#{msg['editarExtraTipoJornadaD']}" widgetVar="editarExtraTipoJornadaD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarExtraTipoJornadaD" header="#{msg['editarExtraTipoJornadaD']}" widgetVar="editarExtraTipoJornadaD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlATExtraRecargo.editarExtraRecargo.tipojornada.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarExtraLegislacionD" header="#{msg['editarExtraLegislacionD']}" widgetVar="editarExtraLegislacionD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarExtraLegislacionD" header="#{msg['editarExtraLegislacionD']}" widgetVar="editarExtraLegislacionD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlATExtraRecargo.editarExtraRecargo.tipolegislacion.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <!-- editar celdas detalles extras recargos -->
 
-                    <p:dialog id="editarDetalleHID" header="#{msg['editarDetalleHID']}" widgetVar="editarDetalleHID" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarDetalleHID" header="#{msg['editarDetalleHID']}" widgetVar="editarDetalleHID" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlATExtraRecargo.editarDetalleExtraRecargo.horasinicial}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
                             <f:convertNumber pattern="#00.00" />
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarDetalleHFD" header="#{msg['editarDetalleHFD']}" widgetVar="editarDetalleHFD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarDetalleHFD" header="#{msg['editarDetalleHFD']}" widgetVar="editarDetalleHFD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlATExtraRecargo.editarDetalleExtraRecargo.horasfinal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
                             <f:convertNumber pattern="#00.00" />
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarDetalleConceptoD" header="#{msg['editarDetalleConceptoD']}" widgetVar="editarDetalleConceptoD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarDetalleConceptoD" header="#{msg['editarDetalleConceptoD']}" widgetVar="editarDetalleConceptoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlATExtraRecargo.editarDetalleExtraRecargo.concepto.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarDetalleEmpresaD" header="#{msg['editarDetalleEmpresaD']}" widgetVar="editarDetalleEmpresaD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarDetalleEmpresaD" header="#{msg['editarDetalleEmpresaD']}" widgetVar="editarDetalleEmpresaD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlATExtraRecargo.editarDetalleExtraRecargo.concepto.empresa.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarDetalleMinutoD" header="#{msg['editarDetalleMinutoD']}" widgetVar="editarDetalleMinutoD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarDetalleMinutoD" header="#{msg['editarDetalleMinutoD']}" widgetVar="editarDetalleMinutoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlATExtraRecargo.editarDetalleExtraRecargo.minimominutospagar}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 

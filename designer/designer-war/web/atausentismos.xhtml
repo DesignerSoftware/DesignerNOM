@@ -560,7 +560,7 @@
                 <h:form id="formularioDialogos">
 
                     <!-- DIALOGO NUEVO REGISTRO -->
-                    <p:dialog id="NuevoAusentismoEmpleado" header="#{msg['nuevoregistro']}" widgetVar="NuevoAusentismoEmpleado" closable="false" resizable="false"  draggable="false" modal="true" height="#{controlAusentismos.altoDialogoNuevo}" width="600" style=" padding: 0px">  
+                    <p:dialog id="NuevoAusentismoEmpleado" header="#{msg['nuevoregistro']}" widgetVar="NuevoAusentismoEmpleado" closable="false" resizable="false"  draggable="true" modal="true" height="#{controlAusentismos.altoDialogoNuevo}" width="600" style=" padding: 0px">  
 
                         <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
 
@@ -738,13 +738,13 @@
                         </p:panel>
                     </p:dialog>
 
-                    <p:dialog id="validacionNuevoAusentismo" header="#{msg['atencion']}" widgetVar="validacionNuevoAusentismo"  resizable="false" draggable="false" modal="true" height="95" width="400"  closable="false">  
+                    <p:dialog id="validacionNuevoAusentismo" header="#{msg['atencion']}" widgetVar="validacionNuevoAusentismo"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['validacionNuevo']} #{controlAusentismos.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
                         <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('validacionNuevoAusentismo').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="95" width="400"  closable="false">  
+                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
                         <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlAusentismos.guardarCambiosAusentismos()}" action="novedad" style="position: absolute; top: 60px; left: 125px;" process="@this" />
@@ -753,7 +753,7 @@
                     </p:dialog>
 
                     <!-- DIALOGO NUEVO REGISTRO -->
-                    <p:dialog id="DuplicarAusentismoEmpleado" header="#{msg['duplicarregistro']}" widgetVar="DuplicarAusentismoEmpleado" closable="false" resizable="false"  draggable="false" modal="true" height="#{controlAusentismos.altoDialogoDuplicar}" width="600" style=" padding: 0px">  
+                    <p:dialog id="DuplicarAusentismoEmpleado" header="#{msg['duplicarregistro']}" widgetVar="DuplicarAusentismoEmpleado" closable="false" resizable="false"  draggable="true" modal="true" height="#{controlAusentismos.altoDialogoDuplicar}" width="600" style=" padding: 0px">  
 
                         <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
 
@@ -931,48 +931,48 @@
 
                     <!-- DIALOGOS RASTROS -->
 
-                    <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
+                    <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlAusentismos.ausentismoSeleccionado.getSecuencia(), 'Soausentismos', 'ausentismos')}" style="position: absolute; top: 63px; left: 175px;" action="rastro" process="@this" />
                         <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 240px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
+                    <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Soausentismos', 'ausentismos')}" style="position: absolute; top: 60px; left: 175px;" action="rastro" process="@this" />
                         <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
+                    <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlAusentismos.ausentismoSeleccionado.getSecuencia(), 'Soausentismos', 'soausentismos')}" style="position: absolute; top: 70px; left: 175px;" action="rastro" process="@this" />
                         <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 70px; left: 240px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285"  closable="true">  
+                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 8px; width: 185px; font-weight:bold;" />
                     </p:dialog>
@@ -981,7 +981,7 @@
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlAusentismos.activarCtrlF11()}" process="@this"/> 
 
                     <!-- DIALOGO CAMBIO DE EMPLEADO -->
-                    <p:dialog id="cambiar" header="#{msg['informacion']}" widgetVar="cambiar"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
+                    <p:dialog id="cambiar" header="#{msg['informacion']}" widgetVar="cambiar"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['cambio']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['si']}" onclick="PF('cambiar').hide();" actionListener="#{controlAusentismos.guardarCambiosAusentismos()}" style="position: absolute; top: 63px; left: 230px;" process="@this" />
@@ -990,102 +990,102 @@
 
                     <!-- DIALOGOS EDITAR -->
 
-                    <p:dialog id="editarTiposAusentismos" header="#{msg['tipo']}" widgetVar="editarTiposAusentismos" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarTiposAusentismos" header="#{msg['tipo']}" widgetVar="editarTiposAusentismos" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlAusentismos.editarAusentismos.tipo.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarClasesAusentismos" header="#{msg['clase']}" widgetVar="editarClasesAusentismos" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarClasesAusentismos" header="#{msg['clase']}" widgetVar="editarClasesAusentismos" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlAusentismos.editarAusentismos.clase.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarCausasAusentismos" header="#{msg['causa']}" widgetVar="editarCausasAusentismos" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarCausasAusentismos" header="#{msg['causa']}" widgetVar="editarCausasAusentismos" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlAusentismos.editarAusentismos.causa.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarDiasD" header="#{msg['dias']}" widgetVar="editarDiasD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarDiasD" header="#{msg['dias']}" widgetVar="editarDiasD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlAusentismos.editarAusentismos.dias}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarHorasD" header="#{msg['horas']}" widgetVar="editarHorasD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarHorasD" header="#{msg['horas']}" widgetVar="editarHorasD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlAusentismos.editarAusentismos.horas}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarFIausencias" header="#{msg['iausencia']}" widgetVar="editarFIausencias" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editarFIausencias" header="#{msg['iausencia']}" widgetVar="editarFIausencias" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:calendar mask="true" pattern="dd/MM/yyyy" value="#{controlAusentismos.editarAusentismos.fecha}" id="editarFechaInicialAusencia"  styleClass="ui-datepicker, myClass"  
                                     navigator="true" showButtonPanel="true">
                         </p:calendar>
                     </p:dialog>
 
-                    <p:dialog id="editFFausencias" header="#{msg['fausencia']}" widgetVar="editarFFausencias" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editFFausencias" header="#{msg['fausencia']}" widgetVar="editarFFausencias" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:calendar mask="true" pattern="dd/MM/yyyy"   value="#{controlAusentismos.editarAusentismos.fechafinaus}" id="editarFechaFinalAusencia"  styleClass="ui-datepicker, myClass"  
                                     navigator="true" showButtonPanel="true">
                         </p:calendar>
                     </p:dialog>
 
-                    <p:dialog id="editarFexpediciones" header="#{msg['expediciones']}" widgetVar="editarFexpediciones" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editarFexpediciones" header="#{msg['expediciones']}" widgetVar="editarFexpediciones" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:calendar mask="true" pattern="dd/MM/yyyy"   value="#{controlAusentismos.editarAusentismos.fechaexpedicion}" id="editarFechaExpedicion"  styleClass="ui-datepicker, myClass"  
                                     navigator="true" showButtonPanel="true">
                         </p:calendar>
                     </p:dialog>
 
-                    <p:dialog id="editarFIpagos" header="#{msg['ipago']}" widgetVar="editarFIpagos" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editarFIpagos" header="#{msg['ipago']}" widgetVar="editarFIpagos" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:calendar mask="true" pattern="dd/MM/yyyy"   value="#{controlAusentismos.editarAusentismos.fechainipago}" id="editarFechaInicialPagos"  styleClass="ui-datepicker, myClass"  
                                     navigator="true" showButtonPanel="true">
                         </p:calendar>
                     </p:dialog>
 
-                    <p:dialog id="editarFFpagos" header="#{msg['fpago']}" widgetVar="editarFFpagos" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editarFFpagos" header="#{msg['fpago']}" widgetVar="editarFFpagos" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:calendar mask="true" pattern="dd/MM/yyyy"   value="#{controlAusentismos.editarAusentismos.fechafinpago}" id="editarFechaFinalPagos"  styleClass="ui-datepicker, myClass"  
                                     navigator="true" showButtonPanel="true">
                         </p:calendar>
                     </p:dialog>
 
-                    <p:dialog id="editarPorcentajes" header="#{msg['porcentaje']}" widgetVar="editarPorcentajes" resizable="false" draggable="false" modal="true" height="80" width="400"  >  
+                    <p:dialog id="editarPorcentajes" header="#{msg['porcentaje']}" widgetVar="editarPorcentajes" resizable="false" draggable="true" modal="true" height="80" width="400"  >  
                         <p:inputTextarea value="#{controlAusentismos.editarAusentismos.porcentajeindividual}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarBliquidaciones" header="#{msg['bliquidacion']}" widgetVar="editarBliquidaciones" resizable="false" draggable="false" modal="true" height="80" width="400"  >  
+                    <p:dialog id="editarBliquidaciones" header="#{msg['bliquidacion']}" widgetVar="editarBliquidaciones" resizable="false" draggable="true" modal="true" height="80" width="400"  >  
                         <p:inputTextarea value="#{controlAusentismos.editarAusentismos.baseliquidacion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarFliquidaciones" header="#{msg['fliquidacion']}" widgetVar="editarFliquidaciones" resizable="false" draggable="false" modal="true" height="80" width="400"  >  
+                    <p:dialog id="editarFliquidaciones" header="#{msg['fliquidacion']}" widgetVar="editarFliquidaciones" resizable="false" draggable="true" modal="true" height="80" width="400"  >  
                         <p:inputTextarea value="#{controlAusentismos.editarAusentismos.formaliquidacion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarAccidentes" header="#{msg['accident']}" widgetVar="editarAccidentes" resizable="false" draggable="false" modal="true" height="80" width="400"  >  
+                    <p:dialog id="editarAccidentes" header="#{msg['accident']}" widgetVar="editarAccidentes" resizable="false" draggable="true" modal="true" height="80" width="400"  >  
                         <p:inputTextarea value="#{controlAusentismos.editarAusentismos.accidente.descripcioncaso}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarEnfermedades" header="#{msg['enf']}" widgetVar="editarEnfermedades" resizable="false" draggable="false" modal="true" height="80" width="400"  >  
+                    <p:dialog id="editarEnfermedades" header="#{msg['enf']}" widgetVar="editarEnfermedades" resizable="false" draggable="true" modal="true" height="80" width="400"  >  
                         <p:inputTextarea value="#{controlAusentismos.editarAusentismos.enfermedad.categoria.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarNcertificados" header="#{msg['numero']}" widgetVar="editarNcertificados" resizable="false" draggable="false" modal="true" height="80" width="400"  >  
+                    <p:dialog id="editarNcertificados" header="#{msg['numero']}" widgetVar="editarNcertificados" resizable="false" draggable="true" modal="true" height="80" width="400"  >  
                         <p:inputTextarea value="#{controlAusentismos.editarAusentismos.numerocertificado}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarDiagnosticos" header="#{msg['cdiagnosticoE']}" widgetVar="editarDiagnosticos" resizable="false" draggable="false" modal="true" height="80" width="400"  >  
+                    <p:dialog id="editarDiagnosticos" header="#{msg['cdiagnosticoE']}" widgetVar="editarDiagnosticos" resizable="false" draggable="true" modal="true" height="80" width="400"  >  
                         <p:inputTextarea value="#{controlAusentismos.editarAusentismos.diagnosticocategoria.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarProrrogas" header="#{msg['prorroga']}" widgetVar="editarProrrogas" resizable="false" draggable="false" modal="true" height="80" width="400"  >  
+                    <p:dialog id="editarProrrogas" header="#{msg['prorroga']}" widgetVar="editarProrrogas" resizable="false" draggable="true" modal="true" height="80" width="400"  >  
                         <p:inputTextarea value="#{controlAusentismos.editarAusentismos.prorroga.prorrogaAusentismo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarRelacionD" header="#{msg['periodo']}" widgetVar="editarRelacionD" resizable="false" draggable="false" modal="true" height="80" width="400"  >  
+                    <p:dialog id="editarRelacionD" header="#{msg['periodo']}" widgetVar="editarRelacionD" resizable="false" draggable="true" modal="true" height="80" width="400"  >  
                         <p:inputTextarea value="#{controlAusentismos.editarAusentismos.relacion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarTerceros" header="#{msg['tercero']}" widgetVar="editarTerceros" resizable="false" draggable="false" modal="true" height="80" width="400"  >  
+                    <p:dialog id="editarTerceros" header="#{msg['tercero']}" widgetVar="editarTerceros" resizable="false" draggable="true" modal="true" height="80" width="400"  >  
                         <p:inputTextarea value="#{controlAusentismos.editarAusentismos.tercero.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarObservacionesD" header="#{msg['observaciones']}" widgetVar="editarObservacionesD" resizable="false" draggable="false" modal="true" height="80" width="400"  >  
+                    <p:dialog id="editarObservacionesD" header="#{msg['observaciones']}" widgetVar="editarObservacionesD" resizable="false" draggable="true" modal="true" height="80" width="400"  >  
                         <p:inputTextarea value="#{controlAusentismos.editarAusentismos.observaciones}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <!-- L.O.V TIPOS AUSENTISMOS-->
-                    <p:dialog header="#{msg['tiposausentismosTA']}" widgetVar="tiposAusentismosDialogo" draggable="false" resizable="false" id="tiposAusentismosDialogo" closable="false"  
+                    <p:dialog header="#{msg['tiposausentismosTA']}" widgetVar="tiposAusentismosDialogo" draggable="true" resizable="false" id="tiposAusentismosDialogo" closable="false"  
                               showEffect="fade" hideEffect="fade" modal="true" width="370" height="300" >
 
                         <p:dataTable  id="LOVTiposAusentismos" style=" width: 340px;" var="tipo" value="#{controlAusentismos.listaTiposAusentismos}"
@@ -1122,7 +1122,7 @@
                     </p:dialog>
 
                     <!-- L.O.V CLASES AUSENTISMOS-->
-                    <p:dialog header="#{msg['clasesausentismosCL']}" widgetVar="clasesAusentismosDialogo" draggable="false" resizable="false" id="clasesAusentismosDialogo" closable="false"  
+                    <p:dialog header="#{msg['clasesausentismosCL']}" widgetVar="clasesAusentismosDialogo" draggable="true" resizable="false" id="clasesAusentismosDialogo" closable="false"  
                               showEffect="fade" hideEffect="fade" modal="true" width="370" height="230" >
 
                         <p:dataTable  id="LOVClasesAusentismos" style=" width: 340px;" var="clase" value="#{controlAusentismos.listaClasesAusentismos}"
@@ -1161,7 +1161,7 @@
 
 
                     <!-- L.O.V CAUSAS AUSENTISMOS-->
-                    <p:dialog header="#{msg['causasausentismosCA']}" widgetVar="causasAusentismosDialogo" draggable="false" resizable="false" id="causasAusentismosDialogo" closable="false"  
+                    <p:dialog header="#{msg['causasausentismosCA']}" widgetVar="causasAusentismosDialogo" draggable="true" resizable="false" id="causasAusentismosDialogo" closable="false"  
                               showEffect="fade" hideEffect="fade" modal="true" width="380" height="340" >
 
                         <p:dataTable  id="LOVCausasAusentismos" style=" width: 340px;" var="causa" value="#{controlAusentismos.listaCausasAusentismos}"
@@ -1199,7 +1199,7 @@
                     </p:dialog>
 
                     <!-- L.O.V Empleado-->
-                    <p:dialog header="#{msg['empleados']}" widgetVar="empleadosDialogo" draggable="false" resizable="false" id="empleadosDialogo" closable="false"  
+                    <p:dialog header="#{msg['empleados']}" widgetVar="empleadosDialogo" draggable="true" resizable="false" id="empleadosDialogo" closable="false"  
                               showEffect="fade" hideEffect="fade" modal="true" width="450" height="330" >
 
                         <p:dataTable  id="LOVEmpleados" style=" width: 400px;" var="emp" value="#{controlAusentismos.listaEmpleados}"
@@ -1238,7 +1238,7 @@
                     </p:dialog>
 
                     <!-- L.O.V Porcentajes-->
-                    <p:dialog header="#{msg['porcentajes']}" widgetVar="porcentajesDialogo" draggable="false" resizable="false" id="porcentajesDialogo" closable="false"  
+                    <p:dialog header="#{msg['porcentajes']}" widgetVar="porcentajesDialogo" draggable="true" resizable="false" id="porcentajesDialogo" closable="false"  
                               showEffect="fade" hideEffect="fade" modal="true" width="350" height="245" >
 
                         <p:dataTable  id="LOVPorcentajes" style=" width: 320px;" var="por" value="#{controlAusentismos.listaPorcentaje}"
@@ -1270,7 +1270,7 @@
                     </p:dialog>
 
                     <!-- L.O.V IBCS-->
-                    <p:dialog header="#{msg['ibcs']}" widgetVar="ibcsDialogo" draggable="false" resizable="false" id="ibcsDialogo" closable="false"  
+                    <p:dialog header="#{msg['ibcs']}" widgetVar="ibcsDialogo" draggable="true" resizable="false" id="ibcsDialogo" closable="false"  
                               showEffect="fade" hideEffect="fade" modal="true" width="650" height="250" >
 
                         <p:dataTable  id="LOVIbcs" style=" width: 600px;" var="ibcs" value="#{controlAusentismos.listaIBCS}"
@@ -1321,7 +1321,7 @@
                     </p:dialog>
 
                     <!-- L.O.V Formas-->
-                    <p:dialog header="#{msg['formaspagosF']}" widgetVar="formasDialogo" draggable="false" resizable="false" id="formasDialogo" closable="false"  
+                    <p:dialog header="#{msg['formaspagosF']}" widgetVar="formasDialogo" draggable="true" resizable="false" id="formasDialogo" closable="false"  
                               showEffect="fade" hideEffect="fade" modal="true" width="360" height="290" >
 
                         <p:dataTable  id="LOVFormas" style=" width: 320px;" var="for" value="#{controlAusentismos.listaForma}"
@@ -1351,7 +1351,7 @@
                     </p:dialog>
 
                     <!-- L.O.V ACCIDENTES-->
-                    <p:dialog header="#{msg['accidentesA']}" widgetVar="accidentesDialogo" draggable="false" resizable="false" id="accidentesDialogo" closable="false"  
+                    <p:dialog header="#{msg['accidentesA']}" widgetVar="accidentesDialogo" draggable="true" resizable="false" id="accidentesDialogo" closable="false"  
                               showEffect="fade" hideEffect="fade" modal="true" width="730" height="300" >
 
                         <p:dataTable  id="LOVAccidentes" style=" width: 700px;" var="accidentes" value="#{controlAusentismos.listaAccidentes}"
@@ -1405,7 +1405,7 @@
                     </p:dialog>
 
                     <!-- L.O.V DIAGNOSTICOS-->
-                    <p:dialog header="#{msg['diagnosticosD']}" widgetVar="diagnosticosDialogo" draggable="false" resizable="false" id="diagnosticosDialogo" closable="false"  
+                    <p:dialog header="#{msg['diagnosticosD']}" widgetVar="diagnosticosDialogo" draggable="true" resizable="false" id="diagnosticosDialogo" closable="false"  
                               showEffect="fade" hideEffect="fade" modal="true" width="650" height="350" >
 
                         <p:dataTable  id="LOVDiagnosticos" style=" width: 600px;" var="diagnosticos" value="#{controlAusentismos.listaDiagnosticos}"
@@ -1443,7 +1443,7 @@
 
                     <!-- ACA ESTA LO DE LA PRORROGA -->
                     <!-- L.O.V Prorrogas-->
-                    <p:dialog header="#{msg['prorrogasPR']}" widgetVar="prorrogasDialogo" draggable="false" resizable="false" id="prorrogasDialogo" closable="false"  
+                    <p:dialog header="#{msg['prorrogasPR']}" widgetVar="prorrogasDialogo" draggable="true" resizable="false" id="prorrogasDialogo" closable="false"  
                               showEffect="fade" hideEffect="fade" modal="true" width="620" height="350" >
 
                         <p:dataTable  id="LOVProrrogas" style=" width: 600px;" var="prorrogas" value="#{controlAusentismos.listaProrrogas}"
@@ -1527,7 +1527,7 @@
                     </p:dialog>
 
                     <!-- L.O.V TERCEROS-->
-                    <p:dialog header="#{msg['tercerosT']}" widgetVar="tercerosDialogo" draggable="false" resizable="false" id="tercerosDialogo" closable="false"  
+                    <p:dialog header="#{msg['tercerosT']}" widgetVar="tercerosDialogo" draggable="true" resizable="false" id="tercerosDialogo" closable="false"  
                               showEffect="fade" hideEffect="fade" modal="true" width="355" height="340" >
 
                         <p:dataTable  id="LOVTerceros" style=" width: 320px;" var="terceros" value="#{controlAusentismos.listaTerceros}"
@@ -1556,7 +1556,7 @@
                     </p:dialog>
 
                     <!-- L.O.V ENFERMEDADES-->
-                    <p:dialog header="#{msg['enfermedadesEN']}" widgetVar="enfermedadesDialogo" draggable="false" resizable="false" id="enfermedadesDialogo" closable="false"  
+                    <p:dialog header="#{msg['enfermedadesEN']}" widgetVar="enfermedadesDialogo" draggable="true" resizable="false" id="enfermedadesDialogo" closable="false"  
                               showEffect="fade" hideEffect="fade" modal="true" width="630" height="300" >
 
                         <p:dataTable  id="LOVEnfermedades" style=" width: 600px;" var="enfermedades" value="#{controlAusentismos.listaEnfermeadadesProfesionales}"

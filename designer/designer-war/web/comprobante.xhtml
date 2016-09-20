@@ -700,7 +700,7 @@
                 </style>     
 
                 <h:form id="formularioDialogos">
-                    <p:dialog id="buscarEmpleadoDialogo" header="#{msg['empleados']}" widgetVar="buscarEmpleadoDialogo"  resizable="false" draggable="false" modal="true" width="732"  closable="false">  
+                    <p:dialog id="buscarEmpleadoDialogo" header="#{msg['empleados']}" widgetVar="buscarEmpleadoDialogo"  resizable="false" draggable="true" modal="true" width="732"  closable="false">  
                         <p:dataTable  id="lovEmpleados" style="width: 700px;" var="parametro" value="#{controlComprobantes.listaParametrosLOV}"
                                       scrollable="true" scrollHeight="225" scrollWidth="716" widgetVar="lovEmpleados" liveScroll="true" scrollRows="20" 
                                       filteredValue="#{controlComprobantes.filtradoListaParametrosLOV}" emptyMessage="#{msg['lovvacio']}" 
@@ -741,18 +741,18 @@
 
                     </p:dialog>
 
-                    <p:dialog id="parcialesConcepto" header="#{msg['parciales']}" widgetVar="parcialesConcepto"  resizable="false" draggable="false" modal="true" height="182" width="345"  closable="false">  
+                    <p:dialog id="parcialesConcepto" header="#{msg['parciales']}" widgetVar="parcialesConcepto"  resizable="false" draggable="true" modal="true" height="182" width="345"  closable="false">  
                         <p:inputTextarea value="#{controlComprobantes.parcialesSolucionNodos}" style="position: absolute; left: 10px; top: 10px; width: 300px; height: 125px; font-weight:bold; overflow: auto" readonly="true" />
                         <p:commandButton value="#{msg['aceptar']}" style="position: absolute; top: 148px; left: 225px;" icon="ui-icon-check" onclick="PF('parcialesConcepto').hide();
                                 confirmacionFormatoExtendido').show();"/>
                     </p:dialog>
 
-                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="confirmacionFormatoExtendido" header="#{msg['atencion']}" widgetVar="confirmacionFormatoExtendido"  resizable="false" draggable="false" modal="true" height="110" width="430"  closable="false">  
+                    <p:dialog id="confirmacionFormatoExtendido" header="#{msg['atencion']}" widgetVar="confirmacionFormatoExtendido"  resizable="false" draggable="true" modal="true" height="110" width="430"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="70" style="position: absolute; left: 10px; top: 15px;"  />
                         <h:outputText value="#{msg['formato']}" style="position: absolute; left: 100px; top: 10px; width: 300px; font-weight:bold;" />
                         <h:outputText value="#{msg['aclaracion']}" style="position: absolute; left: 103px; top: 30px; width: 280px; font-weight:bold; text-align: justify" />
@@ -760,7 +760,7 @@
                         <p:commandButton value="No" style="position: absolute; top: 85px; left: 325px;" icon="ui-icon-close" onclick="PF('confirmacionFormatoExtendido').hide();"/>
                     </p:dialog>
 
-                    <p:dialog id="detallesFormulas" header="#{msg['atencion']}" widgetVar="detallesFormulas"  resizable="false" draggable="false" modal="true" height="220" width="505"  closable="false">  
+                    <p:dialog id="detallesFormulas" header="#{msg['atencion']}" widgetVar="detallesFormulas"  resizable="false" draggable="true" modal="true" height="220" width="505"  closable="false">  
                         <fieldset style="position: absolute; top: 10px; width: 455px; height: 170px; border-radius: 10px; ">
                             <legend style="font-weight: bold; color: #00F;">#{msg['estructuraFormula']}</legend>
                             <p:dataTable  id="detalleF" style="width: 440px;" var="detalleFormula" value="#{controlComprobantes.listaDetallesFormulas}"
@@ -786,73 +786,73 @@
 
                     <!--formularios editar nodo empleado     -->
 
-                    <p:dialog id="editarCodEmpleado" header="#{msg['codigoConcepto']}" widgetVar="editarCodEmpleado" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarCodEmpleado" header="#{msg['codigoConcepto']}" widgetVar="editarCodEmpleado" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlComprobantes.solucionNodoSeleccionada.codigoconcepto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarDescConcepto" header="#{msg['descConcepto']}" widgetVar="editarDescConcepto" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarDescConcepto" header="#{msg['descConcepto']}" widgetVar="editarDescConcepto" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlComprobantes.solucionNodoSeleccionada.nombreconcepto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarUnd" header="#{msg['und']}" widgetVar="editarUnd" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarUnd" header="#{msg['und']}" widgetVar="editarUnd" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlComprobantes.solucionNodoSeleccionada.unidades}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarPago" header="#{msg['pago']}" widgetVar="editarPago" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarPago" header="#{msg['pago']}" widgetVar="editarPago" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlComprobantes.solucionNodoSeleccionada.pago}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
                             <f:convertNumber currencyCode="COP"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarDescuento" header="#{msg['descuento']}" widgetVar="editarDescuento" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarDescuento" header="#{msg['descuento']}" widgetVar="editarDescuento" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlComprobantes.solucionNodoSeleccionada.descuento}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
                             <f:convertNumber currencyCode="COP"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarTercero" header="#{msg['tercero']}" widgetVar="editarTercero" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarTercero" header="#{msg['tercero']}" widgetVar="editarTercero" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlComprobantes.solucionNodoSeleccionada.nombretercero}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaHasta" header="#{msg['fechahasta']}" widgetVar="editarFechaHasta" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editarFechaHasta" header="#{msg['fechahasta']}" widgetVar="editarFechaHasta" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputTextarea value="#{controlComprobantes.solucionNodoSeleccionada.fechahasta}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarDebito" header="#{msg['debito']}" widgetVar="editarDebito" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarDebito" header="#{msg['debito']}" widgetVar="editarDebito" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlComprobantes.solucionNodoSeleccionada.codigocuentad}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarCCDebito" header="#{msg['dcosto']}" widgetVar="editarCCDebito" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarCCDebito" header="#{msg['dcosto']}" widgetVar="editarCCDebito" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlComprobantes.solucionNodoSeleccionada.nombrecentrocostod}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarCredito" header="#{msg['credito']}" widgetVar="editarCredito" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarCredito" header="#{msg['credito']}" widgetVar="editarCredito" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlComprobantes.solucionNodoSeleccionada.codigocuentac}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarCCCredito" header="#{msg['ccosto']}" widgetVar="editarCCCredito" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarCCCredito" header="#{msg['ccosto']}" widgetVar="editarCCCredito" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlComprobantes.solucionNodoSeleccionada.nombrecentrocostoc}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarSaldo" header="#{msg['saldo']}" widgetVar="editarSaldo" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarSaldo" header="#{msg['saldo']}" widgetVar="editarSaldo" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlComprobantes.solucionNodoSeleccionada.saldo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaDesde" header="#{msg['fechadesde']}" widgetVar="editarFechaDesde" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editarFechaDesde" header="#{msg['fechadesde']}" widgetVar="editarFechaDesde" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputTextarea value="#{controlComprobantes.solucionNodoSeleccionada.fechadesde}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaPago" header="#{msg['fechapago']}" widgetVar="editarFechaPago" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editarFechaPago" header="#{msg['fechapago']}" widgetVar="editarFechaPago" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputTextarea value="#{controlComprobantes.solucionNodoSeleccionada.fechapago}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaModificacion" header="#{msg['fechamodificacion']}" widgetVar="editarFechaModificacion" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editarFechaModificacion" header="#{msg['fechamodificacion']}" widgetVar="editarFechaModificacion" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputTextarea value="#{controlComprobantes.solucionNodoSeleccionada.ultimamodificacion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
@@ -860,79 +860,79 @@
 
                     <!--formularios editar nodo empleador     -->
 
-                    <p:dialog id="editarCodEmpleador" header="#{msg['codigoConcepto']}" widgetVar="editarCodEmpleador" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarCodEmpleador" header="#{msg['codigoConcepto']}" widgetVar="editarCodEmpleador" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.codigoconcepto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarDescConceptoEmpleador" header="#{msg['descConcepto']}" widgetVar="editarDescConceptoEmpleador" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarDescConceptoEmpleador" header="#{msg['descConcepto']}" widgetVar="editarDescConceptoEmpleador" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.nombreconcepto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarUndEmpleador" header="#{msg['und']}" widgetVar="editarUndEmpleador" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarUndEmpleador" header="#{msg['und']}" widgetVar="editarUndEmpleador" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.unidades}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarPasivo" header="#{msg['pasivo']}" widgetVar="editarPasivo" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarPasivo" header="#{msg['pasivo']}" widgetVar="editarPasivo" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.pasivo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
                             <f:convertNumber currencyCode="COP"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarGasto" header="#{msg['gasto']}" widgetVar="editarGasto" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarGasto" header="#{msg['gasto']}" widgetVar="editarGasto" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.gasto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
                             <f:convertNumber currencyCode="COP"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarTerceroEmpleador" header="#{msg['tercero']}" widgetVar="editarTerceroEmpleador" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarTerceroEmpleador" header="#{msg['tercero']}" widgetVar="editarTerceroEmpleador" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.nombretercero}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaHastaEmpleador" header="#{msg['fechahasta']}" widgetVar="editarFechaHastaEmpleador" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editarFechaHastaEmpleador" header="#{msg['fechahasta']}" widgetVar="editarFechaHastaEmpleador" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputTextarea value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.fechahasta}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarDebitoEmpleador" header="#{msg['debito']}" widgetVar="editarDebitoEmpleador" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarDebitoEmpleador" header="#{msg['debito']}" widgetVar="editarDebitoEmpleador" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.codigocuentad}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarCCDebitoEmpleador" header="#{msg['dcosto']}" widgetVar="editarCCDebitoEmpleador" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarCCDebitoEmpleador" header="#{msg['dcosto']}" widgetVar="editarCCDebitoEmpleador" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.nombrecentrocostod}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarCreditoEmpleador" header="#{msg['credito']}" widgetVar="editarCreditoEmpleador" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarCreditoEmpleador" header="#{msg['credito']}" widgetVar="editarCreditoEmpleador" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.codigocuentac}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarCCCreditoEmpleador" header="#{msg['ccosto']}" widgetVar="editarCCCreditoEmpleador" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarCCCreditoEmpleador" header="#{msg['ccosto']}" widgetVar="editarCCCreditoEmpleador" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.nombrecentrocostoc}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarSaldoEmpleador" header="#{msg['saldo']}" widgetVar="editarSaldoEmpleador" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarSaldoEmpleador" header="#{msg['saldo']}" widgetVar="editarSaldoEmpleador" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.saldo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaDesdeEmpleador" header="#{msg['fechadesde']}" widgetVar="editarFechaDesdeEmpleador" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editarFechaDesdeEmpleador" header="#{msg['fechadesde']}" widgetVar="editarFechaDesdeEmpleador" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputTextarea value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.fechadesde}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaPagoEmpleador" header="#{msg['fechapago']}" widgetVar="editarFechaPagoEmpleador" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editarFechaPagoEmpleador" header="#{msg['fechapago']}" widgetVar="editarFechaPagoEmpleador" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputTextarea value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.fechapago}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaModificacionEmpleador" header="#{msg['fechamodificacion']}" widgetVar="editarFechaModificacionEmpleador" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editarFechaModificacionEmpleador" header="#{msg['fechamodificacion']}" widgetVar="editarFechaModificacionEmpleador" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputTextarea value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.ultimamodificacion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="operacionEnProceso" header="#{msg['informacion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="false" modal="true" height="65" width="350" style="font-size: 12px;" closable="false">  
+                    <p:dialog id="operacionEnProceso" header="#{msg['informacion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="true" modal="true" height="65" width="350" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['operacionProceso']}" style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight:bold;" />
                     </p:dialog>

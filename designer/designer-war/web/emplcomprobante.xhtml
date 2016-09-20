@@ -665,7 +665,7 @@
 
                 <h:form id="formularioDialogos" >
 
-                    <p:dialog id="NuevoRegistroPagina" header="#{msg['nuevoregistro']}" widgetVar="NuevoRegistroPagina" closable="false" resizable="false"  draggable="false" modal="true" height="140" width="400" style=" padding: 0px">  
+                    <p:dialog id="NuevoRegistroPagina" header="#{msg['nuevoregistro']}" widgetVar="NuevoRegistroPagina" closable="false" resizable="false"  draggable="true" modal="true" height="140" width="400" style=" padding: 0px">  
                         <center><strong><h:outputText value="#{msg['nuevoRegistroPagina']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
                         <p:commandButton value="#{msg['titulo']}" id="NuevoComprobante" style="position: absolute; top: 45px; left: 100px; height: 25px; width: 200px;" oncomplete="PF('NuevoRegistroComprobantes').show()" update=":formularioDialogos:nuevoComprobante" onclick="PF('NuevoRegistroPagina').hide();" process="@this"/>
 
@@ -674,7 +674,7 @@
                         <p:commandButton id="CancelarNuevosRegistros" icon="ui-icon-close" onclick="PF('NuevoRegistroPagina').hide();" process="@this" value="#{msg['cancelar']}" style="position: absolute; top: 115px; left: 280px;"/>
                     </p:dialog>
 
-                    <p:dialog id="NuevoRegistroComprobantes" header="#{msg['nuevoregistroC']}" widgetVar="NuevoRegistroComprobantes" closable="false" resizable="false" draggable="false" modal="true" height="230" width="340" style=" padding: 0px">  
+                    <p:dialog id="NuevoRegistroComprobantes" header="#{msg['nuevoregistroC']}" widgetVar="NuevoRegistroComprobantes" closable="false" resizable="false" draggable="true" modal="true" height="230" width="340" style=" padding: 0px">  
                         <center><strong><h:outputText value="#{msg['ingresarnuevoC']}" style="color: blue; position: relative; top: 15px;" /></strong></center> 
 
                         <p:panel id="nuevoComprobante" style="border: none;">
@@ -711,7 +711,7 @@
                         </p:panel>
                     </p:dialog>
 
-                    <p:dialog id="DuplicarRegistroComprobantes" header="#{msg['duplicarregistroC']}" widgetVar="DuplicarRegistroComprobantes" closable="false" resizable="false" draggable="false" modal="true" height="230" width="340" style=" padding: 0px">  
+                    <p:dialog id="DuplicarRegistroComprobantes" header="#{msg['duplicarregistroC']}" widgetVar="DuplicarRegistroComprobantes" closable="false" resizable="false" draggable="true" modal="true" height="230" width="340" style=" padding: 0px">  
                         <center><strong><h:outputText value="#{msg['duplicadoC']}" style="color: blue; position: relative; top: 15px;" /></strong></center> 
 
                         <p:panel id="duplicadoComprobante" style="border: none;">
@@ -748,7 +748,7 @@
                     </p:dialog>
 
                     <!-- CREAR Y DUPLICAR CORTES PROCESOS --> 
-                    <p:dialog id="NuevoRegistroCortesProcesos" header="#{msg['nuevoregistroP']}" widgetVar="NuevoRegistroCortesProcesos" closable="false" resizable="false" draggable="false" modal="true" height="180" width="340" style=" padding: 0px">  
+                    <p:dialog id="NuevoRegistroCortesProcesos" header="#{msg['nuevoregistroP']}" widgetVar="NuevoRegistroCortesProcesos" closable="false" resizable="false" draggable="true" modal="true" height="180" width="340" style=" padding: 0px">  
 
                         <center><strong><h:outputText value="#{msg['ingresarnuevoP']}" style="color: blue; position: relative; top: 15px;" /></strong></center> 
 
@@ -776,7 +776,7 @@
                         </p:panel>
                     </p:dialog>
 
-                    <p:dialog id="DuplicarCortesProcesos" header="#{msg['duplicarregistroP']}" widgetVar="DuplicarCortesProcesos" closable="false" resizable="false" draggable="false" modal="true" height="180" width="340" style=" padding: 0px">  
+                    <p:dialog id="DuplicarCortesProcesos" header="#{msg['duplicarregistroP']}" widgetVar="DuplicarCortesProcesos" closable="false" resizable="false" draggable="true" modal="true" height="180" width="340" style=" padding: 0px">  
 
                         <center><strong><h:outputText value="#{msg['duplicadoP']}" style="color: blue; position: relative; top: 15px;" /></strong></center> 
 
@@ -805,60 +805,60 @@
                     </p:dialog>
 
                     <!-- DIALOGOS VALIDACION-->
-                    <p:dialog id="validacioNuevoComprobante" header="#{msg['atencion']}" widgetVar="validacioNuevoComprobante" resizable="false" draggable="false" modal="true" height="95" width="400" closable="false">  
+                    <p:dialog id="validacioNuevoComprobante" header="#{msg['atencion']}" widgetVar="validacioNuevoComprobante" resizable="false" draggable="true" modal="true" height="95" width="400" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"/>
                         <h:outputText value="#{msg['validacioNuevoComprobante']} #{controlEmplComprobantes.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
                         <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('validacioNuevoComprobante').hide();" style="position: absolute; top: 50px; left: 280px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="validacioNuevoCorteProceso" header="#{msg['atencion']}" widgetVar="validacioNuevoCorteProceso" resizable="false" draggable="false" modal="true" height="95" width="400" closable="false">  
+                    <p:dialog id="validacioNuevoCorteProceso" header="#{msg['atencion']}" widgetVar="validacioNuevoCorteProceso" resizable="false" draggable="true" modal="true" height="95" width="400" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"/>
                         <h:outputText value="#{msg['validacioNuevoCorteProceso']} #{controlEmplComprobantes.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
                         <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('validacioNuevoCorteProceso').hide();" style="position: absolute; top: 50px; left: 280px;" process="@this"/>
                     </p:dialog>
 
-                    <p:dialog id="errorBorrarComprobante" header="#{msg['error']}" widgetVar="errorBorrarComprobante" resizable="false" draggable="false" modal="true" height="95" width="400" closable="false">  
+                    <p:dialog id="errorBorrarComprobante" header="#{msg['error']}" widgetVar="errorBorrarComprobante" resizable="false" draggable="true" modal="true" height="95" width="400" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"/>
                         <h:outputText value="#{msg['errorBorrarComprobante']}" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
                         <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('errorBorrarComprobante').hide();" style="position: absolute; top: 50px; left: 280px;" process="@this"/>
                     </p:dialog>
 
-                    <p:dialog id="errorBorrarCortesProcesos" header="#{msg['error']}" widgetVar="errorBorrarCortesProcesos" resizable="false" draggable="false" modal="true" height="95" width="400" closable="false">  
+                    <p:dialog id="errorBorrarCortesProcesos" header="#{msg['error']}" widgetVar="errorBorrarCortesProcesos" resizable="false" draggable="true" modal="true" height="95" width="400" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"/>
                         <h:outputText value="#{msg['errorBorrarCortesProcesos']}" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
                         <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('errorBorrarCortesProcesos').hide();" style="position: absolute; top: 50px; left: 280px;" process="@this"/>
                     </p:dialog>
 
                     <!-- EDITOR COMPROBANTES -->
-                    <p:dialog id="editarNumeroComprobante" header="#{msg['editarNumeroComrpobante']}" widgetVar="editarNumeroComprobante" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarNumeroComprobante" header="#{msg['editarNumeroComrpobante']}" widgetVar="editarNumeroComprobante" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlEmplComprobantes.editarComprobante.numero}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaComprobante" header="#{msg['editarFechaComprobante']}" widgetVar="editarFechaComprobante" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editarFechaComprobante" header="#{msg['editarFechaComprobante']}" widgetVar="editarFechaComprobante" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputTextarea value="#{controlEmplComprobantes.editarComprobante.fecha}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
-                    <p:dialog id="editarFechaEntrega" header="#{msg['editarFechaEntrega']}" widgetVar="editarFechaEntrega" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editarFechaEntrega" header="#{msg['editarFechaEntrega']}" widgetVar="editarFechaEntrega" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputTextarea value="#{controlEmplComprobantes.editarComprobante.fechaentregado}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
                     <!-- EDITOR CORTES PROCESOS -->
-                    <p:dialog id="editarFechaCorte" header="#{msg['editarFechaCorte']}" widgetVar="editarFechaCorte" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editarFechaCorte" header="#{msg['editarFechaCorte']}" widgetVar="editarFechaCorte" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputTextarea value="#{controlEmplComprobantes.editarCorteProceso.corte}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarProceso" header="#{msg['editarProceso']}" widgetVar="editarProceso" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarProceso" header="#{msg['editarProceso']}" widgetVar="editarProceso" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlEmplComprobantes.editarCorteProceso.proceso.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <!-- DIALOGOS RASTRO-->
 
-                    <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
+                    <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['latabla']} #{controlEmplComprobantes.nombreTabla} #{msg['tiene']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 60px; left: 210px;" action="rastro" process="@this"
@@ -866,7 +866,7 @@
                         <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                     </p:dialog>
 
-                    <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
+                    <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['latabla']} #{controlEmplComprobantes.nombreTabla} #{msg['historicos']} " style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton icon="ui-icon-check" value="Si" onclick="PF('confirmarRastroHistorico').hide();" action="rastro" process="@this"
@@ -874,17 +874,17 @@
                         <p:commandButton icon="ui-icon-close" value="No" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['latabla']} #{controlEmplComprobantes.nombreTabla} #{msg['nohistoricos']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro" resizable="false" draggable="false" modal="true" height="105" width="350"  closable="false">  
+                    <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro" resizable="false" draggable="true" modal="true" height="105" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['latabla']} #{controlEmplComprobantes.nombreTabla} #{msg['rastrostablas']} " style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton icon="ui-icon-check" value="Si" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 65px; left: 210px;" action="rastro" process="@this"
@@ -892,28 +892,28 @@
                         <p:commandButton icon="ui-icon-close" value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 65px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285"  closable="true">  
+                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['latabla']} #{controlEmplComprobantes.nombreTabla} #{msg['rastrostablasno']}"   style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['porfavor']}" style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['latabla']} #{controlEmplComprobantes.nombreTabla} #{msg['objetosDB']}" style="position: absolute; left: 70px; top: 5px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorFechaEntregaNull" header="#{msg['error']}" widgetVar="errorFechaEntregaNull"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="errorFechaEntregaNull" header="#{msg['error']}" widgetVar="errorFechaEntregaNull"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorFechaEntregaNull']}" style="position: absolute; left: 70px; top: 5px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
                     <!-- GUARDAR CAMBIOS CORTES PROCESOS -->
-                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
+                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlEmplComprobantes.guardarCambios()}" action="nomina" 
@@ -924,7 +924,7 @@
                     </p:dialog>
 
                     <!-- LOV PROCESOS-->
-                    <p:dialog header="#{msg['procesosP']}" widgetVar="ProcesosDialogo" draggable="false" resizable="false" closable="false" id="ProcesosDialogo"  
+                    <p:dialog header="#{msg['procesosP']}" widgetVar="ProcesosDialogo" draggable="true" resizable="false" closable="false" id="ProcesosDialogo"  
                               showEffect="fade" hideEffect="fade" width="431" modal="true" >
                         <p:dataTable id="lovProcesos" liveScroll="true" scrollRows="25"  var="proceso" value="#{controlEmplComprobantes.lovProcesos}" rowKey="#{proceso.secuencia}"
                                      selection="#{controlEmplComprobantes.procesoSelecionado}" selectionMode="single" widgetVar="lovProcesos" scrollable="true" scrollWidth="416" scrollHeight="225"
@@ -964,7 +964,7 @@
 
 
                     <!-- LOV TERCEROS-->
-                    <p:dialog header="#{msg['tercerosT']}" widgetVar="TercerosDialogo" draggable="false" resizable="false" closable="false" id="TercerosDialogo"  
+                    <p:dialog header="#{msg['tercerosT']}" widgetVar="TercerosDialogo" draggable="true" resizable="false" closable="false" id="TercerosDialogo"  
                               showEffect="fade" hideEffect="fade" width="431" modal="true" >
                         <p:dataTable id="lovTerceros" liveScroll="true" scrollRows="25" var="tercero" value="#{controlEmplComprobantes.lovTerceros}" rowKey="#{tercero.secuencia}"
                                      selection="#{controlEmplComprobantes.terceroSelecionado}" selectionMode="single" widgetVar="lovTerceros" scrollable="true" scrollWidth="416" scrollHeight="225"
@@ -1003,7 +1003,7 @@
                         </div>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['cuentaDebitoM']}" widgetVar="CuentaDebitoDialogo" draggable="false" resizable="false" closable="false" id="CuentaDebitoDialogo"  
+                    <p:dialog header="#{msg['cuentaDebitoM']}" widgetVar="CuentaDebitoDialogo" draggable="true" resizable="false" closable="false" id="CuentaDebitoDialogo"  
                               showEffect="fade" hideEffect="fade" width="431" modal="true" >
                         <p:dataTable id="lovCuentaDebito" liveScroll="true" scrollRows="25"  var="cuentaDebito" value="#{controlEmplComprobantes.lovCuentas}" rowKey="#{cuentaDebito.secuencia}"
                                      selection="#{controlEmplComprobantes.cuentaSeleccionada}" selectionMode="single" widgetVar="lovCuentaDebito" scrollable="true" scrollWidth="416" scrollHeight="225"
@@ -1044,7 +1044,7 @@
 
                     </p:dialog>
 
-                    <p:dialog header="#{msg['cuentaCreditoM']}" widgetVar="CuentaCreditoDialogo" draggable="false" resizable="false" closable="false" id="CuentaCreditoDialogo"  
+                    <p:dialog header="#{msg['cuentaCreditoM']}" widgetVar="CuentaCreditoDialogo" draggable="true" resizable="false" closable="false" id="CuentaCreditoDialogo"  
                               showEffect="fade" hideEffect="fade" width="431" modal="true" >
                         <p:dataTable id="lovCuentaCredito" liveScroll="true" scrollRows="25"  var="cuentaCredito" value="#{controlEmplComprobantes.lovCuentas}" rowKey="#{cuentaCredito.secuencia}"
                                      selection="#{controlEmplComprobantes.cuentaSeleccionada}" selectionMode="single" widgetVar="lovCuentaCredito" scrollable="true" scrollWidth="416" scrollHeight="225"
@@ -1083,7 +1083,7 @@
 
                     </p:dialog>
 
-                    <p:dialog header="#{msg['centroCostoDebitoM']}" widgetVar="CentroCostoDebitoDialogo" draggable="false" resizable="false" closable="false" id="CentroCostoDebitoDialogo"  
+                    <p:dialog header="#{msg['centroCostoDebitoM']}" widgetVar="CentroCostoDebitoDialogo" draggable="true" resizable="false" closable="false" id="CentroCostoDebitoDialogo"  
                               showEffect="fade" hideEffect="fade" width="431" modal="true" >
                         <p:dataTable id="lovCentroCostoDebito" liveScroll="true" scrollRows="25"  var="centroCostoDebito" value="#{controlEmplComprobantes.lovCentrosCostos}" rowKey="#{centroCostoDebito.secuencia}"
                                      selection="#{controlEmplComprobantes.centroCostoSeleccionado}" selectionMode="single" widgetVar="lovCentroCostoDebito" scrollable="true" scrollWidth="416" scrollHeight="225"
@@ -1122,7 +1122,7 @@
                         </div>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['centroCostoCreditoM']}" widgetVar="CentroCostoCreditoDialogo" draggable="false" resizable="false" closable="false" id="CentroCostoCreditoDialogo"  
+                    <p:dialog header="#{msg['centroCostoCreditoM']}" widgetVar="CentroCostoCreditoDialogo" draggable="true" resizable="false" closable="false" id="CentroCostoCreditoDialogo"  
                               showEffect="fade" hideEffect="fade" width="431" modal="true" >
                         <p:dataTable id="lovCentroCostoCredito" liveScroll="true" scrollRows="25" style="width: 400px;" var="centroCostoCredito" value="#{controlEmplComprobantes.lovCentrosCostos}" rowKey="#{centroCostoCredito.secuencia}"
                                      selection="#{controlEmplComprobantes.centroCostoSeleccionado}" selectionMode="single" widgetVar="lovCentroCostoCredito" scrollable="true" scrollWidth="416" scrollHeight="225"
@@ -1160,12 +1160,12 @@
 
                     </p:dialog>
 
-                    <p:dialog id="parcialesConcepto" header="#{msg['parciales']}" widgetVar="parcialesConcepto" resizable="false" draggable="false" modal="true" height="182" width="330" closable="false">  
+                    <p:dialog id="parcialesConcepto" header="#{msg['parciales']}" widgetVar="parcialesConcepto" resizable="false" draggable="true" modal="true" height="182" width="330" closable="false">  
                         <p:inputTextarea value="#{controlEmplComprobantes.parcialesSolucionNodos}" style="position: absolute; left: 10px; top: 10px; width: 300px; height: 125px; font-weight:bold; overflow: auto" readonly="true" />
                         <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" style="position: absolute; top: 150px; left: 220px;" onclick="PF('parcialesConcepto').hide(); confirmacionFormatoExtendido').show();" process="@this"/>
                     </p:dialog>
 
-                    <p:dialog id="confirmacionFormatoExtendido" header="#{msg['atencion']}" widgetVar="confirmacionFormatoExtendido" resizable="false" draggable="false" modal="true" height="100" width="410" closable="false">  
+                    <p:dialog id="confirmacionFormatoExtendido" header="#{msg['atencion']}" widgetVar="confirmacionFormatoExtendido" resizable="false" draggable="true" modal="true" height="100" width="410" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 10px; top: 15px;"  />
                         <h:outputText value="#{msg['formatoextendido']}" style="position: absolute; left: 80px; top: 10px; width: 300px; font-weight:bold;" />
                         <h:outputText value="#{msg['aclaracion']}" style="position: absolute; left: 80px; top: 25px; width: 300px; font-weight:bold; text-align: justify" />
@@ -1174,7 +1174,7 @@
                         <p:commandButton icon="ui-icon-close" value="#{msg['no']}" style="position: absolute; top: 75px; left: 300px;" onclick="PF('confirmacionFormatoExtendido').hide();" process="@this"/>
                     </p:dialog>
 
-                    <p:dialog id="detallesFormulas" header="#{msg['atencion']}" widgetVar="detallesFormulas" resizable="false" draggable="false" modal="true" height="220" width="505" closable="false">  
+                    <p:dialog id="detallesFormulas" header="#{msg['atencion']}" widgetVar="detallesFormulas" resizable="false" draggable="true" modal="true" height="220" width="505" closable="false">  
                         <fieldset style="position: absolute; top: 5px; width: 455px; height: 195px; border-radius: 10px;">
                             <legend style=" font-weight: bold; color: #00F;">Estructura de la formula</legend>
                             <p:dataTable  id="detalleF" style=" width: 440px;" var="detalleFormula" value="#{controlEmplComprobantes.listaDetallesFormulas}"

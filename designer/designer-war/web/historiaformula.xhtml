@@ -418,101 +418,101 @@
 
                     </p:panel>
 
-                    <p:dialog id="confirmarRastro" header="ATENCIÓN" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
+                    <p:dialog id="confirmarRastro" header="ATENCIÓN" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{controlHistoriaFormula.msnConfirmarRastro}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center;" />
                         <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlHistoriaFormula.backUp, controlHistoriaFormula.nombreTablaRastro , 'historiaFormulaRastro')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
                         <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" actionListener="#{controlHistoriaFormula.limpiarMSNRastros()}" style="position: absolute; top: 63px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="confirmarRastroHistorico" header="ATENCIÓN" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
+                    <p:dialog id="confirmarRastroHistorico" header="ATENCIÓN" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{controlHistoriaFormula.msnConfirmarRastroHistorico}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla(controlHistoriaFormula.nombreTablaRastro , 'historiaFormulaRastro')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
                         <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlHistoriaFormula.limpiarMSNRastros()}" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorRastroHistorico" header="ATENCIÓN" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+                    <p:dialog id="errorRastroHistorico" header="ATENCIÓN" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla no tiene rastros historicos." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorRegistroRastro" header="ATENCIÓN" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+                    <p:dialog id="errorRegistroRastro" header="ATENCIÓN" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="El registro seleccionado no tiene rastros." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaConRastro" header="ATENCIÓN" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
+                    <p:dialog id="errorTablaConRastro" header="ATENCIÓN" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlHistoriaFormula.backUp, controlHistoriaFormula.nombreTablaRastro , 'historiaFormulaRastro')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
                         <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaSinRastro" header="ATENCIÓN" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285" style="font-size: 12px;" closable="true">  
+                    <p:dialog id="errorTablaSinRastro" header="ATENCIÓN" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla no existe en RASTROSTABLAS, y no tiene registros asociados." style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="seleccionarRegistro" header="ATENCIÓN" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+                    <p:dialog id="seleccionarRegistro" header="ATENCIÓN" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="Por favor seleccione un registro." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorObjetosDB" header="ATENCIÓN" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+                    <p:dialog id="errorObjetosDB" header="ATENCIÓN" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla no se encuentra en ObjetosDB. Porfavor comunicarse con soporte." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorRegNuevo" header="ATENCIÓN" widgetVar="errorRegNuevo"  resizable="false" draggable="false" modal="true" height="60" width="285" style="font-size: 12px;" closable="true">  
+                    <p:dialog id="errorRegNuevo" header="ATENCIÓN" widgetVar="errorRegNuevo"  resizable="false" draggable="true" modal="true" height="60" width="285" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="Los campos Fecha Inicial y Fecha Final son obligatorios." style="position: absolute; left: 80px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorFechasHF" header="ATENCIÓN" widgetVar="errorFechasHF"  resizable="false" draggable="false" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+                    <p:dialog id="errorFechasHF" header="ATENCIÓN" widgetVar="errorFechasHF"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La fecha inicial es menor a 01/01/1990 y/o la fecha final es menor a la fecha inicial." style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorSolapamientoFechas" header="ATENCIÓN" widgetVar="errorSolapamientoFechas"  resizable="false" draggable="false" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+                    <p:dialog id="errorSolapamientoFechas" header="ATENCIÓN" widgetVar="errorSolapamientoFechas"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="Error de solapamiento de fechas. Verifique las fechas del registro" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorNotaHF" header="ATENCIÓN" widgetVar="errorNotaHF"  resizable="false" draggable="false" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+                    <p:dialog id="errorNotaHF" header="ATENCIÓN" widgetVar="errorNotaHF"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="El campo Nota no puede ser mayor a 200 caracteres." style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="seleccionarRegistroNodo" header="ATENCIÓN" widgetVar="seleccionarRegistroNodo"  resizable="false" draggable="false" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+                    <p:dialog id="seleccionarRegistroNodo" header="ATENCIÓN" widgetVar="seleccionarRegistroNodo"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="Por favor seleccione un registro tipo : Generar Formula." style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorDuplicarNodo" header="ATENCIÓN" widgetVar="errorDuplicarNodo"  resizable="false" draggable="false" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+                    <p:dialog id="errorDuplicarNodo" header="ATENCIÓN" widgetVar="errorDuplicarNodo"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La opcion Duplicar no esta habilitada." style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorEliminarEF" header="ATENCIÓN" widgetVar="errorEliminarEF"  resizable="false" draggable="false" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+                    <p:dialog id="errorEliminarEF" header="ATENCIÓN" widgetVar="errorEliminarEF"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La opcion Eliminar no esta habilitada." style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorModificacionEF" header="ATENCIÓN" widgetVar="errorModificacionEF"  resizable="false" draggable="false" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+                    <p:dialog id="errorModificacionEF" header="ATENCIÓN" widgetVar="errorModificacionEF"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="Los datos de la tabla no pueden ser modificados." style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
 
-                    <p:dialog id="errorBorradoHistoriaF" header="ATENCIÓN" widgetVar="errorBorradoHistoriaF"  resizable="false" draggable="false" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+                    <p:dialog id="errorBorradoHistoriaF" header="ATENCIÓN" widgetVar="errorBorradoHistoriaF"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="Para eliminar el registro es necesario que no tenga Nodos asociados." style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
 
 
-                    <p:dialog id="confirmarGuardar" header="ATENCIÓN...!" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="95" width="400" style="font-size: 12px;" closable="false">  
+                    <p:dialog id="confirmarGuardar" header="ATENCIÓN...!" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="95" width="400" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
                         <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlHistoriaFormula.guardarYSalir()}" style="position: absolute; top: 60px; left: 215px;" action="retornoFormula" process="@this" />
@@ -526,7 +526,7 @@
 
                 <h:form id="formularioDialogos">
 
-                    <p:dialog id="NuevoRegistroPagina" header="Ingreso Nuevo Registro" widgetVar="NuevoRegistroPagina" closable="false" resizable="false"  draggable="false" modal="true" height="160" width="400" style="font-size: 12px; padding: 0px">  
+                    <p:dialog id="NuevoRegistroPagina" header="Ingreso Nuevo Registro" widgetVar="NuevoRegistroPagina" closable="false" resizable="false"  draggable="true" modal="true" height="160" width="400" style="font-size: 12px; padding: 0px">  
                         <center><strong><h:outputText value="Seleccione la tabla para el nuevo registro" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
                         <h:outputText value="Historia Formula" style="position: absolute; top: 47px;left: 60px"/>
                         <p:commandButton id="NuevoRegHistoriaFormula" icon="ui-icon-circle-check" style="position: absolute; top: 45px;left: 300px; height: 25px; width: 40px;" actionListener="#{controlHistoriaFormula.validarIngresoNuevaHistoriaFormula()}" onclick="PF('NuevoRegistroPagina').hide();" process="@this"/>
@@ -537,7 +537,7 @@
                         <p:commandButton id="CancelarNuevosRegistros" onclick="PF('NuevoRegistroPagina').hide();"  process="@this" value="Cancelar" style="position: absolute; top: 137px;left: 280px"/>
                     </p:dialog>
 
-                    <p:dialog id="SeleccionRegGenerarFormula" header="Tipo de Nodo" widgetVar="SeleccionRegGenerarFormula" closable="false" resizable="false"  draggable="false" modal="true" height="160" width="280" style="font-size: 12px; padding: 0px">  
+                    <p:dialog id="SeleccionRegGenerarFormula" header="Tipo de Nodo" widgetVar="SeleccionRegGenerarFormula" closable="false" resizable="false"  draggable="true" modal="true" height="160" width="280" style="font-size: 12px; padding: 0px">  
                         <center><strong><h:outputText value="Seleccione el tipo de nodo a crear" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
                         <h:outputText value="Operador" style="position: absolute; top: 47px;left: 60px"/>
                         <p:commandButton id="NuevoRegOperador" icon="ui-icon-circle-check" style="position: absolute; top: 45px;left: 200px; height: 25px; width: 40px;"  onclick="PF('SeleccionRegGenerarFormula').hide();" actionListener="#{controlHistoriaFormula.dialogoNuevoOperandor()}" process="@this"/>
@@ -548,7 +548,7 @@
                         <p:commandButton id="CancelarNuevoRegGenerarFormula" onclick="PF('SeleccionRegGenerarFormula').hide();"  process="@this" value="Cancelar" style="position: absolute; top: 125px;left: 180px"/>
                     </p:dialog>
 
-                    <p:dialog header="Operandos" widgetVar="OperandoDialogo" draggable="false" resizable="false" closable="false" id="OperandoDialogo"  
+                    <p:dialog header="Operandos" widgetVar="OperandoDialogo" draggable="true" resizable="false" closable="false" id="OperandoDialogo"  
                               showEffect="fade" hideEffect="fade" width="575" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovOperando" style="font-size: 11px; width: 560px;" var="operando" value="#{controlHistoriaFormula.listOperandos}" rowKey="#{operando.secuencia}"
                                      selection="#{controlHistoriaFormula.operandoSeleccionado}" selectionMode="single" widgetVar="lovOperando" scrollable="true" scrollHeight="250" scrollWidth="560"
@@ -589,7 +589,7 @@
                         <p:commandButton id="cancelarOperando" style="position: relative; left: 230px;" value="Atras" actionListener="#{controlHistoriaFormula.cancelarCambioOperando()}" process="@this"/>
                     </p:dialog> 
 
-                    <p:dialog header="Operadores" widgetVar="OperadorDialogo" draggable="false" resizable="false" closable="false" id="OperadorDialogo"  
+                    <p:dialog header="Operadores" widgetVar="OperadorDialogo" draggable="true" resizable="false" closable="false" id="OperadorDialogo"  
                               showEffect="fade" hideEffect="fade" width="575" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovOperador" style="font-size: 11px; width: 560px;" var="operador" value="#{controlHistoriaFormula.listOperadores}" rowKey="#{operador.secuencia}"
                                      selection="#{controlHistoriaFormula.operadorSeleccionado}" selectionMode="single" widgetVar="lovOperador" scrollable="true" scrollHeight="250" scrollWidth="560"
@@ -618,7 +618,7 @@
                         <p:commandButton id="cancelarOperador" style="position: relative; left: 230px;" value="Atras" actionListener="#{controlHistoriaFormula.cancelarCambioOperador()}" process="@this"/>
                     </p:dialog> 
 
-                    <p:dialog id="NuevoRegistroHistoria" header="Nuevo Registro Historia Formula" widgetVar="NuevoRegistroHistoria" closable="false" resizable="false"  draggable="false" modal="true" height="240" width="400" style="font-size: 12px; padding: 0px">  
+                    <p:dialog id="NuevoRegistroHistoria" header="Nuevo Registro Historia Formula" widgetVar="NuevoRegistroHistoria" closable="false" resizable="false"  draggable="true" modal="true" height="240" width="400" style="font-size: 12px; padding: 0px">  
 
                         <center><strong><h:outputText value="Ingresar nueva información" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
 
@@ -652,7 +652,7 @@
                         </p:panel>
                     </p:dialog>
 
-                    <p:dialog id="DuplicarRegistroHistoria" header="Duplicar Registro Historia Formula" widgetVar="DuplicarRegistroHistoria" closable="false" resizable="false"  draggable="false" modal="true" height="240" width="400" style="font-size: 12px; padding: 0px">  
+                    <p:dialog id="DuplicarRegistroHistoria" header="Duplicar Registro Historia Formula" widgetVar="DuplicarRegistroHistoria" closable="false" resizable="false"  draggable="true" modal="true" height="240" width="400" style="font-size: 12px; padding: 0px">  
 
                         <center><strong><h:outputText value="Ingresar nueva información" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
 
@@ -686,48 +686,48 @@
                         </p:panel>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaInicialHFD" header="Fecha Inicial - Historia Formula" widgetVar="editarFechaInicialHFD" resizable="false" draggable="false" modal="true" height="93" width="240" style="font-size: 12px">  
+                    <p:dialog id="editarFechaInicialHFD" header="Fecha Inicial - Historia Formula" widgetVar="editarFechaInicialHFD" resizable="false" draggable="true" modal="true" height="93" width="240" style="font-size: 12px">  
                         <p:inputTextarea value="#{controlHistoriaFormula.editarHistoriaFormula.strFechaIni}" style="overflow: auto; width: 200px; height: 40px;text-transform: uppercase" readonly="true"/>
                         <p:commandButton id="cancelarFechaInicialHFD" value="Atras" onclick="PF('editarFechaInicialHFD').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaFinalHFD" header="Fecha Final - Historia Formula" widgetVar="editarFechaFinalHFD" resizable="false" draggable="false" modal="true" height="93" width="240" style="font-size: 12px">  
+                    <p:dialog id="editarFechaFinalHFD" header="Fecha Final - Historia Formula" widgetVar="editarFechaFinalHFD" resizable="false" draggable="true" modal="true" height="93" width="240" style="font-size: 12px">  
                         <p:inputTextarea value="#{controlHistoriaFormula.editarHistoriaFormula.strFechaFin}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                         <p:commandButton id="cancelarFechaFinalHFD" value="Atras" onclick="PF('editarFechaFinalHFD').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                     </p:dialog>
 
-                    <p:dialog id="editarObservacionHFD" header="Nota - Historia Formula" widgetVar="editarObservacionHFD" resizable="false" draggable="false" modal="true" height="93" width="240" style="font-size: 12px">  
+                    <p:dialog id="editarObservacionHFD" header="Nota - Historia Formula" widgetVar="editarObservacionHFD" resizable="false" draggable="true" modal="true" height="93" width="240" style="font-size: 12px">  
                         <p:inputTextarea value="#{controlHistoriaFormula.editarHistoriaFormula.observaciones}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                         <p:commandButton id="cancelarEditarObservacionHFD" value="Atras" onclick="PF('editarObservacionHFD').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                     </p:dialog>
 
-                    <p:dialog id="editarOperandoNodoD" header="Operando - Generar Formula" widgetVar="editarOperandoNodoD" resizable="false" draggable="false" modal="true" height="93" width="240" style="font-size: 12px">  
+                    <p:dialog id="editarOperandoNodoD" header="Operando - Generar Formula" widgetVar="editarOperandoNodoD" resizable="false" draggable="true" modal="true" height="93" width="240" style="font-size: 12px">  
                         <p:inputTextarea value="#{controlHistoriaFormula.editarNodo.descripcionNodo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                         <p:commandButton id="cancelarEditarOperandoNodoD" value="Atras" onclick="PF('editarOperandoNodoD').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                     </p:dialog>
 
-                    <p:dialog id="editarOperadorNodoD" header="Operador - Generar Formula" widgetVar="editarOperadorNodoD" resizable="false" draggable="false" modal="true" height="93" width="240" style="font-size: 12px">  
+                    <p:dialog id="editarOperadorNodoD" header="Operador - Generar Formula" widgetVar="editarOperadorNodoD" resizable="false" draggable="true" modal="true" height="93" width="240" style="font-size: 12px">  
                         <p:inputTextarea value="#{controlHistoriaFormula.editarNodo.descripcionNodo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                         <p:commandButton id="cancelarEditarOperadorNodoD" value="Atras" onclick="PF('editarOperadorNodoD').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                     </p:dialog>
 
 
-                    <p:dialog id="editarDescripcionEFD" header="Descripcion - Estructura Formula" widgetVar="editarDescripcionEFD" resizable="false" draggable="false" modal="true" height="93" width="255" style="font-size: 12px">  
+                    <p:dialog id="editarDescripcionEFD" header="Descripcion - Estructura Formula" widgetVar="editarDescripcionEFD" resizable="false" draggable="true" modal="true" height="93" width="255" style="font-size: 12px">  
                         <p:inputTextarea value="#{controlHistoriaFormula.editarEstructura.descripcion}" style="overflow: auto; width: 215px; height: 40px;" readonly="true"/>
                         <p:commandButton id="cancelarEditarDescripcionEFD" value="Atras" onclick="PF('editarDescripcionEFD').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                     </p:dialog>
 
-                    <p:dialog id="editarIdFormulaEFD" header="ID Formula - Estructura Formula" widgetVar="editarIdFormulaEFD" resizable="false" draggable="false" modal="true" height="93" width="255" style="font-size: 12px">  
+                    <p:dialog id="editarIdFormulaEFD" header="ID Formula - Estructura Formula" widgetVar="editarIdFormulaEFD" resizable="false" draggable="true" modal="true" height="93" width="255" style="font-size: 12px">  
                         <p:inputTextarea value="#{controlHistoriaFormula.editarEstructura.strFormula}" style="overflow: auto; width: 215px; height: 40px;" readonly="true"/>
                         <p:commandButton id="cancelarEditarIdFormulaEFD" value="Atras" onclick="PF('editarIdFormulaEFD').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                     </p:dialog>
 
-                    <p:dialog id="editarIdHijoEFD" header="ID Hijo - Estructura Formula" widgetVar="editarIdHijoEFD" resizable="false" draggable="false" modal="true" height="93" width="240" style="font-size: 12px">  
+                    <p:dialog id="editarIdHijoEFD" header="ID Hijo - Estructura Formula" widgetVar="editarIdHijoEFD" resizable="false" draggable="true" modal="true" height="93" width="240" style="font-size: 12px">  
                         <p:inputTextarea value="#{controlHistoriaFormula.editarEstructura.strHijo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                         <p:commandButton id="cancelarEditarIdHijoEFD" value="Atras" onclick="PF('editarIdHijoEFD').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                     </p:dialog>
 
-                    <p:dialog id="editarFormulaEFD" header="Formula - Estructura Formula" widgetVar="editarFormulaEFD" resizable="false" draggable="false" modal="true" height="93" width="240" style="font-size: 12px">  
+                    <p:dialog id="editarFormulaEFD" header="Formula - Estructura Formula" widgetVar="editarFormulaEFD" resizable="false" draggable="true" modal="true" height="93" width="240" style="font-size: 12px">  
                         <p:inputTextarea value="#{controlHistoriaFormula.editarEstructura.nombreNodo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                         <p:commandButton id="cancelarEditarFormulaEFD" value="Atras" onclick="PF('editarFormulaEFD').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                     </p:dialog>

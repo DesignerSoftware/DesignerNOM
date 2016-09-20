@@ -154,7 +154,7 @@
                   <p:commandButton style=" position: absolute; left: 730px; top: 487px; font-size: 10px; font-family: Arial, Helvetica, sans-serif;" icon="ui-icon-check" id="ACEPTAR" value="Aceptar"  disabled="#{controlMotivosDefinitivas.guardado}" actionListener="#{controlMotivosDefinitivas.revisarDialogoGuardar()}"     process="@this"   />
                   <p:commandButton style=" position: absolute; left: 805px; top: 487px; font-size: 10px; font-family: Arial, Helvetica, sans-serif;" icon="ui-icon-arrowreturnthick-1-w" id="ATRAS" value="Atras"    />
 
-                  <p:dialog header="ATENCIÓN...!" widgetVar="confirmarGuardar" draggable="false" resizable="false" closable="false" id="confirmarGuardar"  
+                  <p:dialog header="ATENCIÓN...!" widgetVar="confirmarGuardar" draggable="true" resizable="false" closable="false" id="confirmarGuardar"  
                             showEffect="fade" hideEffect="fade" width="400" height="110" modal="true" style="font-size: 11px;">
                      <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                      <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight:bold" />
@@ -166,27 +166,27 @@
                </p:panel>
 
 
-               <p:dialog id="validacionDuplicarVigencia" header="ATENCIÓN...!" widgetVar="validacionDuplicarVigencia"  resizable="false" draggable="false" modal="true" height="95" width="400" style="font-size: 12px;" closable="false">  
+               <p:dialog id="validacionDuplicarVigencia" header="ATENCIÓN...!" widgetVar="validacionDuplicarVigencia"  resizable="false" draggable="true" modal="true" height="95" width="400" style="font-size: 12px;" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 10px; top: 15px;"  />
                   <h:outputText value="Necesita : #{controlMotivosDefinitivas.mensajeValidacion}" style="position: absolute; left: 80px; top: 20px; width: 300px; font-weight:bold" />
                   <p:commandButton value="Aceptar" onclick="PF('validacionDuplicarVigencia').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
                </p:dialog>
-               <p:dialog id="validacionModificar" header="ATENCIÓN...!" widgetVar="validacionModificar"  resizable="false" draggable="false" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
+               <p:dialog id="validacionModificar" header="ATENCIÓN...!" widgetVar="validacionModificar"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 30px; top: 20px;"  />
                   <h:outputText value=" #{controlMotivosDefinitivas.mensajeValidacion}" style="position: absolute; left: 100px; top: 25px; width: 250px; font-weight:bold" />
                   <p:commandButton value="Aceptar" onclick="PF('validacionModificar').hide();" style="position: absolute; top: 60px; left: 250px;" process="@this" />
                </p:dialog>
-               <p:dialog id="validacionBorrar" header="ATENCIÓN...!" widgetVar="validacionBorrar"  resizable="false" draggable="false" modal="true" height="95" width="400" style="font-size: 12px;" closable="false">  
+               <p:dialog id="validacionBorrar" header="ATENCIÓN...!" widgetVar="validacionBorrar"  resizable="false" draggable="true" modal="true" height="95" width="400" style="font-size: 12px;" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 25px; top: 10px;"  />
                   <h:outputText value="No se puede borrar este elemento porque esta relacionado con otra tabla" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight:bold" />
                   <p:commandButton value="Aceptar" onclick="PF('validacionBorrar').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
                </p:dialog>
-               <p:dialog id="mostrarBorrados" header="ATENCIÓN...!" widgetVar="mostrarBorrados"  resizable="false" draggable="false" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
+               <p:dialog id="mostrarBorrados" header="ATENCIÓN...!" widgetVar="mostrarBorrados"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="50" height="70" style="position: absolute; left: 40px; top: 10px;"  />
                   <h:outputText value="Se han borrado #{controlMotivosDefinitivas.registrosBorrados}  Registros" style="position: absolute; left: 100px; top: 20px; width: 250px; font-weight:bold" />
                   <p:commandButton value="Aceptar" onclick="PF('mostrarBorrados').hide();" style="position: absolute; top: 60px; left: 200px;" process="@this" />
                </p:dialog>
-               <p:dialog id="validacionNuevaCentroCosto" header="ATENCIÓN...!" widgetVar="validacionNuevaCentroCosto"  resizable="false" draggable="false" modal="true" height="95" width="450" style="font-size: 12px;" closable="false">  
+               <p:dialog id="validacionNuevaCentroCosto" header="ATENCIÓN...!" widgetVar="validacionNuevaCentroCosto"  resizable="false" draggable="true" modal="true" height="95" width="450" style="font-size: 12px;" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                   <h:outputText value="Para agregar es necesario adicionar: #{controlMotivosDefinitivas.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight:bold" />
                   <p:commandButton value="Aceptar" onclick="PF('validacionNuevaCentroCosto').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
@@ -196,68 +196,68 @@
 
             <h:form id="formularioDialogos">
 
-               <p:dialog id="confirmarRastro" header="ATENCIÓN" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
+               <p:dialog id="confirmarRastro" header="ATENCIÓN" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="La tabla 'TIPOSCERTIFICADOS' tiene rastros para el registro seleccionado, ¿desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                   <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlMotivosDefinitivas.secRegistro,'MotivosDefinitivas', 'motivodefinitiva')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
                   <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
                </p:dialog>
 
-               <p:dialog id="confirmarRastroHistorico" header="ATENCIÓN" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
+               <p:dialog id="confirmarRastroHistorico" header="ATENCIÓN" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="La tabla ENCARGATURAS tiene rastros historicos, ¿Desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                   <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('MotivosDefinitivas', 'motivodefinitiva')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
                   <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                </p:dialog>
 
-               <p:dialog id="errorRastroHistorico" header="ATENCIÓN" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+               <p:dialog id="errorRastroHistorico" header="ATENCIÓN" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="La tabla no tiene rastros historicos." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                </p:dialog>
 
-               <p:dialog id="errorRegistroRastro" header="ATENCIÓN" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+               <p:dialog id="errorRegistroRastro" header="ATENCIÓN" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="El registro seleccionado no tiene rastros." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                </p:dialog>
 
-               <p:dialog id="errorTablaConRastro" header="ATENCIÓN" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
+               <p:dialog id="errorTablaConRastro" header="ATENCIÓN" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
                   <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlMotivosDefinitivas.secRegistro,'MotivosDefinitivas', 'motivodefinitiva')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
                   <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                </p:dialog>
 
-               <p:dialog id="errorTablaSinRastro" header="ATENCIÓN" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285" style="font-size: 12px;" closable="true">  
+               <p:dialog id="errorTablaSinRastro" header="ATENCIÓN" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285" style="font-size: 12px;" closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="La tabla no existe en RASTROSTABLAS, y no tiene registros asociados." style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
                </p:dialog>
 
-               <p:dialog id="seleccionarRegistro" header="ATENCIÓN" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+               <p:dialog id="seleccionarRegistro" header="ATENCIÓN" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="Por favor seleccione un registro." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
                </p:dialog>
 
-               <p:dialog id="errorObjetosDB" header="ATENCIÓN" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+               <p:dialog id="errorObjetosDB" header="ATENCIÓN" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="La tabla 'ENCARGATURAS' no se encuentra en ObjetosDB. Porfavor comunicarse con soporte." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
                </p:dialog>
 
 
 
-               <p:dialog id="editCodigo" header="Editar Código" widgetVar="editCodigo" resizable="false" draggable="false" modal="true" height="93" width="240" style="font-size: 12px;text-transform: uppercase">  
+               <p:dialog id="editCodigo" header="Editar Código" widgetVar="editCodigo" resizable="false" draggable="true" modal="true" height="93" width="240" style="font-size: 12px;text-transform: uppercase">  
                   <p:inputTextarea value="#{controlMotivosDefinitivas.editarMotivoDefinitiva.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                   <p:commandButton id="cancelarCodigo" value="Atras" onclick="PF('editCodigo').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                </p:dialog>
 
 
-               <p:dialog id="editDescripcion" header="Editar Descripción" widgetVar="editDescripcion" resizable="false" draggable="false" modal="true" height="93" width="240" style="font-size: 12px;text-transform: uppercase">  
+               <p:dialog id="editDescripcion" header="Editar Descripción" widgetVar="editDescripcion" resizable="false" draggable="true" modal="true" height="93" width="240" style="font-size: 12px;text-transform: uppercase">  
                   <p:inputTextarea value="#{controlMotivosDefinitivas.editarMotivoDefinitiva.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                   <p:commandButton id="cancelarNombre" value="Atras" onclick="PF('editDescripcion').hide();" style="position: absolute; top: 60px; left: 170px; font-size: 11px;" process="@this"/>
                </p:dialog>
 
 
 
-               <p:dialog id="nuevoRegistroTiposReemplazos" header="Nuevo Registro" widgetVar="nuevoRegistroTiposReemplazos" closable="false" resizable="false"  draggable="false" modal="true" height="360" width="340" style="font-size: 12px; padding: 0px">  
+               <p:dialog id="nuevoRegistroTiposReemplazos" header="Nuevo Registro" widgetVar="nuevoRegistroTiposReemplazos" closable="false" resizable="false"  draggable="true" modal="true" height="360" width="340" style="font-size: 12px; padding: 0px">  
                   <center><strong><h:outputText id="informacion" value="Ingresar Nuevo Motivo Definitiva" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
 
                   <p:panel id="nuevaTipoReemplazo" style="border: none;">
@@ -304,7 +304,7 @@
 
 
 
-               <p:dialog id="duplicarRegistroTiposReemplazos" header="duplicar Registro" widgetVar="duplicarRegistroTiposReemplazos" closable="false" resizable="false"  draggable="false" modal="true" height="360" width="340" style="font-size: 12px; padding: 0px">  
+               <p:dialog id="duplicarRegistroTiposReemplazos" header="duplicar Registro" widgetVar="duplicarRegistroTiposReemplazos" closable="false" resizable="false"  draggable="true" modal="true" height="360" width="340" style="font-size: 12px; padding: 0px">  
                   <center><strong><h:outputText id="informacionDuplicar" value="Duplicar Motivo Definitiva" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
 
                   <p:panel id="duplicarTTR" style="border: none;">

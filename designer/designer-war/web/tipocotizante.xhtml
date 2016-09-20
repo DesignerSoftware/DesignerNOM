@@ -337,7 +337,7 @@
                 </h:form>
                 <h:form id="formularioDialogos">
 
-                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="95" width="400"  closable="false">  
+                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlTipoCotizante.guardarTodo()}" style="position: absolute; top: 60px; left: 215px;" process="@this" />
@@ -347,32 +347,32 @@
 
                     <!-- DIALOGOS EDITAR -->
 
-                    <p:dialog id="editarCodigo" header="#{msg['editarCodigo']}" widgetVar="editarCodigo" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarCodigo" header="#{msg['editarCodigo']}" widgetVar="editarCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlTipoCotizante.editarTiposCotizantes.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarDescripcion" header="#{msg['editarDescripcion']}" widgetVar="editarDescripcion" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarDescripcion" header="#{msg['editarDescripcion']}" widgetVar="editarDescripcion" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlTipoCotizante.editarTiposCotizantes.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarCodigoAlternativo" header="#{msg['editarCodigoAlternativo']}" widgetVar="editarCodigoAlternativo" resizable="false" draggable="false" modal="true" height="80" width="400"  >  
+                    <p:dialog id="editarCodigoAlternativo" header="#{msg['editarCodigoAlternativo']}" widgetVar="editarCodigoAlternativo" resizable="false" draggable="true" modal="true" height="80" width="400"  >  
                         <p:inputTextarea value="#{controlTipoCotizante.editarTiposCotizantes.codigoalternativo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog> 
 
-                    <p:dialog id="editarTipoEntidad" header="#{msg['editarTipoEntidad']}" widgetVar="editarTipoEntidad" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editarTipoEntidad" header="#{msg['editarTipoEntidad']}" widgetVar="editarTipoEntidad" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputTextarea value="#{controlTipoCotizante.editarDetallesTiposCotizantes.tipoentidad.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarMinimo" header="#{msg['editarMinimo']}" widgetVar="editarMinimo" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarMinimo" header="#{msg['editarMinimo']}" widgetVar="editarMinimo" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlTipoCotizante.editarDetallesTiposCotizantes.minimosml}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarMaximo" header="#{msg['editarMaximo']}" widgetVar="editarMaximo" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarMaximo" header="#{msg['editarMaximo']}" widgetVar="editarMaximo" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlTipoCotizante.editarDetallesTiposCotizantes.maximosml}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <!-- DIALOGO L.O.V TIPOS ENTIDADES-->
-                    <p:dialog header="#{msg['tiposentidadesTE']}"  widgetVar="tiposEntidadesDialogo" draggable="false" resizable="false" closable="false" id="tiposEntidadesDialogo"  
+                    <p:dialog header="#{msg['tiposentidadesTE']}"  widgetVar="tiposEntidadesDialogo" draggable="true" resizable="false" closable="false" id="tiposEntidadesDialogo"  
                               showEffect="fade" hideEffect="fade" width="390" height="350" modal="true" >
                         <p:dataTable id="LOVTiposEntidades" style=" width: 340px;" var="tiposEntidades" value="#{controlTipoCotizante.lovListaTiposEntidades}" rowKey="#{tiposEntidades.secuencia}"
                                      selection="#{controlTipoCotizante.seleccionTiposEntidades}" selectionMode="single" widgetVar="LOVTiposEntidades" scrollable="true" scrollHeight="200" scrollWidth="360"
@@ -402,7 +402,7 @@
                     </p:dialog>
 
                     <!-- DIALOGO L.O.V TIPOS Cotizantes-->
-                    <p:dialog header="#{msg['tiposcotizantesTC']}"  widgetVar="tiposCotizantesDialogo" draggable="false" resizable="false" closable="false" id="tiposCotizantesDialogo"  
+                    <p:dialog header="#{msg['tiposcotizantesTC']}"  widgetVar="tiposCotizantesDialogo" draggable="true" resizable="false" closable="false" id="tiposCotizantesDialogo"  
                               showEffect="fade" hideEffect="fade" width="390" height="350" modal="true">
                         <p:dataTable id="LOVTiposCotizantes" style=" width: 340px;" var="tiposCotizantes" value="#{controlTipoCotizante.lovListaTiposCotizantes}" rowKey="#{tiposCotizantes.secuencia}"
                                      selection="#{controlTipoCotizante.lovTipoCotizanteSeleccionado}" selectionMode="single" widgetVar="LOVTiposCotizantes" scrollable="true" scrollHeight="200" scrollWidth="360"
@@ -431,7 +431,7 @@
                         <p:commandButton id="atrasTC" icon="ui-icon-arrowreturnthick-1-w" style="position: absolute; top: 305px; left: 250px;" value="#{msg['atras']}" actionListener="#{controlTipoCotizante.cancelarCambioLovTipoCotizante()}" process="@this"/>
                     </p:dialog>
 
-                    <p:dialog id="validacionNuevoTipoCotizante" header="#{msg['atencion']}" widgetVar="validacionNuevoTipoCotizante"  resizable="false" draggable="false" modal="true" height="95" width="400"  closable="false">  
+                    <p:dialog id="validacionNuevoTipoCotizante" header="#{msg['atencion']}" widgetVar="validacionNuevoTipoCotizante"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['validacionNuevo']} #{controlTipoCotizante.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
                         <p:commandButton value="#{msg['aceptar']}" onclick="PF('validacionNuevoTipoCotizante').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
@@ -439,7 +439,7 @@
 
                     <!-- Nuevo Registro Tipo Cotizante--> 
 
-                    <p:dialog id="NuevoRegistroTipoCotizante" header="#{msg['nuevoregistroNTC']}" widgetVar="NuevoRegistroTipoCotizante" closable="false" resizable="false"  draggable="false" modal="true" height="400" width="650" style=" padding: 0px">  
+                    <p:dialog id="NuevoRegistroTipoCotizante" header="#{msg['nuevoregistroNTC']}" widgetVar="NuevoRegistroTipoCotizante" closable="false" resizable="false"  draggable="true" modal="true" height="400" width="650" style=" padding: 0px">  
 
                         <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
 
@@ -515,7 +515,7 @@
 
                     <!-- Nuevo Registro Detalle Tipo Cotizante--> 
 
-                    <p:dialog id="NuevoRegistroDetalleTipoCotizante" header="#{msg['nuevoregistroNDTC']}" widgetVar="NuevoRegistroDetalleTipoCotizante" closable="false" resizable="false"  draggable="false" modal="true" height="240" width="350" style=" padding: 0px">  
+                    <p:dialog id="NuevoRegistroDetalleTipoCotizante" header="#{msg['nuevoregistroNDTC']}" widgetVar="NuevoRegistroDetalleTipoCotizante" closable="false" resizable="false"  draggable="true" modal="true" height="240" width="350" style=" padding: 0px">  
 
                         <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
 
@@ -547,7 +547,7 @@
                     </p:dialog>
 
                     <!-- Dialogo para ver en qué tabla se quiere insertar -->
-                    <p:dialog id="elegirTabla" header="#{msg['atencion']}" widgetVar="elegirTabla"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
+                    <p:dialog id="elegirTabla" header="#{msg['atencion']}" widgetVar="elegirTabla"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['elegirTabla']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['tipocotizanteET']}" onclick="PF('elegirTabla').hide();" actionListener="#{controlTipoCotizante.dialogoTiposCotizantes()}" style="position: absolute; top: 60px; left: 20px;" process="@this" />
@@ -557,7 +557,7 @@
 
                     <!-- Duplicar Registro Tipo Cotizante--> 
 
-                    <p:dialog id="DuplicarRegistroTipoCotizante" header="#{msg['duplicarregistroNTC']}" widgetVar="DuplicarRegistroTipoCotizante" closable="false" resizable="false"  draggable="false" modal="true" height="400" width="650" style=" padding: 0px">  
+                    <p:dialog id="DuplicarRegistroTipoCotizante" header="#{msg['duplicarregistroNTC']}" widgetVar="DuplicarRegistroTipoCotizante" closable="false" resizable="false"  draggable="true" modal="true" height="400" width="650" style=" padding: 0px">  
 
                         <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
 
@@ -633,7 +633,7 @@
 
                     <!-- Duplicar Registro Detalle Tipo Cotizante--> 
 
-                    <p:dialog id="DuplicarRegistroDetalleTipoCotizante" header="#{msg['duplicarregistroNDTC']}" widgetVar="DuplicarRegistroDetalleTipoCotizante" closable="false" resizable="false"  draggable="false" modal="true"  height="240" width="350" style=" padding: 0px">  
+                    <p:dialog id="DuplicarRegistroDetalleTipoCotizante" header="#{msg['duplicarregistroNDTC']}" widgetVar="DuplicarRegistroDetalleTipoCotizante" closable="false" resizable="false"  draggable="true" modal="true"  height="240" width="350" style=" padding: 0px">  
 
                         <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
 
@@ -665,7 +665,7 @@
 
                     <!-- DIALOGOS RASTROS -->
 
-                    <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
+                    <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTipoCotizante.secRegistro, 'TiposCotizantes', 'tiposcotizantes')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
@@ -674,41 +674,41 @@
                     </p:dialog>
 
 
-                    <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
+                    <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('TiposCotizantes', 'tiposcotizantes')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
+                    <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTipoCotizante.secRegistro, 'TiposCotizantes', 'tiposcotizantes')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
                         <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285"  closable="true">  
+                    <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
                     </p:dialog>
@@ -717,7 +717,7 @@
 
                 <!-- DIALOGOS Detalles tipos Cotizantes-->
                 <h:form>
-                    <p:dialog id="confirmarRastroNF" header="#{msg['atencion']}" widgetVar="confirmarRastroNF"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
+                    <p:dialog id="confirmarRastroNF" header="#{msg['atencion']}" widgetVar="confirmarRastroNF"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroNF']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTiposCotizantes.secRegistro, 'DetallesTiposCotizantes', 'detallestiposcotizantes')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
@@ -725,41 +725,41 @@
 
                     </p:dialog>
 
-                    <p:dialog id="confirmarRastroHistoricoNF" header="#{msg['atencion']}" widgetVar="confirmarRastroHistoricoNF"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
+                    <p:dialog id="confirmarRastroHistoricoNF" header="#{msg['atencion']}" widgetVar="confirmarRastroHistoricoNF"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistoricoNF']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('DetallesTiposCotizantes', 'detallestiposcotizantes')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorRastroHistoricoNF" header="#{msg['atencion']}" widgetVar="errorRastroHistoricoNF"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="errorRastroHistoricoNF" header="#{msg['atencion']}" widgetVar="errorRastroHistoricoNF"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRastroHistoricoNF']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorRegistroRastroNF" header="#{msg['atencion']}" widgetVar="errorRegistroRastroNF"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="errorRegistroRastroNF" header="#{msg['atencion']}" widgetVar="errorRegistroRastroNF"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRegistroRastroNF']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaConRastroNF" header="#{msg['atencion']}" widgetVar="errorTablaConRastroNF"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
+                    <p:dialog id="errorTablaConRastroNF" header="#{msg['atencion']}" widgetVar="errorTablaConRastroNF"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastroNF']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTipoCotizante.secRegistro, 'DetallesTiposCotizantes', 'detallestiposcotizantes')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
                         <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaSinRastroNF" header="#{msg['atencion']}" widgetVar="errorTablaSinRastroNF"  resizable="false" draggable="false" modal="true" height="60" width="285"  closable="true">  
+                    <p:dialog id="errorTablaSinRastroNF" header="#{msg['atencion']}" widgetVar="errorTablaSinRastroNF"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaSinRastroNF']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="seleccionarRegistroNF" header="#{msg['atencion']}" widgetVar="seleccionarRegistroNF"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="seleccionarRegistroNF" header="#{msg['atencion']}" widgetVar="seleccionarRegistroNF"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['seleccionarRegistroNF']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorObjetosDBNF" header="#{msg['atencion']}" widgetVar="errorObjetosDBNF"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="errorObjetosDBNF" header="#{msg['atencion']}" widgetVar="errorObjetosDBNF"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorObjetosDBNF']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
                     </p:dialog>

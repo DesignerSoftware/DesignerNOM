@@ -254,7 +254,7 @@
                         </fieldset>
 
                         <!-- DIALOGO L.O.V ESTATICO UBICACIONES -->
-                        <p:dialog header="Ciudades" widgetVar="tiposCentrosCostosDialogo" draggable="false" resizable="false" closable="false" id="tiposCentrosCostosDialogo"  
+                        <p:dialog header="Ciudades" widgetVar="tiposCentrosCostosDialogo" draggable="true" resizable="false" closable="false" id="tiposCentrosCostosDialogo"  
                                   showEffect="fade" hideEffect="fade" width="440" modal="true" style="">
                             <p:dataTable id="lovTipoUbicacionesGeograficas" style=" width: 400px;" var="ciudades" value="#{controlUbicacionesGeograficas.listaCiudades}" rowKey="#{ciudades.secuencia}"
                                          selection="#{controlUbicacionesGeograficas.ciudadSeleccionada}" selectionMode="single" widgetVar="lovTipoUbicacionesGeograficas" scrollable="true" scrollWidth="420" scrollHeight="250"
@@ -285,7 +285,7 @@
                             <p:commandButton id="atrasTCC" style="position: relative; left: 250px;" icon="ui-icon-arrowreturnthick-1-w" value="Atras" actionListener="#{controlUbicacionesGeograficas.cancelarCambioCiudad()}" process="@this"/>
                         </p:dialog> 
 
-                        <p:dialog header="Sucursales Pila" widgetVar="sucursalesPilaDialogo" draggable="false" resizable="false" closable="false" id="sucursalesPilaDialogo"  
+                        <p:dialog header="Sucursales Pila" widgetVar="sucursalesPilaDialogo" draggable="true" resizable="false" closable="false" id="sucursalesPilaDialogo"  
                                   showEffect="fade" hideEffect="fade" width="440" modal="true" style="">
                             <p:dataTable id="lovSucursalesPila" style=" width: 400px;" var="sucursalPila" value="#{controlUbicacionesGeograficas.listaSucursalesPilas}" rowKey="#{sucursalPila.secuencia}"
                                          selection="#{controlUbicacionesGeograficas.sucursalesPilasSeleccionada}" selectionMode="single" widgetVar="lovSucursalesPila" scrollable="true" scrollWidth="420" scrollHeight="250"
@@ -323,38 +323,38 @@
 
                     </p:panel>
 
-                    <p:dialog id="validacionDuplicarVigencia" header="ATENCIÓN...!" widgetVar="validacionDuplicarVigencia"  resizable="false" draggable="false" modal="true" height="95" width="400" style="" closable="false">  
+                    <p:dialog id="validacionDuplicarVigencia" header="ATENCIÓN...!" widgetVar="validacionDuplicarVigencia"  resizable="false" draggable="true" modal="true" height="95" width="400" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 15px;"  />
                         <h:outputText value="Necesita : #{controlUbicacionesGeograficas.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight:bold" />
                         <p:commandButton value="Aceptar" onclick="PF('validacionDuplicarVigencia').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="validacionModificar" header="ATENCIÓN...!" widgetVar="validacionModificar"  resizable="false" draggable="false" modal="true" height="77" width="330" style="" closable="false">  
+                    <p:dialog id="validacionModificar" header="ATENCIÓN...!" widgetVar="validacionModificar"  resizable="false" draggable="true" modal="true" height="77" width="330" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value=" #{controlUbicacionesGeograficas.mensajeValidacion}" style="position: absolute; left: 80px; top: 15px; width: 250px; font-weight:bold" />
                         <p:commandButton value="Aceptar" onclick="PF('validacionModificar').hide();" style="position: absolute; top: 40px; left: 230px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="validacionBorrar" header="ATENCIÓN...!" widgetVar="validacionBorrar"  resizable="false" draggable="false" modal="true" height="77" width="400" style="" closable="false">  
+                    <p:dialog id="validacionBorrar" header="ATENCIÓN...!" widgetVar="validacionBorrar"  resizable="false" draggable="true" modal="true" height="77" width="400" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="No se puede borrar este elemento porque esta relacionado con otra tabla" style="position: absolute; left: 80px; top: 15px; width: 300px; font-weight:bold" />
                         <p:commandButton value="Aceptar" onclick="PF('validacionBorrar').hide();" style="position: absolute; top: 40px; left: 300px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="mostrarBorrados" header="ATENCIÓN...!" widgetVar="mostrarBorrados"  resizable="false" draggable="false" modal="true" height="87" width="280" style="" closable="false">  
+                    <p:dialog id="mostrarBorrados" header="ATENCIÓN...!" widgetVar="mostrarBorrados"  resizable="false" draggable="true" modal="true" height="87" width="280" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="Se han borrado #{controlUbicacionesGeograficas.registrosBorrados}  Registros" style="position: absolute; left: 90px; top: 15px; width: 180px; font-weight:bold" />
                         <p:commandButton value="Aceptar" onclick="PF('mostrarBorrados').hide();" style="position: absolute; top: 50px; left: 180px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="validacionNuevaCentroCosto" header="ATENCIÓN...!" widgetVar="validacionNuevaCentroCosto"  resizable="false" draggable="false" modal="true" height="95" width="400" style="" closable="false">  
+                    <p:dialog id="validacionNuevaCentroCosto" header="ATENCIÓN...!" widgetVar="validacionNuevaCentroCosto"  resizable="false" draggable="true" modal="true" height="95" width="400" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 15px;"  />
                         <h:outputText value="Para agregar es necesario adicionar: #{controlUbicacionesGeograficas.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight:bold" />
                         <p:commandButton value="Aceptar" onclick="PF('validacionNuevaCentroCosto').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this" />
                     </p:dialog>
 
 
-                    <p:dialog id="confirmarGuardar" header="ATENCION...!" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
+                    <p:dialog id="confirmarGuardar" header="ATENCION...!" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
                         <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" action="#{controlUbicacionesGeograficas.redirigirPaginaAnterior()}" actionListener="#{controlUbicacionesGeograficas.guardarCambiosUbicacionGeografica()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
@@ -368,54 +368,54 @@
 
                 <h:form id="formularioDialogos" >
 
-                    <p:dialog id="confirmarRastro" header="ATENCIÓN...!" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350" style="" closable="false">  
+                    <p:dialog id="confirmarRastro" header="ATENCIÓN...!" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla 'UBICACIONESGEOGRAFICAS' tiene rastros para el registro seleccionado, ¿desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlUbicacionesGeograficas.secRegistro, 'UbicacionesGeograficas', 'ubicaciongeografica')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
                         <p:commandButton value="no" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="confirmarRastroHistorico" header="ATENCIÓN...!" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350" style="" closable="false">  
+                    <p:dialog id="confirmarRastroHistorico" header="ATENCIÓN...!" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla UBICACIONESGEOGRAFICAS tiene rastros historicos, ¿Desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('UbicacionesGeograficas', 'ubicaciongeografica')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
                         <p:commandButton value="no" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorRastroHistorico" header="ATENCIÓN...!" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275" style="" closable="true">  
+                    <p:dialog id="errorRastroHistorico" header="ATENCIÓN...!" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla no tiene rastros historicos." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorRegistroRastro" header="ATENCIÓN...!" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275" style="" closable="true">  
+                    <p:dialog id="errorRegistroRastro" header="ATENCIÓN...!" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="El registro seleccionado no tiene rastros." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaConRastro" header="ATENCIÓN...!" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350" style="" closable="false">  
+                    <p:dialog id="errorTablaConRastro" header="ATENCIÓN...!" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlUbicacionesGeograficas.secRegistro, 'UbicacionesGeograficas', 'ubicaciongeografica')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
                         <p:commandButton value="no" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaSinRastro" header="ATENCIÓN...!" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285" style="" closable="true">  
+                    <p:dialog id="errorTablaSinRastro" header="ATENCIÓN...!" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla no existe en RASTROSTABLAS, y no tiene registros asociados." style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="seleccionarRegistro" header="ATENCIÓN...!" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275" style="" closable="true">  
+                    <p:dialog id="seleccionarRegistro" header="ATENCIÓN...!" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="Por favor seleccione un registro." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorObjetosDB" header="ATENCIÓN...!" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="60" width="275" style="" closable="true">  
+                    <p:dialog id="errorObjetosDB" header="ATENCIÓN...!" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla 'UBICACIONESGEOGRAFICAS' no se encuentra en ObjetosDB. Porfavor comunicarse con soporte." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
                     </p:dialog> 
 
 
-                    <p:dialog id="NuevoRegistroCentroCostos" header="Nuego Registro" widgetVar="NuevoRegistroCentroCostos" closable="false" resizable="false"  draggable="false" modal="true" height="280" width="660" style=" padding: 0px">  
+                    <p:dialog id="NuevoRegistroCentroCostos" header="Nuego Registro" widgetVar="NuevoRegistroCentroCostos" closable="false" resizable="false"  draggable="true" modal="true" height="280" width="660" style=" padding: 0px">  
 
                         <center><strong><h:outputText value="Nueva Ubicacion Geografica" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
 
@@ -512,7 +512,7 @@
 
 
                     <!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->                    
-                    <p:dialog id="DuplicarRegistroCentroCostos" header="Duplicar Registro" widgetVar="DuplicarRegistroCentroCostos" closable="false" resizable="false"  draggable="false" modal="true" height="280" width="660" style=" padding: 0px">  
+                    <p:dialog id="DuplicarRegistroCentroCostos" header="Duplicar Registro" widgetVar="DuplicarRegistroCentroCostos" closable="false" resizable="false"  draggable="true" modal="true" height="280" width="660" style=" padding: 0px">  
 
                         <center><strong><h:outputText value="Duplicar Ubicacion Geografica" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
 
@@ -605,7 +605,7 @@
 
 
                     <!-- LOV EMPRESAS -->
-                    <p:dialog header="Empresas" widgetVar="EmpresasDialogo" draggable="false" resizable="false" closable="false" id="EmpresasDialogo"  
+                    <p:dialog header="Empresas" widgetVar="EmpresasDialogo" draggable="true" resizable="false" closable="false" id="EmpresasDialogo"  
                               showEffect="fade" hideEffect="fade" width="350" modal="true" style="">
                         <p:dataTable id="lovEmpresas" style=" width: 310px;" var="empresa" value="#{controlUbicacionesGeograficas.listaEmpresas}" rowKey="#{empresa.secuencia}"
                                      selection="#{controlUbicacionesGeograficas.empresaSeleccionada}" selectionMode="single" widgetVar="lovEmpresas" scrollable="true" scrollWidth="330" scrollHeight="250"
@@ -638,34 +638,34 @@
 
 
                     <!--0-->
-                    <p:dialog id="editarCodigo" header="Codigo" widgetVar="editarCodigo" resizable="false" draggable="false" modal="true" height="80" width="400" style="">  
+                    <p:dialog id="editarCodigo" header="Codigo" widgetVar="editarCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" style="">  
                         <p:inputTextarea value="#{controlUbicacionesGeograficas.editarCentroCosto.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
-                    <p:dialog id="editarDescripcion" header="Descripcion" widgetVar="editarDescripcion" resizable="false" draggable="false" modal="true" height="80" width="400" style="">  
+                    <p:dialog id="editarDescripcion" header="Descripcion" widgetVar="editarDescripcion" resizable="false" draggable="true" modal="true" height="80" width="400" style="">  
                         <p:inputTextarea value="#{controlUbicacionesGeograficas.editarCentroCosto.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
-                    <p:dialog id="editarCiudad" header="Ciudad" widgetVar="editarCiudad" resizable="false" draggable="false" modal="true" height="80" width="400" style="">  
+                    <p:dialog id="editarCiudad" header="Ciudad" widgetVar="editarCiudad" resizable="false" draggable="true" modal="true" height="80" width="400" style="">  
                         <p:inputTextarea value="#{controlUbicacionesGeograficas.editarCentroCosto.ciudad.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
-                    <p:dialog id="editarDireccion" header="Direccion" widgetVar="editarDireccion" resizable="false" draggable="false" modal="true" height="80" width="400" style="">  
+                    <p:dialog id="editarDireccion" header="Direccion" widgetVar="editarDireccion" resizable="false" draggable="true" modal="true" height="80" width="400" style="">  
                         <p:inputTextarea value="#{controlUbicacionesGeograficas.editarCentroCosto.direccion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
-                    <p:dialog id="editarTelefono" header="Telefono" widgetVar="editarTelefono" resizable="false" draggable="false" modal="true" height="80" width="400" style="">  
+                    <p:dialog id="editarTelefono" header="Telefono" widgetVar="editarTelefono" resizable="false" draggable="true" modal="true" height="80" width="400" style="">  
                         <p:inputTextarea value="#{controlUbicacionesGeograficas.editarCentroCosto.telefono}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
-                    <p:dialog id="editarFax" header="Fax" widgetVar="editarFax" resizable="false" draggable="false" modal="true" height="80" width="400" style="">  
+                    <p:dialog id="editarFax" header="Fax" widgetVar="editarFax" resizable="false" draggable="true" modal="true" height="80" width="400" style="">  
                         <p:inputTextarea value="#{controlUbicacionesGeograficas.editarCentroCosto.fax}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
-                    <p:dialog id="editarObservacion" header="Observacion" widgetVar="editarObservacion" resizable="false" draggable="false" modal="true" height="80" width="400" style="">  
+                    <p:dialog id="editarObservacion" header="Observacion" widgetVar="editarObservacion" resizable="false" draggable="true" modal="true" height="80" width="400" style="">  
                         <p:inputTextarea value="#{controlUbicacionesGeograficas.editarCentroCosto.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
-                    <p:dialog id="editarActividadEconomica" header="Actividad Economica" widgetVar="editarActividadEconomica" resizable="false" draggable="false" modal="true" height="80" width="400" style="">  
+                    <p:dialog id="editarActividadEconomica" header="Actividad Economica" widgetVar="editarActividadEconomica" resizable="false" draggable="true" modal="true" height="80" width="400" style="">  
                         <p:inputTextarea value="#{controlUbicacionesGeograficas.editarCentroCosto.actividadeconomica}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
-                    <p:dialog id="editarSucursalPilla" header="Sucursal" widgetVar="editarSucursalPilla" resizable="false" draggable="false" modal="true" height="80" width="400" style="">  
+                    <p:dialog id="editarSucursalPilla" header="Sucursal" widgetVar="editarSucursalPilla" resizable="false" draggable="true" modal="true" height="80" width="400" style="">  
                         <p:inputTextarea value="#{controlUbicacionesGeograficas.editarCentroCosto.sucursalPila.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
-                    <p:dialog id="editarCodigoAlt" header="Actividad Economica" widgetVar="editarCodigoAlt" resizable="false" draggable="false" modal="true" height="80" width="400" style="">  
+                    <p:dialog id="editarCodigoAlt" header="Actividad Economica" widgetVar="editarCodigoAlt" resizable="false" draggable="true" modal="true" height="80" width="400" style="">  
                         <p:inputTextarea value="#{controlUbicacionesGeograficas.editarCentroCosto.codigoalternativo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 

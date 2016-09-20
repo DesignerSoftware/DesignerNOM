@@ -1850,27 +1850,27 @@
 
                 <h:form id="formularioDialogos">
 
-                    <p:dialog id="errorFechasIngresadas" header="#{msg['error']}" widgetVar="errorFechasIngresadas"  resizable="false" draggable="false" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+                    <p:dialog id="errorFechasIngresadas" header="#{msg['error']}" widgetVar="errorFechasIngresadas"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorFechasIngresadas']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorSueldos" header="#{msg['error']}" widgetVar="errorSueldos"  resizable="false" draggable="false" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+                    <p:dialog id="errorSueldos" header="#{msg['error']}" widgetVar="errorSueldos"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorSueldos']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorPromedios" header="#{msg['error']}" widgetVar="errorPromedios"  resizable="false" draggable="false" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+                    <p:dialog id="errorPromedios" header="#{msg['error']}" widgetVar="errorPromedios"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorPromedios']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorIdiomaPorcentajes" header="#{msg['error']}" widgetVar="errorIdiomaPorcentajes"  resizable="false" draggable="false" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+                    <p:dialog id="errorIdiomaPorcentajes" header="#{msg['error']}" widgetVar="errorIdiomaPorcentajes"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorIdiomaPorcentajes']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog header="#{msg['cargoD']}" widgetVar="DialogoCargos" draggable="false" resizable="false" closable="false" id="DialogoCargos"  
+                    <p:dialog header="#{msg['cargoD']}" widgetVar="DialogoCargos" draggable="true" resizable="false" closable="false" id="DialogoCargos"  
                               showEffect="fade" hideEffect="fade" width="440" modal="true" height="375" style="font-size: 11px;" >
                         <p:dataTable id="LOVCargos" style="font-size: 11px; width: 405px;" scrollWidth="420" var="cargo" value="#{controlBusquedaAvanzada.lovCargos}" rowKey="#{cargo.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionCargo}" selectionMode="single" widgetVar="LOVCargos" scrollable="true" scrollHeight="250" 
@@ -1910,7 +1910,7 @@
                         </p:commandButton>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['estructuraD']}" widgetVar="EstructuraDialogo" draggable="false" resizable="false" closable="false" id="EstructuraDialogo" 
+                    <p:dialog header="#{msg['estructuraD']}" widgetVar="EstructuraDialogo" draggable="true" resizable="false" closable="false" id="EstructuraDialogo" 
                               showEffect="fade" hideEffect="fade" height="375" width="530" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovEstructuras" style="font-size: 11px; width: 490px;" var="estructura" value="#{controlBusquedaAvanzada.lovEstructuras}" rowKey="#{estructura.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionEstructura}" selectionMode="single" widgetVar="lovEstructuras" scrollable="true" scrollWidth="505" scrollHeight="250"
@@ -1947,7 +1947,7 @@
                         </p:commandButton>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['empleadoJefeD']}" widgetVar="JefeDialogo" draggable="false" resizable="false" closable="false" id="JefeDialogo"  
+                    <p:dialog header="#{msg['empleadoJefeD']}" widgetVar="JefeDialogo" draggable="true" resizable="false" closable="false" id="JefeDialogo"  
                               showEffect="fade" hideEffect="fade" height="375" width="440" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovJefe" style="font-size: 11px;  width: 405px;" scrollWidth="420"  var="jefe" value="#{controlBusquedaAvanzada.lovJefe}" rowKey="#{jefe.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionJefe}" selectionMode="single" widgetVar="lovJefe" scrollable="true" scrollHeight="250" 
@@ -1978,7 +1978,7 @@
                         </p:commandButton>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['motivoCargoD']}" widgetVar="MotivoCargoDialogo" draggable="false" resizable="false" closable="false" id="MotivoCargoDialogo"  
+                    <p:dialog header="#{msg['motivoCargoD']}" widgetVar="MotivoCargoDialogo" draggable="true" resizable="false" closable="false" id="MotivoCargoDialogo"  
                               showEffect="fade" hideEffect="fade" height="375" width="440" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovMotivoCargo" style="font-size: 11px;  width: 405px;" scrollWidth="420"  var="motivoC" value="#{controlBusquedaAvanzada.lovMotivosCargos}" rowKey="#{motivoC.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionMotivoCargo}" selectionMode="single" widgetVar="lovMotivoCargo" scrollable="true" scrollHeight="250" 
@@ -2009,7 +2009,7 @@
                         </p:commandButton>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['papelesD']}" widgetVar="PapelCargoDialogo" draggable="false" resizable="false" closable="false" id="PapelCargoDialogo"  
+                    <p:dialog header="#{msg['papelesD']}" widgetVar="PapelCargoDialogo" draggable="true" resizable="false" closable="false" id="PapelCargoDialogo"  
                               showEffect="fade" hideEffect="fade" width="440" height="375" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovPapelCargo" style="font-size: 11px;  width: 405px;" scrollWidth="420"  var="papelC" value="#{controlBusquedaAvanzada.lovPapeles}" rowKey="#{papelC.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionPapel}" selectionMode="single" widgetVar="lovPapelCargo" scrollable="true" scrollHeight="250" 
@@ -2040,7 +2040,7 @@
                         </p:commandButton>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['localizacionD']}" widgetVar="LocalizacionCentroCostoDialogo" draggable="false" resizable="false" closable="false" id="LocalizacionCentroCostoDialogo"  
+                    <p:dialog header="#{msg['localizacionD']}" widgetVar="LocalizacionCentroCostoDialogo" draggable="true" resizable="false" closable="false" id="LocalizacionCentroCostoDialogo"  
                               showEffect="fade" hideEffect="fade" width="530" height="375" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovLocalizacionCentroCosto" style="font-size: 11px; width: 490px;" var="localizacionCentroCosto" value="#{controlBusquedaAvanzada.lovEstructuras}" rowKey="#{localizacionCentroCosto.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionEstructura}" selectionMode="single" widgetVar="lovLocalizacionCentroCosto" scrollable="true" scrollWidth="505" scrollHeight="250"
@@ -2078,7 +2078,7 @@
                         </p:commandButton>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['motivoLocalizacionD']}" widgetVar="MotivoCentroCostoDialogo" draggable="false" resizable="false" closable="false" id="MotivoCentroCostoDialogo"  
+                    <p:dialog header="#{msg['motivoLocalizacionD']}" widgetVar="MotivoCentroCostoDialogo" draggable="true" resizable="false" closable="false" id="MotivoCentroCostoDialogo"  
                               showEffect="fade" hideEffect="fade" width="440" height="375" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovMotivoCentroCosto" style="font-size: 11px; width: 405px;" scrollWidth="420" var="motivoCC" value="#{controlBusquedaAvanzada.lovMotivosLocalizaciones}" rowKey="#{motivoCC.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionMotivoLocalizacion}" selectionMode="single" widgetVar="lovMotivoCentroCosto" scrollable="true" scrollHeight="250" 
@@ -2109,7 +2109,7 @@
                         </p:commandButton>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['tipoSueldoD']}" widgetVar="TipoSueldoSueldoDialogo" draggable="false" resizable="false" closable="false" id="TipoSueldoSueldoDialogo"  
+                    <p:dialog header="#{msg['tipoSueldoD']}" widgetVar="TipoSueldoSueldoDialogo" draggable="true" resizable="false" closable="false" id="TipoSueldoSueldoDialogo"  
                               showEffect="fade" hideEffect="fade" width="440" height="375" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovTipoSueldoSueldo" style="font-size: 11px; width: 405px;" scrollWidth="420" var="sueldoS" value="#{controlBusquedaAvanzada.lovTiposSueldos}" rowKey="#{sueldoS.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionTipoSueldo}" selectionMode="single" widgetVar="lovTipoSueldoSueldo" scrollable="true" scrollHeight="250" 
@@ -2140,7 +2140,7 @@
                         </p:commandButton>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['motivoCambioSD']}" widgetVar="MotivoSueldoDialogo" draggable="false" resizable="false" closable="false" id="MotivoSueldoDialogo"  
+                    <p:dialog header="#{msg['motivoCambioSD']}" widgetVar="MotivoSueldoDialogo" draggable="true" resizable="false" closable="false" id="MotivoSueldoDialogo"  
                               showEffect="fade" hideEffect="fade" width="440" height="375" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovMotivoSueldo" style="font-size: 11px; width: 405px;" scrollWidth="420" var="motivoS" value="#{controlBusquedaAvanzada.lovMotivosSueldos}" rowKey="#{motivoS.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionMotivoSueldo}" selectionMode="single" widgetVar="lovMotivoSueldo" scrollable="true" scrollHeight="250" 
@@ -2171,7 +2171,7 @@
                         </p:commandButton>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['tipoContratoD']}" widgetVar="TipoContratoFechaContratoDialogo" draggable="false" resizable="false" closable="false" id="TipoContratoFechaContratoDialogo"  
+                    <p:dialog header="#{msg['tipoContratoD']}" widgetVar="TipoContratoFechaContratoDialogo" draggable="true" resizable="false" closable="false" id="TipoContratoFechaContratoDialogo"  
                               showEffect="fade" hideEffect="fade" width="440" height="375" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovTipoContratoFechaContrato" style="font-size: 11px; width: 405px;" scrollWidth="420" var="tipoCFC" value="#{controlBusquedaAvanzada.lovTiposContratos}" rowKey="#{tipoCFC.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionTipoContrato}" selectionMode="single" widgetVar="lovTipoContratoFechaContrato" scrollable="true" scrollHeight="250" 
@@ -2202,7 +2202,7 @@
                         </p:commandButton>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['motivoContratoD']}" widgetVar="MotivoFechaContratoDialogo" draggable="false" resizable="false" closable="false" id="MotivoFechaContratoDialogo"  
+                    <p:dialog header="#{msg['motivoContratoD']}" widgetVar="MotivoFechaContratoDialogo" draggable="true" resizable="false" closable="false" id="MotivoFechaContratoDialogo"  
                               showEffect="fade" hideEffect="fade" width="440" height="375" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovMotivoFechaContrato" style="font-size: 11px; width: 405px;" scrollWidth="420" var="motivoFC" value="#{controlBusquedaAvanzada.lovMotivosContratos}" rowKey="#{motivoFC.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionMotivoContrato}" selectionMode="single" widgetVar="lovMotivoFechaContrato" scrollable="true" scrollHeight="250" 
@@ -2233,7 +2233,7 @@
                         </p:commandButton>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['tipoTrabajadorD']}" widgetVar="TipoTrabajadorTipoTrabajadorDialogo" draggable="false" resizable="false" closable="false" id="TipoTrabajadorTipoTrabajadorDialogo"  
+                    <p:dialog header="#{msg['tipoTrabajadorD']}" widgetVar="TipoTrabajadorTipoTrabajadorDialogo" draggable="true" resizable="false" closable="false" id="TipoTrabajadorTipoTrabajadorDialogo"  
                               showEffect="fade" hideEffect="fade" width="440" height="375" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovTipoTrabajadorTipoTrabajador" style="font-size: 11px; width: 405px;" scrollWidth="420" var="tipoTTT" value="#{controlBusquedaAvanzada.lovTiposTrabajadores}" rowKey="#{tipoTTT.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionTipoTrabajador}" selectionMode="single" widgetVar="lovTipoTrabajadorTipoTrabajador" scrollable="true" scrollHeight="250" 
@@ -2264,7 +2264,7 @@
                         </p:commandButton>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['reformaLaboralD']}" widgetVar="ReformaLaboralTipoSalarioDialogo" draggable="false" resizable="false" closable="false" id="ReformaLaboralTipoSalarioDialogo"  
+                    <p:dialog header="#{msg['reformaLaboralD']}" widgetVar="ReformaLaboralTipoSalarioDialogo" draggable="true" resizable="false" closable="false" id="ReformaLaboralTipoSalarioDialogo"  
                               showEffect="fade" hideEffect="fade" width="440" height="375" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovReformaLaboralTipoSalario" style="font-size: 11px; width: 405px;" scrollWidth="420" var="reformaLTS" value="#{controlBusquedaAvanzada.lovReformasLaborales}" rowKey="#{reformaLTS.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionReformaLaboral}" selectionMode="single" widgetVar="lovReformaLaboralTipoSalario" scrollable="true" scrollHeight="250" 
@@ -2295,7 +2295,7 @@
                         </p:commandButton>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['legislacionLaboralD']}" widgetVar="LegislacionLegislacionLaboralDialogo" draggable="false" resizable="false" closable="false" id="LegislacionLegislacionLaboralDialogo"  
+                    <p:dialog header="#{msg['legislacionLaboralD']}" widgetVar="LegislacionLegislacionLaboralDialogo" draggable="true" resizable="false" closable="false" id="LegislacionLegislacionLaboralDialogo"  
                               showEffect="fade" hideEffect="fade" width="440" height="375" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovLegislacionLegislacionLaboral" style="font-size: 11px; width: 405px;" scrollWidth="420" var="legislacionLL" value="#{controlBusquedaAvanzada.lovContratos}" rowKey="#{legislacionLL.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionContrato}" selectionMode="single" widgetVar="lovLegislacionLegislacionLaboral" scrollable="true" scrollHeight="250" 
@@ -2326,7 +2326,7 @@
                         </p:commandButton>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['ubicacionGeograrficaD']}" widgetVar="UbicacionUbicacionDialogo" draggable="false" resizable="false" closable="false" id="UbicacionUbicacionDialogo"  
+                    <p:dialog header="#{msg['ubicacionGeograrficaD']}" widgetVar="UbicacionUbicacionDialogo" draggable="true" resizable="false" closable="false" id="UbicacionUbicacionDialogo"  
                               showEffect="fade" hideEffect="fade" width="530" height="375" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovUbicacionUbicacion" style="font-size: 11px; width: 490px;" var="ubicacionUG" value="#{controlBusquedaAvanzada.lovUbicaciones}" rowKey="#{ubicacionUG.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionUbicacion}" selectionMode="single" widgetVar="lovUbicacionUbicacion" scrollable="true" scrollWidth="505" scrollHeight="250"
@@ -2363,7 +2363,7 @@
                         </p:commandButton>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['terceroD']}" widgetVar="TerceroAfiliacionDialogo" draggable="false" resizable="false" closable="false" id="TerceroAfiliacionDialogo"  
+                    <p:dialog header="#{msg['terceroD']}" widgetVar="TerceroAfiliacionDialogo" draggable="true" resizable="false" closable="false" id="TerceroAfiliacionDialogo"  
                               showEffect="fade" hideEffect="fade" width="530" height="375" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovTerceroAfiliacion" style="font-size: 11px; width: 490px;" var="terceroA" value="#{controlBusquedaAvanzada.lovTercerosSucursales}" rowKey="#{terceroA.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionTerceroSucursal}" selectionMode="single" widgetVar="lovTerceroAfiliacion" scrollable="true" scrollWidth="505" scrollHeight="250"
@@ -2406,7 +2406,7 @@
                         </p:commandButton>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['tipoEntidadD']}" widgetVar="TipoEntidadAfiliacionDialogo" draggable="false" resizable="false" closable="false" id="TipoEntidadAfiliacionDialogo"  
+                    <p:dialog header="#{msg['tipoEntidadD']}" widgetVar="TipoEntidadAfiliacionDialogo" draggable="true" resizable="false" closable="false" id="TipoEntidadAfiliacionDialogo"  
                               showEffect="fade" hideEffect="fade" width="440" height="375" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovTipoEntidadAfiliacion" style="font-size: 11px; width: 405px;" scrollWidth="420" var="tipoEA" value="#{controlBusquedaAvanzada.lovTiposEntidades}" rowKey="#{tipoEA.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionTipoEntidad}" selectionMode="single" widgetVar="lovTipoEntidadAfiliacion" scrollable="true" scrollHeight="250" 
@@ -2437,7 +2437,7 @@
                         </p:commandButton>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['estadoAfiliacionD']}" widgetVar="EstadoAfiliacionDialogo" draggable="false" resizable="false" closable="false" id="EstadoAfiliacionDialogo"  
+                    <p:dialog header="#{msg['estadoAfiliacionD']}" widgetVar="EstadoAfiliacionDialogo" draggable="true" resizable="false" closable="false" id="EstadoAfiliacionDialogo"  
                               showEffect="fade" hideEffect="fade" width="440" height="375" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovEstadoAfiliacion" style="font-size: 11px; width: 405px;" scrollWidth="420" var="estadoA" value="#{controlBusquedaAvanzada.lovEstadosAfiliaciones}" rowKey="#{estadoA.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionEstadoAfiliacion}" selectionMode="single" widgetVar="lovEstadoAfiliacion" scrollable="true" scrollHeight="250" 
@@ -2468,7 +2468,7 @@
                         </p:commandButton>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['formaPagoD']}" widgetVar="PeriodicidadFormaPagoDialogo" draggable="false" resizable="false" closable="false" id="PeriodicidadFormaPagoDialogo"  
+                    <p:dialog header="#{msg['formaPagoD']}" widgetVar="PeriodicidadFormaPagoDialogo" draggable="true" resizable="false" closable="false" id="PeriodicidadFormaPagoDialogo"  
                               showEffect="fade" hideEffect="fade" width="440" height="375" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovPeriodicidadFormaPago" style="font-size: 11px; width: 405px;" scrollWidth="420" var="periodicidadFP" value="#{controlBusquedaAvanzada.lovFormasPagos}" rowKey="#{periodicidadFP.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionFormaPago}" selectionMode="single" widgetVar="lovPeriodicidadFormaPago" scrollable="true" scrollHeight="250" 
@@ -2499,7 +2499,7 @@
                         </p:commandButton>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['sucursalD']}" widgetVar="SucursalFormaPagoDialogo" draggable="false" resizable="false" closable="false" id="SucursalFormaPagoDialogo"  
+                    <p:dialog header="#{msg['sucursalD']}" widgetVar="SucursalFormaPagoDialogo" draggable="true" resizable="false" closable="false" id="SucursalFormaPagoDialogo"  
                               showEffect="fade" hideEffect="fade" width="440" height="375" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovSucursalFormaPago" style="font-size: 11px; width: 405px;" scrollWidth="420" var="sucursalFP" value="#{controlBusquedaAvanzada.lovSucursales}" rowKey="#{sucursalFP.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionSucursal}" selectionMode="single" widgetVar="lovSucursalFormaPago" scrollable="true" scrollHeight="250" 
@@ -2531,7 +2531,7 @@
                     </p:dialog>
 
 
-                    <p:dialog header="#{msg['motivoMVRD']}" widgetVar="MotivoMvrsDialogo" draggable="false" resizable="false" closable="false" id="MotivoMvrsDialogo"  
+                    <p:dialog header="#{msg['motivoMVRD']}" widgetVar="MotivoMvrsDialogo" draggable="true" resizable="false" closable="false" id="MotivoMvrsDialogo"  
                               showEffect="fade" hideEffect="fade" width="440" height="375" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovMotivoMvrs" style="font-size: 11px; width: 405px;" scrollWidth="420" var="motivoMVR" value="#{controlBusquedaAvanzada.lovMotivosmvrs}" rowKey="#{motivoMVR.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionMotivoMvr}" selectionMode="single" widgetVar="lovMotivoMvrs" scrollable="true" scrollHeight="250" 
@@ -2562,7 +2562,7 @@
                         </p:commandButton>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['normaLaboralD']}" widgetVar="NormaLaboralNormaLaboralDialogo" draggable="false" resizable="false" closable="false" id="NormaLaboralNormaLaboralDialogo"  
+                    <p:dialog header="#{msg['normaLaboralD']}" widgetVar="NormaLaboralNormaLaboralDialogo" draggable="true" resizable="false" closable="false" id="NormaLaboralNormaLaboralDialogo"  
                               showEffect="fade" hideEffect="fade" width="440" height="375" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovNormaLaboralNormaLaboral" style="font-size: 11px; width: 405px;" scrollWidth="420" var="normaLNL" value="#{controlBusquedaAvanzada.lovNormasLaborales}" rowKey="#{normaLNL.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionNormaLaboral}" selectionMode="single" widgetVar="lovNormaLaboralNormaLaboral" scrollable="true" scrollHeight="250" 
@@ -2593,7 +2593,7 @@
                         </p:commandButton>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['jornadaLaboralD']}" widgetVar="JornadaJornadaLaboralDialogo" draggable="false" resizable="false" closable="false" id="JornadaJornadaLaboralDialogo"  
+                    <p:dialog header="#{msg['jornadaLaboralD']}" widgetVar="JornadaJornadaLaboralDialogo" draggable="true" resizable="false" closable="false" id="JornadaJornadaLaboralDialogo"  
                               showEffect="fade" hideEffect="fade" width="530" height="375" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovJornadaJornadaLaboral" style="font-size: 11px; width: 490px;" var="jornadaJL" value="#{controlBusquedaAvanzada.lovJornadasLaborales}" rowKey="#{jornadaJL.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionJornadaLaboral}" selectionMode="single" widgetVar="lovJornadaJornadaLaboral" scrollable="true" scrollWidth="505" scrollHeight="250"
@@ -2630,7 +2630,7 @@
                         </p:commandButton>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['motivoRetiroD']}" widgetVar="MotivoFechaRetiroDialogo" draggable="false" resizable="false" closable="false" id="MotivoFechaRetiroDialogo"  
+                    <p:dialog header="#{msg['motivoRetiroD']}" widgetVar="MotivoFechaRetiroDialogo" draggable="true" resizable="false" closable="false" id="MotivoFechaRetiroDialogo"  
                               showEffect="fade" hideEffect="fade" width="530" height="375" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovMotivoFechaRetiro" style="font-size: 11px; width: 490px;" var="motivoFR" value="#{controlBusquedaAvanzada.lovMotivosRetiros}" rowKey="#{motivoFR.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionMotivoRetiro}" selectionMode="single" widgetVar="lovMotivoFechaRetiro" scrollable="true" scrollWidth="505" scrollHeight="250"
@@ -2668,7 +2668,7 @@
                     </p:dialog>
 
 
-                    <p:dialog header="#{msg['ciudadesD']}" widgetVar="CiudadDocumentoDatosPersonalesDialogo" draggable="false" resizable="false" closable="false" id="CiudadDocumentoDatosPersonalesDialogo"  
+                    <p:dialog header="#{msg['ciudadesD']}" widgetVar="CiudadDocumentoDatosPersonalesDialogo" draggable="true" resizable="false" closable="false" id="CiudadDocumentoDatosPersonalesDialogo"  
                               showEffect="fade" hideEffect="fade" width="530" height="375" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovCiudadDocumentoDatosPersonales" style="font-size: 11px; width: 490px;" var="documentoDP" value="#{controlBusquedaAvanzada.lovCiudades}" rowKey="#{documentoDP.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionCiudad}" selectionMode="single" widgetVar="lovCiudadDocumentoDatosPersonales" scrollable="true" scrollWidth="505" scrollHeight="250"
@@ -2705,7 +2705,7 @@
                         </p:commandButton>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['ciudadesD']}" widgetVar="CiudadNacimientoDatosPersonalesDialogo" draggable="false" resizable="false" closable="false" id="CiudadNacimientoDatosPersonalesDialogo"  
+                    <p:dialog header="#{msg['ciudadesD']}" widgetVar="CiudadNacimientoDatosPersonalesDialogo" draggable="true" resizable="false" closable="false" id="CiudadNacimientoDatosPersonalesDialogo"  
                               showEffect="fade" hideEffect="fade" width="530" height="375" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovCiudadNacimientoDatosPersonales" style="font-size: 11px; width: 490px;" var="nacimientoDP" value="#{controlBusquedaAvanzada.lovCiudades}" rowKey="#{nacimientoDP.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionCiudad}" selectionMode="single" widgetVar="lovCiudadNacimientoDatosPersonales" scrollable="true" scrollWidth="505" scrollHeight="250"
@@ -2742,7 +2742,7 @@
                         </p:commandButton>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['estadosCivilesD']}" widgetVar="EstadoCivilEstadoCivilDialogo" draggable="false" resizable="false" closable="false" id="EstadoCivilEstadoCivilDialogo"  
+                    <p:dialog header="#{msg['estadosCivilesD']}" widgetVar="EstadoCivilEstadoCivilDialogo" draggable="true" resizable="false" closable="false" id="EstadoCivilEstadoCivilDialogo"  
                               showEffect="fade" hideEffect="fade" width="530" height="375" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovEstadoCivilEstadoCivil" style="font-size: 11px; width: 490px;" var="estadoCivilEC" value="#{controlBusquedaAvanzada.lovEstadosCiviles}" rowKey="#{estadoCivilEC.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionEstadoCivil}" selectionMode="single" widgetVar="lovEstadoCivilEstadoCivil" scrollable="true" scrollWidth="505" scrollHeight="250"
@@ -2779,7 +2779,7 @@
                         </p:commandButton>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['idiomasD']}" widgetVar="IdiomaIdiomaDialogo" draggable="false" resizable="false" closable="false" id="IdiomaIdiomaDialogo"  
+                    <p:dialog header="#{msg['idiomasD']}" widgetVar="IdiomaIdiomaDialogo" draggable="true" resizable="false" closable="false" id="IdiomaIdiomaDialogo"  
                               showEffect="fade" hideEffect="fade" width="530" height="375" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovIdiomaIdioma" style="font-size: 11px; width: 490px;" var="idiomaI" value="#{controlBusquedaAvanzada.lovIdiomas}" rowKey="#{idiomaI.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionIdioma}" selectionMode="single" widgetVar="lovIdiomaIdioma" scrollable="true" scrollWidth="505" scrollHeight="250"
@@ -2816,7 +2816,7 @@
                         </p:commandButton>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['tipoIndicadorD']}" widgetVar="TipoIndicadorCensoDialogo" draggable="false" resizable="false" closable="false" id="TipoIndicadorCensoDialogo"  
+                    <p:dialog header="#{msg['tipoIndicadorD']}" widgetVar="TipoIndicadorCensoDialogo" draggable="true" resizable="false" closable="false" id="TipoIndicadorCensoDialogo"  
                               showEffect="fade" hideEffect="fade" width="530" height="375" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovTipoIndicadorCenso" style="font-size: 11px; width: 490px;" var="tipoIndicadorC" value="#{controlBusquedaAvanzada.lovTiposIndicadores}" rowKey="#{tipoIndicadorC.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionTipoIndicador}" selectionMode="single" widgetVar="lovTipoIndicadorCenso" scrollable="true" scrollWidth="505" scrollHeight="250"
@@ -2853,7 +2853,7 @@
                         </p:commandButton>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['indicadorD']}" widgetVar="IndicadorCensoDialogo" draggable="false" resizable="false" closable="false" id="IndicadorCensoDialogo"  
+                    <p:dialog header="#{msg['indicadorD']}" widgetVar="IndicadorCensoDialogo" draggable="true" resizable="false" closable="false" id="IndicadorCensoDialogo"  
                               showEffect="fade" hideEffect="fade" width="530" height="375" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovIndicadorCenso" style="font-size: 11px; width: 490px;" var="indicadorC" value="#{controlBusquedaAvanzada.lovIndicadores}" rowKey="#{indicadorC.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionIndicador}" selectionMode="single" widgetVar="lovIndicadorCenso" scrollable="true" scrollWidth="505" scrollHeight="250"
@@ -2890,7 +2890,7 @@
                         </p:commandButton>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['profesionD']}" widgetVar="ProfesionEducacionFormalDialogo" draggable="false" resizable="false" closable="false" id="ProfesionEducacionFormalDialogo"  
+                    <p:dialog header="#{msg['profesionD']}" widgetVar="ProfesionEducacionFormalDialogo" draggable="true" resizable="false" closable="false" id="ProfesionEducacionFormalDialogo"  
                               showEffect="fade" hideEffect="fade" width="530" height="375" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovProfesionEducacionFormal" style="font-size: 11px; width: 490px;" var="profesionEF" value="#{controlBusquedaAvanzada.lovpProfesiones}" rowKey="#{profesionEF.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionProfesion}" selectionMode="single" widgetVar="lovProfesionEducacionFormal" scrollable="true" scrollWidth="505" scrollHeight="250"
@@ -2927,7 +2927,7 @@
                         </p:commandButton>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['institucionD']}" widgetVar="InstitucionEducacionFormalDialogo" draggable="false" resizable="false" closable="false" id="InstitucionEducacionFormalDialogo"  
+                    <p:dialog header="#{msg['institucionD']}" widgetVar="InstitucionEducacionFormalDialogo" draggable="true" resizable="false" closable="false" id="InstitucionEducacionFormalDialogo"  
                               showEffect="fade" hideEffect="fade" width="530" height="375" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovInstitucionEducacionFormal" style="font-size: 11px; width: 490px;" var="institucionEF" value="#{controlBusquedaAvanzada.lovInstituciones}" rowKey="#{institucionEF.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionInstitucion}" selectionMode="single" widgetVar="lovInstitucionEducacionFormal" scrollable="true" scrollWidth="505" scrollHeight="250"
@@ -2964,7 +2964,7 @@
                         </p:commandButton>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['institucionD']}" widgetVar="InstitucionEducacionNoFormalDialogo" draggable="false" resizable="false" closable="false" id="InstitucionEducacionNoFormalDialogo"  
+                    <p:dialog header="#{msg['institucionD']}" widgetVar="InstitucionEducacionNoFormalDialogo" draggable="true" resizable="false" closable="false" id="InstitucionEducacionNoFormalDialogo"  
                               showEffect="fade" hideEffect="fade" width="530" height="375" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovInstitucionEducacionNoFormal" style="font-size: 11px; width: 490px;" var="institucionENF" value="#{controlBusquedaAvanzada.lovInstituciones}" rowKey="#{institucionENF.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionInstitucion}" selectionMode="single" widgetVar="lovInstitucionEducacionNoFormal" scrollable="true" scrollWidth="505" scrollHeight="250"
@@ -3001,7 +3001,7 @@
                         </p:commandButton>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['cursoD']}" widgetVar="CursoEducacionNoFormalDialogo" draggable="false" resizable="false" closable="false" id="CursoEducacionNoFormalDialogo"  
+                    <p:dialog header="#{msg['cursoD']}" widgetVar="CursoEducacionNoFormalDialogo" draggable="true" resizable="false" closable="false" id="CursoEducacionNoFormalDialogo"  
                               showEffect="fade" hideEffect="fade" width="530" height="375" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovCursoEducacionNoFormal" style="font-size: 11px; width: 490px;" var="cursoENF" value="#{controlBusquedaAvanzada.lovCursos}" rowKey="#{cursoENF.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionCurso}" selectionMode="single" widgetVar="lovCursoEducacionNoFormal" scrollable="true" scrollWidth="505" scrollHeight="250"
@@ -3038,7 +3038,7 @@
                         </p:commandButton>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['sectorEconomicoD']}" widgetVar="SectorEconomicoExperienciaLaboralDialogo" draggable="false" resizable="false" closable="false" id="SectorEconomicoExperienciaLaboralDialogo"  
+                    <p:dialog header="#{msg['sectorEconomicoD']}" widgetVar="SectorEconomicoExperienciaLaboralDialogo" draggable="true" resizable="false" closable="false" id="SectorEconomicoExperienciaLaboralDialogo"  
                               showEffect="fade" hideEffect="fade" width="530" height="375" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovSectorEconomicoExperienciaLaboral" style="font-size: 11px; width: 490px;" var="sectorEEL" value="#{controlBusquedaAvanzada.lovSectoresEconomicos}" rowKey="#{sectorEEL.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionSectorEconomico}" selectionMode="single" widgetVar="lovSectorEconomicoExperienciaLaboral" scrollable="true" scrollWidth="505" scrollHeight="250"
@@ -3075,7 +3075,7 @@
                         </p:commandButton>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['motivoRetiroD']}" widgetVar="MotivoRetiroExperienciaLaboralDialogo" draggable="false" resizable="false" closable="false" id="MotivoRetiroExperienciaLaboralDialogo"  
+                    <p:dialog header="#{msg['motivoRetiroD']}" widgetVar="MotivoRetiroExperienciaLaboralDialogo" draggable="true" resizable="false" closable="false" id="MotivoRetiroExperienciaLaboralDialogo"  
                               showEffect="fade" hideEffect="fade" width="530" height="375" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovMotivoRetiroExperienciaLaboral" style="font-size: 11px; width: 490px;" var="motivoREL" value="#{controlBusquedaAvanzada.lovMotivosRetiros}" rowKey="#{motivoREL.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionMotivoRetiro}" selectionMode="single" widgetVar="lovMotivoRetiroExperienciaLaboral" scrollable="true" scrollWidth="505" scrollHeight="250"
@@ -3112,7 +3112,7 @@
                         </p:commandButton>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['proyectoD']}" widgetVar="ProyectoProyectoDialogo" draggable="false" resizable="false" closable="false" id="ProyectoProyectoDialogo"  
+                    <p:dialog header="#{msg['proyectoD']}" widgetVar="ProyectoProyectoDialogo" draggable="true" resizable="false" closable="false" id="ProyectoProyectoDialogo"  
                               showEffect="fade" hideEffect="fade" width="530" height="375" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovProyectoProyecto" style="font-size: 11px; width: 490px;" var="proyectoP" value="#{controlBusquedaAvanzada.lovProyectos}" rowKey="#{proyectoP.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionProyecto}" selectionMode="single" widgetVar="lovProyectoProyecto" scrollable="true" scrollWidth="505" scrollHeight="250"
@@ -3149,7 +3149,7 @@
                         </p:commandButton>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['pryRolD']}" widgetVar="PryRolProyectoDialogo" draggable="false" resizable="false" closable="false" id="PryRolProyectoDialogo"  
+                    <p:dialog header="#{msg['pryRolD']}" widgetVar="PryRolProyectoDialogo" draggable="true" resizable="false" closable="false" id="PryRolProyectoDialogo"  
                               showEffect="fade" hideEffect="fade" width="530" height="375" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovPryRolProyecto" style="font-size: 11px; width: 490px;" var="pryRP" value="#{controlBusquedaAvanzada.lovRoles}" rowKey="#{pryRP.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionRol}" selectionMode="single" widgetVar="lovPryRolProyecto" scrollable="true" scrollWidth="505" scrollHeight="250"
@@ -3186,7 +3186,7 @@
                         </p:commandButton>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['cargoD']}" widgetVar="CargoCargoPostularseDialogo" draggable="false" resizable="false" closable="false" id="CargoCargoPostularseDialogo"  
+                    <p:dialog header="#{msg['cargoD']}" widgetVar="CargoCargoPostularseDialogo" draggable="true" resizable="false" closable="false" id="CargoCargoPostularseDialogo"  
                               showEffect="fade" hideEffect="fade" width="530" height="375" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovCargoCargoPostularse" style="font-size: 11px; width: 490px;" var="cargoCP" value="#{controlBusquedaAvanzada.lovCargos}" rowKey="#{cargoCP.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionCargo}" selectionMode="single" widgetVar="lovCargoCargoPostularse" scrollable="true" scrollWidth="505" scrollHeight="250"
@@ -3223,7 +3223,7 @@
                         </p:commandButton>
                     </p:dialog>
 
-                    <p:dialog header="Añadir detalles" widgetVar="columnasBusquedaDialogo" draggable="false" resizable="false" closable="false" id="columnasBusquedaDialogo"  
+                    <p:dialog header="Añadir detalles" widgetVar="columnasBusquedaDialogo" draggable="true" resizable="false" closable="false" id="columnasBusquedaDialogo"  
                               showEffect="fade" hideEffect="fade" width="530" height="375" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovColumnasBusqueda" style="font-size: 11px; width: 490px;" var="columnaBusqueda" value="#{controlBusquedaAvanzada.lovColumnasEscenarios}" rowKey="#{columnaBusqueda.secuencia}"
                                      selection="#{controlBusquedaAvanzada.seleccionColumnasEs}" selectionMode="multiple" widgetVar="lovColumnasBusqueda" scrollable="true" scrollWidth="505" scrollHeight="250"
@@ -3253,7 +3253,7 @@
                         </p:commandButton>
                     </p:dialog>
 
-                    <p:dialog header="Detalles busqueda" widgetVar="detallesBusquedaDialogo" draggable="false" resizable="false" closable="false" id="detallesBusquedaDialogo"  
+                    <p:dialog header="Detalles busqueda" widgetVar="detallesBusquedaDialogo" draggable="true" resizable="false" closable="false" id="detallesBusquedaDialogo"  
                               showEffect="fade" hideEffect="fade" width="530" height="375" modal="true" style="font-size: 11px;">
                         <p:dataTable id="detallesBusqueda" style="font-size: 11px; width: 490px;" var="detalleBusqueda" value="#{controlBusquedaAvanzada.seleccionColumnasEs}" rowKey="#{detalleBusqueda.secuencia}"
                                      widgetVar="detallesBusqueda" scrollable="true" scrollWidth="505" scrollHeight="250" emptyMessage="#{msg['lovvacio']}">

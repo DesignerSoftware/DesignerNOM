@@ -120,7 +120,7 @@
                 <h:form id="formularioDialogos" >
 
                     <!-- LOV EMPRESAS -->
-                    <p:dialog header="Empresas" widgetVar="EmpresasDialogo" draggable="false" resizable="false" closable="false" id="EmpresasDialogo"  
+                    <p:dialog header="Empresas" widgetVar="EmpresasDialogo" draggable="true" resizable="false" closable="false" id="EmpresasDialogo"  
                               showEffect="fade" hideEffect="fade" width="350" modal="true" style="">
                         <p:dataTable id="lovEmpresas" style=" width: 311px;" var="empresa" value="#{controlAcercaDe.listaEmpresas}" rowKey="#{empresa.secuencia}"
                                      selection="#{controlAcercaDe.empresaSeleccionada}" selectionMode="single" widgetVar="lovEmpresas" scrollable="true" scrollWidth="330" scrollHeight="250"

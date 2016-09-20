@@ -474,13 +474,13 @@
                     </p:panel>
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlEmplAcumulados.activarCtrlF11()}"  /> 
 
-                    <p:dialog id="botones" header="#{msg['atencion']}" widgetVar="botones"  resizable="false" draggable="false" modal="true" height="95" width="350" style="" closable="false">  
+                    <p:dialog id="botones" header="#{msg['atencion']}" widgetVar="botones"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 20px; top: 10px;"  />
                         <h:outputText value="#{msg['botones']}" style="position: absolute; left: 100px; top: 15px; width: 250px; font-weight:bold" />
                         <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('botones').hide();" style="position: absolute; top: 60px; left: 210px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="repeticiones" header="#{msg['atencion']}" widgetVar="repeticiones"  resizable="false" draggable="false" modal="true" height="95" width="350" style="" closable="false">  
+                    <p:dialog id="repeticiones" header="#{msg['atencion']}" widgetVar="repeticiones"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 20px; top: 10px;"  />
                         <h:outputText value="#{msg['repeticiones']}" style="position: absolute; left: 100px; top: 15px; width: 250px; font-weight:bold" />
                         <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('repeticiones').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" />
@@ -489,85 +489,85 @@
 
                 <h:form id="formularioDialogos">
 
-                    <p:dialog id="editConceptoCodigo" header="#{msg['editConceptoCodigo']}" widgetVar="editConceptoCodigo" resizable="false" draggable="false" modal="true" height="80" width="400" style="">  
+                    <p:dialog id="editConceptoCodigo" header="#{msg['editConceptoCodigo']}" widgetVar="editConceptoCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" style="">  
                         <p:inputTextarea value="#{controlEmplAcumulados.editarVWAcumuladosPorEmpleado.concepto_Codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editConceptoDescripcion" header="#{msg['editConceptoDescripcion']}" widgetVar="editConceptoDescripcion" resizable="false" draggable="false" modal="true" height="80" width="400" style="">  
+                    <p:dialog id="editConceptoDescripcion" header="#{msg['editConceptoDescripcion']}" widgetVar="editConceptoDescripcion" resizable="false" draggable="true" modal="true" height="80" width="400" style="">  
                         <p:inputTextarea value="#{controlEmplAcumulados.editarVWAcumuladosPorEmpleado.concepto_Descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editFechaDesde" header="#{msg['editFechaDesde']}" widgetVar="editFechaDesde" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editFechaDesde" header="#{msg['editFechaDesde']}" widgetVar="editFechaDesde" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputText readonly="true"  style="overflow: auto; width: 360px; height: 60px;"  value="#{controlEmplAcumulados.editarVWAcumuladosPorEmpleado.fechaDesde}" styleClass="ui-datepicker, myClass">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </p:inputText>
                     </p:dialog>
 
-                    <p:dialog id="editFechaPago" header="#{msg['editFechaPago']}" widgetVar="editFechaPago" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editFechaPago" header="#{msg['editFechaPago']}" widgetVar="editFechaPago" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputText readonly="true"  style="overflow: auto; width: 360px; height: 60px;"  value="#{controlEmplAcumulados.editarVWAcumuladosPorEmpleado.fechaPago}" styleClass="ui-datepicker, myClass">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </p:inputText>
                     </p:dialog>
 
-                    <p:dialog id="editUnidad" header="#{msg['editUnidad']}" widgetVar="editUnidad" resizable="false" draggable="false" modal="true" height="80" width="400" style="">  
+                    <p:dialog id="editUnidad" header="#{msg['editUnidad']}" widgetVar="editUnidad" resizable="false" draggable="true" modal="true" height="80" width="400" style="">  
                         <p:inputTextarea value="#{controlEmplAcumulados.editarVWAcumuladosPorEmpleado.unidades}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editValor" header="#{msg['editValor']}" widgetVar="editValor" resizable="false" draggable="false" modal="true" height="80" width="400" style="">  
+                    <p:dialog id="editValor" header="#{msg['editValor']}" widgetVar="editValor" resizable="false" draggable="true" modal="true" height="80" width="400" style="">  
                         <p:inputTextarea value="#{controlEmplAcumulados.editarVWAcumuladosPorEmpleado.valor}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editSaldo" header="#{msg['editSaldo']}" widgetVar="editSaldo" resizable="false" draggable="false" modal="true" height="80" width="400" style="">  
+                    <p:dialog id="editSaldo" header="#{msg['editSaldo']}" widgetVar="editSaldo" resizable="false" draggable="true" modal="true" height="80" width="400" style="">  
                         <p:inputTextarea value="#{controlEmplAcumulados.editarVWAcumuladosPorEmpleado.saldo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editTipo" header="#{msg['editTipo']}" widgetVar="editTipo" resizable="false" draggable="false" modal="true" height="80" width="400" style="">  
+                    <p:dialog id="editTipo" header="#{msg['editTipo']}" widgetVar="editTipo" resizable="false" draggable="true" modal="true" height="80" width="400" style="">  
                         <p:inputTextarea value="#{controlEmplAcumulados.editarVWAcumuladosPorEmpleado.tipo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editProceso" header="#{msg['editProceso']}" widgetVar="editProceso" resizable="false" draggable="false" modal="true" height="80" width="400" style="">  
+                    <p:dialog id="editProceso" header="#{msg['editProceso']}" widgetVar="editProceso" resizable="false" draggable="true" modal="true" height="80" width="400" style="">  
                         <p:inputTextarea value="#{controlEmplAcumulados.editarVWAcumuladosPorEmpleado.corteProceso.proceso.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editNitNombre" header="#{msg['editNitNombre']}" widgetVar="editNitNombre" resizable="false" draggable="false" modal="true" height="80" width="400" style="">  
+                    <p:dialog id="editNitNombre" header="#{msg['editNitNombre']}" widgetVar="editNitNombre" resizable="false" draggable="true" modal="true" height="80" width="400" style="">  
                         <p:inputTextarea value="#{controlEmplAcumulados.editarVWAcumuladosPorEmpleado.nit_nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editFormula" header="#{msg['editFormula']}" widgetVar="editFormula" resizable="false" draggable="false" modal="true" height="80" width="400" style="">  
+                    <p:dialog id="editFormula" header="#{msg['editFormula']}" widgetVar="editFormula" resizable="false" draggable="true" modal="true" height="80" width="400" style="">  
                         <p:inputTextarea value="#{controlEmplAcumulados.editarVWAcumuladosPorEmpleado.formula.nombrelargo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editDebito" header="#{msg['editDebito']}" widgetVar="editDebito" resizable="false" draggable="false" modal="true" height="80" width="400" style="">  
+                    <p:dialog id="editDebito" header="#{msg['editDebito']}" widgetVar="editDebito" resizable="false" draggable="true" modal="true" height="80" width="400" style="">  
                         <p:inputTextarea value="#{controlEmplAcumulados.editarVWAcumuladosPorEmpleado.cuentaD.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editCentroCostoDebito" header="#{msg['editCentroCostoDebito']}" widgetVar="editCentroCostoDebito" resizable="false" draggable="false" modal="true" height="80" width="400" style="">  
+                    <p:dialog id="editCentroCostoDebito" header="#{msg['editCentroCostoDebito']}" widgetVar="editCentroCostoDebito" resizable="false" draggable="true" modal="true" height="80" width="400" style="">  
                         <p:inputTextarea value="#{controlEmplAcumulados.editarVWAcumuladosPorEmpleado.centroCostoD.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editCredito" header="#{msg['editCredito']}" widgetVar="editCredito" resizable="false" draggable="false" modal="true" height="80" width="400" style="">  
+                    <p:dialog id="editCredito" header="#{msg['editCredito']}" widgetVar="editCredito" resizable="false" draggable="true" modal="true" height="80" width="400" style="">  
                         <p:inputTextarea value="#{controlEmplAcumulados.editarVWAcumuladosPorEmpleado.cuentaC.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editCentroCostoCredito" header="#{msg['editCentroCostoCredito']}" widgetVar="editCentroCostoCredito" resizable="false" draggable="false" modal="true" height="80" width="400" style="">  
+                    <p:dialog id="editCentroCostoCredito" header="#{msg['editCentroCostoCredito']}" widgetVar="editCentroCostoCredito" resizable="false" draggable="true" modal="true" height="80" width="400" style="">  
                         <p:inputTextarea value="#{controlEmplAcumulados.editarVWAcumuladosPorEmpleado.centroCostoC.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editFechaModificacion" header="#{msg['editFechaModificacion']}" widgetVar="editFechaModificacion" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editFechaModificacion" header="#{msg['editFechaModificacion']}" widgetVar="editFechaModificacion" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputText readonly="true"  style="overflow: auto; width: 360px; height: 60px;"  value="#{controlEmplAcumulados.editarVWAcumuladosPorEmpleado.ultimaModificacion}" styleClass="ui-datepicker, myClass">
                             <f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss" />
                         </p:inputText>
                     </p:dialog>
 
-                    <p:dialog id="editObservaciones" header="#{msg['editObservaciones']}" widgetVar="editObservaciones" resizable="false" draggable="false" modal="true" height="80" width="400" style="">  
+                    <p:dialog id="editObservaciones" header="#{msg['editObservaciones']}" widgetVar="editObservaciones" resizable="false" draggable="true" modal="true" height="80" width="400" style="">  
                         <p:inputTextarea value="#{controlEmplAcumulados.editarVWAcumuladosPorEmpleado.observacionesMovedad}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editMotivoNovedad" header="#{msg['editMotivoNovedad']}" widgetVar="editMotivoNovedad" resizable="false" draggable="false" modal="true" height="80" width="400" style="">  
+                    <p:dialog id="editMotivoNovedad" header="#{msg['editMotivoNovedad']}" widgetVar="editMotivoNovedad" resizable="false" draggable="true" modal="true" height="80" width="400" style="">  
                         <p:inputTextarea value="#{controlEmplAcumulados.editarVWAcumuladosPorEmpleado.motivoNovedad}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editDetallesConcepto" header="#{msg['editDetallesConcepto']}" widgetVar="editDetallesConcepto" resizable="false" draggable="false" modal="true" height="155" width="400" style="">  
+                    <p:dialog id="editDetallesConcepto" header="#{msg['editDetallesConcepto']}" widgetVar="editDetallesConcepto" resizable="false" draggable="true" modal="true" height="155" width="400" style="">  
                         <p:inputTextarea value="#{controlEmplAcumulados.editarVWAcumuladosPorEmpleado.parciales}" style="position: relative; left: 10px ;overflow: auto; width: 355px; height: 140px;" readonly="true"/>
                     </p:dialog>
 

@@ -4244,7 +4244,7 @@
                     </p:panel>
 
 
-                    <p:dialog header="#{msg['detalles']}" id="detallesDialogo" widgetVar="detallesDialogo" draggable="false" resizable="false" closable="true"  
+                    <p:dialog header="#{msg['detalles']}" id="detallesDialogo" widgetVar="detallesDialogo" draggable="true" resizable="false" closable="true"  
                               showEffect="fade" hideEffect="fade" width="840" height="470" modal="true" >
 
                         <h:outputText style="padding: 0px; font-size: 12px; font-weight: bold; color: red; position: relative;" value="#{controlParametrosConjuntos.descripcionDetalle}"/>
@@ -4329,7 +4329,7 @@
                     </p:dialog>
 
                     <!-- L.O.V CONCEPTOS-->
-                    <p:dialog header="#{msg['conceptos']}" widgetVar="conceptosDialogo" draggable="false" resizable="false" id="conceptosDialogo" closable="false"  
+                    <p:dialog header="#{msg['conceptos']}" widgetVar="conceptosDialogo" draggable="true" resizable="false" id="conceptosDialogo" closable="false"  
                               showEffect="fade" hideEffect="fade" modal="true" width="460" height="340" >
 
                         <p:dataTable  id="LOVConceptos" style=" width: 420px;" var="conceptos" value="#{controlParametrosConjuntos.listaConceptosEspecificos}"
@@ -4384,28 +4384,28 @@
                     </p:dialog>
 
                     <!--    Dialogos    -->
-                    <p:dialog id="operacionEnProceso" header="#{msg['informacion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="false" modal="true" height="65" width="350" style="font-size: 12px;" closable="false">  
+                    <p:dialog id="operacionEnProceso" header="#{msg['informacion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="true" modal="true" height="65" width="350" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['operacionProceso']}" style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="editarDialogo" widgetVar="editarDialogo" header="#{controlParametrosConjuntos.tituloEditar}" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarDialogo" widgetVar="editarDialogo" header="#{controlParametrosConjuntos.tituloEditar}" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosConjuntos.textoEditar}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarDialogoNum" widgetVar="editarDialogoNum" header="#{controlParametrosConjuntos.tituloEditar}" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarDialogoNum" widgetVar="editarDialogoNum" header="#{controlParametrosConjuntos.tituloEditar}" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosConjuntos.textoEditar}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
                             <f:convertNumber pattern="#,##0.0"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarDialogoFecha" widgetVar="editarDialogoFecha" header="#{controlParametrosConjuntos.tituloEditar}" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarDialogoFecha" widgetVar="editarDialogoFecha" header="#{controlParametrosConjuntos.tituloEditar}" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlParametrosConjuntos.textoEditar}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="seleccionarRegistro" widgetVar="seleccionarRegistro" header="#{msg['error']}" resizable="false" draggable="false" modal="true" height="60" width="275px;" closable="true">  
+                    <p:dialog id="seleccionarRegistro" widgetVar="seleccionarRegistro" header="#{msg['error']}" resizable="false" draggable="true" modal="true" height="60" width="275px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight: bold; text-align: center;"/>
                     </p:dialog>

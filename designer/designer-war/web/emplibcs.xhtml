@@ -143,13 +143,13 @@
                     </p:panel>
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlEmplIbcs.activarCtrlF11()}"  /> 
 
-                    <p:dialog id="botones" header="#{msg['atencion']}" widgetVar="botones"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
+                    <p:dialog id="botones" header="#{msg['atencion']}" widgetVar="botones"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 20px; top: 10px;"  />
                         <h:outputText value="#{msg['botones']}" style="position: absolute; left: 100px; top: 30px; width: 250px; font-weight:bold" />
                         <p:commandButton value="#{msg['aceptar']}" onclick="PF('botones').hide();" style="position: absolute; top: 60px; left: 250px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="repeticiones" header="#{msg['atencion']}" widgetVar="repeticiones"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
+                    <p:dialog id="repeticiones" header="#{msg['atencion']}" widgetVar="repeticiones"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 20px; top: 10px;"  />
                         <h:outputText value="#{msg['repeticiones']}" style="position: absolute; left: 100px; top: 25px; width: 250px; font-weight:bold" />
                         <p:commandButton value="#{msg['aceptar']}" onclick="PF('repeticiones').hide();" style="position: absolute; top: 60px; left: 250px;" process="@this" />
@@ -159,7 +159,7 @@
                 <h:form id="formularioDialogos">
 
 
-                    <p:dialog id="dialogoIbcs" header="#{msg['dialogoIbcs']}" widgetVar="dialogoIbcs" resizable="false" draggable="false" modal="true" height="225" width="300" style=" padding: 0px">  
+                    <p:dialog id="dialogoIbcs" header="#{msg['dialogoIbcs']}" widgetVar="dialogoIbcs" resizable="false" draggable="true" modal="true" height="225" width="300" style=" padding: 0px">  
                         <h:outputText value="#{msg['fechaInicialN']}" style=" position: absolute;left: 15px ; top: 25px "  />
                         <p:inputText readonly="true"  style=" position: absolute;left:110px ; top: 20px "  value="#{controlEmplIbcs.dialogoIbcsPorEmpleado.fechainicial}" styleClass="ui-datepicker, myClass">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
@@ -174,17 +174,17 @@
                         <p:commandButton id="cancelareditDialogoIbcs" value="#{msg['atras']}" onclick="PF('dialogoIbcs').hide();" style="position: absolute; top: 190px; left: 225px; " process="@this" />
 
                     </p:dialog>
-                    <p:dialog id="editFechaInicial" header="#{msg['editFechaInicial']}" widgetVar="editFechaInicial" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editFechaInicial" header="#{msg['editFechaInicial']}" widgetVar="editFechaInicial" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputTextarea readonly="true"  style="overflow: auto; width: 200px; height: 40px;" value="#{controlEmplIbcs.editarIbcsPorEmpleado.fechainicial}">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </p:inputTextarea>
                     </p:dialog>
-                    <p:dialog id="editFechaFinal" header="#{msg['editFechaFinal']}" widgetVar="editFechaFinal" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editFechaFinal" header="#{msg['editFechaFinal']}" widgetVar="editFechaFinal" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputTextarea readonly="true"  value="#{controlEmplIbcs.editarIbcsPorEmpleado.fechafinal}" style="overflow: auto; width: 200px; height: 40px">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </p:inputTextarea>
                     </p:dialog>
-                    <p:dialog id="editValor" header="#{msg['editValor']}" widgetVar="editValor" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editValor" header="#{msg['editValor']}" widgetVar="editValor" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlEmplIbcs.editarIbcsPorEmpleado.valor}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 

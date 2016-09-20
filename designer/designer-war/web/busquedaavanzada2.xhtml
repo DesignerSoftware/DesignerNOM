@@ -1928,7 +1928,7 @@
 
                     <!-- Dialogos de la #$%& cantidad de listas de valores que hay !-->
                     
-                    <p:dialog header="#{msg['cargoD']}" widgetVar="CargoCargoPostularseDialogo" draggable="false" resizable="false" closable="false" id="CargoCargoPostularseDialogo"  
+                    <p:dialog header="#{msg['cargoD']}" widgetVar="CargoCargoPostularseDialogo" draggable="true" resizable="false" closable="false" id="CargoCargoPostularseDialogo"  
                               showEffect="fade" hideEffect="fade" width="520" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovCargoCargoPostularse" style="font-size: 11px; width: 490px;" var="cargoCP" value="#{controlBusquedaAvanzada2.lovCargos}" rowKey="#{cargoCP.secuencia}"
                                      selection="#{controlBusquedaAvanzada2.cargoSeleccionado}" selectionMode="single" widgetVar="lovCargoCargoPostularse" scrollable="true" scrollWidth="505" scrollHeight="250"
@@ -1956,7 +1956,7 @@
                         <p:commandButton id="atrasCCP" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 330px;" value="#{msg['atras']}" actionListener="#{controlBusquedaAvanzada2.cancelarParametroCargoCargoPostularse()}" process="@this"/>
                     </p:dialog>
                     
-                    <p:dialog header="#{msg['proyectoD']}" widgetVar="ProyectoProyectoDialogo" draggable="false" resizable="false" closable="false" id="ProyectoProyectoDialogo"  
+                    <p:dialog header="#{msg['proyectoD']}" widgetVar="ProyectoProyectoDialogo" draggable="true" resizable="false" closable="false" id="ProyectoProyectoDialogo"  
                               showEffect="fade" hideEffect="fade" width="520" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovProyectoProyecto" style="font-size: 11px; width: 490px;" var="proyectoP" value="#{controlBusquedaAvanzada2.lovProyectos}" rowKey="#{proyectoP.secuencia}"
                                      selection="#{controlBusquedaAvanzada2.proyectoSeleccionado}" selectionMode="single" widgetVar="lovProyectoProyecto" scrollable="true" scrollWidth="505" scrollHeight="250"
@@ -1984,7 +1984,7 @@
                         <p:commandButton id="atrasPP" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 330px;" value="#{msg['atras']}" actionListener="#{controlBusquedaAvanzada2.cancelarParametroProyectoProyecto()}"  process="@this"/>
                     </p:dialog>
                     
-                    <p:dialog header="#{msg['pryRolD']}" widgetVar="PryRolProyectoDialogo" draggable="false" resizable="false" closable="false" id="PryRolProyectoDialogo"  
+                    <p:dialog header="#{msg['pryRolD']}" widgetVar="PryRolProyectoDialogo" draggable="true" resizable="false" closable="false" id="PryRolProyectoDialogo"  
                               showEffect="fade" hideEffect="fade" width="520" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovPryRolProyecto" style="font-size: 11px; width: 490px;" var="pryRP" value="#{controlBusquedaAvanzada2.lovPryRoles}" rowKey="#{pryRP.secuencia}"
                                      selection="#{controlBusquedaAvanzada2.pryRolSeleccionado}" selectionMode="single" widgetVar="lovPryRolProyecto" scrollable="true" scrollWidth="505" scrollHeight="250"
@@ -2012,7 +2012,7 @@
                         <p:commandButton id="atrasPRYP" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 330px;" value="#{msg['atras']}" actionListener="#{controlBusquedaAvanzada2.cancelarParametroPryRolProyecto()}"  process="@this"/>
                     </p:dialog>
                     
-                    <p:dialog header="#{msg['motivoRetiroD']}" widgetVar="MotivoRetiroExperienciaLaboralDialogo" draggable="false" resizable="false" closable="false" id="MotivoRetiroExperienciaLaboralDialogo"  
+                    <p:dialog header="#{msg['motivoRetiroD']}" widgetVar="MotivoRetiroExperienciaLaboralDialogo" draggable="true" resizable="false" closable="false" id="MotivoRetiroExperienciaLaboralDialogo"  
                               showEffect="fade" hideEffect="fade" width="520" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovMotivoRetiroExperienciaLaboral" style="font-size: 11px; width: 490px;" var="motivoREL" value="#{controlBusquedaAvanzada2.lovMotivosRetiros}" rowKey="#{motivoREL.secuencia}"
                                      selection="#{controlBusquedaAvanzada2.motivoRetiroSeleccionado}" selectionMode="single" widgetVar="lovMotivoRetiroExperienciaLaboral" scrollable="true" scrollWidth="505" scrollHeight="250"
@@ -2040,7 +2040,7 @@
                         <p:commandButton id="atrasMREL" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 330px;" value="#{msg['atras']}" actionListener="#{controlBusquedaAvanzada2.cancelarParametroMotivoRetiroExperienciaLaboral()}"  process="@this"/>
                     </p:dialog>
                     
-                    <p:dialog header="#{msg['sectorEconomicoD']}" widgetVar="SectorEconomicoExperienciaLaboralDialogo" draggable="false" resizable="false" closable="false" id="SectorEconomicoExperienciaLaboralDialogo"  
+                    <p:dialog header="#{msg['sectorEconomicoD']}" widgetVar="SectorEconomicoExperienciaLaboralDialogo" draggable="true" resizable="false" closable="false" id="SectorEconomicoExperienciaLaboralDialogo"  
                               showEffect="fade" hideEffect="fade" width="520" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovSectorEconomicoExperienciaLaboral" style="font-size: 11px; width: 490px;" var="sectorEEL" value="#{controlBusquedaAvanzada2.lovSectoresEconomicos}" rowKey="#{sectorEEL.secuencia}"
                                      selection="#{controlBusquedaAvanzada2.sectorEconomicoSeleccionado}" selectionMode="single" widgetVar="lovSectorEconomicoExperienciaLaboral" scrollable="true" scrollWidth="505" scrollHeight="250"
@@ -2069,7 +2069,7 @@
                     </p:dialog>
                     
                     
-                       <p:dialog header="#{msg['cursoD']}" widgetVar="CursoEducacionNoFormalDialogo" draggable="false" resizable="false" closable="false" id="CursoEducacionNoFormalDialogo"  
+                       <p:dialog header="#{msg['cursoD']}" widgetVar="CursoEducacionNoFormalDialogo" draggable="true" resizable="false" closable="false" id="CursoEducacionNoFormalDialogo"  
                               showEffect="fade" hideEffect="fade" width="520" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovCursoEducacionNoFormal" style="font-size: 11px; width: 490px;" var="cursoENF" value="#{controlBusquedaAvanzada2.lovCursos}" rowKey="#{cursoENF.secuencia}"
                                      selection="#{controlBusquedaAvanzada2.cursoSeleccionado}" selectionMode="single" widgetVar="lovCursoEducacionNoFormal" scrollable="true" scrollWidth="505" scrollHeight="250"
@@ -2098,7 +2098,7 @@
                     </p:dialog>
                     
                     
-                    <p:dialog header="#{msg['institucionD']}" widgetVar="InstitucionEducacionNoFormalDialogo" draggable="false" resizable="false" closable="false" id="InstitucionEducacionNoFormalDialogo"  
+                    <p:dialog header="#{msg['institucionD']}" widgetVar="InstitucionEducacionNoFormalDialogo" draggable="true" resizable="false" closable="false" id="InstitucionEducacionNoFormalDialogo"  
                               showEffect="fade" hideEffect="fade" width="520" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovInstitucionEducacionNoFormal" style="font-size: 11px; width: 490px;" var="institucionENF" value="#{controlBusquedaAvanzada2.lovInstituciones}" rowKey="#{institucionENF.secuencia}"
                                      selection="#{controlBusquedaAvanzada2.institucionSeleccionada}" selectionMode="single" widgetVar="lovInstitucionEducacionNoFormal" scrollable="true" scrollWidth="505" scrollHeight="250"
@@ -2126,7 +2126,7 @@
                         <p:commandButton id="atrasIENF" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 330px;" value="#{msg['atras']}" actionListener="#{controlBusquedaAvanzada2.cancelarParametroInstitucionEducacionNoFormal()}"  process="@this"/>
                     </p:dialog>
                     
-                       <p:dialog header="#{msg['institucionD']}" widgetVar="InstitucionEducacionFormalDialogo" draggable="false" resizable="false" closable="false" id="InstitucionEducacionFormalDialogo"  
+                       <p:dialog header="#{msg['institucionD']}" widgetVar="InstitucionEducacionFormalDialogo" draggable="true" resizable="false" closable="false" id="InstitucionEducacionFormalDialogo"  
                               showEffect="fade" hideEffect="fade" width="520" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovInstitucionEducacionFormal" style="font-size: 11px; width: 490px;" var="institucionEF" value="#{controlBusquedaAvanzada2.lovInstituciones}" rowKey="#{institucionEF.secuencia}"
                                      selection="#{controlBusquedaAvanzada2.institucionSeleccionada}" selectionMode="single" widgetVar="lovInstitucionEducacionFormal" scrollable="true" scrollWidth="505" scrollHeight="250"
@@ -2154,7 +2154,7 @@
                         <p:commandButton id="atrasIEF" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 330px;" value="#{msg['atras']}" actionListener="#{controlBusquedaAvanzada2.cancelarParametroInstitucionEducacionFormal()}"  process="@this"/>
                     </p:dialog>
                     
-                       <p:dialog header="#{msg['profesionD']}" widgetVar="ProfesionEducacionFormalDialogo" draggable="false" resizable="false" closable="false" id="ProfesionEducacionFormalDialogo"  
+                       <p:dialog header="#{msg['profesionD']}" widgetVar="ProfesionEducacionFormalDialogo" draggable="true" resizable="false" closable="false" id="ProfesionEducacionFormalDialogo"  
                               showEffect="fade" hideEffect="fade" width="520" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovProfesionEducacionFormal" style="font-size: 11px; width: 490px;" var="profesionEF" value="#{controlBusquedaAvanzada2.lovProfesiones}" rowKey="#{profesionEF.secuencia}"
                                      selection="#{controlBusquedaAvanzada2.profesionSeleccionada}" selectionMode="single" widgetVar="lovProfesionEducacionFormal" scrollable="true" scrollWidth="505" scrollHeight="250"
@@ -2182,7 +2182,7 @@
                         <p:commandButton id="atrasPEF" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 330px;" value="#{msg['atras']}" actionListener="#{controlBusquedaAvanzada2.cancelarParametroProfesionEducacionFormal()}" process="@this"/>
                     </p:dialog>
                     
-                       <p:dialog header="#{msg['tipoIndicadorD']}" widgetVar="TipoIndicadorCensoDialogo" draggable="false" resizable="false" closable="false" id="TipoIndicadorCensoDialogo"  
+                       <p:dialog header="#{msg['tipoIndicadorD']}" widgetVar="TipoIndicadorCensoDialogo" draggable="true" resizable="false" closable="false" id="TipoIndicadorCensoDialogo"  
                               showEffect="fade" hideEffect="fade" width="520" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovTipoIndicadorCenso" style="font-size: 11px; width: 490px;" var="tipoIndicadorC" value="#{controlBusquedaAvanzada2.lovTiposIndicadores}" rowKey="#{tipoIndicadorC.secuencia}"
                                      selection="#{controlBusquedaAvanzada2.tipoIndicadorSeleccionado}" selectionMode="single" widgetVar="lovTipoIndicadorCenso" scrollable="true" scrollWidth="505" scrollHeight="250"
@@ -2211,7 +2211,7 @@
                     </p:dialog>
                     
                     
-                       <p:dialog header="#{msg['indicadorD']}" widgetVar="IndicadorCensoDialogo" draggable="false" resizable="false" closable="false" id="IndicadorCensoDialogo"  
+                       <p:dialog header="#{msg['indicadorD']}" widgetVar="IndicadorCensoDialogo" draggable="true" resizable="false" closable="false" id="IndicadorCensoDialogo"  
                               showEffect="fade" hideEffect="fade" width="520" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovIndicadorCenso" style="font-size: 11px; width: 490px;" var="indicadorC" value="#{controlBusquedaAvanzada2.lovIndicadores}" rowKey="#{indicadorC.secuencia}"
                                      selection="#{controlBusquedaAvanzada2.indicadorSeleccionado}" selectionMode="single" widgetVar="lovIndicadorCenso" scrollable="true" scrollWidth="505" scrollHeight="250"
@@ -2240,7 +2240,7 @@
                     </p:dialog>
                     
                     
-                       <p:dialog header="#{msg['idiomasD']}" widgetVar="IdiomaIdiomaDialogo" draggable="false" resizable="false" closable="false" id="IdiomaIdiomaDialogo"  
+                       <p:dialog header="#{msg['idiomasD']}" widgetVar="IdiomaIdiomaDialogo" draggable="true" resizable="false" closable="false" id="IdiomaIdiomaDialogo"  
                               showEffect="fade" hideEffect="fade" width="520" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovIdiomaIdioma" style="font-size: 11px; width: 490px;" var="idiomaI" value="#{controlBusquedaAvanzada2.lovIdiomas}" rowKey="#{idiomaI.secuencia}"
                                      selection="#{controlBusquedaAvanzada2.idiomaSeleccionado}" selectionMode="single" widgetVar="lovIdiomaIdioma" scrollable="true" scrollWidth="505" scrollHeight="250"
@@ -2268,7 +2268,7 @@
                         <p:commandButton id="atrasII" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 330px;" value="#{msg['atras']}" actionListener="#{controlBusquedaAvanzada2.cancelarParametroIdiomaIdioma()}"  process="@this"/>
                     </p:dialog>
                     
-                       <p:dialog header="#{msg['estadosCivilesD']}" widgetVar="EstadoCivilEstadoCivilDialogo" draggable="false" resizable="false" closable="false" id="EstadoCivilEstadoCivilDialogo"  
+                       <p:dialog header="#{msg['estadosCivilesD']}" widgetVar="EstadoCivilEstadoCivilDialogo" draggable="true" resizable="false" closable="false" id="EstadoCivilEstadoCivilDialogo"  
                               showEffect="fade" hideEffect="fade" width="520" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovEstadoCivilEstadoCivil" style="font-size: 11px; width: 490px;" var="estadoCivilEC" value="#{controlBusquedaAvanzada2.lovEstadosCiviles}" rowKey="#{estadoCivilEC.secuencia}"
                                      selection="#{controlBusquedaAvanzada2.estadoCivilSeleccionado}" selectionMode="single" widgetVar="lovEstadoCivilEstadoCivil" scrollable="true" scrollWidth="505" scrollHeight="250"
@@ -2296,7 +2296,7 @@
                         <p:commandButton id="atrasECEC" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 330px;" value="#{msg['atras']}" actionListener="#{controlBusquedaAvanzada2.cancelarParametroEstadoCivilEstadoCivil()}" process="@this"/>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['ciudadesD']}" widgetVar="CiudadDocumentoDatosPersonalesDialogo" draggable="false" resizable="false" closable="false" id="CiudadDocumentoDatosPersonalesDialogo"  
+                    <p:dialog header="#{msg['ciudadesD']}" widgetVar="CiudadDocumentoDatosPersonalesDialogo" draggable="true" resizable="false" closable="false" id="CiudadDocumentoDatosPersonalesDialogo"  
                               showEffect="fade" hideEffect="fade" width="520" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovCiudadDocumentoDatosPersonales" style="font-size: 11px; width: 490px;" var="documentoDP" value="#{controlBusquedaAvanzada2.lovCiudades}" rowKey="#{documentoDP.secuencia}"
                                      selection="#{controlBusquedaAvanzada2.ciudadSeleccionada}" selectionMode="single" widgetVar="lovCiudadDocumentoDatosPersonales" scrollable="true" scrollWidth="505" scrollHeight="250"
@@ -2324,7 +2324,7 @@
                         <p:commandButton id="atrasCDDP" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 330px;" value="#{msg['atras']}" actionListener="#{controlBusquedaAvanzada2.cancelarParametroCiudadDocumentoDatosPersonales()}" process="@this"/>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['ciudadesD']}" widgetVar="CiudadNacimientoDatosPersonalesDialogo" draggable="false" resizable="false" closable="false" id="CiudadNacimientoDatosPersonalesDialogo"  
+                    <p:dialog header="#{msg['ciudadesD']}" widgetVar="CiudadNacimientoDatosPersonalesDialogo" draggable="true" resizable="false" closable="false" id="CiudadNacimientoDatosPersonalesDialogo"  
                               showEffect="fade" hideEffect="fade" width="520" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovCiudadNacimientoDatosPersonales" style="font-size: 11px; width: 490px;" var="nacimientoDP" value="#{controlBusquedaAvanzada2.lovCiudades}" rowKey="#{nacimientoDP.secuencia}"
                                      selection="#{controlBusquedaAvanzada2.ciudadSeleccionada}" selectionMode="single" widgetVar="lovCiudadNacimientoDatosPersonales" scrollable="true" scrollWidth="505" scrollHeight="250"
@@ -2352,7 +2352,7 @@
                         <p:commandButton id="atrasCNDP" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 330px;" value="#{msg['atras']}" actionListener="#{controlBusquedaAvanzada2.cancelarParametroCiudadNacimientoDatosPersonales()}"  process="@this"/>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['motivoRetiroD']}" widgetVar="MotivoFechaRetiroDialogo" draggable="false" resizable="false" closable="false" id="MotivoFechaRetiroDialogo"  
+                    <p:dialog header="#{msg['motivoRetiroD']}" widgetVar="MotivoFechaRetiroDialogo" draggable="true" resizable="false" closable="false" id="MotivoFechaRetiroDialogo"  
                               showEffect="fade" hideEffect="fade" width="520" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovMotivoFechaRetiro" style="font-size: 11px; width: 490px;" var="motivoFR" value="#{controlBusquedaAvanzada2.lovMotivosRetiros}" rowKey="#{motivoFR.secuencia}"
                                      selection="#{controlBusquedaAvanzada2.motivoRetiroSeleccionado}" selectionMode="single" widgetVar="lovMotivoFechaRetiro" scrollable="true" scrollWidth="505" scrollHeight="250"
@@ -2380,7 +2380,7 @@
                         <p:commandButton id="atrasMRFR" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 330px;" value="#{msg['atras']}" actionListener="#{controlBusquedaAvanzada2.cancelarParametroMotivoFechaRetiro()}"  process="@this"/>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['jornadaLaboralD']}" widgetVar="JornadaJornadaLaboralDialogo" draggable="false" resizable="false" closable="false" id="JornadaJornadaLaboralDialogo"  
+                    <p:dialog header="#{msg['jornadaLaboralD']}" widgetVar="JornadaJornadaLaboralDialogo" draggable="true" resizable="false" closable="false" id="JornadaJornadaLaboralDialogo"  
                               showEffect="fade" hideEffect="fade" width="520" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovJornadaJornadaLaboral" style="font-size: 11px; width: 490px;" var="jornadaJL" value="#{controlBusquedaAvanzada2.lovJornadasLaborales}" rowKey="#{jornadaJL.secuencia}"
                                      selection="#{controlBusquedaAvanzada2.jornadaLaboralSeleccionada}" selectionMode="single" widgetVar="lovJornadaJornadaLaboral" scrollable="true" scrollWidth="505" scrollHeight="250"
@@ -2408,7 +2408,7 @@
                         <p:commandButton id="atrasJLJL" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 330px;" value="#{msg['atras']}" actionListener="#{controlBusquedaAvanzada2.cancelarParametroJornadaJornadaLaboral()}" process="@this"/>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['motivoMVRD']}" widgetVar="MotivoMvrsDialogo" draggable="false" resizable="false" closable="false" id="MotivoMvrsDialogo"  
+                    <p:dialog header="#{msg['motivoMVRD']}" widgetVar="MotivoMvrsDialogo" draggable="true" resizable="false" closable="false" id="MotivoMvrsDialogo"  
                               showEffect="fade" hideEffect="fade" width="435" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovMotivoMvrs" style="font-size: 11px; width: 405px;" scrollWidth="420" var="motivoMVR" value="#{controlBusquedaAvanzada2.lovMotivosMvrs}" rowKey="#{motivoMVR.secuencia}"
                                      selection="#{controlBusquedaAvanzada2.motivoMvrsSeleccionado}" selectionMode="single" widgetVar="lovMotivoMvrs" scrollable="true" scrollHeight="250" 
@@ -2430,7 +2430,7 @@
                         <p:commandButton id="atrasMMVR" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 260px;" value="#{msg['atras']}"  actionListener="#{controlBusquedaAvanzada2.cancelarParametroMotivoMvrs()}"  process="@this"/>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['formaPagoD']}" widgetVar="PeriodicidadFormaPagoDialogo" draggable="false" resizable="false" closable="false" id="PeriodicidadFormaPagoDialogo"  
+                    <p:dialog header="#{msg['formaPagoD']}" widgetVar="PeriodicidadFormaPagoDialogo" draggable="true" resizable="false" closable="false" id="PeriodicidadFormaPagoDialogo"  
                               showEffect="fade" hideEffect="fade" width="435" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovPeriodicidadFormaPago" style="font-size: 11px; width: 405px;" scrollWidth="420" var="periodicidadFP" value="#{controlBusquedaAvanzada2.lovPeriodicidades}" rowKey="#{periodicidadFP.secuencia}"
                                      selection="#{controlBusquedaAvanzada2.periodicidadSeleccionada}" selectionMode="single" widgetVar="lovPeriodicidadFormaPago" scrollable="true" scrollHeight="250" 
@@ -2452,7 +2452,7 @@
                         <p:commandButton id="atrasPFP" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 260px;" value="#{msg['atras']}"  actionListener="#{controlBusquedaAvanzada2.cancelarParametroPeriodicidadFormaPago()}"  process="@this"/>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['sucursalD']}" widgetVar="SucursalFormaPagoDialogo" draggable="false" resizable="false" closable="false" id="SucursalFormaPagoDialogo"  
+                    <p:dialog header="#{msg['sucursalD']}" widgetVar="SucursalFormaPagoDialogo" draggable="true" resizable="false" closable="false" id="SucursalFormaPagoDialogo"  
                               showEffect="fade" hideEffect="fade" width="435" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovSucursalFormaPago" style="font-size: 11px; width: 405px;" scrollWidth="420" var="sucursalFP" value="#{controlBusquedaAvanzada2.lovSucursales}" rowKey="#{sucursalFP.secuencia}"
                                      selection="#{controlBusquedaAvanzada2.sucursalSeleccionada}" selectionMode="single" widgetVar="lovSucursalFormaPago" scrollable="true" scrollHeight="250" 
@@ -2474,7 +2474,7 @@
                         <p:commandButton id="atrasSFP" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 260px;" value="#{msg['atras']}"  actionListener="#{controlBusquedaAvanzada2.cancelarParametroSucursalFormaPago()}"  process="@this"/>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['terceroD']}" widgetVar="TerceroAfiliacionDialogo" draggable="false" resizable="false" closable="false" id="TerceroAfiliacionDialogo"  
+                    <p:dialog header="#{msg['terceroD']}" widgetVar="TerceroAfiliacionDialogo" draggable="true" resizable="false" closable="false" id="TerceroAfiliacionDialogo"  
                               showEffect="fade" hideEffect="fade" width="520" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovTerceroAfiliacion" style="font-size: 11px; width: 490px;" var="terceroA" value="#{controlBusquedaAvanzada2.lovTercerosSucursales}" rowKey="#{terceroA.secuencia}"
                                      selection="#{controlBusquedaAvanzada2.terceroSucursalSeleccionado}" selectionMode="single" widgetVar="lovTerceroAfiliacion" scrollable="true" scrollWidth="505" scrollHeight="250"
@@ -2508,7 +2508,7 @@
                         <p:commandButton id="atrasTSA" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 330px;" value="#{msg['atras']}" actionListener="#{controlBusquedaAvanzada2.cancelarParametroTerceroAfiliacion()}" process="@this"/>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['tipoEntidadD']}" widgetVar="TipoEntidadAfiliacionDialogo" draggable="false" resizable="false" closable="false" id="TipoEntidadAfiliacionDialogo"  
+                    <p:dialog header="#{msg['tipoEntidadD']}" widgetVar="TipoEntidadAfiliacionDialogo" draggable="true" resizable="false" closable="false" id="TipoEntidadAfiliacionDialogo"  
                               showEffect="fade" hideEffect="fade" width="435" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovTipoEntidadAfiliacion" style="font-size: 11px; width: 405px;" scrollWidth="420" var="tipoEA" value="#{controlBusquedaAvanzada2.lovTiposEntidades}" rowKey="#{tipoEA.secuencia}"
                                      selection="#{controlBusquedaAvanzada2.tipoEntidadSeleccionado}" selectionMode="single" widgetVar="lovTipoEntidadAfiliacion" scrollable="true" scrollHeight="250" 
@@ -2530,7 +2530,7 @@
                         <p:commandButton id="atrasTEA" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 260px;" value="#{msg['atras']}"  actionListener="#{controlBusquedaAvanzada2.cancelarParametroTipoEntidadAfiliacion()}" process="@this"/>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['estadoAfiliacionD']}" widgetVar="EstadoAfiliacionDialogo" draggable="false" resizable="false" closable="false" id="EstadoAfiliacionDialogo"  
+                    <p:dialog header="#{msg['estadoAfiliacionD']}" widgetVar="EstadoAfiliacionDialogo" draggable="true" resizable="false" closable="false" id="EstadoAfiliacionDialogo"  
                               showEffect="fade" hideEffect="fade" width="435" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovEstadoAfiliacion" style="font-size: 11px; width: 405px;" scrollWidth="420" var="estadoA" value="#{controlBusquedaAvanzada2.lovEstadosAfiliaciones}" rowKey="#{estadoA.secuencia}"
                                      selection="#{controlBusquedaAvanzada2.estadoAfiliacionSeleccionado}" selectionMode="single" widgetVar="lovEstadoAfiliacion" scrollable="true" scrollHeight="250" 
@@ -2552,7 +2552,7 @@
                         <p:commandButton id="atrasEA" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 260px;" value="#{msg['atras']}"  actionListener="#{controlBusquedaAvanzada2.cancelarParametroEstadoAfiliacion()}"  process="@this"/>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['ubicacionGeograrficaD']}" widgetVar="UbicacionUbicacionDialogo" draggable="false" resizable="false" closable="false" id="UbicacionUbicacionDialogo"  
+                    <p:dialog header="#{msg['ubicacionGeograrficaD']}" widgetVar="UbicacionUbicacionDialogo" draggable="true" resizable="false" closable="false" id="UbicacionUbicacionDialogo"  
                               showEffect="fade" hideEffect="fade" width="520" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovUbicacionUbicacion" style="font-size: 11px; width: 490px;" var="ubicacionUG" value="#{controlBusquedaAvanzada2.lovUbicacionesGeograficas}" rowKey="#{ubicacionUG.secuencia}"
                                      selection="#{controlBusquedaAvanzada2.ubicacionGeograficaSeleccionada}" selectionMode="single" widgetVar="lovUbicacionUbicacion" scrollable="true" scrollWidth="505" scrollHeight="250"
@@ -2580,7 +2580,7 @@
                         <p:commandButton id="atrasUUG" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 330px;" value="#{msg['atras']}" actionListener="#{controlBusquedaAvanzada2.cancelarParametroUbicacionUbicacion()}"  process="@this"/>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['legislacionLaboralD']}" widgetVar="LegislacionLegislacionLaboralDialogo" draggable="false" resizable="false" closable="false" id="LegislacionLegislacionLaboralDialogo"  
+                    <p:dialog header="#{msg['legislacionLaboralD']}" widgetVar="LegislacionLegislacionLaboralDialogo" draggable="true" resizable="false" closable="false" id="LegislacionLegislacionLaboralDialogo"  
                               showEffect="fade" hideEffect="fade" width="435" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovLegislacionLegislacionLaboral" style="font-size: 11px; width: 405px;" scrollWidth="420" var="legislacionLL" value="#{controlBusquedaAvanzada2.lovContratos}" rowKey="#{legislacionLL.secuencia}"
                                      selection="#{controlBusquedaAvanzada2.contratoSeleccionado}" selectionMode="single" widgetVar="lovLegislacionLegislacionLaboral" scrollable="true" scrollHeight="250" 
@@ -2602,7 +2602,7 @@
                         <p:commandButton id="atrasLLL" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 260px;" value="#{msg['atras']}"  actionListener="#{controlBusquedaAvanzada2.cancelarParametroContratoLegislacionLaboral()}" process="@this"/>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['normaLaboralD']}" widgetVar="NormaLaboralNormaLaboralDialogo" draggable="false" resizable="false" closable="false" id="NormaLaboralNormaLaboralDialogo"  
+                    <p:dialog header="#{msg['normaLaboralD']}" widgetVar="NormaLaboralNormaLaboralDialogo" draggable="true" resizable="false" closable="false" id="NormaLaboralNormaLaboralDialogo"  
                               showEffect="fade" hideEffect="fade" width="435" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovNormaLaboralNormaLaboral" style="font-size: 11px; width: 405px;" scrollWidth="420" var="normaLNL" value="#{controlBusquedaAvanzada2.lovNormasLaborales}" rowKey="#{normaLNL.secuencia}"
                                      selection="#{controlBusquedaAvanzada2.normaLaboralSeleccionada}" selectionMode="single" widgetVar="lovNormaLaboralNormaLaboral" scrollable="true" scrollHeight="250" 
@@ -2624,7 +2624,7 @@
                         <p:commandButton id="atrasNLNL" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 260px;" value="#{msg['atras']}" actionListener="#{controlBusquedaAvanzada2.cancelarParametroNormaLaboralNormaLaboral()}" process="@this"/>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['reformaLaboralD']}" widgetVar="ReformaLaboralTipoSalarioDialogo" draggable="false" resizable="false" closable="false" id="ReformaLaboralTipoSalarioDialogo"  
+                    <p:dialog header="#{msg['reformaLaboralD']}" widgetVar="ReformaLaboralTipoSalarioDialogo" draggable="true" resizable="false" closable="false" id="ReformaLaboralTipoSalarioDialogo"  
                               showEffect="fade" hideEffect="fade" width="435" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovReformaLaboralTipoSalario" style="font-size: 11px; width: 405px;" scrollWidth="420" var="reformaLTS" value="#{controlBusquedaAvanzada2.lovReformasLaborales}" rowKey="#{reformaLTS.secuencia}"
                                      selection="#{controlBusquedaAvanzada2.reformaLaboralSeleccionada}" selectionMode="single" widgetVar="lovReformaLaboralTipoSalario" scrollable="true" scrollHeight="250" 
@@ -2646,7 +2646,7 @@
                         <p:commandButton id="atrasRLTS" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 260px;" value="#{msg['atras']}" actionListener="#{controlBusquedaAvanzada2.cancelarParametroReformaLaboralTipoSalario()}" process="@this"/>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['tipoTrabajadorD']}" widgetVar="TipoTrabajadorTipoTrabajadorDialogo" draggable="false" resizable="false" closable="false" id="TipoTrabajadorTipoTrabajadorDialogo"  
+                    <p:dialog header="#{msg['tipoTrabajadorD']}" widgetVar="TipoTrabajadorTipoTrabajadorDialogo" draggable="true" resizable="false" closable="false" id="TipoTrabajadorTipoTrabajadorDialogo"  
                               showEffect="fade" hideEffect="fade" width="435" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovTipoTrabajadorTipoTrabajador" style="font-size: 11px; width: 405px;" scrollWidth="420" var="tipoTTT" value="#{controlBusquedaAvanzada2.lovTiposTrabajadores}" rowKey="#{tipoTTT.secuencia}"
                                      selection="#{controlBusquedaAvanzada2.tipoTrabajadorSeleccionado}" selectionMode="single" widgetVar="lovTipoTrabajadorTipoTrabajador" scrollable="true" scrollHeight="250" 
@@ -2668,7 +2668,7 @@
                         <p:commandButton id="atrasTTTT" icon="ui-icon-arrowreturnthick-1-w"  style="position: relative; left: 260px;" value="#{msg['atras']}" actionListener="#{controlBusquedaAvanzada2.cancelarParametroTipoTrabajadorTipoTrabajador()}" process="@this"/>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['tipoContratoD']}" widgetVar="TipoContratoFechaContratoDialogo" draggable="false" resizable="false" closable="false" id="TipoContratoFechaContratoDialogo"  
+                    <p:dialog header="#{msg['tipoContratoD']}" widgetVar="TipoContratoFechaContratoDialogo" draggable="true" resizable="false" closable="false" id="TipoContratoFechaContratoDialogo"  
                               showEffect="fade" hideEffect="fade" width="435" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovTipoContratoFechaContrato" style="font-size: 11px; width: 405px;" scrollWidth="420" var="tipoCFC" value="#{controlBusquedaAvanzada2.lovTiposContratos}" rowKey="#{tipoCFC.secuencia}"
                                      selection="#{controlBusquedaAvanzada2.tipoContratoSeleccionado}" selectionMode="single" widgetVar="lovTipoContratoFechaContrato" scrollable="true" scrollHeight="250" 
@@ -2690,7 +2690,7 @@
                         <p:commandButton id="atrasTCFC" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 260px;" value="#{msg['atras']}"  actionListener="#{controlBusquedaAvanzada2.cancelarParametroTipoContratoFechaContrato()}"  process="@this"/>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['motivoContratoD']}" widgetVar="MotivoFechaContratoDialogo" draggable="false" resizable="false" closable="false" id="MotivoFechaContratoDialogo"  
+                    <p:dialog header="#{msg['motivoContratoD']}" widgetVar="MotivoFechaContratoDialogo" draggable="true" resizable="false" closable="false" id="MotivoFechaContratoDialogo"  
                               showEffect="fade" hideEffect="fade" width="435" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovMotivoFechaContrato" style="font-size: 11px; width: 405px;" scrollWidth="420" var="motivoFC" value="#{controlBusquedaAvanzada2.lovMotivosContratos}" rowKey="#{motivoFC.secuencia}"
                                      selection="#{controlBusquedaAvanzada2.motivoContratoSeleccionado}" selectionMode="single" widgetVar="lovMotivoFechaContrato" scrollable="true" scrollHeight="250" 
@@ -2714,7 +2714,7 @@
 
 
 
-                    <p:dialog header="#{msg['tipoSueldoD']}" widgetVar="TipoSueldoSueldoDialogo" draggable="false" resizable="false" closable="false" id="TipoSueldoSueldoDialogo"  
+                    <p:dialog header="#{msg['tipoSueldoD']}" widgetVar="TipoSueldoSueldoDialogo" draggable="true" resizable="false" closable="false" id="TipoSueldoSueldoDialogo"  
                               showEffect="fade" hideEffect="fade" width="435" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovTipoSueldoSueldo" style="font-size: 11px; width: 405px;" scrollWidth="420" var="sueldoS" value="#{controlBusquedaAvanzada2.lovTiposSueldos}" rowKey="#{sueldoS.secuencia}"
                                      selection="#{controlBusquedaAvanzada2.tipoSueldoSeleccionado}" selectionMode="single" widgetVar="lovTipoSueldoSueldo" scrollable="true" scrollHeight="250" 
@@ -2736,7 +2736,7 @@
                         <p:commandButton id="atrasTSS" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 260px;" value="#{msg['atras']}" actionListener="#{controlBusquedaAvanzada2.cancelarParametroTipoSueldoSueldo()}"  process="@this"/>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['motivoCambioSD']}" widgetVar="MotivoSueldoDialogo" draggable="false" resizable="false" closable="false" id="MotivoSueldoDialogo"  
+                    <p:dialog header="#{msg['motivoCambioSD']}" widgetVar="MotivoSueldoDialogo" draggable="true" resizable="false" closable="false" id="MotivoSueldoDialogo"  
                               showEffect="fade" hideEffect="fade" width="435" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovMotivoSueldo" style="font-size: 11px; width: 405px;" scrollWidth="420" var="motivoS" value="#{controlBusquedaAvanzada2.lovMotivosCambiosSueldos}" rowKey="#{motivoS.secuencia}"
                                      selection="#{controlBusquedaAvanzada2.motivoSueldoSeleccionado}" selectionMode="single" widgetVar="lovMotivoSueldo" scrollable="true" scrollHeight="250" 
@@ -2758,7 +2758,7 @@
                         <p:commandButton id="atrasMSS" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 260px;" value="#{msg['atras']}" actionListener="#{controlBusquedaAvanzada2.cancelarParametroMotivoSueldo()}" process="@this"/>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['localizacionD']}" widgetVar="LocalizacionCentroCostoDialogo" draggable="false" resizable="false" closable="false" id="LocalizacionCentroCostoDialogo"  
+                    <p:dialog header="#{msg['localizacionD']}" widgetVar="LocalizacionCentroCostoDialogo" draggable="true" resizable="false" closable="false" id="LocalizacionCentroCostoDialogo"  
                               showEffect="fade" hideEffect="fade" width="520" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovLocalizacionCentroCosto" style="font-size: 11px; width: 490px;" var="localizacionCentroCosto" value="#{controlBusquedaAvanzada2.lovEstructuras}" rowKey="#{localizacionCentroCosto.secuencia}"
                                      selection="#{controlBusquedaAvanzada2.estructuraSeleccionada}" selectionMode="single" widgetVar="lovLocalizacionCentroCosto" scrollable="true" scrollWidth="505" scrollHeight="250"
@@ -2786,7 +2786,7 @@
                         <p:commandButton id="atrasECC" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 330px;" value="#{msg['atras']}" actionListener="#{controlBusquedaAvanzada2.cancelarParametroLocalizacionCentroCosto()}" process="@this"/>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['motivoLocalizacionD']}" widgetVar="MotivoCentroCostoDialogo" draggable="false" resizable="false" closable="false" id="MotivoCentroCostoDialogo"  
+                    <p:dialog header="#{msg['motivoLocalizacionD']}" widgetVar="MotivoCentroCostoDialogo" draggable="true" resizable="false" closable="false" id="MotivoCentroCostoDialogo"  
                               showEffect="fade" hideEffect="fade" width="435" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovMotivoCentroCosto" style="font-size: 11px; width: 405px;" scrollWidth="420" var="motivoCC" value="#{controlBusquedaAvanzada2.lovMotivosLocalizaciones}" rowKey="#{motivoCC.secuencia}"
                                      selection="#{controlBusquedaAvanzada2.motivoLocalizacionSeleccionado}" selectionMode="single" widgetVar="lovMotivoCentroCosto" scrollable="true" scrollHeight="250" 
@@ -2811,7 +2811,7 @@
 
 
 
-                    <p:dialog header="#{msg['cargoD']}" widgetVar="CargoCargoDialogo" draggable="false" resizable="false" closable="false" id="CargoCargoDialogo"  
+                    <p:dialog header="#{msg['cargoD']}" widgetVar="CargoCargoDialogo" draggable="true" resizable="false" closable="false" id="CargoCargoDialogo"  
                               showEffect="fade" hideEffect="fade" width="435" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovCargoCargo" style="font-size: 11px; width: 405px;" scrollWidth="420" var="cargoC" value="#{controlBusquedaAvanzada2.lovCargos}" rowKey="#{cargoC.secuencia}"
                                      selection="#{controlBusquedaAvanzada2.cargoSeleccionado}" selectionMode="single" widgetVar="lovCargoCargo" scrollable="true" scrollHeight="250" 
@@ -2833,7 +2833,7 @@
                         <p:commandButton id="atrasCC" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 260px;" value="#{msg['atras']}" actionListener="#{controlBusquedaAvanzada2.cancelarParametroCargoCargo()}" process="@this"/>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['estructuraD']}" widgetVar="EstructuraCargoDialogo" draggable="false" resizable="false" closable="false" id="EstructuraCargoDialogo"  
+                    <p:dialog header="#{msg['estructuraD']}" widgetVar="EstructuraCargoDialogo" draggable="true" resizable="false" closable="false" id="EstructuraCargoDialogo"  
                               showEffect="fade" hideEffect="fade" width="520" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovEstructuraCargo" style="font-size: 11px; width: 490px;" var="estructuraCargo" value="#{controlBusquedaAvanzada2.lovEstructuras}" rowKey="#{estructuraCargo.secuencia}"
                                      selection="#{controlBusquedaAvanzada2.estructuraSeleccionada}" selectionMode="single" widgetVar="lovEstructuraCargo" scrollable="true" scrollWidth="505" scrollHeight="250"
@@ -2862,7 +2862,7 @@
                     </p:dialog>
 
 
-                    <p:dialog header="#{msg['empleadoJefeD']}" widgetVar="JefeCargoDialogo" draggable="false" resizable="false" closable="false" id="JefeCargoDialogo"  
+                    <p:dialog header="#{msg['empleadoJefeD']}" widgetVar="JefeCargoDialogo" draggable="true" resizable="false" closable="false" id="JefeCargoDialogo"  
                               showEffect="fade" hideEffect="fade" width="435" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovJefeCargo" style="font-size: 11px;  width: 405px;" scrollWidth="420"  var="jefeC" value="#{controlBusquedaAvanzada2.lovEmpleados}" rowKey="#{jefeC.secuencia}"
                                      selection="#{controlBusquedaAvanzada2.empleadoSeleccionado}" selectionMode="single" widgetVar="lovJefeCargo" scrollable="true" scrollHeight="250" 
@@ -2884,7 +2884,7 @@
                         <p:commandButton id="atrasJC" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 260px;" value="#{msg['atras']}" actionListener="#{controlBusquedaAvanzada2.cancelarParametroJefeCargo()}" process="@this"/>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['motivoCargoD']}" widgetVar="MotivoCargoDialogo" draggable="false" resizable="false" closable="false" id="MotivoCargoDialogo"  
+                    <p:dialog header="#{msg['motivoCargoD']}" widgetVar="MotivoCargoDialogo" draggable="true" resizable="false" closable="false" id="MotivoCargoDialogo"  
                               showEffect="fade" hideEffect="fade" width="435" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovMotivoCargo" style="font-size: 11px;  width: 405px;" scrollWidth="420"  var="motivoC" value="#{controlBusquedaAvanzada2.lovMotivosCambiosCargos}" rowKey="#{motivoC.secuencia}"
                                      selection="#{controlBusquedaAvanzada2.motivoCambioSeleccionado}" selectionMode="single" widgetVar="lovMotivoCargo" scrollable="true" scrollHeight="250" 
@@ -2906,7 +2906,7 @@
                         <p:commandButton id="atrasMC" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 260px;" value="#{msg['atras']}" actionListener="#{controlBusquedaAvanzada2.cancelarParametroMotivoCargo()}" process="@this"/>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['papelesD']}" widgetVar="PapelCargoDialogo" draggable="false" resizable="false" closable="false" id="PapelCargoDialogo"  
+                    <p:dialog header="#{msg['papelesD']}" widgetVar="PapelCargoDialogo" draggable="true" resizable="false" closable="false" id="PapelCargoDialogo"  
                               showEffect="fade" hideEffect="fade" width="435" modal="true" style="font-size: 11px;">
                         <p:dataTable id="lovPapelCargo" style="font-size: 11px;  width: 405px;" scrollWidth="420"  var="papelC" value="#{controlBusquedaAvanzada2.lovPapeles}" rowKey="#{papelC.secuencia}"
                                      selection="#{controlBusquedaAvanzada2.papelSeleccionado}" selectionMode="single" widgetVar="lovPapelCargo" scrollable="true" scrollHeight="250" 
@@ -2928,42 +2928,42 @@
                         <p:commandButton id="atrasPC" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 260px;" value="#{msg['atras']}" actionListener="#{controlBusquedaAvanzada2.cancelarParametroPapelCargo()}" process="@this"/>
                     </p:dialog>
 
-                    <p:dialog id="errorFechasIngresadas" header="#{msg['atencion']}" widgetVar="errorFechasIngresadas"  resizable="false" draggable="false" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+                    <p:dialog id="errorFechasIngresadas" header="#{msg['atencion']}" widgetVar="errorFechasIngresadas"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorFechasIngresadas']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
                     
-                    <p:dialog id="errorFormatoNumDocumento" header="#{msg['atencion']}" widgetVar="errorFormatoNumDocumento"  resizable="false" draggable="false" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+                    <p:dialog id="errorFormatoNumDocumento" header="#{msg['atencion']}" widgetVar="errorFormatoNumDocumento"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorFormatoNumDocumento']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorFechasRequeridas" header="#{msg['atencion']}" widgetVar="errorFechasRequeridas"  resizable="false" draggable="false" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+                    <p:dialog id="errorFechasRequeridas" header="#{msg['atencion']}" widgetVar="errorFechasRequeridas"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorFechasRequeridas']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorExceptionFechas" header="#{msg['atencion']}" widgetVar="errorExceptionFechas"  resizable="false" draggable="false" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+                    <p:dialog id="errorExceptionFechas" header="#{msg['atencion']}" widgetVar="errorExceptionFechas"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorExceptionFechas']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorSueldos" header="#{msg['atencion']}" widgetVar="errorSueldos"  resizable="false" draggable="false" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+                    <p:dialog id="errorSueldos" header="#{msg['atencion']}" widgetVar="errorSueldos"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorSueldos']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorPromedios" header="#{msg['atencion']}" widgetVar="errorPromedios"  resizable="false" draggable="false" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+                    <p:dialog id="errorPromedios" header="#{msg['atencion']}" widgetVar="errorPromedios"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorPromedios']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorNewColumna" header="#{msg['atencion']}" widgetVar="errorNewColumna"  resizable="false" draggable="false" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+                    <p:dialog id="errorNewColumna" header="#{msg['atencion']}" widgetVar="errorNewColumna"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorNewColumna']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
                     
-                    <p:dialog id="errorIdiomaPorcentajes" header="#{msg['atencion']}" widgetVar="errorIdiomaPorcentajes"  resizable="false" draggable="false" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+                    <p:dialog id="errorIdiomaPorcentajes" header="#{msg['atencion']}" widgetVar="errorIdiomaPorcentajes"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorIdiomaPorcentajes']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
@@ -3032,39 +3032,39 @@
 
                     <!-- MODULO CARGOS -->
                     
-                    <p:dialog id="editarCargoModCargo" header="#{msg['editarCargoModCargo']}" widgetVar="editarCargoModCargo" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarCargoModCargo" header="#{msg['editarCargoModCargo']}" widgetVar="editarCargoModCargo" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.vigenciaCargoBA.cargo.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
                     
-                    <p:dialog id="editarEstructuraModCargo" header="#{msg['editarEstructuraModCargo']}" widgetVar="editarEstructuraModCargo" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarEstructuraModCargo" header="#{msg['editarEstructuraModCargo']}" widgetVar="editarEstructuraModCargo" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.vigenciaCargoBA.estructura.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarJefeModCargo" header="#{msg['editarJefeModCargo']}" widgetVar="editarJefeModCargo" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarJefeModCargo" header="#{msg['editarJefeModCargo']}" widgetVar="editarJefeModCargo" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.vigenciaCargoBA.empleadojefe.persona.nombreCompleto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     
-                    <p:dialog id="editarMotivoModCargo" header="#{msg['editarMotivoModCargo']}" widgetVar="editarMotivoModCargo" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarMotivoModCargo" header="#{msg['editarMotivoModCargo']}" widgetVar="editarMotivoModCargo" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.vigenciaCargoBA.motivocambiocargo.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarCentroCostoModCargo" header="#{msg['editarCentroCostoModCargo']}" widgetVar="editarCentroCostoModCargo" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarCentroCostoModCargo" header="#{msg['editarCentroCostoModCargo']}" widgetVar="editarCentroCostoModCargo" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.vigenciaCargoBA.estructura.centrocosto.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     
-                    <p:dialog id="editarPapelModCargo" header="#{msg['editarPapelModCargo']}" widgetVar="editarPapelModCargo" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarPapelModCargo" header="#{msg['editarPapelModCargo']}" widgetVar="editarPapelModCargo" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.vigenciaCargoBA.papel.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
                     
-                    <p:dialog id="editarFechaInicialModCargo" header="#{msg['editarFechaInicialModCargo']}" widgetVar="editarFechaInicialModCargo" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarFechaInicialModCargo" header="#{msg['editarFechaInicialModCargo']}" widgetVar="editarFechaInicialModCargo" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.fechaInicialCargo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
                     
-                    <p:dialog id="editarFechaFinalModCargo" header="#{msg['editarFechaFinalModCargo']}" widgetVar="editarFechaFinalModCargo" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarFechaFinalModCargo" header="#{msg['editarFechaFinalModCargo']}" widgetVar="editarFechaFinalModCargo" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.fechaFinalCargo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
@@ -3072,21 +3072,21 @@
                     
                     <!-- MODULO CENTROS COSTOS -->
                     
-                    <p:dialog id="editarLocalizacionModCentroCosto" header="#{msg['editarLocalizacionModCentroCosto']}" widgetVar="editarLocalizacionModCentroCosto" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarLocalizacionModCentroCosto" header="#{msg['editarLocalizacionModCentroCosto']}" widgetVar="editarLocalizacionModCentroCosto" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.vigenciaLocalizacionBA.localizacion.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
                     
-                    <p:dialog id="editarMotivoModCentroCosto" header="#{msg['editarMotivoModCentroCosto']}" widgetVar="editarMotivoModCentroCosto" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarMotivoModCentroCosto" header="#{msg['editarMotivoModCentroCosto']}" widgetVar="editarMotivoModCentroCosto" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.vigenciaLocalizacionBA.motivo.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
                     
-                    <p:dialog id="editarFechaInicialModCentroCosto" header="#{msg['editarFechaInicialModCentroCosto']}" widgetVar="editarFechaInicialModCentroCosto" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarFechaInicialModCentroCosto" header="#{msg['editarFechaInicialModCentroCosto']}" widgetVar="editarFechaInicialModCentroCosto" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.fechaInicialCentroCosto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
                     
-                    <p:dialog id="editarFechaFinalModCentroCosto" header="#{msg['editarFechaFinalModCentroCosto']}" widgetVar="editarFechaFinalModCentroCosto" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarFechaFinalModCentroCosto" header="#{msg['editarFechaFinalModCentroCosto']}" widgetVar="editarFechaFinalModCentroCosto" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.fechaFinalCentroCosto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
@@ -3094,33 +3094,33 @@
 
                     <!-- MODULO SUELDOS -->
                     
-                    <p:dialog id="editarTipoSueldoModSueldo" header="#{msg['editarTipoSueldoModSueldo']}" widgetVar="editarTipoSueldoModSueldo" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarTipoSueldoModSueldo" header="#{msg['editarTipoSueldoModSueldo']}" widgetVar="editarTipoSueldoModSueldo" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.vigenciaSueldoBA.tiposueldo.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarMotivoModSueldo" header="#{msg['editarMotivoModSueldo']}" widgetVar="editarMotivoModSueldo" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarMotivoModSueldo" header="#{msg['editarMotivoModSueldo']}" widgetVar="editarMotivoModSueldo" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.vigenciaSueldoBA.motivocambiosueldo.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
                     
-                    <p:dialog id="editarSueldoMinimoModSueldo" header="#{msg['editarSueldoMaximoModSueldo']}" widgetVar="editarSueldoMinimoModSueldo" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarSueldoMinimoModSueldo" header="#{msg['editarSueldoMaximoModSueldo']}" widgetVar="editarSueldoMinimoModSueldo" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.sueldoMinSueldo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
                             <f:convertNumber currencySymbol="$" for="editarSueldoMaximoModSueldo" type="currency" />
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarSueldoMaximoModSueldo" header="#{msg['editarSueldoMaximoModSueldo']}" widgetVar="editarSueldoMaximoModSueldo" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarSueldoMaximoModSueldo" header="#{msg['editarSueldoMaximoModSueldo']}" widgetVar="editarSueldoMaximoModSueldo" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.sueldoMaxSueldo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
                             <f:convertNumber currencySymbol="$" for="editarSueldoMaximoModSueldo" type="currency" />
                         </p:inputTextarea>
                     </p:dialog>
                     
-                    <p:dialog id="editarFechaInicialModSueldo" header="#{msg['editarFechaInicialModSueldo']}" widgetVar="editarFechaInicialModSueldo" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarFechaInicialModSueldo" header="#{msg['editarFechaInicialModSueldo']}" widgetVar="editarFechaInicialModSueldo" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.fechaInicialSueldo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
                     
-                    <p:dialog id="editarFechaFinalModSueldo" header="#{msg['editarFechaFinalModSueldo']}" widgetVar="editarFechaFinalModSueldo" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarFechaFinalModSueldo" header="#{msg['editarFechaFinalModSueldo']}" widgetVar="editarFechaFinalModSueldo" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.fechaFinalSueldo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
@@ -3129,21 +3129,21 @@
 
                     <!-- MODULO FECHA CONTRATO-->
                     
-                    <p:dialog id="editarTipoContratoModFechaContrato" header="#{msg['editarTipoSueldoModSueldo']}" widgetVar="editarTipoSueldoModSueldo" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarTipoContratoModFechaContrato" header="#{msg['editarTipoSueldoModSueldo']}" widgetVar="editarTipoSueldoModSueldo" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.vigenciaTipoContratoBA.tipocontrato.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
                     
-                     <p:dialog id="editarMotivoModFechaContrato" header="#{msg['editarTipoSueldoModSueldo']}" widgetVar="editarTipoSueldoModSueldo" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                     <p:dialog id="editarMotivoModFechaContrato" header="#{msg['editarTipoSueldoModSueldo']}" widgetVar="editarTipoSueldoModSueldo" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.vigenciaTipoContratoBA.motivocontrato.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaInicialModFechaContrato" header="#{msg['editarFechaFinalModSueldo']}" widgetVar="editarFechaFinalModSueldo" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarFechaInicialModFechaContrato" header="#{msg['editarFechaFinalModSueldo']}" widgetVar="editarFechaFinalModSueldo" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.fechaInicialFechaContrato}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaFinalModFechaContrato" header="#{msg['editarFechaFinalModSueldo']}" widgetVar="editarFechaFinalModSueldo" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarFechaFinalModFechaContrato" header="#{msg['editarFechaFinalModSueldo']}" widgetVar="editarFechaFinalModSueldo" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.fechaFinalFechaContrato}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
@@ -3151,17 +3151,17 @@
 
                     <!-- MODULO TIPO TRABAJADOR-->
 
-                    <p:dialog id="editarTipoTrabajadorModTipoTrabajador" header="#{msg['editarTipoTrabajadorModTipoTrabajador']}" widgetVar="editarTipoTrabajadorModTipoTrabajador" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarTipoTrabajadorModTipoTrabajador" header="#{msg['editarTipoTrabajadorModTipoTrabajador']}" widgetVar="editarTipoTrabajadorModTipoTrabajador" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.vigenciaTipoTrabajadorBA.tipotrabajador.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
                     
-                    <p:dialog id="editarFechaInicialModTipoTrabajador" header="#{msg['editarFechaInicialModTipoTrabajador']}" widgetVar="editarFechaInicialModTipoTrabajador" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarFechaInicialModTipoTrabajador" header="#{msg['editarFechaInicialModTipoTrabajador']}" widgetVar="editarFechaInicialModTipoTrabajador" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.fechaInicialTipoTrabajador}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaFinalModTipoTrabajador" header="#{msg['editarFechaFinalModTipoTrabajador']}" widgetVar="editarFechaFinalModTipoTrabajador" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarFechaFinalModTipoTrabajador" header="#{msg['editarFechaFinalModTipoTrabajador']}" widgetVar="editarFechaFinalModTipoTrabajador" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.fechaFinalTipoTrabajador}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
@@ -3169,17 +3169,17 @@
 
                     <!-- MODULO TIPO SALARIO-->
 
-                    <p:dialog id="editarReformaLaboralModTipoSalario" header="#{msg['editarReformaLaboralModTipoSalario']}" widgetVar="editarReformaLaboralModTipoSalario" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarReformaLaboralModTipoSalario" header="#{msg['editarReformaLaboralModTipoSalario']}" widgetVar="editarReformaLaboralModTipoSalario" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.vigenciaReformaLaboralBA.reformalaboral.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaInicialModTipoSalario" header="#{msg['editarFechaInicialModTipoSalario']}" widgetVar="editarFechaInicialModTipoSalario" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarFechaInicialModTipoSalario" header="#{msg['editarFechaInicialModTipoSalario']}" widgetVar="editarFechaInicialModTipoSalario" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.fechaInicialTipoSalario}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaFinalModTipoSalario" header="#{msg['editarFechaFinalModTipoSalario']}" widgetVar="editarFechaFinalModTipoSalario" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarFechaFinalModTipoSalario" header="#{msg['editarFechaFinalModTipoSalario']}" widgetVar="editarFechaFinalModTipoSalario" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.fechaFinalTipoSalario}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
@@ -3187,17 +3187,17 @@
 
                     <!-- MODULO NORMA LABORAL -->
                     
-                    <p:dialog id="editarNormaLaboralModNormaLaboral" header="#{msg['editarNormaLaboralModNormaLaboral']}" widgetVar="editarNormaLaboralModNormaLaboral" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarNormaLaboralModNormaLaboral" header="#{msg['editarNormaLaboralModNormaLaboral']}" widgetVar="editarNormaLaboralModNormaLaboral" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.vigenciaNormaEmpleadoBA.normalaboral.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaInicialModNormaLaboral" header="#{msg['editarFechaInicialModNormaLaboral']}" widgetVar="editarFechaInicialModNormaLaboral" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarFechaInicialModNormaLaboral" header="#{msg['editarFechaInicialModNormaLaboral']}" widgetVar="editarFechaInicialModNormaLaboral" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.fechaInicialNormaLaboral}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
                     
-                    <p:dialog id="editarFechaFinalModNormaLaboral" header="#{msg['editarFechaFinalModNormaLaboral']}" widgetVar="editarFechaFinalModNormaLaboral" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarFechaFinalModNormaLaboral" header="#{msg['editarFechaFinalModNormaLaboral']}" widgetVar="editarFechaFinalModNormaLaboral" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.fechaFinalNormaLaboral}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
@@ -3205,29 +3205,29 @@
 
                     <!-- MODULO LEGISLACION LABORAL -->
                     
-                    <p:dialog id="editarLegislacionModLegislacionLaboral" header="#{msg['editarLegislacionModLegislacionLaboral']}" widgetVar="editarLegislacionModLegislacionLaboral" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarLegislacionModLegislacionLaboral" header="#{msg['editarLegislacionModLegislacionLaboral']}" widgetVar="editarLegislacionModLegislacionLaboral" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.vigenciaNormaEmpleadoBA.normalaboral.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaMIInicialModLegislacionLaboral" header="#{msg['editarFechaMIInicialModLegislacionLaboral']}" widgetVar="editarFechaMIInicialModLegislacionLaboral" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarFechaMIInicialModLegislacionLaboral" header="#{msg['editarFechaMIInicialModLegislacionLaboral']}" widgetVar="editarFechaMIInicialModLegislacionLaboral" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.fechaMIInicialLegislacionLaboral}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
                     
-                    <p:dialog id="editarFechaMIFinalModLegislacionLaboral" header="#{msg['editarFechaMIFinalModLegislacionLaboral']}" widgetVar="editarFechaMIFinalModLegislacionLaboral" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarFechaMIFinalModLegislacionLaboral" header="#{msg['editarFechaMIFinalModLegislacionLaboral']}" widgetVar="editarFechaMIFinalModLegislacionLaboral" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.fechaMIFinalLegislacionLaboral}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
                     
-                    <p:dialog id="editarFechaMFInicialModLegislacionLaboral" header="#{msg['editarFechaMFInicialModLegislacionLaboral']}" widgetVar="editarFechaMFInicialModLegislacionLaboral" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarFechaMFInicialModLegislacionLaboral" header="#{msg['editarFechaMFInicialModLegislacionLaboral']}" widgetVar="editarFechaMFInicialModLegislacionLaboral" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.fechaMFInicialLegislacionLaboral}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaMFFinalModLegislacionLaboral" header="#{msg['editarFechaMFFinalModLegislacionLaboral']}" widgetVar="editarFechaMFFinalModLegislacionLaboral" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarFechaMFFinalModLegislacionLaboral" header="#{msg['editarFechaMFFinalModLegislacionLaboral']}" widgetVar="editarFechaMFFinalModLegislacionLaboral" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.fechaMFFinalLegislacionLaboral}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
@@ -3235,21 +3235,21 @@
 
                     <!-- MODULO UBICACION GEOGRAFICA -->
 
-                    <p:dialog id="editarUbicacionModUbicacion" header="#{msg['editarUbicacionModUbicacion']}" widgetVar="editarUbicacionModUbicacion" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarUbicacionModUbicacion" header="#{msg['editarUbicacionModUbicacion']}" widgetVar="editarUbicacionModUbicacion" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.vigenciaUbicacionBA.ubicacion.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
                     
-                    <p:dialog id="editarCiudadModUbicacion" header="#{msg['editarCiudadModUbicacion']}" widgetVar="editarCiudadModUbicacion" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarCiudadModUbicacion" header="#{msg['editarCiudadModUbicacion']}" widgetVar="editarCiudadModUbicacion" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.vigenciaUbicacionBA.ubicacion.ciudad.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
                     
-                    <p:dialog id="editarFechaInicialModUbicacion" header="#{msg['editarFechaInicialModUbicacion']}" widgetVar="editarFechaInicialModUbicacion" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarFechaInicialModUbicacion" header="#{msg['editarFechaInicialModUbicacion']}" widgetVar="editarFechaInicialModUbicacion" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.fechaInicialUbicacion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
                     
-                    <p:dialog id="editarFechaFinalModUbicacion" header="#{msg['editarFechaFinalModUbicacion']}" widgetVar="editarFechaFinalModUbicacion" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarFechaFinalModUbicacion" header="#{msg['editarFechaFinalModUbicacion']}" widgetVar="editarFechaFinalModUbicacion" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.fechaFinalUbicacion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
@@ -3257,26 +3257,26 @@
 
                     <!-- MODULO AFILIACION -->
                     
-                    <p:dialog id="editarTerceroModAfiliacion" header="#{msg['editarTerceroModAfiliacion']}" widgetVar="editarTerceroModAfiliacion" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarTerceroModAfiliacion" header="#{msg['editarTerceroModAfiliacion']}" widgetVar="editarTerceroModAfiliacion" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.vigenciaAfiliacionBA.tercerosucursal.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarTipoEntidadModAfiliacion" header="#{msg['editarTipoEntidadModAfiliacion']}" widgetVar="editarTipoEntidadModAfiliacion" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarTipoEntidadModAfiliacion" header="#{msg['editarTipoEntidadModAfiliacion']}" widgetVar="editarTipoEntidadModAfiliacion" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.vigenciaAfiliacionBA.tipoentidad.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                   
-                    <p:dialog id="editarEstadoModAfiliacion" header="#{msg['editarEstadoModAfiliacion']}" widgetVar="editarEstadoModAfiliacion" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarEstadoModAfiliacion" header="#{msg['editarEstadoModAfiliacion']}" widgetVar="editarEstadoModAfiliacion" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.vigenciaAfiliacionBA.estadoafiliacion.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
                     
-                    <p:dialog id="editarFechaInicialModAfiliacion" header="#{msg['editarFechaInicialModAfiliacion']}" widgetVar="editarFechaInicialModAfiliacion" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarFechaInicialModAfiliacion" header="#{msg['editarFechaInicialModAfiliacion']}" widgetVar="editarFechaInicialModAfiliacion" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.fechaInicialAfiliacion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaFinalModAfiliacion" header="#{msg['editarFechaFinalModAfiliacion']}" widgetVar="editarFechaFinalModAfiliacion" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarFechaFinalModAfiliacion" header="#{msg['editarFechaFinalModAfiliacion']}" widgetVar="editarFechaFinalModAfiliacion" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.fechaFinalAfiliacion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
@@ -3284,21 +3284,21 @@
 
                     <!-- MODULO FORMA PAGO -->
                     
-                    <p:dialog id="editarFormaPagoModFormaPago" header="#{msg['editarFormaPagoModFormaPago']}" widgetVar="editarFormaPagoModFormaPago" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarFormaPagoModFormaPago" header="#{msg['editarFormaPagoModFormaPago']}" widgetVar="editarFormaPagoModFormaPago" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.vigenciaFormaPagoBA.formapago.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarSucursalModFormaPago" header="#{msg['editarSucursalModFormaPago']}" widgetVar="editarSucursalModFormaPago" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarSucursalModFormaPago" header="#{msg['editarSucursalModFormaPago']}" widgetVar="editarSucursalModFormaPago" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.vigenciaFormaPagoBA.sucursal.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
                     
-                    <p:dialog id="editarFechaInicialModFormaPago" header="#{msg['editarFechaInicialModFormaPago']}" widgetVar="editarFechaInicialModFormaPago" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarFechaInicialModFormaPago" header="#{msg['editarFechaInicialModFormaPago']}" widgetVar="editarFechaInicialModFormaPago" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.fechaInicialFormaPago}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
                     
-                    <p:dialog id="editarFechaFinalModFormaPago" header="#{msg['editarFechaFinalModFormaPago']}" widgetVar="editarFechaFinalModFormaPago" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarFechaFinalModFormaPago" header="#{msg['editarFechaFinalModFormaPago']}" widgetVar="editarFechaFinalModFormaPago" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.fechaFinalFormaPago}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
@@ -3306,25 +3306,25 @@
 
                     <!-- MODULO MVRS -->
                     
-                    <p:dialog id="editarMotivoModMvrs" header="#{msg['editarMotivoModMvrs']}" widgetVar="editarMotivoModMvrs" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarMotivoModMvrs" header="#{msg['editarMotivoModMvrs']}" widgetVar="editarMotivoModMvrs" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.mvrsBA.motivo.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
                     
-                    <p:dialog id="editarSueldoMinModMvrs" header="#{msg['editarSueldoMinModMvrs']}" widgetVar="editarSueldoMinModMvrs" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarSueldoMinModMvrs" header="#{msg['editarSueldoMinModMvrs']}" widgetVar="editarSueldoMinModMvrs" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.sueldoMinMvrs}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
                     
-                    <p:dialog id="editarSueldoMaxModMvrs" header="#{msg['editarSueldoMaxModMvrs']}" widgetVar="editarSueldoMaxModMvrs" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarSueldoMaxModMvrs" header="#{msg['editarSueldoMaxModMvrs']}" widgetVar="editarSueldoMaxModMvrs" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.sueldoMaxMvrs}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
                     
-                    <p:dialog id="editarFechaInicialModMvrs" header="#{msg['editarFechaInicialModMvrs']}" widgetVar="editarFechaInicialModMvrs" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarFechaInicialModMvrs" header="#{msg['editarFechaInicialModMvrs']}" widgetVar="editarFechaInicialModMvrs" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.fechaInicialMvrs}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
                     
-                    <p:dialog id="editarFechaFinalModMvrs" header="#{msg['editarFechaFinalModMvrs']}" widgetVar="editarFechaFinalModMvrs" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarFechaFinalModMvrs" header="#{msg['editarFechaFinalModMvrs']}" widgetVar="editarFechaFinalModMvrs" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.fechaFinalMvrs}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
@@ -3332,33 +3332,33 @@
 
                     <!-- MODULO SETS -->
                     
-                    <p:dialog id="editarPromedioMinModSets" header="#{msg['editarPromedioMinModSets']}" widgetVar="editarPromedioMinModSets" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarPromedioMinModSets" header="#{msg['editarPromedioMinModSets']}" widgetVar="editarPromedioMinModSets" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.promedioMinimoSets}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
                     
-                    <p:dialog id="editarPromedioMaxModSets" header="#{msg['editarPromedioMaxModSets']}" widgetVar="editarPromedioMaxModSets" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarPromedioMaxModSets" header="#{msg['editarPromedioMaxModSets']}" widgetVar="editarPromedioMaxModSets" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.promedioMaximoSets}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaMIInicialModSets" header="#{msg['editarFechaMIInicialModSets']}" widgetVar="editarFechaMIInicialModSets" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarFechaMIInicialModSets" header="#{msg['editarFechaMIInicialModSets']}" widgetVar="editarFechaMIInicialModSets" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.fechaMIInicialSets}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaMIFinalModSets" header="#{msg['editarFechaMIFinalModSets']}" widgetVar="editarFechaMIFinalModSets" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarFechaMIFinalModSets" header="#{msg['editarFechaMIFinalModSets']}" widgetVar="editarFechaMIFinalModSets" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.fechaMIFinalSets}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaMFInicialModSets" header="#{msg['editarFechaMFInicialModSets']}" widgetVar="editarFechaMFInicialModSets" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarFechaMFInicialModSets" header="#{msg['editarFechaMFInicialModSets']}" widgetVar="editarFechaMFInicialModSets" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.fechaMFInicialSets}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaMFFinalModSets" header="#{msg['editarFechaMFFinalModSets']}" widgetVar="editarFechaMFFinalModSets" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarFechaMFFinalModSets" header="#{msg['editarFechaMFFinalModSets']}" widgetVar="editarFechaMFFinalModSets" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.fechaMFFinalSets}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
@@ -3367,25 +3367,25 @@
                     <!-- MODULO VACACIONES -->
 
                     
-                    <p:dialog id="editarFechaMIInicialModVacacion" header="#{msg['editarFechaMIInicialModVacacion']}" widgetVar="editarFechaMIInicialModVacacion" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarFechaMIInicialModVacacion" header="#{msg['editarFechaMIInicialModVacacion']}" widgetVar="editarFechaMIInicialModVacacion" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.fechaMIInicialVacacion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
                     
-                    <p:dialog id="editarFechaMIFinalModVacacion" header="#{msg['editarFechaMIFinalModVacacion']}" widgetVar="editarFechaMIFinalModVacacion" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarFechaMIFinalModVacacion" header="#{msg['editarFechaMIFinalModVacacion']}" widgetVar="editarFechaMIFinalModVacacion" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.fechaMIFinalVacacion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
                     
-                    <p:dialog id="editarFechaMFInicialModVacacion" header="#{msg['editarFechaMFInicialModVacacion']}" widgetVar="editarFechaMFInicialModVacacion" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarFechaMFInicialModVacacion" header="#{msg['editarFechaMFInicialModVacacion']}" widgetVar="editarFechaMFInicialModVacacion" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.fechaMFInicialVacacion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
                     
-                    <p:dialog id="editarFechaMFFinalModVacacion" header="#{msg['editarFechaMFFinalModVacacion']}" widgetVar="editarFechaMFFinalModVacacion" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarFechaMFFinalModVacacion" header="#{msg['editarFechaMFFinalModVacacion']}" widgetVar="editarFechaMFFinalModVacacion" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.fechaMFFinalVacacion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
@@ -3393,17 +3393,17 @@
 
                     <!-- MODULO JORNADA LABORAL -->
                     
-                    <p:dialog id="editarJornadaModJornadaLaboral" header="#{msg['editarJornadaModJornadaLaboral']}" widgetVar="editarJornadaModJornadaLaboral" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarJornadaModJornadaLaboral" header="#{msg['editarJornadaModJornadaLaboral']}" widgetVar="editarJornadaModJornadaLaboral" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.vigenciaJornadaBA.jornadatrabajo.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
                     
-                    <p:dialog id="editarFechaInicialModJornadaLaboral" header="#{msg['editarFechaInicialModJornadaLaboral']}" widgetVar="editarFechaInicialModJornadaLaboral" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarFechaInicialModJornadaLaboral" header="#{msg['editarFechaInicialModJornadaLaboral']}" widgetVar="editarFechaInicialModJornadaLaboral" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.fechaInicialJornadaLaboral}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
                     
-                    <p:dialog id="editarFechaFinalModJornadaLaboral" header="#{msg['editarFechaFinalModJornadaLaboral']}" widgetVar="editarFechaFinalModJornadaLaboral" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarFechaFinalModJornadaLaboral" header="#{msg['editarFechaFinalModJornadaLaboral']}" widgetVar="editarFechaFinalModJornadaLaboral" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.fechaFinalJornadaLaboral}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
@@ -3411,17 +3411,17 @@
 
                     <!-- MODULO FECHA RETIRO -->
     
-                    <p:dialog id="editarMotivoModFechaRetiro" header="#{msg['editarMotivoModFechaRetiro']}" widgetVar="editarMotivoModFechaRetiro" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarMotivoModFechaRetiro" header="#{msg['editarMotivoModFechaRetiro']}" widgetVar="editarMotivoModFechaRetiro" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.motivoRetiroBA.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog> 
                     
-                    <p:dialog id="editarFechaInicialModFechaRetiro" header="#{msg['editarFechaInicialModFechaRetiro']}" widgetVar="editarFechaInicialModFechaRetiro" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarFechaInicialModFechaRetiro" header="#{msg['editarFechaInicialModFechaRetiro']}" widgetVar="editarFechaInicialModFechaRetiro" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.fechaInicialFechaRetiro}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
                     
-                    <p:dialog id="editarFechaFinalModFechaRetiro" header="#{msg['editarFechaFinalModFechaRetiro']}" widgetVar="editarFechaFinalModFechaRetiro" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarFechaFinalModFechaRetiro" header="#{msg['editarFechaFinalModFechaRetiro']}" widgetVar="editarFechaFinalModFechaRetiro" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.fechaFinalFechaRetiro}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
@@ -3429,25 +3429,25 @@
                     
                     <!-- MODULO DATOS PERSONALES -->
                     
-                    <p:dialog id="editarNumeroDocumentoModDatosPersonales" header="#{msg['editarNumeroDocumentoModDatosPersonales']}" widgetVar="editarNumeroDocumentoModDatosPersonales" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarNumeroDocumentoModDatosPersonales" header="#{msg['editarNumeroDocumentoModDatosPersonales']}" widgetVar="editarNumeroDocumentoModDatosPersonales" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.empleadoBA.persona.strNumeroDocumento}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog> 
                     
-                    <p:dialog id="editarCiudadDocumentoModDatosPersonales" header="#{msg['editarCiudadDocumentoModDatosPersonales']}" widgetVar="editarCiudadDocumentoModDatosPersonales" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarCiudadDocumentoModDatosPersonales" header="#{msg['editarCiudadDocumentoModDatosPersonales']}" widgetVar="editarCiudadDocumentoModDatosPersonales" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.empleadoBA.persona.ciudaddocumento.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog> 
                     
-                    <p:dialog id="editarCiudadNacimientoModDatosPersonales" header="#{msg['editarCiudadNacimientoModDatosPersonales']}" widgetVar="editarCiudadNacimientoModDatosPersonales" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarCiudadNacimientoModDatosPersonales" header="#{msg['editarCiudadNacimientoModDatosPersonales']}" widgetVar="editarCiudadNacimientoModDatosPersonales" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.empleadoBA.persona.ciudadnacimiento.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog> 
 
-                    <p:dialog id="editarFechaInicialModDatosPersonales" header="#{msg['editarFechaInicialModDatosPersonales']}" widgetVar="editarFechaInicialModDatosPersonales" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarFechaInicialModDatosPersonales" header="#{msg['editarFechaInicialModDatosPersonales']}" widgetVar="editarFechaInicialModDatosPersonales" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.fechaInicialDatosPersonales}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
                     
-                    <p:dialog id="editarFechaFinalModDatosPersonales" header="#{msg['editarFechaFinalModDatosPersonales']}" widgetVar="editarFechaFinalModDatosPersonales" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarFechaFinalModDatosPersonales" header="#{msg['editarFechaFinalModDatosPersonales']}" widgetVar="editarFechaFinalModDatosPersonales" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.fechaFinalDatosPersonales}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
@@ -3455,17 +3455,17 @@
                     
                     <!-- MODULO ESTADO CIVIL -->
                     
-                    <p:dialog id="editarEstadoCivilModEstadoCivil" header="#{msg['editarEstadoCivilModEstadoCivil']}" widgetVar="editarEstadoCivilModEstadoCivil" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarEstadoCivilModEstadoCivil" header="#{msg['editarEstadoCivilModEstadoCivil']}" widgetVar="editarEstadoCivilModEstadoCivil" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.estadoCivilBA.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog> 
                     
-                    <p:dialog id="editarFechaInicialModEstadoCivil" header="#{msg['editarFechaInicialModEstadoCivil']}" widgetVar="editarFechaInicialModEstadoCivil" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarFechaInicialModEstadoCivil" header="#{msg['editarFechaInicialModEstadoCivil']}" widgetVar="editarFechaInicialModEstadoCivil" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.fechaInicialEstadoCivil}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
                     
-                    <p:dialog id="editarFechaFinalModEstadoCivil" header="#{msg['editarFechaFinalModEstadoCivil']}" widgetVar="editarFechaFinalModEstadoCivil" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarFechaFinalModEstadoCivil" header="#{msg['editarFechaFinalModEstadoCivil']}" widgetVar="editarFechaFinalModEstadoCivil" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.fechaFinalEstadoCivil}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
@@ -3473,51 +3473,51 @@
                     
                     <!-- MODULO IDIOMA -->
 
-                    <p:dialog id="editarIdiomaModIdioma" header="#{msg['editarIdiomaModIdioma']}" widgetVar="editarIdiomaModIdioma" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarIdiomaModIdioma" header="#{msg['editarIdiomaModIdioma']}" widgetVar="editarIdiomaModIdioma" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.idiomaPersonaBA.idioma.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog> 
                                         
-                    <p:dialog id="editarConversacionDesdeModIdioma" header="#{msg['editarConversacionDesdeModIdioma']}" widgetVar="editarConversacionDesdeModIdioma" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarConversacionDesdeModIdioma" header="#{msg['editarConversacionDesdeModIdioma']}" widgetVar="editarConversacionDesdeModIdioma" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.conversacionDesde}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>                     
                     
-                    <p:dialog id="editarConversacionHastaModIdioma" header="#{msg['editarConversacionHastaModIdioma']}" widgetVar="editarConversacionHastaModIdioma" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarConversacionHastaModIdioma" header="#{msg['editarConversacionHastaModIdioma']}" widgetVar="editarConversacionHastaModIdioma" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.conversacionHasta}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog> 
                                         
-                    <p:dialog id="editarLecturaDesdeModIdioma" header="#{msg['editarLecturaDesdeModIdioma']}" widgetVar="editarLecturaDesdeModIdioma" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarLecturaDesdeModIdioma" header="#{msg['editarLecturaDesdeModIdioma']}" widgetVar="editarLecturaDesdeModIdioma" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.lecturaDesde}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>                    
                     
-                    <p:dialog id="editarLecturaHastaModIdioma" header="#{msg['editarLecturaHastaModIdioma']}" widgetVar="editarLecturaHastaModIdioma" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarLecturaHastaModIdioma" header="#{msg['editarLecturaHastaModIdioma']}" widgetVar="editarLecturaHastaModIdioma" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.lecturaHasta}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog> 
                     
-                    <p:dialog id="editarEscrituraDesdeModIdioma" header="#{msg['editarEscrituraDesdeModIdioma']}" widgetVar="editarEscrituraDesdeModIdioma" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarEscrituraDesdeModIdioma" header="#{msg['editarEscrituraDesdeModIdioma']}" widgetVar="editarEscrituraDesdeModIdioma" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.escrituraDesde}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog> 
                     
-                    <p:dialog id="editarEscrituraHastaModIdioma" header="#{msg['editarEscrituraHastaModIdioma']}" widgetVar="editarEscrituraHastaModIdioma" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarEscrituraHastaModIdioma" header="#{msg['editarEscrituraHastaModIdioma']}" widgetVar="editarEscrituraHastaModIdioma" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.escrituraHasta}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog> 
                     
                      <!-- MODULO CENSOS -->
 
-                    <p:dialog id="editarTipoIndicadorModCenso" header="#{msg['editarTipoIndicadorModCenso']}" widgetVar="editarTipoIndicadorModCenso" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarTipoIndicadorModCenso" header="#{msg['editarTipoIndicadorModCenso']}" widgetVar="editarTipoIndicadorModCenso" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.vigenciaIndicadorBA.tipoindicador.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog> 
                      
-                     <p:dialog id="editarIndicadorModCenso" header="#{msg['editarIndicadorModCenso']}" widgetVar="editarIndicadorModCenso" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                     <p:dialog id="editarIndicadorModCenso" header="#{msg['editarIndicadorModCenso']}" widgetVar="editarIndicadorModCenso" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.vigenciaIndicadorBA.indicador.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog> 
 
-                    <p:dialog id="editarFechaInicialModCenso" header="#{msg['editarFechaInicialModCenso']}" widgetVar="editarFechaInicialModCenso" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarFechaInicialModCenso" header="#{msg['editarFechaInicialModCenso']}" widgetVar="editarFechaInicialModCenso" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.fechaInicialCenso}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
                      
-                    <p:dialog id="editarFechaFinalModCenso" header="#{msg['editarFechaFinalModCenso']}" widgetVar="editarFechaFinalModCenso" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarFechaFinalModCenso" header="#{msg['editarFechaFinalModCenso']}" widgetVar="editarFechaFinalModCenso" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.fechaFinalCenso}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
@@ -3525,21 +3525,21 @@
                      
                      <!-- MODULO EDUCACION FORMAL -->
                      
-                    <p:dialog id="editarProfesionModEducacionFormal" header="#{msg['editarProfesionModEducacionFormal']}" widgetVar="editarProfesionModEducacionFormal" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarProfesionModEducacionFormal" header="#{msg['editarProfesionModEducacionFormal']}" widgetVar="editarProfesionModEducacionFormal" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.vigenciaFormalBA.profesion.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog> 
                      
-                     <p:dialog id="editarInstitucionModEducacionFormal" header="#{msg['editarInstitucionModEducacionFormal']}" widgetVar="editarInstitucionModEducacionFormal" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                     <p:dialog id="editarInstitucionModEducacionFormal" header="#{msg['editarInstitucionModEducacionFormal']}" widgetVar="editarInstitucionModEducacionFormal" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.vigenciaFormalBA.institucion.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog> 
                      
-                     <p:dialog id="editarFechaInicialModEducacionFormal" header="#{msg['editarFechaInicialModEducacionFormal']}" widgetVar="editarFechaInicialModEducacionFormal" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                     <p:dialog id="editarFechaInicialModEducacionFormal" header="#{msg['editarFechaInicialModEducacionFormal']}" widgetVar="editarFechaInicialModEducacionFormal" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.fechaInicialEducacionFormal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
                      
-                     <p:dialog id="editarFechaFinalModEducacionFormal" header="#{msg['editarFechaFinalModEducacionFormal']}" widgetVar="editarFechaFinalModEducacionFormal" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                     <p:dialog id="editarFechaFinalModEducacionFormal" header="#{msg['editarFechaFinalModEducacionFormal']}" widgetVar="editarFechaFinalModEducacionFormal" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.fechaFinalEducacionFormal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
@@ -3547,21 +3547,21 @@
                      
                      <!-- MODULO EDUCACION NO FORMAL -->
                      
-                    <p:dialog id="editarCursoModEducacionNoFormal" header="#{msg['editarCursoModEducacionNoFormal']}" widgetVar="editarCursoModEducacionNoFormal" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarCursoModEducacionNoFormal" header="#{msg['editarCursoModEducacionNoFormal']}" widgetVar="editarCursoModEducacionNoFormal" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.vigenciaNoFormalBA.curso.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog> 
                      
-                     <p:dialog id="editarInstitucionModEducacionNoFormal" header="#{msg['editarInstitucionModEducacionNoFormal']}" widgetVar="editarInstitucionModEducacionNoFormal" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                     <p:dialog id="editarInstitucionModEducacionNoFormal" header="#{msg['editarInstitucionModEducacionNoFormal']}" widgetVar="editarInstitucionModEducacionNoFormal" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.vigenciaNoFormalBA.institucion.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog> 
                      
-                     <p:dialog id="editarFechaInicialModEducacionNoFormal" header="#{msg['editarFechaInicialModEducacionNoFormal']}" widgetVar="editarFechaInicialModEducacionNoFormal" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                     <p:dialog id="editarFechaInicialModEducacionNoFormal" header="#{msg['editarFechaInicialModEducacionNoFormal']}" widgetVar="editarFechaInicialModEducacionNoFormal" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.fechaInicialEducacionNoFormal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
                      
-                     <p:dialog id="editarFechaFinalModEducacionNoFormal" header="#{msg['editarFechaFinalModEducacionNoFormal']}" widgetVar="editarFechaFinalModEducacionNoFormal" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                     <p:dialog id="editarFechaFinalModEducacionNoFormal" header="#{msg['editarFechaFinalModEducacionNoFormal']}" widgetVar="editarFechaFinalModEducacionNoFormal" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.fechaFinalEducacionNoFormal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
@@ -3569,29 +3569,29 @@
                      
                      <!-- MODULO EXPERIENCIA LABORAL -->
                      
-                     <p:dialog id="editarSectorEconomicoModExperienciaLaboral" header="#{msg['editarSectorEconomicoModExperienciaLaboral']}" widgetVar="editarSectorEconomicoModExperienciaLaboral" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                     <p:dialog id="editarSectorEconomicoModExperienciaLaboral" header="#{msg['editarSectorEconomicoModExperienciaLaboral']}" widgetVar="editarSectorEconomicoModExperienciaLaboral" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.hvExperienciaLaboralBA.sectoreconomico.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog> 
                      
-                     <p:dialog id="editarMotivoRetiroModExperienciaLaboral" header="#{msg['editarMotivoRetiroModExperienciaLaboral']}" widgetVar="editarMotivoRetiroModExperienciaLaboral" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                     <p:dialog id="editarMotivoRetiroModExperienciaLaboral" header="#{msg['editarMotivoRetiroModExperienciaLaboral']}" widgetVar="editarMotivoRetiroModExperienciaLaboral" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.hvExperienciaLaboralBA.motivoretiro.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog> 
                      
-                     <p:dialog id="editarEmpresaModExperienciaLaboral" header="#{msg['editarEmpresaModExperienciaLaboral']}" widgetVar="editarEmpresaModExperienciaLaboral" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                     <p:dialog id="editarEmpresaModExperienciaLaboral" header="#{msg['editarEmpresaModExperienciaLaboral']}" widgetVar="editarEmpresaModExperienciaLaboral" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.empresaExperienciaLaboral}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog> 
 
-                     <p:dialog id="editarCargoModExperienciaLaboral" header="#{msg['editarCargoModExperienciaLaboral']}" widgetVar="editarCargoModExperienciaLaboral" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                     <p:dialog id="editarCargoModExperienciaLaboral" header="#{msg['editarCargoModExperienciaLaboral']}" widgetVar="editarCargoModExperienciaLaboral" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.cargoExperienciaLaboral}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog> 
 
-                     <p:dialog id="editarFechaInicialModExperienciaLaboral" header="#{msg['editarFechaInicialModExperienciaLaboral']}" widgetVar="editarFechaInicialModExperienciaLaboral" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                     <p:dialog id="editarFechaInicialModExperienciaLaboral" header="#{msg['editarFechaInicialModExperienciaLaboral']}" widgetVar="editarFechaInicialModExperienciaLaboral" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.fechaInicialExperienciaLaboral}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                     <p:dialog id="editarFechaFinalModExperienciaLaboral" header="#{msg['editarFechaFinalModExperienciaLaboral']}" widgetVar="editarFechaFinalModExperienciaLaboral" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                     <p:dialog id="editarFechaFinalModExperienciaLaboral" header="#{msg['editarFechaFinalModExperienciaLaboral']}" widgetVar="editarFechaFinalModExperienciaLaboral" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.fechaFinalExperienciaLaboral}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
@@ -3599,21 +3599,21 @@
                      
                      <!-- MODULO PROYECTO -->
 
-                     <p:dialog id="editarProyectoModProyecto" header="#{msg['editarProyectoModProyecto']}" widgetVar="editarProyectoModProyecto" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                     <p:dialog id="editarProyectoModProyecto" header="#{msg['editarProyectoModProyecto']}" widgetVar="editarProyectoModProyecto" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.vigenciaProyectoBA.proyecto.nombreproyecto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
                      
-                     <p:dialog id="editarRolModProyecto" header="#{msg['editarRolModProyecto']}" widgetVar="editarRolModProyecto" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                     <p:dialog id="editarRolModProyecto" header="#{msg['editarRolModProyecto']}" widgetVar="editarRolModProyecto" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.vigenciaProyectoBA.pryRol.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
                     
-                     <p:dialog id="editarFechaInicialModProyecto" header="#{msg['editarFechaInicialModProyecto']}" widgetVar="editarFechaInicialModProyecto" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                     <p:dialog id="editarFechaInicialModProyecto" header="#{msg['editarFechaInicialModProyecto']}" widgetVar="editarFechaInicialModProyecto" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.fechaInicialProyecto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
                      
-                     <p:dialog id="editarFechaFinalModProyecto" header="#{msg['editarFechaFinalModProyecto']}" widgetVar="editarFechaFinalModProyecto" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                     <p:dialog id="editarFechaFinalModProyecto" header="#{msg['editarFechaFinalModProyecto']}" widgetVar="editarFechaFinalModProyecto" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.fechaFinalProyecto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
@@ -3621,14 +3621,14 @@
                      
                       <!-- MODULO EXPERIENCIA LABORAL -->
                       
-                       <p:dialog id="editarCargoModCargoPostularse" header="#{msg['editarCargoModCargoPostularse']}" widgetVar="editarCargoModCargoPostularse" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                       <p:dialog id="editarCargoModCargoPostularse" header="#{msg['editarCargoModCargoPostularse']}" widgetVar="editarCargoModCargoPostularse" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.vigenciaCargoPersonalBA.cargo.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                  
                     <!-- TABLA BUSQUEDA AVANZADA -->
 
-                    <p:dialog id="editarTablaBusquedaAvanzada" header="#{msg['editarTablaBusquedaAvanzada']}" widgetVar="editarTablaBusquedaAvanzada" resizable="false" draggable="false" modal="true" height="80" width="400" style="padding: 0px;">  
+                    <p:dialog id="editarTablaBusquedaAvanzada" header="#{msg['editarTablaBusquedaAvanzada']}" widgetVar="editarTablaBusquedaAvanzada" resizable="false" draggable="true" modal="true" height="80" width="400" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlBusquedaAvanzada2.infoVariableEditarCelda}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 

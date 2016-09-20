@@ -181,7 +181,7 @@
                             <h:outputText id="informacionRegistro" value="#{msg['infoRegistros']} #{controlEmplVigenciaIndicador.infoRegistro}" style="position: relative; left: 15px; top: 4px; font-weight: bold"/>
                         </fieldset>
 
-                        <p:dialog header="#{msg['censoM']}" widgetVar="TiposDialogo" draggable="false" resizable="false" closable="false" id="TiposDialogo"  
+                        <p:dialog header="#{msg['censoM']}" widgetVar="TiposDialogo" draggable="true" resizable="false" closable="false" id="TiposDialogo"  
                                   showEffect="fade" hideEffect="fade" width="431" modal="true" >
                             <p:dataTable id="lovTipos" style="width: 400px;" var="tipo" value="#{controlEmplVigenciaIndicador.listTiposIndicadores}" rowKey="#{tipo.secuencia}"
                                          selection="#{controlEmplVigenciaIndicador.tipoIndicadorSeleccionado}" selectionMode="single" widgetVar="lovTipos" scrollable="true" scrollWidth="416" scrollHeight="250"
@@ -210,7 +210,7 @@
                         </p:dialog>
 
 
-                        <p:dialog header="#{msg['censoM']}" widgetVar="IndicadorDialogo" draggable="false" resizable="false" closable="false" id="IndicadorDialogo"  
+                        <p:dialog header="#{msg['censoM']}" widgetVar="IndicadorDialogo" draggable="true" resizable="false" closable="false" id="IndicadorDialogo"  
                                   showEffect="fade" hideEffect="fade" width="431" modal="true" >
                             <p:dataTable id="lovIndicador" style="width: 400px;" var="indicador" value="#{controlEmplVigenciaIndicador.listIndicadores}" rowKey="#{indicador.secuencia}"
                                          selection="#{controlEmplVigenciaIndicador.indicadorSeleccionado}" selectionMode="single" widgetVar="lovIndicador" scrollable="true" scrollWidth="416" scrollHeight="250"
@@ -241,7 +241,7 @@
 
                     </p:panel>
 
-                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="false" modal="true" height="85" width="425" closable="false">  
+                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlEmplVigenciaIndicador.guardadoGeneral()}" action="infoEmplIndividual" style="position: absolute; top: 50px; left: 125px;" process="@this" icon="ui-icon-check" />
@@ -250,59 +250,59 @@
                     </p:dialog>    
                     
                     
-                    <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
+                    <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEmplVigenciaIndicador.backUpSecRegistro, 'VigenciasIndicadores', 'vigenciaIndRastro')}" style="position: absolute; top: 63px; left: 175px;" icon="ui-icon-check" action="rastro" process="@this" />
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 240px;" icon="ui-icon-close" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
+                    <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('VigenciasIndicadores', 'vigenciaIndRastro')}" style="position: absolute; top: 60px; left: 175px;" icon="ui-icon-check" action="rastro" process="@this" />
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" icon="ui-icon-close" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="false" modal="true" height="95" width="350"  closable="false">  
+                    <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']} #{msg['atencion']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEmplVigenciaIndicador.backUpSecRegistro, 'VigenciasIndicadores', 'vigenciaIndRastro')}" style="position: absolute; top: 70px; left: 175px;" action="rastro" process="@this" icon="ui-icon-check" />
                         <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 70px; left: 240px;" process="@this" icon="ui-icon-close" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="false" modal="true" height="60" width="285"  closable="true">  
+                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="false" modal="true" height="60" width="275" closable="true">  
+                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="false" modal="true" height="70" width="280"  closable="true">  
+                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="70" width="280"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 5px; width: 185px; font-weight:bold;" />
                     </p:dialog>
                     
-                    <p:dialog id="errorFechas" header="#{msg['atencion']}" widgetVar="errorFechas"  resizable="false" draggable="false" modal="true" height="95" width="400"  closable="false">  
+                    <p:dialog id="errorFechas" header="#{msg['atencion']}" widgetVar="errorFechas"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['errorFechas']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
                         <p:commandButton value="#{msg['aceptar']}" onclick="PF('errorFechas').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" icon="ui-icon-check" />
                     </p:dialog>
                     
-                    <p:dialog id="errorRegInfo" header="#{msg['error']}" widgetVar="errorRegInfo"  resizable="false" draggable="false" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="errorRegInfo" header="#{msg['error']}" widgetVar="errorRegInfo"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRegInfo']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;text-align: center" />
                     </p:dialog>
@@ -311,7 +311,7 @@
                 </h:form>
                 <h:form id="formularioDialogos" >
 
-                    <p:dialog id="NuevoRegistroV" header="#{msg['nuevoregistro']}" widgetVar="NuevoRegistroV" closable="false" resizable="false"  draggable="false" modal="true" height="225" width="400" style="padding: 0px">  
+                    <p:dialog id="NuevoRegistroV" header="#{msg['nuevoregistro']}" widgetVar="NuevoRegistroV" closable="false" resizable="false"  draggable="true" modal="true" height="225" width="400" style="padding: 0px">  
 
                         <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
 
@@ -358,7 +358,7 @@
                         </p:panel>
                     </p:dialog>
 
-                    <p:dialog id="DuplicarRegistroV" header="#{msg['duplicarregistro']}" widgetVar="DuplicarRegistroV" closable="false" resizable="false"  draggable="false" modal="true" height="225" width="400" style="padding: 0px">  
+                    <p:dialog id="DuplicarRegistroV" header="#{msg['duplicarregistro']}" widgetVar="DuplicarRegistroV" closable="false" resizable="false"  draggable="true" modal="true" height="225" width="400" style="padding: 0px">  
 
                         <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
 
@@ -406,23 +406,23 @@
 
                     <!-- ////// ////// ////// -->
                    
-                    <p:dialog id="editarFechaInicialVD" header="#{msg['editarFechaInicialVD']}" widgetVar="editarFechaInicialVD" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editarFechaInicialVD" header="#{msg['editarFechaInicialVD']}" widgetVar="editarFechaInicialVD" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputTextarea value="#{controlEmplVigenciaIndicador.editarVigenciaIndicador.fechainicial}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaFinalVD" header="#{msg['editarFechaFinalVD']}" widgetVar="editarFechaFinalVD" resizable="false" draggable="false" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editarFechaFinalVD" header="#{msg['editarFechaFinalVD']}" widgetVar="editarFechaFinalVD" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputTextarea value="#{controlEmplVigenciaIndicador.editarVigenciaIndicador.fechafinal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarTipoVD" header="#{msg['editarTipoVD']}" widgetVar="editarTipoVD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarTipoVD" header="#{msg['editarTipoVD']}" widgetVar="editarTipoVD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlEmplVigenciaIndicador.editarVigenciaIndicador.tipoindicador.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarIndicadorVD" header="#{msg['editarIndicadorVD']}" widgetVar="editarIndicadorVD" resizable="false" draggable="false" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarIndicadorVD" header="#{msg['editarIndicadorVD']}" widgetVar="editarIndicadorVD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlEmplVigenciaIndicador.editarVigenciaIndicador.indicador.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
