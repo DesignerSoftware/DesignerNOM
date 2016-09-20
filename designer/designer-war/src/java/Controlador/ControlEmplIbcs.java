@@ -4,7 +4,7 @@
  */
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import Entidades.Empleados;
 import Entidades.Ibcs;
 import Exportar.ExportarPDF;
@@ -124,7 +124,7 @@ public class ControlEmplIbcs implements Serializable {
 
     public void revisarCambios() {
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.ejecutar("PF('repeticiones').show()");
+        RequestContext.getCurrentInstance().execute("PF('repeticiones').show()");
         listIbcsPorEmpleado = null;
         context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:datosEmplAcumulados");
@@ -189,21 +189,21 @@ public class ControlEmplIbcs implements Serializable {
             editarIbcsPorEmpleado = ibcSeleccionado;
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editFechaInicial");
-                PrimefacesContextUI.ejecutar("PF('editFechaInicial').show()");
+                RequestContext.getCurrentInstance().execute("PF('editFechaInicial').show()");
                 cualCelda = -1;
             }
             if (cualCelda == 1) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editFechaFinal");
-                PrimefacesContextUI.ejecutar("PF('editFechaFinal').show()");
+                RequestContext.getCurrentInstance().execute("PF('editFechaFinal').show()");
                 cualCelda = -1;
             }
             if (cualCelda == 2) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editValor");
-                PrimefacesContextUI.ejecutar("PF('editValor').show()");
+                RequestContext.getCurrentInstance().execute("PF('editValor').show()");
                 cualCelda = -1;
             }
         } else {
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
@@ -213,7 +213,7 @@ public class ControlEmplIbcs implements Serializable {
             dialogoIbcsPorEmpleado = ibcSeleccionado;
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("formularioDialogos:dialogoIbcs");
-            PrimefacesContextUI.ejecutar("PF('dialogoIbcs').show()");
+            RequestContext.getCurrentInstance().execute("PF('dialogoIbcs').show()");
 
         }
         ibcSeleccionado = null;

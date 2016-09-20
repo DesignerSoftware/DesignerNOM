@@ -5,7 +5,7 @@
  */
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import Entidades.Periodicidades;
 import Entidades.Unidades;
 import Exportar.ExportarPDF;
@@ -305,7 +305,7 @@ public class ControlPeriodicidades implements Serializable {
 
                     } else {
                         RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
+                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
                     }
                     index = -1;
                     secRegistro = null;
@@ -354,7 +354,7 @@ public class ControlPeriodicidades implements Serializable {
 
                     } else {
                         RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
+                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
                     }
                     index = -1;
                     secRegistro = null;
@@ -408,7 +408,7 @@ public class ControlPeriodicidades implements Serializable {
 
                     } else {
                         RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
+                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
                     }
                     index = -1;
                     secRegistro = null;
@@ -455,7 +455,7 @@ public class ControlPeriodicidades implements Serializable {
 
                     } else {
                         RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
+                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
                     }
                     index = -1;
                     secRegistro = null;
@@ -509,7 +509,7 @@ public class ControlPeriodicidades implements Serializable {
                 } else {
                     permitirIndex = false;
                     RequestContext.getCurrentInstance().update("form:tiposPeriodicidadesDialogo");
-                    PrimefacesContextUI.ejecutar("PF('tiposPeriodicidadesDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('tiposPeriodicidadesDialogo').show()");
                     tipoActualizacion = 0;
                 }
             }
@@ -553,7 +553,7 @@ public class ControlPeriodicidades implements Serializable {
                 } else {
                     permitirIndex = false;
                     RequestContext.getCurrentInstance().update("form:tiposPeriodicidadesDialogo");
-                    PrimefacesContextUI.ejecutar("PF('tiposPeriodicidadesDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('tiposPeriodicidadesDialogo').show()");
                     tipoActualizacion = 0;
                 }
             }
@@ -604,7 +604,7 @@ public class ControlPeriodicidades implements Serializable {
                 } else {
                     permitirIndex = false;
                     RequestContext.getCurrentInstance().update("form:tiposPeriodicidadesDialogo");
-                    PrimefacesContextUI.ejecutar("PF('tiposPeriodicidadesDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('tiposPeriodicidadesDialogo').show()");
                     tipoActualizacion = 0;
                 }
             }
@@ -648,7 +648,7 @@ public class ControlPeriodicidades implements Serializable {
                 } else {
                     permitirIndex = false;
                     RequestContext.getCurrentInstance().update("form:tiposPeriodicidadesDialogo");
-                    PrimefacesContextUI.ejecutar("PF('tiposPeriodicidadesDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('tiposPeriodicidadesDialogo').show()");
                     tipoActualizacion = 0;
                 }
             }
@@ -788,22 +788,22 @@ public class ControlPeriodicidades implements Serializable {
             }
             if (dig == 2) {
                 RequestContext.getCurrentInstance().update("form:tiposPeriodicidadesDialogo");
-                PrimefacesContextUI.ejecutar("PF('tiposPeriodicidadesDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('tiposPeriodicidadesDialogo').show()");
                 dig = -1;
             }
             if (dig == 3) {
                 RequestContext.getCurrentInstance().update("form:tiposPeriodicidadesDialogo");
-                PrimefacesContextUI.ejecutar("PF('tiposPeriodicidadesDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('tiposPeriodicidadesDialogo').show()");
                 dig = -1;
             }
             if (dig == 4) {
                 RequestContext.getCurrentInstance().update("form:unidadesBaseDialogo");
-                PrimefacesContextUI.ejecutar("PF('unidadesBaseDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('unidadesBaseDialogo').show()");
                 dig = -1;
             }
             if (dig == 5) {
                 RequestContext.getCurrentInstance().update("form:unidadesBaseDialogo");
-                PrimefacesContextUI.ejecutar("PF('unidadesBaseDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('unidadesBaseDialogo').show()");
                 dig = -1;
             }
 
@@ -856,8 +856,8 @@ public class ControlPeriodicidades implements Serializable {
             tipoActualizacion = -1;
             permitirIndex = true;
             context.reset("form:lovTipoPeriodicidades:globalFilter");
-            PrimefacesContextUI.ejecutar("PF('lovTipoPeriodicidades').clearFilters()");
-            PrimefacesContextUI.ejecutar("PF('tiposPeriodicidadesDialogo').hide()");
+            RequestContext.getCurrentInstance().execute("PF('lovTipoPeriodicidades').clearFilters()");
+            RequestContext.getCurrentInstance().execute("PF('tiposPeriodicidadesDialogo').hide()");
         } catch (Exception e) {
             System.out.println("ERROR BETA .actualizarUnidad ERROR============" + e.getMessage());
         }
@@ -902,8 +902,8 @@ public class ControlPeriodicidades implements Serializable {
             tipoActualizacion = -1;
             permitirIndex = true;
             context.reset("form:lovUnidadesBase:globalFilter");
-            PrimefacesContextUI.ejecutar("PF('lovUnidadesBase').clearFilters()");
-            PrimefacesContextUI.ejecutar("PF('unidadesBaseDialogo').hide()");
+            RequestContext.getCurrentInstance().execute("PF('lovUnidadesBase').clearFilters()");
+            RequestContext.getCurrentInstance().execute("PF('unidadesBaseDialogo').hide()");
         } catch (Exception e) {
             System.out.println("ERROR BETA .actualizarUnidad ERROR============" + e.getMessage());
         }
@@ -919,8 +919,8 @@ public class ControlPeriodicidades implements Serializable {
             permitirIndex = true;
             RequestContext context = RequestContext.getCurrentInstance();
             context.reset("form:lovTipoPeriodicidades:globalFilter");
-            PrimefacesContextUI.ejecutar("PF('lovTipoPeriodicidades').clearFilters()");
-            PrimefacesContextUI.ejecutar("PF('tiposPeriodicidadesDialogo').hide()");
+            RequestContext.getCurrentInstance().execute("PF('lovTipoPeriodicidades').clearFilters()");
+            RequestContext.getCurrentInstance().execute("PF('tiposPeriodicidadesDialogo').hide()");
         } catch (Exception e) {
             System.out.println("ERROR CONTROLPERIODICIDADES.cancelarCambioUnidad ERROR=====" + e.getMessage());
         }
@@ -935,8 +935,8 @@ public class ControlPeriodicidades implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovUnidadesBase:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovUnidadesBase').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('unidadesBaseDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovUnidadesBase').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('unidadesBaseDialogo').hide()");
     }
 
     public void llamadoDialogoBuscarPeriodicidades() {
@@ -944,7 +944,7 @@ public class ControlPeriodicidades implements Serializable {
         try {
             if (guardado == false) {
                 banderaSeleccionPericiodidades = true;
-                PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
 
             } else {
                 listPeriodicidadesBoton = null;
@@ -952,7 +952,7 @@ public class ControlPeriodicidades implements Serializable {
                 index = -1;
                 RequestContext.getCurrentInstance().update("formularioDialogos:lovPeriodicidades");
                 RequestContext.getCurrentInstance().update("formularioDialogos:buscarPeriodicidadesDialogo");
-                PrimefacesContextUI.ejecutar("PF('buscarPeriodicidadesDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('buscarPeriodicidadesDialogo').show()");
 
             }
         } catch (Exception e) {
@@ -976,8 +976,8 @@ public class ControlPeriodicidades implements Serializable {
                 aceptar = true;
                 RequestContext.getCurrentInstance().update("form:datosPeriodicidades");
                 context.reset("formularioDialogos:lovPeriodicidades:globalFilter");
-                PrimefacesContextUI.ejecutar("PF('lovPeriodicidades').clearFilters()");
-                PrimefacesContextUI.ejecutar("PF('buscarPeriodicidadesDialogo').hide()");
+                RequestContext.getCurrentInstance().execute("PF('lovPeriodicidades').clearFilters()");
+                RequestContext.getCurrentInstance().execute("PF('buscarPeriodicidadesDialogo').hide()");
                 mostrarTodos = false;
                 if (listPeriodicidades == null || listPeriodicidades.isEmpty()) {
                     infoRegistro = "Cantidad de registros: 0 ";
@@ -990,7 +990,7 @@ public class ControlPeriodicidades implements Serializable {
              System.err.println("listPeriodicidades tamaño " + listPeriodicidades.size());
              System.err.println("listPeriodicidades nombre " + listPeriodicidades.get(0).getNombre());
              banderaSeleccionPericiodidades = true;
-             PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
+             RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
              PericiodidadesSeleccionado = null;
              listPeriodicidades.clear();
              System.err.println("seleccionPericiodidades " + PericiodidadesSeleccionado.getNombre());
@@ -998,7 +998,7 @@ public class ControlPeriodicidades implements Serializable {
              filterPericiodidades = null;
              aceptar = true;
              banderaModificacionEmpresa = 0;
-             PrimefacesContextUI.ejecutar("PF('buscarPeriodicidadesDialogo').hide()");
+             RequestContext.getCurrentInstance().execute("PF('buscarPeriodicidadesDialogo').hide()");
              context.reset("formularioDialogos:lovPeriodicidades:globalFilter");
              }*/
 
@@ -1017,8 +1017,8 @@ public class ControlPeriodicidades implements Serializable {
         tipoActualizacion = -1;
         RequestContext.getCurrentInstance().update("form:aceptarNCC");
         context.reset("formularioDialogos:lovPeriodicidades:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovPeriodicidades').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('buscarPeriodicidadesDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovPeriodicidades').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('buscarPeriodicidadesDialogo').hide()");
     }
     
     private String nuevoUnidadCodigo;
@@ -1084,7 +1084,7 @@ public class ControlPeriodicidades implements Serializable {
                 getListaUnidades();
             } else {
                 RequestContext.getCurrentInstance().update("form:tiposPeriodicidadesDialogo");
-                PrimefacesContextUI.ejecutar("PF('tiposPeriodicidadesDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('tiposPeriodicidadesDialogo').show()");
                 tipoActualizacion = tipoNuevo;
             }
 
@@ -1111,7 +1111,7 @@ public class ControlPeriodicidades implements Serializable {
                 getListaUnidades();
             } else {
                 RequestContext.getCurrentInstance().update("form:tiposPeriodicidadesDialogo");
-                PrimefacesContextUI.ejecutar("PF('tiposPeriodicidadesDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('tiposPeriodicidadesDialogo').show()");
                 tipoActualizacion = tipoNuevo;
             }
 
@@ -1138,7 +1138,7 @@ public class ControlPeriodicidades implements Serializable {
                 getListaUnidades();
             } else {
                 RequestContext.getCurrentInstance().update("form:unidadesBaseDialogo");
-                PrimefacesContextUI.ejecutar("PF('unidadesBaseDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('unidadesBaseDialogo').show()");
                 tipoActualizacion = tipoNuevo;
             }
 
@@ -1165,7 +1165,7 @@ public class ControlPeriodicidades implements Serializable {
                 getListaUnidades();
             } else {
                 RequestContext.getCurrentInstance().update("form:unidadesBaseDialogo");
-                PrimefacesContextUI.ejecutar("PF('unidadesBaseDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('unidadesBaseDialogo').show()");
                 tipoActualizacion = tipoNuevo;
             }
 
@@ -1197,7 +1197,7 @@ public class ControlPeriodicidades implements Serializable {
                 getListaUnidades();
             } else {
                 RequestContext.getCurrentInstance().update("form:tiposPeriodicidadesDialogo");
-                PrimefacesContextUI.ejecutar("PF('tiposPeriodicidadesDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('tiposPeriodicidadesDialogo').show()");
                 tipoActualizacion = tipoNuevo;
             }
 
@@ -1222,7 +1222,7 @@ public class ControlPeriodicidades implements Serializable {
                 getListaUnidades();
             } else {
                 RequestContext.getCurrentInstance().update("form:tiposPeriodicidadesDialogo");
-                PrimefacesContextUI.ejecutar("PF('tiposPeriodicidadesDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('tiposPeriodicidadesDialogo').show()");
                 tipoActualizacion = tipoNuevo;
             }
 
@@ -1247,7 +1247,7 @@ public class ControlPeriodicidades implements Serializable {
                 getListaUnidades();
             } else {
                 RequestContext.getCurrentInstance().update("form:unidadesBaseDialogo");
-                PrimefacesContextUI.ejecutar("PF('unidadesBaseDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('unidadesBaseDialogo').show()");
                 tipoActualizacion = tipoNuevo;
             }
 
@@ -1264,7 +1264,7 @@ public class ControlPeriodicidades implements Serializable {
         }
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:tiposPeriodicidadesDialogo");
-        PrimefacesContextUI.ejecutar("PF('tiposPeriodicidadesDialogo').show()");
+        RequestContext.getCurrentInstance().execute("PF('tiposPeriodicidadesDialogo').show()");
     }
 
     public void asignarVariableUnidadBase(int tipoNuevo) {
@@ -1276,7 +1276,7 @@ public class ControlPeriodicidades implements Serializable {
         }
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:unidadesBaseDialogo");
-        PrimefacesContextUI.ejecutar("PF('unidadesBaseDialogo').show()");
+        RequestContext.getCurrentInstance().execute("PF('unidadesBaseDialogo').show()");
     }
 
     public void limpiarNuevoPeriodicidades() {
@@ -1386,12 +1386,12 @@ public class ControlPeriodicidades implements Serializable {
                     tipoLista = 0;
                 }
                 mensajeValidacion = " ";
-                PrimefacesContextUI.ejecutar("PF('nuevoRegistroPeriodicidades').hide()");
+                RequestContext.getCurrentInstance().execute("PF('nuevoRegistroPeriodicidades').hide()");
 
             } else {
                 contador = 0;
                 RequestContext.getCurrentInstance().update("form:validacionDuplicarVigencia");
-                PrimefacesContextUI.ejecutar("PF('validacionDuplicarVigencia').show()");
+                RequestContext.getCurrentInstance().execute("PF('validacionDuplicarVigencia').show()");
             }
 
         } catch (Exception e) {
@@ -1404,12 +1404,12 @@ public class ControlPeriodicidades implements Serializable {
             tipoActualizacion = 1;
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:tiposPeriodicidadesDialogo");
-            PrimefacesContextUI.ejecutar("PF('tiposPeriodicidadesDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('tiposPeriodicidadesDialogo').show()");
         } else if (tipoNuevo == 1) {
             tipoActualizacion = 2;
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:tiposPeriodicidadesDialogo");
-            PrimefacesContextUI.ejecutar("PF('tiposPeriodicidadesDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('tiposPeriodicidadesDialogo').show()");
         }
     }
 
@@ -1418,12 +1418,12 @@ public class ControlPeriodicidades implements Serializable {
             tipoActualizacion = 1;
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:unidadesBaseDialogo");
-            PrimefacesContextUI.ejecutar("PF('unidadesBaseDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('unidadesBaseDialogo').show()");
         } else if (tipoNuevo == 1) {
             tipoActualizacion = 2;
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:unidadesBaseDialogo");
-            PrimefacesContextUI.ejecutar("PF('unidadesBaseDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('unidadesBaseDialogo').show()");
         }
     }
 
@@ -1434,13 +1434,13 @@ public class ControlPeriodicidades implements Serializable {
         nuevaPeriodicidad.setUnidadbase(new Unidades());
         index = -1;
         RequestContext.getCurrentInstance().update("formularioDialogos:nuevoRegistroPeriodicidades");
-        PrimefacesContextUI.ejecutar("PF('nuevoRegistroPeriodicidades').show()");
+        RequestContext.getCurrentInstance().execute("PF('nuevoRegistroPeriodicidades').show()");
     }
 
     public void mostrarDialogoListaEmpresas() {
         RequestContext context = RequestContext.getCurrentInstance();
         index = -1;
-        PrimefacesContextUI.ejecutar("PF('buscarPeriodicidadesDialogo').show()");
+        RequestContext.getCurrentInstance().execute("PF('buscarPeriodicidadesDialogo').show()");
     }
 
     public void duplicandoPeriodicidades() {
@@ -1479,7 +1479,7 @@ public class ControlPeriodicidades implements Serializable {
 
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("formularioDialogos:duplicarUnidads");
-                PrimefacesContextUI.ejecutar("PF('DuplicarRegistroPeriodicidades').show()");
+                RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroPeriodicidades').show()");
                 index = -1;
             }
         } catch (Exception e) {
@@ -1602,13 +1602,13 @@ public class ControlPeriodicidades implements Serializable {
             }
             duplicarPeriodicidad = new Periodicidades();
             duplicarPeriodicidad.setUnidad(new Unidades());
-            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroPeriodicidades').hide()");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroPeriodicidades').hide()");
             mensajeValidacion = " ";
 
         } else {
             contador = 0;
             RequestContext.getCurrentInstance().update("form:validacionDuplicarVigencia");
-            PrimefacesContextUI.ejecutar("PF('validacionDuplicarVigencia').show()");
+            RequestContext.getCurrentInstance().execute("PF('validacionDuplicarVigencia').show()");
         }
     }
 
@@ -1693,7 +1693,7 @@ public class ControlPeriodicidades implements Serializable {
                 System.out.println("Borrado>0");
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("form:validacionBorrar");
-                PrimefacesContextUI.ejecutar("PF('validacionBorrar').show()");
+                RequestContext.getCurrentInstance().execute("PF('validacionBorrar').show()");
                 index = -1;
                 contarCPCompromisosPeriodicidad = new BigInteger("-1");
                 contarDetallesPeriodicidadesPeriodicidad = new BigInteger("-1");
@@ -1772,7 +1772,7 @@ public class ControlPeriodicidades implements Serializable {
                 //mostrarBorrados
                 registrosBorrados = borrarPeriodicidades.size();
                 RequestContext.getCurrentInstance().update("form:mostrarBorrados");
-                PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
+                RequestContext.getCurrentInstance().execute("PF('mostrarBorrados').show()");
                 borrarPeriodicidades.clear();
             }
             if (!modificarPeriodicidades.isEmpty()) {
@@ -1797,7 +1797,7 @@ public class ControlPeriodicidades implements Serializable {
                 getListPericiodidadesBoton();
                 index = -1;
                 RequestContext.getCurrentInstance().update("formularioDialogos:lovPeriodicidades");
-                PrimefacesContextUI.ejecutar("PF('buscarPeriodicidadesDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('buscarPeriodicidadesDialogo').show()");
                 banderaSeleccionPericiodidades = false;
             }
         }
@@ -1873,27 +1873,27 @@ public class ControlPeriodicidades implements Serializable {
                 System.out.println("CONTROLPERIODICIDADES : Entro a editar... valor celda: " + cualCelda);
                 if (cualCelda == 0) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:editarCCC");
-                    PrimefacesContextUI.ejecutar("PF('editarCCC').show()");
+                    RequestContext.getCurrentInstance().execute("PF('editarCCC').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 1) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:editarNCC");
-                    PrimefacesContextUI.ejecutar("PF('editarNCC').show()");
+                    RequestContext.getCurrentInstance().execute("PF('editarNCC').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 2) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:editarTCC");
-                    PrimefacesContextUI.ejecutar("PF('editarTCC').show()");
+                    RequestContext.getCurrentInstance().execute("PF('editarTCC').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 3) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:editarMO");
-                    PrimefacesContextUI.ejecutar("PF('editarMO').show()");
+                    RequestContext.getCurrentInstance().execute("PF('editarMO').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 4) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:editarCAT");
-                    PrimefacesContextUI.ejecutar("PF('editarCAT').show()");
+                    RequestContext.getCurrentInstance().execute("PF('editarCAT').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 5) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:editarO");
-                    PrimefacesContextUI.ejecutar("PF('editarO').show()");
+                    RequestContext.getCurrentInstance().execute("PF('editarO').show()");
                     cualCelda = -1;
                 }
             }
@@ -1911,22 +1911,22 @@ public class ControlPeriodicidades implements Serializable {
                 System.out.println("\n ListaValoresBoton \n");
                 if (cualCelda == 2) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:tiposPeriodicidadesDialogo");
-                    PrimefacesContextUI.ejecutar("PF('tiposPeriodicidadesDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('tiposPeriodicidadesDialogo').show()");
                     tipoActualizacion = 0;
                 }
                 if (cualCelda == 3) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:tiposPeriodicidadesDialogo");
-                    PrimefacesContextUI.ejecutar("PF('tiposPeriodicidadesDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('tiposPeriodicidadesDialogo').show()");
                     tipoActualizacion = 0;
                 }
                 if (cualCelda == 4) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:unidadesBaseDialogo");
-                    PrimefacesContextUI.ejecutar("PF('unidadesBaseDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('unidadesBaseDialogo').show()");
                     tipoActualizacion = 0;
                 }
                 if (cualCelda == 5) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:unidadesBaseDialogo");
-                    PrimefacesContextUI.ejecutar("PF('unidadesBaseDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('unidadesBaseDialogo').show()");
                     tipoActualizacion = 0;
                 }
             }
@@ -1967,24 +1967,24 @@ public class ControlPeriodicidades implements Serializable {
                 int resultado = administrarRastros.obtenerTabla(secRegistro, "PERIODICIDADES"); //En ENCARGATURAS lo cambia por el nombre de su tabla
                 System.out.println("resultado: " + resultado);
                 if (resultado == 1) {
-                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
-                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+                RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("PERIODICIDADES")) { // igual acá
-                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
             } else {
-                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
             }
 
         }

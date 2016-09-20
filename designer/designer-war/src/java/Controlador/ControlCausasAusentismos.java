@@ -5,7 +5,7 @@
  */
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import Administrar.AdministrarCausasAusentismos;
 import Entidades.Causasausentismos;
 import Entidades.Clasesausentismos;
@@ -247,23 +247,23 @@ public class ControlCausasAusentismos implements Serializable {
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarCodigo");
-                PrimefacesContextUI.ejecutar("PF('editarCodigo').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarCodigo').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarDescripcion");
-                PrimefacesContextUI.ejecutar("PF('editarDescripcion').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarDescripcion').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarClase");
-                PrimefacesContextUI.ejecutar("PF('editarClase').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarClase').show()");
                 cualCelda = -1;
             } else if (cualCelda == 4) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarPorcentajeLiquidacion");
-                PrimefacesContextUI.ejecutar("PF('editarPorcentajeLiquidacion').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarPorcentajeLiquidacion').show()");
                 cualCelda = -1;
             } else if (cualCelda == 5) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarRestaDiasIncapacidad");
-                PrimefacesContextUI.ejecutar("PF('editarRestaDiasIncapacidad').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarRestaDiasIncapacidad').show()");
                 cualCelda = -1;
             }
         } else {
@@ -547,12 +547,12 @@ public class ControlCausasAusentismos implements Serializable {
                     } else if (pasac != 0) {
                         causasAusentismoSeleccionado.setCodigo(codiguin);
                         RequestContext.getCurrentInstance().update("formularioDialogos:validacionCodigo2");
-                        PrimefacesContextUI.ejecutar("PF('validacionCodigo2').show()");
+                        RequestContext.getCurrentInstance().execute("PF('validacionCodigo2').show()");
 
                     } else if (pasa > 1) {
                         causasAusentismoSeleccionado.setCodigo(codiguin);
                         RequestContext.getCurrentInstance().update("formularioDialogos:validacionCodigo");
-                        PrimefacesContextUI.ejecutar("PF('validacionCodigo').show()");
+                        RequestContext.getCurrentInstance().execute("PF('validacionCodigo').show()");
                     }
                 }
             } else {
@@ -579,7 +579,7 @@ public class ControlCausasAusentismos implements Serializable {
                     } else {
                         causasAusentismoSeleccionado.setCodigo(codiguin);
                         RequestContext.getCurrentInstance().update("formularioDialogos:validacionCodigo");
-                        PrimefacesContextUI.ejecutar("PF('validacionCodigo').show()");
+                        RequestContext.getCurrentInstance().execute("PF('validacionCodigo').show()");
                     }
                 }
             }
@@ -644,7 +644,7 @@ public class ControlCausasAusentismos implements Serializable {
             } else {
                 permitirIndex = false;
                 RequestContext.getCurrentInstance().update("formularioDialogos:clasesAusentismosDialogo");
-                PrimefacesContextUI.ejecutar("PF('clasesAusentismosDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('clasesAusentismosDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -689,7 +689,7 @@ public class ControlCausasAusentismos implements Serializable {
         if (dlg == 0) {
             modificarInfoRegistroLovClases(lovClasesAusentismos.size());
             RequestContext.getCurrentInstance().update("form:clasesAusentismosDialogo");
-            PrimefacesContextUI.ejecutar("PF('clasesAusentismosDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('clasesAusentismosDialogo').show()");
         }
     }
 
@@ -738,8 +738,8 @@ public class ControlCausasAusentismos implements Serializable {
         tipoActualizacion = -1;
         cualCelda = -1;
         context.reset("formularioDialogos:LOVClasesAusentismos:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('LOVClasesAusentismos').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('clasesAusentismosDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('LOVClasesAusentismos').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('clasesAusentismosDialogo').hide()");
         //RequestContext.getCurrentInstance().update("formularioDialogos:LOVClasesAusentismos");
     }
 
@@ -754,8 +754,8 @@ public class ControlCausasAusentismos implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formularioDialogos:LOVClasesAusentismos:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('LOVClasesAusentismos').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('clasesAusentismosDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('LOVClasesAusentismos').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('clasesAusentismosDialogo').hide()");
     }
 
     //LISTA DE VALORES DINAMICA
@@ -765,7 +765,7 @@ public class ControlCausasAusentismos implements Serializable {
             if (cualCelda == 2) {
                 habilitarBotonLov();
                 RequestContext.getCurrentInstance().update("formularioDialogos:clasesAusentismosDialogo");
-                PrimefacesContextUI.ejecutar("PF('clasesAusentismosDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('clasesAusentismosDialogo').show()");
                 tipoActualizacion = 0;
             } else {
                 deshabilitarBotonLov();
@@ -875,7 +875,7 @@ public class ControlCausasAusentismos implements Serializable {
             getLovClasesAusentismos();
         } else {
             RequestContext.getCurrentInstance().update("form:clasesAusentismosDialogo");
-            PrimefacesContextUI.ejecutar("PF('clasesAusentismosDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('clasesAusentismosDialogo').show()");
             tipoActualizacion = tipoNuevo;
             if (tipoNuevo == 1) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:nuevoClase");
@@ -893,7 +893,7 @@ public class ControlCausasAusentismos implements Serializable {
         }
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("formularioDialogos:clasesAusentismosDialogo");
-        PrimefacesContextUI.ejecutar("PF('clasesAusentismosDialogo').show()");
+        RequestContext.getCurrentInstance().execute("PF('clasesAusentismosDialogo').show()");
     }
 
     // Agregar Nueva Causa Ausentismo
@@ -908,7 +908,7 @@ public class ControlCausasAusentismos implements Serializable {
                 if (nuevaCausasAusentismos.getCodigo() == listaCausasAusentismos.get(i).getCodigo()) {
                     pasa++;
                     RequestContext.getCurrentInstance().update("formularioDialogos:validacionCodigo");
-                    PrimefacesContextUI.ejecutar("PF('validacionCodigo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('validacionCodigo').show()");
                 }
             }
         }
@@ -998,10 +998,10 @@ public class ControlCausasAusentismos implements Serializable {
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroCausaAusentismo");
-            PrimefacesContextUI.ejecutar("PF('NuevoRegistroCausaAusentismo').hide()");
+            RequestContext.getCurrentInstance().execute("PF('NuevoRegistroCausaAusentismo').hide()");
         } else if (nuevaCausasAusentismos.getClase().getDescripcion() == null || nuevaCausasAusentismos.getClase().getDescripcion().equals("") || nuevaCausasAusentismos.getCodigo() == null) {
             RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevaCausaAusentismo");
-            PrimefacesContextUI.ejecutar("PF('validacionNuevaCausaAusentismo').show()");
+            RequestContext.getCurrentInstance().execute("PF('validacionNuevaCausaAusentismo').show()");
         }
     }
 
@@ -1038,7 +1038,7 @@ public class ControlCausasAusentismos implements Serializable {
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCausaAusentismo");
-            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroCausaAusentismo').show()");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroCausaAusentismo').show()");
         }
     }
 
@@ -1056,7 +1056,7 @@ public class ControlCausasAusentismos implements Serializable {
                 if (duplicarCausasAusentismos.getCodigo() == listaCausasAusentismos.get(i).getCodigo()) {
                     pasa++;
                     RequestContext.getCurrentInstance().update("formularioDialogos:validacionCodigo");
-                    PrimefacesContextUI.ejecutar("PF('validacionCodigo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('validacionCodigo').show()");
                 }
             }
         }
@@ -1119,11 +1119,11 @@ public class ControlCausasAusentismos implements Serializable {
             RequestContext.getCurrentInstance().update("form:informacionRegistro");
 
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCausaAusentismo");
-            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroCausaAusentismo').hide()");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroCausaAusentismo').hide()");
 
         } else if (duplicarCausasAusentismos.getClase().getDescripcion() == null || duplicarCausasAusentismos.getClase().getDescripcion().equals("") || duplicarCausasAusentismos.getCodigo() == null) {
             RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevaCausaAusentismo");
-            PrimefacesContextUI.ejecutar("PF('validacionNuevaCausaAusentismo').show()");
+            RequestContext.getCurrentInstance().execute("PF('validacionNuevaCausaAusentismo').show()");
         }
 
     }
@@ -1135,21 +1135,21 @@ public class ControlCausasAusentismos implements Serializable {
             int resultado = administrarRastros.obtenerTabla(causasAusentismoSeleccionado.getSecuencia(), "CAUSASAUSENTISMOS");
             System.out.println("resultado: " + resultado);
             if (resultado == 1) {
-                PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {
-                PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
             } else if (resultado == 3) {
-                PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
             } else if (resultado == 4) {
-                PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
             } else if (resultado == 5) {
-                PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("CAUSASAUSENTISMOS")) {
-                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
             } else {
-                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
             }
 
         }

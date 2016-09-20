@@ -1,6 +1,6 @@
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import ClasesAyuda.EmpleadoIndividualExportar;
 import Entidades.Cargos;
 import Entidades.Ciudades;
@@ -353,8 +353,8 @@ public class ControlEmpleadoIndividual implements Serializable {
             }
             RequestContext.getCurrentInstance().update("form:tipo");
             context.reset("formDialogos:lovTiposDocumentos:globalFilter");
-            PrimefacesContextUI.ejecutar("PF('lovTiposDocumentos').clearFilters()");
-            PrimefacesContextUI.ejecutar("PF('TiposDocumentosDialogo').hide()");
+            RequestContext.getCurrentInstance().execute("PF('lovTiposDocumentos').clearFilters()");
+            RequestContext.getCurrentInstance().execute("PF('TiposDocumentosDialogo').hide()");
             //RequestContext.getCurrentInstance().update("formDialogos:lovTiposDocumentos");
         }
     }
@@ -366,8 +366,8 @@ public class ControlEmpleadoIndividual implements Serializable {
         dialogo = -1;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formDialogos:lovTiposDocumentos:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovTiposDocumentos').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('TiposDocumentosDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovTiposDocumentos').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('TiposDocumentosDialogo').hide()");
     }
 
     public void dialogoCiudad(int modificacion) {
@@ -379,7 +379,7 @@ public class ControlEmpleadoIndividual implements Serializable {
             cabezeraDialogoCiudad = "Ciudad nacimiento";
         }
         RequestContext.getCurrentInstance().update("formDialogos:CiudadesDialogo");
-        PrimefacesContextUI.ejecutar("PF('CiudadesDialogo').show()");
+        RequestContext.getCurrentInstance().execute("PF('CiudadesDialogo').show()");
     }
 
     public void seleccionarCiudad() {
@@ -403,8 +403,8 @@ public class ControlEmpleadoIndividual implements Serializable {
             filtradoListaCiudades = null;
             aceptar = true;
             context.reset("formDialogos:lovCiudades:globalFilter");
-            PrimefacesContextUI.ejecutar("PF('lovCiudades').clearFilters()");
-            PrimefacesContextUI.ejecutar("PF('CiudadesDialogo').hide()");
+            RequestContext.getCurrentInstance().execute("PF('lovCiudades').clearFilters()");
+            RequestContext.getCurrentInstance().execute("PF('CiudadesDialogo').hide()");
             //RequestContext.getCurrentInstance().update("formDialogos:lovCiudades");
             modificacionCiudad = -1;
             dialogo = -1;
@@ -419,8 +419,8 @@ public class ControlEmpleadoIndividual implements Serializable {
         dialogo = -1;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formDialogos:lovCiudades:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovCiudades').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('CiudadesDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovCiudades').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('CiudadesDialogo').hide()");
     }
 
     public void seleccionarCargo() {
@@ -440,8 +440,8 @@ public class ControlEmpleadoIndividual implements Serializable {
             }
             RequestContext.getCurrentInstance().update("form:cargoPostulado");
             context.reset("formDialogos:lovCargos:globalFilter");
-            PrimefacesContextUI.ejecutar("PF('lovCargos').clearFilters()");
-            PrimefacesContextUI.ejecutar("PF('CargosDialogo').hide()");
+            RequestContext.getCurrentInstance().execute("PF('lovCargos').clearFilters()");
+            RequestContext.getCurrentInstance().execute("PF('CargosDialogo').hide()");
             //RequestContext.getCurrentInstance().update("formDialogos:lovCargos");
         }
     }
@@ -453,8 +453,8 @@ public class ControlEmpleadoIndividual implements Serializable {
         dialogo = -1;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formDialogos:lovCargos:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovCargos').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('CargosDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovCargos').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('CargosDialogo').hide()");
     }
 
     //AUTOCOMPLETAR
@@ -506,7 +506,7 @@ public class ControlEmpleadoIndividual implements Serializable {
                 }
             } else {
                 RequestContext.getCurrentInstance().update("formDialogos:TiposDocumentosDialogo");
-                PrimefacesContextUI.ejecutar("PF('TiposDocumentosDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('TiposDocumentosDialogo').show()");
                 RequestContext.getCurrentInstance().update("form:tipo");
             }
         } else if (confirmarCambio.equalsIgnoreCase("CIUDAD")) {
@@ -548,7 +548,7 @@ public class ControlEmpleadoIndividual implements Serializable {
                     RequestContext.getCurrentInstance().update("formularioDialogos:lugarNacimiento");
                 }
                 RequestContext.getCurrentInstance().update("formDialogos:CiudadesDialogo");
-                PrimefacesContextUI.ejecutar("PF('CiudadesDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('CiudadesDialogo').show()");
             }
         } else if (confirmarCambio.equalsIgnoreCase("CARGOPOSTULADO")) {
             hojaDeVidaPersona.getCargo().setNombre(cargoPostulado);
@@ -572,7 +572,7 @@ public class ControlEmpleadoIndividual implements Serializable {
                 }
             } else {
                 RequestContext.getCurrentInstance().update("formDialogos:CargosDialogo");
-                PrimefacesContextUI.ejecutar("PF('CargosDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('CargosDialogo').show()");
                 RequestContext.getCurrentInstance().update("form:cargoPostulado");
             }
         }
@@ -582,7 +582,7 @@ public class ControlEmpleadoIndividual implements Serializable {
     public void listaValoresBoton() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (dialogo == 0) {
-            PrimefacesContextUI.ejecutar("PF('TiposDocumentosDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('TiposDocumentosDialogo').show()");
         } else if (dialogo == 1) {
             if (modificacionCiudad == 0) {
                 cabezeraDialogoCiudad = "Ciudad documento";
@@ -590,9 +590,9 @@ public class ControlEmpleadoIndividual implements Serializable {
                 cabezeraDialogoCiudad = "Ciudad nacimiento";
             }
             RequestContext.getCurrentInstance().update("formDialogos:CiudadesDialogo");
-            PrimefacesContextUI.ejecutar("PF('CiudadesDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('CiudadesDialogo').show()");
         } else if (dialogo == 2) {
-            PrimefacesContextUI.ejecutar("PF('CargosDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('CargosDialogo').show()");
         }
     }
 
@@ -646,22 +646,22 @@ public class ControlEmpleadoIndividual implements Serializable {
             }
             if (resultado == 1) {
                 RequestContext.getCurrentInstance().update("formDialogos:errorObjetosDB");
-                PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {
                 RequestContext.getCurrentInstance().update("formDialogos:confirmarRastro");
-                PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
             } else if (resultado == 3) {
                 RequestContext.getCurrentInstance().update("formDialogos:errorRegistroRastro");
-                PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
             } else if (resultado == 4) {
                 RequestContext.getCurrentInstance().update("formDialogos:errorTablaConRastro");
-                PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
             } else if (resultado == 5) {
                 RequestContext.getCurrentInstance().update("formDialogos:errorTablaSinRastro");
-                PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
         } else {
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
@@ -816,7 +816,7 @@ public class ControlEmpleadoIndividual implements Serializable {
                     destino = general.getPathfoto();
                     identificacionEmpleado = persona.getNumerodocumento();
                     transformarArchivo(tamanho, event.getFile().getInputstream());
-                    PrimefacesContextUI.ejecutar("PF('subirFoto').hide()");
+                    RequestContext.getCurrentInstance().execute("PF('subirFoto').hide()");
                     RequestContext.getCurrentInstance().update("form:btnFoto");
                     FacesMessage msg = new FacesMessage("Información", "Archivo cargado con éxito.");
                     FacesContext fc = FacesContext.getCurrentInstance();
@@ -846,7 +846,7 @@ public class ControlEmpleadoIndividual implements Serializable {
          response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
          response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
          response.setDateHeader("Expires", 0); // Proxies. */
-        //PrimefacesContextUI.ejecutar("PF('espera').hide()");
+        //RequestContext.getCurrentInstance().execute("PF('espera').hide()");
     }
 
     public void transformarArchivo(long size, InputStream in) {
@@ -889,7 +889,7 @@ public class ControlEmpleadoIndividual implements Serializable {
                 FacesContext fc = FacesContext.getCurrentInstance();
                 fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pagina);
             } else {
-                PrimefacesContextUI.ejecutar("PF('formDialogos:validarPerfilProfesional').show()");
+                RequestContext.getCurrentInstance().execute("PF('formDialogos:validarPerfilProfesional').show()");
             }
         }
     }

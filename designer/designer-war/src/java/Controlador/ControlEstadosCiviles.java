@@ -4,7 +4,7 @@
  */
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import Entidades.EstadosCiviles;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
@@ -303,7 +303,7 @@ public class ControlEstadosCiviles implements Serializable {
 
                     } else {
                         RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
+                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
                     }
                     //estadoCivilSeleccionado = null;
                 } else {
@@ -346,7 +346,7 @@ public class ControlEstadosCiviles implements Serializable {
 
                     } else {
                         RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
+                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
                     }
 //                    estadoCivilSeleccionado = null;
                 }
@@ -396,7 +396,7 @@ public class ControlEstadosCiviles implements Serializable {
 
                     } else {
                         RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
+                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
                     }
                    // estadoCivilSeleccionado = null;
                 } else {
@@ -438,7 +438,7 @@ public class ControlEstadosCiviles implements Serializable {
 
                     } else {
                         RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
+                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
                     }
                //     estadoCivilSeleccionado = null;
                 }
@@ -474,7 +474,7 @@ public class ControlEstadosCiviles implements Serializable {
             }
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }else{
-            PrimefacesContextUI.ejecutar("PF('formularioDialogos:seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('formularioDialogos:seleccionarRegistro').show()");
         }
 
     }
@@ -490,7 +490,7 @@ public class ControlEstadosCiviles implements Serializable {
 
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("form:validacionBorrar");
-                PrimefacesContextUI.ejecutar("PF('validacionBorrar').show()");
+                RequestContext.getCurrentInstance().execute("PF('validacionBorrar').show()");
                 estadoCivilSeleccionado = null;
 
                 vigenciasEstadosAficilaciones = new BigInteger("-1");
@@ -509,7 +509,7 @@ public class ControlEstadosCiviles implements Serializable {
         if (!borrarEstadosCiviles.isEmpty() || !crearEstadosCiviles.isEmpty() || !modificarEstadosCiviles.isEmpty()) {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:confirmarGuardar");
-            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
         }
     }
 
@@ -523,7 +523,7 @@ public class ControlEstadosCiviles implements Serializable {
                 //mostrarBorrados
                 registrosBorrados = borrarEstadosCiviles.size();
                 RequestContext.getCurrentInstance().update("form:mostrarBorrados");
-                PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
+                RequestContext.getCurrentInstance().execute("PF('mostrarBorrados').show()");
                 borrarEstadosCiviles.clear();
             }
             if (!crearEstadosCiviles.isEmpty()) {
@@ -563,15 +563,15 @@ public class ControlEstadosCiviles implements Serializable {
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
-                PrimefacesContextUI.ejecutar("PF('editCodigo').show()");
+                RequestContext.getCurrentInstance().execute("PF('editCodigo').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editDescripcion");
-                PrimefacesContextUI.ejecutar("PF('editDescripcion').show()");
+                RequestContext.getCurrentInstance().execute("PF('editDescripcion').show()");
                 cualCelda = -1;
             }
         } else{
-            PrimefacesContextUI.ejecutar("PF('formularioDialogos:seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('formularioDialogos:seleccionarRegistro').show()");
         }
     }
 
@@ -646,11 +646,11 @@ public class ControlEstadosCiviles implements Serializable {
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
 
-            PrimefacesContextUI.ejecutar("PF('nuevoRegistroEstadoCivil').hide()");
+            RequestContext.getCurrentInstance().execute("PF('nuevoRegistroEstadoCivil').hide()");
 
         } else {
             RequestContext.getCurrentInstance().update("form:validacionNuevoEstadoCivil");
-            PrimefacesContextUI.ejecutar("PF('validacionNuevoEstadoCivil').show()");
+            RequestContext.getCurrentInstance().execute("PF('validacionNuevoEstadoCivil').show()");
             contador = 0;
         }
     }
@@ -683,10 +683,10 @@ public class ControlEstadosCiviles implements Serializable {
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarEC");
-            PrimefacesContextUI.ejecutar("PF('duplicarRegistroEstadoCivil').show()");
+            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroEstadoCivil').show()");
             
         } else{
-            PrimefacesContextUI.ejecutar("PF('formularioDialogos:seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('formularioDialogos:seleccionarRegistro').show()");
         }
     }
 
@@ -755,12 +755,12 @@ public class ControlEstadosCiviles implements Serializable {
                 tipoLista = 0;
             }
             duplicarEstadoCivil = new EstadosCiviles();
-            PrimefacesContextUI.ejecutar("PF('duplicarRegistroEstadoCivil').hide()");
+            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroEstadoCivil').hide()");
 
         } else {
             contador = 0;
             RequestContext.getCurrentInstance().update("form:validacionDuplicarVigencia");
-            PrimefacesContextUI.ejecutar("PF('validacionDuplicarVigencia').show()");
+            RequestContext.getCurrentInstance().execute("PF('validacionDuplicarVigencia').show()");
         }
     }
 
@@ -794,22 +794,22 @@ public class ControlEstadosCiviles implements Serializable {
                 int resultado = administrarRastros.obtenerTabla(estadoCivilSeleccionado.getSecuencia(), "ESTADOSCIVILES"); //En ENCARGATURAS lo cambia por el nombre de su tabla
                 System.out.println("resultado: " + resultado);
                 if (resultado == 1) {
-                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
-                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
                 }
             } 
          else {
             if (administrarRastros.verificarHistoricosTabla("ESTADOSCIVILES")) { // igual acá
-                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
             } else {
-                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
             }
         }
     }

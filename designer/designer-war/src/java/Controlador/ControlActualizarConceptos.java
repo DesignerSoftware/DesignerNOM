@@ -5,7 +5,7 @@
  */
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import Entidades.Conceptos;
 import Entidades.ClavesSap;
 import Entidades.Empresas;
@@ -249,12 +249,12 @@ public class ControlActualizarConceptos implements Serializable {
             }
             if (dig == 2) {
                 RequestContext.getCurrentInstance().update("form:clavesSapDebitoDialgo");
-                PrimefacesContextUI.ejecutar("PF('clavesSapDebitoDialgo').show()");
+                RequestContext.getCurrentInstance().execute("PF('clavesSapDebitoDialgo').show()");
                 dig = -1;
             }
             if (dig == 3) {
                 RequestContext.getCurrentInstance().update("form:claveSapCreditoDialogo");
-                PrimefacesContextUI.ejecutar("PF('claveSapCreditoDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('claveSapCreditoDialogo').show()");
                 dig = -1;
             }
 
@@ -273,7 +273,7 @@ public class ControlActualizarConceptos implements Serializable {
 
             if (cualCelda == 4) {
                 RequestContext.getCurrentInstance().update("form:clavesSapDebitoDialgo");
-                PrimefacesContextUI.ejecutar("PF('clavesSapDebitoDialgo').show()");
+                RequestContext.getCurrentInstance().execute("PF('clavesSapDebitoDialgo').show()");
                 tipoActualizacion = 0;
             }
 
@@ -363,7 +363,7 @@ public class ControlActualizarConceptos implements Serializable {
         context.reset("formularioDialogos:lovEmpresas:globalFilter");
         RequestContext.getCurrentInstance().update("form:nombreEmpresa");
         RequestContext.getCurrentInstance().update("form:nitEmpresa");
-        PrimefacesContextUI.ejecutar("PF('EmpresasDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('EmpresasDialogo').hide()");
         System.out.println("Se guardaron los datos con exito");
         RequestContext.getCurrentInstance().update("form:datosActualizarConceptos");
         k = 0;
@@ -415,7 +415,7 @@ public class ControlActualizarConceptos implements Serializable {
         context.reset("formularioDialogos:lovEmpresas:globalFilter");
         RequestContext.getCurrentInstance().update("form:nombreEmpresa");
         RequestContext.getCurrentInstance().update("form:nitEmpresa");
-        PrimefacesContextUI.ejecutar("PF('EmpresasDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('EmpresasDialogo').hide()");
         System.out.println("Se guardaron los datos con exito");
         RequestContext.getCurrentInstance().update("form:datosActualizarConceptos");
         k = 0;
@@ -425,7 +425,7 @@ public class ControlActualizarConceptos implements Serializable {
         listLOVConceptos = null;
         getListLOVConceptos();
         RequestContext.getCurrentInstance().update("formularioDialogos:lovConceptosPorEmpresa");
-        PrimefacesContextUI.ejecutar("PF('buscarConceptosPorEmpresaDialogo').show()");
+        RequestContext.getCurrentInstance().execute("PF('buscarConceptosPorEmpresaDialogo').show()");
         System.out.println("Se guardaron los datos con exito");
         RequestContext.getCurrentInstance().update("form:datosActualizarConceptos");
         index = -1;
@@ -637,7 +637,7 @@ public class ControlActualizarConceptos implements Serializable {
                 } else {
                     permitirIndex = false;
                     RequestContext.getCurrentInstance().update("form:clavesSapDebitoDialgo");
-                    PrimefacesContextUI.ejecutar("PF('clavesSapDebitoDialgo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('clavesSapDebitoDialgo').show()");
                     tipoActualizacion = 0;
                 }
             } else {
@@ -712,7 +712,7 @@ public class ControlActualizarConceptos implements Serializable {
                 } else {
                     permitirIndex = false;
                     RequestContext.getCurrentInstance().update("form:claveSapCreditoDialogo");
-                    PrimefacesContextUI.ejecutar("PF('claveSapCreditoDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('claveSapCreditoDialogo').show()");
                     tipoActualizacion = 0;
                 }
             } else {
@@ -850,8 +850,8 @@ public class ControlActualizarConceptos implements Serializable {
         tipoActualizacion = -1;
         cualCelda = -1;
         context.reset("form:lovClavesSap:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovClavesSap').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('clavesSapDebitoDialgo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovClavesSap').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('clavesSapDebitoDialgo').hide()");
         //RequestContext.getCurrentInstance().update("form:lovClavesSap");
         RequestContext.getCurrentInstance().update("form:datosActualizarConceptos");
     }
@@ -906,8 +906,8 @@ public class ControlActualizarConceptos implements Serializable {
         tipoActualizacion = -1;
         cualCelda = -1;
         context.reset("form:lovClavesSapCredito:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('ovClavesSapCredito').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('claveSapCreditoDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('ovClavesSapCredito').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('claveSapCreditoDialogo').hide()");
         //RequestContext.getCurrentInstance().update("form:lovClavesSapCredito");
         RequestContext.getCurrentInstance().update("form:datosActualizarConceptos");
     }
@@ -923,8 +923,8 @@ public class ControlActualizarConceptos implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovClavesSapCredito:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('ovClavesSapCredito').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('claveSapCreditoDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('ovClavesSapCredito').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('claveSapCreditoDialogo').hide()");
     }
 
     public void revisarDialogoGuardar() {
@@ -932,7 +932,7 @@ public class ControlActualizarConceptos implements Serializable {
         if (!modificarConceptos.isEmpty()) {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:confirmarGuardar");
-            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
         }
 
     }
@@ -994,7 +994,7 @@ public class ControlActualizarConceptos implements Serializable {
             context.reset("formularioDialogos:lovEmpresas:globalFilter");
             RequestContext.getCurrentInstance().update("form:nombreEmpresa");
             RequestContext.getCurrentInstance().update("form:nitEmpresa");
-            PrimefacesContextUI.ejecutar("PF('EmpresasDialogo').hide()");
+            RequestContext.getCurrentInstance().execute("PF('EmpresasDialogo').hide()");
             System.out.println("Se guardaron los datos con exito");
             RequestContext.getCurrentInstance().update("form:datosActualizarConceptos");
             FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
@@ -1036,7 +1036,7 @@ public class ControlActualizarConceptos implements Serializable {
             RequestContext.getCurrentInstance().update("form:growl");
             index = -1;
             RequestContext.getCurrentInstance().update("formularioDialogos:lovConceptosPorEmpresa");
-            PrimefacesContextUI.ejecutar("PF('buscarConceptosPorEmpresaDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('buscarConceptosPorEmpresaDialogo').show()");
             System.out.println("Se guardaron los datos con exito");
             RequestContext.getCurrentInstance().update("form:datosActualizarConceptos");
 
@@ -1065,30 +1065,30 @@ public class ControlActualizarConceptos implements Serializable {
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 1) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editDescripcion");
-                PrimefacesContextUI.ejecutar("PF('editDescripcion').show()");
+                RequestContext.getCurrentInstance().execute("PF('editDescripcion').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editClaveContableDebito");
-                PrimefacesContextUI.ejecutar("PF('editClaveContableDebito').show()");
+                RequestContext.getCurrentInstance().execute("PF('editClaveContableDebito').show()");
                 cualCelda = -1;
 
             } else if (cualCelda == 3) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editClaveContableCredito");
-                PrimefacesContextUI.ejecutar("PF('editClaveContableCredito').show()");
+                RequestContext.getCurrentInstance().execute("PF('editClaveContableCredito').show()");
                 cualCelda = -1;
 
             } else if (cualCelda == 4) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editIndiceDeudor");
-                PrimefacesContextUI.ejecutar("PF('editIndiceDeudor').show()");
+                RequestContext.getCurrentInstance().execute("PF('editIndiceDeudor').show()");
                 cualCelda = -1;
 
             } else if (cualCelda == 5) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editIndiceAcredor");
-                PrimefacesContextUI.ejecutar("PF('editIndiceAcredor').show()");
+                RequestContext.getCurrentInstance().execute("PF('editIndiceAcredor').show()");
                 cualCelda = -1;
             } else if (cualCelda == 6) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editFechaCreacion");
-                PrimefacesContextUI.ejecutar("PF('editFechaCreacion').show()");
+                RequestContext.getCurrentInstance().execute("PF('editFechaCreacion').show()");
                 cualCelda = -1;
             }
 
@@ -1118,7 +1118,7 @@ public class ControlActualizarConceptos implements Serializable {
         empresaSeleccionada = empresaSeleccionadaMostrar;
         System.err.println("1 Cambiar empresa empresaSeleccionada  GUARDADO = " + empresaSeleccionada.getNombre());
         if (!modificarConceptos.isEmpty()) {
-            PrimefacesContextUI.ejecutar("PF('confirmarGuardarCambioEmpresa').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarGuardarCambioEmpresa').show()");
         } else {
             listConceptos = null;
             filtradoEmpresas = null;
@@ -1130,8 +1130,8 @@ public class ControlActualizarConceptos implements Serializable {
             RequestContext.getCurrentInstance().update("form:nombreEmpresa");
             RequestContext.getCurrentInstance().update("form:nitEmpresa");
             context.reset("formularioDialogos:lovEmpresas:globalFilter");
-            PrimefacesContextUI.ejecutar("PF('lovEmpresas').clearFilters()");
-            PrimefacesContextUI.ejecutar("PF('EmpresasDialogo').hide()");
+            RequestContext.getCurrentInstance().execute("PF('lovEmpresas').clearFilters()");
+            RequestContext.getCurrentInstance().execute("PF('EmpresasDialogo').hide()");
         }
         RequestContext.getCurrentInstance().update("form:datosActualizarConceptos");
         System.out.println("Terminó Cambiar Empresa");
@@ -1143,21 +1143,21 @@ public class ControlActualizarConceptos implements Serializable {
         index = -1;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formularioDialogos:lovEmpresas:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovEmpresas').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('EmpresasDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovEmpresas').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('EmpresasDialogo').hide()");
     }
 
     public void llamadoDialogoBuscarConceptos() {
         RequestContext context = RequestContext.getCurrentInstance();
         try {
             if (!modificarConceptos.isEmpty()) {
-                PrimefacesContextUI.ejecutar("PF('confirmarGuardarCambiosConceptoLOV').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarGuardarCambiosConceptoLOV').show()");
             } else {
                 listLOVConceptos = null;
                 getListLOVConceptos();
                 index = -1;
                 RequestContext.getCurrentInstance().update("formularioDialogos:lovConceptosPorEmpresa");
-                PrimefacesContextUI.ejecutar("PF('buscarConceptosPorEmpresaDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('buscarConceptosPorEmpresaDialogo').show()");
             }
 
         } catch (Exception e) {
@@ -1184,8 +1184,8 @@ public class ControlActualizarConceptos implements Serializable {
                 aceptar = true;
                 RequestContext.getCurrentInstance().update("form:datosActualizarConceptos");
                 context.reset("formularioDialogos:lovConceptosPorEmpresa:globalFilter");
-                PrimefacesContextUI.ejecutar("PF('lovConceptosPorEmpresa').clearFilters()");
-                PrimefacesContextUI.ejecutar("PF('buscarConceptosPorEmpresaDialogo').hide()");
+                RequestContext.getCurrentInstance().execute("PF('lovConceptosPorEmpresa').clearFilters()");
+                RequestContext.getCurrentInstance().execute("PF('buscarConceptosPorEmpresaDialogo').hide()");
                 buscarConceptos = true;
                 mostrartodos = false;
                 listLOVConceptos = null;
@@ -1214,8 +1214,8 @@ public class ControlActualizarConceptos implements Serializable {
             tipoActualizacion = -1;
             RequestContext.getCurrentInstance().update("form:aceptarNCC");
             context.reset("formularioDialogos:lovConceptosPorEmpresa:globalFilter");
-            PrimefacesContextUI.ejecutar("PF('lovConceptosPorEmpresa').clearFilters()");
-            PrimefacesContextUI.ejecutar("PF('buscarConceptosPorEmpresaDialogo').hide()");
+            RequestContext.getCurrentInstance().execute("PF('lovConceptosPorEmpresa').clearFilters()");
+            RequestContext.getCurrentInstance().execute("PF('buscarConceptosPorEmpresaDialogo').hide()");
         } catch (Exception e) {
             System.out.println("ERROR CONTROLACTUALIZARCONCEPTOS.cancelarSeleccionConceptosPorEmpresa ERROR : " + e.getMessage());
         }
@@ -1250,24 +1250,24 @@ public class ControlActualizarConceptos implements Serializable {
                 int resultado = administrarRastros.obtenerTabla(secRegistro, "CONCEPTOS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
                 System.out.println("resultado: " + resultado);
                 if (resultado == 1) {
-                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
-                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+                RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("CONCEPTOS")) { // igual acá
-                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
             } else {
-                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
             }
 
         }

@@ -4,7 +4,7 @@
  */
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import Entidades.Eventos;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
@@ -359,7 +359,7 @@ public class ControlEventos implements Serializable {
 
                     } else {
                         RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
+                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
                     }
                 } else {
                     if (eventoSeleccionado.getCodigo() == a) {
@@ -422,7 +422,7 @@ public class ControlEventos implements Serializable {
 
                     } else {
                         RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
+                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
                     }
 
                 }
@@ -498,7 +498,7 @@ public class ControlEventos implements Serializable {
 
                     } else {
                         RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
+                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
                         contador = 0;
                     }
                 } else {
@@ -571,7 +571,7 @@ public class ControlEventos implements Serializable {
 
                     } else {
                         RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
+                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
                         contador = 0;
                     }
                 }
@@ -613,7 +613,7 @@ public class ControlEventos implements Serializable {
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
         } else {
-            PrimefacesContextUI.ejecutar("PF('formularioDialogos:seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('formularioDialogos:seleccionarRegistro').show()");
         }
 
     }
@@ -632,7 +632,7 @@ public class ControlEventos implements Serializable {
 
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("form:validacionBorrar");
-                PrimefacesContextUI.ejecutar("PF('validacionBorrar').show()");
+                RequestContext.getCurrentInstance().execute("PF('validacionBorrar').show()");
                 eventoSeleccionado = null;
 
                 vigenciasEventos = new BigInteger("-1");
@@ -648,7 +648,7 @@ public class ControlEventos implements Serializable {
         if (!borrarEventos.isEmpty() || !crearEventos.isEmpty() || !modificarEventos.isEmpty()) {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:confirmarGuardar");
-            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
         }
 
     }
@@ -676,7 +676,7 @@ public class ControlEventos implements Serializable {
                 //mostrarBorrados
                 registrosBorrados = borrarEventos.size();
                 RequestContext.getCurrentInstance().update("form:mostrarBorrados");
-                PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
+                RequestContext.getCurrentInstance().execute("PF('mostrarBorrados').show()");
                 borrarEventos.clear();
             }
             if (!crearEventos.isEmpty()) {
@@ -718,24 +718,24 @@ public class ControlEventos implements Serializable {
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
-                PrimefacesContextUI.ejecutar("PF('editCodigo').show()");
+                RequestContext.getCurrentInstance().execute("PF('editCodigo').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editDescripcion");
-                PrimefacesContextUI.ejecutar("PF('editDescripcion').show()");
+                RequestContext.getCurrentInstance().execute("PF('editDescripcion').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editOrganizador");
-                PrimefacesContextUI.ejecutar("PF('editOrganizador').show()");
+                RequestContext.getCurrentInstance().execute("PF('editOrganizador').show()");
                 cualCelda = -1;
             } else if (cualCelda == 3) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editObjetivo");
-                PrimefacesContextUI.ejecutar("PF('editObjetivo').show()");
+                RequestContext.getCurrentInstance().execute("PF('editObjetivo').show()");
                 cualCelda = -1;
             }
 
         } else {
-            PrimefacesContextUI.ejecutar("PF('formularioDialogos:seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('formularioDialogos:seleccionarRegistro').show()");
         }
     }
 
@@ -835,11 +835,11 @@ public class ControlEventos implements Serializable {
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
 
-            PrimefacesContextUI.ejecutar("PF('nuevoRegistroEvento').hide()");
+            RequestContext.getCurrentInstance().execute("PF('nuevoRegistroEvento').hide()");
 
         } else {
             RequestContext.getCurrentInstance().update("form:validacionNuevoEvento");
-            PrimefacesContextUI.ejecutar("PF('validacionNuevoEvento').show()");
+            RequestContext.getCurrentInstance().execute("PF('validacionNuevoEvento').show()");
             contador = 0;
         }
     }
@@ -874,10 +874,10 @@ public class ControlEventos implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarE");
-            PrimefacesContextUI.ejecutar("PF('duplicarRegistroEvento').show()");
+            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroEvento').show()");
 
         } else {
-            PrimefacesContextUI.ejecutar("PF('formularioDialogos:seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('formularioDialogos:seleccionarRegistro').show()");
         }
     }
 
@@ -969,12 +969,12 @@ public class ControlEventos implements Serializable {
                 tamano = 270;
             }
             duplicarEvento = new Eventos();
-            PrimefacesContextUI.ejecutar("PF('duplicarRegistroEvento').hide()");
+            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroEvento').hide()");
 
         } else {
             contador = 0;
             RequestContext.getCurrentInstance().update("form:validacionDuplicarEvento");
-            PrimefacesContextUI.ejecutar("PF('validacionDuplicarEvento').show()");
+            RequestContext.getCurrentInstance().execute("PF('validacionDuplicarEvento').show()");
         }
     }
 
@@ -1008,21 +1008,21 @@ public class ControlEventos implements Serializable {
             int resultado = administrarRastros.obtenerTabla(eventoSeleccionado.getSecuencia(), "EVENTOS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
             System.out.println("resultado: " + resultado);
             if (resultado == 1) {
-                PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {
-                PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
             } else if (resultado == 3) {
-                PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
             } else if (resultado == 4) {
-                PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
             } else if (resultado == 5) {
-                PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("EVENTOS")) { // igual acá
-                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
             } else {
-                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
             }
 
         }

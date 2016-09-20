@@ -1,6 +1,6 @@
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import Entidades.*;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
@@ -179,7 +179,7 @@ public class ControlVigenciasTiposContratos implements Serializable {
                     }
                 }
             } else {
-                PrimefacesContextUI.ejecutar("PF('validacionFechaDuplicada.show();");
+                RequestContext.getCurrentInstance().execute("PF('validacionFechaDuplicada').show();");
             }
         } else if (confirmarCambio.equalsIgnoreCase("MOTIVOC")) {
             vigenciaSeleccionada.getMotivocontrato().setNombre(Motivo);
@@ -200,7 +200,7 @@ public class ControlVigenciasTiposContratos implements Serializable {
             } else {
                 permitirIndex = false;
                 RequestContext.getCurrentInstance().update("formularioDialogos:MotivosContratoDialogo");
-                PrimefacesContextUI.ejecutar("PF('MotivosContratoDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('MotivosContratoDialogo').show()");
                 tipoActualizacion = 0;
             }
         } else if (confirmarCambio.equalsIgnoreCase("TIPOC")) {
@@ -222,7 +222,7 @@ public class ControlVigenciasTiposContratos implements Serializable {
             } else {
                 permitirIndex = false;
                 RequestContext.getCurrentInstance().update("formularioDialogos:TiposContratoDialogo");
-                PrimefacesContextUI.ejecutar("PF('TiposContratoDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('TiposContratoDialogo').show()");
                 tipoActualizacion = 0;
             }
         } else if (confirmarCambio.equalsIgnoreCase("CIUDAD")) {
@@ -245,7 +245,7 @@ public class ControlVigenciasTiposContratos implements Serializable {
                 } else {
                     permitirIndex = false;
                     RequestContext.getCurrentInstance().update("formularioDialogos:ciudadesDialogo");
-                    PrimefacesContextUI.ejecutar("PF('ciudadesDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('ciudadesDialogo').show()");
                     tipoActualizacion = 0;
                 }
             } else {
@@ -338,7 +338,7 @@ public class ControlVigenciasTiposContratos implements Serializable {
                 getListaMotivosContratos();
             } else {
                 RequestContext.getCurrentInstance().update("formularioDialogos:MotivosContratoDialogo");
-                PrimefacesContextUI.ejecutar("PF('MotivosContratoDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('MotivosContratoDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:nuevoMotivoContrato");
@@ -370,7 +370,7 @@ public class ControlVigenciasTiposContratos implements Serializable {
                 getListaTiposContratos();
             } else {
                 RequestContext.getCurrentInstance().update("formularioDialogos:TiposContratoDialogo");
-                PrimefacesContextUI.ejecutar("PF('TiposContratoDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('TiposContratoDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:nuevoTipoContrato");
@@ -402,7 +402,7 @@ public class ControlVigenciasTiposContratos implements Serializable {
                 getListaCiudades();
             } else {
                 RequestContext.getCurrentInstance().update("formularioDialogos:ciudadesDialogo");
-                PrimefacesContextUI.ejecutar("PF('ciudadesDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('ciudadesDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:nuevaCiudad");
@@ -544,7 +544,7 @@ public class ControlVigenciasTiposContratos implements Serializable {
     public void editarCelda() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (vigenciaSeleccionada == null) {
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         } else {
             if (vigenciaSeleccionada != null) {
                 editarVTC = vigenciaSeleccionada;
@@ -552,31 +552,31 @@ public class ControlVigenciasTiposContratos implements Serializable {
                 System.out.println("Entro a editar... valor celda: " + cualCelda);
                 if (cualCelda == 0) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:editarFecha");
-                    PrimefacesContextUI.ejecutar("PF('editarFecha').show()");
+                    RequestContext.getCurrentInstance().execute("PF('editarFecha').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 1) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:editarMotivoContrato");
-                    PrimefacesContextUI.ejecutar("PF('editarMotivoContrato').show()");
+                    RequestContext.getCurrentInstance().execute("PF('editarMotivoContrato').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 2) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:editarTipoContrato");
-                    PrimefacesContextUI.ejecutar("PF('editarTipoContrato').show()");
+                    RequestContext.getCurrentInstance().execute("PF('editarTipoContrato').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 3) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:editarCiudad");
-                    PrimefacesContextUI.ejecutar("PF('editarCiudad').show()");
+                    RequestContext.getCurrentInstance().execute("PF('editarCiudad').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 4) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaSP");
-                    PrimefacesContextUI.ejecutar("PF('editarFechaSP').show()");
+                    RequestContext.getCurrentInstance().execute("PF('editarFechaSP').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 5) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaF");
-                    PrimefacesContextUI.ejecutar("PF('editarFechaF').show()");
+                    RequestContext.getCurrentInstance().execute("PF('editarFechaF').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 6) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:editarObservacion");
-                    PrimefacesContextUI.ejecutar("PF('editarObservacion').show()");
+                    RequestContext.getCurrentInstance().execute("PF('editarObservacion').show()");
                     cualCelda = -1;
                 }
             }
@@ -606,7 +606,7 @@ public class ControlVigenciasTiposContratos implements Serializable {
             }
             if (fechas > 0) {
                 RequestContext.getCurrentInstance().update("form:fechas");
-                PrimefacesContextUI.ejecutar("PF('fechas').show()");
+                RequestContext.getCurrentInstance().execute("PF('fechas').show()");
                 pasa++;
 
             } else {
@@ -656,10 +656,10 @@ public class ControlVigenciasTiposContratos implements Serializable {
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             RequestContext.getCurrentInstance().update("form:datosVTCEmpleado");
-            PrimefacesContextUI.ejecutar("PF('NuevoRegistroVTC').hide()");
+            RequestContext.getCurrentInstance().execute("PF('NuevoRegistroVTC').hide()");
         } else if (contador != 3 && pasa == 0) {
             RequestContext.getCurrentInstance().update("form:validacionNuevo");
-            PrimefacesContextUI.ejecutar("PF('validacionNuevo').show()");
+            RequestContext.getCurrentInstance().execute("PF('validacionNuevo').show()");
             contador = 0;
             pasa = 0;
         }
@@ -678,7 +678,7 @@ public class ControlVigenciasTiposContratos implements Serializable {
     public void duplicarVigenciaC() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (vigenciaSeleccionada == null) {
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         } else {
             if (vigenciaSeleccionada != null) {
                 duplicarVTC = new VigenciasTiposContratos();
@@ -696,7 +696,7 @@ public class ControlVigenciasTiposContratos implements Serializable {
                 duplicarVTC.setObservaciones(vigenciaSeleccionada.getObservaciones());
 
                 RequestContext.getCurrentInstance().update("formularioDialogos:duplicarVTC");
-                PrimefacesContextUI.ejecutar("PF('DuplicarRegistroVTC').show()");
+                RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroVTC').show()");
             }
         }
     }
@@ -714,7 +714,7 @@ public class ControlVigenciasTiposContratos implements Serializable {
         if (contador > 0) {
             mensajeValidacion = "Fechas NO Repetidas";
             RequestContext.getCurrentInstance().update("form:validacionFechaDuplicada");
-            PrimefacesContextUI.ejecutar("PF('validacionFechaDuplicada').show()");
+            RequestContext.getCurrentInstance().execute("PF('validacionFechaDuplicada').show()");
 
         } else {
             vigenciasTiposContratoEmpleado.add(duplicarVTC);
@@ -733,7 +733,7 @@ public class ControlVigenciasTiposContratos implements Serializable {
                 recargarTablaDefault();
             }
             duplicarVTC = new VigenciasTiposContratos();
-            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroVTC').hide()");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroVTC').hide()");
             RequestContext.getCurrentInstance().update("form:datosVTCEmpleado");
         }
     }
@@ -747,7 +747,7 @@ public class ControlVigenciasTiposContratos implements Serializable {
     public void borrarVTC() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (vigenciaSeleccionada == null) {
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         } else {
             if (vigenciaSeleccionada != null) {
                 if (!listVTCModificar.isEmpty() && listVTCModificar.contains(vigenciaSeleccionada)) {
@@ -842,15 +842,15 @@ public class ControlVigenciasTiposContratos implements Serializable {
         if (dlg == 0) {
             modificarInfoRegistroMotivos(listaMotivosContratos.size());
             RequestContext.getCurrentInstance().update("formularioDialogos:MotivosContratoDialogo");
-            PrimefacesContextUI.ejecutar("PF('MotivosContratoDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('MotivosContratoDialogo').show()");
         } else if (dlg == 1) {
             modificarInfoRegistroTiposC(listaTiposContratos.size());
             RequestContext.getCurrentInstance().update("formularioDialogos:TiposContratoDialogo");
-            PrimefacesContextUI.ejecutar("PF('TiposContratoDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('TiposContratoDialogo').show()");
         } else if (dlg == 2) {
             modificarInfoRegistroCiudades(listaCiudades.size());
             RequestContext.getCurrentInstance().update("formularioDialogos:ciudadesDialogo");
-            PrimefacesContextUI.ejecutar("PF('ciudadesDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('ciudadesDialogo').show()");
         }
     }
 
@@ -861,15 +861,15 @@ public class ControlVigenciasTiposContratos implements Serializable {
         if (dlg == 0) {
             modificarInfoRegistroMotivos(listaMotivosContratos.size());
             RequestContext.getCurrentInstance().update("formularioDialogos:MotivosContratoDialogo");
-            PrimefacesContextUI.ejecutar("PF('MotivosContratoDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('MotivosContratoDialogo').show()");
         } else if (dlg == 1) {
             modificarInfoRegistroTiposC(listaTiposContratos.size());
             RequestContext.getCurrentInstance().update("formularioDialogos:TiposContratoDialogo");
-            PrimefacesContextUI.ejecutar("PF('TiposContratoDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('TiposContratoDialogo').show()");
         } else if (dlg == 2) {
             modificarInfoRegistroCiudades(listaCiudades.size());
             RequestContext.getCurrentInstance().update("formularioDialogos:ciudadesDialogo");
-            PrimefacesContextUI.ejecutar("PF('ciudadesDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('ciudadesDialogo').show()");
         }
     }
 
@@ -1006,7 +1006,7 @@ public class ControlVigenciasTiposContratos implements Serializable {
     public void listaValoresBoton() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (vigenciaSeleccionada == null) {
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         } else {
             if (!vigenciasTiposContratoEmpleado.isEmpty()) {
                 if (vigenciaSeleccionada.getSecuencia() != null) {
@@ -1014,18 +1014,18 @@ public class ControlVigenciasTiposContratos implements Serializable {
                         if (cualCelda == 1) {
                             modificarInfoRegistroMotivos(listaMotivosContratos.size());
                             RequestContext.getCurrentInstance().update("formularioDialogos:MotivosContratoDialogo");
-                            PrimefacesContextUI.ejecutar("PF('MotivosContratoDialogo').show()");
+                            RequestContext.getCurrentInstance().execute("PF('MotivosContratoDialogo').show()");
                             tipoActualizacion = 0;
                         } else if (cualCelda == 2) {
                             tipoActualizacion = 0;
                             modificarInfoRegistroTiposC(listaTiposContratos.size());
                             RequestContext.getCurrentInstance().update("formularioDialogos:TiposContratoDialogo");
-                            PrimefacesContextUI.ejecutar("PF('TiposContratoDialogo').show()");
+                            RequestContext.getCurrentInstance().execute("PF('TiposContratoDialogo').show()");
                         } else if (cualCelda == 3) {
                             tipoActualizacion = 0;
                             modificarInfoRegistroCiudades(listaCiudades.size());
                             RequestContext.getCurrentInstance().update("formularioDialogos:ciudadesDialogo");
-                            PrimefacesContextUI.ejecutar("PF('ciudadesDialogo').show()");
+                            RequestContext.getCurrentInstance().execute("PF('ciudadesDialogo').show()");
                         }
                     }
                 }
@@ -1087,21 +1087,21 @@ public class ControlVigenciasTiposContratos implements Serializable {
         if (vigenciaSeleccionada != null) {
             int resultado = administrarRastros.obtenerTabla(vigenciaSeleccionada.getSecuencia(), "VIGENCIASTIPOSCONTRATOS");
             if (resultado == 1) {
-                PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {
-                PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
             } else if (resultado == 3) {
-                PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
             } else if (resultado == 4) {
-                PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
             } else if (resultado == 5) {
-                PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("VIGENCIASTIPOSCONTRATOS")) {
-                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
             } else {
-                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
             }
         }
     }

@@ -1,6 +1,6 @@
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import ClasesAyuda.ParametrosBusquedaAvanzada;
 import ClasesAyuda.ParametrosQueryBusquedaAvanzada;
 import ComponentesDinamicos.ControladorColumnasDinamicas;
@@ -285,10 +285,10 @@ public class ControlBusquedaAvanzada implements Serializable {
                         parametros.getParametrosBusquedaNomina().getVigenciaCargo().setCargo(lovCargos.get(indiceUnicoElemento));
                     } else {
                         RequestContext.getCurrentInstance().update("formularioDialogos:DialogoCargos");
-                        PrimefacesContextUI.ejecutar("PF('DialogoCargos').show()");
+                        RequestContext.getCurrentInstance().execute("PF('DialogoCargos').show()");
                     }
                 } else {
-                    PrimefacesContextUI.ejecutar("PF('errorListaDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
                 }
             }
         } else if (cualParametro.equals("ESTRUCTURA")) {
@@ -312,10 +312,10 @@ public class ControlBusquedaAvanzada implements Serializable {
                         parametros.getParametrosBusquedaNomina().getVigenciaCargo().setEstructura(lovEstructuras.get(indiceUnicoElemento));
                     } else {
                         RequestContext.getCurrentInstance().update("formularioDialogos:EstructuraDialogo");
-                        PrimefacesContextUI.ejecutar("PF('EstructuraDialogo').show()");
+                        RequestContext.getCurrentInstance().execute("PF('EstructuraDialogo').show()");
                     }
                 } else {
-                    PrimefacesContextUI.ejecutar("PF('errorListaDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
                 }
             }
         } else if (cualParametro.equals("JEFE")) {
@@ -339,10 +339,10 @@ public class ControlBusquedaAvanzada implements Serializable {
                         parametros.getParametrosBusquedaNomina().getVigenciaCargo().setEmpleadojefe(lovJefe.get(indiceUnicoElemento));
                     } else {
                         RequestContext.getCurrentInstance().update("formularioDialogos:JefeDialogo");
-                        PrimefacesContextUI.ejecutar("PF('JefeDialogo').show()");
+                        RequestContext.getCurrentInstance().execute("PF('JefeDialogo').show()");
                     }
                 } else {
-                    PrimefacesContextUI.ejecutar("PF('errorListaDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
                 }
             }
         } else if (cualParametro.equals("MOTIVOCARGO")) {
@@ -366,10 +366,10 @@ public class ControlBusquedaAvanzada implements Serializable {
                         parametros.getParametrosBusquedaNomina().getVigenciaCargo().setMotivocambiocargo(lovMotivosCargos.get(indiceUnicoElemento));
                     } else {
                         RequestContext.getCurrentInstance().update("formularioDialogos:MotivoCargoDialogo");
-                        PrimefacesContextUI.ejecutar("PF('MotivoCargoDialogo').show()");
+                        RequestContext.getCurrentInstance().execute("PF('MotivoCargoDialogo').show()");
                     }
                 } else {
-                    PrimefacesContextUI.ejecutar("PF('errorListaDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
                 }
             }
         } else if (cualParametro.equals("PAPEL")) {
@@ -393,10 +393,10 @@ public class ControlBusquedaAvanzada implements Serializable {
                         parametros.getParametrosBusquedaNomina().getVigenciaCargo().setPapel(lovPapeles.get(indiceUnicoElemento));
                     } else {
                         RequestContext.getCurrentInstance().update("formularioDialogos:PapelCargoDialogo");
-                        PrimefacesContextUI.ejecutar("PF('PapelCargoDialogo').show()");
+                        RequestContext.getCurrentInstance().execute("PF('PapelCargoDialogo').show()");
                     }
                 } else {
-                    PrimefacesContextUI.ejecutar("PF('errorListaDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
                 }
             }
         } else if (cualParametro.equals("LOCALIZACION")) {
@@ -420,10 +420,10 @@ public class ControlBusquedaAvanzada implements Serializable {
                         parametros.getParametrosBusquedaNomina().getVigenciaLocalizacion().setLocalizacion(lovEstructuras.get(indiceUnicoElemento));
                     } else {
                         RequestContext.getCurrentInstance().update("formularioDialogos:LocalizacionCentroCostoDialogo");
-                        PrimefacesContextUI.ejecutar("PF('LocalizacionCentroCostoDialogo').show()");
+                        RequestContext.getCurrentInstance().execute("PF('LocalizacionCentroCostoDialogo').show()");
                     }
                 } else {
-                    PrimefacesContextUI.ejecutar("PF('errorListaDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
                 }
             }
         } else if (cualParametro.equals("MOTIVOLOCALIZACION")) {
@@ -447,10 +447,10 @@ public class ControlBusquedaAvanzada implements Serializable {
                         parametros.getParametrosBusquedaNomina().getVigenciaLocalizacion().setMotivo(lovMotivosLocalizaciones.get(indiceUnicoElemento));
                     } else {
                         RequestContext.getCurrentInstance().update("formularioDialogos:MotivoCentroCostoDialogo");
-                        PrimefacesContextUI.ejecutar("PF('MotivoCentroCostoDialogo').show()");
+                        RequestContext.getCurrentInstance().execute("PF('MotivoCentroCostoDialogo').show()");
                     }
                 } else {
-                    PrimefacesContextUI.ejecutar("PF('errorListaDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
                 }
             }
         } else if (cualParametro.equals("TIPOSUELDO")) {
@@ -474,10 +474,10 @@ public class ControlBusquedaAvanzada implements Serializable {
                         parametros.getParametrosBusquedaNomina().getVigenciaSueldo().setTiposueldo(lovTiposSueldos.get(indiceUnicoElemento));
                     } else {
                         RequestContext.getCurrentInstance().update("formularioDialogos:TipoSueldoSueldoDialogo");
-                        PrimefacesContextUI.ejecutar("PF('TipoSueldoSueldoDialogo').show()");
+                        RequestContext.getCurrentInstance().execute("PF('TipoSueldoSueldoDialogo').show()");
                     }
                 } else {
-                    PrimefacesContextUI.ejecutar("PF('errorListaDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
                 }
             }
         } else if (cualParametro.equals("MOTIVOSUELDO")) {
@@ -501,10 +501,10 @@ public class ControlBusquedaAvanzada implements Serializable {
                         parametros.getParametrosBusquedaNomina().getVigenciaSueldo().setMotivocambiosueldo(lovMotivosSueldos.get(indiceUnicoElemento));
                     } else {
                         RequestContext.getCurrentInstance().update("formularioDialogos:MotivoSueldoDialogo");
-                        PrimefacesContextUI.ejecutar("PF('MotivoSueldoDialogo').show()");
+                        RequestContext.getCurrentInstance().execute("PF('MotivoSueldoDialogo').show()");
                     }
                 } else {
-                    PrimefacesContextUI.ejecutar("PF('errorListaDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
                 }
             }
         } else if (cualParametro.equals("TIPOCONTRATO")) {
@@ -528,10 +528,10 @@ public class ControlBusquedaAvanzada implements Serializable {
                         parametros.getParametrosBusquedaNomina().getVigenciaTipoContrato().setTipocontrato(lovTiposContratos.get(indiceUnicoElemento));
                     } else {
                         RequestContext.getCurrentInstance().update("formularioDialogos:TipoContratoFechaContratoDialogo");
-                        PrimefacesContextUI.ejecutar("PF('TipoContratoFechaContratoDialogo').show()");
+                        RequestContext.getCurrentInstance().execute("PF('TipoContratoFechaContratoDialogo').show()");
                     }
                 } else {
-                    PrimefacesContextUI.ejecutar("PF('errorListaDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
                 }
             }
         } else if (cualParametro.equals("MOTIVOCONTRATO")) {
@@ -555,10 +555,10 @@ public class ControlBusquedaAvanzada implements Serializable {
                         parametros.getParametrosBusquedaNomina().getVigenciaTipoContrato().setMotivocontrato(lovMotivosContratos.get(indiceUnicoElemento));
                     } else {
                         RequestContext.getCurrentInstance().update("formularioDialogos:MotivoFechaContratoDialogo");
-                        PrimefacesContextUI.ejecutar("PF('MotivoFechaContratoDialogo').show()");
+                        RequestContext.getCurrentInstance().execute("PF('MotivoFechaContratoDialogo').show()");
                     }
                 } else {
-                    PrimefacesContextUI.ejecutar("PF('errorListaDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
                 }
             }
         } else if (cualParametro.equals("TIPOTRABAJADOR")) {
@@ -582,10 +582,10 @@ public class ControlBusquedaAvanzada implements Serializable {
                         parametros.getParametrosBusquedaNomina().getVigenciaTipoTrabajador().setTipotrabajador(lovTiposTrabajadores.get(indiceUnicoElemento));
                     } else {
                         RequestContext.getCurrentInstance().update("formularioDialogos:TipoTrabajadorTipoTrabajadorDialogo");
-                        PrimefacesContextUI.ejecutar("PF('TipoTrabajadorTipoTrabajadorDialogo').show()");
+                        RequestContext.getCurrentInstance().execute("PF('TipoTrabajadorTipoTrabajadorDialogo').show()");
                     }
                 } else {
-                    PrimefacesContextUI.ejecutar("PF('errorListaDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
                 }
             }
         } else if (cualParametro.equals("REFORMALABORAL")) {
@@ -609,10 +609,10 @@ public class ControlBusquedaAvanzada implements Serializable {
                         parametros.getParametrosBusquedaNomina().getVigenciaReformasLaboral().setReformalaboral(lovReformasLaborales.get(indiceUnicoElemento));
                     } else {
                         RequestContext.getCurrentInstance().update("formularioDialogos:ReformaLaboralTipoSalarioDialogo");
-                        PrimefacesContextUI.ejecutar("PF('ReformaLaboralTipoSalarioDialogo').show()");
+                        RequestContext.getCurrentInstance().execute("PF('ReformaLaboralTipoSalarioDialogo').show()");
                     }
                 } else {
-                    PrimefacesContextUI.ejecutar("PF('errorListaDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
                 }
             }
         } else if (cualParametro.equals("CONTRATO")) {
@@ -636,10 +636,10 @@ public class ControlBusquedaAvanzada implements Serializable {
                         parametros.getParametrosBusquedaNomina().getVigenciaContrato().setContrato(lovContratos.get(indiceUnicoElemento));
                     } else {
                         RequestContext.getCurrentInstance().update("formularioDialogos:LegislacionLegislacionLaboralDialogo");
-                        PrimefacesContextUI.ejecutar("PF('LegislacionLegislacionLaboralDialogo').show()");
+                        RequestContext.getCurrentInstance().execute("PF('LegislacionLegislacionLaboralDialogo').show()");
                     }
                 } else {
-                    PrimefacesContextUI.ejecutar("PF('errorListaDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
                 }
             }
         } else if (cualParametro.equals("UBICACION")) {
@@ -663,10 +663,10 @@ public class ControlBusquedaAvanzada implements Serializable {
                         parametros.getParametrosBusquedaNomina().getVigenciaUbicacion().setUbicacion(lovUbicaciones.get(indiceUnicoElemento));
                     } else {
                         RequestContext.getCurrentInstance().update("formularioDialogos:UbicacionUbicacionDialogo");
-                        PrimefacesContextUI.ejecutar("PF('UbicacionUbicacionDialogo').show()");
+                        RequestContext.getCurrentInstance().execute("PF('UbicacionUbicacionDialogo').show()");
                     }
                 } else {
-                    PrimefacesContextUI.ejecutar("PF('errorListaDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
                 }
             }
         } else if (cualParametro.equals("TERCEROSUCURSAL")) {
@@ -690,10 +690,10 @@ public class ControlBusquedaAvanzada implements Serializable {
                         parametros.getParametrosBusquedaNomina().getVigenciaAfiliacion().setTercerosucursal(lovTercerosSucursales.get(indiceUnicoElemento));
                     } else {
                         RequestContext.getCurrentInstance().update("formularioDialogos:TerceroAfiliacionDialogo");
-                        PrimefacesContextUI.ejecutar("PF('TerceroAfiliacionDialogo').show()");
+                        RequestContext.getCurrentInstance().execute("PF('TerceroAfiliacionDialogo').show()");
                     }
                 } else {
-                    PrimefacesContextUI.ejecutar("PF('errorListaDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
                 }
             }
         } else if (cualParametro.equals("TIPOENTIDAD")) {
@@ -717,10 +717,10 @@ public class ControlBusquedaAvanzada implements Serializable {
                         parametros.getParametrosBusquedaNomina().getVigenciaAfiliacion().setTipoentidad(lovTiposEntidades.get(indiceUnicoElemento));
                     } else {
                         RequestContext.getCurrentInstance().update("formularioDialogos:TipoEntidadAfiliacionDialogo");
-                        PrimefacesContextUI.ejecutar("PF('TipoEntidadAfiliacionDialogo').show()");
+                        RequestContext.getCurrentInstance().execute("PF('TipoEntidadAfiliacionDialogo').show()");
                     }
                 } else {
-                    PrimefacesContextUI.ejecutar("PF('errorListaDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
                 }
             }
         } else if (cualParametro.equals("ESTADOAFILIACION")) {
@@ -744,10 +744,10 @@ public class ControlBusquedaAvanzada implements Serializable {
                         parametros.getParametrosBusquedaNomina().getVigenciaAfiliacion().setEstadoafiliacion(lovEstadosAfiliaciones.get(indiceUnicoElemento));
                     } else {
                         RequestContext.getCurrentInstance().update("formularioDialogos:EstadoAfiliacionDialogo");
-                        PrimefacesContextUI.ejecutar("PF('EstadoAfiliacionDialogo').show()");
+                        RequestContext.getCurrentInstance().execute("PF('EstadoAfiliacionDialogo').show()");
                     }
                 } else {
-                    PrimefacesContextUI.ejecutar("PF('errorListaDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
                 }
             }
         } else if (cualParametro.equals("FORMAPAGO")) {
@@ -771,10 +771,10 @@ public class ControlBusquedaAvanzada implements Serializable {
                         parametros.getParametrosBusquedaNomina().getVigenciaFormaPago().setFormapago(lovFormasPagos.get(indiceUnicoElemento));
                     } else {
                         RequestContext.getCurrentInstance().update("formularioDialogos:PeriodicidadFormaPagoDialogo");
-                        PrimefacesContextUI.ejecutar("PF('PeriodicidadFormaPagoDialogo').show()");
+                        RequestContext.getCurrentInstance().execute("PF('PeriodicidadFormaPagoDialogo').show()");
                     }
                 } else {
-                    PrimefacesContextUI.ejecutar("PF('errorListaDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
                 }
             }
         } else if (cualParametro.equals("SUCURSAL")) {
@@ -798,10 +798,10 @@ public class ControlBusquedaAvanzada implements Serializable {
                         parametros.getParametrosBusquedaNomina().getVigenciaFormaPago().setSucursal(lovSucursales.get(indiceUnicoElemento));
                     } else {
                         RequestContext.getCurrentInstance().update("formularioDialogos:SucursalFormaPagoDialogo");
-                        PrimefacesContextUI.ejecutar("PF('SucursalFormaPagoDialogo').show()");
+                        RequestContext.getCurrentInstance().execute("PF('SucursalFormaPagoDialogo').show()");
                     }
                 } else {
-                    PrimefacesContextUI.ejecutar("PF('errorListaDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
                 }
             }
         } else if (cualParametro.equals("MOTIVOMVR")) {
@@ -825,10 +825,10 @@ public class ControlBusquedaAvanzada implements Serializable {
                         parametros.getParametrosBusquedaNomina().getMvrs().setMotivo(lovMotivosMvrs.get(indiceUnicoElemento));
                     } else {
                         RequestContext.getCurrentInstance().update("formularioDialogos:MotivoMvrsDialogo");
-                        PrimefacesContextUI.ejecutar("PF('MotivoMvrsDialogo').show()");
+                        RequestContext.getCurrentInstance().execute("PF('MotivoMvrsDialogo').show()");
                     }
                 } else {
-                    PrimefacesContextUI.ejecutar("PF('errorListaDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
                 }
             }
         } else if (cualParametro.equals("NORMALABORAL")) {
@@ -852,10 +852,10 @@ public class ControlBusquedaAvanzada implements Serializable {
                         parametros.getParametrosBusquedaNomina().getVigenciaNormaEmpleado().setNormalaboral(lovNormasLaborales.get(indiceUnicoElemento));
                     } else {
                         RequestContext.getCurrentInstance().update("formularioDialogos:NormaLaboralNormaLaboralDialogo");
-                        PrimefacesContextUI.ejecutar("PF('NormaLaboralNormaLaboralDialogo').show()");
+                        RequestContext.getCurrentInstance().execute("PF('NormaLaboralNormaLaboralDialogo').show()");
                     }
                 } else {
-                    PrimefacesContextUI.ejecutar("PF('errorListaDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
                 }
             }
         } else if (cualParametro.equals("JORNADALABORAL")) {
@@ -879,10 +879,10 @@ public class ControlBusquedaAvanzada implements Serializable {
                         parametros.getParametrosBusquedaNomina().getVigenciaJornada().setJornadatrabajo(lovJornadasLaborales.get(indiceUnicoElemento));
                     } else {
                         RequestContext.getCurrentInstance().update("formularioDialogos:JornadaJornadaLaboralDialogo");
-                        PrimefacesContextUI.ejecutar("PF('JornadaJornadaLaboralDialogo').show()");
+                        RequestContext.getCurrentInstance().execute("PF('JornadaJornadaLaboralDialogo').show()");
                     }
                 } else {
-                    PrimefacesContextUI.ejecutar("PF('errorListaDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
                 }
             }
         } else if (cualParametro.equals("MOTIVORETIRO")) {
@@ -906,10 +906,10 @@ public class ControlBusquedaAvanzada implements Serializable {
                         parametros.getParametrosBusquedaNomina().setMotivosRetiros(lovMotivosRetiros.get(indiceUnicoElemento));
                     } else {
                         RequestContext.getCurrentInstance().update("formularioDialogos:MotivoFechaRetiroDialogo");
-                        PrimefacesContextUI.ejecutar("PF('MotivoFechaRetiroDialogo').show()");
+                        RequestContext.getCurrentInstance().execute("PF('MotivoFechaRetiroDialogo').show()");
                     }
                 } else {
-                    PrimefacesContextUI.ejecutar("PF('errorListaDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
                 }
             }
         } else if (cualParametro.equals("CIUDADNACIMIENDO")) {
@@ -933,10 +933,10 @@ public class ControlBusquedaAvanzada implements Serializable {
                         parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().setCiudadnacimiento(lovCiudades.get(indiceUnicoElemento));
                     } else {
                         RequestContext.getCurrentInstance().update("formularioDialogos:CiudadNacimientoDatosPersonalesDialogo");
-                        PrimefacesContextUI.ejecutar("PF('CiudadNacimientoDatosPersonalesDialogo').show()");
+                        RequestContext.getCurrentInstance().execute("PF('CiudadNacimientoDatosPersonalesDialogo').show()");
                     }
                 } else {
-                    PrimefacesContextUI.ejecutar("PF('errorListaDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
                 }
             }
         } else if (cualParametro.equals("CIUDADDOCUMENTO")) {
@@ -960,10 +960,10 @@ public class ControlBusquedaAvanzada implements Serializable {
                         parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().setCiudaddocumento(lovCiudades.get(indiceUnicoElemento));
                     } else {
                         RequestContext.getCurrentInstance().update("formularioDialogos:CiudadDocumentoDatosPersonalesDialogo");
-                        PrimefacesContextUI.ejecutar("PF('CiudadDocumentoDatosPersonalesDialogo').show()");
+                        RequestContext.getCurrentInstance().execute("PF('CiudadDocumentoDatosPersonalesDialogo').show()");
                     }
                 } else {
-                    PrimefacesContextUI.ejecutar("PF('errorListaDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
                 }
             }
         } else if (cualParametro.equals("ESTADOCIVIL")) {
@@ -987,10 +987,10 @@ public class ControlBusquedaAvanzada implements Serializable {
                         parametros.getParametrosBusquedaPersonal().setEstadoCivil(lovEstadosCiviles.get(indiceUnicoElemento));
                     } else {
                         RequestContext.getCurrentInstance().update("formularioDialogos:EstadoCivilEstadoCivilDialogo");
-                        PrimefacesContextUI.ejecutar("PF('EstadoCivilEstadoCivilDialogo').show()");
+                        RequestContext.getCurrentInstance().execute("PF('EstadoCivilEstadoCivilDialogo').show()");
                     }
                 } else {
-                    PrimefacesContextUI.ejecutar("PF('errorListaDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
                 }
             }
         } else if (cualParametro.equals("IDIOMA")) {
@@ -1014,10 +1014,10 @@ public class ControlBusquedaAvanzada implements Serializable {
                         parametros.getParametrosBusquedaPersonal().getIdiomaPersona().setIdioma(lovIdiomas.get(indiceUnicoElemento));
                     } else {
                         RequestContext.getCurrentInstance().update("formularioDialogos:IdiomaIdiomaDialogo");
-                        PrimefacesContextUI.ejecutar("PF('IdiomaIdiomaDialogo').show()");
+                        RequestContext.getCurrentInstance().execute("PF('IdiomaIdiomaDialogo').show()");
                     }
                 } else {
-                    PrimefacesContextUI.ejecutar("PF('errorListaDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
                 }
             }
         } else if (cualParametro.equals("TIPOINDICADOR")) {
@@ -1041,10 +1041,10 @@ public class ControlBusquedaAvanzada implements Serializable {
                         parametros.getParametrosBusquedaPersonal().getVigenciaIndicador().setTipoindicador(lovTiposIndicadores.get(indiceUnicoElemento));
                     } else {
                         RequestContext.getCurrentInstance().update("formularioDialogos:TipoIndicadorCensoDialogo");
-                        PrimefacesContextUI.ejecutar("PF('TipoIndicadorCensoDialogo').show()");
+                        RequestContext.getCurrentInstance().execute("PF('TipoIndicadorCensoDialogo').show()");
                     }
                 } else {
-                    PrimefacesContextUI.ejecutar("PF('errorListaDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
                 }
             }
         } else if (cualParametro.equals("INDICADOR")) {
@@ -1068,10 +1068,10 @@ public class ControlBusquedaAvanzada implements Serializable {
                         parametros.getParametrosBusquedaPersonal().getVigenciaIndicador().setIndicador(lovIndicadores.get(indiceUnicoElemento));
                     } else {
                         RequestContext.getCurrentInstance().update("formularioDialogos:IndicadorCensoDialogo");
-                        PrimefacesContextUI.ejecutar("PF('IndicadorCensoDialogo').show()");
+                        RequestContext.getCurrentInstance().execute("PF('IndicadorCensoDialogo').show()");
                     }
                 } else {
-                    PrimefacesContextUI.ejecutar("PF('errorListaDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
                 }
             }
         } else if (cualParametro.equals("PROFESION")) {
@@ -1095,10 +1095,10 @@ public class ControlBusquedaAvanzada implements Serializable {
                         parametros.getParametrosBusquedaPersonal().getVigenciaFormal().setProfesion(lovProfesiones.get(indiceUnicoElemento));
                     } else {
                         RequestContext.getCurrentInstance().update("formularioDialogos:ProfesionEducacionFormalDialogo");
-                        PrimefacesContextUI.ejecutar("PF('ProfesionEducacionFormalDialogo').show()");
+                        RequestContext.getCurrentInstance().execute("PF('ProfesionEducacionFormalDialogo').show()");
                     }
                 } else {
-                    PrimefacesContextUI.ejecutar("PF('errorListaDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
                 }
             }
         } else if (cualParametro.equals("INSTITUCIONF")) {
@@ -1122,10 +1122,10 @@ public class ControlBusquedaAvanzada implements Serializable {
                         parametros.getParametrosBusquedaPersonal().getVigenciaFormal().setInstitucion(lovInstituciones.get(indiceUnicoElemento));
                     } else {
                         RequestContext.getCurrentInstance().update("formularioDialogos:InstitucionEducacionFormalDialogo");
-                        PrimefacesContextUI.ejecutar("PF('InstitucionEducacionFormalDialogo').show()");
+                        RequestContext.getCurrentInstance().execute("PF('InstitucionEducacionFormalDialogo').show()");
                     }
                 } else {
-                    PrimefacesContextUI.ejecutar("PF('errorListaDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
                 }
             }
         } else if (cualParametro.equals("INSTITUCIONNF")) {
@@ -1149,10 +1149,10 @@ public class ControlBusquedaAvanzada implements Serializable {
                         parametros.getParametrosBusquedaPersonal().getVigenciaNoFormal().setInstitucion(lovInstituciones.get(indiceUnicoElemento));
                     } else {
                         RequestContext.getCurrentInstance().update("formularioDialogos:InstitucionEducacionNoFormalDialogo");
-                        PrimefacesContextUI.ejecutar("PF('InstitucionEducacionNoFormalDialogo').show()");
+                        RequestContext.getCurrentInstance().execute("PF('InstitucionEducacionNoFormalDialogo').show()");
                     }
                 } else {
-                    PrimefacesContextUI.ejecutar("PF('errorListaDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
                 }
             }
         } else if (cualParametro.equals("CURSO")) {
@@ -1176,10 +1176,10 @@ public class ControlBusquedaAvanzada implements Serializable {
                         parametros.getParametrosBusquedaPersonal().getVigenciaNoFormal().setCurso(lovCursos.get(indiceUnicoElemento));
                     } else {
                         RequestContext.getCurrentInstance().update("formularioDialogos:CursoEducacionNoFormalDialogo");
-                        PrimefacesContextUI.ejecutar("PF('CursoEducacionNoFormalDialogo').show()");
+                        RequestContext.getCurrentInstance().execute("PF('CursoEducacionNoFormalDialogo').show()");
                     }
                 } else {
-                    PrimefacesContextUI.ejecutar("PF('errorListaDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
                 }
             }
         } else if (cualParametro.equals("SECTORECONOMICO")) {
@@ -1203,10 +1203,10 @@ public class ControlBusquedaAvanzada implements Serializable {
                         parametros.getParametrosBusquedaPersonal().getHvExperienciaLaboral().setSectoreconomico(lovSectoresEconomicos.get(indiceUnicoElemento));
                     } else {
                         RequestContext.getCurrentInstance().update("formularioDialogos:SectorEconomicoExperienciaLaboralDialogo");
-                        PrimefacesContextUI.ejecutar("PF('SectorEconomicoExperienciaLaboralDialogo').show()");
+                        RequestContext.getCurrentInstance().execute("PF('SectorEconomicoExperienciaLaboralDialogo').show()");
                     }
                 } else {
-                    PrimefacesContextUI.ejecutar("PF('errorListaDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
                 }
             }
         } else if (cualParametro.equals("PROYECTO")) {
@@ -1230,10 +1230,10 @@ public class ControlBusquedaAvanzada implements Serializable {
                         parametros.getParametrosBusquedaPersonal().getVigenciaProyecto().setProyecto(lovProyectos.get(indiceUnicoElemento));
                     } else {
                         RequestContext.getCurrentInstance().update("formularioDialogos:ProyectoProyectoDialogo");
-                        PrimefacesContextUI.ejecutar("PF('ProyectoProyectoDialogo').show()");
+                        RequestContext.getCurrentInstance().execute("PF('ProyectoProyectoDialogo').show()");
                     }
                 } else {
-                    PrimefacesContextUI.ejecutar("PF('errorListaDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
                 }
             }
         } else if (cualParametro.equals("ROL")) {
@@ -1257,10 +1257,10 @@ public class ControlBusquedaAvanzada implements Serializable {
                         parametros.getParametrosBusquedaPersonal().getVigenciaProyecto().setPryRol(lovRoles.get(indiceUnicoElemento));
                     } else {
                         RequestContext.getCurrentInstance().update("formularioDialogos:PryRolProyectoDialogo");
-                        PrimefacesContextUI.ejecutar("PF('PryRolProyectoDialogo').show()");
+                        RequestContext.getCurrentInstance().execute("PF('PryRolProyectoDialogo').show()");
                     }
                 } else {
-                    PrimefacesContextUI.ejecutar("PF('errorListaDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
                 }
             }
         } else if (cualParametro.equals("CARGOPERSONAL")) {
@@ -1284,10 +1284,10 @@ public class ControlBusquedaAvanzada implements Serializable {
                         parametros.getParametrosBusquedaPersonal().setCargo(lovCargos.get(indiceUnicoElemento));
                     } else {
                         RequestContext.getCurrentInstance().update("formularioDialogos:CargoCargoPostularseDialogo");
-                        PrimefacesContextUI.ejecutar("PF('CargoCargoPostularseDialogo').show()");
+                        RequestContext.getCurrentInstance().execute("PF('CargoCargoPostularseDialogo').show()");
                     }
                 } else {
-                    PrimefacesContextUI.ejecutar("PF('errorListaDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
                 }
             }
         } else if (cualParametro.equals("MOTIVORETIROPERSONAL")) {
@@ -1311,10 +1311,10 @@ public class ControlBusquedaAvanzada implements Serializable {
                         parametros.getParametrosBusquedaNomina().setMotivosRetiros(lovMotivosRetiros.get(indiceUnicoElemento));
                     } else {
                         RequestContext.getCurrentInstance().update("formularioDialogos:MotivoRetiroExperienciaLaboralDialogo");
-                        PrimefacesContextUI.ejecutar("PF('MotivoRetiroExperienciaLaboralDialogo').show()");
+                        RequestContext.getCurrentInstance().execute("PF('MotivoRetiroExperienciaLaboralDialogo').show()");
                     }
                 } else {
-                    PrimefacesContextUI.ejecutar("PF('errorListaDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
                 }
             }
         }
@@ -1820,7 +1820,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:opcionesCosto:parametroFechaInicialCargo");
             RequestContext.getCurrentInstance().update("form:opcionesCosto:parametroFechaFinalCargo");
-            PrimefacesContextUI.ejecutar("PF('errorFechasIngresadas').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorFechasIngresadas').show()");
         }
     }
 
@@ -1833,7 +1833,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:opcionesCentroCosto:parametroFechaInicialCentroCosto");
             RequestContext.getCurrentInstance().update("form:opcionesCentroCosto:parametroFechaFinalCentroCosto");
-            PrimefacesContextUI.ejecutar("PF('errorFechasIngresadas').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorFechasIngresadas').show()");
         }
     }
 
@@ -1846,7 +1846,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:opcionesSueldo:parametroFechaInicialSueldo");
             RequestContext.getCurrentInstance().update("form:opcionesSueldo:parametroFechaFinalSueldo");
-            PrimefacesContextUI.ejecutar("PF('errorFechasIngresadas').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorFechasIngresadas').show()");
         }
     }
 
@@ -1859,7 +1859,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:opcionesTipoContrato:parametroFechaInicialTipoContrato");
             RequestContext.getCurrentInstance().update("form:opcionesTipoContrato:parametroFechaFinalTipoContrato");
-            PrimefacesContextUI.ejecutar("PF('errorFechasIngresadas').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorFechasIngresadas').show()");
         }
     }
 
@@ -1872,7 +1872,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:opcionesTipoTrabajador:parametroFechaInicialTipoTrabajador");
             RequestContext.getCurrentInstance().update("form:opcionesTipoTrabajador:parametroFechaFinalTipoTrabajador");
-            PrimefacesContextUI.ejecutar("PF('errorFechasIngresadas').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorFechasIngresadas').show()");
         }
     }
 
@@ -1885,7 +1885,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:opcionesTipoSalario:parametroFechaInicialTipoSalario");
             RequestContext.getCurrentInstance().update("form:opcionesTipoSalario:parametroFechaFinalTipoSalario");
-            PrimefacesContextUI.ejecutar("PF('errorFechasIngresadas').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorFechasIngresadas').show()");
         }
     }
 
@@ -1898,7 +1898,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:opcionesLegislacionLaboral:parametroFechaInicialLegislacionLaboralMI");
             RequestContext.getCurrentInstance().update("form:opcionesLegislacionLaboral:parametroFechaFinalLegislacionLaboralMI");
-            PrimefacesContextUI.ejecutar("PF('errorFechasIngresadas').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorFechasIngresadas').show()");
         }
     }
 
@@ -1911,7 +1911,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:opcionesLegislacionLaboral:parametroFechaInicialLegislacionLaboralMF");
             RequestContext.getCurrentInstance().update("form:opcionesLegislacionLaboral:parametroFechaFinalLegislacionLaboralMF");
-            PrimefacesContextUI.ejecutar("PF('errorFechasIngresadas').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorFechasIngresadas').show()");
         }
     }
 
@@ -1924,7 +1924,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:opcionesUbicacion:parametroFechaInicialUbicacion");
             RequestContext.getCurrentInstance().update("form:opcionesUbicacion:parametroFechaFinalUbicacion");
-            PrimefacesContextUI.ejecutar("PF('errorFechasIngresadas').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorFechasIngresadas').show()");
         }
     }
 
@@ -1937,7 +1937,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:opcionesAfiliacion:parametroFechaInicialAfiliacion");
             RequestContext.getCurrentInstance().update("form:opcionesAfiliacion:parametroFechaFinalAfiliacion");
-            PrimefacesContextUI.ejecutar("PF('errorFechasIngresadas').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorFechasIngresadas').show()");
         }
     }
 
@@ -1950,7 +1950,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:opcionesFormaPago:parametroFechaInicialFormaPago");
             RequestContext.getCurrentInstance().update("form:opcionesFormaPago:parametroFechaFinalFormaPago");
-            PrimefacesContextUI.ejecutar("PF('errorFechasIngresadas').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorFechasIngresadas').show()");
         }
     }
 
@@ -1963,7 +1963,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:opcionesMvrs:parametroFechaInicialMvrs");
             RequestContext.getCurrentInstance().update("form:opcionesMvrs:parametroFechaFinalMvrs");
-            PrimefacesContextUI.ejecutar("PF('errorFechasIngresadas').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorFechasIngresadas').show()");
         }
     }
 
@@ -1976,7 +1976,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:opcionesSets:parametroFechaMIInicialSets");
             RequestContext.getCurrentInstance().update("form:opcionesSets:parametroFechaMIFinalSets");
-            PrimefacesContextUI.ejecutar("PF('errorFechasIngresadas').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorFechasIngresadas').show()");
         }
     }
 
@@ -1989,7 +1989,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:opcionesSets:parametroFechaMFInicialSets");
             RequestContext.getCurrentInstance().update("form:opcionesSets:parametroFechaMFFinalSets");
-            PrimefacesContextUI.ejecutar("PF('errorFechasIngresadas').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorFechasIngresadas').show()");
         }
     }
 
@@ -2002,7 +2002,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:opcionesNormaLaboral:parametroFechaInicialNormaLaboral");
             RequestContext.getCurrentInstance().update("form:opcionesNormaLaboral:parametroFechaFinalNormaLaboral");
-            PrimefacesContextUI.ejecutar("PF('errorFechasIngresadas').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorFechasIngresadas').show()");
         }
     }
 
@@ -2015,7 +2015,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:opcionesVacacion:parametroFechaMIInicialVacacion");
             RequestContext.getCurrentInstance().update("form:opcionesVacacion:parametroFechaMIFinalVacacion");
-            PrimefacesContextUI.ejecutar("PF('errorFechasIngresadas').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorFechasIngresadas').show()");
         }
     }
 
@@ -2028,7 +2028,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:opcionesVacacion:parametroFechaMFInicialVacacion");
             RequestContext.getCurrentInstance().update("form:opcionesVacacion:parametroFechaMFFinalVacacion");
-            PrimefacesContextUI.ejecutar("PF('errorFechasIngresadas').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorFechasIngresadas').show()");
         }
     }
 
@@ -2041,7 +2041,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:opcionesLegislacionLaboral:parametroFechaInicialAfiliacion");
             RequestContext.getCurrentInstance().update("form:opcionesLegislacionLaboral:parametroFechaFinalAfiliacion");
-            PrimefacesContextUI.ejecutar("PF('errorFechasIngresadas').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorFechasIngresadas').show()");
         }
     }
 
@@ -2054,7 +2054,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:opcionesJornadaLaboral:parametroFechaInicialJornadaLaboral");
             RequestContext.getCurrentInstance().update("form:opcionesJornadaLaboral:parametroFechaFinalJornadaLaboral");
-            PrimefacesContextUI.ejecutar("PF('errorFechasIngresadas').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorFechasIngresadas').show()");
         }
     }
 
@@ -2067,7 +2067,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:opcionesDatosPersonales:parametroFechaInicialDatosPersonales");
             RequestContext.getCurrentInstance().update("form:opcionesDatosPersonales:parametroFechaFinalDatosPersonales");
-            PrimefacesContextUI.ejecutar("PF('errorFechasIngresadas').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorFechasIngresadas').show()");
         }
     }
 
@@ -2080,7 +2080,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:opcionesEstadoCivil:parametroFechaInicialEstadoCivil");
             RequestContext.getCurrentInstance().update("form:opcionesEstadoCivil:parametroFechaFinalEstadoCivil");
-            PrimefacesContextUI.ejecutar("PF('errorFechasIngresadas').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorFechasIngresadas').show()");
         }
     }
 
@@ -2093,7 +2093,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:opcionesCenso:parametroFechaInicialCenso");
             RequestContext.getCurrentInstance().update("form:opcionesCenso:parametroFechaFinalCenso");
-            PrimefacesContextUI.ejecutar("PF('errorFechasIngresadas').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorFechasIngresadas').show()");
         }
     }
 
@@ -2106,7 +2106,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:opcionesEducacionFormal:parametroFechaInicialEducacionFormal");
             RequestContext.getCurrentInstance().update("form:opcionesEducacionFormal:parametroFechaFinalEducacionFormal");
-            PrimefacesContextUI.ejecutar("PF('errorFechasIngresadas').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorFechasIngresadas').show()");
         }
     }
 
@@ -2119,7 +2119,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:opcionesEducacionNoFormal:parametroFechaInicialEducacionNoFormal");
             RequestContext.getCurrentInstance().update("form:opcionesEducacionNoFormal:parametroFechaFinalEducacionNoFormal");
-            PrimefacesContextUI.ejecutar("PF('errorFechasIngresadas').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorFechasIngresadas').show()");
         }
     }
 
@@ -2132,7 +2132,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:opcionesExperienciaLaboral:parametroFechaInicialExperienciaLaboral");
             RequestContext.getCurrentInstance().update("form:opcionesExperienciaLaboral:parametroFechaFinalExperienciaLaboral");
-            PrimefacesContextUI.ejecutar("PF('errorFechasIngresadas').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorFechasIngresadas').show()");
         }
     }
 
@@ -2145,7 +2145,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:opcionesProyecto:parametroFechaInicialProyecto");
             RequestContext.getCurrentInstance().update("form:opcionesProyecto:parametroFechaFinalProyecto");
-            PrimefacesContextUI.ejecutar("PF('errorFechasIngresadas').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorFechasIngresadas').show()");
         }
     }
 
@@ -2157,7 +2157,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             parametros.getParametrosBusquedaNomina().setSueldoMaximo(BigDecimal.ZERO);
             RequestContext.getCurrentInstance().update("form:opcionesSueldo:parametroSueldoMinimo");
             RequestContext.getCurrentInstance().update("form:opcionesSueldo:parametroSueldoMaximo");
-            PrimefacesContextUI.ejecutar("PF('errorSueldos').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorSueldos').show()");
         }
     }
 
@@ -2169,7 +2169,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             parametros.getParametrosBusquedaNomina().setSueldoMaximoMvr(BigDecimal.ZERO);
             RequestContext.getCurrentInstance().update("form:opcionesMvrs:parametroSueldoMinimoMvrs");
             RequestContext.getCurrentInstance().update("form:opcionesMvrs:parametroSueldoMaximoMvrs");
-            PrimefacesContextUI.ejecutar("PF('errorSueldos').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorSueldos').show()");
         }
     }
 
@@ -2181,7 +2181,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             parametros.getParametrosBusquedaNomina().setPromedioMaximoSet(BigDecimal.ZERO);
             RequestContext.getCurrentInstance().update("form:opcionesSets:parametroPromedioMinSets");
             RequestContext.getCurrentInstance().update("form:opcionesSets:parametroPromedioMaxSets");
-            PrimefacesContextUI.ejecutar("PF('errorPromedios').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorPromedios').show()");
         }
     }
 
@@ -2193,7 +2193,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             parametros.getParametrosBusquedaPersonal().setConversacionHasta(BigInteger.ZERO);
             RequestContext.getCurrentInstance().update("form:opcionesIdioma:parametroConversacionDesdeIdioma");
             RequestContext.getCurrentInstance().update("form:opcionesIdioma:parametroConversacionHastaIdioma");
-            PrimefacesContextUI.ejecutar("PF('errorIdiomaPorcentajes').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorIdiomaPorcentajes').show()");
         }
     }
 
@@ -2205,7 +2205,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             parametros.getParametrosBusquedaPersonal().setLecturaHasta(BigInteger.ZERO);
             RequestContext.getCurrentInstance().update("form:opcionesIdioma:parametroLecturaDesdeIdioma");
             RequestContext.getCurrentInstance().update("form:opcionesIdioma:parametroLecturaHastaIdioma");
-            PrimefacesContextUI.ejecutar("PF('errorIdiomaPorcentajes').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorIdiomaPorcentajes').show()");
         }
     }
 
@@ -2217,7 +2217,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             parametros.getParametrosBusquedaPersonal().setEscrituraHasta(BigInteger.ZERO);
             RequestContext.getCurrentInstance().update("form:opcionesIdioma:parametroEscrituraDesdeIdioma");
             RequestContext.getCurrentInstance().update("form:opcionesIdioma:parametroEscrituraHastaIdioma");
-            PrimefacesContextUI.ejecutar("PF('errorIdiomaPorcentajes').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorIdiomaPorcentajes').show()");
         }
     }
 

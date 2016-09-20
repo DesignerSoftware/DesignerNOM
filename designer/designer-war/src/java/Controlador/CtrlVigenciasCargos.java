@@ -1,6 +1,6 @@
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import Administrar.AdministrarCarpetaDesigner;
 import Entidades.Aficiones;
 import Entidades.Empleados;
@@ -472,12 +472,12 @@ public class CtrlVigenciasCargos implements Serializable {
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("form:editarCodigo");
                 System.out.println("Dialogo de Codigo");
-                PrimefacesContextUI.ejecutar("PF('editarCodigo').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarCodigo').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
                 RequestContext.getCurrentInstance().update("form:editarDescripcion");
                 System.out.println("Dialogo de Descripcion");
-                PrimefacesContextUI.ejecutar("PF('editarDescripcion').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarDescripcion').show()");
                 cualCelda = -1;
             }
         }

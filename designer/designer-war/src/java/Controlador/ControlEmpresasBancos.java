@@ -4,7 +4,7 @@
  */
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import Entidades.Ciudades;
 import Entidades.EmpresasBancos;
 import Entidades.Empresas;
@@ -207,17 +207,17 @@ public class ControlEmpresasBancos implements Serializable {
             }
             if (dig == 0) {
                 RequestContext.getCurrentInstance().update("form:sucursalesDialogo");
-                PrimefacesContextUI.ejecutar("PF('sucursalesDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('sucursalesDialogo').show()");
                 dig = -1;
             }
             if (dig == 1) {
                 RequestContext.getCurrentInstance().update("form:personasDialogo");
-                PrimefacesContextUI.ejecutar("PF('personasDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('personasDialogo').show()");
                 dig = -1;
             }
             if (dig == 2) {
                 RequestContext.getCurrentInstance().update("form:cargosDialogo");
-                PrimefacesContextUI.ejecutar("PF('cargosDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('cargosDialogo').show()");
                 dig = -1;
             }
         } catch (Exception e) {
@@ -234,17 +234,17 @@ public class ControlEmpresasBancos implements Serializable {
             if (cualCelda == 0) {
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("form:sucursalesDialogo");
-                PrimefacesContextUI.ejecutar("PF('sucursalesDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('sucursalesDialogo').show()");
             }
             if (cualCelda == 1) {
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("form:personasDialogo");
-                PrimefacesContextUI.ejecutar("PF('personasDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('personasDialogo').show()");
             }
             if (cualCelda == 2) {
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("form:cargosDialogo");
-                PrimefacesContextUI.ejecutar("PF('cargosDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('cargosDialogo').show()");
             }
         }
     }
@@ -419,8 +419,8 @@ public class ControlEmpresasBancos implements Serializable {
         tipoActualizacion = -1;
         cualCelda = -1;
         context.reset("form:lovTiposFamiliares:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovTiposFamiliares').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('sucursalesDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovTiposFamiliares').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('sucursalesDialogo').hide()");
         //RequestContext.getCurrentInstance().update("form:lovTiposFamiliares");
         //RequestContext.getCurrentInstance().update("form:datosHvEntrevista");
     }
@@ -477,8 +477,8 @@ public class ControlEmpresasBancos implements Serializable {
         tipoActualizacion = -1;
         cualCelda = -1;
         context.reset("form:lovBancos:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovBancos').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('personasDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovBancos').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('personasDialogo').hide()");
         //RequestContext.getCurrentInstance().update("form:lovBancos");
         //RequestContext.getCurrentInstance().update("form:datosHvEntrevista");
     }
@@ -535,8 +535,8 @@ public class ControlEmpresasBancos implements Serializable {
         tipoActualizacion = -1;
         cualCelda = -1;
         context.reset("form:lovCiudades:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovCiudades').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('cargosDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovCiudades').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('cargosDialogo').hide()");
         //RequestContext.getCurrentInstance().update("form:lovCiudades");
         //RequestContext.getCurrentInstance().update("form:datosHvEntrevista");
     }
@@ -551,8 +551,8 @@ public class ControlEmpresasBancos implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovTiposFamiliares:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovTiposFamiliares').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('sucursalesDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovTiposFamiliares').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('sucursalesDialogo').hide()");
     }
 
     public void cancelarCambioBancos() {
@@ -566,8 +566,8 @@ public class ControlEmpresasBancos implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovBancos:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovBancos').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('personasDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovBancos').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('personasDialogo').hide()");
     }
 
     public void cancelarCambioCiudades() {
@@ -580,8 +580,8 @@ public class ControlEmpresasBancos implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovCiudades:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovCiudades').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('cargosDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovCiudades').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('cargosDialogo').hide()");
     }
 
     public void mostrarInfo(int indice, int celda) {
@@ -670,7 +670,7 @@ public class ControlEmpresasBancos implements Serializable {
 
                     } else {
                         RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
+                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
 
                     }
                     index = -1;
@@ -711,7 +711,7 @@ public class ControlEmpresasBancos implements Serializable {
                         }
                     } else {
                         RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
+                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
 
                     }
                     index = -1;
@@ -766,7 +766,7 @@ public class ControlEmpresasBancos implements Serializable {
 
                     } else {
                         RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
+                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
                     }
                     index = -1;
                     secRegistro = null;
@@ -808,7 +808,7 @@ public class ControlEmpresasBancos implements Serializable {
 
                     } else {
                         RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
+                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
                     }
                     index = -1;
                     secRegistro = null;
@@ -847,7 +847,7 @@ public class ControlEmpresasBancos implements Serializable {
                 } else {
                     permitirIndex = false;
                     RequestContext.getCurrentInstance().update("form:sucursalesDialogo");
-                    PrimefacesContextUI.ejecutar("PF('sucursalesDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('sucursalesDialogo').show()");
                     tipoActualizacion = 0;
                 }
             } else {
@@ -861,7 +861,7 @@ public class ControlEmpresasBancos implements Serializable {
                 tipoActualizacion = 0;
                 System.out.println("PAIS ANTES DE MOSTRAR DIALOGO : " + backupEmpresas);
                 RequestContext.getCurrentInstance().update("form:sucursalesDialogo");
-                PrimefacesContextUI.ejecutar("PF('sucursalesDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('sucursalesDialogo').show()");
             }
 
             if (coincidencias == 1) {
@@ -928,7 +928,7 @@ public class ControlEmpresasBancos implements Serializable {
                 } else {
                     permitirIndex = false;
                     RequestContext.getCurrentInstance().update("form:personasDialogo");
-                    PrimefacesContextUI.ejecutar("PF('personasDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('personasDialogo').show()");
                     tipoActualizacion = 0;
                 }
             } else {
@@ -942,7 +942,7 @@ public class ControlEmpresasBancos implements Serializable {
                 tipoActualizacion = 0;
                 System.out.println("PAIS ANTES DE MOSTRAR DIALOGO PERSONA : " + backupBanco);
                 RequestContext.getCurrentInstance().update("form:personasDialogo");
-                PrimefacesContextUI.ejecutar("PF('personasDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('personasDialogo').show()");
             }
 
             if (coincidencias == 1) {
@@ -1009,7 +1009,7 @@ public class ControlEmpresasBancos implements Serializable {
                 } else {
                     permitirIndex = false;
                     RequestContext.getCurrentInstance().update("form:cargosDialogo");
-                    PrimefacesContextUI.ejecutar("PF('cargosDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('cargosDialogo').show()");
                     tipoActualizacion = 0;
                 }
             } else {
@@ -1023,7 +1023,7 @@ public class ControlEmpresasBancos implements Serializable {
                 tipoActualizacion = 0;
                 System.out.println("PAIS ANTES DE MOSTRAR DIALOGO CARGOS : " + backupCiudad);
                 RequestContext.getCurrentInstance().update("form:personasDialogo");
-                PrimefacesContextUI.ejecutar("PF('personasDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('personasDialogo').show()");
             }
 
             if (coincidencias == 1) {
@@ -1171,7 +1171,7 @@ public class ControlEmpresasBancos implements Serializable {
                     System.err.println("NORMA LABORAL GUARDADA " + nuevoEmpresasBancos.getEmpresa().getNombre());
                 } else {
                     RequestContext.getCurrentInstance().update("form:sucursalesDialogo");
-                    PrimefacesContextUI.ejecutar("PF('sucursalesDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('sucursalesDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                 }
             } else {
@@ -1205,7 +1205,7 @@ public class ControlEmpresasBancos implements Serializable {
                     System.err.println("PERSONA GUARDADA :-----> " + nuevoEmpresasBancos.getBanco().getNombre());
                 } else {
                     RequestContext.getCurrentInstance().update("form:personasDialogo");
-                    PrimefacesContextUI.ejecutar("PF('personasDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('personasDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                 }
             } else {
@@ -1240,7 +1240,7 @@ public class ControlEmpresasBancos implements Serializable {
                     System.err.println("CARGO GUARDADA :-----> " + nuevoEmpresasBancos.getCiudad().getNombre());
                 } else {
                     RequestContext.getCurrentInstance().update("form:cargosDialogo");
-                    PrimefacesContextUI.ejecutar("PF('cargosDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('cargosDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                 }
             } else {
@@ -1263,7 +1263,7 @@ public class ControlEmpresasBancos implements Serializable {
         }
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:sucursalesDialogo");
-        PrimefacesContextUI.ejecutar("PF('sucursalesDialogo').show()");
+        RequestContext.getCurrentInstance().execute("PF('sucursalesDialogo').show()");
     }
 
     public void asignarVariableBancos(int tipoNuevo) {
@@ -1275,7 +1275,7 @@ public class ControlEmpresasBancos implements Serializable {
         }
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:personasDialogo");
-        PrimefacesContextUI.ejecutar("PF('personasDialogo').show()");
+        RequestContext.getCurrentInstance().execute("PF('personasDialogo').show()");
     }
 
     public void asignarVariableCiudades(int tipoNuevo) {
@@ -1287,7 +1287,7 @@ public class ControlEmpresasBancos implements Serializable {
         }
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:cargosDialogo");
-        PrimefacesContextUI.ejecutar("PF('cargosDialogo').show()");
+        RequestContext.getCurrentInstance().execute("PF('cargosDialogo').show()");
     }
 
     public void autocompletarDuplicado(String confirmarCambio, String valorConfirmar, int tipoNuevo) {
@@ -1317,7 +1317,7 @@ public class ControlEmpresasBancos implements Serializable {
                     getListaEmpresas();
                 } else {
                     RequestContext.getCurrentInstance().update("form:sucursalesDialogo");
-                    PrimefacesContextUI.ejecutar("PF('sucursalesDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('sucursalesDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                 }
             } else {
@@ -1364,7 +1364,7 @@ public class ControlEmpresasBancos implements Serializable {
                     getListaEmpresas();
                 } else {
                     RequestContext.getCurrentInstance().update("form:personasDialogo");
-                    PrimefacesContextUI.ejecutar("PF('personasDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('personasDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                 }
             } else {
@@ -1411,7 +1411,7 @@ public class ControlEmpresasBancos implements Serializable {
                     getListaCiudades();
                 } else {
                     RequestContext.getCurrentInstance().update("form:cargosDialogo");
-                    PrimefacesContextUI.ejecutar("PF('cargosDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('cargosDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                 }
             } else {
@@ -1470,7 +1470,7 @@ public class ControlEmpresasBancos implements Serializable {
 
      RequestContext context = RequestContext.getCurrentInstance();
      RequestContext.getCurrentInstance().update("form:validacionBorrar");
-     PrimefacesContextUI.ejecutar("PF('validacionBorrar').show()");
+     RequestContext.getCurrentInstance().execute("PF('validacionBorrar').show()");
      index = -1;
      contarBienProgramacionesDepartamento = new BigInteger("-1");
      contarCapModulosDepartamento = new BigInteger("-1");
@@ -1488,7 +1488,7 @@ public class ControlEmpresasBancos implements Serializable {
         if (!borrarEmpresasBancos.isEmpty() || !crearEmpresasBancos.isEmpty() || !modificarEmpresasBancos.isEmpty()) {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:confirmarGuardar");
-            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
         }
 
     }
@@ -1503,7 +1503,7 @@ public class ControlEmpresasBancos implements Serializable {
                 //mostrarBorrados
                 registrosBorrados = borrarEmpresasBancos.size();
                 RequestContext.getCurrentInstance().update("form:mostrarBorrados");
-                PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
+                RequestContext.getCurrentInstance().execute("PF('mostrarBorrados').show()");
                 borrarEmpresasBancos.clear();
             }
             if (!modificarEmpresasBancos.isEmpty()) {
@@ -1541,19 +1541,19 @@ public class ControlEmpresasBancos implements Serializable {
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editPais");
-                PrimefacesContextUI.ejecutar("PF('editPais').show()");
+                RequestContext.getCurrentInstance().execute("PF('editPais').show()");
                 cualCelda = -1;
             } else if (cualCelda == 3) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editSubtituloFirma");
-                PrimefacesContextUI.ejecutar("PF('editSubtituloFirma').show()");
+                RequestContext.getCurrentInstance().execute("PF('editSubtituloFirma').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editBancos");
-                PrimefacesContextUI.ejecutar("PF('editBancos').show()");
+                RequestContext.getCurrentInstance().execute("PF('editBancos').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editCiudades");
-                PrimefacesContextUI.ejecutar("PF('editCiudades').show()");
+                RequestContext.getCurrentInstance().execute("PF('editCiudades').show()");
                 cualCelda = -1;
             }
 
@@ -1663,13 +1663,13 @@ public class ControlEmpresasBancos implements Serializable {
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
 
-            PrimefacesContextUI.ejecutar("PF('nuevoRegistroEmpresasBancos').hide()");
+            RequestContext.getCurrentInstance().execute("PF('nuevoRegistroEmpresasBancos').hide()");
             index = -1;
             secRegistro = null;
 
         } else {
             RequestContext.getCurrentInstance().update("form:validacionNuevaCentroCosto");
-            PrimefacesContextUI.ejecutar("PF('validacionNuevaCentroCosto').show()");
+            RequestContext.getCurrentInstance().execute("PF('validacionNuevaCentroCosto').show()");
             contador = 0;
         }
     }
@@ -1694,7 +1694,7 @@ public class ControlEmpresasBancos implements Serializable {
         duplicarEmpresasBancos.setBanco(new Bancos());
         duplicarEmpresasBancos.setCiudad(new Ciudades());
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.ejecutar("PF('nuevoRegistroEmpresasBancos').show()");
+        RequestContext.getCurrentInstance().execute("PF('nuevoRegistroEmpresasBancos').show()");
 
     }
 
@@ -1728,7 +1728,7 @@ public class ControlEmpresasBancos implements Serializable {
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTE");
-            PrimefacesContextUI.ejecutar("PF('duplicarRegistroEmpresasBancos').show()");
+            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroEmpresasBancos').show()");
             secRegistro = null;
         }
     }
@@ -1835,12 +1835,12 @@ public class ControlEmpresasBancos implements Serializable {
             duplicarEmpresasBancos.setBanco(new Bancos());
             index = -1;
 
-            PrimefacesContextUI.ejecutar("PF('duplicarRegistroEmpresasBancos').hide()");
+            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroEmpresasBancos').hide()");
 
         } else {
             contador = 0;
             RequestContext.getCurrentInstance().update("form:validacionDuplicarVigencia");
-            PrimefacesContextUI.ejecutar("PF('validacionDuplicarVigencia').show()");
+            RequestContext.getCurrentInstance().execute("PF('validacionDuplicarVigencia').show()");
         }
     }
 
@@ -1880,24 +1880,24 @@ public class ControlEmpresasBancos implements Serializable {
                 int resultado = administrarRastros.obtenerTabla(secRegistro, "EMPRESASBANCOS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
                 System.out.println("resultado: " + resultado);
                 if (resultado == 1) {
-                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
-                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+                RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("EMPRESASBANCOS")) { // igual acá
-                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
             } else {
-                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
             }
 
         }

@@ -1,6 +1,6 @@
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import Administrar.AdministrarCarpetaPersonal;
 import Banner.BannerInicioRed;
 import Entidades.*;
@@ -363,7 +363,7 @@ public class ControlRemoto implements Serializable {
         if (vwActualesTiposTrabajadoresPosicion == null) {
             vwActualesTiposTrabajadoresPosicion = backup;
             Mensaje = "Activo";
-            PrimefacesContextUI.ejecutar("PF('alerta').show()");
+            RequestContext.getCurrentInstance().execute("PF('alerta').show()");
             tipo = tipoBk;
         } else {
             backup = null;
@@ -412,7 +412,7 @@ public class ControlRemoto implements Serializable {
         if (vwActualesTiposTrabajadoresPosicion == null) {
             vwActualesTiposTrabajadoresPosicion = backup;
             Mensaje = "Pensionado";
-            PrimefacesContextUI.ejecutar("PF('alerta').show()");
+            RequestContext.getCurrentInstance().execute("PF('alerta').show()");
             tipo = tipoBk;
         } else {
             backup = null;
@@ -460,7 +460,7 @@ public class ControlRemoto implements Serializable {
         if (vwActualesTiposTrabajadoresPosicion == null) {
             vwActualesTiposTrabajadoresPosicion = backup;
             Mensaje = "Retirado";
-            PrimefacesContextUI.ejecutar("PF('alerta').show()");
+            RequestContext.getCurrentInstance().execute("PF('alerta').show()");
             tipo = tipoBk;
         } else {
             backup = null;
@@ -508,7 +508,7 @@ public class ControlRemoto implements Serializable {
         if (vwActualesTiposTrabajadoresPosicion == null) {
             vwActualesTiposTrabajadoresPosicion = backup;
             Mensaje = "Aspirante";
-            PrimefacesContextUI.ejecutar("PF('alerta').show()");
+            RequestContext.getCurrentInstance().execute("PF('alerta').show()");
             tipo = tipoBk;
         } else {
             backup = null;
@@ -555,10 +555,10 @@ public class ControlRemoto implements Serializable {
             result = administrarCarpetaPersonal.borrarActivo(secuencia);
             if (result == 0) {
                 RequestContext.getCurrentInstance().update("formulariodialogos:activoeliminarpaso1");
-                PrimefacesContextUI.ejecutar("PF('activoeliminarpaso1').show()");
+                RequestContext.getCurrentInstance().execute("PF('activoeliminarpaso1').show()");
             } else {
                 RequestContext.getCurrentInstance().update("formulariodialogos:activonoeliminar");
-                PrimefacesContextUI.ejecutar("PF('activonoeliminar').show()");
+                RequestContext.getCurrentInstance().execute("PF('activonoeliminar').show()");
             }
         } else if (tipoPersonal.equals("retirados")) {
             accion = "reintegro";
@@ -570,13 +570,13 @@ public class ControlRemoto implements Serializable {
     public void paso2() {
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("formulariodialogos:activoeliminarpaso2");
-        PrimefacesContextUI.ejecutar("PF('activoeliminarpaso2').show()");
+        RequestContext.getCurrentInstance().execute("PF('activoeliminarpaso2').show()");
     }
 
     public void paso3() {
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("formulariodialogos:activoeliminarpaso3");
-        PrimefacesContextUI.ejecutar("PF('activoeliminarpaso3').show()");
+        RequestContext.getCurrentInstance().execute("PF('activoeliminarpaso3').show()");
     }
 
     public void paso4() {
@@ -584,7 +584,7 @@ public class ControlRemoto implements Serializable {
         try {
             administrarCarpetaPersonal.borrarEmpleadoActivo(trabajador.getEmpleado().getSecuencia(), trabajador.getEmpleado().getPersona().getSecuencia());
             RequestContext.getCurrentInstance().update("formulariodialogos:activoeliminarpaso4");
-            PrimefacesContextUI.ejecutar("PF('activoeeliminarpaso4').show()");
+            RequestContext.getCurrentInstance().execute("PF('activoeeliminarpaso4').show()");
         } catch (Exception e) {
             System.out.println("Error en borrar al empleado");
         }
@@ -661,8 +661,8 @@ public class ControlRemoto implements Serializable {
         }
 
         context.reset("form:lvbusquedarapida:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lvbusquedarapida').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('lvbr').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lvbusquedarapida').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('lvbr').hide()");
         RequestContext.getCurrentInstance().update("form:lvbusquedarapida");
         RequestContext.getCurrentInstance().update("form:lvbr");
         RequestContext.getCurrentInstance().update("form:buscarrap");
@@ -699,8 +699,8 @@ public class ControlRemoto implements Serializable {
         emplSeleccionado = null;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lvbusquedarapida:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lvbusquedarapida').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('lvbr').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lvbusquedarapida').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('lvbr').hide()");
         RequestContext.getCurrentInstance().update("form:lvbusquedarapida");
         RequestContext.getCurrentInstance().update("form:lvbr");
         RequestContext.getCurrentInstance().update("form:buscarrap");
@@ -728,8 +728,8 @@ public class ControlRemoto implements Serializable {
         RequestContext.getCurrentInstance().update("form:tabmenu:mostrartodos");
 
         context.reset("form:lvbuscarempleado:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lvbuscarempleado').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('lvbe').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lvbuscarempleado').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('lvbe').hide()");
         RequestContext.getCurrentInstance().update("form:lvbuscarempleado");
         RequestContext.getCurrentInstance().update("form:lvbe");
         RequestContext.getCurrentInstance().update("form:buscarempl");
@@ -749,8 +749,8 @@ public class ControlRemoto implements Serializable {
         emplSeleccionadoBE = null;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lvbuscarempleado:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lvbuscarempleado').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('lvbe').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lvbuscarempleado').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('lvbe').hide()");
         RequestContext.getCurrentInstance().update("form:lvbuscarempleado");
         RequestContext.getCurrentInstance().update("form:lvbe");
         RequestContext.getCurrentInstance().update("form:buscarempl");
@@ -851,7 +851,7 @@ public class ControlRemoto implements Serializable {
             tablasNombre.setFilterStyle("display: none; visibility: hidden;");
             tablasDescripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:tabmenu:tablas:tablasdescripcion");
             tablasDescripcion.setFilterStyle("display: none; visibility: hidden;");
-            PrimefacesContextUI.ejecutar("PF('tabl').clearFilters()");
+            RequestContext.getCurrentInstance().execute("PF('tabl').clearFilters()");
             altoTablas = "202";
             RequestContext.getCurrentInstance().update("form:tabmenu:tablas");
             filtrosActivos = false;
@@ -874,7 +874,7 @@ public class ControlRemoto implements Serializable {
             moduloObs.setFilterStyle("display: none; visibility: hidden;");
             filtradolistModulos = null;
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.ejecutar("PF('data1').clearFilters()");
+            RequestContext.getCurrentInstance().execute("PF('data1').clearFilters()");
             altoModulos = "93";
             RequestContext.getCurrentInstance().update("form:tabmenu:data1");
             filtrosActivos = false;
@@ -887,11 +887,11 @@ public class ControlRemoto implements Serializable {
         if (indice >= 0) {
             if (listTablas.get(indice).getNombre().equalsIgnoreCase("USUARIOS")) {
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.ejecutar("PF('dirigirusuario()");
+                RequestContext.getCurrentInstance().execute("PF('dirigirusuario()");
 
             } else if (listTablas.get(indice).getNombre().equalsIgnoreCase("USUARIOSVISTAS")) {
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.ejecutar("PF('dirigirusuariovista()");
+                RequestContext.getCurrentInstance().execute("PF('dirigirusuariovista()");
 
             }// Aca vienen un huevo de Else if para el resto de las pantallas
         }
@@ -905,7 +905,7 @@ public class ControlRemoto implements Serializable {
         pantalla = administrarCarpetaDesigner.consultarPantalla(secuenciaTab);
         RequestContext context = RequestContext.getCurrentInstance();
         tablaExportar = "tablas";
-        PrimefacesContextUI.ejecutar("PF('ventanatab').show()");
+        RequestContext.getCurrentInstance().execute("PF('ventanatab').show()");
     }
 
     public void requerirBusquedaRapida() {
@@ -916,7 +916,7 @@ public class ControlRemoto implements Serializable {
             contarRegistrosBR();
             RequestContext.getCurrentInstance().update("form:lvbr");
         }
-        PrimefacesContextUI.ejecutar("PF('lvbr.show();");
+        RequestContext.getCurrentInstance().execute("PF('lvbr').show();");
     }
 
     public void requerirBuscarEmpleadoTipo() {
@@ -927,7 +927,7 @@ public class ControlRemoto implements Serializable {
             contarRegistrosBE();
             RequestContext.getCurrentInstance().update("form:lvbe");
         }
-        PrimefacesContextUI.ejecutar("PF('lvbe').show()");
+        RequestContext.getCurrentInstance().execute("PF('lvbe').show()");
         //actualizarInformacionTipoTrabajador();
     }
 
@@ -1530,7 +1530,7 @@ public class ControlRemoto implements Serializable {
             listTablasLOV = administrarCarpetaDesigner.consultarTablas(selectModulo.getSecuencia());
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:lovtablas");
-            PrimefacesContextUI.ejecutar("PF('buscartablasdialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('buscartablasdialogo').show()");
         }
     }
 
@@ -1543,7 +1543,7 @@ public class ControlRemoto implements Serializable {
             tablasDescripcion.setFilterStyle("display: none; visibility: hidden;");
             altoTablas = "200";
             filtrosActivos = false;
-            PrimefacesContextUI.ejecutar("PF('tabl').clearFilters()");
+            RequestContext.getCurrentInstance().execute("PF('tabl').clearFilters()");
         }
         tablaExportar = "data1";
         nombreArchivo = "modulos";
@@ -1554,8 +1554,8 @@ public class ControlRemoto implements Serializable {
         seleccionTablaLOV = null;
         buscar = true;
         context.reset("form:lovtablas:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovtablas').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('buscartablasdialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovtablas').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('buscartablasdialogo').hide()");
         //RequestContext.getCurrentInstance().update("form:lovTablas");
         RequestContext.getCurrentInstance().update("form:mostrartodastablas");
         RequestContext.getCurrentInstance().update("form:tabmenu:tablas");
@@ -1568,8 +1568,8 @@ public class ControlRemoto implements Serializable {
         buscar = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovtablas:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovtablas').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('buscartablasdialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovtablas').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('buscartablasdialogo').hide()");
     }
 
     public void mostrarTodo_Tablas() {
@@ -1585,9 +1585,9 @@ public class ControlRemoto implements Serializable {
     public void validarBorradoLiquidacion() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (pago.equals("AUTOMATICO")) {
-            PrimefacesContextUI.ejecutar("PF('confirmarborrarliquidacion').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarborrarliquidacion').show()");
         } else if (pago.equals("NO AUTOMATICO")) {
-            PrimefacesContextUI.ejecutar("PF('confirmarborrarliquidacionporfuera').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarborrarliquidacionporfuera').show()");
         }
     }
 
@@ -1691,7 +1691,7 @@ public class ControlRemoto implements Serializable {
                 RequestContext.getCurrentInstance().update("form:LovEmpresasDialogo");
                 RequestContext.getCurrentInstance().update("form:LovEmpresasTabla");
                 RequestContext.getCurrentInstance().update("form:infoRegistroEmpresas");
-                PrimefacesContextUI.ejecutar("PF('LovEmpresasDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('LovEmpresasDialogo').show()");
             }
         }
         System.out.println("Unica Empresa : " + unicaEmpresa);
@@ -1709,7 +1709,7 @@ public class ControlRemoto implements Serializable {
                 RequestContext.getCurrentInstance().update("form:LovEmpresasDialogo");
                 RequestContext.getCurrentInstance().update("form:LovEmpresasTabla");
                 RequestContext.getCurrentInstance().update("form:infoRegistroEmpresas");
-                PrimefacesContextUI.ejecutar("PF('LovEmpresasDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('LovEmpresasDialogo').show()");
             }
         }
     }

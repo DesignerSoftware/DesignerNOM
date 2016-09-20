@@ -4,7 +4,7 @@
  */
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import Entidades.PryClientes;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
@@ -320,7 +320,7 @@ public class ControlPryClientes implements Serializable {
 
                     } else {
                         RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
+                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
                     }
                 } else {
 
@@ -347,7 +347,7 @@ public class ControlPryClientes implements Serializable {
 
                     } else {
                         RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
+                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
                     }
                 }
             } else {
@@ -380,7 +380,7 @@ public class ControlPryClientes implements Serializable {
 
                     } else {
                         RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
+                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
                     }
                 } else {
 
@@ -406,7 +406,7 @@ public class ControlPryClientes implements Serializable {
 
                     } else {
                         RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
+                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
                     }
                 }
 
@@ -442,7 +442,7 @@ public class ControlPryClientes implements Serializable {
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         } else {
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
 
         }
 
@@ -466,7 +466,7 @@ public class ControlPryClientes implements Serializable {
 
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("form:validacionBorrar");
-                PrimefacesContextUI.ejecutar("PF('validacionBorrar').show()");
+                RequestContext.getCurrentInstance().execute("PF('validacionBorrar').show()");
                 pryClienteSeleccionado = null;
                 proyectos = new BigInteger("-1");
             }
@@ -480,7 +480,7 @@ public class ControlPryClientes implements Serializable {
         if (!borrarPryClientes.isEmpty() || !crearPryClientes.isEmpty() || !modificarPryClientes.isEmpty()) {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:confirmarGuardar");
-            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
         }
     }
 
@@ -495,7 +495,7 @@ public class ControlPryClientes implements Serializable {
                 //mostrarBorrados
                 registrosBorrados = borrarPryClientes.size();
                 RequestContext.getCurrentInstance().update("form:mostrarBorrados");
-                PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
+                RequestContext.getCurrentInstance().execute("PF('mostrarBorrados').show()");
                 borrarPryClientes.clear();
             }
             if (!crearPryClientes.isEmpty()) {
@@ -534,26 +534,26 @@ public class ControlPryClientes implements Serializable {
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editNombre");
-                PrimefacesContextUI.ejecutar("PF('editNombre').show()");
+                RequestContext.getCurrentInstance().execute("PF('editNombre').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editDireccion");
-                PrimefacesContextUI.ejecutar("PF('editDireccion').show()");
+                RequestContext.getCurrentInstance().execute("PF('editDireccion').show()");
                 cualCelda = -1;
 
             } else if (cualCelda == 2) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editTelefono");
-                PrimefacesContextUI.ejecutar("PF('editTelefono').show()");
+                RequestContext.getCurrentInstance().execute("PF('editTelefono').show()");
                 cualCelda = -1;
 
             } else if (cualCelda == 3) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editContacto");
-                PrimefacesContextUI.ejecutar("PF('editContacto').show()");
+                RequestContext.getCurrentInstance().execute("PF('editContacto').show()");
                 cualCelda = -1;
             }
 
         } else {
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
@@ -613,12 +613,12 @@ public class ControlPryClientes implements Serializable {
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
 
-            PrimefacesContextUI.ejecutar("PF('nuevoRegistroPryClientes').hide()");
+            RequestContext.getCurrentInstance().execute("PF('nuevoRegistroPryClientes').hide()");
             pryClienteSeleccionado = nuevoPryCliente;
 
         } else {
             RequestContext.getCurrentInstance().update("form:validacionNuevoPryC");
-            PrimefacesContextUI.ejecutar("PF('validacionNuevoPryC').show()");
+            RequestContext.getCurrentInstance().execute("PF('validacionNuevoPryC').show()");
             contador = 0;
         }
     }
@@ -654,9 +654,9 @@ public class ControlPryClientes implements Serializable {
             }
 
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarPRYC");
-            PrimefacesContextUI.ejecutar("PF('duplicarRegistroPryClientes').show()");
+            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroPryClientes').show()");
         } else {
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
@@ -713,12 +713,12 @@ public class ControlPryClientes implements Serializable {
                 tipoLista = 0;
             }
             duplicarPryCliente = new PryClientes();
-            PrimefacesContextUI.ejecutar("PF('duplicarRegistroPryClientes').hide()");
+            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroPryClientes').hide()");
 
         } else {
             contador = 0;
             RequestContext.getCurrentInstance().update("form:validacionDuplicarPryC");
-            PrimefacesContextUI.ejecutar("PF('validacionDuplicarPryC').show()");
+            RequestContext.getCurrentInstance().execute("PF('validacionDuplicarPryC').show()");
         }
     }
 
@@ -751,22 +751,22 @@ public class ControlPryClientes implements Serializable {
             int resultado = administrarRastros.obtenerTabla(pryClienteSeleccionado.getSecuencia(), "PRY_CLIENTES"); //En ENCARGATURAS lo cambia por el nombre de su tabla
             System.out.println("resultado: " + resultado);
             if (resultado == 1) {
-                PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {
-                PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
             } else if (resultado == 3) {
-                PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
             } else if (resultado == 4) {
-                PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
             } else if (resultado == 5) {
-                PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
 
         } else {
             if (administrarRastros.verificarHistoricosTabla("PRY_CLIENTES")) { // igual acá
-                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
             } else {
-                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
             }
 
         }

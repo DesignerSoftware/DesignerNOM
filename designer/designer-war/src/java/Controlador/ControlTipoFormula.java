@@ -5,7 +5,7 @@
  */
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import Entidades.Formulas;
 import Entidades.Operandos;
 import Entidades.TiposFormulas;
@@ -213,7 +213,7 @@ public class ControlTipoFormula implements Serializable {
             } else {
                 permitirIndex = false;
                 RequestContext.getCurrentInstance().update("formularioDialogos:formulasDialogo");
-                PrimefacesContextUI.ejecutar("PF('formulasDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('formulasDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -238,7 +238,7 @@ public class ControlTipoFormula implements Serializable {
         }
         if (dlg == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:formulasDialogo");
-            PrimefacesContextUI.ejecutar("PF('formulasDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('formulasDialogo').show()");
         }
 
     }
@@ -247,7 +247,7 @@ public class ControlTipoFormula implements Serializable {
         if (index < 0) {
             System.out.println("INDEX " + index);
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
         if (listaTiposFormulasCrear.isEmpty() && listaTiposFormulasBorrar.isEmpty() && listaTiposFormulasModificar.isEmpty()) {
             if (tiposFormulasRegistro != null) {
@@ -255,11 +255,11 @@ public class ControlTipoFormula implements Serializable {
 
                 System.out.println("secuenciaOperando" + secuenciaTiposFormulas + "operandoRegistro" + tiposFormulasRegistro);
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.ejecutar("PF('dirigirFormula()");
+                RequestContext.getCurrentInstance().execute("PF('dirigirFormula()");
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
         }
     }
 
@@ -269,7 +269,7 @@ public class ControlTipoFormula implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 2) {
                 RequestContext.getCurrentInstance().update("form:formulasDialogo");
-                PrimefacesContextUI.ejecutar("PF('formulasDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('formulasDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -316,7 +316,7 @@ public class ControlTipoFormula implements Serializable {
                 getLovListaFormulas();
             } else {
                 RequestContext.getCurrentInstance().update("form:formulasDialogo");
-                PrimefacesContextUI.ejecutar("PF('formulasDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('formulasDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:nuevaFormula");
@@ -347,7 +347,7 @@ public class ControlTipoFormula implements Serializable {
 
         if (pasa != 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoTipoFormula");
-            PrimefacesContextUI.ejecutar("PF('validacionNuevoTipoFormula').show()");
+            RequestContext.getCurrentInstance().execute("PF('validacionNuevoTipoFormula').show()");
         }
 
         if (pasa == 0) {
@@ -381,7 +381,7 @@ public class ControlTipoFormula implements Serializable {
             RequestContext.getCurrentInstance().update("form:datosTiposFormulas");
             duplicarTipoFormula = new TiposFormulas();
             RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarTipoFormula");
-            PrimefacesContextUI.ejecutar("PF('DuplicarTipoFormula').hide()");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarTipoFormula').hide()");
         }
     }
 
@@ -470,19 +470,19 @@ public class ControlTipoFormula implements Serializable {
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarFechasIniciales");
-                PrimefacesContextUI.ejecutar("PF('editarFechasIniciales').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarFechasIniciales').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarFechasFinales");
-                PrimefacesContextUI.ejecutar("PF('editarFechasFinales').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarFechasFinales').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarFormulas");
-                PrimefacesContextUI.ejecutar("PF('editarFormulas').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarFormulas').show()");
                 cualCelda = -1;
             } else if (cualCelda == 3) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarEstados");
-                PrimefacesContextUI.ejecutar("PF('editarEstados').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarEstados').show()");
                 cualCelda = -1;
             }
         }
@@ -549,7 +549,7 @@ public class ControlTipoFormula implements Serializable {
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoFormula");
-            PrimefacesContextUI.ejecutar("PF('DuplicarTipoFormula').show()");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarTipoFormula').show()");
             index = -1;
             secRegistro = null;
         }
@@ -608,24 +608,24 @@ public class ControlTipoFormula implements Serializable {
                 int result = administrarRastros.obtenerTabla(secRegistro, "TIPOSFUNCIONES");
                 System.out.println("resultado: " + result);
                 if (result == 1) {
-                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
                 } else if (result == 2) {
-                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
                 } else if (result == 3) {
-                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
                 } else if (result == 4) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
                 } else if (result == 5) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+                RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("TIPOSFUNCIONES")) {
-                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
             } else {
-                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
             }
         }
         index = -1;
@@ -677,8 +677,8 @@ public class ControlTipoFormula implements Serializable {
         tipoActualizacion = -1;
         cualCelda = -1;
         context.reset("formularioDialogos:LOVFormulas:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('LOVFormulas').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('formulasDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('LOVFormulas').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('formulasDialogo').hide()");
         //RequestContext.getCurrentInstance().update("formularioDialogos:LOVFormulas");
     }
 
@@ -693,8 +693,8 @@ public class ControlTipoFormula implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formularioDialogos:LOVFormulas:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('LOVFormulas').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('formulasDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('LOVFormulas').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('formulasDialogo').hide()");
     }
 
     public void agregarNuevoTipoFormula() {
@@ -720,14 +720,14 @@ public class ControlTipoFormula implements Serializable {
         if (nuevoTipoFormula.getFechainicial() != null && nuevoTipoFormula.getFechafinal() != null) {
             if (nuevoTipoFormula.getFechafinal().before(nuevoTipoFormula.getFechainicial())) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:errorFechas");
-                PrimefacesContextUI.ejecutar("PF('errorFechas').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorFechas').show()");
                 pasa2++;
             }
         }
 
         if (pasa != 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoTipoFormula");
-            PrimefacesContextUI.ejecutar("PF('validacionNuevoTipoFormula').show()");
+            RequestContext.getCurrentInstance().execute("PF('validacionNuevoTipoFormula').show()");
         }
 
         if (pasa == 0 && pasa2 == 0) {
@@ -766,7 +766,7 @@ public class ControlTipoFormula implements Serializable {
                 guardado = false;
                 RequestContext.getCurrentInstance().update("form:aceptar");
             }
-            PrimefacesContextUI.ejecutar("PF('NuevoTipoFormula').hide()");
+            RequestContext.getCurrentInstance().execute("PF('NuevoTipoFormula').hide()");
             index = -1;
             secRegistro = null;
         }

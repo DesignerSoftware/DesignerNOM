@@ -4,7 +4,7 @@
  */
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import Entidades.Empleados;
 import Entidades.GruposInfAdicionales;
 import Entidades.InformacionesAdicionales;
@@ -190,7 +190,7 @@ public class ControlEmplInformacionAdicional implements Serializable {
                 } else {
                     permitirIndex = false;
                     RequestContext.getCurrentInstance().update("form:GrupoDialogo");
-                    PrimefacesContextUI.ejecutar("PF('GrupoDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('GrupoDialogo').show()");
                     tipoActualizacion = 0;
                 }
             } else {
@@ -300,7 +300,7 @@ public class ControlEmplInformacionAdicional implements Serializable {
                 }
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("form:datosInfoAdEmpleado");
-                PrimefacesContextUI.ejecutar("PF('form:errorFechas').show()");
+                RequestContext.getCurrentInstance().execute("PF('form:errorFechas').show()");
             }
         } else {
             if (tipoLista == 0) {
@@ -314,7 +314,7 @@ public class ControlEmplInformacionAdicional implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:datosInfoAdEmpleado");
-            PrimefacesContextUI.ejecutar("PF('errorRegNew').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorRegNew').show()");
         }
     }
 
@@ -357,7 +357,7 @@ public class ControlEmplInformacionAdicional implements Serializable {
                     getListGruposInfAdicional();
                 } else {
                     RequestContext.getCurrentInstance().update("form:GrupoDialogo");
-                    PrimefacesContextUI.ejecutar("PF('GrupoDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('GrupoDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                     if (tipoNuevo == 1) {
                         RequestContext.getCurrentInstance().update("formularioDialogos:nuevaGrupo");
@@ -499,42 +499,42 @@ public class ControlEmplInformacionAdicional implements Serializable {
             if (cualCelda == 0) {
                 deshabilitarBotonLov();
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaInicialD");
-                PrimefacesContextUI.ejecutar("PF('editarFechaInicialD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarFechaInicialD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
                 deshabilitarBotonLov();
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaFinalD");
-                PrimefacesContextUI.ejecutar("PF('editarFechaFinalD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarFechaFinalD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
                 habilitarBotonLov();
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarGrupoD");
-                PrimefacesContextUI.ejecutar("PF('editarGrupoD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarGrupoD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 3) {
                 deshabilitarBotonLov();
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarCaracterD");
-                PrimefacesContextUI.ejecutar("PF('editarCaracterD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarCaracterD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 4) {
                 deshabilitarBotonLov();
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarNumericoD");
-                PrimefacesContextUI.ejecutar("PF('editarNumericoD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarNumericoD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 5) {
                 deshabilitarBotonLov();
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaD");
-                PrimefacesContextUI.ejecutar("PF('editarFechaD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarFechaD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 6) {
                 deshabilitarBotonLov();
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarObservacionD");
-                PrimefacesContextUI.ejecutar("PF('editarObservacionD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarObservacionD').show()");
                 cualCelda = -1;
             }
 
         } else{
-            PrimefacesContextUI.ejecutar("PF('formularioDialogos:seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('formularioDialogos:seleccionarRegistro').show()");
         }
     }
 
@@ -579,18 +579,18 @@ public class ControlEmplInformacionAdicional implements Serializable {
                 modificarInfoRegistro(listInformacionAdicional.size());
                 RequestContext.getCurrentInstance().update("form:infoRegistro");
                 RequestContext.getCurrentInstance().update("form:datosInfoAdEmpleado");
-                PrimefacesContextUI.ejecutar("PF('NuevoRegistroInfoAd').hide()");
+                RequestContext.getCurrentInstance().execute("PF('NuevoRegistroInfoAd').hide()");
                 if (guardado == true) {
                     guardado = false;
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
             } else {
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.ejecutar("PF('errorFechas').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorFechas').show()");
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.ejecutar("PF('errorRegNew').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorRegNew').show()");
         }
     }
 
@@ -631,9 +631,9 @@ public class ControlEmplInformacionAdicional implements Serializable {
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarInfoAd");
-            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroInfoAd').show()");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroInfoAd').show()");
         }else{
-            PrimefacesContextUI.ejecutar("PF('formularioDialogos:seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('formularioDialogos:seleccionarRegistro').show()");
         }
     }
 
@@ -650,7 +650,7 @@ public class ControlEmplInformacionAdicional implements Serializable {
                 modificarInfoRegistro(listInformacionAdicional.size());
                 RequestContext.getCurrentInstance().update("form:infoRegistro");
                 RequestContext.getCurrentInstance().update("form:datosInfoAdEmpleado");
-                PrimefacesContextUI.ejecutar("PF('DuplicarRegistroInfoAd').hide()");
+                RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroInfoAd').hide()");
                 if (guardado == true) {
                     guardado = false;
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -682,11 +682,11 @@ public class ControlEmplInformacionAdicional implements Serializable {
                 duplicarInfoAdicional = new InformacionesAdicionales();
             } else {
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.ejecutar("PF('errorFechas').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorFechas').show()");
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.ejecutar("PF('errorRegNew').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorRegNew').show()");
         }
     }
 
@@ -724,7 +724,7 @@ public class ControlEmplInformacionAdicional implements Serializable {
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         }else{
-            PrimefacesContextUI.ejecutar("PF('formularioDialogos:seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('formularioDialogos:seleccionarRegistro').show()");
         }
     }
 
@@ -824,7 +824,7 @@ public class ControlEmplInformacionAdicional implements Serializable {
             habilitarBotonLov();
             modificarInfoRegistroGrupo(listGruposInfAdicional.size());
             RequestContext.getCurrentInstance().update("form:GrupoDialogo");
-            PrimefacesContextUI.ejecutar("PF('GrupoDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('GrupoDialogo').show()");
         }
     }
 
@@ -870,7 +870,7 @@ public class ControlEmplInformacionAdicional implements Serializable {
         RequestContext.getCurrentInstance().update("form:lovGrupo");
         RequestContext.getCurrentInstance().update("form:aceptarG");
         context.reset("form:lovGrupo:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('GrupoDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('GrupoDialogo').hide()");
     }
 
     public void cancelarCambioGrupo() {
@@ -888,7 +888,7 @@ public class ControlEmplInformacionAdicional implements Serializable {
                 habilitarBotonLov();
                 modificarInfoRegistroGrupo(listGruposInfAdicional.size());
                 RequestContext.getCurrentInstance().update("form:GrupoDialogo");
-                PrimefacesContextUI.ejecutar("PF('GrupoDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('GrupoDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -934,22 +934,22 @@ public class ControlEmplInformacionAdicional implements Serializable {
                 int resultado = administrarRastros.obtenerTabla(informacionTablaSeleccionada.getSecuencia(), "INFORMACIONESADICIONALES");
                 backUpSecRegistro = informacionTablaSeleccionada.getSecuencia();
                 if (resultado == 1) {
-                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
-                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
                 }
             } 
         } else {
             if (administrarRastros.verificarHistoricosTabla("INFORMACIONESADICIONALES")) {
-                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
             } else {
-                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
             }
 
         }

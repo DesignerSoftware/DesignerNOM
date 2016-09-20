@@ -27,7 +27,7 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
+
 
 /**
  *
@@ -110,7 +110,7 @@ public class ControlInstituciones implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarCodigosInstituciones");
-                PrimefacesContextUI.ejecutar("PF('editarCodigosInstituciones').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarCodigosInstituciones').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarDescripcionInstituciones");
@@ -126,7 +126,7 @@ public class ControlInstituciones implements Serializable {
                 cualCelda = -1;
             }
         } else {
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
@@ -209,12 +209,12 @@ public class ControlInstituciones implements Serializable {
             System.out.println("Codigos: " + listaInstituciones.get(i).getCodigo());
             if (listaInstituciones.get(i).getCodigo().compareTo(nuevoInstitucion.getCodigo()) == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:existeCodigo");
-                PrimefacesContextUI.ejecutar("PF('existeCodigo').show()");
+                RequestContext.getCurrentInstance().execute("PF('existeCodigo').show()");
                 pasaA++;
             }
             if (pasa != 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevaInstitucion");
-                PrimefacesContextUI.ejecutar("PF('validacionNuevaInstitucion').show()");
+                RequestContext.getCurrentInstance().execute("PF('validacionNuevaInstitucion').show()");
 
             }
         }
@@ -253,10 +253,10 @@ public class ControlInstituciones implements Serializable {
                 guardado = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
-            PrimefacesContextUI.ejecutar("PF('NuevoRegistroInstitucion').hide()");
+            RequestContext.getCurrentInstance().execute("PF('NuevoRegistroInstitucion').hide()");
         } else {
             RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevaInstitucion");
-            PrimefacesContextUI.ejecutar("PF('validacionNuevaInstitucion').show()");
+            RequestContext.getCurrentInstance().execute("PF('validacionNuevaInstitucion').show()");
         }
 
     }
@@ -347,7 +347,7 @@ public class ControlInstituciones implements Serializable {
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         } else {
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
@@ -391,9 +391,9 @@ public class ControlInstituciones implements Serializable {
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarInstitucion");
-            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroInstitucion').show()");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroInstitucion').show()");
         } else {
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
@@ -409,7 +409,7 @@ public class ControlInstituciones implements Serializable {
         for (int i = 0; i < listaInstituciones.size(); i++) {
             if (duplicarInstitucion.getCodigo() == listaInstituciones.get(i).getCodigo()) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:existeCodigo");
-                PrimefacesContextUI.ejecutar("PF('existeCodigo').show()");
+                RequestContext.getCurrentInstance().execute("PF('existeCodigo').show()");
                 pasa++;
             }
         }
@@ -443,7 +443,7 @@ public class ControlInstituciones implements Serializable {
             duplicarInstitucion = new Instituciones();
         }
         RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarRegistroInstitucion");
-        PrimefacesContextUI.ejecutar("PF('DuplicarRegistroInstitucion').hide()");
+        RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroInstitucion').hide()");
     }
 
     public void cancelarModificacion() {
@@ -517,20 +517,20 @@ public class ControlInstituciones implements Serializable {
             int resultado = administrarRastros.obtenerTabla(institucionSeleccionada.getSecuencia(), "INSTITUCIONES");
             System.out.println("resultado: " + resultado);
             if (resultado == 1) {
-                PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {
-                PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
             } else if (resultado == 3) {
-                PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
             } else if (resultado == 4) {
-                PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
             } else if (resultado == 5) {
-                PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
         } else if (administrarRastros.verificarHistoricosTabla("INSTITUCIONES")) {
-            PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
     }
     

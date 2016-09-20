@@ -29,7 +29,7 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
+
 
 /**
  *
@@ -120,23 +120,23 @@ public class ControlCursos implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarCodigosCurso");
-                PrimefacesContextUI.ejecutar("PF('editarCodigosCurso').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarCodigosCurso').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarDescripcionCurso");
-                PrimefacesContextUI.ejecutar("PF('editarDescripcionCurso').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarDescripcionCurso').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarTipoCurso");
-                PrimefacesContextUI.ejecutar("PF('editarTipoCurso').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarTipoCurso').show()");
                 cualCelda = -1;
             } else if (cualCelda == 3) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarObjetivoCurso");
-                PrimefacesContextUI.ejecutar("PF('editarObjetivoCurso').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarObjetivoCurso').show()");
                 cualCelda = -1;
             }
         } else {
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
@@ -241,12 +241,12 @@ public class ControlCursos implements Serializable {
         for (int i = 0; i < listaCursos.size(); i++) {
             if (nuevoCurso.getCodigo() == listaCursos.get(i).getCodigo()) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:existeCodigo");
-                PrimefacesContextUI.ejecutar("PF('existeCodigo').show()");
+                RequestContext.getCurrentInstance().execute("PF('existeCodigo').show()");
                 pasa++;
             }
             if (pasa != 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoCurso");
-                PrimefacesContextUI.ejecutar("PF('validacionNuevoCurso').show()");
+                RequestContext.getCurrentInstance().execute("PF('validacionNuevoCurso').show()");
 
             }
         }
@@ -285,10 +285,10 @@ public class ControlCursos implements Serializable {
                 guardado = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
-            PrimefacesContextUI.ejecutar("PF('NuevoRegistroCurso').hide()");
+            RequestContext.getCurrentInstance().execute("PF('NuevoRegistroCurso').hide()");
         } else {
             RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoCurso");
-            PrimefacesContextUI.ejecutar("PF('validacionNuevoCurso').show()");
+            RequestContext.getCurrentInstance().execute("PF('validacionNuevoCurso').show()");
         }
     }
 
@@ -374,7 +374,7 @@ public class ControlCursos implements Serializable {
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         } else {
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
@@ -419,9 +419,9 @@ public class ControlCursos implements Serializable {
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCurso");
-            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroCurso').show()");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroCurso').show()");
         } else {
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
@@ -437,7 +437,7 @@ public class ControlCursos implements Serializable {
         for (int i = 0; i < listaCursos.size(); i++) {
             if (duplicarCurso.getCodigo() == listaCursos.get(i).getCodigo()) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:existeCodigo");
-                PrimefacesContextUI.ejecutar("PF('existeCodigo').show()");
+                RequestContext.getCurrentInstance().execute("PF('existeCodigo').show()");
                 pasa++;
             }
         }
@@ -473,7 +473,7 @@ public class ControlCursos implements Serializable {
             duplicarCurso = new Cursos();
         }
         RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarRegistroTipoEducacion");
-        PrimefacesContextUI.ejecutar("PF('DuplicarRegistroTipoEducacion').hide()");
+        RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroTipoEducacion').hide()");
     }
 
     public void cancelarModificacion() {
@@ -584,8 +584,8 @@ public class ControlCursos implements Serializable {
         tipoActualizacion = -1;
         cualCelda = -1;
         context.reset("formularioDialogos:lovTipoCurso:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovTipoCurso').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('tipoCursoDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovTipoCurso').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('tipoCursoDialogo').hide()");
         RequestContext.getCurrentInstance().update("formularioDialogos:tipoCursoDialogo");
         RequestContext.getCurrentInstance().update("formularioDialogos:lovTipoCurso");
         RequestContext.getCurrentInstance().update("formularioDialogos:aceptart");
@@ -600,8 +600,8 @@ public class ControlCursos implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formularioDialogos:lovTipoCurso:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovTipoCurso').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('tipoCursoDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovTipoCurso').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('tipoCursoDialogo').hide()");
         RequestContext.getCurrentInstance().update("formularioDialogos:tipoCursoDialogo");
         RequestContext.getCurrentInstance().update("formularioDialogos:lovTipoCurso");
         RequestContext.getCurrentInstance().update("formularioDialogos:aceptart");
@@ -613,20 +613,20 @@ public class ControlCursos implements Serializable {
             int resultado = administrarRastros.obtenerTabla(cursoSeleccionado.getSecuencia(), "CURSOS");
             System.out.println("resultado: " + resultado);
             if (resultado == 1) {
-                PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {
-                PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
             } else if (resultado == 3) {
-                PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
             } else if (resultado == 4) {
-                PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
             } else if (resultado == 5) {
-                PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
         } else if (administrarRastros.verificarHistoricosTabla("CURSOS")) {
-            PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
     }
 

@@ -5,7 +5,7 @@
  */
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import Entidades.Empleados;
 import Entidades.Estructuras;
 import InterfaceAdministrar.AdministrarReingresarEmpleadoInterface;
@@ -118,7 +118,7 @@ public class ControlReingresarEmpleado implements Serializable {
                 getLovEmpleados();
             } else {
                 RequestContext.getCurrentInstance().update("formularioDialogos:empleadosDialogo");
-                PrimefacesContextUI.ejecutar("PF('empleadosDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('empleadosDialogo').show()");
             }
         } else if (confirmarCambio.equalsIgnoreCase("ESTRUCTURA")) {
             for (int i = 0; i < lovEstructuras.size(); i++) {
@@ -133,7 +133,7 @@ public class ControlReingresarEmpleado implements Serializable {
                 getLovEstructuras();
             } else {
                 RequestContext.getCurrentInstance().update("formularioDialogos:estructurasDialogo");
-                PrimefacesContextUI.ejecutar("PF('estructurasDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('estructurasDialogo').show()");
             }
         }
 
@@ -145,10 +145,10 @@ public class ControlReingresarEmpleado implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (dlg == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:empleadosDialogo");
-            PrimefacesContextUI.ejecutar("PF('empleadosDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('empleadosDialogo').show()");
         } else if (dlg == 1) {
             RequestContext.getCurrentInstance().update("formularioDialogos:estructurasDialogo");
-            PrimefacesContextUI.ejecutar("PF('estructurasDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('estructurasDialogo').show()");
         }
 
     }
@@ -159,8 +159,8 @@ public class ControlReingresarEmpleado implements Serializable {
         empleadoSeleccionado = null;
         aceptar = true;
         context.reset("formularioDialogos:LOVEmpleados:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('LOVEmpleados').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('empleadosDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('LOVEmpleados').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('empleadosDialogo').hide()");
         //RequestContext.getCurrentInstance().update("formularioDialogos:LOVEmpleados");
         RequestContext.getCurrentInstance().update("form:nombreEmpleado");
     }
@@ -171,8 +171,8 @@ public class ControlReingresarEmpleado implements Serializable {
         estructuraSeleccionada = null;
         aceptar = true;
         context.reset("formularioDialogos:LOVEstructuras:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('LOVEstructuras').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('estructurasDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('LOVEstructuras').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('estructurasDialogo').hide()");
         //RequestContext.getCurrentInstance().update("formularioDialogos:LOVEstructuras");
         RequestContext.getCurrentInstance().update("form:estructura");
     }
@@ -190,7 +190,7 @@ public class ControlReingresarEmpleado implements Serializable {
         formato = new SimpleDateFormat("dd/MM/yyyy");
         if (empleado.getPersona() == null) {
             RequestContext.getCurrentInstance().update("formularioDialogos:seleccioneEmpleado");
-            PrimefacesContextUI.ejecutar("PF('seleccioneEmpleado').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccioneEmpleado').show()");
             fechaReingreso = null;
             RequestContext.getCurrentInstance().update("form:divFechaReingreso");
             RequestContext.getCurrentInstance().update("form:divFechaReingreso:fechaReingreso");
@@ -204,7 +204,7 @@ public class ControlReingresarEmpleado implements Serializable {
             System.out.println("mostrarFechaRetiro: " + mostrarFechaRetiro);
             if (fechaReingreso.before(fechaRetiro)) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:errorFechas");
-                PrimefacesContextUI.ejecutar("PF('errorFechas').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorFechas').show()");
             }
         }
     }
@@ -212,7 +212,7 @@ public class ControlReingresarEmpleado implements Serializable {
     public void irPaso3() {
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("formularioDialogos:paso3");
-        PrimefacesContextUI.ejecutar("PF('paso3').show()");
+        RequestContext.getCurrentInstance().execute("PF('paso3').show()");
     }
 
     public void reingresarEmpleado() {
@@ -255,16 +255,16 @@ public class ControlReingresarEmpleado implements Serializable {
             System.out.println("mostrarFechaRetiro: " + mostrarFechaRetiro);
             if (fechaReingreso.before(fechaRetiro)) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:errorFechas");
-                PrimefacesContextUI.ejecutar("PF('errorFechas').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorFechas').show()");
             } else {
                 RequestContext.getCurrentInstance().update("formularioDialogos:paso1");
-                PrimefacesContextUI.ejecutar("PF('paso1').show()");
+                RequestContext.getCurrentInstance().execute("PF('paso1').show()");
                 System.out.println("Empleado es: " + empleado.getPersona().getNombreCompleto());
                 nombre = empleado.getPersona().getNombreCompleto();
             }
         } else {
             RequestContext.getCurrentInstance().update("formularioDialogos:validacionReingreso");
-            PrimefacesContextUI.ejecutar("PF('validacionReingreso').show()");
+            RequestContext.getCurrentInstance().execute("PF('validacionReingreso').show()");
         }
 
     }
@@ -275,7 +275,7 @@ public class ControlReingresarEmpleado implements Serializable {
             administrarReingresarEmpleado.reintegrarEmpleado(empleado.getSecuencia(), estructura.getCentrocosto().getSecuencia(), fechaReingreso, estructura.getCentrocosto().getEmpresa().getSecuencia(), fechaFinContrato);
 
             RequestContext.getCurrentInstance().update("formularioDialogos:exito");
-            PrimefacesContextUI.ejecutar("PF('exito').show()");
+            RequestContext.getCurrentInstance().execute("PF('exito').show()");
             empleado = new Empleados();
             estructura = new Estructuras();
             fechaReingreso = null;
@@ -288,7 +288,7 @@ public class ControlReingresarEmpleado implements Serializable {
         } catch (Exception e) {
             System.out.println("Error en borrar al empleado");
             RequestContext.getCurrentInstance().update("formularioDialogos:error");
-            PrimefacesContextUI.ejecutar("PF('error').show()");
+            RequestContext.getCurrentInstance().execute("PF('error').show()");
         }
     }
 
@@ -297,8 +297,8 @@ public class ControlReingresarEmpleado implements Serializable {
         aceptar = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formularioDialogos:LOVEmpleados:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('LOVEmpleados').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('empleadosDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('LOVEmpleados').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('empleadosDialogo').hide()");
     }
 
     public void cancelarCambioEstructuras() {
@@ -306,8 +306,8 @@ public class ControlReingresarEmpleado implements Serializable {
         aceptar = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formularioDialogos:LOVEstructuras:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('LOVEstructuras').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('estructurasDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('LOVEstructuras').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('estructurasDialogo').hide()");
     }
 
     public void activarAceptar() {

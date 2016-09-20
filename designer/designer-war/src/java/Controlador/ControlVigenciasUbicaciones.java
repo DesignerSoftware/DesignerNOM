@@ -1,6 +1,6 @@
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import Entidades.Empleados;
 import Entidades.UbicacionesGeograficas;
 import Entidades.VigenciasUbicaciones;
@@ -182,11 +182,11 @@ public class ControlVigenciasUbicaciones implements Serializable {
                         RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
                 } else {
-                    PrimefacesContextUI.ejecutar("PF('validacionFechaDuplicada.show();");
+                    RequestContext.getCurrentInstance().execute("PF('validacionFechaDuplicada').show();");
                 }
             } else {
                 vigenciaSeleccionada.setFechavigencia(fechaVigenciaBck);
-                PrimefacesContextUI.ejecutar("PF('validacionFechaVacia.show();");
+                RequestContext.getCurrentInstance().execute("PF('validacionFechaVacia').show();");
             }
         } else if (confirmarCambio.equalsIgnoreCase("UBICACION")) {
             activarLOV = false;
@@ -206,7 +206,7 @@ public class ControlVigenciasUbicaciones implements Serializable {
                 permitirIndex = false;
                 getInfoRegistroUbicacion();
                 RequestContext.getCurrentInstance().update("form:UbicacionesGeograficasDialogo");
-                PrimefacesContextUI.ejecutar("PF('UbicacionesGeograficasDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('UbicacionesGeograficasDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -299,7 +299,7 @@ public class ControlVigenciasUbicaciones implements Serializable {
                 getListaUbicaciones();
             } else {
                 RequestContext.getCurrentInstance().update("form:UbicacionesGeograficasDialogo");
-                PrimefacesContextUI.ejecutar("PF('UbicacionesGeograficasDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('UbicacionesGeograficasDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:nuevaDescripcion");
@@ -399,21 +399,21 @@ public class ControlVigenciasUbicaciones implements Serializable {
             int result = administrarRastros.obtenerTabla(vigenciaSeleccionada.getSecuencia(), "VIGENCIASUBICACIONES");
             System.out.println("resultado: " + result);
             if (result == 1) {
-                PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
             } else if (result == 2) {
-                PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
             } else if (result == 3) {
-                PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
             } else if (result == 4) {
-                PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
             } else if (result == 5) {
-                PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("VIGENCIASUBICACIONES")) {
-                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
             } else {
-                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
             }
 
         }
@@ -423,20 +423,20 @@ public class ControlVigenciasUbicaciones implements Serializable {
     public void editarCelda() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (vigenciaSeleccionada == null) {
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         } else {
             editarVU = vigenciaSeleccionada;
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarFecha");
-                PrimefacesContextUI.ejecutar("PF('editarFecha').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarFecha').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarDescripcion");
-                PrimefacesContextUI.ejecutar("PF('editarDescripcion').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarDescripcion').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarCiudad");
-                PrimefacesContextUI.ejecutar("PF('editarCiudad').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarCiudad').show()");
                 cualCelda = -1;
             }
         }
@@ -465,7 +465,7 @@ public class ControlVigenciasUbicaciones implements Serializable {
             }
             if (fechas > 0) {
                 RequestContext.getCurrentInstance().update("form:fechas");
-                PrimefacesContextUI.ejecutar("PF('fechas').show()");
+                RequestContext.getCurrentInstance().execute("PF('fechas').show()");
                 pasa++;
 
             } else {
@@ -504,10 +504,10 @@ public class ControlVigenciasUbicaciones implements Serializable {
                 guardado = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
-            PrimefacesContextUI.ejecutar("PF('NuevoRegistroVU').hide()");
+            RequestContext.getCurrentInstance().execute("PF('NuevoRegistroVU').hide()");
         } else if (pasa == 0 && contador != 2) {
             RequestContext.getCurrentInstance().update("form:validacionNuevo");
-            PrimefacesContextUI.ejecutar("PF('validacionNuevo').show()");
+            RequestContext.getCurrentInstance().execute("PF('validacionNuevo').show()");
             contador = 0;
             pasa = 0;
         }
@@ -524,7 +524,7 @@ public class ControlVigenciasUbicaciones implements Serializable {
     public void duplicarVigenciaU() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (vigenciaSeleccionada == null) {
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         } else {
             if (vigenciaSeleccionada != null) {
                 duplicarVU = new VigenciasUbicaciones();
@@ -537,7 +537,7 @@ public class ControlVigenciasUbicaciones implements Serializable {
 
 
                 RequestContext.getCurrentInstance().update("formularioDialogos:duplicarVU");
-                PrimefacesContextUI.ejecutar("PF('DuplicarRegistroVU').show()");
+                RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroVU').show()");
             }
         }
     }
@@ -557,7 +557,7 @@ public class ControlVigenciasUbicaciones implements Serializable {
             mensajeValidacion = "Fechas NO Repetidas";
 
             RequestContext.getCurrentInstance().update("form:validacionFechaDuplicada");
-            PrimefacesContextUI.ejecutar("PF('validacionFechaDuplicada').show()");
+            RequestContext.getCurrentInstance().execute("PF('validacionFechaDuplicada').show()");
 
         } else {
             vigenciasUbicaciones.add(duplicarVU);
@@ -579,7 +579,7 @@ public class ControlVigenciasUbicaciones implements Serializable {
                 cerrarFiltrado();
             }
             duplicarVU = new VigenciasUbicaciones();
-            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroVU').hide()");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroVU').hide()");
         }
 
     }
@@ -593,7 +593,7 @@ public class ControlVigenciasUbicaciones implements Serializable {
     public void borrarVU() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (vigenciaSeleccionada == null) {
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         } else {
             if (vigenciaSeleccionada != null) {
                 if (!listVUModificar.isEmpty() && listVUModificar.contains(vigenciaSeleccionada)) {
@@ -675,7 +675,7 @@ public class ControlVigenciasUbicaciones implements Serializable {
         }
         modificarInfoRegistroUbicaciones(listaUbicaciones.size());
         RequestContext.getCurrentInstance().update("form:UbicacionesGeograficasDialogo");
-        PrimefacesContextUI.ejecutar("PF('UbicacionesGeograficasDialogo').show()");
+        RequestContext.getCurrentInstance().execute("PF('UbicacionesGeograficasDialogo').show()");
     }
 
     //LOVS
@@ -712,8 +712,8 @@ public class ControlVigenciasUbicaciones implements Serializable {
         cualCelda = -1;
 
         context.reset("form:lovUbicaciones:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovUbicaciones').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('UbicacionesGeograficasDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovUbicaciones').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('UbicacionesGeograficasDialogo').hide()");
     }
 
     public void cancelarCambioUbicacion() {
@@ -724,15 +724,15 @@ public class ControlVigenciasUbicaciones implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovUbicaciones:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovUbicaciones').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('UbicacionesGeograficasDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovUbicaciones').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('UbicacionesGeograficasDialogo').hide()");
     }
 
     //LISTA DE VALORES DINAMICA
     public void listaValoresBoton() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (vigenciaSeleccionada == null) {
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         } else {
             if (vigenciaSeleccionada != null) {
                 if (cualCelda == 1) {
@@ -740,7 +740,7 @@ public class ControlVigenciasUbicaciones implements Serializable {
                     //getInfoRegistroUbicacion();
                     modificarInfoRegistroUbicaciones(listaUbicaciones.size());
                     RequestContext.getCurrentInstance().update("form:UbicacionesGeograficasDialogo");
-                    PrimefacesContextUI.ejecutar("PF('UbicacionesGeograficasDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('UbicacionesGeograficasDialogo').show()");
                     tipoActualizacion = 0;
                 }
             }

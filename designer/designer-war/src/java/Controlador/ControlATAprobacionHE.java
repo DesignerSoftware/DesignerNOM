@@ -1,6 +1,6 @@
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import Entidades.ActualUsuario;
 import Entidades.EersCabeceras;
 import Entidades.EersDetalles;
@@ -201,7 +201,7 @@ public class ControlATAprobacionHE implements Serializable {
         if (rowsCabecera < tam) {
             rowsCabecera = rowsCabecera + 20;
             numeroScrollCabecera = numeroScrollCabecera + 500;
-            PrimefacesContextUI.ejecutar("PF('operacionEnProceso').hide()");
+            RequestContext.getCurrentInstance().execute("PF('operacionEnProceso').hide()");
             RequestContext.getCurrentInstance().update("form:PanelTotal");
         }
     }
@@ -266,7 +266,7 @@ public class ControlATAprobacionHE implements Serializable {
             } else {
                 permitirIndexCabecera = false;
                 RequestContext.getCurrentInstance().update("formEstructura:EstructuraDialogo");
-                PrimefacesContextUI.ejecutar("PF('EstructuraDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('EstructuraDialogo').show()");
             }
         }
         if (coincidencias == 1) {
@@ -340,7 +340,7 @@ public class ControlATAprobacionHE implements Serializable {
             }
             RequestContext.getCurrentInstance().update("form:tablaInferiorIzquierda");
             RequestContext.getCurrentInstance().update("form:tablaInferiorDerecha");
-            PrimefacesContextUI.ejecutar("PF('errorFechaCabecera').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorFechaCabecera').show()");
         }
     }
 
@@ -482,57 +482,57 @@ public class ControlATAprobacionHE implements Serializable {
             }
             if (cualCeldaCabecera == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarCabeceraAprobado");
-                PrimefacesContextUI.ejecutar("PF('editarCabeceraAprobado').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarCabeceraAprobado').show()");
                 cualCeldaCabecera = -1;
             }
             if (cualCeldaCabecera == 1) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarCabeceraSiguiente");
-                PrimefacesContextUI.ejecutar("PF('editarCabeceraSiguiente').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarCabeceraSiguiente').show()");
                 cualCeldaCabecera = -1;
             }
             if (cualCeldaCabecera == 2) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarCabeceraNumDocumento");
-                PrimefacesContextUI.ejecutar("PF('editarCabeceraNumDocumento').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarCabeceraNumDocumento').show()");
                 cualCeldaCabecera = -1;
             }
             if (cualCeldaCabecera == 3) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarEmplNombre");
-                PrimefacesContextUI.ejecutar("PF('editarEmplNombre').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarEmplNombre').show()");
                 cualCeldaCabecera = -1;
             }
             if (cualCeldaCabecera == 4) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarCabeceraHoras");
-                PrimefacesContextUI.ejecutar("PF('editarCabeceraHoras').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarCabeceraHoras').show()");
                 cualCeldaCabecera = -1;
             }
             if (cualCeldaCabecera == 5) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarCabeceraMinuto");
-                PrimefacesContextUI.ejecutar("PF('editarCabeceraMinuto').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarCabeceraMinuto').show()");
                 cualCeldaCabecera = -1;
             }
             if (cualCeldaCabecera == 6) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarCabeceraNovedad");
-                PrimefacesContextUI.ejecutar("PF('editarCabeceraNovedad').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarCabeceraNovedad').show()");
                 cualCeldaCabecera = -1;
             }
             if (cualCeldaCabecera == 7) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarCabeceraEstado");
-                PrimefacesContextUI.ejecutar("PF('editarCabeceraEstado').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarCabeceraEstado').show()");
                 cualCeldaCabecera = -1;
             }
             if (cualCeldaCabecera == 8) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarCabeceraPaso");
-                PrimefacesContextUI.ejecutar("PF('editarCabeceraPaso').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarCabeceraPaso').show()");
                 cualCeldaCabecera = -1;
             }
             if (cualCeldaCabecera == 9) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarCabeceraFechaPago");
-                PrimefacesContextUI.ejecutar("PF('editarCabeceraFechaPago').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarCabeceraFechaPago').show()");
                 cualCeldaCabecera = -1;
             }
             if (cualCeldaCabecera == 10) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarCabeceraObservacion");
-                PrimefacesContextUI.ejecutar("PF('editarCabeceraObservacion').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarCabeceraObservacion').show()");
                 cualCeldaCabecera = -1;
             }
             indexCabecera = -1;
@@ -546,12 +546,12 @@ public class ControlATAprobacionHE implements Serializable {
             }
             if (cualCeldaFlujo == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarFlujoProceso");
-                PrimefacesContextUI.ejecutar("PF('editarFlujoProceso').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarFlujoProceso').show()");
                 cualCeldaFlujo = -1;
             }
             if (cualCeldaFlujo == 1) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarFlujoFecha");
-                PrimefacesContextUI.ejecutar("PF('editarFlujoFecha').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarFlujoFecha').show()");
                 cualCeldaFlujo = -1;
             }
             indexFlujo = -1;
@@ -565,17 +565,17 @@ public class ControlATAprobacionHE implements Serializable {
             }
             if (cualCeldaDetalle == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarDetalleConcepto");
-                PrimefacesContextUI.ejecutar("PF('editarDetalleConcepto').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarDetalleConcepto').show()");
                 cualCeldaDetalle = -1;
             }
             if (cualCeldaDetalle == 1) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarDetalleFecha");
-                PrimefacesContextUI.ejecutar("PF('editarDetalleFecha').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarDetalleFecha').show()");
                 cualCeldaDetalle = -1;
             }
             if (cualCeldaDetalle == 2) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarDetalleObservacion");
-                PrimefacesContextUI.ejecutar("PF('editarDetalleObservacion').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarDetalleObservacion').show()");
                 cualCeldaDetalle = -1;
             }
             indexDetalle = -1;
@@ -588,7 +588,7 @@ public class ControlATAprobacionHE implements Serializable {
         if (indexCabecera >= 0) {
             if (cualCeldaCabecera == 3) {
                 RequestContext.getCurrentInstance().update("formEstructura:EstructuraDialogo");
-                PrimefacesContextUI.ejecutar("PF('EstructuraDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('EstructuraDialogo').show()");
                 cualCeldaCabecera = -1;
             }
             secRegistro = null;
@@ -601,7 +601,7 @@ public class ControlATAprobacionHE implements Serializable {
             indexCabecera = indice;
             if (dialogo == 0) {
                 RequestContext.getCurrentInstance().update("formEstructura:EstructuraDialogo");
-                PrimefacesContextUI.ejecutar("PF('EstructuraDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('EstructuraDialogo').show()");
             }
         }
     }
@@ -852,9 +852,9 @@ public class ControlATAprobacionHE implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (guardado == true) {
             RequestContext.getCurrentInstance().update("formEmpleado:EmpleadoDialogo");
-            PrimefacesContextUI.ejecutar("PF('EmpleadoDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('EmpleadoDialogo').show()");
         } else {
-            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
         }
     }
 
@@ -961,8 +961,8 @@ public class ControlATAprobacionHE implements Serializable {
          RequestContext.getCurrentInstance().update("formEmpleado:lovEmpleado");
          RequestContext.getCurrentInstance().update("formEmpleado:aceptarE");*/
         context.reset("formEmpleado:lovEmpleado:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovEmpleado').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('EmpleadoDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovEmpleado').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('EmpleadoDialogo').hide()");
 
         RequestContext.getCurrentInstance().update("form:panelTotal");
 
@@ -1002,8 +1002,8 @@ public class ControlATAprobacionHE implements Serializable {
         secRegistro = null;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formEmpleado:lovEmpleado:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovEmpleado').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('EmpleadoDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovEmpleado').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('EmpleadoDialogo').hide()");
     }
 
     public void actualizarEstructura() {
@@ -1040,8 +1040,8 @@ public class ControlATAprobacionHE implements Serializable {
          RequestContext.getCurrentInstance().update("formEstructura:lovEstructura");
          RequestContext.getCurrentInstance().update("formEstructura:aceptarEA");*/
         context.reset("formEstructura:lovEstructura:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovEstructura').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('EstructuraDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovEstructura').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('EstructuraDialogo').hide()");
     }
 
     public void cancelarCambioEstructura() {
@@ -1053,8 +1053,8 @@ public class ControlATAprobacionHE implements Serializable {
         permitirIndexCabecera = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formEstructura:lovEstructura:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovEstructura').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('EstructuraDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovEstructura').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('EstructuraDialogo').hide()");
     }
 
     public void eventoFiltrar() {
@@ -1323,24 +1323,24 @@ public class ControlATAprobacionHE implements Serializable {
                 backUpSecRegistro = secRegistro;
                 secRegistro = null;
                 if (resultado == 1) {
-                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
-                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+                RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("EERSCABECERAS")) {
-                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
             } else {
-                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
             }
 
         }

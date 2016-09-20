@@ -5,7 +5,7 @@
  */
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import Entidades.Empleados;
 import Entidades.TiposTallas;
 import Entidades.VigenciasTallas;
@@ -180,7 +180,7 @@ public class ControlVigenciasTallas implements Serializable {
                     }
                 } else {
                     RequestContext.getCurrentInstance().update("form:validacionModificar");
-                    PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
+                    RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
                 }
             } else {
 
@@ -212,7 +212,7 @@ public class ControlVigenciasTallas implements Serializable {
                     }
                 } else {
                     RequestContext.getCurrentInstance().update("form:validacionModificar");
-                    PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
+                    RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
 
                 }
 
@@ -269,7 +269,7 @@ public class ControlVigenciasTallas implements Serializable {
             }
             if (dig == 1) {
                 RequestContext.getCurrentInstance().update("form:tipostallasDialogo");
-                PrimefacesContextUI.ejecutar("PF('tipostallasDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('tipostallasDialogo').show()");
                 dig = -1;
             }
 
@@ -288,7 +288,7 @@ public class ControlVigenciasTallas implements Serializable {
 
             if (cualCelda == 4) {
                 RequestContext.getCurrentInstance().update("form:tipostallasDialogo");
-                PrimefacesContextUI.ejecutar("PF('tipostallasDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('tipostallasDialogo').show()");
                 tipoActualizacion = 0;
             }
 
@@ -443,7 +443,7 @@ public class ControlVigenciasTallas implements Serializable {
 
      } else {
      RequestContext.getCurrentInstance().update("form:validacionModificar");
-     PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
+     RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
      cancelarModificacion();
      }
      index = -1;
@@ -473,7 +473,7 @@ public class ControlVigenciasTallas implements Serializable {
 
      } else {
      RequestContext.getCurrentInstance().update("form:validacionModificar");
-     PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
+     RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
      cancelarModificacion();
      }
      index = -1;
@@ -522,7 +522,7 @@ public class ControlVigenciasTallas implements Serializable {
 
                     } else {
                         RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
+                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
                     }
                     index = -1;
                     secRegistro = null;
@@ -542,7 +542,7 @@ public class ControlVigenciasTallas implements Serializable {
 
                     } else {
                         RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
+                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
                     }
                     index = -1;
                     secRegistro = null;
@@ -569,7 +569,7 @@ public class ControlVigenciasTallas implements Serializable {
 
                     } else {
                         RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
+                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
 
                     }
                     index = -1;
@@ -589,7 +589,7 @@ public class ControlVigenciasTallas implements Serializable {
 
                     } else {
                         RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
+                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
 
                     }
                     index = -1;
@@ -627,7 +627,7 @@ public class ControlVigenciasTallas implements Serializable {
                 } else {
                     permitirIndex = false;
                     RequestContext.getCurrentInstance().update("form:tipostallasDialogo");
-                    PrimefacesContextUI.ejecutar("PF('tipostallasDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('tipostallasDialogo').show()");
                     tipoActualizacion = 0;
                 }
             } else {
@@ -636,7 +636,7 @@ public class ControlVigenciasTallas implements Serializable {
                 listaTiposTallas = null;
                 getListaTiposTallas();
                 RequestContext.getCurrentInstance().update("form:tipostallasDialogo");
-                PrimefacesContextUI.ejecutar("PF('tipostallasDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('tipostallasDialogo').show()");
             }
 
             if (coincidencias == 1) {
@@ -725,8 +725,8 @@ public class ControlVigenciasTallas implements Serializable {
         cualCelda = -1;
 
         context.reset("form:lovTiposTallas:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovTiposTallas').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('tipostallasDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovTiposTallas').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('tipostallasDialogo').hide()");
         //RequestContext.getCurrentInstance().update("form:lovTiposTallas");
     }
 
@@ -740,8 +740,8 @@ public class ControlVigenciasTallas implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovTiposTallas:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovTiposTallas').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('tipostallasDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovTiposTallas').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('tipostallasDialogo').hide()");
     }
 
     public void borrandoVigenciasTallas() {
@@ -811,7 +811,7 @@ public class ControlVigenciasTallas implements Serializable {
 
      RequestContext context = RequestContext.getCurrentInstance();
      RequestContext.getCurrentInstance().update("form:validacionBorrar");
-     PrimefacesContextUI.ejecutar("PF('validacionBorrar').show()");
+     RequestContext.getCurrentInstance().execute("PF('validacionBorrar').show()");
      index = -1;
 
      competenciasCargos = new BigDecimal(-1);
@@ -826,7 +826,7 @@ public class ControlVigenciasTallas implements Serializable {
         if (!borrarVigenciasTallas.isEmpty() || !crearVigenciasTallas.isEmpty() || !modificarVigenciasTallas.isEmpty()) {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:confirmarGuardar");
-            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
         }
 
     }
@@ -847,7 +847,7 @@ public class ControlVigenciasTallas implements Serializable {
                 //mostrarBorrados
                 registrosBorrados = borrarVigenciasTallas.size();
                 RequestContext.getCurrentInstance().update("form:mostrarBorrados");
-                PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
+                RequestContext.getCurrentInstance().execute("PF('mostrarBorrados').show()");
                 borrarVigenciasTallas.clear();
             }
             if (!crearVigenciasTallas.isEmpty()) {
@@ -898,21 +898,21 @@ public class ControlVigenciasTallas implements Serializable {
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarFecha");
-                PrimefacesContextUI.ejecutar("PF('editarFecha').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarFecha').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editTipoTalla");
-                PrimefacesContextUI.ejecutar("PF('editTipoTalla').show()");
+                RequestContext.getCurrentInstance().execute("PF('editTipoTalla').show()");
                 cualCelda = -1;
 
             } else if (cualCelda == 2) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editTallita");
-                PrimefacesContextUI.ejecutar("PF('editTallita').show()");
+                RequestContext.getCurrentInstance().execute("PF('editTallita').show()");
                 cualCelda = -1;
 
             } else if (cualCelda == 3) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editObservacion");
-                PrimefacesContextUI.ejecutar("PF('editObservacion').show()");
+                RequestContext.getCurrentInstance().execute("PF('editObservacion').show()");
                 cualCelda = -1;
 
             }
@@ -967,7 +967,7 @@ public class ControlVigenciasTallas implements Serializable {
                 getListaTiposTallas();
             } else {
                 RequestContext.getCurrentInstance().update("form:tipostallasDialogo");
-                PrimefacesContextUI.ejecutar("PF('tipostallasDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('tipostallasDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:nuevoTipoTalla");
@@ -1005,7 +1005,7 @@ public class ControlVigenciasTallas implements Serializable {
                     getListaTiposTallas();
                 } else {
                     RequestContext.getCurrentInstance().update("form:tipostallasDialogo");
-                    PrimefacesContextUI.ejecutar("PF('tipostallasDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('tipostallasDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                     if (tipoNuevo == 2) {
                         RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDescripcionTipoTallas");
@@ -1042,7 +1042,7 @@ public class ControlVigenciasTallas implements Serializable {
         }
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:tipostallasDialogo");
-        PrimefacesContextUI.ejecutar("PF('tipostallasDialogo').show()");
+        RequestContext.getCurrentInstance().execute("PF('tipostallasDialogo').show()");
     }
 
     public void agregarNuevoTiposTallas() {
@@ -1108,13 +1108,13 @@ public class ControlVigenciasTallas implements Serializable {
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
 
-            PrimefacesContextUI.ejecutar("PF('nuevoRegistroVigenciasTallas').hide()");
+            RequestContext.getCurrentInstance().execute("PF('nuevoRegistroVigenciasTallas').hide()");
             index = -1;
             secRegistro = null;
 
         } else {
             RequestContext.getCurrentInstance().update("form:validacionNuevaCentroCosto");
-            PrimefacesContextUI.ejecutar("PF('validacionNuevaCentroCosto').show()");
+            RequestContext.getCurrentInstance().execute("PF('validacionNuevaCentroCosto').show()");
             contador = 0;
         }
     }
@@ -1158,7 +1158,7 @@ public class ControlVigenciasTallas implements Serializable {
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarPanelVigenciasTallas");
-            PrimefacesContextUI.ejecutar("PF('duplicarRegistroVigenciasTallas').show()");
+            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroVigenciasTallas').show()");
             secRegistro = null;
         }
     }
@@ -1220,13 +1220,13 @@ public class ControlVigenciasTallas implements Serializable {
                 filtrarVigenciasTallas = null;
                 tipoLista = 0;
             }
-            PrimefacesContextUI.ejecutar("PF('duplicarRegistroVigenciasTallas').hide()");
+            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroVigenciasTallas').hide()");
             duplicarVigenciaTalla = new VigenciasTallas();
 
         } else {
             contador = 0;
             RequestContext.getCurrentInstance().update("form:validacionDuplicarVigencia");
-            PrimefacesContextUI.ejecutar("PF('validacionDuplicarVigencia').show()");
+            RequestContext.getCurrentInstance().execute("PF('validacionDuplicarVigencia').show()");
         }
     }
 
@@ -1266,24 +1266,24 @@ public class ControlVigenciasTallas implements Serializable {
                 int resultado = administrarRastros.obtenerTabla(secRegistro, "VIGENCIASTALLAS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
                 System.out.println("resultado: " + resultado);
                 if (resultado == 1) {
-                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
-                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+                RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("VIGENCIASTALLAS")) { // igual acá
-                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
             } else {
-                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
             }
 
         }

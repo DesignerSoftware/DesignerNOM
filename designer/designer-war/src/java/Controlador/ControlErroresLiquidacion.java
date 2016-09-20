@@ -4,7 +4,7 @@
  */
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import Entidades.Conceptos;
 import Entidades.Empleados;
 import Entidades.ErroresLiquidacion;
@@ -646,39 +646,39 @@ public class ControlErroresLiquidacion implements Serializable {
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaInicial");
-                PrimefacesContextUI.ejecutar("PF('editarFechaInicial').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarFechaInicial').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaHasta");
-                PrimefacesContextUI.ejecutar("PF('editarFechaHasta').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarFechaHasta').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarEmpleado");
-                PrimefacesContextUI.ejecutar("PF('editarEmpleado').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarEmpleado').show()");
                 cualCelda = -1;
             } else if (cualCelda == 3) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarTipoCentroCosto");
-                PrimefacesContextUI.ejecutar("PF('editarTipoCentroCosto').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarTipoCentroCosto').show()");
                 cualCelda = -1;
             } else if (cualCelda == 4) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarConcepto");
-                PrimefacesContextUI.ejecutar("PF('editarConcepto').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarConcepto').show()");
                 cualCelda = -1;
             } else if (cualCelda == 5) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarFormula");
-                PrimefacesContextUI.ejecutar("PF('editarFormula').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarFormula').show()");
                 cualCelda = -1;
             } else if (cualCelda == 6) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaE");
-                PrimefacesContextUI.ejecutar("PF('editarFechaE').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarFechaE').show()");
                 cualCelda = -1;
             } else if (cualCelda == 7) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarErrorE");
-                PrimefacesContextUI.ejecutar("PF('editarErrorE').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarErrorE').show()");
                 cualCelda = -1;
             } else if (cualCelda == 8) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarPaqueteE");
-                PrimefacesContextUI.ejecutar("PF('editarPaqueteE').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarPaqueteE').show()");
                 cualCelda = -1;
             }
 
@@ -699,14 +699,14 @@ public class ControlErroresLiquidacion implements Serializable {
 
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:confirmarGuardar");
-        PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
+        RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
     }
 
     public void revisarDialogoBorrarTodo() {
         if (listErroresLiquidacion != null) {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:confirmarBorrarTodo");
-            PrimefacesContextUI.ejecutar("PF('confirmarBorrarTodo').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarBorrarTodo').show()");
         }
     }
 
@@ -738,7 +738,7 @@ public class ControlErroresLiquidacion implements Serializable {
                 //mostrarBorrados
                 registrosBorrados = borrarErroresLiquidacion.size();
                 RequestContext.getCurrentInstance().update("form:mostrarBorrados");
-                PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
+                RequestContext.getCurrentInstance().execute("PF('mostrarBorrados').show()");
                 borrarErroresLiquidacion.clear();
             }
             System.out.println("Se guardaron los datos con exito");
@@ -784,24 +784,24 @@ public class ControlErroresLiquidacion implements Serializable {
                 int resultado = administrarRastros.obtenerTabla(secRegistro, "ERRORESLIQUIDACION"); //En ENCARGATURAS lo cambia por el nombre de su tabla
                 System.out.println("resultado: " + resultado);
                 if (resultado == 1) {
-                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
-                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+                RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("ERRORESLIQUIDACION")) { // igual acá
-                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
             } else {
-                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
             }
 
         }

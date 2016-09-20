@@ -5,7 +5,7 @@
  */
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import Entidades.Empleados;
 import Entidades.HVHojasDeVida;
 import Entidades.HvReferencias;
@@ -212,7 +212,7 @@ public class ControlHvReferencias1 implements Serializable {
             }
             if (dig == 4) {
                 RequestContext.getCurrentInstance().update("form:sucursalesDialogo");
-                PrimefacesContextUI.ejecutar("PF('sucursalesDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('sucursalesDialogo').show()");
                 dig = -1;
             }
 
@@ -231,7 +231,7 @@ public class ControlHvReferencias1 implements Serializable {
 
             if (cualCelda == 4) {
                 RequestContext.getCurrentInstance().update("form:sucursalesDialogo");
-                PrimefacesContextUI.ejecutar("PF('sucursalesDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('sucursalesDialogo').show()");
                 tipoActualizacion = 0;
             }
 
@@ -386,7 +386,7 @@ public class ControlHvReferencias1 implements Serializable {
 
      } else {
      RequestContext.getCurrentInstance().update("form:validacionModificar");
-     PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
+     RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
      cancelarModificacion();
      }
      hvReferencia1Seleccionada = null;
@@ -416,7 +416,7 @@ public class ControlHvReferencias1 implements Serializable {
 
      } else {
      RequestContext.getCurrentInstance().update("form:validacionModificar");
-     PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
+     RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
      cancelarModificacion();
      }
      hvReferencia1Seleccionada = null;
@@ -473,7 +473,7 @@ public class ControlHvReferencias1 implements Serializable {
 
                     } else {
                         RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
+                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
                     }
                     hvReferencia1Seleccionada = null;
                     hvReferencia1Seleccionada = null;
@@ -501,7 +501,7 @@ public class ControlHvReferencias1 implements Serializable {
 
                     } else {
                         RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
+                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
                     }
                 }
             } else {
@@ -534,7 +534,7 @@ public class ControlHvReferencias1 implements Serializable {
 
                     } else {
                         RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
+                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
 
                     }
                 } else {
@@ -561,7 +561,7 @@ public class ControlHvReferencias1 implements Serializable {
 
                     } else {
                         RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
+                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
 
                     }
                 }
@@ -596,7 +596,7 @@ public class ControlHvReferencias1 implements Serializable {
                 } else {
                     permitirIndex = false;
                     RequestContext.getCurrentInstance().update("form:sucursalesDialogo");
-                    PrimefacesContextUI.ejecutar("PF('sucursalesDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('sucursalesDialogo').show()");
                     tipoActualizacion = 0;
                 }
             } else {
@@ -687,8 +687,8 @@ public class ControlHvReferencias1 implements Serializable {
         tipoActualizacion = -1;
         cualCelda = -1;
         context.reset("form:lovTiposFamiliares:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovTiposFamiliares').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('sucursalesDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovTiposFamiliares').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('sucursalesDialogo').hide()");
         //RequestContext.getCurrentInstance().update("form:lovTiposFamiliares");
         RequestContext.getCurrentInstance().update("form:datosHvReferencia");
     }
@@ -704,8 +704,8 @@ public class ControlHvReferencias1 implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovTiposFamiliares:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovTiposFamiliares').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('sucursalesDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovTiposFamiliares').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('sucursalesDialogo').hide()");
     }
 
     public void borrandoHvReferencias() {
@@ -736,7 +736,7 @@ public class ControlHvReferencias1 implements Serializable {
             }
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
         } else {
-            PrimefacesContextUI.ejecutar("PF('formularioDialogos:seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('formularioDialogos:seleccionarRegistro').show()");
         }
 
     }
@@ -755,7 +755,7 @@ public class ControlHvReferencias1 implements Serializable {
 
      RequestContext context = RequestContext.getCurrentInstance();
      RequestContext.getCurrentInstance().update("form:validacionBorrar");
-     PrimefacesContextUI.ejecutar("PF('validacionBorrar').show()");
+     RequestContext.getCurrentInstance().execute("PF('validacionBorrar').show()");
      hvReferencia1Seleccionada = null;
 
      competenciasCargos = new BigDecimal(-1);
@@ -770,7 +770,7 @@ public class ControlHvReferencias1 implements Serializable {
         if (!borrarHvReferencias1.isEmpty() || !crearHvReferencias1.isEmpty() || !modificarHvReferencias1.isEmpty()) {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:confirmarGuardar");
-            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
         }
 
     }
@@ -791,7 +791,7 @@ public class ControlHvReferencias1 implements Serializable {
                 //mostrarBorrados
                 registrosBorrados = borrarHvReferencias1.size();
                 RequestContext.getCurrentInstance().update("form:mostrarBorrados");
-                PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
+                RequestContext.getCurrentInstance().execute("PF('mostrarBorrados').show()");
                 borrarHvReferencias1.clear();
             }
             if (!crearHvReferencias1.isEmpty()) {
@@ -844,31 +844,31 @@ public class ControlHvReferencias1 implements Serializable {
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editNombre");
-                PrimefacesContextUI.ejecutar("PF('editNombre').show()");
+                RequestContext.getCurrentInstance().execute("PF('editNombre').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editCargo");
-                PrimefacesContextUI.ejecutar("PF('editCargo').show()");
+                RequestContext.getCurrentInstance().execute("PF('editCargo').show()");
                 cualCelda = -1;
 
             } else if (cualCelda == 2) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editTelefono");
-                PrimefacesContextUI.ejecutar("PF('editTelefono').show()");
+                RequestContext.getCurrentInstance().execute("PF('editTelefono').show()");
                 cualCelda = -1;
 
             } else if (cualCelda == 3) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editCelular");
-                PrimefacesContextUI.ejecutar("PF('editCelular').show()");
+                RequestContext.getCurrentInstance().execute("PF('editCelular').show()");
                 cualCelda = -1;
 
             } else if (cualCelda == 4) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editParentesco");
-                PrimefacesContextUI.ejecutar("PF('editParentesco').show()");
+                RequestContext.getCurrentInstance().execute("PF('editParentesco').show()");
                 cualCelda = -1;
             }
 
         } else {
-            PrimefacesContextUI.ejecutar("PF('formularioDialogos:seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('formularioDialogos:seleccionarRegistro').show()");
         }
     }
 
@@ -917,7 +917,7 @@ public class ControlHvReferencias1 implements Serializable {
                 getListaTiposFamiliares();
             } else {
                 RequestContext.getCurrentInstance().update("form:sucursalesDialogo");
-                PrimefacesContextUI.ejecutar("PF('sucursalesDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('sucursalesDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:nuevoNombreSucursal");
@@ -955,7 +955,7 @@ public class ControlHvReferencias1 implements Serializable {
                     getListaTiposFamiliares();
                 } else {
                     RequestContext.getCurrentInstance().update("form:sucursalesDialogo");
-                    PrimefacesContextUI.ejecutar("PF('sucursalesDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('sucursalesDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                     if (tipoNuevo == 2) {
                         RequestContext.getCurrentInstance().update("formularioDialogos:duplicarNombreSucursal");
@@ -992,7 +992,7 @@ public class ControlHvReferencias1 implements Serializable {
         }
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:sucursalesDialogo");
-        PrimefacesContextUI.ejecutar("PF('sucursalesDialogo').show()");
+        RequestContext.getCurrentInstance().execute("PF('sucursalesDialogo').show()");
     }
 
     public void agregarNuevoHvRefencias() {
@@ -1079,11 +1079,11 @@ public class ControlHvReferencias1 implements Serializable {
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
 
-            PrimefacesContextUI.ejecutar("PF('nuevoRegistroHvReferencias').hide()");
+            RequestContext.getCurrentInstance().execute("PF('nuevoRegistroHvReferencias').hide()");
 
         } else {
             RequestContext.getCurrentInstance().update("form:validacionNuevaCentroCosto");
-            PrimefacesContextUI.ejecutar("PF('validacionNuevaCentroCosto').show()");
+            RequestContext.getCurrentInstance().execute("PF('validacionNuevaCentroCosto').show()");
             contador = 0;
         }
     }
@@ -1126,10 +1126,10 @@ public class ControlHvReferencias1 implements Serializable {
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarRRL");
-            PrimefacesContextUI.ejecutar("PF('duplicarRegistroHvReferencias').show()");
+            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroHvReferencias').show()");
             hvReferencia1Seleccionada = null;
         } else {
-            PrimefacesContextUI.ejecutar("PF('formularioDialogos:seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('formularioDialogos:seleccionarRegistro').show()");
         }
     }
 
@@ -1198,13 +1198,13 @@ public class ControlHvReferencias1 implements Serializable {
                 filtrarHvReferencias1 = null;
                 tipoLista = 0;
             }
-            PrimefacesContextUI.ejecutar("PF('duplicarRegistroHvReferencias').hide()");
+            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroHvReferencias').hide()");
             duplicarHvReferencia1 = new HvReferencias();
 
         } else {
             contador = 0;
             RequestContext.getCurrentInstance().update("form:validacionDuplicarVigencia");
-            PrimefacesContextUI.ejecutar("PF('validacionDuplicarVigencia').show()");
+            RequestContext.getCurrentInstance().execute("PF('validacionDuplicarVigencia').show()");
         }
     }
 
@@ -1240,21 +1240,21 @@ public class ControlHvReferencias1 implements Serializable {
             int resultado = administrarRastros.obtenerTabla(hvReferencia1Seleccionada.getSecuencia(), "HVREFERENCIAS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
             System.out.println("resultado: " + resultado);
             if (resultado == 1) {
-                PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {
-                PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
             } else if (resultado == 3) {
-                PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
             } else if (resultado == 4) {
-                PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
             } else if (resultado == 5) {
-                PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("HVREFERENCIAS")) { // igual acá
-                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
             } else {
-                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
             }
 
         }

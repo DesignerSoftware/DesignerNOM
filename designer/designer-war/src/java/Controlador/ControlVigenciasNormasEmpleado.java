@@ -4,7 +4,7 @@
  */
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import Administrar.AdministrarVigenciaNormaLaboral;
 import Entidades.Empleados;
 import Entidades.NormasLaborales;
@@ -243,11 +243,11 @@ public class ControlVigenciasNormasEmpleado implements Serializable {
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarFecha");
-                PrimefacesContextUI.ejecutar("PF('editarFecha').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarFecha').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarNormaLaboral");
-                PrimefacesContextUI.ejecutar("PF('editarNormaLaboral').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarNormaLaboral').show()");
                 cualCelda = -1;
             }
         }
@@ -314,7 +314,7 @@ public class ControlVigenciasNormasEmpleado implements Serializable {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarVNE");
-            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroVNE').show()");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroVNE').show()");
             index = -1;
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////            
         }
@@ -459,7 +459,7 @@ public class ControlVigenciasNormasEmpleado implements Serializable {
         }
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////       
         RequestContext.getCurrentInstance().update("form:NormasLaboralesDialogo");
-        PrimefacesContextUI.ejecutar("PF('NormasLaboralesDialogo').show()");
+        RequestContext.getCurrentInstance().execute("PF('NormasLaboralesDialogo').show()");
     }
 
     //LOVS
@@ -512,17 +512,17 @@ public class ControlVigenciasNormasEmpleado implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 2) {
                 RequestContext.getCurrentInstance().update("form:TipoEntidadDialogo");
-                PrimefacesContextUI.ejecutar("PF('TipoEntidadDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('TipoEntidadDialogo').show()");
                 tipoActualizacion = 0;
             }
             if (cualCelda == 3) {
                 RequestContext.getCurrentInstance().update("form:NombreTerceroDialogo");
-                PrimefacesContextUI.ejecutar("PF('NombreTerceroDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('NombreTerceroDialogo').show()");
                 tipoActualizacion = 0;
             }
             if (cualCelda == 6) {
                 RequestContext.getCurrentInstance().update("form:EstadosAfilacionesDialogo");
-                PrimefacesContextUI.ejecutar("PF('EstadosAfilacionesDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('EstadosAfilacionesDialogo').show()");
                 tipoActualizacion = 0;
             }
         }

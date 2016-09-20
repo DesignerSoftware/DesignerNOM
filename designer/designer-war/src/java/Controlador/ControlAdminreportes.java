@@ -5,7 +5,7 @@
  */
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import Entidades.Inforeportes;
 import Entidades.Modulos;
 import Exportar.ExportarPDF;
@@ -192,7 +192,7 @@ public class ControlAdminreportes implements Serializable {
                     } else {
                         listaInforeportes.get(indice).setCodigo(codiguin);
                         RequestContext.getCurrentInstance().update("formularioDialogos:repetido");
-                        PrimefacesContextUI.ejecutar("PF('repetido').show()");
+                        RequestContext.getCurrentInstance().execute("PF('repetido').show()");
                     }
 
                 }
@@ -227,7 +227,7 @@ public class ControlAdminreportes implements Serializable {
                     } else {
                         filtradosListaInforeportes.get(indice).setCodigo(codiguin);
                         RequestContext.getCurrentInstance().update("formularioDialogos:repetido");
-                        PrimefacesContextUI.ejecutar("PF('repetido').show()");
+                        RequestContext.getCurrentInstance().execute("PF('repetido').show()");
                     }
                 }
                 index = -1;
@@ -315,12 +315,12 @@ public class ControlAdminreportes implements Serializable {
                         filtradosListaInforeportes.get(indice).setModulo(moduloAnterior);
                     }
                     RequestContext.getCurrentInstance().update("formularioDialogos:repetido");
-                    PrimefacesContextUI.ejecutar("PF('repetido').show()");
+                    RequestContext.getCurrentInstance().execute("PF('repetido').show()");
                 }
             } else {
                 permitirIndex = false;
                 RequestContext.getCurrentInstance().update("formularioDialogos:modulosDialogo");
-                PrimefacesContextUI.ejecutar("PF('modulosDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('modulosDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -478,10 +478,10 @@ public class ControlAdminreportes implements Serializable {
         }
         if (dlg == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:inforeportesDialogo");
-            PrimefacesContextUI.ejecutar("PF('inforeportesDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('inforeportesDialogo').show()");
         } else if (dlg == 1) {
             RequestContext.getCurrentInstance().update("formularioDialogos:modulosDialogo");
-            PrimefacesContextUI.ejecutar("PF('modulosDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('modulosDialogo').show()");
         }
     }
 
@@ -567,10 +567,10 @@ public class ControlAdminreportes implements Serializable {
             infoRegistro = "Cantidad de registros: " + listaInforeportes.size();
             RequestContext.getCurrentInstance().update("form:informacionRegistro");
             RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarInforeporte");
-            PrimefacesContextUI.ejecutar("PF('DuplicarInforeporte').hide()");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarInforeporte').hide()");
         } else {
             RequestContext.getCurrentInstance().update("formularioDialogos:repetido");
-            PrimefacesContextUI.ejecutar("PF('repetido').show()");
+            RequestContext.getCurrentInstance().execute("PF('repetido').show()");
         }
     }
 
@@ -592,8 +592,8 @@ public class ControlAdminreportes implements Serializable {
         cambiosPagina = false;
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
         context.reset("formularioDialogos:LOVInforeportes:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('LOVInforeportes').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('inforeportesDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('LOVInforeportes').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('inforeportesDialogo').hide()");
         //RequestContext.getCurrentInstance().update("formularioDialogos:LOVInforeportes");
         RequestContext.getCurrentInstance().update("form:datosInforeportes");
         filtradosListaInforeportes = null;
@@ -652,8 +652,8 @@ public class ControlAdminreportes implements Serializable {
         tipoActualizacion = -1;
         cualCelda = -1;
         context.reset("formularioDialogos:LOVModulos:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('LOVModulos').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('modulosDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('LOVModulos').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('modulosDialogo').hide()");
         //RequestContext.getCurrentInstance().update("formularioDialogos:LOVModulos");
     }
 
@@ -695,7 +695,7 @@ public class ControlAdminreportes implements Serializable {
                 getLovListaModulos();
             } else {
                 RequestContext.getCurrentInstance().update("form:modulosDialogo");
-                PrimefacesContextUI.ejecutar("PF('modulosDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('modulosDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:nuevoModuloInforeporte");
@@ -712,7 +712,7 @@ public class ControlAdminreportes implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 5) {
                 RequestContext.getCurrentInstance().update("form:modulosDialogo");
-                PrimefacesContextUI.ejecutar("PF('modulosDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('modulosDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -823,8 +823,8 @@ public class ControlAdminreportes implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formularioDialogos:LOVInforeportes:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('LOVInforeportes').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('inforeportesDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('LOVInforeportes').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('inforeportesDialogo').hide()");
     }
 
     public void cancelarCambioModulos() {
@@ -838,8 +838,8 @@ public class ControlAdminreportes implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formularioDialogos:LOVModulos:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('LOVModulos').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('modulosDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('LOVModulos').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('modulosDialogo').hide()");
     }
 
     //MOSTRAR DATOS CELDA
@@ -856,23 +856,23 @@ public class ControlAdminreportes implements Serializable {
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarCodigos");
-                PrimefacesContextUI.ejecutar("PF('editarCodigos').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarCodigos').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarReportes");
-                PrimefacesContextUI.ejecutar("PF('editarReportes').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarReportes').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarContadores");
-                PrimefacesContextUI.ejecutar("PF('editarContadores').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarContadores').show()");
                 cualCelda = -1;
             } else if (cualCelda == 3) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarNombresReportes");
-                PrimefacesContextUI.ejecutar("PF('editarNombresReportes').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarNombresReportes').show()");
                 cualCelda = -1;
             } else if (cualCelda == 5) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarModulos");
-                PrimefacesContextUI.ejecutar("PF('editarModulos').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarModulos').show()");
                 cualCelda = -1;
             }
         }
@@ -1104,7 +1104,7 @@ public class ControlAdminreportes implements Serializable {
                 cambiosPagina = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
-            PrimefacesContextUI.ejecutar("PF('NuevoInforeporte').hide()");
+            RequestContext.getCurrentInstance().execute("PF('NuevoInforeporte').hide()");
             index = -1;
             secRegistro = null;
         } else {
@@ -1442,7 +1442,7 @@ public class ControlAdminreportes implements Serializable {
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarInforeporte");
-            PrimefacesContextUI.ejecutar("PF('DuplicarInforeporte').show()");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarInforeporte').show()");
             index = -1;
             secRegistro = null;
         }
@@ -1458,24 +1458,24 @@ public class ControlAdminreportes implements Serializable {
                 int result = administrarRastros.obtenerTabla(secRegistro, "INFOREPORTES");
                 System.out.println("resultado: " + result);
                 if (result == 1) {
-                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
                 } else if (result == 2) {
-                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
                 } else if (result == 3) {
-                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
                 } else if (result == 4) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
                 } else if (result == 5) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+                RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("INFOREPORTES")) {
-                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
             } else {
-                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
             }
         }
         index = -1;

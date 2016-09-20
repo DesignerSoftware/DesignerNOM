@@ -49,7 +49,7 @@
                             style="font-weight: bold; text-transform: uppercase;"/>
                <h:outputLabel/>
                <p:commandButton id="btnLogin" value="#{controlInicioRed.txtBoton}" actionListener="#{controlInicioRed.ingresar()}"
-                                onclick="PF('validarMensaje()" oncomplete="PFPF('estadoSesion').hide()"
+                                onclick="validarMensaje()" oncomplete="PF('estadoSesion').hide()"
                                 styleClass="cssBotonIngreso" process="@this"/> 
                
                <p:commandButton id="btnCambioClave" value="Cambio de Clave" disabled="#{controlInicioRed.cambioClave}"

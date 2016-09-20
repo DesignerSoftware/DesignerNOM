@@ -1,6 +1,6 @@
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import Banner.BannerInicioRed;
 import Entidades.Conexiones;
 import Entidades.Recordatorios;
@@ -151,7 +151,7 @@ public class ControlInicioRed implements Serializable {
                            conexion.setUsuariobd(administrarInicioRed.usuarioBD());
                            administrarInicioRed.guardarDatosConexion(conexion);
 //                           RequestContext.getCurrentInstance().update(actualizaciones);
-                           PrimefacesContextUI.actualizarLista(actualizaciones);
+                           RequestContext.getCurrentInstance().update(actualizaciones);
                         } else {
                            inicioSession = true;
                            sessionEntradaDefault();
@@ -191,7 +191,7 @@ public class ControlInicioRed implements Serializable {
             estadoInicio = false;
             getNombreEmpresa();
             llenarBannerSinEntrar();
-            PrimefacesContextUI.actualizarLista(actualizaciones);
+            RequestContext.getCurrentInstance().update(actualizaciones);
             RequestContext.getCurrentInstance().update("form:growl");
             inicioSession = true;
             acceso = false;
@@ -210,13 +210,13 @@ public class ControlInicioRed implements Serializable {
       if (!estadoInicio) {
          msgSesion = "Iniciando sesión, por favor espere...";
          RequestContext.getCurrentInstance().update("formularioDialogos:estadoSesion");
-         PrimefacesContextUI.ejecutar("PF('estadoSesion').show()");
+         RequestContext.getCurrentInstance().execute("PF('estadoSesion').show()");
       } else {
          msgSesion = "Cerrando sesión, por favor espere...";
 //         RequestContext.getCurrentInstance().update("formularioDialogos:estadoSesion");
          RequestContext.getCurrentInstance().update("formularioDialogos:estadoSesion");
-//         PrimefacesContextUI.ejecutar("PF('estadoSesion').show()");
-         PrimefacesContextUI.ejecutar("PF('estadoSesion').show()");
+//         RequestContext.getCurrentInstance().execute("PF('estadoSesion').show()");
+         RequestContext.getCurrentInstance().execute("PF('estadoSesion').show()");
       }
       System.out.println("ControlInicioRed.validaDialogoSesion");
       RequestContext.getCurrentInstance().update("form:btnCandadoLogin");
@@ -310,19 +310,19 @@ public class ControlInicioRed implements Serializable {
             if (transaccion == 0) {
                NClave = null;
                Rclave = null;
-               PrimefacesContextUI.ejecutar("PF('cambiarClave.hide();");
-               PrimefacesContextUI.ejecutar("PF('exitoCambioClave.show();");
+               RequestContext.getCurrentInstance().execute("PF('cambiarClave.hide();");
+               RequestContext.getCurrentInstance().execute("PF('exitoCambioClave').show();");
             } else if (transaccion == 28007) {
-               PrimefacesContextUI.ejecutar("PF('errorCambioClaveReusar.show();");
+               RequestContext.getCurrentInstance().execute("PF('errorCambioClaveReusar').show();");
             } else if (transaccion == -1) {
-               PrimefacesContextUI.ejecutar("PF('cambiarClave.hide();");
+               RequestContext.getCurrentInstance().execute("PF('cambiarClave.hide();");
                System.out.println("El entity manager Factory no se ha creado, revisar.");
             }
          } else {
-            PrimefacesContextUI.ejecutar("PF('errorCambioClave.show();");
+            RequestContext.getCurrentInstance().execute("PF('errorCambioClave').show();");
          }
       } else {
-         PrimefacesContextUI.ejecutar("PF('errorCambioClaveCamposVacios.show();");
+         RequestContext.getCurrentInstance().execute("PF('errorCambioClaveCamposVacios').show();");
       }
    }
 

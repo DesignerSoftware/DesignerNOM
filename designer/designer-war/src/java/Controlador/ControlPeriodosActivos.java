@@ -5,7 +5,7 @@
  */
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import Entidades.Empresas;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
@@ -225,7 +225,7 @@ public class ControlPeriodosActivos implements Serializable {
                     System.err.println("mes: " + mes);
                     System.err.println("anito: " + anito);
                     if ((anito - anitoHoy) != 0 || (mes - mesHoy) != 0) {
-                        PrimefacesContextUI.ejecutar("PF('modificacionFechas1').show()");
+                        RequestContext.getCurrentInstance().execute("PF('modificacionFechas1').show()");
                     }
                     //listEmpresa.get(indice).getCentrocosto().setCodigo(empresaSeleccionada.);
                     if (modificarEmpresas.isEmpty()) {
@@ -240,7 +240,7 @@ public class ControlPeriodosActivos implements Serializable {
                     RequestContext.getCurrentInstance().update("form:datosEmpresas");
                 } else {
                     RequestContext.getCurrentInstance().update("form:validacionModificar");
-                    PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
+                    RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
                 }
             } else {
                 secRegistro = filtrarEmpresas.get(indice).getSecuencia();
@@ -280,7 +280,7 @@ public class ControlPeriodosActivos implements Serializable {
 
                 } else {
                     RequestContext.getCurrentInstance().update("form:validacionModificar");
-                    PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
+                    RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
                 }
             }
 
@@ -392,7 +392,7 @@ public class ControlPeriodosActivos implements Serializable {
             }
             if (dig == 2) {
                 RequestContext.getCurrentInstance().update("form:tiposEmpresasDialogo");
-                PrimefacesContextUI.ejecutar("PF('tiposEmpresasDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('tiposEmpresasDialogo').show()");
                 dig = -1;
             }
 
@@ -410,14 +410,14 @@ public class ControlPeriodosActivos implements Serializable {
         try {
             if (guardado == false) {
                 banderaSeleccionEmpresasPorEmpresa = true;
-                PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
 
             } else {
                 listEmpresaPorBoton = null;
                 getListEmpresasPorEmpresaBoton();
                 index = -1;
                 RequestContext.getCurrentInstance().update("formularioDialogos:lovEmpresas");
-                PrimefacesContextUI.ejecutar("PF('buscarEmpresasDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('buscarEmpresasDialogo').show()");
 
             }
         } catch (Exception e) {
@@ -453,7 +453,7 @@ public class ControlPeriodosActivos implements Serializable {
                 getListEmpresasPorEmpresaBoton();
                 index = -1;
                 RequestContext.getCurrentInstance().update("formularioDialogos:lovEmpresas");
-                PrimefacesContextUI.ejecutar("PF('buscarEmpresasDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('buscarEmpresasDialogo').show()");
                 banderaSeleccionEmpresasPorEmpresa = false;
             }
         }
@@ -532,11 +532,11 @@ public class ControlPeriodosActivos implements Serializable {
                 System.out.println("CONTROLBETACENTROSCOSTOS: Entro a editar... valor celda: " + cualCelda);
                 if (cualCelda == 0) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaInicial");
-                    PrimefacesContextUI.ejecutar("PF('editarFechaInicial').show()");
+                    RequestContext.getCurrentInstance().execute("PF('editarFechaInicial').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 1) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaFinal");
-                    PrimefacesContextUI.ejecutar("PF('editarFechaFinal').show()");
+                    RequestContext.getCurrentInstance().execute("PF('editarFechaFinal').show()");
                     cualCelda = -1;
                 }
             }
@@ -577,24 +577,24 @@ public class ControlPeriodosActivos implements Serializable {
                 int resultado = administrarRastros.obtenerTabla(secRegistro, "CENTROSCOSTOS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
                 System.out.println("resultado: " + resultado);
                 if (resultado == 1) {
-                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
-                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+                RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("CENTROSCOSTOS")) { // igual acá
-                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
             } else {
-                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
             }
 
         }
@@ -605,7 +605,7 @@ public class ControlPeriodosActivos implements Serializable {
         index = -1;
         secRegistro = null;
         cualCelda = -1;
-        PrimefacesContextUI.ejecutar("PF('EmpresasDialogo').show()");
+        RequestContext.getCurrentInstance().execute("PF('EmpresasDialogo').show()");
     }
 
     public void cambiarEmpresa() {
@@ -621,8 +621,8 @@ public class ControlPeriodosActivos implements Serializable {
             listEmpresa = null;
             aceptar = true;
             context.reset("formularioDialogos:lovEmpresas:globalFilter");
-            PrimefacesContextUI.ejecutar("PF('lovEmpresas').clearFilters()");
-            PrimefacesContextUI.ejecutar("PF('EmpresasDialogo').hide()");
+            RequestContext.getCurrentInstance().execute("PF('lovEmpresas').clearFilters()");
+            RequestContext.getCurrentInstance().execute("PF('EmpresasDialogo').hide()");
             //RequestContext.getCurrentInstance().update(":lovEmpresas");
             backUpEmpresaActual = empresaSeleccionada;
             banderaModificacionEmpresa = 0;
@@ -630,7 +630,7 @@ public class ControlPeriodosActivos implements Serializable {
 
         } else {
             banderaModificacionEmpresa = 0;
-            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
         }
     }
 
@@ -640,8 +640,8 @@ public class ControlPeriodosActivos implements Serializable {
         index = -1;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formularioDialogos:lovEmpresas:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovEmpresas').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('EmpresasDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovEmpresas').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('EmpresasDialogo').hide()");
     }
 //-----------------------------------------------------------------------------**
 

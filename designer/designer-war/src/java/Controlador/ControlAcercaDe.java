@@ -5,7 +5,7 @@
  */
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import Entidades.Empresas;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
@@ -114,8 +114,8 @@ public class ControlAcercaDe implements Serializable {
         filtradoListaEmpresas = null;
         aceptar = true;
         context.reset("formularioDialogos:lovEmpresas:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovEmpresas').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('EmpresasDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovEmpresas').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('EmpresasDialogo').hide()");
         //RequestContext.getCurrentInstance().update("formularioDialogos:lovEmpresas");
         RequestContext.getCurrentInstance().update("form:PanelTotal");
     }
@@ -124,8 +124,8 @@ public class ControlAcercaDe implements Serializable {
         filtradoListaEmpresas = null;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formularioDialogos:lovEmpresas:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovEmpresas').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('EmpresasDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovEmpresas').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('EmpresasDialogo').hide()");
     }
 
     public void limpiarNuevoEmpresas() {

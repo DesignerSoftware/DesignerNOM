@@ -4,7 +4,7 @@
  */
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import Entidades.SoPoblacionObjetivos;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
@@ -167,12 +167,12 @@ public class ControlSoPoblacionObjetivos implements Serializable {
             if (cualCelda == 2) {
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("form:personasDialogo");
-                PrimefacesContextUI.ejecutar("PF('personasDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('personasDialogo').show()");
             }
             if (cualCelda == 3) {
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("form:cargosDialogo");
-                PrimefacesContextUI.ejecutar("PF('cargosDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('cargosDialogo').show()");
             }
         }
     }
@@ -338,7 +338,7 @@ public class ControlSoPoblacionObjetivos implements Serializable {
 
                     } else {
                         RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
+                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
 
                     }
                     index = -1;
@@ -391,7 +391,7 @@ public class ControlSoPoblacionObjetivos implements Serializable {
                         }
                     } else {
                         RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
+                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
 
                     }
                     index = -1;
@@ -449,7 +449,7 @@ public class ControlSoPoblacionObjetivos implements Serializable {
 
                     } else {
                         RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
+                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
                     }
                     index = -1;
                     secRegistro = null;
@@ -496,7 +496,7 @@ public class ControlSoPoblacionObjetivos implements Serializable {
 
                     } else {
                         RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
+                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
                     }
                     index = -1;
                     secRegistro = null;
@@ -593,7 +593,7 @@ public class ControlSoPoblacionObjetivos implements Serializable {
 
      RequestContext context = RequestContext.getCurrentInstance();
      RequestContext.getCurrentInstance().update("form:validacionBorrar");
-     PrimefacesContextUI.ejecutar("PF('validacionBorrar').show()");
+     RequestContext.getCurrentInstance().execute("PF('validacionBorrar').show()");
      index = -1;
      contarBienProgramacionesDepartamento = new BigInteger("-1");
      contarCapModulosDepartamento = new BigInteger("-1");
@@ -611,7 +611,7 @@ public class ControlSoPoblacionObjetivos implements Serializable {
         if (!borrarSoPoblacionObjetivos.isEmpty() || !crearSoPoblacionObjetivos.isEmpty() || !modificarSoPoblacionObjetivos.isEmpty()) {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:confirmarGuardar");
-            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
         }
 
     }
@@ -626,7 +626,7 @@ public class ControlSoPoblacionObjetivos implements Serializable {
                 //mostrarBorrados
                 registrosBorrados = borrarSoPoblacionObjetivos.size();
                 RequestContext.getCurrentInstance().update("form:mostrarBorrados");
-                PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
+                RequestContext.getCurrentInstance().execute("PF('mostrarBorrados').show()");
                 borrarSoPoblacionObjetivos.clear();
             }
             if (!modificarSoPoblacionObjetivos.isEmpty()) {
@@ -664,19 +664,19 @@ public class ControlSoPoblacionObjetivos implements Serializable {
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editPais");
-                PrimefacesContextUI.ejecutar("PF('editPais').show()");
+                RequestContext.getCurrentInstance().execute("PF('editPais').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editSubtituloFirma");
-                PrimefacesContextUI.ejecutar("PF('editSubtituloFirma').show()");
+                RequestContext.getCurrentInstance().execute("PF('editSubtituloFirma').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editBancos");
-                PrimefacesContextUI.ejecutar("PF('editBancos').show()");
+                RequestContext.getCurrentInstance().execute("PF('editBancos').show()");
                 cualCelda = -1;
             } else if (cualCelda == 3) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editCiudades");
-                PrimefacesContextUI.ejecutar("PF('editCiudades').show()");
+                RequestContext.getCurrentInstance().execute("PF('editCiudades').show()");
                 cualCelda = -1;
             }
 
@@ -763,13 +763,13 @@ public class ControlSoPoblacionObjetivos implements Serializable {
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
 
-            PrimefacesContextUI.ejecutar("PF('nuevoRegistroSoPoblacionObjetivos').hide()");
+            RequestContext.getCurrentInstance().execute("PF('nuevoRegistroSoPoblacionObjetivos').hide()");
             index = -1;
             secRegistro = null;
 
         } else {
             RequestContext.getCurrentInstance().update("form:validacionNuevaCentroCosto");
-            PrimefacesContextUI.ejecutar("PF('validacionNuevaCentroCosto').show()");
+            RequestContext.getCurrentInstance().execute("PF('validacionNuevaCentroCosto').show()");
             contador = 0;
         }
     }
@@ -788,7 +788,7 @@ public class ControlSoPoblacionObjetivos implements Serializable {
 
         duplicarSoPoblacionObjetivos = new SoPoblacionObjetivos();
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.ejecutar("PF('nuevoRegistroSoPoblacionObjetivos').show()");
+        RequestContext.getCurrentInstance().execute("PF('nuevoRegistroSoPoblacionObjetivos').show()");
 
     }
 
@@ -813,7 +813,7 @@ public class ControlSoPoblacionObjetivos implements Serializable {
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTE");
-            PrimefacesContextUI.ejecutar("PF('duplicarRegistroSoPoblacionObjetivos').show()");
+            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroSoPoblacionObjetivos').show()");
             index = -1;
             secRegistro = null;
         }
@@ -901,12 +901,12 @@ public class ControlSoPoblacionObjetivos implements Serializable {
             }
             duplicarSoPoblacionObjetivos = new SoPoblacionObjetivos();
 
-            PrimefacesContextUI.ejecutar("PF('duplicarRegistroSoPoblacionObjetivos').hide()");
+            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroSoPoblacionObjetivos').hide()");
 
         } else {
             contador = 0;
             RequestContext.getCurrentInstance().update("form:validacionDuplicarVigencia");
-            PrimefacesContextUI.ejecutar("PF('validacionDuplicarVigencia').show()");
+            RequestContext.getCurrentInstance().execute("PF('validacionDuplicarVigencia').show()");
         }
     }
 
@@ -943,24 +943,24 @@ public class ControlSoPoblacionObjetivos implements Serializable {
                 int resultado = administrarRastros.obtenerTabla(secRegistro, "SOPOBLACIONOBJETIVOS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
                 System.out.println("resultado: " + resultado);
                 if (resultado == 1) {
-                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
-                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+                RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("SOPOBLACIONOBJETIVOS")) { // igual acá
-                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
             } else {
-                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
             }
 
         }

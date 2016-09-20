@@ -4,7 +4,7 @@ package Controlador;
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-import utilidadesUI.PrimefacesContextUI;
+
 import Entidades.Parametros;
 import Entidades.ParametrosEstructuras;
 import Exportar.ExportarPDF;
@@ -108,9 +108,9 @@ public class ControlCerrarLiquidacion implements Serializable {
         Integer conteo = administrarCerrarLiquidacion.contarLiquidacionesCerradas(parametroEstructura.getProceso().getSecuencia(), fechaDesde, fechaHasta);
         RequestContext context = RequestContext.getCurrentInstance();
         if (conteo > 0) {
-            PrimefacesContextUI.ejecutar("PF('confirmarBorrarComprobante.show();");
+            RequestContext.getCurrentInstance().execute("PF('confirmarBorrarComprobante').show();");
         } else {
-            PrimefacesContextUI.ejecutar("PF('errorComprobante.show();");
+            RequestContext.getCurrentInstance().execute("PF('errorComprobante').show();");
         }
     }
 

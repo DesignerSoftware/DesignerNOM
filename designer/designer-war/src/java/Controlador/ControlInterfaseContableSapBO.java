@@ -5,7 +5,7 @@
  */
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import Entidades.ActualUsuario;
 import Entidades.Empresas;
 import Entidades.InterconSapBO;
@@ -293,7 +293,7 @@ public class ControlInterfaseContableSapBO {
                 RequestContext.getCurrentInstance().update("form:btnAbajo");
             }
         } else {
-            PrimefacesContextUI.ejecutar("PF('confirmarGuardarSinSalida').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarGuardarSinSalida').show()");
         }
     }
 
@@ -384,7 +384,7 @@ public class ControlInterfaseContableSapBO {
                 RequestContext.getCurrentInstance().update("form:btnAbajo");
             }
         } else {
-            PrimefacesContextUI.ejecutar("PF('confirmarGuardarSinSalida').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarGuardarSinSalida').show()");
         }
     }
 
@@ -400,16 +400,16 @@ public class ControlInterfaseContableSapBO {
 
     public void actionBtnErrores() {
         RequestContext.getCurrentInstance().update("form:ErrorDialogo");
-        PrimefacesContextUI.ejecutar("PF('ErrorDialogo').show()");
+        RequestContext.getCurrentInstance().execute("PF('ErrorDialogo').show()");
     }
 
     public void actionBtnRecontabilizar() {
         Integer contador = administrarInterfaseContableSapBO.obtenerContadorFlagGeneradoFechasSAP(parametroContableActual.getFechainicialcontabilizacion(), parametroContableActual.getFechafinalcontabilizacion());
         if (contador != null) {
             if (contador != 0) {
-                PrimefacesContextUI.ejecutar("PF('paso1Recon').show()");
+                RequestContext.getCurrentInstance().execute("PF('paso1Recon').show()");
             } else {
-                PrimefacesContextUI.ejecutar("PF('errorRecon').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRecon').show()");
             }
         }
     }
@@ -423,7 +423,7 @@ public class ControlInterfaseContableSapBO {
             fechaIniRecon = fechaI;
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:paso3Recon");
-            PrimefacesContextUI.ejecutar("PF('paso3Recon').show()");
+            RequestContext.getCurrentInstance().execute("PF('paso3Recon').show()");
         }
     }
 
@@ -548,7 +548,7 @@ public class ControlInterfaseContableSapBO {
                         tam2 = listaInterconSapBO.size();
                     }
                     if (tam1 == 0 && tam2 == 0) {
-                        PrimefacesContextUI.ejecutar("PF('procesoSinDatos').show()");
+                        RequestContext.getCurrentInstance().execute("PF('procesoSinDatos').show()");
                     }
 
                     Date fechaContable = administrarInterfaseContableSapBO.obtenerMaxFechaContabilizaciones();
@@ -559,13 +559,13 @@ public class ControlInterfaseContableSapBO {
                             String fecha = df.format(fechaContable);
                             msnFechasActualizar = fecha;
                             RequestContext.getCurrentInstance().update("form:anteriorContabilizacion");
-                            PrimefacesContextUI.ejecutar("PF('anteriorContabilizacion').show()");
+                            RequestContext.getCurrentInstance().execute("PF('anteriorContabilizacion').show()");
                         } else {
-                            PrimefacesContextUI.ejecutar("PF('nuncaContabilizo').show()");
+                            RequestContext.getCurrentInstance().execute("PF('nuncaContabilizo').show()");
                         }
                     }
                 } else {
-                    PrimefacesContextUI.ejecutar("PF('errorFechasParametros').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorFechasParametros').show()");
                 }
             }
         } catch (Exception e) {
@@ -595,7 +595,7 @@ public class ControlInterfaseContableSapBO {
         if (fechaDesde != null && fechaHasta != null) {
             if ((fechaDesde.before(parametroContableActual.getFechainicialcontabilizacion()) && fechaHasta.after(parametroContableActual.getFechafinalcontabilizacion()))
                     || (fechaDesde.before(parametroContableActual.getFechainicialcontabilizacion()) && fechaHasta.after(parametroContableActual.getFechafinalcontabilizacion()))) {
-                PrimefacesContextUI.ejecutar("PF('errorVWActualesFechas').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorVWActualesFechas').show()");
             } else {
                 if (parametroContableActual.getEmpresaRegistro().getSecuencia() != null
                         && parametroContableActual.getFechafinalcontabilizacion() != null
@@ -949,7 +949,7 @@ public class ControlInterfaseContableSapBO {
             } else {
                 permitirIndexParametro = false;
                 RequestContext.getCurrentInstance().update("form:EmpresaDialogo");
-                PrimefacesContextUI.ejecutar("PF('EmpresaDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('EmpresaDialogo').show()");
             }
         } else if (valorConfirmar.equals("PROCESO")) {
             if (!confirmarCambio.isEmpty()) {
@@ -974,7 +974,7 @@ public class ControlInterfaseContableSapBO {
                 } else {
                     permitirIndexParametro = false;
                     RequestContext.getCurrentInstance().update("form:ProcesoDialogo");
-                    PrimefacesContextUI.ejecutar("PF('ProcesoDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('ProcesoDialogo').show()");
                 }
             } else {
                 parametroContableActual.setProceso(new Procesos());
@@ -1001,7 +1001,7 @@ public class ControlInterfaseContableSapBO {
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("form:panelParametro:parametroFechaFinal");
                 RequestContext.getCurrentInstance().update("form:panelParametro:parametroFechaInicial");
-                PrimefacesContextUI.ejecutar("PF('errorFechasParametro').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorFechasParametro').show()");
             }
         } else {
             parametroContableActual.setFechafinalcontabilizacion(auxParametroFechaFinal);
@@ -1009,7 +1009,7 @@ public class ControlInterfaseContableSapBO {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:panelParametro:parametroFechaFinal");
             RequestContext.getCurrentInstance().update("form:panelParametro:parametroFechaInicial");
-            PrimefacesContextUI.ejecutar("PF('errorFechasNull').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorFechasNull').show()");
         }
     }
 
@@ -1278,31 +1278,31 @@ public class ControlInterfaseContableSapBO {
         if (indexParametroContable >= 0) {
             if (indexParametroContable == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarEmpresaParametro");
-                PrimefacesContextUI.ejecutar("PF('editarEmpresaParametro').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarEmpresaParametro').show()");
                 indexParametroContable = -1;
             } else if (indexParametroContable == 1) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarDocContableParametro");
-                PrimefacesContextUI.ejecutar("PF('editarDocContableParametro').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarDocContableParametro').show()");
                 indexParametroContable = -1;
             } else if (indexParametroContable == 2) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarProcesoParametro");
-                PrimefacesContextUI.ejecutar("PF('editarProcesoParametro').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarProcesoParametro').show()");
                 indexParametroContable = -1;
             } else if (indexParametroContable == 3) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaInicialParametro");
-                PrimefacesContextUI.ejecutar("PF('editarFechaInicialParametro').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarFechaInicialParametro').show()");
                 indexParametroContable = -1;
             } else if (indexParametroContable == 4) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaFinalParametro");
-                PrimefacesContextUI.ejecutar("PF('editarFechaFinalParametro').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarFechaFinalParametro').show()");
                 indexParametroContable = -1;
             } else if (indexParametroContable == 5) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarDocumentoParametro");
-                PrimefacesContextUI.ejecutar("PF('editarDocumentoParametro').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarDocumentoParametro').show()");
                 indexParametroContable = -1;
             } else if (indexParametroContable == 6) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaGeneracionParametro");
-                PrimefacesContextUI.ejecutar("PF('editarFechaGeneracionParametro').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarFechaGeneracionParametro').show()");
                 indexParametroContable = -1;
             }
         }
@@ -1314,31 +1314,31 @@ public class ControlInterfaseContableSapBO {
             }
             if (cualCeldaGenerado == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarProcesoGenerado");
-                PrimefacesContextUI.ejecutar("PF('editarProcesoGenerado').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarProcesoGenerado').show()");
                 cualCeldaGenerado = -1;
             } else if (cualCeldaGenerado == 1) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarEmpleadoGenerado");
-                PrimefacesContextUI.ejecutar("PF('editarEmpleadoGenerado').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarEmpleadoGenerado').show()");
                 cualCeldaGenerado = -1;
             } else if (cualCeldaGenerado == 2) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarCreditoGenerado");
-                PrimefacesContextUI.ejecutar("PF('editarCreditoGenerado').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarCreditoGenerado').show()");
                 cualCeldaGenerado = -1;
             } else if (cualCeldaGenerado == 3) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarDebitoGenerado");
-                PrimefacesContextUI.ejecutar("PF('editarDebitoGenerado').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarDebitoGenerado').show()");
                 cualCeldaGenerado = -1;
             } else if (cualCeldaGenerado == 4) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarTerceroGenerado");
-                PrimefacesContextUI.ejecutar("PF('editarTerceroGenerado').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarTerceroGenerado').show()");
                 cualCeldaGenerado = -1;
             } else if (cualCeldaGenerado == 5) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarValorGenerado");
-                PrimefacesContextUI.ejecutar("PF('editarValorGenerado').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarValorGenerado').show()");
                 cualCeldaGenerado = -1;
             } else if (cualCeldaGenerado == 6) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarConceptoGenerado");
-                PrimefacesContextUI.ejecutar("PF('editarConceptoGenerado').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarConceptoGenerado').show()");
                 cualCeldaGenerado = -1;
             }
             indexGenerado = -1;
@@ -1351,47 +1351,47 @@ public class ControlInterfaseContableSapBO {
             }
             if (cualCeldaIntercon == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarEmpleadoIntercon");
-                PrimefacesContextUI.ejecutar("PF('editarEmpleadoIntercon').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarEmpleadoIntercon').show()");
                 cualCeldaIntercon = -1;
             } else if (cualCeldaIntercon == 1) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarTerceroIntercon");
-                PrimefacesContextUI.ejecutar("PF('editarTerceroIntercon').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarTerceroIntercon').show()");
                 cualCeldaIntercon = -1;
             } else if (cualCeldaIntercon == 2) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarCuentaIntercon");
-                PrimefacesContextUI.ejecutar("PF('editarCuentaIntercon').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarCuentaIntercon').show()");
                 cualCeldaIntercon = -1;
             } else if (cualCeldaIntercon == 3) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarDebitoIntercon");
-                PrimefacesContextUI.ejecutar("PF('editarDebitoIntercon').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarDebitoIntercon').show()");
                 cualCeldaIntercon = -1;
             } else if (cualCeldaIntercon == 4) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarCreditoIntercon");
-                PrimefacesContextUI.ejecutar("PF('editarCreditoIntercon').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarCreditoIntercon').show()");
                 cualCeldaIntercon = -1;
             } else if (cualCeldaIntercon == 5) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarConceptoIntercon");
-                PrimefacesContextUI.ejecutar("PF('editarConceptoIntercon').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarConceptoIntercon').show()");
                 cualCeldaIntercon = -1;
             } else if (cualCeldaIntercon == 6) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarCentroCostoIntercon");
-                PrimefacesContextUI.ejecutar("PF('editarCentroCostoIntercon').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarCentroCostoIntercon').show()");
                 cualCeldaIntercon = -1;
             } else if (cualCeldaIntercon == 7) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarProcesoIntercon");
-                PrimefacesContextUI.ejecutar("PF('editarProcesoIntercon').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarProcesoIntercon').show()");
                 cualCeldaIntercon = -1;
             } else if (cualCeldaIntercon == 8) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarProyectoIntercon");
-                PrimefacesContextUI.ejecutar("PF('editarProyectoIntercon').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarProyectoIntercon').show()");
                 cualCeldaIntercon = -1;
             } else if (cualCeldaIntercon == 9) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarLoteIntercon");
-                PrimefacesContextUI.ejecutar("PF('editarLoteIntercon').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarLoteIntercon').show()");
                 cualCeldaIntercon = -1;
             } else if (cualCeldaIntercon == 10) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaVParametro");
-                PrimefacesContextUI.ejecutar("PF('editarFechaVParametro').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarFechaVParametro').show()");
                 cualCeldaIntercon = -1;
             }
             indexIntercon = -1;
@@ -1428,10 +1428,10 @@ public class ControlInterfaseContableSapBO {
         RequestContext context = RequestContext.getCurrentInstance();
         if (numeroDialogo == 0) {
             RequestContext.getCurrentInstance().update("form:EmpresaDialogo");
-            PrimefacesContextUI.ejecutar("PF('EmpresaDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('EmpresaDialogo').show()");
         } else if (numeroDialogo == 1) {
             RequestContext.getCurrentInstance().update("form:ProcesoDialogo");
-            PrimefacesContextUI.ejecutar("PF('ProcesoDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('ProcesoDialogo').show()");
         }
     }
 
@@ -1462,8 +1462,8 @@ public class ControlInterfaseContableSapBO {
          RequestContext.getCurrentInstance().update("form:aceptarE");*/
 
         context.reset("form:lovEmpresa:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovEmpresa').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('EmpresaDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovEmpresa').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('EmpresaDialogo').hide()");
     }
 
     public void cancelarEmpresa() {
@@ -1475,8 +1475,8 @@ public class ControlInterfaseContableSapBO {
         tipoActualizacion = -1;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovEmpresa:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovEmpresa').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('EmpresaDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovEmpresa').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('EmpresaDialogo').hide()");
     }
 
     public void actualizarProceso() {
@@ -1504,8 +1504,8 @@ public class ControlInterfaseContableSapBO {
          RequestContext.getCurrentInstance().update("form:aceptarP");*/
 
         context.reset("form:lovProceso:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovProceso').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('ProcesoDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovProceso').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('ProcesoDialogo').hide()");
     }
 
     public void cancelarProceso() {
@@ -1516,8 +1516,8 @@ public class ControlInterfaseContableSapBO {
         permitirIndexParametro = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovProceso:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovProceso').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('ProcesoDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovProceso').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('ProcesoDialogo').hide()");
     }
 
     public void listaValoresBoton() {
@@ -1525,11 +1525,11 @@ public class ControlInterfaseContableSapBO {
             RequestContext context = RequestContext.getCurrentInstance();
             if (indexParametroContable == 0) {
                 RequestContext.getCurrentInstance().update("form:EmpresaDialogo");
-                PrimefacesContextUI.ejecutar("PF('EmpresaDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('EmpresaDialogo').show()");
             }
             if (indexParametroContable == 2) {
                 RequestContext.getCurrentInstance().update("form:ProcesoDialogo");
-                PrimefacesContextUI.ejecutar("PF('ProcesoDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('ProcesoDialogo').show()");
             }
         }
     }
@@ -1562,7 +1562,7 @@ public class ControlInterfaseContableSapBO {
                 RequestContext.getCurrentInstance().update("formularioDialogos:nuevaEmpresaParametro");
                 permitirIndexParametro = false;
                 RequestContext.getCurrentInstance().update("form:EmpresaDialogo");
-                PrimefacesContextUI.ejecutar("PF('EmpresaDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('EmpresaDialogo').show()");
             }
         } else if (procesoCambio.equals("PROCESO")) {
             if (!confirmarCambio.isEmpty()) {
@@ -1583,7 +1583,7 @@ public class ControlInterfaseContableSapBO {
                     RequestContext.getCurrentInstance().update("formularioDialogos:nuevaProcesoParametro");
                     permitirIndexParametro = false;
                     RequestContext.getCurrentInstance().update("form:ProcesoDialogo");
-                    PrimefacesContextUI.ejecutar("PF('ProcesoDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('ProcesoDialogo').show()");
                 }
             } else {
                 nuevoParametroContable.setProceso(new Procesos());
@@ -1633,7 +1633,7 @@ public class ControlInterfaseContableSapBO {
             if (nuevoParametroContable.getEmpresaRegistro().getSecuencia() != null && nuevoParametroContable.getFechafinalcontabilizacion() != null && nuevoParametroContable.getFechainicialcontabilizacion() != null) {
                 boolean validar = validarFechaParametro(1);
                 if (validar == true) {
-                    PrimefacesContextUI.ejecutar("PF('NuevoRegistroPC').hide()");
+                    RequestContext.getCurrentInstance().execute("PF('NuevoRegistroPC').hide()");
                     int k = 1;
                     BigInteger var = new BigInteger(String.valueOf(k));
                     nuevoParametroContable.setSecuencia(var);
@@ -1665,10 +1665,10 @@ public class ControlInterfaseContableSapBO {
                     FacesContext.getCurrentInstance().addMessage(null, msg);
                     RequestContext.getCurrentInstance().update("form:growl");
                 } else {
-                    PrimefacesContextUI.ejecutar("PF('errorFechasParametro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorFechasParametro').show()");
                 }
             } else {
-                PrimefacesContextUI.ejecutar("PF('errorNewRegNull').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorNewRegNull').show()");
             }
         } catch (Exception e) {
             System.out.println("Error Controlador agregarNuevo : " + e.toString());
@@ -1925,24 +1925,24 @@ public class ControlInterfaseContableSapBO {
                 backUpSecRegistro = secRegistro;
                 secRegistro = null;
                 if (resultado == 1) {
-                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
-                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+                RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("INTERCON_SAPBO")) {
-                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
             } else {
-                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
             }
 
         }
@@ -1968,10 +1968,10 @@ public class ControlInterfaseContableSapBO {
             int contador = administrarInterfaseContableSapBO.contarProcesosContabilizadosInterconSAPBO(parametroContableActual.getFechainicialcontabilizacion(), parametroContableActual.getFechafinalcontabilizacion());
             if (contador != -1) {
                 if (contador == 0) {
-                    PrimefacesContextUI.ejecutar("PF('contadoCeroPerContable').show()");
+                    RequestContext.getCurrentInstance().execute("PF('contadoCeroPerContable').show()");
                 } else {
                     RequestContext.getCurrentInstance().update("form:paso1CerrarPeriodo");
-                    PrimefacesContextUI.ejecutar("PF('paso1CerrarPeriodo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('paso1CerrarPeriodo').show()");
                 }
             }
         } catch (Exception e) {
@@ -1990,7 +1990,7 @@ public class ControlInterfaseContableSapBO {
             rutaArchivo = "";
             rutaArchivo = pathProceso + nombreArchivo + ".txt";
             RequestContext.getCurrentInstance().update("formularioDialogos:planoGeneradoOK");
-            PrimefacesContextUI.ejecutar("PF('planoGeneradoOK').show()");
+            RequestContext.getCurrentInstance().execute("PF('planoGeneradoOK').show()");
 
         } catch (Exception e) {
             System.out.println("Error actionBtnGenerarPlano Control : " + e.toString());
@@ -2032,14 +2032,14 @@ public class ControlInterfaseContableSapBO {
             InputStream input = new FileInputStream(file);
             ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
             setDownload(new DefaultStreamedContent(input, externalContext.getMimeType(file.getName()), file.getName()));
-            PrimefacesContextUI.ejecutar("PF('planoGeneradoOK').hide()");
+            RequestContext.getCurrentInstance().execute("PF('planoGeneradoOK').hide()");
         } catch (Exception e) {
             System.out.println("Error descarga : " + e.toString());
         }
     }
 
     public void cerrarPaginaDescarga() {
-        PrimefacesContextUI.ejecutar("PF('planoGeneradoOK').hide()");
+        RequestContext.getCurrentInstance().execute("PF('planoGeneradoOK').hide()");
     }
 
     public ActualUsuario getActualUsuarioBD() {

@@ -5,7 +5,7 @@
  */
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import Entidades.Conceptos;
 import Entidades.ParametrosConjuntos;
 import Entidades.VWDSolucionesNodosN;
@@ -1361,7 +1361,7 @@ public class ControlParametrosConjuntos implements Serializable {
     public void cambiarSeleccionDefault() {
         seleccionPorcentajes = false;
         estadisticaLBSeleccionada = null;
-//        PrimefacesContextUI.ejecutar("PF('tablaEstadisticasLB').unselectAllRows()");
+//        RequestContext.getCurrentInstance().execute("PF('tablaEstadisticasLB').unselectAllRows()");
 //        RequestContext.getCurrentInstance().update("form:tablaEstadisticasLB");
         System.out.println("Termino cambiarSeleccionDefault() :");
         System.out.println("estadisticaSeleccionada : " + estadisticaSeleccionada);
@@ -1371,7 +1371,7 @@ public class ControlParametrosConjuntos implements Serializable {
     public void cambiarSeleccionLBDefault() {
         seleccionPorcentajes = false;
         estadisticaSeleccionada = null;
-//        PrimefacesContextUI.ejecutar("PF('tablaEstadisticas').unselectAllRows()");
+//        RequestContext.getCurrentInstance().execute("PF('tablaEstadisticas').unselectAllRows()");
 //        RequestContext.getCurrentInstance().update("form:tablaEstadisticas");
         System.out.println("Termino cambiarSeleccionLBDefault() :");
         System.out.println("estadisticaSeleccionada : " + estadisticaSeleccionada);
@@ -1391,7 +1391,7 @@ public class ControlParametrosConjuntos implements Serializable {
 
     public void estadisticasDetalle() {
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.ejecutar("PF('operacionEnProceso').show()");
+        RequestContext.getCurrentInstance().execute("PF('operacionEnProceso').show()");
         seleccionPorcentajes = false;
         FacesContext contextF = FacesContext.getCurrentInstance();
         Map<String, String> map = contextF.getExternalContext().getRequestParameterMap();
@@ -1507,14 +1507,14 @@ public class ControlParametrosConjuntos implements Serializable {
         context.reset("form:lOVDetalles:globalFilter");
         RequestContext.getCurrentInstance().update("form:detallesDialogo");
         RequestContext.getCurrentInstance().update("form:lOVDetalles");
-        PrimefacesContextUI.ejecutar("PF('form:lOVDetalles').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('operacionEnProceso').hide()");
-        PrimefacesContextUI.ejecutar("PF('detallesDialogo').show()");
+        RequestContext.getCurrentInstance().execute("PF('form:lOVDetalles').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('operacionEnProceso').hide()");
+        RequestContext.getCurrentInstance().execute("PF('detallesDialogo').show()");
     }
 
     public void estadisticasDetalleLB() {
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.ejecutar("PF('operacionEnProceso').show()");
+        RequestContext.getCurrentInstance().execute("PF('operacionEnProceso').show()");
         seleccionPorcentajes = false;
         FacesContext contextF = FacesContext.getCurrentInstance();
         Map<String, String> map = contextF.getExternalContext().getRequestParameterMap();
@@ -1630,9 +1630,9 @@ public class ControlParametrosConjuntos implements Serializable {
         context.reset("form:lOVDetalles:globalFilter");
         RequestContext.getCurrentInstance().update("form:detallesDialogo");
         RequestContext.getCurrentInstance().update("form:lOVDetalles");
-        PrimefacesContextUI.ejecutar("PF('lOVDetalles').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('operacionEnProceso').hide()");
-        PrimefacesContextUI.ejecutar("PF('detallesDialogo').show()");
+        RequestContext.getCurrentInstance().execute("PF('lOVDetalles').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('operacionEnProceso').hide()");
+        RequestContext.getCurrentInstance().execute("PF('detallesDialogo').show()");
     }
 
     public void salirDetalles() {
@@ -1640,8 +1640,8 @@ public class ControlParametrosConjuntos implements Serializable {
         context.reset("form:lOVDetalles:globalFilter");
         RequestContext.getCurrentInstance().update("form:detallesDialogo");
         RequestContext.getCurrentInstance().update("form:lOVDetalles");
-        PrimefacesContextUI.ejecutar("PF('lOVDetalles').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('detallesDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lOVDetalles').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('detallesDialogo').hide()");
     }
 
     public void calcularTotalesDet() {
@@ -2190,10 +2190,10 @@ public class ControlParametrosConjuntos implements Serializable {
         context.reset("form:LOVConceptos:globalFilter");
         RequestContext.getCurrentInstance().update("form:conceptosDialogo");
         RequestContext.getCurrentInstance().update("form:LOVConceptos");
-        PrimefacesContextUI.ejecutar("PF('LOVConceptos').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('LOVConceptos').unselectAllRows()");
-        PrimefacesContextUI.ejecutar("PF('operacionEnProceso').hide()");
-        PrimefacesContextUI.ejecutar("PF('conceptosDialogo').show()");
+        RequestContext.getCurrentInstance().execute("PF('LOVConceptos').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('LOVConceptos').unselectAllRows()");
+        RequestContext.getCurrentInstance().execute("PF('operacionEnProceso').hide()");
+        RequestContext.getCurrentInstance().execute("PF('conceptosDialogo').show()");
     }
 
     public void cargarListaConceptos() {
@@ -2218,10 +2218,10 @@ public class ControlParametrosConjuntos implements Serializable {
         context.reset("form:LOVConceptos:globalFilter");
         RequestContext.getCurrentInstance().update("form:conceptosDialogo");
         RequestContext.getCurrentInstance().update("form:LOVConceptos");
-        PrimefacesContextUI.ejecutar("PF('LOVConceptos').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('LOVConceptos').unselectAllRows()");
-        PrimefacesContextUI.ejecutar("PF('operacionEnProceso').hide()");
-        PrimefacesContextUI.ejecutar("PF('conceptosDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('LOVConceptos').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('LOVConceptos').unselectAllRows()");
+        RequestContext.getCurrentInstance().execute("PF('operacionEnProceso').hide()");
+        RequestContext.getCurrentInstance().execute("PF('conceptosDialogo').hide()");
     }
 
     public void editar() {
@@ -2416,16 +2416,16 @@ public class ControlParametrosConjuntos implements Serializable {
             }
             if (cualCelda == 107 || cualCelda > 108) {
                 RequestContext.getCurrentInstance().update("form:editarDialogo");
-                PrimefacesContextUI.ejecutar("PF('editarDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarDialogo').show()");
             } else if (cualCelda == 108) {
                 RequestContext.getCurrentInstance().update("form:editarDialogoFecha");
-                PrimefacesContextUI.ejecutar("PF('editarDialogoFecha').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarDialogoFecha').show()");
             } else {
                 RequestContext.getCurrentInstance().update("form:editarDialogoNum");
-                PrimefacesContextUI.ejecutar("PF('editarDialogoNum').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarDialogoNum').show()");
             }
         } else {
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
@@ -2538,7 +2538,7 @@ public class ControlParametrosConjuntos implements Serializable {
             exporter.export(context, tabla, "EstadisticasPeriodoAnteriorPDF", false, false, "UTF-8", null, null);
             context.responseComplete();
         } else {
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
@@ -2566,7 +2566,7 @@ public class ControlParametrosConjuntos implements Serializable {
             exporter.export(context, tabla, "EstadisticasPeriodoAnteriorXLS", false, false, "UTF-8", null, null);
             context.responseComplete();
         } else {
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 

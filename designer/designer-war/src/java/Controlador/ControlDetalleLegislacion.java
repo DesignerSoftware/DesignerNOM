@@ -1,6 +1,6 @@
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import Entidades.Contratos;
 import Entidades.Formulas;
 import Entidades.Formulascontratos;
@@ -253,7 +253,7 @@ public class ControlDetalleLegislacion implements Serializable {
                     filtrarListFormulasContratosDetalle.get(index).setFechainicial(fechaIni);
                 }
                 RequestContext.getCurrentInstance().update("form:datosFormulaContrato");
-                PrimefacesContextUI.ejecutar("PF('errorFechasHF').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorFechasHF').show()");
                 index = -1;
             }
         } else {
@@ -265,7 +265,7 @@ public class ControlDetalleLegislacion implements Serializable {
                 filtrarListFormulasContratosDetalle.get(index).setFechainicial(fechaIni);
             }
             RequestContext.getCurrentInstance().update("form:datosFormulaContrato");
-            PrimefacesContextUI.ejecutar("PF('errorRegNuevo').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorRegNuevo').show()");
             index = -1;
         }
     }
@@ -339,7 +339,7 @@ public class ControlDetalleLegislacion implements Serializable {
             } else {
                 permitirIndex = false;
                 RequestContext.getCurrentInstance().update("form:FormulaDialogo");
-                PrimefacesContextUI.ejecutar("PF('FormulaDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('FormulaDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -366,7 +366,7 @@ public class ControlDetalleLegislacion implements Serializable {
             } else {
                 permitirIndex = false;
                 RequestContext.getCurrentInstance().update("form:FormulaDialogo");
-                PrimefacesContextUI.ejecutar("PF('FormulaDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('FormulaDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -393,7 +393,7 @@ public class ControlDetalleLegislacion implements Serializable {
             } else {
                 permitirIndex = false;
                 RequestContext.getCurrentInstance().update("form:FormulaDialogo");
-                PrimefacesContextUI.ejecutar("PF('FormulaDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('FormulaDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -420,7 +420,7 @@ public class ControlDetalleLegislacion implements Serializable {
             } else {
                 permitirIndex = false;
                 RequestContext.getCurrentInstance().update("form:PeriodicidadDialogo");
-                PrimefacesContextUI.ejecutar("PF('PeriodicidadDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('PeriodicidadDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -447,7 +447,7 @@ public class ControlDetalleLegislacion implements Serializable {
             } else {
                 permitirIndex = false;
                 RequestContext.getCurrentInstance().update("form:TerceroDialogo");
-                PrimefacesContextUI.ejecutar("PF('TerceroDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('TerceroDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -474,7 +474,7 @@ public class ControlDetalleLegislacion implements Serializable {
             } else {
                 permitirIndex = false;
                 RequestContext.getCurrentInstance().update("form:TerceroDialogo");
-                PrimefacesContextUI.ejecutar("PF('TerceroDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('TerceroDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -709,43 +709,43 @@ public class ControlDetalleLegislacion implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaIniFormula");
-                PrimefacesContextUI.ejecutar("PF('editarFechaIniFormula').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarFechaIniFormula').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaFinFormula");
-                PrimefacesContextUI.ejecutar("PF('editarFechaFinFormula').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarFechaFinFormula').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarNombreLargoFormula");
-                PrimefacesContextUI.ejecutar("PF('editarNombreLargoFormula').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarNombreLargoFormula').show()");
                 cualCelda = -1;
             } else if (cualCelda == 3) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarNombreCortoFormula");
-                PrimefacesContextUI.ejecutar("PF('editarNombreCortoFormula').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarNombreCortoFormula').show()");
                 cualCelda = -1;
             } else if (cualCelda == 4) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarEstadoFormula");
-                PrimefacesContextUI.ejecutar("PF('editarEstadoFormula').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarEstadoFormula').show()");
                 cualCelda = -1;
             } else if (cualCelda == 5) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarPeriodicidadFormula");
-                PrimefacesContextUI.ejecutar("PF('editarPeriodicidadFormula').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarPeriodicidadFormula').show()");
                 cualCelda = -1;
             } else if (cualCelda == 6) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarNitFormula");
-                PrimefacesContextUI.ejecutar("PF('editarNitFormula').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarNitFormula').show()");
                 cualCelda = -1;
             } else if (cualCelda == 7) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarTerceroFormula");
-                PrimefacesContextUI.ejecutar("PF('editarTerceroFormula').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarTerceroFormula').show()");
                 cualCelda = -1;
             } else if (cualCelda == 8) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarObservacionFormula");
-                PrimefacesContextUI.ejecutar("PF('editarObservacionFormula').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarObservacionFormula').show()");
                 cualCelda = -1;
             } else if (cualCelda == 9) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarConceptosFormula");
-                PrimefacesContextUI.ejecutar("PF('editarConceptosFormula').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarConceptosFormula').show()");
                 cualCelda = -1;
             }
         }
@@ -756,7 +756,7 @@ public class ControlDetalleLegislacion implements Serializable {
     public void validarIngresoNuevoRegistro() {
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:NuevoRegistroFormula");
-        PrimefacesContextUI.ejecutar("PF('NuevoRegistroFormula').show()");
+        RequestContext.getCurrentInstance().execute("PF('NuevoRegistroFormula').show()");
 
     }
 
@@ -830,17 +830,17 @@ public class ControlDetalleLegislacion implements Serializable {
                     guardado = false;
                     RequestContext.getCurrentInstance().update("form:aceptar");
                 }
-                PrimefacesContextUI.ejecutar("PF('NuevoRegistroFormula').hide()");
+                RequestContext.getCurrentInstance().execute("PF('NuevoRegistroFormula').hide()");
                 cambiosFormulaContrato = true;
                 index = -1;
                 secRegistroFormulaContrato = null;
             } else {
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.ejecutar("PF('errorFechasHF').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorFechasHF').show()");
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.ejecutar("PF('errorRegNuevo').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorRegNuevo').show()");
             System.out.println("Error");
         }
     }
@@ -898,7 +898,7 @@ public class ControlDetalleLegislacion implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarRegistroFormula");
-            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroFormula').show()");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroFormula').show()");
             index = -1;
             secRegistroFormulaContrato = null;
         }
@@ -956,17 +956,17 @@ public class ControlDetalleLegislacion implements Serializable {
                     guardado = false;
                     RequestContext.getCurrentInstance().update("form:aceptar");
                 }
-                PrimefacesContextUI.ejecutar("PF('DuplicarRegistroFormula').hide()");
+                RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroFormula').hide()");
                 cambiosFormulaContrato = true;
                 index = -1;
                 secRegistroFormulaContrato = null;
             } else {
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.ejecutar("PF('errorFechasHF').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorFechasHF').show()");
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.ejecutar("PF('errorRegNuevo').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorRegNuevo').show()");
             System.out.println("Error");
         }
     }
@@ -1162,13 +1162,13 @@ public class ControlDetalleLegislacion implements Serializable {
         }
         if (dlg == 0) {
             RequestContext.getCurrentInstance().update("form:FormulaDialogo");
-            PrimefacesContextUI.ejecutar("PF('FormulaDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('FormulaDialogo').show()");
         } else if (dlg == 1) {
             RequestContext.getCurrentInstance().update("form:PeriodicidadDialogo");
-            PrimefacesContextUI.ejecutar("PF('PeriodicidadDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('PeriodicidadDialogo').show()");
         } else if (dlg == 2) {
             RequestContext.getCurrentInstance().update("form:TerceroDialogo");
-            PrimefacesContextUI.ejecutar("PF('TerceroDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('TerceroDialogo').show()");
         }
     }
 
@@ -1182,32 +1182,32 @@ public class ControlDetalleLegislacion implements Serializable {
         if (index >= 0) {
             if (cualCelda == 2) {
                 RequestContext.getCurrentInstance().update("form:FormulaDialogo");
-                PrimefacesContextUI.ejecutar("PF('FormulaDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('FormulaDialogo').show()");
                 tipoActualizacion = 0;
             }
             if (cualCelda == 3) {
                 RequestContext.getCurrentInstance().update("form:FormulaDialogo");
-                PrimefacesContextUI.ejecutar("PF('FormulaDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('FormulaDialogo').show()");
                 tipoActualizacion = 0;
             }
             if (cualCelda == 4) {
                 RequestContext.getCurrentInstance().update("form:FormulaDialogo");
-                PrimefacesContextUI.ejecutar("PF('FormulaDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('FormulaDialogo').show()");
                 tipoActualizacion = 0;
             }
             if (cualCelda == 5) {
                 RequestContext.getCurrentInstance().update("form:PeriodicidadDialogo");
-                PrimefacesContextUI.ejecutar("PF('PeriodicidadDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('PeriodicidadDialogo').show()");
                 tipoActualizacion = 0;
             }
             if (cualCelda == 6) {
                 RequestContext.getCurrentInstance().update("form:TerceroDialogo");
-                PrimefacesContextUI.ejecutar("PF('TerceroDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('TerceroDialogo').show()");
                 tipoActualizacion = 0;
             }
             if (cualCelda == 7) {
                 RequestContext.getCurrentInstance().update("form:TerceroDialogo");
-                PrimefacesContextUI.ejecutar("PF('TerceroDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('TerceroDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -1297,7 +1297,7 @@ public class ControlDetalleLegislacion implements Serializable {
                 getListFormulas();
             } else {
                 RequestContext.getCurrentInstance().update("form:TerceroDialogo");
-                PrimefacesContextUI.ejecutar("PF('TerceroDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('TerceroDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:nuevaFormulaNombreLargo");
@@ -1335,7 +1335,7 @@ public class ControlDetalleLegislacion implements Serializable {
                 getListFormulas();
             } else {
                 RequestContext.getCurrentInstance().update("form:CiudadDialogo");
-                PrimefacesContextUI.ejecutar("PF('CiudadDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('CiudadDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:nuevaFormulaNombreCorto");
@@ -1373,7 +1373,7 @@ public class ControlDetalleLegislacion implements Serializable {
                 getListFormulas();
             } else {
                 RequestContext.getCurrentInstance().update("form:CiudadDialogo");
-                PrimefacesContextUI.ejecutar("PF('CiudadDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('CiudadDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:nuevaFormulaEstado");
@@ -1405,7 +1405,7 @@ public class ControlDetalleLegislacion implements Serializable {
                 getListPeriodicidades();
             } else {
                 RequestContext.getCurrentInstance().update("form:CiudadDialogo");
-                PrimefacesContextUI.ejecutar("PF('CiudadDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('CiudadDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:nuevaFormulaPeriodicidad");
@@ -1439,7 +1439,7 @@ public class ControlDetalleLegislacion implements Serializable {
                 getListTerceros();
             } else {
                 RequestContext.getCurrentInstance().update("form:CiudadDialogo");
-                PrimefacesContextUI.ejecutar("PF('CiudadDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('CiudadDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:nuevaFormulaNit");
@@ -1473,7 +1473,7 @@ public class ControlDetalleLegislacion implements Serializable {
                 getListTerceros();
             } else {
                 RequestContext.getCurrentInstance().update("form:CiudadDialogo");
-                PrimefacesContextUI.ejecutar("PF('CiudadDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('CiudadDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:nuevaFormulaTercero");
@@ -1543,8 +1543,8 @@ public class ControlDetalleLegislacion implements Serializable {
         tipoActualizacion = -1;
 
         context.reset("form:lovFormula:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovFormula').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('FormulaDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovFormula').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('FormulaDialogo').hide()");
 
     }
 
@@ -1558,8 +1558,8 @@ public class ControlDetalleLegislacion implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovFormula:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovFormula').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('FormulaDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovFormula').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('FormulaDialogo').hide()");
     }
 
     public void actualizarTercero() {
@@ -1608,8 +1608,8 @@ public class ControlDetalleLegislacion implements Serializable {
         tipoActualizacion = -1;
 
         context.reset("form:lovTercero:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovTercero').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('TerceroDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovTercero').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('TerceroDialogo').hide()");
     }
 
     public void cancelarCambioTercero() {
@@ -1622,8 +1622,8 @@ public class ControlDetalleLegislacion implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovTercero:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovTercero').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('TerceroDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovTercero').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('TerceroDialogo').hide()");
     }
 
     public void actualizarPeriodicidad() {
@@ -1669,8 +1669,8 @@ public class ControlDetalleLegislacion implements Serializable {
         tipoActualizacion = -1;
 
         context.reset("form:lovPeriodicidad:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovPeriodicidad').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('PeriodicidadDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovPeriodicidad').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('PeriodicidadDialogo').hide()");
     }
 
     public void cancelarCambioPeriodicidad() {
@@ -1683,8 +1683,8 @@ public class ControlDetalleLegislacion implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovPeriodicidad:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovPeriodicidad').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('PeriodicidadDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovPeriodicidad').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('PeriodicidadDialogo').hide()");
     }
 
     /**
@@ -1764,7 +1764,7 @@ public class ControlDetalleLegislacion implements Serializable {
     public void dialogoSeleccionarFormula() {
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:BuscarFormulaDialogo");
-        PrimefacesContextUI.ejecutar("PF('BuscarFormulaDialogo').show()");
+        RequestContext.getCurrentInstance().execute("PF('BuscarFormulaDialogo').show()");
     }
 
     public void cancelarSeleccionFormula() {
@@ -1785,7 +1785,7 @@ public class ControlDetalleLegislacion implements Serializable {
         } else {
             formulaContratosSeleccionado = new Formulascontratos();
             filtrarListFormulasContratosDetalle = null;
-            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
         }
     }
 
@@ -1797,7 +1797,7 @@ public class ControlDetalleLegislacion implements Serializable {
             aceptar = true;
             RequestContext.getCurrentInstance().update("form:datosFormulaContrato");
         } else {
-            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
         }
     }
 
@@ -1817,30 +1817,30 @@ public class ControlDetalleLegislacion implements Serializable {
                 backUp = secRegistroFormulaContrato;
                 secRegistroFormulaContrato = null;
                 if (resultado == 1) {
-                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
                     nombreTablaRastro = "Formulascontratos";
                     msnConfirmarRastro = "La tabla FORMULASCONTRATOS tiene rastros para el registro seleccionado, ¿desea continuar?";
                     RequestContext.getCurrentInstance().update("form:msnConfirmarRastro");
-                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+                RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("FORMULASCONTRATOS")) {
                 nombreTablaRastro = "Formulascontratos";
                 msnConfirmarRastroHistorico = "La tabla FORMULASCONTRATOS tiene rastros historicos, ¿Desea continuar?";
                 RequestContext.getCurrentInstance().update("form:confirmarRastroHistorico");
-                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
             } else {
-                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
             }
         }
         index = -1;

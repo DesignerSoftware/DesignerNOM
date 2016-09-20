@@ -4,7 +4,7 @@
  */
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import Entidades.Conceptos;
 import Entidades.Empleados;
 import Entidades.Novedades;
@@ -208,47 +208,47 @@ public class ControlEmplNovedad implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarCodigoConceptoD");
-                PrimefacesContextUI.ejecutar("PF('editarCodigoConceptoD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarCodigoConceptoD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarDescripcionConceptoD");
-                PrimefacesContextUI.ejecutar("PF('editarDescripcionConceptoD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarDescripcionConceptoD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaInicial");
-                PrimefacesContextUI.ejecutar("PF('editarFechaInicial').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarFechaInicial').show()");
                 cualCelda = -1;
             } else if (cualCelda == 3) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaFinal");
-                PrimefacesContextUI.ejecutar("PF('editarFechaFinal').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarFechaFinal').show()");
                 cualCelda = -1;
             } else if (cualCelda == 4) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarValorD");
-                PrimefacesContextUI.ejecutar("PF('editarValorD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarValorD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 5) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarSaldoD");
-                PrimefacesContextUI.ejecutar("PF('editarSaldoD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarSaldoD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 6) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarCodigoPeriodicidadD");
-                PrimefacesContextUI.ejecutar("PF('editarCodigoPeriodicidadD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarCodigoPeriodicidadD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 7) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarNombrePeriodicidadD");
-                PrimefacesContextUI.ejecutar("PF('editarNombrePeriodicidadD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarNombrePeriodicidadD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 8) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarTerceroD");
-                PrimefacesContextUI.ejecutar("PF('editarTerceroD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarTerceroD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 9) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarObservacionD");
-                PrimefacesContextUI.ejecutar("PF('editarObservacionD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarObservacionD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 10) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaIngreso");
-                PrimefacesContextUI.ejecutar("PF('editarFechaIngreso').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarFechaIngreso').show()");
                 cualCelda = -1;
             }
         }
@@ -395,21 +395,21 @@ public class ControlEmplNovedad implements Serializable {
                 backUpSecRegistro = secRegistro;
                 secRegistro = null;
                 if (resultado == 1) {
-                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
-                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
                 }
             } else {
                 if (administrarRastros.verificarHistoricosTabla("NOVEDADES")) {
-                    PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
                 } else {
-                    PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
                 }
 
             }

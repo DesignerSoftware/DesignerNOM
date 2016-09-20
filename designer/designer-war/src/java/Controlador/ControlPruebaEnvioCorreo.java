@@ -1,6 +1,6 @@
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import Entidades.Empleados;
 import InterfaceAdministrar.AdministarReportesInterface;
 import java.io.File;
@@ -93,7 +93,7 @@ public class ControlPruebaEnvioCorreo implements Serializable {
             mensajeValidacion = "El correo no pudo ser enviado, lo sentimos.";
         }
         RequestContext.getCurrentInstance().update("form:validarEnvioCorreo");
-        PrimefacesContextUI.ejecutar("PF('validarEnvioCorreo.show();");
+        RequestContext.getCurrentInstance().execute("PF('validarEnvioCorreo').show();");
     }
 
     //ENVIAR CORREO

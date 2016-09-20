@@ -5,7 +5,7 @@
  */
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import Entidades.GruposConceptos;
 import Entidades.Operandos;
 import Entidades.Procesos;
@@ -215,10 +215,10 @@ public class ControlOperandoGrupoConcepto implements Serializable {
         }
         if (dlg == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:operandosDialogo");
-            PrimefacesContextUI.ejecutar("PF('operandosDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('operandosDialogo').show()");
         } else if (dlg == 1) {
             RequestContext.getCurrentInstance().update("formularioDialogos:gruposDialogo");
-            PrimefacesContextUI.ejecutar("PF('gruposDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('gruposDialogo').show()");
         }
     }
 
@@ -228,11 +228,11 @@ public class ControlOperandoGrupoConcepto implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:operandosDialogo");
-                PrimefacesContextUI.ejecutar("PF('operandosDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('operandosDialogo').show()");
                 tipoActualizacion = 0;
             } else if (cualCelda == 1) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:gruposDialogo");
-                PrimefacesContextUI.ejecutar("PF('gruposDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('gruposDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -281,8 +281,8 @@ public class ControlOperandoGrupoConcepto implements Serializable {
         tipoActualizacion = -1;
         cualCelda = -1;
         context.reset("formularioDialogos:LOVOperandos:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('LOVOperandos').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('operandosDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('LOVOperandos').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('operandosDialogo').hide()");
         //RequestContext.getCurrentInstance().update("formularioDialogos:LOVOperandos");
     }
 
@@ -329,8 +329,8 @@ public class ControlOperandoGrupoConcepto implements Serializable {
         tipoActualizacion = -1;
         cualCelda = -1;
         context.reset("formularioDialogos:LOVGrupos:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('LOVGrupos').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('gruposDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('LOVGrupos').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('gruposDialogo').hide()");
         //RequestContext.getCurrentInstance().update("formularioDialogos:LOVGrupos");
     }
 
@@ -345,8 +345,8 @@ public class ControlOperandoGrupoConcepto implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formularioDialogos:LOVOperandos:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('LOVOperandos').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('operandosDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('LOVOperandos').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('operandosDialogo').hide()");
     }
 
     public void cancelarCambioGrupos() {
@@ -360,8 +360,8 @@ public class ControlOperandoGrupoConcepto implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formularioDialogos:LOVGrupos:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('LOVGrupos').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('gruposDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('LOVGrupos').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('gruposDialogo').hide()");
     }
 
     public void guardarTodo() {
@@ -547,7 +547,7 @@ public class ControlOperandoGrupoConcepto implements Serializable {
                 getLovListaOperandos();
             } else {
                 RequestContext.getCurrentInstance().update("form:operandosDialogo");
-                PrimefacesContextUI.ejecutar("PF('operandosDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('operandosDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:nuevoOperando");
@@ -580,7 +580,7 @@ public class ControlOperandoGrupoConcepto implements Serializable {
                 getLovListaGruposConceptos();
             } else {
                 RequestContext.getCurrentInstance().update("form:gruposDialogo");
-                PrimefacesContextUI.ejecutar("PF('gruposDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('gruposDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:nuevoGrupo");
@@ -607,7 +607,7 @@ public class ControlOperandoGrupoConcepto implements Serializable {
 
         if (pasa != 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevo");
-            PrimefacesContextUI.ejecutar("PF('validacionNuevo').show()");
+            RequestContext.getCurrentInstance().execute("PF('validacionNuevo').show()");
         }
 
         if (pasa == 0) {
@@ -639,7 +639,7 @@ public class ControlOperandoGrupoConcepto implements Serializable {
                 guardado = false;
                 RequestContext.getCurrentInstance().update("form:aceptar");
             }
-            PrimefacesContextUI.ejecutar("PF('NuevoRegistroOperandosGruposConceptos').hide()");
+            RequestContext.getCurrentInstance().execute("PF('NuevoRegistroOperandosGruposConceptos').hide()");
             nuevoOperando = new OperandosGruposConceptos();
             RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroOperandosGruposConceptos");
             index = -1;
@@ -677,7 +677,7 @@ public class ControlOperandoGrupoConcepto implements Serializable {
         duplicarOperando = new OperandosGruposConceptos();
 
         RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarRegistroOperandosGruposConceptos");
-        PrimefacesContextUI.ejecutar("PF('DuplicarRegistroOperandosGruposConceptos').hide()");
+        RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroOperandosGruposConceptos').hide()");
 
     }
 
@@ -704,7 +704,7 @@ public class ControlOperandoGrupoConcepto implements Serializable {
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarOperandoGrupoConcepto");
-            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroOperandosGruposConceptos').show()");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroOperandosGruposConceptos').show()");
             index = -1;
             secRegistro = null;
 
@@ -724,11 +724,11 @@ public class ControlOperandoGrupoConcepto implements Serializable {
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarOperando");
-                PrimefacesContextUI.ejecutar("PF('editarOperando').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarOperando').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarGrupoConcepto");
-                PrimefacesContextUI.ejecutar("PF('editarGrupoConcepto').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarGrupoConcepto').show()");
                 cualCelda = -1;
             }
             index = -1;
@@ -806,7 +806,7 @@ public class ControlOperandoGrupoConcepto implements Serializable {
             } else {
                 permitirIndex = false;
                 RequestContext.getCurrentInstance().update("formularioDialogos:operandosDialogo");
-                PrimefacesContextUI.ejecutar("PF('operandosDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('operandosDialogo').show()");
                 tipoActualizacion = 0;
             }
         } else if (confirmarCambio.equalsIgnoreCase("GRUPO")) {
@@ -833,7 +833,7 @@ public class ControlOperandoGrupoConcepto implements Serializable {
             } else {
                 permitirIndex = false;
                 RequestContext.getCurrentInstance().update("formularioDialogos:gruposDialogo");
-                PrimefacesContextUI.ejecutar("PF('gruposDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('gruposDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -851,7 +851,7 @@ public class ControlOperandoGrupoConcepto implements Serializable {
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("formularioDialogos:cambiar");
-            PrimefacesContextUI.ejecutar("PF('cambiar').show()");
+            RequestContext.getCurrentInstance().execute("PF('cambiar').show()");
         }
     }
 
@@ -921,24 +921,24 @@ public class ControlOperandoGrupoConcepto implements Serializable {
                 int resultado = administrarRastros.obtenerTabla(secRegistro, "OPERANDOSGRUPOSCONCEPTOS");
                 System.out.println("resultado: " + resultado);
                 if (resultado == 1) {
-                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
-                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+                RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("OPERANDOSGRUPOSCONCEPTOS")) {
-                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
             } else {
-                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
             }
 
         }

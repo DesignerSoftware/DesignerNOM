@@ -1,6 +1,6 @@
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import Administrar.AdministrarUsuariosVistas;
 import Entidades.ObjetosDB;
 import Entidades.UsuariosVistas;
@@ -179,37 +179,37 @@ public class ControlUsuariosVistas implements Serializable {
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarDescripcion");
-                PrimefacesContextUI.ejecutar("PF('editarDescripcion').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarDescripcion').show()");
                 cualCelda = -1;
             }
             if (cualCelda == 1) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarNombreVista");
-                PrimefacesContextUI.ejecutar("PF('editarNombreVista').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarNombreVista').show()");
                 cualCelda = -1;
             }
             if (cualCelda == 2) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarObjetoDB");
-                PrimefacesContextUI.ejecutar("PF('editarObjetoDB').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarObjetoDB').show()");
                 cualCelda = -1;
             }
             if (cualCelda == 3) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarAlias");
-                PrimefacesContextUI.ejecutar("PF('editarAlias').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarAlias').show()");
                 cualCelda = -1;
             }
             if (cualCelda == 5) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarEstructuraJOIN");
-                PrimefacesContextUI.ejecutar("PF('editarEstructuraJOIN').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarEstructuraJOIN').show()");
                 cualCelda = -1;
             }
             if (cualCelda == 6) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarCondicion");
-                PrimefacesContextUI.ejecutar("PF('editarCondicion').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarCondicion').show()");
                 cualCelda = -1;
             }
             if (cualCelda == 7) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarHINTPrincipal");
-                PrimefacesContextUI.ejecutar("PF('editarHINTPrincipal').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarHINTPrincipal').show()");
                 cualCelda = -1;
             }
         }
@@ -262,8 +262,8 @@ public class ControlUsuariosVistas implements Serializable {
         tipoActualizacion = -1;
         cualCelda = -1;
         context.reset("formularioDialogos:LOVObjetosDB:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('LOVObjetosDB').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('objetosDBDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('LOVObjetosDB').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('objetosDBDialogo').hide()");
         infoRegistroObjetosDB = "Cantidad de registros: " + lovObjetosDB.size();
     }
 
@@ -285,7 +285,7 @@ public class ControlUsuariosVistas implements Serializable {
         }
         if (dlg == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:objetosDBDialogo");
-            PrimefacesContextUI.ejecutar("PF('objetosDBDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('objetosDBDialogo').show()");
             infoRegistroObjetosDB = "Cantidad de registros: " + lovObjetosDB.size();
             RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroObjetosDB");
         }
@@ -302,8 +302,8 @@ public class ControlUsuariosVistas implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formularioDialogos:LOVObjetosDB:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('LOVObjetosDB').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('objetosDBDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('LOVObjetosDB').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('objetosDBDialogo').hide()");
     }
 
     //LISTA DE VALORES DINAMICA
@@ -312,7 +312,7 @@ public class ControlUsuariosVistas implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 2) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:objetosDBDialogo");
-                PrimefacesContextUI.ejecutar("PF('objetosDBDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('objetosDBDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -525,7 +525,7 @@ public class ControlUsuariosVistas implements Serializable {
                     } else if (pasa > 0) {
                         listaUsuariosVistas.get(indice).setAlias(alisin);
                         RequestContext.getCurrentInstance().update("formularioDialogos:validacionVacio");
-                        PrimefacesContextUI.ejecutar("PF('validacionVacio').show()");
+                        RequestContext.getCurrentInstance().execute("PF('validacionVacio').show()");
                     }
                 }
                 index = -1;
@@ -549,7 +549,7 @@ public class ControlUsuariosVistas implements Serializable {
                         }
                     } else if (pasa > 0) {
                         RequestContext.getCurrentInstance().update("formularioDialogos:validacionVacio");
-                        PrimefacesContextUI.ejecutar("PF('validacionVacio').show()");
+                        RequestContext.getCurrentInstance().execute("PF('validacionVacio').show()");
                     }
                 }
                 index = -1;
@@ -581,7 +581,7 @@ public class ControlUsuariosVistas implements Serializable {
             } else {
                 permitirIndex = false;
                 RequestContext.getCurrentInstance().update("formularioDialogos:objetosDBDialogo");
-                PrimefacesContextUI.ejecutar("PF('objetosDBDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('objetosDBDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -672,7 +672,7 @@ public class ControlUsuariosVistas implements Serializable {
         }
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("formularioDialogos:objetosDBDialogo");
-        PrimefacesContextUI.ejecutar("PF('objetosDBDialogo').show()");
+        RequestContext.getCurrentInstance().execute("PF('objetosDBDialogo').show()");
     }
 
     //AUTOCOMPLETAR NUEVO Y DUPLICADO OBJETOSdb
@@ -703,7 +703,7 @@ public class ControlUsuariosVistas implements Serializable {
             getLovObjetosDB();
         } else {
             RequestContext.getCurrentInstance().update("form:objetosDBDialogo");
-            PrimefacesContextUI.ejecutar("PF('objetosDBDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('objetosDBDialogo').show()");
             tipoActualizacion = tipoNuevo;
             if (tipoNuevo == 1) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:nuevoObjetoDB");
@@ -779,12 +779,12 @@ public class ControlUsuariosVistas implements Serializable {
             }
             System.out.println("SE ESTÁ CERRANDO? YA VEREMOS");
             RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroUsuarioVista");
-            PrimefacesContextUI.ejecutar("PF('NuevoRegistroUsuarioVista').hide()");
+            RequestContext.getCurrentInstance().execute("PF('NuevoRegistroUsuarioVista').hide()");
             index = -1;
             secRegistro = null;
         } else if (pasa > 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevaUsuarioVista");
-            PrimefacesContextUI.ejecutar("PF('validacionNuevaUsuarioVista').show()");
+            RequestContext.getCurrentInstance().execute("PF('validacionNuevaUsuarioVista').show()");
         }
     }
 
@@ -865,7 +865,7 @@ public class ControlUsuariosVistas implements Serializable {
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarUsuarioVista");
-            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroUsuarioVistas').show()");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroUsuarioVistas').show()");
             index = -1;
             secRegistro = null;
         }
@@ -931,11 +931,11 @@ public class ControlUsuariosVistas implements Serializable {
             RequestContext.getCurrentInstance().update("form:informacionRegistro");
 
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarUsuarioVista");
-            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroUsuarioVistas').hide()");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroUsuarioVistas').hide()");
 
         } else if (pasa > 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevaUsuarioVista");
-            PrimefacesContextUI.ejecutar("PF('validacionNuevaUsuarioVista').show()");
+            RequestContext.getCurrentInstance().execute("PF('validacionNuevaUsuarioVista').show()");
         }
 
     }
@@ -1041,24 +1041,24 @@ public class ControlUsuariosVistas implements Serializable {
                 int resultado = administrarRastros.obtenerTabla(secRegistro, "USUARIOSVISTAS");
                 System.out.println("resultado: " + resultado);
                 if (resultado == 1) {
-                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
-                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+                RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("USUARIOSVISTAS")) {
-                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
             } else {
-                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
             }
         }
         index = -1;

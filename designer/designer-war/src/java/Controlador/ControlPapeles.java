@@ -5,7 +5,7 @@
  */
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import Entidades.Papeles;
 import Entidades.Empresas;
 import Exportar.ExportarPDF;
@@ -236,7 +236,7 @@ public class ControlPapeles implements Serializable {
 
                     } else {
                         RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
+                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
                     }
                     index = -1;
                     secRegistro = null;
@@ -301,7 +301,7 @@ public class ControlPapeles implements Serializable {
 
                     } else {
                         RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
+                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
                         cancelarModificacion();
                     }
                     index = -1;
@@ -448,13 +448,13 @@ public class ControlPapeles implements Serializable {
                 aceptar = true;
                 banderaModificacionEmpresa = 1;
                 RequestContext.getCurrentInstance().update("form:datosPapeles");
-                PrimefacesContextUI.ejecutar("PF('buscarPapelesDialogo').hide()");
+                RequestContext.getCurrentInstance().execute("PF('buscarPapelesDialogo').hide()");
                 context.reset("formularioDialogos:lovPapeles:globalFilter");
             } /*else {
              System.err.println("listPapelesPorEmpresa tamaño " + listPapelesPorEmpresa.size());
              System.err.println("listPapelesPorEmpresa nombre " + listPapelesPorEmpresa.get(0).getDescripcion());
              banderaSeleccionPapelesPorEmpresa = true;
-             PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
+             RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
              PapelesPorEmpresaSeleccionado = null;
              listPapelesPorEmpresa.clear();
              System.err.println("seleccionPapelesPorEmpresa " + PapelesPorEmpresaSeleccionado.getDescripcion());
@@ -462,7 +462,7 @@ public class ControlPapeles implements Serializable {
              filterPapelesPorEmpresa = null;
              aceptar = true;
              banderaModificacionEmpresa = 0;
-             PrimefacesContextUI.ejecutar("PF('buscarPapelesDialogo').hide()");
+             RequestContext.getCurrentInstance().execute("PF('buscarPapelesDialogo').hide()");
              context.reset("formularioDialogos:lovPapeles:globalFilter");
              }*/
 
@@ -591,12 +591,12 @@ public class ControlPapeles implements Serializable {
                     tipoLista = 0;
                 }
                 mensajeValidacion = " ";
-                PrimefacesContextUI.ejecutar("PF('NuevoRegistroPapeles').hide()");
+                RequestContext.getCurrentInstance().execute("PF('NuevoRegistroPapeles').hide()");
 
             } else {
                 contador = 0;
                 RequestContext.getCurrentInstance().update("form:validacionDuplicarVigencia");
-                PrimefacesContextUI.ejecutar("PF('validacionDuplicarVigencia').show()");
+                RequestContext.getCurrentInstance().execute("PF('validacionDuplicarVigencia').show()");
             }
 
         } catch (Exception e) {
@@ -607,7 +607,7 @@ public class ControlPapeles implements Serializable {
     public void mostrarDialogoListaEmpresas() {
         RequestContext context = RequestContext.getCurrentInstance();
         index = -1;
-        PrimefacesContextUI.ejecutar("PF('buscarPapelesDialogo').show()");
+        RequestContext.getCurrentInstance().execute("PF('buscarPapelesDialogo').show()");
     }
 
     public void duplicandoPapeles() {
@@ -640,7 +640,7 @@ public class ControlPapeles implements Serializable {
 
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("formularioDialogos:duplicarPapeles");
-                PrimefacesContextUI.ejecutar("PF('DuplicarRegistroPapeles').show()");
+                RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroPapeles').show()");
                 index = -1;
             }
         } catch (Exception e) {
@@ -743,14 +743,14 @@ public class ControlPapeles implements Serializable {
 
             }
             duplicarPapel = new Papeles();
-            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroPapeles').hide()");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroPapeles').hide()");
             mensajeValidacion = " ";
             banderaModificacionEmpresa = 1;
 
         } else {
             contador = 0;
             RequestContext.getCurrentInstance().update("form:validacionDuplicarVigencia");
-            PrimefacesContextUI.ejecutar("PF('validacionDuplicarVigencia').show()");
+            RequestContext.getCurrentInstance().execute("PF('validacionDuplicarVigencia').show()");
         }
     }
 
@@ -774,7 +774,7 @@ public class ControlPapeles implements Serializable {
                 System.out.println("Borrado>0");
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("form:validacionBorrar");
-                PrimefacesContextUI.ejecutar("PF('validacionBorrar').show()");
+                RequestContext.getCurrentInstance().execute("PF('validacionBorrar').show()");
                 index = -1;
                 contarVigenciasCargosPapel = new BigInteger("-1");
             }
@@ -847,7 +847,7 @@ public class ControlPapeles implements Serializable {
                 //mostrarBorrados
                 registrosBorrados = borrarPapeles.size();
                 RequestContext.getCurrentInstance().update("form:mostrarBorrados");
-                PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
+                RequestContext.getCurrentInstance().execute("PF('mostrarBorrados').show()");
                 borrarPapeles.clear();
             }
             if (!crearPapeles.isEmpty()) {
@@ -876,7 +876,7 @@ public class ControlPapeles implements Serializable {
                 getListPapelesPorEmpresaBoton();
                 index = -1;
                 RequestContext.getCurrentInstance().update("formularioDialogos:lovPapeles");
-                PrimefacesContextUI.ejecutar("PF('buscarPapelesDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('buscarPapelesDialogo').show()");
                 banderaSeleccionPapelesPorEmpresa = false;
             }
         }
@@ -943,7 +943,7 @@ public class ControlPapeles implements Serializable {
             System.err.println("CONTROL CAMBIO EMPRESA BETA");
             if (banderaModificacionEmpresa == 1) {
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.ejecutar("PF('confirmarCambioEmpresa').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarCambioEmpresa').show()");
             } else if (banderaModificacionEmpresa == 0) {
                 getListaEmpresas();
                 for (int i = 0; i < listaEmpresas.size(); i++) {
@@ -1009,35 +1009,35 @@ public class ControlPapeles implements Serializable {
                 System.out.println("CONTROLPAPELES: Entro a editar... valor celda: " + cualCelda);
                 if (cualCelda == 0) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:editarCCC");
-                    PrimefacesContextUI.ejecutar("PF('editarCCC').show()");
+                    RequestContext.getCurrentInstance().execute("PF('editarCCC').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 1) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:editarNCC");
-                    PrimefacesContextUI.ejecutar("PF('editarNCC').show()");
+                    RequestContext.getCurrentInstance().execute("PF('editarNCC').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 2) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:editarTCC");
-                    PrimefacesContextUI.ejecutar("PF('editarTCC').show()");
+                    RequestContext.getCurrentInstance().execute("PF('editarTCC').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 3) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:editarMO");
-                    PrimefacesContextUI.ejecutar("PF('editarMO').show()");
+                    RequestContext.getCurrentInstance().execute("PF('editarMO').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 4) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:editarCAT");
-                    PrimefacesContextUI.ejecutar("PF('editarCAT').show()");
+                    RequestContext.getCurrentInstance().execute("PF('editarCAT').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 5) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:editarO");
-                    PrimefacesContextUI.ejecutar("PF('editarO').show()");
+                    RequestContext.getCurrentInstance().execute("PF('editarO').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 6) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:editarCCTT");
-                    PrimefacesContextUI.ejecutar("PF('editarCCTT').show()");
+                    RequestContext.getCurrentInstance().execute("PF('editarCCTT').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 7) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:editarD");
-                    PrimefacesContextUI.ejecutar("PF('editarD').show()");
+                    RequestContext.getCurrentInstance().execute("PF('editarD').show()");
                     cualCelda = -1;
                 }
             }
@@ -1081,24 +1081,24 @@ public class ControlPapeles implements Serializable {
                 int resultado = administrarRastros.obtenerTabla(secRegistro, "CENTROSCOSTOS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
                 System.out.println("resultado: " + resultado);
                 if (resultado == 1) {
-                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
-                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+                RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("CENTROSCOSTOS")) { // igual acá
-                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
             } else {
-                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
             }
 
         }
@@ -1109,7 +1109,7 @@ public class ControlPapeles implements Serializable {
         index = -1;
         secRegistro = null;
         cualCelda = -1;
-        PrimefacesContextUI.ejecutar("PF('EmpresasDialogo').show()");
+        RequestContext.getCurrentInstance().execute("PF('EmpresasDialogo').show()");
     }
 
     public void cambiarEmpresa() {
@@ -1125,8 +1125,8 @@ public class ControlPapeles implements Serializable {
             listPapelesPorEmpresa = null;
             aceptar = true;
             context.reset("formularioDialogos:lovEmpresas:globalFilter");
-            PrimefacesContextUI.ejecutar("PF('lovEmpresas').clearFilters()");
-            PrimefacesContextUI.ejecutar("PF('EmpresasDialogo').hide()");
+            RequestContext.getCurrentInstance().execute("PF('lovEmpresas').clearFilters()");
+            RequestContext.getCurrentInstance().execute("PF('EmpresasDialogo').hide()");
             //RequestContext.getCurrentInstance().update("formularioDialogos:lovEmpresas");
             backUpEmpresaActual = empresaSeleccionada;
             banderaModificacionEmpresa = 0;
@@ -1135,7 +1135,7 @@ public class ControlPapeles implements Serializable {
 
         } else {
             banderaModificacionEmpresa = 0;
-            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
         }
     }
 
@@ -1145,8 +1145,8 @@ public class ControlPapeles implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         index = -1;
         context.reset("formularioDialogos:lovEmpresas:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovEmpresas').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('EmpresasDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovEmpresas').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('EmpresasDialogo').hide()");
     }
 //-----------------------------------------------------------------------------**
 

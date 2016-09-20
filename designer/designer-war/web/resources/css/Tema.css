@@ -76,7 +76,7 @@ button .ui-widget-header{
 .ui-widget-content .ui-state-hover,
 .ui-widget-header .ui-state-hover {
    border: 1px solid #bbbbbb;
-   background: #1E63A4 url("images/ui-bg_inset-hard_60_1E63A4_1x100.png") 50% 50% repeat-x;
+   background: #1E63A4;
    color: #ffffff;
 }
 .ui-state-focus,
@@ -475,8 +475,8 @@ button .ui-widget-header{
    background-size: 100% 100% !important;
    background-repeat: no-repeat !important;
    border: none !important;
-   width: 23px;
-   height: 23px;
+   width: 21px;
+   height: 21px;
 }
 
 /*.ui-datatable thead th {

@@ -1,6 +1,6 @@
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import Entidades.Empleados;
 import Entidades.Novedades;
 import Entidades.SolucionesFormulas;
@@ -138,31 +138,31 @@ public class ControlSolucionFormula implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaHastaD");
-                PrimefacesContextUI.ejecutar("PF('editarFechaHastaD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarFechaHastaD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarConceptoD");
-                PrimefacesContextUI.ejecutar("PF('editarConceptoD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarConceptoD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarValorD");
-                PrimefacesContextUI.ejecutar("PF('editarValorD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarValorD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 3) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarSaldoD");
-                PrimefacesContextUI.ejecutar("PF('editarSaldoD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarSaldoD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 4) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaPagoD");
-                PrimefacesContextUI.ejecutar("PF('editarFechaPagoD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarFechaPagoD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 5) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarProcesoD");
-                PrimefacesContextUI.ejecutar("PF('editarProcesoD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarProcesoD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 6) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarFormulaD");
-                PrimefacesContextUI.ejecutar("PF('editarFormulaD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarFormulaD').show()");
                 cualCelda = -1;
             }
         }
@@ -293,24 +293,24 @@ public class ControlSolucionFormula implements Serializable {
                 backUpSecRegistro = secRegistro;
                 secRegistro = null;
                 if (resultado == 1) {
-                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
-                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+                RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("SOLUCIONESFORMULAS")) {
-                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
             } else {
-                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
             }
         }
         index = -1;

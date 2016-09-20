@@ -5,7 +5,7 @@
  */
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import Entidades.Empleados;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
@@ -200,28 +200,28 @@ public class ControlEmpleado implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarCodigoE");
-                PrimefacesContextUI.ejecutar("PF('editarCodigoE').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarCodigoE').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarNombreE");
-                PrimefacesContextUI.ejecutar("PF('editarNombreE').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarNombreE').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarCodDeudorE");
-                PrimefacesContextUI.ejecutar("PF('editarCodDeudorE').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarCodDeudorE').show()");
                 cualCelda = -1;
             } else if (cualCelda == 3) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarCodAcreeE");
-                PrimefacesContextUI.ejecutar("PF('editarCodAcreeE').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarCodAcreeE').show()");
                 cualCelda = -1;
             } else if (cualCelda == 4) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaE");
-                PrimefacesContextUI.ejecutar("PF('editarFechaE').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarFechaE').show()");
                 cualCelda = -1;
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
@@ -356,20 +356,20 @@ public class ControlEmpleado implements Serializable {
         if (empleadoLovSeleccionado != null) {
             int resultado = administrarRastros.obtenerTabla(empleadoSeleccionado.getSecuencia(), "EMPLEADOS");
             if (resultado == 1) {
-                PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {
-                PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
             } else if (resultado == 3) {
-                PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
             } else if (resultado == 4) {
-                PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
             } else if (resultado == 5) {
-                PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
         } else if (administrarRastros.verificarHistoricosTabla("empleadoSeleccionado")) {
-            PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
     }
 
@@ -378,7 +378,7 @@ public class ControlEmpleado implements Serializable {
 //     getLovEmpleados();
         modificarInfoRegistroLovEmpleados(lovEmpleados.size());
         RequestContext.getCurrentInstance().update("formularioDialogos:empleadosDialogo");
-        PrimefacesContextUI.ejecutar("PF('empleadosDialogo').show()");
+        RequestContext.getCurrentInstance().execute("PF('empleadosDialogo').show()");
     }
 
     public void modificarEmpleados(Empleados empleado) {
@@ -442,8 +442,8 @@ public class ControlEmpleado implements Serializable {
         }
         modificarInfoRegistro(listaEmpleados.size());
         context.reset("formularioDialogos:LOVEmpleados:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('LOVEmpleados').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('empleadosDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('LOVEmpleados').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('empleadosDialogo').hide()");
         RequestContext.getCurrentInstance().update("formularioDialogos:LOVEmpleados");
         RequestContext.getCurrentInstance().update("form:datosEmpleados");
         RequestContext.getCurrentInstance().update("formularioDialogos:aceptarD");
@@ -460,8 +460,8 @@ public class ControlEmpleado implements Serializable {
         aceptar = true;
         cualCelda = -1;
         context.reset("formularioDialogos:LOVEmpleados:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('LOVEmpleados').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('empleadosDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('LOVEmpleados').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('empleadosDialogo').hide()");
         RequestContext.getCurrentInstance().update("formularioDialogos:LOVEmpleados");
         RequestContext.getCurrentInstance().update("form:datosEmpleados");
         RequestContext.getCurrentInstance().update("formularioDialogos:aceptarD");

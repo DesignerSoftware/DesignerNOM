@@ -4,7 +4,7 @@
  */
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import Entidades.Empleados;
 import Entidades.Idiomas;
 import Entidades.IdiomasPersonas;
@@ -192,7 +192,7 @@ public class ControlIdiomaPersona implements Serializable {
                 permitirIndex = false;
                 //eliminarRegistrosIdiomaLov();
                 RequestContext.getCurrentInstance().update("form:IdiomasDialogo");
-                PrimefacesContextUI.ejecutar("PF('IdiomasDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('IdiomasDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -271,7 +271,7 @@ public class ControlIdiomaPersona implements Serializable {
             } else {
                 //  eliminarRegistrosIdiomaLov();
                 RequestContext.getCurrentInstance().update("form:IdiomasDialogo");
-                PrimefacesContextUI.ejecutar("PF('IdiomasDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('IdiomasDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:nuevaIdioma");
@@ -393,26 +393,26 @@ public class ControlIdiomaPersona implements Serializable {
             if (cualCelda == 0) {
                 habilitarBotonLov();
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarIdiomaD");
-                PrimefacesContextUI.ejecutar("PF('editarIdiomaD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarIdiomaD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
                 deshabilitarBotonLov();
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarConversacionD");
-                PrimefacesContextUI.ejecutar("PF('editarConversacionD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarConversacionD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
                 deshabilitarBotonLov();
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarLecturaD");
-                PrimefacesContextUI.ejecutar("PF('editarLecturaD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarLecturaD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 3) {
                 deshabilitarBotonLov();
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarEscrituraD");
-                PrimefacesContextUI.ejecutar("PF('editarEscrituraD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarEscrituraD').show()");
                 cualCelda = -1;
             }
         } else {
-            PrimefacesContextUI.ejecutar("PF('form:seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('form:seleccionarRegistro').show()");
         }
     }
 
@@ -454,7 +454,7 @@ public class ControlIdiomaPersona implements Serializable {
                 modificarInfoRegistro(listIdiomasPersonas.size());
                 RequestContext.getCurrentInstance().update("form:informacionRegistro");
                 RequestContext.getCurrentInstance().update("form:datosIdiomas");
-                PrimefacesContextUI.ejecutar("PF('NuevoRegistroIdiomas').hide()");
+                RequestContext.getCurrentInstance().execute("PF('NuevoRegistroIdiomas').hide()");
                 if (guardado == true) {
                     guardado = false;
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -463,11 +463,11 @@ public class ControlIdiomaPersona implements Serializable {
                 nuevaIdiomaPersona.setIdioma(new Idiomas());
             } else {
                 RequestContext.getCurrentInstance().update("form:existeIdioma");
-                PrimefacesContextUI.ejecutar("PF('existeIdioma').show()");
+                RequestContext.getCurrentInstance().execute("PF('existeIdioma').show()");
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.ejecutar("PF('errorRegNull').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorRegNull').show()");
         }
     }
 
@@ -498,10 +498,10 @@ public class ControlIdiomaPersona implements Serializable {
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarIdiomas");
-            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroIdiomas').show()");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroIdiomas').show()");
 
         } else {
-            PrimefacesContextUI.ejecutar("PF('form:seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('form:seleccionarRegistro').show()");
         }
     }
 
@@ -543,7 +543,7 @@ public class ControlIdiomaPersona implements Serializable {
                 modificarInfoRegistro(listIdiomasPersonas.size());
                 RequestContext.getCurrentInstance().update("form:informacionRegistro");
                 RequestContext.getCurrentInstance().update("form:datosIdiomas");
-                PrimefacesContextUI.ejecutar("PF('DuplicarRegistroIdiomas').hide()");
+                RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroIdiomas').hide()");
                 if (guardado == true) {
                     guardado = false;
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -551,11 +551,11 @@ public class ControlIdiomaPersona implements Serializable {
                 duplicarIdiomaPersona = new IdiomasPersonas();
             } else {
                 RequestContext.getCurrentInstance().update("form:existeIdioma");
-                PrimefacesContextUI.ejecutar("PF('existeIdioma').show()");
+                RequestContext.getCurrentInstance().execute("PF('existeIdioma').show()");
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.ejecutar("PF('errorRegNull').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorRegNull').show()");
         }
     }
 
@@ -594,7 +594,7 @@ public class ControlIdiomaPersona implements Serializable {
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         } else {
-            PrimefacesContextUI.ejecutar("PF('form:seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('form:seleccionarRegistro').show()");
         }
     }
 
@@ -673,7 +673,7 @@ public class ControlIdiomaPersona implements Serializable {
         habilitarBotonLov();
         modificarInfoRegistroIdioma(listIdiomas.size());
         RequestContext.getCurrentInstance().update("form:IdiomasDialogo");
-        PrimefacesContextUI.ejecutar("PF('IdiomasDialogo').show()");
+        RequestContext.getCurrentInstance().execute("PF('IdiomasDialogo').show()");
     }
 
     public void actualizarIdioma() {
@@ -718,8 +718,8 @@ public class ControlIdiomaPersona implements Serializable {
         tipoActualizacion = -1;
 
         context.reset("form:lovIdiomas:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovIdiomas').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('IdiomasDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovIdiomas').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('IdiomasDialogo').hide()");
         RequestContext.getCurrentInstance().update("form:IdiomasDialogo");
         RequestContext.getCurrentInstance().update("form:lovIdiomas");
         RequestContext.getCurrentInstance().update("form:aceptarI");
@@ -734,8 +734,8 @@ public class ControlIdiomaPersona implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
 
         context.reset("form:lovIdiomas:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovIdiomas').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('IdiomasDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovIdiomas').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('IdiomasDialogo').hide()");
         RequestContext.getCurrentInstance().update("form:IdiomasDialogo");
         RequestContext.getCurrentInstance().update("form:lovIdiomas");
         RequestContext.getCurrentInstance().update("form:cancelarI");
@@ -780,7 +780,7 @@ public class ControlIdiomaPersona implements Serializable {
                 habilitarBotonLov();
                 modificarInfoRegistroIdioma(listIdiomasPersonas.size());
                 RequestContext.getCurrentInstance().update("form:IdiomasDialogo");
-                PrimefacesContextUI.ejecutar("PF('IdiomasDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('IdiomasDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -816,21 +816,21 @@ public class ControlIdiomaPersona implements Serializable {
             backUpSecRegistro = idiomaTablaSeleccionado.getSecuencia();
             idiomaTablaSeleccionado = null;
             if (resultado == 1) {
-                PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {
-                PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
             } else if (resultado == 3) {
-                PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
             } else if (resultado == 4) {
-                PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
             } else if (resultado == 5) {
-                PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("IDIOMASPERSONAS")) {
-                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
             } else {
-                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
             }
 
         }

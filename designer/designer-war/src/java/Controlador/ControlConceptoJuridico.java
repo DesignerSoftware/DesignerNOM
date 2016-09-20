@@ -5,7 +5,7 @@
  */
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import Entidades.ConceptosJuridicos;
 import Entidades.Empresas;
 import Exportar.ExportarPDF;
@@ -164,7 +164,7 @@ public class ControlConceptoJuridico implements Serializable {
             textoNormativo = textoNormaAux;
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("formTexto:editarTexto");
-            PrimefacesContextUI.ejecutar("PF('errorRegNuevo').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorRegNuevo').show()");
             index = -1;
         }
     }
@@ -210,7 +210,7 @@ public class ControlConceptoJuridico implements Serializable {
             listConceptosJuridicos.get(index).setQuien(auxQuien);
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:datosConcepto");
-            PrimefacesContextUI.ejecutar("PF('errorRegNuevo').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorRegNuevo').show()");
             index = -1;
         }
     }
@@ -232,7 +232,7 @@ public class ControlConceptoJuridico implements Serializable {
             RequestContext.getCurrentInstance().update("formTexto:editarTexto");
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
         }
     }
 
@@ -245,7 +245,7 @@ public class ControlConceptoJuridico implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             listConceptosJuridicos.get(index).setFecha(auxFecha);
             RequestContext.getCurrentInstance().update("form:datosConcepto");
-            PrimefacesContextUI.ejecutar("PF('errorRegNuevo').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorRegNuevo').show()");
             index = -1;
         }
     }
@@ -377,19 +377,19 @@ public class ControlConceptoJuridico implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaCD");
-                PrimefacesContextUI.ejecutar("PF('editarFechaCD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarFechaCD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarNombreCD");
-                PrimefacesContextUI.ejecutar("PF('editarNombreCD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarNombreCD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarCargoCD");
-                PrimefacesContextUI.ejecutar("PF('editarCargoCD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarCargoCD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 3) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editaTextoD");
-                PrimefacesContextUI.ejecutar("PF('editaTextoD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editaTextoD').show()");
                 cualCelda = -1;
             }
         }
@@ -402,7 +402,7 @@ public class ControlConceptoJuridico implements Serializable {
         limpiarNuevoConcepto();
         RequestContext.getCurrentInstance().update("form:nuevaC");
         RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroConcepto");
-        PrimefacesContextUI.ejecutar("PF('NuevoRegistroConcepto').show()");
+        RequestContext.getCurrentInstance().execute("PF('NuevoRegistroConcepto').show()");
 
     }
 
@@ -414,7 +414,7 @@ public class ControlConceptoJuridico implements Serializable {
             duplicarConceptoM();
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
@@ -426,7 +426,7 @@ public class ControlConceptoJuridico implements Serializable {
             borrarConcepto();
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
@@ -503,7 +503,7 @@ public class ControlConceptoJuridico implements Serializable {
 
             RequestContext.getCurrentInstance().update("form:informacionRegistro");
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.ejecutar("PF('NuevoRegistroConcepto').hide()");
+            RequestContext.getCurrentInstance().execute("PF('NuevoRegistroConcepto').hide()");
             RequestContext.getCurrentInstance().update("form:datosConcepto");
             RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroConcepto");
             if (guardado == true) {
@@ -515,7 +515,7 @@ public class ControlConceptoJuridico implements Serializable {
             secRegistroConcepto = null;
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.ejecutar("PF('errorRegNuevo').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorRegNuevo').show()");
         }
     }
 
@@ -549,7 +549,7 @@ public class ControlConceptoJuridico implements Serializable {
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarRegistroConcepto");
-            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroConcepto').show()");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroConcepto').show()");
 
         }
     }
@@ -606,14 +606,14 @@ public class ControlConceptoJuridico implements Serializable {
                     guardado = false;
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
-                PrimefacesContextUI.ejecutar("PF('DuplicarRegistroConcepto').hide()");
+                RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroConcepto').hide()");
                 cambiosConceptos = true;
                 index = -1;
                 secRegistroConcepto = null;
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.ejecutar("PF('errorRegNuevo').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorRegNuevo').show()");
         }
     }
 
@@ -859,30 +859,30 @@ public class ControlConceptoJuridico implements Serializable {
                 backUp = secRegistroConcepto;
                 secRegistroConcepto = null;
                 if (resultado == 1) {
-                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
                     nombreTablaRastro = "ConceptosJuridicos";
                     msnConfirmarRastro = "La tabla CONCEPTOSJURIDICOS tiene rastros para el registro seleccionado, ¿desea continuar?";
                     RequestContext.getCurrentInstance().update("form:msnConfirmarRastro");
-                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+                RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("CONCEPTOSJURIDICOS")) {
                 nombreTablaRastro = "ConceptosJuridicos";
                 msnConfirmarRastroHistorico = "La tabla CONCEPTOSJURIDICOS tiene rastros historicos, ¿Desea continuar?";
                 RequestContext.getCurrentInstance().update("form:confirmarRastroHistorico");
-                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
             } else {
-                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
             }
         }
         index = -1;
@@ -896,7 +896,7 @@ public class ControlConceptoJuridico implements Serializable {
         aceptar = true;
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:EmpresasDialogo");
-        PrimefacesContextUI.ejecutar("PF('EmpresasDialogo').show()");
+        RequestContext.getCurrentInstance().execute("PF('EmpresasDialogo').show()");
     }
 
     public void actualizarEmpresa() {
@@ -921,8 +921,8 @@ public class ControlConceptoJuridico implements Serializable {
              RequestContext.getCurrentInstance().update("form:lovEmpresas");
              RequestContext.getCurrentInstance().update("form:aceptarE");*/
             context.reset("form:lovEmpresas:globalFilter");
-            PrimefacesContextUI.ejecutar("PF('lovEmpresas').clearFilters()");
-            PrimefacesContextUI.ejecutar("PF('EmpresasDialogo').hide()");
+            RequestContext.getCurrentInstance().execute("PF('lovEmpresas').clearFilters()");
+            RequestContext.getCurrentInstance().execute("PF('EmpresasDialogo').hide()");
             backUpEmpresaActual = empresaActual;
             getListConceptosJuridicos();
             if (listConceptosJuridicos != null) {
@@ -933,7 +933,7 @@ public class ControlConceptoJuridico implements Serializable {
             RequestContext.getCurrentInstance().update("form:informacionRegistro");
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
         }
     }
 
@@ -943,8 +943,8 @@ public class ControlConceptoJuridico implements Serializable {
         filtrarListEmpresas = null;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovEmpresas:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovEmpresas').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('EmpresasDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovEmpresas').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('EmpresasDialogo').hide()");
     }
 
     public void limpiarMSNRastros() {

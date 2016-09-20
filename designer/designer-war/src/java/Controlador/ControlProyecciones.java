@@ -5,7 +5,7 @@
  */
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import Entidades.CentrosCostos;
 import Entidades.Cuentas;
 import Entidades.Proyecciones;
@@ -430,7 +430,7 @@ public class ControlProyecciones implements Serializable {
             }
             if (dig == 2) {
                 RequestContext.getCurrentInstance().update("form:tiposProyeccionesDialogo");
-                PrimefacesContextUI.ejecutar("PF('tiposProyeccionesDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('tiposProyeccionesDialogo').show()");
                 dig = -1;
             }
 
@@ -455,7 +455,7 @@ public class ControlProyecciones implements Serializable {
         }
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:tiposProyeccionesDialogo");
-        PrimefacesContextUI.ejecutar("PF('tiposProyeccionesDialogo').show()");
+        RequestContext.getCurrentInstance().execute("PF('tiposProyeccionesDialogo').show()");
     }
 
     public void limpiarNuevoProyecciones() {
@@ -477,7 +477,7 @@ public class ControlProyecciones implements Serializable {
     public void mostrarDialogoListaEmpleados() {
         RequestContext context = RequestContext.getCurrentInstance();
         index = -1;
-        PrimefacesContextUI.ejecutar("PF('buscarProyeccionesDialogo').show()");
+        RequestContext.getCurrentInstance().execute("PF('buscarProyeccionesDialogo').show()");
     }
 
     public void borrandoProyecciones() {
@@ -519,7 +519,7 @@ public class ControlProyecciones implements Serializable {
                 //mostrarBorrados
                 registrosBorrados = borrarProyecciones.size();
                 RequestContext.getCurrentInstance().update("form:mostrarBorrados");
-                PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
+                RequestContext.getCurrentInstance().execute("PF('mostrarBorrados').show()");
                 borrarProyecciones.clear();
             }
             System.out.println("Se guardaron los datos con exito");
@@ -659,55 +659,55 @@ public class ControlProyecciones implements Serializable {
                 System.out.println("CONTROLBETAPROYECCIONES: Entro a editar... valor celda: " + cualCelda);
                 if (cualCelda == 0) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:editarDescripcionConceptoD");
-                    PrimefacesContextUI.ejecutar("PF('editarDescripcionConceptoD').show()");
+                    RequestContext.getCurrentInstance().execute("PF('editarDescripcionConceptoD').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 1) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:editarNombreEmpleadoD");
-                    PrimefacesContextUI.ejecutar("PF('editarNombreEmpleadoD').show()");
+                    RequestContext.getCurrentInstance().execute("PF('editarNombreEmpleadoD').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 2) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaDesdeD");
-                    PrimefacesContextUI.ejecutar("PF('editarFechaDesdeD').show()");
+                    RequestContext.getCurrentInstance().execute("PF('editarFechaDesdeD').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 3) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaHastaD");
-                    PrimefacesContextUI.ejecutar("PF('editarFechaHastaD').show()");
+                    RequestContext.getCurrentInstance().execute("PF('editarFechaHastaD').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 4) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:editarValorD");
-                    PrimefacesContextUI.ejecutar("PF('editarValorD').show()");
+                    RequestContext.getCurrentInstance().execute("PF('editarValorD').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 5) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:editarFormulaD");
-                    PrimefacesContextUI.ejecutar("PF('editarFormulaD').show()");
+                    RequestContext.getCurrentInstance().execute("PF('editarFormulaD').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 6) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:editarCentroCostoD");
-                    PrimefacesContextUI.ejecutar("PF('editarCentroCostoD').show()");
+                    RequestContext.getCurrentInstance().execute("PF('editarCentroCostoD').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 7) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:editarCodigoCuentaCD");
-                    PrimefacesContextUI.ejecutar("PF('editarCodigoCuentaCD').show()");
+                    RequestContext.getCurrentInstance().execute("PF('editarCodigoCuentaCD').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 8) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:editarDescripcionCuentaCD");
-                    PrimefacesContextUI.ejecutar("PF('editarDescripcionCuentaCD').show()");
+                    RequestContext.getCurrentInstance().execute("PF('editarDescripcionCuentaCD').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 9) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:editarCodigoCuentaDD");
-                    PrimefacesContextUI.ejecutar("PF('editarCodigoCuentaDD').show()");
+                    RequestContext.getCurrentInstance().execute("PF('editarCodigoCuentaDD').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 10) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:editarDescripcionCuentaDD");
-                    PrimefacesContextUI.ejecutar("PF('editarDescripcionCuentaDD').show()");
+                    RequestContext.getCurrentInstance().execute("PF('editarDescripcionCuentaDD').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 11) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:editarNitCodigoD");
-                    PrimefacesContextUI.ejecutar("PF('editarNitCodigoD').show()");
+                    RequestContext.getCurrentInstance().execute("PF('editarNitCodigoD').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 12) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:editarNitNombreD");
-                    PrimefacesContextUI.ejecutar("PF('editarNitNombreD').show()");
+                    RequestContext.getCurrentInstance().execute("PF('editarNitNombreD').show()");
                     cualCelda = -1;
                 }
             }
@@ -725,7 +725,7 @@ public class ControlProyecciones implements Serializable {
                 if (cualCelda == 2) {
                     System.out.println("\n ListaValoresBoton \n");
                     RequestContext.getCurrentInstance().update("formularioDialogos:tiposProyeccionesDialogo");
-                    PrimefacesContextUI.ejecutar("PF('tiposProyeccionesDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('tiposProyeccionesDialogo').show()");
                     tipoActualizacion = 0;
                 }
             }
@@ -766,24 +766,24 @@ public class ControlProyecciones implements Serializable {
                 int resultado = administrarRastros.obtenerTabla(secRegistro, "PROYECCIONES"); //En ENCARGATURAS lo cambia por el nombre de su tabla
                 System.out.println("resultado: " + resultado);
                 if (resultado == 1) {
-                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
-                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+                RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("PROYECCIONES")) { // igual acá
-                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
             } else {
-                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
             }
 
         }
@@ -794,7 +794,7 @@ public class ControlProyecciones implements Serializable {
         index = -1;
         secRegistro = null;
         cualCelda = -1;
-        PrimefacesContextUI.ejecutar("PF('EmpleadosDialogo').show()");
+        RequestContext.getCurrentInstance().execute("PF('EmpleadosDialogo').show()");
     }
 
     public void cambiarEmpleado() {
@@ -810,8 +810,8 @@ public class ControlProyecciones implements Serializable {
             mostrartodos = false;
             buscarCentrocosto = true;
             context.reset("formularioDialogos:lovEmpleados:globalFilter");
-            PrimefacesContextUI.ejecutar("PF('lovEmpleados').clearFilters()");
-            PrimefacesContextUI.ejecutar("PF('EmpleadosDialogo').hide()");
+            RequestContext.getCurrentInstance().execute("PF('lovEmpleados').clearFilters()");
+            RequestContext.getCurrentInstance().execute("PF('EmpleadosDialogo').hide()");
             //RequestContext.getCurrentInstance().update("formularioDialogos:lovEmpleados");
             //RequestContext.getCurrentInstance().update("formularioDialogos:aceptarE");
             RequestContext.getCurrentInstance().update("form:BUSCARCENTROCOSTO");
@@ -822,7 +822,7 @@ public class ControlProyecciones implements Serializable {
 
         } else {
             banderaModificacionEmpresa = 0;
-            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
         }
     }
 
@@ -832,8 +832,8 @@ public class ControlProyecciones implements Serializable {
         index = -1;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formularioDialogos:lovEmpleados:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovEmpleados').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('EmpleadosDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovEmpleados').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('EmpleadosDialogo').hide()");
     }
 //-----------------------------------------------------------------------------**
 

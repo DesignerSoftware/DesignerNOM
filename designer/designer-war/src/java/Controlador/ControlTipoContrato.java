@@ -1,6 +1,6 @@
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import Entidades.DiasLaborables;
 import Entidades.TiposContratos;
 import Entidades.TiposDias;
@@ -252,7 +252,7 @@ public class ControlTipoContrato implements Serializable {
             tipoContratoSeleccionado.setNombre(auxNombreTipoContrato);
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:datosTipoContrato");
-            PrimefacesContextUI.ejecutar("PF('errorDatosNullTipoContrato').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorDatosNullTipoContrato').show()");
         }
     }
 
@@ -283,7 +283,7 @@ public class ControlTipoContrato implements Serializable {
                 tipoContratoSeleccionado.setNombre(auxNombreTipoContrato);
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("form:datosTipoContrato");
-                PrimefacesContextUI.ejecutar("PF('errorNombreTipoContrato').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorNombreTipoContrato').show()");
             }
         }
     }
@@ -331,7 +331,7 @@ public class ControlTipoContrato implements Serializable {
             } else {
                 permitirIndexDias = false;
                 RequestContext.getCurrentInstance().update("form:TipoDiaDialogo");
-                PrimefacesContextUI.ejecutar("PF('TipoDiaDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('TipoDiaDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -380,7 +380,7 @@ public class ControlTipoContrato implements Serializable {
                 tipoListaDias = 0;
             }
         } else {
-            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
         }
     }
 
@@ -600,15 +600,15 @@ public class ControlTipoContrato implements Serializable {
 
             if (cualCeldaDias == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarTipoDiaDiaLabD");
-                PrimefacesContextUI.ejecutar("PF('editarTipoDiaDiaLabD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarTipoDiaDiaLabD').show()");
                 cualCeldaDias = -1;
             } else if (cualCeldaDias == 1) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarDiaDiaLabD");
-                PrimefacesContextUI.ejecutar("PF('editarDiaDiaLabD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarDiaDiaLabD').show()");
                 cualCeldaDias = -1;
             } else if (cualCeldaDias == 2) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarHorasDiaLabD");
-                PrimefacesContextUI.ejecutar("PF('editarHorasDiaLabD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarHorasDiaLabD').show()");
                 cualCeldaDias = -1;
             }
         } else if (tipoContratoSeleccionado != null) {
@@ -616,23 +616,23 @@ public class ControlTipoContrato implements Serializable {
 
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarCodigoTipoContratoD");
-                PrimefacesContextUI.ejecutar("PF('editarCodigoTipoContratoD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarCodigoTipoContratoD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarNombreTipoContratoD");
-                PrimefacesContextUI.ejecutar("PF('editarNombreTipoContratoD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarNombreTipoContratoD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarDuracionPTipoContratoD");
-                PrimefacesContextUI.ejecutar("PF('editarDuracionPTipoContratoD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarDuracionPTipoContratoD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 3) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarVinculacionTipoContratoD");
-                PrimefacesContextUI.ejecutar("PF('editarVinculacionTipoContratoD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarVinculacionTipoContratoD').show()");
                 cualCelda = -1;
             }
         } else {
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
@@ -640,9 +640,9 @@ public class ControlTipoContrato implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (tipoContratoSeleccionado != null) {
             RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroDiaLaboral");
-            PrimefacesContextUI.ejecutar("PF('NuevoRegistroDiaLaboral').show()");
+            RequestContext.getCurrentInstance().execute("PF('NuevoRegistroDiaLaboral').show()");
         } else {
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
 //        }NuevoRegistroDiaLaboral.show()
     }
@@ -688,22 +688,22 @@ public class ControlTipoContrato implements Serializable {
                     RequestContext context = RequestContext.getCurrentInstance();
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     RequestContext.getCurrentInstance().update("form:datosTipoContrato");
-                    PrimefacesContextUI.ejecutar("PF('NuevoRegistroTipoContrato').hide()");
+                    RequestContext.getCurrentInstance().execute("PF('NuevoRegistroTipoContrato').hide()");
                     if (guardado == true) {
                         guardado = false;
                         RequestContext.getCurrentInstance().update("form:aceptar");
                     }
                 } else {
                     RequestContext context = RequestContext.getCurrentInstance();
-                    PrimefacesContextUI.ejecutar("PF('errorNombreTipoContrato').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorNombreTipoContrato').show()");
                 }
             } else {
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.ejecutar("PF('errorRepetidosTipoContrato').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRepetidosTipoContrato').show()");
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.ejecutar("PF('errorDatosNullTipoContrato').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorDatosNullTipoContrato').show()");
         }
     }
 
@@ -740,7 +740,7 @@ public class ControlTipoContrato implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
             RequestContext.getCurrentInstance().update("form:datosDiasLaborables");
-            PrimefacesContextUI.ejecutar("PF('NuevoRegistroDiaLaboral').hide()");
+            RequestContext.getCurrentInstance().execute("PF('NuevoRegistroDiaLaboral').hide()");
             nuevoDiaLaborable = new DiasLaborables();
             nuevoDiaLaborable.setTipodia(new TiposDias());
             if (guardadoDias == true) {
@@ -749,7 +749,7 @@ public class ControlTipoContrato implements Serializable {
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.ejecutar("PF('errorDatosNullDiasLab').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorDatosNullDiasLab').show()");
         }
     }
     //LIMPIAR NUEVO REGISTRO
@@ -774,7 +774,7 @@ public class ControlTipoContrato implements Serializable {
         } else if (tipoContratoSeleccionado != null) {
             duplicarTipoContratoM();
         } else {
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
@@ -791,7 +791,7 @@ public class ControlTipoContrato implements Serializable {
 
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarRegistroTipoContrato");
-        PrimefacesContextUI.ejecutar("PF('DuplicarRegistroTipoContrato').show()");
+        RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroTipoContrato').show()");
     }
 
     public void duplicarDiaLaborableM() {
@@ -803,7 +803,7 @@ public class ControlTipoContrato implements Serializable {
 
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarRegistroDiaLaborable");
-        PrimefacesContextUI.ejecutar("PF('DuplicarRegistroDiaLaborable').show()");
+        RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroDiaLaborable').show()");
     }
 
     public boolean validarRepetidosNuevoyDuplicado(int tipoNuevo) {
@@ -860,7 +860,7 @@ public class ControlTipoContrato implements Serializable {
                     RequestContext context = RequestContext.getCurrentInstance();
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     RequestContext.getCurrentInstance().update("form:datosTipoContrato");
-                    PrimefacesContextUI.ejecutar("PF('DuplicarRegistroTipoContrato').hide()");
+                    RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroTipoContrato').hide()");
                     if (guardado == true) {
                         guardado = false;
                         //RequestContext.getCurrentInstance().update("form:aceptar");
@@ -885,15 +885,15 @@ public class ControlTipoContrato implements Serializable {
                     duplicarTipoContrato = new TiposContratos();
                 } else {
                     RequestContext context = RequestContext.getCurrentInstance();
-                    PrimefacesContextUI.ejecutar("PF('errorNombreTipoContrato').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorNombreTipoContrato').show()");
                 }
             } else {
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.ejecutar("PF('errorRepetidosTipoContrato').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRepetidosTipoContrato').show()");
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.ejecutar("PF('errorDatosNullTipoContrato').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorDatosNullTipoContrato').show()");
         }
     }
 
@@ -911,7 +911,7 @@ public class ControlTipoContrato implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
             RequestContext.getCurrentInstance().update("form:datosDiasLaborables");
-            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroDiaLaborable').hide()");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroDiaLaborable').hide()");
 
             if (guardadoDias == true) {
                 guardadoDias = false;
@@ -934,7 +934,7 @@ public class ControlTipoContrato implements Serializable {
             duplicarDiaLaborable.setTipodia(new TiposDias());
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.ejecutar("PF('errorDatosNullDiasLab').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorDatosNullDiasLab').show()");
         }
     }
 
@@ -967,10 +967,10 @@ public class ControlTipoContrato implements Serializable {
             if (listaDiasLaborables.isEmpty()) {
                 borrarTipoContrato();
             } else {
-                PrimefacesContextUI.ejecutar("PF('errorBorrarRegistro').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorBorrarRegistro').show()");
             }
         } else {
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
@@ -1153,7 +1153,7 @@ public class ControlTipoContrato implements Serializable {
             if (cualCeldaDias == 0) {
                 modificarInfoRegistroTipoDLOV(lovTiposDias.size());
                 RequestContext.getCurrentInstance().update("form:TipoDiaDialogo");
-                PrimefacesContextUI.ejecutar("PF('TipoDiaDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('TipoDiaDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -1167,7 +1167,7 @@ public class ControlTipoContrato implements Serializable {
         if (column == 0) {
             modificarInfoRegistroTipoDLOV(lovTiposDias.size());
             RequestContext.getCurrentInstance().update("form:TipoDiaDialogo");
-            PrimefacesContextUI.ejecutar("PF('TipoDiaDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('TipoDiaDialogo').show()");
         }
     }
 
@@ -1209,7 +1209,7 @@ public class ControlTipoContrato implements Serializable {
                 getLovTiposDias();
             } else {
                 RequestContext.getCurrentInstance().update("form:TipoDiaDialogo");
-                PrimefacesContextUI.ejecutar("PF('TipoDiaDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('TipoDiaDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:nuevoDiaLabTipoDia");
@@ -1256,8 +1256,8 @@ public class ControlTipoContrato implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
 
         context.reset("form:lovTipoDia:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovTipoDia').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('TipoDiaDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovTipoDia').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('TipoDiaDialogo').hide()");
         RequestContext.getCurrentInstance().update("form:TipoDiaDialogo");
         RequestContext.getCurrentInstance().update("form:lovTipoDia");
         RequestContext.getCurrentInstance().update("form:aceptarTD");
@@ -1271,8 +1271,8 @@ public class ControlTipoContrato implements Serializable {
         permitirIndexDias = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovTipoDia:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovTipoDia').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('TipoDiaDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovTipoDia').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('TipoDiaDialogo').hide()");
         RequestContext.getCurrentInstance().update("form:TipoDiaDialogo");
         RequestContext.getCurrentInstance().update("form:lovTipoDia");
         RequestContext.getCurrentInstance().update("form:aceptarTD");
@@ -1359,7 +1359,7 @@ public class ControlTipoContrato implements Serializable {
     //RASTRO - COMPROBAR SI LA TABLA TIENE RASTRO ACTIVO
     public void verificarRastro() {
         if (diaLaborableSeleccionado == null && tipoContratoSeleccionado == null) {
-            PrimefacesContextUI.ejecutar("PF('verificarRastrosTablasH').show()");
+            RequestContext.getCurrentInstance().execute("PF('verificarRastrosTablasH').show()");
         } else {
             if (diaLaborableSeleccionado != null) {
                 verificarRastroDiaLaborable();
@@ -1374,18 +1374,18 @@ public class ControlTipoContrato implements Serializable {
         int resultado = administrarRastros.obtenerTabla(tipoContratoSeleccionado.getSecuencia(), "TIPOSCONTRATOS");
         backUp = tipoContratoSeleccionado.getSecuencia();
         if (resultado == 1) {
-            PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
         } else if (resultado == 2) {
             nombreTablaRastro = "TiposContratos";
             msnConfirmarRastro = "La tabla TIPOSCONTRATOS tiene rastros para el registro seleccionado, ¿desea continuar?";
             RequestContext.getCurrentInstance().update("form:msnConfirmarRastro");
-            PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
         } else if (resultado == 3) {
-            PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
         } else if (resultado == 4) {
-            PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
         } else if (resultado == 5) {
-            PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
         }
     }
 
@@ -1395,9 +1395,9 @@ public class ControlTipoContrato implements Serializable {
             nombreTablaRastro = "TiposContratos";
             msnConfirmarRastroHistorico = "La tabla TIPOSCONTRATOS tiene rastros historicos, ¿Desea continuar?";
             RequestContext.getCurrentInstance().update("form:confirmarRastroHistorico");
-            PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
     }
 
@@ -1406,18 +1406,18 @@ public class ControlTipoContrato implements Serializable {
         int resultado = administrarRastros.obtenerTabla(diaLaborableSeleccionado.getSecuencia(), "DIASLABORABLES");
         backUp = diaLaborableSeleccionado.getSecuencia();
         if (resultado == 1) {
-            PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
         } else if (resultado == 2) {
             nombreTablaRastro = "DiasLaborables";
             msnConfirmarRastro = "La tabla DIASLABORABLES tiene rastros para el registro seleccionado, ¿desea continuar?";
             RequestContext.getCurrentInstance().update("form:msnConfirmarRastro");
-            PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
         } else if (resultado == 3) {
-            PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
         } else if (resultado == 4) {
-            PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
         } else if (resultado == 5) {
-            PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
         }
     }
 
@@ -1427,9 +1427,9 @@ public class ControlTipoContrato implements Serializable {
             nombreTablaRastro = "DiasLaborables";
             msnConfirmarRastroHistorico = "La tabla DIASLABORABLES tiene rastros historicos, ¿Desea continuar?";
             RequestContext.getCurrentInstance().update("form:confirmarRastroHistorico");
-            PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
     }
 
@@ -1451,16 +1451,16 @@ public class ControlTipoContrato implements Serializable {
         if ((nombreTipoCClonar.isEmpty()) || (codigoTipoCClonar <= 0) || (tipoContratoAClonar.getSecuencia() == null)) {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:errorClonadoTipoC");
-            PrimefacesContextUI.ejecutar("PF('errorClonadoTipoC').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorClonadoTipoC').show()");
         } else {
             if (validarCodigoNuevoClonado() == true) {
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("form:continuarOperacionClonado");
-                PrimefacesContextUI.ejecutar("PF('continuarOperacionClonado').show()");
+                RequestContext.getCurrentInstance().execute("PF('continuarOperacionClonado').show()");
             } else {
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("form:errorCodigoClonado");
-                PrimefacesContextUI.ejecutar("PF('errorCodigoClonado').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorCodigoClonado').show()");
             }
         }
     }
@@ -1469,7 +1469,7 @@ public class ControlTipoContrato implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         modificarInfoRegistroTipoCLOV(lovTiposContratos.size());
         RequestContext.getCurrentInstance().update("form:TipoContratoDialogo");
-        PrimefacesContextUI.ejecutar("PF('TipoContratoDialogo').show()");
+        RequestContext.getCurrentInstance().execute("PF('TipoContratoDialogo').show()");
     }
 
     public void posicionTipoContratoClonar() {
@@ -1478,7 +1478,7 @@ public class ControlTipoContrato implements Serializable {
             auxNombreClonar = tipoContratoAClonar.getNombre();
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
         }
     }
 
@@ -1508,7 +1508,7 @@ public class ControlTipoContrato implements Serializable {
             RequestContext.getCurrentInstance().update("form:datosDiasLaborables");
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.ejecutar("PF('errorNombreTipoContrato').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorNombreTipoContrato').show()");
         }
     }
 
@@ -1523,8 +1523,8 @@ public class ControlTipoContrato implements Serializable {
         filtrarLovTiposContratos = null;
 
         context.reset("form:lovTipoContrato:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovTipoContrato').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('TipoContratoDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovTipoContrato').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('TipoContratoDialogo').hide()");
         RequestContext.getCurrentInstance().update("form:TipoContratoDialogo");
         RequestContext.getCurrentInstance().update("form:lovTipoContrato");
         RequestContext.getCurrentInstance().update("form:aceptarTC");
@@ -1535,8 +1535,8 @@ public class ControlTipoContrato implements Serializable {
         filtrarLovTiposContratos = null;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovTipoContrato:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovTipoContrato').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('TipoContratoDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovTipoContrato').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('TipoContratoDialogo').hide()");
         RequestContext.getCurrentInstance().update("form:TipoContratoDialogo");
         RequestContext.getCurrentInstance().update("form:lovTipoContrato");
         RequestContext.getCurrentInstance().update("form:aceptarTC");
@@ -1565,7 +1565,7 @@ public class ControlTipoContrato implements Serializable {
                 RequestContext.getCurrentInstance().update("form:codigoTipoCClonarBase");
                 RequestContext.getCurrentInstance().update("form:nombreTipoCClonarBase");
                 RequestContext.getCurrentInstance().update("form:TipoContratoDialogo");
-                PrimefacesContextUI.ejecutar("PF('TipoContratoDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('TipoContratoDialogo').show()");
             }
         }
         if (tipoAutoCompletar == 1) {
@@ -1586,7 +1586,7 @@ public class ControlTipoContrato implements Serializable {
                 RequestContext.getCurrentInstance().update("form:nombreTipoCClonarBase");
                 RequestContext.getCurrentInstance().update("form:codigoTipoCClonarBase");
                 RequestContext.getCurrentInstance().update("form:TipoContratoDialogo");
-                PrimefacesContextUI.ejecutar("PF('TipoContratoDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('TipoContratoDialogo').show()");
             }
         }
     }

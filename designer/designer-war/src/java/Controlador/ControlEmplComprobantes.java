@@ -1,6 +1,6 @@
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import Entidades.CentrosCostos;
 import Entidades.Comprobantes;
 import Entidades.CortesProcesos;
@@ -395,10 +395,10 @@ public class ControlEmplComprobantes implements Serializable {
                RequestContext.getCurrentInstance().update("form:neto");
             }
          } else {
-            PrimefacesContextUI.ejecutar("PF('confirmarGuardar.show();");
+            RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show();");
          }
       } else {
-         PrimefacesContextUI.ejecutar("PF('confirmarGuardar.show();");
+         RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show();");
       }
    }
 
@@ -433,7 +433,7 @@ public class ControlEmplComprobantes implements Serializable {
          RequestContext.getCurrentInstance().update("form:subTotalGasto");
          RequestContext.getCurrentInstance().update("form:neto");
       } else {
-         PrimefacesContextUI.ejecutar("PF('confirmarGuardar.show();");
+         RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show();");
       }
    }
 
@@ -527,7 +527,7 @@ public class ControlEmplComprobantes implements Serializable {
       if (comprobanteSeleccionado.getFechaentregado() == null) {
          System.out.println("comprobanteSeleccionado.getFechaentregado() == null");
          comprobanteSeleccionado.setFechaentregado(auxFechaEntregadoComprobante);
-         PrimefacesContextUI.ejecutar("PF('errorFechaEntregaNull').show()");
+         RequestContext.getCurrentInstance().execute("PF('errorFechaEntregaNull').show()");
       }
       modificarComprobantes(comprobante);
       RequestContext.getCurrentInstance().update("form:datosComprobantes");
@@ -592,7 +592,7 @@ public class ControlEmplComprobantes implements Serializable {
             permitirIndex = false;
             RequestContext.getCurrentInstance().update("formularioDialogos:ProcesosDialogo");
             contarRegistrosLovProc(0);
-            PrimefacesContextUI.ejecutar("PF('ProcesosDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('ProcesosDialogo').show()");
             tipoActualizacion = 0;
          }
       }
@@ -656,7 +656,7 @@ public class ControlEmplComprobantes implements Serializable {
          } else {
             RequestContext.getCurrentInstance().update("formularioDialogos:ProcesosDialogo");
             contarRegistrosLovProc(0);
-            PrimefacesContextUI.ejecutar("PF('ProcesosDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('ProcesosDialogo').show()");
             tipoActualizacion = tipoNuevo;
             if (tipoNuevo == 1) {
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevoProceso");
@@ -697,7 +697,7 @@ public class ControlEmplComprobantes implements Serializable {
             permitirIndex = false;
             RequestContext.getCurrentInstance().update("formularioDialogos:TercerosDialogo");
             contarRegistrosLovTercero(0);
-            PrimefacesContextUI.ejecutar("PF('TercerosDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('TercerosDialogo').show()");
          }
       }
       if (tipoDato.equals("CREDITO")) {
@@ -725,7 +725,7 @@ public class ControlEmplComprobantes implements Serializable {
             permitirIndex = false;
             RequestContext.getCurrentInstance().update("formularioDialogos:CuentaCreditoDialogo");
             contarRegistrosLovCuentas(0);
-            PrimefacesContextUI.ejecutar("PF('CuentaCreditoDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('CuentaCreditoDialogo').show()");
          }
       }
       if (tipoDato.equals("DEBITO")) {
@@ -753,7 +753,7 @@ public class ControlEmplComprobantes implements Serializable {
             permitirIndex = false;
             RequestContext.getCurrentInstance().update("formularioDialogos:CuentaDebitoDialogo");
             contarRegistrosLovCuentas(0);
-            PrimefacesContextUI.ejecutar("PF('CuentaDebitoDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('CuentaDebitoDialogo').show()");
          }
       }
       if (tipoDato.equals("CENTROCOSTODEBITO")) {
@@ -781,7 +781,7 @@ public class ControlEmplComprobantes implements Serializable {
             permitirIndex = false;
             RequestContext.getCurrentInstance().update("formularioDialogos:CentroCostoDebitoDialogo");
             contarRegistrosLovCC(0);
-            PrimefacesContextUI.ejecutar("PF('CentroCostoDebitoDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('CentroCostoDebitoDialogo').show()");
          }
       }
       if (tipoDato.equals("CENTROCOSTOCREDITO")) {
@@ -809,7 +809,7 @@ public class ControlEmplComprobantes implements Serializable {
             permitirIndex = false;
             RequestContext.getCurrentInstance().update("formularioDialogos:CentroCostoCreditoDialogo");
             contarRegistrosLovCC(0);
-            PrimefacesContextUI.ejecutar("PF('CentroCostoCreditoDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('CentroCostoCreditoDialogo').show()");
          }
       }
       if (coincidencias == 1) {
@@ -845,7 +845,7 @@ public class ControlEmplComprobantes implements Serializable {
       tipoActualizacion = 0;
       RequestContext.getCurrentInstance().update("formularioDialogos:ProcesosDialogo");
       contarRegistrosLovProc(0);
-      PrimefacesContextUI.ejecutar("PF('ProcesosDialogo').show()");
+      RequestContext.getCurrentInstance().execute("PF('ProcesosDialogo').show()");
    }
 
    public void llamarLOVProcesosNuevo_Duplicado(int tipoN) {
@@ -857,7 +857,7 @@ public class ControlEmplComprobantes implements Serializable {
       }
       RequestContext.getCurrentInstance().update("formularioDialogos:ProcesosDialogo");
       contarRegistrosLovProc(0);
-      PrimefacesContextUI.ejecutar("PF('ProcesosDialogo').show()");
+      RequestContext.getCurrentInstance().execute("PF('ProcesosDialogo').show()");
    }
 
    //LOV TERCEROS
@@ -865,35 +865,35 @@ public class ControlEmplComprobantes implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("formularioDialogos:TercerosDialogo");
       contarRegistrosLovTercero(0);
-      PrimefacesContextUI.ejecutar("PF('TercerosDialogo').show()");
+      RequestContext.getCurrentInstance().execute("PF('TercerosDialogo').show()");
    }
 
    public void llamarLOVCuentaDebito() {
       RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("form:CuentaDebitoDialogo");
       contarRegistrosLovCuentas(0);
-      PrimefacesContextUI.ejecutar("PF('CuentaDebitoDialogo').show()");
+      RequestContext.getCurrentInstance().execute("PF('CuentaDebitoDialogo').show()");
    }
 
    public void llamarLOVCuentaCredito() {
       RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("form:CuentaCreditoDialogo");
       contarRegistrosLovCuentas(0);
-      PrimefacesContextUI.ejecutar("PF('CuentaCreditoDialogo').show()");
+      RequestContext.getCurrentInstance().execute("PF('CuentaCreditoDialogo').show()");
    }
 
    public void llamarLOVCentroCostoDebito() {
       RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("form:CentroCostoDebitoDialogo");
       contarRegistrosLovCC(0);
-      PrimefacesContextUI.ejecutar("PF('CentroCostoDebitoDialogo').show()");
+      RequestContext.getCurrentInstance().execute("PF('CentroCostoDebitoDialogo').show()");
    }
 
    public void llamarLOVCentroCostoCredito() {
       RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("form:CentroCostoCreditoDialogo");
       contarRegistrosLovCC(0);
-      PrimefacesContextUI.ejecutar("PF('CentroCostoCreditoDialogo').show()");
+      RequestContext.getCurrentInstance().execute("PF('CentroCostoCreditoDialogo').show()");
    }
 
    public void activarAceptar() {
@@ -937,8 +937,8 @@ public class ControlEmplComprobantes implements Serializable {
       RequestContext.getCurrentInstance().update("formularioDialogos:lovProcesos");
       RequestContext.getCurrentInstance().update("formularioDialogos:aceptarP");
       context.reset("formularioDialogos:lovProcesos:globalFilter");
-      PrimefacesContextUI.ejecutar("PF('lovProcesos').clearFilters()");
-      PrimefacesContextUI.ejecutar("PF('ProcesosDialogo').hide()");
+      RequestContext.getCurrentInstance().execute("PF('lovProcesos').clearFilters()");
+      RequestContext.getCurrentInstance().execute("PF('ProcesosDialogo').hide()");
    }
 
    public void cancelarProceso() {
@@ -954,8 +954,8 @@ public class ControlEmplComprobantes implements Serializable {
       RequestContext.getCurrentInstance().update("formularioDialogos:lovProcesos");
       RequestContext.getCurrentInstance().update("formularioDialogos:aceptarP");
       context.reset("formularioDialogos:lovProcesos:globalFilter");
-      PrimefacesContextUI.ejecutar("PF('lovProcesos').clearFilters()");
-      PrimefacesContextUI.ejecutar("PF('ProcesosDialogo').hide()");
+      RequestContext.getCurrentInstance().execute("PF('lovProcesos').clearFilters()");
+      RequestContext.getCurrentInstance().execute("PF('ProcesosDialogo').hide()");
    }
 
    //ACTUALIZAR TERCERO
@@ -1003,8 +1003,8 @@ public class ControlEmplComprobantes implements Serializable {
       RequestContext.getCurrentInstance().update("formularioDialogos:lovTerceros");
       RequestContext.getCurrentInstance().update("formularioDialogos:aceptarT");
       context.reset("formularioDialogos:lovTerceros:globalFilter");
-      PrimefacesContextUI.ejecutar("PF('lovTerceros').clearFilters()");
-      PrimefacesContextUI.ejecutar("PF('TercerosDialogo').hide()");
+      RequestContext.getCurrentInstance().execute("PF('lovTerceros').clearFilters()");
+      RequestContext.getCurrentInstance().execute("PF('TercerosDialogo').hide()");
    }
 
    public void cancelarTercero() {
@@ -1019,8 +1019,8 @@ public class ControlEmplComprobantes implements Serializable {
       RequestContext.getCurrentInstance().update("formularioDialogos:lovTerceros");
       RequestContext.getCurrentInstance().update("formularioDialogos:aceptarT");
       context.reset("formularioDialogos:lovTerceros:globalFilter");
-      PrimefacesContextUI.ejecutar("PF('lovTerceros').clearFilters()");
-      PrimefacesContextUI.ejecutar("PF('TercerosDialogo').hide()");
+      RequestContext.getCurrentInstance().execute("PF('lovTerceros').clearFilters()");
+      RequestContext.getCurrentInstance().execute("PF('TercerosDialogo').hide()");
    }
 
    public void actualizarCuentaDebito() {
@@ -1067,8 +1067,8 @@ public class ControlEmplComprobantes implements Serializable {
       RequestContext.getCurrentInstance().update("formularioDialogos:lovCuentaDebito");
       RequestContext.getCurrentInstance().update("formularioDialogos:aceptarCD");
       context.reset("formularioDialogos:lovCuentaDebito:globalFilter");
-      PrimefacesContextUI.ejecutar("PF('lovCuentaDebito').clearFilters()");
-      PrimefacesContextUI.ejecutar("PF('CuentaDebitoDialogo').hide()");
+      RequestContext.getCurrentInstance().execute("PF('lovCuentaDebito').clearFilters()");
+      RequestContext.getCurrentInstance().execute("PF('CuentaDebitoDialogo').hide()");
    }
 
    public void cancelarCuentaDebito() {
@@ -1083,8 +1083,8 @@ public class ControlEmplComprobantes implements Serializable {
       RequestContext.getCurrentInstance().update("formularioDialogos:lovCuentaDebito");
       RequestContext.getCurrentInstance().update("formularioDialogos:aceptarCD");
       context.reset("formularioDialogos:lovCuentaDebito:globalFilter");
-      PrimefacesContextUI.ejecutar("PF('lovCuentaDebito').clearFilters()");
-      PrimefacesContextUI.ejecutar("PF('CuentaDebitoDialogo').hide()");
+      RequestContext.getCurrentInstance().execute("PF('lovCuentaDebito').clearFilters()");
+      RequestContext.getCurrentInstance().execute("PF('CuentaDebitoDialogo').hide()");
    }
 
    public void actualizarCuentaCredito() {
@@ -1131,8 +1131,8 @@ public class ControlEmplComprobantes implements Serializable {
       RequestContext.getCurrentInstance().update("formularioDialogos:lovCuentaCredito");
       RequestContext.getCurrentInstance().update("formularioDialogos:aceptarCC");
       context.reset("formularioDialogos:lovCuentaCredito:globalFilter");
-      PrimefacesContextUI.ejecutar("PF('lovCuentaCredito').clearFilters()");
-      PrimefacesContextUI.ejecutar("PF('CuentaCreditoDialogo').hide()");
+      RequestContext.getCurrentInstance().execute("PF('lovCuentaCredito').clearFilters()");
+      RequestContext.getCurrentInstance().execute("PF('CuentaCreditoDialogo').hide()");
    }
 
    public void cancelarCuentaCredito() {
@@ -1147,8 +1147,8 @@ public class ControlEmplComprobantes implements Serializable {
       RequestContext.getCurrentInstance().update("formularioDialogos:lovCuentaCredito");
       RequestContext.getCurrentInstance().update("formularioDialogos:aceptarCC");
       context.reset("formularioDialogos:lovCuentaCredito:globalFilter");
-      PrimefacesContextUI.ejecutar("PF('lovCuentaCredito').clearFilters()");
-      PrimefacesContextUI.ejecutar("PF('CuentaCreditoDialogo').hide()");
+      RequestContext.getCurrentInstance().execute("PF('lovCuentaCredito').clearFilters()");
+      RequestContext.getCurrentInstance().execute("PF('CuentaCreditoDialogo').hide()");
    }
 
    public void actualizarCentroCostoCredito() {
@@ -1195,8 +1195,8 @@ public class ControlEmplComprobantes implements Serializable {
       RequestContext.getCurrentInstance().update("formularioDialogos:lovCentroCostoCredito");
       RequestContext.getCurrentInstance().update("formularioDialogos:aceptarCCC");
       context.reset("formularioDialogos:lovCentroCostoCredito:globalFilter");
-      PrimefacesContextUI.ejecutar("PF('lovCentroCostoCredito').clearFilters()");
-      PrimefacesContextUI.ejecutar("PF('CentroCostoCreditoDialogo').hide()");
+      RequestContext.getCurrentInstance().execute("PF('lovCentroCostoCredito').clearFilters()");
+      RequestContext.getCurrentInstance().execute("PF('CentroCostoCreditoDialogo').hide()");
    }
 
    public void cancelarCentroCostoCredito() {
@@ -1211,8 +1211,8 @@ public class ControlEmplComprobantes implements Serializable {
       RequestContext.getCurrentInstance().update("formularioDialogos:lovCentroCostoCredito");
       RequestContext.getCurrentInstance().update("formularioDialogos:aceptarCCC");
       context.reset("formularioDialogos:lovCentroCostoCredito:globalFilter");
-      PrimefacesContextUI.ejecutar("PF('lovCentroCostoCredito').clearFilters()");
-      PrimefacesContextUI.ejecutar("PF('CentroCostoCreditoDialogo').hide()");
+      RequestContext.getCurrentInstance().execute("PF('lovCentroCostoCredito').clearFilters()");
+      RequestContext.getCurrentInstance().execute("PF('CentroCostoCreditoDialogo').hide()");
    }
 
    public void actualizarCentroCostoDebito() {
@@ -1257,8 +1257,8 @@ public class ControlEmplComprobantes implements Serializable {
       RequestContext.getCurrentInstance().update("formularioDialogos:lovCentroCostoDebito");
       RequestContext.getCurrentInstance().update("formularioDialogos:aceptarCCD");
       context.reset("formularioDialogos:lovCentroCostoDebito:globalFilter");
-      PrimefacesContextUI.ejecutar("PF('lovCentroCostoDebito').clearFilters()");
-      PrimefacesContextUI.ejecutar("PF('CentroCostoDebitoDialogo').hide()");
+      RequestContext.getCurrentInstance().execute("PF('lovCentroCostoDebito').clearFilters()");
+      RequestContext.getCurrentInstance().execute("PF('CentroCostoDebitoDialogo').hide()");
    }
 
    public void cancelarCentroCostoDebito() {
@@ -1273,8 +1273,8 @@ public class ControlEmplComprobantes implements Serializable {
       RequestContext.getCurrentInstance().update("formularioDialogos:lovCentroCostoDebito");
       RequestContext.getCurrentInstance().update("formularioDialogos:aceptarCCD");
       context.reset("formularioDialogos:lovCentroCostoDebito:globalFilter");
-      PrimefacesContextUI.ejecutar("PF('lovCentroCostoDebito').clearFilters()");
-      PrimefacesContextUI.ejecutar("PF('CentroCostoDebitoDialogo').hide()");
+      RequestContext.getCurrentInstance().execute("PF('lovCentroCostoDebito').clearFilters()");
+      RequestContext.getCurrentInstance().execute("PF('CentroCostoDebitoDialogo').hide()");
    }
 
    //BORRAR VC
@@ -1298,7 +1298,7 @@ public class ControlEmplComprobantes implements Serializable {
                listaComprobantes.remove(comprobanteSeleccionado);
                modificacionesComprobantes = true;
             } else {
-               PrimefacesContextUI.ejecutar("PF('errorBorrarComprobante.show();");
+               RequestContext.getCurrentInstance().execute("PF('errorBorrarComprobante').show();");
             }
             if (tipoListaComprobantes == 1) {
                filtradolistaComprobantes.remove(comprobanteSeleccionado);
@@ -1322,7 +1322,7 @@ public class ControlEmplComprobantes implements Serializable {
                listaCortesProcesos.remove(cortesProcesosSeleccionado);
                modificacionesCortesProcesos = true;
             } else {
-               PrimefacesContextUI.ejecutar("PF('errorBorrarCortesProcesos.show();");
+               RequestContext.getCurrentInstance().execute("PF('errorBorrarCortesProcesos').show();");
             }
             if (tipoListaCortesProcesos == 1) {
                filtradolistaCortesProcesos.remove(cortesProcesosSeleccionado);
@@ -1345,22 +1345,22 @@ public class ControlEmplComprobantes implements Serializable {
       if (!listaComprobantes.isEmpty()) {
          if (listaCortesProcesos.isEmpty()) {
             if (comprobanteSeleccionado != null) {
-               PrimefacesContextUI.ejecutar("PF('NuevoRegistroPagina').show()");
+               RequestContext.getCurrentInstance().execute("PF('NuevoRegistroPagina').show()");
             }
          } else if (tipoTabla == 0) {
             BigInteger sugerenciaNumero = administrarComprobantes.consultarMaximoNumeroComprobante().add(new BigInteger("1"));
             nuevoComprobante.setNumero(sugerenciaNumero);
             RequestContext.getCurrentInstance().update("formularioDialogos:nuevoComprobante");
-            PrimefacesContextUI.ejecutar("PF('NuevoRegistroComprobantes').show()");
+            RequestContext.getCurrentInstance().execute("PF('NuevoRegistroComprobantes').show()");
          } else if (tipoTabla == 1) {
             RequestContext.getCurrentInstance().update("formularioDialogos:nuevoCorteProceso");
-            PrimefacesContextUI.ejecutar("PF('NuevoRegistroCortesProcesos').show()");
+            RequestContext.getCurrentInstance().execute("PF('NuevoRegistroCortesProcesos').show()");
          }
       } else {
          BigInteger sugerenciaNumero = administrarComprobantes.consultarMaximoNumeroComprobante().add(new BigInteger("1"));
          nuevoComprobante.setNumero(sugerenciaNumero);
          RequestContext.getCurrentInstance().update("formularioDialogos:nuevoComprobante");
-         PrimefacesContextUI.ejecutar("PF('NuevoRegistroComprobantes').show()");
+         RequestContext.getCurrentInstance().execute("PF('NuevoRegistroComprobantes').show()");
       }
    }
 
@@ -1401,13 +1401,13 @@ public class ControlEmplComprobantes implements Serializable {
             guardado = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
          }
-         PrimefacesContextUI.ejecutar("PF('NuevoRegistroComprobantes').hide()");
+         RequestContext.getCurrentInstance().execute("PF('NuevoRegistroComprobantes').hide()");
          modificacionesComprobantes = true;
          tipoTabla = -1;
          secRegistro = null;
       } else {
          RequestContext.getCurrentInstance().update("formularioDialogos:validacioNuevoComprobante");
-         PrimefacesContextUI.ejecutar("PF('validacioNuevoComprobante').show()");
+         RequestContext.getCurrentInstance().execute("PF('validacioNuevoComprobante').show()");
       }
       contarRegistrosComp();
    }
@@ -1450,13 +1450,13 @@ public class ControlEmplComprobantes implements Serializable {
             guardado = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
          }
-         PrimefacesContextUI.ejecutar("PF('NuevoRegistroCortesProcesos').hide()");
+         RequestContext.getCurrentInstance().execute("PF('NuevoRegistroCortesProcesos').hide()");
          modificacionesCortesProcesos = true;
          tipoTabla = -1;
          secRegistro = null;
       } else {
          RequestContext.getCurrentInstance().update("formularioDialogos:validacioNuevoCorteProceso");
-         PrimefacesContextUI.ejecutar("PF('validacioNuevoCorteProceso').show()");
+         RequestContext.getCurrentInstance().execute("PF('validacioNuevoCorteProceso').show()");
       }
    }
 
@@ -1481,7 +1481,7 @@ public class ControlEmplComprobantes implements Serializable {
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicadoComprobante");
-            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroComprobantes').show()");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroComprobantes').show()");
             secRegistro = null;
          }
       } else if (tipoTabla == 1) {
@@ -1494,7 +1494,7 @@ public class ControlEmplComprobantes implements Serializable {
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicadoCorteProceso");
-            PrimefacesContextUI.ejecutar("PF('DuplicarCortesProcesos').show()");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarCortesProcesos').show()");
             secRegistro = null;
          }
       }
@@ -1526,7 +1526,7 @@ public class ControlEmplComprobantes implements Serializable {
          listaComprobantesCrear.add(duplicarComprobante);
          comprobanteSeleccionado = listaComprobantes.get(listaComprobantes.indexOf(duplicarComprobante));
          RequestContext.getCurrentInstance().update("form:datosComprobantes");
-         PrimefacesContextUI.ejecutar("PF('DuplicarRegistroComprobantes').hide()");
+         RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroComprobantes').hide()");
          tipoTabla = -1;
          modificacionesComprobantes = true;
          secRegistro = null;
@@ -1539,7 +1539,7 @@ public class ControlEmplComprobantes implements Serializable {
          }
       } else {
          RequestContext.getCurrentInstance().update("formularioDialogos:validacioNuevoComprobante");
-         PrimefacesContextUI.ejecutar("PF('validacioNuevoComprobante').show()");
+         RequestContext.getCurrentInstance().execute("PF('validacioNuevoComprobante').show()");
       }
    }
 
@@ -1570,7 +1570,7 @@ public class ControlEmplComprobantes implements Serializable {
          listaCortesProcesosCrear.add(duplicarCorteProceso);
          cortesProcesosSeleccionado = listaCortesProcesos.get(listaCortesProcesos.indexOf(duplicarCorteProceso));
          RequestContext.getCurrentInstance().update("form:datosCortesProcesos");
-         PrimefacesContextUI.ejecutar("PF('DuplicarCortesProcesos').hide()");
+         RequestContext.getCurrentInstance().execute("PF('DuplicarCortesProcesos').hide()");
          tipoTabla = -1;
          modificacionesCortesProcesos = true;
          secRegistro = null;
@@ -1583,7 +1583,7 @@ public class ControlEmplComprobantes implements Serializable {
          }
       } else {
          RequestContext.getCurrentInstance().update("formularioDialogos:validacioNuevoCorteProceso");
-         PrimefacesContextUI.ejecutar("PF('validacioNuevoCorteProceso').show()");
+         RequestContext.getCurrentInstance().execute("PF('validacioNuevoCorteProceso').show()");
       }
    }
 
@@ -1631,13 +1631,13 @@ public class ControlEmplComprobantes implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 0) {
                RequestContext.getCurrentInstance().update("formularioDialogos:editarNumeroComprobante");
-               PrimefacesContextUI.ejecutar("PF('editarNumeroComprobante').show()");
+               RequestContext.getCurrentInstance().execute("PF('editarNumeroComprobante').show()");
             } else if (cualCelda == 1) {
                RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaComprobante");
-               PrimefacesContextUI.ejecutar("PF('editarFechaComprobante').show()");
+               RequestContext.getCurrentInstance().execute("PF('editarFechaComprobante').show()");
             } else if (cualCelda == 2) {
                RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaEntrega");
-               PrimefacesContextUI.ejecutar("PF('editarFechaEntrega').show()");
+               RequestContext.getCurrentInstance().execute("PF('editarFechaEntrega').show()");
             }
          }
       } else if (tipoTabla == 1) {
@@ -1645,10 +1645,10 @@ public class ControlEmplComprobantes implements Serializable {
          RequestContext context = RequestContext.getCurrentInstance();
          if (cualCelda == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaCorte");
-            PrimefacesContextUI.ejecutar("PF('editarFechaCorte').show()");
+            RequestContext.getCurrentInstance().execute("PF('editarFechaCorte').show()");
          } else if (cualCelda == 1) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editarProceso");
-            PrimefacesContextUI.ejecutar("PF('editarProceso').show()");
+            RequestContext.getCurrentInstance().execute("PF('editarProceso').show()");
          }
       }
       secRegistro = null;
@@ -1661,7 +1661,7 @@ public class ControlEmplComprobantes implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 1) {
                RequestContext.getCurrentInstance().update("formularioDialogos:ProcesosDialogo");
-               PrimefacesContextUI.ejecutar("PF('ProcesosDialogo').show()");
+               RequestContext.getCurrentInstance().execute("PF('ProcesosDialogo').show()");
                tipoActualizacion = 0;
             }
          }
@@ -1680,22 +1680,22 @@ public class ControlEmplComprobantes implements Serializable {
          }
          if (resultado == 1) {
             RequestContext.getCurrentInstance().update("formDialogos:errorObjetosDB");
-            PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
          } else if (resultado == 2) {
             RequestContext.getCurrentInstance().update("formDialogos:confirmarRastro");
-            PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
          } else if (resultado == 3) {
             RequestContext.getCurrentInstance().update("formDialogos:errorRegistroRastro");
-            PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
          } else if (resultado == 4) {
             RequestContext.getCurrentInstance().update("formDialogos:errorTablaConRastro");
-            PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
          } else if (resultado == 5) {
             RequestContext.getCurrentInstance().update("formDialogos:errorTablaSinRastro");
-            PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
          }
       } else {
-         PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+         RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
       }
    }
    //EXPORTAR
@@ -1859,7 +1859,7 @@ public class ControlEmplComprobantes implements Serializable {
             RequestContext.getCurrentInstance().update("form:growl");
             contarRegistrosComp();
          } else {
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
          }
       } catch (Exception e) {
          System.out.println("Error eliminarComprobantegeneral Controlador: " + e.toString());
@@ -1996,11 +1996,11 @@ public class ControlEmplComprobantes implements Serializable {
 //    public void seleccionTablaEmpleadoIz() {
 //        empleadoTablaSeleccionado = listaSolucionesNodosEmpleado.;
 //        FacesContext c = FacesContext.getCurrentInstance();
-//        PrimefacesContextUI.ejecutar("PF('$('.tabla2ScrollInteligente .ui-datatable-scrollable-body').animate({scrollTop : 0}, 500);");
+//        RequestContext.getCurrentInstance().execute("PF('$('.tabla2ScrollInteligente .ui-datatable-scrollable-body').animate({scrollTop : 0}, 500);");
 //        tabla1 = (DataTable) c.getViewRoot().findComponent("form:tablaEmpleado");
 //        tabla1.setSelection(empleadoTablaSeleccionado);
 //        RequestContext.getCurrentInstance().update("form:tablaEmpleado");
-//        PrimefacesContextUI.ejecutar("PF('if ($('.tabla2ScrollInteligente .ui-datatable .ui-state-highlight').offset().top-(275.25) < 0.5) {"
+//        RequestContext.getCurrentInstance().execute("PF('if ($('.tabla2ScrollInteligente .ui-datatable .ui-state-highlight').offset().top-(275.25) < 0.5) {"
 //                + "$('.tabla2ScrollInteligente .ui-datatable-scrollable-body').animate({scrollTop : ($('.tabla2ScrollInteligente .ui-datatable .ui-state-highlight').offset().top-(275))+60}, 1000);} "
 //                + "else if ($('.tabla2ScrollInteligente .ui-datatable .ui-state-highlight').offset().top-(276.25) > 70) {"
 //                + "$('.tabla2ScrollInteligente .ui-datatable-scrollable-body').animate({scrollTop : ($('.tabla2ScrollInteligente .ui-datatable .ui-state-highlight').offset().top-22)}, 1000);}");
@@ -2011,7 +2011,7 @@ public class ControlEmplComprobantes implements Serializable {
 //        tabla2 = (DataTable) c.getViewRoot().findComponent("form:tablaEmpleado");
 //        tabla2.setSelection(empleadoTablaSeleccionado);
 //        RequestContext.getCurrentInstance().update("form:tablaEmpleado");
-//        PrimefacesContextUI.ejecutar("PF('if ($('.tablaScrollInteligente .ui-datatable .ui-state-highlight').offset().top-(275.25) < 0.5) {"
+//        RequestContext.getCurrentInstance().execute("PF('if ($('.tablaScrollInteligente .ui-datatable .ui-state-highlight').offset().top-(275.25) < 0.5) {"
 //                + "$('.tablaScrollInteligente .ui-datatable-scrollable-body').animate({scrollTop : ($('.tablaScrollInteligente .ui-datatable .ui-state-highlight').offset().top-(275))+60}, 1000);} "
 //                + "else if ($('.tablaScrollInteligente .ui-datatable .ui-state-highlight').offset().top-(276.25) > 70) {"
 //                + "$('.tablaScrollInteligente .ui-datatable-scrollable-body').animate({scrollTop : ($('.tablaScrollInteligente .ui-datatable .ui-state-highlight').offset().top-22)}, 1000);}");
@@ -2073,14 +2073,14 @@ public class ControlEmplComprobantes implements Serializable {
       }
       RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("formularioDialogos:parcialesConcepto");
-      PrimefacesContextUI.ejecutar("PF('parcialesConcepto.show();");
+      RequestContext.getCurrentInstance().execute("PF('parcialesConcepto').show();");
    }
 
    public void verDetallesFormula() {
       listaDetallesFormulas = null;
       RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("formularioDialogos:detallesFormulas");
-      PrimefacesContextUI.ejecutar("PF('detallesFormulas.show();");
+      RequestContext.getCurrentInstance().execute("PF('detallesFormulas').show();");
    }
 
    public void contarRegistrosComp() {

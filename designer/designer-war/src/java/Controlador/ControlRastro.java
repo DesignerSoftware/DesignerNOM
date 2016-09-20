@@ -1,6 +1,6 @@
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import Entidades.Rastros;
 import Entidades.RastrosValores;
 import Exportar.ExportarPDF;
@@ -122,7 +122,7 @@ public class ControlRastro implements Serializable {
         } else {
             listaRastros = backUplistaLOVRastros;
             backUplistaLOVRastros = null;
-            PrimefacesContextUI.ejecutar("PF('errorEliminados').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorEliminados').show()");
         }
     }
     public void historicosTablaEliminadosEmpleado() {
@@ -138,14 +138,14 @@ public class ControlRastro implements Serializable {
         } else {
             listaRastros = backUplistaLOVRastros;
             backUplistaLOVRastros = null;
-            PrimefacesContextUI.ejecutar("PF('errorEliminados').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorEliminados').show()");
         }
     }
 
     public void btnConsultarDinamico() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (estadoBtn == 1) {
-            PrimefacesContextUI.ejecutar("PF('confirmarEliminados').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarEliminados').show()");
         } else {
             System.out.println("Estado : " + estado);
             if (estado == 1) {
@@ -163,7 +163,7 @@ public class ControlRastro implements Serializable {
     public void seguirDialogos() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (campoEmpl == true) {
-            PrimefacesContextUI.ejecutar("PF('confirmarEliminadosEmpleado').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarEliminadosEmpleado').show()");
         } else {
             historicosTablaEliminados();
         }
@@ -186,7 +186,7 @@ public class ControlRastro implements Serializable {
         }
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:fechaDialogo");
-        PrimefacesContextUI.ejecutar("PF('fechaDialogo').show()");
+        RequestContext.getCurrentInstance().execute("PF('fechaDialogo').show()");
     }
 
     public void seleccionarFecha() {
@@ -198,7 +198,7 @@ public class ControlRastro implements Serializable {
         seleccionRastro = null;
         btnMostrarTodos = false;
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.ejecutar("PF('fechaDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('fechaDialogo').hide()");
         context.reset("form:lovFecha:globalFilter");
         RequestContext.getCurrentInstance().update("form:lovFecha");
         RequestContext.getCurrentInstance().update("form:btnMostrarT");
@@ -277,9 +277,9 @@ public class ControlRastro implements Serializable {
         rastroValor = administrarRastros.valorRastro(seleccionRastro.getSecuencia());
         if (!rastroValor.isEmpty()) {
             RequestContext.getCurrentInstance().update("form:valorRastroDialogo");
-            PrimefacesContextUI.ejecutar("PF('valorRastroDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('valorRastroDialogo').show()");
         } else {
-            PrimefacesContextUI.ejecutar("PF('errorValorRastro').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorValorRastro').show()");
         }
     }
 

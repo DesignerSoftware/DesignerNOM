@@ -5,7 +5,7 @@
  */
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import Entidades.Operandos;
 import Entidades.TiposFunciones;
 import Exportar.ExportarPDF;
@@ -202,7 +202,7 @@ public class ControlTipoFuncion implements Serializable {
 
         if (pasa != 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoTipoFuncion");
-            PrimefacesContextUI.ejecutar("PF('validacionNuevoTipoFuncion').show()");
+            RequestContext.getCurrentInstance().execute("PF('validacionNuevoTipoFuncion').show()");
         }
 
         if (pasa == 0) {
@@ -236,7 +236,7 @@ public class ControlTipoFuncion implements Serializable {
             RequestContext.getCurrentInstance().update("form:datosTiposFunciones");
             duplicarTipoFuncion = new TiposFunciones();
             RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarTipoFuncion");
-            PrimefacesContextUI.ejecutar("PF('DuplicarTipoFuncion').hide()");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarTipoFuncion').hide()");
         }
     }
 
@@ -324,15 +324,15 @@ public class ControlTipoFuncion implements Serializable {
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarFechasIniciales");
-                PrimefacesContextUI.ejecutar("PF('editarFechasIniciales').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarFechasIniciales').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarFechasFinales");
-                PrimefacesContextUI.ejecutar("PF('editarFechasFinales').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarFechasFinales').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarObjetos");
-                PrimefacesContextUI.ejecutar("PF('editarObjetos').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarObjetos').show()");
                 cualCelda = -1;
             }
         }
@@ -399,7 +399,7 @@ public class ControlTipoFuncion implements Serializable {
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoFuncion");
-            PrimefacesContextUI.ejecutar("PF('DuplicarTipoFuncion').show()");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarTipoFuncion').show()");
             index = -1;
             secRegistro = null;
         }
@@ -472,24 +472,24 @@ public class ControlTipoFuncion implements Serializable {
                 int result = administrarRastros.obtenerTabla(secRegistro, "TIPOSFUNCIONES");
                 System.out.println("resultado: " + result);
                 if (result == 1) {
-                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
                 } else if (result == 2) {
-                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
                 } else if (result == 3) {
-                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
                 } else if (result == 4) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
                 } else if (result == 5) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+                RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("TIPOSFUNCIONES")) {
-                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
             } else {
-                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
             }
         }
         index = -1;
@@ -509,13 +509,13 @@ public class ControlTipoFuncion implements Serializable {
 
         if (nuevoTipoFuncion.getFechafinal().before(nuevoTipoFuncion.getFechainicial())) {
             RequestContext.getCurrentInstance().update("formularioDialogos:errorFechas");
-            PrimefacesContextUI.ejecutar("PF('errorFechas').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorFechas').show()");
             pasa2++;
         }
 
         if (pasa != 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoTipoFuncion");
-            PrimefacesContextUI.ejecutar("PF('validacionNuevoTipoFuncion').show()");
+            RequestContext.getCurrentInstance().execute("PF('validacionNuevoTipoFuncion').show()");
         }
 
         if (pasa == 0 && pasa2 == 0) {
@@ -554,7 +554,7 @@ public class ControlTipoFuncion implements Serializable {
                 guardado = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
-            PrimefacesContextUI.ejecutar("PF('NuevoTipoFuncion').hide()");
+            RequestContext.getCurrentInstance().execute("PF('NuevoTipoFuncion').hide()");
             index = -1;
             secRegistro = null;
         }

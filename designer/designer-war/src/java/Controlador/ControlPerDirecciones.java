@@ -4,7 +4,7 @@
  */
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import Entidades.Ciudades;
 import Entidades.Direcciones;
 import Entidades.Empleados;
@@ -165,13 +165,13 @@ public class ControlPerDirecciones implements Serializable {
             if (nuevaDireccion.getTipoppal() != null && nuevaDireccion.getPpal() != null && nuevaDireccion.getSecundario() != null && nuevaDireccion.getTiposecundario() != null) {
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("formularioDialogos:pregunta");
-                PrimefacesContextUI.ejecutar("PF('pregunta').show()");
+                RequestContext.getCurrentInstance().execute("PF('pregunta').show()");
             }
         } else if (tipoNuevo == 2) {
             if (duplicarDireccion.getTipoppal() != null && duplicarDireccion.getPpal() != null && duplicarDireccion.getSecundario() != null && duplicarDireccion.getTiposecundario() != null) {
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("formularioDialogos:pregunta");
-                PrimefacesContextUI.ejecutar("PF('pregunta').show()");
+                RequestContext.getCurrentInstance().execute("PF('pregunta').show()");
             }
         }
     }
@@ -273,10 +273,10 @@ public class ControlPerDirecciones implements Serializable {
                 guardado = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
-            PrimefacesContextUI.ejecutar("PF('NuevoRegistroDireccion').hide()");
+            RequestContext.getCurrentInstance().execute("PF('NuevoRegistroDireccion').hide()");
         } else {
             RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevaDireccion");
-            PrimefacesContextUI.ejecutar("PF('validacionNuevaDireccion').show()");
+            RequestContext.getCurrentInstance().execute("PF('validacionNuevaDireccion').show()");
         }
     }
 
@@ -338,7 +338,7 @@ public class ControlPerDirecciones implements Serializable {
             } else {
                 permitirIndex = false;
                 RequestContext.getCurrentInstance().update("formularioDialogos:ciudadesDialogo");
-                PrimefacesContextUI.ejecutar("PF('ciudadesDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('ciudadesDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -414,8 +414,8 @@ public class ControlPerDirecciones implements Serializable {
         tipoActualizacion = -1;
         cualCelda = -1;
         context.reset("formularioDialogos:LOVCiudades:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('LOVCiudades').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('ciudadesDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('LOVCiudades').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('ciudadesDialogo').hide()");
         //RequestContext.getCurrentInstance().update("formularioDialogos:LOVCiudades");
     }
 
@@ -497,7 +497,7 @@ public class ControlPerDirecciones implements Serializable {
                 habilitarBotonLOV();
                 modificarInfoRegistroCiudades(listaCiudades.size());
                 RequestContext.getCurrentInstance().update("formularioDialogos:ciudadesDialogo");
-                PrimefacesContextUI.ejecutar("PF('ciudadesDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('ciudadesDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -512,7 +512,7 @@ public class ControlPerDirecciones implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         modificarInfoRegistroCiudades(listaCiudades.size());
         RequestContext.getCurrentInstance().update("formularioDialogos:ciudadesDialogo");
-        PrimefacesContextUI.ejecutar("PF('ciudadesDialogo').show()");
+        RequestContext.getCurrentInstance().execute("PF('ciudadesDialogo').show()");
         tipoActualizacion = 0;
     }
 
@@ -531,56 +531,56 @@ public class ControlPerDirecciones implements Serializable {
             if (cualCelda == 0) {
                 deshabilitarBotonLOV();
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarFecha");
-                PrimefacesContextUI.ejecutar("PF('editarFecha').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarFecha').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
                 deshabilitarBotonLOV();
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarUbicacionesPrincipales");
-                PrimefacesContextUI.ejecutar("PF('editarUbicacionesPrincipales').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarUbicacionesPrincipales').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
                 deshabilitarBotonLOV();
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarDescripcionesUbicacionesPrincipales");
-                PrimefacesContextUI.ejecutar("PF('editarDescripcionesUbicacionesPrincipales').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarDescripcionesUbicacionesPrincipales').show()");
                 cualCelda = -1;
             } else if (cualCelda == 3) {
                 deshabilitarBotonLOV();
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarUbicacionesSecundarias");
-                PrimefacesContextUI.ejecutar("PF('editarUbicacionesSecundarias').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarUbicacionesSecundarias').show()");
                 cualCelda = -1;
             } else if (cualCelda == 4) {
                 deshabilitarBotonLOV();
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarDescripcionesUbicacionesSecundarias");
-                PrimefacesContextUI.ejecutar("PF('editarDescripcionesUbicacionesSecundarias').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarDescripcionesUbicacionesSecundarias').show()");
                 cualCelda = -1;
             } else if (cualCelda == 5) {
                 deshabilitarBotonLOV();
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarBarrios");
-                PrimefacesContextUI.ejecutar("PF('editarBarrios').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarBarrios').show()");
                 cualCelda = -1;
             } else if (cualCelda == 6) {
                 habilitarBotonLOV();
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarCiudades");
-                PrimefacesContextUI.ejecutar("PF('editarCiudades').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarCiudades').show()");
                 cualCelda = -1;
             } else if (cualCelda == 7) {
                 deshabilitarBotonLOV();
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarTiposViviendas");
-                PrimefacesContextUI.ejecutar("PF('editarTiposViviendas').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarTiposViviendas').show()");
                 cualCelda = -1;
             } else if (cualCelda == 8) {
                 deshabilitarBotonLOV();
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarHipotecas");
-                PrimefacesContextUI.ejecutar("PF('editarHipotecas').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarHipotecas').show()");
                 cualCelda = -1;
             } else if (cualCelda == 9) {
                 deshabilitarBotonLOV();
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarDireccionesAlternativas");
-                PrimefacesContextUI.ejecutar("PF('editarDireccionesAlternativas').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarDireccionesAlternativas').show()");
                 cualCelda = -1;
             }
         } else {
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
@@ -624,9 +624,9 @@ public class ControlPerDirecciones implements Serializable {
             direccionSeleccionada = duplicarDireccion;
 
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDireccion");
-            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroDireccion').show()");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroDireccion').show()");
         } else {
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
@@ -647,12 +647,12 @@ public class ControlPerDirecciones implements Serializable {
         for (int i = 0; i < listaDirecciones.size(); i++) {
             if ((listaDirecciones.get(i).getSecuencia().equals(duplicarDireccion.getSecuencia())) && ((listaDirecciones.get(i).getFechavigencia().equals(duplicarDireccion.getFechavigencia())))) {// && !(duplicarTelefono.getFechavigencia().before(listaTelefonos.get(i).getFechavigencia())))) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:existeDireccion");
-                PrimefacesContextUI.ejecutar("PF('existeDireccion').show()");
+                RequestContext.getCurrentInstance().execute("PF('existeDireccion').show()");
                 pasaA++;
             }
             if (pasa != 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevaDireccion");
-                PrimefacesContextUI.ejecutar("PF('validacionNuevaDireccion').show()");
+                RequestContext.getCurrentInstance().execute("PF('validacionNuevaDireccion').show()");
             }
         }
 //
@@ -700,7 +700,7 @@ public class ControlPerDirecciones implements Serializable {
             tipoLista = 0;
             }
             duplicarDireccion = new Direcciones();
-            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroDireccion').hide()");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroDireccion').hide()");
         }
     }
     
@@ -785,8 +785,8 @@ public class ControlPerDirecciones implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formularioDialogos:LOVCiudades:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('LOVCiudades').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('ciudadesDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('LOVCiudades').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('ciudadesDialogo').hide()");
         RequestContext.getCurrentInstance().update("formularioDialogos:ciudadesDialogo");
         RequestContext.getCurrentInstance().update("form:LOVCiudades");
         RequestContext.getCurrentInstance().update("form:aceptarC");
@@ -878,7 +878,7 @@ public class ControlPerDirecciones implements Serializable {
             getListaCiudades();
         } else {
             RequestContext.getCurrentInstance().update("formularioDialogos:ciudadesDialogo");
-            PrimefacesContextUI.ejecutar("PF('ciudadesDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('ciudadesDialogo').show()");
             tipoActualizacion = tipoNuevo;
             if (tipoNuevo == 1) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:nuevaCiudad");
@@ -897,7 +897,7 @@ public class ControlPerDirecciones implements Serializable {
         modificarInfoRegistroCiudades(listaCiudades.size());
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("formularioDialogos:ciudadesDialogo");
-        PrimefacesContextUI.ejecutar("PF('ciudadesDialogo').show()");
+        RequestContext.getCurrentInstance().execute("PF('ciudadesDialogo').show()");
     }
 
     //BORRAR DIRECCIONES
@@ -931,7 +931,7 @@ public class ControlPerDirecciones implements Serializable {
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         } else {
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
@@ -959,22 +959,22 @@ public class ControlPerDirecciones implements Serializable {
             if (direccionSeleccionada != null) {
                 int resultado = administrarRastros.obtenerTabla(direccionSeleccionada.getSecuencia(), "DIRECCIONES");
                 if (resultado == 1) {
-                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
-                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
                 }
             }
          else {
             if (administrarRastros.verificarHistoricosTabla("DIRECCIONES")) {
-                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
             } else {
-                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
             }
 
         }

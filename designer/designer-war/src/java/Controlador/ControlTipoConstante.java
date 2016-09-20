@@ -5,7 +5,7 @@
  */
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import Entidades.Operandos;
 import Entidades.TiposConstantes;
 import Exportar.ExportarPDF;
@@ -293,27 +293,27 @@ public class ControlTipoConstante implements Serializable {
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarTipos");
-                PrimefacesContextUI.ejecutar("PF('editarTipos').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarTipos').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarFechasIniciales");
-                PrimefacesContextUI.ejecutar("PF('editarFechasIniciales').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarFechasIniciales').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarFechasFinales");
-                PrimefacesContextUI.ejecutar("PF('editarFechasFinales').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarFechasFinales').show()");
                 cualCelda = -1;
             } else if (cualCelda == 3) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarValoresReales");
-                PrimefacesContextUI.ejecutar("PF('editarValoresReales').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarValoresReales').show()");
                 cualCelda = -1;
             } else if (cualCelda == 4) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarValoresDates");
-                PrimefacesContextUI.ejecutar("PF('editarValoresDates').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarValoresDates').show()");
                 cualCelda = -1;
             } else if (cualCelda == 5) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarValoresCadenas");
-                PrimefacesContextUI.ejecutar("PF('editarValoresCadenas').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarValoresCadenas').show()");
                 cualCelda = -1;
             }
         }
@@ -393,7 +393,7 @@ public class ControlTipoConstante implements Serializable {
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoConstante");
-            PrimefacesContextUI.ejecutar("PF('DuplicarTipoConstante').show()");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarTipoConstante').show()");
             index = -1;
             secRegistro = null;
         }
@@ -407,24 +407,24 @@ public class ControlTipoConstante implements Serializable {
                 int result = administrarRastros.obtenerTabla(secRegistro, "TIPOSCONSTANTES");
                 System.out.println("resultado: " + result);
                 if (result == 1) {
-                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
                 } else if (result == 2) {
-                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
                 } else if (result == 3) {
-                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
                 } else if (result == 4) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
                 } else if (result == 5) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+                RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("TIPOSCONSTANTES")) {
-                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
             } else {
-                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
             }
         }
         index = -1;
@@ -732,14 +732,14 @@ public class ControlTipoConstante implements Serializable {
         if (nuevoTipoConstante.getFechainicial() != null && nuevoTipoConstante.getFechafinal() != null) {
             if (nuevoTipoConstante.getFechafinal().before(nuevoTipoConstante.getFechainicial())) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:errorFechas");
-                PrimefacesContextUI.ejecutar("PF('errorFechas').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorFechas').show()");
                 pasa2++;
             }
         }
 
         if (pasa != 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoTipoConstante");
-            PrimefacesContextUI.ejecutar("PF('validacionNuevoTipoConstante').show()");
+            RequestContext.getCurrentInstance().execute("PF('validacionNuevoTipoConstante').show()");
         }
 
         if (pasa == 0 && pasa2 == 0) {
@@ -785,7 +785,7 @@ public class ControlTipoConstante implements Serializable {
                 cambiosPagina = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
-            PrimefacesContextUI.ejecutar("PF('NuevoTipoConstante').hide()");
+            RequestContext.getCurrentInstance().execute("PF('NuevoTipoConstante').hide()");
             index = -1;
             secRegistro = null;
         }
@@ -803,7 +803,7 @@ public class ControlTipoConstante implements Serializable {
 
         if (pasa != 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoTipoConstante");
-            PrimefacesContextUI.ejecutar("PF('validacionNuevoTipoConstante').show()");
+            RequestContext.getCurrentInstance().execute("PF('validacionNuevoTipoConstante').show()");
         }
 
         if (pasa == 0) {
@@ -846,7 +846,7 @@ public class ControlTipoConstante implements Serializable {
             RequestContext.getCurrentInstance().update("form:datosTiposFormulas");
             duplicarTipoConstante = new TiposConstantes();
             RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarTipoConstante");
-            PrimefacesContextUI.ejecutar("PF('DuplicarTipoConstante').hide()");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarTipoConstante').hide()");
         }
     }
 

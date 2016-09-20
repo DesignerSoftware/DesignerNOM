@@ -4,7 +4,7 @@
  */
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import InterfaceAdministrar.AdministrarMotivosLocalizacionesInterface;
 import Entidades.MotivosLocalizaciones;
 import Exportar.ExportarPDF;
@@ -308,7 +308,7 @@ public class ControlMotivosLocalizaciones implements Serializable {
             }
         } else {
             RequestContext.getCurrentInstance().update("form:validacionModificar");
-            PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
+            RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
         }
 
         RequestContext.getCurrentInstance().update("form:datosMotivoCambioCargo");
@@ -342,7 +342,7 @@ public class ControlMotivosLocalizaciones implements Serializable {
             }
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
         } else {
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
 
     }
@@ -362,7 +362,7 @@ public class ControlMotivosLocalizaciones implements Serializable {
                 System.out.println("Borrado>0");
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("form:validacionBorrar");
-                PrimefacesContextUI.ejecutar("PF('validacionBorrar').show()");
+                RequestContext.getCurrentInstance().execute("PF('validacionBorrar').show()");
                 contarVigenciasLocalizacionesMotivoLocalizacion = new BigInteger("-1");
             }
 
@@ -379,7 +379,7 @@ public class ControlMotivosLocalizaciones implements Serializable {
                 administrarMotivosLocalizaciones.borrarMotivosLocalizaciones(borrarMotivoContrato);
                 registrosBorrados = borrarMotivoContrato.size();
                 RequestContext.getCurrentInstance().update("form:mostrarBorrados");
-                PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
+                RequestContext.getCurrentInstance().execute("PF('mostrarBorrados').show()");
                 borrarMotivoContrato.clear();
             }
             if (!crearMotivosLocalizaciones.isEmpty()) {
@@ -419,16 +419,16 @@ public class ControlMotivosLocalizaciones implements Serializable {
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
-                PrimefacesContextUI.ejecutar("PF('editCodigo').show()");
+                RequestContext.getCurrentInstance().execute("PF('editCodigo').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editDescripcion");
-                PrimefacesContextUI.ejecutar("PF('editDescripcion').show()");
+                RequestContext.getCurrentInstance().execute("PF('editDescripcion').show()");
                 cualCelda = -1;
             }
 
         } else {
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
@@ -508,10 +508,10 @@ public class ControlMotivosLocalizaciones implements Serializable {
                 guardado = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
-            PrimefacesContextUI.ejecutar("PF('nuevoRegistroMotivosLocalizaciones').hide()");
+            RequestContext.getCurrentInstance().execute("PF('nuevoRegistroMotivosLocalizaciones').hide()");
         } else {
             RequestContext.getCurrentInstance().update("form:validacionNuevaCentroCosto");
-            PrimefacesContextUI.ejecutar("PF('validacionNuevaCentroCosto').show()");
+            RequestContext.getCurrentInstance().execute("PF('validacionNuevaCentroCosto').show()");
 
             contador = 0;
         }
@@ -543,9 +543,9 @@ public class ControlMotivosLocalizaciones implements Serializable {
                 duplicarMotivoContrato.setDescripcion(motivoLocalizacionSeleccionado.getDescripcion());
             }
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarMotivosCambiosCargos");
-            PrimefacesContextUI.ejecutar("PF('duplicarRegistroMotivosLocalizaciones').show()");
+            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroMotivosLocalizaciones').show()");
         } else {
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
@@ -614,12 +614,12 @@ public class ControlMotivosLocalizaciones implements Serializable {
                 filtrarMotivosLocalizaciones = null;
                 tipoLista = 0;
             }
-            PrimefacesContextUI.ejecutar("PF('duplicarRegistroMotivosLocalizaciones').hide()");
+            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroMotivosLocalizaciones').hide()");
 
         } else {
             contador = 0;
             RequestContext.getCurrentInstance().update("form:validacionDuplicarMotivoLocalizacion");
-            PrimefacesContextUI.ejecutar("PF('validacionDuplicarMotivoLocalizacion').show()");
+            RequestContext.getCurrentInstance().execute("PF('validacionDuplicarMotivoLocalizacion').show()");
         }
     }
 
@@ -660,22 +660,22 @@ public class ControlMotivosLocalizaciones implements Serializable {
             resultado = administrarRastros.obtenerTabla(motivoLocalizacionSeleccionado.getSecuencia(), "MOTIVOSLOCALIZACIONES"); //En ENCARGATURAS lo cambia por el nombre de su tabla
             System.out.println("resultado: " + resultado);
             if (resultado == 1) {
-                PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {
-                PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
             } else if (resultado == 3) {
-                PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
             } else if (resultado == 4) {
-                PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
             } else if (resultado == 5) {
-                PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
 
         } else {
             if (administrarRastros.verificarHistoricosTabla("MOTIVOSLOCALIZACIONES")) { // igual acá
-                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
             } else {
-                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
             }
 
         }

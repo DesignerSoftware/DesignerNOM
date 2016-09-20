@@ -1,6 +1,6 @@
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import Entidades.Empresas;
 import Entidades.Monedas;
 import Entidades.Proyectos;
@@ -261,7 +261,7 @@ public class ControlProyecto implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:datosProyectos");
-            PrimefacesContextUI.ejecutar("PF('errorFechas').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorFechas').show()");
         }
     }
 
@@ -388,7 +388,7 @@ public class ControlProyecto implements Serializable {
                 } else {
                     permitirIndexP = false;
                     RequestContext.getCurrentInstance().update("form:EmpresasDialogo");
-                    PrimefacesContextUI.ejecutar("PF('EmpresasDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('EmpresasDialogo').show()");
                     tipoActualizacion = 0;
                 }
             } else {
@@ -427,7 +427,7 @@ public class ControlProyecto implements Serializable {
                 } else {
                     permitirIndexP = false;
                     RequestContext.getCurrentInstance().update("form:ClientesDialogo");
-                    PrimefacesContextUI.ejecutar("PF('ClientesDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('ClientesDialogo').show()");
                     tipoActualizacion = 0;
                 }
             } else {
@@ -465,7 +465,7 @@ public class ControlProyecto implements Serializable {
                 } else {
                     permitirIndexP = false;
                     RequestContext.getCurrentInstance().update("form:PlataformasDialogo");
-                    PrimefacesContextUI.ejecutar("PF('PlataformasDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('PlataformasDialogo').show()");
                     tipoActualizacion = 0;
                 }
             } else {
@@ -504,7 +504,7 @@ public class ControlProyecto implements Serializable {
                 } else {
                     permitirIndexP = false;
                     RequestContext.getCurrentInstance().update("form:MonedasDialogo");
-                    PrimefacesContextUI.ejecutar("PF('MonedasDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('MonedasDialogo').show()");
                     tipoActualizacion = 0;
                 }
             } else {
@@ -612,7 +612,7 @@ public class ControlProyecto implements Serializable {
                     getListEmpresas();
                 } else {
                     RequestContext.getCurrentInstance().update("form:EmpresasDialogo");
-                    PrimefacesContextUI.ejecutar("PF('EmpresasDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('EmpresasDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                     if (tipoNuevo == 1) {
                         RequestContext.getCurrentInstance().update("formularioDialogos:nuevaEmpresaP");
@@ -657,7 +657,7 @@ public class ControlProyecto implements Serializable {
                     getListPryClientes();
                 } else {
                     RequestContext.getCurrentInstance().update("form:ClientesDialogo");
-                    PrimefacesContextUI.ejecutar("PF('ClientesDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('ClientesDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                     if (tipoNuevo == 1) {
                         RequestContext.getCurrentInstance().update("formularioDialogos:nuevaClienteP");
@@ -701,7 +701,7 @@ public class ControlProyecto implements Serializable {
                     getListPryPlataformas();
                 } else {
                     RequestContext.getCurrentInstance().update("form:PlataformasDialogo");
-                    PrimefacesContextUI.ejecutar("PF('PlataformasDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('PlataformasDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                     if (tipoNuevo == 1) {
                         RequestContext.getCurrentInstance().update("formularioDialogos:nuevaPlataformaP");
@@ -745,7 +745,7 @@ public class ControlProyecto implements Serializable {
                     getListMonedas();
                 } else {
                     RequestContext.getCurrentInstance().update("form:PlataformasDialogo");
-                    PrimefacesContextUI.ejecutar("PF('PlataformasDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('PlataformasDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                     if (tipoNuevo == 1) {
                         RequestContext.getCurrentInstance().update("formularioDialogos:nuevaMonedaP");
@@ -945,62 +945,62 @@ public class ControlProyecto implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCeldaP == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarEmpresaPD");
-                PrimefacesContextUI.ejecutar("PF('editarEmpresaPD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarEmpresaPD').show()");
                 cualCeldaP = -1;
                 habilitarLov();
             } else if (cualCeldaP == 1) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarCodigoPD");
-                PrimefacesContextUI.ejecutar("PF('editarCodigoPD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarCodigoPD').show()");
                 cualCeldaP = -1;
                 deshabilitarLov();
             } else if (cualCeldaP == 2) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarNombrePD");
-                PrimefacesContextUI.ejecutar("PF('editarNombrePD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarNombrePD').show()");
                 cualCeldaP = -1;
                 deshabilitarLov();
             } else if (cualCeldaP == 3) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarClientePD");
-                PrimefacesContextUI.ejecutar("PF('editarClientePD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarClientePD').show()");
                 habilitarLov();
                 cualCeldaP = -1;
             } else if (cualCeldaP == 4) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarPlataformaPD");
-                PrimefacesContextUI.ejecutar("PF('editarPlataformaPD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarPlataformaPD').show()");
                 habilitarLov();
                 cualCeldaP = -1;
             } else if (cualCeldaP == 5) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarMontoPD");
-                PrimefacesContextUI.ejecutar("PF('editarMontoPD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarMontoPD').show()");
                 cualCeldaP = -1;
                 deshabilitarLov();
             } else if (cualCeldaP == 6) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarMonedaPD");
-                PrimefacesContextUI.ejecutar("PF('editarMonedaPD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarMonedaPD').show()");
                 cualCeldaP = -1;
                 habilitarLov();
             } else if (cualCeldaP == 7) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarPersonasPD");
-                PrimefacesContextUI.ejecutar("PF('editarPersonasPD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarPersonasPD').show()");
                 cualCeldaP = -1;
                 deshabilitarLov();
             } else if (cualCeldaP == 8) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaInicialPD");
-                PrimefacesContextUI.ejecutar("PF('editarFechaInicialPD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarFechaInicialPD').show()");
                 cualCeldaP = -1;
                 deshabilitarLov();
             } else if (cualCeldaP == 9) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaFinalPD");
-                PrimefacesContextUI.ejecutar("PF('editarFechaFinalPD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarFechaFinalPD').show()");
                 cualCeldaP = -1;
                 deshabilitarLov();
             } else if (cualCeldaP == 10) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarDescripcionPD");
-                PrimefacesContextUI.ejecutar("PF('editarDescripcionPD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarDescripcionPD').show()");
                 cualCeldaP = -1;
                 deshabilitarLov();
             }
         } else {
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
@@ -1061,14 +1061,14 @@ public class ControlProyecto implements Serializable {
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
                 RequestContext.getCurrentInstance().update("form:datosProyectos");
-                PrimefacesContextUI.ejecutar("PF('NuevoRegistroP').hide()");
+                RequestContext.getCurrentInstance().execute("PF('NuevoRegistroP').hide()");
             } else {
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.ejecutar("PF('errorDatosNull').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorDatosNull').show()");
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.ejecutar("PF('errorFechas').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorFechas').show()");
         }
     }
 
@@ -1129,9 +1129,9 @@ public class ControlProyecto implements Serializable {
                 deshabilitarLov();
             }
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarP");
-            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroP').show()");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroP').show()");
         } else {
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
@@ -1189,14 +1189,14 @@ public class ControlProyecto implements Serializable {
                 deshabilitarLov();
                 RequestContext.getCurrentInstance().update("form:infoRegistro");
                 RequestContext.getCurrentInstance().update("form:datosProyectos");
-                PrimefacesContextUI.ejecutar("PF('DuplicarRegistroP').hide()");
+                RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroP').hide()");
             } else {
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.ejecutar("PF('errorDatosNull').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorDatosNull').show()");
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.ejecutar("PF('errorFechas').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorFechas').show()");
         }
     }
 
@@ -1248,10 +1248,10 @@ public class ControlProyecto implements Serializable {
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
             } else {
-                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+                RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
             }
         } catch (Exception e) {
-            PrimefacesContextUI.ejecutar("PF('validacionBorrar').show()");
+            RequestContext.getCurrentInstance().execute("PF('validacionBorrar').show()");
             System.err.println("ERROR controlProyecto BorrarP " + e);
         }
 
@@ -1382,19 +1382,19 @@ public class ControlProyecto implements Serializable {
         if (dlg == 0) {
             modificarInfoRegistroEmpresa(listEmpresas.size());
             RequestContext.getCurrentInstance().update("form:EmpresasDialogo");
-            PrimefacesContextUI.ejecutar("PF('EmpresasDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('EmpresasDialogo').show()");
         } else if (dlg == 1) {
             modificarInfoRegistroCliente(listPryClientes.size());
             RequestContext.getCurrentInstance().update("form:ClientesDialogo");
-            PrimefacesContextUI.ejecutar("PF('ClientesDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('ClientesDialogo').show()");
         } else if (dlg == 2) {
             modificarInfoRegistroPlataforma(listPryPlataformas.size());
             RequestContext.getCurrentInstance().update("form:PlataformasDialogo");
-            PrimefacesContextUI.ejecutar("PF('PlataformasDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('PlataformasDialogo').show()");
         } else if (dlg == 3) {
             modificarInfoRegistroTipoMoneda(listMonedas.size());
             RequestContext.getCurrentInstance().update("form:MonedasDialogo");
-            PrimefacesContextUI.ejecutar("PF('MonedasDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('MonedasDialogo').show()");
         }
 
     }
@@ -1453,8 +1453,8 @@ public class ControlProyecto implements Serializable {
         RequestContext.getCurrentInstance().update("form:aceptarE");
 
         context.reset("form:lovEmpresas:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovEmpresas').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('EmpresasDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovEmpresas').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('EmpresasDialogo').hide()");
     }
 
     public void cancelarCambioEmpresa() {
@@ -1465,8 +1465,8 @@ public class ControlProyecto implements Serializable {
         permitirIndexP = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovEmpresas:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovEmpresas').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('EmpresasDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovEmpresas').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('EmpresasDialogo').hide()");
     }
 
     public void actualizarCliente() {
@@ -1515,8 +1515,8 @@ public class ControlProyecto implements Serializable {
         RequestContext.getCurrentInstance().update("form:datosProyectos");
 
         context.reset("form:lovClientes:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovClientes').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('ClientesDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovClientes').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('ClientesDialogo').hide()");
     }
 
     /**
@@ -1530,8 +1530,8 @@ public class ControlProyecto implements Serializable {
         permitirIndexP = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovClientes:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovClientes').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('ClientesDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovClientes').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('ClientesDialogo').hide()");
     }
 
     public void actualizarPlataforma() {
@@ -1579,8 +1579,8 @@ public class ControlProyecto implements Serializable {
         RequestContext.getCurrentInstance().update("form:aceptarP");
 
         context.reset("form:lovPlataforma:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovClientes').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('form:PlataformasDialogo");
+        RequestContext.getCurrentInstance().execute("PF('lovClientes').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('form:PlataformasDialogo");
     }
 
     public void cancelarCambioPlataforma() {
@@ -1591,8 +1591,8 @@ public class ControlProyecto implements Serializable {
         permitirIndexP = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovPlataforma:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovClientes').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('PlataformasDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovClientes').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('PlataformasDialogo').hide()");
     }
 
     public void actualizarMoneda() {
@@ -1640,8 +1640,8 @@ public class ControlProyecto implements Serializable {
          RequestContext.getCurrentInstance().update("form:lovMoneda");
          RequestContext.getCurrentInstance().update("form:aceptarM");*/
         context.reset("form:lovMoneda:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovClientes').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('MonedasDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovClientes').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('MonedasDialogo').hide()");
     }
 
     public void cancelarCambioMoneda() {
@@ -1652,8 +1652,8 @@ public class ControlProyecto implements Serializable {
         permitirIndexP = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovMoneda:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovClientes').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('MonedasDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovClientes').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('MonedasDialogo').hide()");
     }
 
     public void listaValoresBoton() {
@@ -1663,7 +1663,7 @@ public class ControlProyecto implements Serializable {
                 modificarInfoRegistroEmpresa(listEmpresas.size());
                 habilitarLov();
                 RequestContext.getCurrentInstance().update("form:EmpresasDialogo");
-                PrimefacesContextUI.ejecutar("PF('EmpresasDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('EmpresasDialogo').show()");
                 tipoActualizacion = 0;
                 
             }
@@ -1671,21 +1671,21 @@ public class ControlProyecto implements Serializable {
                 modificarInfoRegistroCliente(listPryClientes.size());
                 habilitarLov();
                 RequestContext.getCurrentInstance().update("form:ClientesDialogo");
-                PrimefacesContextUI.ejecutar("PF('ClientesDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('ClientesDialogo').show()");
                 tipoActualizacion = 0;
             }
             if (cualCeldaP == 4) {
                 modificarInfoRegistroPlataforma(listPryPlataformas.size());
                 habilitarLov();
                 RequestContext.getCurrentInstance().update("form:PlataformasDialogo");
-                PrimefacesContextUI.ejecutar("PF('PlataformasDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('PlataformasDialogo').show()");
                 tipoActualizacion = 0;
             }
             if (cualCeldaP == 6) {
                 modificarInfoRegistroTipoMoneda(listMonedas.size());
                 habilitarLov();
                 RequestContext.getCurrentInstance().update("form:MonedasDialogo");
-                PrimefacesContextUI.ejecutar("PF('MonedasDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('MonedasDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -1840,7 +1840,7 @@ public class ControlProyecto implements Serializable {
         }
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:BuscarProyectoDialogo");
-        PrimefacesContextUI.ejecutar("PF('BuscarProyectoDialogo').show()");
+        RequestContext.getCurrentInstance().execute("PF('BuscarProyectoDialogo').show()");
     }
 
     public void actualizarProyecto() {
@@ -1857,7 +1857,7 @@ public class ControlProyecto implements Serializable {
         RequestContext.getCurrentInstance().update("form:lovProyecto");
         RequestContext.getCurrentInstance().update("form:aceptarPro");
         context.reset("form:lovProyecto:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('BuscarProyectoDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('BuscarProyectoDialogo').hide()");
     }
 
     public void cancelarActualizarProyecto() {
@@ -1871,7 +1871,7 @@ public class ControlProyecto implements Serializable {
         RequestContext.getCurrentInstance().update("form:lovProyecto");
         RequestContext.getCurrentInstance().update("form:aceptarPro");
         context.reset("form:lovProyecto:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('BuscarProyectoDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('BuscarProyectoDialogo').hide()");
     }
 
     public void mostrarTodos() {
@@ -1896,21 +1896,21 @@ public class ControlProyecto implements Serializable {
          if (proyectoLOVSeleccionado != null) {
             int resultado = administrarRastros.obtenerTabla(proyectoLOVSeleccionado.getSecuencia(), "PROYECTOS");
             if (resultado == 1) {
-                PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {
-                PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
             } else if (resultado == 3) {
-                PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
             } else if (resultado == 4) {
-                PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
             } else if (resultado == 5) {
-                PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("PROYECTOS")) {
-                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
             } else {
-                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
             }
 
         }

@@ -1,6 +1,6 @@
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import Entidades.ActualUsuario;
 import Entidades.Cuadrillas;
 import Entidades.Empleados;
@@ -125,33 +125,33 @@ public class ControlATParametroTiempo implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (posicionParametroTiempo == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editarParametroCuadrilla");
-            PrimefacesContextUI.ejecutar("PF('editarParametroCuadrilla').show()");
+            RequestContext.getCurrentInstance().execute("PF('editarParametroCuadrilla').show()");
         }
         if (posicionParametroTiempo == 2) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editarParametroFechaDesde");
-            PrimefacesContextUI.ejecutar("PF('editarParametroFechaDesde').show()");
+            RequestContext.getCurrentInstance().execute("PF('editarParametroFechaDesde').show()");
         }
         if (posicionParametroTiempo == 3) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editarParametroFechaHasta");
-            PrimefacesContextUI.ejecutar("PF('editarParametroFechaHasta').show()");
+            RequestContext.getCurrentInstance().execute("PF('editarParametroFechaHasta').show()");
         }
         if (posicionParametroTiempo == 4) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editarParametroEmplDesde");
-            PrimefacesContextUI.ejecutar("PF('editarParametroEmplDesde').show()");
+            RequestContext.getCurrentInstance().execute("PF('editarParametroEmplDesde').show()");
         }
         if (posicionParametroTiempo == 5) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editarParametroEmplHasta");
-            PrimefacesContextUI.ejecutar("PF('editarParametroEmplHasta').show()");
+            RequestContext.getCurrentInstance().execute("PF('editarParametroEmplHasta').show()");
         }
         if (posicionParametroTiempo == 6) {
             editarFechaDesdeTiempo = fechaDesdeTiempo;
             RequestContext.getCurrentInstance().update("formularioDialogos:editarParametroHoraDesde");
-            PrimefacesContextUI.ejecutar("PF('editarParametroHoraDesde').show()");
+            RequestContext.getCurrentInstance().execute("PF('editarParametroHoraDesde').show()");
         }
         if (posicionParametroTiempo == 7) {
             editarFechaHastaTiempo = fechaHastaTiempo;
             RequestContext.getCurrentInstance().update("formularioDialogos:editarParametroHoraHasta");
-            PrimefacesContextUI.ejecutar("PF('editarParametroHoraHasta').show()");
+            RequestContext.getCurrentInstance().execute("PF('editarParametroHoraHasta').show()");
         }
         posicionParametroTiempo = -1;
     }
@@ -207,15 +207,15 @@ public class ControlATParametroTiempo implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (dialogo == 0) {
             RequestContext.getCurrentInstance().update("formCuadrilla:CuadrillaDialogo");
-            PrimefacesContextUI.ejecutar("PF('CuadrillaDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('CuadrillaDialogo').show()");
         }
         if (dialogo == 1) {
             RequestContext.getCurrentInstance().update("formEmpleado:EmpleadoDialogo");
-            PrimefacesContextUI.ejecutar("PF('EmpleadoDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('EmpleadoDialogo').show()");
         }
         if (dialogo == 2) {
             RequestContext.getCurrentInstance().update("formEmpleado:EmpleadoDialogo");
-            PrimefacesContextUI.ejecutar("PF('EmpleadoDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('EmpleadoDialogo').show()");
         }
     }
 
@@ -223,15 +223,15 @@ public class ControlATParametroTiempo implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (posicionParametroTiempo == 0) {
             RequestContext.getCurrentInstance().update("formCuadrilla:CuadrillaDialogo");
-            PrimefacesContextUI.ejecutar("PF('CuadrillaDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('CuadrillaDialogo').show()");
         }
         if (posicionParametroTiempo == 4) {
             RequestContext.getCurrentInstance().update("formEmpleado:EmpleadoDialogo");
-            PrimefacesContextUI.ejecutar("PF('EmpleadoDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('EmpleadoDialogo').show()");
         }
         if (posicionParametroTiempo == 5) {
             RequestContext.getCurrentInstance().update("formEmpleado:EmpleadoDialogo");
-            PrimefacesContextUI.ejecutar("PF('EmpleadoDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('EmpleadoDialogo').show()");
         }
         posicionParametroTiempo = -1;
     }
@@ -284,7 +284,7 @@ public class ControlATParametroTiempo implements Serializable {
                 fechaHastaTiempo = auxParametroHoraHasta;
                 RequestContext.getCurrentInstance().update("form:editarTiempoFechaHastaParametro");
             }
-            PrimefacesContextUI.ejecutar("PF('errorHorasFechas').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorHorasFechas').show()");
         }
     }
 
@@ -313,7 +313,7 @@ public class ControlATParametroTiempo implements Serializable {
                 } else {
                     permitirIndex = false;
                     RequestContext.getCurrentInstance().update("formCuadrilla:CuadrillaDialogo");
-                    PrimefacesContextUI.ejecutar("PF('CuadrillaDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('CuadrillaDialogo').show()");
                 }
             } else {
                 parametroTiempoUsuarioBD.setCuadrilla(new Cuadrillas());
@@ -343,7 +343,7 @@ public class ControlATParametroTiempo implements Serializable {
                 } else {
                     permitirIndex = false;
                     RequestContext.getCurrentInstance().update("formEmpleado:EmpleadoDialogo");
-                    PrimefacesContextUI.ejecutar("PF('EmpleadoDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('EmpleadoDialogo').show()");
                 }
             } else {
                 parametroTiempoUsuarioBD.setCodigoempleadodesde(new BigDecimal("0"));
@@ -373,7 +373,7 @@ public class ControlATParametroTiempo implements Serializable {
                 } else {
                     permitirIndex = false;
                     RequestContext.getCurrentInstance().update("formEmpleado:EmpleadoDialogo");
-                    PrimefacesContextUI.ejecutar("PF('EmpleadoDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('EmpleadoDialogo').show()");
                 }
             } else {
                 parametroTiempoUsuarioBD.setCodigoempleadohasta(new BigDecimal("9999999999999999999999999999999"));
@@ -437,7 +437,7 @@ public class ControlATParametroTiempo implements Serializable {
                 RequestContext.getCurrentInstance().update("form:editarTiempoFechaHastaParametro");
                 RequestContext.getCurrentInstance().update("form:editarFechaDesdeParametro");
                 RequestContext.getCurrentInstance().update("form:editarTiempoFechaDesdeParametro");
-                PrimefacesContextUI.ejecutar("PF('errorFechasParametro').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorFechasParametro').show()");
             }
         } else {
             parametroTiempoUsuarioBD.setFechadesde(auxParametroFechaDesde);
@@ -446,7 +446,7 @@ public class ControlATParametroTiempo implements Serializable {
             RequestContext.getCurrentInstance().update("form:editarTiempoFechaHastaParametro");
             RequestContext.getCurrentInstance().update("form:editarFechaDesdeParametro");
             RequestContext.getCurrentInstance().update("form:editarTiempoFechaDesdeParametro");
-            PrimefacesContextUI.ejecutar("PF('errorFechasPKG').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorFechasPKG').show()");
         }
     }
 
@@ -493,8 +493,8 @@ public class ControlATParametroTiempo implements Serializable {
          RequestContext.getCurrentInstance().update("form:lovEmpleado");
          RequestContext.getCurrentInstance().update("form:aceptarE");*/
         context.reset("form:lovEmpleado:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovEmpleado').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('EmpleadoDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovEmpleado').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('EmpleadoDialogo').hide()");
     }
 
     public void cancelarCambioEmpleado() {
@@ -503,8 +503,8 @@ public class ControlATParametroTiempo implements Serializable {
         aceptar = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovEmpleado:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovEmpleado').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('EmpleadoDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovEmpleado').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('EmpleadoDialogo').hide()");
     }
 
     public void actualizarCuadrilla() {
@@ -524,8 +524,8 @@ public class ControlATParametroTiempo implements Serializable {
          RequestContext.getCurrentInstance().update("form:lovCuadrilla");
          RequestContext.getCurrentInstance().update("form:aceptarC");*/
         context.reset("form:lovCuadrilla:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovCuadrilla').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('CuadrillaDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovCuadrilla').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('CuadrillaDialogo').hide()");
     }
 
     public void cancelarCambioCuadrilla() {
@@ -534,8 +534,8 @@ public class ControlATParametroTiempo implements Serializable {
         aceptar = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovCuadrilla:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovCuadrilla').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('CuadrillaDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovCuadrilla').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('CuadrillaDialogo').hide()");
     }
 
     public void actionBtnProgramarTurno() {
@@ -548,7 +548,7 @@ public class ControlATParametroTiempo implements Serializable {
                 FacesContext.getCurrentInstance().addMessage(null, msg);
                 RequestContext.getCurrentInstance().update("form:growl");
             } else {
-                PrimefacesContextUI.ejecutar("PF('errorFechasPKG').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorFechasPKG').show()");
             }
         } catch (Exception e) {
             System.out.println("Error actionBtnProgramarTurno Controlador : " + e.toString());
@@ -590,9 +590,9 @@ public class ControlATParametroTiempo implements Serializable {
                 String FF = df.format(fechaFin);
                 mensajeBtnLiquidarTiempos = "La minima fecha marcada sin procesar es: " + FI + " y la maxima fecha marcada sin procesar es: " + FF;
                 RequestContext.getCurrentInstance().update("form:mensajeLiquidarTiempos");
-                PrimefacesContextUI.ejecutar("PF('mensajeLiquidarTiempos').show()");
+                RequestContext.getCurrentInstance().execute("PF('mensajeLiquidarTiempos').show()");
             } else {
-                PrimefacesContextUI.ejecutar("PF('errorFechasPKG').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorFechasPKG').show()");
             }
         } catch (Exception e) {
             System.out.println("Error actionBtnSimularMarcacion Controlador : " + e.toString());
@@ -688,24 +688,24 @@ public class ControlATParametroTiempo implements Serializable {
             if (secRegistro != null) {
                 int resultado = administrarRastros.obtenerTabla(secRegistro, "PARAMETROSTIEMPOS");
                 if (resultado == 1) {
-                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
-                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+                RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("PARAMETROSTIEMPOS")) {
-                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
             } else {
-                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
             }
 
         }

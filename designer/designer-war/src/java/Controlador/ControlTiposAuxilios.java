@@ -1,6 +1,6 @@
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import Entidades.TiposAuxilios;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
@@ -230,7 +230,7 @@ public class ControlTiposAuxilios implements Serializable {
 
                     } else {
                         RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
+                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
                         cancelarModificacion();
                     }
                     index = -1;
@@ -289,7 +289,7 @@ public class ControlTiposAuxilios implements Serializable {
 
                     } else {
                         RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
+                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
                         cancelarModificacion();
                     }
                     index = -1;
@@ -313,7 +313,7 @@ public class ControlTiposAuxilios implements Serializable {
             if (!verificarTablasAuxilios.equals(new BigInteger("0"))) {
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("form:validacionBorrar");
-                PrimefacesContextUI.ejecutar("PF('validacionBorrar').show()");
+                RequestContext.getCurrentInstance().execute("PF('validacionBorrar').show()");
                 index = -1;
                 verificarTablasAuxilios = new BigInteger("-1");
 
@@ -375,7 +375,7 @@ public class ControlTiposAuxilios implements Serializable {
         if (!borrarTiposAuxilios.isEmpty() || !crearTiposAuxilios.isEmpty() || !modificarTiposAuxilios.isEmpty()) {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:confirmarGuardar");
-            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
         }
 
     }
@@ -389,7 +389,7 @@ public class ControlTiposAuxilios implements Serializable {
                     //mostrarBorrados
                     registrosBorrados = borrarTiposAuxilios.size();
                     RequestContext.getCurrentInstance().update("form:mostrarBorrados");
-                    PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
+                    RequestContext.getCurrentInstance().execute("PF('mostrarBorrados').show()");
                     borrarTiposAuxilios.clear();
                 }
                 if (!crearTiposAuxilios.isEmpty()) {
@@ -430,11 +430,11 @@ public class ControlTiposAuxilios implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
-                PrimefacesContextUI.ejecutar("PF('editCodigo').show()");
+                RequestContext.getCurrentInstance().execute("PF('editCodigo').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editDescripcion");
-                PrimefacesContextUI.ejecutar("PF('editDescripcion').show()");
+                RequestContext.getCurrentInstance().execute("PF('editDescripcion').show()");
                 cualCelda = -1;
 
             }
@@ -501,13 +501,13 @@ public class ControlTiposAuxilios implements Serializable {
             infoRegistro = "Cantidad de registros : " + listTiposAuxilios.size();
 
             RequestContext.getCurrentInstance().update("form:informacionRegistro");
-            PrimefacesContextUI.ejecutar("PF('nuevoRegistroTiposReemplazos').hide()");
+            RequestContext.getCurrentInstance().execute("PF('nuevoRegistroTiposReemplazos').hide()");
             index = -1;
             secRegistro = null;
 
         } else {
             RequestContext.getCurrentInstance().update("form:validacionNuevaCentroCosto");
-            PrimefacesContextUI.ejecutar("PF('validacionNuevaCentroCosto').show()");
+            RequestContext.getCurrentInstance().execute("PF('validacionNuevaCentroCosto').show()");
             contador = 0;
         }
     }
@@ -535,7 +535,7 @@ public class ControlTiposAuxilios implements Serializable {
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTTR");
-            PrimefacesContextUI.ejecutar("PF('duplicarRegistroTiposReemplazos').show()");
+            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroTiposReemplazos').show()");
             index = -1;
             secRegistro = null;
         }
@@ -598,12 +598,12 @@ public class ControlTiposAuxilios implements Serializable {
             duplicarTipoAuxilio = new TiposAuxilios();
             infoRegistro = "Cantidad de registros : " + listTiposAuxilios.size();
             RequestContext.getCurrentInstance().update("form:informacionRegistro");
-            PrimefacesContextUI.ejecutar("PF('duplicarRegistroTiposReemplazos').hide()");
+            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroTiposReemplazos').hide()");
 
         } else {
             contador = 0;
             RequestContext.getCurrentInstance().update("form:validacionDuplicarVigencia");
-            PrimefacesContextUI.ejecutar("PF('validacionDuplicarVigencia').show()");
+            RequestContext.getCurrentInstance().execute("PF('validacionDuplicarVigencia').show()");
         }
     }
 
@@ -637,24 +637,24 @@ public class ControlTiposAuxilios implements Serializable {
             if (secRegistro != null) {
                 int resultado = administrarRastros.obtenerTabla(secRegistro, "TIPOSAUXILIOS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
                 if (resultado == 1) {
-                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
-                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+                RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("TIPOSAUXILIOS")) { // igual acá
-                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
             } else {
-                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
             }
 
         }

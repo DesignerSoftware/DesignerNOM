@@ -5,7 +5,7 @@
  */
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import Entidades.Operandos;
 import Entidades.Modulos;
 import Exportar.ExportarPDFTablasAnchas;
@@ -242,7 +242,7 @@ public class ControlOperando implements Serializable {
     public void guardarVariables(BigInteger secuencia) {
         if (operandoRegistro == null) {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
         if (listaOperandosCrear.isEmpty() && listaOperandosBorrar.isEmpty() && listaOperandosModificar.isEmpty()) {
             if (operandoRegistro != null) {
@@ -250,11 +250,11 @@ public class ControlOperando implements Serializable {
 
                 System.out.println("secuenciaOperando" + secuenciaOperando + "operandoRegistro" + operandoRegistro);
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.ejecutar("PF('dirigirDetalle()");
+                RequestContext.getCurrentInstance().execute("PF('dirigirDetalle()");
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
         }
         operandoRegistro = null;
     }
@@ -268,36 +268,36 @@ public class ControlOperando implements Serializable {
                     secuenciaOperando = operandoRegistro.getSecuencia();
                     tipoOperando = operandoRegistro.getTipo();
                     RequestContext context = RequestContext.getCurrentInstance();
-                    PrimefacesContextUI.ejecutar("PF('dirigirTipoFuncion()");
+                    RequestContext.getCurrentInstance().execute("PF('dirigirTipoFuncion()");
                 }
                 if (operandoRegistro.getTipo().equals("FORMULA")) {
                     action = "formula";
                     secuenciaOperando = operandoRegistro.getSecuencia();
                     tipoOperando = operandoRegistro.getTipo();
                     RequestContext context = RequestContext.getCurrentInstance();
-                    PrimefacesContextUI.ejecutar("PF('dirigirTipoFormula()");
+                    RequestContext.getCurrentInstance().execute("PF('dirigirTipoFormula()");
                 }
                 if (operandoRegistro.getTipo().equals("CONSTANTE")) {
                     action = "constante";
                     secuenciaOperando = operandoRegistro.getSecuencia();
                     tipoOperando = operandoRegistro.getTipo();
                     RequestContext context = RequestContext.getCurrentInstance();
-                    PrimefacesContextUI.ejecutar("PF('dirigirTipoConstante()");
+                    RequestContext.getCurrentInstance().execute("PF('dirigirTipoConstante()");
                 }
                 if (operandoRegistro.getTipo().equals("BLOQUE PL/SQL")) {
                     action = "bloque";
                     secuenciaOperando = operandoRegistro.getSecuencia();
                     tipoOperando = operandoRegistro.getTipo();
                     RequestContext context = RequestContext.getCurrentInstance();
-                    PrimefacesContextUI.ejecutar("PF('dirigirTipoBloque()");
+                    RequestContext.getCurrentInstance().execute("PF('dirigirTipoBloque()");
                 }
             } else {
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+                RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
 
         }
         operandoRegistro = null;
@@ -350,7 +350,7 @@ public class ControlOperando implements Serializable {
         }
         if (dlg == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:operandosDialogo");
-            PrimefacesContextUI.ejecutar("PF('operandosDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('operandosDialogo').show()");
         }
     }
 
@@ -398,7 +398,7 @@ public class ControlOperando implements Serializable {
 
         if (pasa != 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoOperando");
-            PrimefacesContextUI.ejecutar("PF('validacionNuevoOperando').show()");
+            RequestContext.getCurrentInstance().execute("PF('validacionNuevoOperando').show()");
         }
 
         if (pasa == 0) {
@@ -434,7 +434,7 @@ public class ControlOperando implements Serializable {
             RequestContext.getCurrentInstance().update("form:datosOperandos");
             duplicarOperando = new Operandos();
             RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarOperando");
-            PrimefacesContextUI.ejecutar("PF('DuplicarOperando').hide()");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarOperando').hide()");
         }
     }
 
@@ -455,8 +455,8 @@ public class ControlOperando implements Serializable {
         cambiosPagina = false;
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
         context.reset("formularioDialogos:LOVOperandos:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('LOVOperandos').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('operandosDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('LOVOperandos').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('operandosDialogo').hide()");
         //RequestContext.getCurrentInstance().update("formularioDialogos:LOVOperandos");
         RequestContext.getCurrentInstance().update("form:datosOperandos");
         filtradosListaOperandos = null;
@@ -558,8 +558,8 @@ public class ControlOperando implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formularioDialogos:LOVOperandos:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('LOVOperandos').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('operandosDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('LOVOperandos').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('operandosDialogo').hide()");
     }
 
     public void cancelarCambioModulos() {
@@ -587,19 +587,19 @@ public class ControlOperando implements Serializable {
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 1) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarNombres");
-                PrimefacesContextUI.ejecutar("PF('editarNombres').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarNombres').show()");
                 cualCelda = -1;
             } else if (cualCelda == 3) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarValores");
-                PrimefacesContextUI.ejecutar("PF('editarValores').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarValores').show()");
                 cualCelda = -1;
             } else if (cualCelda == 4) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarDescripciones");
-                PrimefacesContextUI.ejecutar("PF('editarDescripciones').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarDescripciones').show()");
                 cualCelda = -1;
             } else if (cualCelda == 7) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarCodigos");
-                PrimefacesContextUI.ejecutar("PF('editarCodigos').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarCodigos').show()");
                 cualCelda = -1;
             }
         }
@@ -672,7 +672,7 @@ public class ControlOperando implements Serializable {
 
         if (pasa != 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoOperando");
-            PrimefacesContextUI.ejecutar("PF('validacionNuevoOperando').show()");
+            RequestContext.getCurrentInstance().execute("PF('validacionNuevoOperando').show()");
         }
 
         if (pasa == 0) {
@@ -713,7 +713,7 @@ public class ControlOperando implements Serializable {
                 guardado = false;
                 RequestContext.getCurrentInstance().update("form:aceptar");
             }
-            PrimefacesContextUI.ejecutar("PF('NuevoOperando').hide()");
+            RequestContext.getCurrentInstance().execute("PF('NuevoOperando').hide()");
             index = -1;
             secRegistro = null;
         }
@@ -841,7 +841,7 @@ public class ControlOperando implements Serializable {
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarOperando");
-            PrimefacesContextUI.ejecutar("PF('DuplicarOperando').show()");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarOperando').show()");
             index = -1;
             secRegistro = null;
         }
@@ -855,24 +855,24 @@ public class ControlOperando implements Serializable {
                 int result = administrarRastros.obtenerTabla(secRegistro, "OPERANDOS");
                 System.out.println("resultado: " + result);
                 if (result == 1) {
-                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
                 } else if (result == 2) {
-                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
                 } else if (result == 3) {
-                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
                 } else if (result == 4) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
                 } else if (result == 5) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+                RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("OPERANDOS")) {
-                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
             } else {
-                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
             }
         }
         index = -1;

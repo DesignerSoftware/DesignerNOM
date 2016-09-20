@@ -1,6 +1,6 @@
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import Entidades.Empleados;
 import Entidades.Personas;
 import Entidades.Sets;
@@ -248,12 +248,12 @@ public class ControlSets implements Serializable {
     public void listaValoresBoton() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (setSeleccionado == null) {
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         } else {
             if (setSeleccionado != null) {
                 if (cualCelda == 1) {
                     RequestContext.getCurrentInstance().update("");
-                    PrimefacesContextUI.ejecutar("PF('");
+                    RequestContext.getCurrentInstance().execute("PF('");
                     tipoActualizacion = 0;
                 }
             }
@@ -353,13 +353,13 @@ public class ControlSets implements Serializable {
                 setSeleccionado.setFechainicial(fechaIni);
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("form:datosSetsEmpleado");
-                PrimefacesContextUI.ejecutar("PF('errorFechas').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorFechas').show()");
             }
         } else {
             setSeleccionado.setFechainicial(fechaIni);
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:datosSetsEmpleado");
-            PrimefacesContextUI.ejecutar("PF('errorRegNew').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorRegNew').show()");
         }
     }
 
@@ -448,33 +448,33 @@ public class ControlSets implements Serializable {
     public void editarCelda() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (setSeleccionado == null) {
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         } else {
             if (setSeleccionado != null) {
                 editarSets = setSeleccionado;
                 if (cualCelda == 0) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaInicial");
-                    PrimefacesContextUI.ejecutar("PF('editarFechaInicial').show()");
+                    RequestContext.getCurrentInstance().execute("PF('editarFechaInicial').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 1) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaFinal");
-                    PrimefacesContextUI.ejecutar("PF('editarFechaFinal').show()");
+                    RequestContext.getCurrentInstance().execute("PF('editarFechaFinal').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 2) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:editarPorcentaje");
-                    PrimefacesContextUI.ejecutar("PF('editarPorcentaje').show()");
+                    RequestContext.getCurrentInstance().execute("PF('editarPorcentaje').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 3) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:editarPromedio");
-                    PrimefacesContextUI.ejecutar("PF('editarPromedio').show()");
+                    RequestContext.getCurrentInstance().execute("PF('editarPromedio').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 4) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:editarTipoSet");
-                    PrimefacesContextUI.ejecutar("PF('editarTipoSet').show()");
+                    RequestContext.getCurrentInstance().execute("PF('editarTipoSet').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 5) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:editarTotalIngresos");
-                    PrimefacesContextUI.ejecutar("PF('editarTotalIngresos').show()");
+                    RequestContext.getCurrentInstance().execute("PF('editarTotalIngresos').show()");
                     cualCelda = -1;
                 }
             }
@@ -504,7 +504,7 @@ public class ControlSets implements Serializable {
             }
             if (fecha > 0) {
                 RequestContext.getCurrentInstance().update("form:validacionFechas");
-                PrimefacesContextUI.ejecutar("PF('validacionFechas').show()");
+                RequestContext.getCurrentInstance().execute("PF('validacionFechas').show()");
                 pasa++;
             } else {
                 contador++;
@@ -528,17 +528,17 @@ public class ControlSets implements Serializable {
                     nuevoSet = new Sets();
                     RequestContext.getCurrentInstance().update("form:informacionRegistro");
                     RequestContext.getCurrentInstance().update("form:datosSetsEmpleado");
-                    PrimefacesContextUI.ejecutar("PF('NuevoRegistroSet').hide()");
+                    RequestContext.getCurrentInstance().execute("PF('NuevoRegistroSet').hide()");
                     if (guardado) {
                         guardado = false;
                         RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
                 } else {
-                    PrimefacesContextUI.ejecutar("PF('errorFechas').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorFechas').show()");
                 }
             }
             else {
-            PrimefacesContextUI.ejecutar("PF('errorRegNew').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorRegNew').show()");
         } 
         }
     }
@@ -580,7 +580,7 @@ public class ControlSets implements Serializable {
     public void duplicarSets() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (setSeleccionado == null) {
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         } else {
             if (setSeleccionado != null) {
                 duplicarSet = new Sets();
@@ -592,7 +592,7 @@ public class ControlSets implements Serializable {
                 duplicarSet.setTiposet(setSeleccionado.getTiposet());
                 duplicarSet.setTotalingresos(setSeleccionado.getTotalingresos());
                 RequestContext.getCurrentInstance().update("formularioDialogos:duplicarSet");
-                PrimefacesContextUI.ejecutar("PF('DuplicarRegistroSet').show()");
+                RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroSet').show()");
             }
         }
     }
@@ -612,7 +612,7 @@ public class ControlSets implements Serializable {
         if (contador > 0) {
             mensajeValidacion = "Fechas NO Repetidas";
             RequestContext.getCurrentInstance().update("form:validacionFechas");
-            PrimefacesContextUI.ejecutar("PF('validacionFechas').show()");
+            RequestContext.getCurrentInstance().execute("PF('validacionFechas').show()");
         } else {
             boolean resp = validarDatosRegistro(2);
             if (duplicarSet.getFechainicial() != null && resp == true) {
@@ -626,7 +626,7 @@ public class ControlSets implements Serializable {
                     modificarInfoRegistro(listSets.size());
                     RequestContext.getCurrentInstance().update("form:datosSetsEmpleado");
                     RequestContext.getCurrentInstance().update("form:informacionRegistro");
-                    PrimefacesContextUI.ejecutar("PF('DuplicarRegistroSet').hide()");
+                    RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroSet').hide()");
                     if (guardado) {
                         guardado = false;
                         RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -636,10 +636,10 @@ public class ControlSets implements Serializable {
                     }
                     duplicarSet = new Sets();
                 } else {
-                    PrimefacesContextUI.ejecutar("PF('errorFechas').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorFechas').show()");
                 }
             } else {
-                PrimefacesContextUI.ejecutar("PF('errorRegNew').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRegNew').show()");
             }
         }
     }
@@ -659,7 +659,7 @@ public class ControlSets implements Serializable {
     public void borrarSets() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (setSeleccionado == null) {
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         } else {
             if (setSeleccionado != null) {
                 if (!listSetsModificar.isEmpty() && listSetsModificar.contains(setSeleccionado)) {
@@ -787,21 +787,21 @@ public class ControlSets implements Serializable {
         if (setSeleccionado != null) {
             int resultado = administrarRastros.obtenerTabla(setSeleccionado.getSecuencia(), "SETS");
             if (resultado == 1) {
-                PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {
-                PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
             } else if (resultado == 3) {
-                PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
             } else if (resultado == 4) {
-                PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
             } else if (resultado == 5) {
-                PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("SETS")) {
-                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
             } else {
-                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
             }
 
         }

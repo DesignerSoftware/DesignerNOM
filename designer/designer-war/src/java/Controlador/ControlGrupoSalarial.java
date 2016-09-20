@@ -4,7 +4,7 @@
  */
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import Entidades.GruposSalariales;
 import Entidades.VigenciasGruposSalariales;
 import Exportar.ExportarPDF;
@@ -212,7 +212,7 @@ public class ControlGrupoSalarial implements Serializable {
             } else {
                 filtrarListGruposSalariales.get(index).setDescripcion(auxDescripcionGrupo);
             }
-            PrimefacesContextUI.ejecutar("PF('errorRegDescripcion').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorRegDescripcion').show()");
         }
         index = -1;
         secRegistro = null;
@@ -269,7 +269,7 @@ public class ControlGrupoSalarial implements Serializable {
                 filtrarListVigenciasGruposSalariales.get(indice).setFechavigencia(fechaVigencia);
                 filtrarListVigenciasGruposSalariales.get(indice).setValor(valorAux);
             }
-            PrimefacesContextUI.ejecutar("PF('errorRegNew').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorRegNew').show()");
         }
         indexVGS = -1;
         secRegistroVigencia = null;
@@ -297,7 +297,7 @@ public class ControlGrupoSalarial implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:datosVigenciaGrupoSalarial");
-            PrimefacesContextUI.ejecutar("PF('errorRegNew').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorRegNew').show()");
         }
     }
 
@@ -330,7 +330,7 @@ public class ControlGrupoSalarial implements Serializable {
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:confirmarGuardarSinSalida");
-            PrimefacesContextUI.ejecutar("PF('confirmarGuardarSinSalida').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarGuardarSinSalida').show()");
         }
     }
 
@@ -525,15 +525,15 @@ public class ControlGrupoSalarial implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarCodigoD");
-                PrimefacesContextUI.ejecutar("PF('editarCodigoD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarCodigoD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarDescripcionD");
-                PrimefacesContextUI.ejecutar("PF('editarDescripcionD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarDescripcionD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarSalarioD");
-                PrimefacesContextUI.ejecutar("PF('editarSalarioD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarSalarioD').show()");
                 cualCelda = -1;
             }
             index = -1;
@@ -549,11 +549,11 @@ public class ControlGrupoSalarial implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCeldaVigencia == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaVigenciaD");
-                PrimefacesContextUI.ejecutar("PF('editarFechaVigenciaD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarFechaVigenciaD').show()");
                 cualCeldaVigencia = -1;
             } else if (cualCeldaVigencia == 1) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarValorD");
-                PrimefacesContextUI.ejecutar("PF('editarValorD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarValorD').show()");
                 cualCeldaVigencia = -1;
             }
             indexVGS = -1;
@@ -575,21 +575,21 @@ public class ControlGrupoSalarial implements Serializable {
             }
             if (tam == 0 || tam2 == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:verificarNuevoRegistro");
-                PrimefacesContextUI.ejecutar("PF('verificarNuevoRegistro').show()");
+                RequestContext.getCurrentInstance().execute("PF('verificarNuevoRegistro').show()");
             } else {
                 if (index >= 0) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroGrupoSalarial");
-                    PrimefacesContextUI.ejecutar("PF('NuevoRegistroGrupoSalarial').show()");
+                    RequestContext.getCurrentInstance().execute("PF('NuevoRegistroGrupoSalarial').show()");
                 }
                 if (indexVGS >= 0) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroVigenciaGrupoSalarial");
-                    PrimefacesContextUI.ejecutar("PF('NuevoRegistroVigenciaGrupoSalarial').show()");
+                    RequestContext.getCurrentInstance().execute("PF('NuevoRegistroVigenciaGrupoSalarial').show()");
                 }
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:confirmarGuardarSinSalida");
-            PrimefacesContextUI.ejecutar("PF('confirmarGuardarSinSalida').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarGuardarSinSalida').show()");
         }
     }
 
@@ -627,12 +627,12 @@ public class ControlGrupoSalarial implements Serializable {
                 secRegistro = null;
                 cambiosPagina = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                PrimefacesContextUI.ejecutar("PF('NuevoRegistroGrupoSalarial').hide()");
+                RequestContext.getCurrentInstance().execute("PF('NuevoRegistroGrupoSalarial').hide()");
             } else {
-                PrimefacesContextUI.ejecutar("PF('errorRegDescripcion').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRegDescripcion').show()");
             }
         } else {
-            PrimefacesContextUI.ejecutar("PF('errorRegDescripcion').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorRegDescripcion').show()");
 
         }
     }
@@ -668,7 +668,7 @@ public class ControlGrupoSalarial implements Serializable {
             nuevoVigenciaGrupoSalarial = new VigenciasGruposSalariales();
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:datosVigenciaGrupoSalarial");
-            PrimefacesContextUI.ejecutar("PF('NuevoRegistroVigenciaGrupoSalarial.hide();");
+            RequestContext.getCurrentInstance().execute("PF('NuevoRegistroVigenciaGrupoSalarial.hide();");
             if (guardadoVGS == true) {
                 guardadoVGS = false;
             }
@@ -678,7 +678,7 @@ public class ControlGrupoSalarial implements Serializable {
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.ejecutar("PF('errorRegNew').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorRegNew').show()");
         }
     }
 
@@ -721,7 +721,7 @@ public class ControlGrupoSalarial implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarRegistroGrupoSalarial");
-            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroGrupoSalarial').show()");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroGrupoSalarial').show()");
             index = -1;
             secRegistro = null;
         }
@@ -744,7 +744,7 @@ public class ControlGrupoSalarial implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarRegistroVigenciaGrupoSalarial");
-            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroVigenciaGrupoSalarial').show()");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroVigenciaGrupoSalarial').show()");
             indexVGS = -1;
             secRegistroVigencia = null;
         }
@@ -783,12 +783,12 @@ public class ControlGrupoSalarial implements Serializable {
                     tipoLista = 0;
                 }
                 duplicarGrupoSalarial = new GruposSalariales();
-                PrimefacesContextUI.ejecutar("PF('DuplicarRegistroGrupoSalarial').hide()");
+                RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroGrupoSalarial').hide()");
             } else {
-                PrimefacesContextUI.ejecutar("PF('errorRegDescripcion').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRegDescripcion').show()");
             }
         } else {
-            PrimefacesContextUI.ejecutar("PF('errorRegDescripcion').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorRegDescripcion').show()");
 
         }
     }
@@ -810,7 +810,7 @@ public class ControlGrupoSalarial implements Serializable {
             listVigenciaGrupoSalarialCrear.add(duplicarVigenciaGrupoSalarial);
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:datosVigenciaGrupoSalarial");
-            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroVigenciaGrupoSalarial').hide()");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroVigenciaGrupoSalarial').hide()");
             indexVGS = -1;
             secRegistroVigencia = null;
             if (guardadoVGS == true) {
@@ -833,7 +833,7 @@ public class ControlGrupoSalarial implements Serializable {
             duplicarVigenciaGrupoSalarial = new VigenciasGruposSalariales();
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.ejecutar("PF('errorRegNew').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorRegNew').show()");
         }
     }
 
@@ -858,11 +858,11 @@ public class ControlGrupoSalarial implements Serializable {
                     borrarGrupoSalarial();
                 } else {
                     RequestContext context = RequestContext.getCurrentInstance();
-                    PrimefacesContextUI.ejecutar("PF('errorBorrarRegistro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorBorrarRegistro').show()");
                 }
             } else {
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.ejecutar("PF('errorBorrarRegistro').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorBorrarRegistro').show()");
             }
         }
         if (indexVGS >= 0) {
@@ -1157,30 +1157,30 @@ public class ControlGrupoSalarial implements Serializable {
                 backUp = secRegistro;
                 secRegistro = null;
                 if (resultado == 1) {
-                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
                     nombreTablaRastro = "GruposSalariales";
                     msnConfirmarRastro = "La tabla GRUPOSSALARIALES tiene rastros para el registro seleccionado, ¿desea continuar?";
                     RequestContext.getCurrentInstance().update("form:msnConfirmarRastro");
-                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+                RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("GRUPOSSALARIALES")) {
                 nombreTablaRastro = "GruposSalariales";
                 msnConfirmarRastroHistorico = "La tabla GRUPOSSALARIALES tiene rastros historicos, ¿Desea continuar?";
                 RequestContext.getCurrentInstance().update("form:confirmarRastroHistorico");
-                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
             } else {
-                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
             }
         }
         index = -1;
@@ -1195,30 +1195,30 @@ public class ControlGrupoSalarial implements Serializable {
                 backUp = secRegistroVigencia;
                 secRegistroVigencia = null;
                 if (resultado == 1) {
-                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
                     nombreTablaRastro = "VigenciasGruposSalariales";
                     msnConfirmarRastro = "La tabla VIGENCIASGRUPOSSALARIALES tiene rastros para el registro seleccionado, ¿desea continuar?";
                     RequestContext.getCurrentInstance().update("form:msnConfirmarRastro");
-                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+                RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("VIGENCIASGRUPOSSALARIALES")) {
                 nombreTablaRastro = "VigenciasGruposSalariales";
                 msnConfirmarRastroHistorico = "La tabla VIGENCIASGRUPOSSALARIALES tiene rastros historicos, ¿Desea continuar?";
                 RequestContext.getCurrentInstance().update("form:confirmarRastroHistorico");
-                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
             } else {
-                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
             }
         }
         indexVGS = -1;

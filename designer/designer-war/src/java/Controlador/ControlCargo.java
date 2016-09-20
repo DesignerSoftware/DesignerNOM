@@ -1,6 +1,6 @@
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import Entidades.Cargos;
 import Entidades.Competenciascargos;
 import Entidades.DetallesCargos;
@@ -515,7 +515,7 @@ public class ControlCargo implements Serializable {
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:datosCargo");
-            PrimefacesContextUI.ejecutar("PF('errorDatosNullCargo').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorDatosNullCargo').show()");
         }
     }
 
@@ -552,7 +552,7 @@ public class ControlCargo implements Serializable {
             cargoTablaSeleccionado.setNombre(auxNombreCargo);
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:datosCargo");
-            PrimefacesContextUI.ejecutar("PF('errorDescripcionCargo').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorDescripcionCargo').show()");
         }
     }
 
@@ -588,7 +588,7 @@ public class ControlCargo implements Serializable {
                 } else {
                     permitirIndexCargo = false;
                     RequestContext.getCurrentInstance().update("form:GrupoSalarialDialogo");
-                    PrimefacesContextUI.ejecutar("PF('GrupoSalarialDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('GrupoSalarialDialogo').show()");
                     tipoActualizacion = 0;
                 }
             } else {
@@ -621,7 +621,7 @@ public class ControlCargo implements Serializable {
                 } else {
                     permitirIndexCargo = false;
                     RequestContext.getCurrentInstance().update("form:GrupoViaticoDialogo");
-                    PrimefacesContextUI.ejecutar("PF('GrupoViaticoDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('GrupoViaticoDialogo').show()");
                     tipoActualizacion = 0;
                 }
             } else {
@@ -653,7 +653,7 @@ public class ControlCargo implements Serializable {
                 } else {
                     permitirIndexCargo = false;
                     RequestContext.getCurrentInstance().update("form:ProcesoProductivoDialogo");
-                    PrimefacesContextUI.ejecutar("PF('ProcesoProductivoDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('ProcesoProductivoDialogo').show()");
                     tipoActualizacion = 0;
                 }
             } else {
@@ -724,7 +724,7 @@ public class ControlCargo implements Serializable {
             } else {
                 permitirIndexSueldoMercado = false;
                 RequestContext.getCurrentInstance().update("form:TipoEmpresaDialogo");
-                PrimefacesContextUI.ejecutar("PF('TipoEmpresaDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('TipoEmpresaDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -795,7 +795,7 @@ public class ControlCargo implements Serializable {
             } else {
                 permitirCompetencia = false;
                 RequestContext.getCurrentInstance().update("form:EvalCompetenciaDialogo");
-                PrimefacesContextUI.ejecutar("PF('EvalCompetenciaDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('EvalCompetenciaDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -830,7 +830,7 @@ public class ControlCargo implements Serializable {
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:datosTipoDetalle");
-            PrimefacesContextUI.ejecutar("PF('errorDatosNullTipoDetalle').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorDatosNullTipoDetalle').show()");
         }
     }
 
@@ -865,7 +865,7 @@ public class ControlCargo implements Serializable {
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:datosTipoDetalle");
-            PrimefacesContextUI.ejecutar("PF('errorDescripcionTipoDetalle').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorDescripcionTipoDetalle').show()");
 
         }
     }
@@ -900,7 +900,7 @@ public class ControlCargo implements Serializable {
             } else {
                 permitirIndexTipoDetalle = false;
                 RequestContext.getCurrentInstance().update("form:EnfoqueDialogo");
-                PrimefacesContextUI.ejecutar("PF('EnfoqueDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('EnfoqueDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -973,7 +973,7 @@ public class ControlCargo implements Serializable {
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
         }
     }
 
@@ -997,7 +997,7 @@ public class ControlCargo implements Serializable {
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
         }
     }
 
@@ -1026,7 +1026,7 @@ public class ControlCargo implements Serializable {
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
         }
     }
 
@@ -1051,7 +1051,7 @@ public class ControlCargo implements Serializable {
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
 
         }
     }
@@ -1391,15 +1391,15 @@ public class ControlCargo implements Serializable {
 
                 if (cualCeldaSueldoMercado == 0) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:editarTipoEmpresaSueldoMercadoD");
-                    PrimefacesContextUI.ejecutar("PF('editarTipoEmpresaSueldoMercadoD').show()");
+                    RequestContext.getCurrentInstance().execute("PF('editarTipoEmpresaSueldoMercadoD').show()");
                     cualCeldaSueldoMercado = -1;
                 } else if (cualCeldaSueldoMercado == 1) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:editarSueldoMinimoSueldoMercadoD");
-                    PrimefacesContextUI.ejecutar("PF('editarSueldoMinimoSueldoMercadoD').show()");
+                    RequestContext.getCurrentInstance().execute("PF('editarSueldoMinimoSueldoMercadoD').show()");
                     cualCeldaSueldoMercado = -1;
                 } else if (cualCeldaSueldoMercado == 2) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:editarSueldoMaximoSueldoMercadoD");
-                    PrimefacesContextUI.ejecutar("PF('editarSueldoMaximoSueldoMercadoD').show()");
+                    RequestContext.getCurrentInstance().execute("PF('editarSueldoMaximoSueldoMercadoD').show()");
                     cualCeldaSueldoMercado = -1;
                 }
             }
@@ -1410,7 +1410,7 @@ public class ControlCargo implements Serializable {
 
                 if (cualCeldaCompetencia == 0) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:editarDescripcionCompetenciaCargoD");
-                    PrimefacesContextUI.ejecutar("PF('editarDescripcionCompetenciaCargoD').show()");
+                    RequestContext.getCurrentInstance().execute("PF('editarDescripcionCompetenciaCargoD').show()");
                     cualCeldaCompetencia = -1;
                 }
             }
@@ -1420,15 +1420,15 @@ public class ControlCargo implements Serializable {
 
                 if (cualCeldaTipoDetalle == 0) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:editarCodigoTipoDetalleD");
-                    PrimefacesContextUI.ejecutar("PF('editarCodigoTipoDetalleD').show()");
+                    RequestContext.getCurrentInstance().execute("PF('editarCodigoTipoDetalleD').show()");
                     cualCeldaTipoDetalle = -1;
                 } else if (cualCeldaTipoDetalle == 1) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:editarDescripcionTipoDetalleD");
-                    PrimefacesContextUI.ejecutar("PF('editarDescripcionTipoDetalleD').show()");
+                    RequestContext.getCurrentInstance().execute("PF('editarDescripcionTipoDetalleD').show()");
                     cualCeldaTipoDetalle = -1;
                 } else if (cualCeldaTipoDetalle == 2) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:editarEnfoqueTipoDetalleD");
-                    PrimefacesContextUI.ejecutar("PF('editarEnfoqueTipoDetalleD').show()");
+                    RequestContext.getCurrentInstance().execute("PF('editarEnfoqueTipoDetalleD').show()");
                     cualCeldaTipoDetalle = -1;
                 }
             }
@@ -1437,51 +1437,51 @@ public class ControlCargo implements Serializable {
                 editarCargo = cargoTablaSeleccionado;
                 if (cualCelda == 0) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:editarCodigoCargoD");
-                    PrimefacesContextUI.ejecutar("PF('editarCodigoCargoD').show()");
+                    RequestContext.getCurrentInstance().execute("PF('editarCodigoCargoD').show()");
                     cualCelda = -1;
                 } else if (cualCelda == 1) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:editarNombreCargoD");
-                    PrimefacesContextUI.ejecutar("PF('editarNombreCargoD').show()");
+                    RequestContext.getCurrentInstance().execute("PF('editarNombreCargoD').show()");
                     cualCelda = -1;
 
                 } else if (cualCelda == 2) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:editarGrupoSalarialCargoD");
-                    PrimefacesContextUI.ejecutar("PF('editarGrupoSalarialCargoD').show()");
+                    RequestContext.getCurrentInstance().execute("PF('editarGrupoSalarialCargoD').show()");
                     cualCelda = -1;
 
                 } else if (cualCelda == 3) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:editarSalarioCargoD");
-                    PrimefacesContextUI.ejecutar("PF('editarSalarioCargoD').show()");
+                    RequestContext.getCurrentInstance().execute("PF('editarSalarioCargoD').show()");
                     cualCelda = -1;
 
                 } else if (cualCelda == 4) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:editarSueldoMinimoCargoD");
-                    PrimefacesContextUI.ejecutar("PF('editarSueldoMinimoCargoD').show()");
+                    RequestContext.getCurrentInstance().execute("PF('editarSueldoMinimoCargoD').show()");
                     cualCelda = -1;
 
                 } else if (cualCelda == 5) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:editarSueldoMaximoCargoD");
-                    PrimefacesContextUI.ejecutar("PF('editarSueldoMaximoCargoD').show()");
+                    RequestContext.getCurrentInstance().execute("PF('editarSueldoMaximoCargoD').show()");
                     cualCelda = -1;
 
                 } else if (cualCelda == 6) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:editarGrupoViaticoCargoD");
-                    PrimefacesContextUI.ejecutar("PF('editarGrupoViaticoCargoD').show()");
+                    RequestContext.getCurrentInstance().execute("PF('editarGrupoViaticoCargoD').show()");
                     cualCelda = -1;
 
                 } else if (cualCelda == 9) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:editarProcesoProductivoCargoD");
-                    PrimefacesContextUI.ejecutar("PF('editarProcesoProductivoCargoD').show()");
+                    RequestContext.getCurrentInstance().execute("PF('editarProcesoProductivoCargoD').show()");
                     cualCelda = -1;
 
                 } else if (cualCelda == 10) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:editarCodigoAlternativoCargoD");
-                    PrimefacesContextUI.ejecutar("PF('editarCodigoAlternativoCargoD').show()");
+                    RequestContext.getCurrentInstance().execute("PF('editarCodigoAlternativoCargoD').show()");
                     cualCelda = -1;
                 }
             }
         } else {
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
@@ -1491,32 +1491,32 @@ public class ControlCargo implements Serializable {
     public void dialogoNuevoRegistro() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (guardado == false || guardadoSueldoMercado == false || guardadoCompetencia == false || guardadoTipoDetalle == false) {
-            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
         } else {/*
              * if (listaCargos.isEmpty()) { activoSueldoMercado = true;
              * activoCompetencia = true; activoTipoDetalle = false;
              * RequestContext.getCurrentInstance().update("formularioDialogos:verificarNuevoRegistro");
-             * PrimefacesContextUI.ejecutar("PF('verificarNuevoRegistro').show()"); } else { if
+             * RequestContext.getCurrentInstance().execute("PF('verificarNuevoRegistro').show()"); } else { if
              * (listaSueldosMercados.isEmpty() ||
              * listaCompetenciasCargos.isEmpty() ||
              * listaTiposDetalles.isEmpty()) { activoSueldoMercado = false;
              * activoCompetencia = false; activoTipoDetalle = false;
              * RequestContext.getCurrentInstance().update("formularioDialogos:verificarNuevoRegistro");
-             * PrimefacesContextUI.ejecutar("PF('verificarNuevoRegistro').show()"); } else {
+             * RequestContext.getCurrentInstance().execute("PF('verificarNuevoRegistro').show()"); } else {
              * activoSueldoMercado = false; activoCompetencia = false;
              * activoTipoDetalle = false; if (cargoTablaSeleccionado != null) {
              * codigoNuevoCargo();
              * RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroCargo");
-             * PrimefacesContextUI.ejecutar("PF('NuevoRegistroCargo').show()"); } if
+             * RequestContext.getCurrentInstance().execute("PF('NuevoRegistroCargo').show()"); } if
              * (sueldoMercadoSeleccionado != null) {
              * RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroSueldoMercado");
-             * PrimefacesContextUI.ejecutar("PF('NuevoRegistroSueldoMercado').show()"); } if
+             * RequestContext.getCurrentInstance().execute("PF('NuevoRegistroSueldoMercado').show()"); } if
              * (competenciaCargoSeleccionado != null) {
              * RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroCompetenciaCargo");
-             * PrimefacesContextUI.ejecutar("PF('NuevoRegistroCompetenciaCargo').show()"); } if
+             * RequestContext.getCurrentInstance().execute("PF('NuevoRegistroCompetenciaCargo').show()"); } if
              * (tipoDetalleSeleccionado != null) { codigoNuevoTipoDetalle();
              * RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroTipoDetalle");
-             * PrimefacesContextUI.ejecutar("PF('NuevoRegistroTipoDetalle').show()"); } } }
+             * RequestContext.getCurrentInstance().execute("PF('NuevoRegistroTipoDetalle').show()"); } } }
              */
 
         }
@@ -1529,14 +1529,14 @@ public class ControlCargo implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         codigoNuevoCargo();
         RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroCargo");
-        PrimefacesContextUI.ejecutar("PF('NuevoRegistroCargo').show()");
+        RequestContext.getCurrentInstance().execute("PF('NuevoRegistroCargo').show()");
     }
 
     public void dispararDialogoNuevoTipoDetalle() {
         RequestContext context = RequestContext.getCurrentInstance();
         codigoNuevoTipoDetalle();
         RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroTipoDetalle");
-        PrimefacesContextUI.ejecutar("PF('NuevoRegistroTipoDetalle').show()");
+        RequestContext.getCurrentInstance().execute("PF('NuevoRegistroTipoDetalle').show()");
     }
 
     /**
@@ -1599,18 +1599,18 @@ public class ControlCargo implements Serializable {
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 RequestContext.getCurrentInstance().update("form:datosCargo");
-                PrimefacesContextUI.ejecutar("PF('NuevoRegistroCargo').hide()");
+                RequestContext.getCurrentInstance().execute("PF('NuevoRegistroCargo').hide()");
                 if (guardado == true) {
                     guardado = false;
                     RequestContext.getCurrentInstance().update("form:aceptar");
                 }
             } else {
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.ejecutar("PF('errorDescripcionCargo').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorDescripcionCargo').show()");
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.ejecutar("PF('errorDatosNullCargo').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorDatosNullCargo').show()");
         }
     }
 
@@ -1636,7 +1636,7 @@ public class ControlCargo implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
             RequestContext.getCurrentInstance().update("form:datosSueldoMercado");
-            PrimefacesContextUI.ejecutar("PF('NuevoRegistroSueldoMercado').hide()");
+            RequestContext.getCurrentInstance().execute("PF('NuevoRegistroSueldoMercado').hide()");
             nuevoSueldoMercado = new SueldosMercados();
             nuevoSueldoMercado.setTipoempresa(new TiposEmpresas());
             if (guardadoSueldoMercado == true) {
@@ -1645,7 +1645,7 @@ public class ControlCargo implements Serializable {
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.ejecutar("PF('errorDatosNullSueldoMercado').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorDatosNullSueldoMercado').show()");
         }
     }
 
@@ -1673,7 +1673,7 @@ public class ControlCargo implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
             RequestContext.getCurrentInstance().update("form:datosCompetenciaCargo");
-            PrimefacesContextUI.ejecutar("PF('NuevoRegistroCompetenciaCargo').hide()");
+            RequestContext.getCurrentInstance().execute("PF('NuevoRegistroCompetenciaCargo').hide()");
             nuevoCompetenciaCargo = new Competenciascargos();
             nuevoCompetenciaCargo.setEvalcompetencia(new EvalCompetencias());
             if (guardadoCompetencia == true) {
@@ -1681,7 +1681,7 @@ public class ControlCargo implements Serializable {
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.ejecutar("PF('errorDatosNullCompetencia').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorDatosNullCompetencia').show()");
         }
     }
 
@@ -1712,7 +1712,7 @@ public class ControlCargo implements Serializable {
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 RequestContext.getCurrentInstance().update("form:datosTipoDetalle");
-                PrimefacesContextUI.ejecutar("PF('NuevoRegistroTipoDetalle').hide()");
+                RequestContext.getCurrentInstance().execute("PF('NuevoRegistroTipoDetalle').hide()");
                 nuevoTipoDetalle = new TiposDetalles();
                 nuevoTipoDetalle.setEnfoque(new Enfoques());
                 if (guardadoTipoDetalle == true) {
@@ -1721,11 +1721,11 @@ public class ControlCargo implements Serializable {
                 }
             } else {
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.ejecutar("PF('errorDescripcionTipoDetalle').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorDescripcionTipoDetalle').show()");
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.ejecutar("PF('errorDatosNullTipoDetalle').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorDatosNullTipoDetalle').show()");
         }
     }
     //LIMPIAR NUEVO REGISTRO
@@ -1807,7 +1807,7 @@ public class ControlCargo implements Serializable {
 
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarRegistroCargo");
-        PrimefacesContextUI.ejecutar("PF('DuplicarRegistroCargo').show()");
+        RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroCargo').show()");
     }
 
     /**
@@ -1824,7 +1824,7 @@ public class ControlCargo implements Serializable {
 
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarRegistroSueldoMercado");
-        PrimefacesContextUI.ejecutar("PF('DuplicarRegistroSueldoMercado').show()");
+        RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroSueldoMercado').show()");
 
     }
 
@@ -1837,7 +1837,7 @@ public class ControlCargo implements Serializable {
 
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarRegistroCompetenciaCargo");
-        PrimefacesContextUI.ejecutar("PF('DuplicarRegistroCompetenciaCargo').show()");
+        RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroCompetenciaCargo').show()");
     }
 
     /**
@@ -1853,7 +1853,7 @@ public class ControlCargo implements Serializable {
 
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarRegistroTipoDetalle");
-        PrimefacesContextUI.ejecutar("PF('DuplicarRegistroTipoDetalle').show()");
+        RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroTipoDetalle').show()");
     }
 
     /**
@@ -1886,7 +1886,7 @@ public class ControlCargo implements Serializable {
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 RequestContext.getCurrentInstance().update("form:datosCargo");
-                PrimefacesContextUI.ejecutar("PF('DuplicarRegistroCargo').hide()");
+                RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroCargo').hide()");
                 if (guardado == true) {
                     guardado = false;
                     //RequestContext.getCurrentInstance().update("form:aceptar");
@@ -1894,11 +1894,11 @@ public class ControlCargo implements Serializable {
                 duplicarCargo = new Cargos();
             } else {
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.ejecutar("PF('errorDescripcionCargo').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorDescripcionCargo').show()");
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.ejecutar("PF('errorDatosNullCargo').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorDatosNullCargo').show()");
         }
     }
 
@@ -1919,7 +1919,7 @@ public class ControlCargo implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
             RequestContext.getCurrentInstance().update("form:datosSueldoMercado");
-            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroSueldoMercado').hide()");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroSueldoMercado').hide()");
             if (guardadoSueldoMercado == true) {
                 guardadoSueldoMercado = false;
                 //RequestContext.getCurrentInstance().update("form:aceptar");
@@ -1928,7 +1928,7 @@ public class ControlCargo implements Serializable {
             duplicarSueldoMercado = new SueldosMercados();
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.ejecutar("PF('errorDatosNullSueldoMercado').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorDatosNullSueldoMercado').show()");
         }
     }
 
@@ -1948,7 +1948,7 @@ public class ControlCargo implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
             RequestContext.getCurrentInstance().update("form:datosCompetenciaCargo");
-            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroCompetenciaCargo').hide()");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroCompetenciaCargo').hide()");
             if (guardadoCompetencia == true) {
                 guardadoCompetencia = false;
                 //RequestContext.getCurrentInstance().update("form:aceptar");
@@ -1957,7 +1957,7 @@ public class ControlCargo implements Serializable {
             duplicarCompetenciaCargo = new Competenciascargos();
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.ejecutar("PF('errorDatosNullCompetencia').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorDatosNullCompetencia').show()");
         }
     }
 
@@ -1980,7 +1980,7 @@ public class ControlCargo implements Serializable {
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 RequestContext.getCurrentInstance().update("form:datosTipoDetalle");
-                PrimefacesContextUI.ejecutar("PF('DuplicarRegistroTipoDetalle').hide()");
+                RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroTipoDetalle').hide()");
                 if (guardadoTipoDetalle == true) {
                     guardadoTipoDetalle = false;
                     //RequestContext.getCurrentInstance().update("form:aceptar");
@@ -1988,11 +1988,11 @@ public class ControlCargo implements Serializable {
                 duplicarTipoDetalle = new TiposDetalles();
             } else {
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.ejecutar("PF('errorDescripcionTipoDetalle').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorDescripcionTipoDetalle').show()");
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.ejecutar("PF('errorDatosNullTipoDetalle').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorDatosNullTipoDetalle').show()");
         }
     }
 
@@ -2048,11 +2048,11 @@ public class ControlCargo implements Serializable {
                         borrarCargo();
                     } else {
                         RequestContext context = RequestContext.getCurrentInstance();
-                        PrimefacesContextUI.ejecutar("PF('errorBorradoCargo').show()");
+                        RequestContext.getCurrentInstance().execute("PF('errorBorradoCargo').show()");
                     }
                 } else {
                     RequestContext context = RequestContext.getCurrentInstance();
-                    PrimefacesContextUI.ejecutar("PF('errorBorrarRegistro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorBorrarRegistro').show()");
                 }
             }
         } else if (tablaActiva.equals("SM")) {
@@ -2436,19 +2436,19 @@ public class ControlCargo implements Serializable {
                 if (cualCelda == 2) {
                     modificarInfoRegistroLOVs(lovGruposSalariales.size());
                     RequestContext.getCurrentInstance().update("form:GrupoSalarialDialogo");
-                    PrimefacesContextUI.ejecutar("PF('GrupoSalarialDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('GrupoSalarialDialogo').show()");
                     tipoActualizacion = 0;
                 }
                 if (cualCelda == 6) {
                     modificarInfoRegistroLOVs(lovGruposViaticos.size());
                     RequestContext.getCurrentInstance().update("form:GrupoViaticoDialogo");
-                    PrimefacesContextUI.ejecutar("PF('GrupoViaticoDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('GrupoViaticoDialogo').show()");
                     tipoActualizacion = 0;
                 }
                 if (cualCelda == 9) {
                     modificarInfoRegistroLOVs(lovProcesosProductivos.size());
                     RequestContext.getCurrentInstance().update("form:ProcesoProductivoDialogo");
-                    PrimefacesContextUI.ejecutar("PF('ProcesoProductivoDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('ProcesoProductivoDialogo').show()");
                     tipoActualizacion = 0;
                 }
             }
@@ -2457,7 +2457,7 @@ public class ControlCargo implements Serializable {
                 if (cualCeldaSueldoMercado == 0) {
                     modificarInfoRegistroLOVs(lovTiposEmpresas.size());
                     RequestContext.getCurrentInstance().update("form:TipoEmpresaDialogo");
-                    PrimefacesContextUI.ejecutar("PF('TipoEmpresaDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('TipoEmpresaDialogo').show()");
                     tipoActualizacion = 0;
                 }
             }
@@ -2466,7 +2466,7 @@ public class ControlCargo implements Serializable {
                 if (cualCeldaCompetencia == 0) {
                     modificarInfoRegistroLOVs(lovEvalCompetencias.size());
                     RequestContext.getCurrentInstance().update("form:EvalCompetenciaDialogo");
-                    PrimefacesContextUI.ejecutar("PF('EvalCompetenciaDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('EvalCompetenciaDialogo').show()");
                     tipoActualizacion = 0;
                 }
             }
@@ -2475,7 +2475,7 @@ public class ControlCargo implements Serializable {
                 if (cualCeldaTipoDetalle == 2) {
                     modificarInfoRegistroLOVs(lovEnfoques.size());
                     RequestContext.getCurrentInstance().update("form:EnfoqueDialogo");
-                    PrimefacesContextUI.ejecutar("PF('EnfoqueDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('EnfoqueDialogo').show()");
                     tipoActualizacion = 0;
                 }
             }
@@ -2490,17 +2490,17 @@ public class ControlCargo implements Serializable {
         if (celda == 0) {
             modificarInfoRegistroLOVs(lovGruposSalariales.size());
             RequestContext.getCurrentInstance().update("form:GrupoSalarialDialogo");
-            PrimefacesContextUI.ejecutar("PF('GrupoSalarialDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('GrupoSalarialDialogo').show()");
         }
         if (celda == 1) {
             modificarInfoRegistroLOVs(lovGruposViaticos.size());
             RequestContext.getCurrentInstance().update("form:GrupoViaticoDialogo");
-            PrimefacesContextUI.ejecutar("PF('GrupoViaticoDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('GrupoViaticoDialogo').show()");
         }
         if (celda == 2) {
             modificarInfoRegistroLOVs(lovProcesosProductivos.size());
             RequestContext.getCurrentInstance().update("form:ProcesoProductivoDialogo");
-            PrimefacesContextUI.ejecutar("PF('ProcesoProductivoDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('ProcesoProductivoDialogo').show()");
         }
     }
 
@@ -2512,7 +2512,7 @@ public class ControlCargo implements Serializable {
         if (celda == 0) {
             modificarInfoRegistroLOVs(lovTiposEmpresas.size());
             RequestContext.getCurrentInstance().update("form:TipoEmpresaDialogo");
-            PrimefacesContextUI.ejecutar("PF('TipoEmpresaDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('TipoEmpresaDialogo').show()");
         }
     }
 
@@ -2524,7 +2524,7 @@ public class ControlCargo implements Serializable {
         if (celda == 0) {
             modificarInfoRegistroLOVs(lovEvalCompetencias.size());
             RequestContext.getCurrentInstance().update("form:EvalCompetenciaDialogo");
-            PrimefacesContextUI.ejecutar("PF('EvalCompetenciaDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('EvalCompetenciaDialogo').show()");
         }
     }
 
@@ -2536,7 +2536,7 @@ public class ControlCargo implements Serializable {
         if (celda == 0) {
             modificarInfoRegistroLOVs(lovEnfoques.size());
             RequestContext.getCurrentInstance().update("form:EnfoqueDialogo");
-            PrimefacesContextUI.ejecutar("PF('EnfoqueDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('EnfoqueDialogo').show()");
         }
     }
 
@@ -2616,7 +2616,7 @@ public class ControlCargo implements Serializable {
                     getLovGruposSalariales();
                 } else {
                     RequestContext.getCurrentInstance().update("form:GrupoSalarialDialogo");
-                    PrimefacesContextUI.ejecutar("PF('GrupoSalarialDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('GrupoSalarialDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                     if (tipoNuevo == 1) {
                         RequestContext.getCurrentInstance().update("formularioDialogos:nuevoCargoGrupoSalarial");
@@ -2661,7 +2661,7 @@ public class ControlCargo implements Serializable {
                     getLovGruposViaticos();
                 } else {
                     RequestContext.getCurrentInstance().update("form:GrupoViaticoDialogo");
-                    PrimefacesContextUI.ejecutar("PF('GrupoViaticoDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('GrupoViaticoDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                     if (tipoNuevo == 1) {
                         RequestContext.getCurrentInstance().update("formularioDialogos:nuevoCargoGrupoViatico");
@@ -2706,7 +2706,7 @@ public class ControlCargo implements Serializable {
                     getLovProcesosProductivos();
                 } else {
                     RequestContext.getCurrentInstance().update("form:ProcesoProductivoDialogo");
-                    PrimefacesContextUI.ejecutar("PF('ProcesoProductivoDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('ProcesoProductivoDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                     if (tipoNuevo == 1) {
                         RequestContext.getCurrentInstance().update("formularioDialogos:nuevoCargoProcesoProductivo");
@@ -2756,7 +2756,7 @@ public class ControlCargo implements Serializable {
                 getLovTiposEmpresas();
             } else {
                 RequestContext.getCurrentInstance().update("form:TipoEmpresaDialogo");
-                PrimefacesContextUI.ejecutar("PF('TipoEmpresaDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('TipoEmpresaDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:nuevoSueldoMercadoTipoEmpresa");
@@ -2795,7 +2795,7 @@ public class ControlCargo implements Serializable {
                 getLovEvalCompetencias();
             } else {
                 RequestContext.getCurrentInstance().update("form:EvalCompetenciaDialogo");
-                PrimefacesContextUI.ejecutar("PF('EvalCompetenciaDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('EvalCompetenciaDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:nuevoCompetenciaCargoEval");
@@ -2834,7 +2834,7 @@ public class ControlCargo implements Serializable {
                 getLovEnfoques();
             } else {
                 RequestContext.getCurrentInstance().update("form:EnfoqueDialogo");
-                PrimefacesContextUI.ejecutar("PF('EnfoqueDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('EnfoqueDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:nuevoTipoDetalleEnfoque");
@@ -2889,8 +2889,8 @@ public class ControlCargo implements Serializable {
         RequestContext.getCurrentInstance().update("form:aceptarGS");
 
         context.reset("form:lovGrupoSalarial:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovGrupoSalarial').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('GrupoSalarialDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovGrupoSalarial').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('GrupoSalarialDialogo').hide()");
     }
 
     /**
@@ -2904,8 +2904,8 @@ public class ControlCargo implements Serializable {
         permitirIndexCargo = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovGrupoSalarial:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovGrupoSalarial').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('GrupoSalarialDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovGrupoSalarial').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('GrupoSalarialDialogo').hide()");
     }
 
     /**
@@ -2950,8 +2950,8 @@ public class ControlCargo implements Serializable {
         RequestContext.getCurrentInstance().update("form:aceptarGV");
 
         context.reset("form:lovGrupoViatico:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovGrupoViatico').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('GrupoViaticoDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovGrupoViatico').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('GrupoViaticoDialogo').hide()");
     }
 
     /**
@@ -2965,8 +2965,8 @@ public class ControlCargo implements Serializable {
         permitirIndexCargo = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovGrupoViatico:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovGrupoViatico').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('GrupoViaticoDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovGrupoViatico').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('GrupoViaticoDialogo').hide()");
     }
 
     /**
@@ -3011,8 +3011,8 @@ public class ControlCargo implements Serializable {
         RequestContext.getCurrentInstance().update("form:aceptarPP");
 
         context.reset("form:lovProcesoProductivo:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovProcesoProductivo').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('ProcesoProductivoDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovProcesoProductivo').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('ProcesoProductivoDialogo').hide()");
     }
 
     /**
@@ -3026,8 +3026,8 @@ public class ControlCargo implements Serializable {
         permitirIndexCargo = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovProcesoProductivo:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovProcesoProductivo').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('ProcesoProductivoDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovProcesoProductivo').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('ProcesoProductivoDialogo').hide()");
     }
 
     /**
@@ -3072,8 +3072,8 @@ public class ControlCargo implements Serializable {
         RequestContext.getCurrentInstance().update("form:aceptarTT");
 
         context.reset("form:lovTipoEmpresa:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovTipoEmpresa').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('TipoEmpresaDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovTipoEmpresa').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('TipoEmpresaDialogo').hide()");
     }
 
     public void cancelarCambioTipoEmpresa() {
@@ -3084,8 +3084,8 @@ public class ControlCargo implements Serializable {
         permitirCompetencia = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovTipoEmpresa:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovTipoEmpresa').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('TipoEmpresaDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovTipoEmpresa').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('TipoEmpresaDialogo').hide()");
     }
 
     public void actualizarEvalCompetencia() {
@@ -3127,8 +3127,8 @@ public class ControlCargo implements Serializable {
         RequestContext.getCurrentInstance().update("form:aceptarEC");
 
         context.reset("form:lovEvalCompetencia:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovEvalCompetencia').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('EvalCompetenciaDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovEvalCompetencia').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('EvalCompetenciaDialogo').hide()");
     }
 
     /**
@@ -3142,8 +3142,8 @@ public class ControlCargo implements Serializable {
         permitirCompetencia = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovEvalCompetencia:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovEvalCompetencia').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('EvalCompetenciaDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovEvalCompetencia').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('EvalCompetenciaDialogo').hide()");
     }
 
     public void actualizarEnfoque() {
@@ -3185,8 +3185,8 @@ public class ControlCargo implements Serializable {
         RequestContext.getCurrentInstance().update("form:aceptarE");
 
         context.reset("form:lovEnfoque:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovEnfoque').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('EnfoqueDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovEnfoque').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('EnfoqueDialogo').hide()");
     }
 
     /**
@@ -3200,8 +3200,8 @@ public class ControlCargo implements Serializable {
         permitirIndexTipoDetalle = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovEnfoque:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovEnfoque').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('EnfoqueDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovEnfoque').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('EnfoqueDialogo').hide()");
     }
 
     /**
@@ -3371,9 +3371,9 @@ public class ControlCargo implements Serializable {
             nombreTablaRastro = "Cargos";
             msnConfirmarRastroHistorico = "La tabla CARGOS tiene rastros historicos, ¿Desea continuar?";
             RequestContext.getCurrentInstance().update("form:confirmarRastroHistorico");
-            PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
     }
 
@@ -3384,21 +3384,21 @@ public class ControlCargo implements Serializable {
                 int resultado = administrarRastros.obtenerTabla(cargoTablaSeleccionado.getSecuencia(), "CARGOS");
                 backUp = cargoTablaSeleccionado.getSecuencia();
                 if (resultado == 1) {
-                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
                     nombreTablaRastro = "Cargos";
                     msnConfirmarRastro = "La tabla CARGOS tiene rastros para el registro seleccionado, ¿desea continuar?";
                     RequestContext.getCurrentInstance().update("form:msnConfirmarRastro");
-                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+                RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
             }
         }
     }
@@ -3413,9 +3413,9 @@ public class ControlCargo implements Serializable {
             nombreTablaRastro = "SueldosMercados";
             msnConfirmarRastroHistorico = "La tabla SUELDOSMERCADOS tiene rastros historicos, ¿Desea continuar?";
             RequestContext.getCurrentInstance().update("form:confirmarRastroHistorico");
-            PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
     }
 
@@ -3426,21 +3426,21 @@ public class ControlCargo implements Serializable {
                 int resultado = administrarRastros.obtenerTabla(sueldoMercadoSeleccionado.getSecuencia(), "SUELDOSMERCADOS");
                 backUp = sueldoMercadoSeleccionado.getSecuencia();
                 if (resultado == 1) {
-                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
                     nombreTablaRastro = "SueldosMercados";
                     msnConfirmarRastro = "La tabla SUELDOSMERCADOS tiene rastros para el registro seleccionado, ¿desea continuar?";
                     RequestContext.getCurrentInstance().update("form:msnConfirmarRastro");
-                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+                RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
             }
         }
     }
@@ -3455,9 +3455,9 @@ public class ControlCargo implements Serializable {
             nombreTablaRastro = "Competenciascargos";
             msnConfirmarRastroHistorico = "La tabla COMPETENCIASCARGOS tiene rastros historicos, ¿Desea continuar?";
             RequestContext.getCurrentInstance().update("form:confirmarRastroHistorico");
-            PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
     }
 
@@ -3468,21 +3468,21 @@ public class ControlCargo implements Serializable {
                 int resultado = administrarRastros.obtenerTabla(competenciaCargoSeleccionado.getSecuencia(), "COMPETENCIASCARGOS");
                 backUp = competenciaCargoSeleccionado.getSecuencia();
                 if (resultado == 1) {
-                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
                     nombreTablaRastro = "Competenciascargos";
                     msnConfirmarRastro = "La tabla COMPETENCIASCARGOS tiene rastros para el registro seleccionado, ¿desea continuar?";
                     RequestContext.getCurrentInstance().update("form:msnConfirmarRastro");
-                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+                RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
             }
         }
     }
@@ -3496,9 +3496,9 @@ public class ControlCargo implements Serializable {
             nombreTablaRastro = "TiposDetalles";
             msnConfirmarRastroHistorico = "La tabla TIPOSDETALLES tiene rastros historicos, ¿Desea continuar?";
             RequestContext.getCurrentInstance().update("form:confirmarRastroHistorico");
-            PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
     }
 
@@ -3509,21 +3509,21 @@ public class ControlCargo implements Serializable {
                 int resultado = administrarRastros.obtenerTabla(tipoDetalleSeleccionado.getSecuencia(), "TIPOSDETALLES");
                 backUp = tipoDetalleSeleccionado.getSecuencia();
                 if (resultado == 1) {
-                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
                     nombreTablaRastro = "TiposDetalles";
                     msnConfirmarRastro = "La tabla TIPOSDETALLES tiene rastros para el registro seleccionado, ¿desea continuar?";
                     RequestContext.getCurrentInstance().update("form:msnConfirmarRastro");
-                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+                RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
             }
         }
     }
@@ -3540,9 +3540,9 @@ public class ControlCargo implements Serializable {
             cualCelda = -1;
             modificarInfoRegistroLOVs(lovEmpresas.size());
             RequestContext.getCurrentInstance().update("form:EmpresasDialogo.");
-            PrimefacesContextUI.ejecutar("PF('EmpresasDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('EmpresasDialogo').show()");
         } else {
-            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
         }
     }
 
@@ -3557,12 +3557,12 @@ public class ControlCargo implements Serializable {
         aceptar = true;
 
         context.reset("form:lovEmpresas:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovEmpresas').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('lovEmpresas').clearFilters()");
         RequestContext.getCurrentInstance().update("form:EmpresasDialogo");
         RequestContext.getCurrentInstance().update("form:lovEmpresas");
         RequestContext.getCurrentInstance().update("form:aceptarEM");
 
-        PrimefacesContextUI.ejecutar("PF('EmpresasDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('EmpresasDialogo').hide()");
         empresaActual = empresaSeleccionada;
         listaCargos = null;
         getListaCargos();
@@ -3610,8 +3610,8 @@ public class ControlCargo implements Serializable {
         empresaSeleccionada = null;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovEmpresas:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovEmpresas').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('EmpresasDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovEmpresas').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('EmpresasDialogo').hide()");
     }
 
     public void validarExistenciaInformacionDetalleCargo() {
@@ -3619,13 +3619,13 @@ public class ControlCargo implements Serializable {
         if (guardado == true && guardadoTipoDetalle == true) {
             if (detalleCargo.getSecuencia() == null) {
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.ejecutar("PF('ingresoNuevoDetalleCargo').show()");
+                RequestContext.getCurrentInstance().execute("PF('ingresoNuevoDetalleCargo').show()");
             } else {
                 banderaDetalleCargo = 1;
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
         }
     }
 
@@ -3671,10 +3671,10 @@ public class ControlCargo implements Serializable {
             RequestContext.getCurrentInstance().update("form:BuscarCargoDialogo");
             RequestContext.getCurrentInstance().update("form:lovBuscarCargo");
             RequestContext.getCurrentInstance().update("form:aceptarBC");
-            PrimefacesContextUI.ejecutar("PF('BuscarCargoDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('BuscarCargoDialogo').show()");
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
         }
     }
 
@@ -3701,8 +3701,8 @@ public class ControlCargo implements Serializable {
 
         RequestContext.getCurrentInstance().update("form:aceptarBC");
         context.reset("form:lovBuscarCargo:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovBuscarCargo').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('BuscarCargoDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovBuscarCargo').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('BuscarCargoDialogo').hide()");
         RequestContext.getCurrentInstance().update("form:BuscarCargoDialogo");
         RequestContext.getCurrentInstance().update("form:lovBuscarCargo");
 
@@ -3761,8 +3761,8 @@ public class ControlCargo implements Serializable {
         filtrarLovCargos = null;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovBuscarCargo:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovBuscarCargo').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('BuscarCargoDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovBuscarCargo').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('BuscarCargoDialogo').hide()");
     }
 
     public void anularLOV() {
@@ -3826,7 +3826,7 @@ public class ControlCargo implements Serializable {
 
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
         }
 
     }

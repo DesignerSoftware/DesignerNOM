@@ -5,7 +5,7 @@
  */
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import Entidades.Recordatorios;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
@@ -386,15 +386,15 @@ public class ControlProverbio implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if ((listaProverbios.isEmpty() || listaMensajesUsuario.isEmpty())) {
             RequestContext.getCurrentInstance().update("formularioDialogos:elegirTabla");
-            PrimefacesContextUI.ejecutar("PF('elegirTabla').show()");
+            RequestContext.getCurrentInstance().execute("PF('elegirTabla').show()");
         } else if (CualTabla == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroProverbio");
-            PrimefacesContextUI.ejecutar("PF('NuevoRegistroProverbio').show()");
+            RequestContext.getCurrentInstance().execute("PF('NuevoRegistroProverbio').show()");
         } else if (CualTabla == 1) {
             Short year = new Short(String.valueOf(anioactual));
             nuevoRegistroMensajesUsuarios.setAno(year);
             RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroMensajeUsuario");
-            PrimefacesContextUI.ejecutar("PF('NuevoRegistroMensajeUsuario').show()");
+            RequestContext.getCurrentInstance().execute("PF('NuevoRegistroMensajeUsuario').show()");
         }
     }
 
@@ -490,7 +490,7 @@ public class ControlProverbio implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarMensajes");
-                PrimefacesContextUI.ejecutar("PF('editarMensajes').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarMensajes').show()");
                 cualCelda = -1;
             }
             proverbioSeleccionado = null;
@@ -504,19 +504,19 @@ public class ControlProverbio implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarAños");
-                PrimefacesContextUI.ejecutar("PF('editarAños').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarAños').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarMeses");
-                PrimefacesContextUI.ejecutar("PF('editarMeses').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarMeses').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarDias");
-                PrimefacesContextUI.ejecutar("PF('editarDias').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarDias').show()");
                 cualCelda = -1;
             } else if (cualCelda == 3) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarMensajes2");
-                PrimefacesContextUI.ejecutar("PF('editarMensajes2').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarMensajes2').show()");
                 cualCelda = -1;
             }
             mensajeUsuarioSeleccionado = null;
@@ -527,13 +527,13 @@ public class ControlProverbio implements Serializable {
     public void dialogoProverbios() {
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:datosProverbios");
-        PrimefacesContextUI.ejecutar("PF('NuevoRegistroProverbio').show()");
+        RequestContext.getCurrentInstance().execute("PF('NuevoRegistroProverbio').show()");
     }
 
     public void dialogoMensajesUsuarios() {
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:datosMensajesUsuarios");
-        PrimefacesContextUI.ejecutar("PF('NuevoRegistroMensajeUsuario').show()");
+        RequestContext.getCurrentInstance().execute("PF('NuevoRegistroMensajeUsuario').show()");
     }
 
     //CREAR NUEVO PROVERBIO
@@ -569,10 +569,10 @@ public class ControlProverbio implements Serializable {
             }
             cambiosPagina = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            PrimefacesContextUI.ejecutar("PF('NuevoRegistroProverbio').hide()");
+            RequestContext.getCurrentInstance().execute("PF('NuevoRegistroProverbio').hide()");
         } else {
             RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoProverbio");
-            PrimefacesContextUI.ejecutar("PF('validacionNuevoProverbio').show()");
+            RequestContext.getCurrentInstance().execute("PF('validacionNuevoProverbio').show()");
         }
     }
 
@@ -614,10 +614,10 @@ public class ControlProverbio implements Serializable {
             nuevoRegistroMensajesUsuarios = new Recordatorios();
             cambiosPagina = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            PrimefacesContextUI.ejecutar("PF('NuevoRegistroMensajeUsuario').hide()");
+            RequestContext.getCurrentInstance().execute("PF('NuevoRegistroMensajeUsuario').hide()");
         } else {
             RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoMensajeUsuario");
-            PrimefacesContextUI.ejecutar("PF('validacionNuevoMensajeUsuario').show()");
+            RequestContext.getCurrentInstance().execute("PF('validacionNuevoMensajeUsuario').show()");
         }
     }
 
@@ -640,7 +640,7 @@ public class ControlProverbio implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarRegistroProverbio");
-            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroProverbio').show()");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroProverbio').show()");
         } else if (mensajeUsuarioSeleccionado != null && CualTabla == 1) {
             duplicarRegistroMensajesUsuarios = new Recordatorios();
             m++;
@@ -663,7 +663,7 @@ public class ControlProverbio implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarRegistroMensajeUsuario");
-            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroMensajeUsuario').show()");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroMensajeUsuario').show()");
 
         }
     }
@@ -1458,21 +1458,21 @@ public class ControlProverbio implements Serializable {
             if (proverbioSeleccionado != null) {
                 int resultado = administrarRastros.obtenerTabla(proverbioSeleccionado.getSecuencia(), "RECORDATORIOS");
                 if (resultado == 1) {
-                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
-                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
                 }
             } else {
                 if (administrarRastros.verificarHistoricosTabla("RECORDATORIOS")) {
-                    PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
                 } else {
-                    PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
                 }
             }
         } else {
@@ -1480,21 +1480,21 @@ public class ControlProverbio implements Serializable {
             if (mensajeUsuarioSeleccionado != null) {
                 int resultadoNF = administrarRastros.obtenerTabla(mensajeUsuarioSeleccionado.getSecuencia(), "RECORDATORIOS");
                 if (resultadoNF == 1) {
-                    PrimefacesContextUI.ejecutar("PF('errorObjetosDBNF').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDBNF').show()");
                 } else if (resultadoNF == 2) {
-                    PrimefacesContextUI.ejecutar("PF('confirmarRastroNF').show()");
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastroNF').show()");
                 } else if (resultadoNF == 3) {
-                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastroNF').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastroNF').show()");
                 } else if (resultadoNF == 4) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastroNF').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastroNF').show()");
                 } else if (resultadoNF == 5) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastroNF').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastroNF').show()");
                 }
             } else {
                 if (administrarRastros.verificarHistoricosTabla("RECORDATORIOS")) {
-                    PrimefacesContextUI.ejecutar("PF('confirmarRastroHistoricoNF').show()");
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistoricoNF').show()");
                 } else {
-                    PrimefacesContextUI.ejecutar("PF('errorRastroHistoricoNF').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorRastroHistoricoNF').show()");
                 }
             }
         }
@@ -1542,7 +1542,7 @@ public class ControlProverbio implements Serializable {
         RequestContext.getCurrentInstance().update("form:datosProverbios");
         duplicarProverbio = new Recordatorios();
         RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarRegistroProverbio");
-        PrimefacesContextUI.ejecutar("PF('DuplicarRegistroProverbio').hide()");
+        RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroProverbio').hide()");
     }
 
     public void confirmarDuplicarNF() {
@@ -1575,7 +1575,7 @@ public class ControlProverbio implements Serializable {
         RequestContext.getCurrentInstance().update("form:DuplicarRegistroMensajeUsuario");
         duplicarRegistroMensajesUsuarios = new Recordatorios();
         RequestContext.getCurrentInstance().update("formularioDialogos:duplicarRegistroMensajeUsuario");
-        PrimefacesContextUI.ejecutar("PF('DuplicarRegistroMensajeUsuario').hide()");
+        RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroMensajeUsuario').hide()");
 
     }
 

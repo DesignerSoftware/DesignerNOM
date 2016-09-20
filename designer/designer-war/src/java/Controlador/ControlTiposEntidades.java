@@ -4,7 +4,7 @@
  */
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import Entidades.Grupostiposentidades;
 import Entidades.TiposEntidades;
 import Exportar.ExportarPDF;
@@ -166,7 +166,7 @@ public class ControlTiposEntidades implements Serializable {
                 grupoAsociadoAutoCompletar = tipoEntidadSeleccionada.getGrupo().getNombre();
             }
         } else {
-            PrimefacesContextUI.ejecutar("PF('datosTipoEntidad.selectRow(" + te + ", false); datosTipoEntidad').unselectAllRows()");
+            RequestContext.getCurrentInstance().execute("PF('datosTipoEntidad.selectRow(" + te + ", false); datosTipoEntidad').unselectAllRows()");
         }
         RequestContext.getCurrentInstance().update("form:listaValores");
     }
@@ -195,7 +195,7 @@ public class ControlTiposEntidades implements Serializable {
             modificarInfoRegistroGrupo(listaGruposTiposEntidades.size());
             grupoTESeleccionada = null;
             RequestContext.getCurrentInstance().update("form:gruposTiposEntidadesDialogo");
-            PrimefacesContextUI.ejecutar("PF('gruposTiposEntidadesDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('gruposTiposEntidadesDialogo').show()");
             dig = -1;
         }
         RequestContext.getCurrentInstance().update("form:listaValores");
@@ -213,11 +213,11 @@ public class ControlTiposEntidades implements Serializable {
                 grupoTESeleccionada = null;
                 modificarInfoRegistroGrupo(listaGruposTiposEntidades.size());
                 RequestContext.getCurrentInstance().update("form:gruposTiposEntidadesDialogo");
-                PrimefacesContextUI.ejecutar("PF('gruposTiposEntidadesDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('gruposTiposEntidadesDialogo').show()");
                 tipoActualizacion = 0;
             }
         }else {
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 // tipo Entidad
@@ -254,8 +254,8 @@ public class ControlTiposEntidades implements Serializable {
         tipoActualizacion = -1;
         cualCelda = -1;
         context.reset("form:lovGruposTiposEntidades:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovGruposTiposEntidades').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('gruposTiposEntidadesDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovGruposTiposEntidades').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('gruposTiposEntidadesDialogo').hide()");
         //RequestContext.getCurrentInstance().update("form:lovGruposTiposEntidades");
     }
 
@@ -268,8 +268,8 @@ public class ControlTiposEntidades implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovGruposTiposEntidades:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovGruposTiposEntidades').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('gruposTiposEntidadesDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovGruposTiposEntidades').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('gruposTiposEntidadesDialogo').hide()");
     }
 //------------------------------------------------------------------------------
 
@@ -332,7 +332,7 @@ public class ControlTiposEntidades implements Serializable {
 
                 } else {
                     RequestContext.getCurrentInstance().update("form:validacionModificar");
-                    PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
+                    RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
                 }
             }
 
@@ -354,7 +354,7 @@ public class ControlTiposEntidades implements Serializable {
             } else {
                 permitirIndex = false;
                 RequestContext.getCurrentInstance().update("form:gruposTiposEntidadesDialogo");
-                PrimefacesContextUI.ejecutar("PF('gruposTiposEntidadesDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('gruposTiposEntidadesDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -403,7 +403,7 @@ public class ControlTiposEntidades implements Serializable {
                 getListaGruposTiposEntidades();
             } else {
                 RequestContext.getCurrentInstance().update("form:gruposTiposEntidadesDialogo");
-                PrimefacesContextUI.ejecutar("PF('gruposTiposEntidadesDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('gruposTiposEntidadesDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:nuevoGrupoAsociado");
@@ -424,7 +424,7 @@ public class ControlTiposEntidades implements Serializable {
         }
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:gruposTiposEntidadesDialogo");
-        PrimefacesContextUI.ejecutar("PF('gruposTiposEntidadesDialogo').show()");
+        RequestContext.getCurrentInstance().execute("PF('gruposTiposEntidadesDialogo').show()");
     }
 
     public void activarCtrlF11() {
@@ -568,10 +568,10 @@ public class ControlTiposEntidades implements Serializable {
                 guardado = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
-            PrimefacesContextUI.ejecutar("PF('nuevoRegistroTipoEntidad').hide()");
+            RequestContext.getCurrentInstance().execute("PF('nuevoRegistroTipoEntidad').hide()");
         } else {
             RequestContext.getCurrentInstance().update("form:validacionDuplicarVigencia");
-            PrimefacesContextUI.ejecutar("PF('validacionDuplicarVigencia').show()");
+            RequestContext.getCurrentInstance().execute("PF('validacionDuplicarVigencia').show()");
             contador = 0;
         }
     }
@@ -591,20 +591,20 @@ public class ControlTiposEntidades implements Serializable {
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
-                PrimefacesContextUI.ejecutar("PF('editCodigo').show()");
+                RequestContext.getCurrentInstance().execute("PF('editCodigo').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editNombre");
-                PrimefacesContextUI.ejecutar("PF('editNombre').show()");
+                RequestContext.getCurrentInstance().execute("PF('editNombre').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editGrupoAsociado");
-                PrimefacesContextUI.ejecutar("PF('editGrupoAsociado').show()");
+                RequestContext.getCurrentInstance().execute("PF('editGrupoAsociado').show()");
                 cualCelda = -1;
             }
 
         } else {
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
@@ -613,12 +613,12 @@ public class ControlTiposEntidades implements Serializable {
             tipoActualizacion = 1;
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:gruposTiposEntidadesDialogo");
-            PrimefacesContextUI.ejecutar("PF('gruposTiposEntidadesDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('gruposTiposEntidadesDialogo').show()");
         } else if (tipoNuevo == 1) {
             tipoActualizacion = 2;
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:gruposTiposEntidadesDialogo");
-            PrimefacesContextUI.ejecutar("PF('gruposTiposEntidadesDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('gruposTiposEntidadesDialogo').show()");
         }
     }
 
@@ -637,7 +637,7 @@ public class ControlTiposEntidades implements Serializable {
 
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("form:validacionBorrar");
-                PrimefacesContextUI.ejecutar("PF('validacionBorrar').show()");
+                RequestContext.getCurrentInstance().execute("PF('validacionBorrar').show()");
                 //tipoEntidadSeleccionada = null;
             }
         } catch (Exception e) {
@@ -677,7 +677,7 @@ public class ControlTiposEntidades implements Serializable {
             }
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
         } else {
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
 
     }
@@ -696,9 +696,9 @@ public class ControlTiposEntidades implements Serializable {
             duplicarTipoEntidad.setNombre(tipoEntidadSeleccionada.getNombre());
 
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTiposEntidades");
-            PrimefacesContextUI.ejecutar("PF('duplicarRegistroTiposEntidades').show()");
+            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroTiposEntidades').show()");
         }else {
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
@@ -769,12 +769,12 @@ public class ControlTiposEntidades implements Serializable {
             duplicarTipoEntidad = new TiposEntidades();
             activarLOV = true;
             RequestContext.getCurrentInstance().update("form:listaValores");
-            PrimefacesContextUI.ejecutar("PF('duplicarRegistroTiposEntidades').hide()");
+            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroTiposEntidades').hide()");
 
         } else {
             contador = 0;
             RequestContext.getCurrentInstance().update("form:validacionDuplicarVigencia");
-            PrimefacesContextUI.ejecutar("PF('validacionDuplicarVigencia').show()");
+            RequestContext.getCurrentInstance().execute("PF('validacionDuplicarVigencia').show()");
         }
     }
 
@@ -791,7 +791,7 @@ public class ControlTiposEntidades implements Serializable {
                 //mostrarBorrados
                 registrosBorrados = borrarTiposEntidades.size();
                 RequestContext.getCurrentInstance().update("form:mostrarBorrados");
-                PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
+                RequestContext.getCurrentInstance().execute("PF('mostrarBorrados').show()");
                 borrarTiposEntidades.clear();
             }
             if (!crearTiposEntidades.isEmpty()) {
@@ -849,21 +849,21 @@ public class ControlTiposEntidades implements Serializable {
             int resultado = administrarRastros.obtenerTabla(tipoEntidadSeleccionada.getSecuencia(), "TIPOSENTIDADES"); //En ENCARGATURAS lo cambia por el nombre de su tabla
             System.out.println("resultado: " + resultado);
             if (resultado == 1) {
-                PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {
-                PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
             } else if (resultado == 3) {
-                PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
             } else if (resultado == 4) {
-                PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
             } else if (resultado == 5) {
-                PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("TIPOSENTIDADES")) { // igual acá
-                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
             } else {
-                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
             }
         }
     }

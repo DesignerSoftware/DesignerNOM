@@ -1,6 +1,6 @@
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import Entidades.ConsultasLiquidaciones;
 import Entidades.ParametrosEstructuras;
 import Exportar.ExportarPDF;
@@ -111,7 +111,7 @@ public class ControlBarra implements Serializable {
             System.out.println("Hora Inicio: " + formato.format(horaInicio));
             horaInicialLiquidacion = formato.format(horaInicio);
             horaFinalLiquidacion = "--:--:--";
-            PrimefacesContextUI.ejecutar("PF('barra.start()");
+            RequestContext.getCurrentInstance().execute("PF('barra.start()");
             RequestContext.getCurrentInstance().update("form:liquidar");
             RequestContext.getCurrentInstance().update("form:cancelar");
             RequestContext.getCurrentInstance().update("form:horaF");
@@ -119,7 +119,7 @@ public class ControlBarra implements Serializable {
             RequestContext.getCurrentInstance().update("form:estadoLiquidacion");
             RequestContext.getCurrentInstance().update("form:imagen");
         } else {
-            PrimefacesContextUI.ejecutar("PF('permisoLiquidacion').show()");
+            RequestContext.getCurrentInstance().execute("PF('permisoLiquidacion').show()");
         }
         System.err.println("Termino la funcion liquidar()");
     }
@@ -151,7 +151,7 @@ public class ControlBarra implements Serializable {
         System.out.println("Hora Final: " + formato.format(horaFinal));
         horaFinalLiquidacion = formato.format(horaFinal);
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.ejecutar("PF('barra.stop()");
+        RequestContext.getCurrentInstance().execute("PF('barra.stop()");
         RequestContext.getCurrentInstance().update("form:empleadosLiquidados");
         RequestContext.getCurrentInstance().update("form:horaF");
         RequestContext.getCurrentInstance().update("form:liquidar");
@@ -166,7 +166,7 @@ public class ControlBarra implements Serializable {
 
     public void cancelarLiquidacion() {
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.ejecutar("PF('barra.cancel()");
+        RequestContext.getCurrentInstance().execute("PF('barra.cancel()");
         empezar = false;
         liquifinalizada = true;
         administrarBarra.cancelarLiquidacion(usuarioBD);
@@ -184,7 +184,7 @@ public class ControlBarra implements Serializable {
         RequestContext.getCurrentInstance().update("form:cancelar");
         RequestContext.getCurrentInstance().update("form:estadoLiquidacion");
         RequestContext.getCurrentInstance().update("form:imagen");
-        PrimefacesContextUI.ejecutar("PF('barra.setValue(" + barra + ")");
+        RequestContext.getCurrentInstance().execute("PF('barra.setValue(" + barra + ")");
         RequestContext.getCurrentInstance().update("form:barra");
         RequestContext.getCurrentInstance().update("form:growl");
         consultarEstadoDatos();
@@ -433,7 +433,7 @@ public class ControlBarra implements Serializable {
                         System.out.println("ES FINALIZADO");
                         if (barra < 100) {
                             System.out.println("Liquidacion Terminada Parcialmente");
-                            PrimefacesContextUI.ejecutar("PF('barra.cancel()");
+                            RequestContext.getCurrentInstance().execute("PF('barra.cancel()");
                             empezar = false;
                             liquifinalizada = true;
                             Date horaFinal = new Date();
@@ -450,7 +450,7 @@ public class ControlBarra implements Serializable {
                             RequestContext.getCurrentInstance().update("form:cancelar");
                             RequestContext.getCurrentInstance().update("form:estadoLiquidacion");
                             RequestContext.getCurrentInstance().update("form:imagen");
-                            PrimefacesContextUI.ejecutar("PF('barra.setValue(" + barra + ")");
+                            RequestContext.getCurrentInstance().execute("PF('barra.setValue(" + barra + ")");
                             RequestContext.getCurrentInstance().update("form:barra");
                             RequestContext.getCurrentInstance().update("form:estadoLiquidacion");
                             RequestContext.getCurrentInstance().update("form:growl");

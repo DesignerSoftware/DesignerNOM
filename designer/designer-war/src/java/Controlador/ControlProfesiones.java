@@ -28,7 +28,7 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
+
 
 /**
  *
@@ -113,15 +113,15 @@ public class ControlProfesiones implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarCodigosProfesiones");
-                PrimefacesContextUI.ejecutar("PF('editarCodigosProfesiones').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarCodigosProfesiones').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarDescripcionProfesiones");
-                PrimefacesContextUI.ejecutar("PF('editarDescripcionProfesiones').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarDescripcionProfesiones').show()");
                 cualCelda = -1;
             }
         } else {
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
@@ -212,12 +212,12 @@ public class ControlProfesiones implements Serializable {
 
             if (listaProfesiones.get(i).getDescripcion().equals(nuevaProfesion.getDescripcion())) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:existeNombre");
-                PrimefacesContextUI.ejecutar("PF('existeNombre').show()");
+                RequestContext.getCurrentInstance().execute("PF('existeNombre').show()");
                 pasaA++;
             }
             if (pasa != 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevaProfesion");
-                PrimefacesContextUI.ejecutar("PF('validacionNuevaProfesion').show()");
+                RequestContext.getCurrentInstance().execute("PF('validacionNuevaProfesion').show()");
 
             }
         }
@@ -226,12 +226,12 @@ public class ControlProfesiones implements Serializable {
             System.out.println("Codigos: " + listaProfesiones.get(i).getCodigo());
             if (listaProfesiones.get(i).getCodigo() == nuevaProfesion.getCodigo()) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:existeCodigo");
-                PrimefacesContextUI.ejecutar("PF('existeCodigo').show()");
+                RequestContext.getCurrentInstance().execute("PF('existeCodigo').show()");
                 pasaA++;
             }
             if (pasa != 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevaProfesion");
-                PrimefacesContextUI.ejecutar("PF('validacionNuevaProfesion').show()");
+                RequestContext.getCurrentInstance().execute("PF('validacionNuevaProfesion').show()");
 
             }
         }
@@ -239,7 +239,7 @@ public class ControlProfesiones implements Serializable {
 
         if (nuevaProfesion.getDescripcion().length() > 40) {
             RequestContext.getCurrentInstance().update("formularioDialogos:sobrepasaCaracteres");
-            PrimefacesContextUI.ejecutar("PF('sobrepasaCaracteres').show()");
+            RequestContext.getCurrentInstance().execute("PF('sobrepasaCaracteres').show()");
             pasa++;
         }
 
@@ -274,10 +274,10 @@ public class ControlProfesiones implements Serializable {
                 guardado = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
-            PrimefacesContextUI.ejecutar("PF('NuevoRegistroProfesion').hide()");
+            RequestContext.getCurrentInstance().execute("PF('NuevoRegistroProfesion').hide()");
         } else {
             RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevaProfesion");
-            PrimefacesContextUI.ejecutar("PF('validacionNuevaProfesion').show()");
+            RequestContext.getCurrentInstance().execute("PF('validacionNuevaProfesion').show()");
         }
     }
 
@@ -364,7 +364,7 @@ public class ControlProfesiones implements Serializable {
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         } else {
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
@@ -402,9 +402,9 @@ public class ControlProfesiones implements Serializable {
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarProfesion");
-            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroProfesion').show()");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroProfesion').show()");
         } else {
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
@@ -416,12 +416,12 @@ public class ControlProfesiones implements Serializable {
         for (int i = 0; i < listaProfesiones.size(); i++) {
             if (duplicarProfesion.getDescripcion().equals(listaProfesiones.get(i).getDescripcion())) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:existeNombre");
-                PrimefacesContextUI.ejecutar("PF('existeNombre').show()");
+                RequestContext.getCurrentInstance().execute("PF('existeNombre').show()");
                 pasa++;
             }
             if (duplicarProfesion.getCodigo() == listaProfesiones.get(i).getCodigo()) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:existeCodigo");
-                PrimefacesContextUI.ejecutar("PF('existeCodigo').show()");
+                RequestContext.getCurrentInstance().execute("PF('existeCodigo').show()");
                 pasa++;
             }
         }
@@ -453,7 +453,7 @@ public class ControlProfesiones implements Serializable {
             duplicarProfesion = new Profesiones();
         }
         RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarRegistroProfesion");
-        PrimefacesContextUI.ejecutar("PF('DuplicarRegistroProfesion').hide()");
+        RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroProfesion').hide()");
     }
 
     public void cancelarModificacion() {
@@ -525,20 +525,20 @@ public class ControlProfesiones implements Serializable {
             int resultado = administrarRastros.obtenerTabla(profesionSeleccionada.getSecuencia(), "TIPOSEDUCACIONES");
             System.out.println("resultado: " + resultado);
             if (resultado == 1) {
-                PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {
-                PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
             } else if (resultado == 3) {
-                PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
             } else if (resultado == 4) {
-                PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
             } else if (resultado == 5) {
-                PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
         } else if (administrarRastros.verificarHistoricosTabla("TIPOSEDUCACIONES")) {
-            PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
     }
 

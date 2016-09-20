@@ -1,6 +1,6 @@
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import Entidades.Empleados;
 import Entidades.HVHojasDeVida;
 import Entidades.HvExperienciasLaborales;
@@ -332,7 +332,7 @@ public class ControlPerExperienciaLaboral implements Serializable {
                 fechaIni = null;
                 fechaFin = null;
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.ejecutar("PF('errorIngresoReg').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorIngresoReg').show()");
                 RequestContext.getCurrentInstance().update("form:datosExperiencia");
             }
         } else {
@@ -346,7 +346,7 @@ public class ControlPerExperienciaLaboral implements Serializable {
                 listExperienciaLaboralEmpl.get(ind).setFechahasta(fechaFin);
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.ejecutar("PF('errorFechasIngresoReg').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorFechasIngresoReg').show()");
             RequestContext.getCurrentInstance().update("form:datosExperiencia");
             fechaIni = null;
             fechaFin = null;
@@ -384,7 +384,7 @@ public class ControlPerExperienciaLaboral implements Serializable {
             } else {
                 permitirIndex = false;
                 RequestContext.getCurrentInstance().update("form:SectorDialogo");
-                PrimefacesContextUI.ejecutar("PF('SectorDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('SectorDialogo').show()");
                 tipoActualizacion = 0;
             }
         } else if (confirmarCambio.equalsIgnoreCase("MOTIVOS")) {
@@ -414,7 +414,7 @@ public class ControlPerExperienciaLaboral implements Serializable {
                 } else {
                     permitirIndex = false;
                     RequestContext.getCurrentInstance().update("form:MotivosDialogo");
-                    PrimefacesContextUI.ejecutar("PF('MotivosDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('MotivosDialogo').show()");
                     tipoActualizacion = 0;
                 }
             } else {
@@ -511,7 +511,7 @@ public class ControlPerExperienciaLaboral implements Serializable {
                 getListSectoresEconomicos();
             } else {
                 RequestContext.getCurrentInstance().update("form:SectorDialogo");
-                PrimefacesContextUI.ejecutar("PF('SectorDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('SectorDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:nuevaSectorEP");
@@ -545,7 +545,7 @@ public class ControlPerExperienciaLaboral implements Serializable {
                     getListMotivosRetiros();
                 } else {
                     RequestContext.getCurrentInstance().update("form:MotivosDialogo");
-                    PrimefacesContextUI.ejecutar("PF('MotivosDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('MotivosDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                     if (tipoNuevo == 1) {
                         RequestContext.getCurrentInstance().update("formularioDialogos:nuevaMotivoEP");
@@ -634,7 +634,7 @@ public class ControlPerExperienciaLaboral implements Serializable {
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
         }
     }
 
@@ -748,39 +748,39 @@ public class ControlPerExperienciaLaboral implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarEmpresaD");
-                PrimefacesContextUI.ejecutar("PF('editarEmpresaD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarEmpresaD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaInicialD");
-                PrimefacesContextUI.ejecutar("PF('editarFechaInicialD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarFechaInicialD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaFinalD");
-                PrimefacesContextUI.ejecutar("PF('editarFechaFinalD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarFechaFinalD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 3) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarCargoD");
-                PrimefacesContextUI.ejecutar("PF('editarCargoD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarCargoD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 4) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarJefeD");
-                PrimefacesContextUI.ejecutar("PF('editarJefeD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarJefeD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 5) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarTelefonoD");
-                PrimefacesContextUI.ejecutar("PF('editarTelefonoD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarTelefonoD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 6) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarSectorD");
-                PrimefacesContextUI.ejecutar("PF('editarSectorD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarSectorD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 7) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarMotivoD");
-                PrimefacesContextUI.ejecutar("PF('editarMotivoD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarMotivoD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 8) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarLogroD");
-                PrimefacesContextUI.ejecutar("PF('editarLogroD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarLogroD').show()");
                 cualCelda = -1;
             }
         }
@@ -845,14 +845,14 @@ public class ControlPerExperienciaLaboral implements Serializable {
                 modificarInfoRegistro(listExperienciaLaboralEmpl.size());
                 RequestContext.getCurrentInstance().update("form:informacionRegistro");
                 RequestContext.getCurrentInstance().update("form:datosExperiencia");
-                PrimefacesContextUI.ejecutar("PF('NuevoRegistro').hide()");
+                RequestContext.getCurrentInstance().execute("PF('NuevoRegistro').hide()");
             } else {
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.ejecutar("PF('errorIngresoReg').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorIngresoReg').show()");
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.ejecutar("PF('errorFechasIngresoReg').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorFechasIngresoReg').show()");
         }
     }
 
@@ -883,15 +883,15 @@ public class ControlPerExperienciaLaboral implements Serializable {
                     duplicarVigenciaE();
                 } else {
                     RequestContext context = RequestContext.getCurrentInstance();
-                    PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
                 }
             } else {
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+                RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
@@ -925,7 +925,7 @@ public class ControlPerExperienciaLaboral implements Serializable {
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarEP");
-            PrimefacesContextUI.ejecutar("PF('DuplicarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistro').show()");
             experienciaTablaSeleccionada = null;
             experienciaTablaSeleccionada = null;
         }
@@ -983,14 +983,14 @@ public class ControlPerExperienciaLaboral implements Serializable {
                 RequestContext.getCurrentInstance().update("form:informacionRegistro");
                 RequestContext.getCurrentInstance().update("form:datosExperiencia");
                 RequestContext.getCurrentInstance().update("form:editarLogrosEP");
-                PrimefacesContextUI.ejecutar("PF('DuplicarRegistro').hide()");
+                RequestContext.getCurrentInstance().execute("PF('DuplicarRegistro').hide()");
             } else {
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.ejecutar("PF('errorIngresoReg').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorIngresoReg').show()");
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.ejecutar("PF('errorFechasIngresoReg').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorFechasIngresoReg').show()");
         }
     }
 
@@ -1014,7 +1014,7 @@ public class ControlPerExperienciaLaboral implements Serializable {
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.ejecutar("PF('errorBorradoReg').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorBorradoReg').show()");
         }
     }
 
@@ -1164,10 +1164,10 @@ public class ControlPerExperienciaLaboral implements Serializable {
         }
         if (dlg == 1) {
             RequestContext.getCurrentInstance().update("form:SectorDialogo");
-            PrimefacesContextUI.ejecutar("PF('SectorDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('SectorDialogo').show()");
         } else if (dlg == 2) {
             RequestContext.getCurrentInstance().update("form:MotivosDialogo");
-            PrimefacesContextUI.ejecutar("PF('MotivosDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('MotivosDialogo').show()");
         }
     }
 
@@ -1225,8 +1225,8 @@ public class ControlPerExperienciaLaboral implements Serializable {
          RequestContext.getCurrentInstance().update("form:lovSector");
          RequestContext.getCurrentInstance().update("form:aceptarS");*/
         context.reset("form:lovSector:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovSector').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('SectorDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovSector').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('SectorDialogo').hide()");
     }
 
     public void cancelarCambioSector() {
@@ -1239,8 +1239,8 @@ public class ControlPerExperienciaLaboral implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovSector:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovSector').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('SectorDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovSector').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('SectorDialogo').hide()");
     }
 
     public void actualizarMotivo() {
@@ -1289,8 +1289,8 @@ public class ControlPerExperienciaLaboral implements Serializable {
          RequestContext.getCurrentInstance().update("form:lovMotivos");
          RequestContext.getCurrentInstance().update("form:aceptarM");*/
         context.reset("form:lovMotivos:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovMotivos').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('MotivosDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovMotivos').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('MotivosDialogo').hide()");
     }
 
     public void cancelarCambioMotivo() {
@@ -1303,8 +1303,8 @@ public class ControlPerExperienciaLaboral implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovMotivos:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovMotivos').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('MotivosDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovMotivos').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('MotivosDialogo').hide()");
     }
 
     public void listaValoresBoton() {
@@ -1312,12 +1312,12 @@ public class ControlPerExperienciaLaboral implements Serializable {
         if (experienciaTablaSeleccionada != null) {
             if (cualCelda == 6) {
                 RequestContext.getCurrentInstance().update("form:SectorDialogo");
-                PrimefacesContextUI.ejecutar("PF('SectorDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('SectorDialogo').show()");
                 tipoActualizacion = 0;
             }
             if (cualCelda == 7) {
                 RequestContext.getCurrentInstance().update("form:MotivosDialogo");
-                PrimefacesContextUI.ejecutar("PF('MotivosDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('MotivosDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -1406,24 +1406,24 @@ public class ControlPerExperienciaLaboral implements Serializable {
                 backUpSecRegistro = experienciaTablaSeleccionada.getSecuencia();
                 experienciaTablaSeleccionada = null;
                 if (resultado == 1) {
-                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
-                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+                RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("HVEXPERIENCIASLABORALES")) {
-                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
             } else {
-                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
             }
 
         }

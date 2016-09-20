@@ -1,6 +1,6 @@
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import Entidades.ActualUsuario;
 import Entidades.Empleados;
 import Entidades.ReformasLaborales;
@@ -223,13 +223,13 @@ public class ControlVigenciasReformasLaborales implements Serializable {
 
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("form:datosVRLEmpleado");
-                PrimefacesContextUI.ejecutar("PF('errorFechas').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorFechas').show()");
             }
         } else {
             vigenciaSeleccionada.setFechavigencia(fechaIni);
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:datosVRLEmpleado");
-            PrimefacesContextUI.ejecutar("PF('errorRegNew').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorRegNew').show()");
         }
         activarLOV = true;
         RequestContext.getCurrentInstance().update("form:listaValores");
@@ -255,7 +255,7 @@ public class ControlVigenciasReformasLaborales implements Serializable {
             } else {
                 permitirIndex = false;
                 RequestContext.getCurrentInstance().update("form:ReformasLaboralesDialogo");
-                PrimefacesContextUI.ejecutar("PF('ReformasLaboralesDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('ReformasLaboralesDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -315,7 +315,7 @@ public class ControlVigenciasReformasLaborales implements Serializable {
                 }
             } else {
                 RequestContext.getCurrentInstance().update("form:ReformasLaboralesDialogo");
-                PrimefacesContextUI.ejecutar("PF('ReformasLaboralesDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('ReformasLaboralesDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:nuevaReformaLaboral");
@@ -443,17 +443,17 @@ public class ControlVigenciasReformasLaborales implements Serializable {
     public void editarCelda() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (vigenciaSeleccionada == null) {
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         } else {
             editarVRL = vigenciaSeleccionada;
 
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarFecha");
-                PrimefacesContextUI.ejecutar("PF('editarFecha').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarFecha').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarReformaLaboral");
-                PrimefacesContextUI.ejecutar("PF('editarReformaLaboral').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarReformaLaboral').show()");
                 cualCelda = -1;
             }
         }
@@ -477,7 +477,7 @@ public class ControlVigenciasReformasLaborales implements Serializable {
             if (cont > 0) {
                 mensajeValidacion = "FECHAS NO REPETIDAS";
                 RequestContext.getCurrentInstance().update("form:validacionNuevoF");
-                PrimefacesContextUI.ejecutar("PF('validacionNuevoF').show()");
+                RequestContext.getCurrentInstance().execute("PF('validacionNuevoF').show()");
             } else {
                 if (validarFechasRegistro(1)) {
                     if (bandera == 1) {
@@ -510,17 +510,17 @@ public class ControlVigenciasReformasLaborales implements Serializable {
                     RequestContext.getCurrentInstance().update("form:informacionRegistro");
 
                     RequestContext.getCurrentInstance().update("form:datosVRLEmpleado");
-                    PrimefacesContextUI.ejecutar("PF('NuevoRegistroVRL').hide()");
+                    RequestContext.getCurrentInstance().execute("PF('NuevoRegistroVRL').hide()");
                     if (guardado) {
                         guardado = false;
                         RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
                 } else {
-                    PrimefacesContextUI.ejecutar("PF('errorFechas').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorFechas').show()");
                 }
             }
         } else {
-            PrimefacesContextUI.ejecutar("PF('errorRegNew').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorRegNew').show()");
         }
     }
 //LIMPIAR NUEVO REGISTRO
@@ -541,7 +541,7 @@ public class ControlVigenciasReformasLaborales implements Serializable {
     public void duplicarVigenciaRL() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (vigenciaSeleccionada == null) {
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         } else {
             duplicarVRL = new VigenciasReformasLaborales();
             intNuevaSec++;
@@ -552,7 +552,7 @@ public class ControlVigenciasReformasLaborales implements Serializable {
             duplicarVRL.setReformalaboral(vigenciaSeleccionada.getReformalaboral());
 
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarVRL");
-            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroVRL').show()");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroVRL').show()");
         }
     }
 
@@ -572,7 +572,7 @@ public class ControlVigenciasReformasLaborales implements Serializable {
         if (cont > 0) {
             mensajeValidacion = "FECHAS NO REPETIDAS";
             RequestContext.getCurrentInstance().update("form:validacionDuplicarF");
-            PrimefacesContextUI.ejecutar("PF('validacionDuplicarF').show()");
+            RequestContext.getCurrentInstance().execute("PF('validacionDuplicarF').show()");
         } else {
             if (duplicarVRL.getFechavigencia() != null && duplicarVRL.getReformalaboral().getSecuencia() != null) {
                 if (validarFechasRegistro(2)) {
@@ -585,7 +585,7 @@ public class ControlVigenciasReformasLaborales implements Serializable {
                     modificarInfoRegistro(vigenciasReformasLaborales.size());
                     RequestContext.getCurrentInstance().update("form:informacionRegistro");
                     RequestContext.getCurrentInstance().update("form:datosVRLEmpleado");
-                    PrimefacesContextUI.ejecutar("PF('DuplicarRegistroVRL').hide()");
+                    RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroVRL').hide()");
                     if (guardado) {
                         guardado = false;
                         RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -607,10 +607,10 @@ public class ControlVigenciasReformasLaborales implements Serializable {
                     RequestContext.getCurrentInstance().update("form:listaValores");
                     duplicarVRL = new VigenciasReformasLaborales();
                 } else {
-                    PrimefacesContextUI.ejecutar("PF('errorFechas').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorFechas').show()");
                 }
             } else {
-                PrimefacesContextUI.ejecutar("PF('errorRegNew').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRegNew').show()");
             }
         }
     }
@@ -631,7 +631,7 @@ public class ControlVigenciasReformasLaborales implements Serializable {
     public void borrarVRL() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (vigenciaSeleccionada == null) {
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         } else {
             if (!listVRLModificar.isEmpty() && listVRLModificar.contains(vigenciaSeleccionada)) {
                 int modIndex = listVRLModificar.indexOf(vigenciaSeleccionada);
@@ -739,7 +739,7 @@ public class ControlVigenciasReformasLaborales implements Serializable {
         activarLOV = false;
         RequestContext.getCurrentInstance().update("form:listaValores");
         RequestContext.getCurrentInstance().update("form:ReformasLaboralesDialogo");
-        PrimefacesContextUI.ejecutar("PF('ReformasLaboralesDialogo').show()");
+        RequestContext.getCurrentInstance().execute("PF('ReformasLaboralesDialogo').show()");
     }
 
     public void asignarIndex(int LND) {
@@ -756,7 +756,7 @@ public class ControlVigenciasReformasLaborales implements Serializable {
         activarLOV = false;
         RequestContext.getCurrentInstance().update("form:listaValores");
         RequestContext.getCurrentInstance().update("form:ReformasLaboralesDialogo");
-        PrimefacesContextUI.ejecutar("PF('ReformasLaboralesDialogo').show()");
+        RequestContext.getCurrentInstance().execute("PF('ReformasLaboralesDialogo').show()");
     }
 
     //LOVS
@@ -793,8 +793,8 @@ public class ControlVigenciasReformasLaborales implements Serializable {
         aceptar = true;
         tipoActualizacion = -1;
         context.reset("form:lovReformasLaborales:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovReformasLaborales').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('ReformasLaboralesDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovReformasLaborales').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('ReformasLaboralesDialogo').hide()");
     }
 
     /**
@@ -811,8 +811,8 @@ public class ControlVigenciasReformasLaborales implements Serializable {
         //RequestContext.getCurrentInstance().update("form:lovReformasLaborales");
         //RequestContext.getCurrentInstance().update("form:aceptarRL");
         context.reset("form:lovReformasLaborales:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovReformasLaborales').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('ReformasLaboralesDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovReformasLaborales').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('ReformasLaboralesDialogo').hide()");
     }
 
     //LISTA DE VALORES DINAMICA
@@ -823,7 +823,7 @@ public class ControlVigenciasReformasLaborales implements Serializable {
     public void listaValoresBoton() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (vigenciaSeleccionada == null) {
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         } else {
             if (cualCelda == 1) {
 
@@ -833,7 +833,7 @@ public class ControlVigenciasReformasLaborales implements Serializable {
                     modificarInfoRegistroRefLab(0);
                 }
                 RequestContext.getCurrentInstance().update("form:ReformasLaboralesDialogo");
-                PrimefacesContextUI.ejecutar("PF('ReformasLaboralesDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('ReformasLaboralesDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -903,21 +903,21 @@ public class ControlVigenciasReformasLaborales implements Serializable {
         if (vigenciaSeleccionada != null) {
             int resultado = administrarRastros.obtenerTabla(vigenciaSeleccionada.getSecuencia(), "VIGENCIASREFORMASLABORALES");
             if (resultado == 1) {
-                PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {
-                PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
             } else if (resultado == 3) {
-                PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
             } else if (resultado == 4) {
-                PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
             } else if (resultado == 5) {
-                PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("VIGENCIASREFORMASLABORALES")) {
-                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
             } else {
-                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
             }
         }
     }

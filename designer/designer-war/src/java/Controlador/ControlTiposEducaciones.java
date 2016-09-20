@@ -27,7 +27,7 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
-import utilidadesUI.PrimefacesContextUI;
+
 
 /**
  *
@@ -112,19 +112,19 @@ public class ControlTiposEducaciones implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarCodigosTiposEducaciones");
-                PrimefacesContextUI.ejecutar("PF('editarCodigosTiposEducaciones').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarCodigosTiposEducaciones').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarNombresTiposEducaciones");
-                PrimefacesContextUI.ejecutar("PF('editarNombresTiposEducaciones').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarNombresTiposEducaciones').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarNivelTiposEducaciones");
-                PrimefacesContextUI.ejecutar("PF('editarNivelTiposEducaciones').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarNivelTiposEducaciones').show()");
                 cualCelda = -1;
             }
         } else {
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
@@ -216,12 +216,12 @@ public class ControlTiposEducaciones implements Serializable {
             if (listaTiposEducaciones.get(i).getNombre().equals(nuevoTipoEducacion.getNombre())) {
                 System.out.println("Entro al IF Tipo Telefono");
                 RequestContext.getCurrentInstance().update("formularioDialogos:existeNombre");
-                PrimefacesContextUI.ejecutar("PF('existeNombre').show()");
+                RequestContext.getCurrentInstance().execute("PF('existeNombre').show()");
                 pasaA++;
             }
             if (pasa != 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoTipoEducacion");
-                PrimefacesContextUI.ejecutar("PF('validacionNuevoTipoTelefono').show()");
+                RequestContext.getCurrentInstance().execute("PF('validacionNuevoTipoTelefono').show()");
 
             }
         }
@@ -231,19 +231,19 @@ public class ControlTiposEducaciones implements Serializable {
             if (listaTiposEducaciones.get(i).getCodigo() == nuevoTipoEducacion.getCodigo()) {
                 System.out.println("Entro al IF Tipo Telefono");
                 RequestContext.getCurrentInstance().update("formularioDialogos:existeCodigo");
-                PrimefacesContextUI.ejecutar("PF('existeCodigo').show()");
+                RequestContext.getCurrentInstance().execute("PF('existeCodigo').show()");
                 pasaA++;
             }
             if (pasa != 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoTipoTelefono");
-                PrimefacesContextUI.ejecutar("PF('validacionNuevoTipoTelefono').show()");
+                RequestContext.getCurrentInstance().execute("PF('validacionNuevoTipoTelefono').show()");
 
             }
         }
 
         if (nuevoTipoEducacion.getNombre().length() > 20) {
             RequestContext.getCurrentInstance().update("formularioDialogos:sobrepasaCaracteres");
-            PrimefacesContextUI.ejecutar("PF('sobrepasaCaracteres').show()");
+            RequestContext.getCurrentInstance().execute("PF('sobrepasaCaracteres').show()");
             pasa++;
         }
 
@@ -279,10 +279,10 @@ public class ControlTiposEducaciones implements Serializable {
                 guardado = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
-            PrimefacesContextUI.ejecutar("PF('NuevoRegistroTipoEducacion').hide()");
+            RequestContext.getCurrentInstance().execute("PF('NuevoRegistroTipoEducacion').hide()");
         } else {
             RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoTipoEducacion");
-            PrimefacesContextUI.ejecutar("PF('validacionNuevoTipoEducacion').show()");
+            RequestContext.getCurrentInstance().execute("PF('validacionNuevoTipoEducacion').show()");
         }
     }
 
@@ -370,7 +370,7 @@ public class ControlTiposEducaciones implements Serializable {
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         } else {
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
@@ -411,9 +411,9 @@ public class ControlTiposEducaciones implements Serializable {
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoEducacion");
-            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroTipoEducacion').show()");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroTipoEducacion').show()");
         } else {
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
@@ -429,12 +429,12 @@ public class ControlTiposEducaciones implements Serializable {
         for (int i = 0; i < listaTiposEducaciones.size(); i++) {
             if (duplicarTipoEducacion.getNombre().equals(listaTiposEducaciones.get(i).getNombre())) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:existeNombre");
-                PrimefacesContextUI.ejecutar("PF('existeNombre').show()");
+                RequestContext.getCurrentInstance().execute("PF('existeNombre').show()");
                 pasa++;
             }
             if (duplicarTipoEducacion.getCodigo() == listaTiposEducaciones.get(i).getCodigo()) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:existeCodigo");
-                PrimefacesContextUI.ejecutar("PF('existeCodigo').show()");
+                RequestContext.getCurrentInstance().execute("PF('existeCodigo').show()");
                 pasa++;
             }
         }
@@ -468,7 +468,7 @@ public class ControlTiposEducaciones implements Serializable {
             duplicarTipoEducacion = new TiposEducaciones();
         }
         RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarRegistroTipoEducacion");
-        PrimefacesContextUI.ejecutar("PF('DuplicarRegistroTipoEducacion').hide()");
+        RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroTipoEducacion').hide()");
     }
 
     public void cancelarModificacion() {
@@ -541,20 +541,20 @@ public class ControlTiposEducaciones implements Serializable {
             int resultado = administrarRastros.obtenerTabla(tipoEducacionSeleccionado.getSecuencia(), "TIPOSEDUCACIONES");
             System.out.println("resultado: " + resultado);
             if (resultado == 1) {
-                PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {
-                PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
             } else if (resultado == 3) {
-                PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
             } else if (resultado == 4) {
-                PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
             } else if (resultado == 5) {
-                PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
         } else if (administrarRastros.verificarHistoricosTabla("TIPOSEDUCACIONES")) {
-            PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
     }
 

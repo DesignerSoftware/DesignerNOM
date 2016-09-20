@@ -1,6 +1,6 @@
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import Entidades.*;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
@@ -343,14 +343,14 @@ public class ControlVigenciaJornada implements Serializable {
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:datosVJEmpleado");
-            PrimefacesContextUI.ejecutar("PF('errorFechas').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorFechas').show()");
          }
       } else {
          vigenciaJornadaSeleccionada.setFechavigencia(fechaVigenciaVJ);
 
          RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().update("form:datosVJEmpleado");
-         PrimefacesContextUI.ejecutar("PF('negacionNuevaVJ').show()");
+         RequestContext.getCurrentInstance().execute("PF('negacionNuevaVJ').show()");
       }
       activarLOV = true;
       RequestContext.getCurrentInstance().update("form:listaValores");
@@ -384,7 +384,7 @@ public class ControlVigenciaJornada implements Serializable {
             } else {
                permitirIndex = false;
                RequestContext.getCurrentInstance().update("form:JornadaLaboralDialogo");
-               PrimefacesContextUI.ejecutar("PF('JornadaLaboralDialogo').show()");
+               RequestContext.getCurrentInstance().execute("PF('JornadaLaboralDialogo').show()");
                tipoActualizacion = 0;
             }
          } else {
@@ -414,7 +414,7 @@ public class ControlVigenciaJornada implements Serializable {
             } else {
                permitirIndex = false;
                RequestContext.getCurrentInstance().update("form:TiposDescansosDialogo");
-               PrimefacesContextUI.ejecutar("PF('TiposDescansosDialogo').show()");
+               RequestContext.getCurrentInstance().execute("PF('TiposDescansosDialogo').show()");
                tipoActualizacion = 0;
             }
          } else {
@@ -573,7 +573,7 @@ public class ControlVigenciaJornada implements Serializable {
                listJornadasLaborales.clear();
             } else {
                RequestContext.getCurrentInstance().update("form:JornadaLaboralDialogo");
-               PrimefacesContextUI.ejecutar("PF('JornadaLaboralDialogo').show()");
+               RequestContext.getCurrentInstance().execute("PF('JornadaLaboralDialogo').show()");
                tipoActualizacion = tipoNuevo;
                if (tipoNuevo == 1) {
                   RequestContext.getCurrentInstance().update("formularioDialogos:nuevaJornadaLaboral");
@@ -616,7 +616,7 @@ public class ControlVigenciaJornada implements Serializable {
                listTiposDescansos.clear();
             } else {
                RequestContext.getCurrentInstance().update("form:TiposDescansosDialogo");
-               PrimefacesContextUI.ejecutar("PF('TiposDescansosDialogo').show()");
+               RequestContext.getCurrentInstance().execute("PF('TiposDescansosDialogo').show()");
                tipoActualizacion = tipoNuevo;
                if (tipoNuevo == 1) {
                   RequestContext.getCurrentInstance().update("formularioDialogos:nuevaTipoDescanso");
@@ -670,7 +670,7 @@ public class ControlVigenciaJornada implements Serializable {
             listVigenciasCompensacionesDinero = getListVigenciasCompensacionesDinero();
          } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.ejecutar("PF('confirmarGuardarSinSalida').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarGuardarSinSalida').show()");
          }
 
       }
@@ -703,8 +703,8 @@ public class ControlVigenciaJornada implements Serializable {
       }
       vigenciaTiempoSeleccionada = null;
       vigenciaDineroSeleccionada = null;
-      PrimefacesContextUI.ejecutar("PF('datosVigenciaCT').unselectAllRows()");
-      PrimefacesContextUI.ejecutar("PF('datosVigenciaCD').unselectAllRows()");
+      RequestContext.getCurrentInstance().execute("PF('datosVigenciaCT').unselectAllRows()");
+      RequestContext.getCurrentInstance().execute("PF('datosVigenciaCD').unselectAllRows()");
       RequestContext.getCurrentInstance().update("form:datosVigenciaCT");
       RequestContext.getCurrentInstance().update("form:datosVigenciaCD");
       contarRegistrosVD();
@@ -751,7 +751,7 @@ public class ControlVigenciaJornada implements Serializable {
          tipoListaVCD = 0;
       }
       vigenciaDineroSeleccionada = null;
-      PrimefacesContextUI.ejecutar("PF('datosVigenciaCD').unselectAllRows()");
+      RequestContext.getCurrentInstance().execute("PF('datosVigenciaCD').unselectAllRows()");
       RequestContext.getCurrentInstance().update("form:datosVigenciaCD");
       activarLOV = true;
       RequestContext.getCurrentInstance().update("form:listaValores");
@@ -797,7 +797,7 @@ public class ControlVigenciaJornada implements Serializable {
          tipoListaVCT = 0;
       }
       vigenciaTiempoSeleccionada = null;
-      PrimefacesContextUI.ejecutar("PF('datosVigenciaCT').unselectAllRows()");
+      RequestContext.getCurrentInstance().execute("PF('datosVigenciaCT').unselectAllRows()");
       RequestContext.getCurrentInstance().update("form:datosVigenciaCT");
       activarLOV = true;
       RequestContext.getCurrentInstance().update("form:listaValores");
@@ -1113,21 +1113,21 @@ public class ControlVigenciaJornada implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       //Si no hay registro selecciionado
       if (vigenciaJornadaSeleccionada == null && vigenciaDineroSeleccionada == null && vigenciaTiempoSeleccionada == null) {
-         PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+         RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
       } else if (vigenciaTiempoSeleccionada != null) {
          editarVCT = vigenciaTiempoSeleccionada;
 
          if (cualCeldaVCT == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaInicialVCT");
-            PrimefacesContextUI.ejecutar("PF('editarFechaInicialVCT').show()");
+            RequestContext.getCurrentInstance().execute("PF('editarFechaInicialVCT').show()");
             cualCeldaVCT = -1;
          } else if (cualCeldaVCT == 1) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaFinalVCT");
-            PrimefacesContextUI.ejecutar("PF('editarFechaFinalVCT').show()");
+            RequestContext.getCurrentInstance().execute("PF('editarFechaFinalVCT').show()");
             cualCeldaVCT = -1;
          } else if (cualCeldaVCT == 2) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editarComentarioVCT");
-            PrimefacesContextUI.ejecutar("PF('editarComentarioVCT').show()");
+            RequestContext.getCurrentInstance().execute("PF('editarComentarioVCT').show()");
             cualCeldaVCT = -1;
          }
       } else if (vigenciaDineroSeleccionada != null) {
@@ -1135,15 +1135,15 @@ public class ControlVigenciaJornada implements Serializable {
 
          if (cualCeldaVCD == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaInicialVCD");
-            PrimefacesContextUI.ejecutar("PF('editarFechaInicialVCD').show()");
+            RequestContext.getCurrentInstance().execute("PF('editarFechaInicialVCD').show()");
             cualCeldaVCD = -1;
          } else if (cualCeldaVCD == 1) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaFinalVCD");
-            PrimefacesContextUI.ejecutar("PF('editarFechaFinalVCD').show()");
+            RequestContext.getCurrentInstance().execute("PF('editarFechaFinalVCD').show()");
             cualCeldaVCD = -1;
          } else if (cualCeldaVCD == 2) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editarComentarioVCD");
-            PrimefacesContextUI.ejecutar("PF('editarComentarioVCD').show()");
+            RequestContext.getCurrentInstance().execute("PF('editarComentarioVCD').show()");
             cualCeldaVCD = -1;
          }
       } else if (vigenciaJornadaSeleccionada != null) {
@@ -1151,15 +1151,15 @@ public class ControlVigenciaJornada implements Serializable {
 
          if (cualCelda == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaVigencia");
-            PrimefacesContextUI.ejecutar("PF('editarFechaVigencia').show()");
+            RequestContext.getCurrentInstance().execute("PF('editarFechaVigencia').show()");
             cualCelda = -1;
          } else if (cualCelda == 1) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editarNombreJornada");
-            PrimefacesContextUI.ejecutar("PF('editarNombreJornada').show()");
+            RequestContext.getCurrentInstance().execute("PF('editarNombreJornada').show()");
             cualCelda = -1;
          } else if (cualCelda == 2) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editarTipoDescanso");
-            PrimefacesContextUI.ejecutar("PF('editarTipoDescanso').show()");
+            RequestContext.getCurrentInstance().execute("PF('editarTipoDescanso').show()");
             cualCelda = -1;
          }
       }
@@ -1174,24 +1174,24 @@ public class ControlVigenciaJornada implements Serializable {
       if (tabla == 1) {
          //Dialogo de nuevo registro vigencias localizaciones
          RequestContext.getCurrentInstance().update("form:NuevoRegistroVJ");
-         PrimefacesContextUI.ejecutar("PF('NuevoRegistroVJ').show()");
+         RequestContext.getCurrentInstance().execute("PF('NuevoRegistroVJ').show()");
       }
       if (tabla == 2) {
          if (vigenciaJornadaSeleccionada != null) {
             nuevaVigenciaCT = new VigenciasCompensaciones();
             RequestContext.getCurrentInstance().update("form:NuevoRegistroVCT");
-            PrimefacesContextUI.ejecutar("PF('NuevoRegistroVCT').show()");
+            RequestContext.getCurrentInstance().execute("PF('NuevoRegistroVCT').show()");
          } else {
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistroJT').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistroJT').show()");
          }
       }
       if (tabla == 3) {
          if (vigenciaJornadaSeleccionada != null) {
             nuevaVigenciaCD = new VigenciasCompensaciones();
             RequestContext.getCurrentInstance().update("form:NuevoRegistroVCD");
-            PrimefacesContextUI.ejecutar("PF('NuevoRegistroVCD').show()");
+            RequestContext.getCurrentInstance().execute("PF('NuevoRegistroVCD').show()");
          } else {
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistroJT').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistroJT').show()");
          }
       }
    }
@@ -1209,7 +1209,7 @@ public class ControlVigenciaJornada implements Serializable {
          if (cont > 0) {
             mensajeValidacion = "FECHAS NO REPETIDAS";
             RequestContext.getCurrentInstance().update("form:validarNuevoFechas");
-            PrimefacesContextUI.ejecutar("PF('validarNuevoFechas').show()");
+            RequestContext.getCurrentInstance().execute("PF('validarNuevoFechas').show()");
          } else if (validarFechasRegistroVJ(1)) {
             cambiosJornada = true;
             if (bandera == 1) {
@@ -1244,15 +1244,15 @@ public class ControlVigenciaJornada implements Serializable {
                guardado = false;
                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
-            PrimefacesContextUI.ejecutar("PF('NuevoRegistroVJ').hide()");
+            RequestContext.getCurrentInstance().execute("PF('NuevoRegistroVJ').hide()");
             nuevaVigencia = new VigenciasJornadas();
             nuevaVigencia.setJornadatrabajo(new JornadasLaborales());
             nuevaVigencia.setTipodescanso(new TiposDescansos());
          } else {
-            PrimefacesContextUI.ejecutar("PF('errorFechas').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorFechas').show()");
          }
       } else {
-         PrimefacesContextUI.ejecutar("PF('negacionNuevaVJ').show()");
+         RequestContext.getCurrentInstance().execute("PF('negacionNuevaVJ').show()");
       }
    }
    //LIMPIAR NUEVO REGISTRO
@@ -1284,7 +1284,7 @@ public class ControlVigenciaJornada implements Serializable {
             if (cont > 0) {
                mensajeValidacion = "FECHAS INICIALES NO REPETIDAS";
                RequestContext.getCurrentInstance().update("form:validarNuevoFechas");
-               PrimefacesContextUI.ejecutar("PF('validarNuevoFechas').show()");
+               RequestContext.getCurrentInstance().execute("PF('validarNuevoFechas').show()");
             } else {
                //CERRAR FILTRADO
                cambiosTiempo = true;
@@ -1324,7 +1324,7 @@ public class ControlVigenciaJornada implements Serializable {
                modificarInfoRegistroVT(listVigenciasCompensacionesTiempo.size());
                RequestContext.getCurrentInstance().update("form:informacionRegistroVT");
                nuevaVigenciaCT = new VigenciasCompensaciones();
-               PrimefacesContextUI.ejecutar("PF('NuevoRegistroVCT.hide();");
+               RequestContext.getCurrentInstance().execute("PF('NuevoRegistroVCT.hide();");
                RequestContext.getCurrentInstance().update("form:datosVigenciaCT");
                if (guardado) {
                   guardado = false;
@@ -1332,11 +1332,11 @@ public class ControlVigenciaJornada implements Serializable {
                }
             }
          } else {
-            PrimefacesContextUI.ejecutar("PF('errorFechaDescanso').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorFechaDescanso').show()");
          }
 
       } else {
-         PrimefacesContextUI.ejecutar("PF('errorNullDescanso').show()");
+         RequestContext.getCurrentInstance().execute("PF('errorNullDescanso').show()");
       }
    }
 
@@ -1365,7 +1365,7 @@ public class ControlVigenciaJornada implements Serializable {
             if (cont > 0) {
                mensajeValidacion = "FECHAS INICIALES NO REPETIDAS";
                RequestContext.getCurrentInstance().update("form:validarNuevoFechas");
-               PrimefacesContextUI.ejecutar("PF('validarNuevoFechas').show()");
+               RequestContext.getCurrentInstance().execute("PF('validarNuevoFechas').show()");
             } else {
                cambiosDinero = true;
                if (banderaVCT == 1) {
@@ -1406,17 +1406,17 @@ public class ControlVigenciaJornada implements Serializable {
                RequestContext.getCurrentInstance().update("form:informacionRegistroVD");
                nuevaVigenciaCT = new VigenciasCompensaciones();
                RequestContext.getCurrentInstance().update("form:datosVigenciaCD");
-               PrimefacesContextUI.ejecutar("PF('NuevoRegistroVCD.hide();");
+               RequestContext.getCurrentInstance().execute("PF('NuevoRegistroVCD.hide();");
                if (guardado) {
                   guardado = false;
                   RequestContext.getCurrentInstance().update("form:ACEPTAR");
                }
             }
          } else {
-            PrimefacesContextUI.ejecutar("PF('errorFechaDescanso').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorFechaDescanso').show()");
          }
       } else {
-         PrimefacesContextUI.ejecutar("PF('errorNullDescanso').show()");
+         RequestContext.getCurrentInstance().execute("PF('errorNullDescanso').show()");
       }
    }
 
@@ -1436,7 +1436,7 @@ public class ControlVigenciaJornada implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       //Si no hay registro selecciionado
       if (vigenciaJornadaSeleccionada == null && vigenciaDineroSeleccionada == null && vigenciaTiempoSeleccionada == null) {
-         PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+         RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
       } else if (vigenciaTiempoSeleccionada != null) {
          duplicarVigenciaCT();
       } else if (vigenciaDineroSeleccionada != null) {
@@ -1468,7 +1468,7 @@ public class ControlVigenciaJornada implements Serializable {
          }
          RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().update("formularioDialogos:duplicarVJ");
-         PrimefacesContextUI.ejecutar("PF('DuplicarRegistroVJ').show()");
+         RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroVJ').show()");
       }
    }
 
@@ -1489,7 +1489,7 @@ public class ControlVigenciaJornada implements Serializable {
          if (cont > 0) {
             mensajeValidacion = "FECHAS NO REPETIDAS";
             RequestContext.getCurrentInstance().update("form:validarNuevoFechas");
-            PrimefacesContextUI.ejecutar("PF('validarNuevoFechas').show()");
+            RequestContext.getCurrentInstance().execute("PF('validarNuevoFechas').show()");
          } else if (validarFechasRegistroVJ(2)) {
             paraNuevaVJornada++;
             nuevaVJornadaSecuencia = BigInteger.valueOf(paraNuevaVJornada);
@@ -1503,7 +1503,7 @@ public class ControlVigenciaJornada implements Serializable {
             modificarInfoRegistroVJ(listVigenciasJornadas.size());
             RequestContext.getCurrentInstance().update("form:informacionRegistroVJ");
             RequestContext.getCurrentInstance().update("form:datosVJEmpleado");
-            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroVJ').hide()");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroVJ').hide()");
             if (guardado) {
                guardado = false;
                RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -1525,10 +1525,10 @@ public class ControlVigenciaJornada implements Serializable {
             }
             duplicarVJ = new VigenciasJornadas();
          } else {
-            PrimefacesContextUI.ejecutar("PF('errorFechas').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorFechas').show()");
          }
       } else {
-         PrimefacesContextUI.ejecutar("PF('negacionNuevaVJ').show()");
+         RequestContext.getCurrentInstance().execute("PF('negacionNuevaVJ').show()");
 
       }
    }
@@ -1562,7 +1562,7 @@ public class ControlVigenciaJornada implements Serializable {
 
          RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().update("formularioDialogos:duplicadoVCT");
-         PrimefacesContextUI.ejecutar("PF('DuplicadoRegistroVCT').show()");
+         RequestContext.getCurrentInstance().execute("PF('DuplicadoRegistroVCT').show()");
       }
    }
 
@@ -1584,7 +1584,7 @@ public class ControlVigenciaJornada implements Serializable {
             if (cont > 0) {
                mensajeValidacion = "FECHAS INICIALES NO REPETIDAS";
                RequestContext.getCurrentInstance().update("form:validarNuevoFechas");
-               PrimefacesContextUI.ejecutar("PF('validarNuevoFechas').show()");
+               RequestContext.getCurrentInstance().execute("PF('validarNuevoFechas').show()");
             } else {
                cambiosTiempo = true;
                if (duplicarVCT.getComentario() != null) {
@@ -1618,14 +1618,14 @@ public class ControlVigenciaJornada implements Serializable {
                   filtrarVigenciasCompensacionesTiempo = null;
                   tipoListaVCT = 0;
                }
-               PrimefacesContextUI.ejecutar("PF('DuplicadoRegistroVCT').hide()");
+               RequestContext.getCurrentInstance().execute("PF('DuplicadoRegistroVCT').hide()");
                duplicarVCT = new VigenciasCompensaciones();
             }
          } else {
-            PrimefacesContextUI.ejecutar("PF('errorFechaDescanso').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorFechaDescanso').show()");
          }
       } else {
-         PrimefacesContextUI.ejecutar("PF('errorNullDescanso').show()");
+         RequestContext.getCurrentInstance().execute("PF('errorNullDescanso').show()");
       }
    }
 
@@ -1655,7 +1655,7 @@ public class ControlVigenciaJornada implements Serializable {
 
          RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().update("formularioDialogos:duplicarVCD");
-         PrimefacesContextUI.ejecutar("PF('DuplicarRegistroVCD').show()");
+         RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroVCD').show()");
       }
    }
 
@@ -1677,7 +1677,7 @@ public class ControlVigenciaJornada implements Serializable {
             if (cont > 0) {
                mensajeValidacion = "FECHAS INICIALES NO REPETIDAS";
                RequestContext.getCurrentInstance().update("form:validarNuevoFechas");
-               PrimefacesContextUI.ejecutar("PF('validarNuevoFechas').show()");
+               RequestContext.getCurrentInstance().execute("PF('validarNuevoFechas').show()");
             } else {
                cambiosDinero = true;
                if (duplicarVCD.getComentario() != null) {
@@ -1711,14 +1711,14 @@ public class ControlVigenciaJornada implements Serializable {
                   filtrarVigenciasCompensacionesDinero = null;
                   tipoListaVCD = 0;
                }
-               PrimefacesContextUI.ejecutar("PF('DuplicarRegistroVCD').hide()");
+               RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroVCD').hide()");
                duplicarVCD = new VigenciasCompensaciones();
             }
          } else {
-            PrimefacesContextUI.ejecutar("PF('errorFechaDescanso').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorFechaDescanso').show()");
          }
       } else {
-         PrimefacesContextUI.ejecutar("PF('errorNullDescanso').show()");
+         RequestContext.getCurrentInstance().execute("PF('errorNullDescanso').show()");
       }
    }
 
@@ -1737,7 +1737,7 @@ public class ControlVigenciaJornada implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       //Si no hay registro selecciionado
       if (vigenciaJornadaSeleccionada == null && vigenciaDineroSeleccionada == null && vigenciaTiempoSeleccionada == null) {
-         PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+         RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
       } else if (vigenciaTiempoSeleccionada != null) {
          borrarVCT();
       } else if (vigenciaDineroSeleccionada != null) {
@@ -1755,7 +1755,7 @@ public class ControlVigenciaJornada implements Serializable {
             borrarVJ();
          } else {
             RequestContext.getCurrentInstance().update("form:negacionBorradoVJ");
-            PrimefacesContextUI.ejecutar("PF('negacionBorradoVJ').show()");
+            RequestContext.getCurrentInstance().execute("PF('negacionBorradoVJ').show()");
          }
       }
    }
@@ -2039,11 +2039,11 @@ public class ControlVigenciaJornada implements Serializable {
          if (dlg == 0) { //getInfoRegistroJornadaLaboral();
             contarRegistrosJornadaL();
             RequestContext.getCurrentInstance().update("form:JornadaLaboralDialogo");
-            PrimefacesContextUI.ejecutar("PF('JornadaLaboralDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('JornadaLaboralDialogo').show()");
          } else if (dlg == 1) {
             //getInfoRegistroTipoDescanso(); contarRegistrosTipoD();
             RequestContext.getCurrentInstance().update("form:TiposDescansosDialogo");
-            PrimefacesContextUI.ejecutar("PF('TiposDescansosDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('TiposDescansosDialogo').show()");
          }
          activarLOV = false;
          RequestContext.getCurrentInstance().update("form:listaValores");
@@ -2089,7 +2089,7 @@ public class ControlVigenciaJornada implements Serializable {
       tipoActualizacion = -1;
 
       context.reset("form:lovJornadaLaboral:globalFilter");
-      PrimefacesContextUI.ejecutar("PF('lovJornadaLaboral').clearFilters()");
+      RequestContext.getCurrentInstance().execute("PF('lovJornadaLaboral').clearFilters()");
    }
 
    /**
@@ -2103,8 +2103,8 @@ public class ControlVigenciaJornada implements Serializable {
       permitirIndex = true;
       RequestContext context = RequestContext.getCurrentInstance();
       context.reset("form:lovJornadaLaboral:globalFilter");
-      PrimefacesContextUI.ejecutar("PF('lovJornadaLaboral').clearFilters()");
-      PrimefacesContextUI.ejecutar("PF('JornadaLaboralDialogo').hide()");
+      RequestContext.getCurrentInstance().execute("PF('lovJornadaLaboral').clearFilters()");
+      RequestContext.getCurrentInstance().execute("PF('JornadaLaboralDialogo').hide()");
    }
 
    //Motivo Localizacion
@@ -2145,7 +2145,7 @@ public class ControlVigenciaJornada implements Serializable {
       tipoActualizacion = -1;
 
       context.reset("form:lovTipoDescanso:globalFilter");
-      PrimefacesContextUI.ejecutar("PF('lovTipoDescanso').clearFilters()");
+      RequestContext.getCurrentInstance().execute("PF('lovTipoDescanso').clearFilters()");
    }
 
    /**
@@ -2160,8 +2160,8 @@ public class ControlVigenciaJornada implements Serializable {
       permitirIndex = true;
       RequestContext context = RequestContext.getCurrentInstance();
       context.reset("form:lovTipoDescanso:globalFilter");
-      PrimefacesContextUI.ejecutar("PF('lovTipoDescanso').clearFilters()");
-      PrimefacesContextUI.ejecutar("PF('TiposDescansosDialogo').hide()");
+      RequestContext.getCurrentInstance().execute("PF('lovTipoDescanso').clearFilters()");
+      RequestContext.getCurrentInstance().execute("PF('TiposDescansosDialogo').hide()");
    }
    //LISTA DE VALORES DINAMICA
 
@@ -2173,18 +2173,18 @@ public class ControlVigenciaJornada implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       //Si no hay registro selecciionado
       if (vigenciaJornadaSeleccionada == null && vigenciaDineroSeleccionada == null && vigenciaTiempoSeleccionada == null) {
-         PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+         RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
       } else if (vigenciaJornadaSeleccionada != null) {
          if (cualCelda == 1) {
             contarRegistrosJornadaL();
             RequestContext.getCurrentInstance().update("form:JornadaLaboralDialogo");
-            PrimefacesContextUI.ejecutar("PF('JornadaLaboralDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('JornadaLaboralDialogo').show()");
             tipoActualizacion = 0;
          }
          if (cualCelda == 2) {
             contarRegistrosTipoD();
             RequestContext.getCurrentInstance().update("form:TiposDescansosDialogo");
-            PrimefacesContextUI.ejecutar("PF('TiposDescansosDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('TiposDescansosDialogo').show()");
             tipoActualizacion = 0;
          }
       }
@@ -2199,7 +2199,7 @@ public class ControlVigenciaJornada implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       if (cambiosJornada == false && cambiosTiempo == false && cambiosDinero == false) {
          if (vigenciaJornadaSeleccionada == null && vigenciaTiempoSeleccionada == null && vigenciaDineroSeleccionada == null) {
-            PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
          } else {
             int tam = 0;
             if (listVigenciasJornadas != null) {
@@ -2215,26 +2215,26 @@ public class ControlVigenciaJornada implements Serializable {
             }
             if ((tam == 0) || (tam1 == 0) || (tam2 == 0)) {
                RequestContext.getCurrentInstance().update("form:NuevoRegistroPagina");
-               PrimefacesContextUI.ejecutar("PF('NuevoRegistroPagina').show()");
+               RequestContext.getCurrentInstance().execute("PF('NuevoRegistroPagina').show()");
             } else {
                if (vigenciaJornadaSeleccionada != null) {
                   RequestContext.getCurrentInstance().update("form:NuevoRegistroVJ");
-                  PrimefacesContextUI.ejecutar("PF('NuevoRegistroVJ').show()");
+                  RequestContext.getCurrentInstance().execute("PF('NuevoRegistroVJ').show()");
                }
                if (vigenciaTiempoSeleccionada != null) {
                   nuevaVigenciaCT = new VigenciasCompensaciones();
                   RequestContext.getCurrentInstance().update("form:NuevoRegistroVCT");
-                  PrimefacesContextUI.ejecutar("PF('NuevoRegistroVCT').show()");
+                  RequestContext.getCurrentInstance().execute("PF('NuevoRegistroVCT').show()");
                }
                if (vigenciaDineroSeleccionada != null) {
                   nuevaVigenciaCD = new VigenciasCompensaciones();
                   RequestContext.getCurrentInstance().update("form:NuevoRegistroVCD");
-                  PrimefacesContextUI.ejecutar("PF('NuevoRegistroVCD').show()");
+                  RequestContext.getCurrentInstance().execute("PF('NuevoRegistroVCD').show()");
                }
             }
          }
       } else {
-         PrimefacesContextUI.ejecutar("PF('confirmarGuardarSinSalida').show()");
+         RequestContext.getCurrentInstance().execute("PF('confirmarGuardarSinSalida').show()");
       }
    }
 
@@ -2377,7 +2377,7 @@ public class ControlVigenciaJornada implements Serializable {
       //Cuando no se ha seleccionado ningun registro:
       if (vigenciaJornadaSeleccionada == null && vigenciaDineroSeleccionada == null && vigenciaTiempoSeleccionada == null) {
          //Dialogo para seleccionar el rastro Historico de la tabla deseada
-         PrimefacesContextUI.ejecutar("PF('verificarRastrosTablas').show()");
+         RequestContext.getCurrentInstance().execute("PF('verificarRastrosTablas').show()");
       } else //Cuando se selecciono registro:            
       if (vigenciaTiempoSeleccionada != null) {
          verificarRastroVigenciaCompensacionTiempo();
@@ -2393,18 +2393,18 @@ public class ControlVigenciaJornada implements Serializable {
       int resultado = administrarRastros.obtenerTabla(vigenciaJornadaSeleccionada.getSecuencia(), "VIGENCIASJORNADAS");
       backUp = vigenciaJornadaSeleccionada.getSecuencia();
       if (resultado == 1) {
-         PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+         RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
       } else if (resultado == 2) {
          nombreTablaRastro = "VigenciasJornadas";
          msnConfirmarRastro = "La tabla VIGENCIASJORNADAS tiene rastros para el registro seleccionado, ¿desea continuar?";
          RequestContext.getCurrentInstance().update("form:msnConfirmarRastro");
-         PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+         RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
       } else if (resultado == 3) {
-         PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+         RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
       } else if (resultado == 4) {
-         PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+         RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
       } else if (resultado == 5) {
-         PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+         RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
       }
    }
 
@@ -2414,9 +2414,9 @@ public class ControlVigenciaJornada implements Serializable {
          nombreTablaRastro = "VigenciasJornadas";
          msnConfirmarRastroHistorico = "La tabla VIGENCIASJORNADAS tiene rastros historicos, ¿Desea continuar?";
          RequestContext.getCurrentInstance().update("form:confirmarRastroHistorico");
-         PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+         RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
       } else {
-         PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+         RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
       }
    }
 
@@ -2425,18 +2425,18 @@ public class ControlVigenciaJornada implements Serializable {
       int resultado = administrarRastros.obtenerTabla(vigenciaTiempoSeleccionada.getSecuencia(), "VIGENCIASCOMPENSACIONES");
       backUp = vigenciaTiempoSeleccionada.getSecuencia();
       if (resultado == 1) {
-         PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+         RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
       } else if (resultado == 2) {
          nombreTablaRastro = "VigenciasCompensaciones";
          msnConfirmarRastro = "La tabla VIGENCIASCOMPENSACIONES tiene rastros para el registro seleccionado, ¿desea continuar?";
          RequestContext.getCurrentInstance().update("form:msnConfirmarRastro");
-         PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+         RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
       } else if (resultado == 3) {
-         PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+         RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
       } else if (resultado == 4) {
-         PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+         RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
       } else if (resultado == 5) {
-         PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+         RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
       }
    }
 
@@ -2446,9 +2446,9 @@ public class ControlVigenciaJornada implements Serializable {
          nombreTablaRastro = "VigenciasCompensaciones";
          msnConfirmarRastroHistorico = "La tabla VIGENCIASCOMPENSACIONES tiene rastros historicos, ¿Desea continuar?";
          RequestContext.getCurrentInstance().update("form:confirmarRastroHistorico");
-         PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+         RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
       } else {
-         PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+         RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
       }
    }
 
@@ -2458,21 +2458,21 @@ public class ControlVigenciaJornada implements Serializable {
          int resultado = administrarRastros.obtenerTabla(vigenciaDineroSeleccionada.getSecuencia(), "VIGENCIASCOMPENSACIONES");
          backUp = vigenciaDineroSeleccionada.getSecuencia();
          if (resultado == 1) {
-            PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
          } else if (resultado == 2) {
             nombreTablaRastro = "VigenciasCompensaciones";
             msnConfirmarRastro = "La tabla VIGENCIASCOMPENSACIONES tiene rastros para el registro seleccionado, ¿desea continuar?";
             RequestContext.getCurrentInstance().update("form:msnConfirmarRastro");
-            PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
          } else if (resultado == 3) {
-            PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
          } else if (resultado == 4) {
-            PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
          } else if (resultado == 5) {
-            PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
          }
       } else {
-         PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+         RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
       }
    }
 
@@ -2482,9 +2482,9 @@ public class ControlVigenciaJornada implements Serializable {
          nombreTablaRastro = "VigenciasCompensaciones";
          msnConfirmarRastroHistorico = "La tabla VIGENCIASCOMPENSACIONES tiene rastros historicos, ¿Desea continuar?";
          RequestContext.getCurrentInstance().update("form:confirmarRastroHistorico");
-         PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+         RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
       } else {
-         PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+         RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
       }
    }
 

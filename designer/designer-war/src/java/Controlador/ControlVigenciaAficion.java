@@ -4,7 +4,7 @@
  */
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import Entidades.Aficiones;
 import Entidades.Empleados;
 import Entidades.VigenciasAficiones;
@@ -265,7 +265,7 @@ public class ControlVigenciaAficion implements Serializable {
                 }
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("form:datosVigenciasAficiones");
-                PrimefacesContextUI.ejecutar("PF('form:errorFechas').show()");
+                RequestContext.getCurrentInstance().execute("PF('form:errorFechas').show()");
             }
         } else {
             if (tipoLista == 0) {
@@ -277,7 +277,7 @@ public class ControlVigenciaAficion implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:datosVigenciasAficiones");
-            PrimefacesContextUI.ejecutar("PF('errorRegNew').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorRegNew').show()");
         }
     }
 
@@ -310,7 +310,7 @@ public class ControlVigenciaAficion implements Serializable {
                 permitirIndex = false;
                 getInfoRegistroAficion();
                 RequestContext.getCurrentInstance().update("form:AficionesDialogo");
-                PrimefacesContextUI.ejecutar("PF('AficionesDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('AficionesDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -388,7 +388,7 @@ public class ControlVigenciaAficion implements Serializable {
                 getListAficiones();
             } else {
                 RequestContext.getCurrentInstance().update("form:AficionesDialogo");
-                PrimefacesContextUI.ejecutar("PF('AficionesDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('AficionesDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
                     RequestContext.getCurrentInstance().update("formularioDialogos:nuevaVigencias");
@@ -539,31 +539,31 @@ public class ControlVigenciaAficion implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaInicialD");
-                PrimefacesContextUI.ejecutar("PF('editarFechaInicialD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarFechaInicialD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaFinalD");
-                PrimefacesContextUI.ejecutar("PF('editarFechaFinalD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarFechaFinalD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarDescripcionD");
-                PrimefacesContextUI.ejecutar("PF('editarDescripcionD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarDescripcionD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 3) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarIndividualD");
-                PrimefacesContextUI.ejecutar("PF('editarIndividualD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarIndividualD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 4) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarCIndividualD");
-                PrimefacesContextUI.ejecutar("PF('editarCIndividualD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarCIndividualD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 5) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarGrupalD");
-                PrimefacesContextUI.ejecutar("PF('editarGrupalD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarGrupalD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 6) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarCGrupalD");
-                PrimefacesContextUI.ejecutar("PF('editarCGrupalD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarCGrupalD').show()");
                 cualCelda = -1;
             }
         }
@@ -618,7 +618,7 @@ public class ControlVigenciaAficion implements Serializable {
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("form:informacionRegistro");
                 RequestContext.getCurrentInstance().update("form:datosVigenciasAficiones");
-                PrimefacesContextUI.ejecutar("PF('NuevoRegistroVigencias').hide()");
+                RequestContext.getCurrentInstance().execute("PF('NuevoRegistroVigencias').hide()");
                 if (guardado == true) {
                     guardado = false;
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -627,11 +627,11 @@ public class ControlVigenciaAficion implements Serializable {
                 secRegistro = null;
             } else {
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.ejecutar("PF('errorFechas').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorFechas').show()");
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.ejecutar("PF('errorRegNew').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorRegNew').show()");
         }
     }
     //LIMPIAR NUEVO REGISTRO
@@ -682,7 +682,7 @@ public class ControlVigenciaAficion implements Serializable {
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarVigencias");
-            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroVigencias').show()");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroVigencias').show()");
             index = -1;
             secRegistro = null;
         }
@@ -708,7 +708,7 @@ public class ControlVigenciaAficion implements Serializable {
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("form:informacionRegistro");
                 RequestContext.getCurrentInstance().update("form:datosVigenciasAficiones");
-                PrimefacesContextUI.ejecutar("PF('DuplicarRegistroVigencias').hide()");
+                RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroVigencias').hide()");
                 index = -1;
                 secRegistro = null;
                 if (guardado == true) {
@@ -740,11 +740,11 @@ public class ControlVigenciaAficion implements Serializable {
                 duplicarVigenciaAficion = new VigenciasAficiones();
             } else {
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.ejecutar("PF('errorFechas').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorFechas').show()");
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.ejecutar("PF('errorRegNew').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorRegNew').show()");
         }
     }
     //LIMPIAR DUPLICAR
@@ -917,7 +917,7 @@ public class ControlVigenciaAficion implements Serializable {
         }
         getInfoRegistroAficion();
         RequestContext.getCurrentInstance().update("form:AficionesDialogo");
-        PrimefacesContextUI.ejecutar("PF('AficionesDialogo').show()");
+        RequestContext.getCurrentInstance().execute("PF('AficionesDialogo').show()");
     }
 
     //LOVS
@@ -971,8 +971,8 @@ public class ControlVigenciaAficion implements Serializable {
          RequestContext.getCurrentInstance().update("form:lovAficiones");
          RequestContext.getCurrentInstance().update("form:aceptarA");*/
         context.reset("form:lovAficiones:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovAficiones').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('AficionesDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovAficiones').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('AficionesDialogo').hide()");
 
     }
 
@@ -990,8 +990,8 @@ public class ControlVigenciaAficion implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
 
         context.reset("form:lovAficiones:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovAficiones').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('AficionesDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovAficiones').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('AficionesDialogo').hide()");
     }
 
     //LISTA DE VALORES DINAMICA
@@ -1005,7 +1005,7 @@ public class ControlVigenciaAficion implements Serializable {
             if (cualCelda == 2) {
                 getInfoRegistroAficion();
                 RequestContext.getCurrentInstance().update("form:AficionesDialogo");
-                PrimefacesContextUI.ejecutar("PF('AficionesDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('AficionesDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -1071,24 +1071,24 @@ public class ControlVigenciaAficion implements Serializable {
                 backUpSecRegistro = secRegistro;
                 secRegistro = null;
                 if (resultado == 1) {
-                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
-                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+                RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("VIGENCIASAFICIONES")) {
-                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
             } else {
-                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
             }
 
         }

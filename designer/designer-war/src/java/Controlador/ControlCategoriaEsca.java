@@ -1,6 +1,6 @@
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import Entidades.Categorias;
 import Entidades.ClasesCategorias;
 import Entidades.Conceptos;
@@ -135,7 +135,7 @@ public class ControlCategoriaEsca implements Serializable {
                 listaCategorias.get(indice).setDescripcion(auxDescripcion);
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("form:datosCategoria");
-                PrimefacesContextUI.ejecutar("PF('errorRegNew').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRegNew').show()");
             } else {
                 cambiosPagina = false;
                 RequestContext context = RequestContext.getCurrentInstance();
@@ -160,7 +160,7 @@ public class ControlCategoriaEsca implements Serializable {
                 filtrarListaCategorias.get(indice).setDescripcion(auxDescripcion);
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("form:datosCategoria");
-                PrimefacesContextUI.ejecutar("PF('errorRegNew').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRegNew').show()");
             } else {
                 cambiosPagina = false;
                 RequestContext context = RequestContext.getCurrentInstance();
@@ -195,7 +195,7 @@ public class ControlCategoriaEsca implements Serializable {
                 }
                 permitirIndex = false;
                 RequestContext.getCurrentInstance().update("form:ClaseCategoriaDialogo");
-                PrimefacesContextUI.ejecutar("PF('ClaseCategoriaDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('ClaseCategoriaDialogo').show()");
                 tipoActualizacion = 0;
             } else {
                 if (tipoLista == 0) {
@@ -222,7 +222,7 @@ public class ControlCategoriaEsca implements Serializable {
                 } else {
                     permitirIndex = false;
                     RequestContext.getCurrentInstance().update("form:ClaseCategoriaDialogo");
-                    PrimefacesContextUI.ejecutar("PF('ClaseCategoriaDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('ClaseCategoriaDialogo').show()");
                     tipoActualizacion = 0;
                 }
             }
@@ -236,7 +236,7 @@ public class ControlCategoriaEsca implements Serializable {
                 }
                 permitirIndex = false;
                 RequestContext.getCurrentInstance().update("form:TipoSueldoDialogo");
-                PrimefacesContextUI.ejecutar("PF('TipoSueldoDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('TipoSueldoDialogo').show()");
                 tipoActualizacion = 0;
             }
             if (tipoLista == 0) {
@@ -263,7 +263,7 @@ public class ControlCategoriaEsca implements Serializable {
             } else {
                 permitirIndex = false;
                 RequestContext.getCurrentInstance().update("form:TipoSueldoDialogo");
-                PrimefacesContextUI.ejecutar("PF('TipoSueldoDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('TipoSueldoDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -296,7 +296,7 @@ public class ControlCategoriaEsca implements Serializable {
                 } else {
                     permitirIndex = false;
                     RequestContext.getCurrentInstance().update("form:ConceptoDialogo");
-                    PrimefacesContextUI.ejecutar("PF('ConceptoDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('ConceptoDialogo').show()");
                     tipoActualizacion = 0;
                 }
             }
@@ -372,7 +372,7 @@ public class ControlCategoriaEsca implements Serializable {
                 }
                 tipoActualizacion = tipoNuevo;
                 RequestContext.getCurrentInstance().update("form:ClaseCategoriaDialogo");
-                PrimefacesContextUI.ejecutar("PF('ClaseCategoriaDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('ClaseCategoriaDialogo').show()");
             } else {
                 if (tipoNuevo == 1) {
                     nuevaCategoria.getClasecategoria().setDescripcion(claseCategoria);
@@ -397,7 +397,7 @@ public class ControlCategoriaEsca implements Serializable {
                     getLovClasesCategorias();
                 } else {
                     RequestContext.getCurrentInstance().update("form:ClaseCategoriaDialogo");
-                    PrimefacesContextUI.ejecutar("PF('ClaseCategoriaDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('ClaseCategoriaDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                     if (tipoNuevo == 1) {
                         RequestContext.getCurrentInstance().update("formularioDialogos:nuevaClaseCategoria");
@@ -417,7 +417,7 @@ public class ControlCategoriaEsca implements Serializable {
                     RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoSueldo");
                 }
                 RequestContext.getCurrentInstance().update("form:TipoSueldoDialogo");
-                PrimefacesContextUI.ejecutar("PF('TipoSueldoDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('TipoSueldoDialogo').show()");
                 tipoActualizacion = tipoNuevo;
             } else {
                 if (tipoNuevo == 1) {
@@ -443,7 +443,7 @@ public class ControlCategoriaEsca implements Serializable {
                     getLovTiposSueldos();
                 } else {
                     RequestContext.getCurrentInstance().update("form:TipoSueldoDialogo");
-                    PrimefacesContextUI.ejecutar("PF('TipoSueldoDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('TipoSueldoDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                     if (tipoNuevo == 1) {
                         RequestContext.getCurrentInstance().update("formularioDialogos:nuevaTipoSueldo");
@@ -488,7 +488,7 @@ public class ControlCategoriaEsca implements Serializable {
                     getLovConceptos();
                 } else {
                     RequestContext.getCurrentInstance().update("form:ConceptoDialogo");
-                    PrimefacesContextUI.ejecutar("PF('ConceptoDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('ConceptoDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                     if (tipoNuevo == 1) {
                         RequestContext.getCurrentInstance().update("formularioDialogos:nuevaConcepto");
@@ -641,23 +641,23 @@ public class ControlCategoriaEsca implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarCodigoD");
-                PrimefacesContextUI.ejecutar("PF('editarCodigoD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarCodigoD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarDescripcionD");
-                PrimefacesContextUI.ejecutar("PF('editarDescripcionD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarDescripcionD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarClaseD");
-                PrimefacesContextUI.ejecutar("PF('editarClaseD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarClaseD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 3) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarTipoD");
-                PrimefacesContextUI.ejecutar("PF('editarTipoD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarTipoD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 4) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarConceptoD");
-                PrimefacesContextUI.ejecutar("PF('editarConceptoD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarConceptoD').show()");
                 cualCelda = -1;
             }
         }
@@ -702,7 +702,7 @@ public class ControlCategoriaEsca implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
             RequestContext.getCurrentInstance().update("form:datosCategoria");
-            PrimefacesContextUI.ejecutar("PF('NuevoRegistroCategoria').hide()");
+            RequestContext.getCurrentInstance().execute("PF('NuevoRegistroCategoria').hide()");
             if (guardado == true) {
                 guardado = false;
                 RequestContext.getCurrentInstance().update("form:aceptar");
@@ -712,7 +712,7 @@ public class ControlCategoriaEsca implements Serializable {
 
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.ejecutar("PF('errorRegNew').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorRegNew').show()");
         }
     }
 //LIMPIAR NUEVO REGISTRO
@@ -757,7 +757,7 @@ public class ControlCategoriaEsca implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCate");
-            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroCategoria').show()");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroCategoria').show()");
             index = -1;
             secRegistro = null;
         }
@@ -775,7 +775,7 @@ public class ControlCategoriaEsca implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
             RequestContext.getCurrentInstance().update("form:datosCategoria");
-            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroCategoria').hide()");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroCategoria').hide()");
             index = -1;
             secRegistro = null;
             if (guardado == true) {
@@ -806,7 +806,7 @@ public class ControlCategoriaEsca implements Serializable {
             duplicarCategoria.setTiposueldo(new TiposSueldos());
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
-            PrimefacesContextUI.ejecutar("PF('errorRegNew').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorRegNew').show()");
         }
     }
     //LIMPIAR DUPLICAR
@@ -956,15 +956,15 @@ public class ControlCategoriaEsca implements Serializable {
         }
         if (tipo == 0) {
             RequestContext.getCurrentInstance().update("form:ClaseCategoriaDialogo");
-            PrimefacesContextUI.ejecutar("PF('ClaseCategoriaDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('ClaseCategoriaDialogo').show()");
         }
         if (tipo == 1) {
             RequestContext.getCurrentInstance().update("form:TipoSueldoDialogo");
-            PrimefacesContextUI.ejecutar("PF('TipoSueldoDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('TipoSueldoDialogo').show()");
         }
         if (tipo == 2) {
             RequestContext.getCurrentInstance().update("form:ConceptoDialogo");
-            PrimefacesContextUI.ejecutar("PF('ConceptoDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('ConceptoDialogo').show()");
         }
     }
 
@@ -1019,8 +1019,8 @@ public class ControlCategoriaEsca implements Serializable {
          RequestContext.getCurrentInstance().update("form:lovClaseCategoria");
          RequestContext.getCurrentInstance().update("form:aceptarCCat");*/
         context.reset("form:lovClaseCategoria:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovClaseCategoria').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('ClaseCategoriaDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovClaseCategoria').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('ClaseCategoriaDialogo').hide()");
     }
 
     public void cancelarCambioClaseCategoria() {
@@ -1033,8 +1033,8 @@ public class ControlCategoriaEsca implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovClaseCategoria:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovClaseCategoria').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('ClaseCategoriaDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovClaseCategoria').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('ClaseCategoriaDialogo').hide()");
     }
 
     public void actualizarTipoSueldo() {
@@ -1087,8 +1087,8 @@ public class ControlCategoriaEsca implements Serializable {
          RequestContext.getCurrentInstance().update("form:lovTipoSueldo");
          RequestContext.getCurrentInstance().update("form:aceptarT");*/
         context.reset("form:lovTipoSueldo:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovTipoSueldo').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('TipoSueldoDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovTipoSueldo').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('TipoSueldoDialogo').hide()");
     }
 
     public void cancelarCambioTipoSueldo() {
@@ -1101,8 +1101,8 @@ public class ControlCategoriaEsca implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovTipoSueldo:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovTipoSueldo').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('TipoSueldoDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovTipoSueldo').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('TipoSueldoDialogo').hide()");
     }
 
     public void actualizarConcepto() {
@@ -1156,8 +1156,8 @@ public class ControlCategoriaEsca implements Serializable {
          RequestContext.getCurrentInstance().update("form:lovConcepto");
          RequestContext.getCurrentInstance().update("form:aceptarC");*/
         context.reset("form:lovConcepto:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovConcepto').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('ConceptoDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovConcepto').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('ConceptoDialogo').hide()");
     }
 
     public void cancelarCambioConcepto() {
@@ -1170,8 +1170,8 @@ public class ControlCategoriaEsca implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovConcepto:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovConcepto').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('ConceptoDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovConcepto').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('ConceptoDialogo').hide()");
     }
 
     public void listaValoresBoton() {
@@ -1179,17 +1179,17 @@ public class ControlCategoriaEsca implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 2) {
                 RequestContext.getCurrentInstance().update("form:ClaseCategoriaDialogo");
-                PrimefacesContextUI.ejecutar("PF('ClaseCategoriaDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('ClaseCategoriaDialogo').show()");
                 tipoActualizacion = 0;
             }
             if (cualCelda == 3) {
                 RequestContext.getCurrentInstance().update("form:TipoSueldoDialogo");
-                PrimefacesContextUI.ejecutar("PF('TipoSueldoDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('TipoSueldoDialogo').show()");
                 tipoActualizacion = 0;
             }
             if (cualCelda == 4) {
                 RequestContext.getCurrentInstance().update("form:ConceptoDialogo");
-                PrimefacesContextUI.ejecutar("PF('ConceptoDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('ConceptoDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -1249,24 +1249,24 @@ public class ControlCategoriaEsca implements Serializable {
                 backUpSecRegistro = secRegistro;
                 secRegistro = null;
                 if (resultado == 1) {
-                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
-                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+                RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("CLASESCATEGORIAS")) {
-                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
             } else {
-                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
             }
 
         }

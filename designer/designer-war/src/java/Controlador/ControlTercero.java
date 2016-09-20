@@ -4,7 +4,7 @@
  */
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import Entidades.Ciudades;
 import Entidades.Empleados;
 import Entidades.Empresas;
@@ -252,7 +252,7 @@ public class ControlTercero implements Serializable {
             terceroTablaSeleccionado.setNit(auxNitTercero);
             terceroTablaSeleccionado.setNombre(auxNombreTercero);
 
-            PrimefacesContextUI.ejecutar("PF('errorDatosNullTerceros').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorDatosNullTerceros').show()");
         }
         RequestContext.getCurrentInstance().update("form:datosTerceros");
     }
@@ -282,7 +282,7 @@ public class ControlTercero implements Serializable {
                 } else {
                     permitirIndex = false;
                     RequestContext.getCurrentInstance().update("form:TerceroDialogo");
-                    PrimefacesContextUI.ejecutar("PF('TerceroDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('TerceroDialogo').show()");
                     tipoActualizacion = 0;
                 }
             } else {
@@ -312,7 +312,7 @@ public class ControlTercero implements Serializable {
                 } else {
                     permitirIndex = false;
                     RequestContext.getCurrentInstance().update("form:CiudadDialogo");
-                    PrimefacesContextUI.ejecutar("PF('CiudadDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('CiudadDialogo').show()");
                     tipoActualizacion = 0;
                 }
             } else {
@@ -359,7 +359,7 @@ public class ControlTercero implements Serializable {
         } else {
             terceroSucursalTablaSeleccionado.setCodigosucursal(auxCodigoSucursal);
 
-            PrimefacesContextUI.ejecutar("PF('errorDatosNullSucursal').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorDatosNullSucursal').show()");
         }
         RequestContext.getCurrentInstance().update("form:datosTercerosSucursales");
     }
@@ -389,7 +389,7 @@ public class ControlTercero implements Serializable {
                 } else {
                     permitirIndex = false;
                     RequestContext.getCurrentInstance().update("form:CiudadTSDialogo");
-                    PrimefacesContextUI.ejecutar("PF('CiudadTSDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('CiudadTSDialogo').show()");
                     tipoActualizacion = 0;
                 }
             } else {
@@ -468,7 +468,7 @@ public class ControlTercero implements Serializable {
         if (cambiosTerceroSucursal == true) {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:confirmarGuardar");
-            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
         }
 
         contarRegistrosTS();
@@ -733,47 +733,47 @@ public class ControlTercero implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarNombreTerceroD");
-                PrimefacesContextUI.ejecutar("PF('editarNombreTerceroD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarNombreTerceroD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarNitTerceroD");
-                PrimefacesContextUI.ejecutar("PF('editarNitTerceroD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarNitTerceroD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarDigtoVTerceroD");
-                PrimefacesContextUI.ejecutar("PF('editarDigtoVTerceroD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarDigtoVTerceroD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 3) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarNITATerceroD");
-                PrimefacesContextUI.ejecutar("PF('editarNITATerceroD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarNITATerceroD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 4) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarCSSTerceroD");
-                PrimefacesContextUI.ejecutar("PF('editarCSSTerceroD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarCSSTerceroD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 5) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarCSPTerceroD");
-                PrimefacesContextUI.ejecutar("PF('editarCSPTerceroD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarCSPTerceroD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 6) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarCSCTerceroD");
-                PrimefacesContextUI.ejecutar("PF('editarCSCTerceroD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarCSCTerceroD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 7) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarTCTerceroD");
-                PrimefacesContextUI.ejecutar("PF('editarTCTerceroD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarTCTerceroD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 8) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarNITTCTerceroD");
-                PrimefacesContextUI.ejecutar("PF('editarNITTCTerceroD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarNITTCTerceroD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 9) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarCiudadTerceroD");
-                PrimefacesContextUI.ejecutar("PF('editarCiudadTerceroD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarCiudadTerceroD').show()");
                 cualCelda = -1;
             } else if (cualCelda == 10) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarCodigoATerceroD");
-                PrimefacesContextUI.ejecutar("PF('editarCodigoATerceroD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarCodigoATerceroD').show()");
                 cualCelda = -1;
             }
         }
@@ -783,19 +783,19 @@ public class ControlTercero implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCeldaTS == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarSucursalTerceroSD");
-                PrimefacesContextUI.ejecutar("PF('editarSucursalTerceroSD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarSucursalTerceroSD').show()");
                 cualCeldaTS = -1;
             } else if (cualCeldaTS == 1) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarPatronalTerceroSD");
-                PrimefacesContextUI.ejecutar("PF('editarPatronalTerceroSD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarPatronalTerceroSD').show()");
                 cualCeldaTS = -1;
             } else if (cualCeldaTS == 2) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarObservacionesTerceroSD");
-                PrimefacesContextUI.ejecutar("PF('editarObservacionesTerceroSD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarObservacionesTerceroSD').show()");
                 cualCeldaTS = -1;
             } else if (cualCeldaTS == 3) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarCiudadTerceroSD");
-                PrimefacesContextUI.ejecutar("PF('editarCiudadTerceroSD').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarCiudadTerceroSD').show()");
                 cualCeldaTS = -1;
             }
         }
@@ -806,18 +806,18 @@ public class ControlTercero implements Serializable {
         if (terceroTablaSeleccionado != null) {
             if (cambiosTerceroSucursal == false) {
                 if (listTercerosSucursales.isEmpty()) {
-                    PrimefacesContextUI.ejecutar("PF('NuevoRegistroPagina').show()");
+                    RequestContext.getCurrentInstance().execute("PF('NuevoRegistroPagina').show()");
                 } else {
                     RequestContext.getCurrentInstance().update("form:NuevoRegistroTercero");
-                    PrimefacesContextUI.ejecutar("PF('NuevoRegistroTercero').show()");
+                    RequestContext.getCurrentInstance().execute("PF('NuevoRegistroTercero').show()");
                 }
             } else {
-                PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
             }
         }
         if (terceroSucursalTablaSeleccionado != null) {
             RequestContext.getCurrentInstance().update("form:NuevoRegistroTerceroSucursal");
-            PrimefacesContextUI.ejecutar("PF('NuevoRegistroTerceroSucursal').show()");
+            RequestContext.getCurrentInstance().execute("PF('NuevoRegistroTerceroSucursal').show()");
         }
     }
 
@@ -837,7 +837,7 @@ public class ControlTercero implements Serializable {
                 borrarTercero();
             } else {
                 RequestContext context = RequestContext.getCurrentInstance();
-                PrimefacesContextUI.ejecutar("PF('errorBorradoTercero').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorBorradoTercero').show()");
             }
         }
     }
@@ -945,10 +945,10 @@ public class ControlTercero implements Serializable {
                 guardado = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
-            PrimefacesContextUI.ejecutar("PF('NuevoRegistroTercero').hide()");
+            RequestContext.getCurrentInstance().execute("PF('NuevoRegistroTercero').hide()");
             cambiosTercero = true;
         } else {
-            PrimefacesContextUI.ejecutar("PF('errorDatosNullTerceros').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorDatosNullTerceros').show()");
         }
     }
 
@@ -997,10 +997,10 @@ public class ControlTercero implements Serializable {
                 guardado = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
-            PrimefacesContextUI.ejecutar("PF('NuevoRegistroTerceroSucursal').hide()");
+            RequestContext.getCurrentInstance().execute("PF('NuevoRegistroTerceroSucursal').hide()");
             cambiosTerceroSucursal = true;
         } else {
-            PrimefacesContextUI.ejecutar("PF('errorDatosNullSucursal').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorDatosNullSucursal').show()");
         }
         terceroSucursalTablaSeleccionado = null;
     }
@@ -1047,7 +1047,7 @@ public class ControlTercero implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarRegistroTercero");
-            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroTercero').show()");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroTercero').show()");
         }
     }
 
@@ -1080,10 +1080,10 @@ public class ControlTercero implements Serializable {
                 guardado = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
-            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroTercero').hide()");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroTercero').hide()");
             cambiosTercero = true;
         } else {
-            PrimefacesContextUI.ejecutar("PF('errorDatosNullTerceros').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorDatosNullTerceros').show()");
         }
     }
 
@@ -1107,7 +1107,7 @@ public class ControlTercero implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarRegistroTerceroSucursal");
-            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroTerceroSucursal').show()");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroTerceroSucursal').show()");
         }
     }
 
@@ -1138,10 +1138,10 @@ public class ControlTercero implements Serializable {
                 guardado = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
-            PrimefacesContextUI.ejecutar("PF('DuplicarRegistroTerceroSucursal').hide()");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroTerceroSucursal').hide()");
             cambiosTerceroSucursal = true;
         } else {
-            PrimefacesContextUI.ejecutar("PF('errorDatosNullSucursal').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorDatosNullSucursal').show()");
         }
     }
 
@@ -1353,14 +1353,14 @@ public class ControlTercero implements Serializable {
                 activarLOV = false;
                 RequestContext.getCurrentInstance().update("form:listaValores");
                 RequestContext.getCurrentInstance().update("form:TerceroDialogo");
-                PrimefacesContextUI.ejecutar("PF('TerceroDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('TerceroDialogo').show()");
             } else if (dlg == 1) {
                 cancelarCambioCiudad();
                 ciudadSeleccionada = null;
                 activarLOV = false;
                 RequestContext.getCurrentInstance().update("form:listaValores");
                 RequestContext.getCurrentInstance().update("form:CiudadDialogo");
-                PrimefacesContextUI.ejecutar("PF('CiudadDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('CiudadDialogo').show()");
             }
         }
         if (tt == 1) {
@@ -1378,7 +1378,7 @@ public class ControlTercero implements Serializable {
                 activarLOV = false;
                 RequestContext.getCurrentInstance().update("form:listaValores");
                 RequestContext.getCurrentInstance().update("form:CiudadTSDialogo");
-                PrimefacesContextUI.ejecutar("PF('CiudadTSDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('CiudadTSDialogo').show()");
             }
         }
         contarRegistrosTS();
@@ -1401,7 +1401,7 @@ public class ControlTercero implements Serializable {
                 activarLOV = false;
                 RequestContext.getCurrentInstance().update("form:listaValores");
                 RequestContext.getCurrentInstance().update("form:TerceroDialogo");
-                PrimefacesContextUI.ejecutar("PF('TerceroDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('TerceroDialogo').show()");
                 tipoActualizacion = 0;
             }
             if (cualCelda == 9) {
@@ -1410,7 +1410,7 @@ public class ControlTercero implements Serializable {
                 activarLOV = false;
                 RequestContext.getCurrentInstance().update("form:listaValores");
                 RequestContext.getCurrentInstance().update("form:CiudadDialogo");
-                PrimefacesContextUI.ejecutar("PF('CiudadDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('CiudadDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -1421,7 +1421,7 @@ public class ControlTercero implements Serializable {
                 activarLOV = false;
                 RequestContext.getCurrentInstance().update("form:listaValores");
                 RequestContext.getCurrentInstance().update("form:CiudadTSDialogo");
-                PrimefacesContextUI.ejecutar("PF('CiudadTSDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('CiudadTSDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
@@ -1481,7 +1481,7 @@ public class ControlTercero implements Serializable {
                     getListTerceroConsolidador();
                 } else {
                     RequestContext.getCurrentInstance().update("form:TerceroDialogo");
-                    PrimefacesContextUI.ejecutar("PF('TerceroDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('TerceroDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                     if (tipoNuevo == 1) {
                         RequestContext.getCurrentInstance().update("formularioDialogos:nuevaTerceroCT");
@@ -1525,7 +1525,7 @@ public class ControlTercero implements Serializable {
                     getListCiudades();
                 } else {
                     RequestContext.getCurrentInstance().update("form:CiudadDialogo");
-                    PrimefacesContextUI.ejecutar("PF('CiudadDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('CiudadDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                     if (tipoNuevo == 1) {
                         RequestContext.getCurrentInstance().update("formularioDialogos:nuevaCodigoAT");
@@ -1576,7 +1576,7 @@ public class ControlTercero implements Serializable {
                     getListCiudades();
                 } else {
                     RequestContext.getCurrentInstance().update("form:CiudadTSDialogo");
-                    PrimefacesContextUI.ejecutar("PF('CiudadTSDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('CiudadTSDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                     if (tipoNuevo == 1) {
                         RequestContext.getCurrentInstance().update("formularioDialogos:nuevaCiudadTS");
@@ -1640,8 +1640,8 @@ public class ControlTercero implements Serializable {
          * RequestContext.getCurrentInstance().update("form:lovTercero"); RequestContext.getCurrentInstance().update("form:aceptarT");
          */
         context.reset("form:lovTercero:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovTercero').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('TerceroDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovTercero').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('TerceroDialogo').hide()");
 
     }
 
@@ -1654,8 +1654,8 @@ public class ControlTercero implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovTercero:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovTercero').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('TerceroDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovTercero').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('TerceroDialogo').hide()");
     }
 
     public void actualizarCiudad() {
@@ -1695,8 +1695,8 @@ public class ControlTercero implements Serializable {
 //          RequestContext.getCurrentInstance().update("form:aceptarC");
 
         context.reset("form:lovCiudad:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovCiudad').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('CiudadDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovCiudad').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('CiudadDialogo').hide()");
     }
 
     public void cancelarCambioCiudad() {
@@ -1707,8 +1707,8 @@ public class ControlTercero implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovCiudad:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovCiudad').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('CiudadDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovCiudad').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('CiudadDialogo').hide()");
     }
 
     public void actualizarCiudadTS() {
@@ -1747,8 +1747,8 @@ public class ControlTercero implements Serializable {
         RequestContext.getCurrentInstance().update("form:aceptarCTS");
 
         context.reset("form:lovCiudadTS:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovCiudadTS').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('CiudadTSDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovCiudadTS').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('CiudadTSDialogo').hide()");
     }
 
     public void cancelarCambioCiudadTS() {
@@ -1759,8 +1759,8 @@ public class ControlTercero implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovCiudadTS:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovCiudadTS').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('CiudadTSDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovCiudadTS').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('CiudadTSDialogo').hide()");
     }
 
     /**
@@ -1863,7 +1863,7 @@ public class ControlTercero implements Serializable {
         getListTerceros();
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:BuscarTerceroDialogo");
-        PrimefacesContextUI.ejecutar("PF('BuscarTerceroDialogo').show()");
+        RequestContext.getCurrentInstance().execute("PF('BuscarTerceroDialogo').show()");
     }
 
     public void cancelarSeleccionTercero() {
@@ -1873,8 +1873,8 @@ public class ControlTercero implements Serializable {
         aceptar = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovBuscarTercero:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovBuscarTercero').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('BuscarTerceroDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovBuscarTercero').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('BuscarTerceroDialogo').hide()");
     }
 
     public void validarSeleccionTercero() {
@@ -1901,12 +1901,12 @@ public class ControlTercero implements Serializable {
             contarRegistrosTS();
             RequestContext.getCurrentInstance().update("form:datosTercerosSucursales");
             context.reset("form:lovBuscarTercero:globalFilter");
-            PrimefacesContextUI.ejecutar("PF('lovBuscarTercero').clearFilters()");
-            PrimefacesContextUI.ejecutar("PF('BuscarTerceroDialogo').hide()");
+            RequestContext.getCurrentInstance().execute("PF('lovBuscarTercero').clearFilters()");
+            RequestContext.getCurrentInstance().execute("PF('BuscarTerceroDialogo').hide()");
         } else {
             terceroLOVSeleccionado = null;
             filtrarListTerceroLOV = null;
-            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
         }
         aceptar = true;
     }
@@ -1921,7 +1921,7 @@ public class ControlTercero implements Serializable {
             getListTercerosSucursales();
             RequestContext.getCurrentInstance().update("form:datosTercerosSucursales");
         } else {
-            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
         }
         contarRegistrosT();
         contarRegistrosTS();
@@ -1932,7 +1932,7 @@ public class ControlTercero implements Serializable {
         //Cuando no se ha seleccionado ningun registro:
         if (terceroTablaSeleccionado == null && terceroSucursalTablaSeleccionado == null) {
             //Dialogo para seleccionar el rastro Historico de la tabla deseada
-            PrimefacesContextUI.ejecutar("PF('verificarRastrosTablas').show()");
+            RequestContext.getCurrentInstance().execute("PF('verificarRastrosTablas').show()");
         } else {
             //Cuando se selecciono registro:            
             if (terceroSucursalTablaSeleccionado != null) {
@@ -1949,18 +1949,18 @@ public class ControlTercero implements Serializable {
         int resultado = administrarRastros.obtenerTabla(terceroTablaSeleccionado.getSecuencia(), "TERCEROS");
         backUp = terceroTablaSeleccionado.getSecuencia();
         if (resultado == 1) {
-            PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
         } else if (resultado == 2) {
             nombreTablaRastro = "Terceros";
             msnConfirmarRastro = "La tabla TERCEROS tiene rastros para el registro seleccionado, ¿desea continuar?";
             RequestContext.getCurrentInstance().update("form:msnConfirmarRastro");
-            PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
         } else if (resultado == 3) {
-            PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
         } else if (resultado == 4) {
-            PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
         } else if (resultado == 5) {
-            PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
         }
     }
 
@@ -1970,9 +1970,9 @@ public class ControlTercero implements Serializable {
             nombreTablaRastro = "Terceros";
             msnConfirmarRastroHistorico = "La tabla TERCEROS tiene rastros historicos, ¿Desea continuar?";
             RequestContext.getCurrentInstance().update("form:confirmarRastroHistorico");
-            PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
     }
 
@@ -1981,18 +1981,18 @@ public class ControlTercero implements Serializable {
         int resultado = administrarRastros.obtenerTabla(terceroSucursalTablaSeleccionado.getSecuencia(), "TERCEROSSUCURSALES");
         backUp = terceroSucursalTablaSeleccionado.getSecuencia();
         if (resultado == 1) {
-            PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
         } else if (resultado == 2) {
             nombreTablaRastro = "TercerosSucursales";
             msnConfirmarRastro = "La tabla TERCEROSSUCURSALES tiene rastros para el registro seleccionado, ¿desea continuar?";
             RequestContext.getCurrentInstance().update("form:msnConfirmarRastro");
-            PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
         } else if (resultado == 3) {
-            PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
         } else if (resultado == 4) {
-            PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
         } else if (resultado == 5) {
-            PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
         }
     }
 
@@ -2002,9 +2002,9 @@ public class ControlTercero implements Serializable {
             nombreTablaRastro = "TercerosSucursales";
             msnConfirmarRastroHistorico = "La tabla TERCEROSSUCURSALES tiene rastros historicos, ¿Desea continuar?";
             RequestContext.getCurrentInstance().update("form:confirmarRastroHistorico");
-            PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
     }
 
@@ -2013,7 +2013,7 @@ public class ControlTercero implements Serializable {
         cualCelda = -1;
         cualCeldaTS = -1;
         RequestContext.getCurrentInstance().update("formularioDialogos:EmpresasDialogo");
-        PrimefacesContextUI.ejecutar("PF('EmpresasDialogo').show()");
+        RequestContext.getCurrentInstance().execute("PF('EmpresasDialogo').show()");
     }
 
     public void actualizarEmpresa() {
@@ -2028,8 +2028,8 @@ public class ControlTercero implements Serializable {
         RequestContext.getCurrentInstance().update("formularioDialogos:lovEmpresas");
         RequestContext.getCurrentInstance().update("formularioDialogos:aceptarE");
         context.reset("formularioDialogos:lovEmpresas:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovEmpresas').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('EmpresasDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovEmpresas').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('EmpresasDialogo').hide()");
         empresaActual = empresaSeleccionada;
         listTerceros = null;
         getListTerceros();
@@ -2050,7 +2050,7 @@ public class ControlTercero implements Serializable {
             RequestContext.getCurrentInstance().update("form:datosTerceros");
             RequestContext.getCurrentInstance().update("form:datosTercerosSucursales");
         } else {
-            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
         }
         // empresaSeleccionada = null;
     }
@@ -2063,8 +2063,8 @@ public class ControlTercero implements Serializable {
         filtrarListEmpresas = null;
         empresaSeleccionada = null;
         context.reset("formularioDialogos:lovEmpresas:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovEmpresas').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('EmpresasDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovEmpresas').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('EmpresasDialogo').hide()");
     }
 
     public void limpiarMSNRastros() {

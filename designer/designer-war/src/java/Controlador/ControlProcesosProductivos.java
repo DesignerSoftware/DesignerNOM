@@ -4,7 +4,7 @@
  */
 package Controlador;
 
-import utilidadesUI.PrimefacesContextUI;
+
 import Entidades.ProcesosProductivos;
 import Entidades.CentrosCostos;
 import Exportar.ExportarPDF;
@@ -176,7 +176,7 @@ public class ControlProcesosProductivos implements Serializable {
             }
             if (dig == 2) {
                 RequestContext.getCurrentInstance().update("form:personasDialogo");
-                PrimefacesContextUI.ejecutar("PF('personasDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('personasDialogo').show()");
                 dig = -1;
             }
         } catch (Exception e) {
@@ -194,7 +194,7 @@ public class ControlProcesosProductivos implements Serializable {
             if (cualCelda == 2) {
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("form:personasDialogo");
-                PrimefacesContextUI.ejecutar("PF('personasDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('personasDialogo').show()");
             }
         }
     }
@@ -355,8 +355,8 @@ public class ControlProcesosProductivos implements Serializable {
         tipoActualizacion = -1;
         cualCelda = -1;
         context.reset("form:lovCentrosCostos:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovCentrosCostos').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('personasDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovCentrosCostos').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('personasDialogo').hide()");
         //RequestContext.getCurrentInstance().update("form:lovCentrosCostos");
         //RequestContext.getCurrentInstance().update("form:datosHvEntrevista");
     }
@@ -372,8 +372,8 @@ public class ControlProcesosProductivos implements Serializable {
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovCentrosCostos:globalFilter");
-        PrimefacesContextUI.ejecutar("PF('lovCentrosCostos').clearFilters()");
-        PrimefacesContextUI.ejecutar("PF('personasDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovCentrosCostos').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('personasDialogo').hide()");
     }
 
     public void modificarProcesosProductivos(int indice, String confirmarCambio, String valorConfirmar) {
@@ -443,7 +443,7 @@ public class ControlProcesosProductivos implements Serializable {
 
                     } else {
                         RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
+                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
 
                     }
                     index = -1;
@@ -496,7 +496,7 @@ public class ControlProcesosProductivos implements Serializable {
                         }
                     } else {
                         RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
+                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
 
                     }
                     index = -1;
@@ -561,7 +561,7 @@ public class ControlProcesosProductivos implements Serializable {
 
                     } else {
                         RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
+                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
                     }
                     index = -1;
                     secRegistro = null;
@@ -614,7 +614,7 @@ public class ControlProcesosProductivos implements Serializable {
 
                     } else {
                         RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        PrimefacesContextUI.ejecutar("PF('validacionModificar').show()");
+                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
                     }
                     index = -1;
                     secRegistro = null;
@@ -652,7 +652,7 @@ public class ControlProcesosProductivos implements Serializable {
                 } else {
                     permitirIndex = false;
                     RequestContext.getCurrentInstance().update("form:personasDialogo");
-                    PrimefacesContextUI.ejecutar("PF('personasDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('personasDialogo').show()");
                     tipoActualizacion = 0;
                 }
             } else {
@@ -666,7 +666,7 @@ public class ControlProcesosProductivos implements Serializable {
                 tipoActualizacion = 0;
                 System.out.println("PAIS ANTES DE MOSTRAR DIALOGO PERSONA : " + backupBanco);
                 RequestContext.getCurrentInstance().update("form:personasDialogo");
-                PrimefacesContextUI.ejecutar("PF('personasDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('personasDialogo').show()");
             }
 
             if (coincidencias == 1) {
@@ -732,7 +732,7 @@ public class ControlProcesosProductivos implements Serializable {
 
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("form:validacionBorrar");
-                PrimefacesContextUI.ejecutar("PF('validacionBorrar').show()");
+                RequestContext.getCurrentInstance().execute("PF('validacionBorrar').show()");
                 index = -1;
 
                 contarCargosProcesoProductivo = new BigInteger("-1");
@@ -838,7 +838,7 @@ public class ControlProcesosProductivos implements Serializable {
                     System.err.println("PERSONA GUARDADA :-----> " + nuevoProcesosProductivos.getCentrocosto().getNombre());
                 } else {
                     RequestContext.getCurrentInstance().update("form:personasDialogo");
-                    PrimefacesContextUI.ejecutar("PF('personasDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('personasDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                 }
             } else {
@@ -861,7 +861,7 @@ public class ControlProcesosProductivos implements Serializable {
         }
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:personasDialogo");
-        PrimefacesContextUI.ejecutar("PF('personasDialogo').show()");
+        RequestContext.getCurrentInstance().execute("PF('personasDialogo').show()");
     }
 
     public void asignarVariableCiudades(int tipoNuevo) {
@@ -873,7 +873,7 @@ public class ControlProcesosProductivos implements Serializable {
         }
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:cargosDialogo");
-        PrimefacesContextUI.ejecutar("PF('cargosDialogo').show()");
+        RequestContext.getCurrentInstance().execute("PF('cargosDialogo').show()");
     }
 
     public void autocompletarDuplicado(String confirmarCambio, String valorConfirmar, int tipoNuevo) {
@@ -902,7 +902,7 @@ public class ControlProcesosProductivos implements Serializable {
                     listaCentrosCostos = null;
                 } else {
                     RequestContext.getCurrentInstance().update("form:personasDialogo");
-                    PrimefacesContextUI.ejecutar("PF('personasDialogo').show()");
+                    RequestContext.getCurrentInstance().execute("PF('personasDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                 }
             } else {
@@ -961,7 +961,7 @@ public class ControlProcesosProductivos implements Serializable {
 
      RequestContext context = RequestContext.getCurrentInstance();
      RequestContext.getCurrentInstance().update("form:validacionBorrar");
-     PrimefacesContextUI.ejecutar("PF('validacionBorrar').show()");
+     RequestContext.getCurrentInstance().execute("PF('validacionBorrar').show()");
      index = -1;
      contarBienProgramacionesDepartamento = new BigInteger("-1");
      contarCapModulosDepartamento = new BigInteger("-1");
@@ -979,7 +979,7 @@ public class ControlProcesosProductivos implements Serializable {
         if (!borrarProcesosProductivos.isEmpty() || !crearProcesosProductivos.isEmpty() || !modificarProcesosProductivos.isEmpty()) {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:confirmarGuardar");
-            PrimefacesContextUI.ejecutar("PF('confirmarGuardar').show()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
         }
 
     }
@@ -994,7 +994,7 @@ public class ControlProcesosProductivos implements Serializable {
                 //mostrarBorrados
                 registrosBorrados = borrarProcesosProductivos.size();
                 RequestContext.getCurrentInstance().update("form:mostrarBorrados");
-                PrimefacesContextUI.ejecutar("PF('mostrarBorrados').show()");
+                RequestContext.getCurrentInstance().execute("PF('mostrarBorrados').show()");
                 borrarProcesosProductivos.clear();
             }
             if (!modificarProcesosProductivos.isEmpty()) {
@@ -1031,19 +1031,19 @@ public class ControlProcesosProductivos implements Serializable {
             System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editPais");
-                PrimefacesContextUI.ejecutar("PF('editPais').show()");
+                RequestContext.getCurrentInstance().execute("PF('editPais').show()");
                 cualCelda = -1;
             } else if (cualCelda == 1) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editSubtituloFirma");
-                PrimefacesContextUI.ejecutar("PF('editSubtituloFirma').show()");
+                RequestContext.getCurrentInstance().execute("PF('editSubtituloFirma').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editCentrosCostos");
-                PrimefacesContextUI.ejecutar("PF('editCentrosCostos').show()");
+                RequestContext.getCurrentInstance().execute("PF('editCentrosCostos').show()");
                 cualCelda = -1;
             } else if (cualCelda == 3) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editCiudades");
-                PrimefacesContextUI.ejecutar("PF('editCiudades').show()");
+                RequestContext.getCurrentInstance().execute("PF('editCiudades').show()");
                 cualCelda = -1;
             }
 
@@ -1141,13 +1141,13 @@ public class ControlProcesosProductivos implements Serializable {
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
 
-            PrimefacesContextUI.ejecutar("PF('nuevoRegistroProcesosProductivos').hide()");
+            RequestContext.getCurrentInstance().execute("PF('nuevoRegistroProcesosProductivos').hide()");
             index = -1;
             secRegistro = null;
 
         } else {
             RequestContext.getCurrentInstance().update("form:validacionNuevaCentroCosto");
-            PrimefacesContextUI.ejecutar("PF('validacionNuevaCentroCosto').show()");
+            RequestContext.getCurrentInstance().execute("PF('validacionNuevaCentroCosto').show()");
             contador = 0;
         }
     }
@@ -1168,7 +1168,7 @@ public class ControlProcesosProductivos implements Serializable {
         duplicarProcesosProductivos = new ProcesosProductivos();
         duplicarProcesosProductivos.setCentrocosto(new CentrosCostos());
         RequestContext context = RequestContext.getCurrentInstance();
-        PrimefacesContextUI.ejecutar("PF('nuevoRegistroProcesosProductivos').show()");
+        RequestContext.getCurrentInstance().execute("PF('nuevoRegistroProcesosProductivos').show()");
 
     }
 
@@ -1196,7 +1196,7 @@ public class ControlProcesosProductivos implements Serializable {
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTE");
-            PrimefacesContextUI.ejecutar("PF('duplicarRegistroProcesosProductivos').show()");
+            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroProcesosProductivos').show()");
             secRegistro = null;
         }
     }
@@ -1290,12 +1290,12 @@ public class ControlProcesosProductivos implements Serializable {
             duplicarProcesosProductivos = new ProcesosProductivos();
             duplicarProcesosProductivos.setCentrocosto(new CentrosCostos());
 
-            PrimefacesContextUI.ejecutar("PF('duplicarRegistroProcesosProductivos').hide()");
+            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroProcesosProductivos').hide()");
 
         } else {
             contador = 0;
             RequestContext.getCurrentInstance().update("form:validacionDuplicarVigencia");
-            PrimefacesContextUI.ejecutar("PF('validacionDuplicarVigencia').show()");
+            RequestContext.getCurrentInstance().execute("PF('validacionDuplicarVigencia').show()");
         }
     }
 
@@ -1333,24 +1333,24 @@ public class ControlProcesosProductivos implements Serializable {
                 int resultado = administrarRastros.obtenerTabla(secRegistro, "PROCESOSPRODUCTIVOS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
                 System.out.println("resultado: " + resultado);
                 if (resultado == 1) {
-                    PrimefacesContextUI.ejecutar("PF('errorObjetosDB').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
-                    PrimefacesContextUI.ejecutar("PF('confirmarRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
                 } else if (resultado == 3) {
-                    PrimefacesContextUI.ejecutar("PF('errorRegistroRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
                 } else if (resultado == 4) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaConRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
                 } else if (resultado == 5) {
-                    PrimefacesContextUI.ejecutar("PF('errorTablaSinRastro').show()");
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
                 }
             } else {
-                PrimefacesContextUI.ejecutar("PF('seleccionarRegistro').show()");
+                RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
             }
         } else {
             if (administrarRastros.verificarHistoricosTabla("PROCESOSPRODUCTIVOS")) { // igual acá
-                PrimefacesContextUI.ejecutar("PF('confirmarRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
             } else {
-                PrimefacesContextUI.ejecutar("PF('errorRastroHistorico').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
             }
 
         }
