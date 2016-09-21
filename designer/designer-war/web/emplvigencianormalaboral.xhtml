@@ -141,29 +141,29 @@
                         </fieldset>
 
                         <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlBetaEmplVigenciaNormaLaboral.infoRegistro}" style="position: absolute; left: 25px; top: 467px; font-weight: bold"/>
-                        <p:commandButton id="ACEPTAR" style="position: absolute; left: 675px; top: 495px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=" " disabled="#{controlBetaEmplVigenciaNormaLaboral.guardado}" actionListener="#{controlBetaEmplVigenciaNormaLaboral.revisarDialogoGuardar()}" process="@this"/>
-                        <p:commandButton id="ATRAS" style="position: absolute; left: 765px; top: 495px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=" " action="normalaboralNominaF" />
+                        <p:commandButton id="ACEPTAR" class="cssBotonAceptar" value=" " disabled="#{controlBetaEmplVigenciaNormaLaboral.guardado}" actionListener="#{controlBetaEmplVigenciaNormaLaboral.revisarDialogoGuardar()}" process="@this"/>
+                        <p:commandButton id="ATRAS" class="cssBotonCancelar" value=" " action="normalaboralNominaF" />
 
                         <p:dialog header="#{msg['normaLaboralM']}" widgetVar="sucursalesDialogo" draggable="true" resizable="false" closable="false" id="sucursalesDialogo"  
                                   showEffect="fade" hideEffect="fade" width="470" modal="true">
-                            <p:dataTable id="lovTiposFamiliares" var="tipofamiliar" value="#{controlBetaEmplVigenciaNormaLaboral.listaNormasLaborales}" rowKey="#{tipofamiliar.secuencia}"
-                                         selection="#{controlBetaEmplVigenciaNormaLaboral.normaLaboralSeleccionada}" selectionMode="single" widgetVar="lovTiposFamiliares" scrollable="true" scrollWidth="445" scrollHeight="130"
+                            <p:dataTable id="lovNormas" var="tipofamiliar" value="#{controlBetaEmplVigenciaNormaLaboral.listaNormasLaborales}" rowKey="#{tipofamiliar.secuencia}"
+                                         selection="#{controlBetaEmplVigenciaNormaLaboral.normaLaboralSeleccionada}" selectionMode="single" widgetVar="lovNormas" scrollable="true" scrollWidth="445" scrollHeight="130"
                                          filteredValue="#{controlBetaEmplVigenciaNormaLaboral.filtradoNormasLaborales}" emptyMessage="#{msg['lovvacio']}">
                                 
-                                <p:ajax event="filter" listener="#{controlBetaEmplVigenciaNormaLaboral.eventoFiltrarNorma()}"/>
+                               <p:ajax event="filter" listener="#{controlBetaEmplVigenciaNormaLaboral.contarRegistrosNorma()}"/>
                                 <p:ajax event="rowSelect" listener="#{controlBetaEmplVigenciaNormaLaboral.activarAceptar()}" update=":form:aceptarS"/>
                                 <p:ajax event="rowDblselect" listener="#{controlBetaEmplVigenciaNormaLaboral.actualizarNormaLaboral()}" update=":form:sucursalesDialogo" process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarNM']}" />  
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovTiposFamiliares').filter();" value="#{filtrado}" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovNormas').filter();" value="#{filtrado}" />  
                                 </f:facet>
-                                <p:column filterBy="#{tipofamiliar.codigo}" width="60" filterStyle="width:50px;" filterMatchMode="contains">
+                                <p:column filterBy="#{tipofamiliar.codigo}" width="60" filterStyle="width: 85% !important;" filterMatchMode="contains">
                                     <f:facet name="header">
                                         <h:outputText value="#{msg['codigo']}" />
                                     </f:facet>
                                     <h:outputText value="#{tipofamiliar.codigo}" />
                                 </p:column>
-                                <p:column filterBy="#{tipofamiliar.nombre}" width="160px;" filterStyle="width:140px;" filterMatchMode="contains">
+                                <p:column filterBy="#{tipofamiliar.nombre}" filterStyle="width: 85% !important;" filterMatchMode="contains">
                                     <f:facet name="header">
                                         <h:outputText value="#{msg['nombre']}" />
                                     </f:facet>

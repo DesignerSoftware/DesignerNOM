@@ -352,10 +352,8 @@
                             <!--<p:remoteCommand name="posicionOtro" actionListener="#/{controlEmplMvr.posicionOtro()}"/>-->
                         </fieldset>
 
-                        <p:commandButton style="position: absolute; left: 683px; top: 500px; height: 30px; width: 90px; background-image:  url(Imagenes/Iconos/aceptar.png); 
-                                         background-size: 100% 100%; background-repeat: no-repeat; border: none; " id="ACEPTAR" value="" onclick="PF('confirmarGuardar').show();" process="@this" disabled="#{controlEmplMvr.guardado}" />
-                        <p:commandButton style="position: absolute; left: 773px; top: 500px; height: 30px; width: 90px; background-image:  url(Imagenes/Iconos/cancelar.png); 
-                                         background-size: 100% 100%; background-repeat: no-repeat; border: none; " id="ATRAS" value="" actionListener="#{controlEmplMvr.salir()}" action="nomina" process="@this" />
+                       <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" onclick="PF('confirmarGuardar').show();" process="@this" disabled="#{controlEmplMvr.guardado}" />
+                       <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlEmplMvr.salir()}" action="nomina" process="@this" />
 
                         <!-- DIALOGO L.O.V ESTATICO MOTIVO CAMBIO SUELDO     -->
                         <p:dialog header="#{msg['mvrM']}" widgetVar="MotivoDialogo" draggable="true" resizable="false" closable="false" id="MotivoDialogo"  
@@ -364,7 +362,7 @@
                                          selection="#{controlEmplMvr.motivoMvrSeleccionado}" selectionMode="single" widgetVar="lovMotivo" scrollable="true" scrollHeight="150" scrollWidth="435"
                                          filteredValue="#{controlEmplMvr.filtrarListMotivosMvrs}" emptyMessage="#{msg['lovvacio']}">              
 
-                                <p:ajax event="filter" listener="#{controlEmplMvr.eventoFiltrarM()}"/>
+                               <p:ajax event="filter" listener="#{controlEmplMvr.contarRegistrosMot()}"/>
                                 <p:ajax event="rowSelect" listener="#{controlEmplMvr.activarAceptar()}" update=":form:aceptarM"/>
                                 <p:ajax event="rowDblselect" listener="#{controlEmplMvr.actualizarMotivo()}" immediate="true"
                                         oncomplete="PF('lovMotivo').unselectAllRows(), lovMotivo').clearFilters()" update=":form:MotivoDialogo"/>
@@ -402,7 +400,7 @@
                                          selection="#{controlEmplMvr.tipoCertificadoSeleccionado}" selectionMode="single" widgetVar="lovCertificado" scrollable="true" scrollWidth="435" scrollHeight="150"
                                          filteredValue="#{controlEmplMvr.filtrarListTiposCertificados}" emptyMessage="#{msg['lovvacio']}">              
 
-                                <p:ajax event="filter" listener="#{controlEmplMvr.eventoFiltrarC()}"/>
+                               <p:ajax event="filter" listener="#{controlEmplMvr.contarRegistrosCer()}"/>
                                 <p:ajax event="rowSelect" listener="#{controlEmplMvr.activarAceptar()}" update=":form:aceptarTC"/>
                                 <p:ajax event="rowDblselect" listener="#{controlEmplMvr.actualizarTipo()}" process="@this" 
                                         oncomplete="PF('CertificadosDialogo').hide(), PF('lovCertificado').clearFilters()" update=":form:CertificadosDialogo"/>

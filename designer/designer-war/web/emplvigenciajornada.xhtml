@@ -108,7 +108,7 @@
                                 <p:ajax event="filter" listener="#{controlVigenciaJornada.eventoFiltrar()}" update=":form:informacionRegistroVJ"/>
                                 <f:event type="preRenderView" listener="#{controlVigenciaJornada.recordarSeleccionVJ()}"/>
 
-                                <p:column  headerText="#{msg['fecha']}" sortBy="#{infoVJ.fechavigencia}" filterBy="#{infoVJ.fechavigencia}" filterMatchMode="contains"  width="65" id="vJFechaVigencia" filterStyle="display: none; visibility: hidden;"  >  
+                                <p:column  headerText="#{msg['fecha']}" sortBy="#{infoVJ.fechavigencia}" filterBy="#{infoVJ.fechavigencia}" filterMatchMode="contains"  width="70" id="vJFechaVigencia" filterStyle="display: none; visibility: hidden;"  >  
                                     <p:cellEditor>  
                                         <f:facet name="output">
                                             <h:outputText value="#{infoVJ.fechavigencia}" >
@@ -145,7 +145,7 @@
                                     </f:facet>
                                 </p:column>
 
-                                <p:column  headerText="#{msg['tipodescanso']}" sortBy="#{infoVJ.tipodescanso.descripcion}" filterBy="#{infoVJ.tipodescanso.descripcion}" filterMatchMode="contains" id="vJTipoDescanso"  filterStyle="display: none; visibility: hidden" >                                  
+                                <p:column  headerText="#{msg['tipodescanso']}" sortBy="#{infoVJ.tipodescanso.descripcion}" filterBy="#{infoVJ.tipodescanso.descripcion}" filterMatchMode="contains" id="vJTipoDescanso" filterStyle="display: none; visibility: hidden" >                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoVJ.tipodescanso.descripcion}"/></f:facet>  
                                         <f:facet name="input">
@@ -175,7 +175,7 @@
                                 <f:event type="preRenderView" listener="#{controlVigenciaJornada.recordarSeleccionVT()}"/>
 
                                 <p:column headerText="#{msg['fechainicial']}" sortBy="#{info.fechainicial}" filterBy="#{info.fechainicial}" filterMatchMode="contains" id="vCTFechaInicial"
-                                          filterStyle="display: none; visibility: hidden;" width="62">                                  
+                                          filterStyle="display: none; visibility: hidden;" width="70">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output">
                                             <h:outputText value="#{info.fechainicial}">
@@ -196,7 +196,7 @@
                                 </p:column>
 
                                 <p:column headerText="#{msg['fechafinal']}" sortBy="#{info.fechafinal}" filterBy="#{info.fechafinal}" filterMatchMode="contains"
-                                          id="vCTFechaFinal" filterStyle="display: none; visibility: hidden;" width="62">                                  
+                                          id="vCTFechaFinal" filterStyle="display: none; visibility: hidden;" width="70">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output">
                                             <h:outputText value="#{info.fechafinal}" style="width: 100px; ">
@@ -247,7 +247,7 @@
                                 <f:event type="preRenderView" listener="#{controlVigenciaJornada.recordarSeleccionVD()}"/>
 
                                 <p:column headerText="#{msg['fechainicial']}" sortBy="#{info2.fechainicial}" filterBy="#{info2.fechainicial}" filterMatchMode="contains" id="vCDFechaInicial"
-                                          filterStyle="display: none; visibility: hidden;" width="62">                                  
+                                          filterStyle="display: none; visibility: hidden;" width="70">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output">
                                             <h:outputText value="#{info2.fechainicial}">
@@ -268,7 +268,7 @@
                                 </p:column>
 
                                 <p:column headerText="#{msg['fechafinal']}" sortBy="#{info2.fechafinal}" filterBy="#{info2.fechafinal}" filterMatchMode="contains"
-                                          id="vCDFechaFinal" filterStyle="display: none; visibility: hidden;" width="62">                                  
+                                          id="vCDFechaFinal" filterStyle="display: none; visibility: hidden;" width="70">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output">
                                             <h:outputText value="#{info2.fechafinal}">
@@ -316,7 +316,7 @@
                                          selection="#{controlVigenciaJornada.jornadaLaboralSeleccionada}" selectionMode="single" widgetVar="lovJornadaLaboral" scrollable="true" scrollWidth="383" scrollHeight="170"
                                          filteredValue="#{controlVigenciaJornada.filtrarJornadasLaborales}" emptyMessage="#{msg['lovvacio']}">              
 
-                                <p:ajax event="filter" listener="#{controlVigenciaJornada.eventoFiltrarJornadaL()}" update=":form:infoRegistroJornadaLaboral"/>
+                               <p:ajax event="filter" listener="#{controlVigenciaJornada.contarRegistrosJornadaL()}" update=":form:infoRegistroJornadaLaboral"/>
                                 <p:ajax event="rowSelect" listener="#{controlVigenciaJornada.activarAceptar()}" update=":form:aceptarJL"/>
                                 <p:ajax event="rowDblselect" listener="#{controlVigenciaJornada.actualizarJornadaLaboral()}" immediate="true"
                                         oncomplete="PF('JornadaLaboralDialogo').hide(), PF('lovJornadaLaboral').unselectAllRows()" update=":form:JornadaLaboralDialogo" process="@this" />
@@ -354,7 +354,7 @@
                                          selection="#{controlVigenciaJornada.tipoDescansoSeleccionado}" selectionMode="single" widgetVar="lovTipoDescanso" scrollable="true" scrollWidth="383" scrollHeight="170"
                                          filteredValue="#{controlVigenciaJornada.filtradoTiposDescansos}" emptyMessage="#{msg['lovvacio']}">              
 
-                                <p:ajax event="filter" listener="#{controlVigenciaJornada.eventoFiltrarTipoD()}" update=":form:infoRegistroTipoDescanso"/>
+                               <p:ajax event="filter" listener="#{controlVigenciaJornada.contarRegistrosTipoD()}"/>
                                 <p:ajax event="rowSelect" listener="#{controlVigenciaJornada.activarAceptar()}" update=":form:aceptarTD"/>
                                 <p:ajax event="rowDblselect" listener="#{controlVigenciaJornada.actualizarTipoDescanso()}" immediate="true"
                                         oncomplete="PF('TiposDescansosDialogo').hide(), PF('lovTipoDescanso').unselectAllRows()" update=":form:TiposDescansosDialogo" process="@this"  />
@@ -387,10 +387,8 @@
                             </div>
                         </p:dialog>
 
-                        <p:commandButton style="position: absolute; left: 680px; top: 498px; height: 30px; width: 90px; background-image:  url(Imagenes/Iconos/aceptar.png); 
-                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ACEPTAR" value="" onclick="PF('confirmarGuardar').show();" update=":form:datosVJEmpleado" process="@this" disabled="#{controlVigenciaJornada.guardado}"/>
-                        <p:commandButton style="position: absolute; left: 770px; top: 498px; height: 30px; width: 90px; background-image:  url(Imagenes/Iconos/cancelar.png); 
-                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" value="" actionListener="#{controlVigenciaJornada.cancelarModificacion()}" action="nomina" process="@this" />
+                        <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" onclick="PF('confirmarGuardar').show();" update=":form:datosVJEmpleado" process="@this" disabled="#{controlVigenciaJornada.guardado}"/>
+                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlVigenciaJornada.cancelarModificacion()}" action="nomina" process="@this" />
                     </p:panel>
 
                     <p:dialog id="validarNuevoFechas" header="#{msg['atencion']}" widgetVar="validarNuevoFechas"  resizable="false" draggable="true" modal="true" height="110" width="470"  closable="false">  

@@ -90,7 +90,7 @@
                                 <p:ajax event="filter" listener="#{controlVigenciasFormasPagos.eventoFiltrar()}"/>
                                 <f:event type="preRenderView" listener="#{controlVigenciasFormasPagos.recordarSeleccion()}"/>
 
-                                <p:column id="fechaVigencia" headerText="#{msg['inicial']}" sortBy="#{info.fechavigencia}" filterBy="#{info.fechavigencia}" filterMatchMode="contains"  width="62" filterStyle="display: none; visibility: hidden;" >
+                                <p:column id="fechaVigencia" headerText="#{msg['inicial']}" sortBy="#{info.fechavigencia}" filterBy="#{info.fechavigencia}" filterMatchMode="contains"  width="68" filterStyle="display: none; vi2sibility: hidden;" >
                                     <p:cellEditor>
                                         <f:facet name="output">
                                             <h:outputText value="#{info.fechavigencia}">
@@ -106,7 +106,7 @@
                                     </p:cellEditor>
                                 </p:column>  
 
-                                <p:column headerText="#{msg['cuenta']}" sortBy="#{info.cuenta}" filterBy="#{info.cuenta}" filterMatchMode="contains" id="cuenta" width="70" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="#{msg['cuenta']}" sortBy="#{info.cuenta}" filterBy="#{info.cuenta}" filterMatchMode="contains" id="cuenta" width="90" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.cuenta}" /></f:facet>  
                                         <f:facet name="input">
@@ -118,7 +118,7 @@
                                     </p:cellEditor>
                                 </p:column>  
 
-                                <p:column id="fechaCuenta" headerText="#{msg['fechaCuenta']}" sortBy="#{info.fechacuenta}" filterBy="#{info.fechacuenta}" filterMatchMode="contains" width="62" filterStyle="display: none; visibility: hidden;" >
+                                <p:column id="fechaCuenta" headerText="#{msg['fechaCuenta']}" sortBy="#{info.fechacuenta}" filterBy="#{info.fechacuenta}" filterMatchMode="contains" width="68" filterStyle="display: none; visibility: hidden;" >
                                     <f:facet name="header">
                                         <h:outputText id="headfc" value="F #{msg['cuenta']}"/>
                                         <p:tooltip for="headfc" value="#{msg['fechaCuenta']}"/>
@@ -139,7 +139,7 @@
                                 </p:column>
 
                                 <p:column headerText="#{msg['sucursal']}" sortBy="#{info.sucursal.nombre}" filterBy="#{info.sucursal.nombre}" filterMatchMode="contains"
-                                          id="sucursal" width="120" filterStyle="display: none; visibility: hidden;" >                                  
+                                          id="sucursal" width="150" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.sucursal.nombre}" /></f:facet>  
                                         <f:facet name="input">
@@ -151,11 +151,12 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton value="" style="width: 140px;" action="sucursal" id="fooSucursal"  />
+                                        <p:commandButton value="" style="width: 170px;" action="sucursal" id="fooSucursal"  />
                                     </f:facet>
                                 </p:column> 
 
-                                <p:column headerText="#{msg['formaPago']}" sortBy="#{info.formapago.nombre}" filterBy="#{info.formapago.nombre}" filterMatchMode="contains" id="formaPago" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="#{msg['formaPago']}" sortBy="#{info.formapago.nombre}" filterBy="#{info.formapago.nombre}"
+                                          filterMatchMode="contains" id="formaPago" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.formapago.nombre}" /></f:facet>  
                                         <f:facet name="input">
@@ -187,7 +188,7 @@
                                     </p:cellEditor>
                                 </p:column> 
 
-                                <p:column headerText="#{msg['metodoPago']}" sortBy="#{info.metodopago.descripcion}" filterBy="#{info.metodopago.descripcion}" filterMatchMode="contains" id="metodoPago" width="100" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="#{msg['metodoPago']}" sortBy="#{info.metodopago.descripcion}" filterBy="#{info.metodopago.descripcion}" filterMatchMode="contains" id="metodoPago" width="130" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.metodopago.descripcion}"/></f:facet>  
                                         <f:facet name="input">
@@ -199,17 +200,16 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton value="" style="width: 120px;" action="metodospagos" id="fooMetodoPago" />
+                                        <p:commandButton value="" style="width: 150px;" action="metodospagos" id="fooMetodoPago" />
                                     </f:facet>
                                 </p:column> 
 
                             </p:dataTable>
-
                         </fieldset>
 
                         <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlVigenciasFormasPagos.infoRegistro}" style="position: absolute; left: 20px; top: 470px; font-weight: bold"/>
-                        <p:commandButton id="ACEPTAR" style="position: absolute; left: 675px; top: 495px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=" " disabled="#{controlVigenciasFormasPagos.guardado}" onclick="PF('confirmarGuardar').show();"  update="datosVigenciasFormasPagos" process="@this"/>
-                        <p:commandButton id="ATRAS" style="position: absolute; left: 765px; top: 495px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=" " actionListener="#{controlVigenciasFormasPagos.salir()}" action="nomina"/>
+                        <p:commandButton id="ACEPTAR" class="cssBotonAceptar" value="" disabled="#{controlVigenciasFormasPagos.guardado}" onclick="PF('confirmarGuardar').show();"  update="datosVigenciasFormasPagos" process="@this"/>
+                        <p:commandButton id="ATRAS" class="cssBotonCancelar" value="" actionListener="#{controlVigenciasFormasPagos.salir()}" action="nomina"/>
 
                         <p:dialog header="#{msg['sucursalM']}" widgetVar="sucursalesDialogo" draggable="true" resizable="false" closable="false" id="sucursalesDialogo"  
                                   showEffect="fade" hideEffect="fade" width="465" modal="true" style="">
@@ -217,7 +217,7 @@
                                          selection="#{controlVigenciasFormasPagos.sucursalSeleccionada}" selectionMode="single" widgetVar="lovSucursales" scrollable="true" scrollWidth="450" scrollHeight="250"
                                          filteredValue="#{controlVigenciasFormasPagos.filtradoSucursales}" emptyMessage="#{msg['lovvacio']}">              
 
-                                <p:ajax event="filter" listener="#{controlVigenciasFormasPagos.eventoFiltrarSucursales()}"/>
+                               <p:ajax event="filter" listener="#{controlVigenciasFormasPagos.contarRegistrosSucursales()}"/>
                                 <p:ajax event="rowSelect" listener="#{controlVigenciasFormasPagos.activarAceptar()}" update=":form:aceptarS"/>
                                 <p:ajax event="rowDblselect" listener="#{controlVigenciasFormasPagos.actualizarSucursal()}" update=":form:sucursalesDialogo" immediate="true" process="@this" />
 
@@ -256,11 +256,11 @@
 
                         <p:dialog header="#{msg['formaPagoM']}" widgetVar="periodicidadesDialogo" draggable="true" resizable="false" closable="false" id="periodicidadesDialogo"  
                                   showEffect="fade" hideEffect="fade" width="410" modal="true" style="">
-                            <p:dataTable id="lovperiodicidades" style=" width: 350px;" var="periodicidades" value="#{controlVigenciasFormasPagos.listaPeriodicidades}" rowKey="#{periodicidades.secuencia}"
+                            <p:dataTable id="lovperiodicidades" var="periodicidades" value="#{controlVigenciasFormasPagos.listaPeriodicidades}" rowKey="#{periodicidades.secuencia}"
                                          selection="#{controlVigenciasFormasPagos.periodicidadSeleccionada}" selectionMode="single" widgetVar="lovperiodicidades" scrollable="true" scrollWidth="365" scrollHeight="200"
                                          filteredValue="#{controlVigenciasFormasPagos.filtradoPeriodicidades}" emptyMessage="#{msg['lovvacio']}">  
 
-                                <p:ajax event="filter" listener="#{controlVigenciasFormasPagos.eventoFiltrarPeriodicidad()}"/>
+                               <p:ajax event="filter" listener="#{controlVigenciasFormasPagos.contarRegistrosPeriodicidad()}"/>
                                 <p:ajax event="rowSelect" listener="#{controlVigenciasFormasPagos.activarAceptar()}" update=":form:aceptarP"/>
                                 <p:ajax event="rowDblselect" listener="#{controlVigenciasFormasPagos.actualizarPeriodicidad()}" immediate="true" update=":form:periodicidadesDialogo" process="@this" />
 
@@ -268,7 +268,7 @@
                                     <h:outputText value="#{msg['buscarFP']}" />  
                                     <p:inputText id="globalFilter" onkeyup="PF('lovperiodicidades').filter();" value="#{filtrado}" class="cssFiltroLOV" />  
                                 </f:facet>
-                                <p:column filterBy="#{periodicidades.nombre}" width="60" filterStyle="width:150px; position: relative;" filterMatchMode="contains">
+                                <p:column filterBy="#{periodicidades.nombre}" filterStyle="width:150px; position: relative;" filterMatchMode="contains">
                                     <f:facet name="header">
                                         <h:outputText value="#{msg['formaPago']}"/>
                                     </f:facet>
@@ -294,7 +294,7 @@
                                          selection="#{controlVigenciasFormasPagos.metodoPagoSeleccionado}" selectionMode="single" widgetVar="lovmetodospagos" scrollable="true" scrollWidth="370" scrollHeight="90"
                                          filteredValue="#{controlVigenciasFormasPagos.filtradoMetodosPagos }" emptyMessage="#{msg['lovvacio']}"> 
 
-                                <p:ajax event="filter" listener="#{controlVigenciasFormasPagos.eventoFiltrarMetodoPago()}"/>
+                               <p:ajax event="filter" listener="#{controlVigenciasFormasPagos.contarRegistrosMetodoPago()}"/>
                                 <p:ajax event="rowSelect" listener="#{controlVigenciasFormasPagos.activarAceptar()}" update=":form:aceptarMP"/>
                                 <p:ajax event="rowDblselect" listener="#{controlVigenciasFormasPagos.actualizarMetodoPago()}" immediate="true" update=":form:metodosPagosialogo" process="@this" />
 

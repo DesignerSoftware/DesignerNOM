@@ -93,7 +93,7 @@
                                 <p:ajax event="filter" listener="#{controlVigenciasUbicaciones.eventoFiltrar()}"/>
                                 <f:event type="preRenderView" listener="#{controlVigenciasUbicaciones.recordarSeleccion()}"/>
 
-                                <p:column headerText="#{msg['fecha']}" sortBy="#{info.fechavigencia}" filterBy="#{info.fechavigencia}" width="62" id="vuFecha" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">  
+                                <p:column headerText="#{msg['fecha']}" sortBy="#{info.fechavigencia}" filterBy="#{info.fechavigencia}" width="70" id="vuFecha" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">  
                                     <p:cellEditor>  
                                         <f:facet name="output">
                                             <h:outputText value="#{info.fechavigencia}" >
@@ -131,7 +131,8 @@
                                     </f:facet>
                                 </p:column>  
 
-                                <p:column headerText="#{msg['ciudad']}" sortBy="#{info.ubicacion.ciudad.nombre}" filterBy="#{info.ubicacion.ciudad.nombre}" filterMatchMode="contains" id="vuCiudad" width="200" filterStyle="display: none; visibility: hidden;" >      
+                                <p:column headerText="#{msg['ciudad']}" sortBy="#{info.ubicacion.ciudad.nombre}" filterBy="#{info.ubicacion.ciudad.nombre}"
+                                          filterMatchMode="contains" id="vuCiudad" width="240" filterStyle="display: none; visibility: hidden;" >      
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.ubicacion.ciudad.nombre}" /></f:facet>  
                                         <f:facet name="input">
@@ -139,13 +140,16 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 220px;" id="fooCiudad" action="ciudades" actionListener="#{controlCiudades.recibirPaginaEntrante('atrasubicaciongeografica')}" value=" " />
+                                        <p:commandButton style="width: 260px;" id="fooCiudad" action="ciudades" actionListener="#{controlCiudades.recibirPaginaEntrante('atrasubicaciongeografica')}" value=" " />
                                     </f:facet>
                                 </p:column>
                             </p:dataTable> 
 
                             <p:remoteCommand name="cambioIndice" actionListener="#{controlVigenciasUbicaciones.cambioIndiceReadOnly()}" process="@this"/>
                         </fieldset>
+                        <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']}  #{controlVigenciasUbicaciones.infoRegistro}" style="position: absolute; left: 20px; top: 470px; font-weight: bold;"/>
+                        <p:commandButton id="ACEPTAR" class="cssBotonAceptar" value="" onclick="PF('confirmarGuardar').show();" update=":form:datosVUEmpleado" process="@this" disabled="#{controlVigenciasUbicaciones.guardado}"/>
+                        <p:commandButton id="ATRAS" class="cssBotonCancelar" value="" actionListener="#{controlVigenciasUbicaciones.salir()}" action="nomina" process="@this" />
 
                         <!-- DIALOGO L.O.V ESTATICO UBICACIONES -->
                         <p:dialog header="#{msg['ubicacionesU']}" widgetVar="UbicacionesGeograficasDialogo" draggable="true" resizable="false" closable="false" id="UbicacionesGeograficasDialogo"  
@@ -154,7 +158,7 @@
                                          selection="#{controlVigenciasUbicaciones.ubicacionSelecionada}" selectionMode="single" widgetVar="lovUbicaciones" scrollable="true" scrollWidth="470" scrollHeight="250"
                                          filteredValue="#{controlVigenciasUbicaciones.filtradoUbicaciones}" emptyMessage="#{msg['lovvacio']}">              
 
-                                <p:ajax event="filter" listener="#{controlVigenciasUbicaciones.eventoFiltrarUbicaciones()}"/>
+                               <p:ajax event="filter" listener="#{controlVigenciasUbicaciones.contarRegistrosUbicaciones()}"/>
                                 <p:ajax event="rowSelect" listener="#{controlVigenciasUbicaciones.activarAceptar()}" update=":form:aceptarU"/>
                                 <p:ajax event="rowDblselect" listener="#{controlVigenciasUbicaciones.actualizarUbicacion()}" update=":form:UbicacionesGeograficasDialogo" process="@this" />
                                 <f:facet name="header">  
@@ -224,9 +228,6 @@
                             <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check"  onclick="PF('validacionNuevo').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
                         </p:dialog>
 
-                        <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']}  #{controlVigenciasUbicaciones.infoRegistro}" style="position: absolute; left: 20px; top: 470px; font-weight: bold;"/>
-                        <p:commandButton id="ACEPTAR" style="position: absolute; left: 675px; top: 495px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=" " onclick="PF('confirmarGuardar').show();" update=":form:datosVUEmpleado" process="@this" disabled="#{controlVigenciasUbicaciones.guardado}"/>
-                        <p:commandButton id="ATRAS" style="position: absolute; left: 765px; top: 495px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=" " actionListener="#{controlVigenciasUbicaciones.salir()}" action="nomina" process="@this" />
 
                     </p:panel>
                 </h:form>

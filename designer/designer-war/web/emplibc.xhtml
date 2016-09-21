@@ -163,7 +163,7 @@
 
                         <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlEmplIbcs.infoRegistro}" style="position: absolute; left: 25px; top: 460px; font-weight: bold"/>
                         <p:commandButton style=" position: absolute; left: 15px; top: 485px; height: 28px; width: 150px; background-image: url(Imagenes/Iconos/botonL.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; color: white;" icon="ui-icon-triangle-1-e" action="ibcAuto" actionListener="#{controlIbcAutoliquid.obtenerTipoEntidad(controlEmplIbcs.empleadoSeleccionado.secuencia)}" id="detallesIbcs" value="#{msg['detalleIBCS']}" process="@this" />
-                        <p:commandButton id="ATRAS" style="position: absolute; left: 765px; top: 500px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=" " action="atrasEmplIbcs" />
+                        <p:commandButton id="ATRAS" class="cssBotonCancelar" value=" " action="atrasEmplIbcs" />
                     </p:panel>
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlEmplIbcs.activarCtrlF11()}"  /> 
 

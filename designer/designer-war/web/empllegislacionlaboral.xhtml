@@ -178,10 +178,8 @@
 
                         </fieldset>
 
-                        <p:commandButton style="position: relative; left: 670px; top: 465px; height: 30px; width: 90px; background-image:  url(Imagenes/Iconos/aceptar.png); 
-                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ACEPTAR" value="" onclick="PF('confirmarGuardar').show();" update=":form:datosVCEmpleado" process="@this" disabled="#{controlVigenciasContratos.guardado}"/>
-                        <p:commandButton style="position: relative; left: 670px; top: 465px; height: 30px; width: 90px; background-image:  url(Imagenes/Iconos/cancelar.png); 
-                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" value="" actionListener="#{controlVigenciasContratos.salir()}" action="nomina" process="@this" />
+                       <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" onclick="PF('confirmarGuardar').show();" update=":form:datosVCEmpleado" process="@this" disabled="#{controlVigenciasContratos.guardado}"/>
+                       <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlVigenciasContratos.salir()}" action="nomina" process="@this" />
 
                         <!-- DIALOGO L.O.V ESTATICO CONTRATOS -->
                         <p:dialog header="#{msg['legislacionL']}" widgetVar="ContratosDialogo" draggable="true" resizable="false" closable="false" id="ContratosDialogo"  
@@ -190,7 +188,7 @@
                                          selection="#{controlVigenciasContratos.contratoSelecionado}" selectionMode="single" widgetVar="lovContratos" scrollable="true" scrollWidth="445" scrollHeight="210"
                                          filteredValue="#{controlVigenciasContratos.filtradoContratos}" emptyMessage="#{msg['lovvacio']}">              
 
-                                <p:ajax event="filter" listener="#{controlVigenciasContratos.eventoFiltrarC()}"/>
+                               <p:ajax event="filter" listener="#{controlVigenciasContratos.contarRegistrosC()}"/>
                                 <p:ajax event="rowSelect" listener="#{controlVigenciasContratos.activarAceptar()}" update=":form:aceptarC"/>
                                 <p:ajax event="rowDblselect" listener="#{controlVigenciasContratos.actualizarContrato()}" update=":form:ContratosDialogo" process="@this" />
 
@@ -229,7 +227,7 @@
                                          selection="#{controlVigenciasContratos.tipoContratoSelecionado}" selectionMode="single" widgetVar="lovTiposContratos" scrollable="true" scrollWidth="445" scrollHeight="210"
                                          filteredValue="#{controlVigenciasContratos.filtradoTiposContratos}" emptyMessage="#{msg['lovvacio']}">              
 
-                                <p:ajax event="filter" listener="#{controlVigenciasContratos.eventoFiltrarTC()}"/>
+                               <p:ajax event="filter" listener="#{controlVigenciasContratos.contarRegistrosTC()}"/>
                                 <p:ajax event="rowSelect" listener="#{controlVigenciasContratos.activarAceptar()}" update=":form:aceptarTC"/>
                                 <p:ajax event="rowDblselect" listener="#{controlVigenciasContratos.actualizarTipoContrato()}" update=":form:TiposContratoDialogo" process="@this" />
 

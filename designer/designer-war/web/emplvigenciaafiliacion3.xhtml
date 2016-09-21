@@ -99,7 +99,7 @@
                                 <p:ajax event="filter" listener="#{controlEmplVigenciaAfiliacion3.eventoFiltrar()}" process="@this"/>
                                 <f:event type="preRenderView" listener="#{controlEmplVigenciaAfiliacion3.recordarSeleccion()}"/>
 
-                                <p:column headerText="#{msg['inicial']}" sortBy="#{info.fechainicial}" filterBy="#{info.fechainicial}" filterMatchMode="contains" id="vAFechaInicial" width="60"
+                                <p:column headerText="#{msg['inicial']}" style="text-align: center;" sortBy="#{info.fechainicial}" filterBy="#{info.fechainicial}" filterMatchMode="contains" id="vAFechaInicial" width="70"
                                           filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output">
@@ -120,7 +120,7 @@
                                     </f:facet>
                                 </p:column>
 
-                                <p:column headerText="#{msg['final']}" sortBy="#{info.fechafinal}" filterBy="#{info.fechafinal}" filterMatchMode="contains" id="vAFechaFinal" width="60"
+                                <p:column headerText="#{msg['final']}" style="text-align: center;" sortBy="#{info.fechafinal}" filterBy="#{info.fechafinal}" filterMatchMode="contains" id="vAFechaFinal" width="70"
                                           filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output">
@@ -243,6 +243,9 @@
                                 </p:column>
                             </p:dataTable>
                         </fieldset>
+                        <h:outputText  id="informacionRegistro" value="#{msg['infoRegistro']} #{controlEmplVigenciaAfiliacion3.infoRegistro}" style="position: absolute; left: 20px; top: 465px; font-weight: bold"/>
+                        <p:commandButton id="ACEPTAR" class="cssBotonAceptar" value=" " onclick="PF('confirmarGuardar').show();" update=":form:datosVAVigencia" process="@this" disabled="#{controlEmplVigenciaAfiliacion3.guardado}"/>
+                        <p:commandButton id="ATRAS" class="cssBotonCancelar" value=" " actionListener="#{controlEmplVigenciaAfiliacion3.salir()}" action="nomina" process="@this" />
 
                         <!-- DIALOGO L.O.V ESTATICO TIPO ENTIDAD -->
                         <p:dialog header="#{msg['tipoTE']}" widgetVar="TipoEntidadDialogo" draggable="true" resizable="false" closable="false" id="TipoEntidadDialogo"  
@@ -250,9 +253,11 @@
                             <p:dataTable id="lovTipoEntidad"  var="tipoE" value="#{controlEmplVigenciaAfiliacion3.listTiposEntidades}" rowKey="#{tipoE.secuencia}"
                                          selection="#{controlEmplVigenciaAfiliacion3.tipoEntidadSeleccionado}" selectionMode="single" widgetVar="lovTipoEntidad" scrollable="true" scrollWidth="397" scrollHeight="250"
                                          filteredValue="#{controlEmplVigenciaAfiliacion3.filtrarTiposEntidades}" emptyMessage="#{msg['lovvacio']}">         
-                                <p:ajax event="filter" listener="#{controlEmplVigenciaAfiliacion3.eventoFiltrarTipoEntidad()}" process="@this"/>
+                                
+                               <p:ajax event="filter" listener="#{controlEmplVigenciaAfiliacion3.contarRegistrosTipoEntidad()}" process="@this"/>
                                 <p:ajax event="rowSelect" listener="#{controlEmplVigenciaAfiliacion3.activarAceptar()}" update=":form:aceptarTE"/>
                                 <p:ajax event="rowDblselect" listener="#{controlEmplVigenciaAfiliacion3.actualizarTipoEntidad()}" update=":form:TipoEntidadDialogo" process="@this"  />
+                                
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarTE']}" />  
                                     <p:inputText id="globalFilter" onkeyup="PF('lovTipoEntidad').filter();" value="#{filtrado}" class="cssFiltroLOV"/>  
@@ -286,9 +291,11 @@
                             <p:dataTable id="lovTercero" var="tercero" value="#{controlEmplVigenciaAfiliacion3.listTerceros}" rowKey="#{tercero.secuencia}"
                                          selection="#{controlEmplVigenciaAfiliacion3.terceroSeleccionado}" selectionMode="single" widgetVar="lovTercero" scrollable="true" scrollWidth="720" scrollHeight="250"
                                          filteredValue="#{controlEmplVigenciaAfiliacion3.filtrarTerceros}" emptyMessage="#{msg['lovvacio']}">              
-                                <p:ajax event="filter" listener="#{controlEmplVigenciaAfiliacion3.eventoFiltrarTercero()}" process="@this"/>
+                                
+                               <p:ajax event="filter" listener="#{controlEmplVigenciaAfiliacion3.contarRegistrosTercero()}" process="@this"/>
                                 <p:ajax event="rowSelect" listener="#{controlEmplVigenciaAfiliacion3.activarAceptar()}" update=":form:aceptarT"/>
                                 <p:ajax event="rowDblselect" listener="#{controlEmplVigenciaAfiliacion3.actualizarTerceros()}" update=":form:TerceroDialogo"  process="@this" />
+                                
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarT']}" />  
                                     <p:inputText id="globalFilter" onkeyup="PF('lovTercero').filter();" value="#{filtrado}" class="cssFiltroLOV" />  
@@ -328,9 +335,11 @@
                             <p:dataTable id="lovEstadoAfiliacion" var="estado" value="#{controlEmplVigenciaAfiliacion3.listEstadosAfiliaciones}" rowKey="#{estado.secuencia}"
                                          selection="#{controlEmplVigenciaAfiliacion3.estadoSSeleccionado}" selectionMode="single" widgetVar="lovEstadoAfiliacion" scrollable="true" scrollWidth="380" scrollHeight="250"
                                          filteredValue="#{controlEmplVigenciaAfiliacion3.filtrarEstadosAfiliaciones}" emptyMessage="#{msg['lovvacio']}">              
-                                <p:ajax event="filter" listener="#{controlEmplVigenciaAfiliacion3.eventoFiltrarEstado()}" process="@this"/>
+                               
+                               <p:ajax event="filter" listener="#{controlEmplVigenciaAfiliacion3.contarRegistrosEstado()}" process="@this"/>
                                 <p:ajax event="rowSelect" listener="#{controlEmplVigenciaAfiliacion3.activarAceptar()}" update=":form:aceptarEA"/>
                                 <p:ajax event="rowDblselect" listener="#{controlEmplVigenciaAfiliacion3.actualizarEstadoAfiliacion()}" update=":form:EstadoAfiliacionDialogo" process="@this" />
+                               
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarEA']}" />  
                                     <p:inputText id="globalFilter" onkeyup="PF('lovEstadoAfiliacion').filter();" value="#{filtrado}" class="cssFiltroLOV" />  
@@ -356,9 +365,6 @@
                             </div>
                         </p:dialog>
 
-                        <h:outputText  id="informacionRegistro" value="#{msg['infoRegistro']} #{controlEmplVigenciaAfiliacion3.infoRegistro}" style="position: absolute; left: 20px; top: 465px; font-weight: bold"/>
-                        <p:commandButton id="ACEPTAR" style="position: absolute; left: 675px; top: 495px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=" " onclick="PF('confirmarGuardar').show();" update=":form:datosVAVigencia" process="@this" disabled="#{controlEmplVigenciaAfiliacion3.guardado}"/>
-                        <p:commandButton id="ATRAS" style="position: absolute; left: 765px; top: 495px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=" " actionListener="#{controlEmplVigenciaAfiliacion3.salir()}" action="nomina" process="@this" />
                     </p:panel>
 
                     <p:dialog id="confirmarGuardar" header="#{msg['precaucion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  

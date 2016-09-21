@@ -372,10 +372,8 @@
                                          background-size: 100% 100%; background-repeat: no-repeat; border: none; color: white" value="#{msg['todosC']}" actionListener="#{controlVigenciaSueldo.cambioConsultaGlobal()}"/>
                         <p:tooltip  for="btnMostrarT" value="#{msg['todos']}" />
 
-                        <p:commandButton style="position: absolute; left: 682px; top: 500px; height: 30px; width: 90px; background-image:  url(Imagenes/Iconos/aceptar.png); 
-                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ACEPTAR" value="" onclick="PF('confirmarGuardar').show();" update=":form:datosVSEmpleado" process="@this" disabled="#{controlVigenciaSueldo.guardado}"/>
-                        <p:commandButton style="position: absolute; left: 772px; top: 500px; height: 30px; width: 90px; background-image:  url(Imagenes/Iconos/cancelar.png); 
-                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" value="" actionListener="#{controlVigenciaSueldo.salir()}" action="nomina" process="@this" />
+                        <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" onclick="PF('confirmarGuardar').show();" update=":form:datosVSEmpleado" process="@this" disabled="#{controlVigenciaSueldo.guardado}"/>
+                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlVigenciaSueldo.salir()}" action="nomina" process="@this" />
 
                         <!-- DIALOGO L.O.V ESTATICO MOTIVO CAMBIO SUELDO -->
                         <p:dialog header="#{msg['motivoM']}" widgetVar="MotivoCambioSueldoDialogo" draggable="true" resizable="false" closable="false" id="MotivoCambioSueldoDialogo"  
@@ -384,7 +382,7 @@
                                          selection="#{controlVigenciaSueldo.motivoCambioSueldoSeleccionado}" selectionMode="single" widgetVar="lovMotivoCambioSueldo" scrollable="true" scrollHeight="200" scrollWidth="420"
                                          filteredValue="#{controlVigenciaSueldo.filtrarMotivosCambiosSueldos}" emptyMessage="#{msg['lovvacio']}">              
                                 
-                                <p:ajax event="filter" listener="#{controlVigenciaSueldo.eventoFiltrarMCS()}"/>
+                               <p:ajax event="filter" listener="#{controlVigenciaSueldo.contarRegistrosMotiCS()}"/>
                                 <p:ajax event="rowSelect" listener="#{controlVigenciaSueldo.activarAceptar()}" update=":form:aceptarMCS"/>
                                 <p:ajax event="rowDblselect" listener="#{controlVigenciaSueldo.actualizarMotivoCambioSueldo()}" process="@this" update=":form:lovMotivoCambioSueldo" oncomplete="PF('MotivoCambioSueldoDialogo').hide(), PF('lovMotivoCambioSueldo').unselectAllRows()"/>
 
@@ -424,7 +422,7 @@
                                          selection="#{controlVigenciaSueldo.tipoSueldoSeleccionado}" selectionMode="single" widgetVar="lovTipoSueldo" scrollable="true" scrollWidth="425" scrollHeight="200"
                                          filteredValue="#{controlVigenciaSueldo.filtrarTiposSueldos}" emptyMessage="#{msg['lovvacio']}">           
                                 
-                                <p:ajax event="filter" listener="#{controlVigenciaSueldo.eventoFiltrarTS()}"/>
+                               <p:ajax event="filter" listener="#{controlVigenciaSueldo.contarRegistrosTipoS()}"/>
                                 <p:ajax event="rowSelect" listener="#{controlVigenciaSueldo.activarAceptar()}" update=":form:aceptarTS"/>
                                 <p:ajax event="rowDblselect" listener="#{controlVigenciaSueldo.actualizarTipoSueldo()}" process="@this" oncomplete="PF('TipoSueldoDialogo').hide()"/>
 
@@ -464,7 +462,7 @@
                                          selection="#{controlVigenciaSueldo.tipoEntidadSeleccionado}" selectionMode="single" widgetVar="lovTipoEntidad" scrollable="true" scrollWidth="430" scrollHeight="200"
                                          filteredValue="#{controlVigenciaSueldo.filtrarTiposEntidades}" emptyMessage="#{msg['lovvacio']}">              
                                 
-                                <p:ajax event="filter" listener="#{controlVigenciaSueldo.eventoFiltrarTE()}"/>
+                               <p:ajax event="filter" listener="#{controlVigenciaSueldo.contarRegistrosTipoE()}"/>
                                 <p:ajax event="rowSelect" listener="#{controlVigenciaSueldo.activarAceptar()}" update=":form:aceptarTE"/>
                                 <p:ajax event="rowDblselect" listener="#{controlVigenciaSueldo.actualizarTipoEntidad()}" process="@this" oncomplete="PF('TipoEntidadDialogo').hide()"/>
 
@@ -505,7 +503,7 @@
                                          selection="#{controlVigenciaSueldo.terceroSeleccionado}" selectionMode="single" widgetVar="lovTercero" scrollable="true" scrollWidth="630" scrollHeight="250"
                                          filteredValue="#{controlVigenciaSueldo.filtrarTerceros}" emptyMessage="#{msg['lovvacio']}">              
                                 
-                                <p:ajax event="filter" listener="#{controlVigenciaSueldo.eventoFiltrarT()}"/>
+                               <p:ajax event="filter" listener="#{controlVigenciaSueldo.contarRegistrosTerceros()}"/>
                                 <p:ajax event="rowSelect" listener="#{controlVigenciaSueldo.activarAceptar()}" update=":form:aceptarT"/>
                                 <p:ajax event="rowDblselect" listener="#{controlVigenciaSueldo.actualizarTerceros()}" process="@this" oncomplete="PF('TerceroDialogo').hide()"/>
 

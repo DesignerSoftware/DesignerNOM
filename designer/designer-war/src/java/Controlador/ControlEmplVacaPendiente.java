@@ -143,8 +143,6 @@ public class ControlEmplVacaPendiente implements Serializable {
       }
       getListVacaDisfrutadas();
       getListVacaPendientes();
-      contarRegistrosD();
-      contarRegistrosP();
       if (listVacaPendientes != null) {
          if (!listVacaPendientes.isEmpty()) {
             vacaPendienteSeleccionada = listVacaPendientes.get(0);
@@ -1020,8 +1018,7 @@ public class ControlEmplVacaPendiente implements Serializable {
          tipoListaPendientes = 1;
       }
       vacaPendienteSeleccionada = null;
-      modificarInfoRegistroP(filtrarListVacaPendientes.size());
-      RequestContext.getCurrentInstance().update("form:informacionRegistroP");
+      contarRegistrosP();
    }
 
    public void eventoFiltrarD() {
@@ -1029,32 +1026,15 @@ public class ControlEmplVacaPendiente implements Serializable {
          tipoListaDisfrutadas = 1;
       }
       vacaDisfrutadaSeleccionada = null;
-      modificarInfoRegistroD(filtrarListVacaDisfrutadas.size());
-      RequestContext.getCurrentInstance().update("form:informacionRegistroD");
+      contarRegistrosD();
    }
 
    public void contarRegistrosP() {
-      if (listVacaPendientes != null) {
-         modificarInfoRegistroP(listVacaPendientes.size());
-      } else {
-         modificarInfoRegistroP(0);
-      }
+      RequestContext.getCurrentInstance().update("form:informacionRegistroP");
    }
 
    public void contarRegistrosD() {
-      if (listVacaDisfrutadas != null) {
-         modificarInfoRegistroD(listVacaDisfrutadas.size());
-      } else {
-         modificarInfoRegistroD(0);
-      }
-   }
-
-   private void modificarInfoRegistroP(int valor) {
-      infoRegistroP = String.valueOf(valor);
-   }
-
-   private void modificarInfoRegistroD(int valor) {
-      infoRegistroD = String.valueOf(valor);
+      RequestContext.getCurrentInstance().update("form:informacionRegistroD");
    }
 
    public void recargarListas() {

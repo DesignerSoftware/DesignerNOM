@@ -140,10 +140,8 @@
                         <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlVigenciasReformasLaborales.infoRegistro}" style="position: relative; left: 10px; top: 7px; font-weight: bold"/>
                         </fieldset> 
                         
-                        <p:commandButton style="position: absolute; left: 680px; top: 500px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); 
-                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ACEPTAR" value="" onclick="PF('confirmarGuardar').show();" process="@this" disabled="#{controlVigenciasReformasLaborales.guardado}"/>
-                        <p:commandButton style="position: absolute; left: 770px; top: 500px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); 
-                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" value="" actionListener="#{controlVigenciasReformasLaborales.salir()}" action="nomina" process="@this" />
+                       <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" onclick="PF('confirmarGuardar').show();" process="@this" disabled="#{controlVigenciasReformasLaborales.guardado}"/>
+                       <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlVigenciasReformasLaborales.salir()}" action="nomina" process="@this" />
 
                         <!-- DIALOGO L.O.V ESTATICO REFORMAS LABORALES -->
                         <p:dialog header="#{msg['nombreRL']}" widgetVar="ReformasLaboralesDialogo" draggable="true" resizable="false" closable="false" id="ReformasLaboralesDialogo"  
@@ -152,7 +150,7 @@
                                          selection="#{controlVigenciasReformasLaborales.reformaLaboralSelecionada}" selectionMode="single" widgetVar="lovReformasLaborales" scrollable="true" scrollWidth="445" scrollHeight="170"
                                          filteredValue="#{controlVigenciasReformasLaborales.filtradoReformasLaborales}" emptyMessage="#{msg['lovvacio']}">              
                                 
-                                <p:ajax event="filter" listener="#{controlVigenciasReformasLaborales.eventoFiltrarRL()}"/>
+                               <p:ajax event="filter" listener="#{controlVigenciasReformasLaborales.contarRegistrosRL()}"/>
                                 <p:ajax event="rowSelect" listener="#{controlVigenciasReformasLaborales.activarAceptar()}" update=":form:aceptarRL"/>
                                 <p:ajax event="rowDblselect" listener="#{controlVigenciasReformasLaborales.actualizarReformaLaboral()}" update=":form:lovReformasLaborales" process="@this" />
 

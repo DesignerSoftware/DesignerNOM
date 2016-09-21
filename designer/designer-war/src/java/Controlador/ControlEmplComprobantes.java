@@ -1,6 +1,5 @@
 package Controlador;
 
-
 import Entidades.CentrosCostos;
 import Entidades.Comprobantes;
 import Entidades.CortesProcesos;
@@ -139,7 +138,7 @@ public class ControlEmplComprobantes implements Serializable {
    //FORMATO FECHAS
    private SimpleDateFormat formatoFecha;
    //
-   private String infoRegistroProceso, infoRegistroTercero, infoRegistroCuenta, infoRegistroCentroCosto;
+   private String infoRegistroProceso, infoRegistroTercero, infoRegistroCuentaD, infoRegistroCuentaC, infoRegistroCentroCostoC, infoRegistroCentroCostoD;
    //
    private Date auxFechaEntregadoComprobante;
 
@@ -203,8 +202,10 @@ public class ControlEmplComprobantes implements Serializable {
       infoRegistroTEmpleador = "0";
       infoRegistroProceso = "0";
       infoRegistroTercero = "0";
-      infoRegistroCuenta = "0";
-      infoRegistroCentroCosto = "0";
+      infoRegistroCuentaC = "0";
+      infoRegistroCuentaD = "0";
+      infoRegistroCentroCostoD = "0";
+      infoRegistroCentroCostoC = "0";
    }
 
    @PostConstruct
@@ -591,7 +592,7 @@ public class ControlEmplComprobantes implements Serializable {
          } else {
             permitirIndex = false;
             RequestContext.getCurrentInstance().update("formularioDialogos:ProcesosDialogo");
-            contarRegistrosLovProc(0);
+            contarRegistrosLovProc();
             RequestContext.getCurrentInstance().execute("PF('ProcesosDialogo').show()");
             tipoActualizacion = 0;
          }
@@ -655,7 +656,7 @@ public class ControlEmplComprobantes implements Serializable {
 //                getListaProcesos();
          } else {
             RequestContext.getCurrentInstance().update("formularioDialogos:ProcesosDialogo");
-            contarRegistrosLovProc(0);
+            contarRegistrosLovProc();
             RequestContext.getCurrentInstance().execute("PF('ProcesosDialogo').show()");
             tipoActualizacion = tipoNuevo;
             if (tipoNuevo == 1) {
@@ -696,7 +697,7 @@ public class ControlEmplComprobantes implements Serializable {
          } else {
             permitirIndex = false;
             RequestContext.getCurrentInstance().update("formularioDialogos:TercerosDialogo");
-            contarRegistrosLovTercero(0);
+            contarRegistrosLovTercero();
             RequestContext.getCurrentInstance().execute("PF('TercerosDialogo').show()");
          }
       }
@@ -724,7 +725,7 @@ public class ControlEmplComprobantes implements Serializable {
          } else {
             permitirIndex = false;
             RequestContext.getCurrentInstance().update("formularioDialogos:CuentaCreditoDialogo");
-            contarRegistrosLovCuentas(0);
+            contarRegistrosLovCuentasC();
             RequestContext.getCurrentInstance().execute("PF('CuentaCreditoDialogo').show()");
          }
       }
@@ -752,7 +753,7 @@ public class ControlEmplComprobantes implements Serializable {
          } else {
             permitirIndex = false;
             RequestContext.getCurrentInstance().update("formularioDialogos:CuentaDebitoDialogo");
-            contarRegistrosLovCuentas(0);
+            contarRegistrosLovCuentasD();
             RequestContext.getCurrentInstance().execute("PF('CuentaDebitoDialogo').show()");
          }
       }
@@ -780,7 +781,7 @@ public class ControlEmplComprobantes implements Serializable {
          } else {
             permitirIndex = false;
             RequestContext.getCurrentInstance().update("formularioDialogos:CentroCostoDebitoDialogo");
-            contarRegistrosLovCC(0);
+            contarRegistrosLovCCD();
             RequestContext.getCurrentInstance().execute("PF('CentroCostoDebitoDialogo').show()");
          }
       }
@@ -808,7 +809,7 @@ public class ControlEmplComprobantes implements Serializable {
          } else {
             permitirIndex = false;
             RequestContext.getCurrentInstance().update("formularioDialogos:CentroCostoCreditoDialogo");
-            contarRegistrosLovCC(0);
+            contarRegistrosLovCCC();
             RequestContext.getCurrentInstance().execute("PF('CentroCostoCreditoDialogo').show()");
          }
       }
@@ -841,58 +842,51 @@ public class ControlEmplComprobantes implements Serializable {
 
    public void llamarLOVProcesos(CortesProcesos corteProceso) {
       cortesProcesosSeleccionado = corteProceso;
-      RequestContext context = RequestContext.getCurrentInstance();
       tipoActualizacion = 0;
       RequestContext.getCurrentInstance().update("formularioDialogos:ProcesosDialogo");
-      contarRegistrosLovProc(0);
+      contarRegistrosLovProc();
       RequestContext.getCurrentInstance().execute("PF('ProcesosDialogo').show()");
    }
 
    public void llamarLOVProcesosNuevo_Duplicado(int tipoN) {
-      RequestContext context = RequestContext.getCurrentInstance();
       if (tipoN == 1) {
          tipoActualizacion = 1;
       } else {
          tipoActualizacion = 2;
       }
       RequestContext.getCurrentInstance().update("formularioDialogos:ProcesosDialogo");
-      contarRegistrosLovProc(0);
+      contarRegistrosLovProc();
       RequestContext.getCurrentInstance().execute("PF('ProcesosDialogo').show()");
    }
 
    //LOV TERCEROS
    public void llamarLOVTerceros() {
-      RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("formularioDialogos:TercerosDialogo");
-      contarRegistrosLovTercero(0);
+      contarRegistrosLovTercero();
       RequestContext.getCurrentInstance().execute("PF('TercerosDialogo').show()");
    }
 
    public void llamarLOVCuentaDebito() {
-      RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("form:CuentaDebitoDialogo");
-      contarRegistrosLovCuentas(0);
+      contarRegistrosLovCuentasD();
       RequestContext.getCurrentInstance().execute("PF('CuentaDebitoDialogo').show()");
    }
 
    public void llamarLOVCuentaCredito() {
-      RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("form:CuentaCreditoDialogo");
-      contarRegistrosLovCuentas(0);
+      contarRegistrosLovCuentasC();
       RequestContext.getCurrentInstance().execute("PF('CuentaCreditoDialogo').show()");
    }
 
    public void llamarLOVCentroCostoDebito() {
-      RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("form:CentroCostoDebitoDialogo");
-      contarRegistrosLovCC(0);
+      contarRegistrosLovCCD();
       RequestContext.getCurrentInstance().execute("PF('CentroCostoDebitoDialogo').show()");
    }
 
    public void llamarLOVCentroCostoCredito() {
-      RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("form:CentroCostoCreditoDialogo");
-      contarRegistrosLovCC(0);
+      contarRegistrosLovCCC();
       RequestContext.getCurrentInstance().execute("PF('CentroCostoCreditoDialogo').show()");
    }
 
@@ -2071,107 +2065,55 @@ public class ControlEmplComprobantes implements Serializable {
          empleadorTablaSeleccionado = listaSolucionesNodosEmpleador.get(index);
          parcialesSolucionNodos = empleadorTablaSeleccionado.getParciales();
       }
-      RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("formularioDialogos:parcialesConcepto");
       RequestContext.getCurrentInstance().execute("PF('parcialesConcepto').show();");
    }
 
    public void verDetallesFormula() {
       listaDetallesFormulas = null;
-      RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("formularioDialogos:detallesFormulas");
       RequestContext.getCurrentInstance().execute("PF('detallesFormulas').show();");
    }
 
    public void contarRegistrosComp() {
-      if (tipoListaComprobantes == 1) {
-         infoRegistroComp = String.valueOf(filtradolistaComprobantes.size());
-      } else if (listaComprobantes != null) {
-         infoRegistroComp = String.valueOf(listaComprobantes.size());
-      } else {
-         infoRegistroComp = String.valueOf(0);
-      }
       RequestContext.getCurrentInstance().update("form:informacionRegistroCompr");
    }
 
    public void contarRegistrosCP() {
-      if (tipoListaCortesProcesos == 1) {
-         infoRegistroCP = String.valueOf(filtradolistaCortesProcesos.size());
-      } else if (listaCortesProcesos != null) {
-         infoRegistroCP = String.valueOf(listaCortesProcesos.size());
-      } else {
-         infoRegistroCP = String.valueOf(0);
-      }
       RequestContext.getCurrentInstance().update("form:informacionRegistroProc");
    }
 
    public void contarRegistrosTE() {
-      if (tipoListaSNEmpleado == 1) {
-         infoRegistroTEmpleado = String.valueOf(filtradolistaSolucionesNodosEmpleado.size());
-      } else if (listaSolucionesNodosEmpleado != null) {
-         infoRegistroTEmpleado = String.valueOf(listaSolucionesNodosEmpleado.size());
-      } else {
-         infoRegistroTEmpleado = String.valueOf(0);
-      }
       RequestContext.getCurrentInstance().update("form:informacionRegistroE");
    }
 
    public void contarRegistrosTEr() {
-      if (tipoListaSNEmpleador == 1) {
-         infoRegistroTEmpleador = String.valueOf(filtradolistaSolucionesNodosEmpleador.size());
-      } else if (listaSolucionesNodosEmpleador != null) {
-         infoRegistroTEmpleador = String.valueOf(listaSolucionesNodosEmpleador.size());
-      } else {
-         infoRegistroTEmpleador = String.valueOf(0);
-      }
       RequestContext.getCurrentInstance().update("form:informacionRegistroEr");
    }
 
    //Conteo Listas de Valor :
-   public void contarRegistrosLovProc(int tipoListaLov) {
-      if (tipoListaLov == 1) {
-         infoRegistroProceso = String.valueOf(filtradoProcesos.size());
-      } else if (lovProcesos != null) {
-         infoRegistroProceso = String.valueOf(lovProcesos.size());
-      } else {
-         infoRegistroProceso = String.valueOf(0);
-      }
+   public void contarRegistrosLovProc() {
       RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroProceso");
    }
 
-   public void contarRegistrosLovTercero(int tipoListaLov) {
-      if (tipoListaLov == 1) {
-         infoRegistroTercero = String.valueOf(filtradolistaTerceros.size());
-      } else if (lovTerceros != null) {
-         infoRegistroTercero = String.valueOf(lovTerceros.size());
-      } else {
-         infoRegistroTercero = String.valueOf(0);
-      }
+   public void contarRegistrosLovTercero() {
       RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroTercero");
    }
 
-   public void contarRegistrosLovCuentas(int tipoListaLov) {
-      if (tipoListaLov == 1) {
-         infoRegistroCuenta = String.valueOf(filtrarLovCuentas.size());
-      } else if (lovCuentas != null) {
-         infoRegistroCuenta = String.valueOf(lovCuentas.size());
-      } else {
-         infoRegistroCuenta = String.valueOf(0);
-      }
+   public void contarRegistrosLovCuentasD() {
       RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroCuentaDebito");
+   }
+
+   public void contarRegistrosLovCuentasC() {
       RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroCuentaCredito");
    }
 
-   public void contarRegistrosLovCC(int tipoListaLov) {
-      if (tipoListaLov == 1) {
-         infoRegistroCentroCosto = String.valueOf(filtrarLovCentrosCostos.size());
-      } else if (lovCentrosCostos != null) {
-         infoRegistroCentroCosto = String.valueOf(lovCentrosCostos.size());
-      } else {
-         infoRegistroCentroCosto = String.valueOf(0);
-      }
-      RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroCentroCostoDebito");
+   public void contarRegistrosLovCCC() {
       RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroCentroCostoCredito");
+   }
+
+   public void contarRegistrosLovCCD() {
+      RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroCentroCostoDebito");
    }
 
 //    public void contarRegistrosLovCredito(int tipoListaLov) {
@@ -2539,36 +2481,12 @@ public class ControlEmplComprobantes implements Serializable {
       this.centroCostoSeleccionado = centroCostoSeleccionado;
    }
 
-   public String getInfoRegistroProceso() {
-      return infoRegistroProceso;
-   }
-
    public void setInfoRegistroProceso(String infoRegistroProceso) {
       this.infoRegistroProceso = infoRegistroProceso;
    }
 
-   public String getInfoRegistroTercero() {
-      return infoRegistroTercero;
-   }
-
    public void setInfoRegistroTercero(String infoRegistroTercero) {
       this.infoRegistroTercero = infoRegistroTercero;
-   }
-
-   public String getInfoRegistroCuenta() {
-      return infoRegistroCuenta;
-   }
-
-   public void setInfoRegistroCuenta(String infoRegistroCuentaDebito) {
-      this.infoRegistroCuenta = infoRegistroCuentaDebito;
-   }
-
-   public String getInfoRegistroCentroCosto() {
-      return infoRegistroCentroCosto;
-   }
-
-   public void setInfoRegistroCentroCosto(String infoRegistroCentroCostoDebito) {
-      this.infoRegistroCentroCosto = infoRegistroCentroCostoDebito;
    }
 
    public SolucionesNodos getEmpleadoTablaSeleccionado() {
@@ -2587,36 +2505,106 @@ public class ControlEmplComprobantes implements Serializable {
       this.empleadorTablaSeleccionado = empleadorTablaSeleccionado;
    }
 
-   public String getInfoRegistroComp() {
-      return infoRegistroComp;
-   }
-
    public void setInfoRegistroComp(String infoRegistroComp) {
       this.infoRegistroComp = infoRegistroComp;
-   }
-
-   public String getInfoRegistroCP() {
-      return infoRegistroCP;
    }
 
    public void setInfoRegistroCP(String infoRegistroCP) {
       this.infoRegistroCP = infoRegistroCP;
    }
 
-   public String getInfoRegistroTEmpleado() {
-      return infoRegistroTEmpleado;
-   }
-
    public void setInfoRegistroTEmpleado(String infoRegistroTEmpleado) {
       this.infoRegistroTEmpleado = infoRegistroTEmpleado;
    }
 
+   public void setInfoRegistroTEmpleador(String infoRegistroTEmpleador) {
+      this.infoRegistroTEmpleador = infoRegistroTEmpleador;
+   }
+
+   public void setInfoRegistroCuentaD(String infoRegistroCuentaD) {
+      this.infoRegistroCuentaD = infoRegistroCuentaD;
+   }
+
+   public void setInfoRegistroCuentaC(String infoRegistroCuentaC) {
+      this.infoRegistroCuentaC = infoRegistroCuentaC;
+   }
+
+   public void setInfoRegistroCentroCostoC(String infoRegistroCentroCostoC) {
+      this.infoRegistroCentroCostoC = infoRegistroCentroCostoC;
+   }
+
+   public void setInfoRegistroCentroCostoD(String infoRegistroCentroCostoD) {
+      this.infoRegistroCentroCostoD = infoRegistroCentroCostoD;
+   }
+
+   public String getInfoRegistroComp() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosComprobantes");
+      infoRegistroComp = String.valueOf(tabla.getRowCount());
+      return infoRegistroComp;
+   }
+
+   public String getInfoRegistroCP() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosCortesProcesos");
+      infoRegistroCP = String.valueOf(tabla.getRowCount());
+      return infoRegistroCP;
+   }
+
+   public String getInfoRegistroTEmpleado() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:tablaEmpleado");
+      infoRegistroTEmpleado = String.valueOf(tabla.getRowCount());
+      return infoRegistroTEmpleado;
+   }
+
    public String getInfoRegistroTEmpleador() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:tablaEmpleador");
+      infoRegistroTEmpleador = String.valueOf(tabla.getRowCount());
       return infoRegistroTEmpleador;
    }
 
-   public void setInfoRegistroTEmpleador(String infoRegistroTEmpleador) {
-      this.infoRegistroTEmpleador = infoRegistroTEmpleador;
+   public String getInfoRegistroProceso() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:lovProcesos");
+      infoRegistroProceso = String.valueOf(tabla.getRowCount());
+      return infoRegistroProceso;
+   }
+
+   public String getInfoRegistroTercero() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:lovTerceros");
+      infoRegistroTercero = String.valueOf(tabla.getRowCount());
+      return infoRegistroTercero;
+   }
+
+   public String getInfoRegistroCuentaD() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:lovCuentaDebito");
+      infoRegistroCuentaD = String.valueOf(tabla.getRowCount());
+      return infoRegistroCuentaD;
+   }
+
+   public String getInfoRegistroCuentaC() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:lovCuentaCredito");
+      infoRegistroCuentaC = String.valueOf(tabla.getRowCount());
+      return infoRegistroCuentaC;
+   }
+
+   public String getInfoRegistroCentroCostoC() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:lovCentroCostoCredito");
+      infoRegistroCentroCostoC = String.valueOf(tabla.getRowCount());
+      return infoRegistroCentroCostoC;
+   }
+
+   public String getInfoRegistroCentroCostoD() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:lovCentroCostoDebito");
+      infoRegistroCentroCostoD = String.valueOf(tabla.getRowCount());
+      return infoRegistroCentroCostoD;
    }
 
 }

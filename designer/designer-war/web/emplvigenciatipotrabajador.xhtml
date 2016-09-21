@@ -274,8 +274,8 @@
                             <p:commandButton value="#{msg['limpiar']}" id="LimpiarRetirado" style="position: absolute; left: 20px; top: 160px; height: 30px; width: 120px; background-image: url(Imagenes/Iconos/boton.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; color: white;" actionListener="#{controlVigenciaTipoTrabajador.limpiarRetiro()}" update="panelRetiradosInput" process="@this" icon="ui-icon-trash"/>
                         </p:panel>
 
-                        <p:commandButton id="ACEPTAR" style="position: absolute; left: 675px; top: 503px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=" " onclick="PF('confirmarGuardar').show();" process="@this" disabled="#{controlVigenciaTipoTrabajador.cambiosPagina}"/>
-                        <p:commandButton id="ATRAS" style="position: absolute; left: 765px; top: 503px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=" " actionListener="#{controlVigenciaTipoTrabajador.salir()}" action="nomina" process="@this" />
+                        <p:commandButton id="ACEPTAR" class="cssBotonAceptar" value=" " onclick="PF('confirmarGuardar').show();" process="@this" disabled="#{controlVigenciaTipoTrabajador.cambiosPagina}"/>
+                        <p:commandButton id="ATRAS" class="cssBotonCancelar" value=" " actionListener="#{controlVigenciaTipoTrabajador.salir()}" action="nomina" process="@this" />
 
                     </p:panel>
 
@@ -370,8 +370,7 @@
                                      selection="#{controlVigenciaTipoTrabajador.tipoTrabajadorSeleccionado}" scrollWidth="588" selectionMode="single" widgetVar="lovTipoTrabajador" scrollable="true" scrollHeight="250"
                                      filteredValue="#{controlVigenciaTipoTrabajador.filtradoTiposTrabajadores}" emptyMessage="#{msg['lovvacio']}">
 
-                            <p:ajax event="filter" listener="#{controlVigenciaTipoTrabajador.eventoFiltrarTipoTrabajador()}"/>
-
+                           <p:ajax event="filter" listener="#{controlVigenciaTipoTrabajador.contarRegistrosTipoTrabajador()}"/>
                             <p:ajax event="rowSelect" listener="#{controlVigenciaTipoTrabajador.activarAceptar()}" update=":formLovs:aceptarTT"/>
                             <p:ajax event="rowDblselect" listener="#{controlVigenciaTipoTrabajador.actualizarTipoTrabajador()}"  update=":formLovs:TipoTrabajadorDialogo" immediate="true" process="@this"  />
                             <f:facet name="header">  
@@ -416,7 +415,7 @@
                                      selection="#{controlVigenciaTipoTrabajador.motivoRetiroSeleccionado}" scrollWidth="388" selectionMode="single" widgetVar="lovMotivosRetiros" scrollable="true" scrollHeight="250"
                                      emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlVigenciaTipoTrabajador.filtradoMotivosRetiros}">
 
-                            <p:ajax event="filter" listener="#{controlVigenciaTipoTrabajador.eventoFiltrarMotivosRetiros()}"/>
+                           <p:ajax event="filter" listener="#{controlVigenciaTipoTrabajador.contarRegistrosMotivosRetiros()}"/>
                             <p:ajax event="rowDblselect" listener="#{controlVigenciaTipoTrabajador.actualizarMotivoRetiro()}" process="@this" />
                             <p:ajax event="rowSelect" listener="#{controlVigenciaTipoTrabajador.activarAceptar()}" update=":formLovs:aceptarMR"/>
                             <f:facet name="header">  
@@ -454,7 +453,7 @@
                                      selection="#{controlVigenciaTipoTrabajador.clasesPensionesSeleccionada}" selectionMode="single" widgetVar="lovClasePension" scrollable="true" scrollWidth="445" scrollHeight="250"
                                      filteredValue="#{controlVigenciaTipoTrabajador.clasesPensionesFiltrado}" emptyMessage="#{msg['lovvacio']}">              
 
-                            <p:ajax event="filter" listener="#{controlVigenciaTipoTrabajador.eventoFiltrarClasePension()}"/>
+                           <p:ajax event="filter" listener="#{controlVigenciaTipoTrabajador.contarRegistrosClasePension()}"/>
                             <p:ajax event="rowSelect" listener="#{controlVigenciaTipoTrabajador.activarAceptar()}" update=":formLovs:aceptarCP"/>
                             <p:ajax event="rowDblselect" listener="#{controlVigenciaTipoTrabajador.actualizarClasePension()}" update=":formLovs:clasePensionDialogo" process="@this" />
                             <f:facet name="header">  
@@ -491,7 +490,7 @@
                                      selection="#{controlVigenciaTipoTrabajador.tiposPensionadosSeleccionada}" selectionMode="single" widgetVar="lovTipoPensionado" scrollable="true" scrollWidth="358" scrollHeight="250"
                                      filteredValue="#{controlVigenciaTipoTrabajador.tiposPensionadosFiltrado}" emptyMessage="#{msg['lovvacio']}">              
 
-                            <p:ajax event="filter" listener="#{controlVigenciaTipoTrabajador.eventoFiltrarTipoPension()}"/>
+                           <p:ajax event="filter" listener="#{controlVigenciaTipoTrabajador.contarRegistrosTipoPension()}"/>
                             <p:ajax event="rowSelect" listener="#{controlVigenciaTipoTrabajador.activarAceptar()}" update=":formLovs:aceptarTP"/>
                             <p:ajax event="rowDblselect" listener="#{controlVigenciaTipoTrabajador.actualizarTipoPensionado()}" update=":formLovs:tipoPensionadoDialogo" process="@this" />
                             <f:facet name="header">  
@@ -528,7 +527,7 @@
                                      selection="#{controlVigenciaTipoTrabajador.pensionadoSeleccionado}" selectionMode="single" widgetVar="lovCausaBientes" scrollable="true" scrollWidth="438" scrollHeight="250"
                                      filteredValue="#{controlVigenciaTipoTrabajador.tiposPensionadosFiltrado}" emptyMessage="#{msg['lovvacio']}">              
 
-                            <p:ajax event="filter" listener="#{controlVigenciaTipoTrabajador.eventoFiltrarEmpleado()}"/>
+                           <p:ajax event="filter" listener="#{controlVigenciaTipoTrabajador.contarRegistrosEmpleado()}"/>
                             <p:ajax event="rowSelect" listener="#{controlVigenciaTipoTrabajador.activarAceptar()}" update=":formLovs:aceptarCB"/>
                             <p:ajax event="rowDblselect" listener="#{controlVigenciaTipoTrabajador.actualizarCausaBiente()}" update=":formLovs:causaBientesDialogo" process="@this" />
                             <f:facet name="header">  
@@ -565,9 +564,10 @@
                                      selection="#{controlVigenciaTipoTrabajador.personaSeleccionada}" selectionMode="single" widgetVar="lovTutor" scrollable="true" scrollWidth="445" scrollHeight="250"
                                      filteredValue="#{controlVigenciaTipoTrabajador.personasFiltrado}" emptyMessage="#{msg['lovvacio']}">              
 
-                            <p:ajax event="filter" listener="#{controlVigenciaTipoTrabajador.eventoFiltrarPersona()}"/>
+                           <p:ajax event="filter" listener="#{controlVigenciaTipoTrabajador.contarRegistrosPersona()}"/>
                             <p:ajax event="rowSelect" listener="#{controlVigenciaTipoTrabajador.activarAceptar()}" update=":formLovs:aceptarT"/>
                             <p:ajax event="rowDblselect" listener="#{controlVigenciaTipoTrabajador.actualizarTutor()}" update=":formLovs:tutorDialogo"  process="@this" />
+                            
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarTU']}" />  
                                 <p:inputText id="globalFilter" onkeyup="PF('lovTutor').filter();" value="#{filtrado}" class="cssFiltroLOV" />  

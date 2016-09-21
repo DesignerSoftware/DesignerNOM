@@ -639,7 +639,6 @@
                                     </p:inputText>
                                 </div>
 
-
                             </p:scrollPanel>
                             <!--</div>-->
                         </fieldset>
@@ -930,7 +929,7 @@
                                      selection="#{controlEmplComprobantes.procesoSelecionado}" selectionMode="single" widgetVar="lovProcesos" scrollable="true" scrollWidth="416" scrollHeight="225"
                                      filteredValue="#{controlEmplComprobantes.filtradoProcesos}" emptyMessage="#{msg['lovvacio']}">              
 
-                            <p:ajax event="filter" listener="#{controlEmplComprobantes.contarRegistrosLovProc(1)}"/>
+                           <p:ajax event="filter" listener="#{controlEmplComprobantes.contarRegistrosLovProc()}"/>
                             <p:ajax event="rowSelect" listener="#{controlEmplComprobantes.activarAceptar()}" update=":formularioDialogos:aceptarP"/>
                             <p:ajax event="rowDblselect" listener="#{controlEmplComprobantes.actualizarProceso()}" process="@this" />
                             <f:facet name="header">  
@@ -970,7 +969,7 @@
                                      selection="#{controlEmplComprobantes.terceroSelecionado}" selectionMode="single" widgetVar="lovTerceros" scrollable="true" scrollWidth="416" scrollHeight="225"
                                      filteredValue="#{controlEmplComprobantes.filtradolistaTerceros}" emptyMessage="#{msg['lovvacio']}">              
 
-                            <p:ajax event="filter" listener="#{controlEmplComprobantes.contarRegistrosLovTercero(1)}"/>
+                           <p:ajax event="filter" listener="#{controlEmplComprobantes.contarRegistrosLovTercero()}"/>
                             <p:ajax event="rowSelect" listener="#{controlEmplComprobantes.activarAceptar()}" update=":formularioDialogos:aceptarT"/>
                             <p:ajax event="rowDblselect" listener="#{controlEmplComprobantes.actualizarTercero()}" process="@this" />
                             <f:facet name="header">  
@@ -1009,7 +1008,7 @@
                                      selection="#{controlEmplComprobantes.cuentaSeleccionada}" selectionMode="single" widgetVar="lovCuentaDebito" scrollable="true" scrollWidth="416" scrollHeight="225"
                                      filteredValue="#{controlEmplComprobantes.filtrarLovCuentas}" emptyMessage="#{msg['lovvacio']}">              
 
-                            <p:ajax event="filter" listener="#{controlEmplComprobantes.contarRegistrosLovCuentas(1)}"/>
+                           <p:ajax event="filter" listener="#{controlEmplComprobantes.contarRegistrosLovCuentasD()}"/>
                             <p:ajax event="rowSelect" listener="#{controlEmplComprobantes.activarAceptar()}" update=":formularioDialogos:aceptarCD"/>
                             <p:ajax event="rowDblselect" listener="#{controlEmplComprobantes.actualizarCuentaDebito()}" process="@this" />
                             <f:facet name="header">  
@@ -1050,7 +1049,7 @@
                                      selection="#{controlEmplComprobantes.cuentaSeleccionada}" selectionMode="single" widgetVar="lovCuentaCredito" scrollable="true" scrollWidth="416" scrollHeight="225"
                                      filteredValue="#{controlEmplComprobantes.filtrarLovCuentas}" emptyMessage="#{msg['lovvacio']}">              
 
-                            <p:ajax event="filter" listener="#{controlEmplComprobantes.contarRegistrosLovCuentas(1) }"/>
+                           <p:ajax event="filter" listener="#{controlEmplComprobantes.contarRegistrosLovCuentasC()}"/>
                             <p:ajax event="rowSelect" listener="#{controlEmplComprobantes.activarAceptar()}" update=":formularioDialogos:aceptarCC"/>
                             <p:ajax event="rowDblselect" listener="#{controlEmplComprobantes.actualizarCuentaCredito()}" process="@this" />
                             <f:facet name="header">  
@@ -1089,7 +1088,7 @@
                                      selection="#{controlEmplComprobantes.centroCostoSeleccionado}" selectionMode="single" widgetVar="lovCentroCostoDebito" scrollable="true" scrollWidth="416" scrollHeight="225"
                                      filteredValue="#{controlEmplComprobantes.filtrarLovCentrosCostos}" emptyMessage="#{msg['lovvacio']}">              
 
-                            <p:ajax event="filter" listener="#{controlEmplComprobantes.contarRegistrosLovCC(1)}"/>
+                           <p:ajax event="filter" listener="#{controlEmplComprobantes.contarRegistrosLovCCD()}"/>
                             <p:ajax event="rowSelect" listener="#{controlEmplComprobantes.activarAceptar()}" update=":formularioDialogos:aceptarCCD"/>
                             <p:ajax event="rowDblselect" listener="#{controlEmplComprobantes.actualizarCentroCostoDebito()}" process="@this"/>
                             <f:facet name="header">  
@@ -1128,7 +1127,7 @@
                                      selection="#{controlEmplComprobantes.centroCostoSeleccionado}" selectionMode="single" widgetVar="lovCentroCostoCredito" scrollable="true" scrollWidth="416" scrollHeight="225"
                                      filteredValue="#{controlEmplComprobantes.filtrarLovCentrosCostos}" emptyMessage="#{msg['lovvacio']}">              
 
-                            <p:ajax event="filter" listener="#{controlEmplComprobantes.contarRegistrosLovCC(1)}"/>
+                           <p:ajax event="filter" listener="#{controlEmplComprobantes.contarRegistrosLovCCC()}"/>
                             <p:ajax event="rowSelect" listener="#{controlEmplComprobantes.activarAceptar()}" update=":formularioDialogos:aceptarCCC"/>
                             <p:ajax event="rowDblselect" listener="#{controlEmplComprobantes.actualizarCentroCostoCredito()}" process="@this" />
                             <f:facet name="header">  

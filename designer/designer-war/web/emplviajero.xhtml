@@ -146,16 +146,16 @@
 
                         <p:dialog header="#{msg['tipoViajeroM']}" widgetVar="sucursalesDialogo" draggable="true" resizable="false" closable="false" id="sucursalesDialogo"  
                                   showEffect="fade" hideEffect="fade" width="470" modal="true" style="">
-                            <p:dataTable id="lovTiposFamiliares"  var="tipoviajeroD" value="#{controlVigenciasViajeros.listaTiposviajeros}" rowKey="#{tipoviajeroD.secuencia}"
-                                         selection="#{controlVigenciasViajeros.normaLaboralSeleccionada}" selectionMode="single" widgetVar="lovTiposFamiliares" scrollable="true" scrollWidth="445" scrollHeight="250"
+                            <p:dataTable id="lovTiposViajeros"  var="tipoviajeroD" value="#{controlVigenciasViajeros.listaTiposviajeros}" rowKey="#{tipoviajeroD.secuencia}"
+                                         selection="#{controlVigenciasViajeros.normaLaboralSeleccionada}" selectionMode="single" widgetVar="lovTiposViajeros" scrollable="true" scrollWidth="445" scrollHeight="250"
                                          filteredValue="#{controlVigenciasViajeros.filtradoTiposviajeros}" emptyMessage="#{msg['lovvacio']}">              
 
-                                <p:ajax event="filter" listener="#{controlVigenciasViajeros.eventoFiltrarViajero()}"/>                                
+                               <p:ajax event="filter" listener="#{controlVigenciasViajeros.contarRegistrosTV()}"/>                                
                                 <p:ajax event="rowSelect" listener="#{controlVigenciasViajeros.activarAceptar()}" update=":form:aceptarS"/>
                                 <p:ajax event="rowDblselect" listener="#{controlVigenciasViajeros.actualizarViajero}" immediate="true" update=":form:sucursalesDialogo" process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarTV']}" />  
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovTiposFamiliares').filter();" value="#{filtrado}" class="cssFiltroLOV" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovTiposViajeros').filter();" value="#{filtrado}" class="cssFiltroLOV" />  
                                 </f:facet>
                                 <p:column filterBy="#{tipoviajeroD.codigo}" width="60" filterStyle="width:50px;" filterMatchMode="contains">
                                     <f:facet name="header">
