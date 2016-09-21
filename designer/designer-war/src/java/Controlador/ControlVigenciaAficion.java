@@ -4,7 +4,6 @@
  */
 package Controlador;
 
-
 import Entidades.Aficiones;
 import Entidades.Empleados;
 import Entidades.VigenciasAficiones;
@@ -57,7 +56,6 @@ public class ControlVigenciaAficion implements Serializable {
     private Column veFechaInicial, veFechaFinal, veDescripcion, veIndividual, veCIndividual, veGrupal, veCGrupal;
     //Otros
     private boolean aceptar;
-    private int index;
     //modificar
     private List<VigenciasAficiones> listVigenciaAficionModificar;
     private boolean guardado;
@@ -75,7 +73,7 @@ public class ControlVigenciaAficion implements Serializable {
     private VigenciasAficiones duplicarVigenciaAficion;
     private String aficion;
     private boolean permitirIndex;
-    private BigInteger secRegistro;
+
     private BigInteger backUpSecRegistro;
     private Empleados empleado;
     private Date fechaParametro;
@@ -107,7 +105,7 @@ public class ControlVigenciaAficion implements Serializable {
         //Crear VC
         nuevaVigenciaAficion = new VigenciasAficiones();
         nuevaVigenciaAficion.setAficion(new Aficiones());
-        secRegistro = null;
+        vigenciaTablaSeleccionada = null;
         permitirIndex = true;
         backUpSecRegistro = null;
         empleado = new Empleados();
@@ -132,42 +130,37 @@ public class ControlVigenciaAficion implements Serializable {
         empleado = administrarVigenciaAficion.empleadoActual(secuencia);
         getListVigenciasAficiones();
         if (listVigenciasAficiones != null) {
-            infoRegistro = "Cantidad de registros : " + listVigenciasAficiones.size();
-        } else {
-            infoRegistro = "Cantidad de registros : 0";
+            if(!listVigenciasAficiones.isEmpty())
+            vigenciaTablaSeleccionada = listVigenciasAficiones.get(0);
         }
     }
 
-    public void modificarVigenciaAficion(int indice) {
-        if (tipoLista == 0) {
-            if (!listVigenciaAficionCrear.contains(listVigenciasAficiones.get(indice))) {
-                if (listVigenciaAficionModificar.isEmpty()) {
-                    listVigenciaAficionModificar.add(listVigenciasAficiones.get(indice));
-                } else if (!listVigenciaAficionModificar.contains(listVigenciasAficiones.get(indice))) {
-                    listVigenciaAficionModificar.add(listVigenciasAficiones.get(indice));
-                }
-                if (guardado == true) {
-                    guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                }
-            }
-            index = -1;
-            secRegistro = null;
-        } else {
-            if (!listVigenciaAficionCrear.contains(filtrarListVigenciasAficiones.get(indice))) {
 
+public void modificarVigenciaAficion(VigenciasAficiones vigaficion) {
+        vigenciaTablaSeleccionada = vigaficion;
+        if (tipoLista == 0) {
+            if (!listVigenciaAficionCrear.contains(vigenciaTablaSeleccionada)) {
                 if (listVigenciaAficionModificar.isEmpty()) {
-                    listVigenciaAficionModificar.add(filtrarListVigenciasAficiones.get(indice));
-                } else if (!listVigenciaAficionModificar.contains(filtrarListVigenciasAficiones.get(indice))) {
-                    listVigenciaAficionModificar.add(filtrarListVigenciasAficiones.get(indice));
+                    listVigenciaAficionModificar.add(vigenciaTablaSeleccionada);
+                } else if (!listVigenciaAficionModificar.contains(vigenciaTablaSeleccionada)) {
+                    listVigenciaAficionModificar.add(vigenciaTablaSeleccionada);
                 }
                 if (guardado == true) {
                     guardado = false;
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
             }
-            index = -1;
-            secRegistro = null;
+        } else if (!listVigenciaAficionCrear.contains(vigenciaTablaSeleccionada)) {
+
+            if (listVigenciaAficionModificar.isEmpty()) {
+                listVigenciaAficionModificar.add(vigenciaTablaSeleccionada);
+            } else if (!listVigenciaAficionModificar.contains(vigenciaTablaSeleccionada)) {
+                listVigenciaAficionModificar.add(vigenciaTablaSeleccionada);
+            }
+            if (guardado == true) {
+                guardado = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            }
         }
     }
 
@@ -180,10 +173,10 @@ public class ControlVigenciaAficion implements Serializable {
         if (i == 0) {
             VigenciasAficiones auxiliar = null;
             if (tipoLista == 0) {
-                auxiliar = listVigenciasAficiones.get(index);
+                auxiliar = vigenciaTablaSeleccionada;
             }
             if (tipoLista == 1) {
-                auxiliar = filtrarListVigenciasAficiones.get(index);
+                auxiliar = vigenciaTablaSeleccionada;
             }
             if (auxiliar.getFechafinal() != null) {
                 if (auxiliar.getFechainicial().after(fechaParametro) && auxiliar.getFechainicial().before(auxiliar.getFechafinal())) {
@@ -207,12 +200,10 @@ public class ControlVigenciaAficion implements Serializable {
                 } else {
                     retorno = false;
                 }
+            } else if (nuevaVigenciaAficion.getFechainicial().after(fechaParametro)) {
+                retorno = true;
             } else {
-                if (nuevaVigenciaAficion.getFechainicial().after(fechaParametro)) {
-                    retorno = true;
-                } else {
-                    retorno = false;
-                }
+                retorno = false;
             }
         }
         if (i == 2) {
@@ -222,24 +213,22 @@ public class ControlVigenciaAficion implements Serializable {
                 } else {
                     retorno = false;
                 }
+            } else if (duplicarVigenciaAficion.getFechainicial().after(fechaParametro)) {
+                retorno = true;
             } else {
-                if (duplicarVigenciaAficion.getFechainicial().after(fechaParametro)) {
-                    retorno = true;
-                } else {
-                    retorno = false;
-                }
+                retorno = false;
             }
         }
         return retorno;
     }
 
-    public void modificarFechas(int i, int c) {
+    public void modificarFechas(VigenciasAficiones vigenciaaficion, int c) {
         VigenciasAficiones auxiliar = null;
         if (tipoLista == 0) {
-            auxiliar = listVigenciasAficiones.get(i);
+            auxiliar = vigenciaTablaSeleccionada;
         }
         if (tipoLista == 1) {
-            auxiliar = filtrarListVigenciasAficiones.get(i);
+            auxiliar = vigenciaTablaSeleccionada;
         }
         if (auxiliar.getFechainicial() != null) {
             boolean retorno = false;
@@ -247,20 +236,20 @@ public class ControlVigenciaAficion implements Serializable {
                 retorno = true;
             }
             if (auxiliar.getFechafinal() != null) {
-                index = i;
+                vigenciaTablaSeleccionada = vigenciaaficion;
                 retorno = validarFechasRegistro(0);
             }
             if (retorno == true) {
-                cambiarIndice(i, c);
-                modificarVigenciaAficion(i);
+                cambiarIndice(vigenciaaficion, c);
+                modificarVigenciaAficion(vigenciaaficion);
             } else {
                 if (tipoLista == 0) {
-                    listVigenciasAficiones.get(i).setFechafinal(fechaFin);
-                    listVigenciasAficiones.get(i).setFechainicial(fechaIni);
+                    vigenciaTablaSeleccionada.setFechafinal(fechaFin);
+                    vigenciaTablaSeleccionada.setFechainicial(fechaIni);
                 }
                 if (tipoLista == 1) {
-                    filtrarListVigenciasAficiones.get(i).setFechafinal(fechaFin);
-                    filtrarListVigenciasAficiones.get(i).setFechainicial(fechaIni);
+                    vigenciaTablaSeleccionada.setFechafinal(fechaFin);
+                    vigenciaTablaSeleccionada.setFechainicial(fechaIni);
 
                 }
                 RequestContext context = RequestContext.getCurrentInstance();
@@ -269,10 +258,10 @@ public class ControlVigenciaAficion implements Serializable {
             }
         } else {
             if (tipoLista == 0) {
-                listVigenciasAficiones.get(i).setFechainicial(fechaIni);
+                vigenciaTablaSeleccionada.setFechainicial(fechaIni);
             }
             if (tipoLista == 1) {
-                filtrarListVigenciasAficiones.get(i).setFechainicial(fechaIni);
+                vigenciaTablaSeleccionada.setFechainicial(fechaIni);
 
             }
             RequestContext context = RequestContext.getCurrentInstance();
@@ -281,16 +270,16 @@ public class ControlVigenciaAficion implements Serializable {
         }
     }
 
-    public void modificarVigenciaAficion(int indice, String confirmarCambio, String valorConfirmar) {
-        index = indice;
+    public void modificarVigenciaAficion(VigenciasAficiones vigenciaaficion, String confirmarCambio, String valorConfirmar) {
+        vigenciaTablaSeleccionada = vigenciaaficion;
         int coincidencias = 0;
         int indiceUnicoElemento = 0;
         RequestContext context = RequestContext.getCurrentInstance();
         if (confirmarCambio.equalsIgnoreCase("AFICIONES")) {
             if (tipoLista == 0) {
-                listVigenciasAficiones.get(indice).getAficion().setDescripcion(aficion);
+                vigenciaTablaSeleccionada.getAficion().setDescripcion(aficion);
             } else {
-                filtrarListVigenciasAficiones.get(indice).getAficion().setDescripcion(aficion);
+                vigenciaTablaSeleccionada.getAficion().setDescripcion(aficion);
             }
             for (int i = 0; i < listAficiones.size(); i++) {
                 if (listAficiones.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
@@ -300,9 +289,9 @@ public class ControlVigenciaAficion implements Serializable {
             }
             if (coincidencias == 1) {
                 if (tipoLista == 0) {
-                    listVigenciasAficiones.get(indice).setAficion(listAficiones.get(indiceUnicoElemento));
+                    vigenciaTablaSeleccionada.setAficion(listAficiones.get(indiceUnicoElemento));
                 } else {
-                    filtrarListVigenciasAficiones.get(indice).setAficion(listAficiones.get(indiceUnicoElemento));
+                    vigenciaTablaSeleccionada.setAficion(listAficiones.get(indiceUnicoElemento));
                 }
                 listAficiones.clear();
                 getListAficiones();
@@ -316,35 +305,29 @@ public class ControlVigenciaAficion implements Serializable {
         }
         if (coincidencias == 1) {
             if (tipoLista == 0) {
-                if (!listVigenciaAficionCrear.contains(listVigenciasAficiones.get(indice))) {
+                if (!listVigenciaAficionCrear.contains(vigenciaTablaSeleccionada)) {
 
                     if (listVigenciaAficionModificar.isEmpty()) {
-                        listVigenciaAficionModificar.add(listVigenciasAficiones.get(indice));
-                    } else if (!listVigenciaAficionModificar.contains(listVigenciasAficiones.get(indice))) {
-                        listVigenciaAficionModificar.add(listVigenciasAficiones.get(indice));
+                        listVigenciaAficionModificar.add(vigenciaTablaSeleccionada);
+                    } else if (!listVigenciaAficionModificar.contains(vigenciaTablaSeleccionada)) {
+                        listVigenciaAficionModificar.add(vigenciaTablaSeleccionada);
                     }
                     if (guardado == true) {
                         guardado = false;
                         RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
                 }
-                index = -1;
-                secRegistro = null;
-            } else {
-                if (!listVigenciaAficionCrear.contains(filtrarListVigenciasAficiones.get(indice))) {
+            } else if (!listVigenciaAficionCrear.contains(vigenciaTablaSeleccionada)) {
 
-                    if (listVigenciaAficionModificar.isEmpty()) {
-                        listVigenciaAficionModificar.add(filtrarListVigenciasAficiones.get(indice));
-                    } else if (!listVigenciaAficionModificar.contains(filtrarListVigenciasAficiones.get(indice))) {
-                        listVigenciaAficionModificar.add(filtrarListVigenciasAficiones.get(indice));
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                    }
+                if (listVigenciaAficionModificar.isEmpty()) {
+                    listVigenciaAficionModificar.add(vigenciaTablaSeleccionada);
+                } else if (!listVigenciaAficionModificar.contains(vigenciaTablaSeleccionada)) {
+                    listVigenciaAficionModificar.add(vigenciaTablaSeleccionada);
                 }
-                index = -1;
-                secRegistro = null;
+                if (guardado == true) {
+                    guardado = false;
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                }
             }
         }
         RequestContext.getCurrentInstance().update("form:datosVigenciasAficiones");
@@ -399,24 +382,24 @@ public class ControlVigenciaAficion implements Serializable {
         }
     }
 
-    public void cambiarIndice(int indice, int celda) {
+    public void cambiarIndice(VigenciasAficiones vigenciaaficion, int celda) {
         if (permitirIndex == true) {
-            index = indice;
+            vigenciaTablaSeleccionada = vigenciaaficion;
             cualCelda = celda;
             if (tipoLista == 0) {
-                fechaFin = listVigenciasAficiones.get(index).getFechafinal();
-                fechaIni = listVigenciasAficiones.get(index).getFechainicial();
-                secRegistro = listVigenciasAficiones.get(index).getSecuencia();
+                fechaFin = vigenciaTablaSeleccionada.getFechafinal();
+                fechaIni = vigenciaTablaSeleccionada.getFechainicial();
+                vigenciaTablaSeleccionada.getSecuencia();
                 if (cualCelda == 2) {
-                    aficion = listVigenciasAficiones.get(index).getAficion().getDescripcion();
+                    aficion = vigenciaTablaSeleccionada.getAficion().getDescripcion();
                 }
             }
             if (tipoLista == 1) {
-                fechaFin = filtrarListVigenciasAficiones.get(index).getFechafinal();
-                fechaIni = filtrarListVigenciasAficiones.get(index).getFechainicial();
-                secRegistro = filtrarListVigenciasAficiones.get(index).getSecuencia();
+                fechaFin = vigenciaTablaSeleccionada.getFechafinal();
+                fechaIni = vigenciaTablaSeleccionada.getFechainicial();
+                vigenciaTablaSeleccionada.getSecuencia();
                 if (cualCelda == 2) {
-                    aficion = filtrarListVigenciasAficiones.get(index).getAficion().getDescripcion();
+                    aficion = vigenciaTablaSeleccionada.getAficion().getDescripcion();
                 }
             }
         }
@@ -450,19 +433,13 @@ public class ControlVigenciaAficion implements Serializable {
                 }
                 listVigenciasAficiones = null;
                 getListVigenciasAficiones();
-                if (listVigenciasAficiones != null) {
-                    infoRegistro = "Cantidad de registros : " + listVigenciasAficiones.size();
-                } else {
-                    infoRegistro = "Cantidad de registros : 0";
-                }
+                contarRegistros();
                 RequestContext.getCurrentInstance().update("form:informacionRegistro");
                 RequestContext.getCurrentInstance().update("form:datosVigenciasAficiones");
                 guardado = true;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 k = 0;
             }
-            index = -1;
-            secRegistro = null;
             FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con Éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
@@ -505,17 +482,12 @@ public class ControlVigenciaAficion implements Serializable {
         listVigenciaAficionBorrar.clear();
         listVigenciaAficionCrear.clear();
         listVigenciaAficionModificar.clear();
-        index = -1;
-        secRegistro = null;
+        vigenciaTablaSeleccionada = null;
         k = 0;
         listVigenciasAficiones = null;
         guardado = true;
         getListVigenciasAficiones();
-        if (listVigenciasAficiones != null) {
-            infoRegistro = "Cantidad de registros : " + listVigenciasAficiones.size();
-        } else {
-            infoRegistro = "Cantidad de registros : 0";
-        }
+        contarRegistros();
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:informacionRegistro");
         RequestContext.getCurrentInstance().update("form:datosVigenciasAficiones");
@@ -528,12 +500,12 @@ public class ControlVigenciaAficion implements Serializable {
      * la lista filtrada y a la columna
      */
     public void editarCelda() {
-        if (index >= 0) {
+        if (vigenciaTablaSeleccionada != null) {
             if (tipoLista == 0) {
-                editarVigenciaAficion = listVigenciasAficiones.get(index);
+                editarVigenciaAficion = vigenciaTablaSeleccionada;
             }
             if (tipoLista == 1) {
-                editarVigenciaAficion = filtrarListVigenciasAficiones.get(index);
+                editarVigenciaAficion = vigenciaTablaSeleccionada;
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
@@ -566,9 +538,10 @@ public class ControlVigenciaAficion implements Serializable {
                 RequestContext.getCurrentInstance().execute("PF('editarCGrupalD').show()");
                 cualCelda = -1;
             }
+        } else {
+            RequestContext context = RequestContext.getCurrentInstance();
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
-        index = -1;
-        secRegistro = null;
     }
 
     //CREAR VU
@@ -606,15 +579,11 @@ public class ControlVigenciaAficion implements Serializable {
                 nuevaVigenciaAficion.setSecuencia(l);
                 nuevaVigenciaAficion.setPersona(empleado.getPersona());
                 listVigenciaAficionCrear.add(nuevaVigenciaAficion);
-                if (listVigenciasAficiones == null) {
-                    listVigenciasAficiones = new ArrayList<VigenciasAficiones>();
-                }
                 listVigenciasAficiones.add(nuevaVigenciaAficion);
+                vigenciaTablaSeleccionada = nuevaVigenciaAficion;
                 nuevaVigenciaAficion = new VigenciasAficiones();
                 nuevaVigenciaAficion.setAficion(new Aficiones());
-
-                infoRegistro = "Cantidad de registros : " + listVigenciasAficiones.size();
-
+                contarRegistros();
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("form:informacionRegistro");
                 RequestContext.getCurrentInstance().update("form:datosVigenciasAficiones");
@@ -623,8 +592,6 @@ public class ControlVigenciaAficion implements Serializable {
                     guardado = false;
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
-                index = -1;
-                secRegistro = null;
             } else {
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().execute("PF('errorFechas').show()");
@@ -642,49 +609,43 @@ public class ControlVigenciaAficion implements Serializable {
     public void limpiarNuevaVigenciaAficion() {
         nuevaVigenciaAficion = new VigenciasAficiones();
         nuevaVigenciaAficion.setAficion(new Aficiones());
-        index = -1;
-        secRegistro = null;
     }
-    //DUPLICAR VC
 
-    /**
-     * Metodo que duplica una vigencia especifica dado por la posicion de la
-     * fila
-     */
+    //DUPLICAR VC
     public void duplicarVigenciaAficionM() {
-        if (index >= 0) {
+        if (vigenciaTablaSeleccionada != null) {
             duplicarVigenciaAficion = new VigenciasAficiones();
 
             if (tipoLista == 0) {
 
-                duplicarVigenciaAficion.setAficion(listVigenciasAficiones.get(index).getAficion());
-                duplicarVigenciaAficion.setFechafinal(listVigenciasAficiones.get(index).getFechafinal());
-                duplicarVigenciaAficion.setFechainicial(listVigenciasAficiones.get(index).getFechainicial());
-                duplicarVigenciaAficion.setPersona(listVigenciasAficiones.get(index).getPersona());
-                duplicarVigenciaAficion.setValorcualitativo(listVigenciasAficiones.get(index).getValorcualitativo());
-                duplicarVigenciaAficion.setValorcualitativogrupo(listVigenciasAficiones.get(index).getValorcualitativogrupo());
-                duplicarVigenciaAficion.setValorcuantitativo(listVigenciasAficiones.get(index).getValorcuantitativo());
-                duplicarVigenciaAficion.setValorcuantitativogrupo(listVigenciasAficiones.get(index).getValorcuantitativogrupo());
+                duplicarVigenciaAficion.setAficion(vigenciaTablaSeleccionada.getAficion());
+                duplicarVigenciaAficion.setFechafinal(vigenciaTablaSeleccionada.getFechafinal());
+                duplicarVigenciaAficion.setFechainicial(vigenciaTablaSeleccionada.getFechainicial());
+                duplicarVigenciaAficion.setPersona(vigenciaTablaSeleccionada.getPersona());
+                duplicarVigenciaAficion.setValorcualitativo(vigenciaTablaSeleccionada.getValorcualitativo());
+                duplicarVigenciaAficion.setValorcualitativogrupo(vigenciaTablaSeleccionada.getValorcualitativogrupo());
+                duplicarVigenciaAficion.setValorcuantitativo(vigenciaTablaSeleccionada.getValorcuantitativo());
+                duplicarVigenciaAficion.setValorcuantitativogrupo(vigenciaTablaSeleccionada.getValorcuantitativogrupo());
 
             }
             if (tipoLista == 1) {
 
-                duplicarVigenciaAficion.setAficion(filtrarListVigenciasAficiones.get(index).getAficion());
-                duplicarVigenciaAficion.setFechafinal(filtrarListVigenciasAficiones.get(index).getFechafinal());
-                duplicarVigenciaAficion.setFechainicial(filtrarListVigenciasAficiones.get(index).getFechainicial());
-                duplicarVigenciaAficion.setPersona(filtrarListVigenciasAficiones.get(index).getPersona());
-                duplicarVigenciaAficion.setValorcualitativo(filtrarListVigenciasAficiones.get(index).getValorcualitativo());
-                duplicarVigenciaAficion.setValorcualitativogrupo(filtrarListVigenciasAficiones.get(index).getValorcualitativogrupo());
-                duplicarVigenciaAficion.setValorcuantitativo(filtrarListVigenciasAficiones.get(index).getValorcuantitativo());
-                duplicarVigenciaAficion.setValorcuantitativogrupo(filtrarListVigenciasAficiones.get(index).getValorcuantitativogrupo());
+                duplicarVigenciaAficion.setAficion(vigenciaTablaSeleccionada.getAficion());
+                duplicarVigenciaAficion.setFechafinal(vigenciaTablaSeleccionada.getFechafinal());
+                duplicarVigenciaAficion.setFechainicial(vigenciaTablaSeleccionada.getFechainicial());
+                duplicarVigenciaAficion.setPersona(vigenciaTablaSeleccionada.getPersona());
+                duplicarVigenciaAficion.setValorcualitativo(vigenciaTablaSeleccionada.getValorcualitativo());
+                duplicarVigenciaAficion.setValorcualitativogrupo(vigenciaTablaSeleccionada.getValorcualitativogrupo());
+                duplicarVigenciaAficion.setValorcuantitativo(vigenciaTablaSeleccionada.getValorcuantitativo());
+                duplicarVigenciaAficion.setValorcuantitativogrupo(vigenciaTablaSeleccionada.getValorcuantitativogrupo());
 
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarVigencias");
             RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroVigencias').show()");
-            index = -1;
-            secRegistro = null;
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
@@ -704,13 +665,13 @@ public class ControlVigenciaAficion implements Serializable {
                 duplicarVigenciaAficion.setSecuencia(l);
                 listVigenciasAficiones.add(duplicarVigenciaAficion);
                 listVigenciaAficionCrear.add(duplicarVigenciaAficion);
-                infoRegistro = "Cantidad de registros : " + listVigenciasAficiones.size();
+                contarRegistros();
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("form:informacionRegistro");
                 RequestContext.getCurrentInstance().update("form:datosVigenciasAficiones");
                 RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroVigencias').hide()");
-                index = -1;
-                secRegistro = null;
+                vigenciaTablaSeleccionada = null;
+                vigenciaTablaSeleccionada = null;
                 if (guardado == true) {
                     guardado = false;
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -762,47 +723,28 @@ public class ControlVigenciaAficion implements Serializable {
      * Metodo que borra las vigencias seleccionadas
      */
     public void borrarVigenciaAficion() {
-        if (index >= 0) {
-            if (tipoLista == 0) {
-                if (!listVigenciaAficionModificar.isEmpty() && listVigenciaAficionModificar.contains(listVigenciasAficiones.get(index))) {
-                    int modIndex = listVigenciaAficionModificar.indexOf(listVigenciasAficiones.get(index));
-                    listVigenciaAficionModificar.remove(modIndex);
-                    listVigenciaAficionBorrar.add(listVigenciasAficiones.get(index));
-                } else if (!listVigenciaAficionCrear.isEmpty() && listVigenciaAficionCrear.contains(listVigenciasAficiones.get(index))) {
-                    int crearIndex = listVigenciaAficionCrear.indexOf(listVigenciasAficiones.get(index));
-                    listVigenciaAficionCrear.remove(crearIndex);
-                } else {
-                    listVigenciaAficionBorrar.add(listVigenciasAficiones.get(index));
-                }
-                listVigenciasAficiones.remove(index);
+        if (vigenciaTablaSeleccionada != null) {
+            if (!listVigenciaAficionModificar.isEmpty() && listVigenciaAficionModificar.contains(vigenciaTablaSeleccionada)) {
+                int modIndex = listVigenciaAficionModificar.indexOf(vigenciaTablaSeleccionada);
+                listVigenciaAficionModificar.remove(modIndex);
+                listVigenciaAficionBorrar.add(vigenciaTablaSeleccionada);
+            } else if (!listVigenciaAficionCrear.isEmpty() && listVigenciaAficionCrear.contains(vigenciaTablaSeleccionada)) {
+                int crearIndex = listVigenciaAficionCrear.indexOf(vigenciaTablaSeleccionada);
+                listVigenciaAficionCrear.remove(crearIndex);
+            } else {
+                listVigenciaAficionBorrar.add(vigenciaTablaSeleccionada);
             }
+            listVigenciasAficiones.remove(vigenciaTablaSeleccionada);
             if (tipoLista == 1) {
-                if (!listVigenciaAficionModificar.isEmpty() && listVigenciaAficionModificar.contains(filtrarListVigenciasAficiones.get(index))) {
-                    int modIndex = listVigenciaAficionModificar.indexOf(filtrarListVigenciasAficiones.get(index));
-                    listVigenciaAficionModificar.remove(modIndex);
-                    listVigenciaAficionBorrar.add(filtrarListVigenciasAficiones.get(index));
-                } else if (!listVigenciaAficionCrear.isEmpty() && listVigenciaAficionCrear.contains(filtrarListVigenciasAficiones.get(index))) {
-                    int crearIndex = listVigenciaAficionCrear.indexOf(filtrarListVigenciasAficiones.get(index));
-                    listVigenciaAficionCrear.remove(crearIndex);
-                } else {
-                    listVigenciaAficionBorrar.add(filtrarListVigenciasAficiones.get(index));
-                }
-                int VCIndex = listVigenciasAficiones.indexOf(filtrarListVigenciasAficiones.get(index));
-                listVigenciasAficiones.remove(VCIndex);
-                filtrarListVigenciasAficiones.remove(index);
+                filtrarListVigenciasAficiones.remove(vigenciaTablaSeleccionada);
             }
 
             getListVigenciasAficiones();
-            if (listVigenciasAficiones != null) {
-                infoRegistro = "Cantidad de registros : " + listVigenciasAficiones.size();
-            } else {
-                infoRegistro = "Cantidad de registros : 0";
-            }
+            contarRegistros();
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:informacionRegistro");
             RequestContext.getCurrentInstance().update("form:datosVigenciasAficiones");
-            index = -1;
-            secRegistro = null;
+            vigenciaTablaSeleccionada = null;
 
             if (guardado == true) {
                 guardado = false;
@@ -879,6 +821,7 @@ public class ControlVigenciaAficion implements Serializable {
             veGrupal.setFilterStyle("display: none; visibility: hidden;");
             veCGrupal = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasAficiones:veCGrupal");
             veCGrupal.setFilterStyle("display: none; visibility: hidden;");
+            contarRegistros();
             RequestContext.getCurrentInstance().update("form:datosVigenciasAficiones");
             bandera = 0;
             filtrarListVigenciasAficiones = null;
@@ -888,8 +831,8 @@ public class ControlVigenciaAficion implements Serializable {
         listVigenciaAficionBorrar.clear();
         listVigenciaAficionCrear.clear();
         listVigenciaAficionModificar.clear();
-        index = -1;
-        secRegistro = null;
+        vigenciaTablaSeleccionada = null;
+        vigenciaTablaSeleccionada = null;
         k = 0;
         listVigenciasAficiones = null;
         guardado = true;
@@ -905,17 +848,12 @@ public class ControlVigenciaAficion implements Serializable {
      * @param list Lista filtrada - Lista real
      * @param LND Tipo actualizacion = LISTA - NUEVO - DUPLICADO
      */
-    public void asignarIndex(Integer indice, int LND) {
-        index = indice;
+    public void asignarIndex(VigenciasAficiones vigenciaaficion, int LND) {
+        vigenciaTablaSeleccionada = vigenciaaficion;
         RequestContext context = RequestContext.getCurrentInstance();
-        if (LND == 0) {
-            tipoActualizacion = 0;
-        } else if (LND == 1) {
-            tipoActualizacion = 1;
-        } else if (LND == 2) {
-            tipoActualizacion = 2;
-        }
+        tipoActualizacion = LND;
         getInfoRegistroAficion();
+        contarRegistrosAficiones();
         RequestContext.getCurrentInstance().update("form:AficionesDialogo");
         RequestContext.getCurrentInstance().execute("PF('AficionesDialogo').show()");
     }
@@ -929,21 +867,21 @@ public class ControlVigenciaAficion implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (tipoActualizacion == 0) {
             if (tipoLista == 0) {
-                listVigenciasAficiones.get(index).setAficion(aficionSeleccionada);
-                if (!listVigenciaAficionCrear.contains(listVigenciasAficiones.get(index))) {
+                vigenciaTablaSeleccionada.setAficion(aficionSeleccionada);
+                if (!listVigenciaAficionCrear.contains(vigenciaTablaSeleccionada)) {
                     if (listVigenciaAficionModificar.isEmpty()) {
-                        listVigenciaAficionModificar.add(listVigenciasAficiones.get(index));
-                    } else if (!listVigenciaAficionModificar.contains(listVigenciasAficiones.get(index))) {
-                        listVigenciaAficionModificar.add(listVigenciasAficiones.get(index));
+                        listVigenciaAficionModificar.add(vigenciaTablaSeleccionada);
+                    } else if (!listVigenciaAficionModificar.contains(vigenciaTablaSeleccionada)) {
+                        listVigenciaAficionModificar.add(vigenciaTablaSeleccionada);
                     }
                 }
             } else {
-                filtrarListVigenciasAficiones.get(index).setAficion(aficionSeleccionada);
-                if (!listVigenciaAficionCrear.contains(filtrarListVigenciasAficiones.get(index))) {
+                vigenciaTablaSeleccionada.setAficion(aficionSeleccionada);
+                if (!listVigenciaAficionCrear.contains(vigenciaTablaSeleccionada)) {
                     if (listVigenciaAficionModificar.isEmpty()) {
-                        listVigenciaAficionModificar.add(filtrarListVigenciasAficiones.get(index));
-                    } else if (!listVigenciaAficionModificar.contains(filtrarListVigenciasAficiones.get(index))) {
-                        listVigenciaAficionModificar.add(filtrarListVigenciasAficiones.get(index));
+                        listVigenciaAficionModificar.add(vigenciaTablaSeleccionada);
+                    } else if (!listVigenciaAficionModificar.contains(vigenciaTablaSeleccionada)) {
+                        listVigenciaAficionModificar.add(vigenciaTablaSeleccionada);
                     }
                 }
             }
@@ -963,13 +901,12 @@ public class ControlVigenciaAficion implements Serializable {
         filtrarListAficiones = null;
         aficionSeleccionada = null;
         aceptar = true;
-        index = -1;
-        secRegistro = null;
         tipoActualizacion = -1;
-        /*
-         RequestContext.getCurrentInstance().update("form:AficionesDialogo");
-         RequestContext.getCurrentInstance().update("form:lovAficiones");
-         RequestContext.getCurrentInstance().update("form:aceptarA");*/
+
+        RequestContext.getCurrentInstance().update("form:AficionesDialogo");
+        RequestContext.getCurrentInstance().update("form:lovAficiones");
+        RequestContext.getCurrentInstance().update("form:aceptarA");
+
         context.reset("form:lovAficiones:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('lovAficiones').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('AficionesDialogo').hide()");
@@ -983,8 +920,6 @@ public class ControlVigenciaAficion implements Serializable {
         filtrarListAficiones = null;
         aficionSeleccionada = null;
         aceptar = true;
-        index = -1;
-        secRegistro = null;
         tipoActualizacion = -1;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
@@ -1000,10 +935,11 @@ public class ControlVigenciaAficion implements Serializable {
      * reformas laborales
      */
     public void listaValoresBoton() {
-        if (index >= 0) {
+        if (vigenciaTablaSeleccionada != null) {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 2) {
                 getInfoRegistroAficion();
+                contarRegistrosAficiones();
                 RequestContext.getCurrentInstance().update("form:AficionesDialogo");
                 RequestContext.getCurrentInstance().execute("PF('AficionesDialogo').show()");
                 tipoActualizacion = 0;
@@ -1030,8 +966,6 @@ public class ControlVigenciaAficion implements Serializable {
         Exporter exporter = new ExportarPDF();
         exporter.export(context, tabla, "VigenciasAficionesDF", false, false, "UTF-8", null, null);
         context.responseComplete();
-        index = -1;
-        secRegistro = null;
     }
 
     /**
@@ -1045,57 +979,49 @@ public class ControlVigenciaAficion implements Serializable {
         Exporter exporter = new ExportarXLS();
         exporter.export(context, tabla, "VigenciasAficionesXLS", false, false, "UTF-8", null, null);
         context.responseComplete();
-        index = -1;
-        secRegistro = null;
     }
-    //EVENTO FILTRAR
 
-    /**
-     * Evento que cambia la lista reala a la filtrada
-     */
+    public void verificarRastro() {
+        RequestContext context = RequestContext.getCurrentInstance();
+        if (vigenciaTablaSeleccionada != null) {
+            int resultado = administrarRastros.obtenerTabla(vigenciaTablaSeleccionada.getSecuencia(), "VIGENCIASAFICIONES");
+            backUpSecRegistro = vigenciaTablaSeleccionada.getSecuencia();
+            vigenciaTablaSeleccionada = null;
+            if (resultado == 1) {
+                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
+            } else if (resultado == 2) {
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
+            } else if (resultado == 3) {
+                RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
+            } else if (resultado == 4) {
+                RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
+            } else if (resultado == 5) {
+                RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
+            }
+        } else if (administrarRastros.verificarHistoricosTabla("VIGENCIASAFICIONES")) {
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
+        }
+        vigenciaTablaSeleccionada = null;
+    }
+
     public void eventoFiltrar() {
         if (tipoLista == 0) {
             tipoLista = 1;
         }
-        infoRegistro = "Cantidad de registros : " + filtrarListVigenciasAficiones.size();
-        RequestContext context = RequestContext.getCurrentInstance();
+        contarRegistros();
+    }
+
+    public void contarRegistros() {
         RequestContext.getCurrentInstance().update("form:informacionRegistro");
     }
-    //RASTRO - COMPROBAR SI LA TABLA TIENE RASTRO ACTIVO
 
-    public void verificarRastro() {
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (listVigenciasAficiones != null) {
-            if (secRegistro != null) {
-                int resultado = administrarRastros.obtenerTabla(secRegistro, "VIGENCIASAFICIONES");
-                backUpSecRegistro = secRegistro;
-                secRegistro = null;
-                if (resultado == 1) {
-                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
-                } else if (resultado == 2) {
-                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
-                } else if (resultado == 3) {
-                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
-                } else if (resultado == 4) {
-                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
-                } else if (resultado == 5) {
-                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
-                }
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
-            }
-        } else {
-            if (administrarRastros.verificarHistoricosTabla("VIGENCIASAFICIONES")) {
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-            }
-
-        }
-        index = -1;
+    public void contarRegistrosAficiones() {
+        RequestContext.getCurrentInstance().update("form:infoRegistroAficion");
     }
-    //GETTERS AND SETTERS
 
+    //GETTERS AND SETTERS
     public List<VigenciasAficiones> getListVigenciasAficiones() {
         try {
             if (listVigenciasAficiones == null) {
@@ -1176,14 +1102,6 @@ public class ControlVigenciaAficion implements Serializable {
         this.aficionSeleccionada = setAficionSeleccionada;
     }
 
-    public BigInteger getSecRegistro() {
-        return secRegistro;
-    }
-
-    public void setSecRegistro(BigInteger secRegistro) {
-        this.secRegistro = secRegistro;
-    }
-
     public BigInteger getBackUpSecRegistro() {
         return backUpSecRegistro;
     }
@@ -1197,12 +1115,9 @@ public class ControlVigenciaAficion implements Serializable {
     }
 
     public String getInfoRegistroAficion() {
-        getListAficiones();
-        if (listAficiones != null) {
-            infoRegistroAficion = "Cantidad de registros : " + listAficiones.size();
-        } else {
-            infoRegistroAficion = "Cantidad de registros : 0";
-        }
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lovAficiones");
+        infoRegistroAficion = String.valueOf(tabla.getRowCount());
         return infoRegistroAficion;
     }
 
@@ -1211,14 +1126,7 @@ public class ControlVigenciaAficion implements Serializable {
     }
 
     public VigenciasAficiones getVigenciaTablaSeleccionada() {
-        getListVigenciasAficiones();
-        if (listVigenciasAficiones != null) {
-            int tam = listVigenciasAficiones.size();
-            if (tam > 0) {
-                vigenciaTablaSeleccionada = listVigenciasAficiones.get(0);
-            }
-        }
-        return vigenciaTablaSeleccionada;
+      return vigenciaTablaSeleccionada;
     }
 
     public void setVigenciaTablaSeleccionada(VigenciasAficiones vigenciaTablaSeleccionada) {
@@ -1226,6 +1134,9 @@ public class ControlVigenciaAficion implements Serializable {
     }
 
     public String getInfoRegistro() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosVigenciasAficiones");
+        infoRegistro = String.valueOf(tabla.getRowCount());
         return infoRegistro;
     }
 

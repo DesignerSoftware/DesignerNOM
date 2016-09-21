@@ -124,7 +124,6 @@ public class ControlIdiomaPersona implements Serializable {
         empleadoActual = administrarIdiomaPersona.empleadoActual(secuencia);
         getListIdiomasPersonas();
         deshabilitarBotonLov();
-        contarRegistros();
         if (!listIdiomasPersonas.isEmpty()) {
             idiomaTablaSeleccionado = listIdiomasPersonas.get(0);
         }
@@ -451,7 +450,7 @@ public class ControlIdiomaPersona implements Serializable {
                 idiomaTablaSeleccionado = nuevaIdiomaPersona;
                 RequestContext context = RequestContext.getCurrentInstance();
                 getListIdiomasPersonas();
-                modificarInfoRegistro(listIdiomasPersonas.size());
+                contarRegistros();
                 RequestContext.getCurrentInstance().update("form:informacionRegistro");
                 RequestContext.getCurrentInstance().update("form:datosIdiomas");
                 RequestContext.getCurrentInstance().execute("PF('NuevoRegistroIdiomas').hide()");
@@ -540,7 +539,7 @@ public class ControlIdiomaPersona implements Serializable {
                 idiomaTablaSeleccionado = duplicarIdiomaPersona;
                 RequestContext context = RequestContext.getCurrentInstance();
                 getListIdiomasPersonas();
-                modificarInfoRegistro(listIdiomasPersonas.size());
+                contarRegistros();
                 RequestContext.getCurrentInstance().update("form:informacionRegistro");
                 RequestContext.getCurrentInstance().update("form:datosIdiomas");
                 RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroIdiomas').hide()");
@@ -583,7 +582,7 @@ public class ControlIdiomaPersona implements Serializable {
 
             RequestContext context = RequestContext.getCurrentInstance();
             getListIdiomasPersonas();
-            modificarInfoRegistro(listIdiomasPersonas.size());
+            contarRegistros();
             RequestContext.getCurrentInstance().update("form:informacionRegistro");
             RequestContext.getCurrentInstance().update("form:datosIdiomas");
             idiomaTablaSeleccionado = null;
@@ -671,7 +670,7 @@ public class ControlIdiomaPersona implements Serializable {
         }
         // eliminarRegistrosIdiomaLov();
         habilitarBotonLov();
-        modificarInfoRegistroIdioma(listIdiomas.size());
+        contarRegistroIdioma();
         RequestContext.getCurrentInstance().update("form:IdiomasDialogo");
         RequestContext.getCurrentInstance().execute("PF('IdiomasDialogo').show()");
     }
@@ -778,7 +777,7 @@ public class ControlIdiomaPersona implements Serializable {
             if (cualCelda == 0) {
                 //  eliminarRegistrosIdiomaLov();
                 habilitarBotonLov();
-                modificarInfoRegistroIdioma(listIdiomasPersonas.size());
+                contarRegistroIdioma();
                 RequestContext.getCurrentInstance().update("form:IdiomasDialogo");
                 RequestContext.getCurrentInstance().execute("PF('IdiomasDialogo').show()");
                 tipoActualizacion = 0;
@@ -841,30 +840,15 @@ public class ControlIdiomaPersona implements Serializable {
         if (tipoLista == 0) {
             tipoLista = 1;
         }
-        RequestContext context = RequestContext.getCurrentInstance();
-        modificarInfoRegistro(filtrarListIdiomasPersonas.size());
-        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        contarRegistros();
     }
 
-    public void eventoFiltrarIdiomas() {
-        modificarInfoRegistroIdioma(filtrarListIdiomas.size());
+    public void contarRegistroIdioma() {
         RequestContext.getCurrentInstance().update("form:infoRegistroIdioma");
     }
 
-    public void modificarInfoRegistro(int valor) {
-        infoRegistro = String.valueOf(valor);
-    }
-
-    public void modificarInfoRegistroIdioma(int valor) {
-        infoRegistroIdioma = String.valueOf(valor);
-    }
-
     public void contarRegistros() {
-        if (listIdiomasPersonas != null) {
-            modificarInfoRegistro(listIdiomasPersonas.size());
-        } else {
-            modificarInfoRegistro(0);
-        }
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
     }
 
     public void recordarSeleccion() {
@@ -1007,6 +991,9 @@ public class ControlIdiomaPersona implements Serializable {
     }
 
     public String getInfoRegistro() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosIdiomas");
+        infoRegistro = String.valueOf(tabla.getRowCount());
         return infoRegistro;
     }
 
@@ -1015,6 +1002,9 @@ public class ControlIdiomaPersona implements Serializable {
     }
 
     public String getInfoRegistroIdioma() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lovIdiomas");
+        infoRegistroIdioma = String.valueOf(tabla.getRowCount());
         return infoRegistroIdioma;
     }
 

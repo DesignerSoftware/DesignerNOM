@@ -1,6 +1,5 @@
 package Controlador;
 
-
 import Entidades.Deportes;
 import Entidades.Empleados;
 import Entidades.VigenciasDeportes;
@@ -109,11 +108,10 @@ public class ControlVigenciaDeporte implements Serializable {
         listDeportes = null;
         empleado = administrarVigenciaDeporte.empleadoActual(secuencia);
         getListVigenciasDeportes();
-        contarRegistrosVD();
         deshabilitarBotonLov();
         if (listVigenciasDeportes == null) {
             vigenciaTablaSeleccionada = null;
-        } else{
+        } else {
             vigenciaTablaSeleccionada = listVigenciasDeportes.get(0);
         }
     }
@@ -134,19 +132,17 @@ public class ControlVigenciaDeporte implements Serializable {
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
             }
-        } else {
-            if (!listVigenciaDeporteCrear.contains(vigenciaTablaSeleccionada)) {
-                if (listVigenciaDeporteModificar.isEmpty()) {
-                    listVigenciaDeporteModificar.add(vigenciaTablaSeleccionada);
-                } else if (!listVigenciaDeporteModificar.contains(vigenciaTablaSeleccionada)) {
-                    listVigenciaDeporteModificar.add(vigenciaTablaSeleccionada);
-                }
-                if (guardado == true) {
-                    guardado = false;
-                    deshabilitarBotonLov();
-                    RequestContext context = RequestContext.getCurrentInstance();
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                }
+        } else if (!listVigenciaDeporteCrear.contains(vigenciaTablaSeleccionada)) {
+            if (listVigenciaDeporteModificar.isEmpty()) {
+                listVigenciaDeporteModificar.add(vigenciaTablaSeleccionada);
+            } else if (!listVigenciaDeporteModificar.contains(vigenciaTablaSeleccionada)) {
+                listVigenciaDeporteModificar.add(vigenciaTablaSeleccionada);
+            }
+            if (guardado == true) {
+                guardado = false;
+                deshabilitarBotonLov();
+                RequestContext context = RequestContext.getCurrentInstance();
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         }
     }
@@ -349,7 +345,7 @@ public class ControlVigenciaDeporte implements Serializable {
     public void cancelarModificacion() {
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 1) {
-            
+
             veFechaInicial = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasDeportes:veFechaInicial");
             veFechaInicial.setFilterStyle("display: none; visibility: hidden;");
             veFechaFinal = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasDeportes:veFechaFinal");
@@ -479,12 +475,10 @@ public class ControlVigenciaDeporte implements Serializable {
                     RequestContext.getCurrentInstance().execute("PF('errorFechas').show()");
                     retorno = false;
                 }
+            } else if (nuevaVigenciaDeporte.getFechainicial().after(fechaParametro)) {
+                retorno = true;
             } else {
-                if (nuevaVigenciaDeporte.getFechainicial().after(fechaParametro)) {
-                    retorno = true;
-                } else {
-                    retorno = false;
-                }
+                retorno = false;
             }
         }
         if (i == 2) {
@@ -495,12 +489,10 @@ public class ControlVigenciaDeporte implements Serializable {
                     retorno = false;
                     RequestContext.getCurrentInstance().execute("PF('errorFechas').show()");
                 }
+            } else if (duplicarVigenciaDeporte.getFechainicial().after(fechaParametro)) {
+                retorno = true;
             } else {
-                if (duplicarVigenciaDeporte.getFechainicial().after(fechaParametro)) {
-                    retorno = true;
-                } else {
-                    retorno = false;
-                }
+                retorno = false;
             }
         }
         return retorno;
@@ -591,7 +583,7 @@ public class ControlVigenciaDeporte implements Serializable {
                 nuevaVigenciaDeporte = new VigenciasDeportes();
                 nuevaVigenciaDeporte.setDeporte(new Deportes());
                 getListVigenciasDeportes();
-                modificarinfoRegistro(listVigenciasDeportes.size());
+                contarRegistrosVD();
                 deshabilitarBotonLov();
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("form:infoRegistro");
@@ -677,7 +669,7 @@ public class ControlVigenciaDeporte implements Serializable {
                     listVigenciaDeporteCrear.add(duplicarVigenciaDeporte);
                     vigenciaTablaSeleccionada = duplicarVigenciaDeporte;
                     getListVigenciasDeportes();
-                    modificarinfoRegistro(listVigenciasDeportes.size());
+                    contarRegistrosVD();
                     RequestContext context = RequestContext.getCurrentInstance();
                     RequestContext.getCurrentInstance().update("form:infoRegistro");
                     RequestContext.getCurrentInstance().update("form:datosVigenciasDeportes");
@@ -730,21 +722,21 @@ public class ControlVigenciaDeporte implements Serializable {
     public void borrarVigenciaDeporte() {
 
         if (vigenciaTablaSeleccionada != null) {
-                if (!listVigenciaDeporteModificar.isEmpty() && listVigenciaDeporteModificar.contains(vigenciaTablaSeleccionada)) {
-                    int modIndex = listVigenciaDeporteModificar.indexOf(vigenciaTablaSeleccionada);
-                    listVigenciaDeporteModificar.remove(modIndex);
-                    listVigenciaDeporteBorrar.add(vigenciaTablaSeleccionada);
-                } else if (!listVigenciaDeporteCrear.isEmpty() && listVigenciaDeporteCrear.contains(vigenciaTablaSeleccionada)) {
-                    int crearIndex = listVigenciaDeporteCrear.indexOf(vigenciaTablaSeleccionada);
-                    listVigenciaDeporteCrear.remove(crearIndex);
-                } else {
-                    listVigenciaDeporteBorrar.add(vigenciaTablaSeleccionada);
-                }
-                listVigenciasDeportes.remove(vigenciaTablaSeleccionada);
+            if (!listVigenciaDeporteModificar.isEmpty() && listVigenciaDeporteModificar.contains(vigenciaTablaSeleccionada)) {
+                int modIndex = listVigenciaDeporteModificar.indexOf(vigenciaTablaSeleccionada);
+                listVigenciaDeporteModificar.remove(modIndex);
+                listVigenciaDeporteBorrar.add(vigenciaTablaSeleccionada);
+            } else if (!listVigenciaDeporteCrear.isEmpty() && listVigenciaDeporteCrear.contains(vigenciaTablaSeleccionada)) {
+                int crearIndex = listVigenciaDeporteCrear.indexOf(vigenciaTablaSeleccionada);
+                listVigenciaDeporteCrear.remove(crearIndex);
+            } else {
+                listVigenciaDeporteBorrar.add(vigenciaTablaSeleccionada);
+            }
+            listVigenciasDeportes.remove(vigenciaTablaSeleccionada);
             if (tipoLista == 1) {
                 filtrarListVigenciasDeportes.remove(vigenciaTablaSeleccionada);
             }
-            modificarinfoRegistro(listVigenciasDeportes.size());
+            contarRegistrosVD();
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:infoRegistro");
             RequestContext.getCurrentInstance().update("form:datosVigenciasDeportes");
@@ -855,7 +847,7 @@ public class ControlVigenciaDeporte implements Serializable {
             tipoActualizacion = 2;
             deshabilitarBotonLov();
         }
-        modificarinfoRegistroDeporte(listDeportes.size());
+        contarRegistroDeporte();
         contarRegistrosVD();
         RequestContext.getCurrentInstance().update("form:DeportesDialogo");
         RequestContext.getCurrentInstance().execute("PF('DeportesDialogo').show()");
@@ -932,7 +924,7 @@ public class ControlVigenciaDeporte implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 2) {
                 habilitarBotonLov();
-                modificarinfoRegistroDeporte(listDeportes.size());
+                contarRegistroDeporte();
                 RequestContext.getCurrentInstance().update("form:DeportesDialogo");
                 RequestContext.getCurrentInstance().execute("PF('DeportesDialogo').show()");
                 tipoActualizacion = 0;
@@ -978,30 +970,15 @@ public class ControlVigenciaDeporte implements Serializable {
             tipoLista = 1;
         }
         deshabilitarBotonLov();
-        vigenciaTablaSeleccionada = null;
-        modificarinfoRegistro(filtrarListVigenciasDeportes.size());
-        RequestContext.getCurrentInstance().update("form:infoRegistro");
+        contarRegistrosVD();
     }
 
-    public void modificarinfoRegistro(int valor) {
-        infoRegistro = String.valueOf(valor);
-    }
-
-    public void modificarinfoRegistroDeporte(int valor) {
-        infoRegistroDeporte = String.valueOf(valor);
-    }
-
-    public void eventoFiltrarDeportes() {  /// evento filtrar LOV deportes
-        modificarinfoRegistroDeporte(filtrarListDeportes.size());
+    public void contarRegistroDeporte() {
         RequestContext.getCurrentInstance().update("form:infoRegistroDeporte");
     }
 
     public void contarRegistrosVD() {
-        if (listVigenciasDeportes != null) {
-            modificarinfoRegistro(listVigenciasDeportes.size());
-        } else {
-            modificarinfoRegistro(0);
-        }
+        RequestContext.getCurrentInstance().update("form:infoRegistro");
 
     }
 //RASTRO - COMPROBAR SI LA TABLA TIENE RASTRO ACTIVO
@@ -1023,13 +1000,10 @@ public class ControlVigenciaDeporte implements Serializable {
                 RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
             deshabilitarBotonLov();
+        } else if (administrarRastros.verificarHistoricosTabla("VIGENCIASDEPORTES")) {
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            if (administrarRastros.verificarHistoricosTabla("VIGENCIASDEPORTES")) {
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-            }
-
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
     }
 
@@ -1150,10 +1124,16 @@ public class ControlVigenciaDeporte implements Serializable {
     }
 
     public String getInfoRegistro() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosVigenciasDeportes");
+        infoRegistro = String.valueOf(tabla.getRowCount());
         return infoRegistro;
     }
 
     public String getInfoRegistroDeporte() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lovDeportes");
+        infoRegistroDeporte = String.valueOf(tabla.getRowCount());
         return infoRegistroDeporte;
     }
 

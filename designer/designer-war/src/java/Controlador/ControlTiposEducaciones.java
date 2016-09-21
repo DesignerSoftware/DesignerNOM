@@ -28,7 +28,6 @@ import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
 
-
 /**
  *
  * @author user
@@ -99,7 +98,6 @@ public class ControlTiposEducaciones implements Serializable {
         if (listaTiposEducaciones != null) {
             tipoEducacionSeleccionado = listaTiposEducaciones.get(0);
         }
-        contarRegistros();
     }
 
     public String redirigir() {
@@ -270,7 +268,7 @@ public class ControlTiposEducaciones implements Serializable {
             nuevoTipoEducacion.setSecuencia(l);
             listaTiposEducacionesCrear.add(nuevoTipoEducacion);
             listaTiposEducaciones.add(nuevoTipoEducacion);
-            modificarInfoRegistro(listaTiposEducaciones.size());
+            contarRegistros();
             tipoEducacionSeleccionado = nuevoTipoEducacion;
             nuevoTipoEducacion = new TiposEducaciones();
 
@@ -361,7 +359,7 @@ public class ControlTiposEducaciones implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:infoRegistro");
             RequestContext.getCurrentInstance().update("form:datosTiposEducaciones");
-            modificarInfoRegistro(listaTiposEducaciones.size());
+            contarRegistros();
             tipoEducacionSeleccionado = null;
             guardado = true;
 
@@ -444,7 +442,7 @@ public class ControlTiposEducaciones implements Serializable {
             listaTiposEducaciones.add(duplicarTipoEducacion);
             listaTiposEducacionesCrear.add(duplicarTipoEducacion);
             tipoEducacionSeleccionado = duplicarTipoEducacion;
-            modificarInfoRegistro(listaTiposEducaciones.size());
+            contarRegistros();
             RequestContext.getCurrentInstance().update("form:datosTiposEducaciones");
             if (guardado == true) {
                 guardado = false;
@@ -571,20 +569,11 @@ public class ControlTiposEducaciones implements Serializable {
             tipoLista = 1;
         }
         deshabilitarBotonLov();
-        modificarInfoRegistro(filtradoListaTiposEducaciones.size());
-        RequestContext.getCurrentInstance().update("form:infoRegistro");
-    }
-
-    public void modificarInfoRegistro(int valor) {
-        inforegistro = String.valueOf(valor);
+        contarRegistros();
     }
 
     public void contarRegistros() {
-        if (listaTiposEducaciones != null) {
-            modificarInfoRegistro(listaTiposEducaciones.size());
-        } else {
-            modificarInfoRegistro(0);
-        }
+        RequestContext.getCurrentInstance().update("form:infoRegistro");
     }
 
     public void deshabilitarBotonLov() {
@@ -595,7 +584,7 @@ public class ControlTiposEducaciones implements Serializable {
     public List<TiposEducaciones> getListaTiposEducaciones() {
         if (listaTiposEducaciones == null) {
             listaTiposEducaciones = administrarTiposEducaciones.TiposEducaciones();
-        } 
+        }
         return listaTiposEducaciones;
     }
 
@@ -676,6 +665,9 @@ public class ControlTiposEducaciones implements Serializable {
     }
 
     public String getInforegistro() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosTiposEducaciones");
+        inforegistro = String.valueOf(tabla.getRowCount());
         return inforegistro;
     }
 

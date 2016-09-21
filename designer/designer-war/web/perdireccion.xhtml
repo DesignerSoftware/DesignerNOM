@@ -529,11 +529,11 @@
                     <p:dialog header="#{msg['ciudadesC']}" widgetVar="ciudadesDialogo" draggable="true" resizable="false" id="ciudadesDialogo" closable="false"  
                               showEffect="fade" hideEffect="fade" modal="true" width="347" >
 
-                        <p:dataTable  id="LOVCiudades" style=" width: 300px;" var="ciudad" value="#{controlPerDirecciones.listaCiudades}"
+                        <p:dataTable  id="LOVCiudades"  var="ciudad" value="#{controlPerDirecciones.listaCiudades}"
                                       scrollable="true" scrollHeight="117" scrollWidth="315" liveScroll="true" scrollRows="8" widgetVar="LOVCiudades" 
                                       filteredValue="#{controlPerDirecciones.filtradoslistaCiudades}" emptyMessage="#{msg['lovvacio']}"
                                       rowKey="#{ciudad.secuencia}" selection="#{controlPerDirecciones.seleccionCiudades}" selectionMode="single">
-                            <p:ajax event="filter" listener="#{controlPerDirecciones.eventoFiltrarCiudades()}"/>
+                            <p:ajax event="filter" listener="#{controlPerDirecciones.contarRegistroCiudades()}"/>
                             <p:ajax event="rowSelect" listener="#{controlPerDirecciones.activarAceptar()}" update=":formularioDialogos:aceptarC"/>
                             <p:ajax event="rowDblselect" listener="#{controlPerDirecciones.actualizarCiudades()}" process="@this" />
                             <f:facet name="header">  

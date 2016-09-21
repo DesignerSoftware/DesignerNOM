@@ -132,7 +132,6 @@ public class ControlPerDirecciones implements Serializable {
         } else {
             direccionSeleccionada = listaDirecciones.get(0);
         }
-        contarRegistros();
     }
 
     public void cambiarIndice(Direcciones direccion, int celda) {
@@ -143,7 +142,7 @@ public class ControlPerDirecciones implements Serializable {
                 direccionSeleccionada.getSecuencia();
                 deshabilitarBotonLOV();
                 if (cualCelda == 6) {
-                    modificarInfoRegistroCiudades(listaCiudades.size());
+                    contarRegistroCiudades();
                     Ciudad = direccionSeleccionada.getCiudad().getNombre();
                     habilitarBotonLOV();
                 }
@@ -151,7 +150,7 @@ public class ControlPerDirecciones implements Serializable {
                 direccionSeleccionada.getSecuencia();
                 deshabilitarBotonLOV();
                 if (cualCelda == 6) {
-                    modificarInfoRegistroCiudades(listaCiudades.size());
+                   contarRegistroCiudades();
                     Ciudad = direccionSeleccionada.getCiudad().getNombre();
                     habilitarBotonLOV();
                 }
@@ -262,7 +261,7 @@ public class ControlPerDirecciones implements Serializable {
 
             direccionSeleccionada = nuevaDireccion;
             getListaDirecciones();
-            modificarInfoRegistro(listaDirecciones.size());
+            contarRegistros();
             deshabilitarBotonLOV();
             RequestContext.getCurrentInstance().update("form:infoRegistro");
             RequestContext.getCurrentInstance().update("form:datosDireccionesPersona");
@@ -499,7 +498,7 @@ public class ControlPerDirecciones implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 6) {
                 habilitarBotonLOV();
-                modificarInfoRegistroCiudades(listaCiudades.size());
+                contarRegistroCiudades();
                 RequestContext.getCurrentInstance().update("formularioDialogos:ciudadesDialogo");
                 RequestContext.getCurrentInstance().execute("PF('ciudadesDialogo').show()");
                 tipoActualizacion = 0;
@@ -514,7 +513,7 @@ public class ControlPerDirecciones implements Serializable {
     public void asignarIndex(Direcciones direccion) {
         direccionSeleccionada = direccion;
         RequestContext context = RequestContext.getCurrentInstance();
-        modificarInfoRegistroCiudades(listaCiudades.size());
+       contarRegistroCiudades();
         RequestContext.getCurrentInstance().update("formularioDialogos:ciudadesDialogo");
         RequestContext.getCurrentInstance().execute("PF('ciudadesDialogo').show()");
         tipoActualizacion = 0;
@@ -666,7 +665,7 @@ public class ControlPerDirecciones implements Serializable {
             listaDireccionesCrear.add(duplicarDireccion);
             direccionSeleccionada = duplicarDireccion;
             getListaDirecciones();
-            modificarInfoRegistro(listaDirecciones.size());
+           contarRegistros();
             RequestContext.getCurrentInstance().update("form:datosDireccionesPersona");
             RequestContext.getCurrentInstance().update("form:infoRegistro");
             RequestContext.getCurrentInstance().update("form:datosDireccionesPersona");
@@ -898,7 +897,7 @@ public class ControlPerDirecciones implements Serializable {
         } else if (tipoN == 2) {
             tipoActualizacion = 2;
         }
-        modificarInfoRegistroCiudades(listaCiudades.size());
+        contarRegistroCiudades();
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("formularioDialogos:ciudadesDialogo");
         RequestContext.getCurrentInstance().execute("PF('ciudadesDialogo').show()");
@@ -1292,30 +1291,15 @@ public class ControlPerDirecciones implements Serializable {
         if (tipoLista == 0) {
             tipoLista = 1;
         }
-        direccionSeleccionada = null;
-        modificarInfoRegistro(filtradosListaDirecciones.size());
-        RequestContext.getCurrentInstance().update("form:infoRegistro");
+        contarRegistros();
     }
 
-    public void eventoFiltrarCiudades() {
-        modificarInfoRegistroCiudades(filtradoslistaCiudades.size());
+    public void contarRegistroCiudades() {
         RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroCiudades");
     }
 
-    public void modificarInfoRegistro(int valor) {
-        infoRegistro = String.valueOf(valor);
-    }
-
-    public void modificarInfoRegistroCiudades(int valor) {
-        infoRegistroCiudades = String.valueOf(valor);
-    }
-
     public void contarRegistros() {
-        if (listaDirecciones != null) {
-            modificarInfoRegistro(listaDirecciones.size());
-        } else {
-            modificarInfoRegistro(0);
-        }
+        RequestContext.getCurrentInstance().update("form:infoRegistro");
     }
 
     public void recordarSeleccion() {
@@ -1478,6 +1462,9 @@ public class ControlPerDirecciones implements Serializable {
     }
 
     public String getInfoRegistro() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosDireccionesPersona");
+        infoRegistro = String.valueOf(tabla.getRowCount());
         return infoRegistro;
     }
 
@@ -1494,6 +1481,9 @@ public class ControlPerDirecciones implements Serializable {
     }
 
     public String getInfoRegistroCiudades() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVCiudades");
+        infoRegistroCiudades = String.valueOf(tabla.getRowCount());
         return infoRegistroCiudades;
     }
 

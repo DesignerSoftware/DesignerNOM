@@ -255,15 +255,15 @@
 
                         <p:dialog header="#{msg['eventoEV']}" widgetVar="EventosDialogo" draggable="true" resizable="false" closable="false" id="EventosDialogo"  
                                   showEffect="fade" hideEffect="fade" width="431" modal="true" >
-                            <p:dataTable id="lovEventos" style="width: 400px;" var="eventos" value="#{controlEmplVigenciaEvento.listEventos}" rowKey="#{eventos.secuencia}"
+                            <p:dataTable id="lovEventos" var="eventos" value="#{controlEmplVigenciaEvento.listEventos}" rowKey="#{eventos.secuencia}"
                                          selection="#{controlEmplVigenciaEvento.eventoSeleccionado}" selectionMode="single" widgetVar="lovEventos" scrollable="true" scrollWidth="416" scrollHeight="250"
                                          filteredValue="#{controlEmplVigenciaEvento.filtrarListEventos}" emptyMessage="#{msg['lovvacio']}">              
                                 <p:ajax event="rowSelect" listener="#{controlEmplVigenciaEvento.activarAceptar()}" update=":form:aceptarE"/>
                                 <p:ajax event="rowDblselect" listener="#{controlEmplVigenciaEvento.actualizarEvento()}" process="@this" />
-                                <p:ajax event="filter" listener="#{controlEmplVigenciaEvento.eventoFiltrarEventos()}"/>
+                                <p:ajax event="filter" listener="#{controlEmplVigenciaEvento.contarRegistroEventos()}"/>
                                 <f:facet name="header">  
-                                    <h:outputText value="#{msg['buscarEV']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovEventos').filter();" style="width:250px; position: relative; left: 55px;" />  
+                                    <h:outputText value="#{msg['buscarEV']}"  />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovEventos').filter();" class="cssFiltroLOV"/>  
                                 </f:facet>
 
                                 <p:column filterBy="#{eventos.descripcion}" filterMatchMode="contains" >
@@ -274,14 +274,14 @@
                                 </p:column>
                             </p:dataTable>
 
-                            <h:outputText id="infoRegistroEvento" value="#{msg['infoRegistros']} #{controlEmplVigenciaEvento.infoRegistroEvento}" style="position: absolute; left: 20px; top: 320px; font-weight: bold"/>
-
-                            <p:commandButton id="aceptarE" icon="ui-icon-check" style="position: relative; left: 230px;" value="#{msg['aceptar']}" disabled="#{controlEmplVigenciaEvento.aceptar}" actionListener="#{controlEmplVigenciaEvento.actualizarEvento()}"  process="@this"/>
-
-                            <p:commandButton id="atrasE" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 230px;" value="#{msg['atras']}" actionListener="#{controlEmplVigenciaEvento.cancelarCambioEvento()}"  process="@this"/>
-
+                            <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroEvento" value="#{msg['infoRegistros']} #{controlEmplVigenciaEvento.infoRegistroEvento}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarE" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlEmplVigenciaEvento.aceptar}"
+                                             actionListener="#{controlEmplVigenciaEvento.actualizarEvento()}"  process="@this"/>
+                            <p:commandButton id="atrasE" icon="ui-icon-arrowreturnthick-1-w" class="cssAtrasLOV" value="#{msg['atras']}" 
+                                             actionListener="#{controlEmplVigenciaEvento.cancelarCambioEvento()}"  process="@this"/>
+                            </div>
                         </p:dialog> 
-
                     </p:panel>
 
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  

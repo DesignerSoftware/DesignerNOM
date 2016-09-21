@@ -99,7 +99,6 @@ public class ControlEventos implements Serializable {
         paginaanterior = pagina;
         listEventos = null;
         getListEventos();
-        contarRegistros();
         deshabilitarBotonLov();
         if (!listEventos.isEmpty()) {
             eventoSeleccionado = listEventos.get(0);
@@ -425,156 +424,152 @@ public class ControlEventos implements Serializable {
                     }
 
                 }
-            } else {
-
-                if (!crearEventos.contains(eventoSeleccionado)) {
-                    if (eventoSeleccionado.getCodigo() == a) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                        eventoSeleccionado.setCodigo(backUpCodigo);
-                    } else {
-                        for (int j = 0; j < listEventos.size(); j++) {
-                            if (eventoSeleccionado.getCodigo() == listEventos.get(j).getCodigo()) {
-                                contador++;
-                            }
-                        }
-                        for (int j = 0; j < filtrarEventos.size(); j++) {
-                            if (eventoSeleccionado.getCodigo() == filtrarEventos.get(j).getCodigo()) {
-                                contador++;
-                            }
-                        }
-                        if (contador > 0) {
-                            eventoSeleccionado.setCodigo(backUpCodigo);
-                            mensajeValidacion = "CODIGOS REPETIDOS";
-                            banderita = false;
-                        } else {
-                            banderita = true;
-                        }
-
-                    }
-
-                    if (eventoSeleccionado.getDescripcion().isEmpty()) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                        eventoSeleccionado.setDescripcion(backUpDescripcion);
-                    }
-                    if (eventoSeleccionado.getDescripcion().equals(" ")) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        eventoSeleccionado.setDescripcion(backUpDescripcion);
-                        banderita = false;
-                    }
-                    if (eventoSeleccionado.getObjetivo().isEmpty()) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                        eventoSeleccionado.setObjetivo(backUpObjetivo);
-                    }
-                    if (eventoSeleccionado.getObjetivo().equals(" ")) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        eventoSeleccionado.setObjetivo(backUpObjetivo);
-                        banderita = false;
-                    }
-                    if (eventoSeleccionado.getOrganizador().isEmpty()) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                        eventoSeleccionado.setOrganizador(backUpOrganizador);
-                    }
-                    if (eventoSeleccionado.getOrganizador().equals(" ")) {
-                        eventoSeleccionado.setOrganizador(backUpOrganizador);
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                    }
-
-                    if (banderita == true) {
-                        if (modificarEventos.isEmpty()) {
-                            modificarEventos.add(eventoSeleccionado);
-                        } else if (!modificarEventos.contains(eventoSeleccionado)) {
-                            modificarEventos.add(eventoSeleccionado);
-                        }
-                        if (guardado == true) {
-                            guardado = false;
-                        }
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-
-                    } else {
-                        RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-                        contador = 0;
-                    }
+            } else if (!crearEventos.contains(eventoSeleccionado)) {
+                if (eventoSeleccionado.getCodigo() == a) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    banderita = false;
+                    eventoSeleccionado.setCodigo(backUpCodigo);
                 } else {
-                    if (eventoSeleccionado.getCodigo() == a) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
+                    for (int j = 0; j < listEventos.size(); j++) {
+                        if (eventoSeleccionado.getCodigo() == listEventos.get(j).getCodigo()) {
+                            contador++;
+                        }
+                    }
+                    for (int j = 0; j < filtrarEventos.size(); j++) {
+                        if (eventoSeleccionado.getCodigo() == filtrarEventos.get(j).getCodigo()) {
+                            contador++;
+                        }
+                    }
+                    if (contador > 0) {
                         eventoSeleccionado.setCodigo(backUpCodigo);
+                        mensajeValidacion = "CODIGOS REPETIDOS";
+                        banderita = false;
                     } else {
-                        for (int j = 0; j < listEventos.size(); j++) {
-                            if (eventoSeleccionado.getCodigo() == listEventos.get(j).getCodigo()) {
-                                contador++;
-                            }
-                        }
-                        for (int j = 0; j < filtrarEventos.size(); j++) {
-                            if (eventoSeleccionado.getCodigo() == filtrarEventos.get(j).getCodigo()) {
-                                contador++;
-                            }
-                        }
-                        if (contador > 0) {
-                            eventoSeleccionado.setCodigo(backUpCodigo);
-                            mensajeValidacion = "CODIGOS REPETIDOS";
-                            banderita = false;
-                        } else {
-                            banderita = true;
-                        }
-
+                        banderita = true;
                     }
 
-                    if (eventoSeleccionado.getDescripcion().isEmpty()) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                        eventoSeleccionado.setDescripcion(backUpDescripcion);
-                    }
-                    if (eventoSeleccionado.getDescripcion().equals(" ")) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        eventoSeleccionado.setDescripcion(backUpDescripcion);
-                        banderita = false;
-                    }
-                    if (eventoSeleccionado.getObjetivo().isEmpty()) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                        eventoSeleccionado.setObjetivo(backUpObjetivo);
-                    }
-                    if (eventoSeleccionado.getObjetivo().equals(" ")) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        eventoSeleccionado.setObjetivo(backUpObjetivo);
-                        banderita = false;
-                    }
-                    if (eventoSeleccionado.getOrganizador().isEmpty()) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                        eventoSeleccionado.setOrganizador(backUpOrganizador);
-                    }
-                    if (eventoSeleccionado.getOrganizador().equals(" ")) {
-                        eventoSeleccionado.setOrganizador(backUpOrganizador);
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                    }
-
-                    if (banderita == true) {
-                        if (modificarEventos.isEmpty()) {
-                            modificarEventos.add(eventoSeleccionado);
-                        } else if (!modificarEventos.contains(eventoSeleccionado)) {
-                            modificarEventos.add(eventoSeleccionado);
-                        }
-                        if (guardado == true) {
-                            guardado = false;
-                        }
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-
-                    } else {
-                        RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-                        contador = 0;
-                    }
                 }
 
+                if (eventoSeleccionado.getDescripcion().isEmpty()) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    banderita = false;
+                    eventoSeleccionado.setDescripcion(backUpDescripcion);
+                }
+                if (eventoSeleccionado.getDescripcion().equals(" ")) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    eventoSeleccionado.setDescripcion(backUpDescripcion);
+                    banderita = false;
+                }
+                if (eventoSeleccionado.getObjetivo().isEmpty()) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    banderita = false;
+                    eventoSeleccionado.setObjetivo(backUpObjetivo);
+                }
+                if (eventoSeleccionado.getObjetivo().equals(" ")) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    eventoSeleccionado.setObjetivo(backUpObjetivo);
+                    banderita = false;
+                }
+                if (eventoSeleccionado.getOrganizador().isEmpty()) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    banderita = false;
+                    eventoSeleccionado.setOrganizador(backUpOrganizador);
+                }
+                if (eventoSeleccionado.getOrganizador().equals(" ")) {
+                    eventoSeleccionado.setOrganizador(backUpOrganizador);
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    banderita = false;
+                }
+
+                if (banderita == true) {
+                    if (modificarEventos.isEmpty()) {
+                        modificarEventos.add(eventoSeleccionado);
+                    } else if (!modificarEventos.contains(eventoSeleccionado)) {
+                        modificarEventos.add(eventoSeleccionado);
+                    }
+                    if (guardado == true) {
+                        guardado = false;
+                    }
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+
+                } else {
+                    RequestContext.getCurrentInstance().update("form:validacionModificar");
+                    RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
+                    contador = 0;
+                }
+            } else {
+                if (eventoSeleccionado.getCodigo() == a) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    banderita = false;
+                    eventoSeleccionado.setCodigo(backUpCodigo);
+                } else {
+                    for (int j = 0; j < listEventos.size(); j++) {
+                        if (eventoSeleccionado.getCodigo() == listEventos.get(j).getCodigo()) {
+                            contador++;
+                        }
+                    }
+                    for (int j = 0; j < filtrarEventos.size(); j++) {
+                        if (eventoSeleccionado.getCodigo() == filtrarEventos.get(j).getCodigo()) {
+                            contador++;
+                        }
+                    }
+                    if (contador > 0) {
+                        eventoSeleccionado.setCodigo(backUpCodigo);
+                        mensajeValidacion = "CODIGOS REPETIDOS";
+                        banderita = false;
+                    } else {
+                        banderita = true;
+                    }
+
+                }
+
+                if (eventoSeleccionado.getDescripcion().isEmpty()) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    banderita = false;
+                    eventoSeleccionado.setDescripcion(backUpDescripcion);
+                }
+                if (eventoSeleccionado.getDescripcion().equals(" ")) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    eventoSeleccionado.setDescripcion(backUpDescripcion);
+                    banderita = false;
+                }
+                if (eventoSeleccionado.getObjetivo().isEmpty()) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    banderita = false;
+                    eventoSeleccionado.setObjetivo(backUpObjetivo);
+                }
+                if (eventoSeleccionado.getObjetivo().equals(" ")) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    eventoSeleccionado.setObjetivo(backUpObjetivo);
+                    banderita = false;
+                }
+                if (eventoSeleccionado.getOrganizador().isEmpty()) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    banderita = false;
+                    eventoSeleccionado.setOrganizador(backUpOrganizador);
+                }
+                if (eventoSeleccionado.getOrganizador().equals(" ")) {
+                    eventoSeleccionado.setOrganizador(backUpOrganizador);
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    banderita = false;
+                }
+
+                if (banderita == true) {
+                    if (modificarEventos.isEmpty()) {
+                        modificarEventos.add(eventoSeleccionado);
+                    } else if (!modificarEventos.contains(eventoSeleccionado)) {
+                        modificarEventos.add(eventoSeleccionado);
+                    }
+                    if (guardado == true) {
+                        guardado = false;
+                    }
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+
+                } else {
+                    RequestContext.getCurrentInstance().update("form:validacionModificar");
+                    RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
+                    contador = 0;
+                }
             }
             RequestContext.getCurrentInstance().update("form:datosEvento");
         }
@@ -602,7 +597,7 @@ public class ControlEventos implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:datosEvento");
-            modificarInfoRegistro(listEventos.size());
+            contarRegistros();
             RequestContext.getCurrentInstance().update("form:informacionRegistro");
 
             eventoSeleccionado = null;
@@ -826,7 +821,7 @@ public class ControlEventos implements Serializable {
             nuevoEvento = new Eventos();
 
             RequestContext.getCurrentInstance().update("form:datosEvento");
-            modificarInfoRegistro(listEventos.size());
+            contarRegistros();
             RequestContext.getCurrentInstance().update("form:informacionRegistro");
 
             if (guardado == true) {
@@ -946,7 +941,7 @@ public class ControlEventos implements Serializable {
                 guardado = false;
             }
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            modificarInfoRegistro(listEventos.size());
+            contarRegistros();
             RequestContext.getCurrentInstance().update("form:informacionRegistro");
 
             if (bandera == 1) {
@@ -1017,40 +1012,26 @@ public class ControlEventos implements Serializable {
             } else if (resultado == 5) {
                 RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
+        } else if (administrarRastros.verificarHistoricosTabla("EVENTOS")) { // igual acá
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            if (administrarRastros.verificarHistoricosTabla("EVENTOS")) { // igual acá
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-            }
-
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
     }
 
     public void eventoFiltrar() {
         try {
-            System.out.println("\n ENTRE A ControlEventos.eventoFiltrar \n");
             if (tipoLista == 0) {
                 tipoLista = 1;
             }
-            RequestContext context = RequestContext.getCurrentInstance();
-            modificarInfoRegistro(filtrarEventos.size());
-            RequestContext.getCurrentInstance().update("form:informacionRegistro");
+            contarRegistros();
         } catch (Exception e) {
             System.out.println("ERROR ControlEventos eventoFiltrar ERROR===" + e.getMessage());
         }
     }
 
-    public void modificarInfoRegistro(int valor) {
-        infoRegistro = String.valueOf(valor);
-    }
-
     public void contarRegistros() {
-        if (listEventos != null) {
-            modificarInfoRegistro(listEventos.size());
-        } else {
-            modificarInfoRegistro(0);
-        }
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
     }
 
     public void recordarSeleccion() {
@@ -1156,6 +1137,9 @@ public class ControlEventos implements Serializable {
     }
 
     public String getInfoRegistro() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosEvento");
+        infoRegistro = String.valueOf(tabla.getRowCount());
         return infoRegistro;
     }
 

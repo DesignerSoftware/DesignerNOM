@@ -4,7 +4,6 @@
  */
 package Controlador;
 
-
 import Entidades.Ciudades;
 import Entidades.Departamentos;
 import Exportar.ExportarPDF;
@@ -128,7 +127,6 @@ public class ControlCiudades implements Serializable {
     public void recibirPaginaEntrante(String pagina) {
         paginaAnterior = pagina;
         getListaCiudades();
-//        contarRegistrosCiudad();
         if (listaCiudades != null) {
             ciudadSeleccionada = listaCiudades.get(0);
         }
@@ -143,7 +141,7 @@ public class ControlCiudades implements Serializable {
         ciudadSeleccionada = ciudad;
         RequestContext context = RequestContext.getCurrentInstance();
         tipoActualizacion = 0;
-        modificarInfoRegistroDep(listaDepartamentos.size());
+        contarRegistroDep();
         activarBotonLOV();
         RequestContext.getCurrentInstance().update("formularioDialogos:departamentosDialogo");
         RequestContext.getCurrentInstance().execute("PF('departamentosDialogo').show()");
@@ -156,7 +154,7 @@ public class ControlCiudades implements Serializable {
             tipoActualizacion = 2;
         }
         RequestContext context = RequestContext.getCurrentInstance();
-        modificarInfoRegistroDep(listaDepartamentos.size());
+        contarRegistroDep();
         RequestContext.getCurrentInstance().update("formularioDialogos:departamentosDialogo");
         RequestContext.getCurrentInstance().execute("PF('departamentosDialogo').show()");
     }
@@ -198,7 +196,7 @@ public class ControlCiudades implements Serializable {
         if (pasa == 0) {
             listaCiudades.add(duplicarCiudad);
             listaCiudadesCrear.add(duplicarCiudad);
-            modificarInfoRegistroCiudad(listaCiudades.size());
+            contarRegistrosCiudad();
             ciudadSeleccionada = listaCiudades.get(listaCiudades.indexOf(duplicarCiudad));
             if (tipoLista == 1) {
                 altoTabla = "310";
@@ -336,7 +334,7 @@ public class ControlCiudades implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (ciudadSeleccionada != null) {
             if (cualCelda == 2) {
-                modificarInfoRegistroDep(listaDepartamentos.size());
+                contarRegistroDep();
                 RequestContext.getCurrentInstance().update("form:departamentosDialogo");
                 RequestContext.getCurrentInstance().execute("PF('departamentosDialogo').show()");
                 tipoActualizacion = 0;
@@ -413,7 +411,7 @@ public class ControlCiudades implements Serializable {
             nuevaCiudad.setSecuencia(l);
             listaCiudadesCrear.add(nuevaCiudad);
             listaCiudades.add(nuevaCiudad);
-            modificarInfoRegistroCiudad(listaCiudades.size());
+            contarRegistrosCiudad();
             ciudadSeleccionada = listaCiudades.get(listaCiudades.indexOf(nuevaCiudad));
             if (tipoLista == 1) {
                 altoTabla = "310";
@@ -656,7 +654,7 @@ public class ControlCiudades implements Serializable {
                 if (tipoLista == 1) {
                     filtradoListaCiudades.remove(ciudadSeleccionada);
                 }
-                modificarInfoRegistroCiudad(listaCiudades.size());
+                contarRegistrosCiudad();
                 RequestContext.getCurrentInstance().update("form:datosCiudades");
                 RequestContext.getCurrentInstance().update("form:informacionRegistro");
                 ciudadSeleccionada = null;
@@ -699,12 +697,10 @@ public class ControlCiudades implements Serializable {
             } else if (resultado == 5) {
                 RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
+        } else if (administrarRastros.verificarHistoricosTabla("CIUDADES")) {
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            if (administrarRastros.verificarHistoricosTabla("CIUDADES")) {
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-            }
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
         anularBotonLOV();
     }
@@ -752,28 +748,14 @@ public class ControlCiudades implements Serializable {
         }
         ciudadSeleccionada = null;
         anularBotonLOV();
-        modificarInfoRegistroCiudad(filtradoListaCiudades.size());
+        contarRegistrosCiudad();
     }
 
     public void contarRegistrosCiudad() {
-        if (listaCiudades != null) {
-            modificarInfoRegistroCiudad(listaCiudades.size());
-        } else {
-            modificarInfoRegistroCiudad(0);
-        }
-    }
-
-    public void eventoFiltrarDep() {
-        modificarInfoRegistroDep(filtradoListaDepatartamentos.size());
-    }
-
-    private void modificarInfoRegistroCiudad(int valor) {
-        infoRegistroCiudad = String.valueOf(valor);
         RequestContext.getCurrentInstance().update("form:informacionRegistro");
     }
 
-    private void modificarInfoRegistroDep(int valor) {
-        infoRegistroDep = String.valueOf(valor);
+    private void contarRegistroDep() {
         RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroDepartamentos");
     }
 
@@ -893,10 +875,16 @@ public class ControlCiudades implements Serializable {
     }
 
     public String getInfoRegistroCiudad() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosCiudades");
+        infoRegistroCiudad = String.valueOf(tabla.getRowCount());
         return infoRegistroCiudad;
     }
 
     public String getInfoRegistroDep() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVDepartamentos");
+        infoRegistroDep = String.valueOf(tabla.getRowCount());
         return infoRegistroDep;
     }
 

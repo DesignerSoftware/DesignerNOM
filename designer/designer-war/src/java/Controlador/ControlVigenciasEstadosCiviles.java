@@ -119,7 +119,6 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
         listVigenciaEstadoCivilPorEmpleado = null;
         getEmpleadoSeleccionado();
         getListVigenciaEstadoCivilPorEmpleado();
-        contarRegistros();
         deshabilitarBotonLov();
         if (!listVigenciaEstadoCivilPorEmpleado.isEmpty()) {
             if (listVigenciaEstadoCivilPorEmpleado != null) {
@@ -229,7 +228,7 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
             vigenciaSeleccionada.getSecuencia();
             if (cualCelda == 1) {
                 habilitarBotonLov();
-                modificarInfoRegistroEC(listaEstadosCiviles.size());
+                contarRegistroEC();
                 if (tipoLista == 0) {
                     estadoCivil = vigenciaSeleccionada.getEstadocivil().getDescripcion();
                 } else {
@@ -257,7 +256,7 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
             }
             if (dig == 1) {
                 habilitarBotonLov();
-                modificarInfoRegistroEC(listaEstadosCiviles.size());
+                contarRegistroEC();
                 RequestContext.getCurrentInstance().update("form:EstadoCivilDialogo");
                 RequestContext.getCurrentInstance().execute("PF('EstadoCivilDialogo').show()");
                 dig = -1;
@@ -275,7 +274,7 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
         if (vigenciaSeleccionada != null) {
             if (cualCelda == 1) {
                 habilitarBotonLov();
-                modificarInfoRegistroEC(listaEstadosCiviles.size());
+                contarRegistroEC();
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("form:EstadoCivilDialogo");
                 RequestContext.getCurrentInstance().execute("PF('EstadoCivilDialogo').show()");
@@ -760,7 +759,7 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
                 guardado = false;
             }
             RequestContext.getCurrentInstance().update("form:datosHvEntrevista");
-            modificarInfoRegistro(listVigenciaEstadoCivilPorEmpleado.size());
+            contarRegistros();
             RequestContext.getCurrentInstance().update("form:infoRegistro");
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
             vigenciaSeleccionada = null;
@@ -926,7 +925,7 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
             nuevoVigenciaEstadoCivil.setSecuencia(l);
             crearVigenciaEstadoCivilPorEmplado.add(nuevoVigenciaEstadoCivil);
             listVigenciaEstadoCivilPorEmpleado.add(nuevoVigenciaEstadoCivil);
-            modificarInfoRegistro(listVigenciaEstadoCivilPorEmpleado.size());
+            contarRegistros();
             vigenciaSeleccionada = nuevoVigenciaEstadoCivil;
             nuevoVigenciaEstadoCivil = new VigenciasEstadosCiviles();
             nuevoVigenciaEstadoCivil.setEstadocivil(new EstadosCiviles());
@@ -1040,7 +1039,7 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
             if (guardado == true) {
                 guardado = false;
             }
-            modificarInfoRegistro(listVigenciaEstadoCivilPorEmpleado.size());
+            contarRegistros();
             RequestContext.getCurrentInstance().update("form:infoRegistro");
             if (bandera == 1) {
                 //CERRAR FILTRADO
@@ -1137,8 +1136,7 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
         if (tipoLista == 0) {
             tipoLista = 1;
         }
-        modificarInfoRegistro(filtrarVigenciaEstadoCivilPorEmplado.size());
-        RequestContext.getCurrentInstance().update("form:infoRegistro");
+        contarRegistros();
     }
 
     public void habilitarBotonLov() {
@@ -1151,25 +1149,12 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
         RequestContext.getCurrentInstance().update("form:listaValores");
     }
 
-    public void eventoFiltrarEC() {
-        modificarInfoRegistroEC(filtradoEstadosCiviles.size());
+    public void contarRegistroEC() {
         RequestContext.getCurrentInstance().update("form:infoRegistroEC");
     }
 
-    public void modificarInfoRegistroEC(int valor) {
-        infoRegistroEC = String.valueOf(valor);
-    }
-
-    public void modificarInfoRegistro(int valor) {
-        infoRegistro = String.valueOf(valor);
-    }
-
     public void contarRegistros() {
-        if (listVigenciaEstadoCivilPorEmpleado != null) {
-            modificarInfoRegistro(listVigenciaEstadoCivilPorEmpleado.size());
-        } else {
-            modificarInfoRegistro(0);
-        }
+        RequestContext.getCurrentInstance().update("form:infoRegistro");
     }
 
     //*/*/*/*/*/*/*/*/*/*-/-*//-*/-*/*/*-*/-*/-*/*/*/*/*/---/*/*/*/*/-*/-*/-*/-*/-*/
@@ -1291,6 +1276,9 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
     }
 
     public String getInfoRegistro() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosHvEntrevista");
+        infoRegistro = String.valueOf(tabla.getRowCount());
         return infoRegistro;
     }
 
@@ -1307,6 +1295,9 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
     }
 
     public String getInfoRegistroEC() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lovTiposFamiliares");
+        infoRegistroEC = String.valueOf(tabla.getRowCount());
         return infoRegistroEC;
     }
 

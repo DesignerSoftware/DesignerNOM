@@ -65,13 +65,13 @@
                                 <p:separator style="position: relative; top: -9px"/>
                                 <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png); background-size: 100% 100%; background-repeat: no-repeat; border:none; width: 25px; height: 25px " action="individual" process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
-                                
+
                             </p:toolbarGroup>  
                         </p:toolbar>
 
                         <p:commandButton  style=" position: absolute; left: 675px; top: 500px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ACEPTAR" value=" " disabled="#{controlPersonaEducacion.guardado}" onclick="PF('confirmarGuardar').show();" update=":form:datosVigenciasFormalesPersona" process="@this" />
                         <p:commandButton style=" position: absolute; left: 765px; top: 500px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" value=" "  actionListener="#{controlPersonaEducacion.salir()}" action="individual" process="@this" /> 
-                        
+
                         <fieldset style="position: absolute; top: 75px; left: 10px; height: 18px; width: 830px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px">
                             <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;" />
                             <h:outputText id="nombreEmpleado" value="#{controlPersonaEducacion.empleado.persona.nombreCompleto}" 
@@ -81,7 +81,7 @@
                             <h:outputText id="docEmpleado" value="#{controlPersonaEducacion.empleado.codigoempleado}" 
                                           style="font-weight: bold; color: #BF1A1A; position: relative; left: 130px; top: 5px;" />
                         </fieldset>
-                        
+
                         <fieldset style="position: absolute;top: 105px;left: 10px;height: 185px;width: 830px; border-radius: 10px; text-align: left">
                             <legend style="font-size: 12px; color: #14388B"><strong>#{msg['ee']}</strong></legend>
 
@@ -493,7 +493,7 @@
                                     <p:ajax event="change" update="nuevaFechaExpedicion" process="@this"/>
                                 </p:calendar>
                             </div>
-                            
+
                             <strong><h:outputText value="#{msg['vencimientoN']}" style=" position: absolute; top: 405px;" /></strong>
                             <div id="posicionFormulaFechaVencimientoNuevoReg" style=" position: absolute; top: 400px; left: 200px">
                                 <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaVencimiento" value="#{controlPersonaEducacion.nuevaVigenciaFormal.fechavencimientotarjeta}" >
@@ -513,7 +513,7 @@
                             <p:commandButton id="cancelarVF" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style=" position: absolute; left: 280px; top: 470px;" actionListener="#{controlPersonaEducacion.limpiarNuevaVigenciaFormal()}" update="nuevaVigenciaFormal" onclick="PF('NuevoRegistroVigenciaFormal').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
-                    
+
                     <!--DIALOGO DUPLICAR-->
 
                     <p:dialog id="DuplicarRegistroVigenciaFormal" header="#{msg['duplicarregistro']}" widgetVar="DuplicarRegistroVigenciaFormal" closable="false" resizable="false"  draggable="true" modal="true" height="500" width="400" style=" padding: 0px">  
@@ -586,7 +586,7 @@
                                     <p:ajax event="change" update="duplicarFechaExpedicion" process="@this"/>
                                 </p:calendar>
                             </div>
-                            
+
                             <strong><h:outputText value="#{msg['vencimientoN']}" style=" position: absolute; top: 405px;" /></strong>
                             <div id="posicionFormulaFechaVencimientoDuplicarReg" style=" position: absolute; top: 400px; left: 200px">
                                 <p:calendar pattern="dd/MM/yyyy" id="duplicarFechaVencimiento" value="#{controlPersonaEducacion.nuevaVigenciaFormal.fechavencimientotarjeta}" >
@@ -614,7 +614,7 @@
                         <center><strong><h:outputText value="#{msg['ingresarnuevoVNF']}" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
 
                         <p:panel id="nuevaVigenciaNoFormal" style="border: none;">
-                                                        
+
                             <strong><h:outputText value="#{msg['fechaN']}" style=" position: absolute; top: 85px;" /></strong>
                             <div id="posicionFormulaFechaVigenciaNuevoReg" style=" position: absolute; top: 80px; left: 200px">
                                 <p:calendar pattern="dd/MM/yyyy" id="nuevaFechaNF" value="#{controlPersonaEducacion.nuevaVigenciaNoFormal.fechavigencia}" >
@@ -673,8 +673,8 @@
                             <p:commandButton id="cancelarVNF" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style=" position: absolute; left: 280px; top: 370px;" actionListener="#{controlPersonaEducacion.limpiarNuevaVigenciaNoFormal()}" update="nuevaVigenciaNoFormal" onclick="PF('NuevoRegistroVigenciaNoFormal').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
-                    
-                     <!--DIALOGO DUPLICAR-->
+
+                    <!--DIALOGO DUPLICAR-->
 
                     <p:dialog id="DuplicarRegistroVigenciaNoFormal" header="#{msg['duplicarregistro']}" widgetVar="DuplicarRegistroVigenciaNoFormal" closable="false" resizable="false"  draggable="true" modal="true" height="400" width="400" style=" padding: 0px">  
 
@@ -764,18 +764,18 @@
                     <!-- L.O.V TIPO EDUCACION -->
 
                     <p:dialog id="tiposEducacionesDialogo" header="#{msg['tiposeducacionTE']}" widgetVar="tiposEducacionesDialogo" draggable="true" resizable="false"  closable="false"  
-                              showEffect="fade" hideEffect="fade" modal="true" width="380" height="350" >
+                              showEffect="fade" hideEffect="fade" modal="true" width="380" >
 
-                        <p:dataTable  id="LOVTiposEducaciones" style=" width: 330px;" var="tiposEducaciones" value="#{controlPersonaEducacion.listaTiposEducaciones}"
+                        <p:dataTable  id="LOVTiposEducaciones" var="tiposEducaciones" value="#{controlPersonaEducacion.listaTiposEducaciones}"
                                       scrollable="true" scrollHeight="200" scrollWidth="345" widgetVar="LOVTiposEducaciones" 
                                       filteredValue="#{controlPersonaEducacion.filtradoslistaTiposEducaciones}" emptyMessage="#{msg['lovvacio']}"
                                       rowKey="#{tiposEducaciones.secuencia}" selection="#{controlPersonaEducacion.seleccionTiposEducaciones}" selectionMode="single">
                             <p:ajax event="rowSelect" listener="#{controlPersonaEducacion.activarAceptar()}" update=":formularioDialogos:aceptarTE"/>
                             <p:ajax event="rowDblselect" listener="#{controlPersonaEducacion.actualizarTiposEducaciones()}" process="@this" />
-                            <p:ajax event="filter" listener="#{controlPersonaEducacion.eventoFiltrarEducacion()}"/>
+                            <p:ajax event="filter" listener="#{controlPersonaEducacion.contarRegistroEducacion()}"/>
                             <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarTE']}"  style="position: absolute; left: 27px; top: 15px"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVTiposEducaciones.filter();" style="width:100px; position: relative; left: 65px;" />  
+                                <h:outputText value="#{msg['buscarTE']}" />  
+                                <p:inputText id="globalFilter" onkeyup="LOVTiposEducaciones.filter();" class="cssFiltroLOV" />  
                             </f:facet>
 
                             <p:column filterBy="#{tiposEducaciones.nombre}" width="100" filterMatchMode="contains" > 
@@ -786,28 +786,28 @@
                             </p:column>
                         </p:dataTable>
 
-                        <h:outputText id="infoRegistroEducacion" value="#{msg['infoRegistros']} #{controlPersonaEducacion.infoRegistroEducacion}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
-                        <p:commandButton id="aceptarTE" value="#{msg['aceptar']}" style="position: absolute; top: 305px; left: 170px; " icon="ui-icon-check" disabled="#{controlPersonaEducacion.aceptar}"  actionListener="#{controlPersonaEducacion.actualizarTiposEducaciones()}" process="@this"/>
-                        <p:commandButton id="atrasTE" value="#{msg['atras']}" style="position: absolute; top: 305px; left: 270px; " icon="ui-icon-arrowreturnthick-1-w" actionListener="#{controlPersonaEducacion.cancelarCambioTiposEducaciones()}" process="@this"/>
-                        
-
+                        <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroEducacion" value="#{msg['infoRegistros']} #{controlPersonaEducacion.infoRegistroEducacion}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarTE" value="#{msg['aceptar']}" class="cssAceptarLOV" icon="ui-icon-check" disabled="#{controlPersonaEducacion.aceptar}"  actionListener="#{controlPersonaEducacion.actualizarTiposEducaciones()}" process="@this"/>
+                            <p:commandButton id="atrasTE" value="#{msg['atras']}" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" actionListener="#{controlPersonaEducacion.cancelarCambioTiposEducaciones()}" process="@this"/>
+                        </div>
                     </p:dialog>
 
                     <!-- L.O.V PROFESIONES -->
 
                     <p:dialog header="#{msg['profesionesP']}" widgetVar="profesionesDialogo" draggable="true" resizable="false" id="profesionesDialogo" closable="false"  
-                              showEffect="fade" hideEffect="fade" modal="true" width="380" height="350" >
+                              showEffect="fade" hideEffect="fade" modal="true" width="380" >
 
-                        <p:dataTable  id="LOVProfesiones" style=" width: 330px;" var="profesiones" value="#{controlPersonaEducacion.listaProfesiones}"
+                        <p:dataTable  id="LOVProfesiones" var="profesiones" value="#{controlPersonaEducacion.listaProfesiones}"
                                       scrollable="true" scrollHeight="200" scrollWidth="345" widgetVar="LOVProfesiones" 
                                       filteredValue="#{controlPersonaEducacion.filtradoslistaProfesiones}" emptyMessage="#{msg['lovvacio']}"
                                       rowKey="#{profesiones.secuencia}" selection="#{controlPersonaEducacion.seleccionProfesiones}" selectionMode="single">
                             <p:ajax event="rowSelect" listener="#{controlPersonaEducacion.activarAceptar()}" update=":formularioDialogos:aceptarP"/>
                             <p:ajax event="rowDblselect" listener="#{controlPersonaEducacion.actualizarProfesiones()}" process="@this" />
-                            <p:ajax event="filter" listener="#{controlPersonaEducacion.eventoFiltrarProfesion()}"/>
+                            <p:ajax event="filter" listener="#{controlPersonaEducacion.contarRegistroProfesion()}"/>
                             <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarP']}"  style="position: absolute; left: 27px; top: 15px"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVProfesiones.filter();" style="width:100px; position: relative; left: 60px;" />  
+                                <h:outputText value="#{msg['buscarP']}" />  
+                                <p:inputText id="globalFilter" onkeyup="LOVProfesiones.filter();" class="cssFiltroLOV" />  
                             </f:facet>
 
                             <p:column filterBy="#{profesiones.descripcion}" width="100" filterMatchMode="contains" > 
@@ -818,27 +818,28 @@
                             </p:column>
                         </p:dataTable>
 
-                        <h:outputText id="infoRegistrosProfesion" value="#{msg['infoRegistros']} #{controlPersonaEducacion.infoRegistrosProfesion}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
-                        <p:commandButton id="aceptarP" value="#{msg['aceptar']}" disabled="#{controlPersonaEducacion.aceptar}" style="position: absolute; top: 305px; left: 170px; " icon="ui-icon-check"  actionListener="#{controlPersonaEducacion.actualizarProfesiones()}" process="@this"/>
-                        <p:commandButton id="atrasP" value="#{msg['atras']}" style="position: absolute; top: 305px; left: 270px; " icon="ui-icon-arrowreturnthick-1-w" actionListener="#{controlPersonaEducacion.cancelarCambioProfesiones()}" process="@this"/>
-
+                        <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistrosProfesion" value="#{msg['infoRegistros']} #{controlPersonaEducacion.infoRegistrosProfesion}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarP" value="#{msg['aceptar']}" disabled="#{controlPersonaEducacion.aceptar}" class="cssAceptarLOV" icon="ui-icon-check"  actionListener="#{controlPersonaEducacion.actualizarProfesiones()}" process="@this"/>
+                            <p:commandButton id="atrasP" value="#{msg['atras']}" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" actionListener="#{controlPersonaEducacion.cancelarCambioProfesiones()}" process="@this"/>
+                        </div>
                     </p:dialog>
 
                     <!-- L.O.V INSTITUCIONES -->
 
                     <p:dialog header="#{msg['institucionesI']}" widgetVar="institucionesDialogo" draggable="true" resizable="false" id="institucionesDialogo" closable="false"  
-                              showEffect="fade" hideEffect="fade" modal="true" width="380" height="350"  >
+                              showEffect="fade" hideEffect="fade" modal="true" width="380"  >
 
-                        <p:dataTable  id="LOVInstituciones" style=" width: 330px;" var="instituciones" value="#{controlPersonaEducacion.listaInstituciones}"
+                        <p:dataTable  id="LOVInstituciones" var="instituciones" value="#{controlPersonaEducacion.listaInstituciones}"
                                       scrollable="true" scrollHeight="200" scrollWidth="345" widgetVar="LOVInstituciones" 
                                       filteredValue="#{controlPersonaEducacion.filtradoslistaInstituciones}" emptyMessage="#{msg['lovvacio']}"
                                       rowKey="#{instituciones.secuencia}" selection="#{controlPersonaEducacion.seleccionInstituciones}" selectionMode="single">
                             <p:ajax event="rowSelect" listener="#{controlPersonaEducacion.activarAceptar()}" update=":formularioDialogos:aceptarI"/>
                             <p:ajax event="rowDblselect" listener="#{controlPersonaEducacion.actualizarInstituciones()}" process="@this" />
-                            <p:ajax event="filter" listener="#{controlPersonaEducacion.eventoFiltrarInstitucionF()}"/>
+                            <p:ajax event="filter" listener="#{controlPersonaEducacion.contarRegistroInstitucionesF()}"/>
                             <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarI']}"  style="position: absolute; left: 27px; top: 15px"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVInstituciones.filter();" style="width:100px; position: relative; left: 60px;" />  
+                                <h:outputText value="#{msg['buscarI']}" />  
+                                <p:inputText id="globalFilter" onkeyup="LOVInstituciones.filter();" class="cssFiltroLOV"  />  
                             </f:facet>
 
                             <p:column filterBy="#{instituciones.descripcion}" width="100" filterMatchMode="contains" > 
@@ -849,27 +850,31 @@
                             </p:column>
                         </p:dataTable>
 
-                        <h:outputText id="infoRegistroInstitucionesF" value="#{msg['infoRegistros']} #{controlPersonaEducacion.infoRegistroInstitucionesF}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
-                        <p:commandButton id="aceptarI" value="#{msg['aceptar']}" style="position: absolute; top: 305px; left: 160px; " icon="ui-icon-check" disabled="#{controlPersonaEducacion.aceptar}" actionListener="#{controlPersonaEducacion.actualizarInstituciones()}" process="@this"/>
-                        <p:commandButton id="atrasI" value="#{msg['atras']}" style="position: absolute; top: 305px; left: 260px; " icon="ui-icon-arrowreturnthick-1-w" actionListener="#{controlPersonaEducacion.cancelarCambioInstituciones()}" process="@this"/>
 
+                        <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroInstitucionesF" value="#{msg['infoRegistros']} #{controlPersonaEducacion.infoRegistroInstitucionesF}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarI" value="#{msg['aceptar']}" class="cssAceptarLOV" icon="ui-icon-check" disabled="#{controlPersonaEducacion.aceptar}" 
+                                             actionListener="#{controlPersonaEducacion.actualizarInstituciones()}" process="@this"/>
+                            <p:commandButton id="atrasI" value="#{msg['atras']}" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" 
+                                             actionListener="#{controlPersonaEducacion.cancelarCambioInstituciones()}" process="@this"/>
+                        </div>
                     </p:dialog>
 
                     <!-- L.O.V AdiestramientosF -->
 
                     <p:dialog header="#{msg['adiestramientosA']}" widgetVar="adiestramientosFDialogo" draggable="true" resizable="false" id="adiestramientosFDialogo" closable="false"  
-                              showEffect="fade" hideEffect="fade" modal="true" width="380" height="350"  >
+                              showEffect="fade" hideEffect="fade" modal="true" width="380" >
 
-                        <p:dataTable  id="LOVAdiestramientosF" style=" width: 330px;" var="adiestramientosF" value="#{controlPersonaEducacion.listaAdiestramientosFormales}"
+                        <p:dataTable  id="LOVAdiestramientosF"  var="adiestramientosF" value="#{controlPersonaEducacion.listaAdiestramientosFormales}"
                                       scrollable="true" scrollHeight="200" scrollWidth="345" widgetVar="LOVAdiestramientosF" 
                                       filteredValue="#{controlPersonaEducacion.filtradoslistaAdiestramientosFormales}" emptyMessage="No se encontraron resultados con el criterio de busqueda."
                                       rowKey="#{adiestramientosF.secuencia}" selection="#{controlPersonaEducacion.seleccionAdiestramientosFormales}" selectionMode="single">
                             <p:ajax event="rowSelect" listener="#{controlPersonaEducacion.activarAceptar()}" update=":formularioDialogos:aceptarAF"/>
                             <p:ajax event="rowDblselect" listener="#{controlPersonaEducacion.actualizarAdiestramientoF()}" process="@this" />
-                            <p:ajax event="filter" listener="#{controlPersonaEducacion.eventoFiltrarAdiestramientoF}"/>
+                            <p:ajax event="filter" listener="#{controlPersonaEducacion.contarRegistroAdiestramientoF()}"/>
                             <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarA']}"  style="position: absolute; left: 27px; top: 15px"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVAdiestramientosF.filter();" style="width:100px; position: relative; left: 60px;" />  
+                                <h:outputText value="#{msg['buscarA']}" />  
+                                <p:inputText id="globalFilter" onkeyup="LOVAdiestramientosF.filter();" class="cssFiltroLOV" />  
                             </f:facet>
 
                             <p:column filterBy="#{adiestramientosF.descripcion}" width="100" filterMatchMode="contains" > 
@@ -879,28 +884,30 @@
                                 <h:outputText value="#{adiestramientosF.descripcion}" />  
                             </p:column>
                         </p:dataTable>
-
-                        <h:outputText id="infoRegistroAdiestramientosF" value="#{msg['infoRegistros']} #{controlPersonaEducacion.infoRegistroAdiestramientosF}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>    
-                        <p:commandButton id="aceptarAF" value="#{msg['aceptar']}" style="position: absolute; top: 305px; left: 160px; " icon="ui-icon-check" disabled="#{controlPersonaEducacion.aceptar}" actionListener="#{controlPersonaEducacion.actualizarAdiestramientoF()}" process="@this"/>
-                        <p:commandButton id="atrasAF" value="#{msg['atras']}" style="position: absolute; top: 305px; left: 260px; " icon="ui-icon-arrowreturnthick-1-w" actionListener="#{controlPersonaEducacion.cancelarCambioAdiestramientoF()}" process="@this"/>
-
+                        <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroAdiestramientosF" value="#{msg['infoRegistros']} #{controlPersonaEducacion.infoRegistroAdiestramientosF}" class="cssinfoRegistroLOV"/>    
+                            <p:commandButton id="aceptarAF" value="#{msg['aceptar']}" class="cssAceptarLOV" icon="ui-icon-check" disabled="#{controlPersonaEducacion.aceptar}" 
+                                             actionListener="#{controlPersonaEducacion.actualizarAdiestramientoF()}" process="@this"/>
+                            <p:commandButton id="atrasAF" value="#{msg['atras']}" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" 
+                                             actionListener="#{controlPersonaEducacion.cancelarCambioAdiestramientoF()}" process="@this"/>
+                        </div>
                     </p:dialog>
 
                     <!-- L.O.V CURSOS -->
 
                     <p:dialog header="#{msg['cursosC']}" widgetVar="cursosDialogo" draggable="true" resizable="false" id="cursosDialogo" closable="false"  
-                              showEffect="fade" hideEffect="fade" modal="true" width="380" height="350" >
+                              showEffect="fade" hideEffect="fade" modal="true" width="380" >
 
-                        <p:dataTable  id="LOVCursos" style=" width: 330px;" var="cursos" value="#{controlPersonaEducacion.listaCursos}"
+                        <p:dataTable  id="LOVCursos"  var="cursos" value="#{controlPersonaEducacion.listaCursos}"
                                       scrollable="true" scrollHeight="200" scrollWidth="345" widgetVar="LOVCursos" 
                                       filteredValue="#{controlPersonaEducacion.filtradoslistaCursos}" emptyMessage="#{msg['lovvacio']}"
                                       rowKey="#{cursos.secuencia}" selection="#{controlPersonaEducacion.seleccionCursos}" selectionMode="single">
                             <p:ajax event="rowSelect" listener="#{controlPersonaEducacion.activarAceptar()}" update=":formularioDialogos:aceptarC"/>
-                            <p:ajax event="filter" listener="#{controlPersonaEducacion.eventoFiltrarCursos()}"/>
+                            <p:ajax event="filter" listener="#{controlPersonaEducacion.contarRegistroCursos()}"/>
                             <p:ajax event="rowDblselect" listener="#{controlPersonaEducacion.actualizarCursos()}" process="@this" />
                             <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarC']}"  style="position: absolute; left: 27px; top: 15px"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVCursos.filter();" style="width:100px; position: relative; left: 10px;" />  
+                                <h:outputText value="#{msg['buscarC']}" />  
+                                <p:inputText id="globalFilter" onkeyup="LOVCursos.filter();" class="cssFiltroLOV" />  
                             </f:facet>
 
                             <p:column filterBy="#{cursos.nombre}" width="100" filterMatchMode="contains" > 
@@ -911,27 +918,31 @@
                             </p:column>
                         </p:dataTable>
 
-                        <h:outputText id="infoRegistroCursos" value="#{msg['infoRegistros']} #{controlPersonaEducacion.infoRegistroCursos}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
-                        <p:commandButton id="aceptarC" value="#{msg['aceptar']}" style="position: absolute; top: 305px; left: 160px;" icon="ui-icon-check" disabled="#{controlPersonaEducacion.aceptar}" actionListener="#{controlPersonaEducacion.actualizarCursos()}" process="@this"/>
-                        <p:commandButton id="atrasC" value="#{msg['atras']}"  style="position: absolute; top: 305px; left: 260px;" icon="ui-icon-arrowreturnthick-1-w" actionListener="#{controlPersonaEducacion.cancelarCambioCursoNF()}" process="@this"/>
+                        <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroCursos" value="#{msg['infoRegistros']} #{controlPersonaEducacion.infoRegistroCursos}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarC" value="#{msg['aceptar']}" class="cssAceptarLOV" icon="ui-icon-check" disabled="#{controlPersonaEducacion.aceptar}" 
+                                             actionListener="#{controlPersonaEducacion.actualizarCursos()}" process="@this"/>
+                            <p:commandButton id="atrasC" value="#{msg['atras']}"  class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" 
+                                             actionListener="#{controlPersonaEducacion.cancelarCambioCursoNF()}" process="@this"/>
+                        </div>
 
                     </p:dialog>
 
                     <!-- L.O.V INSTITUCIONES NF -->
 
                     <p:dialog header="#{msg['institucionesI']}" widgetVar="institucionesNFDialogo" draggable="true" resizable="false" id="institucionesNFDialogo" closable="false"  
-                              showEffect="fade" hideEffect="fade" modal="true" width="380" height="350" >
+                              showEffect="fade" hideEffect="fade" modal="true" width="380">
 
-                        <p:dataTable  id="LOVInstitucionesNF" style=" width: 330px;" var="institucionesNF" value="#{controlPersonaEducacion.listaInstituciones}"
+                        <p:dataTable  id="LOVInstitucionesNF" var="institucionesNF" value="#{controlPersonaEducacion.listaInstituciones}"
                                       scrollable="true" scrollHeight="200" scrollWidth="345" widgetVar="LOVInstitucionesNF" 
                                       filteredValue="#{controlPersonaEducacion.filtradoslistaInstituciones}" emptyMessage="#{msg['lovvacio']}"
                                       rowKey="#{institucionesNF.secuencia}" selection="#{controlPersonaEducacion.seleccionInstituciones}" selectionMode="single">
                             <p:ajax event="rowSelect" listener="#{controlPersonaEducacion.activarAceptar()}" update=":formularioDialogos:aceptarINF"/>
                             <p:ajax event="rowDblselect" listener="#{controlPersonaEducacion.actualizarInstituciones()}" process="@this" />
-                            <p:ajax event="filter" listener="#{controlPersonaEducacion.eventoFiltrarInstitucion()}"/>
+                            <p:ajax event="filter" listener="#{controlPersonaEducacion.contarRegistroInstituciones()}"/>
                             <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarI']}"  style="position: absolute; left: 27px; top: 15px"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVInstitucionesNF.filter();" style="width:100px; position: relative; left: 60px;" />  
+                                <h:outputText value="#{msg['buscarI']}" />  
+                                <p:inputText id="globalFilter" onkeyup="LOVInstitucionesNF.filter();" class="cssFiltroLOV" />  
                             </f:facet>
 
                             <p:column filterBy="#{institucionesNF.descripcion}" width="100" filterMatchMode="contains" > 
@@ -941,28 +952,31 @@
                                 <h:outputText value="#{institucionesNF.descripcion}" />  
                             </p:column>
                         </p:dataTable>
-                        
-                        <h:outputText id="infoRegistroInstituciones" value="#{msg['infoRegistros']} #{controlPersonaEducacion.infoRegistroInstituciones}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
-                        <p:commandButton id="aceptarINF" value="#{msg['aceptar']}" style="position: absolute; top: 305px; left: 160px;" icon="ui-icon-check" disabled="#{controlPersonaEducacion.aceptar}" actionListener="#{controlPersonaEducacion.actualizarInstitucionesNF()}" process="@this"/>
-                        <p:commandButton id="atrasINF" value="#{msg['atras']}" style="position: absolute; top: 305px; left: 260px;" icon="ui-icon-arrowreturnthick-1-w" actionListener="#{controlPersonaEducacion.cancelarCambioInstitucionesNF()}" process="@this"/>
 
+                        <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroInstituciones" value="#{msg['infoRegistros']} #{controlPersonaEducacion.infoRegistroInstituciones}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarINF" value="#{msg['aceptar']}" class="cssAceptarLOV" icon="ui-icon-check" disabled="#{controlPersonaEducacion.aceptar}"
+                                             actionListener="#{controlPersonaEducacion.actualizarInstitucionesNF()}" process="@this"/>
+                            <p:commandButton id="atrasINF" value="#{msg['atras']}" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" 
+                                             actionListener="#{controlPersonaEducacion.cancelarCambioInstitucionesNF()}" process="@this"/>
+                        </div>
                     </p:dialog>
 
                     <!-- L.O.V AdiestramientosNF -->
 
                     <p:dialog header="#{msg['adiestramientosA']}" widgetVar="adiestramientosNFDialogo" draggable="true" resizable="false" id="adiestramientosNFDialogo" closable="false"  
-                              showEffect="fade" hideEffect="fade" modal="true" width="380" height="350">
+                              showEffect="fade" hideEffect="fade" modal="true" width="380" >
 
-                        <p:dataTable  id="LOVAdiestramientosNF" style=" width: 330px;" var="adiestramientosNF" value="#{controlPersonaEducacion.listaAdiestramientosNoFormales}"
+                        <p:dataTable  id="LOVAdiestramientosNF"  var="adiestramientosNF" value="#{controlPersonaEducacion.listaAdiestramientosNoFormales}"
                                       scrollable="true" scrollHeight="200" scrollWidth="345" widgetVar="LOVAdiestramientosNF" 
                                       filteredValue="#{controlPersonaEducacion.filtradoslistaAdiestramientosNoFormales}" emptyMessage="#{msg['lovvacio']}"
                                       rowKey="#{adiestramientosNF.secuencia}" selection="#{controlPersonaEducacion.seleccionAdiestramientosNoFormales}" selectionMode="single">
                             <p:ajax event="rowSelect" listener="#{controlPersonaEducacion.activarAceptar()}" update=":formularioDialogos:aceptarANF"/>
                             <p:ajax event="rowDblselect" listener="#{controlPersonaEducacion.actualizarAdiestramientoNF()}" process="@this" />
-                            <p:ajax event="filter" listener="#{controlPersonaEducacion.eventoFiltrarAdiestramientoNF()}"/>
+                            <p:ajax event="filter" listener="#{controlPersonaEducacion.contarRegistroAdiestramientoNF()}"/>
                             <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarA']}"  style="position: absolute; left: 27px; top: 15px"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVAdiestramientosNF.filter();" style="width:100px; position: relative; left: 60px;" />  
+                                <h:outputText value="#{msg['buscarA']}" />  
+                                <p:inputText id="globalFilter" onkeyup="LOVAdiestramientosNF.filter();" class="cssFiltroLOV" />  
                             </f:facet>
 
                             <p:column filterBy="#{adiestramientosNF.desccripcion}" width="100" filterMatchMode="contains" > 
@@ -972,11 +986,14 @@
                                 <h:outputText value="#{adiestramientosNF.desccripcion}" />  
                             </p:column>
                         </p:dataTable>
-                         
-                        <h:outputText id="infoRegistroAdiestramientosNF" value="#{msg['infoRegistros']} #{controlPersonaEducacion.infoRegistroAdiestramientosNF}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
-                        <p:commandButton id="aceptarANF" value="#{msg['aceptar']}" style="position: absolute; top: 305px; left: 160px;" icon="ui-icon-check" disabled="#{controlPersonaEducacion.aceptar}" actionListener="#{controlPersonaEducacion.actualizarAdiestramientoNF()}" process="@this"/>
-                        <p:commandButton id="atrasANF" value="#{msg['atras']}" style="position: absolute; top: 305px; left: 260px;" icon="ui-icon-arrowreturnthick-1-w" actionListener="#{controlPersonaEducacion.cancelarCambioAdiestramientoNF()}" process="@this"/>
 
+                        <div class="cssBotonesLOV"> 
+                        <h:outputText id="infoRegistroAdiestramientosNF" value="#{msg['infoRegistros']} #{controlPersonaEducacion.infoRegistroAdiestramientosNF}" class="cssinfoRegistroLOV"/>
+                        <p:commandButton id="aceptarANF" value="#{msg['aceptar']}" class="cssAceptarLOV" icon="ui-icon-check" disabled="#{controlPersonaEducacion.aceptar}" 
+                                         actionListener="#{controlPersonaEducacion.actualizarAdiestramientoNF()}" process="@this"/>
+                        <p:commandButton id="atrasANF" value="#{msg['atras']}" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" 
+                                         actionListener="#{controlPersonaEducacion.cancelarCambioAdiestramientoNF()}" process="@this"/>
+                        </div>
                     </p:dialog>
 
 

@@ -30,7 +30,6 @@ import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
 
-
 /**
  *
  * @author user
@@ -107,7 +106,6 @@ public class ControlCursos implements Serializable {
         if (listaCursos != null) {
             cursoSeleccionado = listaCursos.get(0);
         }
-        contarRegistros();
     }
 
     public String redirigir() {
@@ -145,7 +143,7 @@ public class ControlCursos implements Serializable {
         cualCelda = celda;
         if (cualCelda == 2) {
             getLovTiposCursos();
-            modificarInfoRegistroLov(lovTiposCursos.size());
+            contarRegistroLov();
             RequestContext.getCurrentInstance().execute("PF('tipoCursoDialogo').show()");
         }
     }
@@ -276,7 +274,7 @@ public class ControlCursos implements Serializable {
             nuevoCurso.setSecuencia(l);
             listaCursosCrear.add(nuevoCurso);
             listaCursos.add(nuevoCurso);
-            modificarInfoRegistro(listaCursos.size());
+            contarRegistros();
             cursoSeleccionado = nuevoCurso;
             nuevoCurso = new Cursos();
 
@@ -365,7 +363,7 @@ public class ControlCursos implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:infoRegistro");
             RequestContext.getCurrentInstance().update("form:datosCursos");
-            modificarInfoRegistro(listaCursos.size());
+            contarRegistros();
             cursoSeleccionado = null;
             guardado = true;
 
@@ -447,7 +445,7 @@ public class ControlCursos implements Serializable {
             listaCursos.add(duplicarCurso);
             listaCursosCrear.add(duplicarCurso);
             cursoSeleccionado = duplicarCurso;
-            modificarInfoRegistro(listaCursos.size());
+            contarRegistros();
             RequestContext.getCurrentInstance().update("form:datosCursos");
             if (guardado == true) {
                 guardado = false;
@@ -643,29 +641,15 @@ public class ControlCursos implements Serializable {
             tipoLista = 1;
         }
         deshabilitarBotonLov();
-        modificarInfoRegistro(filtradoListaCursos.size());
-        RequestContext.getCurrentInstance().update("form:infoRegistro");
+        contarRegistros();
     }
 
-    public void modificarInfoRegistro(int valor) {
-        inforegistro = String.valueOf(valor);
-    }
-
-    public void modificarInfoRegistroLov(int valor) {
-        infoRegistroLov = String.valueOf(valor);
-    }
-
-    public void eventoFiltrarLov() {
-        modificarInfoRegistroLov(lovFiltrarTiposCursos.size());
+    public void contarRegistroLov() {
         RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistrolov");
     }
 
     public void contarRegistros() {
-        if (listaCursos != null) {
-            modificarInfoRegistro(listaCursos.size());
-        } else {
-            modificarInfoRegistro(0);
-        }
+        RequestContext.getCurrentInstance().update("form:infoRegistro");
     }
 
     public void deshabilitarBotonLov() {
@@ -737,6 +721,9 @@ public class ControlCursos implements Serializable {
     }
 
     public String getInforegistro() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosCursos");
+        inforegistro = String.valueOf(tabla.getRowCount());
         return inforegistro;
     }
 
@@ -780,6 +767,9 @@ public class ControlCursos implements Serializable {
     }
 
     public String getInfoRegistroLov() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:lovTipoCurso");
+        infoRegistroLov = String.valueOf(tabla.getRowCount());
         return infoRegistroLov;
     }
 

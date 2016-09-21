@@ -66,6 +66,9 @@ public class ControlDeportes implements Serializable {
     private String infoRegistro, paginaanterior;
     private DataTable tablaC;
     private boolean activarLOV;
+    private BigInteger verificarBorradoVigenciasDeportes;
+    private BigInteger contadorDeportesPersonas;
+    private BigInteger contadorParametrosInformes;
 
     public ControlDeportes() {
         listDeportes = null;
@@ -100,7 +103,6 @@ public class ControlDeportes implements Serializable {
         paginaanterior = pagina;
         listDeportes = null;
         getListDeportes();
-        contarRegistros();
         deporteSeleccionado = listDeportes.get(0);
     }
 
@@ -134,29 +136,8 @@ public class ControlDeportes implements Serializable {
         System.out.println("Indice: " + deporteSeleccionado + " Celda: " + cualCelda);
     }
 
-    public void asignarIndex(Deportes deporte, int LND, int dig) {
-        try {
-            deporteSeleccionado = deporte;
-            if (LND == 0) {
-                tipoActualizacion = 0;
-            } else if (LND == 1) {
-                tipoActualizacion = 1;
-                System.out.println("Tipo Actualizacion: " + tipoActualizacion);
-            } else if (LND == 2) {
-                tipoActualizacion = 2;
-            }
-            //contarRegistros();
-        } catch (Exception e) {
-            System.out.println("ERROR CONTROLDEPORTES.asignarIndex ERROR======" + e.getMessage());
-        }
-    }
-
     public void activarAceptar() {
         aceptar = false;
-    }
-
-    public void listaValoresBoton() {
-        contarRegistros();
     }
 
     public void cancelarModificacion() {
@@ -340,7 +321,7 @@ public class ControlDeportes implements Serializable {
                 filtrarDeportes.remove(deporteSeleccionado);
                 listDeportes.remove(deporteSeleccionado);
             }
-            modificarinfoRegistro(listDeportes.size());
+            contarRegistros();
             RequestContext.getCurrentInstance().update("form:infoRegistro");
             RequestContext.getCurrentInstance().update("form:datosDeporte");
             deporteSeleccionado = null;
@@ -354,10 +335,6 @@ public class ControlDeportes implements Serializable {
         }
 
     }
-
-    private BigInteger verificarBorradoVigenciasDeportes;
-    private BigInteger contadorDeportesPersonas;
-    private BigInteger contadorParametrosInformes;
 
     public void verificarBorrado() {
         try {
@@ -517,7 +494,7 @@ public class ControlDeportes implements Serializable {
             deporteSeleccionado = nuevoDeporte;
             listDeportes.add(nuevoDeporte);
             nuevoDeporte = new Deportes();
-            modificarinfoRegistro(listDeportes.size());
+            contarRegistros();
             RequestContext.getCurrentInstance().update("form:infoRegistro");
             RequestContext.getCurrentInstance().update("form:datosDeporte");
             if (guardado == true) {
@@ -629,7 +606,7 @@ public class ControlDeportes implements Serializable {
                 tipoLista = 0;
             }
             duplicarDeporte = new Deportes();
-            modificarinfoRegistro(listDeportes.size());
+            contarRegistros();
             RequestContext.getCurrentInstance().execute("duplicarRegistroDeporte').hide()");
 
         } else {
@@ -649,7 +626,6 @@ public class ControlDeportes implements Serializable {
         Exporter exporter = new ExportarPDF();
         exporter.export(context, tabla, "DEPORTES", false, false, "UTF-8", null, null);
         context.responseComplete();
-        deporteSeleccionado = null;
     }
 
     public void exportXLS() throws IOException {
@@ -658,7 +634,6 @@ public class ControlDeportes implements Serializable {
         Exporter exporter = new ExportarXLS();
         exporter.export(context, tabla, "DEPORTES", false, false, "UTF-8", null, null);
         context.responseComplete();
-        deporteSeleccionado = null;
     }
 
     public void verificarRastro() {
@@ -677,13 +652,10 @@ public class ControlDeportes implements Serializable {
             } else if (resultado == 5) {
                 RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
+        } else if (administrarRastros.verificarHistoricosTabla("DEPORTES")) { // igual acá
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            if (administrarRastros.verificarHistoricosTabla("DEPORTES")) { // igual acá
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-            }
-
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
     }
 
@@ -692,32 +664,22 @@ public class ControlDeportes implements Serializable {
             if (tipoLista == 0) {
                 tipoLista = 1;
             }
-            modificarinfoRegistro(filtrarDeportes.size());
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().update("form:infoRegistro");
+            contarRegistros();
         } catch (Exception e) {
             System.out.println("ERROR CONTROLDEPORTES eventoFiltrar ERROR===" + e.getMessage());
         }
     }
 
-    public void modificarinfoRegistro(int valor) {
-        infoRegistro = String.valueOf(valor);
+    public void recordarSeleccionDeporte() {
+        if (deporteSeleccionado != null) {
+            FacesContext c = FacesContext.getCurrentInstance();
+            tablaC = (DataTable) c.getViewRoot().findComponent("form:datosDeportes");
+            tablaC.setSelection(deporteSeleccionado);
+        }
     }
 
-//    public void recordarSeleccionDeporte() {
-//        if (deporteSeleccionado != null) {
-//            FacesContext c = FacesContext.getCurrentInstance();
-//            tablaC = (DataTable) c.getViewRoot().findComponent("form:datosDeportes");
-//            tablaC.setSelection(deporteSeleccionado);
-//        }
-//    }
-
     public void contarRegistros() {
-        if (listDeportes != null) {
-            modificarinfoRegistro(listDeportes.size());
-        } else {
-            modificarinfoRegistro(0);
-        }
+        RequestContext.getCurrentInstance().update("form:infoRegistro");
     }
 
     //------------------------------------------------------------------------------
@@ -813,6 +775,9 @@ public class ControlDeportes implements Serializable {
     }
 
     public String getInfoRegistro() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosDeporte");
+        infoRegistro = String.valueOf(tabla.getRowCount());
         return infoRegistro;
     }
 

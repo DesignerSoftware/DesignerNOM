@@ -86,7 +86,7 @@
                                          scrollHeight="#{controlTiposTelefonos.altoTabla}" style="border: 1px;width: 830px"
                                          selection="#{controlTiposTelefonos.tipoTelefonoSeleccionado}" selectionMode="single">
 
-                                <p:ajax event="filter" listener="#{controlTiposTelefonos.eventoFiltrar()}"/>
+                                <p:ajax event="filter" listener="#{controlTiposTelefonos.contarRegistros()}"/>
                                 <f:event type="preRenderView" listener="#{controlTiposTelefonos.recordarSeleccionTT()}"/>
 
                                 <p:column headerText="Codigo" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains"  width="80" id="tiposTelefonosCodigos" filterStyle="display: none; visibility: hidden;"  >  

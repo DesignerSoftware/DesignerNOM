@@ -136,7 +136,6 @@ public class ControlPerTelefonos implements Serializable {
         } else {
             telefonoSeleccionado = listaTelefonos.get(0);
         }
-        contarRegistros();
     }
 
     public void refrescar() {
@@ -294,13 +293,13 @@ public class ControlPerTelefonos implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 1) {
                 habilitarBotonLov();
-                modificarInfoRegistroTT(listaTiposTelefonos.size());
+                contarRegistroTT();
                 RequestContext.getCurrentInstance().update("formularioDialogos:tiposTelefonosDialogo");
                 RequestContext.getCurrentInstance().execute("PF('tiposTelefonosDialogo').show()");
                 tipoActualizacion = 0;
             } else if (cualCelda == 3) {
                 habilitarBotonLov();
-                modificarInfoRegistroCiudad(listaCiudades.size());
+                contarRegistroCiudad();
                 RequestContext.getCurrentInstance().update("formularioDialogos:ciudadesDialogo");
                 RequestContext.getCurrentInstance().execute("PF('ciudadesDialogo').show()");
                 tipoActualizacion = 0;
@@ -324,7 +323,7 @@ public class ControlPerTelefonos implements Serializable {
             if (tipoLista == 1) {
                 filtradosListaTelefonos.remove(telefonoSeleccionado);
             }
-            modificarInfoRegistro(listaTelefonos.size());
+            contarRegistros();
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:infoRegistro");
             RequestContext.getCurrentInstance().update("form:datosTelefonosPersona");
@@ -408,7 +407,7 @@ public class ControlPerTelefonos implements Serializable {
             listaTelefonosCrear.add(duplicarTelefono);
             telefonoSeleccionado = duplicarTelefono;
             getListaTelefonos();
-            modificarInfoRegistro(listaTelefonos.size());
+            contarRegistros();
             RequestContext.getCurrentInstance().update("form:datosTelefonosPersona");
             RequestContext.getCurrentInstance().update("form:infoRegistro");
             RequestContext.getCurrentInstance().update("form:datosTelefonosPersona");
@@ -584,7 +583,7 @@ public class ControlPerTelefonos implements Serializable {
             nuevoTelefono.setTipotelefono(new TiposTelefonos());
             nuevoTelefono.setCiudad(new Ciudades());
             getListaTelefonos();
-            modificarInfoRegistro(listaTelefonos.size());
+            contarRegistros();
             deshabilitarBotonLov();
             RequestContext.getCurrentInstance().update("form:infoRegistro");
             RequestContext.getCurrentInstance().update("form:datosTelefonosPersona");
@@ -673,12 +672,12 @@ public class ControlPerTelefonos implements Serializable {
             if (tipoLista == 0) {
                 telefonoSeleccionado.getSecuencia();
                 if (cualCelda == 1) {
-                    modificarInfoRegistroTT(listaTiposTelefonos.size());
+                    contarRegistroTT();
                     TipoTelefono = telefonoSeleccionado.getTipotelefono().getNombre();
                     habilitarBotonLov();
                 } else if (cualCelda == 3) {
                     habilitarBotonLov();
-                    modificarInfoRegistroCiudad(listaCiudades.size());
+                    contarRegistroCiudad();
                     Ciudad = telefonoSeleccionado.getCiudad().getNombre();
                 }
             } else {
@@ -686,11 +685,11 @@ public class ControlPerTelefonos implements Serializable {
                 deshabilitarBotonLov();
                 if (cualCelda == 1) {
                     habilitarBotonLov();
-                    modificarInfoRegistroTT(listaTiposTelefonos.size());
+                    contarRegistroTT();
                     TipoTelefono = telefonoSeleccionado.getTipotelefono().getNombre();
                 } else if (cualCelda == 3) {
                     habilitarBotonLov();
-                    modificarInfoRegistroCiudad(listaCiudades.size());
+                    contarRegistroCiudad();
                     Ciudad = telefonoSeleccionado.getCiudad().getNombre();
                 }
             }
@@ -1021,12 +1020,11 @@ public class ControlPerTelefonos implements Serializable {
         }
         if (dlg == 0) {
             getListaTiposTelefonos();
-            modificarInfoRegistroTT(listaTiposTelefonos.size());
+            contarRegistroTT();
             RequestContext.getCurrentInstance().update("formularioDialogos:tiposTelefonosDialogo");
             RequestContext.getCurrentInstance().execute("PF('tiposTelefonosDialogo').show()");
         } else if (dlg == 1) {
-            modificarInfoRegistroCiudad(listaCiudades.size());
-            //contarRegistros();
+            contarRegistroCiudad();
             RequestContext.getCurrentInstance().update("formularioDialogos:ciudadesDialogo");
             RequestContext.getCurrentInstance().execute("PF('ciudadesDialogo').show()");
         }
@@ -1069,38 +1067,32 @@ public class ControlPerTelefonos implements Serializable {
         if (tipoLista == 0) {
             tipoLista = 1;
         }
-        modificarInfoRegistro(filtradosListaTelefonos.size());
-        RequestContext.getCurrentInstance().update("form:infoRegistro");
+        contarRegistroCiudad();
     }
 
-    public void eventoFiltrarTT() {
-        modificarInfoRegistroTT(filtradoslistaTiposTelefonos.size());
+//    public void eventoFiltrarTT() {
+//        modificarInfoRegistroTT(filtradoslistaTiposTelefonos.size());
+//    }
+//
+//    public void eventoFiltrarCiudad() {
+//        modificarInfoRegistroCiudad(filtradoslistaCiudades.size());
+//    }
+//
+//    public void modificarInfoRegistro(int valor) {
+//        infoRegistro = String.valueOf(valor);
+//    }
+//
+    public void contarRegistroTT() {
         RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroTT");
     }
+//
 
-    public void eventoFiltrarCiudad() {
-        modificarInfoRegistroCiudad(filtradoslistaCiudades.size());
+    public void contarRegistroCiudad() {
         RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroCiudades");
     }
 
-    public void modificarInfoRegistro(int valor) {
-        infoRegistro = String.valueOf(valor);
-    }
-
-    public void modificarInfoRegistroTT(int valor) {
-        infoRegistroTT = String.valueOf(valor);
-    }
-
-    public void modificarInfoRegistroCiudad(int valor) {
-        infoRegistroCiudad = String.valueOf(valor);
-    }
-
     public void contarRegistros() {
-        if (listaTelefonos != null) {
-            modificarInfoRegistro(listaTelefonos.size());
-        } else {
-            modificarInfoRegistro(0);
-        }
+        RequestContext.getCurrentInstance().update("form:infoRegistro");
     }
 
     public void habilitarBotonLov() {
@@ -1162,6 +1154,9 @@ public class ControlPerTelefonos implements Serializable {
     }
 
     public String getInfoRegistro() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosTelefonosPersona");
+        infoRegistro = String.valueOf(tabla.getRowCount());
         return infoRegistro;
     }
 
@@ -1270,10 +1265,16 @@ public class ControlPerTelefonos implements Serializable {
     }
 
     public String getInfoRegistroTT() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:LOVTiposTelefonos");
+        infoRegistroTT = String.valueOf(tabla.getRowCount());
         return infoRegistroTT;
     }
 
     public String getInfoRegistroCiudad() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lovTiposFamiliares");
+        infoRegistroCiudad = String.valueOf(tabla.getRowCount());
         return infoRegistroCiudad;
     }
 

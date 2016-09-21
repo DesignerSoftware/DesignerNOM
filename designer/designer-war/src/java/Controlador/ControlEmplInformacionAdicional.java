@@ -121,7 +121,6 @@ public class ControlEmplInformacionAdicional implements Serializable {
         listInformacionAdicional = null;
         empleado = administrarEmplInformacionAdicional.empleadoActual(empl);
         getListInformacionAdicional();
-        contarRegistros();
         deshabilitarBotonLov();
         if(!listInformacionAdicional.isEmpty()){
             informacionTablaSeleccionada=listInformacionAdicional.get(0);
@@ -388,7 +387,7 @@ public class ControlEmplInformacionAdicional implements Serializable {
                 fechaIni = informacionTablaSeleccionada.getFechainicial();
                 if (cualCelda == 2) {
                     habilitarBotonLov();
-                    modificarInfoRegistroGrupo(listGruposInfAdicional.size());
+                    contarRegistroGrupo();
                     grupo = informacionTablaSeleccionada.getGrupo().getDescripcion();
                 }
             }
@@ -399,7 +398,7 @@ public class ControlEmplInformacionAdicional implements Serializable {
                 fechaIni = informacionTablaSeleccionada.getFechainicial();
                 if (cualCelda == 2) {
                     habilitarBotonLov();
-                    modificarInfoRegistroGrupo(listGruposInfAdicional.size());
+                    contarRegistroGrupo();
                     grupo = informacionTablaSeleccionada.getGrupo().getDescripcion();
                 }
             }
@@ -576,7 +575,7 @@ public class ControlEmplInformacionAdicional implements Serializable {
                 nuevaInfoAdicional = new InformacionesAdicionales();
                 nuevaInfoAdicional.setGrupo(new GruposInfAdicionales());
                 RequestContext context = RequestContext.getCurrentInstance();
-                modificarInfoRegistro(listInformacionAdicional.size());
+                contarRegistros();
                 RequestContext.getCurrentInstance().update("form:infoRegistro");
                 RequestContext.getCurrentInstance().update("form:datosInfoAdEmpleado");
                 RequestContext.getCurrentInstance().execute("PF('NuevoRegistroInfoAd').hide()");
@@ -647,7 +646,7 @@ public class ControlEmplInformacionAdicional implements Serializable {
                 listInfoAdicionalCrear.add(duplicarInfoAdicional);
                 informacionTablaSeleccionada = duplicarInfoAdicional;
                 RequestContext context = RequestContext.getCurrentInstance();
-                modificarInfoRegistro(listInformacionAdicional.size());
+                contarRegistros();
                 RequestContext.getCurrentInstance().update("form:infoRegistro");
                 RequestContext.getCurrentInstance().update("form:datosInfoAdEmpleado");
                 RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroInfoAd').hide()");
@@ -714,7 +713,7 @@ public class ControlEmplInformacionAdicional implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            modificarInfoRegistro(listInformacionAdicional.size());
+            contarRegistros();
             RequestContext.getCurrentInstance().update("form:infoRegistro");
             RequestContext.getCurrentInstance().update("form:datosInfoAdEmpleado");
             informacionTablaSeleccionada = null;
@@ -822,7 +821,7 @@ public class ControlEmplInformacionAdicional implements Serializable {
         }
         if (list == 0) {
             habilitarBotonLov();
-            modificarInfoRegistroGrupo(listGruposInfAdicional.size());
+            contarRegistroGrupo();
             RequestContext.getCurrentInstance().update("form:GrupoDialogo");
             RequestContext.getCurrentInstance().execute("PF('GrupoDialogo').show()");
         }
@@ -886,7 +885,7 @@ public class ControlEmplInformacionAdicional implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 2) {
                 habilitarBotonLov();
-                modificarInfoRegistroGrupo(listGruposInfAdicional.size());
+                contarRegistroGrupo();
                 RequestContext.getCurrentInstance().update("form:GrupoDialogo");
                 RequestContext.getCurrentInstance().execute("PF('GrupoDialogo').show()");
                 tipoActualizacion = 0;
@@ -961,13 +960,7 @@ public class ControlEmplInformacionAdicional implements Serializable {
             tipoLista = 1;
         }
         RequestContext context = RequestContext.getCurrentInstance();
-        modificarInfoRegistro(filtrarListInformacionAdicional.size());
-        RequestContext.getCurrentInstance().update("form:infoRegistro");
-    }
-    
-    public void eventoFiltrarGrupo(){
-        modificarInfoRegistroGrupo(filtrarListGruposInfAdicional.size());
-        RequestContext.getCurrentInstance().update("form:infoRegistroGrupo");
+       contarRegistros();
     }
     
     public void recordarSeleccion() {
@@ -978,20 +971,12 @@ public class ControlEmplInformacionAdicional implements Serializable {
         }
     }
 
-    public void modificarInfoRegistro(int valor) {
-        infoRegistro = String.valueOf(valor);
-    }
-
-    public void modificarInfoRegistroGrupo(int valor) {
-        infoRegistroGrupo = String.valueOf(valor);
+    public void contarRegistroGrupo() {
+        RequestContext.getCurrentInstance().update("form:infoRegistroGrupo");
     }
 
     public void contarRegistros() {
-        if (listInformacionAdicional != null) {
-            modificarInfoRegistro(listInformacionAdicional.size());
-        } else {
-            modificarInfoRegistro(0);
-        }
+        RequestContext.getCurrentInstance().update("form:infoRegistro");
     }
 
     public void habilitarBotonLov(){
@@ -1140,6 +1125,9 @@ public class ControlEmplInformacionAdicional implements Serializable {
     }
 
     public String getInfoRegistro() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosInfoAdEmpleado");
+        infoRegistro = String.valueOf(tabla.getRowCount());
         return infoRegistro;
     }
 
@@ -1148,6 +1136,9 @@ public class ControlEmplInformacionAdicional implements Serializable {
     }
 
     public String getInfoRegistroGrupo() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lovGrupo");
+        infoRegistroGrupo = String.valueOf(tabla.getRowCount());
         return infoRegistroGrupo;
     }
 

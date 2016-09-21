@@ -101,7 +101,6 @@ public class ControlPryRoles implements Serializable {
         if (listPryRoles != null) {
             pryRolSeleccionado = listPryRoles.get(0);
         }
-        contarRegistros();
     }
 
     public String redirigir() {
@@ -261,7 +260,7 @@ public class ControlPryRoles implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:datosPryRoles");
-            modificarInfoRegistro(listPryRoles.size());
+            contarRegistros();
             pryRolSeleccionado = null;
             guardado = true;
 
@@ -394,7 +393,7 @@ public class ControlPryRoles implements Serializable {
             nuevopryRol.setSecuencia(l);
             crearListPryRoles.add(nuevopryRol);
             listPryRoles.add(nuevopryRol);
-            modificarInfoRegistro(listPryRoles.size());
+            contarRegistros();
             pryRolSeleccionado = nuevopryRol;
             nuevopryRol = new PryRoles();
             RequestContext.getCurrentInstance().update("form:datosPryRoles");
@@ -455,7 +454,7 @@ public class ControlPryRoles implements Serializable {
             listPryRoles.add(duplicarpryRol);
             crearListPryRoles.add(duplicarpryRol);
             pryRolSeleccionado = duplicarpryRol;
-            modificarInfoRegistro(listPryRoles.size());
+            contarRegistros();
             RequestContext.getCurrentInstance().update("form:datosPryRoles");
             if (guardado == true) {
                 guardado = false;
@@ -538,24 +537,15 @@ public class ControlPryRoles implements Serializable {
             if (tipoLista == 0) {
                 tipoLista = 1;
             }
-            modificarInfoRegistro(listPryRoles.size());
-            RequestContext.getCurrentInstance().update("form:informacionRegistro");
+            contarRegistros();
         } catch (Exception e) {
             System.out.println("ERROR ControlPryRoles eventoFiltrar ERROR===" + e.getMessage());
         }
     }
 
-    public void modificarInfoRegistro(int valor){
-        infoRegistro = String.valueOf(valor);
-//        RequestContext.getCurrentInstance().update("form:informacionRegistro");
-    }
     
     public void contarRegistros(){
-        if(listPryRoles != null){
-            modificarInfoRegistro(listPryRoles.size());
-        } else{
-            modificarInfoRegistro(0);
-        }
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
     }
     
     public void deshabilitarBotonLov() {
@@ -639,6 +629,9 @@ public class ControlPryRoles implements Serializable {
     }
 
     public String getInfoRegistro() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosPryRoles");
+        infoRegistro = String.valueOf(tabla.getRowCount());
         return infoRegistro;
     }
 

@@ -14,7 +14,7 @@
         <ui:composition template="/template.xhtml">
             <ui:define name="body">                  
                 <h:form id="form"> 
-                  
+
                     <f:loadBundle basename="Recursos.vigenciadeporte" var="msg" />
                     <p:growl id="growl" showDetail="true"/>
 
@@ -90,10 +90,10 @@
                                 <p:commandButton style=" position: absolute; left: 765px; top: 462px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" value=" "  actionListener="#{controlVigenciaDeporte.salir()}" action="vigDepEmplInd" process="@this" />
                             </p:toolbarGroup>    
                         </p:toolbar>
-                        
+
                         <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px">
-                        <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;" />
-                        <h:outputText id="nombreEmpleado" value="#{controlVigenciaDeporte.empleado.persona.nombreCompleto}" 
+                            <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;" />
+                            <h:outputText id="nombreEmpleado" value="#{controlVigenciaDeporte.empleado.persona.nombreCompleto}" 
                                           style="font-weight: bold; color: #BF1A1A; position: relative; left: 10px; top: 5px"/>
 
                             <h:outputText value="#{msg['codigo']}" style="font-weight: bold; color: #14388B; position: relative; left: 120px; top: 5px;" />
@@ -109,7 +109,7 @@
                                          filteredValue="#{controlVigenciaDeporte.filtrarListVigenciasDeportes}" emptyMessage="#{msg['vacio']}"
                                          editable="true" editMode="cell" liveScroll="true" scrollRows="15"
                                          selection="#{controlVigenciaDeporte.vigenciaTablaSeleccionada}" selectionMode="single">
-                                
+
                                 <p:ajax event="filter" listener="#{controlVigenciaDeporte.eventoFiltrar()}"/>
                                 <f:event type="preRenderView" listener="#{controlVigenciaDeporte.recordarSeleccionVD()}"/>
 
@@ -261,16 +261,16 @@
                         </fieldset> 
 
                         <p:dialog header="#{msg['deporteM']}" widgetVar="DeportesDialogo" draggable="true" resizable="false" closable="false" id="DeportesDialogo"  
-                                  showEffect="fade" hideEffect="fade" width="431" modal="true" height="375">
-                            <p:dataTable id="lovDeportes" style="width: 400px;" var="deportes" value="#{controlVigenciaDeporte.listDeportes}" rowKey="#{deportes.secuencia}"
+                                  showEffect="fade" hideEffect="fade" width="431" modal="true">
+                            <p:dataTable id="lovDeportes"  var="deportes" value="#{controlVigenciaDeporte.listDeportes}" rowKey="#{deportes.secuencia}"
                                          selection="#{controlVigenciaDeporte.deporteSeleccionado}" selectionMode="single" widgetVar="lovDeportes" scrollable="true" scrollWidth="415" scrollHeight="250"
                                          filteredValue="#{controlVigenciaDeporte.filtrarListDeportes}" emptyMessage="#{msg['lovvacio']}">   
-                                <p:ajax event="filter" listener="#{controlVigenciaDeporte.eventoFiltrarDeportes()}"/>
+                                <p:ajax event="filter" listener="#{controlVigenciaDeporte.contarRegistroDeporte()}"/>
                                 <p:ajax event="rowSelect" listener="#{controlVigenciaDeporte.activarAceptar()}" update=":form:aceptarD"/>
                                 <p:ajax event="rowDblselect" listener="#{controlVigenciaDeporte.actualizarDeporte()}" process="@this" />
                                 <f:facet name="header">  
-                                    <h:outputText value="#{msg['buscarM']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovDeportes').filter();" style="width:150px; position: relative; left: 5px;" />  
+                                    <h:outputText value="#{msg['buscarM']}" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovDeportes').filter();" class="cssFiltroLOV" />  
                                 </f:facet>
 
                                 <p:column filterBy="#{deportes.nombre}" filterMatchMode="contains" filterStyle="width:80%">
@@ -281,11 +281,13 @@
                                 </p:column>
                             </p:dataTable>
 
-                            <h:outputText id="infoRegistroDeporte" value="#{msg['infoRegistros']} #{controlVigenciaDeporte.infoRegistroDeporte}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
-
-                            <p:commandButton id="aceptarD" icon="ui-icon-check" style="position: relative; left: 135px;" value="#{msg['aceptar']}" disabled="#{controlVigenciaDeporte.aceptar}"  actionListener="#{controlVigenciaDeporte.actualizarDeporte()}"  process="@this"/>
-
-                            <p:commandButton id="atrasD" style="position: relative; left: 135px;" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlVigenciaDeporte.cancelarCambioDeporte()}"   process="@this"/>
+                            <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroDeporte" value="#{msg['infoRegistros']} #{controlVigenciaDeporte.infoRegistroDeporte}" class="cssinfoRegistroLOV" />
+                            <p:commandButton id="aceptarD" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlVigenciaDeporte.aceptar}" 
+                                             actionListener="#{controlVigenciaDeporte.actualizarDeporte()}"  process="@this"/>
+                            <p:commandButton id="atrasD" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" 
+                                             actionListener="#{controlVigenciaDeporte.cancelarCambioDeporte()}"   process="@this"/>
+                            </div>
                         </p:dialog> 
 
                     </p:panel>
@@ -360,15 +362,15 @@
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorDuplicarVigenciaD']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;text-align: center" />
                     </p:dialog>
-                    
-                    
+
+
                     <p:dialog id="errorFechas" header="#{msg['error']}" widgetVar="errorFechas"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorFechas']}" style="position: absolute; left: 70px; top: 2px; width: 185px; font-weight:bold;" />
                     </p:dialog>
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlVigenciaDeporte.activarCtrlF11()}"/> 
                 </h:form>
-                
+
                 <h:form id="formularioDialogos" >
 
                     <p:dialog id="NuevoRegistroVigencias" header="#{msg['nuevoregistro']}" widgetVar="NuevoRegistroVigencias" closable="false" resizable="false"  draggable="true" modal="true" height="310" width="400" style="padding: 0px">  
@@ -431,7 +433,7 @@
                             <strong><h:outputText value="#{msg['puntajeCGN']}" style="position: absolute; top: 235px; left: 50px;" /></strong>
                             <p:inputText id="nuevaCGrupal" value="#{controlVigenciaDeporte.nuevaVigenciaDeporte.valorcualitativogrupo}" 
                                          style="width: 122px; position: absolute; left: 220px; top: 230px;">
-                                 <p:keyFilter for="nuevaCGrupal" mask="num"/>
+                                <p:keyFilter for="nuevaCGrupal" mask="num"/>
                                 <p:ajax event="change" update="nuevaCGrupal"/>
                             </p:inputText>
                             <p:watermark for="nuevaCGrupal" value="#{msg['puntajeCG']}" />

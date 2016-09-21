@@ -304,7 +304,7 @@ public class ControlTiposTelefonos implements Serializable {
             nuevoTipoTelefono.setSecuencia(l);
             listaTiposTelefonosCrear.add(nuevoTipoTelefono);
             listaTiposTelefonos.add(nuevoTipoTelefono);
-            modificarInfoRegistro(listaTiposTelefonos.size());
+            contarRegistros();
             tipoTelefonoSeleccionado = nuevoTipoTelefono;
             nuevoTipoTelefono = new TiposTelefonos();
 
@@ -400,7 +400,7 @@ public class ControlTiposTelefonos implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:infoRegistro");
             RequestContext.getCurrentInstance().update("form:datosTiposTelefonos");
-            modificarInfoRegistro(listaTiposTelefonos.size());
+            contarRegistros();
             tipoTelefonoSeleccionado = null;
             guardado = true;
 
@@ -483,7 +483,7 @@ public class ControlTiposTelefonos implements Serializable {
             listaTiposTelefonos.add(duplicarTipoTelefono);
             listaTiposTelefonosCrear.add(duplicarTipoTelefono);
             tipoTelefonoSeleccionado = duplicarTipoTelefono;
-            modificarInfoRegistro(listaTiposTelefonos.size());
+            contarRegistros();
             RequestContext.getCurrentInstance().update("form:datosTiposTelefonos");
             if (guardado == true) {
                 guardado = false;
@@ -616,22 +616,11 @@ public class ControlTiposTelefonos implements Serializable {
             tipoLista = 1;
         }
         deshabilitarBotonLov();
-        tipoTelefonoSeleccionado = null;
-        modificarInfoRegistro(filtradoListaTiposTelefonos.size());
-        RequestContext.getCurrentInstance().update("form:infoRegistro");
-    }
-
-    public void modificarInfoRegistro(int valor) {
-        infoRegistro = String.valueOf(valor);
-//        RequestContext.getCurrentInstance().update("form:infoRegistro");
+        contarRegistros();
     }
 
     public void contarRegistros() {
-        if (listaTiposTelefonos != null) {
-            modificarInfoRegistro(listaTiposTelefonos.size());
-        } else {
-            modificarInfoRegistro(0);
-        }
+        RequestContext.getCurrentInstance().update("form:infoRegistro");
     }
 
     public void deshabilitarBotonLov() {
@@ -721,6 +710,9 @@ public class ControlTiposTelefonos implements Serializable {
     }
 
     public String getInfoRegistro() {
+         FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosTiposTelefonos");
+        infoRegistro = String.valueOf(tabla.getRowCount());
         return infoRegistro;
     }
 

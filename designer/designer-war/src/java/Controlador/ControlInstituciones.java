@@ -96,7 +96,6 @@ public class ControlInstituciones implements Serializable {
         if (listaInstituciones != null) {
             institucionSeleccionada = listaInstituciones.get(0);
         }
-        contarRegistros();
     }
 
     public String redirigir() {
@@ -243,7 +242,7 @@ public class ControlInstituciones implements Serializable {
             nuevoInstitucion.setSecuencia(l);
             listaInstitucionesCrear.add(nuevoInstitucion);
             listaInstituciones.add(nuevoInstitucion);
-            modificarInfoRegistro(listaInstituciones.size());
+            contarRegistros();
             institucionSeleccionada = nuevoInstitucion;
             nuevoInstitucion = new Instituciones();
 
@@ -337,7 +336,7 @@ public class ControlInstituciones implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:infoRegistro");
             RequestContext.getCurrentInstance().update("form:datosInstituciones");
-            modificarInfoRegistro(listaInstituciones.size());
+            contarRegistros();
             institucionSeleccionada = null;
             guardado = true;
 
@@ -417,7 +416,7 @@ public class ControlInstituciones implements Serializable {
             listaInstituciones.add(duplicarInstitucion);
             listaInstitucionesCrear.add(duplicarInstitucion);
             institucionSeleccionada = duplicarInstitucion;
-            modificarInfoRegistro(listaInstituciones.size());
+            contarRegistros();
             RequestContext.getCurrentInstance().update("form:datosInstituciones");
             if (guardado == true) {
                 guardado = false;
@@ -476,8 +475,8 @@ public class ControlInstituciones implements Serializable {
         RequestContext.getCurrentInstance().update("form:datosInstituciones");
     }
 
-    public void modificarInstituciones(Instituciones institucion,String confirmarCambio,String valorConfirmar){
-    institucionSeleccionada = institucion;
+    public void modificarInstituciones(Instituciones institucion, String confirmarCambio, String valorConfirmar) {
+        institucionSeleccionada = institucion;
         int coincidencias = 0;
         int indiceUnicoElemento = 0;
         RequestContext context = RequestContext.getCurrentInstance();
@@ -507,9 +506,9 @@ public class ControlInstituciones implements Serializable {
                 }
             }
             RequestContext.getCurrentInstance().update("form:datosInstituciones");
-        }    
+        }
     }
-    
+
     public void verificarRastro() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (institucionSeleccionada != null) {
@@ -532,7 +531,7 @@ public class ControlInstituciones implements Serializable {
             RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
     }
-    
+
     public void recordarSeleccion() {
         if (institucionSeleccionada != null) {
             FacesContext c = FacesContext.getCurrentInstance();
@@ -540,35 +539,26 @@ public class ControlInstituciones implements Serializable {
             tablaC.setSelection(institucionSeleccionada);
         }
     }
-    
-    public void eventoFiltrar(){
-        if(tipoLista == 0){
+
+    public void eventoFiltrar() {
+        if (tipoLista == 0) {
             tipoLista = 1;
         }
         deshabilitarBotonLov();
-        modificarInfoRegistro(filtradoListaInstituciones.size());
-        RequestContext.getCurrentInstance().update("form:infoRegistro");
-    }
-    
-    public void modificarInfoRegistro(int valor) {
-        inforegistro = String.valueOf(valor);
+        contarRegistros();
     }
 
     public void contarRegistros() {
-        if (listaInstituciones != null) {
-            modificarInfoRegistro(listaInstituciones.size());
-        } else {
-            modificarInfoRegistro(0);
-        }
+        RequestContext.getCurrentInstance().update("form:infoRegistro");
     }
 
     public void deshabilitarBotonLov() {
         activarLov = true;
     }
-    
+
     ///////gets y sets////////
     public List<Instituciones> getListaInstituciones() {
-        if(listaInstituciones == null){
+        if (listaInstituciones == null) {
             listaInstituciones = administrarInstituciones.Instituciones();
         }
         return listaInstituciones;
@@ -651,6 +641,9 @@ public class ControlInstituciones implements Serializable {
     }
 
     public String getInforegistro() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosInstituciones");
+        inforegistro = String.valueOf(tabla.getRowCount());
         return inforegistro;
     }
 

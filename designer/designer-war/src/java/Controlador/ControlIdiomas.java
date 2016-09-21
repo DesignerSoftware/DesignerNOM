@@ -4,7 +4,6 @@
  */
 package Controlador;
 
-
 import Entidades.Idiomas;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
@@ -113,7 +112,6 @@ public class ControlIdiomas implements Serializable {
         paginaanterior = pagina;
         listIdiomas = null;
         getListIdiomas();
-        contarRegistros();
         deshabilitarBotonLov();
         if (!listIdiomas.isEmpty()) {
             idiomaSeleccionado = listIdiomas.get(0);
@@ -353,105 +351,101 @@ public class ControlIdiomas implements Serializable {
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
                 }
-            } else {
+            } else if (!crearIdiomas.contains(idiomaSeleccionado)) {
+                if (idiomaSeleccionado.getCodigo() == null) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    banderita = false;
+                    idiomaSeleccionado.setCodigo(backupCodigo);
+                } else {
+                    for (int j = 0; j < filtrarIdiomas.size(); j++) {
+                        if (idiomaSeleccionado.getCodigo().equals(filtrarIdiomas.get(j).getCodigo())) {
+                            contador++;
+                        }
+                    }
 
-                if (!crearIdiomas.contains(idiomaSeleccionado)) {
-                    if (idiomaSeleccionado.getCodigo() == null) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    if (contador > 0) {
+                        mensajeValidacion = "CODIGOS REPETIDOS";
                         banderita = false;
                         idiomaSeleccionado.setCodigo(backupCodigo);
-                    } else {
-                        for (int j = 0; j < filtrarIdiomas.size(); j++) {
-                            if (idiomaSeleccionado.getCodigo().equals(filtrarIdiomas.get(j).getCodigo())) {
-                                contador++;
-                            }
-                        }
-
-                        if (contador > 0) {
-                            mensajeValidacion = "CODIGOS REPETIDOS";
-                            banderita = false;
-                            idiomaSeleccionado.setCodigo(backupCodigo);
-
-                        } else {
-                            banderita = true;
-                        }
-
-                    }
-
-                    if (idiomaSeleccionado.getNombre().isEmpty()) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita1 = false;
-                        idiomaSeleccionado.setNombre(backupDescripcion);
-                    }
-                    if (idiomaSeleccionado.getNombre().equals(" ")) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita1 = false;
-                        idiomaSeleccionado.setNombre(backupDescripcion);
-                    }
-
-                    if (banderita == true && banderita1 == true) {
-                        if (modificarIdiomas.isEmpty()) {
-                            modificarIdiomas.add(idiomaSeleccionado);
-                        } else if (!modificarIdiomas.contains(idiomaSeleccionado)) {
-                            modificarIdiomas.add(idiomaSeleccionado);
-                        }
-                        if (guardado == true) {
-                            guardado = false;
-                        }
 
                     } else {
-                        RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
+                        banderita = true;
+                    }
+
+                }
+
+                if (idiomaSeleccionado.getNombre().isEmpty()) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    banderita1 = false;
+                    idiomaSeleccionado.setNombre(backupDescripcion);
+                }
+                if (idiomaSeleccionado.getNombre().equals(" ")) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    banderita1 = false;
+                    idiomaSeleccionado.setNombre(backupDescripcion);
+                }
+
+                if (banderita == true && banderita1 == true) {
+                    if (modificarIdiomas.isEmpty()) {
+                        modificarIdiomas.add(idiomaSeleccionado);
+                    } else if (!modificarIdiomas.contains(idiomaSeleccionado)) {
+                        modificarIdiomas.add(idiomaSeleccionado);
+                    }
+                    if (guardado == true) {
+                        guardado = false;
                     }
 
                 } else {
-                    if (idiomaSeleccionado.getCodigo() == null) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    RequestContext.getCurrentInstance().update("form:validacionModificar");
+                    RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
+                }
+
+            } else {
+                if (idiomaSeleccionado.getCodigo() == null) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    banderita = false;
+                    idiomaSeleccionado.setCodigo(backupCodigo);
+                } else {
+                    for (int j = 0; j < filtrarIdiomas.size(); j++) {
+                        if (idiomaSeleccionado.getCodigo().equals(filtrarIdiomas.get(j).getCodigo())) {
+                            contador++;
+                        }
+                    }
+                    for (int j = 0; j < listIdiomas.size(); j++) {
+                        if (idiomaSeleccionado.getCodigo() == listIdiomas.get(j).getCodigo()) {
+                            contador++;
+                        }
+                    }
+                    if (contador > 0) {
+                        mensajeValidacion = "CODIGOS REPETIDOS";
                         banderita = false;
                         idiomaSeleccionado.setCodigo(backupCodigo);
-                    } else {
-                        for (int j = 0; j < filtrarIdiomas.size(); j++) {
-                            if (idiomaSeleccionado.getCodigo().equals(filtrarIdiomas.get(j).getCodigo())) {
-                                contador++;
-                            }
-                        }
-                        for (int j = 0; j < listIdiomas.size(); j++) {
-                            if (idiomaSeleccionado.getCodigo() == listIdiomas.get(j).getCodigo()) {
-                                contador++;
-                            }
-                        }
-                        if (contador > 0) {
-                            mensajeValidacion = "CODIGOS REPETIDOS";
-                            banderita = false;
-                            idiomaSeleccionado.setCodigo(backupCodigo);
-
-                        } else {
-                            banderita = true;
-                        }
-
-                    }
-
-                    if (idiomaSeleccionado.getNombre().isEmpty()) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita1 = false;
-                        idiomaSeleccionado.setNombre(backupDescripcion);
-                    }
-                    if (idiomaSeleccionado.getNombre().equals(" ")) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita1 = false;
-                        idiomaSeleccionado.setNombre(backupDescripcion);
-                    }
-
-                    if (banderita == true && banderita1 == true) {
-                        if (guardado == true) {
-                            guardado = false;
-                        }
 
                     } else {
-                        RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
+                        banderita = true;
                     }
 
+                }
+
+                if (idiomaSeleccionado.getNombre().isEmpty()) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    banderita1 = false;
+                    idiomaSeleccionado.setNombre(backupDescripcion);
+                }
+                if (idiomaSeleccionado.getNombre().equals(" ")) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    banderita1 = false;
+                    idiomaSeleccionado.setNombre(backupDescripcion);
+                }
+
+                if (banderita == true && banderita1 == true) {
+                    if (guardado == true) {
+                        guardado = false;
+                    }
+
+                } else {
+                    RequestContext.getCurrentInstance().update("form:validacionModificar");
+                    RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
                 }
 
             }
@@ -478,7 +472,7 @@ public class ControlIdiomas implements Serializable {
             if (tipoLista == 1) {
                 filtrarIdiomas.remove(idiomaSeleccionado);
             }
-            modificarInfoRegistro(listIdiomas.size());
+            contarRegistros();
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:informacionRegistro");
             RequestContext.getCurrentInstance().update("form:datosIdiomas");
@@ -649,7 +643,7 @@ public class ControlIdiomas implements Serializable {
             crearIdiomas.add(nuevoIdiomas);
             listIdiomas.add(nuevoIdiomas);
             idiomaSeleccionado = nuevoIdiomas;
-            modificarInfoRegistro(listIdiomas.size());
+            contarRegistros();
             RequestContext.getCurrentInstance().update("form:informacionRegistro");
             nuevoIdiomas = new Idiomas();
             RequestContext.getCurrentInstance().update("form:datosIdiomas");
@@ -735,7 +729,7 @@ public class ControlIdiomas implements Serializable {
             crearIdiomas.add(duplicarIdiomas);
             RequestContext.getCurrentInstance().update("form:datosIdiomas");
             idiomaSeleccionado = duplicarIdiomas;
-            modificarInfoRegistro(listIdiomas.size());
+            contarRegistros();
             RequestContext.getCurrentInstance().update("form:informacionRegistro");
             if (guardado == true) {
                 guardado = false;
@@ -804,13 +798,10 @@ public class ControlIdiomas implements Serializable {
             } else if (resultado == 5) {
                 RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
+        } else if (administrarRastros.verificarHistoricosTabla("IDIOMAS")) { // igual acá
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            if (administrarRastros.verificarHistoricosTabla("IDIOMAS")) { // igual acá
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-            }
-
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
     }
 
@@ -820,24 +811,14 @@ public class ControlIdiomas implements Serializable {
             if (tipoLista == 0) {
                 tipoLista = 1;
             }
-            RequestContext context = RequestContext.getCurrentInstance();
-            modificarInfoRegistro(filtrarIdiomas.size());
-            RequestContext.getCurrentInstance().update("form:informacionRegistro");
+            contarRegistros();
         } catch (Exception e) {
             System.out.println("ERROR ControlIdiomas eventoFiltrar ERROR===" + e.getMessage());
         }
     }
 
-    public void modificarInfoRegistro(int valor) {
-        infoRegistro = String.valueOf(valor);
-    }
-
     public void contarRegistros() {
-        if (!listIdiomas.isEmpty()) {
-            modificarInfoRegistro(listIdiomas.size());
-        } else {
-            modificarInfoRegistro(0);
-        }
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
     }
 
     public void habilitarBotonLov() {
@@ -943,6 +924,9 @@ public class ControlIdiomas implements Serializable {
     }
 
     public String getInfoRegistro() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosIdiomas");
+        infoRegistro = String.valueOf(tabla.getRowCount());
         return infoRegistro;
     }
 

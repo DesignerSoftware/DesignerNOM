@@ -4,7 +4,6 @@
  */
 package Controlador;
 
-
 import Entidades.Empleados;
 import Entidades.Eventos;
 import Entidades.VigenciasDeportes;
@@ -132,7 +131,6 @@ public class ControlEmplVigenciaEvento implements Serializable {
         listEventos = null;
         empleado = administrarEmplVigenciaEvento.empleadoActual(secuencia);
         getListVigenciasEventos();
-        contarRegistros();
         deshabilitarBotonLov();
         if (!listVigenciasEventos.isEmpty()) {
             vigenciaTablaSeleccionada = listVigenciasEventos.get(0);
@@ -154,20 +152,17 @@ public class ControlEmplVigenciaEvento implements Serializable {
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
             }
-        } else {
-            if (!listVigenciaEventoCrear.contains(vigenciaTablaSeleccionada)) {
+        } else if (!listVigenciaEventoCrear.contains(vigenciaTablaSeleccionada)) {
 
-                if (listVigenciaEventoModificar.isEmpty()) {
-                    listVigenciaEventoModificar.add(vigenciaTablaSeleccionada);
-                } else if (!listVigenciaEventoModificar.contains(vigenciaTablaSeleccionada)) {
-                    listVigenciaEventoModificar.add(vigenciaTablaSeleccionada);
-                }
-                if (guardado == true) {
-                    guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                }
+            if (listVigenciaEventoModificar.isEmpty()) {
+                listVigenciaEventoModificar.add(vigenciaTablaSeleccionada);
+            } else if (!listVigenciaEventoModificar.contains(vigenciaTablaSeleccionada)) {
+                listVigenciaEventoModificar.add(vigenciaTablaSeleccionada);
             }
-           
+            if (guardado == true) {
+                guardado = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            }
         }
     }
 
@@ -218,18 +213,16 @@ public class ControlEmplVigenciaEvento implements Serializable {
                         RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
                 }
-            } else {
-                if (!listVigenciaEventoCrear.contains(vigenciaTablaSeleccionada)) {
+            } else if (!listVigenciaEventoCrear.contains(vigenciaTablaSeleccionada)) {
 
-                    if (listVigenciaEventoModificar.isEmpty()) {
-                        listVigenciaEventoModificar.add(vigenciaTablaSeleccionada);
-                    } else if (!listVigenciaEventoModificar.contains(vigenciaTablaSeleccionada)) {
-                        listVigenciaEventoModificar.add(vigenciaTablaSeleccionada);
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                    }
+                if (listVigenciaEventoModificar.isEmpty()) {
+                    listVigenciaEventoModificar.add(vigenciaTablaSeleccionada);
+                } else if (!listVigenciaEventoModificar.contains(vigenciaTablaSeleccionada)) {
+                    listVigenciaEventoModificar.add(vigenciaTablaSeleccionada);
+                }
+                if (guardado == true) {
+                    guardado = false;
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
             }
         }
@@ -349,12 +342,10 @@ public class ControlEmplVigenciaEvento implements Serializable {
                 } else {
                     retorno = false;
                 }
+            } else if (nuevaVigenciaEvento.getFechainicial().after(fechaParametro)) {
+                retorno = true;
             } else {
-                if (nuevaVigenciaEvento.getFechainicial().after(fechaParametro)) {
-                    retorno = true;
-                } else {
-                    retorno = false;
-                }
+                retorno = false;
             }
         }
         if (i == 2) {
@@ -364,12 +355,10 @@ public class ControlEmplVigenciaEvento implements Serializable {
                 } else {
                     retorno = false;
                 }
+            } else if (duplicarVigenciaEvento.getFechainicial().after(fechaParametro)) {
+                retorno = true;
             } else {
-                if (duplicarVigenciaEvento.getFechainicial().after(fechaParametro)) {
-                    retorno = true;
-                } else {
-                    retorno = false;
-                }
+                retorno = false;
             }
         }
         return retorno;
@@ -522,7 +511,7 @@ public class ControlEmplVigenciaEvento implements Serializable {
                 cualCelda = -1;
             } else if (cualCelda == 2) {
                 habilitarBotonLov();
-                modificarInfoRegistroEventos(listEventos.size());
+                contarRegistroEventos();
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarDescripcionD");
                 RequestContext.getCurrentInstance().execute("PF('editarDescripcionD').show()");
                 cualCelda = -1;
@@ -589,7 +578,7 @@ public class ControlEmplVigenciaEvento implements Serializable {
                 nuevaVigenciaEvento = new VigenciasEventos();
                 nuevaVigenciaEvento.setEvento(new Eventos());
                 RequestContext context = RequestContext.getCurrentInstance();
-                modificarInfoRegistro(listVigenciasEventos.size());
+                contarRegistros();
                 RequestContext.getCurrentInstance().update("form:informacionRegistro");
                 RequestContext.getCurrentInstance().update("form:datosVigenciaEventos");
                 RequestContext.getCurrentInstance().execute("PF('NuevoRegistroVigencias').hide()");
@@ -654,7 +643,7 @@ public class ControlEmplVigenciaEvento implements Serializable {
                 listVigenciasEventos.add(duplicarVigenciaEvento);
                 listVigenciaEventoCrear.add(duplicarVigenciaEvento);
                 RequestContext context = RequestContext.getCurrentInstance();
-                modificarInfoRegistro(listVigenciasEventos.size());
+                contarRegistros();
                 RequestContext.getCurrentInstance().update("form:informacionRegistro");
                 RequestContext.getCurrentInstance().update("form:datosVigenciaEventos");
                 RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroVigencias').hide()");
@@ -722,7 +711,7 @@ public class ControlEmplVigenciaEvento implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            modificarInfoRegistro(listVigenciasEventos.size());
+            contarRegistros();
             RequestContext.getCurrentInstance().update("form:informacionRegistro");
             RequestContext.getCurrentInstance().update("form:datosVigenciaEventos");
             vigenciaTablaSeleccionada = null;
@@ -825,7 +814,7 @@ public class ControlEmplVigenciaEvento implements Serializable {
             tipoActualizacion = 2;
         }
         habilitarBotonLov();
-        modificarInfoRegistroEventos(listEventos.size());
+        contarRegistroEventos();
         RequestContext.getCurrentInstance().update("form:EventosDialogo");
         RequestContext.getCurrentInstance().execute("PF('EventosDialogo').show()");
     }
@@ -902,7 +891,7 @@ public class ControlEmplVigenciaEvento implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 2) {
                 habilitarBotonLov();
-                modificarInfoRegistroEventos(listEventos.size());
+                contarRegistroEventos();
                 RequestContext.getCurrentInstance().update("form:EventosDialogo");
                 RequestContext.getCurrentInstance().execute("PF('EventosDialogo').show()");
                 tipoActualizacion = 0;
@@ -952,13 +941,10 @@ public class ControlEmplVigenciaEvento implements Serializable {
             } else if (resultado == 5) {
                 RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
+        } else if (administrarRastros.verificarHistoricosTabla("VIGENCIASEVENTOS")) {
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            if (administrarRastros.verificarHistoricosTabla("VIGENCIASEVENTOS")) {
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-            }
-
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
     }
 
@@ -966,31 +952,15 @@ public class ControlEmplVigenciaEvento implements Serializable {
         if (tipoLista == 0) {
             tipoLista = 1;
         }
-        RequestContext context = RequestContext.getCurrentInstance();
-        modificarInfoRegistro(filtrarListVigenciasEventos.size());
-        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        contarRegistros();
     }
 
-    public void modificarInfoRegistro(int valor) {
-        infoRegistro = String.valueOf(valor);
-    }
-
-    public void modificarInfoRegistroEventos(int valor) {
-        infoRegistroEvento = String.valueOf(valor);
-    }
-
-    public void eventoFiltrarEventos() {  /// evento filtrar LOV deportes
-        modificarInfoRegistroEventos(filtrarListEventos.size());
+    public void contarRegistroEventos() {
         RequestContext.getCurrentInstance().update("form:infoRegistroEvento");
     }
 
     public void contarRegistros() {
-        if (listVigenciasEventos != null) {
-            modificarInfoRegistro(listVigenciasEventos.size());
-        } else {
-            modificarInfoRegistro(0);
-        }
-
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
     }
 
     public void recordarSeleccion() {
@@ -1130,6 +1100,9 @@ public class ControlEmplVigenciaEvento implements Serializable {
     }
 
     public String getInfoRegistro() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosVigenciaEventos");
+        infoRegistro = String.valueOf(tabla.getRowCount());
         return infoRegistro;
     }
 
@@ -1138,6 +1111,9 @@ public class ControlEmplVigenciaEvento implements Serializable {
     }
 
     public String getInfoRegistroEvento() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lovEventos");
+        infoRegistroEvento = String.valueOf(tabla.getRowCount());
         return infoRegistroEvento;
     }
 

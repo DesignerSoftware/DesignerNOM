@@ -1,6 +1,5 @@
 package Controlador;
 
-
 import Entidades.Empresas;
 import Entidades.Monedas;
 import Entidades.Proyectos;
@@ -146,12 +145,11 @@ public class ControlProyecto implements Serializable {
         paginaAnterior = pagina;
         listProyectos = null;
         getListProyectos();
-        contarRegistros();
-       if(listProyectos == null || listProyectos.isEmpty()){
-         proyectoTablaSeleccionado = null;  
-       } else {
-        proyectoTablaSeleccionado = listProyectos.get(0);
-       }
+        if (listProyectos == null || listProyectos.isEmpty()) {
+            proyectoTablaSeleccionado = null;
+        } else {
+            proyectoTablaSeleccionado = listProyectos.get(0);
+        }
     }
 
     public String redirigir() {
@@ -276,49 +274,37 @@ public class ControlProyecto implements Serializable {
             }
             if (aux.getCodigo() == null) {
                 retorno = false;
-            } else {
-                if (aux.getCodigo().isEmpty()) {
-                    retorno = false;
-                }
+            } else if (aux.getCodigo().isEmpty()) {
+                retorno = false;
             }
             if (aux.getNombreproyecto() == null) {
                 retorno = false;
-            } else {
-                if (aux.getNombreproyecto().isEmpty()) {
-                    retorno = false;
-                }
+            } else if (aux.getNombreproyecto().isEmpty()) {
+                retorno = false;
             }
         }
         if (i == 1) {
             if (nuevaProyectos.getCodigo() == null) {
                 retorno = false;
-            } else {
-                if (nuevaProyectos.getCodigo().isEmpty()) {
-                    retorno = false;
-                }
+            } else if (nuevaProyectos.getCodigo().isEmpty()) {
+                retorno = false;
             }
             if (nuevaProyectos.getNombreproyecto() == null) {
                 retorno = false;
-            } else {
-                if (nuevaProyectos.getNombreproyecto().isEmpty()) {
-                    retorno = false;
-                }
+            } else if (nuevaProyectos.getNombreproyecto().isEmpty()) {
+                retorno = false;
             }
         }
         if (i == 2) {
             if (duplicarProyecto.getCodigo() == null) {
                 retorno = false;
-            } else {
-                if (duplicarProyecto.getCodigo().isEmpty()) {
-                    retorno = false;
-                }
+            } else if (duplicarProyecto.getCodigo().isEmpty()) {
+                retorno = false;
             }
             if (duplicarProyecto.getNombreproyecto() == null) {
                 retorno = false;
-            } else {
-                if (duplicarProyecto.getNombreproyecto().isEmpty()) {
-                    retorno = false;
-                }
+            } else if (duplicarProyecto.getNombreproyecto().isEmpty()) {
+                retorno = false;
             }
         }
         return retorno;
@@ -341,17 +327,15 @@ public class ControlProyecto implements Serializable {
                     }
                 }
 
-            } else {
-                if (!listProyectoCrear.contains(proyectoLOVSeleccionado)) {
-                    if (listProyectoModificar.isEmpty()) {
-                        listProyectoModificar.add(proyectoLOVSeleccionado);
-                    } else if (!listProyectoModificar.contains(proyectoLOVSeleccionado)) {
-                        listProyectoModificar.add(proyectoLOVSeleccionado);
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                    }
+            } else if (!listProyectoCrear.contains(proyectoLOVSeleccionado)) {
+                if (listProyectoModificar.isEmpty()) {
+                    listProyectoModificar.add(proyectoLOVSeleccionado);
+                } else if (!listProyectoModificar.contains(proyectoLOVSeleccionado)) {
+                    listProyectoModificar.add(proyectoLOVSeleccionado);
+                }
+                if (guardado == true) {
+                    guardado = false;
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
             }
 
@@ -534,20 +518,17 @@ public class ControlProyecto implements Serializable {
                     }
                 }
 
-            } else {
-                if (!listProyectoCrear.contains(proyectoLOVSeleccionado)) {
+            } else if (!listProyectoCrear.contains(proyectoLOVSeleccionado)) {
 
-                    if (listProyectoModificar.isEmpty()) {
-                        listProyectoModificar.add(proyectoLOVSeleccionado);
-                    } else if (!listProyectoModificar.contains(proyectoLOVSeleccionado)) {
-                        listProyectoModificar.add(proyectoLOVSeleccionado);
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                    }
+                if (listProyectoModificar.isEmpty()) {
+                    listProyectoModificar.add(proyectoLOVSeleccionado);
+                } else if (!listProyectoModificar.contains(proyectoLOVSeleccionado)) {
+                    listProyectoModificar.add(proyectoLOVSeleccionado);
                 }
-
+                if (guardado == true) {
+                    guardado = false;
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                }
             }
             deshabilitarLov();
         }
@@ -787,15 +768,15 @@ public class ControlProyecto implements Serializable {
                     //deporte = vigenciaTablaSeleccionada.getDeporte().getNombre();
                     habilitarLov();
                 }
-                if(cualCeldaP ==3){
+                if (cualCeldaP == 3) {
                     contarRegistros();
                     habilitarLov();
                 }
-                if(cualCeldaP ==4){
+                if (cualCeldaP == 4) {
                     contarRegistros();
                     habilitarLov();
                 }
-                if(cualCeldaP == 6){
+                if (cualCeldaP == 6) {
                     contarRegistros();
                     habilitarLov();
                 }
@@ -816,15 +797,15 @@ public class ControlProyecto implements Serializable {
                     //deporte = vigenciaTablaSeleccionada.getDeporte().getNombre();
                     habilitarLov();
                 }
-                if(cualCeldaP ==3){
+                if (cualCeldaP == 3) {
                     contarRegistros();
                     habilitarLov();
                 }
-                if(cualCeldaP ==4){
+                if (cualCeldaP == 4) {
                     contarRegistros();
                     habilitarLov();
                 }
-                if(cualCeldaP == 6){
+                if (cualCeldaP == 6) {
                     contarRegistros();
                     habilitarLov();
                 }
@@ -1047,7 +1028,7 @@ public class ControlProyecto implements Serializable {
                 listProyectoCrear.add(nuevaProyectos);
                 proyectoTablaSeleccionado = nuevaProyectos;
                 RequestContext context = RequestContext.getCurrentInstance();
-                modificarInfoRegistro(listProyectos.size());
+                contarRegistros();
                 deshabilitarLov();
                 RequestContext.getCurrentInstance().update("form:infoRegistro");
                 nuevaProyectos = new Proyectos();
@@ -1079,7 +1060,6 @@ public class ControlProyecto implements Serializable {
         nuevaProyectos.setPryCliente(new PryClientes());
         nuevaProyectos.setPryPlataforma(new PryPlataformas());
         proyectoTablaSeleccionado = null;
-        
 
     }
 
@@ -1185,7 +1165,7 @@ public class ControlProyecto implements Serializable {
                 duplicarProyecto = new Proyectos();
                 limpiarduplicarP();
                 RequestContext context = RequestContext.getCurrentInstance();
-                modificarInfoRegistro(listProyectos.size());
+                contarRegistros();
                 deshabilitarLov();
                 RequestContext.getCurrentInstance().update("form:infoRegistro");
                 RequestContext.getCurrentInstance().update("form:datosProyectos");
@@ -1226,20 +1206,20 @@ public class ControlProyecto implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         try {
             if (proyectoTablaSeleccionado != null) {
-                    if (!listProyectoModificar.isEmpty() && listProyectoModificar.contains(proyectoTablaSeleccionado)) {
-                        listProyectoModificar.remove(listProyectoModificar.indexOf(proyectoTablaSeleccionado));
-                        listProyectoBorrar.add(proyectoTablaSeleccionado);
-                    } else if (!listProyectoCrear.isEmpty() && listProyectoCrear.contains(proyectoTablaSeleccionado)) {
-                        listProyectoCrear.remove(listProyectoCrear.indexOf(proyectoTablaSeleccionado));
-                    } else {
-                        listProyectoBorrar.add(proyectoTablaSeleccionado);
-                    }
-                    listProyectos.remove(proyectoTablaSeleccionado);
+                if (!listProyectoModificar.isEmpty() && listProyectoModificar.contains(proyectoTablaSeleccionado)) {
+                    listProyectoModificar.remove(listProyectoModificar.indexOf(proyectoTablaSeleccionado));
+                    listProyectoBorrar.add(proyectoTablaSeleccionado);
+                } else if (!listProyectoCrear.isEmpty() && listProyectoCrear.contains(proyectoTablaSeleccionado)) {
+                    listProyectoCrear.remove(listProyectoCrear.indexOf(proyectoTablaSeleccionado));
+                } else {
+                    listProyectoBorrar.add(proyectoTablaSeleccionado);
+                }
+                listProyectos.remove(proyectoTablaSeleccionado);
 
                 if (tipoListaP == 1) {
                     filtrarListProyectos.remove(proyectoTablaSeleccionado);
                 }
-                modificarInfoRegistro(listProyectos.size());
+                contarRegistros();
                 deshabilitarLov();
                 RequestContext.getCurrentInstance().update("form:infoRegistro");
                 RequestContext.getCurrentInstance().update("form:datosProyectos");
@@ -1380,19 +1360,19 @@ public class ControlProyecto implements Serializable {
             deshabilitarLov();
         }
         if (dlg == 0) {
-            modificarInfoRegistroEmpresa(listEmpresas.size());
+            contarRegistroEmpresa();
             RequestContext.getCurrentInstance().update("form:EmpresasDialogo");
             RequestContext.getCurrentInstance().execute("PF('EmpresasDialogo').show()");
         } else if (dlg == 1) {
-            modificarInfoRegistroCliente(listPryClientes.size());
+            contarRegistroCliente();
             RequestContext.getCurrentInstance().update("form:ClientesDialogo");
             RequestContext.getCurrentInstance().execute("PF('ClientesDialogo').show()");
         } else if (dlg == 2) {
-            modificarInfoRegistroPlataforma(listPryPlataformas.size());
+            contarRegistroPlataforma();
             RequestContext.getCurrentInstance().update("form:PlataformasDialogo");
             RequestContext.getCurrentInstance().execute("PF('PlataformasDialogo').show()");
         } else if (dlg == 3) {
-            modificarInfoRegistroTipoMoneda(listMonedas.size());
+            contarRegistroTipoMoneda();
             RequestContext.getCurrentInstance().update("form:MonedasDialogo");
             RequestContext.getCurrentInstance().execute("PF('MonedasDialogo').show()");
         }
@@ -1660,29 +1640,29 @@ public class ControlProyecto implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (proyectoLOVSeleccionado != null) {
             if (cualCeldaP == 0) {
-                modificarInfoRegistroEmpresa(listEmpresas.size());
+                contarRegistroEmpresa();
                 habilitarLov();
                 RequestContext.getCurrentInstance().update("form:EmpresasDialogo");
                 RequestContext.getCurrentInstance().execute("PF('EmpresasDialogo').show()");
                 tipoActualizacion = 0;
-                
+
             }
             if (cualCeldaP == 3) {
-                modificarInfoRegistroCliente(listPryClientes.size());
+                contarRegistroCliente();
                 habilitarLov();
                 RequestContext.getCurrentInstance().update("form:ClientesDialogo");
                 RequestContext.getCurrentInstance().execute("PF('ClientesDialogo').show()");
                 tipoActualizacion = 0;
             }
             if (cualCeldaP == 4) {
-                modificarInfoRegistroPlataforma(listPryPlataformas.size());
+                contarRegistroPlataforma();
                 habilitarLov();
                 RequestContext.getCurrentInstance().update("form:PlataformasDialogo");
                 RequestContext.getCurrentInstance().execute("PF('PlataformasDialogo').show()");
                 tipoActualizacion = 0;
             }
             if (cualCeldaP == 6) {
-                modificarInfoRegistroTipoMoneda(listMonedas.size());
+                contarRegistroTipoMoneda();
                 habilitarLov();
                 RequestContext.getCurrentInstance().update("form:MonedasDialogo");
                 RequestContext.getCurrentInstance().execute("PF('MonedasDialogo').show()");
@@ -1754,58 +1734,31 @@ public class ControlProyecto implements Serializable {
         if (tipoListaP == 0) {
             tipoListaP = 1;
         }
-        RequestContext context = RequestContext.getCurrentInstance();
-        modificarInfoRegistro(filtrarListProyectos.size());
-        RequestContext.getCurrentInstance().update("form:infoRegistro");
+        contarRegistros();
     }
 
-    public void modificarInfoRegistro(int valor) {
-        infoRegistro = String.valueOf(valor);
-    }
-
-    public void modificarInfoRegistroCliente(int valor) {
-        infoRegistroCliente = String.valueOf(valor);
-    }
-
-    public void modificarInfoRegistroPlataforma(int valor) {
-        infoRegistroPlataforma = String.valueOf(valor);
-    }
-
-    public void modificarInfoRegistroEmpresa(int valor) {
-        infoRegistroEmpresa = String.valueOf(valor);
-    }
-
-    public void modificarInfoRegistroTipoMoneda(int valor) {
-        infoRegistroTipoMoneda = String.valueOf(valor);
-    }
-
-    public void modificarInfoRegistroProyecto(int valor) {
-        infoRegistroProyecto = String.valueOf(valor);
-    }
-
-    public void eventoFiltrarClientes() {
-        modificarInfoRegistroCliente(filtrarListPryClientes.size());
+    public void contarRegistroCliente() {
         RequestContext.getCurrentInstance().update("form:infoRegistroCliente");
     }
 
-    public void eventoFiltrarPlataforma() {
-        modificarInfoRegistroPlataforma(filtrarListPryPlataformas.size());
+    public void contarRegistroPlataforma() {
         RequestContext.getCurrentInstance().update("form:infoRegistroPlataforma");
     }
 
-    public void eventoFiltrarEmpresa() {
-        modificarInfoRegistroEmpresa(filtrarListEmpresas.size());
+    public void contarRegistroEmpresa() {
         RequestContext.getCurrentInstance().update("form:infoRegistroEmpresa");
     }
 
-    public void eventoFiltrarTipoMoneda() {
-        modificarInfoRegistroTipoMoneda(filtrarListMonedas.size());
+    public void contarRegistroTipoMoneda() {
         RequestContext.getCurrentInstance().update("form:infoRegistroTipoMoneda");
     }
 
-    public void eventoFiltrarProyecto() {
-        modificarInfoRegistroProyecto(filtarLovProyectos.size());
+    public void contarRegistroProyecto() {
         RequestContext.getCurrentInstance().update("form:infoRegistroProyecto");
+    }
+
+    public void contarRegistros() {
+        RequestContext.getCurrentInstance().update("form:infoRegistro");
     }
 
     public void habilitarLov() {
@@ -1818,14 +1771,6 @@ public class ControlProyecto implements Serializable {
         RequestContext.getCurrentInstance().update("form:listaValores");
     }
 
-    public void contarRegistros() {
-        if (listProyectos != null) {
-            modificarInfoRegistro(listProyectos.size());
-        } else {
-            modificarInfoRegistro(0);
-        }
-    }
-
     public void dialogoProyecto() {
         filtrarListProyectos = null;
         proyectoLOVSeleccionado = null;
@@ -1835,7 +1780,7 @@ public class ControlProyecto implements Serializable {
                 for (int i = 0; i < listProyectos.size(); i++) {
                     listProyectosLOV.add(listProyectos.get(i));
                 }
-                modificarInfoRegistroProyecto(listProyectosLOV.size());
+                contarRegistroProyecto();
             }
         }
         RequestContext context = RequestContext.getCurrentInstance();
@@ -1850,7 +1795,7 @@ public class ControlProyecto implements Serializable {
         listProyectos.add(proyectoLOVSeleccionado);
         RequestContext context = RequestContext.getCurrentInstance();
         proyectoLOVSeleccionado = null;
-        modificarInfoRegistro(listProyectos.size());//infoRegistro = "Cantidad de registros : " + listProyectos.size();
+        contarRegistros();
         RequestContext.getCurrentInstance().update("form:infoRegistro");
         RequestContext.getCurrentInstance().update("form:datosProyectos");
         RequestContext.getCurrentInstance().update("form:BuscarProyectoDialogo");
@@ -1885,7 +1830,7 @@ public class ControlProyecto implements Serializable {
             listProyectos = administrarProyectos.Proyectos();
         }
         RequestContext context = RequestContext.getCurrentInstance();
-        modificarInfoRegistro(listProyectos.size());
+        contarRegistros();
         RequestContext.getCurrentInstance().update("form:infoRegistro");
         RequestContext.getCurrentInstance().update("form:datosProyectos");
     }
@@ -1893,7 +1838,7 @@ public class ControlProyecto implements Serializable {
 
     public void verificarRastro() {
         RequestContext context = RequestContext.getCurrentInstance();
-         if (proyectoLOVSeleccionado != null) {
+        if (proyectoLOVSeleccionado != null) {
             int resultado = administrarRastros.obtenerTabla(proyectoLOVSeleccionado.getSecuencia(), "PROYECTOS");
             if (resultado == 1) {
                 RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
@@ -1906,13 +1851,10 @@ public class ControlProyecto implements Serializable {
             } else if (resultado == 5) {
                 RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
+        } else if (administrarRastros.verificarHistoricosTabla("PROYECTOS")) {
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            if (administrarRastros.verificarHistoricosTabla("PROYECTOS")) {
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-            }
-
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
     }
 
@@ -2128,7 +2070,7 @@ public class ControlProyecto implements Serializable {
     public void setFiltarLovProyectos(List<Proyectos> filtarLovProyectos) {
         this.filtarLovProyectos = filtarLovProyectos;
     }
-    
+
     public Proyectos getProyectoLOVSeleccionado() {
         return proyectoLOVSeleccionado;
     }
@@ -2146,6 +2088,9 @@ public class ControlProyecto implements Serializable {
     }
 
     public String getInfoRegistro() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosProyectos");
+        infoRegistro = String.valueOf(tabla.getRowCount());
         return infoRegistro;
     }
 
@@ -2154,6 +2099,9 @@ public class ControlProyecto implements Serializable {
     }
 
     public String getInfoRegistroProyecto() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lovProyecto");
+        infoRegistroProyecto = String.valueOf(tabla.getRowCount());
         return infoRegistroProyecto;
     }
 
@@ -2162,6 +2110,9 @@ public class ControlProyecto implements Serializable {
     }
 
     public String getInfoRegistroTipoMoneda() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lovMoneda");
+        infoRegistroTipoMoneda = String.valueOf(tabla.getRowCount());
         return infoRegistroTipoMoneda;
     }
 
@@ -2170,6 +2121,9 @@ public class ControlProyecto implements Serializable {
     }
 
     public String getInfoRegistroPlataforma() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lovPlataforma");
+        infoRegistroPlataforma = String.valueOf(tabla.getRowCount());
         return infoRegistroPlataforma;
     }
 
@@ -2177,28 +2131,34 @@ public class ControlProyecto implements Serializable {
         this.infoRegistroPlataforma = infoRegistroPlataforma;
     }
 
-    public List<Proyectos> getListProyectosLOV() {
-        return listProyectosLOV;
-    }
-
-    public void setListProyectosLOV(List<Proyectos> listProyectosLOV) {
-        this.listProyectosLOV = listProyectosLOV;
-    }
-
     public String getInfoRegistroCliente() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lovClientes");
+        infoRegistroCliente = String.valueOf(tabla.getRowCount());
         return infoRegistroCliente;
     }
 
     public void setInfoRegistroCliente(String infoRegistroCliente) {
         this.infoRegistroCliente = infoRegistroCliente;
     }
-
+    
     public String getInfoRegistroEmpresa() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lovEmpresas");
+        infoRegistroEmpresa = String.valueOf(tabla.getRowCount());
         return infoRegistroEmpresa;
     }
 
     public void setInfoRegistroEmpresa(String infoRegistroEmpresa) {
         this.infoRegistroEmpresa = infoRegistroEmpresa;
+    }
+    
+    public List<Proyectos> getListProyectosLOV() {
+        return listProyectosLOV;
+    }
+
+    public void setListProyectosLOV(List<Proyectos> listProyectosLOV) {
+        this.listProyectosLOV = listProyectosLOV;
     }
 
     public Proyectos getProyectoTablaSeleccionado() {

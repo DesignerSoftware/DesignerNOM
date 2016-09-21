@@ -1,6 +1,5 @@
 package Controlador;
 
-
 import Entidades.AdiestramientosF;
 import Entidades.AdiestramientosNF;
 import Entidades.Cursos;
@@ -207,30 +206,21 @@ public class ControlPersonaEducacion implements Serializable {
     public void recibirPersona(BigInteger secEmpl) {
         secuenciaPersona = secEmpl;
         empleado = administrarVigenciasFormales.empleadoActual(secEmpl);
-        //persona = null;
         getPersona();
         listaVigenciasFormales = null;
         getListaVigenciasFormales();
         listaVigenciasNoFormales = null;
         getListaVigenciasNoFormales();
         listaTiposEducaciones = null;
-        //getListaTiposEducaciones();
         listaProfesiones = null;
-        // getListaProfesiones();
         listaInstituciones = null;
-        //getListaInstituciones();
         listaAdiestramientosFormales = null;
         listaCursos = null;
         listaAdiestramientosNoFormales = null;
-        //getListaAdiestramientosFormales();
-        //getListaAdiestramientosNoFormales();
         aceptar = true;
-        contarRegistrosF();
-        contarRegistrosNF();
         if (!listaVigenciasFormales.isEmpty()) {
             vigenciaFormalSeleccionada = listaVigenciasFormales.get(0);
         }
-
     }
 
     //Ubicacion Celda.
@@ -308,7 +298,7 @@ public class ControlPersonaEducacion implements Serializable {
             }
         }
     }
-    
+
     public void modificarVigenciasNoFormales(VigenciasNoFormales vigencianoformal) {
         vigenciaNoFormalSeleccionada = vigencianoformal;
         if (tipoLista == 0) {
@@ -535,25 +525,25 @@ public class ControlPersonaEducacion implements Serializable {
         }
         if (dlg == 0) {
             habilitarBotonLov();
-            modificarInfoRegistroEducacion(listaTiposEducaciones.size());
+            contarRegistroEducacion();
             RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroEducacion");
             RequestContext.getCurrentInstance().update("form:tiposEducacionesDialogo");
             RequestContext.getCurrentInstance().execute("PF('tiposEducacionesDialogo').show()");
         } else if (dlg == 1) {
             habilitarBotonLov();
-            modificarInfoRegistroProfesion(listaProfesiones.size());
+            contarRegistroProfesion();
             RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistrosProfesion");
             RequestContext.getCurrentInstance().update("form:profesionesDialogo");
             RequestContext.getCurrentInstance().execute("PF('profesionesDialogo').show()");
         } else if (dlg == 2) {
             habilitarBotonLov();
-            modificarInfoRegistroInstitucionesF(listaInstituciones.size());
+            contarRegistroInstitucionesF();
             RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroInstitucionesF");
             RequestContext.getCurrentInstance().update("form:institucionesDialogo");
             RequestContext.getCurrentInstance().execute("PF('institucionesDialogo').show()");
         } else if (dlg == 3) {
             habilitarBotonLov();
-            modificarInfoRegistroAdiestramientoF(listaAdiestramientosFormales.size());
+            contarRegistroAdiestramientoF();
             RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroAdiestramientosF");
             RequestContext.getCurrentInstance().update("form:adiestramientosFDialogo");
             RequestContext.getCurrentInstance().execute("PF('adiestramientosFDialogo').show()");
@@ -941,25 +931,25 @@ public class ControlPersonaEducacion implements Serializable {
                 RequestContext context = RequestContext.getCurrentInstance();
                 if (cualCelda == 1) {
                     habilitarBotonLov();
-                    modificarInfoRegistroEducacion(listaTiposEducaciones.size());
+                    contarRegistroEducacion();
                     RequestContext.getCurrentInstance().update("formularioDialogos:tiposEducacionesDialogo");
                     RequestContext.getCurrentInstance().execute("PF('tiposEducacionesDialogo').show()");
                     tipoActualizacion = 0;
                 } else if (cualCelda == 2) {
                     habilitarBotonLov();
-                    modificarInfoRegistroProfesion(listaProfesiones.size());
+                    contarRegistroProfesion();
                     RequestContext.getCurrentInstance().update("formularioDialogos:profesionesDialogo");
                     RequestContext.getCurrentInstance().execute("PF('profesionesDialogo').show()");
                     tipoActualizacion = 0;
                 } else if (cualCelda == 3) {
                     habilitarBotonLov();
-                    modificarInfoRegistroInstitucionesF(listaInstituciones.size());
+                    contarRegistroInstitucionesF();
                     RequestContext.getCurrentInstance().update("formularioDialogos:institucionesDialogo");
                     RequestContext.getCurrentInstance().execute("PF('institucionesDialogo').show()");
                     tipoActualizacion = 0;
                 } else if (cualCelda == 4) {
                     habilitarBotonLov();
-                    modificarInfoRegistroAdiestramientoF(listaAdiestramientosFormales.size());
+                    contarRegistroAdiestramientoF();
                     RequestContext.getCurrentInstance().update("formularioDialogos:adiestramientosFDialogo");
                     RequestContext.getCurrentInstance().execute("PF('adiestramientosFDialogo').show()");
                     tipoActualizacion = 0;
@@ -971,19 +961,19 @@ public class ControlPersonaEducacion implements Serializable {
                 RequestContext context = RequestContext.getCurrentInstance();
                 if (cualCelda == 1) {
                     habilitarBotonLov();
-                    modificarInfoRegistroEducacion(listaTiposEducaciones.size());
+                    contarRegistroEducacion();
                     RequestContext.getCurrentInstance().update("formularioDialogos:cursosDialogo");
                     RequestContext.getCurrentInstance().execute("PF('cursosDialogo').show()");
                     tipoActualizacion = 0;
                 } else if (cualCelda == 3) {
                     habilitarBotonLov();
-                    modificarInfoRegistroInstituciones(listaInstituciones.size());
+                    contarRegistroInstituciones();
                     RequestContext.getCurrentInstance().update("formularioDialogos:institucionesNFDialogo");
                     RequestContext.getCurrentInstance().execute("PF('institucionesNFDialogo').show()");
                     tipoActualizacion = 0;
                 } else if (cualCelda == 4) {
                     habilitarBotonLov();
-                    modificarInfoRegistroAdiestramientoNF(listaAdiestramientosNoFormales.size());
+                    contarRegistroAdiestramientoNF();
                     RequestContext.getCurrentInstance().update("formularioDialogos:adiestramientosNFDialogo");
                     RequestContext.getCurrentInstance().execute("PF('adiestramientosNFDialogo').show()");
                     tipoActualizacion = 0;
@@ -1405,7 +1395,7 @@ public class ControlPersonaEducacion implements Serializable {
 
             listaVigenciasFormalesCrear.add(nuevaVigenciaFormal);
             listaVigenciasFormales.add(nuevaVigenciaFormal);
-            modificarInfoRegistroF(listaVigenciasFormales.size());
+            contarRegistrosF();
             RequestContext.getCurrentInstance().update("form:infoRegistroF");
             vigenciaFormalSeleccionada = nuevaVigenciaFormal;
             nuevaVigenciaFormal = new VigenciasFormales();
@@ -1450,7 +1440,7 @@ public class ControlPersonaEducacion implements Serializable {
                 }
 
                 RequestContext context = RequestContext.getCurrentInstance();
-                modificarInfoRegistroF(listaVigenciasFormales.size());
+                contarRegistrosF();
                 RequestContext.getCurrentInstance().update("form:infoRegistroF");
                 RequestContext.getCurrentInstance().update("form:datosVigenciasFormalesPersona");
                 vigenciaFormalSeleccionada = null;
@@ -1479,7 +1469,7 @@ public class ControlPersonaEducacion implements Serializable {
                 }
 
                 RequestContext context = RequestContext.getCurrentInstance();
-                modificarInfoRegistroNF(listaVigenciasNoFormales.size());
+                contarRegistrosNF();
                 RequestContext.getCurrentInstance().update("form:infoRegistroNF");
                 RequestContext.getCurrentInstance().update("form:datosVigenciasNoFormalesPersona");
                 vigenciaNoFormalSeleccionada = null;
@@ -1574,7 +1564,7 @@ public class ControlPersonaEducacion implements Serializable {
         listaVigenciasFormales.add(duplicarVigenciaFormal);
         listaVigenciasFormalesCrear.add(duplicarVigenciaFormal);
         RequestContext context = RequestContext.getCurrentInstance();
-        modificarInfoRegistroF(listaVigenciasFormales.size());
+        contarRegistrosF();
         RequestContext.getCurrentInstance().update("form:infoRegistroF");
         RequestContext.getCurrentInstance().update("form:datosVigenciasFormalesPersona");
         vigenciaFormalSeleccionada = null;
@@ -2071,22 +2061,22 @@ public class ControlPersonaEducacion implements Serializable {
                 vigenciaNoFormalSeleccionada.getSecuencia();
                 if (cualCelda == 1) {
                     habilitarBotonLov();
-                    modificarInfoRegistroCursos(listaCursos.size());
+                    contarRegistroCursos();
                     TipoEducacion = vigenciaNoFormalSeleccionada.getCurso().getNombre();
                 } else if (cualCelda == 3) {
                     habilitarBotonLov();
-                    modificarInfoRegistroInstituciones(listaInstituciones.size());
+                    contarRegistroInstituciones();
                     Institucion = vigenciaNoFormalSeleccionada.getInstitucion().getDescripcion();
                 } else if (cualCelda == 4) {
                     habilitarBotonLov();
-                    modificarInfoRegistroAdiestramientoNF(listaAdiestramientosNoFormales.size());
+                    contarRegistroAdiestramientoNF();
                     AdiestramientoNF = vigenciaNoFormalSeleccionada.getAdiestramientonf().getDesccripcion();
                 }
             } else {
                 vigenciaNoFormalSeleccionada.getSecuencia();
-                modificarInfoRegistroAdiestramientoNF(listaAdiestramientosNoFormales.size());
-                modificarInfoRegistroCursos(listaCursos.size());
-                modificarInfoRegistroInstituciones(listaInstituciones.size());
+                contarRegistroAdiestramientoNF();
+                contarRegistroCursos();
+                contarRegistroInstituciones();
                 if (cualCelda == 1) {
                     habilitarBotonLov();
                     Curso = vigenciaNoFormalSeleccionada.getCurso().getNombre();
@@ -2114,20 +2104,20 @@ public class ControlPersonaEducacion implements Serializable {
             tipoActualizacion = 2;
         }
         if (dlg == 0) {
-            modificarInfoRegistroCursos(listaCursos.size());
+            contarRegistroCursos();
             RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroCursos");
             habilitarBotonLov();
             RequestContext.getCurrentInstance().update("formularioDialogos:cursosDialogo");
             RequestContext.getCurrentInstance().execute("PF('cursosDialogo').show()");
         } else if (dlg == 2) {
             habilitarBotonLov();
-            modificarInfoRegistroInstituciones(listaInstituciones.size());
+            contarRegistroInstituciones();
             RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroInstituciones");
             RequestContext.getCurrentInstance().update("formularioDialogos:institucionesNFDialogo");
             RequestContext.getCurrentInstance().execute("PF('institucionesNFDialogo').show()");
         } else if (dlg == 3) {
             habilitarBotonLov();
-            modificarInfoRegistroAdiestramientoNF(listaAdiestramientosNoFormales.size());
+            contarRegistroAdiestramientoNF();
             RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroAdiestramientosNF");
             RequestContext.getCurrentInstance().update("formularioDialogos:adiestramientosNFDialogo");
             RequestContext.getCurrentInstance().execute("PF('adiestramientosNFDialogo').show()");
@@ -2545,7 +2535,7 @@ public class ControlPersonaEducacion implements Serializable {
             listaVigenciasNoFormales.add(nuevaVigenciaNoFormal);
             vigenciaNoFormalSeleccionada = nuevaVigenciaNoFormal;
             getListaVigenciasFormales();
-            modificarInfoRegistroNF(listaVigenciasNoFormales.size());
+            contarRegistrosNF();
             RequestContext.getCurrentInstance().update("form:infoRegistroNF");
             RequestContext.getCurrentInstance().update("form:datosVigenciasNoFormalesPersona");
 
@@ -2586,7 +2576,7 @@ public class ControlPersonaEducacion implements Serializable {
         listaVigenciasNoFormales.add(duplicarVigenciaNoFormal);
         listaVigenciasNoFormalesCrear.add(duplicarVigenciaNoFormal);
         RequestContext context = RequestContext.getCurrentInstance();
-        modificarInfoRegistroNF(listaVigenciasNoFormales.size());
+        contarRegistrosNF();
         RequestContext.getCurrentInstance().update("form:infoRegistroNF");
         RequestContext.getCurrentInstance().update("form:datosVigenciasNoFormalesPersona");
         vigenciaNoFormalSeleccionada = null;
@@ -2641,84 +2631,38 @@ public class ControlPersonaEducacion implements Serializable {
             tipoLista = 1;
         }
         deshabilitarBotonLov();
-        vigenciaFormalSeleccionada = null;
-        modificarInfoRegistroF(filtradosListaVigenciasFormales.size());
-        RequestContext.getCurrentInstance().update("form:infoRegistroF");
-    }
-
-    public void modificarInfoRegistroF(int valor) {
-        infoRegistroF = String.valueOf(valor);
-    }
-
-    public void modificarInfoRegistroEducacion(int valor) {
-        infoRegistroEducacion = String.valueOf(valor);
-    }
-
-    public void modificarInfoRegistroCursos(int valor) {
-        infoRegistroCursos = String.valueOf(valor);
-    }
-
-    public void modificarInfoRegistroProfesion(int valor) {
-        infoRegistrosProfesion = String.valueOf(valor);
-    }
-
-    public void modificarInfoRegistroInstituciones(int valor) {
-        infoRegistroInstituciones = String.valueOf(valor);
-    }
-
-    public void modificarInfoRegistroInstitucionesF(int valor) {
-        infoRegistroInstitucionesF = String.valueOf(valor);
-    }
-
-    public void modificarInfoRegistroAdiestramientoF(int valor) {
-        infoRegistroAdiestramientosF = String.valueOf(valor);
-    }
-
-    public void modificarInfoRegistroAdiestramientoNF(int valor) {
-        infoRegistroAdiestramientosNF = String.valueOf(valor);
+        contarRegistrosF();
     }
 
     public void contarRegistrosF() {
-        if (listaVigenciasFormales != null) {
-            modificarInfoRegistroF(listaVigenciasFormales.size());
-        } else {
-            modificarInfoRegistroF(0);
-        }
-
+        RequestContext.getCurrentInstance().update("form:infoRegistroF");
     }
 
-    public void eventoFiltrarEducacion() {
-        modificarInfoRegistroEducacion(filtradoslistaTiposEducaciones.size());
+    public void contarRegistroEducacion() {
         RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroEducacion");
     }
 
-    public void eventoFiltrarCursos() {
-        modificarInfoRegistroCursos(filtradoslistaCursos.size());
+    public void contarRegistroCursos() {
         RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroCursos");
     }
 
-    public void eventoFiltrarProfesion() {
-        modificarInfoRegistroProfesion(filtradoslistaProfesiones.size());
+    public void contarRegistroProfesion() {
         RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistrosProfesion");
     }
 
-    public void eventoFiltrarInstitucion() {
-        modificarInfoRegistroInstituciones(filtradoslistaInstituciones.size());
+    public void contarRegistroInstituciones() {
         RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroInstituciones");
     }
 
-    public void eventoFiltrarInstitucionF() {
-        modificarInfoRegistroInstituciones(filtradoslistaInstituciones.size());
+    public void contarRegistroInstitucionesF() {
         RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroInstitucionesF");
     }
 
-    public void eventoFiltrarAdiestramientoF() {
-        modificarInfoRegistroAdiestramientoF(filtradoslistaAdiestramientosFormales.size());
+    public void contarRegistroAdiestramientoF() {
         RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroAdiestramientosF");
     }
 
-    public void eventoFiltrarAdiestramientoNF() {
-        modificarInfoRegistroAdiestramientoNF(filtradoslistaAdiestramientosNoFormales.size());
+    public void contarRegistroAdiestramientoNF() {
         RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroAdiestramientosNF");
     }
 
@@ -2728,22 +2672,11 @@ public class ControlPersonaEducacion implements Serializable {
             tipoListaNF = 1;
         }
         deshabilitarBotonLov();
-        vigenciaNoFormalSeleccionada = null;
-        modificarInfoRegistroNF(filtradosListaVigenciasNoFormales.size());
-        RequestContext.getCurrentInstance().update("form:infoRegistroNF");
-    }
-
-    public void modificarInfoRegistroNF(int valor) {
-        infoRegistroNF = String.valueOf(valor);
-
+        contarRegistrosNF();
     }
 
     public void contarRegistrosNF() {
-        if (listaVigenciasNoFormales != null) {
-            modificarInfoRegistroNF(listaVigenciasNoFormales.size());
-        } else {
-            modificarInfoRegistroNF(0);
-        }
+        RequestContext.getCurrentInstance().update("form:infoRegistroNF");
     }
 
     public void habilitarBotonLov() {
@@ -3136,6 +3069,9 @@ public class ControlPersonaEducacion implements Serializable {
     }
 
     public String getInfoRegistroF() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona");
+        infoRegistroF = String.valueOf(tabla.getRowCount());
         return infoRegistroF;
     }
 
@@ -3144,6 +3080,9 @@ public class ControlPersonaEducacion implements Serializable {
     }
 
     public String getInfoRegistroNF() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosVigenciasNoFormalesPersona");
+        infoRegistroNF = String.valueOf(tabla.getRowCount());
         return infoRegistroNF;
     }
 
@@ -3160,6 +3099,9 @@ public class ControlPersonaEducacion implements Serializable {
     }
 
     public String getInfoRegistroEducacion() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVTiposEducaciones");
+        infoRegistroEducacion = String.valueOf(tabla.getRowCount());
         return infoRegistroEducacion;
     }
 
@@ -3168,6 +3110,9 @@ public class ControlPersonaEducacion implements Serializable {
     }
 
     public String getInfoRegistroCursos() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVCursos");
+        infoRegistroCursos = String.valueOf(tabla.getRowCount());
         return infoRegistroCursos;
     }
 
@@ -3176,6 +3121,9 @@ public class ControlPersonaEducacion implements Serializable {
     }
 
     public String getInfoRegistrosProfesion() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVProfesiones");
+        infoRegistrosProfesion = String.valueOf(tabla.getRowCount());
         return infoRegistrosProfesion;
     }
 
@@ -3184,6 +3132,10 @@ public class ControlPersonaEducacion implements Serializable {
     }
 
     public String getInfoRegistroInstituciones() {
+
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVInstitucionesNF");
+        infoRegistroInstituciones = String.valueOf(tabla.getRowCount());
         return infoRegistroInstituciones;
     }
 
@@ -3192,6 +3144,9 @@ public class ControlPersonaEducacion implements Serializable {
     }
 
     public String getInfoRegistroAdiestramientosF() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVAdiestramientosF");
+        infoRegistroAdiestramientosF = String.valueOf(tabla.getRowCount());
         return infoRegistroAdiestramientosF;
     }
 
@@ -3200,6 +3155,9 @@ public class ControlPersonaEducacion implements Serializable {
     }
 
     public String getInfoRegistroAdiestramientosNF() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVAdiestramientosNF");
+        infoRegistroAdiestramientosNF = String.valueOf(tabla.getRowCount());
         return infoRegistroAdiestramientosNF;
     }
 
@@ -3208,6 +3166,9 @@ public class ControlPersonaEducacion implements Serializable {
     }
 
     public String getInfoRegistroInstitucionesF() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVInstituciones");
+        infoRegistroInstitucionesF = String.valueOf(tabla.getRowCount());
         return infoRegistroInstitucionesF;
     }
 

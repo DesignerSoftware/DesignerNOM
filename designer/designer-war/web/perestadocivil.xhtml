@@ -63,14 +63,14 @@
                                 <p:separator style="position: relative; top: -9px"/>
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlVigenciasEstadosCiviles.cancelarModificacion()}" process="@this" oncomplete="PF('window.location.reload()"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
-                                  <p:separator style="position: relative; top: -9px"/>
+                                <p:separator style="position: relative; top: -9px"/>
                                 <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlVigenciasEstadosCiviles.salir()}" action="atrasPerEstadoCivil" process="@this"/>  
                                 <p:tooltip  for="salir" value="Salir"/>
                             </p:toolbarGroup>  
                         </p:toolbar>
                         <p:commandButton style=" position: absolute; left: 675px; top: 485px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ACEPTAR" value="" action="atrasPerEstadoCivil" disabled="#{controlVigenciasEstadosCiviles.guardado}"  actionListener="#{controlVigenciasEstadosCiviles.revisarDialogoGuardar()}"     process="@this"   />
                         <p:commandButton style=" position: absolute; left: 765px; top: 485px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" action="atrasPerEstadoCivil" value=""    />
-                        
+
                         <fieldset style="position: absolute; top: 75px; left: 10px; height: 18px; width: 830px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px">
                             <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;" />
                             <h:outputText id="nombreEmpleado" value="#{controlVigenciasEstadosCiviles.empleadoSeleccionado.persona.nombreCompleto}" 
@@ -80,8 +80,8 @@
                             <h:outputText id="docEmpleado" value="#{controlVigenciasEstadosCiviles.empleadoSeleccionado.codigoempleado}" 
                                           style="font-weight: bold; color: #BF1A1A; position: relative; left: 130px; top: 5px;" />
                         </fieldset>
-                        
-                        
+
+
                         <fieldset style="position: absolute;top: 110px;left: 10px;height: 350px;width: 830px; border-radius: 10px; text-align: left">
                             <legend style="font-size: 14px; color: blue"><strong>Estado Civil</strong></legend>
 
@@ -89,7 +89,7 @@
                                          value="#{controlVigenciasEstadosCiviles.listVigenciaEstadoCivilPorEmpleado}" scrollable="true" scrollHeight="#{controlVigenciasEstadosCiviles.altoTabla}"  scrollWidth="830"
                                          filteredValue="#{controlVigenciasEstadosCiviles.filtrarVigenciaEstadoCivilPorEmplado}" emptyMessage="No se encontrarón resultados para la búsqueda"
                                          editable="true" editMode="cell" selection="#{controlVigenciasEstadosCiviles.vigenciaSeleccionada}" selectionMode="single" >
-                                <!--<p:ajax event="filter" listener="#{controlVigenciasEstadosCiviles.eventoFiltrar()}" process="@this" update="@this"/>-->
+                                <p:ajax event="filter" listener="#{controlVigenciasEstadosCiviles.eventoFiltrar()}" process="@this" update="@this"/>
                                 <f:event type="preRenderView" listener="#{controlVigenciasEstadosCiviles.recordarSeleccion()}"/>
 
                                 <p:column headerText="Fecha" sortBy="#{info.fechavigencia}" filterBy="#{info.fechavigencia}" filterMatchMode="contains" 
@@ -125,26 +125,26 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 728px;" id="fooEstadoCivil"  action="estadoCivil" value=" " onclick="#{controlEstadosCiviles.recibirPag('estadocivil')}"/>
+                                        <p:commandButton style="width: 740px;" id="fooEstadoCivil"  action="estadoCivil" value=" " onclick="#{controlEstadosCiviles.recibirPag('estadocivil')}"/>
                                     </f:facet>
                                 </p:column>
                             </p:dataTable>
-                        <h:outputText id="infoRegistro" value="#{msg['infoRegistros']} #{controlVigenciasEstadosCiviles.infoRegistro}" style="position: relative; left: 15px; top: 4px; font-weight: bold"/>
+                            <h:outputText id="infoRegistro" value="#{msg['infoRegistros']} #{controlVigenciasEstadosCiviles.infoRegistro}" style="position: relative; left: 15px; top: 4px; font-weight: bold"/>
                         </fieldset>
 
-                        
+
 
                         <p:dialog header="Estados Civiles" widgetVar="EstadoCivilDialogo" draggable="true" resizable="false" closable="false" id="EstadoCivilDialogo"  
                                   showEffect="fade" hideEffect="fade" width="470" modal="true">
-                            <p:dataTable id="lovTiposFamiliares" style=" width: 430px;" var="estadocivil" value="#{controlVigenciasEstadosCiviles.listaEstadosCiviles}" rowKey="#{estadocivil.secuencia}"
+                            <p:dataTable id="lovTiposFamiliares"  var="estadocivil" value="#{controlVigenciasEstadosCiviles.listaEstadosCiviles}" rowKey="#{estadocivil.secuencia}"
                                          selection="#{controlVigenciasEstadosCiviles.vigenciaEstadoCivilSeleccionada}" selectionMode="single" widgetVar="lovTiposFamiliares" scrollable="true" scrollWidth="445" scrollHeight="250"
                                          filteredValue="#{controlVigenciasEstadosCiviles.filtradoEstadosCiviles}" emptyMessage="No se encontraron resultados con el criterio de busqueda.">
                                 <p:ajax event="rowSelect" listener="#{controlVigenciasEstadosCiviles.activarAceptar()}" update=":form:aceptarS"/>
                                 <p:ajax event="rowDblselect" listener="#{controlVigenciasEstadosCiviles.actualizarEstadoCivil()}" process="@this" />
-                                <!--<p:ajax event="filter" listener="#{controlVigenciasEstadosCiviles.eventoFiltrarEC()}"/>-->
+                                <p:ajax event="filter" listener="#{controlVigenciasEstadosCiviles.contarRegistroEC()}"/>
                                 <f:facet name="header">  
-                                    <h:outputText value="Buscar Estado Civil: "  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovTiposFamiliares').filter();" style="width:150px; position: relative; left: 10px;" />  
+                                    <h:outputText value="Buscar Estado Civil: " />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovTiposFamiliares').filter();" class="cssFiltroLOV" />  
                                 </f:facet>
                                 <p:column filterBy="#{estadocivil.codigo}" width="60" filterStyle="width:50px;" filterMatchMode="contains">
                                     <f:facet name="header">
@@ -160,10 +160,14 @@
                                 </p:column>
 
                             </p:dataTable>
-                            <h:outputText id="infoRegistroEC" value="#{msg['infoRegistros']} #{controlVigenciasEstadosCiviles.infoRegistroEC}" style="position: absolute; left: 15px; top: 340px; font-weight: bold"/>
 
-                            <p:commandButton id="aceptarS" style="position: relative; left: 275px;" disabled="#{controlVigenciasEstadosCiviles.aceptar}" value="Aceptar"   actionListener="#{controlVigenciasEstadosCiviles.actualizarEstadoCivil()}"  process="@this" icon="ui-icon-check"/>
-                            <p:commandButton id="atrasS" style="position: relative; left: 278px;" value="Atras"  actionListener="#{controlVigenciasEstadosCiviles.cancelarCambioEstadoCivil()}"  process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                            <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroEC" value="#{msg['infoRegistros']} #{controlVigenciasEstadosCiviles.infoRegistroEC}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarS" class="cssAceptarLOV" disabled="#{controlVigenciasEstadosCiviles.aceptar}" value="Aceptar" 
+                                             actionListener="#{controlVigenciasEstadosCiviles.actualizarEstadoCivil()}"  process="@this" icon="ui-icon-check"/>
+                            <p:commandButton id="atrasS" class="cssAtrasLOV" value="Atras"  actionListener="#{controlVigenciasEstadosCiviles.cancelarCambioEstadoCivil()}" 
+                                             process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                            </div>
                         </p:dialog>
 
                         <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  

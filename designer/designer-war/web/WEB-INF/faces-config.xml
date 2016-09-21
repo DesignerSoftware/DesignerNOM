@@ -5932,4 +5932,13 @@
         </navigation-case>
     </navigation-rule>
     
+        <navigation-rule>
+        <from-view-id>/vigenciaaficion.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>aficion</from-outcome>
+            <to-view-id>/aficiones.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
 </faces-config>

@@ -4,7 +4,6 @@
  */
 package Controlador;
 
-
 import Entidades.GruposInfAdicionales;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
@@ -99,7 +98,6 @@ public class ControlGruposInfAdicionales implements Serializable {
         paginaanterior = pagina;
         listGruposInfAdicionales = null;
         getListGruposInfAdicionales();
-        contarRegistros();
         deshabilitarBotonLov();
         if (!listGruposInfAdicionales.isEmpty()) {
             grupoInfAdSeleccionado = listGruposInfAdicionales.get(0);
@@ -386,125 +384,121 @@ public class ControlGruposInfAdicionales implements Serializable {
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
                 }
-            } else {
-
-                if (!crearGruposInfAdicionales.contains(grupoInfAdSeleccionado)) {
-                    if (grupoInfAdSeleccionado.getCodigo() == null) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        grupoInfAdSeleccionado.setCodigo(backupCodigo);
-                    } else {
-                        for (int j = 0; j < filtrarGruposInfAdicionales.size(); j++) {
-                            if (grupoInfAdSeleccionado.getCodigo() == listGruposInfAdicionales.get(j).getCodigo()) {
-                                contador++;
-                            }
-                        }
-                        for (int j = 0; j < listGruposInfAdicionales.size(); j++) {
-                            if (grupoInfAdSeleccionado.getCodigo() == listGruposInfAdicionales.get(j).getCodigo()) {
-                                contador++;
-                            }
-                        }
-                        if (contador > 0) {
-                            mensajeValidacion = "CODIGOS REPETIDOS";
-                            grupoInfAdSeleccionado.setCodigo(backupCodigo);
-
-                        } else {
-                            pass++;
-                        }
-
-                    }
-
-                    if (grupoInfAdSeleccionado.getDescripcion().isEmpty()) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        grupoInfAdSeleccionado.setDescripcion(backupDescripcion);
-                    } else if (grupoInfAdSeleccionado.getDescripcion().equals(" ")) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        grupoInfAdSeleccionado.setDescripcion(backupDescripcion);
-                    } else {
-                        pass++;
-                    }
-                    if (grupoInfAdSeleccionado.getEstado().isEmpty()) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        grupoInfAdSeleccionado.setEstado(backUpEstado);
-                    } else if (grupoInfAdSeleccionado.getEstado().equals(" ")) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        grupoInfAdSeleccionado.setEstado(backUpEstado);
-
-                    } else {
-                        pass++;
-                    }
-                    if (pass == 3) {
-                        if (modificarGruposInfAdicionales.isEmpty()) {
-                            modificarGruposInfAdicionales.add(grupoInfAdSeleccionado);
-                        } else if (!modificarGruposInfAdicionales.contains(grupoInfAdSeleccionado)) {
-                            modificarGruposInfAdicionales.add(grupoInfAdSeleccionado);
-                        }
-                        if (guardado == true) {
-                            guardado = false;
-                        }
-
-                    } else {
-                        RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-                    }
-                    grupoInfAdSeleccionado = null;
-                    grupoInfAdSeleccionado = null;
+            } else if (!crearGruposInfAdicionales.contains(grupoInfAdSeleccionado)) {
+                if (grupoInfAdSeleccionado.getCodigo() == null) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    grupoInfAdSeleccionado.setCodigo(backupCodigo);
                 } else {
-                    if (grupoInfAdSeleccionado.getCodigo() == null) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    for (int j = 0; j < filtrarGruposInfAdicionales.size(); j++) {
+                        if (grupoInfAdSeleccionado.getCodigo() == listGruposInfAdicionales.get(j).getCodigo()) {
+                            contador++;
+                        }
+                    }
+                    for (int j = 0; j < listGruposInfAdicionales.size(); j++) {
+                        if (grupoInfAdSeleccionado.getCodigo() == listGruposInfAdicionales.get(j).getCodigo()) {
+                            contador++;
+                        }
+                    }
+                    if (contador > 0) {
+                        mensajeValidacion = "CODIGOS REPETIDOS";
                         grupoInfAdSeleccionado.setCodigo(backupCodigo);
-                    } else {
-                        for (int j = 0; j < filtrarGruposInfAdicionales.size(); j++) {
-                            if (grupoInfAdSeleccionado.getCodigo() == listGruposInfAdicionales.get(j).getCodigo()) {
-                                contador++;
-                            }
-                        }
-                        for (int j = 0; j < listGruposInfAdicionales.size(); j++) {
-                            if (grupoInfAdSeleccionado.getCodigo() == listGruposInfAdicionales.get(j).getCodigo()) {
-                                contador++;
-                            }
-                        }
-                        if (contador > 0) {
-                            mensajeValidacion = "CODIGOS REPETIDOS";
-                            grupoInfAdSeleccionado.setCodigo(backupCodigo);
-
-                        } else {
-                            pass++;
-                        }
-
-                    }
-
-                    if (grupoInfAdSeleccionado.getDescripcion().isEmpty()) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        grupoInfAdSeleccionado.setDescripcion(backupDescripcion);
-                    } else if (grupoInfAdSeleccionado.getDescripcion().equals(" ")) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        grupoInfAdSeleccionado.setDescripcion(backupDescripcion);
-                    } else {
-                        pass++;
-                    }
-                    if (grupoInfAdSeleccionado.getEstado().isEmpty()) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        grupoInfAdSeleccionado.setEstado(backUpEstado);
-                    } else if (grupoInfAdSeleccionado.getEstado().equals(" ")) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        grupoInfAdSeleccionado.setEstado(backUpEstado);
 
                     } else {
                         pass++;
                     }
-                    if (pass == 3) {
-                        if (guardado == true) {
-                            guardado = false;
-                        }
 
-                    } else {
-                        RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-                    }
-                    grupoInfAdSeleccionado = null;
-                    grupoInfAdSeleccionado = null;
                 }
 
+                if (grupoInfAdSeleccionado.getDescripcion().isEmpty()) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    grupoInfAdSeleccionado.setDescripcion(backupDescripcion);
+                } else if (grupoInfAdSeleccionado.getDescripcion().equals(" ")) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    grupoInfAdSeleccionado.setDescripcion(backupDescripcion);
+                } else {
+                    pass++;
+                }
+                if (grupoInfAdSeleccionado.getEstado().isEmpty()) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    grupoInfAdSeleccionado.setEstado(backUpEstado);
+                } else if (grupoInfAdSeleccionado.getEstado().equals(" ")) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    grupoInfAdSeleccionado.setEstado(backUpEstado);
+
+                } else {
+                    pass++;
+                }
+                if (pass == 3) {
+                    if (modificarGruposInfAdicionales.isEmpty()) {
+                        modificarGruposInfAdicionales.add(grupoInfAdSeleccionado);
+                    } else if (!modificarGruposInfAdicionales.contains(grupoInfAdSeleccionado)) {
+                        modificarGruposInfAdicionales.add(grupoInfAdSeleccionado);
+                    }
+                    if (guardado == true) {
+                        guardado = false;
+                    }
+
+                } else {
+                    RequestContext.getCurrentInstance().update("form:validacionModificar");
+                    RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
+                }
+                grupoInfAdSeleccionado = null;
+                grupoInfAdSeleccionado = null;
+            } else {
+                if (grupoInfAdSeleccionado.getCodigo() == null) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    grupoInfAdSeleccionado.setCodigo(backupCodigo);
+                } else {
+                    for (int j = 0; j < filtrarGruposInfAdicionales.size(); j++) {
+                        if (grupoInfAdSeleccionado.getCodigo() == listGruposInfAdicionales.get(j).getCodigo()) {
+                            contador++;
+                        }
+                    }
+                    for (int j = 0; j < listGruposInfAdicionales.size(); j++) {
+                        if (grupoInfAdSeleccionado.getCodigo() == listGruposInfAdicionales.get(j).getCodigo()) {
+                            contador++;
+                        }
+                    }
+                    if (contador > 0) {
+                        mensajeValidacion = "CODIGOS REPETIDOS";
+                        grupoInfAdSeleccionado.setCodigo(backupCodigo);
+
+                    } else {
+                        pass++;
+                    }
+
+                }
+
+                if (grupoInfAdSeleccionado.getDescripcion().isEmpty()) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    grupoInfAdSeleccionado.setDescripcion(backupDescripcion);
+                } else if (grupoInfAdSeleccionado.getDescripcion().equals(" ")) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    grupoInfAdSeleccionado.setDescripcion(backupDescripcion);
+                } else {
+                    pass++;
+                }
+                if (grupoInfAdSeleccionado.getEstado().isEmpty()) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    grupoInfAdSeleccionado.setEstado(backUpEstado);
+                } else if (grupoInfAdSeleccionado.getEstado().equals(" ")) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    grupoInfAdSeleccionado.setEstado(backUpEstado);
+
+                } else {
+                    pass++;
+                }
+                if (pass == 3) {
+                    if (guardado == true) {
+                        guardado = false;
+                    }
+
+                } else {
+                    RequestContext.getCurrentInstance().update("form:validacionModificar");
+                    RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
+                }
+                grupoInfAdSeleccionado = null;
+                grupoInfAdSeleccionado = null;
             }
             RequestContext.getCurrentInstance().update("form:datosGruposInfAdicionales");
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -531,7 +525,7 @@ public class ControlGruposInfAdicionales implements Serializable {
                 filtrarGruposInfAdicionales.remove(grupoInfAdSeleccionado);
 
             }
-            modificarInfoRegistro(listGruposInfAdicionales.size());
+            contarRegistros();
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:informacionRegistro");
             RequestContext.getCurrentInstance().update("form:datosGruposInfAdicionales");
@@ -712,7 +706,7 @@ public class ControlGruposInfAdicionales implements Serializable {
             nuevoGruposInfAdicionales.setSecuencia(l);
             crearGruposInfAdicionales.add(nuevoGruposInfAdicionales);
             listGruposInfAdicionales.add(nuevoGruposInfAdicionales);
-            modificarInfoRegistro(listGruposInfAdicionales.size());
+            contarRegistros();
             RequestContext.getCurrentInstance().update("form:informacionRegistro");
             grupoInfAdSeleccionado = nuevoGruposInfAdicionales;
             nuevoGruposInfAdicionales = new GruposInfAdicionales();
@@ -814,7 +808,7 @@ public class ControlGruposInfAdicionales implements Serializable {
             crearGruposInfAdicionales.add(duplicarGruposInfAdicionales);
             RequestContext.getCurrentInstance().update("form:datosGruposInfAdicionales");
             grupoInfAdSeleccionado = duplicarGruposInfAdicionales;
-            modificarInfoRegistro(listGruposInfAdicionales.size());
+            contarRegistros();
             RequestContext.getCurrentInstance().update("form:informacionRegistro");
             if (guardado == true) {
                 guardado = false;
@@ -882,38 +876,22 @@ public class ControlGruposInfAdicionales implements Serializable {
             } else if (resultado == 5) {
                 RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
+        } else if (administrarRastros.verificarHistoricosTabla("GRUPOSINFADICIONALES")) { // igual acá
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            if (administrarRastros.verificarHistoricosTabla("GRUPOSINFADICIONALES")) { // igual acá
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-            }
-
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
     }
 
     public void eventoFiltrar() {
-        try {
-            if (tipoLista == 0) {
-                tipoLista = 1;
-            }
-            modificarInfoRegistro(filtrarGruposInfAdicionales.size());
-            RequestContext.getCurrentInstance().update("form:informacionRegistro");
-        } catch (Exception e) {
-//            System.out.println("ERROR ControlGruposInfAdicionales eventoFiltrar ERROR===" + e.getMessage());
+        if (tipoLista == 0) {
+            tipoLista = 1;
+            contarRegistros();
         }
-    }
-
-    public void modificarInfoRegistro(int valor) {
-        infoRegistro = String.valueOf(valor);
     }
 
     public void contarRegistros() {
-        if (listGruposInfAdicionales != null) {
-            modificarInfoRegistro(listGruposInfAdicionales.size());
-        } else {
-            modificarInfoRegistro(0);
-        }
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
     }
 
     public void recordarSeleccion() {
@@ -1019,6 +997,9 @@ public class ControlGruposInfAdicionales implements Serializable {
     }
 
     public String getInfoRegistro() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosGruposInfAdicionales");
+        infoRegistro = String.valueOf(tabla.getRowCount());
         return infoRegistro;
     }
 

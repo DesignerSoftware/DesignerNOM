@@ -48,7 +48,7 @@
                                 <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                
+
                                 <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); border: none " oncomplete="PF('NuevoRegistroIdiomas').show()" update=":formularioDialogos:nuevaIdiomas" process="@this"/> 
                                 <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
 
@@ -57,37 +57,37 @@
 
                                 <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png); border: none " actionListener="#{controlIdiomaPersona.duplicarIdiomaPersonaM()}"  process="@this"/>  
                                 <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
-                                
+
                                 <p:separator style="position: relative; top: -9px"/>
-                                
+
                                 <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png); border: none " actionListener="#{controlIdiomaPersona.verificarRastro()}" process="@this"/>  
                                 <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
-                                
+
                                 <p:separator style="position: relative; top: -9px"/>
-                                
+
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); border: none " actionListener="#{controlIdiomaPersona.cancelarModificacion()}" oncomplete="PF('window.location.reload()" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
-                                
+
                                 <p:separator style="position: relative; top: -9px"/>
                                 <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png); border: none " actionListener="#{controlIdiomaPersona.salir()}" action="emplIndividual" process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
-                                
-                                
+
+
                             </p:toolbarGroup>  
                         </p:toolbar> 
                         <p:commandButton style=" position: absolute; left: 675px; top: 498px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" disabled="#{controlIdiomaPersona.guardado}" id="ACEPTAR" value=" " onclick="PF('confirmarGuardar').show();" update=":form:datosIdiomas" process="@this" />
                         <p:commandButton style=" position: absolute; left: 765px; top: 498px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" value=" "  actionListener="#{controlIdiomaPersona.salir()}" action="emplIndividual" process="@this" />
-                        
+
                         <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px">
-                        <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;" />
-                        <h:outputText id="nombreEmpleado" value="#{controlIdiomaPersona.empleadoActual.persona.nombreCompleto}" 
+                            <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;" />
+                            <h:outputText id="nombreEmpleado" value="#{controlIdiomaPersona.empleadoActual.persona.nombreCompleto}" 
                                           style="font-weight: bold; color: #BF1A1A; position: relative; left: 10px; top: 5px"/>
 
                             <h:outputText value="#{msg['codigo']}" style="font-weight: bold; color: #14388B; position: relative; left: 120px; top: 5px;" />
                             <h:outputText id="docEmpleado" value="#{controlIdiomaPersona.empleadoActual.codigoempleado}" 
                                           style="font-weight: bold; color: #BF1A1A; position: relative; left: 130px; top: 5px;" />
                         </fieldset>
-                        
+
 
                         <fieldset style="position: absolute; left: 10px; top: 105px;width: 830px; height: 370px; border-radius: 10px; ">
                             <legend style="color: blue;text-align:left"><strong>#{msg['idiomas']}</strong></legend>
@@ -170,20 +170,20 @@
                                 </p:column>
 
                             </p:dataTable>  
-                             <h:outputText id="informacionRegistro" value="#{msg['infoRegistros']} #{controlIdiomaPersona.infoRegistro}" style="position: relative; left: 15px; top: 5px; font-weight: bold"/>
+                            <h:outputText id="informacionRegistro" value="#{msg['infoRegistros']} #{controlIdiomaPersona.infoRegistro}" style="position: relative; left: 15px; top: 5px; font-weight: bold"/>
                         </fieldset> 
 
                         <p:dialog header="#{msg['idiomasI']}" widgetVar="IdiomasDialogo" draggable="true" resizable="false" closable="false" id="IdiomasDialogo"  
                                   showEffect="fade" hideEffect="fade" width="431" modal="true" >
-                            <p:dataTable id="lovIdiomas" style="width: 400px;" var="idiomas" value="#{controlIdiomaPersona.listIdiomas}" rowKey="#{idiomas.secuencia}"
+                            <p:dataTable id="lovIdiomas"  var="idiomas" value="#{controlIdiomaPersona.listIdiomas}" rowKey="#{idiomas.secuencia}"
                                          selection="#{controlIdiomaPersona.idiomaSeleccionado}" selectionMode="single" widgetVar="lovIdiomas" scrollable="true" scrollWidth="415" scrollHeight="250"
                                          filteredValue="#{controlIdiomaPersona.filtrarListIdiomas}" emptyMessage="#{msg['lovvacio']}">              
                                 <p:ajax event="rowSelect" listener="#{controlIdiomaPersona.activarAceptar()}" update=":form:aceptarI"/>
-                                <p:ajax event="filter" listener="#{controlIdiomaPersona.eventoFiltrarIdiomas()}"/>
+                                <p:ajax event="filter" listener="#{controlIdiomaPersona.contarRegistroIdioma()}"/>
                                 <p:ajax event="rowDblselect" listener="#{controlIdiomaPersona.actualizarIdioma()}" process="@this" />
                                 <f:facet name="header">  
-                                    <h:outputText value="#{msg['buscarI']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovIdiomas').filter();" style="width:250px; position: relative; left: 50px;" />  
+                                    <h:outputText value="#{msg['buscarI']}" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovIdiomas').filter();" class="cssFiltroLOV" />  
                                 </f:facet>
 
                                 <p:column filterBy="#{idiomas.nombre}" width="100" filterMatchMode="contains" filterStyle="width: 80px">
@@ -193,11 +193,15 @@
                                     <h:outputText  value="#{idiomas.nombre}" />
                                 </p:column>
                             </p:dataTable>
-                            
-                            <h:outputText id="infoRegistroIdioma" value="#{msg['infoRegistros']} #{controlIdiomaPersona.infoRegistroIdioma}" style="position: absolute; left: 20px; top: 340px; font-weight: bold"/>
-                            <p:commandButton id="aceptarI" icon="ui-icon-check" style="position: relative; left: 215px;" value="#{msg['aceptar']}" disabled="#{controlIdiomaPersona.aceptar}" actionListener="#{controlIdiomaPersona.actualizarIdioma()}" process="@this" />
-                            <p:commandButton id="atrasI" style="position: relative; left: 220px;" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlIdiomaPersona.cancelarCambioIdioma()}" process="@this" />
-                                
+                            <div class="cssBotonesLOV"> 
+                                <h:outputText id="infoRegistroIdioma" value="#{msg['infoRegistros']} #{controlIdiomaPersona.infoRegistroIdioma}" class="cssinfoRegistroLOV"/>
+                                <p:commandButton id="aceptarI" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlIdiomaPersona.aceptar}" 
+                                                 actionListener="#{controlIdiomaPersona.actualizarIdioma()}" process="@this" />
+                                <p:commandButton id="atrasI" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" 
+                                                 actionListener="#{controlIdiomaPersona.cancelarCambioIdioma()}" process="@this" />
+
+                            </div>
+
                         </p:dialog> 
                     </p:panel>
 
@@ -208,7 +212,7 @@
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlIdiomaPersona.salir()}" action="emplIndividual" style="position: absolute; top: 50px; left: 190px;" process="@this" icon="ui-icon-close" />
                         <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 260px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
-                    
+
                     <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
@@ -249,12 +253,12 @@
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;text-align: center" />
                     </p:dialog>
-                    
+
                     <p:dialog id="errorRegNull" header="#{msg['error']}" widgetVar="errorRegNull"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRegNull']}" style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight:bold;text-align: center" />
                     </p:dialog>
-                    
+
                     <p:dialog id="existeIdioma" header="#{msg['error']}" widgetVar="existeIdioma"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['existeIdioma']}" style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight:bold;text-align: center" />
@@ -284,7 +288,7 @@
 
                             <strong><h:outputText value="#{msg['conversacionN']}" style="position: absolute; top: 105px; left: 40px;" /></strong>
                             <p:inputText id="nuevaConversacion"  maxlength="3" value="#{controlIdiomaPersona.nuevaIdiomaPersona.habla}" style="width: 122px; position: absolute; left: 180px; top: 100px;">
-                               <p:keyFilter for="nuevaConversacion" mask="num"/>
+                                <p:keyFilter for="nuevaConversacion" mask="num"/>
                                 <p:ajax event="change" update="nuevaConversacion"/>
                             </p:inputText>
                             <p:watermark for="nuevaConversacion" value="#{msg['conversacion']}" />

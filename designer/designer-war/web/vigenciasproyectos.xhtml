@@ -307,13 +307,13 @@
                     <p:dialog header="#{msg['proyectosP']}" widgetVar="proyectosDialogo" draggable="true" resizable="false" id="proyectosDialogo" closable="false"  
                               showEffect="fade" hideEffect="fade" modal="true" width="347"  >
 
-                        <p:dataTable  id="LOVProyectos" style="width: 315px" var="proyectos" value="#{controlVigenciasProyectos.listaProyectos}"
+                        <p:dataTable  id="LOVProyectos"  var="proyectos" value="#{controlVigenciasProyectos.listaProyectos}"
                                       scrollable="true" scrollHeight="117" scrollWidth="315" widgetVar="LOVProyectos" 
                                       filteredValue="#{controlVigenciasProyectos.filtradoslistaProyectos}" emptyMessage="#{msg['lovvacio']}"
                                       rowKey="#{proyectos.secuencia}" selection="#{controlVigenciasProyectos.seleccionProyectos}" selectionMode="single">
                             <p:ajax event="rowSelect" listener="#{controlVigenciasProyectos.activarAceptar()}" update=":formularioDialogos:aceptarPr"/>
                             <p:ajax event="rowDblselect" listener="#{controlVigenciasProyectos.actualizarProyectos()}" process="@this" />
-                            <p:ajax event="filter" listener="#{controlVigenciasProyectos.eventoFiltrarProyecto()}"/>
+                            <p:ajax event="filter" listener="#{controlVigenciasProyectos.contarRegistroProyecto()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarP']}" />  
                                 <p:inputText id="globalFilter" onkeyup="PF('LOVProyectos').filter();" class="cssFiltroLOV" />  
@@ -338,15 +338,15 @@
                     <!-- L.O.V ROLES -->
 
                     <p:dialog header="#{msg['rolesR']}" widgetVar="pryRolesDialogo" draggable="true" resizable="false" id="pryRolesDialogo" closable="false"  
-                              showEffect="fade" hideEffect="fade" modal="true" width="347" height="250" >
+                              showEffect="fade" hideEffect="fade" modal="true" width="347"  >
 
-                        <p:dataTable  id="LOVPryRoles" style=" width: 300px;" var="pryroles" value="#{controlVigenciasProyectos.listaPryRoles}"
+                        <p:dataTable  id="LOVPryRoles"  var="pryroles" value="#{controlVigenciasProyectos.listaPryRoles}"
                                       scrollable="true" scrollHeight="117" scrollWidth="315" widgetVar="LOVPryRoles" 
                                       filteredValue="#{controlVigenciasProyectos.filtradoslistaPryRoles}" emptyMessage="#{msg['lovvacio']}"
                                       rowKey="#{pryroles.secuencia}" selection="#{controlVigenciasProyectos.seleccionPryRoles}" selectionMode="single">
                             <p:ajax event="rowSelect" listener="#{controlVigenciasProyectos.activarAceptar()}" update=":formularioDialogos:aceptarR"/>
                             <p:ajax event="rowDblselect" listener="#{controlVigenciasProyectos.actualizarPryRoles()}" process="@this" />
-                            <p:ajax event="filter" listener="#{controlVigenciasProyectos.eventoFiltrarRol()}"/>
+                            <p:ajax event="filter" listener="#{controlVigenciasProyectos.contarRegistroRol()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarR']}" />  
                                 <p:inputText id="globalFilter" onkeyup="PF('LOVPryRoles').filter();" class="cssFiltroLOV" />  
@@ -373,13 +373,13 @@
                     <p:dialog header="#{msg['cargosC']}" widgetVar="cargosDialogo" draggable="true" resizable="false" id="cargosDialogo" closable="false"  
                               showEffect="fade" hideEffect="fade" modal="true" width="347"  >
 
-                        <p:dataTable  id="LOVCargos" style=" width: 300px;" var="cargos" value="#{controlVigenciasProyectos.listaCargos}"
+                        <p:dataTable  id="LOVCargos"  var="cargos" value="#{controlVigenciasProyectos.listaCargos}"
                                       scrollable="true" scrollHeight="117" scrollWidth="315" widgetVar="LOVCargos" 
                                       filteredValue="#{controlVigenciasProyectos.filtradoslistaCargos}" emptyMessage="#{msg['lovvacio']}"
                                       rowKey="#{cargos.secuencia}" selection="#{controlVigenciasProyectos.seleccionCargos}" selectionMode="single">
                             <p:ajax event="rowSelect" listener="#{controlVigenciasProyectos.activarAceptar()}" update=":formularioDialogos:aceptarC"/>
                             <p:ajax event="rowDblselect" listener="#{controlVigenciasProyectos.actualizarCargos()}" process="@this" />
-                            <p:ajax event="filter" listener="#{controlVigenciasProyectos.eventoFiltrarCargo()}"/>
+                            <p:ajax event="filter" listener="#{controlVigenciasProyectos.contarRegistroCargo()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarC']}" />  
                                 <p:inputText id="globalFilter" onkeyup="PF('LOVCargos').filter();" class="cssFiltroLOV" />  

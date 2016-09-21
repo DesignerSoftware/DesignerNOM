@@ -299,11 +299,11 @@
                     <p:dialog header="#{msg['tiposT']}" widgetVar="tiposTelefonosDialogo" draggable="true" resizable="false" id="tiposTelefonosDialogo" closable="false"  
                               showEffect="fade" hideEffect="fade" modal="true" width="347" >
 
-                        <p:dataTable  id="LOVTiposTelefonos" style=" width: 300px;" var="tipoTelefono" value="#{controlPerTelefonos.listaTiposTelefonos}"
+                        <p:dataTable  id="LOVTiposTelefonos" var="tipoTelefono" value="#{controlPerTelefonos.listaTiposTelefonos}"
                                       scrollable="true" scrollHeight="117" scrollWidth="315" widgetVar="LOVTiposTelefonos" 
                                       filteredValue="#{controlPerTelefonos.filtradoslistaTiposTelefonos}" emptyMessage="#{msg['lovvacio']}"
                                       rowKey="#{tipoTelefono.secuencia}" selection="#{controlPerTelefonos.seleccionTipoTelefono}" selectionMode="single">
-                            <p:ajax event="filter" listener="#{controlPerTelefonos.eventoFiltrarTT()}"/>
+                            <p:ajax event="filter" listener="#{controlPerTelefonos.contarRegistroTT()}"/>
                             <p:ajax event="rowSelect" listener="#{controlPerTelefonos.activarAceptar()}" update=":formularioDialogos:aceptarTT"/>
                             <p:ajax event="rowDblselect" listener="#{controlPerTelefonos.actualizarTiposTelefonos()}" process="@this" />
                             <f:facet name="header">  
@@ -343,7 +343,7 @@
                                       scrollable="true" scrollHeight="117" scrollWidth="315" liveScroll="true" scrollRows="8" widgetVar="LOVCiudades" 
                                       filteredValue="#{controlPerTelefonos.filtradoslistaCiudades}" emptyMessage="#{msg['lovvacio']}"
                                       rowKey="#{ciudad.secuencia}" selection="#{controlPerTelefonos.seleccionCiudades}" selectionMode="single">
-                            <p:ajax event="filter" listener="#{controlPerTelefonos.eventoFiltrarCiudad()}"/>
+                            <p:ajax event="filter" listener="#{controlPerTelefonos.contarRegistroCiudad()}"/>
                             <p:ajax event="rowSelect" listener="#{controlPerTelefonos.activarAceptar()}" update=":formularioDialogos:aceptarC"/>
                             <p:ajax event="rowDblselect" listener="#{controlPerTelefonos.actualizarCiudad()}" process="@this" />
                             <f:facet name="header">  

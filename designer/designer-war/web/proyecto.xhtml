@@ -83,7 +83,7 @@
                                          filteredValue="#{controlProyecto.filtrarListProyectos}" editable="true" editMode="cell" 
                                          scrollable="true" scrollWidth="820" scrollHeight="#{controlProyecto.altoTabla}" emptyMessage="#{msg['vacio']}" style="border: 1px;width: 830px"
                                          liveScroll="true" scrollRows="25" selection="#{controlProyecto.proyectoTablaSeleccionado}" selectionMode="single">
-                                
+
                                 <p:ajax event="filter" listener="#{controlProyecto.eventoFiltrar()}"/>
                                 <f:event type="preRenderView" listener="#{controlProyecto.recordarSeleccionProyecto()}"/>
 
@@ -265,22 +265,22 @@
                             </p:dataTable>
                             <h:outputText id="infoRegistro" value="#{msg['infoRegistros']} #{controlProyecto.infoRegistro}" style="position: relative; left: 5px; top:-8px; font-weight: bold"/>
                             <p:commandButton style="width: 90px; height: 30px; background-image: url(Imagenes/Iconos/buscardb.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; position: relative;left: 565px;top:1px;" 
-                                         id="BUSCARPROYECTO" process="@this" value=" " actionListener="#{controlProyecto.dialogoProyecto()}"/> 
-                        <p:commandButton style="width: 90px; height: 30px; background-image: url(Imagenes/Iconos/todosdb.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; position: relative;left: 575px ;top:1px;" 
-                                         id="MOSTRARTODOS" process="@this" value=" " actionListener="#{controlProyecto.mostrarTodos()}" update=":form:datosProyectos"/>
+                                             id="BUSCARPROYECTO" process="@this" value=" " actionListener="#{controlProyecto.dialogoProyecto()}"/> 
+                            <p:commandButton style="width: 90px; height: 30px; background-image: url(Imagenes/Iconos/todosdb.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; position: relative;left: 575px ;top:1px;" 
+                                             id="MOSTRARTODOS" process="@this" value=" " actionListener="#{controlProyecto.mostrarTodos()}" update=":form:datosProyectos"/>
                         </fieldset>
 
                         <p:dialog header="#{msg['empresasE']}" widgetVar="EmpresasDialogo" draggable="true" resizable="false" closable="false" id="EmpresasDialogo"  
                                   showEffect="fade" hideEffect="fade" width="431" modal="true" >
-                            <p:dataTable id="lovEmpresas" style="width: 400px;" var="empresa" value="#{controlProyecto.listEmpresas}" rowKey="#{empresa.secuencia}"
+                            <p:dataTable id="lovEmpresas"  var="empresa" value="#{controlProyecto.listEmpresas}" rowKey="#{empresa.secuencia}"
                                          selection="#{controlProyecto.empresaSeleccionada}" selectionMode="single" widgetVar="lovEmpresas" scrollable="true" scrollWidth="416" scrollHeight="250"
                                          filteredValue="#{controlProyecto.filtrarListEmpresas}" emptyMessage="#{msg['lovvacio']}"> 
-                                <p:ajax event="filter" listener="#{controlProyecto.eventoFiltrarEmpresa()}"/>
+                                <p:ajax event="filter" listener="#{controlProyecto.contarRegistroEmpresa()}"/>
                                 <p:ajax event="rowSelect" listener="#{controlProyecto.activarAceptar()}" update=":form:aceptarE"/>
                                 <p:ajax event="rowDblselect" listener="#{controlProyecto.actualizarEmpresa()}" process="@this" />
                                 <f:facet name="header">  
-                                    <h:outputText value="#{msg['buscarE']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovEmpresas').filter();" style="width:150px; position: relative; left: 30px;" />  
+                                    <h:outputText value="#{msg['buscarE']}" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovEmpresas').filter();" class="cssFiltroLOV"  />  
                                 </f:facet>
                                 <p:column filterBy="#{empresa.nombre}" filterMatchMode="contains">
                                     <f:facet name="header">
@@ -296,25 +296,26 @@
                                 </p:column>
                             </p:dataTable>
 
-                            <h:outputText id="infoRegistroEmpresa" value="#{msg['infoRegistros']} #{controlProyecto.infoRegistroEmpresa}" style="position: absolute; left: 20px; top: 350px; font-weight: bold"/>
-                            
-                            <p:commandButton icon="ui-icon-check" id="aceptarE" style="position: relative; left: 220px;" value="#{msg['aceptar']}" disabled="#{controlProyecto.aceptar}" actionListener="#{controlProyecto.actualizarEmpresa()}" process="@this"/>
-                            
-                            <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasE" style="position: relative; left: 225px;" value="#{msg['atras']}" actionListener="#{controlProyecto.cancelarCambioEmpresa()}" process="@this"/>
+                            <div class="cssBotonesLOV"> 
+                                <h:outputText id="infoRegistroEmpresa" value="#{msg['infoRegistros']} #{controlProyecto.infoRegistroEmpresa}" class="cssinfoRegistroLOV"/>
+                                <p:commandButton icon="ui-icon-check" id="aceptarE" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlProyecto.aceptar}" actionListener="#{controlProyecto.actualizarEmpresa()}" process="@this"/>
+                                <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasE" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlProyecto.cancelarCambioEmpresa()}" process="@this"/>
+                            </div>
+
                         </p:dialog>
 
 
                         <p:dialog header="#{msg['clientesC']}" widgetVar="ClientesDialogo" draggable="true" resizable="false" closable="false" id="ClientesDialogo"  
                                   showEffect="fade" hideEffect="fade" width="671" modal="true" >
-                            <p:dataTable id="lovClientes" style="width: 640px;" var="cliente" value="#{controlProyecto.listPryClientes}" rowKey="#{cliente.secuencia}"
+                            <p:dataTable id="lovClientes" var="cliente" value="#{controlProyecto.listPryClientes}" rowKey="#{cliente.secuencia}"
                                          selection="#{controlProyecto.clienteSeleccionado}" selectionMode="single" widgetVar="lovClientes" scrollable="true" scrollWidth="656" scrollHeight="250"
                                          filteredValue="#{controlProyecto.filtrarListPryClientes}" emptyMessage="#{msg['lovvacio']}">  
-                                <p:ajax event="filter" listener="#{controlProyecto.eventoFiltrarClientes()}"/>
+                                <p:ajax event="filter" listener="#{controlProyecto.contarRegistroCliente()}"/>
                                 <p:ajax event="rowSelect" listener="#{controlProyecto.activarAceptar()}" update=":form:aceptarC"/>
                                 <p:ajax event="rowDblselect" listener="#{controlProyecto.actualizarCliente()}" process="@this" />
                                 <f:facet name="header">  
-                                    <h:outputText value="#{msg['buscarC']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovClientes').filter();" style="width:150px; position: relative; left: -90px;" />  
+                                    <h:outputText value="#{msg['buscarC']}" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovClientes').filter();" class="cssFiltroLOV" />  
                                 </f:facet>
                                 <p:column filterBy="#{cliente.nombre}" width="140" filterMatchMode="contains" >
                                     <f:facet name="header">
@@ -342,22 +343,26 @@
                                 </p:column>
                             </p:dataTable>
 
-                            <h:outputText id="infoRegistroCliente" value="#{msg['infoRegistros']} #{controlProyecto.infoRegistroCliente}" style="position: absolute; left: 20px; top: 350px; font-weight: bold"/>
-                            <p:commandButton icon="ui-icon-check" id="aceptarC" style="position: relative; left: 460px;" value="#{msg['aceptar']}" actionListener="#{controlProyecto.actualizarCliente()}" disabled="#{controlProyecto.aceptar}" process="@this"/>
-                            <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasC" style="position: relative; left: 465px;" value="#{msg['atras']}" actionListener="#{controlProyecto.cancelarCambioCliente()}" process="@this"/>
+                            <div class="cssBotonesLOV"> 
+                                <h:outputText id="infoRegistroCliente" value="#{msg['infoRegistros']} #{controlProyecto.infoRegistroCliente}" class="cssinfoRegistroLOV"/>
+                                <p:commandButton icon="ui-icon-check" id="aceptarC" class="cssAceptarLOV" value="#{msg['aceptar']}" actionListener="#{controlProyecto.actualizarCliente()}"
+                                                 disabled="#{controlProyecto.aceptar}" process="@this"/>
+                                <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasC" class="cssAtrasLOV" value="#{msg['atras']}" 
+                                                 actionListener="#{controlProyecto.cancelarCambioCliente()}" process="@this"/>
+                            </div>
                         </p:dialog>
 
                         <p:dialog header="#{msg['plataformastecnologicasP']}" widgetVar="PlataformasDialogo" draggable="true" resizable="false" closable="false" id="PlataformasDialogo"  
                                   showEffect="fade" hideEffect="fade" width="601" modal="true" >
-                            <p:dataTable id="lovPlataforma" style="width: 560px;" var="plataforma" value="#{controlProyecto.listPryPlataformas}" rowKey="#{plataforma.secuencia}"
+                            <p:dataTable id="lovPlataforma"  var="plataforma" value="#{controlProyecto.listPryPlataformas}" rowKey="#{plataforma.secuencia}"
                                          selection="#{controlProyecto.plataformaSeleccionada}" selectionMode="single" widgetVar="lovPlataforma" scrollable="true" scrollWidth="575" scrollHeight="250"
                                          filteredValue="#{controlProyecto.filtrarListPryPlataformas}" emptyMessage="#{msg['lovvacio']}">   
-                                <p:ajax event="filter" listener="#{controlProyecto.eventoFiltrarPlataforma()}"/>
+                                <p:ajax event="filter" listener="#{controlProyecto.contarRegistroPlataforma()}"/>
                                 <p:ajax event="rowSelect" listener="#{controlProyecto.activarAceptar()}" update=":form:aceptarP"/>
                                 <p:ajax event="rowDblselect" listener="#{controlProyecto.actualizarPlataforma()}" process="@this" />
                                 <f:facet name="header">  
-                                    <h:outputText value="#{msg['buscarP']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovPlataforma').filter();" style="width:150px; position: relative; left: -60px;" />  
+                                    <h:outputText value="#{msg['buscarP']}" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovPlataforma').filter();" class="cssFiltroLOV" />  
                                 </f:facet>
                                 <p:column filterBy="#{plataforma.codigo}"  filterMatchMode="contains">
                                     <f:facet name="header">
@@ -379,22 +384,27 @@
                                 </p:column>
                             </p:dataTable>
 
-                            <h:outputText id="infoRegistroPlataforma" value="#{msg['infoRegistros']} #{controlProyecto.infoRegistroPlataforma}" style="position: absolute; left: 20px; top: 350px; font-weight: bold"/>
-                            <p:commandButton icon="ui-icon-check" id="aceptarP" style="position: relative; left: 390px;" value="#{msg['aceptar']}" actionListener="#{controlProyecto.actualizarPlataforma()}" disabled="#{controlProyecto.aceptar}"  process="@this"/>
-                            <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasP" style="position: relative; left: 395px;" value="#{msg['atras']}" actionListener="#{controlProyecto.cancelarCambioPlataforma()}" process="@this"/>
+                            <div class="cssBotonesLOV"> 
+                                <h:outputText id="infoRegistroPlataforma" value="#{msg['infoRegistros']} #{controlProyecto.infoRegistroPlataforma}" class="cssinfoRegistroLOV"/>
+                                <p:commandButton icon="ui-icon-check" id="aceptarP" class="cssAceptarLOV" value="#{msg['aceptar']}" 
+                                                 actionListener="#{controlProyecto.actualizarPlataforma()}" disabled="#{controlProyecto.aceptar}"  process="@this"/>
+                                <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasP" class="cssAtrasLOV" value="#{msg['atras']}" 
+                                                 actionListener="#{controlProyecto.cancelarCambioPlataforma()}" process="@this"/>
+                            </div>
+
                         </p:dialog>
 
                         <p:dialog header="#{msg['tiposmonedasM']}" widgetVar="MonedasDialogo" draggable="true" resizable="false" closable="false" id="MonedasDialogo"  
                                   showEffect="fade" hideEffect="fade" width="431" modal="true" >
-                            <p:dataTable id="lovMoneda" style="width: 400px;" var="moneda" value="#{controlProyecto.listMonedas}" rowKey="#{moneda.secuencia}"
+                            <p:dataTable id="lovMoneda"  var="moneda" value="#{controlProyecto.listMonedas}" rowKey="#{moneda.secuencia}"
                                          selection="#{controlProyecto.monedaSeleccionada}" selectionMode="single" widgetVar="lovMoneda" scrollable="true" scrollWidth="416" scrollHeight="250"
-                                         filteredValue="#{controlProyecto.filtrarListMonedas}" emptyMessage="#{msg['lovvacio']}"> 
+                                         filteredValue="#{controlProyecto.contarRegistroTipoMoneda()}" emptyMessage="#{msg['lovvacio']}"> 
                                 <p:ajax event="filter" listener="#{controlProyecto.eventoFiltrarTipoMoneda()}"/>
                                 <p:ajax event="rowSelect" listener="#{controlProyecto.activarAceptar()}" update=":form:aceptarM"/>
                                 <p:ajax event="rowDblselect" listener="#{controlProyecto.actualizarMoneda()}" process="@this" />
                                 <f:facet name="header">  
-                                    <h:outputText value="#{msg['buscarM']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovMoneda').filter();" style="width:150px; position: relative; left: 20px;" />  
+                                    <h:outputText value="#{msg['buscarM']}"  />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovMoneda').filter();" class="cssFiltroLOV" />  
                                 </f:facet>
                                 <p:column filterBy="#{moneda.codigo}" width="100"  filterMatchMode="contains">
                                     <f:facet name="header">
@@ -410,9 +420,14 @@
                                 </p:column>
                             </p:dataTable>
 
-                            <h:outputText id="infoRegistroTipoMoneda" value="#{msg['infoRegistros']} #{controlProyecto.infoRegistroTipoMoneda}" style="position: absolute; left: 20px; top: 350px; font-weight: bold"/>
-                            <p:commandButton icon="ui-icon-check" id="aceptarM" style="position: relative; left: 220px;" value="#{msg['aceptar']}" actionListener="#{controlProyecto.actualizarMoneda()}" disabled="#{controlProyecto.aceptar}"  process="@this"/>
-                            <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasM" style="position: relative; left: 225px;" value="#{msg['atras']}" actionListener="#{controlProyecto.cancelarCambioMoneda()}" process="@this"/>
+                            <div class="cssBotonesLOV"> 
+                                <h:outputText id="infoRegistroTipoMoneda" value="#{msg['infoRegistros']} #{controlProyecto.infoRegistroTipoMoneda}" class="cssinfoRegistroLOV"/>
+                                <p:commandButton icon="ui-icon-check" id="aceptarM" class="cssAceptarLOV" value="#{msg['aceptar']}" 
+                                                 actionListener="#{controlProyecto.actualizarMoneda()}" disabled="#{controlProyecto.aceptar}"  process="@this"/>
+                                <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasM" class="cssAtrasLOV" value="#{msg['atras']}" 
+                                                 actionListener="#{controlProyecto.cancelarCambioMoneda()}" process="@this"/>
+                            </div>
+
                         </p:dialog>
 
                         <p:dialog header="#{msg['proyectosPR']}" widgetVar="BuscarProyectoDialogo" draggable="true" resizable="false" closable="false" id="BuscarProyectoDialogo"  
@@ -420,12 +435,12 @@
                             <p:dataTable id="lovProyecto" style=" width: 400px;" var="proyecto" value="#{controlProyecto.listProyectosLOV}" rowKey="#{proyecto.secuencia}"
                                          selection="#{controlProyecto.proyectoLOVSeleccionado}" selectionMode="single" widgetVar="lovProyecto" scrollable="true" scrollWidth="416" scrollHeight="250"
                                          filteredValue="#{controlProyecto.filtarLovProyectos}" emptyMessage="#{msg['lovvacio']}">  
-                                <p:ajax event="filter" listener="#{controlProyecto.eventoFiltrarProyecto()}"/>
+                                <p:ajax event="filter" listener="#{controlProyecto.contarRegistroProyecto()}"/>
                                 <p:ajax event="rowSelect" listener="#{controlProyecto.activarAceptar()}" update=":form:aceptarPro"/>
                                 <p:ajax event="rowDblselect" listener="#{controlProyecto.actualizarProyecto()}" process="@this" onstart="PF('lovProyecto').clearFilters()"/>
                                 <f:facet name="header">  
-                                    <h:outputText value="#{msg['buscarPR']}: "  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovProyecto').filter();" style="width:150px; position: relative; left: 20px;" />  
+                                    <h:outputText value="#{msg['buscarPR']}:"/>  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovProyecto').filter();" class="cssFiltroLOV" />  
                                 </f:facet>
                                 <p:column filterBy="#{proyecto.codigo}" width="100"  filterMatchMode="contains">
                                     <f:facet name="header">
@@ -441,12 +456,17 @@
                                 </p:column>
                             </p:dataTable>
 
-                            <h:outputText id="infoRegistroProyecto" value="#{msg['infoRegistros']} #{controlProyecto.infoRegistroProyecto}" style="position: absolute; left: 20px; top: 350px; font-weight: bold"/>
-                            <p:commandButton icon="ui-icon-check" id="aceptarPro" style="position: relative; left: 220px;" value="#{msg['aceptar']}" actionListener="#{controlProyecto.actualizarProyecto()}" disabled="#{controlProyecto.aceptar}"  process="@this"/>
-                            <p:commandButton id="atrasPro" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 225px;" value="#{msg['atras']}" actionListener="#{controlProyecto.cancelarActualizarProyecto()}"  process="@this"/>
+                            <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroProyecto" value="#{msg['infoRegistros']} #{controlProyecto.infoRegistroProyecto}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton icon="ui-icon-check" id="aceptarPro" class="cssAceptarLOV" value="#{msg['aceptar']}" actionListener="#{controlProyecto.actualizarProyecto()}" 
+                                             disabled="#{controlProyecto.aceptar}"  process="@this"/>
+                            <p:commandButton id="atrasPro" icon="ui-icon-arrowreturnthick-1-w" class="cssAtrasLOV" value="#{msg['atras']}" 
+                                             actionListener="#{controlProyecto.cancelarActualizarProyecto()}"  process="@this"/>
+                            </div>
+
                         </p:dialog>
 
-                        
+
                     </p:panel>
 
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
@@ -456,13 +476,13 @@
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlProyecto.salir()}" action="#{controlProyecto.redirigir()}" style="position: absolute; top: 50px; left: 188px;" process="@this" icon="ui-icon-close" />
                         <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 260px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
-                    
+
                     <p:dialog id="validacionBorrar" header="#{msg['error']}" widgetVar="validacionBorrar"  resizable="false" draggable="true" modal="true" height="77" width="400" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['validacionBorrar']}" style="position: absolute; left: 80px; top: 15px; width: 300px; font-weight:bold" />
                         <p:commandButton value="#{msg['aceptar']}" onclick="PF('validacionBorrar').hide();" style="position: absolute; top: 45px; left: 280px;" process="@this" icon="ui-icon-check" />
                     </p:dialog>
-                    
+
                     <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
@@ -590,14 +610,14 @@
 
                             <strong><h:outputText value="#{msg['fechainicioN']}" style="position: absolute; top: 285px; left: 50px;" /></strong>
                             <p:calendar mask="true" pattern="dd/MM/yyyy"  id="nuevaFechaInicialP" value="#{controlProyecto.nuevaProyectos.fechainicial}" style="position: absolute;  top: 280px; left: 200px;" styleClass="ui-datepicker, myClass2"  
-                                         navigator="true" showButtonPanel="true" locale="es" >
+                                        navigator="true" showButtonPanel="true" locale="es" >
                                 <p:ajax event="dateSelect" update="nuevaFechaInicialP"/>
                                 <p:ajax event="change" update="nuevaFechaInicialP"/>
                             </p:calendar>
 
                             <strong><h:outputText value="#{msg['fechafinalizacionN']}" style="position: absolute; top: 315px; left: 50px;" /></strong>
                             <p:calendar mask="true" pattern="dd/MM/yyyy"  id="nuevaFechaFinalP" value="#{controlProyecto.nuevaProyectos.fechafinal}" style="position: absolute;  top: 310px; left: 200px;" styleClass="ui-datepicker, myClass2"  
-                                         navigator="true" showButtonPanel="true" locale="es" >
+                                        navigator="true" showButtonPanel="true" locale="es" >
                                 <p:ajax event="dateSelect" update="nuevaFechaFinalP"/>
                                 <p:ajax event="change" update="nuevaFechaFinalP"/>
                             </p:calendar>
@@ -677,14 +697,14 @@
 
                             <strong><h:outputText value="#{msg['fechainicioN']}" style="position: absolute; top: 285px; left: 50px;" /></strong>
                             <p:calendar mask="true" pattern="dd/MM/yyyy"  id="duplicarFechaInicialP" value="#{controlProyecto.duplicarProyecto.fechainicial}" style="position: absolute;  top: 280px; left: 200px;" styleClass="ui-datepicker, myClass2"  
-                                         navigator="true" showButtonPanel="true" locale="es" >
+                                        navigator="true" showButtonPanel="true" locale="es" >
                                 <p:ajax event="dateSelect" update="duplicarFechaInicialP"/>
                                 <p:ajax event="change" update="duplicarFechaInicialP"/>
                             </p:calendar>
 
                             <strong><h:outputText value="#{msg['fechafinalizacionN']}" style="position: absolute; top: 315px; left: 50px;" /></strong>
                             <p:calendar mask="true" pattern="dd/MM/yyyy"  id="duplicarFechaFinalP" value="#{controlProyecto.duplicarProyecto.fechafinal}" style="position: absolute;  top: 310px; left: 200px;" styleClass="ui-datepicker, myClass2"  
-                                         navigator="true" showButtonPanel="true" locale="es" >
+                                        navigator="true" showButtonPanel="true" locale="es" >
                                 <p:ajax event="dateSelect" update="duplicarFechaFinalP"/>
                                 <p:ajax event="change" update="duplicarFechaFinalP"/>
                             </p:calendar>

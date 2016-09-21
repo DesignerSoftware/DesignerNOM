@@ -13,14 +13,11 @@
         <ui:composition template="/template.xhtml">
             <ui:define name="body">                  
                 <h:form id="form"> 
-                        
+
                     <f:loadBundle basename="Recursos.vigenciaaficion" var="msg" />
                     <p:growl id="growl" showDetail="true"/>
-                    
-                    <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal" >  
 
-                        <h:outputText style="position: absolute; top: 50px; height: 12px;position: absolute;color: red;font-weight: bold;text-align: right;width: 240px;left: 600px;" id="nombreEmpleado" value="#{controlVigenciaAficion.empleado.persona.primerapellido} #{controlVigenciaAficion.empleado.persona.segundoapellido} #{controlVigenciaAficion.empleado.persona.nombre}">
-                        </h:outputText>
+                    <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal" >  
 
                         <p:toolbar styleClass="cssToolbar">  
                             <p:toolbarGroup align="left"> 
@@ -64,7 +61,7 @@
                                 <p:separator style="position: relative; top: -9px"/>
                                 <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png); border : none " actionListener="#{controlVigenciaAficion.verificarRastro()}" process="@this"/>  
                                 <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
-                                
+
                                 <p:separator style="position: relative; top: -9px"/>
 
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); border : none " actionListener="#{controlVigenciaAficion.cancelarModificacion()}" process="@this"/>  
@@ -75,20 +72,26 @@
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
                             </p:toolbarGroup>  
                         </p:toolbar> 
-                        
-                        <p:commandButton style=" position: absolute; left: 675px; top: 480px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ACEPTAR" value=" " disabled="#{controlVigenciaAficion.guardado}" onclick="PF('confirmarGuardar').show();" update=":form:datosVigenciasAficiones" process="@this" />
-                        <p:commandButton style=" position: absolute; left: 765px; top: 480px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" value=" " actionListener="#{controlVigenciaAficion.cancelarSalir()}" action="vigAfiEmplInd" process="@this" />
-                        <h:outputText id="informacionRegistro" value="#{controlVigenciaAficion.infoRegistro}" style="position: absolute; left: 15px; top: 480px; font-weight: bold"/>
 
-                        <fieldset style="position: absolute; left: 10px; top: 80px;width: 830px; height: 375px; border-radius: 10px; ">
+                        <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px">
+                            <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;" />
+                            <h:outputText id="nombreEmpleado" value="#{controlVigenciaAficion.empleado.persona.nombreCompleto}" 
+                                          style="font-weight: bold; color: #BF1A1A; position: relative; left: 10px; top: 5px"/>
+                        </fieldset>
+                        
+                        
+                        <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value=" " disabled="#{controlVigenciaAficion.guardado}" onclick="PF('confirmarGuardar').show();" update=":form:datosVigenciasAficiones" process="@this" />
+                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value=" " actionListener="#{controlVigenciaAficion.cancelarSalir()}" action="vigAfiEmplInd" process="@this" />
+                        <h:outputText id="informacionRegistro" value="#{msg['infoRegistros']} #{controlVigenciaAficion.infoRegistro}" style="position: absolute; left: 20px; top: 480px; font-weight: bold"/>
+                        
+                        <fieldset style="position: absolute; left: 10px; top: 105px;width: 830px; height: 375px; border-radius: 10px; ">
                             <legend style="color: blue;text-align:left"><strong>#{msg['aficionesPersona']}</strong></legend>
 
                             <p:dataTable id="datosVigenciasAficiones" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="border: 1px; text-align: left;width: 820px;"                           
                                          value="#{controlVigenciaAficion.listVigenciasAficiones}" scrollable="true" scrollHeight="#{controlVigenciaAficion.altoTabla}" scrollWidth="820"
                                          filteredValue="#{controlVigenciaAficion.filtrarListVigenciasAficiones}" emptyMessage="#{msg['vacio']}"
                                          editable="true" editMode="cell" liveScroll="true" scrollRows="15"
-                                         selection="#{controlVigenciaAficion.vigenciaTablaSeleccionada}" selectionMode="single"
-                                         >
+                                         selection="#{controlVigenciaAficion.vigenciaTablaSeleccionada}" selectionMode="single" >
 
                                 <p:ajax event="filter" listener="#{controlVigenciaAficion.eventoFiltrar()}"/>
 
@@ -136,7 +139,7 @@
                                 </p:column>
 
                                 <p:column headerText="#{msg['descripcion']}" sortBy="#{info.aficion.descripcion}" filterBy="#{info.aficion.descripcion}" style="width: 110px;"
-                                          filterMatchMode="contains" id="veDescripcion" width="133" filterStyle="display: none; visibility: hidden;" >                                  
+                                          filterMatchMode="contains" id="veDescripcion" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.aficion.descripcion}" /></f:facet>  
                                         <f:facet name="input">
@@ -149,12 +152,16 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 120%;" id="fooDescripcion" value=" "/>
+                                        <p:commandButton style="width: 120%;" id="fooDescripcion" value=" " action="aficion" onclick="#{controlAficiones.recibirPag('vigenciaaficion')}"/>
                                     </f:facet>
                                 </p:column>  
 
-                                <p:column headerText="#{msg['puntajeI']}" sortBy="#{info.valorcuantitativo}" filterBy="#{info.valorcuantitativo}" width="133"
+                                <p:column  sortBy="#{info.valorcuantitativo}" filterBy="#{info.valorcuantitativo}" width="76"
                                           filterMatchMode="contains" id="veIndividual" filterStyle="display: none; visibility: hidden;"  style="width: 110px;" >                                  
+                                    <f:facet name="header"> 
+                                        <h:outputText id="PI" value="#{msg['puntajeIcorto']}"/>
+                                        <p:tooltip for="PI" value="#{msg['puntajeI']}" />
+                                    </f:facet> 
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.valorcuantitativo}" style="width: 100px"/></f:facet>  
                                         <f:facet name="input">
@@ -169,8 +176,12 @@
                                     </f:facet>
                                 </p:column>
 
-                                <p:column headerText="#{msg['puntajeCI']}" sortBy="#{info.valorcualitativo}" filterBy="#{info.valorcualitativo}" width="190"
+                                <p:column headerText="#{msg['puntajeCI']}" sortBy="#{info.valorcualitativo}" filterBy="#{info.valorcualitativo}" width="76"
                                           filterMatchMode="contains" id="veCIndividual" filterStyle="display: none; visibility: hidden;"  style="width: 110px;" >                                  
+                                   <f:facet name="header"> 
+                                        <h:outputText id="PCI" value="#{msg['puntajeCIcorto']}"/>
+                                        <p:tooltip for="PCI" value="#{msg['puntajeCI']}" />
+                                    </f:facet> 
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.valorcualitativo}" style="width: 100px;"/></f:facet>  
                                         <f:facet name="input">
@@ -185,8 +196,12 @@
                                     </f:facet>
                                 </p:column>
 
-                                <p:column headerText="#{msg['puntajeG']}" sortBy="#{info.valorcuantitativogrupo}" filterBy="#{info.valorcuantitativogrupo}" width="133"
+                                <p:column headerText="#{msg['puntajeG']}" sortBy="#{info.valorcuantitativogrupo}" filterBy="#{info.valorcuantitativogrupo}" width="76"
                                           filterMatchMode="contains" id="veGrupal" filterStyle="display: none; visibility: hidden;"  style="width: 110px;" >                                  
+                                    <f:facet name="header"> 
+                                        <h:outputText id="PG" value="#{msg['puntajeGcorto']}"/>
+                                        <p:tooltip for="PG" value="#{msg['puntajeG']}" />
+                                    </f:facet> 
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.valorcuantitativogrupo}" style="width: 100px;"/></f:facet>  
                                         <f:facet name="input">
@@ -201,8 +216,12 @@
                                     </f:facet>
                                 </p:column>
 
-                                <p:column headerText="#{msg['puntajeCG']}" sortBy="#{info.valorcuantitativogrupo}" filterBy="#{info.valorcuantitativogrupo}" width="190"
+                                <p:column headerText="#{msg['puntajeCG']}" sortBy="#{info.valorcuantitativogrupo}" filterBy="#{info.valorcuantitativogrupo}" width="76"
                                           filterMatchMode="contains" id="veCGrupal" filterStyle="display: none; visibility: hidden;"  style="width: 110px;" >                                  
+                                    <f:facet name="header"> 
+                                        <h:outputText id="PCG" value="#{msg['puntajeCGcorto']}"/>
+                                        <p:tooltip for="PCG" value="#{msg['puntajeCG']}" />
+                                    </f:facet> 
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.valorcuantitativogrupo}" style="width: 100px;"/></f:facet>  
                                         <f:facet name="input">
@@ -221,14 +240,15 @@
 
                         <p:dialog header="#{msg['aficionM']}" widgetVar="AficionesDialogo" draggable="true" resizable="false" closable="false" id="AficionesDialogo"  
                                   showEffect="fade" hideEffect="fade" width="431" modal="true" >
-                            <p:dataTable id="lovAficiones" style="width: 400px;" var="aficion" value="#{controlVigenciaAficion.listAficiones}" rowKey="#{aficion.secuencia}"
+                            <p:dataTable id="lovAficiones"  var="aficion" value="#{controlVigenciaAficion.listAficiones}" rowKey="#{aficion.secuencia}"
                                          selection="#{controlVigenciaAficion.aficionSeleccionada}" selectionMode="single" widgetVar="lovAficiones" scrollable="true" scrollWidth="415" scrollHeight="250"
                                          filteredValue="#{controlVigenciaAficion.filtrarListAficiones}" emptyMessage="#{msg['lovvacio']}">              
                                 <p:ajax event="rowSelect" listener="#{controlVigenciaAficion.activarAceptar()}" update=":form:aceptarA"/>
                                 <p:ajax event="rowDblselect" listener="#{controlVigenciaAficion.actualizarAficion()}" process="@this" />
+                                <p:ajax event="filter" listener="#{controlVigenciaAficion.contarRegistrosAficiones()}"/>
                                 <f:facet name="header">  
-                                    <h:outputText value="#{msg['buscarA']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovAficiones').filter();" style="width:150px; position: relative; left: 5px;" />  
+                                    <h:outputText value="#{msg['buscarA']}" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovAficiones').filter();" class="cssFiltroLOV" />  
                                 </f:facet>
 
                                 <p:column filterBy="#{aficion.descripcion}" width="100" filterMatchMode="contains" filterStyle="width: 80px">
@@ -238,16 +258,17 @@
                                     <h:outputText  value="#{aficion.descripcion}" />
                                 </p:column>
                             </p:dataTable>
-                            
-                            <h:outputText id="infoRegistroAficion" value="#{controlVigenciaAficion.infoRegistroAficion}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
-                            
-                            <p:commandButton id="aceptarA" style="position: relative; left: 230px;" icon="ui-icon-check" value="#{msg['aceptar']}" disabled="#{controlVigenciaAficion.aceptar}"  actionListener="#{controlVigenciaAficion.actualizarAficion()}"  process="@this"/>
-                            
-                            <p:commandButton id="atrasA" style="position: relative; left: 230px;" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlVigenciaAficion.cancelarCambioAficion()}"  process="@this"/>
+
+                            <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroAficion" value="#{msg['infoRegistros']} #{controlVigenciaAficion.infoRegistroAficion}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarA" class="cssAceptarLOV" icon="ui-icon-check" value="#{msg['aceptar']}" disabled="#{controlVigenciaAficion.aceptar}"  actionListener="#{controlVigenciaAficion.actualizarAficion()}"  process="@this"/>
+                            <p:commandButton id="atrasA" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlVigenciaAficion.cancelarCambioAficion()}"  process="@this"/>
+                            </div>
+
                         </p:dialog> 
 
                     </p:panel>
-                    
+
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
@@ -255,7 +276,7 @@
                         <p:commandButton value="#{msg['no']}" action="vigAfiEmplInd" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlVigenciaAficion.cancelarSalir()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
                         <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
-                    
+
                     <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
@@ -345,7 +366,8 @@
                                 <p:ajax event="click" listener="#{controlVigenciaAficion.valoresBackupAutocompletar(1, 'AFICIONES')}" />
                                 <p:ajax event="change" listener="#{controlVigenciaAficion.autocompletarNuevoyDuplicado('AFICIONES', controlVigenciaAficion.nuevaVigenciaAficion.aficion.descripcion, 1)}" />
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 351px; top: 130px;  " id="btnNuevaDescripcion" icon="ui-icon-search" process="@this"  actionListener="#{controlVigenciaAficion.asignarIndex(indice,1)}"/>   
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 351px; top: 130px; " class="cssBotonLovDialogos" id="btnNuevaDescripcion"
+                                             value="" process="@this"  actionListener="#{controlVigenciaAficion.asignarIndex(indice,1)}"/>   
                             <p:watermark for="nuevaDescripcion" value="#{msg['descripcion']}" />
 
                             <strong><h:outputText value="#{msg['puntajeIN']}" style="position: absolute; top: 165px; left: 50px;" /></strong>
@@ -373,7 +395,7 @@
                             <p:watermark for="nuevaCGrupal" value="#{msg['puntajeCG']}" />
 
                             <p:commandButton id="limpiarV" value="#{msg['limpiar']}" icon="ui-icon-trash" style="position: absolute; left: 20px; top: 285px;" actionListener="#{controlVigenciaAficion.limpiarNuevaVigenciaAficion()}" update="nuevaVigencias" process="@this"/>
-                            <p:commandButton id="agregarV" value="#{msg['agregar']}" icon="ui-icon-circle-check" style="position: absolute; left: 190px; top: 285px;"  process="@this" actionListener="#{controlVigenciaAficion.agregarNuevaVigenciaAficion()}"   />
+                            <p:commandButton id="agregarV" value="#{msg['agregar']}" icon="ui-icon-circle-check" style="position: absolute; left: 180px; top: 285px;"  process="@this" actionListener="#{controlVigenciaAficion.agregarNuevaVigenciaAficion()}"   />
                             <p:commandButton id="cancelarV" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style="position: absolute; left: 280px; top: 285px;" actionListener="#{controlVigenciaAficion.limpiarNuevaVigenciaAficion()}" update="nuevaVigencias" onclick="PF('NuevoRegistroVigencias').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>

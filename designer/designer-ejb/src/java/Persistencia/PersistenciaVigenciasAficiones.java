@@ -12,21 +12,24 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+
 /**
- * Clase Stateless.<br> 
+ * Clase Stateless.<br>
  * Clase encargada de realizar operaciones sobre la tabla 'VigenciasAficiones'
  * de la base de datos.
+ *
  * @author betelgeuse
  */
 @Stateless
-public class PersistenciaVigenciasAficiones implements PersistenciaVigenciasAficionesInterface{
+public class PersistenciaVigenciasAficiones implements PersistenciaVigenciasAficionesInterface {
+
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
      */
-/*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
+    /*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
     private EntityManager em;
-*/
-   
+     */
+
     @Override
     public void crear(EntityManager em, VigenciasAficiones vigenciasAficiones) {
         em.clear();
@@ -42,7 +45,7 @@ public class PersistenciaVigenciasAficiones implements PersistenciaVigenciasAfic
             }
         }
     }
-   
+
     @Override
     public void editar(EntityManager em, VigenciasAficiones vigenciasAficiones) {
         em.clear();
@@ -58,7 +61,7 @@ public class PersistenciaVigenciasAficiones implements PersistenciaVigenciasAfic
             }
         }
     }
-   
+
     @Override
     public void borrar(EntityManager em, VigenciasAficiones vigenciasAficiones) {
         em.clear();
@@ -74,7 +77,7 @@ public class PersistenciaVigenciasAficiones implements PersistenciaVigenciasAfic
             }
         }
     }
-   
+
     @Override
     public VigenciasAficiones buscarvigenciaAficion(EntityManager em, BigInteger secuencia) {
         try {
@@ -82,11 +85,11 @@ public class PersistenciaVigenciasAficiones implements PersistenciaVigenciasAfic
             BigInteger in = (BigInteger) secuencia;
             return em.find(VigenciasAficiones.class, in);
         } catch (Exception e) {
-            System.out.println("Error buscarvigenciaAficion : "+e.toString());
+            System.out.println("Error buscarvigenciaAficion : " + e.toString());
             return null;
         }
     }
-    
+
     @Override
     public List<VigenciasAficiones> aficionesPersona(EntityManager em, BigInteger secuencia) {
         try {
@@ -108,18 +111,18 @@ public class PersistenciaVigenciasAficiones implements PersistenciaVigenciasAfic
             return null;
         }
     }
-    
+
     @Override
-    public List<VigenciasAficiones> aficionesTotalesSecuenciaPersona(EntityManager em, BigInteger secuencia){
-        try{
+    public List<VigenciasAficiones> aficionesTotalesSecuenciaPersona(EntityManager em, BigInteger secuencia) {
+        try {
             em.clear();
-        Query queryFinal = em.createQuery("SELECT va FROM VigenciasAficiones va WHERE va.persona.secuencia = :secuenciaPersona;");
-                queryFinal.setParameter("secuenciaPersona", secuencia);
-                queryFinal.setHint("javax.persistence.cache.storeMode", "REFRESH");
-                List<VigenciasAficiones> listVigenciasAficiones = queryFinal.getResultList();
-                return listVigenciasAficiones;
-        }catch(Exception e){
-            System.out.println("Error aficionesTotalesSecuenciaPersona PersistenciaVigenciasAficiones : "+e.toString());
+            String sql = "SELECT * FROM VIGENCIASAFICIONES WHERE PERSONA = ?";
+            Query queryFinal = em.createNativeQuery(sql, VigenciasAficiones.class);
+            queryFinal.setParameter(1, secuencia);
+            List<VigenciasAficiones> listVigenciasAficiones = queryFinal.getResultList();
+            return listVigenciasAficiones;
+        } catch (Exception e) {
+            System.out.println("Error aficionesTotalesSecuenciaPersona PersistenciaVigenciasAficiones : " + e.toString());
             return null;
         }
     }

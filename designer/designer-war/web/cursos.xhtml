@@ -135,7 +135,7 @@
                                                 <p:ajax event="select" listener="#{controlCursos.cambiarIndice(info,2)}" />
                                                 <p:ajax event="change" listener="#{controlCursos.modificarCursos(info, 'N', info.tipocurso.descripcion)}" update="@this"/>
                                                 <p:ajax event="dblclick" listener="#{controlCursos.asignarIndex(3, 0)}"/>
-                                                
+
                                             </p:inputText> 
                                         </f:facet>   
                                     </p:cellEditor>
@@ -332,16 +332,16 @@
 
 
                     <p:dialog header="Tipo del Curso" widgetVar="tipoCursoDialogo" draggable="true" resizable="false" closable="false" id="tipoCursoDialogo"  
-                              showEffect="fade" hideEffect="fade" width="431" modal="true" height="375">
-                        <p:dataTable id="lovTipoCurso" style="width: 400px;" var="tipoc" value="#{controlCursos.listaCursos}" rowKey="#{tipoc.secuencia}"
+                              showEffect="fade" hideEffect="fade" width="431" modal="true" >
+                        <p:dataTable id="lovTipoCurso" var="tipoc" value="#{controlCursos.listaCursos}" rowKey="#{tipoc.secuencia}"
                                      selection="#{controlCursos.tipocursoSeleccionado}" selectionMode="single" widgetVar="lovTipoCurso" scrollable="true" scrollWidth="415" scrollHeight="250"
                                      filteredValue="#{controlCursos.filtradoListaCursos}" emptyMessage="#{msg['lovvacio']}" >   
                             <p:ajax event="filter" listener="#{controlCursos.eventoFiltrarLov()}"/>
                             <p:ajax event="rowSelect" listener="#{controlCursos.activarAceptar()}" update=":formularioDialogos:aceptarT"/>
                             <p:ajax event="rowDblselect" listener="#{controlCursos.actualizarDeporte()}" process="@this" />
                             <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarM']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="PF('lovDeportes').filter();" style="width:150px; position: relative; left: 5px;" />  
+                                <h:outputText value="#{msg['buscarM']}" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovDeportes').filter();" class="cssFiltroLOV" />  
                             </f:facet>
 
                             <p:column filterBy="#{deportes.nombre}" filterMatchMode="contains" filterStyle="width:80%">
@@ -352,13 +352,14 @@
                             </p:column>
                         </p:dataTable>
 
-                        <h:outputText id="infoRegistrolov" value="#{msg['infoRegistros']} #{controlCursos.infoRegistroLov}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
-
-                        <p:commandButton id="aceptarT" icon="ui-icon-check" style="position: relative; left: 135px;" value="#{msg['aceptar']}" disabled="#{controlCursos.aceptar}"  actionListener="#{controlCursos.actualizarTiposCursos()}"  process="@this"/>
-
-                        <p:commandButton id="atrast" style="position: relative; left: 135px;" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlCursos.cancelarCambioTiposCursos()}"   process="@this"/>
+                        <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistrolov" value="#{msg['infoRegistros']} #{controlCursos.infoRegistroLov}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarT" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlCursos.aceptar}" 
+                                             actionListener="#{controlCursos.actualizarTiposCursos()}"  process="@this"/>
+                            <p:commandButton id="atrast" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" 
+                                             actionListener="#{controlCursos.cancelarCambioTiposCursos()}"   process="@this"/>
+                        </div>
                     </p:dialog> 
-
                 </h:form>
 
                 <h:form id="formExportar">

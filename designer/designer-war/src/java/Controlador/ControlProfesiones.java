@@ -29,7 +29,6 @@ import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
 
-
 /**
  *
  * @author user
@@ -95,12 +94,10 @@ public class ControlProfesiones implements Serializable {
         paginaanterior = pagina;
         listaProfesiones = null;
         getListaProfesiones();
-        contarRegistros();
         deshabilitarBotonLov();
         if (listaProfesiones != null) {
             profesionSeleccionada = listaProfesiones.get(0);
         }
-        contarRegistros();
     }
 
     public String redirigir() {
@@ -206,35 +203,35 @@ public class ControlProfesiones implements Serializable {
             pasa++;
         }
 
-        if(listaProfesiones != null){
-            
-        for (int i = 0; i < listaProfesiones.size(); i++) {
+        if (listaProfesiones != null) {
 
-            if (listaProfesiones.get(i).getDescripcion().equals(nuevaProfesion.getDescripcion())) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:existeNombre");
-                RequestContext.getCurrentInstance().execute("PF('existeNombre').show()");
-                pasaA++;
-            }
-            if (pasa != 0) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevaProfesion");
-                RequestContext.getCurrentInstance().execute("PF('validacionNuevaProfesion').show()");
+            for (int i = 0; i < listaProfesiones.size(); i++) {
 
-            }
-        }
+                if (listaProfesiones.get(i).getDescripcion().equals(nuevaProfesion.getDescripcion())) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:existeNombre");
+                    RequestContext.getCurrentInstance().execute("PF('existeNombre').show()");
+                    pasaA++;
+                }
+                if (pasa != 0) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevaProfesion");
+                    RequestContext.getCurrentInstance().execute("PF('validacionNuevaProfesion').show()");
 
-        for (int i = 0; i < listaProfesiones.size(); i++) {
-            System.out.println("Codigos: " + listaProfesiones.get(i).getCodigo());
-            if (listaProfesiones.get(i).getCodigo() == nuevaProfesion.getCodigo()) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:existeCodigo");
-                RequestContext.getCurrentInstance().execute("PF('existeCodigo').show()");
-                pasaA++;
+                }
             }
-            if (pasa != 0) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevaProfesion");
-                RequestContext.getCurrentInstance().execute("PF('validacionNuevaProfesion').show()");
 
+            for (int i = 0; i < listaProfesiones.size(); i++) {
+                System.out.println("Codigos: " + listaProfesiones.get(i).getCodigo());
+                if (listaProfesiones.get(i).getCodigo() == nuevaProfesion.getCodigo()) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:existeCodigo");
+                    RequestContext.getCurrentInstance().execute("PF('existeCodigo').show()");
+                    pasaA++;
+                }
+                if (pasa != 0) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevaProfesion");
+                    RequestContext.getCurrentInstance().execute("PF('validacionNuevaProfesion').show()");
+
+                }
             }
-        }
         }
 
         if (nuevaProfesion.getDescripcion().length() > 40) {
@@ -265,7 +262,7 @@ public class ControlProfesiones implements Serializable {
             nuevaProfesion.setSecuencia(l);
             listaProfesionesCrear.add(nuevaProfesion);
             listaProfesiones.add(nuevaProfesion);
-            modificarInfoRegistro(listaProfesiones.size());
+            contarRegistros();
             profesionSeleccionada = nuevaProfesion;
             nuevaProfesion = new Profesiones();
 
@@ -355,7 +352,7 @@ public class ControlProfesiones implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:infoRegistro");
             RequestContext.getCurrentInstance().update("form:datosProfesiones");
-            modificarInfoRegistro(listaProfesiones.size());
+            contarRegistros();
             profesionSeleccionada = null;
             guardado = true;
 
@@ -369,8 +366,8 @@ public class ControlProfesiones implements Serializable {
     }
 
     public void cambiarIndice(Profesiones profesion, int celda) {
-            profesionSeleccionada = profesion;
-            System.out.println("profesion seleccionada : " + profesionSeleccionada );
+        profesionSeleccionada = profesion;
+        System.out.println("profesion seleccionada : " + profesionSeleccionada);
         if (permitirIndex == true) {
             cualCelda = celda;
             if (cualCelda == 0) {
@@ -431,7 +428,7 @@ public class ControlProfesiones implements Serializable {
             listaProfesiones.add(duplicarProfesion);
             listaProfesionesCrear.add(duplicarProfesion);
             profesionSeleccionada = duplicarProfesion;
-            modificarInfoRegistro(listaProfesiones.size());
+            contarRegistros();
             RequestContext.getCurrentInstance().update("form:datosProfesiones");
             if (guardado == true) {
                 guardado = false;
@@ -555,22 +552,11 @@ public class ControlProfesiones implements Serializable {
             tipoLista = 1;
         }
         deshabilitarBotonLov();
-        profesionSeleccionada = null;
-        modificarInfoRegistro(filtradoListaProfesiones.size());
-        RequestContext.getCurrentInstance().update("form:infoRegistro");
-    }
-
-    public void modificarInfoRegistro(int valor) {
-        inforegistro = String.valueOf(valor);
-//        RequestContext.getCurrentInstance().update("form:infoRegistro");
+        contarRegistros();
     }
 
     public void contarRegistros() {
-        if (listaProfesiones != null) {
-            modificarInfoRegistro(listaProfesiones.size());
-        } else {
-            modificarInfoRegistro(0);
-        }
+        RequestContext.getCurrentInstance().update("form:infoRegistro");
     }
 
     public void deshabilitarBotonLov() {
@@ -662,6 +648,9 @@ public class ControlProfesiones implements Serializable {
     }
 
     public String getInforegistro() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosProfesiones");
+        inforegistro = String.valueOf(tabla.getRowCount());
         return inforegistro;
     }
 

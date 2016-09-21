@@ -141,7 +141,6 @@ public class ControlVigenciasProyectos implements Serializable {
         listaVigenciasProyectos = null;
         getListaVigenciasProyectos();
         aceptar = true;
-        contarRegistros();
         if (listaVigenciasProyectos != null) {
             if (!listaVigenciasProyectos.isEmpty()) {
                 vigenciaProyectoSeleccionado = listaVigenciasProyectos.get(0);
@@ -346,14 +345,17 @@ public class ControlVigenciasProyectos implements Serializable {
         tipoActualizacion = LND;
         if (dlg == 0) {
             getListaProyectos();
+            contarRegistroProyecto();
             RequestContext.getCurrentInstance().update("formularioDialogos:proyectosDialogo");
             RequestContext.getCurrentInstance().execute("PF('proyectosDialogo').show()");
         } else if (dlg == 1) {
             getListaPryRoles();
+            contarRegistroRol();
             RequestContext.getCurrentInstance().update("formularioDialogos:pryRolesDialogo");
             RequestContext.getCurrentInstance().execute("PF('pryRolesDialogo').show()");
         } else if (dlg == 2) {
             getListaCargos();
+            contarRegistroCargo();
             RequestContext.getCurrentInstance().update("formularioDialogos:cargosDialogo");
             RequestContext.getCurrentInstance().execute("PF('cargosDialogo').show()");
         }
@@ -1345,58 +1347,32 @@ public class ControlVigenciasProyectos implements Serializable {
         } else {
             RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
-        vigenciaProyectoSeleccionado = null;
-    }
-
-    public void eventoFiltrar() {
-        if (tipoLista == 0) {
-            tipoLista = 1;
-        }
-        modificarInfoRegistro(listaVigenciasProyectos.size());
-        RequestContext.getCurrentInstance().update("form:infoRegistro");
-    }
-
-    public void eventoFiltrarProyecto() {
-        modificarInfoRegistro(filtradoslistaProyectos.size());
-        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroProyecto");
-    }
-
-    public void eventoFiltrarRol() {
-        modificarInfoRegistro(filtradoslistaPryRoles.size());
-        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroRol");
-    }
-
-    public void eventoFiltrarCargo() {
-        modificarInfoRegistro(filtradoslistaCargos.size());
-        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroCargo");
     }
 
     public void activarAceptar() {
         aceptar = false;
     }
-
-    public void modificarInfoRegistro(int valor) {
-        infoRegistro = String.valueOf(valor);
+    public void eventoFiltrar() {
+        if (tipoLista == 0) {
+            tipoLista = 1;
+        }
+        contarRegistros();
     }
 
-    public void modificarInfoRegistroProyecto(int valor) {
-        infoRegistroProyecto = String.valueOf(valor);
+    public void contarRegistroProyecto() {
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroProyecto");
     }
 
-    public void modificarInfoRegistroRol(int valor) {
-        infoRegistroRol = String.valueOf(valor);
+    public void contarRegistroRol() {
+    RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroRol");
     }
 
-    public void modificarInfoRegistroCargo(int valor) {
-        infoRegistroCargo = String.valueOf(valor);
+    public void contarRegistroCargo() {
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroCargo");
     }
 
     public void contarRegistros() {
-        if (listaVigenciasProyectos != null) {
-            modificarInfoRegistro(listaVigenciasProyectos.size());
-        } else {
-            modificarInfoRegistro(0);
-        }
+        RequestContext.getCurrentInstance().update("form:infoRegistro");
     }
 
     ///////////////////Getter And Setter/////////////////////////////
@@ -1639,6 +1615,9 @@ public class ControlVigenciasProyectos implements Serializable {
     }
 
     public String getInfoRegistro() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosVigenciasProyectosPersona");
+        infoRegistro = String.valueOf(tabla.getRowCount());
         return infoRegistro;
     }
 
@@ -1647,6 +1626,9 @@ public class ControlVigenciasProyectos implements Serializable {
     }
 
     public String getInfoRegistroRol() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVPryRoles");
+        infoRegistroRol = String.valueOf(tabla.getRowCount());
         return infoRegistroRol;
     }
 
@@ -1655,6 +1637,9 @@ public class ControlVigenciasProyectos implements Serializable {
     }
 
     public String getInfoRegistroCargo() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVCargos");
+        infoRegistroCargo = String.valueOf(tabla.getRowCount());
         return infoRegistroCargo;
     }
 
@@ -1663,6 +1648,9 @@ public class ControlVigenciasProyectos implements Serializable {
     }
 
     public String getInfoRegistroProyecto() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVProyectos");
+        infoRegistroProyecto = String.valueOf(tabla.getRowCount());
         return infoRegistroProyecto;
     }
 

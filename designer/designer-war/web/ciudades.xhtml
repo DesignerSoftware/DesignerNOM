@@ -98,10 +98,10 @@
                                 <p:ajax event="filter" listener="#{controlCiudades.eventoFiltrar()}" process="@this"/>
 
                                 <p:column headerText="#{msg['codigo']}" width="70" sortBy="#{ciudades.codigo}" filterBy="#{ciudades.codigo}" filterMatchMode="contains" id="ciudadesCodigos" filterStyle="display: none; visibility: hidden;"  >  
-<!--                                    <f:facet name="header">
-                                        <h:outputText id="headerCodigo" value="Cod"/> 
-                                        <p:tooltip for="headerCodigo" value="#/{msg['codigo']}"/>
-                                    </f:facet>-->
+                                    <!--                                    <f:facet name="header">
+                                                                            <h:outputText id="headerCodigo" value="Cod"/> 
+                                                                            <p:tooltip for="headerCodigo" value="#/{msg['codigo']}"/>
+                                                                        </f:facet>-->
                                     <p:cellEditor>  
                                         <f:facet name="output">
                                             <h:outputText value="#{ciudades.codigo}" >
@@ -284,8 +284,8 @@
 
                     <!-- DIALOGO L.O.V ESTATICO DE DEPARTAMENTOS -->
                     <p:dialog header="#{msg['departamentos']}" widgetVar="departamentosDialogo" draggable="true" resizable="false" closable="false" id="departamentosDialogo"  
-                              showEffect="fade" hideEffect="fade" width="380" height="330" modal="true">
-                        <p:dataTable id="LOVDepartamentos" style="width: 340px;" var="departamentos" value="#{controlCiudades.listaDepartamentos}" rowKey="#{departamentos.secuencia}"
+                              showEffect="fade" hideEffect="fade" width="380"  modal="true">
+                        <p:dataTable id="LOVDepartamentos"  var="departamentos" value="#{controlCiudades.listaDepartamentos}" rowKey="#{departamentos.secuencia}"
                                      selection="#{controlCiudades.seleccionDepartamento}" selectionMode="single" widgetVar="LOVDepartamentos" scrollable="true" scrollHeight="200" scrollWidth="355"
                                      filteredValue="#{controlCiudades.filtradoListaDepatartamentos}" emptyMessage="#{msg['lovvacio']}">              
 
@@ -293,8 +293,8 @@
                             <p:ajax event="rowSelect" listener="#{controlCiudades.activarAceptar()}" update=":formularioDialogos:aceptarD"/>
                             <p:ajax event="rowDblselect" listener="#{controlCiudades.actualizarDepartamentos()}" update="LOVDepartamentos"/>
                             <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarD']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" widgetVar="globalFilter" onkeyup="PF('LOVDepartamentos').filter();" value="#{filtrado}" style="width:120px; position: relative; left: 70px;" />  
+                                <h:outputText value="#{msg['buscarD']}" />  
+                                <p:inputText id="globalFilter" widgetVar="globalFilter" onkeyup="PF('LOVDepartamentos').filter();" value="#{filtrado}" class="cssFiltroLOV" />  
                             </f:facet>
                             <p:column filterBy="#{departamentos.codigo}" width="70" filterMatchMode="contains" filterStyle="width: 85% !important;">
                                 <f:facet name="header">
@@ -310,11 +310,14 @@
                             </p:column>
                         </p:dataTable>
 
-                        <h:outputText id="infoRegistroDepartamentos" value="#{msg['infoRegistro']} #{controlCiudades.infoRegistroDep}" style="position: absolute; left: 15px; top: 315px; font-weight: bold"/>
+                        <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroDepartamentos" value="#{msg['infoRegistro']} #{controlCiudades.infoRegistroDep}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarD" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlCiudades.aceptar}" class="cssAceptarLOV" 
+                                             update="LOVDepartamentos" actionListener="#{controlCiudades.actualizarDepartamentos()}" process="@this"/>
+                            <p:commandButton id="atrasD" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" update="LOVDepartamentos" 
+                                             actionListener="#{controlCiudades.cancelarCambioDepartamentos()}" process="@this"/>
+                        </div>
 
-                        <p:commandButton id="aceptarD" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlCiudades.aceptar}" style="position: absolute; top: 305px; left: 175px;" update="LOVDepartamentos" actionListener="#{controlCiudades.actualizarDepartamentos()}" process="@this"/>
-
-                        <p:commandButton id="atrasD" style="position: absolute; top: 305px; left: 275px; " icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" update="LOVDepartamentos" actionListener="#{controlCiudades.cancelarCambioDepartamentos()}" process="@this"/>
 
                     </p:dialog> 
 
