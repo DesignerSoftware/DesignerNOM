@@ -108,6 +108,7 @@ public class ControlNovedadesReemplazos implements Serializable {
     //Columnas Tabla Encargaturas
     private Column nREmpleadoReemplazado, nRTiposReemplazos, nRFechasPagos, nRFechasIniciales, nRFechasFinales, nRCargos, nRMotivosReemplazos, nREstructuras;
     private String altoTabla;
+    private String infoRegistro,infoRegistroTipoReemplazo,infoRegistroMotivosReemplazos,infoRegistroEstructuras,infoRegistroCargos,infoRegistroEmpleados,infoRegistroLovEmpleados;
 
     public ControlNovedadesReemplazos() {
         permitirIndex = true;
@@ -134,6 +135,9 @@ public class ControlNovedadesReemplazos implements Serializable {
         nuevaEncargatura.setMotivoreemplazo(new MotivosReemplazos());
         nuevaEncargatura.setEstructura(new Estructuras());
         altoTabla = "155";
+        listaTiposReemplazos = null;
+        listaMotivosReemplazos = null;
+        listaEstructuras = null;
     }
     
     @PostConstruct
@@ -176,14 +180,6 @@ public class ControlNovedadesReemplazos implements Serializable {
             listaEmpleados = new ArrayList<Empleados>();
         }
 
-        listaTiposReemplazos = null;
-        getListaTiposReemplazos();
-        listaMotivosReemplazos = null;
-        getListaMotivosReemplazos();
-        listaEstructuras = null;
-        getListaEstructuras();
-        listaEmpleados = null;
-        getListaEmpleados();
         aceptar = true;
     }
 
@@ -445,34 +441,33 @@ public class ControlNovedadesReemplazos implements Serializable {
     public void asignarIndex(Encargaturas encargatura, int dlg, int LND) {
         encargaturaSeleccionada= encargatura;
         RequestContext context = RequestContext.getCurrentInstance();
-        if (LND == 0) {
-            tipoActualizacion = 0;
-        } else if (LND == 1) {
-            tipoActualizacion = 1;
-            encargaturaSeleccionada = null;
-            encargaturaSeleccionada = null;
-            System.out.println("Tipo Actualizacion: " + tipoActualizacion);
-        } else if (LND == 2) {
-            encargaturaSeleccionada = null;
-            encargaturaSeleccionada = null;
-            tipoActualizacion = 2;
-        }
+        tipoActualizacion = LND;
         if (dlg == 0) {
+            contarRegistrosEmpleados();
             RequestContext.getCurrentInstance().update("formularioDialogos:empleadosDialogo");
             RequestContext.getCurrentInstance().execute("PF('empleadosDialogo').show()");
         } else if (dlg == 1) {
+            getListaTiposReemplazos();
+            contarRegistrosTiposReemplazos();
             RequestContext.getCurrentInstance().update("formularioDialogos:tiposReemplazosDialogo");
             RequestContext.getCurrentInstance().execute("PF('tiposReemplazosDialogo').show()");
         } else if (dlg == 2) {
+            getListaMotivosReemplazos();
+            contarRegistrosMotivosReemplazos();
             RequestContext.getCurrentInstance().update("formularioDialogos:motivosReemplazosDialogo");
             RequestContext.getCurrentInstance().execute("PF('motivosReemplazosDialogo').show()");
         } else if (dlg == 3) {
+            getListaCargos();
+            contarRegistrosCargos();
             RequestContext.getCurrentInstance().update("formularioDialogos:cargosDialogo");
             RequestContext.getCurrentInstance().execute("PF('cargosDialogo').show()");
         } else if (dlg == 4) {
+            getListaEstructuras();
+            contarRegistrosEstructuras();
             RequestContext.getCurrentInstance().update("formularioDialogos:estructurasDialogo");
             RequestContext.getCurrentInstance().execute("PF('estructurasDialogo').show()");
         } else if (dlg == 5) {
+            contarRegistrosEmpleadosLOV();
             RequestContext.getCurrentInstance().update("formularioDialogos:empleadosAbajoDialogo");
             RequestContext.getCurrentInstance().execute("PF('empleadosAbajoDialogo').show()");
         }
@@ -877,13 +872,7 @@ public class ControlNovedadesReemplazos implements Serializable {
         RequestContext.getCurrentInstance().execute("PF('LOVTiposReemplazos').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('tiposReemplazosDialogo').hide()");
     }
-
-    //EVENTO FILTRAR
-    public void eventoFiltrar() {
-        if (tipoLista == 0) {
-            tipoLista = 1;
-        }
-    }
+    
 
     public void activarAceptar() {
         aceptar = false;
@@ -898,7 +887,7 @@ public class ControlNovedadesReemplazos implements Serializable {
             nREmpleadoReemplazado = (Column) c.getViewRoot().findComponent("form:datosEncargaturasEmpleado:nREmpleadoReemplazado");
             nREmpleadoReemplazado.setFilterStyle("width: 85% !important;");
             nRTiposReemplazos = (Column) c.getViewRoot().findComponent("form:datosEncargaturasEmpleado:nRTiposReemplazos");
-            nRTiposReemplazos.setFilterStyle("85% !important");
+            nRTiposReemplazos.setFilterStyle("85%");
             nRFechasPagos = (Column) c.getViewRoot().findComponent("form:datosEncargaturasEmpleado:nRFechasPagos");
             nRFechasPagos.setFilterStyle("width: 85% !important;");
             nRFechasIniciales = (Column) c.getViewRoot().findComponent("form:datosEncargaturasEmpleado:nRFechasIniciales");
@@ -1039,6 +1028,8 @@ public class ControlNovedadesReemplazos implements Serializable {
             nuevaEncargatura.setEmpleado(seleccionMostrar); //Envia empleado
             listaEncargaturasCrear.add(nuevaEncargatura);
             listaEncargaturas.add(nuevaEncargatura);
+            encargaturaSeleccionada = nuevaEncargatura;
+            contarRegistros();
             nuevaEncargatura = new Encargaturas();
             nuevaEncargatura.setReemplazado(new Empleados());
             nuevaEncargatura.setTiporeemplazo(new TiposReemplazos());
@@ -1051,8 +1042,6 @@ public class ControlNovedadesReemplazos implements Serializable {
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             RequestContext.getCurrentInstance().execute("PF('NuevaNovedadReemplazo').hide()");
-            encargaturaSeleccionada = null;
-            encargaturaSeleccionada = null;
         } else {
 
         }
@@ -1201,8 +1190,7 @@ public class ControlNovedadesReemplazos implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:datosEncargaturasEmpleado");
             encargaturaSeleccionada = null;
-            encargaturaSeleccionada = null;
-
+            contarRegistros();
             if (guardado == true) {
                 guardado = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -1602,9 +1590,9 @@ public class ControlNovedadesReemplazos implements Serializable {
         if (pasa2 == 0) {
             listaEncargaturas.add(duplicarEncargatura);
             listaEncargaturasCrear.add(duplicarEncargatura);
+            encargaturaSeleccionada = duplicarEncargatura;
 
             RequestContext.getCurrentInstance().update("form:datosEncargaturasEmpleado");
-            encargaturaSeleccionada = null;
             if (guardado == true) {
                 guardado = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -1676,6 +1664,42 @@ public class ControlNovedadesReemplazos implements Serializable {
         }
     }
 
+    public void eventoFiltrar() {
+        if (tipoLista == 0) {
+            tipoLista = 1;
+        }
+        contarRegistros();
+    }
+    
+    public void contarRegistros(){
+     RequestContext.getCurrentInstance().update("form:infoRegistro");
+    }
+    
+    public void contarRegistrosTiposReemplazos(){
+     RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroTipoReemplazo");
+    }
+    
+    public void contarRegistrosMotivosReemplazos(){
+     RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroMotivoReemplazo");
+    }
+    
+    public void contarRegistrosEstructuras(){
+     RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroEstructura");
+    }
+    
+    public void contarRegistrosCargos(){
+     RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroCargos");
+    }
+    
+    public void contarRegistrosEmpleados(){
+     RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroEmpleados");
+    }
+    
+    public void contarRegistrosEmpleadosLOV(){
+     RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroEmpleadosAbajo");
+    }
+    
+    
     //Getter & Setter
     public Empleados getEmpleado() {
         if (tipoPantalla != null && tipoPantalla.equals("UNO") && empleado == null) {
@@ -1944,5 +1968,84 @@ public class ControlNovedadesReemplazos implements Serializable {
     public void setGuardado(boolean guardado) {
         this.guardado = guardado;
     }
+
+    public String getInfoRegistro() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosEncargaturasEmpleado");
+        infoRegistro = String.valueOf(tabla.getRowCount());
+        return infoRegistro;
+    }
+
+    public void setInfoRegistro(String infoRegistro) {
+        this.infoRegistro = infoRegistro;
+    }
+
+    public String getInfoRegistroTipoReemplazo() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVTiposReemplazos");
+        infoRegistroTipoReemplazo = String.valueOf(tabla.getRowCount());
+        return infoRegistroTipoReemplazo;
+    }
+
+    public void setInfoRegistroTipoReemplazo(String infoRegistroTipoReemplazo) {
+        this.infoRegistroTipoReemplazo = infoRegistroTipoReemplazo;
+    }
+
+    public String getInfoRegistroMotivosReemplazos() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVMotivosReemplazos");
+        infoRegistroMotivosReemplazos = String.valueOf(tabla.getRowCount());
+        return infoRegistroMotivosReemplazos;
+    }
+
+    public void setInfoRegistroMotivosReemplazos(String infoRegistroMotivosReemplazos) {
+        this.infoRegistroMotivosReemplazos = infoRegistroMotivosReemplazos;
+    }
+
+    public String getInfoRegistroEstructuras() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVEstructuras");
+        infoRegistroMotivosReemplazos = String.valueOf(tabla.getRowCount());
+        return infoRegistroEstructuras;
+    }
+
+    public void setInfoRegistroEstructuras(String infoRegistroEstructuras) {
+        this.infoRegistroEstructuras = infoRegistroEstructuras;
+    }
+
+    public String getInfoRegistroCargos() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVCargos");
+        infoRegistroCargos = String.valueOf(tabla.getRowCount());
+        return infoRegistroCargos;
+    }
+
+    public void setInfoRegistroCargos(String infoRegistroCargos) {
+        this.infoRegistroCargos = infoRegistroCargos;
+    }
+
+    public String getInfoRegistroEmpleados() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVEmpleados");
+        infoRegistroEmpleados = String.valueOf(tabla.getRowCount());
+        return infoRegistroEmpleados;
+    }
+
+    public void setInfoRegistroEmpleados(String infoRegistroEmpleados) {
+        this.infoRegistroEmpleados = infoRegistroEmpleados;
+    }
+
+    public String getInfoRegistroLovEmpleados() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVEmpleadosAbajo");
+        infoRegistroLovEmpleados = String.valueOf(tabla.getRowCount());
+        return infoRegistroLovEmpleados;
+    }
+
+    public void setInfoRegistroLovEmpleados(String infoRegistroLovEmpleados) {
+        this.infoRegistroLovEmpleados = infoRegistroLovEmpleados;
+    }
+    
+    
     
 }

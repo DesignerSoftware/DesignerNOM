@@ -72,7 +72,6 @@ public class PersistenciaEncargaturas implements PersistenciaEncargaturasInterfa
 
     @Override
     public void crear(EntityManager em, Encargaturas encargaturas) {
-        System.out.println(this.getClass().getName() + ".crear()");
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
@@ -90,7 +89,6 @@ public class PersistenciaEncargaturas implements PersistenciaEncargaturasInterfa
 
     @Override
     public void editar(EntityManager em, Encargaturas encargaturas) {
-        System.out.println(this.getClass().getName() + ".editar()");
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
@@ -108,7 +106,6 @@ public class PersistenciaEncargaturas implements PersistenciaEncargaturasInterfa
 
     @Override
     public void borrar(EntityManager em, Encargaturas encargaturas) {
-        System.out.println(this.getClass().getName() + ".borrar()");
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
@@ -126,7 +123,6 @@ public class PersistenciaEncargaturas implements PersistenciaEncargaturasInterfa
 
     @Override
     public List<Encargaturas> buscarEncargaturas(EntityManager em) {
-        System.out.println(this.getClass().getName() + ".buscarEncargaturas()");
         try {
             em.clear();
             javax.persistence.criteria.CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
@@ -141,12 +137,11 @@ public class PersistenciaEncargaturas implements PersistenciaEncargaturasInterfa
 
     @Override
     public List<Encargaturas> encargaturasEmpleado(EntityManager em, BigInteger secuenciaEmpleado) {
-        System.out.println(this.getClass().getName() + ".encargaturasEmpleado()");
         try {
             em.clear();
-            Query query = em.createQuery("SELECT e FROM Encargaturas e WHERE e.empleado.secuencia= :secuenciaEmpleado ORDER BY e.fechainicial");
-            query.setParameter("secuenciaEmpleado", secuenciaEmpleado);
-            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            String sql = "SELECT * FROM ENCARGATURAS WHERE SECUENCIA= ? ORDER BY FECHAINICIAL";
+            Query query = em.createNativeQuery(sql, Encargaturas.class);
+            query.setParameter(1, secuenciaEmpleado);
             List<Encargaturas> listaEncargaturas = query.getResultList();
             return listaEncargaturas;
         } catch (Exception e) {

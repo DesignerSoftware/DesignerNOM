@@ -66,7 +66,7 @@ public class PersistenciaHvExperienciasLaborales implements PersistenciaHvExperi
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
-            em.merge(experienciasLaborales);
+            em.remove(em.merge(experienciasLaborales));
             tx.commit();
         } catch (Exception e) {
             System.out.println("Error PersistenciaHistoriasformulas.borrar: " + e);

@@ -60,7 +60,7 @@
                                 <p:separator style="position: relative; top: -9px"/>
                                 <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png); border: none;" actionListener="#{controlNovedadesReemplazos.verificarRastro()}" process="@this"/>  
                                 <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
-                                
+
                                 <p:separator style="position: relative; top: -9px"/>
 
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);"
@@ -79,8 +79,8 @@
                         <!--<p:commandButton style="position: absolute; left: 15px; top: 478px; " icon="ui-icon-refresh" id="REFRESCAR" value="#{msg['refrescar']}" actionListener="#{controlNovedadesReemplazos.cancelarModificacion()}" process="@this" />-->
                         <p:commandButton style=" position: absolute; left: 765px; top: 472px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" value=" " actionListener="#{controlNovedadesReemplazos.salir()}" action="individual" />
 
-                        
-                        
+
+
                         <fieldset style="position: absolute;top: 80px;left: 10px;height: 130px;width: 580px; border-radius: 10px; text-align: left">
                             <legend style="font-size: 14px; color: #14388B"><strong>#{msg['empleados']}</strong></legend>
                             <p:commandButton style="background-image: url(Imagenes/Iconos/buscardbL.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 150px; height: 30px; position: absolute; left: 630px; top: 30px;  " id="btnBuscarEmpl" actionListener="#{controlNovedadesReemplazos.asignarIndex(encargaturas, 0, 0)}" value="" process="@this"/>
@@ -266,6 +266,7 @@
                                     </f:facet>
                                 </p:column>
                             </p:dataTable>
+                            <h:outputText id="infoRegistro" value="#{msg['infoRegistro']} #{controlNovedadesReemplazos.infoRegistro}" style="position: relative; left: 15px; top: 1px; font-weight: bold" />
                         </fieldset>
                     </p:panel>
                 </h:form>
@@ -366,17 +367,18 @@
 
                     <!-- L.O.V Cargos -->
                     <p:dialog header="#{msg['cargosC']}" widgetVar="cargosDialogo" draggable="true" resizable="false" id="cargosDialogo" closable="false"  
-                              showEffect="fade" hideEffect="fade" modal="true" width="430" height="340" >
+                              showEffect="fade" hideEffect="fade" modal="true" width="430" >
 
-                        <p:dataTable  id="LOVCargos" style=" width: 395px;" var="cargos" value="#{controlNovedadesReemplazos.listaCargos}"
+                        <p:dataTable  id="LOVCargos" var="cargos" value="#{controlNovedadesReemplazos.listaCargos}"
                                       scrollable="true" scrollHeight="200" scrollWidth="410" widgetVar="LOVCargos" 
                                       filteredValue="#{controlNovedadesReemplazos.filtradoslistaCargos}" emptyMessage="#{msg['lovvacio']}"
                                       rowKey="#{cargos.secuencia}" selection="#{controlNovedadesReemplazos.seleccionCargos}" selectionMode="single">
                             <p:ajax event="rowSelect" listener="#{controlNovedadesReemplazos.activarAceptar()}" update=":formularioDialogos:aceptarC"/>
                             <p:ajax event="rowDblselect" listener="#{controlNovedadesReemplazos.actualizarCargos()}" process="@this" />
+                            <p:ajax event="filter" listener="#{controlNovedadesReemplazos.contarRegistrosCargos()}"/>
                             <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarC']}"  style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText id="globalFilter" onkeyup="PF('LOVCargos').filter();" style="width: 200px; position: relative; left: 25px;" />  
+                                <h:outputText value="#{msg['buscarC']}" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVCargos').filter();" class="cssFiltroLOV" />  
                             </f:facet>
 
                             <p:column sortBy="#{cargos.nombre}" filterBy="#{cargos.nombre}" width="200" filterMatchMode="contains" > 
@@ -394,26 +396,29 @@
                             </p:column>
                         </p:dataTable>
 
-                        <p:commandButton id="aceptarC" value="#{msg['aceptar']}" disabled="#{controlNovedadesReemplazos.aceptar}" icon="ui-icon-check" style="position: absolute; top: 305px; left: 242px; " actionListener="#{controlNovedadesReemplazos.actualizarCargos()}" process="@this"/>
-                        
-                        <p:commandButton id="atrasC" value="#{msg['atras']}"  style="position: absolute; top: 305px; left: 335px; " icon="ui-icon-arrowreturnthick-1-w" actionListener="#{controlNovedadesReemplazos.cancelarCambioCargos()}" process="@this"/>
-                        
+                        <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroCargos" value="#{msg['infoRegistro']} #{controlNovedadesReemplazos.infoRegistroCargos}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarC" value="#{msg['aceptar']}" disabled="#{controlNovedadesReemplazos.aceptar}" icon="ui-icon-check" class="cssAceptarLOV" actionListener="#{controlNovedadesReemplazos.actualizarCargos()}" process="@this"/>
+                            <p:commandButton id="atrasC" value="#{msg['atras']}"  class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" actionListener="#{controlNovedadesReemplazos.cancelarCambioCargos()}" process="@this"/>
+                        </div>
+
 
                     </p:dialog>
 
                     <!-- L.O.V EmpleadoFalso -->
                     <p:dialog header="#{msg['empleadosEF']}" widgetVar="empleadosDialogo" draggable="true" resizable="false" id="empleadosDialogo" closable="false"  
-                              showEffect="fade" hideEffect="fade" modal="true" width="430" height="340" >
+                              showEffect="fade" hideEffect="fade" modal="true" width="430" >
 
-                        <p:dataTable  id="LOVEmpleados" style=" width: 395px;" var="empleados" value="#{controlNovedadesReemplazos.listaEmpleados}"
+                        <p:dataTable  id="LOVEmpleados" var="empleados" value="#{controlNovedadesReemplazos.listaEmpleados}"
                                       scrollable="true" scrollHeight="200" scrollWidth="410" widgetVar="LOVEmpleados" 
                                       filteredValue="#{controlNovedadesReemplazos.filtradoslistaEmpleados}" emptyMessage="#{msg['lovvacio']}"
                                       rowKey="#{empleados.secuencia}" selection="#{controlNovedadesReemplazos.seleccionEmpleados}" selectionMode="single">
                             <p:ajax event="rowSelect" listener="#{controlNovedadesReemplazos.activarAceptar()}" update=":formularioDialogos:aceptarE"/>
                             <p:ajax event="rowDblselect" listener="#{controlNovedadesReemplazos.actualizarEmpleadosFalso()}" process="@this" />
+                            <p:ajax event="filter" listener="#{controlNovedadesReemplazos.contarRegistrosEmpleados()}"/>
                             <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarEF']}"  style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText id="globalFilter" onkeyup="PF('LOVEmpleados').filter();" style="width: 200px; position: relative; left: 15px;" />  
+                                <h:outputText value="#{msg['buscarEF']}" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVEmpleados').filter();" class="cssFiltroLOV" />  
                             </f:facet>
 
                             <p:column sortBy="#{empleados.codigoempleado}" filterBy="#{empleados.persona.nombreCompleto}" width="200" filterMatchMode="contains" > 
@@ -431,25 +436,27 @@
                             </p:column>
                         </p:dataTable>
 
-                        <p:commandButton id="aceptarE" value="#{msg['aceptar']}" disabled="#{controlNovedadesReemplazos.aceptar}" icon="ui-icon-check"  style="position: absolute; top: 305px; left: 242px; " actionListener="#{controlNovedadesReemplazos.actualizarEmpleadosFalso()}" process="@this"/>
-                        
-                        <p:commandButton id="atrasE" value="#{msg['atras']}" style="position: absolute; top: 305px; left: 335px;" icon="ui-icon-arrowreturnthick-1-w" actionListener="#{controlNovedadesReemplazos.cancelarCambioEmpleados()}" process="@this"/>
-
+                        <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroEmpleados" value="#{msg['infoRegistro']} #{controlNovedadesReemplazos.infoRegistroEmpleados}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarE" value="#{msg['aceptar']}" disabled="#{controlNovedadesReemplazos.aceptar}" icon="ui-icon-check" class="cssAceptarLOV" actionListener="#{controlNovedadesReemplazos.actualizarEmpleadosFalso()}" process="@this"/>
+                            <p:commandButton id="atrasE" value="#{msg['atras']}" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" actionListener="#{controlNovedadesReemplazos.cancelarCambioEmpleados()}" process="@this"/>
+                        </div>
                     </p:dialog>
 
                     <!-- L.O.V EmpleadoAbajo-->
                     <p:dialog header="#{msg['empleadosE']}" widgetVar="empleadosAbajoDialogo" draggable="true" resizable="false" id="empleadosAbajoDialogo" closable="false"  
-                              showEffect="fade" hideEffect="fade" modal="true" width="430" height="340" >
+                              showEffect="fade" hideEffect="fade" modal="true" width="430" >
 
-                        <p:dataTable  id="LOVEmpleadosAbajo" style=" width: 395px;" var="empleadosAbajo" value="#{controlNovedadesReemplazos.listaEmpleados}"
+                        <p:dataTable  id="LOVEmpleadosAbajo"  var="empleadosAbajo" value="#{controlNovedadesReemplazos.listaEmpleados}"
                                       scrollable="true" scrollHeight="200" scrollWidth="410" widgetVar="LOVEmpleadosAbajo" 
                                       filteredValue="#{controlNovedadesReemplazos.filtradoslistaEmpleados}" emptyMessage="#{msg['lovvacio']}"
                                       rowKey="#{empleadosAbajo.secuencia}" selection="#{controlNovedadesReemplazos.seleccionEmpleadosReemplazados}" selectionMode="single">
                             <p:ajax event="rowSelect" listener="#{controlNovedadesReemplazos.activarAceptar()}" update=":formularioDialogos:aceptarEA"/>
                             <p:ajax event="rowDblselect" listener="#{controlNovedadesReemplazos.actualizarEmpleados()}" process="@this" />
+                            <p:ajax event="filter" listener="#{controlNovedadesReemplazos.contarRegistrosEmpleadosLOV()}"/>
                             <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarE']}"  style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText id="globalFilter" onkeyup="PF('LOVEmpleadosAbajo').filter();" style="width: 200px; position: relative; left: 35px;" />  
+                                <h:outputText value="#{msg['buscarE']}" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVEmpleadosAbajo').filter();" class="cssFiltroLOV" />  
                             </f:facet>
 
                             <p:column sortBy="#{empleadosAbajo.persona.nombreCompleto}" filterBy="#{empleadosAbajo.persona.nombreCompleto}" width="200" filterMatchMode="contains" > 
@@ -467,26 +474,28 @@
                             </p:column>
                         </p:dataTable>
 
-                        <p:commandButton id="aceptarEA" value="#{msg['aceptar']}" disabled="#{controlNovedadesReemplazos.aceptar}" icon="ui-icon-check"  style="position: absolute; top: 305px; left: 242px; " actionListener="#{controlNovedadesReemplazos.actualizarEmpleados()}" process="@this"/>
-                        
-                        <p:commandButton id="atrasEA" value="#{msg['atras']}" style="position: absolute; top: 305px; left: 335px; " icon="ui-icon-arrowreturnthick-1-w" actionListener="#{controlNovedadesReemplazos.cancelarCambioEmpleadosAbajo()}" process="@this"/>
-
+                        <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroEmpleadosAbajo" value="#{msg['infoRegistro']} #{controlNovedadesReemplazos.infoRegistroLovEmpleados}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarEA" value="#{msg['aceptar']}" disabled="#{controlNovedadesReemplazos.aceptar}" icon="ui-icon-check"  class="cssAceptarLOV" actionListener="#{controlNovedadesReemplazos.actualizarEmpleados()}" process="@this"/>
+                            <p:commandButton id="atrasEA" value="#{msg['atras']}" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" actionListener="#{controlNovedadesReemplazos.cancelarCambioEmpleadosAbajo()}" process="@this"/>
+                        </div>
                     </p:dialog>
 
                     <!-- L.O.V TIPO DE REEMPLAZO -->
 
                     <p:dialog header="#{msg['tiposreemplazosT']}" widgetVar="tiposReemplazosDialogo" draggable="true" resizable="false" id="tiposReemplazosDialogo" closable="false"  
-                              showEffect="fade" hideEffect="fade" modal="true" width="347" height="245" >
+                              showEffect="fade" hideEffect="fade" modal="true" width="347" >
 
-                        <p:dataTable  id="LOVTiposReemplazos" style=" width: 300px;" var="tiposReemplazos" value="#{controlNovedadesReemplazos.listaTiposReemplazos}"
+                        <p:dataTable  id="LOVTiposReemplazos" var="tiposReemplazos" value="#{controlNovedadesReemplazos.listaTiposReemplazos}"
                                       scrollable="true" scrollHeight="117" scrollWidth="315" widgetVar="LOVTiposReemplazos" 
                                       filteredValue="#{controlNovedadesReemplazos.filtradoslistaTiposReemplazos}" emptyMessage="#{msg['lovvacio']}"
                                       rowKey="#{tiposReemplazos.secuencia}" selection="#{controlNovedadesReemplazos.seleccionTiposReemplazos}" selectionMode="single">
                             <p:ajax event="rowSelect" listener="#{controlNovedadesReemplazos.activarAceptar()}" update=":formularioDialogos:aceptarTR"/>
                             <p:ajax event="rowDblselect" listener="#{controlNovedadesReemplazos.actualizarTiposReemplazos()}" process="@this" />
+                            <p:ajax event="filter" listener="#{controlNovedadesReemplazos.contarRegistrosTiposReemplazos()}"/>
                             <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarT']}"  style="position: absolute; left: 27px; top: 15px"/>  
-                                <p:inputText id="globalFilter" onkeyup="PF('LOVTiposReemplazos').filter();" style="width:100px; position: relative; left: 85px;" />  
+                                <h:outputText value="#{msg['buscarT']}" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVTiposReemplazos').filter();" class="cssFiltroLOV" />  
                             </f:facet>
 
                             <p:column filterBy="#{tiposReemplazos.nombre}" width="150" filterMatchMode="contains" > 
@@ -497,27 +506,30 @@
                             </p:column>
                         </p:dataTable>
 
-                        <p:commandButton id="aceptarTR" value="#{msg['aceptar']}" disabled="#{controlNovedadesReemplazos.aceptar}" icon="ui-icon-check" style="position: absolute; top: 205px; left: 162px;" actionListener="#{controlNovedadesReemplazos.actualizarTiposReemplazos()}"  process="@this"/>
-                        
-                        <p:commandButton id="atrasTR" value="#{msg['atras']}" style="position: absolute; top: 205px; left: 245px;" icon="ui-icon-arrowreturnthick-1-w"  actionListener="#{controlNovedadesReemplazos.cancelarCambioTiposReemplazos()}" process="@this"/>
-                        
-
+                        <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroTipoReemplazo" value="#{msg['infoRegistro']} #{controlNovedadesReemplazos.infoRegistroTipoReemplazo}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarTR" value="#{msg['aceptar']}" disabled="#{controlNovedadesReemplazos.aceptar}" icon="ui-icon-check" class="cssAceptarLOV" 
+                                             actionListener="#{controlNovedadesReemplazos.actualizarTiposReemplazos()}"  process="@this"/>
+                            <p:commandButton id="atrasTR" value="#{msg['atras']}" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w"  
+                                             actionListener="#{controlNovedadesReemplazos.cancelarCambioTiposReemplazos()}" process="@this"/>
+                        </div>
                     </p:dialog>
 
                     <!-- L.O.V MOTIVOS DE REEMPLAZO -->
 
                     <p:dialog header="#{msg['motivosreemplazosM']}" widgetVar="motivosReemplazosDialogo" draggable="true" resizable="false" id="motivosReemplazosDialogo" closable="false"  
-                              showEffect="fade" hideEffect="fade" modal="true" width="347" height="245" >
+                              showEffect="fade" hideEffect="fade" modal="true" width="347" >
 
-                        <p:dataTable  id="LOVMotivosReemplazos" style=" width: 300px;" var="motivosReemplazos" value="#{controlNovedadesReemplazos.listaMotivosReemplazos}"
+                        <p:dataTable  id="LOVMotivosReemplazos" var="motivosReemplazos" value="#{controlNovedadesReemplazos.listaMotivosReemplazos}"
                                       scrollable="true" scrollHeight="117" scrollWidth="315" widgetVar="LOVMotivosReemplazos" 
                                       filteredValue="#{controlNovedadesReemplazos.filtradoslistaMotivosReemplazos}" emptyMessage="#{msg['lovvacio']}"
                                       rowKey="#{motivosReemplazos.secuencia}" selection="#{controlNovedadesReemplazos.seleccionMotivosReemplazos}" selectionMode="single">
                             <p:ajax event="rowSelect" listener="#{controlNovedadesReemplazos.activarAceptar()}" update=":formularioDialogos:aceptarMR"/>
+                            <p:ajax event="filter" listener="#{controlNovedadesReemplazos.contarRegistrosMotivosReemplazos()}"/>
                             <p:ajax event="rowDblselect" listener="#{controlNovedadesReemplazos.actualizarMotivosReemplazos()}" process="@this" />
                             <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarM']}"  style="position: absolute; left: 27px; top: 15px"/>  
-                                <p:inputText id="globalFilter" onkeyup="PF('LOVMotivosReemplazos').filter();" style="width:100px; position: relative; left: 60px;" />  
+                                <h:outputText value="#{msg['buscarM']}"/>  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVMotivosReemplazos').filter();" class="cssFiltroLOV" />  
                             </f:facet>
 
                             <p:column filterBy="#{motivosReemplazos.nombre}" width="150" filterMatchMode="contains" > 
@@ -528,27 +540,31 @@
                             </p:column>
                         </p:dataTable>
 
-                        <p:commandButton id="aceptarMR" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlNovedadesReemplazos.aceptar}" style="position: absolute; top: 205px; left: 162px;" actionListener="#{controlNovedadesReemplazos.actualizarMotivosReemplazos()}" process="@this"/>
-                        
-                        <p:commandButton id="atrasMR" value="#{msg['atras']}" icon="ui-icon-arrowreturnthick-1-w"  style="position: absolute; top: 205px; left: 245px;" actionListener="#{controlNovedadesReemplazos.cancelarCambioMotivosReemplazos()}" process="@this"/>
-                        
+                        <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroMotivoReemplazo" value="#{msg['infoRegistro']} #{controlNovedadesReemplazos.infoRegistroMotivosReemplazos}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarMR" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlNovedadesReemplazos.aceptar}" class="cssAceptarLOV"
+                                             actionListener="#{controlNovedadesReemplazos.actualizarMotivosReemplazos()}" process="@this"/>
+                            <p:commandButton id="atrasMR" value="#{msg['atras']}" icon="ui-icon-arrowreturnthick-1-w" class="cssAtrasLOV" 
+                                             actionListener="#{controlNovedadesReemplazos.cancelarCambioMotivosReemplazos()}" process="@this"/>
+                        </div>
 
                     </p:dialog>
 
                     <!-- L.O.V ESTRUCTURAS -->
 
                     <p:dialog header="#{msg['estructurasES']}" widgetVar="estructurasDialogo" draggable="true" resizable="false" id="estructurasDialogo" closable="false"  
-                              showEffect="fade" hideEffect="fade" modal="true" width="430" height="340" >
+                              showEffect="fade" hideEffect="fade" modal="true" width="430" >
 
-                        <p:dataTable  id="LOVEstructuras" style=" width: 395px;" var="estructuras" value="#{controlNovedadesReemplazos.listaEstructuras}"
+                        <p:dataTable  id="LOVEstructuras" var="estructuras" value="#{controlNovedadesReemplazos.listaEstructuras}"
                                       scrollable="true" scrollHeight="200" scrollWidth="410" widgetVar="LOVEstructuras" 
                                       filteredValue="#{controlNovedadesReemplazos.filtradoslistaEstructuras}" emptyMessage="#{msg['lovvacio']}"
                                       rowKey="#{estructuras.secuencia}" selection="#{controlNovedadesReemplazos.seleccionEstructuras}" selectionMode="single">
                             <p:ajax event="rowSelect" listener="#{controlNovedadesReemplazos.activarAceptar()}" update=":formularioDialogos:aceptarEST"/>
                             <p:ajax event="rowDblselect" listener="#{controlNovedadesReemplazos.actualizarEstructuras()}" process="@this" />
+                            <p:ajax event="filter" listener="#{controlNovedadesReemplazos.contarRegistrosEstructuras()}"/>
                             <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarES']}"  style="position: absolute; left: 27px; top: 15px"/>  
-                                <p:inputText id="globalFilter" onkeyup="PF('LOVEstructuras').filter();" style="width:100px; position: relative; left: 60px;" />  
+                                <h:outputText value="#{msg['buscarES']}" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('LOVEstructuras').filter();" class="cssFiltroLOV" />  
                             </f:facet>
 
                             <p:column filterBy="#{estructuras.codigo}" width="150" filterMatchMode="contains" > 
@@ -567,9 +583,13 @@
 
                         </p:dataTable>
 
-                        <p:commandButton id="aceptarEST" value="#{msg['aceptar']}"  icon="ui-icon-check" disabled="#{controlNovedadesReemplazos.aceptar}" style="position: absolute; top: 305px; left: 242px; " actionListener="#{controlNovedadesReemplazos.actualizarEstructuras()}" process="@this"/>
-                        
-                        <p:commandButton id="atrasEST" value="#{msg['aceptar']}" icon="ui-icon-arrowreturnthick-1-w" style="position: absolute; top: 305px; left: 335px; " actionListener="#{controlNovedadesReemplazos.cancelarCambioEstructuras()}" process="@this"/>
+                        <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroEstructura" value="#{msg['infoRegistro']} #{controlNovedadesReemplazos.infoRegistroEstructuras}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarEST" value="#{msg['aceptar']}"  icon="ui-icon-check" disabled="#{controlNovedadesReemplazos.aceptar}" class="cssAceptarLOV"
+                                             actionListener="#{controlNovedadesReemplazos.actualizarEstructuras()}" process="@this"/>
+                            <p:commandButton id="atrasEST" value="#{msg['aceptar']}" icon="ui-icon-arrowreturnthick-1-w" class="cssAtrasLOV"
+                                             actionListener="#{controlNovedadesReemplazos.cancelarCambioEstructuras()}" process="@this"/>
+                        </div>
                     </p:dialog>
 
                     <!-- DIALOGO NUEVO REGISTRO -->
@@ -585,7 +605,7 @@
                                 <p:ajax event="change" listener="#{controlNovedadesReemplazos.autocompletarNuevoyDuplicado('REEMPLAZADO', controlNovedadesReemplazos.nuevaEncargatura.reemplazado.persona.nombreCompleto, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlNovedadesReemplazos.asignarIndex(encargaturas, 5, 1)}" />
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 80px;  " id="btnNuevoReemplazado" actionListener="#{controlNovedadesReemplazos.asignarIndex(encargaturas, 5, 1)}" icon="ui-icon-search" process="@this" />
+                            <p:commandButton style="position: absolute; left: 331px; top: 80px;" class="cssBotonLovDialogos" id="btnNuevoReemplazado" actionListener="#{controlNovedadesReemplazos.asignarIndex(encargaturas, 5, 1)}" value=" " process="@this" />
 
                             <strong><h:outputText value="#{msg['tiporeemplazoN']}" style=" position: absolute; top: 125px;" /></strong>
                             <p:inputText id="nuevoTipoReemplazo" value="#{controlNovedadesReemplazos.nuevaEncargatura.tiporeemplazo.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 120px; text-transform: uppercase" onclick="select();">
@@ -593,7 +613,7 @@
                                 <p:ajax event="change" listener="#{controlNovedadesReemplazos.autocompletarNuevoyDuplicado('TIPOREEMPLAZO', controlNovedadesReemplazos.nuevaEncargatura.tiporeemplazo.nombre, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlNovedadesReemplazos.asignarIndex(encargaturas, 1, 1)}" />
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 120px;  " id="btnNuevoTipoReemplazo" actionListener="#{controlNovedadesReemplazos.asignarIndex(encargaturas, 1, 1)}" icon="ui-icon-search" process="@this" />
+                            <p:commandButton style="position: absolute; left: 331px; top: 120px;" class="cssBotonLovDialogos" id="btnNuevoTipoReemplazo" actionListener="#{controlNovedadesReemplazos.asignarIndex(encargaturas, 1, 1)}" value=" " process="@this" />
 
 
                             <strong><h:outputText value="#{msg['fechapagoN']}" style=" position: absolute; top: 165px;" /></strong>
@@ -626,7 +646,7 @@
                                 <p:ajax event="change" listener="#{controlNovedadesReemplazos.autocompletarNuevoyDuplicado('CARGO', controlNovedadesReemplazos.nuevaEncargatura.cargo.nombre, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlNovedadesReemplazos.asignarIndex(encargaturas, 3, 1)}" />
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 280px;  " id="btnNuevoCargo" actionListener="#{controlNovedadesReemplazos.asignarIndex(encargaturas, 3, 1)}" icon="ui-icon-search" process="@this" />
+                            <p:commandButton style="position: absolute; left: 331px; top: 280px; " class="cssBotonLovDialogos" id="btnNuevoCargo" actionListener="#{controlNovedadesReemplazos.asignarIndex(encargaturas, 3, 1)}" value=" " process="@this" />
 
 
                             <strong><h:outputText value="#{msg['motivoreemplazoN']}" style=" position: absolute; top: 325px;" /></strong>
@@ -635,7 +655,7 @@
                                 <p:ajax event="change" listener="#{controlNovedadesReemplazos.autocompletarNuevoyDuplicado('MOTIVOREEMPLAZO', controlNovedadesReemplazos.nuevaEncargatura.motivoreemplazo.nombre, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlNovedadesReemplazos.asignarIndex(encargaturas, 2, 1)}" />
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 320px;  " id="btnNuevoMotivoReemplazo" actionListener="#{controlNovedadesReemplazos.asignarIndex(encargaturas, 2, 1)}" icon="ui-icon-search" process="@this" />
+                            <p:commandButton style=" position: absolute; left: 331px; top: 320px; " class="cssBotonLovDialogos" id="btnNuevoMotivoReemplazo" actionListener="#{controlNovedadesReemplazos.asignarIndex(encargaturas, 2, 1)}" value=" " process="@this" />
 
                             <strong><h:outputText value="#{msg['estructuraN']}" style=" position: absolute; top: 365px;" /></strong>
                             <p:inputText id="nuevaEstructura" value="#{controlNovedadesReemplazos.nuevaEncargatura.estructura.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 360px; text-transform: uppercase" onclick="select();">
@@ -643,10 +663,10 @@
                                 <p:ajax event="change" listener="#{controlNovedadesReemplazos.autocompletarNuevoyDuplicado('ESTRUCTURA', controlNovedadesReemplazos.nuevaEncargatura.estructura.nombre, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlNovedadesReemplazos.asignarIndex(encargaturas, 4, 1)}" />
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 360px;  " id="btnNuevaEstructura" actionListener="#{controlNovedadesReemplazos.asignarIndex(encargaturas, 4, 1)}" icon="ui-icon-search" process="@this" />
+                            <p:commandButton style="position: absolute; left: 331px; top: 360px;" class="cssBotonLovDialogos" id="btnNuevaEstructura" actionListener="#{controlNovedadesReemplazos.asignarIndex(encargaturas, 4, 1)}" value=" " process="@this" />
 
                             <p:commandButton id="limpiar" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 400px;" icon="ui-icon-trash" actionListener="#{controlNovedadesReemplazos.limpiarNuevaEncargatura()}" update="nuevaEncargatura" process="@this"/>
-                            <p:commandButton id="agregarNR" value="#{msg['agregar']}" style=" position: absolute; left: 190px; top: 400px;"  icon="ui-icon-circle-check" actionListener="#{controlNovedadesReemplazos.agregarNuevaNovedadReemplazo()}" process="@this"/>
+                            <p:commandButton id="agregarNR" value="#{msg['agregar']}" style=" position: absolute; left: 180px; top: 400px;"  icon="ui-icon-circle-check" actionListener="#{controlNovedadesReemplazos.agregarNuevaNovedadReemplazo()}" process="@this"/>
                             <p:commandButton id="cancelarNR" value="#{msg['cancelar']}" style=" position: absolute; left: 280px; top: 400px;" icon="ui-icon-circle-close" actionListener="#{controlNovedadesReemplazos.limpiarNuevaEncargatura()}" update="nuevaEncargatura" onclick="PF('NuevaNovedadReemplazo').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
@@ -665,7 +685,7 @@
                                 <p:ajax event="dblclick" listener="#{controlNovedadesReemplazos.asignarIndex(encargaturas, 5, 2)}" />
                             </p:inputText>
 
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 80px;  " id="btnDuplicarReemplazado" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadesReemplazos.asignarIndex(encargaturas, 5, 2)}"/>   
+                            <p:commandButton style="position: absolute; left: 331px; top: 80px;" class="cssBotonLovDialogos" id="btnDuplicarReemplazado" value=" " process="@this"  actionListener="#{controlNovedadesReemplazos.asignarIndex(encargaturas, 5, 2)}"/>   
 
                             <strong><h:outputText value="#{msg['tiporeemplazoN']}" style=" position: absolute; top: 125px;" /></strong>
                             <p:inputText id="duplicarTipoReemplazo" value="#{controlNovedadesReemplazos.duplicarEncargatura.tiporeemplazo.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 120px; text-transform: uppercase" onclick="select();">
@@ -674,7 +694,7 @@
                                 <p:ajax event="dblclick" listener="#{controlNovedadesReemplazos.asignarIndex(encargaturas, 1, 2)}" />
                             </p:inputText>
 
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 120px;  " id="btnDuplicarTipoReemplazo" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadesReemplazos.asignarIndex(encargaturas, 1, 2)}"/>   
+                            <p:commandButton style="position: absolute; left: 331px; top: 120px;" class="cssBotonLovDialogos" id="btnDuplicarTipoReemplazo" value=" " process="@this"  actionListener="#{controlNovedadesReemplazos.asignarIndex(encargaturas, 1, 2)}"/>   
 
                             <strong><h:outputText value="#{msg['fechapagoN']}" style=" position: absolute; top: 165px;" /></strong>
                             <div id="posicionFormulaFechaPagoNuevoReg" style=" position: absolute; top: 160px; left: 200px">
@@ -707,7 +727,7 @@
                                 <p:ajax event="dblclick" listener="#{controlNovedadesReemplazos.asignarIndex(encargaturas, 3, 2)}" />
                             </p:inputText>
 
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 280px;  " id="btnDuplicarCargo" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadesReemplazos.asignarIndex(encargaturas, 3, 2)}"/>   
+                            <p:commandButton style="position: absolute; left: 331px; top: 280px;" class="cssBotonLovDialogos" id="btnDuplicarCargo" value=" " process="@this"  actionListener="#{controlNovedadesReemplazos.asignarIndex(encargaturas, 3, 2)}"/>   
 
 
                             <strong><h:outputText value="#{msg['motivoreemplazoN']}" style=" position: absolute; top: 325px;" /></strong>
@@ -717,7 +737,7 @@
                                 <p:ajax event="dblclick" listener="#{controlNovedadesReemplazos.asignarIndex(encargaturas, 2 , 2)}" />
                             </p:inputText>
 
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 320px;  " id="btnDuplicarMotivoReemplazo" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadesReemplazos.asignarIndex(encargaturas, 2, 2)}"/>   
+                            <p:commandButton style="position: absolute; left: 331px; top: 320px;" class="cssBotonLovDialogos" id="btnDuplicarMotivoReemplazo" value=" " process="@this"  actionListener="#{controlNovedadesReemplazos.asignarIndex(encargaturas, 2, 2)}"/>   
 
                             <strong><h:outputText value="#{msg['estructuraN']}" style=" position: absolute; top: 365px;" /></strong>
                             <p:inputText id="duplicarEstructura" value="#{controlNovedadesReemplazos.duplicarEncargatura.estructura.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 365px; text-transform: uppercase" onclick="select();">
@@ -726,10 +746,10 @@
                                 <p:ajax event="dblclick" listener="#{controlNovedadesReemplazos.asignarIndex(encargaturas, 4 , 2)}" />
                             </p:inputText>
 
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 365px;  " id="btnDuplicarEstructura" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadesReemplazos.asignarIndex(encargaturas, 4, 2)}"/>   
+                            <p:commandButton style="position: absolute; left: 331px; top: 365px;" class="cssBotonLovDialogos" id="btnDuplicarEstructura" value=" " process="@this"  actionListener="#{controlNovedadesReemplazos.asignarIndex(encargaturas, 4, 2)}"/>   
 
                             <p:commandButton id="limpiarDuplicadoEncargatura" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 400px;" icon="ui-icon-trash" actionListener="#{controlNovedadesReemplazos.limpiarduplicarEncargaturas()}" update="duplicarEncargatura" process="@this"/>
-                            <p:commandButton id="agregarDuplicadoEncargatura" value="#{msg['agregar']}" style=" position: absolute; left: 190px; top: 400px;"  icon="ui-icon-circle-check" process="@this" actionListener="#{controlNovedadesReemplazos.confirmarDuplicar()}" />
+                            <p:commandButton id="agregarDuplicadoEncargatura" value="#{msg['agregar']}" style=" position: absolute; left: 180px; top: 400px;"  icon="ui-icon-circle-check" process="@this" actionListener="#{controlNovedadesReemplazos.confirmarDuplicar()}" />
                             <p:commandButton id="cancelarDuplicadoEncargatura" value="#{msg['cancelar']}" style=" position: absolute; left: 280px; top: 400px;" icon="ui-icon-circle-close" actionListener="#{controlNovedadesReemplazos.limpiarduplicarEncargaturas()}" update="duplicarEncargatura" onclick="PF('DuplicarRegistroEncargatura').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>

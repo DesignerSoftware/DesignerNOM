@@ -113,7 +113,8 @@
                                 <p:ajax event="filter" listener="#{controlVigenciaDeporte.eventoFiltrar()}"/>
                                 <f:event type="preRenderView" listener="#{controlVigenciaDeporte.recordarSeleccionVD()}"/>
 
-                                <p:column headerText="#{msg['fechaInicial']}" sortBy="#{info.fechainicial}" filterBy="#{info.fechainicial}" filterMatchMode="contains" width="72" id="veFechaInicial" filterStyle="display: none; visibility: hidden;" style="width: 110px;" >  
+                                <p:column headerText="#{msg['fechaInicial']}" sortBy="#{info.fechainicial}" filterBy="#{info.fechainicial}" filterMatchMode="contains" width="72" 
+                                          id="veFechaInicial" filterStyle="display: none; visibility: hidden;" style="width: 110px;" >  
                                     <p:cellEditor>  
                                         <f:facet name="output">
                                             <h:outputText value="#{info.fechainicial}" >
@@ -134,7 +135,8 @@
                                     </f:facet>
                                 </p:column>
 
-                                <p:column headerText="#{msg['fechaFinal']}" sortBy="#{info.fechafinal}" filterBy="#{info.fechafinal}" filterMatchMode="contains"  width="72" id="veFechaFinal" filterStyle="display: none; visibility: hidden;" style="width: 110px;" >  
+                                <p:column headerText="#{msg['fechaFinal']}" sortBy="#{info.fechafinal}" filterBy="#{info.fechafinal}" filterMatchMode="contains"  width="72" 
+                                          id="veFechaFinal" filterStyle="display: none; visibility: hidden;" style="width: 110px;" >  
                                     <p:cellEditor>  
                                         <f:facet name="output">
                                             <h:outputText value="#{info.fechafinal}" >

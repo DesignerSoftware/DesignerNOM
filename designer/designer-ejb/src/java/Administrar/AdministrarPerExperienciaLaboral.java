@@ -53,7 +53,7 @@ public class AdministrarPerExperienciaLaboral implements AdministrarPerExperienc
     public void obtenerConexion(String idSesion) {
         em = administrarSesiones.obtenerConexionSesion(idSesion);
     }
-    
+
     @Override
     public Empleados empleadoActual(BigInteger secuencia) {
         try {
@@ -97,13 +97,11 @@ public class AdministrarPerExperienciaLaboral implements AdministrarPerExperienc
                 if (listHEL.get(i).getSectoreconomico().getSecuencia() == null) {
                     listHEL.get(i).setSectoreconomico(null);
                 }
-                String aux1, aux2, aux3;
-                aux1 = listHEL.get(i).getAlcance().toUpperCase();
-                listHEL.get(i).setAlcance(aux1);
-                aux2 = listHEL.get(i).getJefeinmediato().toUpperCase();
-                listHEL.get(i).setJefeinmediato(aux2);
-                aux3 = listHEL.get(i).getEmpresa().toUpperCase();
-                listHEL.get(i).setEmpresa(aux3);
+
+                if (listHEL.get(i).getHojadevida() == null) {
+                    listHEL.get(i).setHojadevida(new HVHojasDeVida());
+                }
+
                 persistenciaHvExperienciasLaborales.crear(em, listHEL.get(i));
             }
         } catch (Exception e) {
@@ -121,13 +119,11 @@ public class AdministrarPerExperienciaLaboral implements AdministrarPerExperienc
                 if (listHEL.get(i).getSectoreconomico().getSecuencia() == null) {
                     listHEL.get(i).setSectoreconomico(null);
                 }
-                String aux1, aux2, aux3;
-                aux1 = listHEL.get(i).getAlcance().toUpperCase();
-                listHEL.get(i).setAlcance(aux1);
-                aux2 = listHEL.get(i).getJefeinmediato().toUpperCase();
-                listHEL.get(i).setJefeinmediato(aux2);
-                aux3 = listHEL.get(i).getEmpresa().toUpperCase();
-                listHEL.get(i).setEmpresa(aux3);
+
+                if (listHEL.get(i).getHojadevida() == null) {
+                    listHEL.get(i).setHojadevida(new HVHojasDeVida());
+                }
+
                 persistenciaHvExperienciasLaborales.editar(em, listHEL.get(i));
             }
         } catch (Exception e) {
@@ -139,9 +135,9 @@ public class AdministrarPerExperienciaLaboral implements AdministrarPerExperienc
     public void borrarExperienciaLaboral(List<HvExperienciasLaborales> listHEL) {
         try {
             for (int i = 0; i < listHEL.size(); i++) {
-                if (listHEL.get(i).getMotivoretiro().getSecuencia() == null) {
-                    listHEL.get(i).setMotivoretiro(null);
-                }
+//                if (listHEL.get(i).getMotivoretiro().getSecuencia() == null) {
+//                    listHEL.get(i).setMotivoretiro(null);
+//                }
                 if (listHEL.get(i).getSectoreconomico().getSecuencia() == null) {
                     listHEL.get(i).setSectoreconomico(null);
                 }
@@ -169,7 +165,7 @@ public class AdministrarPerExperienciaLaboral implements AdministrarPerExperienc
             HVHojasDeVida hojaVida = persistenciaHVHojasDeVida.hvHojaDeVidaPersona(em, secuencia);
             return hojaVida;
         } catch (Exception e) {
-            System.out.println("Error obtenerHojaVidaPersona Admi : "+e.toString());
+            System.out.println("Error obtenerHojaVidaPersona Admi : " + e.toString());
             return null;
         }
     }

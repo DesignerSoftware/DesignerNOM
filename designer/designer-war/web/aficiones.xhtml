@@ -83,7 +83,7 @@
                                          selection="#{controlAficiones.aficionSeleccionada}" selectionMode="single"
                                          editable="true" editMode="cell" scrollable="true" liveScroll="true" scrollRows="50"  scrollWidth="830" >
                                 <p:ajax event="filter" listener="#{controlAficiones.eventoFiltrar()}"/>
-                                <f:event type="preRenderView" listener="#{controlAficiones.recordarSeleccionAficion()}"/>
+                                <!--<f:event type="preRenderView" listener="#{controlAficiones.recordarSeleccionAficion()}"/>-->
 
                                 <p:column headerText="#{msg['codigo']}" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" width="200" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  

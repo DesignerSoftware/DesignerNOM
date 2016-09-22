@@ -1,6 +1,5 @@
 package Controlador;
 
-
 import Entidades.Empleados;
 import Entidades.HVHojasDeVida;
 import Entidades.HvExperienciasLaborales;
@@ -29,10 +28,6 @@ import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
 
-/**
- *
- * @author user
- */
 @ManagedBean
 @SessionScoped
 public class ControlPerExperienciaLaboral implements Serializable {
@@ -87,7 +82,6 @@ public class ControlPerExperienciaLaboral implements Serializable {
     private Empleados empleado;
     private boolean readOnlyLogros;
     private boolean cambiosLogros, activarLov;
-    private Date fechaDesde;
     private Date fechaIni, fechaFin;
     private String fechaDesdeText, fechaHastaText;
     ////
@@ -97,13 +91,11 @@ public class ControlPerExperienciaLaboral implements Serializable {
     private String infoRegistro;
     private String altoTabla;
     private String infoRegistroSector, infoRegistroMotivo;
+    private Date fechaParametro;
 
     public ControlPerExperienciaLaboral() {
         altoTabla = "190";
         hojaVida = new HVHojasDeVida();
-        fechaFin = new Date();
-        fechaIni = new Date();
-        fechaDesde = new Date();
         cambiosLogros = true;
         readOnlyLogros = false;
         empleado = new Empleados();
@@ -125,6 +117,7 @@ public class ControlPerExperienciaLaboral implements Serializable {
         listMotivosRetiros = null;
         listSectoresEconomicos = null;
         nuevaExperienciaLaboral = new HvExperienciasLaborales();
+        nuevaExperienciaLaboral.setFechadesde(new Date());
         nuevaExperienciaLaboral.setSectoreconomico(new SectoresEconomicos());
         nuevaExperienciaLaboral.setMotivoretiro(new MotivosRetiros());
         listExperienciaLaboralCrear = new ArrayList<HvExperienciasLaborales>();
@@ -154,16 +147,20 @@ public class ControlPerExperienciaLaboral implements Serializable {
         if (hojaVida != null) {
             getListExperienciaLaboralEmpl();
             if (listExperienciaLaboralEmpl != null) {
-                int tam = listExperienciaLaboralEmpl.size();
-                if (tam > 0) {
-                    logrosAlcanzados = listExperienciaLaboralEmpl.get(0).getAlcance();
-                }
-                contarRegistros();
+                logrosAlcanzados = listExperienciaLaboralEmpl.get(0).getAlcance();
             }
+        }
+        
+        if(listExperienciaLaboralEmpl != null){
+            if(!listExperienciaLaboralEmpl.isEmpty())
+                experienciaTablaSeleccionada = listExperienciaLaboralEmpl.get(0);
         }
     }
 
+    /*
     public boolean validarFechasRegistro(int i) {
+        
+
         boolean retorno = true;
         if (i == 0) {
             HvExperienciasLaborales temporal = new HvExperienciasLaborales();
@@ -220,34 +217,62 @@ public class ControlPerExperienciaLaboral implements Serializable {
         }
         return retorno;
     }
-
-    public boolean validarCamposRegistro(int i) {
+     */
+    public boolean validarFechasRegistro(int i) {
+        fechaParametro = new Date();
+        fechaParametro.setYear(0);
+        fechaParametro.setMonth(1);
+        fechaParametro.setDate(1);
         boolean retorno = true;
         if (i == 0) {
-            HvExperienciasLaborales aux = null;
+            HvExperienciasLaborales auxiliar = null;
             if (tipoLista == 0) {
-                aux = experienciaTablaSeleccionada;
+                auxiliar = experienciaTablaSeleccionada;
+            }
+            if (tipoLista == 1) {
+                auxiliar = experienciaTablaSeleccionada;
+            }
+            if (auxiliar.getFechahasta() != null) {
+                if (auxiliar.getFechadesde().after(fechaParametro) && auxiliar.getFechadesde().before(auxiliar.getFechahasta())) {
+                    retorno = true;
+                } else {
+                    retorno = false;
+                    RequestContext.getCurrentInstance().execute("PF('errorFechas').show()");
+                }
+            }
+            if (auxiliar.getFechahasta() == null) {
+                if (auxiliar.getFechadesde().after(fechaParametro)) {
+                    retorno = true;
+                } else {
+                    retorno = false;
+                }
+            }
+        }
+        if (i == 1) {
+            if (nuevaExperienciaLaboral.getFechahasta() != null) {
+                if (nuevaExperienciaLaboral.getFechadesde().after(fechaParametro) && nuevaExperienciaLaboral.getFechadesde().before(nuevaExperienciaLaboral.getFechahasta())) {
+                    retorno = true;
+                } else {
+                    RequestContext.getCurrentInstance().execute("PF('errorFechas').show()");
+                    retorno = false;
+                }
+            } else if (nuevaExperienciaLaboral.getFechadesde().after(fechaParametro)) {
+                retorno = true;
             } else {
-                aux = experienciaTablaSeleccionada;
-            }
-            if (aux.getSectoreconomico().getSecuencia() == null) {
                 retorno = false;
             }
-            if (fechaDesdeText.isEmpty()) {
-                retorno = false;
-            }
-        } else if (i == 1) {
-            if (nuevaExperienciaLaboral.getSectoreconomico().getSecuencia() == null) {
-                retorno = false;
-            }
-            if (fechaDesdeText.isEmpty()) {
-                retorno = false;
-            }
-        } else if (i == 2) {
-            if (duplicarExperienciaLaboral.getSectoreconomico().getSecuencia() == null) {
-                retorno = false;
-            }
-            if (fechaDesdeText.isEmpty()) {
+        }
+        if (i == 2) {
+            if (duplicarExperienciaLaboral.getFechahasta() != null) {
+                if (duplicarExperienciaLaboral.getFechadesde().after(fechaParametro) && duplicarExperienciaLaboral.getFechadesde().before(duplicarExperienciaLaboral.getFechahasta())) {
+                    retorno = true;
+                } else {
+                    retorno = false;
+                    RequestContext.getCurrentInstance().execute("PF('errorFechas').show()");
+                }
+            } else if (duplicarExperienciaLaboral.getFechadesde().after(fechaParametro)) {
+                retorno = true;
+            } else {
                 retorno = false;
             }
         }
@@ -274,71 +299,65 @@ public class ControlPerExperienciaLaboral implements Serializable {
         }
         boolean retorno = validarFechasRegistro(0);
         if (retorno == true) {
-            if (validarCamposRegistro(0) == true) {
-                if (tipoLista == 0) {
-                    experienciaTablaSeleccionada.setAlcance(logrosAlcanzados);
-                    if (!listExperienciaLaboralCrear.contains(experienciaTablaSeleccionada)) {
-                        if (listExperienciaLaboralModificar.isEmpty()) {
-                            listExperienciaLaboralModificar.add(experienciaTablaSeleccionada);
-                        } else if (!listExperienciaLaboralModificar.contains(experienciaTablaSeleccionada)) {
-                            listExperienciaLaboralModificar.add(experienciaTablaSeleccionada);
-                        }
-                        if (guardado == true) {
-                            guardado = false;
-                            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                        }
+//            if (validarCamposRegistro(0) == true) {
+            if (tipoLista == 0) {
+                experienciaTablaSeleccionada.setAlcance(logrosAlcanzados);
+                if (!listExperienciaLaboralCrear.contains(experienciaTablaSeleccionada)) {
+                    if (listExperienciaLaboralModificar.isEmpty()) {
+                        listExperienciaLaboralModificar.add(experienciaTablaSeleccionada);
+                    } else if (!listExperienciaLaboralModificar.contains(experienciaTablaSeleccionada)) {
+                        listExperienciaLaboralModificar.add(experienciaTablaSeleccionada);
                     }
-
-                    experienciaTablaSeleccionada = null;
-                    experienciaTablaSeleccionada = null;
-                    fechaIni = null;
-                    fechaFin = null;
-
-                } else {
-                    int ind = listExperienciaLaboralEmpl.indexOf(experienciaTablaSeleccionada);
-                    listExperienciaLaboralEmpl.get(ind).setAlcance(logrosAlcanzados);
-                    if (!listExperienciaLaboralCrear.contains(experienciaTablaSeleccionada)) {
-                        if (listExperienciaLaboralModificar.isEmpty()) {
-                            listExperienciaLaboralModificar.add(experienciaTablaSeleccionada);
-                        } else if (!listExperienciaLaboralModificar.contains(experienciaTablaSeleccionada)) {
-                            listExperienciaLaboralModificar.add(experienciaTablaSeleccionada);
-                        }
-                        if (guardado == true) {
-                            guardado = false;
-                            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                        }
+                    if (guardado == true) {
+                        guardado = false;
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
-
-                    experienciaTablaSeleccionada = null;
-                    experienciaTablaSeleccionada = null;
-                    fechaIni = null;
-                    fechaFin = null;
-
-                }
-                RequestContext context = RequestContext.getCurrentInstance();
-                RequestContext.getCurrentInstance().update("form:datosExperiencia");
-            } else {
-                if (tipoLista == 0) {
-                    experienciaTablaSeleccionada.setFechadesde(fechaDesde);
-                }
-                if (tipoLista == 1) {
-                    int ind = listExperienciaLaboralEmpl.indexOf(experienciaTablaSeleccionada);
-                    listExperienciaLaboralEmpl.get(ind).setFechadesde(fechaDesde);
                 }
 
-                fechaDesdeText = "";
-                experienciaTablaSeleccionada = null;
-                experienciaTablaSeleccionada = null;
                 fechaIni = null;
                 fechaFin = null;
-                RequestContext context = RequestContext.getCurrentInstance();
-                RequestContext.getCurrentInstance().execute("PF('errorIngresoReg').show()");
-                RequestContext.getCurrentInstance().update("form:datosExperiencia");
+
+            } else {
+                int ind = listExperienciaLaboralEmpl.indexOf(experienciaTablaSeleccionada);
+                listExperienciaLaboralEmpl.get(ind).setAlcance(logrosAlcanzados);
+                if (!listExperienciaLaboralCrear.contains(experienciaTablaSeleccionada)) {
+                    if (listExperienciaLaboralModificar.isEmpty()) {
+                        listExperienciaLaboralModificar.add(experienciaTablaSeleccionada);
+                    } else if (!listExperienciaLaboralModificar.contains(experienciaTablaSeleccionada)) {
+                        listExperienciaLaboralModificar.add(experienciaTablaSeleccionada);
+                    }
+                    if (guardado == true) {
+                        guardado = false;
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                    }
+                }
+
+                fechaIni = null;
+                fechaFin = null;
+
             }
+            RequestContext context = RequestContext.getCurrentInstance();
+            RequestContext.getCurrentInstance().update("form:datosExperiencia");
+            RequestContext.getCurrentInstance().update("form:editarLogrosEP");
+//            } 
+//            else {
+//                if (tipoLista == 0) {
+//                    experienciaTablaSeleccionada.setFechadesde(fechaDesde);
+//                }
+//                if (tipoLista == 1) {
+//                    int ind = listExperienciaLaboralEmpl.indexOf(experienciaTablaSeleccionada);
+//                    listExperienciaLaboralEmpl.get(ind).setFechadesde(fechaDesde);
+//                }
+//
+//                fechaDesdeText = "";
+//                fechaIni = null;
+//                fechaFin = null;
+//                RequestContext context = RequestContext.getCurrentInstance();
+//                RequestContext.getCurrentInstance().execute("PF('errorIngresoReg').show()");
+//                RequestContext.getCurrentInstance().update("form:datosExperiencia");
+//            }
         } else {
             if (tipoLista == 0) {
-                experienciaTablaSeleccionada.setFechadesde(fechaIni);
-                experienciaTablaSeleccionada.setFechahasta(fechaFin);
             }
             if (tipoLista == 1) {
                 int ind = listExperienciaLaboralEmpl.indexOf(experienciaTablaSeleccionada);
@@ -443,27 +462,22 @@ public class ControlPerExperienciaLaboral implements Serializable {
                     }
                 }
 
-                experienciaTablaSeleccionada = null;
-                experienciaTablaSeleccionada = null;
-            } else {
-                if (!listExperienciaLaboralCrear.contains(experienciaTablaSeleccionada)) {
+            } else if (!listExperienciaLaboralCrear.contains(experienciaTablaSeleccionada)) {
 
-                    if (listExperienciaLaboralModificar.isEmpty()) {
-                        listExperienciaLaboralModificar.add(experienciaTablaSeleccionada);
-                    } else if (!listExperienciaLaboralModificar.contains(experienciaTablaSeleccionada)) {
-                        listExperienciaLaboralModificar.add(experienciaTablaSeleccionada);
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                    }
+                if (listExperienciaLaboralModificar.isEmpty()) {
+                    listExperienciaLaboralModificar.add(experienciaTablaSeleccionada);
+                } else if (!listExperienciaLaboralModificar.contains(experienciaTablaSeleccionada)) {
+                    listExperienciaLaboralModificar.add(experienciaTablaSeleccionada);
                 }
-                experienciaTablaSeleccionada = null;
-                experienciaTablaSeleccionada = null;
+                if (guardado == true) {
+                    guardado = false;
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                }
             }
 
         }
         RequestContext.getCurrentInstance().update("form:datosExperiencia");
+        RequestContext.getCurrentInstance().update("form:editarLogrosEP");
     }
 
     public void valoresBackupAutocompletarExperiencia(int tipoNuevo, String Campo) {
@@ -598,43 +612,56 @@ public class ControlPerExperienciaLaboral implements Serializable {
     }
 
     public void cambiarIndice(HvExperienciasLaborales experienciaLaboral, int celda) {
-        if (cambiosLogros == true) {
-            if (permitirIndex == true) {
-                experienciaTablaSeleccionada = experienciaLaboral;
-                cualCelda = celda;
-                experienciaTablaSeleccionada.getSecuencia();
-                if (tipoLista == 0) {
-                    fechaFin = experienciaTablaSeleccionada.getFechahasta();
-                    fechaIni = experienciaTablaSeleccionada.getFechadesde();
-                    if (cualCelda == 1) {
-                        if (experienciaTablaSeleccionada.getFechadesde() != null) {
-                            fechaDesde = experienciaTablaSeleccionada.getFechadesde();
-                        }
-                    }
+        if (permitirIndex == true) {
+            experienciaTablaSeleccionada = experienciaLaboral;
+            cualCelda = celda;
+            if (tipoLista == 0) {
+//                    fechaFin = experienciaTablaSeleccionada.getFechahasta();
+                if (cualCelda == 0) {
+                    experienciaTablaSeleccionada.getEmpresa();
+                } else if (cualCelda == 1) {
+                    experienciaTablaSeleccionada.getFechadesde();
+                } else if (cualCelda == 2) {
+                    fechaIni = experienciaTablaSeleccionada.getFechahasta();
+                } else if (cualCelda == 3) {
+                    experienciaTablaSeleccionada.getCargo();
+                } else if (cualCelda == 4) {
+                    experienciaTablaSeleccionada.getJefeinmediato();
+                } else if (cualCelda == 5) {
+                    experienciaTablaSeleccionada.getTelefono();
+                } else if (cualCelda == 6) {
                     sector = experienciaTablaSeleccionada.getSectoreconomico().getDescripcion();
+                } else if (cualCelda == 7) {
                     motivo = experienciaTablaSeleccionada.getMotivoretiro().getNombre();
-
-                    logrosAlcanzados = experienciaTablaSeleccionada.getAlcance();
-                } else {
-                    int ind = listExperienciaLaboralEmpl.indexOf(experienciaTablaSeleccionada);
-                    fechaFin = listExperienciaLaboralEmpl.get(ind).getFechahasta();
-                    fechaIni = listExperienciaLaboralEmpl.get(ind).getFechadesde();
-                    if (cualCelda == 1) {
-                        if (listExperienciaLaboralEmpl.get(ind).getFechadesde() != null) {
-                            fechaDesde = listExperienciaLaboralEmpl.get(ind).getFechadesde();
-                        }
+                } else if (cualCelda == 8) {
+                    if (experienciaTablaSeleccionada != null) {
+                        logrosAlcanzados = experienciaTablaSeleccionada.getAlcance();
                     }
+                }
+                RequestContext.getCurrentInstance().update("form:editarLogrosEP");
+//
+            }
+            if (tipoLista == 1) {
+                if (cualCelda == 0) {
+                    experienciaTablaSeleccionada.getEmpresa();
+                } else if (cualCelda == 1) {
+                    experienciaTablaSeleccionada.getFechadesde();
+                } else if (cualCelda == 2) {
+                    fechaIni = experienciaTablaSeleccionada.getFechahasta();
+                } else if (cualCelda == 3) {
+                    experienciaTablaSeleccionada.getCargo();
+                } else if (cualCelda == 4) {
+                    experienciaTablaSeleccionada.getJefeinmediato();
+                } else if (cualCelda == 5) {
+                    experienciaTablaSeleccionada.getTelefono();
+                } else if (cualCelda == 6) {
                     sector = experienciaTablaSeleccionada.getSectoreconomico().getDescripcion();
+                } else if (cualCelda == 7) {
                     motivo = experienciaTablaSeleccionada.getMotivoretiro().getNombre();
-
+                } else if (cualCelda == 8) {
                     logrosAlcanzados = experienciaTablaSeleccionada.getAlcance();
                 }
-                RequestContext context = RequestContext.getCurrentInstance();
-                RequestContext.getCurrentInstance().update("form:editarLogrosEP");
             }
-        } else {
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
         }
     }
 
@@ -660,20 +687,18 @@ public class ControlPerExperienciaLaboral implements Serializable {
                 }
                 listExperienciaLaboralEmpl = null;
                 getListExperienciaLaboralEmpl();
-                contarRegistros();
-                RequestContext.getCurrentInstance().update("form:informacionRegistro");
-                RequestContext.getCurrentInstance().update("form:datosExperiencia");
-                k = 0;
-                experienciaTablaSeleccionada = null;
-                experienciaTablaSeleccionada = null;
-                cambiosLogros = true;
-
-                guardado = true;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
+                k = 0;
+//                cambiosLogros = true;
+                FacesMessage msg = new FacesMessage("Información", "Se gurdaron los datos con éxito");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
                 RequestContext.getCurrentInstance().update("form:growl");
-            }
+                contarRegistros();
+                experienciaTablaSeleccionada = null;
+                }
+                guardado = true;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:datosExperiencia");
         } catch (Exception e) {
             System.out.println("Error guardarCambios : " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente");
@@ -713,17 +738,15 @@ public class ControlPerExperienciaLaboral implements Serializable {
         listExperienciaLaboralCrear.clear();
         listExperienciaLaboralModificar.clear();
         experienciaTablaSeleccionada = null;
-        experienciaTablaSeleccionada = null;
         k = 0;
         listExperienciaLaboralEmpl = null;
         guardado = true;
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
-        RequestContext context = RequestContext.getCurrentInstance();
         getListExperienciaLaboralEmpl();
         contarRegistros();
         RequestContext.getCurrentInstance().update("form:informacionRegistro");
         RequestContext.getCurrentInstance().update("form:datosExperiencia");
-        logrosAlcanzados = " ";
+//        logrosAlcanzados = " ";
         RequestContext.getCurrentInstance().update("form:editarLogrosEP");
 
         cambiosLogros = true;
@@ -734,10 +757,55 @@ public class ControlPerExperienciaLaboral implements Serializable {
         fechaIni = null;
     }
 
+    public void modificacionesFechas(HvExperienciasLaborales explaboral, int c) {
+        HvExperienciasLaborales auxiliar = null;
+        if (tipoLista == 0) {
+            auxiliar = experienciaTablaSeleccionada;
+        }
+        if (tipoLista == 1) {
+            auxiliar = experienciaTablaSeleccionada;
+        }
+        if (auxiliar.getFechadesde() != null) {
+            boolean retorno = false;
+            if (auxiliar.getFechahasta() == null) {
+                retorno = true;
+            }
+            if (auxiliar.getFechahasta() != null) {
+                experienciaTablaSeleccionada = explaboral;
+                retorno = validarFechasRegistro(0);
+            }
+            if (retorno == true) {
+                cambiarIndice(explaboral, c);
+                modificarExperiencia(explaboral);
+            } else {
+                if (tipoLista == 0) {
+                    experienciaTablaSeleccionada.setFechahasta(fechaFin);
+                    experienciaTablaSeleccionada.setFechadesde(fechaIni);
+                }
+                if (tipoLista == 1) {
+                    experienciaTablaSeleccionada.setFechahasta(fechaFin);
+                    experienciaTablaSeleccionada.setFechadesde(fechaIni);
+
+                }
+                RequestContext context = RequestContext.getCurrentInstance();
+                RequestContext.getCurrentInstance().update("form:datosExperiencia");
+                RequestContext.getCurrentInstance().execute("PF('form:errorFechas').show()");
+            }
+        } else {
+            if (tipoLista == 0) {
+                experienciaTablaSeleccionada.setFechadesde(fechaIni);
+            }
+            if (tipoLista == 1) {
+                experienciaTablaSeleccionada.setFechadesde(fechaIni);
+
+            }
+            RequestContext context = RequestContext.getCurrentInstance();
+            RequestContext.getCurrentInstance().update("form:datosExperiencia");
+            RequestContext.getCurrentInstance().execute("PF('errorRegNew').show()");
+        }
+    }
+
     public void editarCelda() {
-//        if (cualCelda == 1 || cualCelda == 2) {
-//            index = indexAux;
-//        }
         if (experienciaTablaSeleccionada != null) {
             if (tipoLista == 0) {
                 editarExperienciaLaboral = experienciaTablaSeleccionada;
@@ -789,70 +857,59 @@ public class ControlPerExperienciaLaboral implements Serializable {
     }
 
     public void agregarNuevaE() {
-        if (nuevaExperienciaLaboral.getFechadesde() != null) {
-            fechaDesdeText = formatoFecha.format(nuevaExperienciaLaboral.getFechadesde());
-        } else {
-            fechaDesdeText = "";
-        }
-        boolean respuesta = validarFechasRegistro(1);
-        if (respuesta == true) {
-            if (validarCamposRegistro(1) == true) {
-                //CERRAR FILTRADO
-                if (bandera == 1) {
-                    FacesContext c = FacesContext.getCurrentInstance();
-                    altoTabla = "190";
-                    expEmpresa = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expEmpresa");
-                    expEmpresa.setFilterStyle("display: none; visibility: hidden;");
-                    expCargoDes = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expCargoDes");
-                    expCargoDes.setFilterStyle("display: none; visibility: hidden;");
-                    expJefe = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expJefe");
-                    expJefe.setFilterStyle("display: none; visibility: hidden;");
-                    expTelefono = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expTelefono");
-                    expTelefono.setFilterStyle("display: none; visibility: hidden;");
-                    expSectorEco = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expSectorEco");
-                    expSectorEco.setFilterStyle("display: none; visibility: hidden;");
-                    expMotivos = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expMotivos");
-                    expMotivos.setFilterStyle("display: none; visibility: hidden;");
-                    expFechaInicio = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expFechaInicio");
-                    expFechaInicio.setFilterStyle("display: none; visibility: hidden;");
-                    expFechaRetiro = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expFechaRetiro");
-                    expFechaRetiro.setFilterStyle("display: none; visibility: hidden;");
+        try {
+            if (nuevaExperienciaLaboral.getFechadesde() != null && nuevaExperienciaLaboral.getMotivoretiro() != null) {
+                if (validarFechasRegistro(1) == true) {
+                    if (bandera == 1) {
+                        FacesContext c = FacesContext.getCurrentInstance();
+                        altoTabla = "190";
+                        expEmpresa = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expEmpresa");
+                        expEmpresa.setFilterStyle("display: none; visibility: hidden;");
+                        expCargoDes = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expCargoDes");
+                        expCargoDes.setFilterStyle("display: none; visibility: hidden;");
+                        expJefe = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expJefe");
+                        expJefe.setFilterStyle("display: none; visibility: hidden;");
+                        expTelefono = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expTelefono");
+                        expTelefono.setFilterStyle("display: none; visibility: hidden;");
+                        expSectorEco = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expSectorEco");
+                        expSectorEco.setFilterStyle("display: none; visibility: hidden;");
+                        expMotivos = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expMotivos");
+                        expMotivos.setFilterStyle("display: none; visibility: hidden;");
+                        expFechaInicio = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expFechaInicio");
+                        expFechaInicio.setFilterStyle("display: none; visibility: hidden;");
+                        expFechaRetiro = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expFechaRetiro");
+                        expFechaRetiro.setFilterStyle("display: none; visibility: hidden;");
+                        RequestContext.getCurrentInstance().update("form:datosExperiencia");
+                        bandera = 0;
+                        filtrarListExperienciaLaboralEmpl = null;
+                        tipoLista = 0;
+                    }
+                    k++;
+                    l = BigInteger.valueOf(k);
+                    nuevaExperienciaLaboral.setSecuencia(l);
+                    nuevaExperienciaLaboral.setHojadevida(hojaVida);
+                    listExperienciaLaboralEmpl.add(nuevaExperienciaLaboral);
+                    listExperienciaLaboralCrear.add(nuevaExperienciaLaboral);
+                    experienciaTablaSeleccionada = nuevaExperienciaLaboral;
+                    limpiarNuevaE();
+                    getListExperienciaLaboralEmpl();
+                    contarRegistros();
+                    RequestContext.getCurrentInstance().update("form:informacionRegistro");
                     RequestContext.getCurrentInstance().update("form:datosExperiencia");
-                    bandera = 0;
-                    filtrarListExperienciaLaboralEmpl = null;
-                    tipoLista = 0;
+                    RequestContext.getCurrentInstance().execute("PF('NuevoRegistro').hide()");
+                    RequestContext.getCurrentInstance().update("form:editarLogrosEP");
+
+                    if (guardado == true) {
+                        guardado = false;
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                    }
                 }
-                //AGREGAR REGISTRO A LA LISTA VIGENCIAS
-                k++;
-                l = BigInteger.valueOf(k);
-                nuevaExperienciaLaboral.setSecuencia(l);
-                nuevaExperienciaLaboral.setHojadevida(hojaVida);
-                listExperienciaLaboralEmpl.add(nuevaExperienciaLaboral);
-                listExperienciaLaboralCrear.add(nuevaExperienciaLaboral);
-                //
-                nuevaExperienciaLaboral = new HvExperienciasLaborales();
-                nuevaExperienciaLaboral.setSectoreconomico(new SectoresEconomicos());
-                nuevaExperienciaLaboral.setMotivoretiro(new MotivosRetiros());
-                limpiarNuevaE();
-                //
-                if (guardado == true) {
-                    guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                }
-                experienciaTablaSeleccionada = null;
-                experienciaTablaSeleccionada = null;
-                RequestContext context = RequestContext.getCurrentInstance();
-                modificarInfoRegistro(listExperienciaLaboralEmpl.size());
-                RequestContext.getCurrentInstance().update("form:informacionRegistro");
-                RequestContext.getCurrentInstance().update("form:datosExperiencia");
-                RequestContext.getCurrentInstance().execute("PF('NuevoRegistro').hide()");
             } else {
                 RequestContext context = RequestContext.getCurrentInstance();
-                RequestContext.getCurrentInstance().execute("PF('errorIngresoReg').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorFechasIngresoReg').show()");
             }
-        } else {
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().execute("PF('errorFechasIngresoReg').show()");
+        } catch (Exception e) {
+            System.out.println("error en controlPerexperiencialaboral.agregarnueva e : " + e.getMessage());
         }
     }
 
@@ -860,14 +917,14 @@ public class ControlPerExperienciaLaboral implements Serializable {
         nuevaExperienciaLaboral = new HvExperienciasLaborales();
         nuevaExperienciaLaboral.setSectoreconomico(new SectoresEconomicos());
         nuevaExperienciaLaboral.setMotivoretiro(new MotivosRetiros());
-
+        nuevaExperienciaLaboral.setFechadesde(new Date());
     }
 
     public void cancelarNuevaE() {
         nuevaExperienciaLaboral = new HvExperienciasLaborales();
         nuevaExperienciaLaboral.setSectoreconomico(new SectoresEconomicos());
         nuevaExperienciaLaboral.setMotivoretiro(new MotivosRetiros());
-
+        nuevaExperienciaLaboral.setFechadesde(new Date());
     }
 
     public void verificarDuplicarExperiencia() {
@@ -939,55 +996,55 @@ public class ControlPerExperienciaLaboral implements Serializable {
         }
         boolean respuesta = validarFechasRegistro(2);
         if (respuesta == true) {
-            if (validarCamposRegistro(2) == true) {
-                k++;
-                l = BigInteger.valueOf(k);
-                duplicarExperienciaLaboral.setSecuencia(l);
-                duplicarExperienciaLaboral.setHojadevida(hojaVida);
-                listExperienciaLaboralEmpl.add(duplicarExperienciaLaboral);
-                listExperienciaLaboralCrear.add(duplicarExperienciaLaboral);
-                experienciaTablaSeleccionada = null;
-                experienciaTablaSeleccionada = null;
-                if (guardado == true) {
-                    guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                }
-                if (bandera == 1) {
-                    FacesContext c = FacesContext.getCurrentInstance();
-                    altoTabla = "190";
-                    expEmpresa = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expEmpresa");
-                    expEmpresa.setFilterStyle("display: none; visibility: hidden;");
-                    expCargoDes = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expCargoDes");
-                    expCargoDes.setFilterStyle("display: none; visibility: hidden;");
-                    expJefe = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expJefe");
-                    expJefe.setFilterStyle("display: none; visibility: hidden;");
-                    expTelefono = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expTelefono");
-                    expTelefono.setFilterStyle("display: none; visibility: hidden;");
-                    expSectorEco = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expSectorEco");
-                    expSectorEco.setFilterStyle("display: none; visibility: hidden;");
-                    expMotivos = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expMotivos");
-                    expMotivos.setFilterStyle("display: none; visibility: hidden;");
-                    expFechaInicio = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expFechaInicio");
-                    expFechaInicio.setFilterStyle("display: none; visibility: hidden;");
-                    expFechaRetiro = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expFechaRetiro");
-                    expFechaRetiro.setFilterStyle("display: none; visibility: hidden;");
-                    RequestContext.getCurrentInstance().update("form:datosExperiencia");
-                    bandera = 0;
-                    filtrarListExperienciaLaboralEmpl = null;
-                    tipoLista = 0;
-                }
-                duplicarExperienciaLaboral = new HvExperienciasLaborales();
-                limpiarduplicarE();
-                RequestContext context = RequestContext.getCurrentInstance();
-                modificarInfoRegistro(listExperienciaLaboralEmpl.size());
-                RequestContext.getCurrentInstance().update("form:informacionRegistro");
-                RequestContext.getCurrentInstance().update("form:datosExperiencia");
-                RequestContext.getCurrentInstance().update("form:editarLogrosEP");
-                RequestContext.getCurrentInstance().execute("PF('DuplicarRegistro').hide()");
-            } else {
-                RequestContext context = RequestContext.getCurrentInstance();
-                RequestContext.getCurrentInstance().execute("PF('errorIngresoReg').show()");
+//            if (validarCamposRegistro(2) == true) {
+            k++;
+            l = BigInteger.valueOf(k);
+            duplicarExperienciaLaboral.setSecuencia(l);
+            duplicarExperienciaLaboral.setHojadevida(hojaVida);
+            listExperienciaLaboralEmpl.add(duplicarExperienciaLaboral);
+            listExperienciaLaboralCrear.add(duplicarExperienciaLaboral);
+            experienciaTablaSeleccionada = null;
+            experienciaTablaSeleccionada = null;
+            if (guardado == true) {
+                guardado = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
+            if (bandera == 1) {
+                FacesContext c = FacesContext.getCurrentInstance();
+                altoTabla = "190";
+                expEmpresa = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expEmpresa");
+                expEmpresa.setFilterStyle("display: none; visibility: hidden;");
+                expCargoDes = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expCargoDes");
+                expCargoDes.setFilterStyle("display: none; visibility: hidden;");
+                expJefe = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expJefe");
+                expJefe.setFilterStyle("display: none; visibility: hidden;");
+                expTelefono = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expTelefono");
+                expTelefono.setFilterStyle("display: none; visibility: hidden;");
+                expSectorEco = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expSectorEco");
+                expSectorEco.setFilterStyle("display: none; visibility: hidden;");
+                expMotivos = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expMotivos");
+                expMotivos.setFilterStyle("display: none; visibility: hidden;");
+                expFechaInicio = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expFechaInicio");
+                expFechaInicio.setFilterStyle("display: none; visibility: hidden;");
+                expFechaRetiro = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expFechaRetiro");
+                expFechaRetiro.setFilterStyle("display: none; visibility: hidden;");
+                RequestContext.getCurrentInstance().update("form:datosExperiencia");
+                bandera = 0;
+                filtrarListExperienciaLaboralEmpl = null;
+                tipoLista = 0;
+            }
+            duplicarExperienciaLaboral = new HvExperienciasLaborales();
+            limpiarduplicarE();
+            RequestContext context = RequestContext.getCurrentInstance();
+            contarRegistros();
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:datosExperiencia");
+            RequestContext.getCurrentInstance().update("form:editarLogrosEP");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistro').hide()");
+//            } else {
+//                RequestContext context = RequestContext.getCurrentInstance();
+//                RequestContext.getCurrentInstance().execute("PF('errorIngresoReg').show()");
+//            }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().execute("PF('errorFechasIngresoReg').show()");
@@ -1035,16 +1092,18 @@ public class ControlPerExperienciaLaboral implements Serializable {
                 filtrarListExperienciaLaboralEmpl.remove(experienciaTablaSeleccionada);
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            modificarInfoRegistro(listExperienciaLaboralEmpl.size());
+            contarRegistros();
             RequestContext.getCurrentInstance().update("form:informacionRegistro");
             RequestContext.getCurrentInstance().update("form:datosExperiencia");
             RequestContext.getCurrentInstance().update("form:editarLogrosEP");
-            experienciaTablaSeleccionada = null;
             experienciaTablaSeleccionada = null;
             if (guardado == true) {
                 guardado = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
+        } else {
+            RequestContext context = RequestContext.getCurrentInstance();
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
 
     }
@@ -1139,7 +1198,6 @@ public class ControlPerExperienciaLaboral implements Serializable {
         guardado = true;
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
         tipoActualizacion = -1;
-        fechaDesde = null;
         fechaDesdeText = "";
         fechaFin = null;
         fechaHastaText = "";
@@ -1163,9 +1221,11 @@ public class ControlPerExperienciaLaboral implements Serializable {
             tipoActualizacion = 2;
         }
         if (dlg == 1) {
+            contarRegistroSector();
             RequestContext.getCurrentInstance().update("form:SectorDialogo");
             RequestContext.getCurrentInstance().execute("PF('SectorDialogo').show()");
         } else if (dlg == 2) {
+            contarRegistroMotivo();
             RequestContext.getCurrentInstance().update("form:MotivosDialogo");
             RequestContext.getCurrentInstance().execute("PF('MotivosDialogo').show()");
         }
@@ -1361,40 +1421,20 @@ public class ControlPerExperienciaLaboral implements Serializable {
             if (tipoLista == 0) {
                 tipoLista = 1;
             }
-            RequestContext context = RequestContext.getCurrentInstance();
-            modificarInfoRegistro(filtrarListExperienciaLaboralEmpl.size());
-            RequestContext.getCurrentInstance().update("form:informacionRegistro");
+            contarRegistros();
         }
-    }
-
-    public void modificarInfoRegistro(int valor) {
-        infoRegistro = String.valueOf(valor);
     }
 
     public void contarRegistros() {
-        if (listExperienciaLaboralEmpl != null) {
-            modificarInfoRegistro(listExperienciaLaboralEmpl.size());
-        } else {
-            modificarInfoRegistro(0);
-        }
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
     }
 
-    public void eventoFiltrarMotivo() {
-        modificarInfoRegistroMotivo(filtrarListMotivosRetiros.size());
-        RequestContext.getCurrentInstance().update("info:infoRegistroMotivo");
+    public void contarRegistroMotivo() {
+        RequestContext.getCurrentInstance().update("form:infoRegistroMotivo");
     }
 
-    public void eventoFiltrarSector() {
-        modificarInfoRegistroSector(filtrarListSectoresEconomicos.size());
-        RequestContext.getCurrentInstance().update("info:infoRegistroSector");
-    }
-
-    public void modificarInfoRegistroMotivo(int valor) {
-        infoRegistroMotivo = String.valueOf(valor);
-    }
-
-    public void modificarInfoRegistroSector(int valor) {
-        infoRegistroSector = String.valueOf(valor);
+    public void contarRegistroSector() {
+        RequestContext.getCurrentInstance().update("form:infoRegistroSector");
     }
 
     //RASTRO - COMPROBAR SI LA TABLA TIENE RASTRO ACTIVO
@@ -1419,13 +1459,10 @@ public class ControlPerExperienciaLaboral implements Serializable {
             } else {
                 RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
             }
+        } else if (administrarRastros.verificarHistoricosTabla("HVEXPERIENCIASLABORALES")) {
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            if (administrarRastros.verificarHistoricosTabla("HVEXPERIENCIASLABORALES")) {
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-            }
-
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
         experienciaTablaSeleccionada = null;
     }
@@ -1652,13 +1689,7 @@ public class ControlPerExperienciaLaboral implements Serializable {
     }
 
     public HvExperienciasLaborales getExperienciaTablaSeleccionada() {
-        getListExperienciaLaboralEmpl();
-        if (listExperienciaLaboralEmpl != null) {
-            int tam = listExperienciaLaboralEmpl.size();
-            if (tam > 0) {
-                experienciaTablaSeleccionada = listExperienciaLaboralEmpl.get(0);
-            }
-        }
+        RequestContext.getCurrentInstance().update("form:editarLogrosEP");
         return experienciaTablaSeleccionada;
     }
 
@@ -1675,6 +1706,9 @@ public class ControlPerExperienciaLaboral implements Serializable {
     }
 
     public String getInfoRegistro() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosExperiencia");
+        infoRegistro = String.valueOf(tabla.getRowCount());
         return infoRegistro;
     }
 
@@ -1691,7 +1725,9 @@ public class ControlPerExperienciaLaboral implements Serializable {
     }
 
     public String getInfoRegistroSector() {
-        getListSectoresEconomicos();
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lovSector");
+        infoRegistroSector = String.valueOf(tabla.getRowCount());
         return infoRegistroSector;
     }
 
@@ -1700,6 +1736,9 @@ public class ControlPerExperienciaLaboral implements Serializable {
     }
 
     public String getInfoRegistroMotivo() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lovMotivos");
+        infoRegistroMotivo = String.valueOf(tabla.getRowCount());
         return infoRegistroMotivo;
     }
 

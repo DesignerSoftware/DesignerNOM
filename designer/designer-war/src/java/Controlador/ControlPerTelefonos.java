@@ -481,13 +481,13 @@ public class ControlPerTelefonos implements Serializable {
             System.out.println("Activar");
             System.out.println("TipoLista= " + tipoLista);
             tFecha = (Column) c.getViewRoot().findComponent("form:datosTelefonosPersona:tFecha");
-            tFecha.setFilterStyle("width: 85% !important");
+            tFecha.setFilterStyle("width: 85%");
             tTipoTelefono = (Column) c.getViewRoot().findComponent("form:datosTelefonosPersona:tTipoTelefono");
-            tTipoTelefono.setFilterStyle("width: 85% !important");
+            tTipoTelefono.setFilterStyle("width: 85%");
             tNumero = (Column) c.getViewRoot().findComponent("form:datosTelefonosPersona:tNumero");
-            tNumero.setFilterStyle("width: 85% !important");
+            tNumero.setFilterStyle("width: 85%");
             tCiudad = (Column) c.getViewRoot().findComponent("form:datosTelefonosPersona:tCiudad");
-            tCiudad.setFilterStyle("width: 85% !important");
+            tCiudad.setFilterStyle("width: 85%");
             altoTabla = "250";
             RequestContext.getCurrentInstance().update("form:datosTelefonosPersona");
             bandera = 1;
@@ -1266,14 +1266,14 @@ public class ControlPerTelefonos implements Serializable {
 
     public String getInfoRegistroTT() {
         FacesContext c = FacesContext.getCurrentInstance();
-        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:LOVTiposTelefonos");
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosTelefonosPersona");
         infoRegistroTT = String.valueOf(tabla.getRowCount());
         return infoRegistroTT;
     }
 
     public String getInfoRegistroCiudad() {
         FacesContext c = FacesContext.getCurrentInstance();
-        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lovTiposFamiliares");
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVTiposTelefonos");
         infoRegistroCiudad = String.valueOf(tabla.getRowCount());
         return infoRegistroCiudad;
     }

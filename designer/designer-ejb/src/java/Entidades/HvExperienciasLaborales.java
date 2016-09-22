@@ -86,7 +86,7 @@ public class HvExperienciasLaborales implements Serializable {
     }
 
     public Date getFechadesde() {
-        //System.out.println("Entidad GET fechadesde : "+fechadesde);
+        System.out.println("Entidad GET fechadesde : "+fechadesde);
         return fechadesde;
     }
 
@@ -96,18 +96,18 @@ public class HvExperienciasLaborales implements Serializable {
     }
 
     public String getStrFechaDesde() {
-        if (fechadesde != null) {
-            SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
-            strFechaDesde = formatoFecha.format(fechadesde);
-        } else {
-            strFechaDesde = " ";
-        }
+//        if (fechadesde != null) {
+//            SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+//            strFechaDesde = formatoFecha.format(fechadesde);
+//        } else {
+//            strFechaDesde = " ";
+//        }
         return strFechaDesde;
     }
 
     public void setStrFechaDesde(String strFechaDesde) throws ParseException {
-        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
-        fechadesde = formatoFecha.parse(strFechaDesde);
+//        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+//        fechadesde = formatoFecha.parse(strFechaDesde);
         this.strFechaDesde = strFechaDesde;
     }
 
@@ -120,12 +120,12 @@ public class HvExperienciasLaborales implements Serializable {
     }
 
     public String getStrFechaHasta() {
-        if (fechahasta != null) {
-            SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
-            strFechaHasta = formatoFecha.format(fechahasta);
-        } else {
-            strFechaHasta = " ";
-        }
+//        if (fechahasta != null) {
+//            SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+//            strFechaHasta = formatoFecha.format(fechahasta);
+//        } else {
+//            strFechaHasta = " ";
+//        }
         return strFechaHasta;
     }
 

@@ -4,7 +4,6 @@
  */
 package Controlador;
 
-
 import Entidades.MotivosRetiros;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
@@ -47,15 +46,14 @@ public class ControlMotivosRetiros implements Serializable {
     private MotivosRetiros nuevoMotivosRetiros;
     private MotivosRetiros duplicarMotivosRetiros;
     private MotivosRetiros editarMotivosRetiros;
-    private MotivosRetiros motivoRetiroSelecciodo;
+    private MotivosRetiros motivoRetiroSeleccionado;
     //otros
-    private int cualCelda, tipoLista, index, tipoActualizacion, k, bandera;
+    private int cualCelda, tipoLista, tipoActualizacion, k, bandera;
     private BigInteger l;
     private boolean aceptar, guardado;
     //AutoCompletar
     private boolean permitirIndex;
     //RASTRO
-    private BigInteger secRegistro;
     private Column codigo, descripcion;
     //borrado
     private int registrosBorrados;
@@ -63,6 +61,7 @@ public class ControlMotivosRetiros implements Serializable {
     //filtrado table
     private int tamano;
 
+    private String infoRegistro, paginaanterior;
     private String backUpDescripcion;
     private Integer backUpCodigo;
 
@@ -92,76 +91,45 @@ public class ControlMotivosRetiros implements Serializable {
         }
     }
 
-    public void eventoFiltrar() {
-        try {
-            System.out.println("\n ENTRE A ControlMotivosRetiros.eventoFiltrar \n");
-            if (tipoLista == 0) {
-                tipoLista = 1;
+    public void recibirPagina(String pagina) {
+        paginaanterior = pagina;
+        getListMotivosRetiros();
+        if (listMotivosRetiros != null) {
+            if (!listMotivosRetiros.isEmpty()) {
+                motivoRetiroSeleccionado = listMotivosRetiros.get(0);
             }
-            RequestContext context = RequestContext.getCurrentInstance();
-            infoRegistro = "Cantidad de registros: " + filtrarMotivosRetiros.size();
-            RequestContext.getCurrentInstance().update("form:informacionRegistro");
-        } catch (Exception e) {
-            System.out.println("ERROR ControlMotivosRetiros eventoFiltrar ERROR===" + e.getMessage());
         }
     }
 
-    public void cambiarIndice(int indice, int celda) {
-        System.err.println("TIPO LISTA = " + tipoLista);
+    public String retornarPagina() {
+        return paginaanterior;
+    }
 
+    public void cambiarIndice(MotivosRetiros motivo, int celda) {
         if (permitirIndex == true) {
-            index = indice;
+            motivoRetiroSeleccionado = motivo;
             cualCelda = celda;
             if (tipoLista == 0) {
                 if (cualCelda == 0) {
-                    backUpCodigo = listMotivosRetiros.get(index).getCodigo();
-                    System.out.println(" backUpCodigo : " + backUpCodigo);
+                    backUpCodigo = motivoRetiroSeleccionado.getCodigo();
                 } else if (cualCelda == 1) {
-                    backUpDescripcion = listMotivosRetiros.get(index).getNombre();
-                    System.out.println(" backUpDescripcion : " + backUpDescripcion);
+                    backUpDescripcion = motivoRetiroSeleccionado.getNombre();
                 }
-                secRegistro = listMotivosRetiros.get(index).getSecuencia();
+                motivoRetiroSeleccionado.getSecuencia();
             } else {
                 if (cualCelda == 0) {
-                    backUpCodigo = filtrarMotivosRetiros.get(index).getCodigo();
-                    System.out.println(" backUpCodigo : " + backUpCodigo);
-
+                    backUpCodigo = motivoRetiroSeleccionado.getCodigo();
                 } else if (cualCelda == 1) {
-                    backUpDescripcion = filtrarMotivosRetiros.get(index).getNombre();
-                    System.out.println(" backUpDescripcion : " + backUpDescripcion);
-
+                    backUpDescripcion = motivoRetiroSeleccionado.getNombre();
                 }
-                secRegistro = filtrarMotivosRetiros.get(index).getSecuencia();
+                motivoRetiroSeleccionado.getSecuencia();
             }
-        }
-        System.out.println("Indice: " + index + " Celda: " + cualCelda);
-    }
-
-    public void asignarIndex(Integer indice, int LND, int dig) {
-        try {
-            System.out.println("\n ENTRE A ControlMotivosRetiros.asignarIndex \n");
-            index = indice;
-            if (LND == 0) {
-                tipoActualizacion = 0;
-            } else if (LND == 1) {
-                tipoActualizacion = 1;
-                System.out.println("Tipo Actualizacion: " + tipoActualizacion);
-            } else if (LND == 2) {
-                tipoActualizacion = 2;
-            }
-
-        } catch (Exception e) {
-            System.out.println("ERROR ControlMotivosRetiros.asignarIndex ERROR======" + e.getMessage());
         }
     }
 
     public void activarAceptar() {
         aceptar = false;
     }
-
-    public void listaValoresBoton() {
-    }
-    private String infoRegistro;
 
     public void cancelarModificacion() {
         if (bandera == 1) {
@@ -180,19 +148,14 @@ public class ControlMotivosRetiros implements Serializable {
         borrarMotivosRetiros.clear();
         crearMotivosRetiros.clear();
         modificarMotivosRetiros.clear();
-        index = -1;
-        secRegistro = null;
+        motivoRetiroSeleccionado = null;
         k = 0;
         listMotivosRetiros = null;
         guardado = true;
         permitirIndex = true;
         getListMotivosRetiros();
         RequestContext context = RequestContext.getCurrentInstance();
-        if (listMotivosRetiros == null || listMotivosRetiros.isEmpty()) {
-            infoRegistro = "Cantidad de registros: 0 ";
-        } else {
-            infoRegistro = "Cantidad de registros: " + listMotivosRetiros.size();
-        }
+        contarRegistros();
         RequestContext.getCurrentInstance().update("form:informacionRegistro");
         RequestContext.getCurrentInstance().update("form:datosMotivosRetiros");
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -215,20 +178,14 @@ public class ControlMotivosRetiros implements Serializable {
         borrarMotivosRetiros.clear();
         crearMotivosRetiros.clear();
         modificarMotivosRetiros.clear();
-        index = -1;
-        secRegistro = null;
+        motivoRetiroSeleccionado = null;
         k = 0;
         listMotivosRetiros = null;
         guardado = true;
         permitirIndex = true;
         getListMotivosRetiros();
         RequestContext context = RequestContext.getCurrentInstance();
-        if (listMotivosRetiros == null || listMotivosRetiros.isEmpty()) {
-            infoRegistro = "Cantidad de registros: 0 ";
-        } else {
-            infoRegistro = "Cantidad de registros: " + listMotivosRetiros.size();
-        }
-        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        contarRegistros();
         RequestContext.getCurrentInstance().update("form:datosMotivosRetiros");
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
@@ -259,57 +216,52 @@ public class ControlMotivosRetiros implements Serializable {
         }
     }
 
-    public void modificarMotivosRetiros(int indice, String confirmarCambio, String valorConfirmar) {
-        System.err.println("ENTRE A MODIFICAR SUB CATEGORIA");
-        index = indice;
+    public void modificarMotivosRetiros(MotivosRetiros motivo, String confirmarCambio, String valorConfirmar) {
+        motivoRetiroSeleccionado = motivo;
 
         int contador = 0;
         boolean banderita = false;
         Integer a;
         a = null;
         RequestContext context = RequestContext.getCurrentInstance();
-        System.err.println("TIPO LISTA = " + tipoLista);
         if (confirmarCambio.equalsIgnoreCase("N")) {
-            System.err.println("ENTRE A MODIFICAR EMPRESAS, CONFIRMAR CAMBIO ES N");
             if (tipoLista == 0) {
-                if (!crearMotivosRetiros.contains(listMotivosRetiros.get(indice))) {
-                    if (listMotivosRetiros.get(indice).getCodigo() == a) {
+                if (!crearMotivosRetiros.contains(motivoRetiroSeleccionado)) {
+                    if (motivoRetiroSeleccionado.getCodigo() == a) {
                         mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
                         banderita = false;
-                        listMotivosRetiros.get(indice).setCodigo(backUpCodigo);
+                        motivoRetiroSeleccionado.setCodigo(backUpCodigo);
                     } else {
                         for (int j = 0; j < listMotivosRetiros.size(); j++) {
-                            if (j != indice) {
-                                if (listMotivosRetiros.get(indice).getCodigo().equals(listMotivosRetiros.get(j).getCodigo())) {
-                                    contador++;
-                                }
+                            if (motivoRetiroSeleccionado.getCodigo().equals(listMotivosRetiros.get(j).getCodigo())) {
+                                contador++;
                             }
                         }
                         if (contador > 0) {
                             mensajeValidacion = "CODIGOS REPETIDOS";
-                            listMotivosRetiros.get(indice).setCodigo(backUpCodigo);
+                            motivoRetiroSeleccionado.setCodigo(backUpCodigo);
                             banderita = false;
                         } else {
                             banderita = true;
                         }
 
                     }
-                    if (listMotivosRetiros.get(indice).getNombre() == null) {
+                    if (motivoRetiroSeleccionado.getNombre() == null) {
                         mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        listMotivosRetiros.get(indice).setNombre(backUpDescripcion);
+                        motivoRetiroSeleccionado.setNombre(backUpDescripcion);
                         banderita = false;
                     }
-                    if (listMotivosRetiros.get(indice).getNombre().isEmpty()) {
+                    if (motivoRetiroSeleccionado.getNombre().isEmpty()) {
                         mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
                         banderita = false;
-                        listMotivosRetiros.get(indice).setNombre(backUpDescripcion);
+                        motivoRetiroSeleccionado.setNombre(backUpDescripcion);
                     }
 
                     if (banderita == true) {
                         if (modificarMotivosRetiros.isEmpty()) {
-                            modificarMotivosRetiros.add(listMotivosRetiros.get(indice));
-                        } else if (!modificarMotivosRetiros.contains(listMotivosRetiros.get(indice))) {
-                            modificarMotivosRetiros.add(listMotivosRetiros.get(indice));
+                            modificarMotivosRetiros.add(motivoRetiroSeleccionado);
+                        } else if (!modificarMotivosRetiros.contains(motivoRetiroSeleccionado)) {
+                            modificarMotivosRetiros.add(motivoRetiroSeleccionado);
                         }
                         if (guardado == true) {
                             guardado = false;
@@ -319,46 +271,42 @@ public class ControlMotivosRetiros implements Serializable {
                         RequestContext.getCurrentInstance().update("form:validacionModificar");
                         RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
                     }
-                    index = -1;
-                    secRegistro = null;
                 } else {
-                    if (listMotivosRetiros.get(indice).getCodigo() == a) {
+                    if (motivoRetiroSeleccionado.getCodigo() == a) {
                         mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
                         banderita = false;
-                        listMotivosRetiros.get(indice).setCodigo(backUpCodigo);
+                        motivoRetiroSeleccionado.setCodigo(backUpCodigo);
                     } else {
                         for (int j = 0; j < listMotivosRetiros.size(); j++) {
-                            if (j != indice) {
-                                if (listMotivosRetiros.get(indice).getCodigo().equals(listMotivosRetiros.get(j).getCodigo())) {
-                                    contador++;
-                                }
+                            if (motivoRetiroSeleccionado.getCodigo().equals(listMotivosRetiros.get(j).getCodigo())) {
+                                contador++;
                             }
                         }
                         if (contador > 0) {
                             mensajeValidacion = "CODIGOS REPETIDOS";
-                            listMotivosRetiros.get(indice).setCodigo(backUpCodigo);
+                            motivoRetiroSeleccionado.setCodigo(backUpCodigo);
                             banderita = false;
                         } else {
                             banderita = true;
                         }
 
                     }
-                    if (listMotivosRetiros.get(indice).getNombre() == null) {
+                    if (motivoRetiroSeleccionado.getNombre() == null) {
                         mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        listMotivosRetiros.get(indice).setNombre(backUpDescripcion);
+                        motivoRetiroSeleccionado.setNombre(backUpDescripcion);
                         banderita = false;
                     }
-                    if (listMotivosRetiros.get(indice).getNombre().isEmpty()) {
+                    if (motivoRetiroSeleccionado.getNombre().isEmpty()) {
                         mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
                         banderita = false;
-                        listMotivosRetiros.get(indice).setNombre(backUpDescripcion);
+                        motivoRetiroSeleccionado.setNombre(backUpDescripcion);
                     }
 
                     if (banderita == true) {
                         if (modificarMotivosRetiros.isEmpty()) {
-                            modificarMotivosRetiros.add(listMotivosRetiros.get(indice));
-                        } else if (!modificarMotivosRetiros.contains(listMotivosRetiros.get(indice))) {
-                            modificarMotivosRetiros.add(listMotivosRetiros.get(indice));
+                            modificarMotivosRetiros.add(motivoRetiroSeleccionado);
+                        } else if (!modificarMotivosRetiros.contains(motivoRetiroSeleccionado)) {
+                            modificarMotivosRetiros.add(motivoRetiroSeleccionado);
                         }
                         if (guardado == true) {
                             guardado = false;
@@ -368,206 +316,134 @@ public class ControlMotivosRetiros implements Serializable {
                         RequestContext.getCurrentInstance().update("form:validacionModificar");
                         RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
                     }
-                    index = -1;
-                    secRegistro = null;
+                }
+            } else if (!crearMotivosRetiros.contains(motivoRetiroSeleccionado)) {
+                if (motivoRetiroSeleccionado.getCodigo() == a) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    motivoRetiroSeleccionado.setCodigo(backUpCodigo);
+                    banderita = false;
+                } else {
+                    for (int j = 0; j < filtrarMotivosRetiros.size(); j++) {
+                        if (motivoRetiroSeleccionado.getCodigo().equals(filtrarMotivosRetiros.get(j).getCodigo())) {
+                            contador++;
+                        }
+                    }
+
+                    if (contador > 0) {
+                        mensajeValidacion = "CODIGOS REPETIDOS";
+                        motivoRetiroSeleccionado.setCodigo(backUpCodigo);
+                        banderita = false;
+                    } else {
+                        banderita = true;
+                    }
+
+                }
+
+                if (motivoRetiroSeleccionado.getNombre() == null) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    banderita = false;
+                    motivoRetiroSeleccionado.setNombre(backUpDescripcion);
+                }
+                if (motivoRetiroSeleccionado.getNombre().isEmpty()) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    banderita = false;
+                    motivoRetiroSeleccionado.setNombre(backUpDescripcion);
+                }
+
+                if (banderita == true) {
+                    if (modificarMotivosRetiros.isEmpty()) {
+                        modificarMotivosRetiros.add(motivoRetiroSeleccionado);
+                    } else if (!modificarMotivosRetiros.contains(motivoRetiroSeleccionado)) {
+                        modificarMotivosRetiros.add(motivoRetiroSeleccionado);
+                    }
+                    if (guardado == true) {
+                        guardado = false;
+                    }
+
+                } else {
+                    RequestContext.getCurrentInstance().update("form:validacionModificar");
+                    RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
                 }
             } else {
-
-                if (!crearMotivosRetiros.contains(filtrarMotivosRetiros.get(indice))) {
-                    if (filtrarMotivosRetiros.get(indice).getCodigo() == a) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        filtrarMotivosRetiros.get(indice).setCodigo(backUpCodigo);
-                        banderita = false;
-                    } else {
-                        for (int j = 0; j < filtrarMotivosRetiros.size(); j++) {
-                            if (j != indice) {
-                                if (filtrarMotivosRetiros.get(indice).getCodigo().equals(filtrarMotivosRetiros.get(j).getCodigo())) {
-                                    contador++;
-                                }
-                            }
-                        }
-
-                        if (contador > 0) {
-                            mensajeValidacion = "CODIGOS REPETIDOS";
-                            filtrarMotivosRetiros.get(indice).setCodigo(backUpCodigo);
-                            banderita = false;
-                        } else {
-                            banderita = true;
-                        }
-
-                    }
-
-                    if (filtrarMotivosRetiros.get(indice).getNombre() == null) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                        filtrarMotivosRetiros.get(indice).setNombre(backUpDescripcion);
-                    }
-                    if (filtrarMotivosRetiros.get(indice).getNombre().isEmpty()) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                        filtrarMotivosRetiros.get(indice).setNombre(backUpDescripcion);
-                    }
-
-                    if (banderita == true) {
-                        if (modificarMotivosRetiros.isEmpty()) {
-                            modificarMotivosRetiros.add(filtrarMotivosRetiros.get(indice));
-                        } else if (!modificarMotivosRetiros.contains(filtrarMotivosRetiros.get(indice))) {
-                            modificarMotivosRetiros.add(filtrarMotivosRetiros.get(indice));
-                        }
-                        if (guardado == true) {
-                            guardado = false;
-                        }
-
-                    } else {
-                        RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-                    }
-                    index = -1;
-                    secRegistro = null;
+                if (motivoRetiroSeleccionado.getCodigo() == a) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    motivoRetiroSeleccionado.setCodigo(backUpCodigo);
+                    banderita = false;
                 } else {
-                    if (filtrarMotivosRetiros.get(indice).getCodigo() == a) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        filtrarMotivosRetiros.get(indice).setCodigo(backUpCodigo);
+                    for (int j = 0; j < filtrarMotivosRetiros.size(); j++) {
+                        if (motivoRetiroSeleccionado.getCodigo().equals(filtrarMotivosRetiros.get(j).getCodigo())) {
+                            contador++;
+                        }
+                    }
+                    if (contador > 0) {
+                        mensajeValidacion = "CODIGOS REPETIDOS";
+                        motivoRetiroSeleccionado.setCodigo(backUpCodigo);
                         banderita = false;
                     } else {
-                        for (int j = 0; j < filtrarMotivosRetiros.size(); j++) {
-                            if (j != indice) {
-                                if (filtrarMotivosRetiros.get(indice).getCodigo().equals(filtrarMotivosRetiros.get(j).getCodigo())) {
-                                    contador++;
-                                }
-                            }
-                        }
-                        if (contador > 0) {
-                            mensajeValidacion = "CODIGOS REPETIDOS";
-                            filtrarMotivosRetiros.get(indice).setCodigo(backUpCodigo);
-                            banderita = false;
-                        } else {
-                            banderita = true;
-                        }
-
+                        banderita = true;
                     }
-                    if (filtrarMotivosRetiros.get(indice).getNombre() == null) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                        filtrarMotivosRetiros.get(indice).setNombre(backUpDescripcion);
-                    }
-
-                    if (filtrarMotivosRetiros.get(indice).getNombre().isEmpty()) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                        filtrarMotivosRetiros.get(indice).setNombre(backUpDescripcion);
-                    }
-
-                    if (banderita == true) {
-
-                        if (guardado == true) {
-                            guardado = false;
-                        }
-
-                    } else {
-                        RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-                    }
-                    index = -1;
-                    secRegistro = null;
 
                 }
+                if (motivoRetiroSeleccionado.getNombre() == null) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    banderita = false;
+                    motivoRetiroSeleccionado.setNombre(backUpDescripcion);
+                }
 
+                if (motivoRetiroSeleccionado.getNombre().isEmpty()) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    banderita = false;
+                    motivoRetiroSeleccionado.setNombre(backUpDescripcion);
+                }
+
+                if (banderita == true) {
+
+                    if (guardado == true) {
+                        guardado = false;
+                    }
+
+                } else {
+                    RequestContext.getCurrentInstance().update("form:validacionModificar");
+                    RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
+                }
             }
             RequestContext.getCurrentInstance().update("form:datosMotivosRetiros");
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
-
     }
 
     public void borrandoMotivosRetiros() {
 
-        if (index >= 0) {
-            if (tipoLista == 0) {
-                System.out.println("Entro a borrandoMotivosRetiros");
-                if (!modificarMotivosRetiros.isEmpty() && modificarMotivosRetiros.contains(listMotivosRetiros.get(index))) {
-                    int modIndex = modificarMotivosRetiros.indexOf(listMotivosRetiros.get(index));
-                    modificarMotivosRetiros.remove(modIndex);
-                    borrarMotivosRetiros.add(listMotivosRetiros.get(index));
-                } else if (!crearMotivosRetiros.isEmpty() && crearMotivosRetiros.contains(listMotivosRetiros.get(index))) {
-                    int crearIndex = crearMotivosRetiros.indexOf(listMotivosRetiros.get(index));
-                    crearMotivosRetiros.remove(crearIndex);
-                } else {
-                    borrarMotivosRetiros.add(listMotivosRetiros.get(index));
-                }
-                listMotivosRetiros.remove(index);
+        if (motivoRetiroSeleccionado != null) {
+            System.out.println("Entro a borrandoMotivosRetiros");
+            if (!modificarMotivosRetiros.isEmpty() && modificarMotivosRetiros.contains(motivoRetiroSeleccionado)) {
+                int modIndex = modificarMotivosRetiros.indexOf(motivoRetiroSeleccionado);
+                modificarMotivosRetiros.remove(modIndex);
+                borrarMotivosRetiros.add(motivoRetiroSeleccionado);
+            } else if (!crearMotivosRetiros.isEmpty() && crearMotivosRetiros.contains(motivoRetiroSeleccionado)) {
+                int crearIndex = crearMotivosRetiros.indexOf(motivoRetiroSeleccionado);
+                crearMotivosRetiros.remove(crearIndex);
+            } else {
+                borrarMotivosRetiros.add(motivoRetiroSeleccionado);
             }
+            listMotivosRetiros.remove(motivoRetiroSeleccionado);
             if (tipoLista == 1) {
-                System.out.println("borrandoMotivosRetiros ");
-                if (!modificarMotivosRetiros.isEmpty() && modificarMotivosRetiros.contains(filtrarMotivosRetiros.get(index))) {
-                    int modIndex = modificarMotivosRetiros.indexOf(filtrarMotivosRetiros.get(index));
-                    modificarMotivosRetiros.remove(modIndex);
-                    borrarMotivosRetiros.add(filtrarMotivosRetiros.get(index));
-                } else if (!crearMotivosRetiros.isEmpty() && crearMotivosRetiros.contains(filtrarMotivosRetiros.get(index))) {
-                    int crearIndex = crearMotivosRetiros.indexOf(filtrarMotivosRetiros.get(index));
-                    crearMotivosRetiros.remove(crearIndex);
-                } else {
-                    borrarMotivosRetiros.add(filtrarMotivosRetiros.get(index));
-                }
-                int VCIndex = listMotivosRetiros.indexOf(filtrarMotivosRetiros.get(index));
-                listMotivosRetiros.remove(VCIndex);
-                filtrarMotivosRetiros.remove(index);
+                filtrarMotivosRetiros.remove(motivoRetiroSeleccionado);
 
             }
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:datosMotivosRetiros");
-            infoRegistro = "Cantidad de registros: " + listMotivosRetiros.size();
-            RequestContext.getCurrentInstance().update("form:informacionRegistro");
-            index = -1;
-            secRegistro = null;
+            contarRegistros();
+            motivoRetiroSeleccionado = null;
 
             if (guardado == true) {
                 guardado = false;
             }
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
 
-    }
-
-    public void verificarBorrado() {
-        System.out.println("Estoy en verificarBorrado");
-        BigInteger contarHVExperienciasLaboralesMotivoRetiro;
-        BigInteger contarRetiMotivosRetirosMotivoRetiro;
-        BigInteger contarNovedadesSistemasMotivoRetiro;
-        BigInteger contarRetiradosMotivoRetiro;
-
-        try {
-            System.err.println("Control Secuencia de ControlMotivosRetiros ");
-            if (tipoLista == 0) {
-                contarHVExperienciasLaboralesMotivoRetiro = administrarMotivosRetiros.contarHVExperienciasLaboralesMotivoRetiro(listMotivosRetiros.get(index).getSecuencia());
-                contarNovedadesSistemasMotivoRetiro = administrarMotivosRetiros.contarNovedadesSistemasMotivoRetiro(listMotivosRetiros.get(index).getSecuencia());
-                contarRetiMotivosRetirosMotivoRetiro = administrarMotivosRetiros.contarRetiMotivosRetirosMotivoRetiro(listMotivosRetiros.get(index).getSecuencia());
-                contarRetiradosMotivoRetiro = administrarMotivosRetiros.contarRetiradosMotivoRetiro(listMotivosRetiros.get(index).getSecuencia());
-            } else {
-                contarHVExperienciasLaboralesMotivoRetiro = administrarMotivosRetiros.contarHVExperienciasLaboralesMotivoRetiro(filtrarMotivosRetiros.get(index).getSecuencia());
-                contarNovedadesSistemasMotivoRetiro = administrarMotivosRetiros.contarNovedadesSistemasMotivoRetiro(filtrarMotivosRetiros.get(index).getSecuencia());
-                contarRetiMotivosRetirosMotivoRetiro = administrarMotivosRetiros.contarRetiMotivosRetirosMotivoRetiro(filtrarMotivosRetiros.get(index).getSecuencia());
-                contarRetiradosMotivoRetiro = administrarMotivosRetiros.contarRetiradosMotivoRetiro(filtrarMotivosRetiros.get(index).getSecuencia());
-            }
-            if (contarRetiradosMotivoRetiro.equals(new BigInteger("0")) && contarRetiMotivosRetirosMotivoRetiro.equals(new BigInteger("0")) && contarHVExperienciasLaboralesMotivoRetiro.equals(new BigInteger("0")) && contarNovedadesSistemasMotivoRetiro.equals(new BigInteger("0"))) {
-                System.out.println("Borrado==0");
-                borrandoMotivosRetiros();
-            } else {
-                System.out.println("Borrado>0");
-
-                RequestContext context = RequestContext.getCurrentInstance();
-                RequestContext.getCurrentInstance().update("form:validacionBorrar");
-                RequestContext.getCurrentInstance().execute("PF('validacionBorrar').show()");
-                index = -1;
-                contarHVExperienciasLaboralesMotivoRetiro = new BigInteger("-1");
-                contarNovedadesSistemasMotivoRetiro = new BigInteger("-1");
-                contarRetiMotivosRetirosMotivoRetiro = new BigInteger("-1");
-                contarRetiradosMotivoRetiro = new BigInteger("-1");
-
-            }
-        } catch (Exception e) {
-            System.err.println("ERROR ControlMotivosRetiros verificarBorrado ERROR " + e);
-        }
     }
 
     public void revisarDialogoGuardar() {
@@ -610,18 +486,18 @@ public class ControlMotivosRetiros implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
         }
-        index = -1;
+        motivoRetiroSeleccionado = null;
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
     }
 
     public void editarCelda() {
-        if (index >= 0) {
+        if (motivoRetiroSeleccionado != null) {
             if (tipoLista == 0) {
-                editarMotivosRetiros = listMotivosRetiros.get(index);
+                editarMotivosRetiros = motivoRetiroSeleccionado;
             }
             if (tipoLista == 1) {
-                editarMotivosRetiros = filtrarMotivosRetiros.get(index);
+                editarMotivosRetiros = motivoRetiroSeleccionado;
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
@@ -635,10 +511,9 @@ public class ControlMotivosRetiros implements Serializable {
                 RequestContext.getCurrentInstance().execute("PF('editDescripcion').show()");
                 cualCelda = -1;
             }
-
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
-        index = -1;
-        secRegistro = null;
     }
 
     public void agregarNuevoMotivosRetiros() {
@@ -702,23 +577,17 @@ public class ControlMotivosRetiros implements Serializable {
             k++;
             l = BigInteger.valueOf(k);
             nuevoMotivosRetiros.setSecuencia(l);
-
             crearMotivosRetiros.add(nuevoMotivosRetiros);
-
             listMotivosRetiros.add(nuevoMotivosRetiros);
+            motivoRetiroSeleccionado = nuevoMotivosRetiros;
             nuevoMotivosRetiros = new MotivosRetiros();
             RequestContext.getCurrentInstance().update("form:datosMotivosRetiros");
-            infoRegistro = "Cantidad de registros: " + listMotivosRetiros.size();
-            RequestContext.getCurrentInstance().update("form:informacionRegistro");
+            contarRegistros();
             if (guardado == true) {
                 guardado = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
-
             RequestContext.getCurrentInstance().execute("PF('nuevoRegistroMotivosRetiros').hide()");
-            index = -1;
-            secRegistro = null;
-
         } else {
             RequestContext.getCurrentInstance().update("form:validacionNuevaCentroCosto");
             RequestContext.getCurrentInstance().execute("PF('validacionNuevaCentroCosto').show()");
@@ -727,51 +596,44 @@ public class ControlMotivosRetiros implements Serializable {
     }
 
     public void limpiarNuevoMotivosRetiros() {
-        System.out.println("limpiarNuevoMotivosRetiros");
         nuevoMotivosRetiros = new MotivosRetiros();
-        secRegistro = null;
-        index = -1;
 
     }
 
     //------------------------------------------------------------------------------
     public void duplicandoMotivosRetiros() {
         System.out.println("duplicandoMotivosRetiros");
-        if (index >= 0) {
+        if (motivoRetiroSeleccionado != null) {
             duplicarMotivosRetiros = new MotivosRetiros();
             k++;
             l = BigInteger.valueOf(k);
 
             if (tipoLista == 0) {
                 duplicarMotivosRetiros.setSecuencia(l);
-                duplicarMotivosRetiros.setCodigo(listMotivosRetiros.get(index).getCodigo());
-                duplicarMotivosRetiros.setNombre(listMotivosRetiros.get(index).getNombre());
+                duplicarMotivosRetiros.setCodigo(motivoRetiroSeleccionado.getCodigo());
+                duplicarMotivosRetiros.setNombre(motivoRetiroSeleccionado.getNombre());
             }
             if (tipoLista == 1) {
                 duplicarMotivosRetiros.setSecuencia(l);
-                duplicarMotivosRetiros.setCodigo(filtrarMotivosRetiros.get(index).getCodigo());
-                duplicarMotivosRetiros.setNombre(filtrarMotivosRetiros.get(index).getNombre());
+                duplicarMotivosRetiros.setCodigo(motivoRetiroSeleccionado.getCodigo());
+                duplicarMotivosRetiros.setNombre(motivoRetiroSeleccionado.getNombre());
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTE");
             RequestContext.getCurrentInstance().execute("PF('duplicarRegistroMotivosRetiros').show()");
-            index = -1;
-            secRegistro = null;
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
     public void confirmarDuplicar() {
-        System.err.println("ESTOY EN CONFIRMAR DUPLICAR TIPOS EMPRESAS");
         int contador = 0;
         mensajeValidacion = " ";
         int duplicados = 0;
         RequestContext context = RequestContext.getCurrentInstance();
         Integer a = 0;
         a = null;
-        System.err.println("ConfirmarDuplicar codigo " + duplicarMotivosRetiros.getCodigo());
-        System.err.println("ConfirmarDuplicar Descripcion " + duplicarMotivosRetiros.getNombre());
-
         if (duplicarMotivosRetiros.getCodigo() == a) {
             mensajeValidacion = mensajeValidacion + "   *Codigo \n";
             System.out.println("Mensaje validacion : " + mensajeValidacion);
@@ -807,15 +669,13 @@ public class ControlMotivosRetiros implements Serializable {
             }
             listMotivosRetiros.add(duplicarMotivosRetiros);
             crearMotivosRetiros.add(duplicarMotivosRetiros);
+            motivoRetiroSeleccionado = duplicarMotivosRetiros;
             RequestContext.getCurrentInstance().update("form:datosMotivosRetiros");
-            index = -1;
-            secRegistro = null;
             if (guardado == true) {
                 guardado = false;
             }
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            infoRegistro = "Cantidad de registros: " + listMotivosRetiros.size();
-            RequestContext.getCurrentInstance().update("form:informacionRegistro");
+            contarRegistros();
             if (bandera == 1) {
                 //CERRAR FILTRADO
                 FacesContext c = FacesContext.getCurrentInstance();
@@ -848,8 +708,8 @@ public class ControlMotivosRetiros implements Serializable {
         Exporter exporter = new ExportarPDF();
         exporter.export(context, tabla, "MOTIVOSRETIROS", false, false, "UTF-8", null, null);
         context.responseComplete();
-        index = -1;
-        secRegistro = null;
+        motivoRetiroSeleccionado = null;
+        motivoRetiroSeleccionado = null;
     }
 
     public void exportXLS() throws IOException {
@@ -858,41 +718,49 @@ public class ControlMotivosRetiros implements Serializable {
         Exporter exporter = new ExportarXLS();
         exporter.export(context, tabla, "MOTIVOSRETIROS", false, false, "UTF-8", null, null);
         context.responseComplete();
-        index = -1;
-        secRegistro = null;
+        motivoRetiroSeleccionado = null;
+        motivoRetiroSeleccionado = null;
     }
 
     public void verificarRastro() {
         RequestContext context = RequestContext.getCurrentInstance();
         System.out.println("lol");
-        if (!listMotivosRetiros.isEmpty()) {
-            if (secRegistro != null) {
-                System.out.println("lol 2");
-                int resultado = administrarRastros.obtenerTabla(secRegistro, "MOTIVOSRETIROS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-                System.out.println("resultado: " + resultado);
-                if (resultado == 1) {
-                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
-                } else if (resultado == 2) {
-                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
-                } else if (resultado == 3) {
-                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
-                } else if (resultado == 4) {
-                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
-                } else if (resultado == 5) {
-                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
-                }
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+        if (motivoRetiroSeleccionado != null) {
+            System.out.println("lol 2");
+            int resultado = administrarRastros.obtenerTabla(motivoRetiroSeleccionado.getSecuencia(), "MOTIVOSRETIROS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
+            System.out.println("resultado: " + resultado);
+            if (resultado == 1) {
+                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
+            } else if (resultado == 2) {
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
+            } else if (resultado == 3) {
+                RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
+            } else if (resultado == 4) {
+                RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
+            } else if (resultado == 5) {
+                RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
+        } else if (administrarRastros.verificarHistoricosTabla("MOTIVOSRETIROS")) { // igual acá
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            if (administrarRastros.verificarHistoricosTabla("MOTIVOSRETIROS")) { // igual acá
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-            }
-
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
-        index = -1;
+        motivoRetiroSeleccionado = null;
+    }
+
+    public void eventoFiltrar() {
+        try {
+            if (tipoLista == 0) {
+                tipoLista = 1;
+            }
+            contarRegistros();
+        } catch (Exception e) {
+            System.out.println("ERROR ControlMotivosRetiros eventoFiltrar ERROR===" + e.getMessage());
+        }
+    }
+
+    public void contarRegistros() {
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
     }
 
     //*/*/*/*/*/*/*/*/*/*-/-*//-*/-*/*/*-*/-*/-*/*/*/*/*/---/*/*/*/*/-*/-*/-*/-*/-*/
@@ -900,13 +768,6 @@ public class ControlMotivosRetiros implements Serializable {
         if (listMotivosRetiros == null) {
             listMotivosRetiros = administrarMotivosRetiros.consultarMotivosRetiros();
         }
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (listMotivosRetiros == null || listMotivosRetiros.isEmpty()) {
-            infoRegistro = "Cantidad de registros: 0 ";
-        } else {
-            infoRegistro = "Cantidad de registros: " + listMotivosRetiros.size();
-        }
-        RequestContext.getCurrentInstance().update("form:informacionRegistro");
         return listMotivosRetiros;
     }
 
@@ -946,14 +807,6 @@ public class ControlMotivosRetiros implements Serializable {
         this.editarMotivosRetiros = editarMotivosRetiros;
     }
 
-    public BigInteger getSecRegistro() {
-        return secRegistro;
-    }
-
-    public void setSecRegistro(BigInteger secRegistro) {
-        this.secRegistro = secRegistro;
-    }
-
     public int getRegistrosBorrados() {
         return registrosBorrados;
     }
@@ -987,14 +840,17 @@ public class ControlMotivosRetiros implements Serializable {
     }
 
     public MotivosRetiros getMotivoRetiroSelecciodo() {
-        return motivoRetiroSelecciodo;
+        return motivoRetiroSeleccionado;
     }
 
-    public void setMotivoRetiroSelecciodo(MotivosRetiros motivoRetiroSelecciodo) {
-        this.motivoRetiroSelecciodo = motivoRetiroSelecciodo;
+    public void setMotivoRetiroSelecciodo(MotivosRetiros motivoRetiroSeleccionado) {
+        this.motivoRetiroSeleccionado = motivoRetiroSeleccionado;
     }
 
     public String getInfoRegistro() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosMotivosRetiros");
+        infoRegistro = String.valueOf(tabla.getRowCount());
         return infoRegistro;
     }
 

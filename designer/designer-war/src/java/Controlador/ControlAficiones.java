@@ -613,13 +613,13 @@ public class ControlAficiones implements Serializable {
         contarRegistros();
     }
 
-    public void recordarSeleccionAficion() {
-        if (aficionSeleccionada != null) {
-            FacesContext c = FacesContext.getCurrentInstance();
-            tablaC = (DataTable) c.getViewRoot().findComponent("form:datosAficion");
-            tablaC.setSelection(aficionSeleccionada);
-        }
-    }
+//    public void recordarSeleccionAficion() {
+//        if (aficionSeleccionada != null) {
+//            FacesContext c = FacesContext.getCurrentInstance();
+//            tablaC = (DataTable) c.getViewRoot().findComponent("form:datosAficion");
+//            tablaC.setSelection(aficionSeleccionada);
+//        }
+//    }
 
     public void contarRegistros() {
         RequestContext.getCurrentInstance().update("form:infoRegistro");
@@ -725,4 +725,13 @@ public class ControlAficiones implements Serializable {
         this.activarLOV = activarLOV;
     }
 
+    public int getRegistrosBorrados() {
+        return registrosBorrados;
+    }
+
+    public void setRegistrosBorrados(int registrosBorrados) {
+        this.registrosBorrados = registrosBorrados;
+    }
+
+    
 }

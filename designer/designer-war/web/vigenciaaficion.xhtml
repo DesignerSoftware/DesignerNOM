@@ -344,52 +344,52 @@
 
                         <p:panel id="nuevaVigencias" style="border: none;">
 
-                            <strong><h:outputText value="*#{msg['fechaIncialN']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                            <div id="posicionFormulaFechaIniNuevoReg" style="position: absolute; top: 70px; left: 220px">
+                            <strong><h:outputText value="*#{msg['fechaIncialN']}" style="position: absolute; top: 75px; left: 30px;" /></strong>
+                            <div id="posicionFormulaFechaIniNuevoReg" style="position: absolute; top: 70px; left: 230px">
                                 <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicial" value="#{controlVigenciaAficion.nuevaVigenciaAficion.fechainicial}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaInicial" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaInicial" process="@this"/>
                                 </p:calendar>
                             </div>
 
-                            <strong><h:outputText value="#{msg['fechaFinalN']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
-                            <div id="posicionFormulaFechaFinNuevoReg" style="position: absolute; top: 100px; left: 220px">
+                            <strong><h:outputText value="#{msg['fechaFinalN']}" style="position: absolute; top: 105px; left: 30px;" /></strong>
+                            <div id="posicionFormulaFechaFinNuevoReg" style="position: absolute; top: 100px; left: 230px">
                                 <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinal" value="#{controlVigenciaAficion.nuevaVigenciaAficion.fechafinal}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaFinal" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaFinal" process="@this"/>
                                 </p:calendar>
                             </div>
 
-                            <strong><h:outputText value="*#{msg['aficionN']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaDescripcion" value="#{controlVigenciaAficion.nuevaVigenciaAficion.aficion.descripcion}" style="width: 122px; position: absolute; left: 220px; top: 130px;">
+                            <strong><h:outputText value="*#{msg['aficionN']}" style="position: absolute; top: 135px; left: 30px;" /></strong>
+                            <p:inputText id="nuevaDescripcion" value="#{controlVigenciaAficion.nuevaVigenciaAficion.aficion.descripcion}" style="width: 122px; position: absolute; left: 230px; top: 130px;">
                                 <p:ajax event="dblclick" listener="#{controlVigenciaAficion.asignarIndex(indice,1)}"/>
                                 <p:ajax event="click" listener="#{controlVigenciaAficion.valoresBackupAutocompletar(1, 'AFICIONES')}" />
                                 <p:ajax event="change" listener="#{controlVigenciaAficion.autocompletarNuevoyDuplicado('AFICIONES', controlVigenciaAficion.nuevaVigenciaAficion.aficion.descripcion, 1)}" />
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 351px; top: 130px; " class="cssBotonLovDialogos" id="btnNuevaDescripcion"
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 361px; top: 130px; " class="cssBotonLovDialogos" id="btnNuevaDescripcion"
                                              value="" process="@this"  actionListener="#{controlVigenciaAficion.asignarIndex(indice,1)}"/>   
                             <p:watermark for="nuevaDescripcion" value="#{msg['descripcion']}" />
 
-                            <strong><h:outputText value="#{msg['puntajeIN']}" style="position: absolute; top: 165px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaIndividual" value="#{controlVigenciaAficion.nuevaVigenciaAficion.valorcuantitativo}" style="width: 122px; position: absolute; left: 220px; top: 160px;">
+                            <strong><h:outputText value="#{msg['puntajeI']} :" style="position: absolute; top: 165px; left: 30px;" /></strong>
+                            <p:inputText id="nuevaIndividual" value="#{controlVigenciaAficion.nuevaVigenciaAficion.valorcuantitativo}" style="width: 122px; position: absolute; left: 230px; top: 160px;">
                                 <p:ajax event="change" update="nuevaIndividual"/>
                             </p:inputText>
                             <p:watermark for="nuevaIndividual" value="#{msg['puntajeI']}" />
 
-                            <strong><h:outputText value="#{msg['puntajeCIN']}" style="position: absolute; top: 195px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaGIndividual" value="#{controlVigenciaAficion.nuevaVigenciaAficion.valorcualitativo}" style="width: 122px; position: absolute; left: 220px; top: 190px;">
+                            <strong><h:outputText value="#{msg['puntajeCI']} :" style="position: absolute; top: 195px; left: 30px;" /></strong>
+                            <p:inputText id="nuevaGIndividual" value="#{controlVigenciaAficion.nuevaVigenciaAficion.valorcualitativo}" style="width: 122px; position: absolute; left: 230px; top: 190px;">
                                 <p:ajax event="change" update="nuevaGIndividual"/>
                             </p:inputText>
                             <p:watermark for="nuevaGIndividual" value="#{msg['puntajeCI']}" />
 
-                            <strong><h:outputText value="#{msg['puntajeGN']}" style="position: absolute; top: 225px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaGrupal" value="#{controlVigenciaAficion.nuevaVigenciaAficion.valorcuantitativogrupo}" style="width: 122px; position: absolute; left: 220px; top: 220px;">
+                            <strong><h:outputText value="#{msg['puntajeG']} :" style="position: absolute; top: 225px; left: 30px;" /></strong>
+                            <p:inputText id="nuevaGrupal" value="#{controlVigenciaAficion.nuevaVigenciaAficion.valorcuantitativogrupo}" style="width: 122px; position: absolute; left: 230px; top: 220px;">
                                 <p:ajax event="change" update="nuevaGrupal"/>
                             </p:inputText>
                             <p:watermark for="nuevaGrupal" value="#{msg['puntajeG']}" />
 
-                            <strong><h:outputText value="#{msg['puntajeCGN']}" style="position: absolute; top: 255px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaCGrupal" value="#{controlVigenciaAficion.nuevaVigenciaAficion.valorcualitativogrupo}" style="width: 122px; position: absolute; left: 220px; top: 250px;">
+                            <strong><h:outputText value="#{msg['puntajeCG']} :" style="position: absolute; top: 255px; left: 30px;" /></strong>
+                            <p:inputText id="nuevaCGrupal" value="#{controlVigenciaAficion.nuevaVigenciaAficion.valorcualitativogrupo}" style="width: 122px; position: absolute; left: 230px; top: 250px;">
                                 <p:ajax event="change" update="nuevaCGrupal"/>
                             </p:inputText>
                             <p:watermark for="nuevaCGrupal" value="#{msg['puntajeCG']}" />
@@ -407,8 +407,8 @@
                         <p:panel id="duplicarVigencias" style="border: none;">
 
 
-                            <strong><h:outputText value="*#{msg['fechaIncialN']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                            <div id="posicionFormulaFechaIniNuevoReg" style="position: absolute; top: 70px; left: 220px">
+                            <strong><h:outputText value="*#{msg['fechaIncialN']}" style="position: absolute; top: 75px; left: 30px;" /></strong>
+                            <div id="posicionFormulaFechaIniNuevoReg" style="position: absolute; top: 70px; left: 230px">
                                 <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicial" value="#{controlVigenciaAficion.duplicarVigenciaAficion.fechainicial}" >
                                     <p:ajax event="dateSelect" update="duplicarFechaInicial" process="@this"/>
                                     <p:ajax event="change" update="duplicarFechaInicial" process="@this"/>
@@ -425,35 +425,35 @@
                             </div>
 
 
-                            <strong><h:outputText value="*#{msg['aficionN']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarDescripcion" value="#{controlVigenciaAficion.duplicarVigenciaAficion.aficion.descripcion}" style="width: 122px; position: absolute; left: 220px; top: 130px;">
+                            <strong><h:outputText value="*#{msg['aficionN']}" style="position: absolute; top: 135px; left: 30px;" /></strong>
+                            <p:inputText id="duplicarDescripcion" value="#{controlVigenciaAficion.duplicarVigenciaAficion.aficion.descripcion}" style="width: 122px; position: absolute; left: 230px; top: 130px;">
                                 <p:ajax event="dblclick" listener="#{controlVigenciaAficion.asignarIndex(indice,2)}"/>
                                 <p:ajax event="click" listener="#{controlVigenciaAficion.valoresBackupAutocompletar(2, 'AFICIONES')}" />
                                 <p:ajax event="change" listener="#{controlVigenciaAficion.autocompletarNuevoyDuplicado('AFICIONES', controlVigenciaAficion.duplicarVigenciaAficion.aficion.descripcion, 2)}" />
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 351px; top: 130px;  " id="btnDuplicarDescripcion" icon="ui-icon-search" process="@this"  actionListener="#{controlVigenciaAficion.asignarIndex(indice,2)}"/>   
+                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 361px; top: 130px;  " id="btnDuplicarDescripcion" icon="ui-icon-search" process="@this"  actionListener="#{controlVigenciaAficion.asignarIndex(indice,2)}"/>   
                             <p:watermark for="duplicarDescripcion" value="#{msg['descripcion']}" />
 
-                            <strong><h:outputText value="#{msg['puntajeIN']}" style="position: absolute; top: 165px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarIndividual" value="#{controlVigenciaAficion.duplicarVigenciaAficion.valorcuantitativo}" style="width: 122px; position: absolute; left: 220px; top: 160px;">
+                            <strong><h:outputText value="#{msg['puntajeI']}" style="position: absolute; top: 165px; left: 30px;" /></strong>
+                            <p:inputText id="duplicarIndividual" value="#{controlVigenciaAficion.duplicarVigenciaAficion.valorcuantitativo}" style="width: 122px; position: absolute; left: 230px; top: 160px;">
                                 <p:ajax event="change" update="duplicarIndividual"/>
                             </p:inputText>
                             <p:watermark for="duplicarIndividual" value="#{msg['puntajeI']}" />
 
-                            <strong><h:outputText value="#{msg['puntajeCIN']}" style="position: absolute; top: 195px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarGIndividual" value="#{controlVigenciaAficion.duplicarVigenciaAficion.valorcualitativo}" style="width: 122px; position: absolute; left: 220px; top: 190px;">
+                            <strong><h:outputText value="#{msg['puntajeCI']}" style="position: absolute; top: 195px; left: 30px;" /></strong>
+                            <p:inputText id="duplicarGIndividual" value="#{controlVigenciaAficion.duplicarVigenciaAficion.valorcualitativo}" style="width: 122px; position: absolute; left: 230px; top: 190px;">
                                 <p:ajax event="change" update="duplicarGIndividual"/>
                             </p:inputText>
                             <p:watermark for="duplicarGIndividual" value="#{msg['puntajeCI']}" />
 
-                            <strong><h:outputText value="#{msg['puntajeGN']}" style="position: absolute; top: 225px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarGrupal" value="#{controlVigenciaAficion.duplicarVigenciaAficion.valorcuantitativogrupo}" style="width: 122px; position: absolute; left: 220px; top: 220px;">
+                            <strong><h:outputText value="#{msg['puntajeG']}" style="position: absolute; top: 225px; left: 30px;" /></strong>
+                            <p:inputText id="duplicarGrupal" value="#{controlVigenciaAficion.duplicarVigenciaAficion.valorcuantitativogrupo}" style="width: 122px; position: absolute; left: 230px; top: 220px;">
                                 <p:ajax event="change" update="duplicarGrupal"/>
                             </p:inputText>
                             <p:watermark for="duplicarGrupal" value="#{msg['puntajeG']}" />
 
-                            <strong><h:outputText value="#{msg['puntajeCGN']}" style="position: absolute; top: 255px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarCGrupal" value="#{controlVigenciaAficion.duplicarVigenciaAficion.valorcualitativogrupo}" style="width: 122px; position: absolute; left: 220px; top: 250px;">
+                            <strong><h:outputText value="#{msg['puntajeCG']}" style="position: absolute; top: 255px; left: 30px;" /></strong>
+                            <p:inputText id="duplicarCGrupal" value="#{controlVigenciaAficion.duplicarVigenciaAficion.valorcualitativogrupo}" style="width: 122px; position: absolute; left: 230px; top: 250px;">
                                 <p:ajax event="change" update="duplicarCGrupal"/>
                             </p:inputText>
                             <p:watermark for="duplicarCGrupal" value="#{msg['puntajeCG']}" />

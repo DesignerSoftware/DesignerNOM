@@ -5941,4 +5941,13 @@
         </navigation-case>
     </navigation-rule>
     
+    <navigation-rule>
+        <from-view-id>/perexperiencialaboral.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>motivo</from-outcome>
+            <to-view-id>/motivosretiros.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
 </faces-config>
