@@ -351,13 +351,13 @@ public class ControlCiudades implements Serializable {
             tipoLista = 1;
             System.out.println("Activar");
             ciudadesCodigos = (Column) c.getViewRoot().findComponent("form:datosCiudades:ciudadesCodigos");
-            ciudadesCodigos.setFilterStyle("width: 85%");
+            ciudadesCodigos.setFilterStyle("width: 85% !important");
             ciudadesNombres = (Column) c.getViewRoot().findComponent("form:datosCiudades:ciudadesNombres");
-            ciudadesNombres.setFilterStyle("width: 85%");
+            ciudadesNombres.setFilterStyle("width: 85% !important");
             nombresDepartamentos = (Column) c.getViewRoot().findComponent("form:datosCiudades:nombresDepartamentos");
-            nombresDepartamentos.setFilterStyle("width: 85%");
+            nombresDepartamentos.setFilterStyle("width: 85% !important");
             ciudadesCodigosAlternativos = (Column) c.getViewRoot().findComponent("form:datosCiudades:ciudadesCodigosAlternativos");
-            ciudadesCodigosAlternativos.setFilterStyle("width: 85%");
+            ciudadesCodigosAlternativos.setFilterStyle("width: 85% !important");
             altoTabla = "290";
             RequestContext.getCurrentInstance().update("form:datosCiudades");
             bandera = 1;

@@ -388,7 +388,7 @@
 
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarM']}"/>  
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovMotivoCambioSueldo').filter();" value="#{filtrado}" class="cssFiltroLOV"/>  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovMotivoCambioSueldo').filter();" value="#{filtrado}" style="width: 40% !important" class="cssFiltroLOV"/>  
                                 </f:facet>
                                 <p:column filterBy="#{motivoCS.codigo}" width="60" filterMatchMode="contains" filterStyle="width: 85% !important">
                                     <f:facet name="header">

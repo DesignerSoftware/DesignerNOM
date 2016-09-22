@@ -5433,12 +5433,9 @@ public class ControlPersonaIndividual implements Serializable {
       aceptar = true;
       RequestContext context = RequestContext.getCurrentInstance();
       context.reset("formLovs:formDInformacionPersonal:infoP_ciudadN:lovCiudadNacimientoInformacionPersonal:globalFilter");
-
-      RequestContext.getCurrentInstance().execute("PF('lovCiudadNacimientoInformacionPersonal').clearFilters()");
-
-      RequestContext.getCurrentInstance().execute("PF('lovCiudadNacimientoInformacionPersonal').unselectAllRows()");
-
-      RequestContext.getCurrentInstance().execute("PF('CiudadNacimientoInformacionPersonalDialogo').hide()");
+      context.execute("PF('lovCiudadNacimientoInformacionPersonal').clearFilters()");
+      context.execute("PF('lovCiudadNacimientoInformacionPersonal').unselectAllRows()");
+      context.execute("PF('CiudadNacimientoInformacionPersonalDialogo').hide()");
    }
 
    public void calcularControlEmpleadosEmpresa() {
@@ -5451,7 +5448,6 @@ public class ControlPersonaIndividual implements Serializable {
             //nuevoEmpleado.setEmpresa(BigInteger.ZERO);
             if (desdeNominaFEmpresa == 0) {
                errorDesdeNominaF = true;
-               RequestContext context = RequestContext.getCurrentInstance();
                RequestContext.getCurrentInstance().update("form:empresaModPersonal");
                RequestContext.getCurrentInstance().execute("PF('errorTopeEmpleadosEmpresa').show()");
             }

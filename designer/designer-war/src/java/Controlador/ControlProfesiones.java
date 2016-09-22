@@ -285,9 +285,9 @@ public class ControlProfesiones implements Serializable {
             System.out.println("TipoLista= " + tipoLista);
             FacesContext c = FacesContext.getCurrentInstance();
             codigo = (Column) c.getViewRoot().findComponent("form:datosProfesiones:profesionesCodigos");
-            codigo.setFilterStyle("width: 85%");
+            codigo.setFilterStyle("width: 85% !important");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosProfesiones:profesionesNombres");
-            descripcion.setFilterStyle("width: 85%");
+            descripcion.setFilterStyle("width: 85% !important");
             altoTabla = "250";
             RequestContext.getCurrentInstance().update("form:datosProfesiones");
             bandera = 1;

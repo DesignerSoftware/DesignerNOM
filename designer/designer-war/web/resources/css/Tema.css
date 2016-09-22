@@ -559,7 +559,7 @@ button .ui-widget-header{
 .ui-datatable tbody th, 
 .ui-datatable tbody td
 {
-   padding: 2px 3px !important;
+   padding: 1px 3px !important;
 }
 
 .ui-datatable-scrollable input,
@@ -584,8 +584,8 @@ button .ui-widget-header{
 }
 
 .ui-column-filter.ui-inputfield {
-   height: 10px !important;
-   padding: 3px;
+   height: 14px !important;
+   padding: 2px;
    margin-bottom: 2px !important;
 }
 
@@ -598,6 +598,7 @@ button .ui-widget-header{
    position: relative;
    width: -moz-max-content;
    width: max-content;
+   margin: 0px;
 }
 
 .ui-datatable-scrollable .ui-state-highlight input,
@@ -607,7 +608,7 @@ button .ui-widget-header{
    background-color: #0A246A !important;
    color: white !important;
    margin-left: -2px !important;
-   border-radius: 3px !important;
+   border-radius: 2px !important;
 }
 
 .ui-datatable-scrollable .ui-state-highlight .ui-inputfield{
@@ -626,4 +627,16 @@ button .ui-widget-header{
 
 .ui-datepicker .ui-datepicker-header {
     background: #61A0CA url("images/ui-bg_highlight-hard_50_61A0CA_1x100.png") 50% 50% repeat-x
+}
+
+.ui-scrollpanel-hbar .ui-scrollpanel-track{
+   height: 10px !important;
+   background: #9CC3DD !important; 
+}
+
+.ui-scrollpanel-hbar .ui-scrollpanel-drag {
+   background: #578CB0  !important;
+   border-radius: 3px !important;
+   height: 12px !important;
+   top: -1px !important;
 }

@@ -481,13 +481,13 @@ public class ControlPerTelefonos implements Serializable {
             System.out.println("Activar");
             System.out.println("TipoLista= " + tipoLista);
             tFecha = (Column) c.getViewRoot().findComponent("form:datosTelefonosPersona:tFecha");
-            tFecha.setFilterStyle("width: 85%");
+            tFecha.setFilterStyle("width: 85% !important");
             tTipoTelefono = (Column) c.getViewRoot().findComponent("form:datosTelefonosPersona:tTipoTelefono");
-            tTipoTelefono.setFilterStyle("width: 85%");
+            tTipoTelefono.setFilterStyle("width: 85% !important");
             tNumero = (Column) c.getViewRoot().findComponent("form:datosTelefonosPersona:tNumero");
-            tNumero.setFilterStyle("width: 85%");
+            tNumero.setFilterStyle("width: 85% !important");
             tCiudad = (Column) c.getViewRoot().findComponent("form:datosTelefonosPersona:tCiudad");
-            tCiudad.setFilterStyle("width: 85%");
+            tCiudad.setFilterStyle("width: 85% !important");
             altoTabla = "250";
             RequestContext.getCurrentInstance().update("form:datosTelefonosPersona");
             bandera = 1;

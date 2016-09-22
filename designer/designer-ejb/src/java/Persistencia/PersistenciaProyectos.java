@@ -98,8 +98,14 @@ public class PersistenciaProyectos implements PersistenciaProyectosInterface {
             Query query = em.createQuery("SELECT p FROM Proyectos p ORDER BY p.empresa.nombre");
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             List<Proyectos> proyectos = query.getResultList();
+            if (proyectos != null){
+               System.out.println("PersistenciaProyectos proyectos : " + proyectos.size());
+            } else {
+               System.out.println("PersistenciaProyectos proyectos = null");
+            }
             return proyectos;
         } catch (Exception e) {
+           System.out.println("Error en PersistenciaProyectos, proyectos() : " + e.getCause().toString());
             return null;
         }
     }

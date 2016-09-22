@@ -898,7 +898,7 @@ public class ControlNovedadesReemplazos implements Serializable {
             nREmpleadoReemplazado = (Column) c.getViewRoot().findComponent("form:datosEncargaturasEmpleado:nREmpleadoReemplazado");
             nREmpleadoReemplazado.setFilterStyle("width: 85% !important;");
             nRTiposReemplazos = (Column) c.getViewRoot().findComponent("form:datosEncargaturasEmpleado:nRTiposReemplazos");
-            nRTiposReemplazos.setFilterStyle("85%");
+            nRTiposReemplazos.setFilterStyle("85% !important");
             nRFechasPagos = (Column) c.getViewRoot().findComponent("form:datosEncargaturasEmpleado:nRFechasPagos");
             nRFechasPagos.setFilterStyle("width: 85% !important;");
             nRFechasIniciales = (Column) c.getViewRoot().findComponent("form:datosEncargaturasEmpleado:nRFechasIniciales");

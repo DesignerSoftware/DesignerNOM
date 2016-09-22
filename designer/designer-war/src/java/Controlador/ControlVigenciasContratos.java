@@ -799,13 +799,13 @@ public class ControlVigenciasContratos implements Serializable {
       FacesContext c = FacesContext.getCurrentInstance();
       if (bandera == 0) {
          vcFechaInicial = (Column) c.getViewRoot().findComponent("form:datosVCEmpleado:vcFechaInicial");
-         vcFechaInicial.setFilterStyle("width: 86%");
+         vcFechaInicial.setFilterStyle("width: 86% !important");
          vcFechaFinal = (Column) c.getViewRoot().findComponent("form:datosVCEmpleado:vcFechaFinal");
-         vcFechaFinal.setFilterStyle("width: 86%");
+         vcFechaFinal.setFilterStyle("width: 86% !important");
          vcContrato = (Column) c.getViewRoot().findComponent("form:datosVCEmpleado:vcContrato");
-         vcContrato.setFilterStyle("width: 86%");
+         vcContrato.setFilterStyle("width: 86% !important");
          vcTipoContrato = (Column) c.getViewRoot().findComponent("form:datosVCEmpleado:vcTipoContrato");
-         vcTipoContrato.setFilterStyle("width: 86%");
+         vcTipoContrato.setFilterStyle("width: 86% !important");
          altoTabla = "275";
          RequestContext.getCurrentInstance().update("form:datosVCEmpleado");
          bandera = 1;

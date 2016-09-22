@@ -12,7 +12,7 @@
         <ui:composition template="/template.xhtml">
             <ui:define name="body">                  
                 <h:form id="form"> 
-                    <f:loadBundle basename="Recursos.emplubicaciongeografica" var="msg" />
+                    <f:loadBundle basename="Recursos.emplubicaciongeografica" var="msg"/>
                     <p:growl id="growl" showDetail="true"/>
                     <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
 
@@ -155,29 +155,31 @@
                         <p:dialog header="#{msg['ubicacionesU']}" widgetVar="UbicacionesGeograficasDialogo" draggable="true" resizable="false" closable="false" id="UbicacionesGeograficasDialogo"  
                                   showEffect="fade" hideEffect="fade" width="510" modal="true" >
                             <p:dataTable id="lovUbicaciones" var="ubicaciones" value="#{controlVigenciasUbicaciones.listaUbicaciones}" rowKey="#{ubicaciones.secuencia}"
-                                         selection="#{controlVigenciasUbicaciones.ubicacionSelecionada}" selectionMode="single" widgetVar="lovUbicaciones" scrollable="true" scrollWidth="470" scrollHeight="250"
+                                         selection="#{controlVigenciasUbicaciones.ubicacionSelecionada}" selectionMode="single" widgetVar="lovUbicaciones" scrollable="true" scrollWidth="486" scrollHeight="250"
                                          filteredValue="#{controlVigenciasUbicaciones.filtradoUbicaciones}" emptyMessage="#{msg['lovvacio']}">              
 
                                <p:ajax event="filter" listener="#{controlVigenciasUbicaciones.contarRegistrosUbicaciones()}"/>
                                 <p:ajax event="rowSelect" listener="#{controlVigenciasUbicaciones.activarAceptar()}" update=":form:aceptarU"/>
                                 <p:ajax event="rowDblselect" listener="#{controlVigenciasUbicaciones.actualizarUbicacion()}" update=":form:UbicacionesGeograficasDialogo" process="@this" />
+                                
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarU']}" />  
                                     <p:inputText id="globalFilter" onkeyup="PF('lovUbicaciones').filter();" value="#{filtrado}" class="cssFiltroLOV" />  
                                 </f:facet>
-                                <p:column filterBy="#{ubicaciones.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 30px">
+                                
+                                <p:column filterBy="#{ubicaciones.codigo}" width="60" filterMatchMode="contains" filterStyle="width: 85% !important">
                                     <f:facet name="header">
                                         <h:outputText style="text-align: center" value="#{msg['codigoU']}" />
                                     </f:facet>
                                     <h:outputText  value="#{ubicaciones.codigo}" />
                                 </p:column>
-                                <p:column filterBy="#{ubicaciones.descripcion}" width="200"  filterMatchMode="contains">
+                                <p:column filterBy="#{ubicaciones.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important">
                                     <f:facet name="header">
                                         <h:outputText value="#{msg['descripcionU']}" />
                                     </f:facet>
                                     <h:outputText value="#{ubicaciones.descripcion}" />
                                 </p:column>
-                                <p:column filterBy="#{ubicaciones.ciudad.nombre}"  filterMatchMode="contains">
+                                <p:column filterBy="#{ubicaciones.ciudad.nombre}" width="140" filterMatchMode="contains" filterStyle="width: 85% !important">
                                     <f:facet name="header">
                                         <h:outputText value="#{msg['ciudadU']}" />
                                     </f:facet>

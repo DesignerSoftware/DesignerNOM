@@ -1095,104 +1095,140 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
    /**
     * Metodo que muestra los dialogos de las listas dentro de la pagina
     *
-    * @param indice Fila de la tabla
-    * @param dlg Dialogo
-    * @param LND Tipo actualizacion = LISTA - NUEVO - DUPLICADO
+    * @param vtt
+    * @param campo Dialogo
+    * @param tipoAct Tipo actualizacion = LISTA - NUEVO - DUPLICADO
     * @param tt Tipo Trabajador : Pensionado / Retirado / VigenciaTipoTrabajador
     */
-   public void asignarIndex(VigenciasTiposTrabajadores vtt, int dlg, int LND, int tt) {
+   public void asignarIndex(VigenciasTiposTrabajadores vtt, int campo, int tipoAct, int tt) {
       RequestContext context = RequestContext.getCurrentInstance();
       activarLOV = true;
       vigenciaSeleccionada = vtt;
-      RequestContext.getCurrentInstance().update("form:listaValores");
+      context.update("form:listaValores");
       System.out.println("VigenciasTiposTrabajadores: " + vtt.toString());
       if (tt == 0) {
-         if (LND == 0) {
-            // vigenciaSeleccionada = vtt;
-            tipoActualizacion = 0;
-         } else if (LND == 1) {
-            tipoActualizacion = 1;
-         } else if (LND == 2) {
-            tipoActualizacion = 2;
-         }
-         if (dlg == 0) {
-            //TiposTrabajadoresDialogo
+         tipoActualizacion = tipoAct;
+         if (campo == 0) {
             tipoTrabajadorSeleccionado = null;
             activarLOV = false;
-            RequestContext.getCurrentInstance().update("form:listaValores");
+            context.update("form:listaValores");
             contarRegistrosTipoTrabajador();
-            RequestContext.getCurrentInstance().update("formLovs:TipoTrabajadorDialogo");
-            RequestContext.getCurrentInstance().execute("PF('formLovs:TipoTrabajadorDialogo').show()");
+            context.update("formLovs:TipoTrabajadorDialogo");
+            context.execute("PF('TipoTrabajadorDialogo').show()");
          }
       }
       if (tt == 1) {
-         if (LND == 0) {
-            indexPension = true;
-            tipoActualizacion = 0;
-         } else if (LND == 1) {
-            tipoActualizacion = 1;
-         } else if (LND == 2) {
-            tipoActualizacion = 2;
-         }
-         if (dlg == 0) {
-            //ClasesPensionDialogo
+         indexPension = true;
+         tipoActualizacion = tipoAct;
+         if (campo == 0) {
             clasesPensionesSeleccionada = null;
             activarLOV = true;
-            RequestContext.getCurrentInstance().update("form:listaValores");
+            context.update("form:listaValores");
             contarRegistrosClasePension();
-            RequestContext.getCurrentInstance().update("formLovs:clasePensionDialogo");
-            RequestContext.getCurrentInstance().execute("PF('clasePensionDialogo').show()");
-         } else if (dlg == 1) {
-            //tipoPensionadoDialogo
+            context.update("formLovs:clasePensionDialogo");
+            context.execute("PF('clasePensionDialogo').show()");
+         } else if (campo == 1) {
             tiposPensionadosSeleccionada = null;
             activarLOV = true;
-            RequestContext.getCurrentInstance().update("form:listaValores");
+            context.update("form:listaValores");
             contarRegistrosTipoPension();
-            RequestContext.getCurrentInstance().update("formLovs:tipoPensionadoDialogo");
-            RequestContext.getCurrentInstance().execute("PF('tipoPensionadoDialogo').show()");
-         } else if (dlg == 2) {
-            //causaBientesDialogo
+            context.update("formLovs:tipoPensionadoDialogo");
+            context.execute("PF('tipoPensionadoDialogo').show()");
+         } else if (campo == 2) {
             pensionadoSeleccionado = null;
             activarLOV = true;
-            RequestContext.getCurrentInstance().update("form:listaValores");
+            context.update("form:listaValores");
             contarRegistrosEmpleado();
-            RequestContext.getCurrentInstance().update("formLovs:causaBientesDialogo");
-            RequestContext.getCurrentInstance().execute("PF('causaBientesDialogo').show()");
-         } else if (dlg == 3) {
-            //tipoPensionadoDialogo
+            context.update("formLovs:causaBientesDialogo");
+            context.execute("PF('causaBientesDialogo').show()");
+         } else if (campo == 3) {
             personaSeleccionada = null;
             activarLOV = true;
-            RequestContext.getCurrentInstance().update("form:listaValores");
+            context.update("form:listaValores");
             contarRegistrosPersona();
-            RequestContext.getCurrentInstance().update("formLovs:tutorDialogo");
-            RequestContext.getCurrentInstance().execute("PF('tutorDialogo').show()");
+            context.update("formLovs:tutorDialogo");
+            context.execute("PF('tutorDialogo').show()");
          }
       }
       if (tt == 2) {
-         if (LND == 0) {
-            indexRetiro = true;
-            tipoActualizacion = 0;
-         } else if (LND == 1) {
-            tipoActualizacion = 1;
-         } else if (LND == 2) {
-            tipoActualizacion = 2;
-         }
-         if (dlg == 0) {
-            //RetirosDialogo
+         indexRetiro = true;
+         tipoActualizacion = tipoAct;
+         if (campo == 0) {
             motivoRetiroSeleccionado = null;
             activarLOV = true;
-            RequestContext.getCurrentInstance().update("form:listaValores");
+            context.update("form:listaValores");
             contarRegistrosMotivosRetiros();
-            //    dialogoRetiros();
-            RequestContext.getCurrentInstance().update("formLovs:RetirosDialogo");
-            RequestContext.getCurrentInstance().execute("PF('RetirosDialogo').show()");
+            context.update("formLovs:RetirosDialogo");
+            context.execute("PF('RetirosDialogo').show()");
+         }
+      }
+   }
+   
+   public void asignarIndex(int campo, int tipoAct, int tt) {
+      RequestContext context = RequestContext.getCurrentInstance();
+      activarLOV = true;
+      context.update("form:listaValores");
+      if (tt == 0) {
+         tipoActualizacion = tipoAct;
+         if (campo == 0) {
+            tipoTrabajadorSeleccionado = null;
+            activarLOV = false;
+            context.update("form:listaValores");
+            contarRegistrosTipoTrabajador();
+            context.update("formLovs:TipoTrabajadorDialogo");
+            context.execute("PF('TipoTrabajadorDialogo').show()");
+         }
+      }
+      if (tt == 1) {
+         indexPension = true;
+         tipoActualizacion = tipoAct;
+         if (campo == 0) {
+            clasesPensionesSeleccionada = null;
+            activarLOV = true;
+            context.update("form:listaValores");
+            contarRegistrosClasePension();
+            context.update("formLovs:clasePensionDialogo");
+            context.execute("PF('clasePensionDialogo').show()");
+         } else if (campo == 1) {
+            tiposPensionadosSeleccionada = null;
+            activarLOV = true;
+            context.update("form:listaValores");
+            contarRegistrosTipoPension();
+            context.update("formLovs:tipoPensionadoDialogo");
+            context.execute("PF('tipoPensionadoDialogo').show()");
+         } else if (campo == 2) {
+            pensionadoSeleccionado = null;
+            activarLOV = true;
+            context.update("form:listaValores");
+            contarRegistrosEmpleado();
+            context.update("formLovs:causaBientesDialogo");
+            context.execute("PF('causaBientesDialogo').show()");
+         } else if (campo == 3) {
+            personaSeleccionada = null;
+            activarLOV = true;
+            context.update("form:listaValores");
+            contarRegistrosPersona();
+            context.update("formLovs:tutorDialogo");
+            context.execute("PF('tutorDialogo').show()");
+         }
+      }
+      if (tt == 2) {
+         indexRetiro = true;
+         tipoActualizacion = tipoAct;
+         if (campo == 0) {
+            motivoRetiroSeleccionado = null;
+            activarLOV = true;
+            context.update("form:listaValores");
+            contarRegistrosMotivosRetiros();
+            context.update("formLovs:RetirosDialogo");
+            context.execute("PF('RetirosDialogo').show()");
          }
       }
    }
 
-   public void asignarIndex(Retirados retirados, int dlg, int LND, int tt) {
+//   public void asignarIndex(Retirados retirados, int dlg, int LND, int tt) {
 //        RequestContext context = RequestContext.getCurrentInstance();
-      System.out.println("Retirados: " + retirados.toString());
+//      System.out.println("Retirados: " + retirados.toString());
 //        if (tt == 2) {
 //            if (LND == 0) {
 //                indexRetiro = true;
@@ -1213,8 +1249,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
 //                RequestContext.getCurrentInstance().execute("PF('RetirosDialogo').show()");
 //            }
 //        }
-   }
-
+//   }
    //LOVS
    /**
     * Actualiza la informacion de l tipo de trabajador con respecto a la tabla -
@@ -1249,7 +1284,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
       aceptar = true;
       tipoActualizacion = -1;
       RequestContext.getCurrentInstance().update("form:datosVTTEmpleado");
-      RequestContext.getCurrentInstance().update("form:TipoTrabajadorDialogo");
+      RequestContext.getCurrentInstance().update("formLovs:TipoTrabajadorDialogo");
       RequestContext.getCurrentInstance().update("form:lovTipoTrabajador");
       RequestContext.getCurrentInstance().update("form:aceptarTT");
 

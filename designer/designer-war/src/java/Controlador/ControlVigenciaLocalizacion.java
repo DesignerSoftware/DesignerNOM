@@ -452,7 +452,10 @@ public class ControlVigenciaLocalizacion implements Serializable {
     * Modifica los elementos de la tabla VigenciaProrrateo que no usan
     * autocomplete
     *
+    * @param valor
     * @param indice Fila donde se efectu el cambio
+    * @param nTabla
+    * @param subPorcent
     */
    public void modificarVPPorcentaje(String valor, int indice, int nTabla, int subPorcent) {
       activarLOV = true;
@@ -535,7 +538,6 @@ public class ControlVigenciaLocalizacion implements Serializable {
      *
      * }
     */
-
    public void modificarVP() {
       RequestContext context = RequestContext.getCurrentInstance();
       if (!listVPCrear.contains(vigenciaProrrateoSeleccionada)) {
@@ -1251,7 +1253,7 @@ public class ControlVigenciaLocalizacion implements Serializable {
    /**
     * Metodo que obtiene la posicion dentro de la tabla VigenciasProrrateos
     *
-    * @param indice Fila de la tabla
+    * @param vProrrateos
     * @param celda Columna de la tabla
     */
    public void cambiarIndiceVP(VigenciasProrrateos vProrrateos, int celda) {
@@ -1344,17 +1346,10 @@ public class ControlVigenciaLocalizacion implements Serializable {
     * Metodo de guardado general para la pagina
     */
    public void guardadoGeneral() {
-      if (cambiosVigencia) {
-         guardarCambiosVL();
-      }
-      if (cambioVigenciaP) {
-         guardarCambiosVP();
-      }
-      if (cambioVigenciaPP) {
-         guardarCambiosVPP();
-      }
+      guardarCambiosVL();
+      guardarCambiosVP();
+      guardarCambiosVPP();
       guardado = true;
-      RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("form:ACEPTAR");
    }
 
@@ -1508,7 +1503,6 @@ public class ControlVigenciaLocalizacion implements Serializable {
          contarRegistrosVPP();
          activarLOV = true;
          RequestContext.getCurrentInstance().update("form:listaValores");
-         RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().update("form:datosVPPVigencia");
          paraNuevaV = 0;
          cambioVigenciaPP = false;
@@ -2366,16 +2360,11 @@ public class ControlVigenciaLocalizacion implements Serializable {
     * medio de la tecla Crtl+F11
     */
    public void activarCtrlF11() {
-      if (vigenciaProrrateoSeleccionada != null) {
-         filtradoVigenciaProrrateo();
-         vigenciaProrrateoSeleccionada = null;
-      } else if (vigenciaProrrateoProyectoSeleccionada != null) {
-         filtradoVigenciaProrrateoProyecto();
-         vigenciaProrrateoProyectoSeleccionada = null;
-      } else if (vigenciaLocalizacionSeleccionada != null) {
-         filtradoVigenciaLocalizacion();
-         vigenciaLocalizacionSeleccionada = null;
-      }
+      vigenciaProrrateoSeleccionada = null;
+      vigenciaProrrateoProyectoSeleccionada = null;
+      filtradoVigenciaProrrateo();
+      filtradoVigenciaProrrateoProyecto();
+      filtradoVigenciaLocalizacion();
    }
 
    /**
@@ -2385,15 +2374,15 @@ public class ControlVigenciaLocalizacion implements Serializable {
       FacesContext c = FacesContext.getCurrentInstance();
       if (bandera == 0) {
          vlFechaVigencia = (Column) c.getViewRoot().findComponent("form:datosVLEmpleado:vlFechaVigencia");
-         vlFechaVigencia.setFilterStyle("width: 80%");
+         vlFechaVigencia.setFilterStyle("width: 80% !important");
          vlCentroCosto = (Column) c.getViewRoot().findComponent("form:datosVLEmpleado:vlCentroCosto");
-         vlCentroCosto.setFilterStyle("width: 80%");
+         vlCentroCosto.setFilterStyle("width: 80% !important");
          vlLocalizacion = (Column) c.getViewRoot().findComponent("form:datosVLEmpleado:vlLocalizacion");
-         vlLocalizacion.setFilterStyle("width: 80%");
+         vlLocalizacion.setFilterStyle("width: 80% !important");
          vlMotivo = (Column) c.getViewRoot().findComponent("form:datosVLEmpleado:vlMotivo");
-         vlMotivo.setFilterStyle("width: 80%");
+         vlMotivo.setFilterStyle("width: 80% !important");
          vlProyecto = (Column) c.getViewRoot().findComponent("form:datosVLEmpleado:vlProyecto");
-         vlProyecto.setFilterStyle("width: 80%");
+         vlProyecto.setFilterStyle("width: 80%v");
          altoTabla1 = "84";
          RequestContext.getCurrentInstance().update("form:datosVLEmpleado");
          bandera = 1;
@@ -2411,17 +2400,17 @@ public class ControlVigenciaLocalizacion implements Serializable {
       if (banderaVP == 0) {
          //Columnas Tabla VPP
          vPCentroCosto = (Column) c.getViewRoot().findComponent("form:datosVPVigencia:vPCentroCosto");
-         vPCentroCosto.setFilterStyle("width: 80%");
+         vPCentroCosto.setFilterStyle("width: 80% !important");
          vPPorcentaje = (Column) c.getViewRoot().findComponent("form:datosVPVigencia:vPPorcentaje");
-         vPPorcentaje.setFilterStyle("width: 80%");
+         vPPorcentaje.setFilterStyle("width: 80% !important");
          vPFechaInicial = (Column) c.getViewRoot().findComponent("form:datosVPVigencia:vPFechaInicial");
-         vPFechaInicial.setFilterStyle("width: 80%");
+         vPFechaInicial.setFilterStyle("width: 80% !important");
          vPFechaFinal = (Column) c.getViewRoot().findComponent("form:datosVPVigencia:vPFechaFinal");
-         vPFechaFinal.setFilterStyle("width: 80%");
+         vPFechaFinal.setFilterStyle("width: 80% !important");
          vPProyecto = (Column) c.getViewRoot().findComponent("form:datosVPVigencia:vPProyecto");
-         vPProyecto.setFilterStyle("width: 80%");
+         vPProyecto.setFilterStyle("width: 80% !important");
          vPSubPorcentaje = (Column) c.getViewRoot().findComponent("form:datosVPVigencia:vPSubPorcentaje");
-         vPSubPorcentaje.setFilterStyle("width: 80%");
+         vPSubPorcentaje.setFilterStyle("width: 80% !important");
          altoTabla2 = "84";
          RequestContext.getCurrentInstance().update("form:datosVPVigencia");
          banderaVP = 1;
@@ -2439,13 +2428,13 @@ public class ControlVigenciaLocalizacion implements Serializable {
       //Columnas Tabla VPP
       if (banderaVPP == 0) {
          vPPProyecto = (Column) c.getViewRoot().findComponent("form:datosVPPVigencia:vPPProyecto");
-         vPPProyecto.setFilterStyle("width: 80%");
+         vPPProyecto.setFilterStyle("width: 80% !important");
          vPPPorcentaje = (Column) c.getViewRoot().findComponent("form:datosVPPVigencia:vPPPorcentaje");
-         vPPPorcentaje.setFilterStyle("width: 80%");
+         vPPPorcentaje.setFilterStyle("width: 80% !important");
          vPPFechaInicial = (Column) c.getViewRoot().findComponent("form:datosVPPVigencia:vPPFechaInicial");
-         vPPFechaInicial.setFilterStyle("width: 80%");
+         vPPFechaInicial.setFilterStyle("width: 80% !important");
          vPPFechaFinal = (Column) c.getViewRoot().findComponent("form:datosVPPVigencia:vPPFechaFinal");
-         vPPFechaFinal.setFilterStyle("width: 80%");
+         vPPFechaFinal.setFilterStyle("width: 80% !important");
          altoTabla3 = "84";
          RequestContext.getCurrentInstance().update("form:datosVPPVigencia");
          banderaVPP = 1;
@@ -2492,32 +2481,31 @@ public class ControlVigenciaLocalizacion implements Serializable {
     * Metodo que ejecuta los dialogos de estructuras, motivos localizaciones,
     * proyectos
     *
-    * @param indice Fila de la tabla
-    * @param dlg Dialogo
+    * @param vLocalizacion
+    * @param campo Dialogo
+    * @param tipoAct
     */
-   public void asignarIndex(VigenciasLocalizaciones vLocalizacion, int dlg, int tipoAct) {
+   public void asignarIndex(VigenciasLocalizaciones vLocalizacion, int campo, int tipoAct) {
       RequestContext context = RequestContext.getCurrentInstance();
       tipoActualizacion = tipoAct;
-      if (tipoAct == 0) {
-         vigenciaLocalizacionSeleccionada = vLocalizacion;
-      }
+      vigenciaLocalizacionSeleccionada = vLocalizacion;
       activarLOV = false;
-      RequestContext.getCurrentInstance().update("form:listaValores");
-      if (dlg == 0) {
+      context.update("form:listaValores");
+      if (campo == 0) {
          //Estructuras
          contarRegistrosEstrLoca();
-         RequestContext.getCurrentInstance().update("form:LocalizacionDialogo");
-         RequestContext.getCurrentInstance().execute("PF('LocalizacionDialogo').show()");
-      } else if (dlg == 1) {
+         context.update("form:LocalizacionDialogo");
+         context.execute("PF('LocalizacionDialogo').show()");
+      } else if (campo == 1) {
          //MotivosLocalizaciones
          contarRegistrosMotiLoc();
-         RequestContext.getCurrentInstance().update("form:MotivoDialogo");
-         RequestContext.getCurrentInstance().execute("PF('MotivoDialogo').show()");
-      } else if (dlg == 2) {
+         context.update("form:MotivoDialogo");
+         context.execute("PF('MotivoDialogo').show()");
+      } else if (campo == 2) {
          //Proyectos
          contarRegistrosProyecto();
-         RequestContext.getCurrentInstance().update("form:ProyectosDialogo");
-         RequestContext.getCurrentInstance().execute("PF('ProyectosDialogo').show()");
+         context.update("form:ProyectosDialogo");
+         context.execute("PF('ProyectosDialogo').show()");
       }
    }
 
@@ -2975,7 +2963,7 @@ public class ControlVigenciaLocalizacion implements Serializable {
          RequestContext.getCurrentInstance().execute("PF('confirmarGuardarSinSalir').show()");
       } else {
          //Dialogo de nuevo registro multiple
-         RequestContext.getCurrentInstance().update("form:NuevoRegistroPagina");
+         RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroPagina");
          RequestContext.getCurrentInstance().execute("PF('NuevoRegistroPagina').show()");
       }
    }
@@ -3563,7 +3551,9 @@ public class ControlVigenciaLocalizacion implements Serializable {
 
    public List<Proyectos> getListProyectos() {
       if (listProyectos == null) {
+         System.out.println("getListProyectos() listProyectos : " + listProyectos);
          listProyectos = administrarVigenciaLocalizacion.proyectos();
+         System.out.println("getListProyectos() listProyectos : " + listProyectos);
       }
       return listProyectos;
    }

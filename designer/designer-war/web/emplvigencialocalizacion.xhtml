@@ -5,8 +5,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:lnk="http://java.sun.com/jsf/composite/linkare"
-      xmlns:pe="http://primefaces.org/ui/extensions">
+      xmlns:lnk="http://java.sun.com/jsf/composite/linkare">
    <h:head>
    </h:head>
    <h:body>
@@ -230,7 +229,7 @@
                      <legend style="color: blue"><strong>#{msg['pcc']}</strong></legend>
 
                      <p:dataTable id="datosVPVigencia" var="info" rowKey="#{info.secuencia}" rowIndexVar="indiceVP" 
-                                  value="#{controlVigenciaLocalizacion.vigenciasProrrateosCentroC}" style=" border: 1px; width: 760px; position: inherit;"
+                                  value="#{controlVigenciaLocalizacion.vigenciasProrrateosCentroC}" style=" border: 1px; width: 630px; position: inherit;"
                                   filteredValue="#{controlVigenciaLocalizacion.filtradoVP}" emptyMessage="#{msg['vacio']}" 
                                   scrollable="true" editable="true" editMode="cell" scrollHeight="#{controlVigenciaLocalizacion.altoTabla2}" scrollWidth="450" 
                                   selection="#{controlVigenciaLocalizacion.vigenciaProrrateoSeleccionada}" selectionMode="single">
@@ -259,19 +258,23 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column  sortBy="#{info.porcentaje}" filterBy="#{info.porcentaje}" filterMatchMode="contains" id="vPPorcentaje" filterStyle="display: none; visibility: hidden;" width="40">                                  
+                        <p:column  sortBy="#{info.porcentaje}" filterBy="#{info.porcentaje}" filterMatchMode="contains" id="vPPorcentaje" filterStyle="display: none; visibility: hidden;" width="50">                                  
                            <f:facet name="header">
                               <h:outputText id="headerPorcentajeVP" value="#{msg['p']}" />
                               <p:tooltip  for="headerPorcentajeVP" value="Ingrese el porcentaje." />
                            </f:facet>
                            <p:cellEditor>  
-                              <f:facet name="output"><h:outputText value="#{info.porcentaje}"/></f:facet>  
+                              <f:facet name="output"><h:outputText value="#{info.porcentaje}%"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText id="editPorcentaje1" binding="#{vPPorcentajeAux}" maxlength="4" style="border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
+<!--                                 <p:inputText id="editPorcentaje1" binding="#{vPPorcentajeAux}" maxlength="4" style="border-radius: 0px; width: 93.5%;"> 
                                     <p:keyFilter for="editPorcentaje1" mask="num"/>
                                     <p:ajax event="select" listener="#{controlVigenciaLocalizacion.cambiarIndiceVP(info,1)}" update=":form:datosVPPVigencia" process="@this"/>
                                     <p:ajax event="change" listener="#{controlVigenciaLocalizacion.modificarVPPorcentaje(vPPorcentajeAux.value, indiceVP, 1, 0)}" process="@this"/>
-                                 </p:inputText>
+                                 </p:inputText>-->
+                                 <p:inputNumber id="editPorcentaje1" value="#{info.porcentaje}" symbol="%" maxValue="100" minValue="0" maxlength="3" decimalPlaces="1" symbolPosition="s" emptyValue="empty">  
+                                    <p:ajax event="select" listener="#{controlVigenciaLocalizacion.cambiarIndiceVP(info,1)}" update=":form:datosVPPVigencia" process="@this"/>
+                                    <p:ajax event="change" listener="#{controlVigenciaLocalizacion.modificarVP()}" process="@this"/>
+                                 </p:inputNumber>
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -280,7 +283,7 @@
                         </p:column>
 
                         <p:column sortBy="#{info.fechainicial}" filterBy="#{info.fechainicial}" filterMatchMode="contains" id="vPFechaInicial"
-                                  filterStyle="display: none; visibility: hidden;" width="62">                                  
+                                  filterStyle="display: none; visibility: hidden;" width="67">                                  
                            <f:facet name="header">
                               <h:outputText id="headerFechaInicialVP" value="#{msg['inicial']}" />
                               <p:tooltip  for="headerFechaInicialVP" value="Ingrese la fecha inicial en formato(DD-MM-YYYY)." />
@@ -305,7 +308,7 @@
                         </p:column>
 
                         <p:column sortBy="#{info.fechafinal}" filterBy="#{info.fechafinal}" filterMatchMode="contains"
-                                  id="vPFechaFinal" filterStyle="display: none; visibility: hidden;" width="62">                                  
+                                  id="vPFechaFinal" filterStyle="display: none; visibility: hidden;" width="67">                                  
                            <f:facet name="header">
                               <h:outputText id="headerFechaFinalVP" value="#{msg['final']}" />
                               <p:tooltip  for="headerFechaFinalVP" value="Ingrese la fecha final en formato(DD/MM/YYYY)." />
@@ -330,7 +333,7 @@
                         </p:column>
 
                         <p:column  sortBy="#{info.proyecto.nombreproyecto}" filterBy="#{info.proyecto.nombreproyecto}" filterMatchMode="contains" 
-                                   id="vPProyecto" filterStyle="display: none; visibility: hidden;" width="140">                                  
+                                   id="vPProyecto" filterStyle="display: none; visibility: hidden;" width="150">                                  
                            <f:facet name="header">
                               <h:outputText id="headerProyectoVP" value="#{msg['proyecto']}" />
                               <p:tooltip  for="headerProyectoVP" value="Proyecto." />
@@ -351,19 +354,19 @@
                         </p:column>
 
                         <p:column sortBy="#{info.subporcentaje}" filterBy="#{info.subporcentaje}" filterMatchMode="contains"
-                                  id="vPSubPorcentaje" filterStyle="display: none; visibility: hidden;" width="40">                                  
+                                  id="vPSubPorcentaje" filterStyle="display: none; visibility: hidden;" width="50">                                  
                            <f:facet name="header">
                               <h:outputText id="headerSubPorcentajeVP" value="Sub %"/>
                               <p:tooltip  for="headerSubPorcentajeVP" value="#{msg['subporcentaje']}" />
                            </f:facet>
                            <p:cellEditor>  
-                              <f:facet name="output"><h:outputText value="#{info.subporcentaje}" /></f:facet>  
+                              <f:facet name="output"><h:outputText value="#{info.subporcentaje}%" /></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText id="editPorcentaje2" binding="#{vPPorcentajeAuxSub}" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height: 12px"> 
-                                    <p:keyFilter for="editPorcentaje2" mask="num"/>
+                                 <!--<p:inputText id="editsPorcentaje2" binding="#/{vPPorcentajeAuxSub}" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height: 12px">--> 
+                                 <p:inputNumber id="editsPorcentaje2" value="#{info.subporcentaje}" symbol="%" maxValue="100" minValue="0" maxlength="3" decimalPlaces="1" symbolPosition="s" emptyValue="empty"> 
                                     <p:ajax event="select" listener="#{controlVigenciaLocalizacion.cambiarIndiceVP(info,5)}" update=":form:datosVPPVigencia" process="@this"/> 
-                                    <p:ajax event="change" listener="#{controlVigenciaLocalizacion.modificarVPPorcentaje(vPPorcentajeAuxSub.value, indiceVP, 1, 1)}" process="@this"/>
-                                 </p:inputText>
+                                    <p:ajax event="change" listener="#{controlVigenciaLocalizacion.modificarVP()}" process="@this"/>
+                                 </p:inputNumber>
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -372,7 +375,7 @@
                         </p:column> 
 
                      </p:dataTable>
-                     <h:outputText id="informacionRegistroVP" value="#{msg['infoRegistro']} #{controlVigenciaLocalizacion.infoRegistroVP}" style="position: absolute; left: 20px; top: 145px; font-weight: bold;"/>
+                     <h:outputText id="informacionRegistroVP" value="#{msg['infoRegistro']} #{controlVigenciaLocalizacion.infoRegistroVP}" style="position: relative; left: 15px; top: 137px; font-weight: bold;"/>
                   </fieldset>
 
 
@@ -380,7 +383,7 @@
                      <legend style="color: blue"><strong>#{msg['pp']}</strong></legend>
                      <p:dataTable id="datosVPPVigencia" var="info2" rowKey="#{info2.secuencia}" rowIndexVar="indiceVPP" value="#{controlVigenciaLocalizacion.vigenciasProrrateosProyectos}" 
                                   filteredValue="#{controlVigenciaLocalizacion.filtradoPP}" editable="true" editMode="cell" 
-                                  scrollable="true" scrollHeight="#{controlVigenciaLocalizacion.altoTabla3}" scrollWidth="345" emptyMessage="#{msg['vacio']}" style=" border: 1px;width:345px"
+                                  scrollable="true" scrollHeight="#{controlVigenciaLocalizacion.altoTabla3}" scrollWidth="345" emptyMessage="#{msg['vacio']}" style=" border: 1px; width:345px"
                                   selection="#{controlVigenciaLocalizacion.vigenciaProrrateoProyectoSeleccionada}" selectionMode="single">
 
                         <p:ajax event="filter" listener="#{controlVigenciaLocalizacion.eventoFiltrarVPP()}"/>
@@ -390,7 +393,7 @@
                            <f:facet name="header">
                               <h:outputText id="headerProyectoVPP" value="#{msg['proyecto']}" />
                               <p:tooltip  for="headerProyectoVPP" value="Ingrese el nombre del proyecto." />
-                              infoRegistroVPP </f:facet>
+                           </f:facet>
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info2.proyecto.nombreproyecto}" /></f:facet>  
                               <f:facet name="input">
@@ -406,20 +409,20 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column sortBy="#{info2.porcentaje}" filterBy="#{info2.porcentaje}" filterMatchMode="contains" id="vPPPorcentaje" filterStyle="display: none; visibility: hidden;"  width ="27">                                  
+                        <p:column sortBy="#{info2.porcentaje}" filterBy="#{info2.porcentaje}" filterMatchMode="contains" id="vPPPorcentaje" filterStyle="display: none; visibility: hidden;"  width ="50">                                  
                            <f:facet name="header">
                               <h:outputText id="headerPorcentajeVPP" value="#{msg['p']}" />
                               <p:tooltip  for="headerPorcentajeVPP" value="Ingrese el porcentaje." />
                            </f:facet>
 
                            <p:cellEditor>  
-                              <f:facet name="output"><h:outputText value="#{info2.porcentaje}" /></f:facet>  
+                              <f:facet name="output"><h:outputText value="#{info2.porcentaje}%" /></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText id="editPorcentaje2" binding="#{vPPorcentajeAux2}" maxlength="4" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px "> 
-                                    <p:keyFilter for="editPorcentaje2" mask="num"/>
+                                 <!--<p:inputText id="editPorcentaje2" binding="#/{vPPorcentajeAux2}" maxlength="4" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px ">--> 
+                                 <p:inputNumber id="editPorcentaje2" value="#{info2.porcentaje}" symbol="%" maxlength="3" maxValue="100" minValue="0" decimalPlaces="1" symbolPosition="s" emptyValue="empty">
                                     <p:ajax event="select" listener="#{controlVigenciaLocalizacion.cambiarIndiceVPP(info2,1)}" update=":form:datosVPVigencia" process="@this"/>
-                                    <p:ajax event="change" listener="#{controlVigenciaLocalizacion.modificarVPPorcentaje(vPPorcentajeAux2.value, indiceVPP, 2, 0)}" process="@this"/>
-                                 </p:inputText>
+                                    <p:ajax event="change" listener="#{controlVigenciaLocalizacion.modificarVPP()}" process="@this"/>
+                                 </p:inputNumber>
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -428,7 +431,7 @@
                         </p:column>
 
                         <p:column  sortBy="#{info2.fechainicial}" filterBy="#{info2.fechainicial}" filterMatchMode="contains"
-                                   id="vPPFechaInicial" filterStyle="display: none; visibility: hidden;" width="62">                                  
+                                   id="vPPFechaInicial" filterStyle="display: none; visibility: hidden;" width="67">                                  
                            <f:facet name="header">
                               <h:outputText id="headerFechaInicialVPP" value="#{msg['inicial']}" />
                               <p:tooltip  for="headerFechaInicialVPP" value="Ingrese la fecha inicial en formato(DD/MM/YYYY)." />
@@ -454,7 +457,7 @@
                         </p:column>
 
                         <p:column  sortBy="#{info2.fechafinal}" filterBy="#{info2.fechafinal}" filterMatchMode="contains"
-                                   id="vPPFechaFinal" filterStyle="display: none; visibility: hidden;"  width="62"> 
+                                   id="vPPFechaFinal" filterStyle="display: none; visibility: hidden;"  width="67"> 
                            <f:facet name="header">
                               <h:outputText id="headerFechaFinalVPP" value="#{msg['final']}" />
                               <p:tooltip  for="headerFechaFinalVPP" value="Ingrese la fecha final en formato(DD/MM/YYYY)." />
@@ -627,7 +630,7 @@
                         <p:ajax event="rowSelect" listener="#{controlVigenciaLocalizacion.activarAceptar()}" update=":form:aceptarCC"/>
                         <p:ajax event="rowDblselect" listener="#{controlVigenciaLocalizacion.actualizarCentroCostoVP()}" update=":form:lovCentroCostos" process="@this" />
                         <f:facet name="header">  
-                           <h:outputText value="#{msg['buscarLP']}"  style="position: absolute; left: 27px; top: 14px"/>  
+                           <h:outputText value="#{msg['buscarLP']}"/>  
                            <p:inputText id="globalFilter" onkeyup="PF('lovCentroCostos').filter();" value="#{filtrado}" class="cssFiltroLOV" />  
                         </f:facet>
                         <p:column filterBy="#{centro.codigo}" width="200" filterMatchMode="contains" filterStyle="width: 85% !important">

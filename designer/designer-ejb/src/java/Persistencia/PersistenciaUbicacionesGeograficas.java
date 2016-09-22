@@ -84,7 +84,7 @@ public class PersistenciaUbicacionesGeograficas implements PersistenciaUbicacion
     public List<UbicacionesGeograficas> consultarUbicacionesGeograficas(EntityManager em) {
         try {
             em.clear();
-            Query query = em.createQuery("SELECT u FROM UbicacionesGeograficas u ORDER BY u.codigo ASC");
+            Query query = em.createQuery("SELECT u FROM UbicacionesGeograficas u, Empresas e WHERE u.empresa.secuencia = e.secuencia ORDER BY u.codigo ASC");
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             List<UbicacionesGeograficas> ubicacionesGeograficas = query.getResultList();
             return ubicacionesGeograficas;

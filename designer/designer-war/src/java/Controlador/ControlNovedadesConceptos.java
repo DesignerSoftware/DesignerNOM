@@ -190,8 +190,6 @@ public class ControlNovedadesConceptos implements Serializable {
             conceptoSeleccionado = listaConceptosNovedad.get(0);
         }
         llenarTablaNovedades();
-        contarRegistrosConceptos();
-        System.out.println("infoRegistroConceptos : " + infoRegistroConceptos);
     }
 
     public String retornarPagina() {
@@ -1100,7 +1098,7 @@ public class ControlNovedadesConceptos implements Serializable {
             nCEmpleadoCodigo = (Column) c.getViewRoot().findComponent("form:datosNovedadesConcepto:nCEmpleadoCodigo");
             nCEmpleadoCodigo.setFilterStyle("width: 85% !important;");
             nCEmpleadoNombre = (Column) c.getViewRoot().findComponent("form:datosNovedadesConcepto:nCEmpleadoNombre");
-            nCEmpleadoNombre.setFilterStyle("85%");
+            nCEmpleadoNombre.setFilterStyle("85% !important");
             nCFechasInicial = (Column) c.getViewRoot().findComponent("form:datosNovedadesConcepto:nCFechasInicial");
             nCFechasInicial.setFilterStyle("width: 85% !important;");
             nCFechasFinal = (Column) c.getViewRoot().findComponent("form:datosNovedadesConcepto:nCFechasFinal");

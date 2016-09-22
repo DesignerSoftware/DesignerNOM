@@ -294,13 +294,13 @@ public class ControlCursos implements Serializable {
         if (bandera == 0) {
             FacesContext c = FacesContext.getCurrentInstance();
             codigo = (Column) c.getViewRoot().findComponent("form:datosCursos:cursoCodigos");
-            codigo.setFilterStyle("width: 85%");
+            codigo.setFilterStyle("width: 85% !important");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosCursos:cursoDescripcion");
-            descripcion.setFilterStyle("width: 85%");
+            descripcion.setFilterStyle("width: 85% !important");
             tipocurso = (Column) c.getViewRoot().findComponent("form:datosCursos:cursoTipo");
-            tipocurso.setFilterStyle("width: 85%");
+            tipocurso.setFilterStyle("width: 85% !important");
             objetivo = (Column) c.getViewRoot().findComponent("form:datosCursos:cursoObjetivo");
-            objetivo.setFilterStyle("width: 85%");
+            objetivo.setFilterStyle("width: 85% !important");
             altoTabla = "250";
             RequestContext.getCurrentInstance().update("form:datosCursos");
             bandera = 1;

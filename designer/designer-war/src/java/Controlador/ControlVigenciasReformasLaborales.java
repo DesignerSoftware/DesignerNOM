@@ -888,7 +888,6 @@ public class ControlVigenciasReformasLaborales implements Serializable {
          FacesContext c = FacesContext.getCurrentInstance();
          tablaC = (DataTable) c.getViewRoot().findComponent("form:datosVRLEmpleado");
          tablaC.setSelection(vigenciaSeleccionada);
-         System.out.println("vigenciaSeleccionada: " + vigenciaSeleccionada);
       }
    }
    //GETTERS AND SETTERS

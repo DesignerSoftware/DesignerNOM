@@ -158,7 +158,7 @@ public class ControlEmplVacaPendiente implements Serializable {
          totalDiasPendientes = BigInteger.valueOf(0);
          getTotalDiasPendientes();
          RequestContext context = RequestContext.getCurrentInstance();
-         RequestContext.getCurrentInstance().update("form:datosVacacionesPEmpleado:totalDiasP");
+         RequestContext.getCurrentInstance().update("form:totalDiasP");
          if (guardado) {
             guardado = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -610,7 +610,7 @@ public class ControlEmplVacaPendiente implements Serializable {
       RequestContext.getCurrentInstance().update("form:informacionRegistroD");
       RequestContext.getCurrentInstance().update("form:datosVacacionesPEmpleado");
       RequestContext.getCurrentInstance().update("form:datosVacacionesDEmpleado");
-      RequestContext.getCurrentInstance().update("form:datosVacacionesPEmpleado:totalDiasP");
+      RequestContext.getCurrentInstance().update("form:totalDiasP");
 
    }
 

@@ -334,7 +334,6 @@ public class ControlVigenciasUbicaciones implements Serializable {
          contarRegistrosUbicaciones();
          activarLOV = true;
          RequestContext.getCurrentInstance().update("form:listaValores");
-         RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().update("form:datosVUEmpleado");
          guardado = true;
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -362,7 +361,6 @@ public class ControlVigenciasUbicaciones implements Serializable {
       getVigenciasUbicaciones();
       contarRegistrosUbicaciones();
       guardado = true;
-      RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("form:datosVUEmpleado");
       RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
@@ -381,13 +379,10 @@ public class ControlVigenciasUbicaciones implements Serializable {
       bandera = 0;
       filtrarVU = null;
       tipoLista = 0;
-
    }
 
    //RASTROS 
    public void verificarRastro() {
-      RequestContext context = RequestContext.getCurrentInstance();
-
       if (vigenciaSeleccionada != null) {
          System.out.println("lol 2");
          int result = administrarRastros.obtenerTabla(vigenciaSeleccionada.getSecuencia(), "VIGENCIASUBICACIONES");
@@ -412,7 +407,6 @@ public class ControlVigenciasUbicaciones implements Serializable {
 
    //MOSTRAR DATOS CELDA
    public void editarCelda() {
-      RequestContext context = RequestContext.getCurrentInstance();
       if (vigenciaSeleccionada == null) {
          RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
       } else {
@@ -438,12 +432,8 @@ public class ControlVigenciasUbicaciones implements Serializable {
       int contador = 0;
       int fechas = 0;
       int pasa = 0;
-
       mensajeValidacion = " ";
       nuevaVigencia.setEmpleado(empleado);
-      RequestContext context = RequestContext.getCurrentInstance();
-      boolean banderaConfirmar = false;
-
       if (nuevaVigencia.getFechavigencia() == null || nuevaVigencia.getFechavigencia().equals("")) {
          mensajeValidacion = " *Fecha\n";
       } else {
@@ -472,7 +462,6 @@ public class ControlVigenciasUbicaciones implements Serializable {
       if (contador == 2 && pasa == 0) {
          FacesContext c = FacesContext.getCurrentInstance();
          if (bandera == 1) {
-            //CERRAR FILTRADO
             cerrarFiltrado();
          }
          //AGREGAR REGISTRO A LA LISTA 
@@ -512,7 +501,6 @@ public class ControlVigenciasUbicaciones implements Serializable {
    //DUPLICAR VC
 
    public void duplicarVigenciaU() {
-      RequestContext context = RequestContext.getCurrentInstance();
       if (vigenciaSeleccionada == null) {
          RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
       } else if (vigenciaSeleccionada != null) {
@@ -530,10 +518,8 @@ public class ControlVigenciasUbicaciones implements Serializable {
    }
 
    public void confirmarDuplicar() {
-
       int contador = 0;
       mensajeValidacion = " ";
-
       for (int j = 0; j < vigenciasUbicaciones.size(); j++) {
          if (duplicarVU.getFechavigencia().equals(vigenciasUbicaciones.get(j).getFechavigencia())) {
             contador++;
@@ -541,10 +527,8 @@ public class ControlVigenciasUbicaciones implements Serializable {
       }
       if (contador > 0) {
          mensajeValidacion = "Fechas NO Repetidas";
-
          RequestContext.getCurrentInstance().update("form:validacionFechaDuplicada");
          RequestContext.getCurrentInstance().execute("PF('validacionFechaDuplicada').show()");
-
       } else {
          vigenciasUbicaciones.add(duplicarVU);
          listVUCrear.add(duplicarVU);
@@ -553,14 +537,12 @@ public class ControlVigenciasUbicaciones implements Serializable {
          activarLOV = true;
          RequestContext.getCurrentInstance().update("form:listaValores");
          RequestContext.getCurrentInstance().update("form:datosVUEmpleado");
-//            vigenciaSeleccionada = null;
          if (guardado) {
             guardado = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
          }
 
          if (bandera == 1) {
-            //CERRAR FILTRADO
             cerrarFiltrado();
          }
          duplicarVU = new VigenciasUbicaciones();
@@ -625,7 +607,6 @@ public class ControlVigenciasUbicaciones implements Serializable {
 
    //SALIR
    public void salir() {
-      RequestContext context = RequestContext.getCurrentInstance();
       cerrarFiltrado();
       activarLOV = true;
       RequestContext.getCurrentInstance().update("form:listaValores");
@@ -642,7 +623,6 @@ public class ControlVigenciasUbicaciones implements Serializable {
 
    public void asignarIndex(VigenciasUbicaciones vu, int LND) {
       vigenciaSeleccionada = vu;
-      RequestContext context = RequestContext.getCurrentInstance();
       activarLOV = false;
       RequestContext.getCurrentInstance().update("form:listaValores");
       UbicacionSelecionada = null;
@@ -711,7 +691,6 @@ public class ControlVigenciasUbicaciones implements Serializable {
 
    //LISTA DE VALORES DINAMICA
    public void listaValoresBoton() {
-      RequestContext context = RequestContext.getCurrentInstance();
       if (vigenciaSeleccionada == null) {
          RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
       } else if (vigenciaSeleccionada != null) {
@@ -775,7 +754,6 @@ public class ControlVigenciasUbicaciones implements Serializable {
       } else {
          vigenciaSeleccionada = null;
       }
-      System.out.println("vigenciaSeleccionada: " + vigenciaSeleccionada);
    }
 
    public void anularLOV() {
@@ -826,8 +804,8 @@ public class ControlVigenciasUbicaciones implements Serializable {
    }
 
    public List<UbicacionesGeograficas> getListaUbicaciones() {
-      System.out.println("listaUbicaciones: " + listaUbicaciones);
       if (listaUbicaciones == null || listaUbicaciones.isEmpty()) {
+         System.out.println("Aviso " + this.getClass().getName() + " getListaUbicaciones() va a traer la lista de Ubicaciones");
          listaUbicaciones = administrarVigenciasUbicaciones.ubicacionesGeograficas();
       }
       return listaUbicaciones;

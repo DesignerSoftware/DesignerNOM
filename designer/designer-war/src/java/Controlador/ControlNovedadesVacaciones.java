@@ -397,7 +397,7 @@ public class ControlNovedadesVacaciones implements Serializable {
             nEFechaInicialDisfrute = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:nEFechaInicialDisfrute");
             nEFechaInicialDisfrute.setFilterStyle("width: 85% !important");
             nEPeriodo = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:nEPeriodo");
-            nEPeriodo.setFilterStyle("85%");
+            nEPeriodo.setFilterStyle("85% !important");
             nEDias = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:nEDias");
             nEDias.setFilterStyle("width: 85% !important");
             nEFechaSiguiente = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:nEFechaSiguiente");

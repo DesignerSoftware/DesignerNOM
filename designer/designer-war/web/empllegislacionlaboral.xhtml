@@ -194,8 +194,9 @@
 
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarL']}" />  
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovContratos').filter();" value="#{filtrado}"/>  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovContratos').filter();" value="#{filtrado}" class="cssFiltroLOV"/>  
                                 </f:facet>
+                                
                                 <p:column filterBy="#{contratos.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 85% !important">
                                     <f:facet name="header">
                                         <h:outputText style="text-align: center" value="#{msg['codigoL']}" />
@@ -235,6 +236,7 @@
                                     <h:outputText value="#{msg['buscarT']}" />  
                                     <p:inputText id="globalFilter" onkeyup="PF('lovTiposContratos').filter();" value="#{filtrado}" class="cssFiltroLOV" />  
                                 </f:facet>
+                                
                                 <p:column filterBy="#{tiposContratos.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 80% !important">
                                     <f:facet name="header">
                                         <h:outputText style="text-align: center" value="#{msg['codigoT']}" />

@@ -1633,61 +1633,53 @@ public class ControlVigenciaSueldo implements Serializable {
     * medio de la tecla Crtl+F11
     */
    public void activarCtrlF11() {
-      if (vigenciaSueldoSeleccionada != null) {
-         filtradoVigenciaSueldo();
-         vigenciaSueldoSeleccionada = null;
-      }
-      if (vigenciaAfiliacioneSeleccionada != null) {
-         filtradoVigenciaAfiliacion();
-         vigenciaAfiliacioneSeleccionada = null;
-      }
+      filtradoVigenciaSueldo();
+      filtradoVigenciaAfiliacion();
    }
 
    /**
     * Metodo que acciona el filtrado de la tabla vigencia localizacion
     */
    public void filtradoVigenciaSueldo() {
-      if (vigenciaSueldoSeleccionada != null) {
-         FacesContext c = FacesContext.getCurrentInstance();
-         if (bandera == 0) {
-            vSFechaVigencia = (Column) c.getViewRoot().findComponent("form:datosVSEmpleado:vSFechaVigencia");
-            vSFechaVigencia.setFilterStyle("width: 85% !important");
-            vSMotivoCambioSueldo = (Column) c.getViewRoot().findComponent("form:datosVSEmpleado:vSMotivoCambioSueldo");
-            vSMotivoCambioSueldo.setFilterStyle("width: 85% !important");
-            vSTipoSueldo = (Column) c.getViewRoot().findComponent("form:datosVSEmpleado:vSTipoSueldo");
-            vSTipoSueldo.setFilterStyle("width: 85% !important");
-            vSVigenciaRetroactivo = (Column) c.getViewRoot().findComponent("form:datosVSEmpleado:vSVigenciaRetroactivo");
-            vSVigenciaRetroactivo.setFilterStyle("width: 85% !important");
-            vSValor = (Column) c.getViewRoot().findComponent("form:datosVSEmpleado:vSValor");
-            vSValor.setFilterStyle("width: 85% !important");
-            vSObservaciones = (Column) c.getViewRoot().findComponent("form:datosVSEmpleado:vSObservaciones");
-            vSObservaciones.setFilterStyle("width: 85% !important");
-            vSRetroactivo = (Column) c.getViewRoot().findComponent("form:datosVSEmpleado:vSRetroactivo");
-            vSRetroactivo.setFilterStyle("width: 85% !important");
-            altoTabla1 = "85";
-            RequestContext.getCurrentInstance().update("form:datosVSEmpleado");
-            bandera = 1;
-         } else if (bandera == 1) {
-            vSFechaVigencia = (Column) c.getViewRoot().findComponent("form:datosVSEmpleado:vSFechaVigencia");
-            vSFechaVigencia.setFilterStyle("display: none; visibility: hidden;");
-            vSMotivoCambioSueldo = (Column) c.getViewRoot().findComponent("form:datosVSEmpleado:vSMotivoCambioSueldo");
-            vSMotivoCambioSueldo.setFilterStyle("display: none; visibility: hidden;");
-            vSTipoSueldo = (Column) c.getViewRoot().findComponent("form:datosVSEmpleado:vSTipoSueldo");
-            vSTipoSueldo.setFilterStyle("display: none; visibility: hidden;");
-            vSVigenciaRetroactivo = (Column) c.getViewRoot().findComponent("form:datosVSEmpleado:vSVigenciaRetroactivo");
-            vSVigenciaRetroactivo.setFilterStyle("display: none; visibility: hidden;");
-            vSValor = (Column) c.getViewRoot().findComponent("form:datosVSEmpleado:vSValor");
-            vSValor.setFilterStyle("display: none; visibility: hidden;");
-            vSObservaciones = (Column) c.getViewRoot().findComponent("form:datosVSEmpleado:vSObservaciones");
-            vSObservaciones.setFilterStyle("display: none; visibility: hidden;");
-            vSRetroactivo = (Column) c.getViewRoot().findComponent("form:datosVSEmpleado:vSRetroactivo");
-            vSRetroactivo.setFilterStyle("display: none; visibility: hidden;");
-            altoTabla1 = "105";
-            RequestContext.getCurrentInstance().update("form:datosVSEmpleado");
-            bandera = 0;
-            filtrarVigenciasSueldos = null;
-            tipoLista = 0;
-         }
+      FacesContext c = FacesContext.getCurrentInstance();
+      if (bandera == 0) {
+         vSFechaVigencia = (Column) c.getViewRoot().findComponent("form:datosVSEmpleado:vSFechaVigencia");
+         vSFechaVigencia.setFilterStyle("width: 85% !important");
+         vSMotivoCambioSueldo = (Column) c.getViewRoot().findComponent("form:datosVSEmpleado:vSMotivoCambioSueldo");
+         vSMotivoCambioSueldo.setFilterStyle("width: 85% !important");
+         vSTipoSueldo = (Column) c.getViewRoot().findComponent("form:datosVSEmpleado:vSTipoSueldo");
+         vSTipoSueldo.setFilterStyle("width: 85% !important");
+         vSVigenciaRetroactivo = (Column) c.getViewRoot().findComponent("form:datosVSEmpleado:vSVigenciaRetroactivo");
+         vSVigenciaRetroactivo.setFilterStyle("width: 85% !important");
+         vSValor = (Column) c.getViewRoot().findComponent("form:datosVSEmpleado:vSValor");
+         vSValor.setFilterStyle("width: 85% !important");
+         vSObservaciones = (Column) c.getViewRoot().findComponent("form:datosVSEmpleado:vSObservaciones");
+         vSObservaciones.setFilterStyle("width: 85% !important");
+         vSRetroactivo = (Column) c.getViewRoot().findComponent("form:datosVSEmpleado:vSRetroactivo");
+         vSRetroactivo.setFilterStyle("width: 85% !important");
+         altoTabla1 = "85";
+         RequestContext.getCurrentInstance().update("form:datosVSEmpleado");
+         bandera = 1;
+      } else if (bandera == 1) {
+         vSFechaVigencia = (Column) c.getViewRoot().findComponent("form:datosVSEmpleado:vSFechaVigencia");
+         vSFechaVigencia.setFilterStyle("display: none; visibility: hidden;");
+         vSMotivoCambioSueldo = (Column) c.getViewRoot().findComponent("form:datosVSEmpleado:vSMotivoCambioSueldo");
+         vSMotivoCambioSueldo.setFilterStyle("display: none; visibility: hidden;");
+         vSTipoSueldo = (Column) c.getViewRoot().findComponent("form:datosVSEmpleado:vSTipoSueldo");
+         vSTipoSueldo.setFilterStyle("display: none; visibility: hidden;");
+         vSVigenciaRetroactivo = (Column) c.getViewRoot().findComponent("form:datosVSEmpleado:vSVigenciaRetroactivo");
+         vSVigenciaRetroactivo.setFilterStyle("display: none; visibility: hidden;");
+         vSValor = (Column) c.getViewRoot().findComponent("form:datosVSEmpleado:vSValor");
+         vSValor.setFilterStyle("display: none; visibility: hidden;");
+         vSObservaciones = (Column) c.getViewRoot().findComponent("form:datosVSEmpleado:vSObservaciones");
+         vSObservaciones.setFilterStyle("display: none; visibility: hidden;");
+         vSRetroactivo = (Column) c.getViewRoot().findComponent("form:datosVSEmpleado:vSRetroactivo");
+         vSRetroactivo.setFilterStyle("display: none; visibility: hidden;");
+         altoTabla1 = "105";
+         RequestContext.getCurrentInstance().update("form:datosVSEmpleado");
+         bandera = 0;
+         filtrarVigenciasSueldos = null;
+         tipoLista = 0;
       }
    }
 
@@ -1695,40 +1687,38 @@ public class ControlVigenciaSueldo implements Serializable {
     * Metodo que acciona el filtrado de la tabla vigencia prorrateo
     */
    public void filtradoVigenciaAfiliacion() {
-      if (vigenciaAfiliacioneSeleccionada != null) {
-         FacesContext c = FacesContext.getCurrentInstance();
-         if (banderaVA == 0) {
-            //Columnas Tabla VPP
-            vAFechaInicial = (Column) c.getViewRoot().findComponent("form:datosVAVigencia:vAFechaInicial");
-            vAFechaInicial.setFilterStyle("width: 85% !important");
-            vAFechaFinal = (Column) c.getViewRoot().findComponent("form:datosVAVigencia:vAFechaFinal");
-            vAFechaFinal.setFilterStyle("width: 85% !important");
-            vATercero = (Column) c.getViewRoot().findComponent("form:datosVAVigencia:vATercero");
-            vATercero.setFilterStyle("width: 85% !important");
-            vATipoEntidad = (Column) c.getViewRoot().findComponent("form:datosVAVigencia:vATipoEntidad");
-            vATipoEntidad.setFilterStyle("width: 85% !important");
-            vAValor = (Column) c.getViewRoot().findComponent("form:datosVAVigencia:vAValor");
-            vAValor.setFilterStyle("width: 85% !important");
-            altoTabla2 = "85";
-            RequestContext.getCurrentInstance().update("form:datosVAVigencia");
-            banderaVA = 1;
-         } else if (banderaVA == 1) {
-            vAFechaInicial = (Column) c.getViewRoot().findComponent("form:datosVAVigencia:vAFechaInicial");
-            vAFechaInicial.setFilterStyle("display: none; visibility: hidden;");
-            vAFechaFinal = (Column) c.getViewRoot().findComponent("form:datosVAVigencia:vAFechaFinal");
-            vAFechaFinal.setFilterStyle("display: none; visibility: hidden;");
-            vATercero = (Column) c.getViewRoot().findComponent("form:datosVAVigencia:vATercero");
-            vATercero.setFilterStyle("display: none; visibility: hidden;");
-            vATipoEntidad = (Column) c.getViewRoot().findComponent("form:datosVAVigencia:vATipoEntidad");
-            vATipoEntidad.setFilterStyle("display: none; visibility: hidden;");
-            vAValor = (Column) c.getViewRoot().findComponent("form:datosVAVigencia:vAValor");
-            vAValor.setFilterStyle("display: none; visibility: hidden;");
-            altoTabla2 = "105";
-            RequestContext.getCurrentInstance().update("form:datosVAVigencia");
-            banderaVA = 0;
-            filtrarVigenciasAfiliaciones = null;
-            tipoListaVA = 0;
-         }
+      FacesContext c = FacesContext.getCurrentInstance();
+      if (banderaVA == 0) {
+         //Columnas Tabla VPP
+         vAFechaInicial = (Column) c.getViewRoot().findComponent("form:datosVAVigencia:vAFechaInicial");
+         vAFechaInicial.setFilterStyle("width: 85% !important");
+         vAFechaFinal = (Column) c.getViewRoot().findComponent("form:datosVAVigencia:vAFechaFinal");
+         vAFechaFinal.setFilterStyle("width: 85% !important");
+         vATercero = (Column) c.getViewRoot().findComponent("form:datosVAVigencia:vATercero");
+         vATercero.setFilterStyle("width: 85% !important");
+         vATipoEntidad = (Column) c.getViewRoot().findComponent("form:datosVAVigencia:vATipoEntidad");
+         vATipoEntidad.setFilterStyle("width: 85% !important");
+         vAValor = (Column) c.getViewRoot().findComponent("form:datosVAVigencia:vAValor");
+         vAValor.setFilterStyle("width: 85% !important");
+         altoTabla2 = "85";
+         RequestContext.getCurrentInstance().update("form:datosVAVigencia");
+         banderaVA = 1;
+      } else if (banderaVA == 1) {
+         vAFechaInicial = (Column) c.getViewRoot().findComponent("form:datosVAVigencia:vAFechaInicial");
+         vAFechaInicial.setFilterStyle("display: none; visibility: hidden;");
+         vAFechaFinal = (Column) c.getViewRoot().findComponent("form:datosVAVigencia:vAFechaFinal");
+         vAFechaFinal.setFilterStyle("display: none; visibility: hidden;");
+         vATercero = (Column) c.getViewRoot().findComponent("form:datosVAVigencia:vATercero");
+         vATercero.setFilterStyle("display: none; visibility: hidden;");
+         vATipoEntidad = (Column) c.getViewRoot().findComponent("form:datosVAVigencia:vATipoEntidad");
+         vATipoEntidad.setFilterStyle("display: none; visibility: hidden;");
+         vAValor = (Column) c.getViewRoot().findComponent("form:datosVAVigencia:vAValor");
+         vAValor.setFilterStyle("display: none; visibility: hidden;");
+         altoTabla2 = "105";
+         RequestContext.getCurrentInstance().update("form:datosVAVigencia");
+         banderaVA = 0;
+         filtrarVigenciasAfiliaciones = null;
+         tipoListaVA = 0;
       }
    }
 
@@ -2381,13 +2371,11 @@ public class ControlVigenciaSueldo implements Serializable {
          RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().execute("PF('verificarRastrosTablas').show()");
       } else //Cuando se selecciono registro:            
-      {
-         if (vigenciaSueldoSeleccionada != null && vigenciaAfiliacioneSeleccionada != null) {
+       if (vigenciaSueldoSeleccionada != null && vigenciaAfiliacioneSeleccionada != null) {
             verificarRastroVigenciaAfiliacion();
          } else if (vigenciaSueldoSeleccionada != null) {
             verificarRastroVigenciaSueldo();
          }
-      }
    }
 
    //Verificar Rastro Vigencia Sueldos

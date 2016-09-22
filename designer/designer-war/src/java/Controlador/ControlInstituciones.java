@@ -265,13 +265,13 @@ public class ControlInstituciones implements Serializable {
             System.out.println("TipoLista= " + tipoLista);
             FacesContext c = FacesContext.getCurrentInstance();
             codigo = (Column) c.getViewRoot().findComponent("form:datosInstituciones:institucionCodigo");
-            codigo.setFilterStyle("width: 85%");
+            codigo.setFilterStyle("width: 85% !important");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosInstituciones:institucionDescripcion");
-            descripcion.setFilterStyle("width: 85%");
+            descripcion.setFilterStyle("width: 85% !important");
             contacto = (Column) c.getViewRoot().findComponent("form:datosInstituciones:institucionContacto");
-            contacto.setFilterStyle("width: 85%");
+            contacto.setFilterStyle("width: 85% !important");
             telefono = (Column) c.getViewRoot().findComponent("form:datosInstituciones:institucionTelefono");
-            telefono.setFilterStyle("width: 85%");
+            telefono.setFilterStyle("width: 85% !important");
             altoTabla = "250";
             RequestContext.getCurrentInstance().update("form:datosInstituciones");
             bandera = 1;

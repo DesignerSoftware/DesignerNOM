@@ -580,9 +580,9 @@ public class ControlVigenciasCargos implements Serializable {
       getVigenciasCargosEmpleado();
       contarRegistros();
       RequestContext context = RequestContext.getCurrentInstance();
-      RequestContext.getCurrentInstance().update("form:datosVCEmpleado");
-      RequestContext.getCurrentInstance().update("form:ACEPTAR");
-      RequestContext.getCurrentInstance().update("form:listaValores");
+      context.update("form:datosVCEmpleado");
+      context.update("form:ACEPTAR");
+      context.update("form:listaValores");
    }
 
    public void salir() {
@@ -667,7 +667,6 @@ public class ControlVigenciasCargos implements Serializable {
       vigenciaSeleccionada = vCargos;
       int coincidencias = 0;
       int indiceUnicoElemento = 0;
-      RequestContext context = RequestContext.getCurrentInstance();
       if (confirmarCambio.equalsIgnoreCase("N")) {
          activarLOV = true;
          int control = 0;
@@ -1599,7 +1598,6 @@ public class ControlVigenciasCargos implements Serializable {
    public String getInfoRegistroMotivos() {
       FacesContext c = FacesContext.getCurrentInstance();
       DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:motivosCambCargo");
-//      System.out.println("Esta en la funcion getInfoRegistroMotivos(), Cantidad : " + tabla.getRowCount());
       infoRegistroMotivos = String.valueOf(tabla.getRowCount());
       return infoRegistroMotivos;
    }
@@ -1648,7 +1646,6 @@ public class ControlVigenciasCargos implements Serializable {
    public String getInfoRegistroCargos() {
       FacesContext c = FacesContext.getCurrentInstance();
       DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lOVCargos");
-      System.out.println("Esta en la funcion getInfoRegistroCargos(), Cantidad : " + tabla.getRowCount());
       infoRegistroCargos = String.valueOf(tabla.getRowCount());
       return infoRegistroCargos;
    }
@@ -1763,7 +1760,6 @@ public class ControlVigenciasCargos implements Serializable {
    public String getInfoRegistro() {
       FacesContext c = FacesContext.getCurrentInstance();
       DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosVCEmpleado");
-      System.out.println("Esta en la funcion getInfoRegistro(), Cantidad : " + tabla.getRowCount());
       infoRegistro = String.valueOf(tabla.getRowCount());
       return infoRegistro;
    }
@@ -1775,7 +1771,6 @@ public class ControlVigenciasCargos implements Serializable {
    public String getInfoRegistroJefe() {
       FacesContext c = FacesContext.getCurrentInstance();
       DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lvEmpleadoJefe");
-      System.out.println("Esta en la funcion getInfoRegistroJefe(), Cantidad : " + tabla.getRowCount());
       infoRegistroJefe = String.valueOf(tabla.getRowCount());
       return infoRegistroJefe;
    }
@@ -1783,7 +1778,6 @@ public class ControlVigenciasCargos implements Serializable {
    public String getInfoRegistroEstructuras() {
       FacesContext c = FacesContext.getCurrentInstance();
       DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:estructurasLOV");
-      System.out.println("Esta en la funcion getInfoRegistroEstructuras(), Cantidad : " + tabla.getRowCount());
       infoRegistroEstructuras = String.valueOf(tabla.getRowCount());
       return infoRegistroEstructuras;
    }

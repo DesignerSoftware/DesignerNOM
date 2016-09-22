@@ -311,7 +311,7 @@
 
                         <!-- Dialogo Jornadas Laborales -->
                         <p:dialog header="#{msg['jornadaJ']}" widgetVar="JornadaLaboralDialogo" draggable="true" resizable="false" closable="false" id="JornadaLaboralDialogo"  
-                                  showEffect="fade" hideEffect="fade" width="400" modal="true" >
+                                  showEffect="fade" hideEffect="fade" width="410" modal="true" >
                             <p:dataTable id="lovJornadaLaboral" var="jLaboral" value="#{controlVigenciaJornada.listJornadasLaborales}" rowKey="#{jLaboral.secuencia}"
                                          selection="#{controlVigenciaJornada.jornadaLaboralSeleccionada}" selectionMode="single" widgetVar="lovJornadaLaboral" scrollable="true" scrollWidth="383" scrollHeight="170"
                                          filteredValue="#{controlVigenciaJornada.filtrarJornadasLaborales}" emptyMessage="#{msg['lovvacio']}">              
@@ -320,17 +320,19 @@
                                 <p:ajax event="rowSelect" listener="#{controlVigenciaJornada.activarAceptar()}" update=":form:aceptarJL"/>
                                 <p:ajax event="rowDblselect" listener="#{controlVigenciaJornada.actualizarJornadaLaboral()}" immediate="true"
                                         oncomplete="PF('JornadaLaboralDialogo').hide(), PF('lovJornadaLaboral').unselectAllRows()" update=":form:JornadaLaboralDialogo" process="@this" />
+                                
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarJ']}" />  
                                     <p:inputText id="globalFilter" onkeyup="PF('lovJornadaLaboral').filter();" value="#{filtrado}" class="cssFiltroLOV"/>  
                                 </f:facet>
-                                <p:column filterBy="#{jLaboral.descripcion}" width="200" filterMatchMode="contains" filterStyle="width:85%">
+                                
+                                <p:column filterBy="#{jLaboral.descripcion}" width="200" filterMatchMode="contains" filterStyle="width: 85% !important">
                                     <f:facet name="header">
                                         <h:outputText style="text-align: center" value="#{msg['jornadaJ']}" />
                                     </f:facet>
                                     <h:outputText  value="#{jLaboral.descripcion}" />
                                 </p:column>
-                                <p:column filterBy="#{jLaboral.codigo}" width="50"  filterMatchMode="contains" filterStyle="width:85%">
+                                <p:column filterBy="#{jLaboral.codigo}" width="50"  filterMatchMode="contains" filterStyle="width: 85% !important">
                                     <f:facet name="header">
                                         <h:outputText value="#{msg['codigoJ']}" />
                                     </f:facet>
@@ -349,7 +351,7 @@
 
                         <!-- Dialogo Tipo Descanso-->
                         <p:dialog header="#{msg['descripcionD']}" widgetVar="TiposDescansosDialogo" draggable="true" resizable="false" closable="false" id="TiposDescansosDialogo"  
-                                  showEffect="fade" hideEffect="fade" width="400" modal="true" >
+                                  showEffect="fade" hideEffect="fade" width="410" modal="true" >
                             <p:dataTable id="lovTipoDescanso"  var="tDescanso" value="#{controlVigenciaJornada.listTiposDescansos}" rowKey="#{tDescanso.secuencia}"
                                          selection="#{controlVigenciaJornada.tipoDescansoSeleccionado}" selectionMode="single" widgetVar="lovTipoDescanso" scrollable="true" scrollWidth="383" scrollHeight="170"
                                          filteredValue="#{controlVigenciaJornada.filtradoTiposDescansos}" emptyMessage="#{msg['lovvacio']}">              
@@ -362,13 +364,13 @@
                                     <h:outputText value="#{msg['buscarD']}:" />  
                                     <p:inputText id="globalFilter" onkeyup="PF('lovTipoDescanso').filter();" value="#{filtrado}" class="cssFiltroLOV" />  
                                 </f:facet>
-                                <p:column filterBy="#{tDescanso.descripcion}" width="200" filterMatchMode="contains" filterStyle="width:85%">
+                                <p:column filterBy="#{tDescanso.descripcion}" width="200" filterMatchMode="contains" filterStyle="width: 85% !important">
                                     <f:facet name="header">
                                         <h:outputText style="text-align: center" value="#{msg['descripcionD']}" />
                                     </f:facet>
                                     <h:outputText  value="#{tDescanso.descripcion}" />
                                 </p:column>
-                                <p:column filterBy="#{tDescanso.codigo}" width="50"  filterMatchMode="contains" filterStyle="width:85%">
+                                <p:column filterBy="#{tDescanso.codigo}" width="50"  filterMatchMode="contains" filterStyle="width: 85% !important">
                                     <f:facet name="header">
                                         <h:outputText value="#{msg['codigoD']}" />
                                     </f:facet>

@@ -35,7 +35,7 @@
                         <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" oncomplete="PF('operacionEnProceso').hide()"
-                                         actionListener="#{controlPersonaIndividual.botonListaValores()}" onclick="PF('operacionEnProceso').show()" process="@this"/>
+                                      actionListener="#{controlPersonaIndividual.botonListaValores()}" onclick="PF('operacionEnProceso').show()" process="@this"/>
                         <p:tooltip style="font-size: 12px;" for="listaValores" value="#{msg['lista']}"/>
 
                         <p:commandButton id="filtrar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/embudo.png);"  process="@this"/>
