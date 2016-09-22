@@ -19,7 +19,15 @@
             position: relative; 
             top: 5px; 
             left: -6px;
-         }            
+         }
+         .botones_carpeta{
+             font-family: Arial; 
+             font-size: 19px; 
+             font-style: oblique; 
+             color: white; 
+             font-weight: bold;
+             text-shadow: 2px 2px 0 black, -2px -2px black, 2px -2px black, -2px 2px black, 0 2px black, 2px 0 black, -2px 0 black, 0 -2px black;
+         }
       </style>
       <title>Designer.NOM - Gerencia Integral de Recursos Humanos y N&oacute;mina</title>
    </h:head>
@@ -63,13 +71,7 @@
          </p:panel>
          <fieldset id="modulos" style="font-size: 12px; border-radius: 10px;  background-color: #2D7AD7; box-shadow: 5px 5px 12px #000000;
                    position: relative; top: 115px; width: 1082.68px; text-align: center;">
-            <!--
-            <strong style="font-size: 20px; color: white; font-family: Calibri;"> -->
             <h:outputText value="Bienvenido al Sistema Integral de N&oacute;mina y Talento Humano" style="font-size: 20px; color: white; font-family: Calibri; font-weight: bold;" />
-            <!--    <br/>
-                <h:outputText value="Seleccione el m&oacute;dulo al cual desea ingresar" />
-                <br/> 
-             </strong> -->
 
             <h:panelGrid id="txtModulos" columns="7" style="border:none; width: 70%; position: relative; margin: 0 auto;">
                <h:outputText/>
@@ -95,16 +97,11 @@
                                 actionListener="#{controlRemoto.datosIniciales(4)}" action="nomina"/>
                <h:outputText/>
                <h:outputText/>
-               <h:outputText value="PERSONAL" style="font-family: Arial; font-size: 19px; font-style: oblique; color: white; font-weight: bold;
-                             text-shadow: 2px 2px 0 black, -2px -2px black, 2px -2px black, -2px 2px black, 0 2px black, 2px 0 black, -2px 0 black, 0 -2px black;"/>
-               <h:outputText value="N&Oacute;MINA" style="font-family: Arial; font-size: 19px; font-style: oblique; color: white; font-weight: bold;
-                             text-shadow: 2px 2px 0 black, -2px -2px black, 2px -2px black, -2px 2px black, 0 2px black, 2px 0 black, -2px 0 black, 0 -2px black;"/> 
-               <h:outputText value="INTEGRACI&Oacute;N" style="font-family: Arial; font-size: 19px; font-style: oblique; color: white; font-weight: bold;
-                             text-shadow: 2px 2px 0 black, -2px -2px black, 2px -2px black, -2px 2px black, 0 2px black, 2px 0 black, -2px 0 black, 0 -2px black;"/> 
-               <h:outputText value="GERENCIAL" style="font-family: Arial; font-size: 19px; font-style: oblique; color: white; font-weight: bold;
-                             text-shadow: 2px 2px 0 black, -2px -2px black, 2px -2px black, -2px 2px black, 0 2px black, 2px 0 black, -2px 0 black, 0 -2px black;"/> 
-               <h:outputText value="DESIGNER" style="font-family: Arial; font-size: 19px; font-style: oblique; color: white; font-weight: bold;
-                             text-shadow: 2px 2px 0 black, -2px -2px black, 2px -2px black, -2px 2px black, 0 2px black, 2px 0 black, -2px 0 black, 0 -2px black;"/> 
+               <h:outputText value="PERSONAL" styleClass="botones_carpeta"/>
+               <h:outputText value="N&Oacute;MINA" styleClass="botones_carpeta"/> 
+               <h:outputText value="INTEGRACI&Oacute;N" styleClass="botones_carpeta"/> 
+               <h:outputText value="GERENCIAL" styleClass="botones_carpeta"/> 
+               <h:outputText value="DESIGNER" styleClass="botones_carpeta"/> 
                <h:outputText/>
             </h:panelGrid>
          </fieldset>
@@ -144,8 +141,6 @@
                                 position: relative; top: -5px; left: -31px;" />
             </div>
             <h:panelGrid id="piedepagina" columns="2" style="border:none; width: 100%" columnClasses="columnaPieA, columnaPieB">
-                    <!-- <h:outputText value="Designer.NOM &reg; 1998 - #{controlInicioRed.añoActual} / Vis&iacute;tenos: " style="position: absolute; top: 80px; left: 10px;"/> -->
-               <!--<a href="http://www.nomina.com.co/" target="_blank" style="position: absolute; top: 80px; left: 295px; font-size: 15px; color: white">www.nomina.com.co</a>-->
                <h:outputText value="Su compañ&iacute;a de Tecnolog&iacute;a y Consultor&iacute;a en N&oacute;mina y Talento Humano desde 1998" 
                              style="color: white; font-size: 16px; font-family: Calibri; font-weight: bold;"/>
                <h:outputText value=" #{controlInicioRed.mostrarFecha}" 
