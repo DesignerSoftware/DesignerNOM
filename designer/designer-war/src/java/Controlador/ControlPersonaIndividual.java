@@ -1,6 +1,5 @@
 package Controlador;
 
-
 import Entidades.*;
 import InterfaceAdministrar.AdministrarCarpetaPersonalInterface;
 import InterfaceAdministrar.AdministrarPersonaIndividualInterface;
@@ -597,23 +596,21 @@ public class ControlPersonaIndividual implements Serializable {
    }
 
    public void listaValoresTipoTrabajador() {
-         cargarLovTiposTrabajadores();
-         RequestContext.getCurrentInstance().update("formLovs:formDTipoTrabajador:TipoTrabajadorTipoTrabajadorDialogo");
-         contarRegistros_TipoTraTT();
-         RequestContext.getCurrentInstance().execute("PF('TipoTrabajadorTipoTrabajadorDialogo').show()");
-         idTipoTrabajador = -1;
+      cargarLovTiposTrabajadores();
+      RequestContext.getCurrentInstance().update("formLovs:formDTipoTrabajador:TipoTrabajadorTipoTrabajadorDialogo");
+      contarRegistros_TipoTraTT();
+      RequestContext.getCurrentInstance().execute("PF('TipoTrabajadorTipoTrabajadorDialogo').show()");
+      idTipoTrabajador = -1;
    }
 
-   public void listaValoresTipoSalario(int n) {
-      idTipoSalario = n;
+   public void listaValoresTipoSalario() {
+      idTipoSalario = 0;
       System.out.println("entro a llamar listaValoresTipoSalario()");
-      if (idTipoSalario == 0) {
-         contarRegistros_ReformaTipoSa();
-         RequestContext.getCurrentInstance().update("formLovs:formDTipoSalario:lovReformaLaboralTipoSalario");
-         RequestContext.getCurrentInstance().update("formLovs:formDTipoSalario:ReformaLaboralTipoSalarioDialogo");
-         RequestContext.getCurrentInstance().execute("PF('ReformaLaboralTipoSalarioDialogo').show()");
-         idTipoSalario = -1;
-      }
+      contarRegistros_ReformaTipoSa();
+      RequestContext.getCurrentInstance().update("formLovs:formDTipoSalario:lovReformaLaboralTipoSalario");
+      RequestContext.getCurrentInstance().update("formLovs:formDTipoSalario:ReformaLaboralTipoSalarioDialogo");
+      RequestContext.getCurrentInstance().execute("PF('ReformaLaboralTipoSalarioDialogo').show()");
+      idTipoSalario = -1;
    }
 
    public void listaValoresSueldo(int n) {
@@ -715,23 +712,19 @@ public class ControlPersonaIndividual implements Serializable {
       }
    }
 
-   public void listaValoresJornadaLaboral(int n) {
-      idJornadaLaboral = n;
+   public void listaValoresJornadaLaboral() {
       RequestContext context = RequestContext.getCurrentInstance();
       System.out.println("Entro en listaValoresJornadaLaboral");
-      if (idJornadaLaboral == 0) {
-         cargarLovJornadasLaborales();
-         contarRegistros_JornadaL();
-         context.update("formLovs:formDJornadaLaboral:JornadaJornadaLaboralDialogo");
-         RequestContext.getCurrentInstance().execute("PF('JornadaJornadaLaboralDialogo').show()");
-         idJornadaLaboral = -1;
-      }
+      cargarLovJornadasLaborales();
+      contarRegistros_JornadaL();
+      context.update("formLovs:formDJornadaLaboral:JornadaJornadaLaboralDialogo");
+      RequestContext.getCurrentInstance().execute("PF('JornadaJornadaLaboralDialogo').show()");
+      idJornadaLaboral = -1;
    }
 
    public void listaValoresFormaPago(int n) {
       idFormaPago = n;
       System.out.println("Entro en listaValoresFormaPago() idFormaPago : " + idFormaPago);
-      RequestContext context = RequestContext.getCurrentInstance();
       if (idFormaPago == 0) {
          cargarLovPeriodicidades();
          RequestContext.getCurrentInstance().update("formLovs:formDFormaPago:formPeriodicidad:PeriodicidadFormaPagoDialogo");
@@ -767,76 +760,63 @@ public class ControlPersonaIndividual implements Serializable {
 
    public void listaValoresAfiliacionARP() {
 //      if (idAfiliacionARP == 0) {
-         cargarLovTercerosSucursales();
-         tituloTercero = "A.R.L";
-         siguienteFocodeTercero = "fondoCensantiasModAfiliaciones";
-         RequestContext.getCurrentInstance().update("formLovs:formDAfiliacion:TerceroAfiliacionDialogo");
-         contarRegistros_TerceroAfSuc();
-         RequestContext.getCurrentInstance().execute("PF('TerceroAfiliacionDialogo').show()");
+      cargarLovTercerosSucursales();
+      tituloTercero = "A.R.L";
+      siguienteFocodeTercero = "fondoCensantiasModAfiliaciones";
+      RequestContext.getCurrentInstance().update("formLovs:formDAfiliacion:TerceroAfiliacionDialogo");
+      contarRegistros_TerceroAfSuc();
+      RequestContext.getCurrentInstance().execute("PF('TerceroAfiliacionDialogo').show()");
 //      }
    }
 
    public void listaValoresAfiliacionFondo() {
       RequestContext context = RequestContext.getCurrentInstance();
 //      if (idAfiliacionFondo == 0) {
-         cargarLovTercerosSucursales();
-         tituloTercero = "Fondo de Cesantías";
-         siguienteFocodeTercero = "afpModAfiliaciones";
-         RequestContext.getCurrentInstance().update("formLovs:formDAfiliacion:TerceroAfiliacionDialogo");
-         contarRegistros_TerceroAfSuc();
-         RequestContext.getCurrentInstance().execute("PF('TerceroAfiliacionDialogo').show()");
+      cargarLovTercerosSucursales();
+      tituloTercero = "Fondo de Cesantías";
+      siguienteFocodeTercero = "afpModAfiliaciones";
+      RequestContext.getCurrentInstance().update("formLovs:formDAfiliacion:TerceroAfiliacionDialogo");
+      contarRegistros_TerceroAfSuc();
+      RequestContext.getCurrentInstance().execute("PF('TerceroAfiliacionDialogo').show()");
 //      }
    }
 
    public void listaValoresAfiliacionAFP() {
-      RequestContext context = RequestContext.getCurrentInstance();
-//      if (idAfiliacionAFP == 0) {
-         cargarLovTercerosSucursales();
-         tituloTercero = "A.F.P";
-         siguienteFocodeTercero = "cajaCompensacionModAfiliaciones";
-         RequestContext.getCurrentInstance().update("formLovs:formDAfiliacion:TerceroAfiliacionDialogo");
-         contarRegistros_TerceroAfSuc();
-         RequestContext.getCurrentInstance().execute("PF('TerceroAfiliacionDialogo').show()");
-//      }
+      cargarLovTercerosSucursales();
+      tituloTercero = "A.F.P";
+      siguienteFocodeTercero = "cajaCompensacionModAfiliaciones";
+      RequestContext.getCurrentInstance().update("formLovs:formDAfiliacion:TerceroAfiliacionDialogo");
+      contarRegistros_TerceroAfSuc();
+      RequestContext.getCurrentInstance().execute("PF('TerceroAfiliacionDialogo').show()");
    }
 
    public void listaValoresAfiliacionCaja() {
-      RequestContext context = RequestContext.getCurrentInstance();
-//      if (idAfiliacionCaja == 0) {
-         cargarLovTercerosSucursales();
-         tituloTercero = "C.C.F";
-         siguienteFocodeTercero = "grupoSanguineoModFactorRH";
-         RequestContext.getCurrentInstance().update("formLovs:formDAfiliacion:TerceroAfiliacionDialogo");
-         contarRegistros_TerceroAfSuc();
-         RequestContext.getCurrentInstance().execute("PF('TerceroAfiliacionDialogo').show()");
-//      }
+      cargarLovTercerosSucursales();
+      tituloTercero = "C.C.F";
+      siguienteFocodeTercero = "grupoSanguineoModFactorRH";
+      RequestContext.getCurrentInstance().update("formLovs:formDAfiliacion:TerceroAfiliacionDialogo");
+      contarRegistros_TerceroAfSuc();
+      RequestContext.getCurrentInstance().execute("PF('TerceroAfiliacionDialogo').show()");
    }
 
    public void listaValoresEstadoCivil() {
-      RequestContext context = RequestContext.getCurrentInstance();
-//      if (idEstadoCivil == 0) {
-         cargarLovTercerosSucursales();
-         cargarLovEstadosCiviles();
-         System.out.println("listaValoresEstadoCivil() lovEstadosCiviles : " + lovEstadosCiviles);
-         RequestContext.getCurrentInstance().update("formLovs:formDEstadoCivil:EstadoCivilEstadoCivilDialogo");
-         if (lovEstadosCiviles != null) {
-            contarRegistros_EstadoCivil();
-         }
-         RequestContext.getCurrentInstance().execute("PF('EstadoCivilEstadoCivilDialogo').show()");
-         idEstadoCivil = -1;
-//      }
+      cargarLovTercerosSucursales();
+      cargarLovEstadosCiviles();
+      RequestContext.getCurrentInstance().update("formLovs:formDEstadoCivil:EstadoCivilEstadoCivilDialogo");
+      if (lovEstadosCiviles != null) {
+         contarRegistros_EstadoCivil();
+      }
+      RequestContext.getCurrentInstance().execute("PF('EstadoCivilEstadoCivilDialogo').show()");
+      idEstadoCivil = -1;
    }
 
    public void listaValoresDireccion() {
-      RequestContext context = RequestContext.getCurrentInstance();
-//      if (idDireccion == 1) {
-         cargarLovTercerosSucursales();
-         cargarLovCiudades();
-         RequestContext.getCurrentInstance().update("formLovs:formDDireccion:CiudadDireccionDialogo");
-         contarRegistros_CiudadDir();
-         RequestContext.getCurrentInstance().execute("PF('CiudadDireccionDialogo').show()");
-         idDireccion = -1;
-//      }
+      cargarLovTercerosSucursales();
+      cargarLovCiudades();
+      RequestContext.getCurrentInstance().update("formLovs:formDDireccion:CiudadDireccionDialogo");
+      contarRegistros_CiudadDir();
+      RequestContext.getCurrentInstance().execute("PF('CiudadDireccionDialogo').show()");
+      idDireccion = -1;
    }
 
    public void listaValoresTelefono(int n) {
@@ -2428,10 +2408,10 @@ public class ControlPersonaIndividual implements Serializable {
                if (!"".equals(nuevaVigenciaReformaLaboral.getReformalaboral().getNombre())) {
                   auxTipoSalarioReformaLaboral = nuevaVigenciaReformaLaboral.getReformalaboral().getNombre();
                } else {
-                  listaValoresTipoSalario(idTipoSalario);
+                  listaValoresTipoSalario();
                }
             } else {
-               listaValoresTipoSalario(idTipoSalario);
+               listaValoresTipoSalario();
             }
          }
       }
@@ -2705,7 +2685,7 @@ public class ControlPersonaIndividual implements Serializable {
             if (nuevaVigenciaJornada.getJornadatrabajo().getSecuencia() != null) {
                auxJornadaLaboralJornada = nuevaVigenciaJornada.getJornadatrabajo().getDescripcion();
             } else {
-               listaValoresJornadaLaboral(idJornadaLaboral);
+               listaValoresJornadaLaboral();
             }
          }
       }
@@ -6706,6 +6686,7 @@ public class ControlPersonaIndividual implements Serializable {
             empresaSeleccionada = filtrarLovEmpresas.get(0);
             tabla.setSelection(empresaSeleccionada);
             aceptar = false;
+            RequestContext.getCurrentInstance().update("formLovs:formDInformacionPersonal:formEmpresa:lovEmpresaInformacionPersonal");
          }
       } else {
          empresaSeleccionada = null;
@@ -6724,6 +6705,7 @@ public class ControlPersonaIndividual implements Serializable {
             tipoDocumentoSeleccionado = filtrarLovTiposDocumentos.get(0);
             tabla.setSelection(tipoDocumentoSeleccionado);
             aceptar = false;
+            RequestContext.getCurrentInstance().update("formLovs:formDInformacionPersonal:infoP_tipoD:lovTipoDocumentoInformacionPersonal");
          }
       } else {
          tipoDocumentoSeleccionado = null;
@@ -6742,6 +6724,7 @@ public class ControlPersonaIndividual implements Serializable {
             ciudadSeleccionada = filtrarLovCiudades.get(0);
             tabla.setSelection(ciudadSeleccionada);
             aceptar = false;
+            RequestContext.getCurrentInstance().update("formLovs:formDInformacionPersonal:infoP_ciudadD:lovCiudadDocumentoInformacionPersonal");
          }
       } else {
          ciudadSeleccionada = null;
@@ -6760,6 +6743,7 @@ public class ControlPersonaIndividual implements Serializable {
             ciudadSeleccionada = filtrarLovCiudades.get(0);
             tabla.setSelection(ciudadSeleccionada);
             aceptar = false;
+            RequestContext.getCurrentInstance().update("formLovs:formDInformacionPersonal:infoP_ciudadN:lovCiudadNacimientoInformacionPersonal");
          }
       } else {
          ciudadSeleccionada = null;
@@ -6778,6 +6762,7 @@ public class ControlPersonaIndividual implements Serializable {
             cargoSeleccionado = filtrarLovCargos.get(0);
             tabla.setSelection(cargoSeleccionado);
             aceptar = false;
+            RequestContext.getCurrentInstance().update("formLovs:formDCargoDesempenado:formCargo:lovCargoCargoDesempeñado");
          }
       } else {
          cargoSeleccionado = null;
@@ -6796,6 +6781,7 @@ public class ControlPersonaIndividual implements Serializable {
             motivoCambioCargoSeleccionado = filtrarLovMotivosCambiosCargos.get(0);
             tabla.setSelection(motivoCambioCargoSeleccionado);
             aceptar = false;
+            RequestContext.getCurrentInstance().update("formLovs:formDCargoDesempenado:formMotcargo:lovMotivoCambioCargoCargoDesempeñado");
          }
       } else {
          motivoCambioCargoSeleccionado = null;
@@ -6814,6 +6800,7 @@ public class ControlPersonaIndividual implements Serializable {
             estructuraSeleccionada = filtrarLovEstructuras.get(0);
             tabla.setSelection(estructuraSeleccionada);
             aceptar = false;
+            RequestContext.getCurrentInstance().update("formLovs:formDCargoDesempenado:formEstruCargo:lovEstructuraCargoDesempeñado");
          }
       } else {
          estructuraSeleccionada = null;
@@ -6832,6 +6819,7 @@ public class ControlPersonaIndividual implements Serializable {
             papelSeleccionado = filtrarLovPapeles.get(0);
             tabla.setSelection(papelSeleccionado);
             aceptar = false;
+            RequestContext.getCurrentInstance().update("formLovs:formDCargoDesempenado:formPapelD:lovPapelCargoDesempeñado");
          }
       } else {
          papelSeleccionado = null;
@@ -6850,6 +6838,7 @@ public class ControlPersonaIndividual implements Serializable {
             empleadoSeleccionado = filtrarLovEmpleados.get(0);
             tabla.setSelection(empleadoSeleccionado);
             aceptar = false;
+            RequestContext.getCurrentInstance().update("formLovs:formDCargoDesempenado:formjefe:lovEmpleadoJefeCargoDesempeñado");
          }
       } else {
          empleadoSeleccionado = null;
@@ -6868,6 +6857,7 @@ public class ControlPersonaIndividual implements Serializable {
             motivoLocalizacionSeleccionado = filtrarLovMotivosCC.get(0);
             tabla.setSelection(motivoLocalizacionSeleccionado);
             aceptar = false;
+            RequestContext.getCurrentInstance().update("formLovs:formDCentroCosto:formCentroC:lovMotivoLocalizacionCentroCosto");
          }
       } else {
          motivoLocalizacionSeleccionado = null;
@@ -6886,6 +6876,7 @@ public class ControlPersonaIndividual implements Serializable {
             estructuraCentroCostoSeleccionada = filtrarLovEstructurasCentroCosto.get(0);
             tabla.setSelection(estructuraCentroCostoSeleccionada);
             aceptar = false;
+            RequestContext.getCurrentInstance().update("formLovs:formDCentroCosto:formEstrucCC:lovEstructuraCentroCosto");
          }
       } else {
          estructuraCentroCostoSeleccionada = null;
@@ -6904,6 +6895,7 @@ public class ControlPersonaIndividual implements Serializable {
             tipoTrabajadorSeleccionado = filtrarLovTiposTrabajadores.get(0);
             tabla.setSelection(tipoTrabajadorSeleccionado);
             aceptar = false;
+            RequestContext.getCurrentInstance().update("formLovs:formDTipoTrabajador:lovTipoTrabajadorTipoTrabajador");
          }
       } else {
          tipoTrabajadorSeleccionado = null;
@@ -6922,6 +6914,7 @@ public class ControlPersonaIndividual implements Serializable {
             reformaLaboralSeleccionada = filtrarLovReformasLaborales.get(0);
             tabla.setSelection(reformaLaboralSeleccionada);
             aceptar = false;
+            RequestContext.getCurrentInstance().update("formLovs:formDTipoSalario:lovReformaLaboralTipoSalario");
          }
       } else {
          reformaLaboralSeleccionada = null;
@@ -6940,6 +6933,7 @@ public class ControlPersonaIndividual implements Serializable {
             motivoCambioSueldoSeleccionado = filtrarLovMotivosCambiosSueldos.get(0);
             tabla.setSelection(motivoCambioSueldoSeleccionado);
             aceptar = false;
+            RequestContext.getCurrentInstance().update("formLovs:formDSueldo:formMotivoSu:lovMotivoCambioSueldoSueldo");
          }
       } else {
          motivoCambioSueldoSeleccionado = null;
@@ -6958,6 +6952,7 @@ public class ControlPersonaIndividual implements Serializable {
             tipoSueldoSeleccionado = filtrarLovTiposSueldos.get(0);
             tabla.setSelection(tipoSueldoSeleccionado);
             aceptar = false;
+            RequestContext.getCurrentInstance().update("formLovs:formDSueldo:formTipoSueldo:lovTipoSueldoSueldo");
          }
       } else {
          tipoSueldoSeleccionado = null;
@@ -6976,6 +6971,7 @@ public class ControlPersonaIndividual implements Serializable {
             unidadSeleccionada = filtrarLovUnidades.get(0);
             tabla.setSelection(unidadSeleccionada);
             aceptar = false;
+            RequestContext.getCurrentInstance().update("formLovs:formDSueldo:formUnidadS:lovUnidadSueldo");
          }
       } else {
          unidadSeleccionada = null;
@@ -6994,6 +6990,7 @@ public class ControlPersonaIndividual implements Serializable {
             motivoContratoSeleccionado = filtrarLovMotivosContratos.get(0);
             tabla.setSelection(motivoContratoSeleccionado);
             aceptar = false;
+            RequestContext.getCurrentInstance().update("formLovs:formDTipoContrato:formTipoContrat:lovMotivoContratoTipoContrato");
          }
       } else {
          motivoContratoSeleccionado = null;
@@ -7012,6 +7009,7 @@ public class ControlPersonaIndividual implements Serializable {
             tipoContratoSeleccionado = filtrarLovTiposContratos.get(0);
             tabla.setSelection(tipoContratoSeleccionado);
             aceptar = false;
+            RequestContext.getCurrentInstance().update("formLovs:formDTipoContrato:formTipoContrato:lovTipoContratoTipoContrato");
          }
       } else {
          tipoContratoSeleccionado = null;
@@ -7030,6 +7028,7 @@ public class ControlPersonaIndividual implements Serializable {
             normaLaboralSeleccionada = filtrarLovNormasLaborales.get(0);
             tabla.setSelection(normaLaboralSeleccionada);
             aceptar = false;
+            RequestContext.getCurrentInstance().update("formLovs:formDNormaLaboral:lovNormaLaboralNormaLaboral");
          }
       } else {
          normaLaboralSeleccionada = null;
@@ -7048,6 +7047,7 @@ public class ControlPersonaIndividual implements Serializable {
             contratoSeleccionado = filtrarLovContratos.get(0);
             tabla.setSelection(contratoSeleccionado);
             aceptar = false;
+            RequestContext.getCurrentInstance().update("formLovs:formDLegislacionLaboral:lovContratoLegislacionLaboral");
          }
       } else {
          contratoSeleccionado = null;
@@ -7066,6 +7066,7 @@ public class ControlPersonaIndividual implements Serializable {
             ubicacionGeograficaSeleccionada = filtrarLovUbicacionesGeograficas.get(0);
             tabla.setSelection(ubicacionGeograficaSeleccionada);
             aceptar = false;
+            RequestContext.getCurrentInstance().update("formLovs:formDUbicacion:lovUbicacionUbicacionGeografica");
          }
       } else {
          ubicacionGeograficaSeleccionada = null;
@@ -7084,6 +7085,7 @@ public class ControlPersonaIndividual implements Serializable {
             jornadaLaboralSeleccionada = filtrarLovJornadasLaborales.get(0);
             tabla.setSelection(jornadaLaboralSeleccionada);
             aceptar = false;
+            RequestContext.getCurrentInstance().update("formLovs:formDJornadaLaboral:lovJornadaJornadaLaboral");
          }
       } else {
          jornadaLaboralSeleccionada = null;
@@ -7102,6 +7104,7 @@ public class ControlPersonaIndividual implements Serializable {
             periodicidadSeleccionada = filtrarLovPeriodicidades.get(0);
             tabla.setSelection(periodicidadSeleccionada);
             aceptar = false;
+            RequestContext.getCurrentInstance().update("formLovs:formDFormaPago:formPeriodicidad:lovPeriodicidadFormaPago");
          }
       } else {
          periodicidadSeleccionada = null;
@@ -7115,14 +7118,12 @@ public class ControlPersonaIndividual implements Serializable {
       FacesContext c = FacesContext.getCurrentInstance();
       DataTable tabla = (DataTable) c.getViewRoot().findComponent("formLovs:formDFormaPago:formSucursal:lovSucursalPagoFormaPago");
       getFiltrarLovSucursales();
-      System.out.println("getInfoRegistroSucursalFormaPago() filtrarLovSucursales : " + filtrarLovSucursales);
       if (filtrarLovSucursales != null) {
          if (filtrarLovSucursales.size() == 1) {
-            System.out.println("getInfoRegistroSucursalFormaPago() filtrarLovSucursales.size() : " + filtrarLovSucursales.size());
             sucursalSeleccionada = filtrarLovSucursales.get(0);
-            System.out.println("getInfoRegistroSucursalFormaPago() sucursalSeleccionada : " + sucursalSeleccionada);
             tabla.setSelection(sucursalSeleccionada);
             aceptar = false;
+            RequestContext.getCurrentInstance().update("formLovs:formDFormaPago:formSucursal:lovSucursalPagoFormaPago");
          }
       } else {
          sucursalSeleccionada = null;
@@ -7141,6 +7142,7 @@ public class ControlPersonaIndividual implements Serializable {
             metodoPagoSeleccionado = filtrarLovMetodosPagos.get(0);
             tabla.setSelection(metodoPagoSeleccionado);
             aceptar = false;
+            RequestContext.getCurrentInstance().update("formLovs:formDFormaPago:formMetodo:lovMetodoPagoFormaPago");
          }
       } else {
          metodoPagoSeleccionado = null;
@@ -7159,6 +7161,7 @@ public class ControlPersonaIndividual implements Serializable {
             terceroSucursalSeleccionado = filtrarLovTercerosSucursales.get(0);
             tabla.setSelection(terceroSucursalSeleccionado);
             aceptar = false;
+            RequestContext.getCurrentInstance().update("formLovs:formDAfiliacion:lovTerceroAfiliacion");
          }
       } else {
          terceroSucursalSeleccionado = null;
@@ -7177,6 +7180,7 @@ public class ControlPersonaIndividual implements Serializable {
             estadoCivilSeleccionado = filtrarLovEstadosCiviles.get(0);
             tabla.setSelection(estadoCivilSeleccionado);
             aceptar = false;
+            RequestContext.getCurrentInstance().update("formLovs:formDEstadoCivil:lovEstadoCivilEstadoCivil");
          }
       } else {
          estadoCivilSeleccionado = null;
@@ -7195,6 +7199,7 @@ public class ControlPersonaIndividual implements Serializable {
             ciudadSeleccionada = filtrarLovCiudades.get(0);
             tabla.setSelection(ciudadSeleccionada);
             aceptar = false;
+            RequestContext.getCurrentInstance().update("formLovs:formDDireccion:lovCiudadDireccion");
          }
       } else {
          ciudadSeleccionada = null;
@@ -7213,6 +7218,7 @@ public class ControlPersonaIndividual implements Serializable {
             ciudadSeleccionada = filtrarLovCiudades.get(0);
             tabla.setSelection(ciudadSeleccionada);
             aceptar = false;
+            RequestContext.getCurrentInstance().update("formLovs:formDTelefono:formCiudadTel:lovCiudadTelefono");
          }
       } else {
          ciudadSeleccionada = null;
@@ -7231,6 +7237,7 @@ public class ControlPersonaIndividual implements Serializable {
             tipoTelefonoSeleccionado = filtrarLovTiposTelefonos.get(0);
             tabla.setSelection(tipoTelefonoSeleccionado);
             aceptar = false;
+            RequestContext.getCurrentInstance().update("formLovs:formDTelefono:formTel:lovTipoTelefonoTelefono");
          }
       } else {
          tipoTelefonoSeleccionado = null;

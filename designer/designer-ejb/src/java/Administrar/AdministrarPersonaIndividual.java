@@ -929,9 +929,11 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
     }
 
     @Override
-    public void crearVigenciaTipoTrabajador(VigenciasTiposTrabajadores vigencia
-    ) {
+    public void crearVigenciaTipoTrabajador(VigenciasTiposTrabajadores vigencia) {
         try {
+           System.out.println("crearVigenciaTipoTrabajador vigencia : " + vigencia);
+           System.out.println("crearVigenciaTipoTrabajador vigencia.getTipotrabajador() : " + vigencia.getTipotrabajador());
+           System.out.println("crearVigenciaTipoTrabajador vigencia.getEmpleado().getPersona().getNombre() : " + vigencia.getEmpleado().getPersona().getNombre());
             persistenciaVigenciasTiposTrabajadores.crear(em, vigencia);
         } catch (Exception e) {
             System.out.println("Error crearVigenciaTipoTrabajador Admi : " + e.toString());
@@ -939,8 +941,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
     }
 
     @Override
-    public void crearVigenciaReformaLaboral(VigenciasReformasLaborales vigencia
-    ) {
+    public void crearVigenciaReformaLaboral(VigenciasReformasLaborales vigencia) {
         try {
             persistenciaVigenciasReformasLaborales.crear(em, vigencia);
         } catch (Exception e) {

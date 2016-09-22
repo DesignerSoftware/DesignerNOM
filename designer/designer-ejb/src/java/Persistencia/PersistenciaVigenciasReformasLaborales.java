@@ -34,6 +34,8 @@ public class PersistenciaVigenciasReformasLaborales implements PersistenciaVigen
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos
+    * @param em
+    * @param vigenciaRefLab
      */
     /*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
      private EntityManager em;*/
@@ -46,7 +48,6 @@ public class PersistenciaVigenciasReformasLaborales implements PersistenciaVigen
             em.persist(vigenciaRefLab);
             tx.commit();
         } catch (Exception e) {
-//            PropertyConfigurator.configure("log4j.properties");
             logger.error("Metodo: crear - PersistenciaVigenciasReformasLaborales - Fecha : " + format.format(fechaDia) + " - Error : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();

@@ -103,6 +103,7 @@ public class PersistenciaPeriodicidades implements PersistenciaPeriodicidadesInt
         }
     }
 
+    @Override
     public List<Periodicidades> consultarPeriodicidades(EntityManager em) {
         em.clear();
         Query query = em.createQuery("SELECT m FROM Periodicidades m");
@@ -137,7 +138,7 @@ public class PersistenciaPeriodicidades implements PersistenciaPeriodicidadesInt
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.out.println("Contador PERSISTENCIAPERIODICIDADES contarDetallesPeriodicidadesPeriodicidad  " + retorno);
+            System.out.println("Contador PERSISTENCIAPERIODICIDADES contarDetallesPeriodicidadesPeriodicidad " + retorno);
             return retorno;
         } catch (Exception e) {
             System.err.println("Error PERSISTENCIAPERIODICIDADES  contarDetallesPeriodicidadesPeriodicidad " + e);
