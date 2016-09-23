@@ -9,6 +9,7 @@ import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 /**
@@ -44,6 +45,54 @@ public class PersistenciaFamiliares implements PersistenciaFamiliaresInterface{
         } catch (Exception e) {
             System.out.println("Error PersistenciaFamiliares.familiaresPersona" + e);
             return null;
+        }
+    }
+
+    @Override
+    public void crear(EntityManager em, Familiares familiar) {
+        em.clear();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            em.merge(familiar);
+            tx.commit();
+        } catch (Exception e) {
+            System.out.println("Error PersistenciaFamiliares.crear: " + e);
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        }
+    }
+
+    @Override
+    public void editar(EntityManager em, Familiares familiar) {
+       em.clear();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            em.merge(familiar);
+            tx.commit();
+        } catch (Exception e) {
+            System.out.println("Error PersistenciaFamiliares.editar: " + e);
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        }
+    }
+
+    @Override
+    public void borrar(EntityManager em, Familiares familiar) {
+        em.clear();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            em.remove(em.merge(familiar));
+            tx.commit();
+        } catch (Exception e) {
+            System.out.println("Error PersistenciaFamiliares.borrar: " + e);
+            if (tx.isActive()) {
+                tx.rollback();
+            }
         }
     }
 }

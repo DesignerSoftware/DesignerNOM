@@ -56,12 +56,15 @@ public class Familiares implements Serializable {
     private String condicionmayor18;
     @Column(name = "VALORUPCADICIONAL")
     private BigInteger valorupcadicional;
+    @NotNull
     @JoinColumn(name = "TIPOFAMILIAR", referencedColumnName = "SECUENCIA")
     @ManyToOne(optional = false)
     private TiposFamiliares tipofamiliar;
+    @NotNull
     @JoinColumn(name = "PERSONAFAMILIAR", referencedColumnName = "SECUENCIA")
     @ManyToOne(optional = false)
     private Personas personafamiliar;
+    @NotNull
     @JoinColumn(name = "PERSONA", referencedColumnName = "SECUENCIA")
     @ManyToOne(optional = false)
     private Personas persona;

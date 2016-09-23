@@ -19,5 +19,8 @@ public interface PersistenciaFamiliaresInterface {
      * @param secuenciaPersona Secuencia de la persona de la que se necesita saber la familia.
      * @return Retorna una lista de Familiares pertenecientes a una persona especifica.
      */
+    public void crear(EntityManager em, Familiares familiar);
+    public void editar(EntityManager em, Familiares familiar);
+    public void borrar(EntityManager em, Familiares familiar);
     public List<Familiares> familiaresPersona(EntityManager em,BigInteger secuenciaPersona);
 }

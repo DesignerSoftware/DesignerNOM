@@ -1,6 +1,5 @@
 package Controlador;
 
-
 import Administrar.AdministrarCarpetaPersonal;
 import Banner.BannerInicioRed;
 import Entidades.*;
@@ -735,7 +734,7 @@ public class ControlRemoto implements Serializable {
         RequestContext.getCurrentInstance().update("form:lvbuscarempleado");
         RequestContext.getCurrentInstance().update("form:lvbe");
         RequestContext.getCurrentInstance().update("form:buscarempl");
-        
+
         try {
             valorInputText();
         } catch (ParseException ex) {
@@ -915,7 +914,7 @@ public class ControlRemoto implements Serializable {
         if (busquedaRapida == null) {
             filterBusquedaRapida = null;
             busquedaRapida = administrarCarpetaPersonal.consultarRapidaEmpleados();
-            contarRegistrosBR();
+            contarRegistroBR();
             RequestContext.getCurrentInstance().update("form:lvbr");
         }
         RequestContext.getCurrentInstance().execute("PF('lvbr').show();");
@@ -1621,57 +1620,21 @@ public class ControlRemoto implements Serializable {
         RequestContext.getCurrentInstance().update("form:aceptaremp");
     }
 
-    public void eventoFiltrarEmpresas() {
+    public void contarRegistrosEmpresas() {
         anularBotonEmpresas();
-        infoRegistroEmpresas = String.valueOf(filtradoLOVEmpresas.size());
         RequestContext.getCurrentInstance().update("form:tabmenu:infoRegistroEmpresas");
     }
 
-    public void eventoFiltrarBusquedaRapida() {
-        modificarInfoRegistroBR(filterBusquedaRapida.size());
-    }
-
-    public void modificarInfoRegistroBR(int valor) {
-        infoRegistroBusquedaRapida = String.valueOf(valor);
+    public void contarRegistroBR() {
         RequestContext.getCurrentInstance().update("form:inforegistrobusquedarapida");
     }
 
-    public void modificarInfoRegistroBE(int valor) {
-        infoRegistroBuscarEmpleados = String.valueOf(valor);
-        RequestContext.getCurrentInstance().update("form:inforegistrobuscarempleados");
-    }
-
-    public void eventoFiltrarBusquedaEmpleado() {
-        if (filterBuscarEmpleado == null){
-            System.out.println("Filtrado de empleado, lista nula");
-        }else{
-            modificarInfoRegistroBE(filterBuscarEmpleado.size());
-        }
-    }
-
-    public void modificarInfoRegistroBT(int valor) {
-        infoRegistroBuscarTablas = String.valueOf(valor);
+    public void contarRegistroBT() {
         RequestContext.getCurrentInstance().update("form:inforegistrobuscartablas");
     }
 
-    public void eventoFiltrarBusquedaTablas() {
-        modificarInfoRegistroBT(filtradoListTablasLOV.size());
-    }
-
     public void contarRegistrosBE() {
-        if (buscarEmplTipo == null || buscarEmplTipo.isEmpty()) {
-            modificarInfoRegistroBE(0);
-        } else {
-            modificarInfoRegistroBE(buscarEmplTipo.size());
-        }
-    }
-
-    public void contarRegistrosBR() {
-        if (busquedaRapida == null || busquedaRapida.isEmpty()) {
-            modificarInfoRegistroBR(0);
-        } else {
-            modificarInfoRegistroBR(busquedaRapida.size());
-        }
+        RequestContext.getCurrentInstance().update("form:inforegistrobuscarempleados");
     }
 
     public void activarAceptarEmp() {
@@ -1737,19 +1700,39 @@ public class ControlRemoto implements Serializable {
     }
 
     public String getInfoRegistroBuscarEmpleados() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lvbuscarempleado");
+        infoRegistroBuscarEmpleados = String.valueOf(tabla.getRowCount());
         return infoRegistroBuscarEmpleados;
     }
 
-    public void setInfoRegistroBuscarEmpleados(String infoRegistroBuscarEmpleados) {
-        this.infoRegistroBuscarEmpleados = infoRegistroBuscarEmpleados;
+    public String getInfoRegistroBusquedaRapida() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lvbusquedarapida");
+        infoRegistroBusquedaRapida = String.valueOf(tabla.getRowCount());
+        return infoRegistroBusquedaRapida;
+    }
+
+    public String getInfoRegistroBuscarTablas() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lovtablas");
+        infoRegistroBuscarTablas = String.valueOf(tabla.getRowCount());
+        return infoRegistroBuscarTablas;
+    }
+
+    public String getInfoRegistroEmpresas() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:LovEmpresasTabla");
+        infoRegistroEmpresas = String.valueOf(tabla.getRowCount());
+        return infoRegistroEmpresas;
     }
 
     public String getInformacionTiposTrabajadores() {
         return informacionTiposTrabajadores;
     }
 
-    public String getInfoRegistroBusquedaRapida() {
-        return infoRegistroBusquedaRapida;
+    public void setInfoRegistroBuscarEmpleados(String infoRegistroBuscarEmpleados) {
+        this.infoRegistroBuscarEmpleados = infoRegistroBuscarEmpleados;
     }
 
     public List<BannerInicioRed> getBanner() {
@@ -1766,10 +1749,6 @@ public class ControlRemoto implements Serializable {
 
     public void setFiltradoLOVEmpresas(List<Empresas> filtradoLOVEmpresas) {
         this.filtradoLOVEmpresas = filtradoLOVEmpresas;
-    }
-
-    public String getInfoRegistroEmpresas() {
-        return infoRegistroEmpresas;
     }
 
     public void setInfoRegistroEmpresas(String infoRegistroEmpresas) {
@@ -1816,10 +1795,6 @@ public class ControlRemoto implements Serializable {
 
     public void setUnicaEmpresa(Empresas unicaEmpresa) {
         this.unicaEmpresa = unicaEmpresa;
-    }
-
-    public String getInfoRegistroBuscarTablas() {
-        return infoRegistroBuscarTablas;
     }
 
     public void setInfoRegistroBuscarTablas(String infoRegistroBuscarTablas) {
