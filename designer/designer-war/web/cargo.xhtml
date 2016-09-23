@@ -133,6 +133,10 @@
 
                                 <p:column headerText="#{msg['nombre']}" sortBy="#{info.nombre}" filterBy="#{info.nombre}" filterMatchMode="contains"
                                           id="cargoNombre" width="180" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <f:facet name="header">
+                                        <h:outputText id="headerNom" value="Nombre" />
+                                        <p:tooltip  for="headerNom" value="#{msg['nombre']}" />
+                                    </f:facet>
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.nombre}" style="text-transform: uppercase"/></f:facet>  
                                         <f:facet name="input">
@@ -149,6 +153,10 @@
 
                                 <p:column headerText="#{msg['grupoSalarial']}" sortBy="#{info.gruposalarial.descripcion}" filterBy="#{info.gruposalarial.descripcion}" filterMatchMode="contains" 
                                           width="100" id="cargoGrupoSalarial" filterStyle="display: none; visibility: hidden;">  
+                                    <f:facet name="header">
+                                        <h:outputText id="headerGSalarial" value="#{msg['grupoSalarial']}" />
+                                        <p:tooltip  for="headerGSalarial" value="#{msg['grupoSalarial']}" />
+                                    </f:facet>
                                     <p:cellEditor>  
                                         <f:facet name="output">
                                             <h:outputText value="#{info.gruposalarial.descripcion}" style="text-transform: uppercase">
@@ -169,6 +177,10 @@
 
                                 <p:column headerText="#{msg['salario']}" sortBy="#{info.gruposalarial.salario}" filterBy="#{info.gruposalarial.salario}" filterMatchMode="contains"
                                           id="cargoSalario" width="70" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <f:facet name="header">
+                                        <h:outputText id="headerSalario" value="#{msg['salario']}" />
+                                        <p:tooltip  for="headerSalario" value="#{msg['salario']}" />
+                                    </f:facet>
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText id="outSalario" value="#{info.gruposalarial.salario}" >
                                                 <f:convertNumber currencySymbol="$" for="outSalario" type="currency" />
@@ -187,6 +199,10 @@
 
                                 <p:column  headerText="#{msg['sueldoMinimo']}" sortBy="#{info.sueldominimo}" filterBy="#{info.sueldominimo}" filterMatchMode="contains"
                                            id="cargoSueldoMinimo" width="90" filterStyle="display: none; visibility: hidden;">                                 
+                                    <f:facet name="header">
+                                        <h:outputText id="headerSalarioMin" value="S. Mínimo" />
+                                        <p:tooltip  for="headerSalarioMin" value="#{msg['sueldoMinimo']}" />
+                                    </f:facet>
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText id="outSueldoMin" value="#{info.sueldominimo}">
                                                 <f:convertNumber currencySymbol="$" for="outSueldoMin" type="currency"/>
@@ -205,6 +221,10 @@
 
                                 <p:column  headerText="#{msg['sueldoMaximo']}" sortBy="#{info.sueldomaximo}" filterBy="#{info.sueldomaximo}" filterMatchMode="contains"
                                            id="cargoSueldoMaximo" width="90" filterStyle="display: none; visibility: hidden;">                                  
+                                    <f:facet name="header">
+                                        <h:outputText id="headerSalarioMax" value="S. Máximo" />
+                                        <p:tooltip  for="headerSalarioMax" value="#{msg['sueldoMaximo']}" />
+                                    </f:facet>
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText id="outSueldoMax" value="#{info.sueldomaximo}">
                                                 <f:convertNumber currencySymbol="$" for="outSueldoMax" type="currency" />
@@ -223,7 +243,11 @@
 
                                 <p:column  headerText="#{msg['grupoViatico']}" sortBy="#{info.grupoviatico.descripcion}" filterBy="#{info.grupoviatico.descripcion}" filterMatchMode="contains"  
                                            width="100" id="cargoGrupoViatico" filterStyle="display: none; visibility: hidden;">
-                                   <p:cellEditor>  
+                                   <f:facet name="header">
+                                        <h:outputText id="headerGrupoV" value="#{msg['grupoViatico']}" />
+                                        <p:tooltip  for="headerGrupoV" value="#{msg['grupoViatico']}" />
+                                    </f:facet>
+                                    <p:cellEditor>  
                                         <f:facet name="output">
                                             <h:outputText value="#{info.grupoviatico.descripcion}" style="text-transform: uppercase">
                                             </h:outputText>
@@ -271,6 +295,10 @@
 
                                 <p:column headerText="#{msg['procesoProductivo']}" sortBy="#{info.procesoproductivo.descripcion}" filterBy="#{info.procesoproductivo.descripcion}" filterMatchMode="contains"  
                                           width="125" id="cargoProcesoProductivo" filterStyle="display: none; visibility: hidden;"  >  
+                                    <f:facet name="header">
+                                        <h:outputText id="headerProcesoP" value="#{msg['procesoProductivo']}" />
+                                        <p:tooltip  for="headerProcesoP" value="#{msg['procesoProductivo']}" />
+                                    </f:facet>
                                     <p:cellEditor>  
                                         <f:facet name="output">
                                             <h:outputText value="#{info.procesoproductivo.descripcion}" style="text-transform: uppercase">
@@ -291,6 +319,10 @@
 
                                 <p:column headerText="#{msg['codigoAlternativo']}" sortBy="#{info.codigoalternativo}" filterBy="#{info.codigoalternativo}" filterMatchMode="contains"
                                           id="cargoCodigoAlternativo" width="115" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <f:facet name="header">
+                                        <h:outputText id="headerCodA" value="#{msg['codigoAlternativo']}" />
+                                        <p:tooltip  for="headerCodA" value="#{msg['codigoAlternativo']}" />
+                                    </f:facet>
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.codigoalternativo}" style="text-transform: uppercase" /></f:facet>  
                                         <f:facet name="input">
@@ -658,7 +690,7 @@
                                      selection="#{controlCargo.cargoSeleccionado}" scrollWidth="415" selectionMode="single" widgetVar="lovBuscarCargo" scrollable="true" scrollHeight="250" 
                                      filteredValue="#{controlCargo.filtrarLovCargos}" emptyMessage="#{msg['lovvacio']}">   
 
-                            <p:ajax event="filter" listener="#{controlCargo.eventoFiltrarCargos()}"/>
+                            <p:ajax event="filter" listener="#{controlCargo.contarRegistrosCargos()}"/>
                             <p:ajax event="rowSelect" listener="#{controlCargo.activarAceptar()}" update=":form:aceptarBC"/>
                             <p:ajax event="rowDblselect" listener="#{controlCargo.actualizarCargo()}"  process="@this"  />
                             <f:facet name="header">  
@@ -680,7 +712,7 @@
                             </p:column>
                         </p:dataTable>
 
-                        <h:outputText id="infoRegistroCargo" value="#{msg['infoRegistro']} #{controlCargo.infoRegistroLOVs}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
+                        <h:outputText id="infoRegistroCargo" value="#{msg['infoRegistro']} #{controlCargo.infoRegistroCargos}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
 
                         <p:commandButton id="aceptarBC" style="position: relative; left: 230px; top: 15px;" value="#{msg['aceptar']}" disabled="#{controlCargo.aceptar}"  
                                          actionListener="#{controlCargo.actualizarCargo()}" process="@this" icon="ui-icon-check"/>
@@ -696,7 +728,7 @@
                                      selection="#{controlCargo.grupoSalarialSeleccionado}" scrollWidth="415" selectionMode="single" widgetVar="lovGrupoSalarial" scrollable="true" scrollHeight="250" 
                                      filteredValue="#{controlCargo.filtrarLovGruposSalariales}" emptyMessage="#{msg['lovvacio']}">              
 
-                            <p:ajax event="filter" listener="#{controlCargo.eventoFiltrarGrupoSal()}"/>
+                            <p:ajax event="filter" listener="#{controlCargo.contarRegistrosGrupoSal()}"/>
                             <p:ajax event="rowSelect" listener="#{controlCargo.activarAceptar()}" update=":form:aceptarGS"/>
                             <p:ajax event="rowDblselect" listener="#{controlCargo.actualizarGrupoSalarial()}"  process="@this"   />
                             <f:facet name="header">  
@@ -720,7 +752,7 @@
                             </p:column>
                         </p:dataTable>
 
-                        <h:outputText id="infoRegistroGrupoSalarial" value="#{msg['infoRegistro']} #{controlCargo.infoRegistroLOVs}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
+                        <h:outputText id="infoRegistroGrupoSalarial" value="#{msg['infoRegistro']} #{controlCargo.infoRegistroGrupoS}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
 
                         <p:commandButton id="aceptarGS" style="position: relative; left: 230px; top: 15px;" value="#{msg['aceptar']}" disabled="#{controlCargo.aceptar}" actionListener="#{controlCargo.actualizarGrupoSalarial()}" process="@this" icon="ui-icon-check"/>
 
@@ -733,7 +765,7 @@
                                      selection="#{controlCargo.grupoViaticoSeleccionado}" scrollWidth="415" selectionMode="single" widgetVar="lovGrupoViatico" scrollable="true" scrollHeight="250" 
                                      filteredValue="#{controlCargo.filtrarLovGruposViaticos}" emptyMessage="#{msg['lovvacio']}">              
 
-                            <p:ajax event="filter" listener="#{controlCargo.eventoFiltrarGrupoVia()}"/>
+                            <p:ajax event="filter" listener="#{controlCargo.contarRegistrosGrupoVia()}"/>
                             <p:ajax event="rowSelect" listener="#{controlCargo.activarAceptar()}" update=":form:aceptarGV"/>
                             <p:ajax event="rowDblselect" listener="#{controlCargo.actualizarGrupoViatico()}"  process="@this"  />
                             <f:facet name="header">  
@@ -754,7 +786,7 @@
                                 <h:outputText value="#{grupoViatico.codigo}" />
                             </p:column>
                         </p:dataTable>
-                        <h:outputText id="infoRegistroGrupoViatico" value="#{msg['infoRegistro']} #{controlCargo.infoRegistroLOVs}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
+                        <h:outputText id="infoRegistroGrupoViatico" value="#{msg['infoRegistro']} #{controlCargo.infoRegistroGrupoV}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
 
                         <p:commandButton id="aceptarGV" style="position: relative; left: 230px; top: 15px;" value="#{msg['aceptar']}" disabled="#{controlCargo.aceptar}"  actionListener="#{controlCargo.actualizarGrupoViatico()}" process="@this" icon="ui-icon-check"/>
 
@@ -767,7 +799,7 @@
                                      selection="#{controlCargo.procesoProductivoSeleccionado}" scrollWidth="415" selectionMode="single" widgetVar="lovProcesoProductivo" scrollable="true" scrollHeight="250" 
                                      filteredValue="#{controlCargo.filtrarLovProcesosProductivos}" emptyMessage="#{msg['lovvacio']}">              
 
-                            <p:ajax event="filter" listener="#{controlCargo.eventoFiltrarProceProdu()}"/>
+                            <p:ajax event="filter" listener="#{controlCargo.contarRegistrosProceProdu()}"/>
                             <p:ajax event="rowSelect" listener="#{controlCargo.activarAceptar()}" update=":form:aceptarPP"/>
                             <p:ajax event="rowDblselect" listener="#{controlCargo.actualizarProcesoProductivo()}"  process="@this"  />
                             <f:facet name="header">  
@@ -789,7 +821,7 @@
                             </p:column>
                         </p:dataTable>
 
-                        <h:outputText id="infoRegistroProcesoProductivo" value="#{msg['infoRegistro']} #{controlCargo.infoRegistroLOVs}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
+                        <h:outputText id="infoRegistroProcesoProductivo" value="#{msg['infoRegistro']} #{controlCargo.infoRegistroProcesoP}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
 
                         <p:commandButton id="aceptarPP" style="position: relative; left: 230px; top: 15px;" value="#{msg['aceptar']}" disabled="#{controlCargo.aceptar}"  actionListener="#{controlCargo.actualizarProcesoProductivo()}" process="@this" icon="ui-icon-check"/>
 
@@ -802,7 +834,7 @@
                                      selection="#{controlCargo.tipoEmpresaSeleccionado}" scrollWidth="415" selectionMode="single" widgetVar="lovTipoEmpresa" scrollable="true" scrollHeight="250" 
                                      filteredValue="#{controlCargo.filtrarLovTiposEmpresas}" emptyMessage="#{msg['lovvacio']}">              
 
-                            <p:ajax event="filter" listener="#{controlCargo.eventoFiltrarTiposEmp()}"/>
+                            <p:ajax event="filter" listener="#{controlCargo.contarRegistrosTiposEmp()}"/>
                             <p:ajax event="rowSelect" listener="#{controlCargo.activarAceptar()}" update=":form:aceptarTE"/>
                             <p:ajax event="rowDblselect" listener="#{controlCargo.actualizarTipoEmpresa()}"  process="@this"  />
                             <f:facet name="header">  
@@ -823,7 +855,7 @@
                             </p:column>
                         </p:dataTable>
 
-                        <h:outputText id="infoRegistroTipoEmpresa" value="#{msg['infoRegistro']} #{controlCargo.infoRegistroLOVs}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
+                        <h:outputText id="infoRegistroTipoEmpresa" value="#{msg['infoRegistro']} #{controlCargo.infoRegistroTipoEmpresa}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
 
                         <p:commandButton id="aceptarTE" style="position: relative; left: 230px; top: 15px;" value="#{msg['aceptar']}" disabled="#{controlCargo.aceptar}" actionListener="#{controlCargo.actualizarTipoEmpresa()}" process="@this" icon="ui-icon-check"/>
 
@@ -836,7 +868,7 @@
                                      selection="#{controlCargo.evalCompetenciaSeleccionado}" scrollWidth="415" selectionMode="single" widgetVar="lovEvalCompetencia" scrollable="true" scrollHeight="250" 
                                      filteredValue="#{controlCargo.filtrarLovEvalCompetencias}" emptyMessage="#{msg['lovvacio']}">              
 
-                            <p:ajax event="filter" listener="#{controlCargo.eventoFiltrarEvalComp()}"/>
+                            <p:ajax event="filter" listener="#{controlCargo.contarRegistrosEvalComp()}"/>
                             <p:ajax event="rowSelect" listener="#{controlCargo.activarAceptar()}" update=":form:aceptarEC"/>
                             <p:ajax event="rowDblselect" listener="#{controlCargo.actualizarEvalCompetencia()}"  process="@this"  />
                             <f:facet name="header">  
@@ -857,7 +889,7 @@
                             </p:column>
                         </p:dataTable>
 
-                        <h:outputText id="infoRegistroEval" value="#{msg['infoRegistro']} #{controlCargo.infoRegistroLOVs}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
+                        <h:outputText id="infoRegistroEval" value="#{msg['infoRegistro']} #{controlCargo.infoRegistroEvalCom}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
 
                         <p:commandButton id="aceptarEC" style="position: relative; left: 230px; top: 15px;" value="#{msg['aceptar']}" disabled="#{controlCargo.aceptar}"  actionListener="#{controlCargo.actualizarEvalCompetencia()}" process="@this" icon="ui-icon-check"/>
 
@@ -870,7 +902,7 @@
                                      selection="#{controlCargo.enfoqueSeleccionado}" scrollWidth="415" selectionMode="single" widgetVar="lovEnfoque" scrollable="true" scrollHeight="250" 
                                      filteredValue="#{controlCargo.filtrarLovEnfoques}" emptyMessage="#{msg['lovvacio']}">              
 
-                            <p:ajax event="filter" listener="#{controlCargo.eventoFiltrarEnfo()}"/>
+                            <p:ajax event="filter" listener="#{controlCargo.contarRegistrosEnfo()}"/>
                             <p:ajax event="rowSelect" listener="#{controlCargo.activarAceptar()}" update=":form:aceptarE"/>
                             <p:ajax event="rowDblselect" listener="#{controlCargo.actualizarEnfoque()}"  process="@this"  />
                             <f:facet name="header">  
@@ -891,7 +923,7 @@
                             </p:column>
                         </p:dataTable>
 
-                        <h:outputText id="infoRegistroEnfoque" value="#{msg['infoRegistro']} #{controlCargo.infoRegistroLOVs}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
+                        <h:outputText id="infoRegistroEnfoque" value="#{msg['infoRegistro']} #{controlCargo.infoRegistroEnfoque}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
 
                         <p:commandButton id="aceptarE" style="position: relative; left: 230px; top: 15px;" value="#{msg['aceptar']}" disabled="#{controlCargo.aceptar}" actionListener="#{controlCargo.actualizarEnfoque()}" process="@this" icon="ui-icon-check"/>
 
@@ -904,7 +936,7 @@
                                      selection="#{controlCargo.empresaSeleccionada}" selectionMode="single" widgetVar="lovEmpresas" scrollable="true" scrollWidth="425" scrollHeight="250"
                                      filteredValue="#{controlCargo.filtrarLovEmpresas}" emptyMessage="#{msg['lovvacio']}">     
 
-                            <p:ajax event="filter" listener="#{controlCargo.eventoFiltrarEmpresas()}"/>
+                            <p:ajax event="filter" listener="#{controlCargo.contarRegistrosEmpresas()}"/>
                             <p:ajax event="rowSelect" listener="#{controlCargo.activarAceptar()}" update=":form:aceptarEM"/>
                             <p:ajax event="rowDblselect" listener="#{controlCargo.actualizarEmpresa()}"  process="@this" />
                             <f:facet name="header">  
@@ -925,7 +957,7 @@
                             </p:column>
                         </p:dataTable>
 
-                        <h:outputText id="infoRegistroEmpresa" value="#{msg['infoRegistro']} #{controlCargo.infoRegistroLOVs}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
+                        <h:outputText id="infoRegistroEmpresa" value="#{msg['infoRegistro']} #{controlCargo.infoRegistroEmpresa}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
 
                         <p:commandButton id="aceptarEM" style="position: relative; left: 230px; top: 15px;" value="#{msg['aceptar']}" disabled="#{controlCargo.aceptar}" actionListener="#{controlCargo.actualizarEmpresa()}" process="@this" icon="ui-icon-check"/>
 

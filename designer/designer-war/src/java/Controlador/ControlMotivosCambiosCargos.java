@@ -4,7 +4,6 @@
  */
 package Controlador;
 
-
 import Entidades.MotivosCambiosCargos;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
@@ -84,7 +83,7 @@ public class ControlMotivosCambiosCargos implements Serializable {
         guardado = true;
         tamano = 315;
         paginaanterior = "";
-        activarLOV=true;
+        activarLOV = true;
     }
 
     @PostConstruct
@@ -103,7 +102,6 @@ public class ControlMotivosCambiosCargos implements Serializable {
     public void recibirPag(String pagina) {
         paginaanterior = pagina;
         getListMotivosCambiosCargos();
-        contarRegistros();
         if (listMotivosCambiosCargos != null) {
             if (!listMotivosCambiosCargos.isEmpty()) {
                 motivoCambioCargoSeleccionado = listMotivosCambiosCargos.get(0);
@@ -335,7 +333,7 @@ public class ControlMotivosCambiosCargos implements Serializable {
                 filtrarMotivosCambiosCargos.remove(motivoCambioCargoSeleccionado);
                 listMotivosCambiosCargos.remove(motivoCambioCargoSeleccionado);
             }
-            modificarinfoRegistro(listMotivosCambiosCargos.size());
+            contarRegistros();
             RequestContext.getCurrentInstance().update("form:infoRegistro");
             RequestContext.getCurrentInstance().update("form:datosMotivoCambioCargo");
             if (guardado == true) {
@@ -428,7 +426,7 @@ public class ControlMotivosCambiosCargos implements Serializable {
                 RequestContext.getCurrentInstance().execute("PF('editDescripcion').show()");
                 cualCelda = -1;
             }
-        } else{
+        } else {
             RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
@@ -498,7 +496,7 @@ public class ControlMotivosCambiosCargos implements Serializable {
             listMotivosCambiosCargos.add(nuevoMotivoCambioCargo);
             nuevoMotivoCambioCargo = new MotivosCambiosCargos();
             motivoCambioCargoSeleccionado = nuevoMotivoCambioCargo;
-            modificarinfoRegistro(listMotivosCambiosCargos.size());
+            contarRegistros();
             RequestContext.getCurrentInstance().update("form:infoRegistro");
             RequestContext.getCurrentInstance().update("form:datosMotivoCambioCargo");
             if (guardado == true) {
@@ -584,7 +582,7 @@ public class ControlMotivosCambiosCargos implements Serializable {
             listMotivosCambiosCargos.add(duplicarMotivoCambioCargo);
             crearMotivoCambioCargo.add(duplicarMotivoCambioCargo);
             motivoCambioCargoSeleccionado = duplicarMotivoCambioCargo;
-            modificarinfoRegistro(listMotivosCambiosCargos.size());
+            contarRegistros();
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
             RequestContext.getCurrentInstance().update("form:datosMotivoCambioCargo");
             if (guardado == true) {
@@ -653,13 +651,10 @@ public class ControlMotivosCambiosCargos implements Serializable {
             } else if (resultado == 5) {
                 RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
+        } else if (administrarRastros.verificarHistoricosTabla("MOTIVOSCAMBIOSCARGOS")) { // igual acá
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            if (administrarRastros.verificarHistoricosTabla("MOTIVOSCAMBIOSCARGOS")) { // igual acá
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-            }
-
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
     }
 
@@ -668,24 +663,14 @@ public class ControlMotivosCambiosCargos implements Serializable {
             if (tipoLista == 0) {
                 tipoLista = 1;
             }
-            modificarinfoRegistro(filtrarMotivosCambiosCargos.size());
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().update("form:infoRegistro");
+            contarRegistros();
         } catch (Exception e) {
             System.out.println("ERROR ControlMotiviosCambiosCargos eventoFiltrar ERROR===" + e.getMessage());
         }
     }
 
-    public void modificarinfoRegistro(int valor) {
-        infoRegistro = String.valueOf(valor);
-    }
-
     public void contarRegistros() {
-        if (listMotivosCambiosCargos != null) {
-            modificarinfoRegistro(listMotivosCambiosCargos.size());
-        } else {
-            modificarinfoRegistro(0);
-        }
+        RequestContext.getCurrentInstance().update("form:infoRegistro");
     }
 
     public void recordarSeleccionMotivoCambioCargo() {
@@ -789,6 +774,9 @@ public class ControlMotivosCambiosCargos implements Serializable {
     }
 
     public String getInfoRegistro() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosMotivoCambioCargo");
+        infoRegistro = String.valueOf(tabla.getRowCount());
         return infoRegistro;
     }
 
@@ -800,6 +788,4 @@ public class ControlMotivosCambiosCargos implements Serializable {
         this.activarLOV = activarLOV;
     }
 
-    
-    
 }

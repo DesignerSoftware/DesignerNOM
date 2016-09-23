@@ -163,7 +163,8 @@ public class ControlCargo implements Serializable {
     private String tablaActiva;
     //
     private boolean activarLOV;
-    private String infoRegistroC, infoRegistroSM, infoRegistroCC, infoRegistroTD, infoRegistroLOVs;
+    private String infoRegistroC, infoRegistroSM, infoRegistroCC, infoRegistroTD;
+    private String infoRegistroEnfoque, infoRegistroEvalCom, infoRegistroCargos, infoRegistroGrupoS, infoRegistroGrupoV, infoRegistroProcesoP, infoRegistroTipoEmpresa, infoRegistroEmpresa;
 
     public ControlCargo() {
         cargoTablaSeleccionado = new Cargos();
@@ -291,18 +292,10 @@ public class ControlCargo implements Serializable {
         }
     }
 
-    /**
-     *
-     * @return
-     */
     public String valorPaginaAnterior() {
         return paginaAnterior;
     }
 
-    /**
-     *
-     * @param pagina
-     */
     public void recibirPaginaEntrante(String pagina) {
         paginaAnterior = pagina;
         lovEmpresas = administrarCargos.listaEmpresas();
@@ -345,10 +338,6 @@ public class ControlCargo implements Serializable {
              */
             activoDetalleCargo = true;
 
-            contarRegistrosC();
-            contarRegistrosCC();
-            contarRegistrosSM();
-            contarRegistrosTD();
         }
     }
 
@@ -363,49 +352,37 @@ public class ControlCargo implements Serializable {
 
             if (cargoTablaSeleccionado.getCodigo() == null) {
                 retorno = false;
-            } else {
-                if (cargoTablaSeleccionado.getCodigo() <= 0) {
-                    retorno = false;
-                }
+            } else if (cargoTablaSeleccionado.getCodigo() <= 0) {
+                retorno = false;
             }
             if (cargoTablaSeleccionado.getNombre() == null) {
                 retorno = false;
-            } else {
-                if (cargoTablaSeleccionado.getNombre().isEmpty()) {
-                    retorno = false;
-                }
+            } else if (cargoTablaSeleccionado.getNombre().isEmpty()) {
+                retorno = false;
             }
         }
         if (i == 1) {
             if (nuevoCargo.getCodigo() == null) {
                 retorno = false;
-            } else {
-                if (nuevoCargo.getCodigo() <= 0) {
-                    retorno = false;
-                }
+            } else if (nuevoCargo.getCodigo() <= 0) {
+                retorno = false;
             }
             if (nuevoCargo.getNombre() == null) {
                 retorno = false;
-            } else {
-                if (nuevoCargo.getNombre().isEmpty()) {
-                    retorno = false;
-                }
+            } else if (nuevoCargo.getNombre().isEmpty()) {
+                retorno = false;
             }
         }
         if (i == 2) {
             if (duplicarCargo.getCodigo() == null) {
                 retorno = false;
-            } else {
-                if (duplicarCargo.getCodigo() <= 0) {
-                    retorno = false;
-                }
+            } else if (duplicarCargo.getCodigo() <= 0) {
+                retorno = false;
             }
             if (duplicarCargo.getNombre() == null) {
                 retorno = false;
-            } else {
-                if (duplicarCargo.getNombre().isEmpty()) {
-                    retorno = false;
-                }
+            } else if (duplicarCargo.getNombre().isEmpty()) {
+                retorno = false;
             }
         }
         return retorno;
@@ -444,17 +421,13 @@ public class ControlCargo implements Serializable {
             }
             if (tipoDetalleSeleccionado.getCodigo() == null) {
                 retorno = false;
-            } else {
-                if (tipoDetalleSeleccionado.getCodigo().intValue() <= 0) {
-                    retorno = false;
-                }
+            } else if (tipoDetalleSeleccionado.getCodigo().intValue() <= 0) {
+                retorno = false;
             }
             if (tipoDetalleSeleccionado.getDescripcion() == null) {
                 retorno = false;
-            } else {
-                if (tipoDetalleSeleccionado.getDescripcion().isEmpty()) {
-                    retorno = false;
-                }
+            } else if (tipoDetalleSeleccionado.getDescripcion().isEmpty()) {
+                retorno = false;
             }
         }
         if (i == 1) {
@@ -463,17 +436,13 @@ public class ControlCargo implements Serializable {
             }
             if (nuevoTipoDetalle.getCodigo() == null) {
                 retorno = false;
-            } else {
-                if (nuevoTipoDetalle.getCodigo().intValue() <= 0) {
-                    retorno = false;
-                }
+            } else if (nuevoTipoDetalle.getCodigo().intValue() <= 0) {
+                retorno = false;
             }
             if (nuevoTipoDetalle.getDescripcion() == null) {
                 retorno = false;
-            } else {
-                if (nuevoTipoDetalle.getDescripcion().isEmpty()) {
-                    retorno = false;
-                }
+            } else if (nuevoTipoDetalle.getDescripcion().isEmpty()) {
+                retorno = false;
             }
         }
         if (i == 2) {
@@ -483,17 +452,13 @@ public class ControlCargo implements Serializable {
             }
             if (duplicarTipoDetalle.getCodigo() == null) {
                 retorno = false;
-            } else {
-                if (duplicarTipoDetalle.getCodigo().intValue() <= 0) {
-                    retorno = false;
-                }
+            } else if (duplicarTipoDetalle.getCodigo().intValue() <= 0) {
+                retorno = false;
             }
             if (duplicarTipoDetalle.getDescripcion() == null) {
                 retorno = false;
-            } else {
-                if (duplicarTipoDetalle.getDescripcion().isEmpty()) {
-                    retorno = false;
-                }
+            } else if (duplicarTipoDetalle.getDescripcion().isEmpty()) {
+                retorno = false;
             }
         }
         return retorno;
@@ -1588,7 +1553,7 @@ public class ControlCargo implements Serializable {
                 nuevoCargo.setSecuencia(l);
                 listCargosCrear.add(nuevoCargo);
                 listaCargos.add(nuevoCargo);
-                modificarInfoRegistroC(listaCargos.size());
+                contarRegistrosC();
                 cargoTablaSeleccionado = listaCargos.get(listaCargos.indexOf(nuevoCargo));
                 nuevoCargo = new Cargos();
                 nuevoCargo.setGruposalarial(new GruposSalariales());
@@ -1629,7 +1594,7 @@ public class ControlCargo implements Serializable {
             }
             listSueldosMercadosCrear.add(nuevoSueldoMercado);
             listaSueldosMercados.add(nuevoSueldoMercado);
-            modificarInfoRegistroSM(listaSueldosMercados.size());
+            contarRegistrosSM();
             sueldoMercadoSeleccionado = listaSueldosMercados.get(listaSueldosMercados.indexOf(nuevoSueldoMercado));
             cambiosPagina = false;
             RequestContext context = RequestContext.getCurrentInstance();
@@ -1666,7 +1631,7 @@ public class ControlCargo implements Serializable {
             }
             listCompetenciasCargosCrear.add(nuevoCompetenciaCargo);
             listaCompetenciasCargos.add(nuevoCompetenciaCargo);
-            modificarInfoRegistroCC(listaCompetenciasCargos.size());
+            contarRegistrosCC();
             competenciaCargoSeleccionado = listaCompetenciasCargos.get(listaCompetenciasCargos.indexOf(nuevoCompetenciaCargo));
             cambiosPagina = false;
             RequestContext context = RequestContext.getCurrentInstance();
@@ -1705,7 +1670,7 @@ public class ControlCargo implements Serializable {
                 nuevoTipoDetalle.setDescripcion(var);
                 listTiposDetallesCrear.add(nuevoTipoDetalle);
                 listaTiposDetalles.add(nuevoTipoDetalle);
-                modificarInfoRegistroTD(listaTiposDetalles.size());
+                contarRegistrosTD();
                 tipoDetalleSeleccionado = listaTiposDetalles.get(listaTiposDetalles.indexOf(nuevoTipoDetalle));
                 cambiosPagina = false;
                 RequestContext context = RequestContext.getCurrentInstance();
@@ -1845,7 +1810,6 @@ public class ControlCargo implements Serializable {
     public void duplicarTipoDetalleM() {
         duplicarTipoDetalle = new TiposDetalles();
 
-
         duplicarTipoDetalle.setCodigo(tipoDetalleSeleccionado.getCodigo());
         duplicarTipoDetalle.setDescripcion(tipoDetalleSeleccionado.getDescripcion());
         duplicarTipoDetalle.setEnfoque(tipoDetalleSeleccionado.getEnfoque());
@@ -1879,7 +1843,7 @@ public class ControlCargo implements Serializable {
                 }
                 listaCargos.add(duplicarCargo);
                 listCargosCrear.add(duplicarCargo);
-                modificarInfoRegistroC(listaCargos.size());
+                contarRegistrosC();
                 cargoTablaSeleccionado = listaCargos.get(listaCargos.indexOf(duplicarCargo));
                 cambiosPagina = false;
                 RequestContext context = RequestContext.getCurrentInstance();
@@ -1911,7 +1875,7 @@ public class ControlCargo implements Serializable {
 
             listaSueldosMercados.add(duplicarSueldoMercado);
             listSueldosMercadosCrear.add(duplicarSueldoMercado);
-            modificarInfoRegistroSM(listaSueldosMercados.size());
+            contarRegistrosSM();
             sueldoMercadoSeleccionado = listaSueldosMercados.get(listaSueldosMercados.indexOf(duplicarSueldoMercado));
 
             cambiosPagina = false;
@@ -1940,7 +1904,7 @@ public class ControlCargo implements Serializable {
 
             listaCompetenciasCargos.add(duplicarCompetenciaCargo);
             listCompetenciasCargosCrear.add(duplicarCompetenciaCargo);
-            modificarInfoRegistroCC(listaCompetenciasCargos.size());
+            contarRegistrosCC();
             competenciaCargoSeleccionado = listaCompetenciasCargos.get(listaCompetenciasCargos.indexOf(duplicarCompetenciaCargo));
 
             cambiosPagina = false;
@@ -1972,7 +1936,7 @@ public class ControlCargo implements Serializable {
                 duplicarTipoDetalle.setDescripcion(var);
                 listaTiposDetalles.add(duplicarTipoDetalle);
                 listTiposDetallesCrear.add(duplicarTipoDetalle);
-                modificarInfoRegistroTD(listaTiposDetalles.size());
+                contarRegistrosTD();
                 tipoDetalleSeleccionado = listaTiposDetalles.get(listaTiposDetalles.indexOf(duplicarTipoDetalle));
 
                 cambiosPagina = false;
@@ -2109,7 +2073,7 @@ public class ControlCargo implements Serializable {
             if (tipoLista == 1) {
                 filtrarListaCargos.remove(cargoTablaSeleccionado);
             }
-            modificarInfoRegistroC(listaCargos.size());
+            contarRegistrosC();
             tablaActiva = "";
             cambiosPagina = false;
             cargoTablaSeleccionado = null;
@@ -2143,7 +2107,7 @@ public class ControlCargo implements Serializable {
             if (tipoListaSueldoMercado == 1) {
                 filtrarListaSueldosMercados.remove(sueldoMercadoSeleccionado);
             }
-            modificarInfoRegistroSM(listaSueldosMercados.size());
+            contarRegistrosSM();
             sueldoMercadoSeleccionado = null;
             tablaActiva = "";
             cambiosPagina = false;
@@ -2177,7 +2141,7 @@ public class ControlCargo implements Serializable {
             if (tipoListaCompetencia == 1) {
                 filtrarListaCompetenciasCargos.remove(competenciaCargoSeleccionado);
             }
-            modificarInfoRegistroCC(listaCompetenciasCargos.size());
+            contarRegistrosCC();
             tablaActiva = "";
             cambiosPagina = false;
             competenciaCargoSeleccionado = null;
@@ -2207,7 +2171,7 @@ public class ControlCargo implements Serializable {
             if (tipoListaTipoDetalle == 1) {
                 filtrarListaTiposDetalles.remove(tipoDetalleSeleccionado);
             }
-            modificarInfoRegistroTD(listaTiposDetalles.size());
+            contarRegistrosTD();
             tablaActiva = "";
             tipoDetalleSeleccionado = null;
             cambiosPagina = false;
@@ -2433,19 +2397,19 @@ public class ControlCargo implements Serializable {
         if ("C".equals(tablaActiva)) {
             if (cargoTablaSeleccionado != null) {
                 if (cualCelda == 2) {
-                    modificarInfoRegistroLOVs(lovGruposSalariales.size());
+                    contarRegistrosGrupoSal();
                     RequestContext.getCurrentInstance().update("form:GrupoSalarialDialogo");
                     RequestContext.getCurrentInstance().execute("PF('GrupoSalarialDialogo').show()");
                     tipoActualizacion = 0;
                 }
                 if (cualCelda == 6) {
-                    modificarInfoRegistroLOVs(lovGruposViaticos.size());
+                    contarRegistrosGrupoVia();
                     RequestContext.getCurrentInstance().update("form:GrupoViaticoDialogo");
                     RequestContext.getCurrentInstance().execute("PF('GrupoViaticoDialogo').show()");
                     tipoActualizacion = 0;
                 }
                 if (cualCelda == 9) {
-                    modificarInfoRegistroLOVs(lovProcesosProductivos.size());
+                    contarRegistrosProceProdu();
                     RequestContext.getCurrentInstance().update("form:ProcesoProductivoDialogo");
                     RequestContext.getCurrentInstance().execute("PF('ProcesoProductivoDialogo').show()");
                     tipoActualizacion = 0;
@@ -2454,7 +2418,7 @@ public class ControlCargo implements Serializable {
         } else if ("SM".equals(tablaActiva)) {
             if (sueldoMercadoSeleccionado != null) {
                 if (cualCeldaSueldoMercado == 0) {
-                    modificarInfoRegistroLOVs(lovTiposEmpresas.size());
+                    contarRegistrosEmpresas();
                     RequestContext.getCurrentInstance().update("form:TipoEmpresaDialogo");
                     RequestContext.getCurrentInstance().execute("PF('TipoEmpresaDialogo').show()");
                     tipoActualizacion = 0;
@@ -2463,7 +2427,7 @@ public class ControlCargo implements Serializable {
         } else if ("CC".equals(tablaActiva)) {
             if (competenciaCargoSeleccionado != null) {
                 if (cualCeldaCompetencia == 0) {
-                    modificarInfoRegistroLOVs(lovEvalCompetencias.size());
+                    contarRegistrosEvalComp();
                     RequestContext.getCurrentInstance().update("form:EvalCompetenciaDialogo");
                     RequestContext.getCurrentInstance().execute("PF('EvalCompetenciaDialogo').show()");
                     tipoActualizacion = 0;
@@ -2472,7 +2436,7 @@ public class ControlCargo implements Serializable {
         } else if ("DC".equals(tablaActiva)) {
             if (tipoDetalleSeleccionado != null) {
                 if (cualCeldaTipoDetalle == 2) {
-                    modificarInfoRegistroLOVs(lovEnfoques.size());
+                    contarRegistrosEnfo();
                     RequestContext.getCurrentInstance().update("form:EnfoqueDialogo");
                     RequestContext.getCurrentInstance().execute("PF('EnfoqueDialogo').show()");
                     tipoActualizacion = 0;
@@ -2487,17 +2451,17 @@ public class ControlCargo implements Serializable {
         cargoTablaSeleccionado = cargo;
         tipoActualizacion = tipoAct;
         if (celda == 0) {
-            modificarInfoRegistroLOVs(lovGruposSalariales.size());
+            contarRegistrosGrupoSal();
             RequestContext.getCurrentInstance().update("form:GrupoSalarialDialogo");
             RequestContext.getCurrentInstance().execute("PF('GrupoSalarialDialogo').show()");
         }
         if (celda == 1) {
-            modificarInfoRegistroLOVs(lovGruposViaticos.size());
+            contarRegistrosGrupoVia();
             RequestContext.getCurrentInstance().update("form:GrupoViaticoDialogo");
             RequestContext.getCurrentInstance().execute("PF('GrupoViaticoDialogo').show()");
         }
         if (celda == 2) {
-            modificarInfoRegistroLOVs(lovProcesosProductivos.size());
+            contarRegistrosProceProdu();
             RequestContext.getCurrentInstance().update("form:ProcesoProductivoDialogo");
             RequestContext.getCurrentInstance().execute("PF('ProcesoProductivoDialogo').show()");
         }
@@ -2509,7 +2473,7 @@ public class ControlCargo implements Serializable {
         sueldoMercadoSeleccionado = sueldoM;
         tipoActualizacion = tipoAct;
         if (celda == 0) {
-            modificarInfoRegistroLOVs(lovTiposEmpresas.size());
+            contarRegistrosEmpresas();
             RequestContext.getCurrentInstance().update("form:TipoEmpresaDialogo");
             RequestContext.getCurrentInstance().execute("PF('TipoEmpresaDialogo').show()");
         }
@@ -2521,7 +2485,7 @@ public class ControlCargo implements Serializable {
         competenciaCargoSeleccionado = competenciaC;
         tipoActualizacion = tipoAct;
         if (celda == 0) {
-            modificarInfoRegistroLOVs(lovEvalCompetencias.size());
+            contarRegistrosEvalComp();
             RequestContext.getCurrentInstance().update("form:EvalCompetenciaDialogo");
             RequestContext.getCurrentInstance().execute("PF('EvalCompetenciaDialogo').show()");
         }
@@ -2533,7 +2497,7 @@ public class ControlCargo implements Serializable {
         tipoDetalleSeleccionado = tipoDetalle;
         tipoActualizacion = tipoAct;
         if (celda == 0) {
-            modificarInfoRegistroLOVs(lovEnfoques.size());
+            contarRegistrosEnfo();
             RequestContext.getCurrentInstance().update("form:EnfoqueDialogo");
             RequestContext.getCurrentInstance().execute("PF('EnfoqueDialogo').show()");
         }
@@ -3537,8 +3501,8 @@ public class ControlCargo implements Serializable {
             sueldoMercadoSeleccionado = null;
             tipoDetalleSeleccionado = null;
             cualCelda = -1;
-            modificarInfoRegistroLOVs(lovEmpresas.size());
-            RequestContext.getCurrentInstance().update("form:EmpresasDialogo.");
+            contarRegistrosEmpresas();
+            RequestContext.getCurrentInstance().update("form:EmpresasDialogo");
             RequestContext.getCurrentInstance().execute("PF('EmpresasDialogo').show()");
         } else {
             RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
@@ -3666,7 +3630,7 @@ public class ControlCargo implements Serializable {
             filtrarLovCargos = null;
             aceptar = true;
             RequestContext context = RequestContext.getCurrentInstance();
-            modificarInfoRegistroLOVs(lovCargos.size());
+            contarRegistrosCargos();
             RequestContext.getCurrentInstance().update("form:BuscarCargoDialogo");
             RequestContext.getCurrentInstance().update("form:lovBuscarCargo");
             RequestContext.getCurrentInstance().update("form:aceptarBC");
@@ -3677,9 +3641,6 @@ public class ControlCargo implements Serializable {
         }
     }
 
-    /**
-     *
-     */
     public void actualizarCargo() {
         listaCargos.clear();
         listaCargos.add(cargoSeleccionado);
@@ -3854,132 +3815,83 @@ public class ControlCargo implements Serializable {
                 tipoLista = 1;
             }
             cargoTablaSeleccionado = null;
-            modificarInfoRegistroC(filtrarListaCargos.size());
-            RequestContext.getCurrentInstance().update("form:informacionRegistroCargo");
+            contarRegistrosC();
 
         } else if (tablaActiva.equals("SM")) {
             if (tipoListaSueldoMercado == 0) {
                 tipoListaSueldoMercado = 1;
             }
             sueldoMercadoSeleccionado = null;
-            modificarInfoRegistroSM(filtrarListaSueldosMercados.size());
-            RequestContext.getCurrentInstance().update("form:informacionRegistroSM");
+            contarRegistrosSM();
 
         } else if (tablaActiva.equals("CC")) {
             if (tipoListaCompetencia == 0) {
                 tipoListaCompetencia = 1;
             }
-            competenciaCargoSeleccionado = null;
-            modificarInfoRegistroCC(filtrarListaCompetenciasCargos.size());
-            RequestContext.getCurrentInstance().update("form:informacionRegistroCC");
+            contarRegistrosCC();
 
         } else if (tablaActiva.equals("TD")) {
             if (tipoListaTipoDetalle == 0) {
                 tipoListaTipoDetalle = 1;
             }
             tipoDetalleSeleccionado = null;
-            modificarInfoRegistroTD(filtrarListaTiposDetalles.size());
-            RequestContext.getCurrentInstance().update("form:informacionRegistroTD");
+            contarRegistrosTD();
 
         }
         activarLOV = true;
         RequestContext.getCurrentInstance().update("form:listaValores");
     }
 
-    public void eventoFiltrarEmpresas() {
-        modificarInfoRegistroLOVs(filtrarLovEmpresas.size());
+    public void contarRegistrosEmpresas() {
         RequestContext.getCurrentInstance().update("form:infoRegistroEmpresa");
     }
 
-    public void eventoFiltrarCargos() {
-        modificarInfoRegistroLOVs(filtrarLovCargos.size());
+    public void contarRegistrosCargos() {
         RequestContext.getCurrentInstance().update("form:infoRegistroCargo");
     }
 
-    public void eventoFiltrarEnfo() {
-        modificarInfoRegistroLOVs(filtrarLovEnfoques.size());
+    public void contarRegistrosEnfo() {
         RequestContext.getCurrentInstance().update("form:infoRegistroEnfoque");
     }
 
-    public void eventoFiltrarEvalComp() {
-        modificarInfoRegistroLOVs(filtrarLovEvalCompetencias.size());
+    public void contarRegistrosEvalComp() {
         RequestContext.getCurrentInstance().update("form:infoRegistroEval");
     }
 
-    public void eventoFiltrarGrupoSal() {
-        modificarInfoRegistroLOVs(filtrarLovGruposSalariales.size());
+    public void contarRegistrosGrupoSal() {
         RequestContext.getCurrentInstance().update("form:infoRegistroGrupoSalarial");
     }
 
-    public void eventoFiltrarGrupoVia() {
-        modificarInfoRegistroLOVs(filtrarLovGruposViaticos.size());
+    public void contarRegistrosGrupoVia() {
         RequestContext.getCurrentInstance().update("form:infoRegistroGrupoViatico");
     }
 
-    public void eventoFiltrarProceProdu() {
-        modificarInfoRegistroLOVs(filtrarLovProcesosProductivos.size());
+    public void contarRegistrosProceProdu() {
         RequestContext.getCurrentInstance().update("form:infoRegistroProcesoProductivo");
     }
 
-    public void eventoFiltrarTiposEmp() {
-        modificarInfoRegistroLOVs(filtrarLovTiposEmpresas.size());
+    public void contarRegistrosTiposEmp() {
         RequestContext.getCurrentInstance().update("form:infoRegistroTipoEmpresa");
     }
 
     ////////////////////CONTAR REGISTROS/////////////////////
-    private void modificarInfoRegistroC(int valor) {
-        infoRegistroC = String.valueOf(valor);
-    }
-
-    private void modificarInfoRegistroCC(int valor) {
-        infoRegistroCC = String.valueOf(valor);
-    }
-
-    private void modificarInfoRegistroSM(int valor) {
-        infoRegistroSM = String.valueOf(valor);
-    }
-
-    private void modificarInfoRegistroTD(int valor) {
-        infoRegistroTD = String.valueOf(valor);
-    }
-
-    private void modificarInfoRegistroLOVs(int valor) {
-        infoRegistroLOVs = String.valueOf(valor);
-    }
-
     public void contarRegistrosC() {
-        if (listaCargos != null) {
-            modificarInfoRegistroC(listaCargos.size());
-        } else {
-            modificarInfoRegistroC(0);
-        }
+        RequestContext.getCurrentInstance().update("form:informacionRegistroCargo");
     }
 
     public void contarRegistrosSM() {
-        if (listaSueldosMercados != null) {
-            modificarInfoRegistroSM(listaSueldosMercados.size());
-        } else {
-            modificarInfoRegistroSM(0);
-        }
+        RequestContext.getCurrentInstance().update("form:informacionRegistroSM");
     }
 
     public void contarRegistrosCC() {
-        if (listaCompetenciasCargos != null) {
-            modificarInfoRegistroCC(listaCompetenciasCargos.size());
-        } else {
-            modificarInfoRegistroCC(0);
-        }
+        RequestContext.getCurrentInstance().update("form:informacionRegistroCC");
     }
 
     public void contarRegistrosTD() {
-        if (listaTiposDetalles != null) {
-            modificarInfoRegistroTD(listaTiposDetalles.size());
-        } else {
-            modificarInfoRegistroTD(0);
-        }
+        RequestContext.getCurrentInstance().update("form:informacionRegistroTD");
     }
-    //GETTERS AND SETTERS
 
+    //GETTERS AND SETTERS
     public List<Cargos> getListaCargos() {
         //try {
         System.out.println("getListaCargos . empresaActual : " + empresaActual);
@@ -4749,22 +4661,118 @@ public class ControlCargo implements Serializable {
     }
 
     public String getInfoRegistroC() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosCargo");
+        infoRegistroC = String.valueOf(tabla.getRowCount());
         return infoRegistroC;
     }
 
     public String getInfoRegistroCC() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosCompetenciaCargo");
+        infoRegistroCC = String.valueOf(tabla.getRowCount());
         return infoRegistroCC;
     }
 
     public String getInfoRegistroSM() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosSueldoMercado");
+        infoRegistroSM = String.valueOf(tabla.getRowCount());
         return infoRegistroSM;
     }
 
     public String getInfoRegistroTD() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosTipoDetalle");
+        infoRegistroTD = String.valueOf(tabla.getRowCount());
         return infoRegistroTD;
     }
 
-    public String getInfoRegistroLOVs() {
-        return infoRegistroLOVs;
+    public String getInfoRegistroEnfoque() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lovEnfoque");
+        infoRegistroEnfoque = String.valueOf(tabla.getRowCount());
+        return infoRegistroEnfoque;
+    }
+
+    public String getInfoRegistroEvalCom() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lovEvalCompetencia");
+        infoRegistroEvalCom = String.valueOf(tabla.getRowCount());
+        return infoRegistroEvalCom;
+    }
+
+    public String getInfoRegistroCargos() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lovBuscarCargo");
+        infoRegistroCargos = String.valueOf(tabla.getRowCount());
+        return infoRegistroCargos;
+    }
+
+    public String getInfoRegistroGrupoV() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lovGrupoViatico");
+        infoRegistroGrupoV = String.valueOf(tabla.getRowCount());
+        return infoRegistroGrupoV;
+    }
+
+    public String getInfoRegistroProcesoP() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lovProcesoProductivo");
+        infoRegistroProcesoP = String.valueOf(tabla.getRowCount());
+        return infoRegistroProcesoP;
+    }
+
+    public String getInfoRegistroEmpresa() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lovEmpresas");
+        infoRegistroEmpresa = String.valueOf(tabla.getRowCount());
+        return infoRegistroEmpresa;
+    }
+
+    public String getInfoRegistroTipoEmpresa() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lovTipoEmpresa");
+        infoRegistroTipoEmpresa = String.valueOf(tabla.getRowCount());
+        return infoRegistroTipoEmpresa;
+    }
+
+    public String getInfoRegistroGrupoS() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lovGrupoSalarial");
+        infoRegistroGrupoS = String.valueOf(tabla.getRowCount());
+        return infoRegistroGrupoS;
+    }
+
+    public void setInfoRegistroEnfoque(String infoRegistroEnfoque) {
+        this.infoRegistroEnfoque = infoRegistroEnfoque;
+    }
+
+    public void setInfoRegistroEvalCom(String infoRegistroEvalCom) {
+        this.infoRegistroEvalCom = infoRegistroEvalCom;
+    }
+
+    public void setInfoRegistroCargos(String infoRegistroCargos) {
+        this.infoRegistroCargos = infoRegistroCargos;
+    }
+
+    public void setInfoRegistroGrupoS(String infoRegistroGrupoS) {
+        this.infoRegistroGrupoS = infoRegistroGrupoS;
+    }
+
+    public void setInfoRegistroGrupoV(String infoRegistroGrupoV) {
+        this.infoRegistroGrupoV = infoRegistroGrupoV;
+    }
+
+    public void setInfoRegistroProcesoP(String infoRegistroProcesoP) {
+        this.infoRegistroProcesoP = infoRegistroProcesoP;
+    }
+
+    public void setInfoRegistroTipoEmpresa(String infoRegistroTipoEmpresa) {
+        this.infoRegistroTipoEmpresa = infoRegistroTipoEmpresa;
+    }
+
+    public void setInfoRegistroEmpresa(String infoRegistroEmpresa) {
+        this.infoRegistroEmpresa = infoRegistroEmpresa;
     }
 }

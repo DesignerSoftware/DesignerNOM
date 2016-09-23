@@ -1,6 +1,5 @@
 package Controlador;
 
-
 import Entidades.CentrosCostos;
 import Entidades.Empresas;
 import Entidades.Estructuras;
@@ -220,13 +219,10 @@ public class ControlEstructuraPlanta implements Serializable {
     public void inicializarPagina(String paginaLlamado) {
         paginaAnterior = paginaLlamado;
         getListaOrganigramas();
-        contarRegistrosOr();
-        RequestContext.getCurrentInstance().update("form:infoRegistroOrg");
         if (listaOrganigramas != null) {
             if (!listaOrganigramas.isEmpty()) {
                 organigramaSeleccionado = listaOrganigramas.get(0);
                 getListaEstructuras();
-                contarRegistrosEs();
             }
         } else {
             System.out.println("El getListaOrganigramas() no trajo datos");
@@ -338,7 +334,7 @@ public class ControlEstructuraPlanta implements Serializable {
                 lovEmpresas.clear();
                 getLovEmpresas();
             } else {
-                contarRegistrosLovEmp(0);
+                contarRegistrosLovEmp();
                 RequestContext.getCurrentInstance().update("form:EmpresasDialogo");
                 RequestContext.getCurrentInstance().execute("PF('EmpresasDialogo').show()");
                 tipoActualizacion = 0;
@@ -926,7 +922,7 @@ public class ControlEstructuraPlanta implements Serializable {
                 }
                 listEstructurasCrear.add(nuevoEstructura);
                 listaEstructuras.add(nuevoEstructura);
-                modificarInfoRegistroEs(listaEstructuras.size());
+                contarRegistrosEs();
                 RequestContext.getCurrentInstance().update("form:infoRegistroEst");
                 estructuraSeleccionada = listaEstructuras.get(listaEstructuras.indexOf(nuevoEstructura));
                 cambiosPagina = false;
@@ -1004,7 +1000,7 @@ public class ControlEstructuraPlanta implements Serializable {
                 listaEstructuras.add(duplicarEstructura);
                 listEstructurasCrear.add(duplicarEstructura);
                 estructuraSeleccionada = listaEstructuras.get(listaEstructuras.indexOf(nuevoEstructura));
-                modificarInfoRegistroEs(listaEstructuras.size());
+                contarRegistrosEs();
                 RequestContext.getCurrentInstance().update("form:infoRegistroEst");
                 cambiosPagina = false;
                 RequestContext context = RequestContext.getCurrentInstance();
@@ -1058,7 +1054,7 @@ public class ControlEstructuraPlanta implements Serializable {
         if (tipoListaEstructura == 1) {
             filtrarListaEstructuras.remove(estructuraSeleccionada);
         }
-        modificarInfoRegistroEs(listaEstructuras.size());
+        contarRegistrosEs();
         RequestContext.getCurrentInstance().update("form:infoRegistroEst");
         cambiosPagina = false;
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -1404,14 +1400,14 @@ public class ControlEstructuraPlanta implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (estructuraSeleccionada != null) {
             if (cualCeldaEstructura == 2 || cualCeldaEstructura == 4) {
-                modificarInfoRegistrosCCosto(lovCentrosCostos.size());
+                contarRegistrosCCosto();
                 RequestContext.getCurrentInstance().update("form:CentroCostoDialogo");
                 RequestContext.getCurrentInstance().execute("PF('CentroCostoDialogo').show()");
                 tipoActualizacion = 0;
             }
             if (cualCeldaEstructura == 5) {
                 cargarLovEstructurasPadres(organigramaSeleccionado.getSecuencia(), estructuraSeleccionada.getSecuencia());
-                modificarInfoRegistroEsPa(lovEstructurasPadres.size());
+                contarRegistroEsPa();
                 RequestContext.getCurrentInstance().update("form:EstructuraPadreDialogo");
                 RequestContext.getCurrentInstance().execute("PF('EstructuraPadreDialogo').show()");
                 tipoActualizacion = 0;
@@ -1419,7 +1415,7 @@ public class ControlEstructuraPlanta implements Serializable {
         } else if (organigramaSeleccionado != null) {
             if (cualCelda == 2) {
                 activarBotonLOV();
-                contarRegistrosLovEmp(0);
+                contarRegistrosLovEmp();
                 RequestContext.getCurrentInstance().update("form:EmpresasDialogo");
                 RequestContext.getCurrentInstance().execute("PF('EmpresasDialogo').show()");
             }
@@ -1445,11 +1441,11 @@ public class ControlEstructuraPlanta implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         estructuraSeleccionada = estructura;
         tipoActualizacion = LND;
-        
+
         if (dlg == 0) {
             activarLOV = true;
             RequestContext.getCurrentInstance().update("form:listaValores");
-            modificarInfoRegistrosCCosto(lovCentrosCostos.size());
+            contarRegistrosCCosto();
             RequestContext.getCurrentInstance().update("form:CentroCostoDialogo");
             RequestContext.getCurrentInstance().execute("PF('CentroCostoDialogo').show()");
         }
@@ -1457,7 +1453,7 @@ public class ControlEstructuraPlanta implements Serializable {
             activarLOV = true;
             cargarLovEstructurasPadres(organigramaSeleccionado.getSecuencia(), estructuraSeleccionada.getSecuencia());
             RequestContext.getCurrentInstance().update("form:listaValores");
-            modificarInfoRegistroEsPa(lovEstructurasPadres.size());
+            contarRegistroEsPa();
             RequestContext.getCurrentInstance().update("form:EstructuraPadreDialogo");
             RequestContext.getCurrentInstance().execute("PF('EstructuraPadreDialogo').show()");
         }
@@ -1470,7 +1466,7 @@ public class ControlEstructuraPlanta implements Serializable {
         if (dlg == 0) {
             activarLOV = true;
             RequestContext.getCurrentInstance().update("form:listaValores");
-            modificarInfoRegistrosCCosto(lovCentrosCostos.size());
+            contarRegistrosCCosto();
             RequestContext.getCurrentInstance().update("form:CentroCostoDialogo");
             RequestContext.getCurrentInstance().execute("PF('CentroCostoDialogo').show()");
         }
@@ -1478,7 +1474,7 @@ public class ControlEstructuraPlanta implements Serializable {
             activarLOV = true;
             cargarLovEstructurasPadres(organigramaSeleccionado.getSecuencia(), new BigInteger("0"));
             RequestContext.getCurrentInstance().update("form:listaValores");
-            modificarInfoRegistroEsPa(lovEstructurasPadres.size());
+            contarRegistroEsPa();
             RequestContext.getCurrentInstance().update("form:EstructuraPadreDialogo");
             RequestContext.getCurrentInstance().execute("PF('EstructuraPadreDialogo').show()");
         }
@@ -1489,7 +1485,7 @@ public class ControlEstructuraPlanta implements Serializable {
         organigramaSeleccionado = organigrama;
         tipoActualizacion = 0;
         activarBotonLOV();
-        contarRegistrosLovEmp(0);
+        contarRegistrosLovEmp();
         RequestContext.getCurrentInstance().update("form:EmpresasDialogo");
         RequestContext.getCurrentInstance().execute("PF('EmpresasDialogo').show()");
     }
@@ -1499,7 +1495,7 @@ public class ControlEstructuraPlanta implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         tipoActualizacion = tipoAct;
         anularBotonLOV();
-        contarRegistrosLovEmp(0);
+        contarRegistrosLovEmp();
         RequestContext.getCurrentInstance().update("form:EmpresasDialogo");
         RequestContext.getCurrentInstance().execute("PF('EmpresasDialogo').show()");
     }
@@ -1844,80 +1840,34 @@ public class ControlEstructuraPlanta implements Serializable {
         if (tipoLista == 0) {
             tipoLista = 1;
         }
-        activarLOV = true;
-        RequestContext.getCurrentInstance().update("form:listaValores");
-        organigramaSeleccionado = null;
-        modificarInfoRegistroOr(filtrarListaOrganigramas.size());
+        contarRegistrosOr();
     }
 
     public void eventoFiltrarE() {
         if (tipoListaEstructura == 0) {
             tipoListaEstructura = 1;
         }
-        activarLOV = true;
-        RequestContext.getCurrentInstance().update("form:listaValores");
-        estructuraSeleccionada = null;
-        modificarInfoRegistroEs(filtrarListaEstructuras.size());
-    }
-
-    private void modificarInfoRegistroOr(int valor) {
-        infoRegistroOr = String.valueOf(valor);
-        RequestContext.getCurrentInstance().update("form:infoRegistroOrg");
-    }
-
-    private void modificarInfoRegistroEs(int valor) {
-        infoRegistroEs = String.valueOf(valor);
-        RequestContext.getCurrentInstance().update("form:infoRegistroEst");
+        contarRegistrosEs();
     }
 
     public void contarRegistrosOr() {
-        if (listaOrganigramas != null) {
-            modificarInfoRegistroOr(listaOrganigramas.size());
-        } else {
-            modificarInfoRegistroOr(0);
-        }
+        RequestContext.getCurrentInstance().update("form:infoRegistroOrg");
     }
 
     public void contarRegistrosEs() {
-        if (listaEstructuras != null) {
-            modificarInfoRegistroEs(listaEstructuras.size());
-        } else {
-            modificarInfoRegistroEs(0);
-        }
         RequestContext.getCurrentInstance().update("form:infoRegistroEst");
     }
 
-    public void contarRegistrosLovEmp(int tipoListaLOV) {
-        if (tipoListaLOV == 1) {
-            infoRegistroEmpresa = String.valueOf(filtradoEmpresas.size());
-        } else if (lovEmpresas != null) {
-            infoRegistroEmpresa = String.valueOf(lovEmpresas.size());
-        } else {
-            infoRegistroEmpresa = String.valueOf(0);
-        }
+    public void contarRegistrosLovEmp() {
         RequestContext.getCurrentInstance().update("form:infoRegistroEmpresa");
     }
 
-    private void modificarInfoRegistrosCCosto(int valor) {
-        infoRegistroCentroCosto = String.valueOf(valor);
+    private void contarRegistrosCCosto() {
         RequestContext.getCurrentInstance().update("form:infoRegistroCentroCosto");
     }
 
-    private void modificarInfoRegistroEsPa(int valor) {
-        infoRegistroEstructuraPa = String.valueOf(valor);
+    private void contarRegistroEsPa() {
         RequestContext.getCurrentInstance().update("form:infoRegistroEstructura");
-    }
-
-    public void eventoFiltrarCCosto() {
-        modificarInfoRegistrosCCosto(filtrarLovCentrosCostos.size());
-    }
-
-    public void eventoFiltrarEsPa() {
-        modificarInfoRegistroEsPa(filtrarLovEstructurasPadres.size());
-    }
-
-    public void eventoFiltrarLovEmp() {
-        contarRegistrosLovEmp(1);
     }
 
     public void verificarNuevaExtructura() {
@@ -2306,6 +2256,9 @@ public class ControlEstructuraPlanta implements Serializable {
     }
 
     public String getInfoRegistroCentroCosto() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lovCentroCosto");
+        infoRegistroCentroCosto = String.valueOf(tabla.getRowCount());
         return infoRegistroCentroCosto;
     }
 
@@ -2314,6 +2267,9 @@ public class ControlEstructuraPlanta implements Serializable {
     }
 
     public String getInfoRegistroEstructuraPa() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lovEstructuraPadre");
+        infoRegistroEstructuraPa = String.valueOf(tabla.getRowCount());
         return infoRegistroEstructuraPa;
     }
 
@@ -2322,6 +2278,9 @@ public class ControlEstructuraPlanta implements Serializable {
     }
 
     public String getInfoRegistroEs() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosEstructura");
+        infoRegistroEs = String.valueOf(tabla.getRowCount());
         return infoRegistroEs;
     }
 
@@ -2330,6 +2289,9 @@ public class ControlEstructuraPlanta implements Serializable {
     }
 
     public String getInfoRegistroOr() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosOrganigramas");
+        infoRegistroOr = String.valueOf(tabla.getRowCount());
         return infoRegistroOr;
     }
 
@@ -2373,6 +2335,9 @@ public class ControlEstructuraPlanta implements Serializable {
     }
 
     public String getInfoRegistroEmpresa() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lovEmpresas");
+        infoRegistroEmpresa = String.valueOf(tabla.getRowCount());
         return infoRegistroEmpresa;
     }
 

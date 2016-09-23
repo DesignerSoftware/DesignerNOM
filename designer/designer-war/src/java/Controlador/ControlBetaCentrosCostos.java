@@ -5,7 +5,6 @@
  */
 package Controlador;
 
-
 import Entidades.CentrosCostos;
 import Entidades.Empresas;
 import Entidades.TiposCentrosCostos;
@@ -83,8 +82,7 @@ public class ControlBetaCentrosCostos implements Serializable {
     private boolean banderaSeleccionCentrosCostosPorEmpresa;
     private int altoTabla;
     // lovs
-    private String infoRegistro;
-    private String infoRegistroLOVS;
+    private String infoRegistro, infoRegistroTCC,infoRegistroCC,infoRegistroEmp;
     private boolean activarLOV;
     // Otros //
     private String paginaAnterior;
@@ -162,7 +160,6 @@ public class ControlBetaCentrosCostos implements Serializable {
             empresaSeleccionada = lovEmpresas.get(0);
         }
         getListCentrosCostosPorEmpresa();
-        contarRegistros();
         if (listCentrosCostosPorEmpresa != null) {
             if (!listCentrosCostosPorEmpresa.isEmpty()) {
                 centroCostoSeleccionado = listCentrosCostosPorEmpresa.get(0);
@@ -478,7 +475,7 @@ public class ControlBetaCentrosCostos implements Serializable {
 
             if (dig == 2) {
                 activarLOV = false;
-                modificarInfoRegistroLOVS(lovTiposCentrosCostos.size());
+                contarRegistrosTCC();
                 RequestContext.getCurrentInstance().update("form:listaValores");
                 RequestContext.getCurrentInstance().update("form:infoRegistroTcc");
                 RequestContext.getCurrentInstance().update("form:tiposCentrosCostosDialogo");
@@ -575,7 +572,7 @@ public class ControlBetaCentrosCostos implements Serializable {
                 banderaSeleccionCentrosCostosPorEmpresa = true;
                 RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
             } else {
-                modificarInfoRegistroLOVS(lovCentrosCostosPorEmpresa.size());
+                contarRegistrosCC();
                 RequestContext.getCurrentInstance().update("form:infoRegistroCc");
                 RequestContext.getCurrentInstance().update("form:lovCentrosCostos");
                 RequestContext.getCurrentInstance().execute("PF('buscarCentrosCostosDialogo').show()");
@@ -746,7 +743,7 @@ public class ControlBetaCentrosCostos implements Serializable {
         if (tipoNuevo == 1) {
             tipoActualizacion = 2;
         }
-        modificarInfoRegistroLOVS(lovTiposCentrosCostos.size());
+        contarRegistrosTCC();
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:infoRegistroTcc");
         RequestContext.getCurrentInstance().update("form:tiposCentrosCostosDialogo");
@@ -839,7 +836,7 @@ public class ControlBetaCentrosCostos implements Serializable {
                 }
                 listCentrosCostosPorEmpresa.add(nuevoCentroCosto);
                 centroCostoSeleccionado = listCentrosCostosPorEmpresa.get(listCentrosCostosPorEmpresa.indexOf(nuevoCentroCosto));
-                modificarInfoRegistro(listCentrosCostosPorEmpresa.size());
+                contarRegistros();
                 if (tipoLista == 1) {
                     altoTabla = 285;
                 }
@@ -891,7 +888,7 @@ public class ControlBetaCentrosCostos implements Serializable {
     }
 
     public void cargarTiposCentrosCostosNuevoRegistro(int tipoNuevo) {
-        modificarInfoRegistroLOVS(lovTiposCentrosCostos.size());
+        contarRegistrosTCC();
         RequestContext.getCurrentInstance().update("form:infoRegistroTcc");
         if (tipoNuevo == 0) {
             tipoActualizacion = 1;
@@ -910,7 +907,7 @@ public class ControlBetaCentrosCostos implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         nuevoCentroCosto = new CentrosCostos();
         nuevoCentroCosto.setTipocentrocosto(new TiposCentrosCostos());
-        RequestContext.getCurrentInstance().update("form:nuevoCentroCostos");
+        RequestContext.getCurrentInstance().update("formularioDialogos:nuevoCentroCostos");
         RequestContext.getCurrentInstance().execute("PF('NuevoRegistroCentroCostos').show()");
     }
 
@@ -1034,7 +1031,7 @@ public class ControlBetaCentrosCostos implements Serializable {
                 listCentrosCostosPorEmpresa.add(duplicarCentroCosto);
             }
             centroCostoSeleccionado = listCentrosCostosPorEmpresa.get(listCentrosCostosPorEmpresa.indexOf(duplicarCentroCosto));
-            modificarInfoRegistro(listCentrosCostosPorEmpresa.size());
+            contarRegistros();
             if (tipoLista == 1) {
                 altoTabla = 285;
             }
@@ -1205,10 +1202,10 @@ public class ControlBetaCentrosCostos implements Serializable {
                     borrarCentrosCostos.add(centroCostoSeleccionado);
                 }
                 listCentrosCostosPorEmpresa.remove(centroCostoSeleccionado);
-                modificarInfoRegistro(listCentrosCostosPorEmpresa.size());
+                contarRegistros();
                 if (tipoLista == 1) {
                     filtrarCentrosCostos.remove(centroCostoSeleccionado);
-                    modificarInfoRegistro(filtrarCentrosCostos.size());
+                    contarRegistros();
                 }
                 centroCostoSeleccionado = null;
                 System.err.println("verificar Borrado " + guardado);
@@ -1446,7 +1443,7 @@ public class ControlBetaCentrosCostos implements Serializable {
         try {
             if (centroCostoSeleccionado != null) {
                 if (cualCelda == 2) {
-                    modificarInfoRegistroLOVS(lovTiposCentrosCostos.size());
+                    contarRegistrosTCC();
                     RequestContext.getCurrentInstance().update("form:infoRegistroTcc");
                     RequestContext.getCurrentInstance().update("form:tiposCentrosCostosDialogo");
                     RequestContext.getCurrentInstance().execute("PF('tiposCentrosCostosDialogo').show()");
@@ -1497,13 +1494,10 @@ public class ControlBetaCentrosCostos implements Serializable {
             } else if (resultado == 5) {
                 RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
+        } else if (administrarRastros.verificarHistoricosTabla("CENTROSCOSTOS")) { // igual acá
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            if (administrarRastros.verificarHistoricosTabla("CENTROSCOSTOS")) { // igual acá
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-            }
-
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
     }
 
@@ -1511,7 +1505,7 @@ public class ControlBetaCentrosCostos implements Serializable {
         cualCelda = -1;
         activarLOV = true;
         RequestContext.getCurrentInstance().update("form:listaValores");
-        modificarInfoRegistroLOVS(lovEmpresas.size());
+        contarRegistrosEmp();
         RequestContext.getCurrentInstance().update("form:infoRegistroEmp");
         RequestContext.getCurrentInstance().execute("EmpresasDialogo').show()");
     }
@@ -1586,40 +1580,24 @@ public class ControlBetaCentrosCostos implements Serializable {
         }
         activarLOV = true;
         RequestContext.getCurrentInstance().update("form:listaValores");
-        modificarInfoRegistro(filtrarCentrosCostos.size());
-        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        contarRegistros();
     }
 
-    public void eventoFiltrarCC() {
-        modificarInfoRegistroLOVS(filtrarCentrosCostosLOV.size());
+    public void contarRegistrosCC() {
         RequestContext.getCurrentInstance().update("form:infoRegistroCc");
     }
 
-    public void eventoFiltrarTCC() {
-        modificarInfoRegistroLOVS(filtradoTiposCentrosCostos.size());
+    public void contarRegistrosTCC() {
         RequestContext.getCurrentInstance().update("form:infoRegistroTcc");
     }
 
-    public void eventoFiltrarEmp() {
-        modificarInfoRegistroLOVS(filtradoListaEmpresas.size());
+    public void contarRegistrosEmp() {
         RequestContext.getCurrentInstance().update("form:infoRegistroEmp");
     }
 
-    private void modificarInfoRegistro(int valor) {
-        infoRegistro = String.valueOf(valor);
-        RequestContext.getCurrentInstance().update("form:informacionRegistro");
-    }
-
-    private void modificarInfoRegistroLOVS(int valor) {
-        infoRegistroLOVS = String.valueOf(valor);
-    }
 
     public void contarRegistros() {
-        if (listCentrosCostosPorEmpresa != null) {
-            modificarInfoRegistro(listCentrosCostosPorEmpresa.size());
-        } else {
-            modificarInfoRegistro(0);
-        }
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
     }
 //-----------------------------------------------------------------------------**
 
@@ -1816,11 +1794,43 @@ public class ControlBetaCentrosCostos implements Serializable {
     }
 
     public String getInfoRegistro() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosCentrosCostos");
+        infoRegistro = String.valueOf(tabla.getRowCount());
         return infoRegistro;
     }
 
-    public String getInfoRegistroLOVS() {
-        return infoRegistroLOVS;
+    public String getInfoRegistroTCC() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lovTipoCentrosCostos");
+        infoRegistroTCC = String.valueOf(tabla.getRowCount());
+        return infoRegistroTCC;
+    }
+
+    public String getInfoRegistroCC() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lovCentrosCostos");
+        infoRegistroCC = String.valueOf(tabla.getRowCount());
+        return infoRegistroCC;
+    }
+
+    public String getInfoRegistroEmp() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lovEmpresas");
+        infoRegistroEmp = String.valueOf(tabla.getRowCount());
+        return infoRegistroEmp;
+    }
+
+    public void setInfoRegistroEmp(String infoRegistroEmp) {
+        this.infoRegistroEmp = infoRegistroEmp;
+    }
+
+    public void setInfoRegistroCC(String infoRegistroCC) {
+        this.infoRegistroCC = infoRegistroCC;
+    }
+    
+    public void setInfoRegistroTCC(String infoRegistroTCC) {
+        this.infoRegistroTCC = infoRegistroTCC;
     }
 
     public boolean isBuscarCentrocosto() {

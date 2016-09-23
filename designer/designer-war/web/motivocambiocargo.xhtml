@@ -15,12 +15,12 @@
                 <h:form id="form"> 
                     <p:growl id="growl" showDetail="true"/> 
                     <p:panel  id="PanelTotal" header="Motivos de Cambios de Cargos" styleClass="panelTotal">
-                        
+
                         <p:toolbar styleClass="cssToolbar" >  
                             <p:toolbarGroup align="left">  
 
                                 <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlMotivosCambiosCargos.guardarMotivosCambiosCargos()}" process="@this" />
-                                 <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
+                                <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
 
                                 <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlMotivosCambiosCargos.editarCelda()}"  process="@this"/>
                                 <p:tooltip style="" for="editar" value="#{msg['editar']}" />
@@ -56,7 +56,7 @@
 
                                 <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlMotivosCambiosCargos.duplicarMotivosCambiosCargos()}" process="@this"/>  
                                 <p:tooltip style="" for="duplicar" value="#{msg['duplicar']}" />
-                                
+
                                 <p:separator style="position: relative; top: -9px"/>
                                 <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlMotivosCambiosCargos.verificarRastro()}" process="@this"/>  
                                 <p:tooltip style="" for="rastro" value="#{msg['rastro']}"/>
@@ -73,7 +73,7 @@
                         </p:toolbar>
                         <p:commandButton style=" position: absolute; left: 680px; top: 480px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ACEPTAR" value=""  onclick="PF('confirmarGuardar').show();" disabled="#{controlMotivosCambiosCargos.guardado}"  update="datosMotivoCambioCargo"  process="@this"   />
                         <p:commandButton style=" position: absolute; left: 770px; top: 480px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" action="atrasmotivocambiocargo" id="ATRAS" value="" actionListener="#{controlMotivosCambiosCargos.salir()}"   />
-                        
+
                         <fieldset style="position: absolute;top: 77px;left: 10px;height: 380px;width: 830px; border-radius: 10px; text-align: left">
                             <legend style="font-size: 14px; color: blue"><strong>Motivos de Cambios Cargos</strong></legend>
 
@@ -90,12 +90,15 @@
                                         <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText value="#{info.codigo}" maxlength="4" id="editarCodigo" style="  height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase"  > 
-                                                 <p:keyFilter for="editarCodigo" mask="num"/>
+                                                <p:keyFilter for="editarCodigo" mask="num"/>
                                                 <p:ajax event="select" listener="#{controlMotivosCambiosCargos.cambiarIndice(info, 0)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlMotivosCambiosCargos.modificarMotivosCambiosCargos(info, 'N', info.codigo)}"  update="codigo"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=" " />
+                                    </f:facet>
                                 </p:column>
                                 <p:column headerText="Descripción" sortBy="#{info.nombre}" filterBy="#{info.nombre}" filterMatchMode="contains" id="descripcion" width="275" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
@@ -107,12 +110,15 @@
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=" " />
+                                    </f:facet>
                                 </p:column>
                             </p:dataTable>
 
-                        <h:outputText id="infoRegistro" value="#{msg['infoRegistros']} #{controlMotivosCambiosCargos.infoRegistro}" style="position: relative; left: 10px; top: 10px; font-weight: bold"/>
+                            <h:outputText id="infoRegistro" value="#{msg['infoRegistros']} #{controlMotivosCambiosCargos.infoRegistro}" style="position: relative; left: 10px; top: 10px; font-weight: bold"/>
                         </fieldset>
-                        
+
 
                         <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                             <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
@@ -130,7 +136,7 @@
                         <h:outputText value="#{controlMotivosCambiosCargos.mensajeValidacion}" style="position: absolute; left: 80px; top: 20px; width: 300px; font-weight:bold" />
                         <p:commandButton value="Aceptar" onclick="PF('validacionDuplicarMotivoCambioCargo').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" icon="ui-icon-check" />
                     </p:dialog>
-                    
+
                     <p:dialog id="validacionModificar" header="#{msg['error']}" widgetVar="validacionModificar"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 25px; top: 20px;"  />
                         <h:outputText value=" #{controlMotivosCambiosCargos.mensajeValidacion}" style="position: absolute; left: 100px; top: 25px; width: 250px; font-weight:bold" />
@@ -221,7 +227,7 @@
 
                             <strong><h:outputText value="*Código: "  style=" position: absolute; top: 60px;" /></strong>
                             <p:inputText id="nuevoCodigo" maxlength="4" value="#{controlMotivosCambiosCargos.nuevoMotivoCambioCargo.codigo}" style=" width: 135px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
-                                 <p:keyFilter for="nuevoCodigo" mask="num"/>
+                                <p:keyFilter for="nuevoCodigo" mask="num"/>
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoCodigo" value="Código" />
@@ -245,7 +251,7 @@
                         <p:panel id="duplicarMotivosCambiosCargos" style="border: none;">
                             <strong><h:outputText value="*Código :"  style=" position: absolute; top: 60px;" /></strong>
                             <p:inputText id="duplicarCodigo" maxlength="4" value="#{controlMotivosCambiosCargos.duplicarMotivoCambioCargo.codigo}" style="text-transform: uppercase ;width: 135px; position: absolute; left: 150px; top: 55px;">
-                                 <p:keyFilter for="duplicarCodigo" mask="num"/>
+                                <p:keyFilter for="duplicarCodigo" mask="num"/>
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarCodigo" value="Código" />

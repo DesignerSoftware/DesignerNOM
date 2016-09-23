@@ -212,13 +212,14 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
     }
 
     @Override
-    public Long activos(EntityManager em, BigInteger secuencia) {
+    public BigDecimal activos(EntityManager em, BigInteger secuencia) {
         try {
             em.clear();
-            Query query = em.createQuery("SELECT count(sn) FROM SolucionesNodos sn where sn.empleado.secuencia = :secuencia;)");
-            query.setParameter("secuencia", secuencia);
-            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
-            Long r = (Long) query.getSingleResult();
+            String sql = "SELECT count(*) FROM SOLUCIONESNODOS where EMPLEADO = ? ";
+            Query query = em.createNativeQuery(sql);
+            query.setParameter(1, secuencia);
+//            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            BigDecimal r = (BigDecimal) query.getSingleResult();
             System.out.println("Resultado : " + r);
             return r;
         } catch (Exception e) {
@@ -330,22 +331,6 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
         try {
             em.clear();
 
-//            String sql = "select sn.secuencia, pr.descripcion NOMBREPROCESO,p.PRIMERAPELLIDO||' '|| p.SEGUNDOAPELLIDO ||' '||p.NOMBRE NOMBREEMPLEADO, cu1.CODIGO CODIGOCUENTAC,\n"
-//                    + "cu.CODIGO CODIGOCUENTAD ,t.NIT NITTERCERO, sn.valor VALOR,c.CODIGO CODIGOCONCEPTO, c.DESCRIPCION NOMBRECONCEPTO\n"
-//                    + "FROM SOLUCIONESNODOS sn, TERCEROS t ,CONCEPTOS c,CUENTAS cu,CUENTAS cu1, EMPLEADOS e, PERSONAS p, PROCESOS pr\n"
-//                    + "WHERE sn.EMPLEADO =E.SECUENCIA\n"
-//                    + "AND sn.NIT = t.SECUENCIA(+) \n"
-//                    + "AND sn.CONCEPTO = c.SECUENCIA\n"
-//                    + "AND sn.CUENTAD=cu.SECUENCIA\n"
-//                    + "AND sn.CUENTAC=cu1.SECUENCIA\n"
-//                    + "AND e.persona=p.secuencia\n"
-//                    + "AND sn.proceso=pr.secuencia\n"
-//                    + "AND EXISTS (SELECT 'X' FROM contabilizaciones C where C.flag='GENERADO' \n"
-//                    + "and C.fechageneracion between ? and ?  and c.solucionnodo = sN.secuencia) \n"
-//                    + "AND  EXISTS (SELECT 'X' FROM  cortesprocesos cp , procesos p WHERE  cp.secuencia = sN.corteproceso\n"
-//                    + "  AND p.secuencia = cp.proceso\n"
-//                    + "  AND CONTABILIZACION = 'S') \n"
-//                    + "  and exists (select 'x' from empleados e where e.secuencia=sN.empleado)";
             String sql = "select sn.secuencia ,pr.descripcion NOMBREPROCESO,p.PRIMERAPELLIDO||' '|| p.SEGUNDOAPELLIDO ||' '||p.NOMBRE NOMBREEMPLEADO, cu1.CODIGO CODIGOCUENTAC,\n"
                     + "cu.CODIGO CODIGOCUENTAD ,t.NIT NITTERCERO,t.NOMBRE NOMBRETERCERO, sn.valor VALOR,c.CODIGO CODIGOCONCEPTO, c.DESCRIPCION NOMBRECONCEPTO, tt.nombre NOMBRETIPOTRABAJADOR, tc.NOMBRE NOMBRETIPOCONTRATO,\n"
                     + "rl.NOMBRE NOMBREREFORMALABORAL,cg.NOMBRE NOMBRECARGO,cc.NOMBRE NOMBRECENTROCOSTOD, cc1.NOMBRE NOMBRECENTROCOSTOC,es.nombre NOMBREESTRUCTURA, fr.NOMBRECORTO NOMBREFORMULA\n"

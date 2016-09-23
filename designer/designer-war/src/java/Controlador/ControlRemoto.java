@@ -549,11 +549,13 @@ public class ControlRemoto implements Serializable {
     }
 
     public void pruebita() {
-        Long result = Long.parseLong("-1");
+        BigDecimal result = BigDecimal.valueOf(-1);
+        BigDecimal x = BigDecimal.valueOf(0);
         RequestContext context = RequestContext.getCurrentInstance();
         if (tipoPersonal.equals("activos")) {
             result = administrarCarpetaPersonal.borrarActivo(secuencia);
-            if (result == 0) {
+            System.out.println("result : " + result);
+            if (result.equals(x)) {
                 RequestContext.getCurrentInstance().update("formulariodialogos:activoeliminarpaso1");
                 RequestContext.getCurrentInstance().execute("PF('activoeliminarpaso1').show()");
             } else {
@@ -584,7 +586,7 @@ public class ControlRemoto implements Serializable {
         try {
             administrarCarpetaPersonal.borrarEmpleadoActivo(trabajador.getEmpleado().getSecuencia(), trabajador.getEmpleado().getPersona().getSecuencia());
             RequestContext.getCurrentInstance().update("formulariodialogos:activoeliminarpaso4");
-            RequestContext.getCurrentInstance().execute("PF('activoeeliminarpaso4').show()");
+            RequestContext.getCurrentInstance().execute("PF('activoeliminarpaso4').show()");
         } catch (Exception e) {
             System.out.println("Error en borrar al empleado");
         }

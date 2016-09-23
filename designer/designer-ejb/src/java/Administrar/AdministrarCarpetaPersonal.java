@@ -275,7 +275,7 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
     PersistenciaVwTiposEmpleadosInterface persistenciaVwTiposEmpleados;
 
     private EntityManager em;
-    private Long resultadoActivos;
+    private BigDecimal resultadoActivos;
     private final SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
     private final NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("es", "CO"));
 
@@ -702,7 +702,7 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
 
     //METODOS QUE TENGAN QUE VER CON EL BOTON DE LAS FOTOS DE NOMINA F
     @Override
-    public Long borrarActivo(BigInteger secuencia) {
+    public BigDecimal borrarActivo(BigInteger secuencia) {
         resultadoActivos = persistenciaSolucionesNodos.activos(em, secuencia);
         return resultadoActivos;
     }

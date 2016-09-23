@@ -284,18 +284,18 @@
 
                         <!-- DIALOGO L.O.V ESTATICO UBICACIONES -->
                         <p:dialog header="#{msg['tiposcentrocostoTCC']}" widgetVar="tiposCentrosCostosDialogo" draggable="true" resizable="false" closable="false" id="tiposCentrosCostosDialogo"  
-                                  showEffect="fade" hideEffect="fade" height="390" width="438" modal="true" style="">
-                            <p:dataTable id="lovTipoCentrosCostos" style="width: 400px;" var="tipocentrocostos" value="#{controlBetaCentrosCostos.lovTiposCentrosCostos}" rowKey="#{tipocentrocostos.secuencia}"
+                                  showEffect="fade" hideEffect="fade" width="438" modal="true" style="">
+                            <p:dataTable id="lovTipoCentrosCostos"  var="tipocentrocostos" value="#{controlBetaCentrosCostos.lovTiposCentrosCostos}" rowKey="#{tipocentrocostos.secuencia}"
                                          selection="#{controlBetaCentrosCostos.tipoCentroCostoSeleccionado}" selectionMode="single" widgetVar="lovTipoCentrosCostos" scrollable="true" scrollWidth="420" scrollHeight="250"
                                          filteredValue="#{controlBetaCentrosCostos.filtradoTiposCentrosCostos}" emptyMessage="#{msg['lovvacio']}">              
 
-                                <p:ajax event="filter" listener="#{controlBetaCentrosCostos.eventoFiltrarTCC()}"/>
+                                <p:ajax event="filter" listener="#{controlBetaCentrosCostos.contarRegistrosTCC()}"/>
                                 <p:ajax event="rowSelect" listener="#{controlBetaCentrosCostos.activarAceptar()}" update=":form:aceptarTCC"/>
                                 <p:ajax event="rowDblselect" listener="#{controlBetaCentrosCostos.actualizarCentroCosto()}" process="@this"  />
 
                                 <f:facet name="header">  
-                                    <h:outputText value="#{msg['buscarTCC']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovTipoCentrosCostos').filter();" style="width:150px; position: relative; left: 60px;" />  
+                                    <h:outputText value="#{msg['buscarTCC']}" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovTipoCentrosCostos').filter();" class="cssFiltroLOV" />  
                                 </f:facet>
                                 <p:column filterBy="#{tipocentrocostos.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 85% !important">
                                     <f:facet name="header">
@@ -311,28 +311,31 @@
                                 </p:column>
                             </p:dataTable>
 
-                            <h:outputText id="infoRegistroTcc" value="#{msg['infoRegistro']} #{controlBetaCentrosCostos.infoRegistroLOVS}" style="position: relative; left: 10px; top: 15px; font-weight: bold"/>
+                            <div class="cssBotonesLOV"> 
+                                <h:outputText id="infoRegistroTcc" value="#{msg['infoRegistro']} #{controlBetaCentrosCostos.infoRegistroTCC}" class="cssinfoRegistroLOV"/>
+                                <p:commandButton id="aceptarTCC" class="cssAceptarLOV" icon="ui-icon-check" value="#{msg['aceptar']}" 
+                                                 disabled="#{controlBetaCentrosCostos.aceptar}" actionListener="#{controlBetaCentrosCostos.actualizarCentroCosto()}" process="@this"/>
+                                <p:commandButton id="atrasTCC" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" 
+                                                 actionListener="#{controlBetaCentrosCostos.cancelarCambioTiposCentroCosto()}" process="@this"/>
+                            </div>
 
-                            <p:commandButton id="aceptarTCC" style="position: relative; left: 160px; top: 20px;" icon="ui-icon-check" value="#{msg['aceptar']}" disabled="#{controlBetaCentrosCostos.aceptar}" actionListener="#{controlBetaCentrosCostos.actualizarCentroCosto()}" process="@this"/>
-
-                            <p:commandButton id="atrasTCC" style="position: relative; left: 160px; top: 20px;" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlBetaCentrosCostos.cancelarCambioTiposCentroCosto()}" process="@this"/>
                         </p:dialog> 
                         <!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
                         <!-- muestra el dialogo del boton de buscar centros costos-->
 
 
                         <p:dialog header="#{msg['centroscostosC']}" widgetVar="buscarCentrosCostosDialogo" draggable="true" resizable="false" closable="false" id="buscarCentrosCostosDialogo"  
-                                  showEffect="fade" hideEffect="fade" width="380" height="390" modal="true" style="">
-                            <p:dataTable  id="lovCentrosCostos" style="width: 340px;" var="centroscostosporempresa" value="#{controlBetaCentrosCostos.lovCentrosCostosPorEmpresa}" rowKey="#{centroscostosporempresa.secuencia}"
+                                  showEffect="fade" hideEffect="fade" width="380" modal="true" style="">
+                            <p:dataTable  id="lovCentrosCostos"  var="centroscostosporempresa" value="#{controlBetaCentrosCostos.lovCentrosCostosPorEmpresa}" rowKey="#{centroscostosporempresa.secuencia}"
                                           selection="#{controlBetaCentrosCostos.centrosCostosLovSeleccionado}" selectionMode="single" widgetVar="lovCentrosCostos" scrollable="true" scrollWidth="360" scrollHeight="250"
                                           filteredValue="#{controlBetaCentrosCostos.filtrarCentrosCostosLOV}" emptyMessage="#{msg['lovvacio']}">              
 
-                                <p:ajax event="filter" listener="#{controlBetaCentrosCostos.eventoFiltrarCC()}"/>
+                                <p:ajax event="filter" listener="#{controlBetaCentrosCostos.contarRegistrosCC()}"/>
                                 <p:ajax event="rowSelect" listener="#{controlBetaCentrosCostos.activarAceptar()}" update=":form:aceptarNCC"/>
                                 <p:ajax event="rowDblselect" listener="#{controlBetaCentrosCostos.seleccionCentrosCostosPorEmpresa()}" process="@this" />
                                 <f:facet name="header">  
-                                    <h:outputText value="#{msg['buscarC']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovCentrosCostos').filter();" style="width:150px; position: relative; left: 65px;" />  
+                                    <h:outputText value="#{msg['buscarC']}" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovCentrosCostos').filter();" class="cssFiltroLOV" />  
                                 </f:facet>
                                 <p:column filterBy="#{centroscostosporempresa.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 85% !important">
                                     <f:facet name="header">
@@ -348,10 +351,13 @@
                                 </p:column>
                             </p:dataTable>
 
-                            <h:outputText id="infoRegistroCc" value="#{msg['infoRegistro']} #{controlBetaCentrosCostos.infoRegistroLOVS}" style="position: relative; left: 10px; top: 15px; font-weight: bold"/>
-                            <p:commandButton id="aceptarNCC" style="position: relative; left: 100px; top: 20px; " icon="ui-icon-check" value="#{msg['aceptar']}" disabled="#{controlBetaCentrosCostos.aceptar}" actionListener="#{controlBetaCentrosCostos.seleccionCentrosCostosPorEmpresa()}" process="@this"/>
-
-                            <p:commandButton id="atrasNCC" style="position: relative; left: 100px; top: 20px; " icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlBetaCentrosCostos.cancelarSeleccionCentroCostoPorEmpresa()}" process="@this"/>
+                            <div class="cssBotonesLOV"> 
+                                <h:outputText id="infoRegistroCc" value="#{msg['infoRegistro']} #{controlBetaCentrosCostos.infoRegistroCC}" class="cssinfoRegistroLOV"/>
+                                <p:commandButton id="aceptarNCC" class="cssAceptarLOV" icon="ui-icon-check" value="#{msg['aceptar']}" 
+                                                 disabled="#{controlBetaCentrosCostos.aceptar}" actionListener="#{controlBetaCentrosCostos.seleccionCentrosCostosPorEmpresa()}" process="@this"/>
+                                <p:commandButton id="atrasNCC" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" 
+                                                 actionListener="#{controlBetaCentrosCostos.cancelarSeleccionCentroCostoPorEmpresa()}" process="@this"/>
+                            </div>
 
                         </p:dialog> 
 
@@ -359,17 +365,17 @@
 
                         <!-- LOV EMPRESAS -->
                         <p:dialog header="#{msg['empresasE']}" widgetVar="EmpresasDialogo" draggable="true" resizable="false" closable="false" id="EmpresasDialogo"  
-                                  showEffect="fade" hideEffect="fade" width="370" height="390" modal="true" style="">
-                            <p:dataTable id="lovEmpresas" style="width: 330px;" var="empresa" value="#{controlBetaCentrosCostos.lovEmpresas}" rowKey="#{empresa.secuencia}"
+                                  showEffect="fade" hideEffect="fade" width="370"  modal="true" style="">
+                            <p:dataTable id="lovEmpresas"  var="empresa" value="#{controlBetaCentrosCostos.lovEmpresas}" rowKey="#{empresa.secuencia}"
                                          selection="#{controlBetaCentrosCostos.empresaSeleccionada}" selectionMode="single" widgetVar="lovEmpresas" scrollable="true" scrollWidth="350" scrollHeight="250"
                                          filteredValue="#{controlBetaCentrosCostos.filtradoListaEmpresas}" emptyMessage="#{msg['lovvacio']}">              
 
-                                <p:ajax event="filter" listener="#{controlBetaCentrosCostos.eventoFiltrarEmp()}"/>
+                                <p:ajax event="filter" listener="#{controlBetaCentrosCostos.contarRegistrosEmp()}"/>
                                 <p:ajax event="rowSelect" listener="#{controlBetaCentrosCostos.activarAceptar()}" update=":form:aceptarE"/>
                                 <p:ajax event="rowDblselect" listener="#{controlBetaCentrosCostos.cambiarEmpresa()}" process="@this" />
                                 <f:facet name="header">  
-                                    <h:outputText value="#{msg['buscarE']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovEmpresas').filter();" style="width:100px; position: relative; left: 10px;" />  
+                                    <h:outputText value="#{msg['buscarE']}" />  
+                                    <p:inputText id="globalFilter" onkeyup="PF('lovEmpresas').filter();" class="cssFiltroLOV" />  
                                 </f:facet>
                                 <p:column filterBy="#{empresa.nit}" width="60" filterMatchMode="contains" filterStyle="width: 85% !important">
                                     <f:facet name="header">
@@ -385,11 +391,13 @@
                                 </p:column>
                             </p:dataTable>
 
-                            <h:outputText id="infoRegistroEmp" value="#{msg['infoRegistro']} #{controlBetaCentrosCostos.infoRegistroLOVS}" style="position: relative; left: 10px; top: 15px; font-weight: bold; "/>
-
-                            <p:commandButton id="aceptarE" icon="ui-icon-check" style="position: relative; left: 65px; top: 20px;" value="#{msg['aceptar']}" disabled="#{controlBetaCentrosCostos.aceptar}" actionListener="#{controlBetaCentrosCostos.cambiarEmpresa()}"  process="@this"/>
-
-                            <p:commandButton  icon="ui-icon-arrowreturnthick-1-w" id="atrasE" style="position: relative; left: 65px; top: 20px;" value="#{msg['cancelar']}" actionListener="#{controlBetaCentrosCostos.cancelarCambioEmpresa()}" process="@this"/>
+                            <div class="cssBotonesLOV"> 
+                                <h:outputText id="infoRegistroEmp" value="#{msg['infoRegistro']} #{controlBetaCentrosCostos.infoRegistroEmp}" class="cssinfoRegistroLOV"/>
+                                <p:commandButton id="aceptarE" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlBetaCentrosCostos.aceptar}" 
+                                                 actionListener="#{controlBetaCentrosCostos.cambiarEmpresa()}"  process="@this"/>
+                                <p:commandButton  icon="ui-icon-arrowreturnthick-1-w" id="atrasE" class="cssAtrasLOV" value="#{msg['cancelar']}" 
+                                                  actionListener="#{controlBetaCentrosCostos.cancelarCambioEmpresa()}" process="@this"/>
+                            </div>
                         </p:dialog>
 
 

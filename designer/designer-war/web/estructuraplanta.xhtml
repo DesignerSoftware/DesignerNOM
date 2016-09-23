@@ -101,7 +101,7 @@
                                          editable="true" editMode="cell" liveScroll="true" scrollRows="3" selection="#{controlEstructuraPlanta.organigramaSeleccionado}">
 
                                 <p:ajax event="filter" listener="#{controlEstructuraPlanta.eventoFiltrarO()}"/>
-<!--                                <f:event type="preRenderView" listener="#/{controlEstructuraPlanta.recordarSeleccionOr()}"/>-->
+                                <!--                                <f:event type="preRenderView" listener="#/{controlEstructuraPlanta.recordarSeleccionOr()}"/>-->
 
                                 <p:column headerText="#{msg['fecha']}" sortBy="#{info.fecha}" filterBy="#{info.fecha}" filterMatchMode="contains" 
                                           id="organigramaFecha" width="70" filterStyle="display: none; visibility: hidden;" >                                  
@@ -211,7 +211,7 @@
                                          editMode="cell" liveScroll="true" scrollRows="15" selection="#{controlEstructuraPlanta.estructuraSeleccionada}">
 
                                 <p:ajax event="filter" listener="#{controlEstructuraPlanta.eventoFiltrarE()}"/>
-<!--                                <f:event type="preRenderView" listener="#/{controlEstructuraPlanta.recordarSeleccionEx()}"/>-->
+                                <!--                                <f:event type="preRenderView" listener="#/{controlEstructuraPlanta.recordarSeleccionEx()}"/>-->
 
                                 <p:column style="text-align: center;" headerText="#{msg['codigo']}" sortBy="#{infoE.codigo}" filterBy="#{infoE.codigo}" filterMatchMode="contains"  
                                           width="65" id="estructuraCodigo" filterStyle="display: none; visibility: hidden;"  >  
@@ -339,16 +339,16 @@
                     <!-- DIALOGO L.O.V ESTATICO DE EMPRESAS -->
                     <p:dialog header="#{msg['empresasEM']}" id="EmpresasDialogo" widgetVar="EmpresasDialogo" draggable="true" resizable="false" closable="false"  
                               showEffect="fade" hideEffect="fade" width="431" modal="true" >
-                        <p:dataTable id="lovEmpresas" style="width: 400px;" var="empresa" value="#{controlEstructuraPlanta.lovEmpresas}" rowKey="#{empresa.secuencia}"
+                        <p:dataTable id="lovEmpresas" var="empresa" value="#{controlEstructuraPlanta.lovEmpresas}" rowKey="#{empresa.secuencia}"
                                      selection="#{controlEstructuraPlanta.empresaSeleccionada}" selectionMode="single" widgetVar="lovEmpresas" scrollable="true" scrollWidth="416" scrollHeight="250"
                                      filteredValue="#{controlEstructuraPlanta.filtradoEmpresas}" emptyMessage="#{msg['lovvacio']}">              
 
-                            <p:ajax event="filter" listener="#{controlEstructuraPlanta.eventoFiltrarLovEmp()}"/>
+                            <p:ajax event="filter" listener="#{controlEstructuraPlanta.contarRegistrosLovEmp()}"/>
                             <p:ajax event="rowSelect" listener="#{controlEstructuraPlanta.activarAceptar()}" update=":form:aceptarE"/>
                             <p:ajax event="rowDblselect" listener="#{controlEstructuraPlanta.actualizarEmpresa()}" process="@this" />
                             <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarEM']}"  style="position: absolute; left: 27px; top: 16px"/>  
-                                <p:inputText id="globalFilter" onkeyup="PF('lovEmpresas').filter();" style="width:200px; position: relative; left: 40px;"/>  
+                                <h:outputText value="#{msg['buscarEM']}" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovEmpresas').filter();" class="cssFiltroLOV"/>  
                             </f:facet>
                             <p:column filterBy="#{empresa.nit}" width="80" filterMatchMode="contains" filterStyle="width: 85% !important">
                                 <f:facet name="header">
@@ -364,26 +364,27 @@
                             </p:column>
                         </p:dataTable>
 
-                        <h:outputText id="infoRegistroEmpresa" value="#{msg['infoRegistro']} #{controlEstructuraPlanta.infoRegistroEmpresa}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
-
-                        <p:commandButton icon="ui-icon-check" id="aceptarE" style="position: relative; left: 230px;" value="#{msg['aceptar']}" disabled="#{controlEstructuraPlanta.aceptar}" actionListener="#{controlEstructuraPlanta.actualizarEmpresa()}"  process="@this" />
-
-                        <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasE" style="position: relative; left: 230px;" value="#{msg['atras']}" actionListener="#{controlEstructuraPlanta.cancelarEmpresa()}" process="@this" />
-
+                        <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroEmpresa" value="#{msg['infoRegistro']} #{controlEstructuraPlanta.infoRegistroEmpresa}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton icon="ui-icon-check" id="aceptarE" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlEstructuraPlanta.aceptar}"
+                                             actionListener="#{controlEstructuraPlanta.actualizarEmpresa()}"  process="@this" />
+                            <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasE" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlEstructuraPlanta.cancelarEmpresa()}"
+                                             process="@this" />
+                        </div>
                     </p:dialog>
 
                     <p:dialog header="#{msg['centroCostoD']}" widgetVar="CentroCostoDialogo" draggable="true" resizable="false" closable="false" id="CentroCostoDialogo"  
-                              showEffect="fade" hideEffect="fade" width="435" modal="true" height="390" >
-                        <p:dataTable id="lovCentroCosto" style="width: 400px;" var="centroCosto" value="#{controlEstructuraPlanta.lovCentrosCostos}" rowKey="#{centroCosto.secuencia}"
+                              showEffect="fade" hideEffect="fade" width="435" modal="true"  >
+                        <p:dataTable id="lovCentroCosto"  var="centroCosto" value="#{controlEstructuraPlanta.lovCentrosCostos}" rowKey="#{centroCosto.secuencia}"
                                      selection="#{controlEstructuraPlanta.centroCostoSeleccionado}" scrollWidth="415" selectionMode="single" widgetVar="lovCentroCosto" scrollable="true" scrollHeight="250" 
                                      filteredValue="#{controlEstructuraPlanta.filtrarLovCentrosCostos}" emptyMessage="#{msg['lovvacio']}">              
 
                             <p:ajax event="rowSelect" listener="#{controlEstructuraPlanta.activarAceptar()}" update=":form:aceptarCC"/>
-                            <p:ajax event="filter" listener="#{controlEstructuraPlanta.eventoFiltrarCCosto()}"/>
+                            <p:ajax event="filter" listener="#{controlEstructuraPlanta.contarRegistrosCCosto}"/>
                             <p:ajax event="rowDblselect" listener="#{controlEstructuraPlanta.actualizarCentroCosto()}"  process="@this"  />
                             <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarCC']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="PF('lovCentroCosto').filter();" style="width:140px; position: relative; left: 40px;" />  
+                                <h:outputText value="#{msg['buscarCC']}" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovCentroCosto').filter();" class="cssFiltroLOV" />  
                             </f:facet>
                             <p:column filterBy="#{centroCosto.codigoNombre}" filterMatchMode="contains" filterStyle="width: 85% !important;">
                                 <f:facet name="header">
@@ -393,26 +394,29 @@
                             </p:column>
                         </p:dataTable>
 
-                        <h:outputText id="infoRegistroCentroCosto" value="#{msg['infoRegistro']} #{controlEstructuraPlanta.infoRegistroCentroCosto}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
+                        <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroCentroCosto" value="#{msg['infoRegistro']} #{controlEstructuraPlanta.infoRegistroCentroCosto}" class="cssinfoRegistroLOV" />
+                            <p:commandButton id="aceptarCC" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlEstructuraPlanta.aceptar}" 
+                                             actionListener="#{controlEstructuraPlanta.actualizarCentroCosto()}" process="@this" icon="ui-icon-check"/>
+                            <p:commandButton id="atrasCC" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}"
+                                             actionListener="#{controlEstructuraPlanta.cancelarCambioCentroCosto()}" process="@this"/>
+                        </div>
 
-                        <p:commandButton id="aceptarCC" style="position: relative; left: 230px; top: 15px;" value="#{msg['aceptar']}" disabled="#{controlEstructuraPlanta.aceptar}" actionListener="#{controlEstructuraPlanta.actualizarCentroCosto()}" process="@this" icon="ui-icon-check"/>
-
-                        <p:commandButton id="atrasCC" style="position: relative; left: 230px; top: 15px;" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlEstructuraPlanta.cancelarCambioCentroCosto()}" process="@this"/>
 
                     </p:dialog>
 
                     <p:dialog header="#{msg['estructuraPadreD']}" widgetVar="EstructuraPadreDialogo" draggable="true" resizable="false" closable="false" id="EstructuraPadreDialogo"  
-                              showEffect="fade" hideEffect="fade" width="435" modal="true" height="390" >
-                        <p:dataTable id="lovEstructuraPadre" style="width: 400px;" var="ePadre" value="#{controlEstructuraPlanta.lovEstructurasPadres}" rowKey="#{ePadre.secuencia}"
+                              showEffect="fade" hideEffect="fade" width="435" modal="true" >
+                        <p:dataTable id="lovEstructuraPadre"  var="ePadre" value="#{controlEstructuraPlanta.lovEstructurasPadres}" rowKey="#{ePadre.secuencia}"
                                      selection="#{controlEstructuraPlanta.estructuraPadreSeleccionado}" scrollWidth="420" selectionMode="single" widgetVar="lovEstructuraPadre" scrollable="true" scrollHeight="250" 
                                      filteredValue="#{controlEstructuraPlanta.filtrarLovEstructurasPadres}" emptyMessage="#{msg['lovvacio']}"> 
 
-                            <p:ajax event="filter" listener="#{controlEstructuraPlanta.eventoFiltrarEsPa()}"/>
+                            <p:ajax event="filter" listener="#{controlEstructuraPlanta.contarRegistroEsPa()}"/>
                             <p:ajax event="rowSelect" listener="#{controlEstructuraPlanta.activarAceptar()}" update=":form:aceptarEP"/>
                             <p:ajax event="rowDblselect" listener="#{controlEstructuraPlanta.actualizarEstructuraPadre()}"  process="@this"  />
                             <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarEP']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="PF('lovEstructuraPadre').filter();" style="width:140px; position: relative; left: 30px;" />  
+                                <h:outputText value="#{msg['buscarEP']}" />  
+                                <p:inputText id="globalFilter" onkeyup="PF('lovEstructuraPadre').filter();" class="cssFiltroLOV" />  
                             </f:facet>
 
                             <p:column filterBy="#{ePadre.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important;">
@@ -430,11 +434,14 @@
 
                         </p:dataTable>
 
-                        <h:outputText id="infoRegistroEstructura" value="#{msg['infoRegistro']} #{controlEstructuraPlanta.infoRegistroEstructuraPa}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
+                        <div class="cssBotonesLOV"> 
+                        <h:outputText id="infoRegistroEstructura" value="#{msg['infoRegistro']} #{controlEstructuraPlanta.infoRegistroEstructuraPa}" class="cssinfoRegistroLOV"/>
+                        <p:commandButton id="aceptarEP" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlEstructuraPlanta.aceptar}" 
+                                         actionListener="#{controlEstructuraPlanta.actualizarEstructuraPadre()}"  process="@this" icon="ui-icon-check"/>
+                        <p:commandButton id="atrasEP" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}"  
+                                         actionListener="#{controlEstructuraPlanta.cancelarCambioEstructuraPadre()}" process="@this"/>
+                        </div>
 
-                        <p:commandButton id="aceptarEP" style="position: relative; left: 230px; top: 15px;" value="#{msg['aceptar']}" disabled="#{controlEstructuraPlanta.aceptar}"  actionListener="#{controlEstructuraPlanta.actualizarEstructuraPadre()}"  process="@this" icon="ui-icon-check"/>
-
-                        <p:commandButton id="atrasEP" style="position: relative; left: 230px; top: 15px;" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}"  actionListener="#{controlEstructuraPlanta.cancelarCambioEstructuraPadre()}" process="@this"/>
 
                     </p:dialog>
 
@@ -718,7 +725,7 @@
 
                             <strong><h:outputText value="*#{msg['empresaN']}" style="position: absolute; top: 135px;" /></strong>
                             <p:inputText id="nuevaEmpresa" value="#{controlEstructuraPlanta.nuevoOrganigrama.empresa.nombre}" style="width: 122px; position: absolute; left: 120px; top: 130px; text-transform: uppercase" onclick="select();">
-<!--                                <p:ajax event="click" listener="#/{controlEstructuraPlanta.valoresBackupAutocompletar(1)}" />-->
+                                <!--                                <p:ajax event="click" listener="#/{controlEstructuraPlanta.valoresBackupAutocompletar(1)}" />-->
                                 <p:ajax event="change" listener="#{controlEstructuraPlanta.autocompletarNuevoyDuplicado(controlEstructuraPlanta.nuevoOrganigrama.empresa.nombre, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlEstructuraPlanta.asignarIndexDialogos(1)}" />
                             </p:inputText>
@@ -736,7 +743,7 @@
                             <p:selectOneMenu id="nuevoEstadoOrganigrama" value="#{controlEstructuraPlanta.nuevoOrganigrama.estadoOrg}" style="width: 120px; font-weight: bold; position: absolute; top: 190px; left: 120px;" panelStyle="width: 115px;" >  
                                 <f:selectItem itemLabel="#{msg['activo']}" itemValue="ACTIVO" />  
                                 <f:selectItem itemLabel="#{msg['inactivo']}" itemValue="INACTIVO" />
-<!--                                <p:ajax listener="#/{controlEstructuraPlanta.seleccionarEstadoNuevoOrganigrama(controlEstructuraPlanta.nuevoOrganigrama.estadoOrg, 1)}" update="@this" />-->
+                                <!--                                <p:ajax listener="#/{controlEstructuraPlanta.seleccionarEstadoNuevoOrganigrama(controlEstructuraPlanta.nuevoOrganigrama.estadoOrg, 1)}" update="@this" />-->
                             </p:selectOneMenu>
 
                             <p:commandButton icon="ui-icon-trash" id="limpiar" value="#{msg['limpiar']}" style="position: absolute; left: -20px; top: 245px;" actionListener="#{controlEstructuraPlanta.limpiarNuevoOrganigrama()}" update="nuevoOrganigrama" process="@this"/>
@@ -768,7 +775,7 @@
 
                             <strong><h:outputText value="*#{msg['empresaN']}" style="position: absolute; top: 135px;" /></strong>
                             <p:inputText id="duplicarEmpresa" value="#{controlEstructuraPlanta.duplicarOrganigrama.empresa.nombre}" style="width: 122px; position: absolute; left: 120px; top: 130px; text-transform: uppercase" onclick="select();">
-<!--                                <p:ajax event="click" listener="#/{controlEstructuraPlanta.valoresBackupAutocompletar(2)}" />-->
+                                <!--                                <p:ajax event="click" listener="#/{controlEstructuraPlanta.valoresBackupAutocompletar(2)}" />-->
                                 <p:ajax event="change" listener="#{controlEstructuraPlanta.autocompletarNuevoyDuplicado(controlEstructuraPlanta.nuevoOrganigrama.empresa.nombre, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlEstructuraPlanta.asignarIndexDialogos(2)}" />
                             </p:inputText>
