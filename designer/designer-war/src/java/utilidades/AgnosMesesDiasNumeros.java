@@ -9,10 +9,12 @@ import java.util.HashMap;
 
 /**
  *
- * @author user
+ * @author Edwin Hastamorir
+ * @version 1.0
  */
-public class MesesNumeros {
+public class AgnosMesesDiasNumeros {
 
+    private static HashMap agnos;
     private static HashMap meses;
     private static HashMap dias;
 
@@ -83,4 +85,17 @@ public class MesesNumeros {
         dias.put("30", Short.valueOf("30"));
         dias.put("31", Short.valueOf("31"));
     }
+    public static HashMap getAgnos(int agno) {
+        if (agnos == null){
+            inicializaragnos(agno);
+        }
+        return agnos;
+    }
+    private static void inicializaragnos(int agno){
+        agnos = new HashMap();
+        for (int i=(agno-10); i<(agno+10);i++){
+            agnos.put(String.valueOf(i), i);
+        }
+    }
+    
 }

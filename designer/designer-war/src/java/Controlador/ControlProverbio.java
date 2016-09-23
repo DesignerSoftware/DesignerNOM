@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
+//import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -24,7 +24,7 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
-import utilidades.MesesNumeros;
+import utilidades.AgnosMesesDiasNumeros;
 
 /**
  *
@@ -138,8 +138,7 @@ public class ControlProverbio implements Serializable {
         m = 0;
 //        Date datofecha = new Date();
 //        anioactual = new Short(String.valueOf(datofecha.getYear()));
-        Calendar fcurrent = Calendar.getInstance();
-        anioactual = (short) fcurrent.get(Calendar.YEAR);
+        anioactual = (short) Calendar.getInstance().get(Calendar.YEAR);
         anios = new ArrayList<>();
         for (int i = (anioactual - 10); i < (anioactual + 10); i++) {
 //            Short agno = new Short(String.valueOf(i + 1900));
@@ -390,8 +389,10 @@ public class ControlProverbio implements Serializable {
             RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroProverbio");
             RequestContext.getCurrentInstance().execute("PF('NuevoRegistroProverbio').show()");
         } else if (CualTabla == 1) {
-            Short year = new Short(String.valueOf(anioactual));
-            nuevoRegistroMensajesUsuarios.setAno(year);
+//            Short year = new Short(String.valueOf(anioactual));
+//            Short year = anioactual;
+//            nuevoRegistroMensajesUsuarios.setAno(year);
+            nuevoRegistroMensajesUsuarios.setAno(anioactual);
             RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroMensajeUsuario");
             RequestContext.getCurrentInstance().execute("PF('NuevoRegistroMensajeUsuario').show()");
         }
@@ -812,7 +813,7 @@ public class ControlProverbio implements Serializable {
     }
 
     public void seleccionarMes(String estadoMes, int indice, int celda) {
-        HashMap meses = MesesNumeros.getMeses();
+        HashMap meses = AgnosMesesDiasNumeros.getMeses();
         if (tipoLista == 0) {
             if (estadoMes != null) {
                 if (meses.containsKey(estadoMes.toUpperCase())) {
@@ -857,7 +858,10 @@ public class ControlProverbio implements Serializable {
             }
         } else {
             if (estadoMes != null) {
-                if (estadoMes.equalsIgnoreCase("ENERO")) {
+                if (meses.containsKey(estadoMes.toUpperCase())) {
+                    mensajeUsuarioSeleccionado.setMes((short) meses.get(estadoMes.toUpperCase()));
+                }
+                /*if (estadoMes.equalsIgnoreCase("ENERO")) {
                     mensajeUsuarioSeleccionado.setMes(new Short("1"));
                 } else if (estadoMes.equalsIgnoreCase("FEBRERO")) {
                     mensajeUsuarioSeleccionado.setMes(new Short("2"));
@@ -883,7 +887,7 @@ public class ControlProverbio implements Serializable {
                     mensajeUsuarioSeleccionado.setMes(new Short("12"));
                 } else if (estadoMes.equalsIgnoreCase("TODOS LOS MESES")) {
                     mensajeUsuarioSeleccionado.setMes(new Short("0"));
-                }
+                }*/
             } else {
                 mensajeUsuarioSeleccionado.setMes(null);
             }
@@ -908,7 +912,7 @@ public class ControlProverbio implements Serializable {
     }
 
     public void seleccionarDia(String estadoDia, int indice, int celda) {
-        HashMap diasLetras = MesesNumeros.getDias();
+        HashMap diasLetras = AgnosMesesDiasNumeros.getDias();
         if (tipoLista == 0) {
             if (estadoDia != null) {
                 if (diasLetras.containsKey(estadoDia.toUpperCase())) {
@@ -1086,9 +1090,13 @@ public class ControlProverbio implements Serializable {
     }
 
     public void seleccionarTipoNuevoAno(String estadoAno, int tipoNuevo) {
-
+        HashMap agnosLetras = AgnosMesesDiasNumeros.getAgnos(Calendar.getInstance().get(Calendar.YEAR));
         if (tipoNuevo == 1) {
             if (estadoAno != null) {
+                if (agnosLetras.containsKey(estadoAno.toUpperCase())){
+                    nuevoRegistroMensajesUsuarios.setAno((short) agnosLetras.get(estadoAno.toUpperCase()));
+                }
+                /*
                 if (estadoAno.equals("2005")) {
                     nuevoRegistroMensajesUsuarios.setAno(new Short("2005"));
                 } else if (estadoAno.equals("2006")) {
@@ -1134,12 +1142,17 @@ public class ControlProverbio implements Serializable {
                 } else if (estadoAno.equalsIgnoreCase("TODOS LOS AÑOS")) {
                     nuevoRegistroMensajesUsuarios.setAno(new Short("0"));
                 }
+                */
             } else {
                 nuevoRegistroMensajesUsuarios.setAno(null);
             }
             RequestContext.getCurrentInstance().update("formularioDialogos:nuevoAno");
         } else {
             if (estadoAno != null) {
+                if (agnosLetras.containsKey(estadoAno.toUpperCase())){
+                    duplicarRegistroMensajesUsuarios.setAno((short) agnosLetras.get(estadoAno.toUpperCase()));
+                }
+                /*
                 if (estadoAno.equals("2005")) {
                     duplicarRegistroMensajesUsuarios.setAno(new Short("2005"));
                 } else if (estadoAno.equals("2006")) {
@@ -1185,6 +1198,7 @@ public class ControlProverbio implements Serializable {
                 } else if (estadoAno.equalsIgnoreCase("TODOS LOS AÑOS")) {
                     duplicarRegistroMensajesUsuarios.setAno(new Short("0"));
                 }
+                */
             } else {
                 duplicarRegistroMensajesUsuarios.setAno(null);
             }
@@ -1197,7 +1211,7 @@ public class ControlProverbio implements Serializable {
     }
 
     public void seleccionarTipoNuevoMes(String estadoMes, int tipoNuevo) {
-        HashMap meses = MesesNumeros.getMeses();
+        HashMap meses = AgnosMesesDiasNumeros.getMeses();
         if (tipoNuevo == 1) {
             if (estadoMes != null) {
                 if (meses.containsKey(estadoMes.toUpperCase())) {
@@ -1282,7 +1296,7 @@ public class ControlProverbio implements Serializable {
     }
 
     public void seleccionarTipoNuevoDia(String estadoDia, int tipoNuevo) {
-        HashMap dias = MesesNumeros.getDias();
+        HashMap dias = AgnosMesesDiasNumeros.getDias();
         if (tipoNuevo == 1) {
             if (estadoDia != null) {
                 if (dias.containsKey(estadoDia.toUpperCase())) {
@@ -1547,7 +1561,7 @@ public class ControlProverbio implements Serializable {
         } else //            RequestContext context = RequestContext.getCurrentInstance();
          if (mensajeUsuarioSeleccionado != null) {
                 int resultadoNF = administrarRastros.obtenerTabla(mensajeUsuarioSeleccionado.getSecuencia(), "RECORDATORIOS");
-                if (resultadoNF == 1) {
+                /*if (resultadoNF == 1) {
                     RequestContext.getCurrentInstance().execute("PF('errorObjetosDBNF').show()");
                 } else if (resultadoNF == 2) {
                     RequestContext.getCurrentInstance().execute("PF('confirmarRastroNF').show()");
@@ -1557,7 +1571,7 @@ public class ControlProverbio implements Serializable {
                     RequestContext.getCurrentInstance().execute("PF('errorTablaConRastroNF').show()");
                 } else if (resultadoNF == 5) {
                     RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastroNF').show()");
-                }
+                }*/
                 switch (resultadoNF){
                     case 1:
                         RequestContext.getCurrentInstance().execute("PF('errorObjetosDBNF').show()");
@@ -1636,7 +1650,7 @@ public class ControlProverbio implements Serializable {
         mensajeUsuarioSeleccionado = duplicarRegistroMensajesUsuarios;
 //        RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:datosMensajesUsuarios");
-        if (guardado == true) {
+        if (guardado) {
             guardado = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
