@@ -10,16 +10,16 @@
    </h:head>
    <h:body>
       <ui:composition template="/template.xhtml">
-         <ui:define name="body">                  
-            <h:form id="form"> 
+         <ui:define name="body">
+            <h:form id="form">
 
                <f:loadBundle basename="Recursos.emplcomprobante" var="msg" />
                <p:growl id="growl" showDetail="true"/>
 
-               <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal" > 
+               <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal" >
 
-                  <p:toolbar styleClass="cssToolbar">  
-                     <p:toolbarGroup align="left"> 
+                  <p:toolbar styleClass="cssToolbar">
+                     <p:toolbarGroup align="left">
 
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlEmplComprobantes.guardarCambios()}" process="@this" />
                         <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>

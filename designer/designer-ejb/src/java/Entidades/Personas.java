@@ -3,6 +3,7 @@ package Entidades;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Date;
+import java.util.Locale;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -274,7 +275,8 @@ public class Personas implements Serializable {
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.email = email.toLowerCase(Locale.ENGLISH);
+        System.out.println("Personas setEmail se guardo : " + this.email);
     }
 
     public String getPlacavehiculo() {
