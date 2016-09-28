@@ -15,7 +15,7 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "FAMILIARES")
 public class Familiares implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -68,6 +68,14 @@ public class Familiares implements Serializable {
     @JoinColumn(name = "PERSONA", referencedColumnName = "SECUENCIA")
     @ManyToOne(optional = false)
     private Personas persona;
+    @Transient
+    private boolean sm;
+    @Transient
+    private boolean sf;
+    @Transient
+    private boolean be;
+    @Transient
+    private boolean upcad;
 
     public Familiares() {
     }
@@ -204,6 +212,82 @@ public class Familiares implements Serializable {
         this.persona = persona;
     }
 
+    public boolean isSm() {
+        if ("S".equals(serviciomedico)) {
+            sm = true;
+        } else {
+            sm = false;
+        }
+        return sm;
+    }
+
+    public void setSm(boolean sm) {
+        this.sm = sm;
+        if (sm) {
+            this.serviciomedico = "S";
+        } else {
+            this.serviciomedico = "N";
+        }
+        System.out.println("servicio medico : " + sm + " " + serviciomedico);
+    }
+
+    public boolean isSf() {
+        if ("S".equals(subsidiofamiliar)) {
+            sf = true;
+        } else {
+            sf = false;
+        }
+        return sf;
+    }
+
+    public void setSf(boolean sf) {
+        this.sf = sf;
+        if (sf) {
+            this.subsidiofamiliar = "S";
+        } else {
+            this.subsidiofamiliar = "N";
+        }
+        System.out.println("subsidioFamiliar : " + sf + " " + subsidiofamiliar);
+    }
+
+    public boolean isBe() {
+        if ("S".equals(beneficiario)) {
+            be = true;
+        } else {
+            be = false;
+        }
+        return be;
+    }
+
+    public void setBe(boolean be) {
+        this.be = be;
+        if (be) {
+            this.beneficiario = "S";
+        } else {
+            this.beneficiario = "N";
+        }
+        System.out.println("beneficiiario : " + be + " " + beneficiario);
+    }
+
+    public boolean isUpcad() {
+        if ("S".equals(upcadicional)) {
+            upcad = true;
+        } else {
+            upcad = false;
+        }
+        return upcad;
+    }
+
+    public void setUpcad(boolean upcad) {
+        this.upcad = upcad;
+        if (upcad) {
+            this.upcadicional = "S";
+        } else {
+            this.upcadicional = "N";
+        }
+        System.out.println("upc adicional : " + upcad + " " + upcadicional);
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -228,5 +312,5 @@ public class Familiares implements Serializable {
     public String toString() {
         return "Entidades.Familiares[ secuencia=" + secuencia + " ]";
     }
-    
+
 }

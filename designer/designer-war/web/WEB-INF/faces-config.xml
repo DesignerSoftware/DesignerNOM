@@ -5950,4 +5950,21 @@
         </navigation-case>
     </navigation-rule>
     
+    <navigation-rule>
+        <from-view-id>/empleadoindividual.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>familiares</from-outcome>
+            <to-view-id>/emplfamiliares.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/emplfamiliares.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>atrasfamiliares</from-outcome>
+            <to-view-id>/empleadoindividual.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
 </faces-config>

@@ -104,7 +104,6 @@ public class ControlTiposCursos implements Serializable {
         if (listTiposCursos != null) {
             tipoCursoSeleccionado = listTiposCursos.get(0);
         }
-        contarRegistros();
     }
 
     public String redirigir() {
@@ -160,12 +159,6 @@ public class ControlTiposCursos implements Serializable {
         guardado = true;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
-//        if (listTiposCursos == null || listTiposCursos.isEmpty()) {
-//            infoRegistro = "Cantidad de registros: 0 ";
-//        } else {
-//            infoRegistro = "Cantidad de registros: " + listTiposCursos.size();
-//        }
-//        RequestContext.getCurrentInstance().update("form:informacionRegistro");
         RequestContext.getCurrentInstance().update("form:datosTiposCursos");
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
@@ -270,7 +263,7 @@ public class ControlTiposCursos implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:datosTiposCursos");
-            modificarInfoRegistro(listTiposCursos.size());
+            contarRegistros();
             tipoCursoSeleccionado = null;
             guardado = true;
 
@@ -432,7 +425,7 @@ public class ControlTiposCursos implements Serializable {
             nuevoTiposCursos.setSecuencia(l);
             crearTiposCursos.add(nuevoTiposCursos);
             listTiposCursos.add(nuevoTiposCursos);
-            modificarInfoRegistro(listTiposCursos.size());
+            contarRegistros();
             tipoCursoSeleccionado = nuevoTiposCursos;
             nuevoTiposCursos = new TiposCursos();
             RequestContext.getCurrentInstance().update("form:datosTiposCursos");
@@ -494,7 +487,7 @@ public class ControlTiposCursos implements Serializable {
             listTiposCursos.add(duplicarTiposCursos);
             crearTiposCursos.add(duplicarTiposCursos);
             tipoCursoSeleccionado = duplicarTiposCursos;
-            modificarInfoRegistro(listTiposCursos.size());
+            contarRegistros();
             RequestContext.getCurrentInstance().update("form:datosTiposCursos");
             if (guardado == true) {
                 guardado = false;
@@ -577,30 +570,20 @@ public class ControlTiposCursos implements Serializable {
             if (tipoLista == 0) {
                 tipoLista = 1;
             }
-            modificarInfoRegistro(listTiposCursos.size());
-            RequestContext.getCurrentInstance().update("form:informacionRegistro");
+            contarRegistros();
         } catch (Exception e) {
             System.out.println("ERROR ControlTiposCursos eventoFiltrar ERROR===" + e.getMessage());
         }
     }
 
-    public void modificarInfoRegistro(int valor){
-        infoRegistro = String.valueOf(valor);
-//        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+    public void contarRegistros() {
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
     }
-    
-    public void contarRegistros(){
-        if(listTiposCursos != null){
-            modificarInfoRegistro(listTiposCursos.size());
-        } else{
-            modificarInfoRegistro(0);
-        }
-    }
-    
+
     public void deshabilitarBotonLov() {
         activarLov = true;
     }
-    
+
     //*/*/*/*/*/*/*/*/*/*-/-*//-*/-*/*/*-*/-*/-*/*/*/*/*/---/*/*/*/*/-*/-*/-*/-*/-*/
     public List<TiposCursos> getListTiposCursos() {
         if (listTiposCursos == null) {
@@ -686,6 +669,9 @@ public class ControlTiposCursos implements Serializable {
     }
 
     public String getInfoRegistro() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosTiposCursos");
+        infoRegistro = String.valueOf(tabla.getRowCount());
         return infoRegistro;
     }
 
@@ -700,6 +686,5 @@ public class ControlTiposCursos implements Serializable {
     public void setActivarLov(boolean activarLov) {
         this.activarLov = activarLov;
     }
-    
-    
+
 }

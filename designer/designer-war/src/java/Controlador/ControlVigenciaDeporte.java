@@ -67,7 +67,7 @@ public class ControlVigenciaDeporte implements Serializable {
     private boolean activarLOV;
 
     public ControlVigenciaDeporte() {
-        altoTabla = "315";
+        altoTabla = "305";
         listVigenciasDeportes = null;
         listDeportes = null;
         aceptar = true;
@@ -109,9 +109,8 @@ public class ControlVigenciaDeporte implements Serializable {
         empleado = administrarVigenciaDeporte.empleadoActual(secuencia);
         getListVigenciasDeportes();
         deshabilitarBotonLov();
-        if (listVigenciasDeportes == null) {
-            vigenciaTablaSeleccionada = null;
-        } else {
+        if (listVigenciasDeportes != null) {
+            if(!listVigenciasDeportes.isEmpty())
             vigenciaTablaSeleccionada = listVigenciasDeportes.get(0);
         }
     }
@@ -151,7 +150,6 @@ public class ControlVigenciaDeporte implements Serializable {
         vigenciaTablaSeleccionada = vigenciaDeportes;
         int coincidencias = 0;
         int indiceUnicoElemento = 0;
-        RequestContext context = RequestContext.getCurrentInstance();
         if (confirmarCambio.equalsIgnoreCase("DEPORTES")) {
             if (tipoLista == 0) {
                 vigenciaTablaSeleccionada.getDeporte().setNombre(deporte);
@@ -364,7 +362,7 @@ public class ControlVigenciaDeporte implements Serializable {
             bandera = 0;
             filtrarListVigenciasDeportes = null;
             tipoLista = 0;
-            altoTabla = "315";
+            altoTabla = "305";
         }
 
         listVigenciaDeporteBorrar.clear();
@@ -552,7 +550,7 @@ public class ControlVigenciaDeporte implements Serializable {
         if (nuevaVigenciaDeporte.getFechainicial() != null && nuevaVigenciaDeporte.getDeporte() != null) {
             if (validarFechasRegistro(1) == true) {
                 if (bandera == 1) {
-                    altoTabla = "315";
+                    altoTabla = "305";
                     //CERRAR FILTRADO
                     veFechaInicial = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasDeportes:veFechaInicial");
                     veFechaInicial.setFilterStyle("display: none; visibility: hidden;");
@@ -606,11 +604,6 @@ public class ControlVigenciaDeporte implements Serializable {
     public void limpiarNuevaVigenciaDeporte() {
         nuevaVigenciaDeporte = new VigenciasDeportes();
         nuevaVigenciaDeporte.setDeporte(new Deportes());
-        tipoActualizacion = -1;
-        permitirIndex = true;
-        aceptar = true;
-//        vigenciaTablaSeleccionada = null;
-//        deshabilitarBotonLov();
 
     }
 
@@ -680,7 +673,7 @@ public class ControlVigenciaDeporte implements Serializable {
                         RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
                     if (bandera == 1) {
-                        altoTabla = "315";
+                        altoTabla = "305";
                         veFechaInicial = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasDeportes:veFechaInicial");
                         veFechaInicial.setFilterStyle("display: none; visibility: hidden;");
                         veFechaFinal = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasDeportes:veFechaFinal");
@@ -755,7 +748,7 @@ public class ControlVigenciaDeporte implements Serializable {
 
     public void activarCtrlF11() {
         if (bandera == 0) {
-            altoTabla = "295";
+            altoTabla = "285";
             veFechaInicial = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasDeportes:veFechaInicial");
             veFechaInicial.setFilterStyle("width: 85% !important");
             veFechaFinal = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasDeportes:veFechaFinal");
@@ -773,7 +766,7 @@ public class ControlVigenciaDeporte implements Serializable {
             RequestContext.getCurrentInstance().update("form:datosVigenciasDeportes");
             bandera = 1;
         } else if (bandera == 1) {
-            altoTabla = "315";
+            altoTabla = "305";
             veFechaInicial = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasDeportes:veFechaInicial");
             veFechaInicial.setFilterStyle("display: none; visibility: hidden;");
             veFechaFinal = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasDeportes:veFechaFinal");
@@ -801,7 +794,7 @@ public class ControlVigenciaDeporte implements Serializable {
      */
     public void salir() {
         if (bandera == 1) {
-            altoTabla = "315";
+            altoTabla = "305";
             veFechaInicial = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasDeportes:veFechaInicial");
             veFechaInicial.setFilterStyle("display: none; visibility: hidden;");
             veFechaFinal = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasDeportes:veFechaFinal");
@@ -952,7 +945,6 @@ public class ControlVigenciaDeporte implements Serializable {
         Exporter exporter = new ExportarPDF();
         exporter.export(context, tabla, "VigenciasDeportesPDF", false, false, "UTF-8", null, null);
         context.responseComplete();
-        vigenciaTablaSeleccionada = null;
     }
 
     public void exportXLS() throws IOException {
@@ -961,7 +953,6 @@ public class ControlVigenciaDeporte implements Serializable {
         Exporter exporter = new ExportarXLS();
         exporter.export(context, tabla, "VigenciasDeportesXLS", false, false, "UTF-8", null, null);
         context.responseComplete();
-        vigenciaTablaSeleccionada = null;
     }
     //EVENTO FILTRAR
 

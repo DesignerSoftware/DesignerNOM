@@ -83,11 +83,16 @@ public class PersistenciaTiposFamiliares implements PersistenciaTiposFamiliaresI
     }
 
     public List<TiposFamiliares> buscarTiposFamiliares(EntityManager em) {
+       try{
         em.clear();
-        Query query = em.createQuery("SELECT te FROM TiposFamiliares te ORDER BY te.codigo ASC ");
-        query.setHint("javax.persistence.cache.storeMode", "REFRESH");
-        List<TiposFamiliares> listMotivosDemandas = query.getResultList();
-        return listMotivosDemandas;
+        String sql="SELECT * FROM TIPOSFAMILIARES ORDER BY CODIGO ASC";
+        Query query = em.createNativeQuery(sql, TiposFamiliares.class);
+        List<TiposFamiliares> listTiposFamiliares = query.getResultList();
+        return listTiposFamiliares;
+       } catch(Exception e){
+           System.out.println("error buscarTiposFamiliares.PersistenciaTiposFamiliares " + e.getMessage());
+           return null;
+       }
 
     }
 

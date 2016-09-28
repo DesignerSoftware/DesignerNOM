@@ -673,7 +673,7 @@ public class ControlDeportes implements Serializable {
     public void recordarSeleccionDeporte() {
         if (deporteSeleccionado != null) {
             FacesContext c = FacesContext.getCurrentInstance();
-            tablaC = (DataTable) c.getViewRoot().findComponent("form:datosDeportes");
+            tablaC = (DataTable) c.getViewRoot().findComponent("form:datosDeporte");
             tablaC.setSelection(deporteSeleccionado);
         }
     }

@@ -143,7 +143,6 @@ public class Personas implements Serializable {
     }
 
     public void setFechanacimiento(Date fechanacimiento) {
-        System.out.println("setFechanacimiento fechanacimiento: " + fechanacimiento);
         this.fechanacimiento = fechanacimiento;
     }
 

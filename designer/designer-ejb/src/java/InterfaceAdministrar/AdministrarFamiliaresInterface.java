@@ -5,7 +5,12 @@
  */
 package InterfaceAdministrar;
 
+import Entidades.Ciudades;
+import Entidades.Empleados;
 import Entidades.Familiares;
+import Entidades.Personas;
+import Entidades.TiposDocumentos;
+import Entidades.TiposFamiliares;
 import java.math.BigInteger;
 import java.util.List;
 
@@ -19,5 +24,11 @@ public interface AdministrarFamiliaresInterface {
     public void borrarFamiliares(List<Familiares> listaBorrar);
     public void crearFamilares(List<Familiares> listaCrear);
     public List<Familiares> consultarFamiliares(BigInteger secuenciaEmp);
+    public Empleados empleadoActual(BigInteger secuenciaP);
+    public void crearPersona(Personas persona);
+    public List<TiposFamiliares> consultarTiposFamiliares();
+    public List<TiposDocumentos> consultarTiposDocumentos();
+    public List<Ciudades> consultarCiudades();
+    public List<Personas> consultarPersonas();
 
 }

@@ -101,7 +101,6 @@ public class ControlEstadosCiviles implements Serializable {
         paginaanterior = pagina;
         listEstadosCiviles = null;
         getListEstadosCiviles();
-        contarRegistros();
         deshabilitarBotonLov();
         if (!listEstadosCiviles.isEmpty()) {
             estadoCivilSeleccionado = listEstadosCiviles.get(0);
@@ -187,7 +186,7 @@ public class ControlEstadosCiviles implements Serializable {
         guardado = true;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        modificarInfoRegistro(listEstadosCiviles.size());
+        contarRegistros();
         RequestContext.getCurrentInstance().update("form:infoRegistro");
         RequestContext.getCurrentInstance().update("form:datosEstadosCiviles");
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -467,7 +466,7 @@ public class ControlEstadosCiviles implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:datosEstadosCiviles");
-            modificarInfoRegistro(listEstadosCiviles.size());
+           contarRegistros();
             RequestContext.getCurrentInstance().update("form:infoRegistro");
             if (guardado == true) {
                 guardado = false;
@@ -638,7 +637,7 @@ public class ControlEstadosCiviles implements Serializable {
             listEstadosCiviles.add(nuevoEstadoCivil);
             nuevoEstadoCivil = new EstadosCiviles();
             RequestContext.getCurrentInstance().update("form:datosEstadosCiviles");
-            modificarInfoRegistro(listEstadosCiviles.size());
+            contarRegistros();
             estadoCivilSeleccionado = nuevoEstadoCivil;
             RequestContext.getCurrentInstance().update("form:infoRegistro");
             if (guardado == true) {
@@ -735,7 +734,7 @@ public class ControlEstadosCiviles implements Serializable {
             listEstadosCiviles.add(duplicarEstadoCivil);
             crearEstadosCiviles.add(duplicarEstadoCivil);
             RequestContext.getCurrentInstance().update("form:datosEstadosCiviles");
-            modificarInfoRegistro(listEstadosCiviles.size());
+            contarRegistros();
             RequestContext.getCurrentInstance().update("form:infoRegistro");
             estadoCivilSeleccionado = duplicarEstadoCivil;
             if (guardado == true) {
@@ -819,24 +818,14 @@ public class ControlEstadosCiviles implements Serializable {
             if (tipoLista == 0) {
                 tipoLista = 1;
             }
-            RequestContext context = RequestContext.getCurrentInstance();
-            modificarInfoRegistro(filtrarEstadosCiviles.size());
-            RequestContext.getCurrentInstance().update("form:infoRegistro");
+            contarRegistros();
         } catch (Exception e) {
             System.out.println("ERROR ControlEstadosCiviles eventoFiltrar ERROR== " + e.getMessage());
         }
     }
 
-    public void modificarInfoRegistro(int valor) {
-        infoRegistro = String.valueOf(valor);
-    }
-
     public void contarRegistros() {
-        if (listEstadosCiviles != null) {
-            modificarInfoRegistro(listEstadosCiviles.size());
-        } else {
-            modificarInfoRegistro(0);
-        }
+        RequestContext.getCurrentInstance().update("form:infoRegistro");
     }
 
     public void deshabilitarBotonLov() {
@@ -945,6 +934,9 @@ public class ControlEstadosCiviles implements Serializable {
     }
 
     public String getInfoRegistro() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosEstadosCiviles");
+        infoRegistro = String.valueOf(tabla.getRowCount());
         return infoRegistro;
     }
 

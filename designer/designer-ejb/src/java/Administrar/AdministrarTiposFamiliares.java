@@ -64,6 +64,7 @@ public class AdministrarTiposFamiliares implements AdministrarTiposFamiliaresInt
         }
     }
 
+    @Override
     public List<TiposFamiliares> consultarTiposFamiliares() {
         listTiposFamiliares = persistenciaTiposFamiliares.buscarTiposFamiliares(em);
         return listTiposFamiliares;

@@ -166,7 +166,7 @@ public class ControlProfesiones implements Serializable {
             FacesContext c = FacesContext.getCurrentInstance();
             codigo = (Column) c.getViewRoot().findComponent("form:datosProfesiones:profesionesCodigos");
             codigo.setFilterStyle("display: none; visibility: hidden;");
-            descripcion = (Column) c.getViewRoot().findComponent("form:datosProfesiones:profesionesNombres");
+            descripcion = (Column) c.getViewRoot().findComponent("form:datosProfesiones:profesionesDescripcion");
             descripcion.setFilterStyle("display: none; visibility: hidden;");
             bandera = 0;
             filtradoListaProfesiones = null;
@@ -247,7 +247,7 @@ public class ControlProfesiones implements Serializable {
                 FacesContext c = FacesContext.getCurrentInstance();
                 codigo = (Column) c.getViewRoot().findComponent("form:datosProfesiones:profesionesCodigos");
                 codigo.setFilterStyle("display: none; visibility: hidden;");
-                descripcion = (Column) c.getViewRoot().findComponent("form:datosProfesiones:profesionesNombres");
+                descripcion = (Column) c.getViewRoot().findComponent("form:datosProfesiones:profesionesDescripcion");
                 descripcion.setFilterStyle("display: none; visibility: hidden;");
                 bandera = 0;
                 filtradoListaProfesiones = null;
@@ -286,7 +286,7 @@ public class ControlProfesiones implements Serializable {
             FacesContext c = FacesContext.getCurrentInstance();
             codigo = (Column) c.getViewRoot().findComponent("form:datosProfesiones:profesionesCodigos");
             codigo.setFilterStyle("width: 85% !important");
-            descripcion = (Column) c.getViewRoot().findComponent("form:datosProfesiones:profesionesNombres");
+            descripcion = (Column) c.getViewRoot().findComponent("form:datosProfesiones:profesionesDescripcion");
             descripcion.setFilterStyle("width: 85% !important");
             altoTabla = "250";
             RequestContext.getCurrentInstance().update("form:datosProfesiones");
@@ -298,7 +298,7 @@ public class ControlProfesiones implements Serializable {
             FacesContext c = FacesContext.getCurrentInstance();
             codigo = (Column) c.getViewRoot().findComponent("form:datosProfesiones:profesionesCodigos");
             codigo.setFilterStyle("display: none; visibility: hidden;");
-            descripcion = (Column) c.getViewRoot().findComponent("form:datosProfesiones:profesionesNombres");
+            descripcion = (Column) c.getViewRoot().findComponent("form:datosProfesiones:profesionesDescripcion");
             descripcion.setFilterStyle("display: none; visibility: hidden;");
             altoTabla = "270";
             RequestContext.getCurrentInstance().update("form:datosProfesiones");
@@ -439,7 +439,7 @@ public class ControlProfesiones implements Serializable {
                 FacesContext c = FacesContext.getCurrentInstance();
                 codigo = (Column) c.getViewRoot().findComponent("form:datosProfesiones:profesionesCodigos");
                 codigo.setFilterStyle("display: none; visibility: hidden;");
-                descripcion = (Column) c.getViewRoot().findComponent("form:datosProfesiones:profesionesNombres");
+                descripcion = (Column) c.getViewRoot().findComponent("form:datosProfesiones:profesionesDescripcion");
                 descripcion.setFilterStyle("display: none; visibility: hidden;");
                 bandera = 0;
                 filtradoListaProfesiones = null;
@@ -459,7 +459,7 @@ public class ControlProfesiones implements Serializable {
             FacesContext c = FacesContext.getCurrentInstance();
             codigo = (Column) c.getViewRoot().findComponent("form:datosProfesiones:profesionesCodigos");
             codigo.setFilterStyle("display: none; visibility: hidden;");
-            descripcion = (Column) c.getViewRoot().findComponent("form:datosProfesiones:profesionesNombres");
+            descripcion = (Column) c.getViewRoot().findComponent("form:datosProfesiones:profesionesDescripcion");
             descripcion.setFilterStyle("display: none; visibility: hidden;");
             bandera = 0;
             filtradoListaProfesiones = null;
