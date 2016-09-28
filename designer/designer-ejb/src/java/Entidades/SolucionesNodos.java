@@ -108,45 +108,36 @@ public class SolucionesNodos implements Serializable {
     @Transient
     private BigDecimal gasto;
     //
-    @Column(name= "NOMBRETIPOTRABAJADOR")
+    @Transient
     private String nombretipotrabajador;
-    @Column(name= "NOMBRETIPOCONTRATO")
+    @Transient
     private String nombretipocontrato;
-    @Column(name="NOMBRETERCERO")
+    @Transient
     private String nombretercero;
-    @Column(name= "NOMBREREFORMALABORAL")
+    @Transient
     private String nombrereformalaboral;
-    @Column(name= "NOMBREPROCESO")
+    @Transient
     private String nombreproceso;
-//    @Column(name= "NOMBREPARAMETROPRE")
-//    private String nombreparametropre;
-    @Column(name= "NOMBRECARGO")
+    @Transient
     private String nombrecargo;
-    @Column(name= "NOMBRECENTROCOSTOD")
+    @Transient
     private String nombrecentrocostod;
-    @Column(name= "NOMBRECENTROCOSTOC")
+    @Transient
     private String nombrecentrocostoc;
-    @Column(name= "NOMBRECONCEPTO")
+    @Transient
     private String nombreconcepto;
-    @Column(name= "CODIGOCONCEPTO")
+    @Transient
     private BigInteger codigoconcepto;
-//    @Column(name= "NOMBRECORTEPROCESO")
-//    private String nombrecorteproceso;
-    @Column(name= "CODIGOCUENTAD")
+    @Transient
     private String codigocuentad;
-    @Column(name= "CODIGOCUENTAC")
+    @Transient
     private String codigocuentac;
-    @Column(name= "NOMBREEMPLEADO")
+    @Transient
     private String nombreempleado;
-    @Column(name= "NOMBREESTRUCTURA")
+    @Transient
     private String nombreestructura;
-//    @Column(name= "NOMBRELOCALIZACION")
-//    private String nombrelocalizacion;
-    @Column(name= "NOMBREFORMULA")
+    @Transient
     private String nombreformula;
-//    @Column(name= "NOMBRENODO")
-//    private String nombrenodo;
-    
 
     public SolucionesNodos() {
     }
@@ -502,14 +493,6 @@ public class SolucionesNodos implements Serializable {
         this.nombreproceso = nombreproceso;
     }
 
-//    public String getNombreparametropre() {
-//        return nombreparametropre;
-//    }
-//
-//    public void setNombreparametropre(String nombreparametropre) {
-//        this.nombreparametropre = nombreparametropre;
-//    }
-
     public String getNombrecargo() {
         return nombrecargo;
     }
@@ -541,14 +524,6 @@ public class SolucionesNodos implements Serializable {
     public void setNombreconcepto(String nombreconcepto) {
         this.nombreconcepto = nombreconcepto;
     }
-
-//    public String getNombrecorteproceso() {
-//        return nombrecorteproceso;
-//    }
-//
-//    public void setNombrecorteproceso(String nombrecorteproceso) {
-//        this.nombrecorteproceso = nombrecorteproceso;
-//    }
 
     public String getCodigocuentad() {
         return codigocuentad;
@@ -582,14 +557,6 @@ public class SolucionesNodos implements Serializable {
         this.nombreestructura = nombreestructura;
     }
 
-//    public String getNombrelocalizacion() {
-//        return nombrelocalizacion;
-//    }
-//
-//    public void setNombrelocalizacion(String nombrelocalizacion) {
-//        this.nombrelocalizacion = nombrelocalizacion;
-//    }
-
     public String getNombreformula() {
         return nombreformula;
     }
@@ -597,14 +564,6 @@ public class SolucionesNodos implements Serializable {
     public void setNombreformula(String nombreformula) {
         this.nombreformula = nombreformula;
     }
-
-//    public String getNombrenodo() {
-//        return nombrenodo;
-//    }
-//
-//    public void setNombrenodo(String nombrenodo) {
-//        this.nombrenodo = nombrenodo;
-//    }
 
     public BigInteger getCodigoconcepto() {
         return codigoconcepto;

@@ -57,11 +57,13 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
+import javax.ejb.Local;
 
 /**
  *
  * @author Administrador
  */
+@Local
 public interface AdministrarPersonaIndividualInterface {
 
     public void obtenerConexion(String idSesion);
@@ -121,16 +123,6 @@ public interface AdministrarPersonaIndividualInterface {
     public List<ReformasLaborales> lovReformasLaboralesValidos(BigInteger secTT);
 
     public List<TiposContratos> lovTiposContratosValidos(BigInteger secTT);
-//
-//    public List<TiposSueldos> lovTiposSueldos();
-//
-//    public List<Contratos> lovContratos();
-//
-//    public List<NormasLaborales> lovNormasLaborales();
-//
-//    public List<ReformasLaborales> lovReformasLaborales();
-//
-//    public List<TiposContratos> lovTiposContratos();
     
     public Empresas obtenerEmpresa(BigInteger secEmpresa);
 
@@ -172,26 +164,10 @@ public interface AdministrarPersonaIndividualInterface {
 
     public Personas obtenerUltimoRegistroPersona(BigInteger documento);
 
-//    public BigInteger crearNuevoEmpleado(BigInteger codigoEmpl, BigInteger secPers, BigInteger secEmpr);
-    
     public BigInteger crearEmpl_Con_VCargo( BigDecimal codigoEmpleado, BigInteger secPersona, BigInteger secEmpresa, VigenciasCargos vigenciaCargo);
 
-//    public Empleados obtenerUltimoRegistroEmpleado(BigInteger empresa, BigDecimal codigoEmpleado);
-
-    /**
-     *
-     * @param empresa
-     * @param secEmpleado
-     * @return
-     */
     public VigenciasCargos obtenerUltimaVigenciaCargo(BigInteger empresa, BigInteger secEmpleado);
     
-//    public void crearVigenciaCargo(VigenciasCargos vigencia);
-    
-    /**
-     *
-     * @param vigencia
-     */
     public void modificarVigenciaCargo(VigenciasCargos vigencia);
 
     public void crearVigenciaLocalizacion(VigenciasLocalizaciones vigencia);
@@ -237,5 +213,7 @@ public interface AdministrarPersonaIndividualInterface {
     public TiposTrabajadores buscarTipoTrabajadorPorCodigo(short codigo);
 
     public List<Cargos> lovCargosXEmpresa(BigInteger empresa);
+    
+    public TercerosSucursales consultarARL(BigInteger secEmpresa);
    
 }

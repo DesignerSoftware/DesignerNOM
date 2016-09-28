@@ -134,7 +134,6 @@ public class ControlDiagnosticosCategorias implements Serializable {
         paginaAnterior = pagina;
         listaDiagnosticosCapitulos = null;
         getListaDiagnosticosCapitulos();
-        contarRegistrosCapitulos();
         if (listaDiagnosticosCapitulos != null) {
             if (!listaDiagnosticosCapitulos.isEmpty()) {
                 diagnosticoCapituloSeleccionado = listaDiagnosticosCapitulos.get(0);

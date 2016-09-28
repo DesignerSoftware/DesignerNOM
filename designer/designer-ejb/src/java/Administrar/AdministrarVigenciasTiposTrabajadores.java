@@ -90,6 +90,7 @@ public class AdministrarVigenciasTiposTrabajadores implements AdministrarVigenci
         em = administrarSesiones.obtenerConexionSesion(idSesion);
     }
 
+    @Override
     public List<VigenciasTiposTrabajadores> vigenciasTiposTrabajadoresEmpleado(BigInteger secEmpleado) {
         try {
             vigenciasTiposTrabajadores = persistenciaVigenciasTiposTrabajadores.buscarVigenciasTiposTrabajadoresEmpleado(em, secEmpleado);

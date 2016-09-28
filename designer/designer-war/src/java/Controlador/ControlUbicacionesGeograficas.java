@@ -1945,13 +1945,11 @@ public class ControlUbicacionesGeograficas implements Serializable {
                     backUpEmpresaActual = empresaSeleccionada;
                 }
             }
-            RequestContext context = RequestContext.getCurrentInstance();
             if (listaEmpresas == null || listaEmpresas.isEmpty()) {
                 infoRegistroEmpresas = "Cantidad de registros: 0 ";
             } else {
                 infoRegistroEmpresas = "Cantidad de registros: " + listaEmpresas.size();
             }
-            RequestContext.getCurrentInstance().update("form:infoRegistroEmpresas");
             return listaEmpresas;
         } catch (Exception e) {
             System.out.println("ERROR LISTA EMPRESAS " + e);

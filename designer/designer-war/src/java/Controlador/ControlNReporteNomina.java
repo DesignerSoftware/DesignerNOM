@@ -1530,7 +1530,6 @@ public class ControlNReporteNomina implements Serializable {
         activoMostrarTodos = true;
         activoBuscarReporte = false;
         reporteSeleccionado = null;
-        RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:MOSTRARTODOS");
         RequestContext.getCurrentInstance().update("form:BUSCARREPORTE");
         RequestContext.getCurrentInstance().update("form:ACEPTAR");

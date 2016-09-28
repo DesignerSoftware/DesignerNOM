@@ -123,7 +123,6 @@ public class ControlCausasAusentismos implements Serializable {
     public void recibirPaginaEntrante(String pagina) {
         paginaAnterior = pagina;
         getListaCausasAusentismos();
-        contarRegistros();
         lovClasesAusentismos = null;
         getLovClasesAusentismos();
         if (listaCausasAusentismos != null) {

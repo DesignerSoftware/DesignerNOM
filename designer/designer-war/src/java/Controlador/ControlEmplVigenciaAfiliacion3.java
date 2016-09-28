@@ -1882,7 +1882,7 @@ public class ControlEmplVigenciaAfiliacion3 implements Serializable {
             permitirIndexVA = true;
          }
 
-         RequestContext.getCurrentInstance().update(":form:editarTipoEntidadVA");
+         RequestContext.getCurrentInstance().update("form:editarTipoEntidadVA");
       } else if (tipoActualizacion == 1) {
          nuevaVigenciaA.setTipoentidad(tipoEntidadSeleccionado);
          RequestContext.getCurrentInstance().update("formularioDialogos:nuevaTipoEntidadVA");
@@ -1934,8 +1934,14 @@ public class ControlEmplVigenciaAfiliacion3 implements Serializable {
          boolean cambio = validarModificacionRegistroTabla();
          int posicion = -1;
          List<TercerosSucursales> listTercerosSucursales = administrarVigenciasAfiliaciones3.listTercerosSucursales();
+         System.out.println("actualizarTerceros() terceroSeleccionado.getSecuencia() : " + terceroSeleccionado.getSecuencia());
+         if (listTercerosSucursales != null) {
+            System.out.println("actualizarTerceros() listTercerosSucursales.size() : " + listTercerosSucursales.size());
+         } else {
+            System.out.println("listTercerosSucursales : " + listTercerosSucursales);
+         }
          for (int i = 0; i < listTercerosSucursales.size(); i++) {
-            if (listTercerosSucursales.get(i).getTercero().getNombre().equalsIgnoreCase(terceroSeleccionado.getNombre())) {
+            if (listTercerosSucursales.get(i).getTercero().getSecuencia() == terceroSeleccionado.getSecuencia()) {
                banderaEncuentra = true;
                posicion = i;
             }
@@ -1958,7 +1964,7 @@ public class ControlEmplVigenciaAfiliacion3 implements Serializable {
          }
          cambioVigenciaA = true;
          permitirIndexVA = true;
-         RequestContext.getCurrentInstance().update(":form:editarTerceroVA");
+         RequestContext.getCurrentInstance().update("form:datosVAVigencia");
       } else if (tipoActualizacion == 1) {//Si es para un nuevo registro
          int posicion = -1;
          List<TercerosSucursales> listTercerosSucursales = administrarVigenciasAfiliaciones3.listTercerosSucursales();
@@ -2043,7 +2049,7 @@ public class ControlEmplVigenciaAfiliacion3 implements Serializable {
             cambioVigenciaA = true;
             permitirIndexVA = true;
          }
-         RequestContext.getCurrentInstance().update(":form:editarEstadoAfiliacionVA");
+         RequestContext.getCurrentInstance().update("form:editarEstadoAfiliacionVA");
       } else if (tipoActualizacion == 1) {
          nuevaVigenciaA.setEstadoafiliacion(estadoSSeleccionado);
          RequestContext.getCurrentInstance().update("formularioDialogos:nuevaEstadoAfiliacionVA");

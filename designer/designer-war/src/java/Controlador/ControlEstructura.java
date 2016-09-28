@@ -160,7 +160,6 @@ public class ControlEstructura implements Serializable {
         paginaAnterior = pagina;
         listaOrganigramas = null;
         getListaOrganigramas();
-        contarRegistrosOrg();
         if (listaOrganigramas != null) {
             if (!listaOrganigramas.isEmpty()) {
                 organigramaSeleccionado = listaOrganigramas.get(0);

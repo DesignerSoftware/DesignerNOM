@@ -68,8 +68,11 @@
 
                         <p:separator style="position: relative; top: -9px;"/> 
 
-                        <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlPersonaIndividual.cancelarModificaciones()}"
-                                         onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide(), window.location.reload()"  process="@this"/>  
+                        <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" onclick="PF('operacionEnProceso').show()"
+                                         actionListener="#{controlPersonaIndividual.cancelarModificaciones()}" 
+                                         oncomplete="PF('operacionEnProceso').hide(), window.location.reload()"  process="@this">
+                           <p:resetInput target=":form:sexoModPersonal"/>
+                        </p:commandButton>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                         <p:separator style="position: relative; top: -9px;"/> 
@@ -92,7 +95,7 @@
                            <legend style="font-size: 12px; color: blue"><strong>#{msg['modPersonal']}</strong></legend>
 
                            <h:outputText  value="*#{msg['empresa']}:" style="position: absolute; top: 25px; left: 15px; font-weight: bold;"/>
-                           <p:inputText onclick="select();" value="#{controlPersonaIndividual.nuevoEmpleado.empresa.nombre}" id="empresaModPersonal"
+                           <p:inputText autocomplete="off" onclick="select();" value="#{controlPersonaIndividual.nuevoEmpleado.empresa.nombre}" id="empresaModPersonal"
                                         style="position: absolute; top: 20px; left: 125px; width: 130px; text-transform: uppercase;">
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarInformacionPersonal(0,'EMPRESA', controlPersonaIndividual.nuevoEmpleado.empresa.nombre)}" process="@this" update="@this"/>
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemInformacionPersonal(0)}" process="@this"/>
@@ -100,14 +103,14 @@
                            </p:inputText>
 
                            <h:outputText  value="*#{msg['primerApellido']}:" style="position: absolute; top: 50px; left: 15px; font-weight: bold;"/>
-                           <p:inputText maxlength="20" onclick="select();" value="#{controlPersonaIndividual.nuevaPersona.primerapellido}" id="primerApellidoModPersonal"
+                           <p:inputText autocomplete="off" maxlength="20" onclick="select();" value="#{controlPersonaIndividual.nuevaPersona.primerapellido}" id="primerApellidoModPersonal"
                                         style="position: absolute; top: 45px; left: 125px; width: 130px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemInformacionPersonal(1)}" process="@this"/>
                               <p:ajax event="change" process="@this" update="@this"/>
                            </p:inputText>
 
                            <h:outputText  value="#{msg['segundoApellido']}:" style="position: absolute; top: 75px; left: 15px; font-weight: bold;"/>
-                           <p:inputText maxlength="20" onclick="select();" value="#{controlPersonaIndividual.nuevaPersona.segundoapellido}" id="segundoApellidoModPersonal"
+                           <p:inputText autocomplete="off" maxlength="20" onclick="select();" value="#{controlPersonaIndividual.nuevaPersona.segundoapellido}" id="segundoApellidoModPersonal"
                                         style="position: absolute; top: 70px; left: 125px; width: 130px; text-transform: uppercase;">
                               <p:ajax event="click" listener="#{controlPersonaIndividual.cambiarItemInformacionPersonal(2)}" process="@this"/>
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemInformacionPersonal(2)}" process="@this"/>
@@ -115,24 +118,24 @@
                            </p:inputText>
 
                            <h:outputText  value="*#{msg['nombres']}:" style="position: absolute; top: 100px; left: 15px; font-weight: bold;"/>
-                           <p:inputText onclick="select();" value="#{controlPersonaIndividual.nuevaPersona.nombre}" id="nombreModPersonal"
+                           <p:inputText autocomplete="off" onclick="select();" value="#{controlPersonaIndividual.nuevaPersona.nombre}" id="nombreModPersonal"
                                         style="position: absolute; top: 95px; left: 125px; width: 130px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemInformacionPersonal(3)}" process="@this"/>
                               <p:ajax event="change" process="@this" update="@this"/>
                            </p:inputText>
 
                            <h:outputText  value="*#{msg['sexo']}:" style="position: absolute; top: 125px; left: 15px; font-weight: bold;"/>
-                           <p:selectOneMenu value="#{controlPersonaIndividual.nuevaPersona.sexo}" id="sexoModPersonal"
-                                            style="position: absolute; top: 120px; left: 125px; font-weight: bold; width: 80px;" >  
-                              <f:selectItem itemLabel="" itemValue="null"/>  
+                           <p:selectOneMenu value="#{controlPersonaIndividual.txt_genero}" id="sexoModPersonal"
+                                            style="position: absolute; top: 120px; left: 125px; font-weight: bold; width: 80px;">  
+                              <f:selectItem itemLabel="" itemValue="#{null}"/>  
                               <f:selectItem itemLabel="#{msg['masculino']}" itemValue="M"/>  
                               <f:selectItem itemLabel="#{msg['femenino']}" itemValue="F"/>
-                              <p:ajax event="change" update="@this"/>
+                              <p:ajax event="change" listener="#{controlPersonaIndividual.modificarOneMenus(1)}" update="@this"/>
                            </p:selectOneMenu>
 
                            <!-- -->
                            <h:outputText value="*#{msg['tipoDocumento']}:" style="position: absolute; top: 25px; left: 280px; font-weight: bold;"/>
-                           <p:inputText onclick="select();" value="#{controlPersonaIndividual.txt_tipoDoc}" id="tipoDocumentoModPersonal"
+                           <p:inputText autocomplete="off" onclick="select();" value="#{controlPersonaIndividual.txt_tipoDoc}" id="tipoDocumentoModPersonal"
                                         style="position: absolute; top: 20px; left: 400px; width: 150px; text-transform: uppercase;">
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarInformacionPersonal(5,'TIPODOCUMENTO', controlPersonaIndividual.txt_tipoDoc)}" process="@this" update="@this"/>
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemInformacionPersonal(5)}" process="@this"/>
@@ -142,7 +145,7 @@
                            </p:inputText>
 
                            <h:outputText  value="*#{msg['numeroIdentificacion']}:" style="position: absolute; top: 50px; left: 280px; font-weight: bold;"/>
-                           <p:inputText onclick="select();" value="#{controlPersonaIndividual.nuevaPersona.numerodocumento}" id="numeroDocumentoModPersonal" widgetVar="numeroDocumentoModPersonal"
+                           <p:inputText autocomplete="off" onclick="select();" value="#{controlPersonaIndividual.nuevaPersona.numerodocumento}" id="numeroDocumentoModPersonal" widgetVar="numeroDocumentoModPersonal"
                                         style="position: absolute; top: 45px; left: 400px; width: 150px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemInformacionPersonal(6)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarNumeroDocumentoPersona()}" process="@this"/>
@@ -150,7 +153,7 @@
                            </p:inputText>
 
                            <h:outputText  value="*#{msg['ciudadDocumento']}:" style="position: absolute; top: 75px; left: 280px; font-weight: bold;"/>
-                           <p:inputText widgetVar="ciudadDocumentoModPersonal" onclick="select();" value="#{controlPersonaIndividual.txt_ciudadDoc}" id="ciudadDocumentoModPersonal"
+                           <p:inputText autocomplete="off" widgetVar="ciudadDocumentoModPersonal" onclick="select();" value="#{controlPersonaIndividual.txt_ciudadDoc}" id="ciudadDocumentoModPersonal"
                                         style="position: absolute; top: 70px; left: 400px; width: 150px; text-transform: uppercase;">
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarInformacionPersonal(7,'DOCUMENTO', controlPersonaIndividual.txt_ciudadDoc)}" process="@this" update="@this"/>
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemInformacionPersonal(7)}" process="@this"/>
@@ -161,14 +164,14 @@
 
                            <h:outputText  value="*#{msg['fechaNacimiento']}:" style="position: absolute; top: 100px; left: 280px; font-weight: bold;"/>
                            <div id="divFechaNacimientoModPersonal" style="position: absolute; top: 95px; left: 400px;">
-                              <p:calendar mask="true" pattern="dd/MM/yyyy" value="#{controlPersonaIndividual.nuevaPersona.fechanacimiento}" id="fechaNacimientoModPersonal" >
+                              <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" value="#{controlPersonaIndividual.nuevaPersona.fechanacimiento}" id="fechaNacimientoModPersonal" >
                                  <p:ajax event="dateSelect" listener="#{controlPersonaIndividual.modificarFechaNacimientoInformacionPersonal(8)}" update="@this" process="@this"/>
                                  <p:ajax event="change" listener="#{controlPersonaIndividual.modificarFechaNacimientoInformacionPersonal(8)}" update="@this" process="@this"/>
                               </p:calendar>
                            </div>
 
                            <h:outputText value="*#{msg['ciudadNacimiento']}:" style="position: absolute; top: 125px; left: 280px; font-weight: bold;"/>
-                           <p:inputText widgetVar="ciudadNacimientoModPersonal" onclick="select();" value="#{controlPersonaIndividual.txt_ciudadNac}" id="ciudadNacimientoModPersonal"
+                           <p:inputText autocomplete="off" widgetVar="ciudadNacimientoModPersonal" onclick="select();" value="#{controlPersonaIndividual.txt_ciudadNac}" id="ciudadNacimientoModPersonal"
                                         style="position: absolute; top: 120px; left: 400px; width: 150px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemInformacionPersonal(9)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarInformacionPersonal(9,'NACIMIENTO', controlPersonaIndividual.txt_ciudadNac)}" process="@this" update="@this"/>
@@ -179,7 +182,7 @@
 
                            <h:outputText  value="*#{msg['fechaIngreso']}:" style="position: absolute; top: 25px; left: 580px; font-weight: bold;"/>
                            <div id="divFechaIngresoModPersonal" style="position: absolute; top: 20px; left: 695px;">
-                              <p:calendar mask="true" pattern="dd/MM/yyyy" id="fechaIngresoModPersonal" value="#{controlPersonaIndividual.fechaIngreso}" >
+                              <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="fechaIngresoModPersonal" value="#{controlPersonaIndividual.fechaIngreso}" >
                                  <p:ajax event="dateSelect" listener="#{controlPersonaIndividual.modificarFechaIngresoInformacionPersonal(10)}" 
                                          update="fechaIngresoModPersonal" process="@this" onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
                                  <p:ajax event="change" listener="#{controlPersonaIndividual.modificarFechaIngresoInformacionPersonal(10)}"
@@ -188,24 +191,24 @@
                            </div>
 
                            <h:outputText  value="*#{msg['codigoEmpleado']}:" style="position: absolute; top: 50px; left: 580px; font-weight: bold;"/>
-                           <p:inputText onclick="select();" value="#{controlPersonaIndividual.nuevoEmpleado.codigoempleado}" id="codigoEmpleadoModPersonal"
+                           <p:inputText autocomplete="off" onclick="select();" value="#{controlPersonaIndividual.nuevoEmpleado.codigoempleado}" id="codigoEmpleadoModPersonal"
                                         style="position: absolute; top: 45px; left: 695px; width: 110px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemInformacionPersonal(11)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarCodigoEmpleado()}" process="@this" update="@this"/>
                               <p:keyFilter for="codigoEmpleadoModPersonal" mask="num"/>
                            </p:inputText>
 
-
                            <h:outputText  value="#{msg['correoElectronico']}:" style="position: absolute; top: 75px; left: 580px; font-weight: bold;"/>
-                           <p:inputText maxlength="100" onclick="select();" value="#{controlPersonaIndividual.nuevaPersona.email}" id="correoModPersonal"
+                           <p:inputText autocomplete="off" maxlength="100" onclick="select();" value="#{controlPersonaIndividual.nuevaPersona.email}" id="correoModPersonal"
                                         style="position: absolute; top: 70px; left: 695px; width: 110px;">
+                              <p:keyFilter mask="/[a-z0-9_\.\-@]/i" for="correoModPersonal" />
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemInformacionPersonal(12)}" process="@this"/>
                               <p:ajax event="change" process="@this" listener="#{controlPersonaIndividual.validarEmailPersona(controlPersonaIndividual.nuevaPersona.email)}" update="correoModPersonal"/>
                            </p:inputText>
 
                            <h:outputText  value="#{msg['fechaUltimoPago']}:" style="position: absolute; top: 100px; left: 580px; font-weight: bold;"/>
                            <div id="divFechaUltimoPagoModPersonal" style="position: absolute; top: 95px; left: 695px;">
-                              <p:calendar mask="true" pattern="dd/MM/yyyy" value="#{controlPersonaIndividual.fechaCorte}" id="fechaUltimoPagoModPersonal" >
+                              <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" value="#{controlPersonaIndividual.fechaCorte}" id="fechaUltimoPagoModPersonal" >
                                  <p:ajax event="dateSelect" listener="#{controlPersonaIndividual.modificarFechaUltimoPagoInformacionPersonal(13)}" update="@this" process="@this"/>
                                  <p:ajax event="change" listener="#{controlPersonaIndividual.modificarFechaUltimoPagoInformacionPersonal(13)}" update="@this" process="@this"/>
                               </p:calendar>
@@ -220,7 +223,7 @@
                                          background-repeat: no-repeat; border: none; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
 
                            <h:outputText  value="*#{msg['nombreCargo']}:" style="position: absolute; top: 20px; left: 65px; font-weight: bold;"/>
-                           <p:inputText id="cargoModCargoDesempeñado" onclick="select();" value="#{controlPersonaIndividual.txt_cargo}"
+                           <p:inputText autocomplete="off" id="cargoModCargoDesempeñado" onclick="select();" value="#{controlPersonaIndividual.txt_cargo}"
                                         style="position: absolute; top: 15px; left: 220px; width: 160px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemCargoDesempeñado(0)}" immediate="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarCargoDesempeñado(0,'CARGO', controlPersonaIndividual.txt_cargo)}" process="@this" update="cargoModCargoDesempeñado"/>
@@ -230,7 +233,7 @@
                            </p:inputText>
 
                            <h:outputText  value="*#{msg['motivoCargo']}:" style="position: absolute; top: 45px; left: 65px;font-weight: bold;"/>
-                           <p:inputText id="motivoModCargoDesempeñado" onclick="select();" value="#{controlPersonaIndividual.txt_motivoCargo}"
+                           <p:inputText autocomplete="off" id="motivoModCargoDesempeñado" onclick="select();" value="#{controlPersonaIndividual.txt_motivoCargo}"
                                         style="position: absolute; top: 40px; left: 220px; width: 160px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemCargoDesempeñado(1)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarCargoDesempeñado(1,'MOTIVO', controlPersonaIndividual.txt_motivoCargo)}" process="@this" update="motivoModCargoDesempeñado"/>
@@ -240,7 +243,7 @@
                            </p:inputText>
 
                            <h:outputText id="infoEstructuraCargoDesempeñado" value="*#{msg['nombreEstructuraCargo']}:" style="position: absolute; top: 70px; left: 65px;font-weight: bold;"/>
-                           <p:inputText id="estructuraModCargoDesempeñado" widgetVar="estructuraModCargoDesempeñado" disabled="#{controlPersonaIndividual.disableNombreEstructuraCargo}" onclick="select();"
+                           <p:inputText autocomplete="off" id="estructuraModCargoDesempeñado" widgetVar="estructuraModCargoDesempeñado" disabled="#{controlPersonaIndividual.disableNombreEstructuraCargo}" onclick="select();"
                                         value="#{controlPersonaIndividual.nuevaVigenciaCargo.estructura.nombre}"
                                         style="position: absolute; top: 65px; left: 220px; width: 160px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemCargoDesempeñado(2)}" process="@this"/>
@@ -252,7 +255,7 @@
                            <p:tooltip style="font-size: 12px;" for="infoEstructuraCargoDesempeñado" value="#{msg['infoEstructuraCargoDesempenado']}"/>
 
                            <h:outputText  value="#{msg['papelDesempenado']}:" style="position: absolute; top: 95px; left: 65px;font-weight: bold;"/>
-                           <p:inputText id="papelModCargoDesempeñado" widgetVar="papelModCargoDesempeñado" onclick="select();" value="#{controlPersonaIndividual.txt_papel}"
+                           <p:inputText autocomplete="off" id="papelModCargoDesempeñado" widgetVar="papelModCargoDesempeñado" onclick="select();" value="#{controlPersonaIndividual.txt_papel}"
                                         style="position: absolute; top: 90px; left: 220px; width: 160px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemCargoDesempeñado(3)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarCargoDesempeñado(3,'PAPEL', controlPersonaIndividual.txt_papel)}" 
@@ -263,7 +266,7 @@
                            </p:inputText>
 
                            <h:outputText  value="#{msg['empleadoJefe']}:" style="position: absolute; top: 120px; left: 65px;font-weight: bold;"/>
-                           <p:inputText id="empleadoJefeModCargoDesempeñado" widgetVar="empleadoJefeModCargoDesempeñado" onclick="select();" value="#{controlPersonaIndividual.txt_empleado}"
+                           <p:inputText autocomplete="off" id="empleadoJefeModCargoDesempeñado" widgetVar="empleadoJefeModCargoDesempeñado" onclick="select();" value="#{controlPersonaIndividual.txt_empleado}"
                                         style="position: absolute; top: 115px; left: 220px; width: 160px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemCargoDesempeñado(4)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarCargoDesempeñado(4,'JEFE', controlPersonaIndividual.txt_empleado)}" onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" process="@this"/>
@@ -281,7 +284,7 @@
                                          background-repeat: no-repeat; border: none; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
 
                            <h:outputText  value="*#{msg['descripcionMotivo']}:" style="position: absolute; top: 20px; left: 65px;font-weight: bold;"/>
-                           <p:inputText id="motivoModCentroCosto" onclick="select();" value="#{controlPersonaIndividual.txt_motivoCentroC}"
+                           <p:inputText autocomplete="off" id="motivoModCentroCosto" onclick="select();" value="#{controlPersonaIndividual.txt_motivoCentroC}"
                                         style="position: absolute; top: 15px; left: 240px; width: 155px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemCentroCosto(0)}" onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarCentroCosto(0,'MOTIVO', controlPersonaIndividual.txt_motivoCentroC)}" process="@this" update="motivoModCentroCosto"/>
@@ -291,7 +294,7 @@
                            </p:inputText>
 
                            <h:outputText id="infoEstructuraCentroCosto" value="*#{msg['descripcionEstructura']}:" style="position: absolute; top: 45px; left: 65px;font-weight: bold;"/>
-                           <p:inputText id="estructuraModCentroCosto" disabled="#{controlPersonaIndividual.disableDescripcionEstructura}" onclick="select();" value="#{controlPersonaIndividual.nuevaVigenciaLocalizacion.localizacion.nombre}"
+                           <p:inputText autocomplete="off" id="estructuraModCentroCosto" disabled="#{controlPersonaIndividual.disableDescripcionEstructura}" onclick="select();" value="#{controlPersonaIndividual.nuevaVigenciaLocalizacion.localizacion.nombre}"
                                         style="position: absolute; top: 40px; left: 240px; width: 155px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemCentroCosto(1)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarCentroCosto(1,'ESTRUCTURA', controlPersonaIndividual.nuevaVigenciaLocalizacion.localizacion.centrocosto.nombre)}" process="@this" update="estructuraModCentroCosto"/>
@@ -310,7 +313,7 @@
                                          background-repeat: no-repeat; border: none; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
 
                            <h:outputText  value="*#{msg['tipoTrabajador']}:" style="position: absolute; top: 30px; left: 65px;font-weight: bold;"/>
-                           <p:inputText id="tipoTrabajadorModTipoTrabajador" onclick="select();" value="#{controlPersonaIndividual.nuevaVigenciaTipoTrabajador.tipotrabajador.nombre}"
+                           <p:inputText autocomplete="off" id="tipoTrabajadorModTipoTrabajador" onclick="select();" value="#{controlPersonaIndividual.nuevaVigenciaTipoTrabajador.tipotrabajador.nombre}"
                                         style="position: absolute; top: 25px; left: 230px; width: 150px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemTipoTrabajador(0)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarTipoTrabajador(0,'TIPOTRABAJADOR', controlPersonaIndividual.nuevaVigenciaTipoTrabajador.tipotrabajador.nombre)}"
@@ -328,7 +331,7 @@
                                          background-repeat: no-repeat; border: none; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
 
                            <h:outputText id="infoSalarioTipoSalario" value="*#{msg['tipoSalario']}:" style="position: absolute; top: 30px; left: 65px; font-weight: bold;"/>
-                           <p:inputText id="tipoSalarioModTipoSalario" disabled="#{controlPersonaIndividual.disableCamposDependientesTipoT}" onclick="select();"
+                           <p:inputText autocomplete="off" id="tipoSalarioModTipoSalario" disabled="#{controlPersonaIndividual.disableCamposDependientesTipoT}" onclick="select();"
                                         value="#{controlPersonaIndividual.nuevaVigenciaReformaLaboral.reformalaboral.nombre}"
                                         style="position: absolute; top: 25px; left: 240px; width: 155px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemReformaLaboral(0)}" process="@this"/>
@@ -351,7 +354,7 @@
                            <h:outputText  value="*#{msg['valorSueldo']}:" style="position: absolute; top: 22px; left: 65px;font-weight: bold">
                               <f:convertNumber currencyCode="COP"/>
                            </h:outputText>
-                           <p:inputText  id="valorSueldoModSueldo" onclick="select();" value="#{controlPersonaIndividual.valorSueldo}"
+                           <p:inputText autocomplete="off"  id="valorSueldoModSueldo" onclick="select();" value="#{controlPersonaIndividual.valorSueldo}"
                                          style="position: absolute; top: 17px; left: 230px;width: 150px;text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemSueldo(0)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificacionValorSueldo(controlPersonaIndividual.valorSueldo)}" process="@this" update="valorSueldoModSueldo"/>
@@ -360,7 +363,7 @@
                            </p:inputText>
 
                            <h:outputText  value="*#{msg['motivoSueldo']}:" style="position: absolute; top: 47px; left: 65px; font-weight: bold;"/>
-                           <p:inputText id="motivoSueldoModSueldo" widgetVar="motivoSueldoModSueldo" onclick="select();" value="#{controlPersonaIndividual.txt_motivoSu}" 
+                           <p:inputText autocomplete="off" id="motivoSueldoModSueldo" widgetVar="motivoSueldoModSueldo" onclick="select();" value="#{controlPersonaIndividual.txt_motivoSu}" 
                                         style="position: absolute; top: 42px; left: 230px; width: 150px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemSueldo(1)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarSueldo(1,'MOTIVO', controlPersonaIndividual.txt_motivoSu)}" process="@this" update="motivoSueldoModSueldo"/>
@@ -370,7 +373,7 @@
                            </p:inputText>
 
                            <h:outputText id="infoSueldoSuelo" value="*#{msg['tipoCompensacion']}:" style="position: absolute; top: 72px; left: 65px;font-weight: bold;"/>
-                           <p:inputText id="tipoSueldoModSueldo" widgetVar="tipoSueldoModSueldo" onclick="select();" disabled="#{controlPersonaIndividual.disableCamposDependientesTipoT}" 
+                           <p:inputText autocomplete="off" id="tipoSueldoModSueldo" widgetVar="tipoSueldoModSueldo" onclick="select();" disabled="#{controlPersonaIndividual.disableCamposDependientesTipoT}" 
                                         value="#{controlPersonaIndividual.txt_TipoSu}" style="position: absolute; top: 67px; left: 230px; width: 150px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemSueldo(2)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarSueldo(2,'TIPOSUELDO', controlPersonaIndividual.txt_TipoSu)}"
@@ -383,7 +386,7 @@
                            <p:tooltip style="font-size: 12px;" for="infoSueldoSuelo" value="#{msg['infoSueldoSuelo']}"/>
 
                            <h:outputText  value="*#{msg['unidadPago']}:" style="position: absolute; top: 97px; left: 65px; font-weight: bold;"/>
-                           <p:inputText id="unidadPagoModSueldo" readonly="true" onclick="select();" value="#{controlPersonaIndividual.unidadPesos.nombre}"
+                           <p:inputText autocomplete="off" id="unidadPagoModSueldo" readonly="true" onclick="select();" value="#{controlPersonaIndividual.unidadPesos.nombre}"
                                         style="position: absolute; top: 92px; left: 230px; width: 150px; text-transform: uppercase;">
                            </p:inputText>
                         </fieldset>
@@ -395,7 +398,7 @@
                                          background-repeat: no-repeat; border: none; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
 
                            <h:outputText  value="*#{msg['motivoContrato']}:" style="position: absolute; top: 22px; left: 65px;font-weight: bold;"/>
-                           <p:inputText id="motivoContratoModTipoContrato" onclick="select();" value="#{controlPersonaIndividual.nuevaVigenciaTipoContrato.motivocontrato.nombre}"
+                           <p:inputText autocomplete="off" id="motivoContratoModTipoContrato" onclick="select();" value="#{controlPersonaIndividual.nuevaVigenciaTipoContrato.motivocontrato.nombre}"
                                         style="position: absolute; top: 17px; left: 240px; width: 155px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemTipoContrato(0)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarTipoContrato(0,'MOTIVO', controlPersonaIndividual.nuevaVigenciaTipoContrato.motivocontrato.nombre)}" process="@this" update="motivoContratoModTipoContrato"/>
@@ -405,7 +408,7 @@
                            </p:inputText>
 
                            <h:outputText id="infoContratoTipoContrato" value="*#{msg['tipoContrato']}:" style="position: absolute; top: 47px; left: 65px;font-weight: bold;"/>
-                           <p:inputText id="tipoContratoModTipoContrato" disabled="#{controlPersonaIndividual.disableCamposDependientesTipoT}" onclick="select();"
+                           <p:inputText autocomplete="off" id="tipoContratoModTipoContrato" disabled="#{controlPersonaIndividual.disableCamposDependientesTipoT}" onclick="select();"
                                         value="#{controlPersonaIndividual.nuevaVigenciaTipoContrato.tipocontrato.nombre}"
                                         style="position: absolute; top: 42px; left: 240px; width: 155px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemTipoContrato(1)}" process="@this"/>
@@ -420,7 +423,7 @@
 
                            <h:outputText  value="#{msg['fechaFinalContrato']}:" style="position: absolute; top: 72px; left: 65px;font-weight: bold;"/>
                            <div id="divFechaFinalContratoModTipoContrato" style="position: absolute; top: 67px; left: 240px;">
-                              <p:calendar mask="true" pattern="dd/MM/yyyy" value="#{controlPersonaIndividual.nuevaVigenciaTipoContrato.fechavigencia}" id="fechaFinalContratoModTipoContrato" >
+                              <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" value="#{controlPersonaIndividual.nuevaVigenciaTipoContrato.fechavigencia}" id="fechaFinalContratoModTipoContrato" >
                                  <p:ajax  event="dateSelect" listener="#{controlPersonaIndividual.modificarFechaFechaVigenciaTipoContrato(2)}" process="@this"/>
                                  <p:ajax event="change" listener="#{controlPersonaIndividual.modificarFechaFechaVigenciaTipoContrato(2)}" update="@this" process="@this"/>
                               </p:calendar>
@@ -434,7 +437,7 @@
                                          background-repeat: no-repeat; border: none; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
 
                            <h:outputText id="infoNormaNormaLaboral" value="*#{msg['normaLaboral']}:" style="position: absolute; top: 35px; left: 65px;font-weight: bold;"/>
-                           <p:inputText id="normaLaboralModNormaLaboral" disabled="#{controlPersonaIndividual.disableCamposDependientesTipoT}" onclick="select();" value="#{controlPersonaIndividual.nuevaVigenciaNormaEmpleado.normalaboral.nombre}"
+                           <p:inputText autocomplete="off" id="normaLaboralModNormaLaboral" disabled="#{controlPersonaIndividual.disableCamposDependientesTipoT}" onclick="select();" value="#{controlPersonaIndividual.nuevaVigenciaNormaEmpleado.normalaboral.nombre}"
                                         style="position: absolute; top: 30px; left: 230px; width: 150px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemNormaLaboral(0)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarNormaLaboral(0,'NORMA', controlPersonaIndividual.nuevaVigenciaNormaEmpleado.normalaboral.nombre)}"
@@ -455,7 +458,7 @@
                                          background-repeat: no-repeat; border: none; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
 
                            <h:outputText id="infoLegislacionLegislacionLaboral"  value="*#{msg['legislacionLaboral']}:" style="position: absolute; top: 35px; left: 65px;font-weight: bold;"/>
-                           <p:inputText id="legislacionLaboralModLegislacionLaboral" disabled="#{controlPersonaIndividual.disableCamposDependientesTipoT}" onclick="select();" value="#{controlPersonaIndividual.nuevaVigenciaContrato.contrato.descripcion}"
+                           <p:inputText autocomplete="off" id="legislacionLaboralModLegislacionLaboral" disabled="#{controlPersonaIndividual.disableCamposDependientesTipoT}" onclick="select();" value="#{controlPersonaIndividual.nuevaVigenciaContrato.contrato.descripcion}"
                                         style="position: absolute; top: 30px; left: 240px; width: 155px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemLegislacionLaboral(0)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarLegislacionLaboral(0,'CONTRATO', controlPersonaIndividual.nuevaVigenciaContrato.contrato.descripcion)}" 
@@ -475,7 +478,7 @@
                                          background-repeat: no-repeat; border: none; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
 
                            <h:outputText id="infoUbicacionUbicacion" value="*#{msg['ubicacionGeografica']}:" style="position: absolute; top: 25px; left: 65px;font-weight: bold;"/>
-                           <p:inputText id="ubicacionGeograficaModUbicacionGeografica" onclick="select();" disabled="#{controlPersonaIndividual.disableUbicacionGeografica}"
+                           <p:inputText autocomplete="off" id="ubicacionGeograficaModUbicacionGeografica" onclick="select();" disabled="#{controlPersonaIndividual.disableUbicacionGeografica}"
                                         value="#{controlPersonaIndividual.txt_ubicacionG}" style="position: absolute; top: 30px; left: 230px; width: 150px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemUbicacionGeografica(0)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarUbicacionGeografica(0,'UBICACION', controlPersonaIndividual.txt_ubicacionG)}" process="@this" update="ubicacionGeograficaModUbicacionGeografica"/>
@@ -494,7 +497,7 @@
                                          background-repeat: no-repeat; border: none; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
 
                            <h:outputText  value="*#{msg['jornadaLaboral']}:" style="position: absolute; top: 35px; left: 65px;font-weight: bold;"/>
-                           <p:inputText id="jornadaLaboralModJornadaLaboral" onclick="select();" value="#{controlPersonaIndividual.txt_jornada}"
+                           <p:inputText autocomplete="off" id="jornadaLaboralModJornadaLaboral" onclick="select();" value="#{controlPersonaIndividual.txt_jornada}"
                                         style="position: absolute; top: 30px; left: 240px; width: 155px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemJornadaLaboral(0)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarJornadaLaboral(0,'JORNADA', controlPersonaIndividual.txt_jornada)}" process="@this" update="jornadaLaboralModJornadaLaboral"/>
@@ -511,7 +514,7 @@
                                          background-repeat: no-repeat; border: none; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
 
                            <h:outputText  value="*#{msg['formaPago']}:" style="position: absolute; top: 20px; left: 65px;font-weight: bold;"/>
-                           <p:inputText id="formaPagoModFormaPago" onclick="select();" value="#{controlPersonaIndividual.txt_formaP}"
+                           <p:inputText autocomplete="off" id="formaPagoModFormaPago" onclick="select();" value="#{controlPersonaIndividual.txt_formaP}"
                                         style="position: absolute; top: 15px; left: 230px; width: 200px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemFormaPago(0)}" immediate="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarFormaPago(0,'FORMA', controlPersonaIndividual.txt_formaP)}" process="@this" update="formaPagoModFormaPago"/>
@@ -521,23 +524,23 @@
                            </p:inputText>
 
                            <h:outputText  value="#{msg['cuentaPago']}:" style="position: absolute; top: 45px; left: 65px;font-weight: bold;"/>
-                           <p:inputText id="cuentaPagoModFormaPago" maxlength="25"  onclick="select();" value="#{controlPersonaIndividual.nuevaVigenciaFormaPago.cuenta}"
+                           <p:inputText autocomplete="off" id="cuentaPagoModFormaPago" maxlength="25"  onclick="select();" value="#{controlPersonaIndividual.nuevaVigenciaFormaPago.cuenta}"
                                         style="position: absolute; top: 40px; left: 230px; width: 200px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemFormaPago(1)}" process="@this"/>
                               <p:ajax event="change" process="@this" update="cuentaPagoModFormaPago"/>
                            </p:inputText>
 
                            <h:outputText  value="#{msg['tipoCuenta']}:" style="position: absolute; top: 70px; left: 65px; font-weight: bold;"/>
-                           <p:selectOneMenu id="tipoCuentaModFormaPago" value="#{controlPersonaIndividual.nuevaVigenciaFormaPago.tipocuenta}"
+                           <p:selectOneMenu id="tipoCuentaModFormaPago" value="#{controlPersonaIndividual.txt_tipoCuenta}"
                                             style="position: absolute; top: 65px; left: 230px; font-weight: bold; width: 100px;" >  
-                              <f:selectItem itemLabel="" itemValue="null"/>  
+                              <f:selectItem itemLabel="" itemValue=""/>  
                               <f:selectItem itemLabel="#{msg['ahorros']}" itemValue="A"/>  
                               <f:selectItem itemLabel="#{msg['corriente']}" itemValue="C"/>
-                              <p:ajax event="change" update="@this"/>
+                              <p:ajax event="change" listener="#{controlPersonaIndividual.modificarOneMenus(2)}" update="@this"/>
                            </p:selectOneMenu>
 
                            <h:outputText  value="#{msg['sucursalPago']}:" style="position: absolute; top: 20px; left: 475px; font-weight: bold;"/>
-                           <p:inputText id="sucursalPagoModFormaPago" onclick="select();" value="#{controlPersonaIndividual.nuevaVigenciaFormaPago.sucursal.nombre}"
+                           <p:inputText autocomplete="off" id="sucursalPagoModFormaPago" onclick="select();" value="#{controlPersonaIndividual.nuevaVigenciaFormaPago.sucursal.nombre}"
                                         style="position: absolute; top: 15px; left: 595px; width: 210px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemFormaPago(3)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarFormaPago(3,'SUCURSAL', controlPersonaIndividual.nuevaVigenciaFormaPago.sucursal.nombre)}" process="@this" update="sucursalPagoModFormaPago"/>
@@ -547,7 +550,7 @@
                            </p:inputText>
 
                            <h:outputText  value="*#{msg['metodoPago']}:" style="position: absolute; top: 45px; left: 475px;font-weight: bold;"/>
-                           <p:inputText id="metodoPagoModFormaPago" onclick="select();" value="#{controlPersonaIndividual.txt_metodoP}"
+                           <p:inputText autocomplete="off" id="metodoPagoModFormaPago" onclick="select();" value="#{controlPersonaIndividual.txt_metodoP}"
                                         style="position: absolute; top: 40px; left: 595px; width: 210px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemFormaPago(4)}" immediate="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarFormaPago(4,'METODO', controlPersonaIndividual.txt_metodoP)}" process="@this" update="metodoPagoModFormaPago"/>
@@ -564,7 +567,7 @@
                                          width: 50px; height: 50px; top: 22px; left: 5px;  background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
 
                            <h:outputText id="infoAfiliacionEPS" value="*#{msg['eps']}:" style="position: absolute; top: 17px; left: 65px;font-weight: bold;"/>
-                           <p:inputText id="epsModAfiliaciones" disabled="#{controlPersonaIndividual.disableAfiliaciones}" onclick="select();" value="#{controlPersonaIndividual.txt_terceroEPS}" 
+                           <p:inputText autocomplete="off" id="epsModAfiliaciones" disabled="#{controlPersonaIndividual.disableAfiliaciones}" onclick="select();" value="#{controlPersonaIndividual.txt_terceroEPS}" 
                                         style="position: absolute; top: 12px; left: 400px; width: 375px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemAfiliacionEPS(0)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarAfiliacionEPS(0,'EPS', controlPersonaIndividual.txt_terceroEPS)}" process="@this" update="epsModAfiliaciones"/>
@@ -575,18 +578,18 @@
                            <p:tooltip style="font-size: 12px;" for="infoAfiliacionEPS" value="#{msg['infoAfiliacion']}"/>
 
                            <h:outputText id="infoAfiliacionARP" value="*#{msg['arp']}:" style="position: absolute; top: 42px; left: 65px;font-weight: bold;"/>
-                           <p:inputText id="arpModAfiliaciones" disabled="#{controlPersonaIndividual.disableAfiliaciones}" onclick="select();" value="#{controlPersonaIndividual.txt_terceroARL}" 
+                           <p:inputText autocomplete="off" id="arpModAfiliaciones" readonly="true" onclick="select();" value="#{controlPersonaIndividual.txt_terceroARL}" 
                                         style="position: absolute; top: 37px; left: 400px; width: 375px; text-transform: uppercase;">
-                              <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemAfiliacionARP(0)}" process="@this"/>
-                              <p:ajax event="change" listener="#{controlPersonaIndividual.modificarAfiliacionARP(0,'ARP', controlPersonaIndividual.txt_terceroARL)}" process="@this" update="arpModAfiliaciones"/>
-                              <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresAfiliacionARP()}" process="@this"/>
-                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 38px; left: 762px; z-index: 5;" disabled="#{controlPersonaIndividual.disableAfiliaciones}"
-                                               actionListener="#{controlPersonaIndividual.listaValoresAfiliacionARP()}" process="@this"/>
+<!--                              <p:ajax event="focus" listener="#/{controlPersonaIndividual.cambiarItemAfiliacionARP(0)}" process="@this"/>
+                              <p:ajax event="change" listener="#/{controlPersonaIndividual.modificarAfiliacionARP(0,'ARP', controlPersonaIndividual.txt_terceroARL)}" process="@this" update="arpModAfiliaciones"/>
+                              <p:ajax event="dblclick" listener="#/{controlPersonaIndividual.listaValoresAfiliacionARP()}" process="@this"/>-->
+<!--                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 38px; left: 762px; z-index: 5;" disabled="#{controlPersonaIndividual.disableAfiliaciones}"
+                                               actionListener="#/{controlPersonaIndividual.listaValoresAfiliacionARP()}" process="@this"/>-->
                            </p:inputText>
                            <p:tooltip style="font-size: 12px;" for="infoAfiliacionARP" value="#{msg['infoAfiliacion']}"/>
 
                            <h:outputText id="infoAfiliacionFondo" value="#{msg['fondoCensantias']}:" style="position: absolute; top: 67px; left: 65px;font-weight: bold;"/>
-                           <p:inputText id="fondoCensantiasModAfiliaciones" disabled="#{controlPersonaIndividual.disableAfiliaciones}" onclick="select();" value="#{controlPersonaIndividual.txt_terceroCes}" 
+                           <p:inputText autocomplete="off" id="fondoCensantiasModAfiliaciones" disabled="#{controlPersonaIndividual.disableAfiliaciones}" onclick="select();" value="#{controlPersonaIndividual.txt_terceroCes}" 
                                         style="position: absolute; top: 62px; left: 400px; width: 375px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemAfiliacionFondo(0)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarAfiliacionFondo(0,'FONDO', controlPersonaIndividual.txt_terceroCes)}" process="@this" update="fondoCensantiasModAfiliaciones"/>
@@ -597,7 +600,7 @@
                            <p:tooltip style="font-size: 12px;" for="infoAfiliacionFondo" value="#{msg['infoAfiliacion']}"/>
 
                            <h:outputText id="infoAfiliacionAFP" value="#{msg['afp']}:" style="position: absolute; top: 95px; left: 65px; font-weight: bold;"/>
-                           <p:inputText id="afpModAfiliaciones" disabled="#{controlPersonaIndividual.disableAfiliaciones}" onclick="select();" value="#{controlPersonaIndividual.txt_terceroAFP}" 
+                           <p:inputText autocomplete="off" id="afpModAfiliaciones" disabled="#{controlPersonaIndividual.disableAfiliaciones}" onclick="select();" value="#{controlPersonaIndividual.txt_terceroAFP}" 
                                         style="position: absolute; top: 87px; left: 400px; width: 375px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemAfiliacionAFP(0)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarAfiliacionAFP(0,'AFP', controlPersonaIndividual.txt_terceroAFP)}" process="@this" update="afpModAfiliaciones"/>
@@ -608,7 +611,7 @@
                            <p:tooltip style="font-size: 12px;" for="infoAfiliacionAFP" value="#{msg['infoAfiliacion']}"/>
 
                            <h:outputText id="infoAfiliacionCaja" value="#{msg['cajaCompensacion']}:" style="position: absolute; top: 117px; left: 65px;font-weight: bold;"/>
-                           <p:inputText id="cajaCompensacionModAfiliaciones" disabled="#{controlPersonaIndividual.disableAfiliaciones}" value="#{controlPersonaIndividual.txt_terceroCC}" onclick="select();" 
+                           <p:inputText autocomplete="off" id="cajaCompensacionModAfiliaciones" disabled="#{controlPersonaIndividual.disableAfiliaciones}" value="#{controlPersonaIndividual.txt_terceroCC}" onclick="select();" 
                                         style="position: absolute; top: 112px; left: 400px; width: 375px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemAfiliacionCaja(0)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarAfiliacionCaja(0,'CAJA', controlPersonaIndividual.txt_terceroCC)}" process="@this" update="cajaCompensacionModAfiliaciones"/>
@@ -629,23 +632,23 @@
                                             background-repeat: no-repeat; border: none; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
 
                               <h:outputText  value="#{msg['grupoSanguineo']}:" style="position: absolute; top: 20px; left: 65px; font-weight: bold;"/>
-                              <p:selectOneMenu id="grupoSanguineoModFactorRH" widgetVar="grupoSanguineoModFactorRH" value="#{controlPersonaIndividual.nuevaPersona.gruposanguineo}" 
+                              <p:selectOneMenu id="grupoSanguineoModFactorRH" widgetVar="grupoSanguineoModFactorRH" value="#{controlPersonaIndividual.txt_grupoS}" 
                                                style="position: absolute; top: 15px; left: 190px; font-weight: bold; width: 60px;" >  
-                                 <f:selectItem itemLabel="" itemValue="null"/>  
+                                 <f:selectItem itemLabel="" itemValue="#{null}"/>  
                                  <f:selectItem itemLabel="A" itemValue="A"/>  
                                  <f:selectItem itemLabel="AB" itemValue="AB"/>
                                  <f:selectItem itemLabel="B" itemValue="B"/>  
                                  <f:selectItem itemLabel="O" itemValue="O"/>
-                                 <p:ajax event="change" update="@this"/>
+                                 <p:ajax event="change" listener="#{controlPersonaIndividual.modificarOneMenus(3)}" update="@this"/>
                               </p:selectOneMenu>
 
                               <h:outputText  value="#{msg['factorRH']}:" style="position: absolute; top: 45px; left: 65px; font-weight: bold;"/>
-                              <p:selectOneMenu id="factorRHModFactorRH" value="#{controlPersonaIndividual.nuevaPersona.factorrh}" 
+                              <p:selectOneMenu id="factorRHModFactorRH" value="#{controlPersonaIndividual.txt_RH}" 
                                                style="position: absolute; top: 40px; left: 190px; font-weight: bold;width: 60px;" >  
-                                 <f:selectItem itemLabel="" itemValue="null"/>  
+                                 <f:selectItem itemLabel="" itemValue="#{null}"/>  
                                  <f:selectItem itemLabel="+" itemValue="P"/>  
                                  <f:selectItem itemLabel="-" itemValue="N"/>
-                                 <p:ajax event="change" update="@this"/>
+                                 <p:ajax event="change" listener="#{controlPersonaIndividual.modificarOneMenus(4)}" update="@this"/>
                               </p:selectOneMenu>
                            </fieldset>
 
@@ -656,7 +659,7 @@
                                             background-repeat: no-repeat; border: none; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
 
                               <h:outputText  value="#{msg['descripcion']}:" style="position: absolute; top: 25px; left: 65px;font-weight: bold;"/>
-                              <p:inputText id="estadoCivilModEstadoCivil" onclick="select();" value="#{controlPersonaIndividual.nuevoEstadoCivil.estadocivil.descripcion}"
+                              <p:inputText autocomplete="off" id="estadoCivilModEstadoCivil" onclick="select();" value="#{controlPersonaIndividual.nuevoEstadoCivil.estadocivil.descripcion}"
                                            style="position: absolute; top: 20px; left: 185px; width: 175px; text-transform: uppercase;">
                                  <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemEstadoCivil(0)}" process="@this"/>
                                  <p:ajax event="change" listener="#{controlPersonaIndividual.modificarEstadoCivil(0,'ESTADO', controlPersonaIndividual.nuevoEstadoCivil.estadocivil.descripcion)}" process="@this" update="estadoCivilModEstadoCivil"/>
@@ -673,7 +676,7 @@
                                             background-repeat: no-repeat; border: none; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
 
                               <h:outputText  value="#{msg['direccion']}:" style="position: absolute; top: 20px; left: 65px;font-weight: bold;"/>
-                              <p:inputText maxlength="100"  id="direccionModDireccion" onclick="select();" value="#{controlPersonaIndividual.nuevaDireccion.direccionalternativa}"
+                              <p:inputText autocomplete="off" maxlength="100"  id="direccionModDireccion" onclick="select();" value="#{controlPersonaIndividual.nuevaDireccion.direccionalternativa}"
                                            style="position: absolute; top: 15px; left: 190px; width: 170px; text-transform: uppercase;">
                                  <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemDireccion(0)}" process="@this"/>
                                  <p:ajax event="change" process="@this" update="direccionModDireccion"/>
@@ -681,7 +684,7 @@
 
 
                               <h:outputText  value="#{msg['ciudad']}:" style="position: absolute; top: 45px; left: 65px;font-weight: bold;"/>
-                              <p:inputText id="ciudadModDireccion" onclick="select();" value="#{controlPersonaIndividual.nuevaDireccion.ciudad.nombre}"
+                              <p:inputText autocomplete="off" id="ciudadModDireccion" onclick="select();" value="#{controlPersonaIndividual.nuevaDireccion.ciudad.nombre}"
                                            style="position: absolute; top: 40px; left: 190px; width: 170px; text-transform: uppercase;">
                                  <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemDireccion(1)}" process="@this"/>
                                  <p:ajax event="change" listener="#{controlPersonaIndividual.modificarDireccion(1,'CIUDAD', controlPersonaIndividual.nuevaDireccion.ciudad.nombre)}" process="@this" update="ciudadModDireccion"/>
@@ -698,7 +701,7 @@
                                             background-repeat: no-repeat; border: none; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
 
                               <h:outputText  value="#{msg['tipoTelefono']}:" style="position: absolute; top: 20px; left: 65px;font-weight: bold;"/>
-                              <p:inputText id="tipoTelefonoModTelefono" onclick="select();" value="#{controlPersonaIndividual.nuevoTelefono.tipotelefono.nombre}" 
+                              <p:inputText autocomplete="off" id="tipoTelefonoModTelefono" onclick="select();" value="#{controlPersonaIndividual.nuevoTelefono.tipotelefono.nombre}" 
                                            style="position: absolute; top: 15px; left: 185px; width: 175px; text-transform: uppercase;">
                                  <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemTelefono(0)}" process="@this"/>
                                  <p:ajax event="change" listener="#{controlPersonaIndividual.modificarTelefono(0,'TIPO', controlPersonaIndividual.nuevoTelefono.tipotelefono.nombre)}"
@@ -709,7 +712,7 @@
                               </p:inputText>
 
                               <h:outputText  value="#{msg['ciudad']}:" style="position: absolute; top: 45px; left: 65px;font-weight: bold;"/>
-                              <p:inputText id="ciudadModTelefono" onclick="select();" value="#{controlPersonaIndividual.nuevoTelefono.ciudad.nombre}" 
+                              <p:inputText autocomplete="off" id="ciudadModTelefono" onclick="select();" value="#{controlPersonaIndividual.nuevoTelefono.ciudad.nombre}" 
                                            style="position: absolute; top: 40px; left: 185px;width: 175px;text-transform: uppercase;">
                                  <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemTelefono(1)}" process="@this"/>
                                  <p:ajax event="change" listener="#{controlPersonaIndividual.modificarTelefono(1,'CIUDAD', controlPersonaIndividual.nuevoTelefono.ciudad.nombre)}"
@@ -720,7 +723,7 @@
                               </p:inputText>
 
                               <h:outputText  value="#{msg['numeroTelefono']}:" style="position: absolute; top: 70px; left: 65px;font-weight: bold;"/>
-                              <p:inputText id="numeroTelefonoModTelefono" onclick="select();" value="#{controlPersonaIndividual.nuevoTelefono.numerotelefono}" 
+                              <p:inputText autocomplete="off" id="numeroTelefonoModTelefono" onclick="select();" value="#{controlPersonaIndividual.nuevoTelefono.numerotelefono}" 
                                            style="position: absolute; top: 65px; left: 185px;width: 175px;text-transform: uppercase;">
                                  <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemTelefono(2)}" process="@this"/>
                                  <p:ajax event="change" listener="#{controlPersonaIndividual.modificarNumeroTelefonico(controlPersonaIndividual.nuevoTelefono.numerotelefono)}"
@@ -768,7 +771,7 @@
 
                            <f:facet name="header"> 
                               <h:outputText value="#{msg['buscarEIP']}"/>  
-                              <p:inputText id="globalFilter" onkeyup="PF('lovEmpresaInformacionPersonal').filter();" class="cssFiltroLOV"/>  
+                              <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovEmpresaInformacionPersonal').filter();" class="cssFiltroLOV"/>  
                            </f:facet>
                            <p:column filterBy="#{empresaIP.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                               <f:facet name="header">
@@ -810,7 +813,7 @@
 
                            <f:facet name="header">  
                               <h:outputText value="#{msg['buscarTDIP']}"  />  
-                              <p:inputText id="globalFilter" onkeyup="PF('lovTipoDocumentoInformacionPersonal').filter();" class="cssFiltroLOV"/>  
+                              <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovTipoDocumentoInformacionPersonal').filter();" class="cssFiltroLOV"/>  
                            </f:facet>
                            <p:column filterBy="#{tipoDIP.nombrecorto}" width="100" filterMatchMode="contains" filterStyle="width: 85% !important">
                               <f:facet name="header">
@@ -854,7 +857,7 @@
 
                            <f:facet name="header"> 
                               <h:outputText value="#{msg['buscarCDIP']}"/>  
-                              <p:inputText id="globalFilter" onkeyup="PF('lovCiudadDocumentoInformacionPersonal').filter();" class="cssFiltroLOV"/>  
+                              <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovCiudadDocumentoInformacionPersonal').filter();" class="cssFiltroLOV"/>  
                            </f:facet>
 
                            <p:column filterBy="#{ciudadDIP.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
@@ -900,7 +903,7 @@
 
                            <f:facet name="header">  
                               <h:outputText value="#{msg['buscarCNIP']}"/>  
-                              <p:inputText id="globalFilter" onkeyup="PF('lovCiudadNacimientoInformacionPersonal').filter();" class="cssFiltroLOV"/>  
+                              <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovCiudadNacimientoInformacionPersonal').filter();" class="cssFiltroLOV"/>  
                            </f:facet>
                            <p:column filterBy="#{ciudadDIP.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                               <f:facet name="header">
@@ -942,7 +945,7 @@
 
                            <f:facet name="header">  
                               <h:outputText value="#{msg['buscarCCD']}"/>  
-                              <p:inputText id="globalFilter" onkeyup="PF('lovCargoCargoDesempeñado').filter();" class="cssFiltroLOV"/>  
+                              <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovCargoCargoDesempeñado').filter();" class="cssFiltroLOV"/>  
                            </f:facet>
                            <p:column filterBy="#{cargoCD.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                               <f:facet name="header">
@@ -977,7 +980,7 @@
 
                            <f:facet name="header">  
                               <h:outputText value="#{msg['buscarMCCCD']}"/>  
-                              <p:inputText id="globalFilter" onkeyup="PF('lovMotivoCambioCargoCargoDesempeñado').filter();" class="cssFiltroLOV"/>  
+                              <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovMotivoCambioCargoCargoDesempeñado').filter();" class="cssFiltroLOV"/>  
                            </f:facet>
                            <p:column filterBy="#{motivoCambioCD.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                               <f:facet name="header">
@@ -1012,7 +1015,7 @@
 
                            <f:facet name="header">  
                               <h:outputText value="#{msg['buscarECD']}"/>  
-                              <p:inputText id="globalFilter" onkeyup="PF('lovEstructuraCargoDesempeñado').filter();" class="cssFiltroLOV"/>  
+                              <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovEstructuraCargoDesempeñado').filter();" class="cssFiltroLOV"/>  
                            </f:facet>
                            <p:column filterBy="#{estructuraCD.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                               <f:facet name="header">
@@ -1048,7 +1051,7 @@
 
                            <f:facet name="header"> 
                               <h:outputText value="#{msg['buscarPCD']}"/>  
-                              <p:inputText id="globalFilter" onkeyup="PF('lovPapelCargoDesempeñado').filter();" class="cssFiltroLOV"/>  
+                              <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovPapelCargoDesempeñado').filter();" class="cssFiltroLOV"/>  
                            </f:facet>
                            <p:column filterBy="#{papelCD.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                               <f:facet name="header">
@@ -1083,7 +1086,7 @@
 
                            <f:facet name="header"> 
                               <h:outputText value="#{msg['buscarEJCD']}"/>  
-                              <p:inputText id="globalFilter" onkeyup="PF('lovEmpleadoJefeCargoDesempeñado').filter();" class="cssFiltroLOV"/>  
+                              <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovEmpleadoJefeCargoDesempeñado').filter();" class="cssFiltroLOV"/>  
                            </f:facet>
                            <p:column filterBy="#{jefeCD.persona.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                               <f:facet name="header">
@@ -1119,7 +1122,7 @@
 
                            <f:facet name="header">  
                               <h:outputText value="#{msg['buscarMLCC']}"/>  
-                              <p:inputText id="globalFilter" onkeyup="PF('lovMotivoLocalizacionCentroCosto').filter();" class="cssFiltroLOV"/>  
+                              <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovMotivoLocalizacionCentroCosto').filter();" class="cssFiltroLOV"/>  
                            </f:facet>
                            <p:column filterBy="#{motivoLCC.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                               <f:facet name="header">
@@ -1153,7 +1156,7 @@
 
                            <f:facet name="header"> 
                               <h:outputText value="#{msg['buscarECC']}"/>  
-                              <p:inputText id="globalFilter" onkeyup="PF('lovEstructuraCentroCosto').filter();" class="cssFiltroLOV"/>  
+                              <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovEstructuraCentroCosto').filter();" class="cssFiltroLOV"/>  
                            </f:facet>
                            <p:column filterBy="#{estructuraCC.centrocosto.codigo}" width="80" filterMatchMode="contains" filterStyle="width: 85% !important" >
                               <f:facet name="header">
@@ -1204,7 +1207,7 @@
 
                         <f:facet name="header">  
                            <h:outputText value="#{msg['buscarTTTT']}"/>  
-                           <p:inputText id="globalFilter" onkeyup="PF('lovTipoTrabajadorTipoTrabajador').filter();" class="cssFiltroLOV"/>  
+                           <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovTipoTrabajadorTipoTrabajador').filter();" class="cssFiltroLOV"/>  
                         </f:facet>
 
                         <p:column headerText="#{msg['nombreTipoTrabajador']}" filterBy="#{tipoTTT.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important;">
@@ -1238,7 +1241,7 @@
 
                         <f:facet name="header">  
                            <h:outputText value="#{msg['buscarRLTS']}"/>  
-                           <p:inputText id="globalFilter" onkeyup="PF('lovReformaLaboralTipoSalario').filter();" class="cssFiltroLOV"/>  
+                           <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovReformaLaboralTipoSalario').filter();" class="cssFiltroLOV"/>  
                         </f:facet>
 
                         <p:column filterBy="#{reformaLTS.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
@@ -1274,7 +1277,7 @@
 
                            <f:facet name="header">  
                               <h:outputText value="#{msg['buscarMCSS']}"/>  
-                              <p:inputText id="globalFilter" onkeyup="PF('lovMotivoCambioSueldoSueldo').filter();" class="cssFiltroLOV"/>  
+                              <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovMotivoCambioSueldoSueldo').filter();" class="cssFiltroLOV"/>  
                            </f:facet>
                            <p:column filterBy="#{motivoCambioSS.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                               <f:facet name="header">
@@ -1308,7 +1311,7 @@
 
                            <f:facet name="header">  
                               <h:outputText value="#{msg['buscarTSS']}"/>  
-                              <p:inputText id="globalFilter" onkeyup="PF('lovTipoSueldoSueldo').filter();" class="cssFiltroLOV"/>  
+                              <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovTipoSueldoSueldo').filter();" class="cssFiltroLOV"/>  
                            </f:facet>
                            <p:column filterBy="#{tipoSueldoS.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                               <f:facet name="header">
@@ -1342,7 +1345,7 @@
 
                            <f:facet name="header">  
                               <h:outputText value="#{msg['buscarUS']}"/>  
-                              <p:inputText id="globalFilter" onkeyup="PF('lovUnidadSueldo').filter();" class="cssFiltroLOV"/>  
+                              <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovUnidadSueldo').filter();" class="cssFiltroLOV"/>  
                            </f:facet>
                            <p:column filterBy="#{unidadS.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                               <f:facet name="header">
@@ -1378,7 +1381,7 @@
 
                            <f:facet name="header">  
                               <h:outputText value="#{msg['buscarMCTC']}"  />  
-                              <p:inputText id="globalFilter" onkeyup="PF('lovMotivoContratoTipoContrato').filter();" class="cssFiltroLOV"/>  
+                              <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovMotivoContratoTipoContrato').filter();" class="cssFiltroLOV"/>  
                            </f:facet>
                            <p:column filterBy="#{motivoContratoTC.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                               <f:facet name="header">
@@ -1412,7 +1415,7 @@
 
                            <f:facet name="header">  
                               <h:outputText value="#{msg['buscarTCTC']}"/>
-                              <p:inputText id="globalFilter" onkeyup="PF('lovTipoContratoTipoContrato').filter();" class="cssFiltroLOV"/>  
+                              <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovTipoContratoTipoContrato').filter();" class="cssFiltroLOV"/>  
                            </f:facet>
                            <p:column filterBy="#{tipoContratoTC.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                               <f:facet name="header">
@@ -1447,7 +1450,7 @@
 
                         <f:facet name="header">  
                            <h:outputText value="#{msg['buscarNLNL']}"/>  
-                           <p:inputText id="globalFilter" onkeyup="PF('lovNormaLaboralNormaLaboral').filter();" class="cssFiltroLOV"/>  
+                           <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovNormaLaboralNormaLaboral').filter();" class="cssFiltroLOV"/>  
                         </f:facet>
                         <p:column filterBy="#{normaLaboralNL.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                            <f:facet name="header">
@@ -1482,7 +1485,7 @@
 
                         <f:facet name="header">  
                            <h:outputText value="#{msg['buscarCLL']}"/>  
-                           <p:inputText id="globalFilter" onkeyup="PF('lovContratoLegislacionLaboral').filter();" class="cssFiltroLOV"/>  
+                           <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovContratoLegislacionLaboral').filter();" class="cssFiltroLOV"/>  
                         </f:facet>
                         <p:column filterBy="#{contratoLL.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                            <f:facet name="header">
@@ -1517,7 +1520,7 @@
 
                         <f:facet name="header">  
                            <h:outputText value="#{msg['buscarUGUGL']}"  />  
-                           <p:inputText id="globalFilter" onkeyup="PF('lovUbicacionUbicacionGeografica').filter();" class="cssFiltroLOV"/>  
+                           <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovUbicacionUbicacionGeografica').filter();" class="cssFiltroLOV"/>  
                         </f:facet>
                         <p:column filterBy="#{ubicacionGUG.descripcion}" width="200" filterMatchMode="contains" filterStyle="width: 85% !important" >
                            <f:facet name="header">
@@ -1583,7 +1586,7 @@
 
                         <f:facet name="header">  
                            <h:outputText value="#{msg['buscarJLJL']}"/>  
-                           <p:inputText id="globalFilter" onkeyup="PF('lovJornadaJornadaLaboral').filter();" class="cssFiltroLOV"/>  
+                           <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovJornadaJornadaLaboral').filter();" class="cssFiltroLOV"/>  
                         </f:facet>
                         <p:column filterBy="#{jornadaLJL.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                            <f:facet name="header">
@@ -1619,7 +1622,7 @@
 
                            <f:facet name="header">  
                               <h:outputText value="#{msg['buscarPFP']}"/>  
-                              <p:inputText id="globalFilter" onkeyup="PF('lovPeriodicidadFormaPago').filter();" class="cssFiltroLOV"/>  
+                              <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovPeriodicidadFormaPago').filter();" class="cssFiltroLOV"/>  
                            </f:facet>
                            <p:column filterBy="#{periodicidadFP.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                               <f:facet name="header">
@@ -1651,7 +1654,7 @@
 
                            <f:facet name="header">  
                               <h:outputText value="#{msg['buscarSFP']}"/>  
-                              <p:inputText id="globalFilter" onkeyup="PF('lovSucursalPagoFormaPago').filter();" class="cssFiltroLOV"/>  
+                              <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovSucursalPagoFormaPago').filter();" class="cssFiltroLOV"/>  
                            </f:facet>
                            <p:column filterBy="#{sucursalFP.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                               <f:facet name="header">
@@ -1683,7 +1686,7 @@
 
                            <f:facet name="header">  
                               <h:outputText value="#{msg['buscarMPFP']}"/>  
-                              <p:inputText id="globalFilter" onkeyup="PF('lovMetodoPagoFormaPago').filter();" class="cssFiltroLOV"/>  
+                              <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovMetodoPagoFormaPago').filter();" class="cssFiltroLOV"/>  
                            </f:facet>
                            <p:column filterBy="#{metodoPFP.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                               <f:facet name="header">
@@ -1713,12 +1716,12 @@
                                   emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlPersonaIndividual.filtrarLovTercerosSucursales}">
 
                         <p:ajax event="filter" listener="#{controlPersonaIndividual.contarRegistros_TerceroAfSuc()}" update=":formLovs:formDAfiliacion:aceptarTSA"/>
-                        <p:ajax event="rowDblselect" listener="#{controlPersonaIndividual.actualizarParametroTerceroAfiliacion()}"  process="@this"/>
+                        <p:ajax event="rowDblselect" listener="#{controlPersonaIndividual.actualizarPaarpModAfiliacionesrametroTerceroAfiliacion()}"  process="@this"/>
                         <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDAfiliacion:aceptarTSA"/>
 
                         <f:facet name="header">  
                            <h:outputText value="#{msg['buscarTA']}"/>  
-                           <p:inputText id="globalFilter" onkeyup="PF('lovTerceroAfiliacion').filter();" class="cssFiltroLOV"/>  
+                           <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovTerceroAfiliacion').filter();" class="cssFiltroLOV"/>  
                         </f:facet>
                         <p:column filterBy="#{terceroSA.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                            <f:facet name="header">
@@ -1766,7 +1769,7 @@
 
                            <f:facet name="header">  
                               <h:outputText value="#{msg['buscarTTT']}"/>  
-                              <p:inputText id="globalFilter" onkeyup="PF('lovTipoTelefonoTelefono').filter();" class="cssFiltroLOV"/>  
+                              <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovTipoTelefonoTelefono').filter();" class="cssFiltroLOV"/>  
                            </f:facet>
                            <p:column filterBy="#{tipoTT.nombre}"  filterMatchMode="contains" filterStyle="width: 85% !important" >
                               <f:facet name="header">
@@ -1798,7 +1801,7 @@
 
                            <f:facet name="header">  
                               <h:outputText value="#{msg['buscarCT']}"  />  
-                              <p:inputText id="globalFilter" onkeyup="PF('lovCiudadTelefono').filter();"/>  
+                              <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovCiudadTelefono').filter();"/>  
                            </f:facet>
                            <p:column filterBy="#{ciudadT.nombre}"  filterMatchMode="contains" filterStyle="width: 85% !important" >
                               <f:facet name="header">
@@ -1840,7 +1843,7 @@
 
                         <f:facet name="header">  
                            <h:outputText value="#{msg['buscarCD']}"/>  
-                           <p:inputText id="globalFilter" onkeyup="PF('lovCiudadDireccion').filter();" class="cssFiltroLOV"/>  
+                           <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovCiudadDireccion').filter();" class="cssFiltroLOV"/>  
                         </f:facet>
                         <p:column filterBy="#{ciudadD.nombre}"  filterMatchMode="contains" filterStyle="width: 85% !important" >
                            <f:facet name="header">
@@ -1880,7 +1883,7 @@
 
                         <f:facet name="header">  
                            <h:outputText value="#{msg['buscarECEC']}"/>  
-                           <p:inputText id="globalFilter" onkeyup="PF('lovEstadoCivilEstadoCivil').filter();" class="cssFiltroLOV"/>  
+                           <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovEstadoCivilEstadoCivil').filter();" class="cssFiltroLOV"/>  
                         </f:facet>
                         <p:column filterBy="#{estadoCivilEC.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                            <f:facet name="header">

@@ -189,7 +189,10 @@ public class ControlNovedadesConceptos implements Serializable {
         if (listaConceptosNovedad != null) {
             conceptoSeleccionado = listaConceptosNovedad.get(0);
         }
-        llenarTablaNovedades();
+        if (conceptoSeleccionado != null) {
+            listaNovedades = administrarNovedadesConceptos.novedadesConcepto(conceptoSeleccionado.getSecuencia());
+        }
+        novedadSeleccionada = null;
     }
 
     public String retornarPagina() {

@@ -98,7 +98,6 @@ public class ControlTiposAusentismos implements Serializable {
     public void recibirPagina(String pagina) {
         paginaAnterior = pagina;
         getListTiposAusentismos();
-        contarRegistros();
         if (listTiposAusentismos != null) {
             if (!listTiposAusentismos.isEmpty()) {
                 tiposAusentismosSeleccionado = listTiposAusentismos.get(0);

@@ -60,8 +60,8 @@ button .ui-state-default,
 button .ui-widget-content,
 button .ui-widget-header{
    border: none;
-   box-shadow:none;
-   background-color:transparent;
+   box-shadow: none;
+   background-color: transparent;
    color: #1F2429;
    text-shadow: none;
 }
@@ -518,7 +518,7 @@ button .ui-widget-header{
 }
 
 .ui-datatable .cssFiltroLOV {
-   width: 50% !important;
+   width: 45% !important;
    display: inline-block; margin-left: 15px;
 } 
 
@@ -559,7 +559,7 @@ button .ui-widget-header{
 .ui-datatable tbody th, 
 .ui-datatable tbody td
 {
-   padding: 1px 3px !important;
+   padding: 1px 1px !important;
 }
 
 .ui-datatable-scrollable input,
@@ -568,7 +568,7 @@ button .ui-widget-header{
 {
    height: 99% !important;
    width: 99% !important;
-   padding: 1px 1px !important; 
+   padding: 2px 2px !important; 
 }
 
 .ui-inputfield.ui-inputtext.ui-widget.ui-state-focus.ui-corner-all,
@@ -584,7 +584,7 @@ button .ui-widget-header{
 }
 
 .ui-column-filter.ui-inputfield {
-   height: 14px !important;
+   height: 12px !important;
    padding: 2px;
    margin-bottom: 2px !important;
 }

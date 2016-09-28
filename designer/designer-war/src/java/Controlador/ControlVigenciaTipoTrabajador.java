@@ -548,17 +548,16 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
          pensionVigencia.setCausabiente(new Empleados());
          pensionVigencia.setTipopensionado(new TiposPensionados());
          pensionVigencia.setTutor(new Personas());
-         RequestContext context = RequestContext.getCurrentInstance();
          FacesContext c = FacesContext.getCurrentInstance();
          System.out.println("panelRetiradosInput");
          panelRetiradosInput = (Panel) c.getViewRoot().findComponent("form:panelRetiradosInput");
          panelRetiradosInput.setStyle("position: absolute; left: 440px; top: 310px; font-size: 12px; width: 415px; height: 185px; border-radius: 10px; text-align: left; visibility: hidden; display: none;");
 
          panelPensionadosMensaje = (Panel) c.getViewRoot().findComponent("form:panelPensionadosMensaje");
-         panelPensionadosMensaje.setStyle("position: absolute; left: 12px; top: 310px; font-size: 12px; width: 410px; height: 185px; border-radius: 10px; text-align: left; visibility: visible");
+         panelPensionadosMensaje.setStyle("position: absolute; left: 12px; top: 310px; font-size: 12px; width: 415px; height: 185px; border-radius: 10px; text-align: left; visibility: visible");
 
          panelPensionadosInput = (Panel) c.getViewRoot().findComponent("form:panelPensionadosInput");
-         panelPensionadosInput.setStyle("position: absolute; left: 12px; top: 310px; font-size: 12px; width: 410px; height: 185px; border-radius: 10px; text-align: left; visibility: hidden; display: none;");
+         panelPensionadosInput.setStyle("position: absolute; left: 12px; top: 310px; font-size: 12px; width: 415px; height: 185px; border-radius: 10px; text-align: left; visibility: hidden; display: none;");
          System.out.println("panelRetiradosMensaje");
          panelRetiradosMensaje = (Panel) c.getViewRoot().findComponent("form:panelRetiradosMensaje");
          panelRetiradosMensaje.setStyle("position: absolute; left: 440px; top: 310px; font-size: 12px; width: 415px; height: 185px; border-radius: 10px; text-align: left; visibility: visible");
@@ -615,10 +614,10 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
       panelRetiradosInput.setStyle("position: absolute; left: 440px; top: 310px; font-size: 12px; width: 415px; height: 185px; border-radius: 10px; text-align: left; visibility: hidden; display: none;");
 
       panelPensionadosMensaje = (Panel) c.getViewRoot().findComponent("form:panelPensionadosMensaje");
-      panelPensionadosMensaje.setStyle("position: absolute; left: 12px; top: 310px; font-size: 12px; width: 410px; height: 185px; border-radius: 10px; text-align: left; visibility: visible");
+      panelPensionadosMensaje.setStyle("position: absolute; left: 12px; top: 310px; font-size: 12px; width: 415px; height: 185px; border-radius: 10px; text-align: left; visibility: visible");
 
       panelPensionadosInput = (Panel) c.getViewRoot().findComponent("form:panelPensionadosInput");
-      panelPensionadosInput.setStyle("position: absolute; left: 12px; top: 310px; font-size: 12px; width: 410px; height: 185px; border-radius: 10px; text-align: left; visibility: hidden; display: none;");
+      panelPensionadosInput.setStyle("position: absolute; left: 12px; top: 310px; font-size: 12px; width: 415px; height: 185px; border-radius: 10px; text-align: left; visibility: hidden; display: none;");
 
       panelRetiradosMensaje = (Panel) c.getViewRoot().findComponent("form:panelRetiradosMensaje");
       panelRetiradosMensaje.setStyle("position: absolute; left: 440px; top: 310px; font-size: 12px; width: 415px; height: 185px; border-radius: 10px; text-align: left; visibility: visible");
@@ -707,10 +706,10 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
             panelRetiradosInput.setStyle("position: absolute; left: 440px; top: 310px; font-size: 12px; width: 415px; height: 185px; border-radius: 10px; text-align: left; visibility: hidden; display: none;");
 
             panelPensionadosMensaje = (Panel) c.getViewRoot().findComponent("form:panelPensionadosMensaje");
-            panelPensionadosMensaje.setStyle("position: absolute; left: 12px; top: 310px; font-size: 12px; width: 410px; height: 185px; border-radius: 10px; text-align: left; visibility: visible");
+            panelPensionadosMensaje.setStyle("position: absolute; left: 12px; top: 310px; font-size: 12px; width: 415px; height: 185px; border-radius: 10px; text-align: left; visibility: visible");
 
             panelPensionadosInput = (Panel) c.getViewRoot().findComponent("form:panelPensionadosInput");
-            panelPensionadosInput.setStyle("position: absolute; left: 12px; top: 310px; font-size: 12px; width: 410px; height: 185px; border-radius: 10px; text-align: left; visibility: hidden; display: none;");
+            panelPensionadosInput.setStyle("position: absolute; left: 12px; top: 310px; font-size: 12px; width: 415px; height: 185px; border-radius: 10px; text-align: left; visibility: hidden; display: none;");
 
             panelRetiradosMensaje = (Panel) c.getViewRoot().findComponent("form:panelRetiradosMensaje");
             panelRetiradosMensaje.setStyle("position: absolute; left: 440px; top: 310px; font-size: 12px; width: 415px; height: 185px; border-radius: 10px; text-align: left; visibility: visible");
@@ -771,10 +770,10 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
          panelRetiradosInput.setStyle("position: absolute; left: 440px; top: 310px; font-size: 12px; width: 415px; height: 185px; border-radius: 10px; text-align: left; visibility: hidden; display: none;");
 
          panelPensionadosMensaje = (Panel) c.getViewRoot().findComponent("form:panelPensionadosMensaje");
-         panelPensionadosMensaje.setStyle("position: absolute; left: 12px; top: 310px; font-size: 12px; width: 410px; height: 185px; border-radius: 10px; text-align: left; visibility: visible");
+         panelPensionadosMensaje.setStyle("position: absolute; left: 12px; top: 310px; font-size: 12px; width: 415px; height: 185px; border-radius: 10px; text-align: left; visibility: visible");
 
          panelPensionadosInput = (Panel) c.getViewRoot().findComponent("form:panelPensionadosInput");
-         panelPensionadosInput.setStyle("position: absolute; left: 12px; top: 310px; font-size: 12px; width: 410px; height: 185px; border-radius: 10px; text-align: left; visibility: hidden; display: none;");
+         panelPensionadosInput.setStyle("position: absolute; left: 12px; top: 310px; font-size: 12px; width: 415px; height: 185px; border-radius: 10px; text-align: left; visibility: hidden; display: none;");
 
          panelRetiradosMensaje = (Panel) c.getViewRoot().findComponent("form:panelRetiradosMensaje");
          panelRetiradosMensaje.setStyle("position: absolute; left: 440px; top: 310px; font-size: 12px; width: 415px; height: 185px; border-radius: 10px; text-align: left; visibility: visible");
@@ -1285,8 +1284,8 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
       tipoActualizacion = -1;
       RequestContext.getCurrentInstance().update("form:datosVTTEmpleado");
       RequestContext.getCurrentInstance().update("formLovs:TipoTrabajadorDialogo");
-      RequestContext.getCurrentInstance().update("form:lovTipoTrabajador");
-      RequestContext.getCurrentInstance().update("form:aceptarTT");
+      RequestContext.getCurrentInstance().update("formLovs:lovTipoTrabajador");
+      RequestContext.getCurrentInstance().update("formLovs:aceptarTT");
 
       context.reset("formLovs:lovTipoTrabajador:globalFilter");
       RequestContext.getCurrentInstance().execute("PF('lovTipoTrabajador').clearFilters()");
@@ -1380,9 +1379,9 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
          VigenciasTiposTrabajadores vigenciaTemporal = vigenciaSeleccionada;
          panelRetiradosMensaje = (Panel) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:panelRetiradosMensaje");
          if (tipoTrabajadorRetirado.getCodigo() == vigenciaTemporal.getTipotrabajador().getCodigo()) {
-            panelRetiradosMensaje.setStyle("position: absolute; left: 440px; top: 310px; font-size: 12px; width: 415px; height: 185px; border-radius: 10px; text-align: left; display: none; visibility: hidden;");
+            panelRetiradosMensaje.setStyle("position: absolute; left: 440px; top: 304px; font-size: 12px; width: 415px; height: 187px; border-radius: 10px; text-align: left; display: none; visibility: hidden;");
          } else {
-            panelRetiradosMensaje.setStyle("position: absolute; left: 440px; top: 310px; font-size: 12px; width: 415px; height: 185px; border-radius: 10px; text-align: left;visibility: visible;");
+            panelRetiradosMensaje.setStyle("position: absolute; left: 440px; top: 304px; font-size: 12px; width: 415px; height: 187px; border-radius: 10px; text-align: left;visibility: visible;");
          }
          RequestContext.getCurrentInstance().update("form:panelRetiradosMensaje");
       }
@@ -1402,9 +1401,9 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
          if (tipoTrabajadorRetirado.getCodigo() == vigenciaTemporal.getTipotrabajador().getCodigo()) {
             indexRetiro = true;
             cargarRetiro();
-            panelRetiradosInput.setStyle("position: absolute; left: 440px; top: 310px; font-size: 12px; width: 415px; height: 185px; border-radius: 10px; text-align: left; visibility: visible;");
+            panelRetiradosInput.setStyle("position: absolute; left: 440px; top: 304px; font-size: 12px; width: 415px; height: 187px; border-radius: 10px; text-align: left; visibility: visible;");
          } else {
-            panelRetiradosInput.setStyle("position: absolute; left: 440px; top: 310px; font-size: 12px; width: 415px; height: 185px; border-radius: 10px; text-align: left; visibility: hidden; display: none;");
+            panelRetiradosInput.setStyle("position: absolute; left: 440px; top: 304px; font-size: 12px; width: 415px; height: 187px; border-radius: 10px; text-align: left; visibility: hidden; display: none;");
          }
          RequestContext.getCurrentInstance().update("form:panelRetiradosInput");
          RequestContext context = RequestContext.getCurrentInstance();
@@ -1426,9 +1425,9 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
          VigenciasTiposTrabajadores vigenciaTemporal = vigenciaSeleccionada;
          panelPensionadosMensaje = (Panel) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:panelPensionadosMensaje");
          if (tipoTrabajadorPensionado.getCodigo() == vigenciaTemporal.getTipotrabajador().getCodigo()) {
-            panelPensionadosMensaje.setStyle("position: absolute; left: 12px; top: 310px; font-size: 12px; width: 410px; height: 185px; border-radius: 10px; text-align: left; display: none; visibility: hidden;");
+            panelPensionadosMensaje.setStyle("position: absolute; left: 12px; top: 304px; font-size: 12px; width: 415px; height: 187px; border-radius: 10px; text-align: left; display: none; visibility: hidden;");
          } else {
-            panelPensionadosMensaje.setStyle("position: absolute; left: 12px; top: 310px; font-size: 12px; width: 410px; height: 185px; border-radius: 10px; text-align: left; visibility: visible;");
+            panelPensionadosMensaje.setStyle("position: absolute; left: 12px; top: 304px; font-size: 12px; width: 415px; height: 187px; border-radius: 10px; text-align: left; visibility: visible;");
          }
          RequestContext.getCurrentInstance().update("form:panelPensionadosMensaje");
       }
@@ -1449,9 +1448,9 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
          if (tipoTrabajadorPensionado.getCodigo() == vigenciaTemporal.getTipotrabajador().getCodigo()) {
             indexPension = true;
             cargarPension();
-            panelPensionadosInput.setStyle("position: absolute; left: 12px; top: 310px; font-size: 12px; width: 410px; height: 185px; border-radius: 10px; text-align: left;  visibility: visible;");
+            panelPensionadosInput.setStyle("position: absolute; left: 12px; top: 304px; font-size: 12px; width: 415px; height: 187px; border-radius: 10px; text-align: left;  visibility: visible;");
          } else {
-            panelPensionadosInput.setStyle("position: absolute; left: 12px; top: 310px; font-size: 12px; width: 410px; height: 185px; border-radius: 10px; text-align: left; visibility: hidden; display: none;");
+            panelPensionadosInput.setStyle("position: absolute; left: 12px; top: 304px; font-size: 12px; width: 415px; height: 187px; border-radius: 10px; text-align: left; visibility: hidden; display: none;");
          }
          RequestContext.getCurrentInstance().update("form:panelPensionadosInput");
       }
@@ -1537,10 +1536,10 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
             panelRetiradosInput.setStyle("position: absolute; left: 440px; top: 310px; font-size: 10px; width: 415px; height: 185px; border-radius: 10px; text-align: left; visibility: visible");
 
             panelPensionadosMensaje = (Panel) c.getViewRoot().findComponent("form:panelPensionadosMensaje");
-            panelPensionadosMensaje.setStyle("position: absolute; left: 12px; top: 310px; font-size: 10px; width: 410px; height: 185px; border-radius: 10px; text-align: left; visibility: visible;");
+            panelPensionadosMensaje.setStyle("position: absolute; left: 12px; top: 310px; font-size: 10px; width: 415px; height: 185px; border-radius: 10px; text-align: left; visibility: visible;");
 
             panelPensionadosInput = (Panel) c.getViewRoot().findComponent("form:panelPensionadosInput");
-            panelPensionadosInput.setStyle("position: absolute; left: 12px; top: 310px; font-size: 10px; width: 410px; height: 185px; border-radius: 10px; text-align: left; visibility: hidden; display: none;");
+            panelPensionadosInput.setStyle("position: absolute; left: 12px; top: 310px; font-size: 10px; width: 415px; height: 185px; border-radius: 10px; text-align: left; visibility: hidden; display: none;");
 
             panelRetiradosMensaje = (Panel) c.getViewRoot().findComponent("form:panelRetiradosMensaje");
             panelRetiradosMensaje.setStyle("position: absolute; left: 440px; top: 310px; font-size: 10px; width: 415px; height: 185px; border-radius: 10px; text-align: left; visibility: hidden; display: none;");
@@ -1549,10 +1548,10 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
             panelRetiradosInput.setStyle("position: absolute; left: 440px; top: 310px; font-size: 12px; width: 415px; height: 185px; border-radius: 10px; text-align: left; visibility: hidden; display: none;");
 
             panelPensionadosMensaje = (Panel) c.getViewRoot().findComponent("form:panelPensionadosMensaje");
-            panelPensionadosMensaje.setStyle("position: absolute; left: 12px; top: 310px; font-size: 12px; width: 410px; height: 185px; border-radius: 10px; text-align: left; visibility: visible");
+            panelPensionadosMensaje.setStyle("position: absolute; left: 12px; top: 310px; font-size: 12px; width: 415px; height: 185px; border-radius: 10px; text-align: left; visibility: visible");
 
             panelPensionadosInput = (Panel) c.getViewRoot().findComponent("form:panelPensionadosInput");
-            panelPensionadosInput.setStyle("position: absolute; left: 12px; top: 310px; font-size: 12px; width: 410px; height: 185px; border-radius: 10px; text-align: left; visibility: hidden; display: none;");
+            panelPensionadosInput.setStyle("position: absolute; left: 12px; top: 310px; font-size: 12px; width: 415px; height: 185px; border-radius: 10px; text-align: left; visibility: hidden; display: none;");
 
             panelRetiradosMensaje = (Panel) c.getViewRoot().findComponent("form:panelRetiradosMensaje");
             panelRetiradosMensaje.setStyle("position: absolute; left: 440px; top: 310px; font-size: 12px; width: 415px; height: 185px; border-radius: 10px; text-align: left; visibility: visible");
@@ -1572,7 +1571,6 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
          operacionRetiro = false;
 
          //  cargarRetiro();
-         RequestContext context = RequestContext.getCurrentInstance();
 
          FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos de Retirados con éxito");
          FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -1832,9 +1830,9 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
       clasesPensionesSeleccionada = null;
       getClasesPensiones();
 
-      RequestContext.getCurrentInstance().update("form:clasePensionDialogo");
-      RequestContext.getCurrentInstance().update("form:lovClasePension");
-      RequestContext.getCurrentInstance().update("form:aceptarCP");
+      RequestContext.getCurrentInstance().update("formLovs:clasePensionDialogo");
+      RequestContext.getCurrentInstance().update("formLovs:lovClasePension");
+      RequestContext.getCurrentInstance().update("formLovs:aceptarCP");
 
       context.reset("formLovs:lovClasePension:globalFilter");
       RequestContext.getCurrentInstance().execute("PF('lovClasePension').clearFilters()");
@@ -2062,7 +2060,6 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
       }
       cargarPension();
       banderaLimpiarPension = false;
-      RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("form:panelPensionadosInput");
    }
 
@@ -2276,7 +2273,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
    }
 
    public void contarRegistrosMotivosRetiros() {
-      RequestContext.getCurrentInstance().update("form:infoRegistroTipoEntidad");
+      RequestContext.getCurrentInstance().update("formLovs:infoRegistroMotivoRetiros");
    }
 
    public void recordarSeleccion() {

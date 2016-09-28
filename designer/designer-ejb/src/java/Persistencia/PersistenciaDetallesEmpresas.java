@@ -4,6 +4,7 @@
 package Persistencia;
 
 import Entidades.DetallesEmpresas;
+import Entidades.TercerosSucursales;
 import InterfacePersistencia.PersistenciaDetallesEmpresasInterface;
 import java.math.BigInteger;
 import java.util.List;
@@ -26,108 +27,125 @@ import javax.persistence.criteria.CriteriaQuery;
 @Stateless
 public class PersistenciaDetallesEmpresas implements PersistenciaDetallesEmpresasInterface {
 
-    /**
-     * Atributo EntityManager. Representa la comunicación con la base de datos
-     * @param em
-     */
-    /*@PersistenceContext(unitName = "DesignerRHN-ejbPU")
+   /**
+    * Atributo EntityManager. Representa la comunicación con la base de datos
+    *
+    * @param em
+    */
+   /*@PersistenceContext(unitName = "DesignerRHN-ejbPU")
      private EntityManager em;*/
-    @Override
-    public void crear(EntityManager em, DetallesEmpresas detallesEmpresas) {
-        em.clear();
-        EntityTransaction tx = em.getTransaction();
-        try {
-            tx.begin();
-            em.merge(detallesEmpresas);
-            tx.commit();
-        } catch (Exception e) {
-            System.out.println("Error PersistenciaDetallesEmpresas.crear: " + e);
+   @Override
+   public void crear(EntityManager em, DetallesEmpresas detallesEmpresas) {
+      em.clear();
+      EntityTransaction tx = em.getTransaction();
+      try {
+         tx.begin();
+         em.merge(detallesEmpresas);
+         tx.commit();
+      } catch (Exception e) {
+         System.out.println("Error PersistenciaDetallesEmpresas.crear: " + e);
+         if (tx.isActive()) {
+            tx.rollback();
+         }
+      }
+   }
+
+   @Override
+   public void editar(EntityManager em, DetallesEmpresas detallesEmpresas) {
+      em.clear();
+      EntityTransaction tx = em.getTransaction();
+      try {
+         tx.begin();
+         em.merge(detallesEmpresas);
+         tx.commit();
+      } catch (Exception e) {
+         System.out.println("Error PersistenciaDetallesEmpresas.editar: " + e);
+         if (tx.isActive()) {
+            tx.rollback();
+         }
+      }
+   }
+
+   @Override
+   public void borrar(EntityManager em, DetallesEmpresas detallesEmpresas) {
+      em.clear();
+      EntityTransaction tx = em.getTransaction();
+      try {
+         tx.begin();
+         em.remove(em.merge(detallesEmpresas));
+         tx.commit();
+
+      } catch (Exception e) {
+         try {
             if (tx.isActive()) {
-                tx.rollback();
+               tx.rollback();
             }
-        }
-    }
+         } catch (Exception ex) {
+            System.out.println("Error PersistenciaDetallesEmpresas.borrar: " + e);
+         }
+      }
+   }
 
-    @Override
-    public void editar(EntityManager em, DetallesEmpresas detallesEmpresas) {
-        em.clear();
-        EntityTransaction tx = em.getTransaction();
-        try {
-            tx.begin();
-            em.merge(detallesEmpresas);
-            tx.commit();
-        } catch (Exception e) {
-            System.out.println("Error PersistenciaDetallesEmpresas.editar: " + e);
-            if (tx.isActive()) {
-                tx.rollback();
-            }
-        }
-    }
+   @Override
+   public DetallesEmpresas buscarDetalleEmpresa(EntityManager em, Short codigoEmpresa) {
+      DetallesEmpresas detallesEmpresas;
+      try {
+         em.clear();
+         Query query = em.createQuery("SELECT de FROM DetallesEmpresas de WHERE de.empresa.codigo = :codigoEmpresa");
+         query.setParameter("codigoEmpresa", codigoEmpresa);
+         query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+         detallesEmpresas = (DetallesEmpresas) query.getSingleResult();
+         return detallesEmpresas;
+      } catch (Exception e) {
+         System.out.println("error PersistenciaDetallesEmpresas.buscarDetalleEmpresa. ");
+         System.out.println(e.getMessage());
+         return null;
+      }
+   }
 
-    @Override
-    public void borrar(EntityManager em, DetallesEmpresas detallesEmpresas) {
-        em.clear();
-        EntityTransaction tx = em.getTransaction();
-        try {
-            tx.begin();
-            em.remove(em.merge(detallesEmpresas));
-            tx.commit();
+   @Override
+   public DetallesEmpresas buscarDetalleEmpresaPorSecuencia(EntityManager em, BigInteger secEmpresa) {
+      try {
+         em.clear();
+         DetallesEmpresas detallesEmpresas;
+         Query query = em.createQuery("SELECT de FROM DetallesEmpresas de WHERE de.empresa.secuencia =:secEmpresa");
+         query.setParameter("secEmpresa", secEmpresa);
+         query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+         detallesEmpresas = (DetallesEmpresas) query.getSingleResult();
+         return detallesEmpresas;
+      } catch (Exception e) {
+         System.out.println("Error PersistenciaDetallesEmpresas.buscarDetalleEmpresaPorSecuencia. " + e.toString());
+         return null;
+      }
+   }
 
-        } catch (Exception e) {
-            try {
-                if (tx.isActive()) {
-                    tx.rollback();
-                }
-            } catch (Exception ex) {
-                System.out.println("Error PersistenciaDetallesEmpresas.borrar: " + e);
-            }
-        }
-    }
+   @Override
+   public List<DetallesEmpresas> buscarDetallesEmpresas(EntityManager em) {
+      try {
+         em.clear();
+         CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
+         cq.select(cq.from(DetallesEmpresas.class));
+         return em.createQuery(cq).getResultList();
+      } catch (Exception e) {
+         System.out.println("Error PersistenciaDetallesEmpresas.buscarDetallesEmpresas : " + e.toString());
+         return null;
+      }
+   }
 
-    @Override
-    public DetallesEmpresas buscarDetalleEmpresa(EntityManager em, Short codigoEmpresa) {
-        DetallesEmpresas detallesEmpresas;
-        try {
-            em.clear();
-            Query query = em.createQuery("SELECT de FROM DetallesEmpresas de WHERE de.empresa.codigo = :codigoEmpresa");
-            query.setParameter("codigoEmpresa", codigoEmpresa);
-            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
-            detallesEmpresas = (DetallesEmpresas) query.getSingleResult();
-            return detallesEmpresas;
-        } catch (Exception e) {
-            System.out.println("error PersistenciaDetallesEmpresas.buscarDetalleEmpresa. ");
-            System.out.println(e.getMessage());
-            return null;
-        }
-    }
-
-    @Override
-    public DetallesEmpresas buscarDetalleEmpresaPorSecuencia(EntityManager em, BigInteger secEmpresa) {
-        try {
-            em.clear();
-            DetallesEmpresas detallesEmpresas;
-            Query query = em.createQuery("SELECT de FROM DetallesEmpresas de WHERE de.empresa.secuencia =:secEmpresa");
-            query.setParameter("secEmpresa", secEmpresa);
-            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
-            detallesEmpresas = (DetallesEmpresas) query.getSingleResult();
-            return detallesEmpresas;
-        } catch (Exception e) {
-            System.out.println("Error PersistenciaDetallesEmpresas.buscarDetalleEmpresaPorSecuencia. " + e.toString());
-            return null;
-        }
-    }
-
-    @Override
-    public List<DetallesEmpresas> buscarDetallesEmpresas(EntityManager em) {
-        try {
-            em.clear();
-            CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(DetallesEmpresas.class));
-            return em.createQuery(cq).getResultList();
-        } catch (Exception e) {
-            System.out.println("Error PersistenciaDetallesEmpresas.buscarDetallesEmpresas : " + e.toString());
-            return null;
-        }
-    }
+   @Override
+   public TercerosSucursales buscarARLPorEmpresa(EntityManager em, BigInteger secuenciaEmpresa) {
+      try {
+         em.clear();
+         String q = "SELECT * FROM TercerosSucursales TS WHERE TS.SECUENCIA = ( "
+                 + "SELECT DE.ENTIDADSUCURSALARL FROM EMPRESAS E, DETALLESEMPRESAS DE\n"
+                 + "  WHERE DE.EMPRESA = E.SECUENCIA AND E.SECUENCIA = " + secuenciaEmpresa + " )";
+         Query query = em.createNativeQuery(q, TercerosSucursales.class);
+         TercerosSucursales tercerosArl = (TercerosSucursales) query.getSingleResult();
+         return tercerosArl;
+      } catch (Exception e) {
+         System.out.println("PersistenciaDetallesEmpresas ERROR buscarARLPorEmpresa() : " + e.toString());
+         return null;
+      }
+   }
 
 }

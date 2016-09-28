@@ -16,6 +16,7 @@ import javax.persistence.EntityManager;
 public interface PersistenciaTercerosSucursalesInterface {
     /**
      * Método encargado de insertar un TerceroSucursal en la base de datos.
+    * @param em
      * @param tercerosSucursales TerceroSucursal que se quiere crear.
      */
     public void crear(EntityManager em, TercerosSucursales tercerosSucursales);
@@ -50,6 +51,12 @@ public interface PersistenciaTercerosSucursalesInterface {
      */
     public List<TercerosSucursales> buscarTercerosSucursalesPorTerceroSecuencia(EntityManager em, BigInteger secuencia);
     
-    public List<TercerosSucursales> buscarTercerosSucursalesPorEmpresa(EntityManager em, BigInteger secuencia);
+   /**
+    *
+    * @param em
+    * @param secuencia
+    * @return
+    */
+   public List<TercerosSucursales> buscarTercerosSucursalesPorEmpresa(EntityManager em, BigInteger secuencia);
     
 }

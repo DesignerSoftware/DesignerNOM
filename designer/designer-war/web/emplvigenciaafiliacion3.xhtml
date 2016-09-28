@@ -74,7 +74,7 @@
                             </p:toolbarGroup>  
                         </p:toolbar> 
 
-                        <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px">
+                        <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px;">
 
                             <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;" />
                             <h:outputText id="nombreEmpleado" value="#{controlEmplVigenciaAfiliacion3.empleado.persona.nombreCompleto}" 
@@ -93,7 +93,7 @@
                             <p:dataTable id="datosVAVigencia" var="info" rowKey="#{info.secuencia}" rowIndexVar="indiceVA" value="#{controlEmplVigenciaAfiliacion3.listVigenciasAfiliaciones}" 
                                          filteredValue="#{controlEmplVigenciaAfiliacion3.filtrarVigenciasAfiliaciones}" editable="true" editMode="cell" liveScroll="true" scrollRows="10"
                                          scrollable="true" scrollWidth="830" scrollHeight="#{controlEmplVigenciaAfiliacion3.altoTabla}" emptyMessage="#{msg['vacio']}" 
-                                         style=" width: 1150px; position: inherit;"
+                                         style=" width: 1100px; position: inherit;"
                                          selection="#{controlEmplVigenciaAfiliacion3.vigenciaSeleccionada}" selectionMode="single">
 
                                 <p:ajax event="filter" listener="#{controlEmplVigenciaAfiliacion3.eventoFiltrar()}" process="@this"/>
@@ -116,7 +116,7 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <h:outputText value=""  id="fooFechaInicialVA"/>
+                                        <h:outputText value=""/>
                                     </f:facet>
                                 </p:column>
 
@@ -137,7 +137,7 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <h:outputText value=""  id="fooFechaFinalVA"/>
+                                        <h:outputText value="" />
                                     </f:facet>
                                 </p:column>
 
@@ -154,12 +154,11 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 120%;" id="fooTipoEntidadVA" actionListener="#{controlTiposEntidades.recibirPagina('atrastipoentidademplvigenciaafiliacion3')}" action="tipoentidademplvigenciaafiliacion3"  value=""/>
+                                        <p:commandButton style="width: 120%;" actionListener="#{controlTiposEntidades.recibirPagina('atrastipoentidademplvigenciaafiliacion3')}" action="tipoentidademplvigenciaafiliacion3"  value=""/>
                                     </f:facet>
-
                                 </p:column>
 
-                                <p:column headerText="#{msg['tercero']}" sortBy="#{info.tercerosucursal.tercero.nombre}" filterBy="#{info.tercerosucursal.tercero.nombre}" width="150"
+                                <p:column headerText="#{msg['tercero']}" sortBy="#{info.tercerosucursal.tercero.nombre}" filterBy="#{info.tercerosucursal.tercero.nombre}" width="170"
                                           filterMatchMode="contains" id="vATercero" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.tercerosucursal.tercero.nombre}"/></f:facet>  
@@ -172,28 +171,27 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 220px;" id="fooTerceroVA" actionListener="#{controlTercero.recibirPaginaEntrante('atrasterceroemplvigenciaafiliacion3')}" action="terceroemplvigenciaafiliacion3" value=""/>
+                                        <p:commandButton style="width: 220px;" actionListener="#{controlTercero.recibirPaginaEntrante('atrasterceroemplvigenciaafiliacion3')}" action="terceroemplvigenciaafiliacion3" value=""/>
                                     </f:facet>
                                 </p:column>
 
-                                <p:column headerText="#{msg['terceronit']}" sortBy="#{info.tercerosucursal.tercero.nit}" filterBy="#{info.tercerosucursal.tercero.nit}" width="70"
+                                <p:column headerText="#{msg['terceronit']}" sortBy="#{info.tercerosucursal.tercero.nit}" filterBy="#{info.tercerosucursal.tercero.nit}" width="90"
                                           filterMatchMode="contains" id="vANITTercero" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.tercerosucursal.tercero.nit}" style="width: 100px; "/></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText readonly="true"  value="#{info.tercerosucursal.tercero.nit}" id="editarNITTerceroVA" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px;"
                                                          onclick="select();" onselect="posicionNit([{name: 'n', value: '4'}, {name: 't', value: '#{indiceVA}'}]);"> 
-
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <h:outputText  id="fooNITTerceroVA" value=""/>
+                                        <h:outputText value=""/>
                                     </f:facet>
                                 </p:column>
 
                                 <p:column headerText="#{msg['codigo']}" sortBy="#{info.codigo}" filterBy="#{info.codigo}" width="70"
-                                          filterMatchMode="contains" id="vACodigo" filterStyle="display: none; visibility: hidden;"  style="width: 110px; " >                                  
+                                          filterMatchMode="contains" id="vACodigo" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.codigo}" style="width: 100px; "/></f:facet>  
                                         <f:facet name="input">
@@ -204,12 +202,12 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <h:outputText  id="fooCodigoVA" value=""/>
+                                        <h:outputText value=""/>
                                     </f:facet>
                                 </p:column>
 
-                                <p:column headerText="#{msg['estado']}" sortBy="#{info.estadoafiliacion.nombre}" filterBy="#{info.estadoafiliacion.nombre}" width="150"
-                                          filterMatchMode="contains" id="vAEstadoAfiliacion" filterStyle="display: none; visibility: hidden;"  style="width: 110px; " >                                  
+                                <p:column headerText="#{msg['estado']}" sortBy="#{info.estadoafiliacion.nombre}" filterBy="#{info.estadoafiliacion.nombre}" width="160"
+                                          filterMatchMode="contains" id="vAEstadoAfiliacion" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.estadoafiliacion.nombre}" style="width: 100px; "/></f:facet>  
                                         <f:facet name="input">
@@ -221,12 +219,12 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 170px; margin: -14px; height: 26px; border: none; color: blue" id="fooEstadoAfiliacionVA" value=""/>
+                                        <p:commandButton style="width: 170px;" value=""/>
                                     </f:facet>
                                 </p:column>
 
                                 <p:column headerText="#{msg['observaciones']}" sortBy="#{info.observaciones}" filterBy="#{info.observaciones}" width="150"
-                                          filterMatchMode="contains" id="vAObservaciones" filterStyle="display: none; visibility: hidden;"  style="width: 110px; " >                                  
+                                          filterMatchMode="contains" id="vAObservaciones" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.observaciones}" style="width: 100px; "/></f:facet>  
                                         <f:facet name="input">
@@ -238,7 +236,7 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <h:outputText  id="fooObservacionesVA" value=""/>
+                                        <h:outputText value=""/>
                                     </f:facet>
                                 </p:column>
                             </p:dataTable>

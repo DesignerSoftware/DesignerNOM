@@ -137,7 +137,6 @@ public class ControlLegislacion implements Serializable {
         paginaAnterior = pagina;
         listaContratos = null;
         getListaContratos();
-        contarRegistros();
     }
 
     public void dispararDialogoConfirmarGuardar() {

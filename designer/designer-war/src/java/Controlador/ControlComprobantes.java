@@ -136,8 +136,8 @@ public class ControlComprobantes implements Serializable {
         getListaSolucionesNodosEmpleador();
         getListaParametros();
         RequestContext context = RequestContext.getCurrentInstance();
-        RequestContext.getCurrentInstance().update("form:datosSolucionesNodosEmpleado");
-        RequestContext.getCurrentInstance().update("form:datosSolucionesNodosEmpleadoR");
+        context.update("form:datosSolucionesNodosEmpleado");
+        context.update("form:datosSolucionesNodosEmpleadoR");
     }
 
     public void anteriorEmpleado() {
@@ -155,16 +155,16 @@ public class ControlComprobantes implements Serializable {
                 estadoBtnAbajo = false;
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().update("form:panelInf");
-            RequestContext.getCurrentInstance().update("form:datosSolucionesNodosEmpleado");
-            RequestContext.getCurrentInstance().update("form:datosSolucionesNodosEmpleador");
-            RequestContext.getCurrentInstance().update("form:btnArriba");
-            RequestContext.getCurrentInstance().update("form:btnAbajo");
-            RequestContext.getCurrentInstance().update("form:pagocomprobante");
-            RequestContext.getCurrentInstance().update("form:descuentocomprobante");
-            RequestContext.getCurrentInstance().update("form:netocomprobante");
-            RequestContext.getCurrentInstance().update("form:pasivocomprobantes");
-            RequestContext.getCurrentInstance().update("form:gastocomprobantes");
+            context.update("form:panelInf");
+            context.update("form:datosSolucionesNodosEmpleado");
+            context.update("form:datosSolucionesNodosEmpleador");
+            context.update("form:btnArriba");
+            context.update("form:btnAbajo");
+            context.update("form:pagocomprobante");
+            context.update("form:descuentocomprobante");
+            context.update("form:netocomprobante");
+            context.update("form:pasivocomprobantes");
+            context.update("form:gastocomprobantes");
         }
     }
 
@@ -183,16 +183,16 @@ public class ControlComprobantes implements Serializable {
                 estadoBtnAbajo = true;
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().update("form:panelInf");
-            RequestContext.getCurrentInstance().update("form:datosSolucionesNodosEmpleado");
-            RequestContext.getCurrentInstance().update("form:datosSolucionesNodosEmpleador");
-            RequestContext.getCurrentInstance().update("form:btnArriba");
-            RequestContext.getCurrentInstance().update("form:btnAbajo");
-            RequestContext.getCurrentInstance().update("form:pagocomprobante");
-            RequestContext.getCurrentInstance().update("form:descuentocomprobante");
-            RequestContext.getCurrentInstance().update("form:netocomprobante");
-            RequestContext.getCurrentInstance().update("form:pasivocomprobantes");
-            RequestContext.getCurrentInstance().update("form:gastocomprobantes");
+            context.update("form:panelInf");
+            context.update("form:datosSolucionesNodosEmpleado");
+            context.update("form:datosSolucionesNodosEmpleador");
+            context.update("form:btnArriba");
+            context.update("form:btnAbajo");
+            context.update("form:pagocomprobante");
+            context.update("form:descuentocomprobante");
+            context.update("form:netocomprobante");
+            context.update("form:pasivocomprobantes");
+            context.update("form:gastocomprobantes");
         }
     }
 

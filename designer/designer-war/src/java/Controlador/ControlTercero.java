@@ -218,9 +218,6 @@ public class ControlTercero implements Serializable {
                 }
             }
             getListTercerosSucursales();
-            contarRegistrosT();
-            contarRegistrosTS();
-            contarRegistrosEmpresa();
         }
     }
 

@@ -136,7 +136,6 @@ public class ControlFormula implements Serializable {
         paginaAnterior = pagina;
         listaFormulas = null;
         getListaFormulas();
-        contarRegistros();
     }
 
     public String redirigir() {

@@ -883,15 +883,11 @@ public class ControlNovedadesDefinitivas implements Serializable {
     public List<Empleados> getListaEmpleados() {
         if (listaEmpleados == null) {
             listaEmpleados = administrarNovedadesSistema.buscarEmpleados();
-            contarRegistros();
-//            if (listaEmpleadosLOV == null) {
             listaEmpleadosLOV = new ArrayList<Empleados>();
             for (int i = 0; i < listaEmpleados.size(); i++) {
                 listaEmpleadosLOV.add(listaEmpleados.get(i));
             }
-//            }
             getListaNovedades();
-            contarRegistrosLovEmpl(0);
         }
         return listaEmpleados;
     }

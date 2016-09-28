@@ -195,8 +195,6 @@ public class ControlTiposTrabajadores implements Serializable {
                 System.out.println("cambiarIndice. listaVigenciasDiasTT : " + listaVigenciasDiasTT);
             }
         }
-        contarRegistrosTT();
-        contarRegistrosVD();
     }
 
     public String retornarPagina() {

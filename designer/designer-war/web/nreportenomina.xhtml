@@ -705,20 +705,21 @@
                                 <div align="right">
                                     <h:outputText value="#{msg['fechadesde']}:" style="" />
                                     <div style="display: inline; vertical-align: middle;">
-                                        <p:calendar mask="true" pattern="dd/MM/yyyy" id="fechaDesdeParametroL" value="#{controlNReporteNomina.parametroDeInforme.fechadesde}">
+                                        <p:calendar mask="true" pattern="dd/MM/yyyy" id="fechaDesdeParametro" value="#{controlNReporteNomina.parametroDeInforme.fechadesde}">
                                             <p:ajax event="click" listener="#{controlNReporteNomina.posicionCelda(1)}" process="@this"/>
-                                            <p:ajax event="change" listener="#{controlNReporteNomina.modificarParametroInforme()}" process="@this" update="fechaDesdeParametroL"/>
-                                            <p:ajax event="dateSelect" listener="#{controlNReporteNomina.modificarParametroInforme()}" process="@this" update="fechaDesdeParametroL"/>
+                                            <p:ajax event="change" listener="#{controlNReporteNomina.modificarParametroInforme()}" process="@this" update="fechaDesdeParametro"/>
+                                            <p:ajax event="dateSelect" listener="#{controlNReporteNomina.modificarParametroInforme()}" process="@this" update="fechaDesdeParametro"/>
                                         </p:calendar> 
                                     </div>
                                 </div>
+                               
                                 <div align="right">
                                     <h:outputText value="#{msg['empleadodesde']}:" style=""/>
-                                    <p:inputText id="empleadoDesdeParametro" value="#{controlNReporteNomina.parametroDeInforme.codigoempleadodesde}"  
+                                    <p:inputText id="empleadoDesdeParametro" widgetVar="empleadoDesdeParametro" value="#{controlNReporteNomina.parametroDeInforme.codigoempleadodesde}"  
                                                  style="width: 80px; vertical-align: middle;" onclick="select();">
                                         <p:ajax event="click" listener="#{controlNReporteNomina.posicionCelda(2)}" process="@this"/> 
                                         <p:ajax listener="#{controlNReporteNomina.autocompletarGeneral('DESDE', controlNReporteNomina.parametroDeInforme.codigoempleadodesde)}" 
-                                                event="change"  update="empleadoDesdeParametro" process="@this"/>
+                                                event="change" update="empleadoDesdeParametro" process="@this"/>
                                         <p:ajax event="dblclick" listener="#{controlNReporteNomina.dialogosParametros(2)}" process="@this"/>
                                     </p:inputText>
                                 </div>
@@ -748,10 +749,10 @@
                                 <div align="right">
                                     <h:outputText value="#{msg['fechahasta']}:" style=""/>
                                     <div style="display: inline; vertical-align: middle;">
-                                        <p:calendar mask="true" pattern="dd/MM/yyyy" id="fechaHastaParametroL" value="#{controlNReporteNomina.parametroDeInforme.fechahasta}">
+                                        <p:calendar mask="true" pattern="dd/MM/yyyy" id="fechaHastaParametro" value="#{controlNReporteNomina.parametroDeInforme.fechahasta}">
                                             <p:ajax event="click" listener="#{controlNReporteNomina.posicionCelda(7)}" process="@this"/> 
-                                            <p:ajax event="change" listener="#{controlNReporteNomina.modificarParametroInforme()}" process="@this" update="fechaHastaParametroL"/>
-                                            <p:ajax event="dateSelect" listener="#{controlNReporteNomina.modificarParametroInforme()}" process="@this" update="fechaHastaParametroL"/>
+                                            <p:ajax event="change" listener="#{controlNReporteNomina.modificarParametroInforme()}" process="@this" update="fechaHastaParametro"/>
+                                            <p:ajax event="dateSelect" listener="#{controlNReporteNomina.modificarParametroInforme()}" process="@this" update="fechaHastaParametro"/>
                                         </p:calendar>
                                     </div>
                                 </div>
@@ -992,7 +993,6 @@
 
                     <p:remoteCommand name="reiniciarStreamedContent" actionListener="#{controlNReporteNomina.reiniciarStreamedContent()}"/>
                 </h:form>
-
             </ui:define>
         </ui:composition>
     </h:body>

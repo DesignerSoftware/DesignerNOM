@@ -175,10 +175,8 @@ public class ControlTipoContrato implements Serializable {
         listaTiposContratos = null;
         getListaTiposContratos();
         if (listaTiposContratos.size() >= 1) {
-            contarRegistrosTipoC();
             tipoContratoSeleccionado = listaTiposContratos.get(0);
             getListaDiasLaborables();
-            contarRegistrosTipoD();
         }
     }
 

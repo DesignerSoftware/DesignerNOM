@@ -2041,13 +2041,11 @@ public class ControlPeriodicidades implements Serializable {
                 listPeriodicidadesBoton = administrarPeriodicidades.consultarPeriodicidades();
                 //listPeriodicidadesBoton = listPeriodicidades;
             }
-            RequestContext context = RequestContext.getCurrentInstance();
             if (listPeriodicidadesBoton == null || listPeriodicidadesBoton.isEmpty()) {
                 infoRegistroPeriodicidadesBoton = "Cantidad de registros: 0 ";
             } else {
                 infoRegistroPeriodicidadesBoton = "Cantidad de registros: " + listPeriodicidadesBoton.size();
             }
-            RequestContext.getCurrentInstance().update("form:infoRegistroPeriodicidadesBoton");
             return listPeriodicidadesBoton;
         } catch (Exception e) {
             System.out.println("CONTROL PERIODICIDADES : Error al recibir los Periodicidades de la empresa seleccionada /n" + e.getMessage());
