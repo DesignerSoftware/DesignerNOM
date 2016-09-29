@@ -90,8 +90,8 @@ public class ControlFamiliares implements Serializable {
     private Column nombre, ocupacion, columnaTipo, smedico, sfamiliar, beneficiario, upcadicional, valorupc;
     private String infoRegistroFamiliar, infoRegistroPersonas, infoRegistroTipoFamiliar, infoRegistroTipoDocumento, infoRegistroCiudades, infoRegistroCiudadNacimiento;
     private DataTable tablaC;
-    private boolean activarLOV;
-    private Empleados empleado;
+    private boolean activarLOV, activardatos;
+//    private Empleados empleado;
     private Personas personas;
     private List<Personas> crearPersonas;
 
@@ -111,7 +111,7 @@ public class ControlFamiliares implements Serializable {
         nuevoFamiliar.setTipofamiliar(new TiposFamiliares());
         nuevoFamiliar.setPersonafamiliar(new Personas());
         mensajeValidacion = " ";
-        empleado = new Empleados();
+//        empleado = new Empleados();
         personas = new Personas();
         personas.setTipodocumento(new TiposDocumentos());
         personas.setCiudaddocumento(new Ciudades());
@@ -121,6 +121,7 @@ public class ControlFamiliares implements Serializable {
         lovTiposFamiliares = null;
         lovTiposDocumentos = null;
         crearPersonas = new ArrayList<Personas>();
+        activardatos = true;
     }
 
     @PostConstruct
@@ -139,7 +140,7 @@ public class ControlFamiliares implements Serializable {
     public void recibirPagina(String pagina, BigInteger secuencia) {
         paginaanterior = pagina;
         getListaFamiliares();
-        empleado = administrarFamiliares.empleadoActual(secuencia);
+        personas = administrarFamiliares.consultarPersona(secuencia);
         if (listaFamiliares != null) {
             if (!listaFamiliares.isEmpty()) {
                 familiarSeleccionado = listaFamiliares.get(0);
@@ -156,11 +157,12 @@ public class ControlFamiliares implements Serializable {
         if (permitirIndex == true) {
             cualCelda = celda;
             familiarSeleccionado = familiar;
-            if (cualCelda == 0) {
-                habilitarBotonLov();
-            } else if (cualCelda == 1) {
+            activarDatos();
+            if (cualCelda == 1) {
+                deshabilitarBotonLov();
                 familiarSeleccionado.getPersonafamiliar().getNombreCompleto();
             } else if (cualCelda == 2) {
+                deshabilitarBotonLov();
                 familiarSeleccionado.getOcupacion();
             } else if (cualCelda == 3) {
                 habilitarBotonLov();
@@ -174,9 +176,9 @@ public class ControlFamiliares implements Serializable {
             } else if (cualCelda == 7) {
                 familiarSeleccionado.getUpcadicional();
             } else if (cualCelda == 8) {
+                deshabilitarBotonLov();
                 familiarSeleccionado.getValorupcadicional();
             }
-
         }
     }
 
@@ -503,6 +505,7 @@ public class ControlFamiliares implements Serializable {
         familiarSeleccionado = null;
         guardado = true;
         permitirIndex = true;
+        activardatos = true;
         getListaFamiliares();
         contarRegistros();
         deshabilitarBotonLov();
@@ -612,21 +615,21 @@ public class ControlFamiliares implements Serializable {
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
         nuevoFamiliar = new Familiares();
-        nuevoFamiliar.setPersona(empleado.getPersona());
+        nuevoFamiliar.setPersona(personas);
         nuevoFamiliar.setPersonafamiliar(new Personas());
         nuevoFamiliar.setTipofamiliar(new TiposFamiliares());
     }
 
     public void limpiarNuevoFamiliar() {
         nuevoFamiliar = new Familiares();
-        nuevoFamiliar.setPersona(empleado.getPersona());
+        nuevoFamiliar.setPersona(personas);
         nuevoFamiliar.setPersonafamiliar(new Personas());
         nuevoFamiliar.setTipofamiliar(new TiposFamiliares());
     }
 
     public void limpiarDuplicarFamiliar() {
         duplicarFamiliares = new Familiares();
-        duplicarFamiliares.setPersona(empleado.getPersona());
+        duplicarFamiliares.setPersona(personas);
         duplicarFamiliares.setPersonafamiliar(new Personas());
         duplicarFamiliares.setTipofamiliar(new TiposFamiliares());
 
@@ -684,7 +687,7 @@ public class ControlFamiliares implements Serializable {
             k++;
             l = BigDecimal.valueOf(k);
             duplicarFamiliares.setSecuencia(l);
-            duplicarFamiliares.setPersona(empleado.getPersona());
+            duplicarFamiliares.setPersona(personas);
             listaFamiliares.add(duplicarFamiliares);
             listaFamiliaresCrear.add(duplicarFamiliares);
             familiarSeleccionado = duplicarFamiliares;
@@ -760,7 +763,7 @@ public class ControlFamiliares implements Serializable {
 
     public void activarCtrlF11() {
         if (bandera == 0) {
-            altoTabla = "295";
+            altoTabla = "265";
             nombre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFamiliares:nombreFamiliar");
             nombre.setFilterStyle("width: 85% !important");
             ocupacion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFamiliares:ocupacionFamiliar");
@@ -871,6 +874,11 @@ public class ControlFamiliares implements Serializable {
     public void dispararDialogoNuevoFamiliarPersona() {
         RequestContext.getCurrentInstance().update("formularioDialogos:nuevoFamiliarPersona");
         RequestContext.getCurrentInstance().execute("PF('nuevoFamiliarPersona').show()");
+    }
+
+    public void dispararDialogoNuevoFamiliar() {
+        RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroFamiliarPersona");
+        RequestContext.getCurrentInstance().execute("PF('NuevoRegistroFamiliarPersona').show()");
     }
 
     public void actualizarTipoFamiliar() {
@@ -1100,10 +1108,10 @@ public class ControlFamiliares implements Serializable {
             RequestContext.getCurrentInstance().update("form:datosFamiliares");
         } else if (tipoActualizacion == 1) {
             nuevoFamiliar.setPersonafamiliar(personaSeleccionada);
-            nuevoFamiliar.setPersona(empleado.getPersona());
+            nuevoFamiliar.setPersona(personas);
             RequestContext.getCurrentInstance().update("formularioDialogos:nuevoPersonaFamiliar");
         } else if (tipoActualizacion == 2) {
-            duplicarFamiliares.setPersona(empleado.getPersona());
+            duplicarFamiliares.setPersona(personas);
             duplicarFamiliares.setPersonafamiliar(personaSeleccionada);
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarPersonaFamiliar");
         }
@@ -1272,6 +1280,11 @@ public class ControlFamiliares implements Serializable {
         RequestContext.getCurrentInstance().update("form:listaValores");
     }
 
+    public void mostrarDialogoElegirTabla() {
+        RequestContext.getCurrentInstance().update("formularioDialogos:seleccionarTablaNewReg");
+        RequestContext.getCurrentInstance().execute("PF('seleccionarTablaNewReg').show()");
+    }
+
     public void eventoFiltrar() {
         if (tipoLista == 0) {
             tipoLista = 1;
@@ -1351,11 +1364,23 @@ public class ControlFamiliares implements Serializable {
         personas.setCiudadnacimiento(new Ciudades());
     }
 
+    public void activarDatos() {
+        if (familiarSeleccionado != null) {
+            activardatos = false;
+        } else {
+            activardatos = true;
+        }
+
+        RequestContext.getCurrentInstance().update("form:btneducacion");
+        RequestContext.getCurrentInstance().update("form:btntelefono");
+        RequestContext.getCurrentInstance().update("form:btndireccion");
+    }
+
     ///////////GETS Y SETS //////
     public List<Familiares> getListaFamiliares() {
         if (listaFamiliares == null) {
-            if (empleado.getPersona().getSecuencia() != null) {
-                listaFamiliares = administrarFamiliares.consultarFamiliares(empleado.getPersona().getSecuencia());
+            if (personas != null) {
+                listaFamiliares = administrarFamiliares.consultarFamiliares(personas.getSecuencia());
             }
         }
         return listaFamiliares;
@@ -1532,14 +1557,6 @@ public class ControlFamiliares implements Serializable {
         this.mensajeValidacion = mensajeValidacion;
     }
 
-    public Empleados getEmpleado() {
-        return empleado;
-    }
-
-    public void setEmpleado(Empleados empleado) {
-        this.empleado = empleado;
-    }
-
     public Personas getPersonas() {
         return personas;
     }
@@ -1634,4 +1651,13 @@ public class ControlFamiliares implements Serializable {
     public void setInfoRegistroCiudadNacimiento(String infoRegistroCiudadNacimiento) {
         this.infoRegistroCiudadNacimiento = infoRegistroCiudadNacimiento;
     }
+
+    public boolean isActivardatos() {
+        return activardatos;
+    }
+
+    public void setActivardatos(boolean activardatos) {
+        this.activardatos = activardatos;
+    }
+
 }

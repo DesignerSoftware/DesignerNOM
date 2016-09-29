@@ -5967,4 +5967,40 @@
         </navigation-case>
     </navigation-rule>
     
+    <navigation-rule>
+        <from-view-id>/emplfamiliares.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>telefonosfamiliares</from-outcome>
+            <to-view-id>/pertelefono.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/emplfamiliares.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>direccionesfamiliares</from-outcome>
+            <to-view-id>/perdireccion.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/emplfamiliares.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>educacionfamiliares</from-outcome>
+            <to-view-id>/personaeducacion.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/emplfamiliares.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>tiposfamiliares</from-outcome>
+            <to-view-id>/tipofamiliar.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
 </faces-config>

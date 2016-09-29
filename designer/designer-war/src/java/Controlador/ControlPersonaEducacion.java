@@ -44,7 +44,6 @@ public class ControlPersonaEducacion implements Serializable {
     @EJB
     AdministrarRastrosInterface administrarRastros;
     //SECUENCIA DE LA PERSONA
-    private BigInteger secuenciaPersona;
     private Personas persona;
     //LISTA VIGENCIAS FORMALES
     private List<VigenciasFormales> listaVigenciasFormales;
@@ -128,10 +127,9 @@ public class ControlPersonaEducacion implements Serializable {
     //Cual Insertar
     private String cualInsertar;
     //Cual Nuevo Update
-    private String cualNuevo;
+    private String cualNuevo,paginaanterior;
     public String altoTabla1;
     public String altoTabla2;
-    private Empleados empleado;
     private String infoRegistroF, infoRegistroNF, infoRegistroEducacion, infoRegistroCursos, infoRegistrosProfesion, infoRegistroInstituciones, infoRegistroInstitucionesF, infoRegistroAdiestramientosF, infoRegistroAdiestramientosNF;
     private boolean activarLov;
     private DataTable tablaC, tablaC2;
@@ -180,13 +178,13 @@ public class ControlPersonaEducacion implements Serializable {
         tablaImprimir = ":formExportar:datosVigenciasFormalesExportar";
         nombreArchivo = "VigenciasFormalesXML";
         k = 0;
-        cualInsertar = ":formularioDialogos:NuevoRegistroVigenciaFormal";
-        cualNuevo = ":formularioDialogos:nuevaVigenciaFormal";
+        cualInsertar = "formularioDialogos:NuevoRegistroVigenciaFormal";
+        cualNuevo = "formularioDialogos:nuevaVigenciaFormal";
         m = 0;
         altoTabla1 = "115";
         altoTabla2 = "115";
-        empleado = new Empleados();
         activarLov = true;
+        paginaanterior = " ";
     }
 
     @PostConstruct
@@ -203,9 +201,9 @@ public class ControlPersonaEducacion implements Serializable {
         }
     }
 
-    public void recibirPersona(BigInteger secEmpl) {
-        secuenciaPersona = secEmpl;
-        empleado = administrarVigenciasFormales.empleadoActual(secEmpl);
+    public void recibirPersona(BigInteger secEmpl,String pagina) {
+        paginaanterior = pagina;
+        persona = administrarVigenciasFormales.encontrarPersona(secEmpl);
         getPersona();
         listaVigenciasFormales = null;
         getListaVigenciasFormales();
@@ -223,6 +221,10 @@ public class ControlPersonaEducacion implements Serializable {
         }
     }
 
+    public String redirigir(){
+        return paginaanterior;
+    }
+    
     //Ubicacion Celda.
     public void cambiarIndice(VigenciasFormales vigenciaformal, int celda) {
         if (permitirIndex == true) {
@@ -1379,7 +1381,7 @@ public class ControlPersonaEducacion implements Serializable {
             k++;
             l = BigInteger.valueOf(k);
             nuevaVigenciaFormal.setSecuencia(l);
-            nuevaVigenciaFormal.setPersona(empleado.getPersona());
+            nuevaVigenciaFormal.setPersona(persona);
 //            if (nuevaVigenciaFormal.getTipoeducacion().getSecuencia() == null) {
 //                nuevaVigenciaFormal.setTipoeducacion(null);
 //            }
@@ -2517,7 +2519,7 @@ public class ControlPersonaEducacion implements Serializable {
             k++;
             l = BigInteger.valueOf(k);
             nuevaVigenciaNoFormal.setSecuencia(l);
-            nuevaVigenciaNoFormal.setPersona(empleado.getPersona());
+            nuevaVigenciaNoFormal.setPersona(persona);
 //            if (nuevaVigenciaNoFormal.getCurso().getSecuencia() == null) {
 //                nuevaVigenciaNoFormal.setCurso(null);
 //            }
@@ -2715,17 +2717,9 @@ public class ControlPersonaEducacion implements Serializable {
         this.persona = persona;
     }
 
-    public BigInteger getSecuenciaPersona() {
-        return secuenciaPersona;
-    }
-
-    public void setSecuenciaPersona(BigInteger secuenciaPersona) {
-        this.secuenciaPersona = secuenciaPersona;
-    }
-
     public List<VigenciasFormales> getListaVigenciasFormales() {
-        if (listaVigenciasFormales == null && empleado.getPersona() != null) {
-            listaVigenciasFormales = administrarVigenciasFormales.vigenciasFormalesPersona(empleado.getPersona().getSecuencia());
+        if (listaVigenciasFormales == null && persona != null) {
+            listaVigenciasFormales = administrarVigenciasFormales.vigenciasFormalesPersona(persona.getSecuencia());
         }
         return listaVigenciasFormales;
     }
@@ -2893,7 +2887,7 @@ public class ControlPersonaEducacion implements Serializable {
 // SETS Y GETS  de Vigencias No Formales
     public List<VigenciasNoFormales> getListaVigenciasNoFormales() {
         if (listaVigenciasNoFormales == null) {
-            listaVigenciasNoFormales = administrarVigenciasNoFormales.vigenciasNoFormalesPersona(empleado.getPersona().getSecuencia());
+            listaVigenciasNoFormales = administrarVigenciasNoFormales.vigenciasNoFormalesPersona(persona.getSecuencia());
         }
         return listaVigenciasNoFormales;
     }
@@ -3058,14 +3052,6 @@ public class ControlPersonaEducacion implements Serializable {
 
     public void setGuardado(boolean guardado) {
         this.guardado = guardado;
-    }
-
-    public Empleados getEmpleado() {
-        return empleado;
-    }
-
-    public void setEmpleado(Empleados empleado) {
-        this.empleado = empleado;
     }
 
     public String getInfoRegistroF() {

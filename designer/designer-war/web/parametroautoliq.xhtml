@@ -1377,7 +1377,7 @@
                                      filteredValue="#{controlParametroAutoliq.filtrarLovTiposTrabajadores}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlParametroAutoliq.activarAceptar()}" update=":formularioLovTipoTrabajador:aceptarTT"/>
                             <p:ajax event="rowDblselect" listener="#{controlParametroAutoliq.actualizarTipoTrabajador()}" process="@this" />
-                            <p:ajax event="filter" listener="#{controlParametroAutoliq.eventoFiltrarLovTipoTrabajador()}"/>
+                            <p:ajax event="filter" listener="#{controlParametroAutoliq.contarRegistroTiposTrabajadores()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarTT']}"  style="position: absolute; left: 27px; top: 14px"/>  
                                 <p:inputText id="globalFilter" onkeyup="PF('lovTipoTrabajador').filter();" style="width: 150px; position: relative; left: 50px;" />  
@@ -1409,7 +1409,7 @@
                                      filteredValue="#{controlParametroAutoliq.filtrarLovEmpresas}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlParametroAutoliq.activarAceptar()}" update=":formularioLovEmpresa:aceptarE"/>
                             <p:ajax event="rowDblselect" listener="#{controlParametroAutoliq.actualizarEmpresa()}" process="@this" />
-                            <p:ajax event="filter" listener="#{controlParametroAutoliq.eventoFiltrarLovEmpresas()}"/>
+                            <p:ajax event="filter" listener="#{controlParametroAutoliq.contarRegistroEmpresa()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarE']}"  style="position: absolute; left: 27px; top: 14px"/>  
                                 <p:inputText id="globalFilter" onkeyup="PF('lovEmpresa').filter();" style="width:150px; position: relative; left: -40px;" />  
@@ -1453,7 +1453,7 @@
                                      filteredValue="#{controlParametroAutoliq.filtrarLovTiposEntidades}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlParametroAutoliq.activarAceptar()}" update=":formularioLovTipoEntidad:aceptarTE"/>
                             <p:ajax event="rowDblselect" listener="#{controlParametroAutoliq.actualizarTipoEntidad()}" process="@this" />
-                            <p:ajax event="filter" listener="#{controlParametroAutoliq.eventoFiltrarLovTipoEntidades()}"/>
+                            <p:ajax event="filter" listener="#{controlParametroAutoliq.contarRegistroTiposEntidades()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarTE']}"  style="position: absolute; left: 27px; top: 14px"/>  
                                 <p:inputText id="globalFilter" onkeyup="PF('lovTipoEntidad').filter();" style="width:150px; position: relative; left: 50px;" />  
@@ -1485,7 +1485,7 @@
                                      filteredValue="#{controlParametroAutoliq.filtrarLovEmpleados}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlParametroAutoliq.activarAceptar()}" update=":formularioLovEmpleado:aceptarEMPL"/>
                             <p:ajax event="rowDblselect" listener="#{controlParametroAutoliq.actualizarEmpleado()}" process="@this" />
-                            <p:ajax event="filter" listener="#{controlParametroAutoliq.eventoFiltrarEmpleados()}"/>
+                            <p:ajax event="filter" listener="#{controlParametroAutoliq.contarRegistroEmpleados()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarEMPL']}"  style="position: absolute; left: 27px; top: 14px"/>  
                                 <p:inputText id="globalFilter" onkeyup="PF('lovEmpleado').filter();" style="width:150px; position: relative; left: 50px;" />  
@@ -1524,7 +1524,7 @@
                                      filteredValue="#{controlParametroAutoliq.filtrarLovTerceros}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlParametroAutoliq.activarAceptar()}" update=":formularioLovTercero:aceptarT"/>
                             <p:ajax event="rowDblselect" listener="#{controlParametroAutoliq.actualizarTercero()}" process="@this" />
-                            <p:ajax event="filter" listener="#{controlParametroAutoliq.eventoFiltrarLovTerceros()}"/>
+                            <p:ajax event="filter" listener="#{controlParametroAutoliq.contarRegistroTercero()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarT']}"  style="position: absolute; left: 27px; top: 14px"/>  
                                 <p:inputText id="globalFilter" onkeyup="PF('lovTercero').filter();" style="width:200px; position: relative; left: -40px;" />  
@@ -1568,7 +1568,7 @@
                                      filteredValue="#{controlParametroAutoliq.filtrarLovAportesEntidades}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlParametroAutoliq.activarAceptar()}" update=":formularioLovAporteEntidad:aceptarBA"/>
                             <p:ajax event="rowDblselect" listener="#{controlParametroAutoliq.actualizarAporteEntidad()}" process="@this" />
-                            <p:ajax event="filter" listener="#{controlParametroAutoliq.eventoFiltrarAporteEntidad()}"/>
+                            <p:ajax event="filter" listener="#{controlParametroAutoliq.contarRegistroAportesEntidades()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarBA']}"  style="position: absolute; left: 27px; top: 14px"/>  
                                 <p:inputText id="globalFilter" onkeyup="PF('lovBuscarAporte').filter();" style="width:200px; position: relative; left: -40px;" />  

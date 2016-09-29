@@ -145,27 +145,6 @@ public class InformacionesAdicionales implements Serializable {
     public void setEmpleado(Empleados empleado) {
         this.empleado = empleado;
     }
-//
-//    public String getTipoDatoCompleto() {
-//        getTipodato();
-//        if (tipodato == null) {
-//            tipoDatoCompleto = " ";
-//        }
-//        if (tipodato.equalsIgnoreCase("C")) {
-//            tipoDatoCompleto = "CARACTER";
-//        }
-//        if (tipodato.equalsIgnoreCase("F")) {
-//            tipoDatoCompleto = "FECHA";
-//        }
-//        if (tipodato.equalsIgnoreCase("N")) {
-//            tipoDatoCompleto = "NUMERICO";
-//        }
-//        return tipoDatoCompleto;
-//    }
-//
-//    public void setTipoDatoCompleto(String tipoDatoCompleto) {
-//        this.tipoDatoCompleto = tipoDatoCompleto;
-//    }
 
     public String getTipodatoTr() {
         if (getTipodato().equalsIgnoreCase("C")) {
@@ -180,17 +159,17 @@ public class InformacionesAdicionales implements Serializable {
         return tipodatoTr;
     }
 
-    public void setTipodatoTr(String tipodatoTr) {
+    public void setTipodatoTr(String tipodatotr) {
 
-        this.tipodatoTr = tipodatoTr;
+        this.tipodatoTr = tipodatotr;
         if (tipodatoTr.equals("CARACTER")) {
-            setTipodatoTr("C");
+            tipodato = "C";
         }
         if (tipodatoTr.equals("FECHA")) {
-            setTipodatoTr("F");
+            tipodato = "F";
         }
         if (tipodatoTr.equals("NUMERICO")) {
-            setTipodatoTr("N");
+            tipodato = "N";
         }
     }
 

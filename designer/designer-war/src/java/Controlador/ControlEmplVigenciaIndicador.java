@@ -1,6 +1,5 @@
 package Controlador;
 
-
 import Entidades.Empleados;
 import Entidades.Indicadores;
 import Entidades.TiposIndicadores;
@@ -133,7 +132,6 @@ public class ControlEmplVigenciaIndicador implements Serializable {
         listVigenciasIndicadores = null;
         empleado = administrarEmplVigenciaIndicador.empleadoActual(secuencia);
         getListVigenciasIndicadores();
-        contarRegistros();
         deshabilitarBotonLov();
         if (!listVigenciasIndicadores.isEmpty()) {
             vigenciaTablaSeleccionada = listVigenciasIndicadores.get(0);
@@ -177,12 +175,10 @@ public class ControlEmplVigenciaIndicador implements Serializable {
                 } else {
                     retorno = false;
                 }
+            } else if (nuevaVigencia.getFechainicial().after(fechaParametro)) {
+                retorno = true;
             } else {
-                if (nuevaVigencia.getFechainicial().after(fechaParametro)) {
-                    retorno = true;
-                } else {
-                    retorno = false;
-                }
+                retorno = false;
             }
         }
         if (i == 2) {
@@ -192,12 +188,10 @@ public class ControlEmplVigenciaIndicador implements Serializable {
                 } else {
                     retorno = false;
                 }
+            } else if (duplicarVigenciaIndicador.getFechainicial().after(fechaParametro)) {
+                retorno = true;
             } else {
-                if (duplicarVigenciaIndicador.getFechainicial().after(fechaParametro)) {
-                    retorno = true;
-                } else {
-                    retorno = false;
-                }
+                retorno = false;
             }
         }
         return retorno;
@@ -265,10 +259,9 @@ public class ControlEmplVigenciaIndicador implements Serializable {
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
             }
-        } else {
-//            int ind = listVigenciasIndicadores.indexOf(vigenciaTablaSeleccionada);
-//            vigenciaTablaSeleccionada = ind;
-
+        } else //            int ind = listVigenciasIndicadores.indexOf(vigenciaTablaSeleccionada);
+        //            vigenciaTablaSeleccionada = ind;
+        {
             if (!listVigenciaIndicadorCrear.contains(vigenciaTablaSeleccionada)) {
                 if (listVigenciaIndicadorModificar.isEmpty()) {
                     listVigenciaIndicadorModificar.add(vigenciaTablaSeleccionada);
@@ -368,17 +361,15 @@ public class ControlEmplVigenciaIndicador implements Serializable {
                         RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
                 }
-            } else {
-                if (!listVigenciaIndicadorCrear.contains(vigenciaTablaSeleccionada)) {
-                    if (listVigenciaIndicadorModificar.isEmpty()) {
-                        listVigenciaIndicadorModificar.add(vigenciaTablaSeleccionada);
-                    } else if (!listVigenciaIndicadorModificar.contains(vigenciaTablaSeleccionada)) {
-                        listVigenciaIndicadorModificar.add(vigenciaTablaSeleccionada);
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                    }
+            } else if (!listVigenciaIndicadorCrear.contains(vigenciaTablaSeleccionada)) {
+                if (listVigenciaIndicadorModificar.isEmpty()) {
+                    listVigenciaIndicadorModificar.add(vigenciaTablaSeleccionada);
+                } else if (!listVigenciaIndicadorModificar.contains(vigenciaTablaSeleccionada)) {
+                    listVigenciaIndicadorModificar.add(vigenciaTablaSeleccionada);
+                }
+                if (guardado == true) {
+                    guardado = false;
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
             }
         }
@@ -496,8 +487,8 @@ public class ControlEmplVigenciaIndicador implements Serializable {
                 vigenciaTablaSeleccionada.getSecuencia();
                 //tipos = vigenciaTablaSeleccionada.getTipoindicador().getDescripcion();
                 indicador = vigenciaTablaSeleccionada.getIndicador().getDescripcion();
-                modificarInfoRegistroTipo(listTiposIndicadores.size());
-                modificarInfoRegistroIndicador(listIndicadores.size());
+                contarRegistros();
+                contarRegistroIndicador();
             }
             if (tipoLista == 1) {
                 fechaFin = vigenciaTablaSeleccionada.getFechafinal();
@@ -505,8 +496,8 @@ public class ControlEmplVigenciaIndicador implements Serializable {
                 vigenciaTablaSeleccionada.getSecuencia();
                 tipos = vigenciaTablaSeleccionada.getTipoindicador().getDescripcion();
                 indicador = vigenciaTablaSeleccionada.getIndicador().getDescripcion();
-                modificarInfoRegistroTipo(listTiposIndicadores.size());
-                modificarInfoRegistroIndicador(listIndicadores.size());
+                contarRegistroTipo();
+                contarRegistroIndicador();
             }
         }
     }
@@ -665,7 +656,7 @@ public class ControlEmplVigenciaIndicador implements Serializable {
                     guardado = false;
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
-                modificarInfoRegistro(listVigenciasIndicadores.size());
+                contarRegistros();
                 RequestContext.getCurrentInstance().update("form:informacionRegistro");
                 RequestContext.getCurrentInstance().update("form:datosVigencia");
                 RequestContext.getCurrentInstance().execute("PF('NuevoRegistroV').hide()");
@@ -761,7 +752,7 @@ public class ControlEmplVigenciaIndicador implements Serializable {
                 duplicarVigenciaIndicador = new VigenciasIndicadores();
                 limpiarduplicarV();
                 getListVigenciasIndicadores();
-                modificarInfoRegistro(listVigenciasIndicadores.size());
+                contarRegistros();
                 RequestContext.getCurrentInstance().update("form:informacionRegistro");
                 RequestContext.getCurrentInstance().update("form:datosVigencia");
                 RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroV').hide()");
@@ -808,7 +799,7 @@ public class ControlEmplVigenciaIndicador implements Serializable {
                 filtrarListVigenciasIndicadores.remove(vigenciaTablaSeleccionada);
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            modificarInfoRegistro(listVigenciasIndicadores.size());
+            contarRegistros();
             RequestContext.getCurrentInstance().update("form:informacionRegistro");
             RequestContext.getCurrentInstance().update("form:datosVigencia");
             vigenciaTablaSeleccionada = null;
@@ -912,12 +903,12 @@ public class ControlEmplVigenciaIndicador implements Serializable {
             tipoActualizacion = 2;
         }
         if (dlg == 0) {
-            modificarInfoRegistroTipo(listTiposIndicadores.size());
+            contarRegistroTipo();
             habilitarBotonLov();
             RequestContext.getCurrentInstance().update("form:TiposDialogo");
             RequestContext.getCurrentInstance().execute("PF('TiposDialogo').show()");
         } else if (dlg == 1) {
-            modificarInfoRegistro(listIndicadores.size());
+            contarRegistros();
             habilitarBotonLov();
             RequestContext.getCurrentInstance().update("form:IndicadorDialogo");
             RequestContext.getCurrentInstance().execute("PF('IndicadorDialogo').show()");
@@ -1055,16 +1046,16 @@ public class ControlEmplVigenciaIndicador implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (vigenciaTablaSeleccionada != null) {
             if (cualCelda == 2) {
-                modificarInfoRegistroTipo(listTiposIndicadores.size());
-                modificarInfoRegistroIndicador(listIndicadores.size());
+                contarRegistroTipo();
+                contarRegistroIndicador();
                 RequestContext.getCurrentInstance().update("form:TiposDialogo");
                 RequestContext.getCurrentInstance().execute("PF('TiposDialogo').show()");
                 tipoActualizacion = 0;
                 habilitarBotonLov();
             }
             if (cualCelda == 3) {
-                modificarInfoRegistroTipo(listTiposIndicadores.size());
-                modificarInfoRegistroIndicador(listIndicadores.size());
+                contarRegistroTipo();
+                contarRegistroIndicador();
                 RequestContext.getCurrentInstance().update("form:IndicadorDialogo");
                 RequestContext.getCurrentInstance().execute("PF('IndicadorDialogo').show()");
                 tipoActualizacion = 0;
@@ -1108,40 +1099,24 @@ public class ControlEmplVigenciaIndicador implements Serializable {
             if (tipoLista == 0) {
                 tipoLista = 1;
             }
-            RequestContext context = RequestContext.getCurrentInstance();
-            modificarInfoRegistro(filtrarListVigenciasIndicadores.size());
-            RequestContext.getCurrentInstance().update("form:informacionRegistro");
+            contarRegistros();
         }
-    }
-
-    public void eventoFiltrarIndicador() {
-        modificarInfoRegistroIndicador(filtrarListIndicadores.size());
-        RequestContext.getCurrentInstance().update("form:infoRegistroIndicador");
     }
 
     public void eventoFiltrarTipo() {
-        modificarInfoRegistroTipo(filtrarListTiposIndicadores.size());
+        contarRegistros();
+    }
+
+    public void contarRegistroIndicador() {
+        RequestContext.getCurrentInstance().update("form:infoRegistroIndicador");
+    }
+
+    public void contarRegistroTipo() {
         RequestContext.getCurrentInstance().update("form:infoRegistroTipo");
     }
 
-    public void modificarInfoRegistro(int valor) {
-        infoRegistro = String.valueOf(valor);
-    }
-
-    public void modificarInfoRegistroIndicador(int valor) {
-        infoRegistroIndicador = String.valueOf(valor);
-    }
-
-    public void modificarInfoRegistroTipo(int valor) {
-        infoRegistroTipo = String.valueOf(valor);
-    }
-
     public void contarRegistros() {
-        if (listVigenciasIndicadores != null) {
-            modificarInfoRegistro(listVigenciasIndicadores.size());
-        } else {
-            modificarInfoRegistro(0);
-        }
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
     }
 
     public void habilitarBotonLov() {
@@ -1173,13 +1148,10 @@ public class ControlEmplVigenciaIndicador implements Serializable {
                 } else if (resultado == 5) {
                     RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
                 }
+            } else if (administrarRastros.verificarHistoricosTabla("VIGENCIASINDICADORES")) {
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
             } else {
-                if (administrarRastros.verificarHistoricosTabla("VIGENCIASINDICADORES")) {
-                    RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-                } else {
-                    RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-                }
-
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
             }
         }
     }
@@ -1382,23 +1354,32 @@ public class ControlEmplVigenciaIndicador implements Serializable {
     }
 
     public String getInfoRegistro() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosVigencia");
+        infoRegistro = String.valueOf(tabla.getRowCount());
         return infoRegistro;
+    }
+
+    public String getInfoRegistroTipo() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lovTipos");
+        infoRegistroTipo = String.valueOf(tabla.getRowCount());
+        return infoRegistroTipo;
+    }
+
+    public String getInfoRegistroIndicador() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lovIndicador");
+        infoRegistroIndicador = String.valueOf(tabla.getRowCount());
+        return infoRegistroIndicador;
     }
 
     public void setInfoRegistro(String infoRegistro) {
         this.infoRegistro = infoRegistro;
     }
 
-    public String getInfoRegistroTipo() {
-        return infoRegistroTipo;
-    }
-
     public void setInfoRegistroTipo(String infoRegistroTipo) {
         this.infoRegistroTipo = infoRegistroTipo;
-    }
-
-    public String getInfoRegistroIndicador() {
-        return infoRegistroIndicador;
     }
 
     public void setInfoRegistroIndicador(String infoRegistroIndicador) {

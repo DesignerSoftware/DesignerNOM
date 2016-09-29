@@ -116,8 +116,8 @@ public class PersistenciaVigenciasProyectos implements PersistenciaVigenciasProy
     @Override
     public List<VigenciasProyectos> proyectosEmpleado(EntityManager em, BigInteger secuenciaEmpleado) {
         System.out.println(this.getClass().getName() + ".proyectosEmpleado()");
-        Long resultado = null;
-        if (resultado != null && resultado > 0) {
+//        Long resultado = null;
+//        if (resultado != null && resultado > 0) {
             try {
                 /*em.clear();
                  Query query = em.createQuery("SELECT COUNT(vp) FROM VigenciasProyectos vp WHERE vp.empleado.secuencia = :secuenciaEmpleado");
@@ -132,9 +132,9 @@ public class PersistenciaVigenciasProyectos implements PersistenciaVigenciasProy
                 System.out.println("Error PersistenciaVigenciasProyectos.proyectosPersona" + e);
                 return null;
             }
-        } else {
-            return null;
-        }
+//        } else {
+//            return null;
+//        }
     }
 
     @Override

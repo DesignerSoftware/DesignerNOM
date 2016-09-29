@@ -69,23 +69,22 @@
 
                                 <p:separator style="position: relative; top: -9px"/>
                                 <p:commandButton id="salir" value=" " style="background-image: url(Imagenes/Iconos/salir.png);"
-                                                 actionListener="#{controlPerDirecciones.salir()}" action="individual"  process="@this" />  
+                                                 actionListener="#{controlPerDirecciones.salir()}" action="#{controlPerDirecciones.redirigir()}"  process="@this" />  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
                                 
                             </p:toolbarGroup>  
                         </p:toolbar> 
 
-                        <p:commandButton style=" position: absolute; left: 675px; top: 485px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ACEPTAR" value=""  onclick="PF('confirmarGuardar').show();" update=":form:datosDireccionesPersona" disabled="#{controlPerDirecciones.guardado}" process="@this" />
-                        <p:commandButton style=" position: absolute; left: 765px; top: 485px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" value="" actionListener="#{controlPerDirecciones.salir()}" action="individual" process="@this" /> 
+                        <p:commandButton style=" position: absolute; left: 675px; top: 485px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ACEPTAR" value="" 
+                                         onclick="PF('confirmarGuardar').show();" update=":form:datosDireccionesPersona" disabled="#{controlPerDirecciones.guardado}" process="@this" />
+                        <p:commandButton style=" position: absolute; left: 765px; top: 485px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" value="" 
+                                         actionListener="#{controlPerDirecciones.salir()}" action="#{controlPerDirecciones.redirigir()}" process="@this" /> 
 
                         <fieldset style="position: absolute; top: 75px; left: 10px; height: 18px; width: 830px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px">
                             <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;" />
-                            <h:outputText id="nombreEmpleado" value="#{controlPerDirecciones.empleado.persona.nombreCompleto}" 
+                            <h:outputText id="nombreEmpleado" value="#{controlPerDirecciones.persona.nombreCompleto}" 
                                           style="font-weight: bold; color: #BF1A1A; position: relative; left: 10px; top: 5px"/>
 
-                            <h:outputText value="#{msg['codigo']}" style="font-weight: bold; color: #14388B; position: relative; left: 120px; top: 5px;" />
-                            <h:outputText id="docEmpleado" value="#{controlPerDirecciones.empleado.codigoempleado}" 
-                                          style="font-weight: bold; color: #BF1A1A; position: relative; left: 130px; top: 5px;" />
                         </fieldset>
                         
                         <fieldset style="position: absolute;top: 110px;left: 10px;height: 350px;width: 830px; border-radius: 10px; text-align: left">

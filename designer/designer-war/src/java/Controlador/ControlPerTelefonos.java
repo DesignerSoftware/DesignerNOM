@@ -36,7 +36,7 @@ public class ControlPerTelefonos implements Serializable {
     AdministrarRastrosInterface administrarRastros;
 
     //SECUENCIA DE LA PERSONA
-    private BigInteger secuenciaPersona;
+//    private BigInteger secuenciaPersona;
     private Personas persona;
     //LISTA TELEFONOS
     private List<Telefonos> listaTelefonos;
@@ -77,9 +77,9 @@ public class ControlPerTelefonos implements Serializable {
     //Duplicar
     private Telefonos duplicarTelefono;
     //RASTRO
-    private String altoTabla, infoRegistro, infoRegistroTT, infoRegistroCiudad;
+    private String altoTabla, infoRegistro, infoRegistroTT, infoRegistroCiudad,paginaanterior;
     private DataTable tablaC;
-    private Empleados empleado;
+//    private Empleados empleado;
     private boolean activarLov;
 
     public ControlPerTelefonos() {
@@ -108,8 +108,9 @@ public class ControlPerTelefonos implements Serializable {
         k = 0;
         altoTabla = "270";
         guardado = true;
-        empleado = new Empleados();
+//        empleado = new Empleados();
         activarLov = true;
+        paginaanterior = " ";
 
     }
 
@@ -126,10 +127,12 @@ public class ControlPerTelefonos implements Serializable {
         }
     }
 
-    public void recibirEmpleado(BigInteger secuencia) {
+    public void recibirEmpleado(BigInteger secuencia,String pagina) {
+        paginaanterior = pagina;
         listaTelefonos = null;
         listaTiposTelefonos = null;
-        empleado = administrarTelefonos.empleadoActual(secuencia);
+//        empleado = administrarTelefonos.empleadoActual(secuencia);
+        persona = administrarTelefonos.encontrarPersona(secuencia);
         getListaTelefonos();
         if (listaTelefonos == null || listaTelefonos.isEmpty()) {
             telefonoSeleccionado = null;
@@ -138,6 +141,10 @@ public class ControlPerTelefonos implements Serializable {
         }
     }
 
+    public String redirigir(){
+        return paginaanterior;
+    }
+    
     public void refrescar() {
         listaTelefonos = null;
         aceptar = true;
@@ -572,7 +579,7 @@ public class ControlPerTelefonos implements Serializable {
             k++;
             l = BigInteger.valueOf(k);
             nuevoTelefono.setSecuencia(l);
-            nuevoTelefono.setPersona(empleado.getPersona());
+            nuevoTelefono.setPersona(persona);
             if (nuevoTelefono.getCiudad().getSecuencia() == null) {
                 nuevoTelefono.setCiudad(null);
             }
@@ -1107,9 +1114,9 @@ public class ControlPerTelefonos implements Serializable {
 
     //GETTER AND SETTER
     public Personas getPersona() {
-        if (persona == null) {
-            persona = administrarTelefonos.encontrarPersona(secuenciaPersona);
-        }
+//        if (persona == null) {
+//            persona = administrarTelefonos.encontrarPersona(secuenciaPersona);
+//        }
         return persona;
     }
 
@@ -1119,8 +1126,8 @@ public class ControlPerTelefonos implements Serializable {
 
     public List<Telefonos> getListaTelefonos() {
         if (listaTelefonos == null) {
-            if (empleado.getPersona().getSecuencia() != null) {
-                listaTelefonos = administrarTelefonos.telefonosPersona(empleado.getPersona().getSecuencia());
+            if (persona.getSecuencia() != null) {
+                listaTelefonos = administrarTelefonos.telefonosPersona(persona.getSecuencia());
             }
         }
         return listaTelefonos;
@@ -1256,13 +1263,13 @@ public class ControlPerTelefonos implements Serializable {
         this.guardado = guardado;
     }
 
-    public Empleados getEmpleado() {
-        return empleado;
-    }
-
-    public void setEmpleado(Empleados empleado) {
-        this.empleado = empleado;
-    }
+//    public Empleados getEmpleado() {
+//        return empleado;
+//    }
+//
+//    public void setEmpleado(Empleados empleado) {
+//        this.empleado = empleado;
+//    }
 
     public String getInfoRegistroTT() {
         FacesContext c = FacesContext.getCurrentInstance();

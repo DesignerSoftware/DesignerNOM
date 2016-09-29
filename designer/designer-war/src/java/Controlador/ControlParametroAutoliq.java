@@ -1,6 +1,5 @@
 package Controlador;
 
-
 import Entidades.ActualUsuario;
 import Entidades.AportesEntidades;
 import Entidades.Empleados;
@@ -252,8 +251,6 @@ public class ControlParametroAutoliq implements Serializable {
         listaAportesEntidades = null;
         getListaParametrosAutoliq();
         getListaAportesEntidades();
-        contarRegistrosParametros();
-        contarRegistrosAporte();
         if (listaParametrosAutoliq != null) {
             if (!listaParametrosAutoliq.isEmpty()) {
                 parametroTablaSeleccionado = listaParametrosAutoliq.get(0);
@@ -743,7 +740,7 @@ public class ControlParametroAutoliq implements Serializable {
 //            lovAportesEntidades = null;
 //            getLovAportesEntidades();
             if (listaAportesEntidades != null) {
-                modificarInfoRegistroAporte(listaAportesEntidades.size());
+                contarRegistrosAporte();
             }
             Thread.sleep(2000L);
 //            RequestContext.getCurrentInstance().update("form:PanelTotal");
@@ -923,7 +920,7 @@ public class ControlParametroAutoliq implements Serializable {
             listaParametrosAutoliq = null;
             getListaParametrosAutoliq();
             if (listaParametrosAutoliq != null) {
-                modificarInfoRegistroParametro(listaParametrosAutoliq.size());
+                contarRegistrosParametros();
             }
             RequestContext.getCurrentInstance().update("form:infoRegistroParametro");
             RequestContext.getCurrentInstance().update("form:datosParametroAuto");
@@ -972,7 +969,7 @@ public class ControlParametroAutoliq implements Serializable {
             getListaAportesEntidades();
             System.out.println("tamaño lista aportes : " + listaAportesEntidades.size());
             RequestContext.getCurrentInstance().update("form:tablaAportesEntidades");
-            modificarInfoRegistroAporte(listaAportesEntidades.size());
+            contarRegistrosAporte();
             k = 0;
 //            aporteTablaSeleccionado = null;
             cambiosAporte = true;
@@ -1026,15 +1023,11 @@ public class ControlParametroAutoliq implements Serializable {
         listaParametrosAutoliq = null;
         getListaParametrosAutoliq();
         if (listaParametrosAutoliq != null) {
-            modificarInfoRegistroParametro(listaParametrosAutoliq.size());
+            contarRegistrosParametros();
         }
         listaAportesEntidades = null;
         getListaAportesEntidades();
-        if (listaAportesEntidades != null) {
-            modificarInfoRegistroAporte(listaAportesEntidades.size());
-        } else {
-            modificarInfoRegistroAporte(0);
-        }
+        contarRegistrosAporte();
         cambiosParametro = false;
         cambiosAporte = false;
         guardado = true;
@@ -1372,7 +1365,7 @@ public class ControlParametroAutoliq implements Serializable {
             nuevoParametro.setEmpresa(new Empresas());
             RequestContext context = RequestContext.getCurrentInstance();
 
-            modificarInfoRegistroParametro(listaParametrosAutoliq.size());
+            contarRegistrosParametros();
 
             RequestContext.getCurrentInstance().update("form:datosParametroAuto");
             RequestContext.getCurrentInstance().execute("PF('NuevoRegistroParametro').hide()");
@@ -1421,9 +1414,7 @@ public class ControlParametroAutoliq implements Serializable {
         nuevoAporteEntidad.setTipoentidad(new TiposEntidades());
         nuevoAporteEntidad.setEmpleado(new Empleados());
         RequestContext context = RequestContext.getCurrentInstance();
-
-        modificarInfoRegistroAporte(listaAportesEntidades.size());
-
+        contarRegistrosAporte();
         RequestContext.getCurrentInstance().update("form:tablaAportesEntidades");
         RequestContext.getCurrentInstance().execute("PF('formularioDialogos:nuevoAporteEntidad').hide()");
         if (guardado == true) {
@@ -1498,7 +1489,7 @@ public class ControlParametroAutoliq implements Serializable {
         duplicarAporteEntidad.setTipoentidad(new TiposEntidades());
         duplicarAporteEntidad.setEmpleado(new Empleados());
         RequestContext context = RequestContext.getCurrentInstance();
-        modificarInfoRegistroAporte(listaAportesEntidades.size());
+        contarRegistrosAporte();
         RequestContext.getCurrentInstance().update("form:tablaAportesEntidades");
         RequestContext.getCurrentInstance().execute("PF('formularioDialogos:duplicarAporteEntidad').hide()");
         if (guardado == true) {
@@ -1571,9 +1562,7 @@ public class ControlParametroAutoliq implements Serializable {
             listParametrosAutoliqCrear.add(duplicarParametro);
             parametroTablaSeleccionado = duplicarParametro;
             RequestContext context = RequestContext.getCurrentInstance();
-
-            modificarInfoRegistroParametro(listaParametrosAutoliq.size());
-
+            contarRegistrosParametros();
             RequestContext.getCurrentInstance().update("form:infoRegistroParametro");
             RequestContext.getCurrentInstance().update("form:datosParametroAuto");
             RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroParametro').hide()");
@@ -1648,7 +1637,7 @@ public class ControlParametroAutoliq implements Serializable {
                     filtrarListaParametrosAutoliq.remove(parametroTablaSeleccionado);
                 }
                 RequestContext context = RequestContext.getCurrentInstance();
-                modificarInfoRegistroParametro(listaParametrosAutoliq.size());
+                contarRegistrosParametros();
                 RequestContext.getCurrentInstance().update("form:datosParametroAuto");
                 parametroTablaSeleccionado = null;
                 activoBtnsPaginas = true;
@@ -1683,7 +1672,7 @@ public class ControlParametroAutoliq implements Serializable {
                 filtrarListaAportesEntidades.remove(aporteTablaSeleccionado);
             }
             System.out.println("lista de aportes entidades después de borrar : " + listaAportesEntidades.size());
-            modificarInfoRegistroAporte(listaAportesEntidades.size());
+            contarRegistrosAporte();
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:tablaAportesEntidades");
             aporteTablaSeleccionado = null;
@@ -1711,7 +1700,7 @@ public class ControlParametroAutoliq implements Serializable {
 //                    getListaParametrosAutoliq();
 //                    modificarInfoRegistroParametro(listaParametrosAutoliq.size());
                     listaAportesEntidades = null;
-                    modificarInfoRegistroAporte(0);
+                   contarRegistrosAporte();
                     disabledBuscar = true;
                     visibilidadMostrarTodos = "hidden";
                     RequestContext.getCurrentInstance().update("form:mostrarTodos");
@@ -1831,7 +1820,7 @@ public class ControlParametroAutoliq implements Serializable {
 //                modificarInfoRegistroParametro(listaParametrosAutoliq.size());
                     listaAportesEntidades = null;
                     getListaAportesEntidades();
-                    modificarInfoRegistroAporte(listaAportesEntidades.size());
+                    contarRegistrosAporte();
                     disabledBuscar = true;
                     activoBtnsPaginas = true;
                     visibilidadMostrarTodos = "hidden";
@@ -2453,12 +2442,12 @@ public class ControlParametroAutoliq implements Serializable {
         if (dialogo == 1) {
             RequestContext.getCurrentInstance().update("formularioLovTipoTrabajador:TipoTrabajadorDialogo");
             RequestContext.getCurrentInstance().execute("PF('TipoTrabajadorDialogo').show()");
-            modificarInfoRegistroTiposTrabajadores(lovTiposTrabajadores.size());
+            contarRegistroTiposTrabajadores();
         }
         if (dialogo == 2) {
             RequestContext.getCurrentInstance().update("formularioLovEmpresa:EmpresaDialogo");
             RequestContext.getCurrentInstance().execute("PF('EmpresaDialogo').show()");
-            modificarInfoRegistroEmpresa(lovEmpresas.size());
+            contarRegistroEmpresa();
         }
     }
 
@@ -2468,17 +2457,17 @@ public class ControlParametroAutoliq implements Serializable {
         tipoActualizacion = LND;
         System.out.println("tipo actualizacion aignar index aporte : " + tipoActualizacion);
         if (dialogo == 1) {
-            modificarInfoRegistroEmpleados(lovEmpleados.size());
+            contarRegistroEmpleados();
             RequestContext.getCurrentInstance().update("formularioLovEmpleado:EmpleadoDialogo");
             RequestContext.getCurrentInstance().execute("PF('EmpleadoDialogo').show()");
         }
         if (dialogo == 2) {
-            modificarInfoRegistroTercero(lovTerceros.size());
+            contarRegistroTercero();
             RequestContext.getCurrentInstance().update("formularioLovTercero:TerceroDialogo");
             RequestContext.getCurrentInstance().execute("PF('TerceroDialogo').show()");
         }
         if (dialogo == 3) {
-            modificarInfoRegistroTiposEntidades(lovTiposEntidades.size());
+            contarRegistroTiposEntidades();
             RequestContext.getCurrentInstance().update("formularioLovTipoEntidad:TipoEntidadDialogo");
             RequestContext.getCurrentInstance().execute("PF('TipoEntidadDialogo').show()");
         }
@@ -2800,7 +2789,7 @@ public class ControlParametroAutoliq implements Serializable {
         if (guardado == true) {
             RequestContext.getCurrentInstance().update("formularioLovAporteEntidad:BuscarAporteDialogo");
             RequestContext.getCurrentInstance().execute("PF('BuscarAporteDialogo').show()");
-            modificarInfoRegistroAportesEntidades(lovAportesEntidades.size());
+            contarRegistroAportesEntidades();
         } else {
             RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
         }
@@ -2829,8 +2818,8 @@ public class ControlParametroAutoliq implements Serializable {
         tipoActualizacion = -1;
         visibilidadMostrarTodos = "visible";
         RequestContext.getCurrentInstance().update("form:mostrarTodos");
-        modificarInfoRegistroParametro(listaParametrosAutoliq.size());
-        modificarInfoRegistroAporte(listaAportesEntidades.size());
+        contarRegistrosParametros();
+        contarRegistrosAporte();
         RequestContext.getCurrentInstance().update("form:tablaAportesEntidades");
         /*
          RequestContext.getCurrentInstance().update("formularioLovAporteEntidad:BuscarAporteDialogo");
@@ -3013,14 +3002,10 @@ public class ControlParametroAutoliq implements Serializable {
     }
 
     public void eventoFiltrar() {
-        if (parametroTablaSeleccionado != null) {
-            if (tipoLista == 0) {
-                tipoLista = 1;
-            }
-            modificarInfoRegistroParametro(filtrarListaParametrosAutoliq.size());
-        } else {
-            modificarInfoRegistroParametro(0);
+        if (tipoLista == 0) {
+            tipoLista = 1;
         }
+        contarRegistrosParametros();
     }
 
     public void eventoFiltrarAportes() {
@@ -3029,8 +3014,7 @@ public class ControlParametroAutoliq implements Serializable {
             if (tipoListaAporte == 0) {
                 tipoListaAporte = 1;
             }
-            modificarInfoRegistroAporte(filtrarListaAportesEntidades.size());
-//            RequestContext.getCurrentInstance().update("form:tablaAportesEntidades");
+           contarRegistrosAporte();
         }
     }
 
@@ -3107,87 +3091,43 @@ public class ControlParametroAutoliq implements Serializable {
         }
     }
 
-    public void modificarInfoRegistroEmpresa(int valor) {
-        infoRegistroEmpresa = String.valueOf(valor);
+    public void contarRegistroEmpresa() {
         RequestContext.getCurrentInstance().update("formularioLovEmpresa:infoRegistroEmpresa");
     }
 
-    public void modificarInfoRegistroEmpleados(int valor) {
-        infoRegistroEmpleado = String.valueOf(valor);
+    public void contarRegistroEmpleados() {
         RequestContext.getCurrentInstance().update("formularioLovEmpleado:infoRegistroEmpleado");
     }
 
-    public void modificarInfoRegistroTercero(int valor) {
-        infoRegistroTercero = String.valueOf(valor);
+    public void contarRegistroTercero() {
         RequestContext.getCurrentInstance().update("formularioLovTercero:infoRegistroTercero");
     }
 
-    public void modificarInfoRegistroTiposTrabajadores(int valor) {
-        infoRegistroTipoTrabajador = String.valueOf(valor);
+    public void contarRegistroTiposTrabajadores() {
         RequestContext.getCurrentInstance().update("formularioLovTipoTrabajador:infoRegistroTipoTrabajador");
     }
 
-    public void modificarInfoRegistroTiposEntidades(int valor) {
-        infoRegistroTipoEntidad = String.valueOf(valor);
+    public void contarRegistroTiposEntidades() {
         RequestContext.getCurrentInstance().update("formularioLovTipoEntidad:infoRegistroTipoEntidad");
     }
 
-    public void modificarInfoRegistroAportesEntidades(int valor) {
-        infoRegistroAporteEntidad = String.valueOf(valor);
+    public void contarRegistroAportesEntidades() {
         RequestContext.getCurrentInstance().update("formularioLovAporteEntidad:infoRegistroAporteEntidad");
-    }
-
-    public void modificarInfoRegistroParametro(int valor) {
-        infoRegistroParametro = String.valueOf(valor);
-        RequestContext.getCurrentInstance().update("form:infoRegistroParametro");
-    }
-
-    public void modificarInfoRegistroAporte(int valor) {
-        infoRegistroAporte = String.valueOf(valor);
-        RequestContext.getCurrentInstance().update("form:infoRegistroAporte");
-    }
-
-    public void eventoFiltrarLovEmpresas() {
-        modificarInfoRegistroEmpresa(filtrarLovEmpresas.size());
-    }
-
-    public void eventoFiltrarLovTerceros() {
-        modificarInfoRegistroTercero(filtrarLovTerceros.size());
-    }
-
-    public void eventoFiltrarLovTipoEntidades() {
-        modificarInfoRegistroTiposEntidades(filtrarLovTiposEntidades.size());
-    }
-
-    public void eventoFiltrarLovTipoTrabajador() {
-        modificarInfoRegistroTiposTrabajadores(filtrarLovTiposTrabajadores.size());
-    }
-
-    public void eventoFiltrarEmpleados() {
-        modificarInfoRegistroEmpleados(filtrarLovEmpleados.size());
-    }
-
-    public void eventoFiltrarAporteEntidad() {
-        modificarInfoRegistroAportesEntidades(filtrarLovAportesEntidades.size());
     }
 
     public void contarRegistrosAporte() {
         if (listaAportesEntidades != null) {
             if (!listaAportesEntidades.isEmpty()) {
-                modificarInfoRegistroAporte(listaAportesEntidades.size());
+                RequestContext.getCurrentInstance().update("form:infoRegistroAporte");
             }
-        } else {
-            modificarInfoRegistroAporte(0);
         }
     }
 
     public void contarRegistrosParametros() {
         if (listaParametrosAutoliq != null) {
             if (!listaParametrosAutoliq.isEmpty()) {
-                modificarInfoRegistroParametro(listaParametrosAutoliq.size());
+                RequestContext.getCurrentInstance().update("form:infoRegistroParametro");
             }
-        } else {
-            modificarInfoRegistroParametro(0);
         }
     }
 
@@ -3362,16 +3302,15 @@ public class ControlParametroAutoliq implements Serializable {
                 if (parametroTablaSeleccionado != null) {
                     listaAportesEntidades = administrarParametroAutoliq.consultarAportesEntidadesPorParametroAutoliq(parametroTablaSeleccionado.getEmpresa().getSecuencia(), parametroTablaSeleccionado.getMes(), parametroTablaSeleccionado.getAno());
                     if (listaAportesEntidades != null) {
-                            for (int i = 0; i < listaAportesEntidades.size(); i++) {
-                                if (listaAportesEntidades.get(i).getTerceroRegistro() == null) {
-                                    listaAportesEntidades.get(i).setTerceroRegistro(null);
-                                }
+                        for (int i = 0; i < listaAportesEntidades.size(); i++) {
+                            if (listaAportesEntidades.get(i).getTerceroRegistro() == null) {
+                                listaAportesEntidades.get(i).setTerceroRegistro(null);
                             }
-                        
+                        }
+
                     }
                 }
             }
-            modificarInfoRegistroAporte(listaAportesEntidades.size());
             return listaAportesEntidades;
         } catch (Exception e) {
             System.out.println("Error !!!!!!!!!!! getListaAportesEntidades : " + e.toString());

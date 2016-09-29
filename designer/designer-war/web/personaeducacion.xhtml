@@ -63,23 +63,22 @@
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); background-size: 100% 100%; background-repeat: no-repeat; border:none; width: 25px; height: 25px " actionListener="#{controlPersonaEducacion.cancelarModificacion()}" oncomplete="PF('window.location.reload()"   process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png); background-size: 100% 100%; background-repeat: no-repeat; border:none; width: 25px; height: 25px " action="individual" process="@this"/>  
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png); background-size: 100% 100%; background-repeat: no-repeat; border:none; width: 25px; height: 25px " action="#{controlPersonaEducacion.redirigir()}" actionListener="#{controlPersonaEducacion.salir()}" process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
                             </p:toolbarGroup>  
                         </p:toolbar>
 
-                        <p:commandButton  style=" position: absolute; left: 675px; top: 500px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ACEPTAR" value=" " disabled="#{controlPersonaEducacion.guardado}" onclick="PF('confirmarGuardar').show();" update=":form:datosVigenciasFormalesPersona" process="@this" />
-                        <p:commandButton style=" position: absolute; left: 765px; top: 500px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" value=" "  actionListener="#{controlPersonaEducacion.salir()}" action="individual" process="@this" /> 
+                        <p:commandButton  style=" position: absolute; left: 675px; top: 500px" class="cssBotonAceptar" id="ACEPTAR" value=" " disabled="#{controlPersonaEducacion.guardado}" onclick="PF('confirmarGuardar').show();" 
+                                          update=":form:datosVigenciasFormalesPersona" process="@this" />
+                        <p:commandButton style=" position: absolute; left: 765px; top: 500px;" class="cssBotonCancelar" id="ATRAS" value=" "  action="#{controlPersonaEducacion.redirigir()}" actionListener="#{controlPersonaEducacion.salir()}"
+                                         process="@this" /> 
 
                         <fieldset style="position: absolute; top: 75px; left: 10px; height: 18px; width: 830px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px">
                             <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;" />
-                            <h:outputText id="nombreEmpleado" value="#{controlPersonaEducacion.empleado.persona.nombreCompleto}" 
+                            <h:outputText id="nombreEmpleado" value="#{controlPersonaEducacion.persona.nombreCompleto}" 
                                           style="font-weight: bold; color: #BF1A1A; position: relative; left: 10px; top: 5px"/>
 
-                            <h:outputText value="#{msg['codigo']}" style="font-weight: bold; color: #14388B; position: relative; left: 120px; top: 5px;" />
-                            <h:outputText id="docEmpleado" value="#{controlPersonaEducacion.empleado.codigoempleado}" 
-                                          style="font-weight: bold; color: #BF1A1A; position: relative; left: 130px; top: 5px;" />
                         </fieldset>
 
                         <fieldset style="position: absolute;top: 105px;left: 10px;height: 185px;width: 830px; border-radius: 10px; text-align: left">

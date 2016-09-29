@@ -30,5 +30,6 @@ public interface AdministrarFamiliaresInterface {
     public List<TiposDocumentos> consultarTiposDocumentos();
     public List<Ciudades> consultarCiudades();
     public List<Personas> consultarPersonas();
+    public Personas consultarPersona(BigInteger secPersona);
 
 }

@@ -76,10 +76,6 @@
                             <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;" />
                             <h:outputText id="nombreEmpleado" value="#{controlEmplInformacionAdicional.empleado.persona.nombreCompleto}" 
                                           style="font-weight: bold; color: #BF1A1A; position: relative; left: 10px; top: 5px"/>
-
-                            <h:outputText value="#{msg['codigo']}" style="font-weight: bold; color: #14388B; position: relative; left: 120px; top: 5px;" />
-                            <h:outputText id="docEmpleado" value="#{controlEmplInformacionAdicional.empleado.codigoempleado}" 
-                                          style="font-weight: bold; color: #BF1A1A; position: relative; left: 130px; top: 5px;" />
                         </fieldset>
 
                         <fieldset style="position: absolute; left: 10px; top: 105px;  width: 820px; height: 370px; border-radius: 10px; ">
@@ -154,24 +150,24 @@
                                     </f:facet>
                                 </p:column>
 
-                                <p:column  headerText="#{msg['tipodato']}" style="padding: 0;"  filterMatchMode="contains" id="infoAdTipoDato" width="100" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column  headerText="#{msg['tipodato']}" style="padding: 0;" sortBy="#{info.tipodatoTr}" filterBy="#{info.tipodatoTr}" filterMatchMode="contains" id="infoAdTipoDato" width="100" filterStyle="display: none; visibility: hidden;" >                                  
 
-                                    <!--                                    <p:cellEditor>
-                                                                            <f:facet name="output"><h:outputText value="#{info.tipodatoTr}" /></f:facet>
-                                                                            <f:facet name="input">-->
-                                    <p:selectOneMenu id="editarTipoDato" value="#{info.tipodato}" style="width: 99%; font-weight: bold;text-transform: uppercase">  
-                                        <f:selectItem itemLabel="#{msg['c']}" itemValue="C" />  
-                                        <f:selectItem itemLabel="#{msg['f']}" itemValue="F" /> 
-                                        <f:selectItem itemLabel="#{msg['n']}" itemValue="N" /> 
-                                        <p:ajax event="change" listener="#{controlEmplInformacionAdicional.modificarInfoAd(info)}" update="editarTipoDato"/>
-                                    </p:selectOneMenu>
+                                    <p:cellEditor>
+                                        <f:facet name="output"><h:outputText value="#{info.tipodatoTr}" /></f:facet>
+                                        <f:facet name="input">
+                                            <p:selectOneMenu id="editarTipoDato" value="#{info.tipodatoTr}" style="width: 99%; font-weight: bold;text-transform: uppercase">  
+                                                <f:selectItem itemLabel="#{msg['c']}" itemValue="#{msg['c']}" />  
+                                                <f:selectItem itemLabel="#{msg['f']}" itemValue="#{msg['f']}" /> 
+                                                <f:selectItem itemLabel="#{msg['n']}" itemValue="#{msg['n']}" /> 
+                                                <p:ajax event="change" listener="#{controlEmplInformacionAdicional.modificarInfoAd(info)}" update="@this"/>
+                                            </p:selectOneMenu>
 
-                                    <!--</f:facet>-->
+                                        </f:facet>
 
+                                    </p:cellEditor>
                                     <f:facet name="footer">
                                         <h:outputText value="" />
                                     </f:facet>
-                                    <!--</p:cellEditor>-->
                                 </p:column>
 
                                 <p:column  headerText="#{msg['caracter']}" sortBy="#{info.resultadocaracter}" filterBy="#{info.resultadocaracter}" filterMatchMode="contains" id="infoAdCaracter" width="133" filterStyle="display: none; visibility: hidden;" >                                  
@@ -270,17 +266,17 @@
                             </p:dataTable>
 
                             <div class="cssBotonesLOV"> 
-                            <h:outputText id="infoRegistroGrupo" value="#{msg['infoRegistros']} #{controlEmplInformacionAdicional.infoRegistroGrupo}" class="cssinfoRegistroLOV"/>
+                                <h:outputText id="infoRegistroGrupo" value="#{msg['infoRegistros']} #{controlEmplInformacionAdicional.infoRegistroGrupo}" class="cssinfoRegistroLOV"/>
 
-                            <p:commandButton id="aceptarG" icon="ui-icon-check"  class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlEmplInformacionAdicional.aceptar}" 
-                                             onclick="PF('GrupoDialogo').hide(), PF('lovGrupo').clearFilters();" actionListener="#{controlEmplInformacionAdicional.actualizarGrupo()}" 
-                                             update="lovGrupo, aceptarG, datosInfoAdEmpleado" process="@this">
-                                <p:resetInput target=":form:lovGrupo:globalFilter"/>
-                            </p:commandButton>
-                            <p:commandButton id="atrasG" icon="ui-icon-arrowreturnthick-1-w" class="cssAtrasLOV" value="#{msg['atras']}" onclick="PF('GrupoDialogo').hide(), PF('lovGrupo').clearFilters();"
-                                            actionListener="#{controlEmplInformacionAdicional.cancelarCambioGrupo()}" update="lovGrupo" process="@this">
-                                <p:resetInput target=":form:lovGrupo:globalFilter"/>
-                            </p:commandButton>
+                                <p:commandButton id="aceptarG" icon="ui-icon-check"  class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlEmplInformacionAdicional.aceptar}" 
+                                                 onclick="PF('GrupoDialogo').hide(), PF('lovGrupo').clearFilters();" actionListener="#{controlEmplInformacionAdicional.actualizarGrupo()}" 
+                                                 update="lovGrupo, aceptarG, datosInfoAdEmpleado" process="@this">
+                                    <p:resetInput target=":form:lovGrupo:globalFilter"/>
+                                </p:commandButton>
+                                <p:commandButton id="atrasG" icon="ui-icon-arrowreturnthick-1-w" class="cssAtrasLOV" value="#{msg['atras']}" onclick="PF('GrupoDialogo').hide(), PF('lovGrupo').clearFilters();"
+                                                 actionListener="#{controlEmplInformacionAdicional.cancelarCambioGrupo()}" update="lovGrupo" process="@this">
+                                    <p:resetInput target=":form:lovGrupo:globalFilter"/>
+                                </p:commandButton>
                             </div>
                         </p:dialog>
                     </p:panel>

@@ -28,7 +28,7 @@
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" disabled="#{controlFamiliares.activarLOV}"   process="@this"/>
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" disabled="#{controlFamiliares.activarLOV}" process="@this"/>
                                 <p:tooltip style="" for="listaValores" value="#{msg['lista']}" />
 
                                 <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlFamiliares.activarCtrlF11()}"  process="@this"/>
@@ -48,7 +48,7 @@
                                 <p:tooltip style="" for="exportarPDF" value="#{msg['pdf']}" />
 
                                 <p:separator style="position: relative; top: -9px"/> 
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);  background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px; "  oncomplete="PF('NuevoRegistroFamiliarPersona').show()" update=":formularioDialogos:nuevoPersonaFamiliar" process="@this"/> 
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);  background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px; " actionListener="#{controlFamiliares.mostrarDialogoElegirTabla()}" process="@this"/> 
                                 <p:tooltip style="" for="insertar" value="#{msg['nuevo']}"/>
 
                                 <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);"  actionListener="#{controlFamiliares.borrarFamiliar()}" process="@this"/>  
@@ -63,10 +63,10 @@
 
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" 
                                                  actionListener="#{controlFamiliares.cancelarModificacion()}" process="@this" oncomplete="PF('window.location.reload()"/>  
-                                <p:tooltip  for="refrescar" value="refrescar"/>
+                                <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
                                 <p:separator style="position: relative; top: -9px"/>
                                 <p:commandButton id="salir" value=" " style="background-image: url(Imagenes/Iconos/salir.png);" action="atrasfamiliares" actionListener="#{controlFamiliares.salir()}" process="@this" />  
-                                <p:tooltip  for="salir" value="Salir"/>
+                                <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
                             </p:toolbarGroup>  
                         </p:toolbar>
@@ -78,12 +78,12 @@
 
                         <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px">
                             <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;" />
-                            <h:outputText id="nombreEmpleado" value="#{controlFamiliares.empleado.persona.nombreCompleto}" 
+                            <h:outputText id="nombreEmpleado" value="#{controlFamiliares.personas.nombreCompleto}" 
                                           style="font-weight: bold; color: #BF1A1A; position: relative; left: 10px; top: 5px"/>
                         </fieldset>
 
 
-                        <fieldset style="position: absolute; left: 10px; top: 105px;width: 830px; height: 330px; border-radius: 10px; ">
+                        <fieldset style="position: absolute; left: 10px; top: 105px;width: 830px; height: 340px; border-radius: 10px; ">
                             <legend style="color: blue;text-align:left"><strong>#{msg['datosFamiliares']}</strong></legend>
 
                             <p:dataTable id="datosFamiliares"  widgetVar="datosFamiliares" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="border: 1px; width: 820px;"                           
@@ -95,10 +95,6 @@
                                 <p:ajax event="filter" listener="#{controlFamiliares.eventoFiltrar()}"/>
                                 <f:event type="preRenderView" listener="#{controlFamiliares.recordarSeleccionVD()}"/>
 
-                                <p:column width="15" >
-                                    <p:commandButton actionListener="#{controlFamiliares.dispararDialogoNuevoFamiliarPersona()}" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); 
-                                                     background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 20px; height: 20px; " value="" />
-                                </p:column>
 
                                 <p:column headerText="#{msg['nombre']}" sortBy="#{info.personafamiliar.nombreCompleto}" filterBy="#{info.personafamiliar.nombreCompleto}" filterMatchMode="contains"  
                                           id="nombreFamiliar" filterStyle="display: none; visibility: hidden;" width="300" >  
@@ -114,7 +110,6 @@
                                             <p:inputText value="#{info.personafamiliar.nombreCompleto}" id="editarNombre" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"  >
                                                 <p:ajax event="select" listener="#{controlFamiliares.cambiarIndice(info, 1)}" process="@this" />   
                                                 <p:ajax event="change" listener="#{controlFamiliares.modificarFamiliares(info)}" process="@this" update="editarNombre" />
-
                                             </p:inputText>
                                         </f:facet>   
                                     </p:cellEditor>
@@ -133,7 +128,7 @@
                                         </f:facet>  
                                         <f:facet name="input">
                                             <p:inputText value="#{info.ocupacion}" id="editarOcu" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"  >
-                                                <p:ajax event="select" listener="#{controlFamiliares.cambiarIndice(info, 2)}" process="@this" />   
+                                                <p:ajax event="select" listener="#{controlFamiliares.cambiarIndice(info, 2)}"  process="@this" />   
                                                 <p:ajax event="change" listener="#{controlFamiliares.modificarFamiliares(info)}" process="@this" update="editarOcu" />
 
                                             </p:inputText>
@@ -152,14 +147,14 @@
                                         <f:facet name="input">
                                             <p:inputText value="#{info.tipofamiliar.tipo}" id="editarDescripcionVigencia" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlFamiliares.modificarFamiliar(info, 'N', info.tipofamiliar.tipo )}"/>
-                                                <p:ajax event="select" listener="#{controlFamiliares.cambiarIndice(info, 2)}" />
+                                                <p:ajax event="select" listener="#{controlFamiliares.cambiarIndice(info, 3)}" />
                                                 <p:ajax event="dblclick" listener="#{controlFamiliares.asignarIndex(info, 2, 0)}"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-<!--                                        <p:commandButton style="width: 120%;" id="fooTipoFamiliar" action="tipoFamiliar" onclick="#{controlDeportes.recibirPag('deporte')}"  value=""/>-->
+                                        <p:commandButton style="width: 120%;" id="fooTipoFamiliar" action="tiposfamiliares" onclick="#{controlTiposFamiliares.recibirPagina('emplfamiliares')}"  value=" "/>
                                     </f:facet>
                                 </p:column> 
 
@@ -224,9 +219,9 @@
                                 </p:column>
 
                                 <p:column headerText="#{msg['vlrupc']}" sortBy="#{info.valorupcadicional}" filterBy="#{info.valorupcadicional}" filterMatchMode="contains" 
-                                          id="valorUpc" filterStyle="display: none; visibility: hidden;" >  
+                                          id="valorUpc" filterStyle="display: none; visibility: hidden;" style="text-align: center" >  
                                     <f:facet name="header">
-                                        <h:outputText id="hvlrupc" value="#{msg['vlrupc']}"/>   
+                                        <h:outputText id="hvlrupc" value="#{msg['vlrupc']}" style="text-align: center"/>   
                                         <p:tooltip for="hvlrupc" value="#{msg['valorupc']}" />              
                                     </f:facet>
                                     <p:cellEditor>  
@@ -234,7 +229,7 @@
                                             <h:outputText value="#{info.valorupcadicional}" />
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.valorupcadicional}" id="editarVlorUpc" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"  >
+                                            <p:inputText value="#{info.valorupcadicional}" id="editarVlorUpc" style="border-radius: 0px; width: 93.5%;text-transform: uppercase; text-align: center"  >
                                                 <p:keyFilter for="editarVlorUpc" mask="num"/>
                                                 <p:ajax event="select" listener="#{controlFamiliares.cambiarIndice(info, 8)}" process="@this" />   
                                                 <p:ajax event="change" listener="#{controlFamiliares.modificarFamiliares(info)}" process="@this" update="editarVlorUpc" />
@@ -252,6 +247,27 @@
                             </p:dataTable>  
                             <h:outputText id="infoRegistro" value="#{msg['infoRegistros']} #{controlFamiliares.infoRegistroFamiliar}" style="position: relative; left: 15px; top: 1px; font-weight: bold"/>
                         </fieldset>   
+                        
+                         <fieldset style="position: absolute; left: 10px; top: 463px;width: 570px; height: 40px; border-radius: 10px; ">
+                            <legend style="color: blue;text-align:left"><strong>#{msg['datosad']}</strong></legend>
+                            
+                            <div style="position: absolute; left: 10px; top: 15px; width: 175px"> 
+                            <h:outputText value="#{msg['msgdatos']}"  />
+                            </div>
+                            
+                            <p:commandButton id="btneducacion" disabled="#{controlFamiliares.activardatos}"  style="background-image: url(Imagenes/Iconos/niveleducativo.png); background-size: 100% 100%; background-repeat: no-repeat; width: 30px; height: 30px; position: absolute; border:none;
+                                             left: 195px; background-color: white; " value=" "  actionListener="#{controlPersonaEducacion.recibirPersona(controlFamiliares.familiarSeleccionado.personafamiliar.secuencia,'emplfamiliares')}" action="educacionfamiliares" />
+                            <h:outputText value="#{msg['nivel']}" style="position: absolute; left: 240px; top: 22px; font-weight: bold; color: #14388B;" />
+                            
+                              <p:commandButton id="btntelefono" disabled="#{controlFamiliares.activardatos}"  style="background-image: url(Imagenes/Iconos/telefono.png); background-size: 100% 100%; background-repeat: no-repeat; width: 30px; height: 30px; position: absolute; border:none;
+                                               left: 350px; background-color: white; " value=" " action="telefonosfamiliares" actionListener="#{controlPerTelefonos.recibirEmpleado(controlFamiliares.familiarSeleccionado.personafamiliar.secuencia,'emplfamiliares')}" />
+                            <h:outputText value="#{msg['tel']}" style="position: absolute; left: 395px; top: 22px; font-weight: bold; color: #14388B;" />
+                            
+                              <p:commandButton id="btndireccion" disabled="#{controlFamiliares.activardatos}"  style="background-image: url(Imagenes/Iconos/direccion.png); background-size: 100% 100%; background-repeat: no-repeat; width: 30px; height: 30px; position: absolute; border:none;
+                                               left: 475px; background-color: white; " value=" " action="direccionesfamiliares" actionListener="#{controlPerDirecciones.recibirEmpleado(controlFamiliares.familiarSeleccionado.personafamiliar.secuencia,'emplfamiliares')}" />
+                            <h:outputText value="#{msg['dir']}" style="position: absolute; left: 522px; top: 22px; font-weight: bold; color: #14388B;" />
+                            
+                        </fieldset>
                     </p:panel>
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlFamiliares.activarCtrlF11()}"/> 
 
@@ -773,6 +789,15 @@
                     <p:dialog id="editarValorUpcD" header="#{msg['valorupc']}" widgetVar="editarValorUpcD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlFamiliares.editarFamiliar.valorupcadicional}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
+                    
+                     <p:dialog id="seleccionarTablaNewReg" header="Nuevo Registro" widgetVar="seleccionarTablaNewReg"  resizable="false" draggable="true" modal="true" height="260" width="360"  closable="false">  
+                        <h:outputText value="Seleccione la tabla en la cual quiere insertar el nuevo Registro" style="color: blue; position: absolute; left: 15px; top: 10px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="Personas" style="position: absolute; left: 90px; top: 55px; font-weight:bold; width: 180px; text-align: center" process="@this"  actionListener="#{controlFamiliares.dispararDialogoNuevoFamiliarPersona()}" onclick="PF('seleccionarTablaNewReg').hide()" />
+                        <p:commandButton value="Familiares" style="position: absolute; left: 90px; top: 85px; font-weight:bold; width: 180px; text-align: center" process="@this" actionListener="#{controlFamiliares.dispararDialogoNuevoFamiliar()}" onclick="PF('seleccionarTablaNewReg').hide()" />
+                        <p:commandButton value="Salir" icon="ui-icon-closethick" style="position: absolute; top: 235px; left: 260px;" onclick="PF('seleccionarTablaNewReg').hide()"  />
+                    </p:dialog>
+                    
+                    
                 </h:form>
 
                 <h:form id="formExportar">

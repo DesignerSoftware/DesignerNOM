@@ -46,7 +46,6 @@ public class ControlPerDirecciones implements Serializable {
     private List<Direcciones> filtradosListaDirecciones;
     private Direcciones direccionSeleccionada;
     //SECUENCIA DE LA PERSONA
-    private BigInteger secuenciaPersona;
     private Personas persona;
     //L.O.V CIUDADES
     private List<Ciudades> listaCiudades;
@@ -80,8 +79,7 @@ public class ControlPerDirecciones implements Serializable {
     //Duplicar
     private Direcciones duplicarDireccion;
     private String altoTabla;
-    private Empleados empleado;
-    private String infoRegistro, infoRegistroCiudades;
+    private String infoRegistro, infoRegistroCiudades,paginaanterior;
     private boolean activarLOV;
     private DataTable tablaC;
 
@@ -106,6 +104,7 @@ public class ControlPerDirecciones implements Serializable {
         listaDirecciones = null;
         k = 0;
         altoTabla = "270";
+        paginaanterior = " ";
     }
 
     @PostConstruct
@@ -122,9 +121,10 @@ public class ControlPerDirecciones implements Serializable {
         }
     }
 
-    public void recibirEmpleado(BigInteger secuencia) {
+    public void recibirEmpleado(BigInteger secuencia,String pagina) {
+        paginaanterior = pagina;
         listaDirecciones = null;
-        empleado = administrarDirecciones.empleadoActual(secuencia);
+        persona = administrarDirecciones.consultarPersona(secuencia);
         getListaDirecciones();
         deshabilitarBotonLOV();
         if (listaDirecciones == null || listaDirecciones.isEmpty()) {
@@ -134,6 +134,10 @@ public class ControlPerDirecciones implements Serializable {
         }
     }
 
+    public String redirigir(){
+        return paginaanterior;
+    }
+    
     public void cambiarIndice(Direcciones direccion, int celda) {
         if (permitirIndex == true) {
             direccionSeleccionada = direccion;
@@ -250,7 +254,7 @@ public class ControlPerDirecciones implements Serializable {
             k++;
             l = BigInteger.valueOf(k);
             nuevaDireccion.setSecuencia(l);
-            nuevaDireccion.setPersona(empleado.getPersona());
+            nuevaDireccion.setPersona(persona);
             listaDireccionesCrear.add(nuevaDireccion);
             if (listaDirecciones == null) {
                 listaDirecciones = new ArrayList<Direcciones>();
@@ -1324,8 +1328,8 @@ public class ControlPerDirecciones implements Serializable {
     public List<Direcciones> getListaDirecciones() {
 
         if (listaDirecciones == null) {
-            if (empleado.getPersona().getSecuencia() != null) {
-                listaDirecciones = administrarDirecciones.consultarDireccionesPersona(empleado.getPersona().getSecuencia());
+            if (persona.getSecuencia() != null) {
+                listaDirecciones = administrarDirecciones.consultarDireccionesPersona(persona.getSecuencia());
             }
         }
         return listaDirecciones;
@@ -1343,18 +1347,7 @@ public class ControlPerDirecciones implements Serializable {
         this.filtradosListaDirecciones = filtradosListaDirecciones;
     }
 
-    public BigInteger getSecuenciaPersona() {
-        return secuenciaPersona;
-    }
-
-    public void setSecuenciaPersona(BigInteger secuenciaPersona) {
-        this.secuenciaPersona = secuenciaPersona;
-    }
-
     public Personas getPersona() {
-        if (persona == null) {
-            persona = administrarDirecciones.consultarPersona(secuenciaPersona);
-        }
         return persona;
     }
 
@@ -1451,14 +1444,6 @@ public class ControlPerDirecciones implements Serializable {
 
     public void setGuardado(boolean guardado) {
         this.guardado = guardado;
-    }
-
-    public Empleados getEmpleado() {
-        return empleado;
-    }
-
-    public void setEmpleado(Empleados empleado) {
-        this.empleado = empleado;
     }
 
     public String getInfoRegistro() {

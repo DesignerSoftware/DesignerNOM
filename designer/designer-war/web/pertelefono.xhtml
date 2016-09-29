@@ -68,23 +68,18 @@
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"
-                                                 action="vigDepEmplInd" process="@this" />  
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"   action="#{controlPerTelefonos.redirigir()}" actionListener="#{controlPerTelefonos.salir()}" process="@this" />  
                                 <p:tooltip  for="salir" value="Salir"/>
 
                                 <p:commandButton style=" position: absolute; left: 670px; top: 455px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ACEPTAR" value=" " onclick="PF('confirmarGuardar').show();" update=":form:datosTelefonosPersona" disabled="#{controlPerTelefonos.guardado}" process="@this" />
-                                <p:commandButton style=" position: absolute; left: 765px; top: 455px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" value=" " actionListener="#{controlPerTelefonos.salir()}" action="individual" process="@this" />
+                                <p:commandButton style=" position: absolute; left: 765px; top: 455px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" value=" " actionListener="#{controlPerTelefonos.salir()}" action="#{controlPerTelefonos.redirigir()}" process="@this" />
                             </p:toolbarGroup>  
                         </p:toolbar>
 
                         <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px">
                             <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;" />
-                            <h:outputText id="nombreEmpleado" value="#{controlPerTelefonos.empleado.persona.nombreCompleto}" 
+                            <h:outputText id="nombreEmpleado" value="#{controlPerTelefonos.persona.nombreCompleto}" 
                                           style="font-weight: bold; color: #BF1A1A; position: relative; left: 10px; top: 5px"/>
-
-                            <h:outputText value="#{msg['codigo']}" style="font-weight: bold; color: #14388B; position: relative; left: 120px; top: 5px;" />
-                            <h:outputText id="docEmpleado" value="#{controlPerTelefonos.empleado.codigoempleado}" 
-                                          style="font-weight: bold; color: #BF1A1A; position: relative; left: 130px; top: 5px;" />
                         </fieldset>
 
 

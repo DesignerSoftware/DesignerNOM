@@ -140,6 +140,11 @@ public class AdministrarFamiliares implements AdministrarFamiliaresInterface {
         listPersonas = persistenciaPersona.consultarPersonas(em);
         return listPersonas;
     }
+
+    @Override
+    public Personas consultarPersona(BigInteger secPersona) {
+       return persistenciaPersona.buscarPersonaSecuencia(em,secPersona);
+    }
     
     
     
