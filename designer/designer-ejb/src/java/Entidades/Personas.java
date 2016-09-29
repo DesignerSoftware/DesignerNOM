@@ -275,8 +275,11 @@ public class Personas implements Serializable {
     }
 
     public void setEmail(String email) {
-        this.email = email.toLowerCase(Locale.ENGLISH);
-        System.out.println("Personas setEmail se guardo : " + this.email);
+       if(email != null){
+          this.email = email.toLowerCase(Locale.ENGLISH);
+       } else {
+          this.email = email;
+       }
     }
 
     public String getPlacavehiculo() {

@@ -28,7 +28,7 @@ import org.apache.log4j.PropertyConfigurator;
 @Stateless
 public class PersistenciaVigenciasReformasLaborales implements PersistenciaVigenciasReformasLaboralesInterface {
 
-    private final static Logger logger = Logger.getLogger("connectionSout");
+//    private final static Logger logger = Logger.getLogger("connectionSout");
     private Date fechaDia;
     private final SimpleDateFormat format = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
 
@@ -44,11 +44,12 @@ public class PersistenciaVigenciasReformasLaborales implements PersistenciaVigen
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
+           System.out.println("Entro en el ");
             tx.begin();
             em.persist(vigenciaRefLab);
             tx.commit();
         } catch (Exception e) {
-            logger.error("Metodo: crear - PersistenciaVigenciasReformasLaborales - Fecha : " + format.format(fechaDia) + " - Error : " + e.toString());
+//            logger.error("Metodo: crear - PersistenciaVigenciasReformasLaborales - Fecha : " + format.format(fechaDia) + " - Error : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -64,8 +65,8 @@ public class PersistenciaVigenciasReformasLaborales implements PersistenciaVigen
             em.merge(vigenciaRefLab);
             tx.commit();
         } catch (Exception e) {
-            PropertyConfigurator.configure("log4j.properties");
-            logger.error("Metodo: editar - PersistenciaVigenciasReformasLaborales - Fecha : " + format.format(fechaDia) + " - Error : " + e.toString());
+//            PropertyConfigurator.configure("log4j.properties");
+//            logger.error("Metodo: editar - PersistenciaVigenciasReformasLaborales - Fecha : " + format.format(fechaDia) + " - Error : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -81,8 +82,8 @@ public class PersistenciaVigenciasReformasLaborales implements PersistenciaVigen
             em.remove(em.merge(vigenciaRefLab));
             tx.commit();
         } catch (Exception e) {
-            PropertyConfigurator.configure("log4j.properties");
-            logger.error("Metodo: borrar - PersistenciaVigenciasReformasLaborales - Fecha : " + format.format(fechaDia) + " - Error : " + e.toString());
+//            PropertyConfigurator.configure("log4j.properties");
+//            logger.error("Metodo: borrar - PersistenciaVigenciasReformasLaborales - Fecha : " + format.format(fechaDia) + " - Error : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -108,8 +109,8 @@ public class PersistenciaVigenciasReformasLaborales implements PersistenciaVigen
             List<VigenciasReformasLaborales> vigenciasRefLab = query.getResultList();
             return vigenciasRefLab;
         } catch (Exception e) {
-            PropertyConfigurator.configure("log4j.properties");
-            logger.error("Metodo: buscarVigenciasReformasLaboralesEmpleado - PersistenciaVigenciasReformasLaborales - Fecha : " + format.format(fechaDia) + " - Error : " + e.toString());
+//            PropertyConfigurator.configure("log4j.properties");
+//            logger.error("Metodo: buscarVigenciasReformasLaboralesEmpleado - PersistenciaVigenciasReformasLaborales - Fecha : " + format.format(fechaDia) + " - Error : " + e.toString());
             return null;
         }
     }
@@ -123,8 +124,8 @@ public class PersistenciaVigenciasReformasLaborales implements PersistenciaVigen
             VigenciasReformasLaborales vigenciaRefLab = (VigenciasReformasLaborales) query.getSingleResult();
             return vigenciaRefLab;
         } catch (Exception e) {
-            PropertyConfigurator.configure("log4j.properties");
-            logger.error("Metodo: buscarVigenciaReformaLaboralSecuencia - PersistenciaVigenciasReformasLaborales - Fecha : " + format.format(fechaDia) + " - Error : " + e.toString());
+//            PropertyConfigurator.configure("log4j.properties");
+//            logger.error("Metodo: buscarVigenciaReformaLaboralSecuencia - PersistenciaVigenciasReformasLaborales - Fecha : " + format.format(fechaDia) + " - Error : " + e.toString());
             return null;
         }
     }

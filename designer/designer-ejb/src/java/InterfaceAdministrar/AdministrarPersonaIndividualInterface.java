@@ -164,7 +164,7 @@ public interface AdministrarPersonaIndividualInterface {
 
     public Personas obtenerUltimoRegistroPersona(BigInteger documento);
 
-    public BigInteger crearEmpl_Con_VCargo( BigDecimal codigoEmpleado, BigInteger secPersona, BigInteger secEmpresa, VigenciasCargos vigenciaCargo);
+    public Empleados crearEmpl_Con_VCargo( BigDecimal codigoEmpleado, BigInteger secPersona, BigInteger secEmpresa, VigenciasCargos vigenciaCargo);
 
     public VigenciasCargos obtenerUltimaVigenciaCargo(BigInteger empresa, BigInteger secEmpleado);
     

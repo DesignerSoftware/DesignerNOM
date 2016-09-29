@@ -46,22 +46,6 @@ public class PersistenciaEmpleados implements PersistenciaEmpleadoInterface {
             BigInteger secCargo, BigInteger secEstructura, Date fechaIngreso, BigInteger secMotivoCargo) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
-//             query.registerStoredProcedureParameter("p_nmCodigoEmpleado", BigDecimal.class, ParameterMode.INOUT);
-//            query.registerStoredProcedureParameter("p_nmPersona", BigInteger.class, ParameterMode.IN);
-//            query.registerStoredProcedureParameter("p_nmEmpresa", BigInteger.class, ParameterMode.IN);
-//            query.registerStoredProcedureParameter("p_nmCargo", BigInteger.class, ParameterMode.IN);
-//            query.registerStoredProcedureParameter("p_nmEstructura", BigInteger.class, ParameterMode.IN);
-//            query.registerStoredProcedureParameter("p_dtFechaingreso", Date.class, ParameterMode.IN);
-//            query.registerStoredProcedureParameter("p_nmMotivocargo", BigInteger.class, ParameterMode.IN);
-//
-//            query.setParameter("p_nmCodigoEmpleado", cEmpleado_Sec);
-//            query.setParameter("p_nmPersona", secPersona);
-//            query.setParameter("p_nmEmpresa", secEmpresa);
-//            query.setParameter("p_nmCargo", secCargo);
-//            query.setParameter("p_nmEstructura", secEstructura);
-//            query.setParameter("p_dtFechaingreso", fechaIngreso);
-//            query.setParameter("p_nmMotivocargo", secMotivoCargo);
-//            query.executeUpdate();
         try {
             tx.begin();
             StoredProcedureQuery query = em.createStoredProcedureQuery("EMPLEADOCURRENT_PKG.CREAR_EMPLEADO_CON_VCARGO");
@@ -81,7 +65,6 @@ public class PersistenciaEmpleados implements PersistenciaEmpleadoInterface {
             query.setParameter(6, fechaIngreso);
             query.setParameter(7, secMotivoCargo);
             
-//            query.executeUpdate();
             query.execute();
             query.hasMoreResults();
             BigDecimal empleado_Sec = (BigDecimal)query.getOutputParameterValue(1);

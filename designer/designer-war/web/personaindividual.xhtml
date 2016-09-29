@@ -201,7 +201,7 @@
                            <h:outputText  value="#{msg['correoElectronico']}:" style="position: absolute; top: 75px; left: 580px; font-weight: bold;"/>
                            <p:inputText autocomplete="off" maxlength="100" onclick="select();" value="#{controlPersonaIndividual.nuevaPersona.email}" id="correoModPersonal"
                                         style="position: absolute; top: 70px; left: 695px; width: 110px;">
-                              <p:keyFilter mask="/[a-z0-9_\.\-@]/i" for="correoModPersonal" />
+                              <!--<p:keyFilter mask="/[a-z0-9_\.\-@]/i" for="correoModPersonal" />-->
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemInformacionPersonal(12)}" process="@this"/>
                               <p:ajax event="change" process="@this" listener="#{controlPersonaIndividual.validarEmailPersona(controlPersonaIndividual.nuevaPersona.email)}" update="correoModPersonal"/>
                            </p:inputText>
@@ -380,7 +380,7 @@
                                       process="@this" update="tipoSueldoModSueldo, :formLovs:formDSueldo:formTipoSueldo:lovTipoSueldoSueldo"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresSueldo(2)}" 
                                       update=":formLovs:formDSueldo:formTipoSueldo:lovTipoSueldoSueldo" process="@this"/>
-                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 63px; left: 367px; z-index: 5;" disabled="#{controlPersonaIndividual.disableCamposDependientesTipoT}"
+                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 68px; left: 367px; z-index: 5;" disabled="#{controlPersonaIndividual.disableCamposDependientesTipoT}"
                                                actionListener="#{controlPersonaIndividual.listaValoresSueldo(2)}" process="@this"/>
                            </p:inputText>
                            <p:tooltip style="font-size: 12px;" for="infoSueldoSuelo" value="#{msg['infoSueldoSuelo']}"/>
@@ -1716,7 +1716,7 @@
                                   emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlPersonaIndividual.filtrarLovTercerosSucursales}">
 
                         <p:ajax event="filter" listener="#{controlPersonaIndividual.contarRegistros_TerceroAfSuc()}" update=":formLovs:formDAfiliacion:aceptarTSA"/>
-                        <p:ajax event="rowDblselect" listener="#{controlPersonaIndividual.actualizarPaarpModAfiliacionesrametroTerceroAfiliacion()}"  process="@this"/>
+                        <p:ajax event="rowDblselect" listener="#{controlPersonaIndividual.actualizarParametroTerceroAfiliacion()}"  process="@this"/>
                         <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDAfiliacion:aceptarTSA"/>
 
                         <f:facet name="header">  

@@ -1956,9 +1956,7 @@ public class ControlPersonaIndividual implements Serializable {
                      nuevaVigenciaCargo.setFechavigencia(fechaIngreso);
                      System.out.println("Enviando a crear Empleado: COD: " + nuevoEmpleado.getCodigoempleado() + ", PERSONA: " + nuevoEmpleado.getPersona().getSecuencia() + " Y EMPRESA: " + nuevoEmpleado.getEmpresa().getSecuencia());
 
-                     BigInteger secEmpleado = administrarPersonaIndividual.crearEmpl_Con_VCargo(nuevoEmpleado.getCodigoempleado(), nuevoEmpleado.getPersona().getSecuencia(), nuevoEmpleado.getEmpresa().getSecuencia(), nuevaVigenciaCargo);
-                     System.out.println("crearNuevoEmpleado() nuevoEmpleado ya volvio de crear el empleado con Vigencia cargo, secEmpleado : " + secEmpleado);
-                     nuevoEmpleado.setSecuencia(secEmpleado);
+                     nuevoEmpleado = administrarPersonaIndividual.crearEmpl_Con_VCargo(nuevoEmpleado.getCodigoempleado(), nuevoEmpleado.getPersona().getSecuencia(), nuevoEmpleado.getEmpresa().getSecuencia(), nuevaVigenciaCargo);
 //                            Empleados empleadoAlmacenado = administrarPersonaIndividual.obtenerUltimoRegistroEmpleado(nuevoEmpleado.getEmpresa().getSecuencia(), nuevoEmpleado.getCodigoempleado());
 //                            System.out.println("crearNuevoEmpleado() empleadoAlmacenado : " + empleadoAlmacenado);
 
@@ -1969,9 +1967,17 @@ public class ControlPersonaIndividual implements Serializable {
                            Empleados empleadoJefe = nuevaVigenciaCargo.getEmpleadojefe();
                            nuevaVigenciaCargo = new VigenciasCargos();
                            nuevaVigenciaCargo = administrarPersonaIndividual.obtenerUltimaVigenciaCargo(nuevoEmpleado.getSecuencia(), nuevoEmpleado.getEmpresa().getSecuencia());
-                           nuevaVigenciaCargo.setEmpleadojefe(empleadoJefe);
-                           nuevaVigenciaCargo.setPapel(papel);
-                           administrarPersonaIndividual.modificarVigenciaCargo(nuevaVigenciaCargo);
+                           if (nuevaVigenciaCargo != null) {
+                              if (empleadoJefe != null) {
+                                 nuevaVigenciaCargo.setEmpleadojefe(empleadoJefe);
+                              }
+                              if (papel != null) {
+                                 nuevaVigenciaCargo.setPapel(papel);
+                              }
+                              administrarPersonaIndividual.modificarVigenciaCargo(nuevaVigenciaCargo);
+                           } else {
+                              System.out.println("ERROR nuevaVigenciaCargo consultada para agregar campos opcionales = null");
+                           }
                         }
 
                         //
@@ -5711,7 +5717,6 @@ public class ControlPersonaIndividual implements Serializable {
       boolean esEmail = isEmail(email);
       if (esEmail == false) {
          nuevaPersona.setEmail(null);
-         RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().update("form:correoModPersonal");
          RequestContext.getCurrentInstance().execute("PF('errorEmailPersona').show()");
       }

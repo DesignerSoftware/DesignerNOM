@@ -220,7 +220,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @EJB
    PersistenciaVigenciasAfiliacionesInterface persistenciaVigenciasAfiliaciones;
    @EJB
-   PersistenciaDetallesEmpresasInterface persistenciadetallesEmpresas; 
+   PersistenciaDetallesEmpresasInterface persistenciadetallesEmpresas;
    @EJB
    AdministrarSesionesInterface administrarSesiones;
    private EntityManager em;
@@ -859,10 +859,12 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    }
 
    @Override
-   public BigInteger crearEmpl_Con_VCargo(BigDecimal codigoEmpleado, BigInteger secPersona, BigInteger secEmpresa, VigenciasCargos vigenciaCargo) {
+   public Empleados crearEmpl_Con_VCargo(BigDecimal codigoEmpleado, BigInteger secPersona, BigInteger secEmpresa, VigenciasCargos vigenciaCargo) {
       try {
-         return persistenciaEmpleado.crearConVCargo(em, codigoEmpleado, secPersona, secEmpresa, vigenciaCargo.getCargo().getSecuencia(),
+         BigInteger secEmpleado = persistenciaEmpleado.crearConVCargo(em, codigoEmpleado, secPersona, secEmpresa, vigenciaCargo.getCargo().getSecuencia(),
                  vigenciaCargo.getEstructura().getSecuencia(), vigenciaCargo.getFechavigencia(), vigenciaCargo.getMotivocambiocargo().getSecuencia());
+         Empleados empleado = persistenciaEmpleado.buscarEmpleadoSecuencia(em, secPersona);
+         return empleado;
       } catch (Exception e) {
          System.err.println(this.getClass().getName() + " Error crearConVCargo() : " + e.toString());
          return null;

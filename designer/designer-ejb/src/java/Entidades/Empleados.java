@@ -95,15 +95,6 @@ public class Empleados implements Serializable {
         persona = new Personas();
     }
 
-    public Empleados(BigInteger secuencia) {
-        this.secuencia = secuencia;
-    }
-
-    public Empleados(BigInteger secuencia, BigDecimal codigoempleado) {
-        this.secuencia = secuencia;
-        this.codigoempleado = codigoempleado;
-    }
-
     public BigInteger getSecuencia() {
         return secuencia;
     }
@@ -313,7 +304,7 @@ public class Empleados implements Serializable {
 
     @Override
     public String toString() {
-        return "Entidades.Empleados[ secuencia=" + secuencia + " ]";
+        return "Entidades.Empleados[ secuencia = " + secuencia + " ]";
     }
 
     public String getEstado() {
