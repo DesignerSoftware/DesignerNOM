@@ -84,7 +84,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.concepto.codigo}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.concepto.codigo}" id="editarCodigoConcept" style="  border-radius: 0px; width: 99%; text-transform: uppercase; height: 12px;"  > 
+                                            <p:inputText  autocomplete="off"  value="#{info.concepto.codigo}" id="editarCodigoConcept" style="  border-radius: 0px; width: 99%; text-transform: uppercase; height: 12px;"  > 
                                                 <p:ajax event="select" listener="#{controlConceptosSoportes.cambiarIndice(indice, 0)}" process="@this"/> 
                                                 <p:ajax event="dblclick" listener="#{controlConceptosSoportes.asignarIndex(indice, 0,0)}" process="@this"/>
                                                 <p:ajax event="change"  listener="#{controlConceptosSoportes.modificarConceptosSoportesCodigo(indice, 'PERSONASCODIGO', info.concepto.codigo)}" update="personafir"/>
@@ -99,7 +99,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.concepto.descripcion}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.concepto.descripcion}" id="editarPersonaFirma" style="  border-radius: 0px; width: 99%; text-transform: uppercase; height: 12px;"  > 
+                                            <p:inputText  autocomplete="off"  value="#{info.concepto.descripcion}" id="editarPersonaFirma" style="  border-radius: 0px; width: 99%; text-transform: uppercase; height: 12px;"  > 
                                                 <p:ajax event="select" listener="#{controlConceptosSoportes.cambiarIndice(indice, 1)}" process="@this"/> 
                                                 <p:ajax event="dblclick" listener="#{controlConceptosSoportes.asignarIndex(indice, 0,1)}" process="@this"/>
                                                 <p:ajax event="change"  listener="#{controlConceptosSoportes.modificarConceptosSoportes(indice, 'PERSONAS', info.concepto.descripcion)}" update="personafir"/>
@@ -114,7 +114,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.operando.nombre}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.operando.nombre}" id="editarCCcargo" style="  border-radius: 0px; width: 99%; text-transform: uppercase; height: 12px;"  > 
+                                            <p:inputText  autocomplete="off"  value="#{info.operando.nombre}" id="editarCCcargo" style="  border-radius: 0px; width: 99%; text-transform: uppercase; height: 12px;"  > 
                                                 <p:ajax event="select" listener="#{controlConceptosSoportes.cambiarIndice(indice, 2)}" process="@this"/> 
                                                 <p:ajax event="dblclick" listener="#{controlConceptosSoportes.asignarIndex(indice, 0,2)}" process="@this"/>
                                                 <p:ajax event="change"  listener="#{controlConceptosSoportes.modificarConceptosSoportes(indice, 'CARGOS', info.operando.nombre)}" update="personafir"/>
@@ -144,7 +144,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlConceptosSoportes.actualizarConceptos()}" process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['conceptoD']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovConceptos').filter();" style="width:150px; position: relative; left: 10px;" />  
+                                    <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovConceptos').filter();" style="width:150px; position: relative; left: 10px;" />  
                                 </f:facet>
 
                                 <p:column filterBy="#{personaFirmas.codigo}" width="50" filterStyle="width:30px;" filterMatchMode="contains">
@@ -177,7 +177,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlConceptosSoportes.actualizarOperandos()}" process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarOperando']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovOperandos').filter();" style="width:150px; position: relative; left: 35px;" />  
+                                    <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovOperandos').filter();" style="width:150px; position: relative; left: 35px;" />  
                                 </f:facet>
 
                                 <p:column filterBy="#{personaOperandos.codigo}" width="50" filterStyle="width:30px;" filterMatchMode="contains">
@@ -317,7 +317,7 @@
                         <p:panel id="nuevaTipoempresa" style="border: none;">
 
                             <strong><h:outputText value="#{msg['codigoN']}"  style=" position: absolute;left: 10px; top: 60px;text-transform: uppercase" /></strong>
-                            <p:inputText  autocomplete="false"   id="nuevoCodigo" value="#{controlConceptosSoportes.nuevoConceptosSoportes.concepto.codigo}" style=" width: 135px; position: absolute; left: 120px; top: 55px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"   id="nuevoCodigo" value="#{controlConceptosSoportes.nuevoConceptosSoportes.concepto.codigo}" style=" width: 135px; position: absolute; left: 120px; top: 55px;text-transform: uppercase">
                                 <p:ajax event="click" listener="#{controlConceptosSoportes.valoresBackupAutocompletar(1,'CODIGOCONCEPTO')}" />
                                 <p:ajax event="change" listener="#{controlConceptosSoportes.autocompletarNuevoCodigoBigInteger('CODIGOCONCEPTO',controlConceptosSoportes.nuevoConceptosSoportes.concepto.codigo, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlConceptosSoportes.asignarVariableConceptos(0)}" />
@@ -327,7 +327,7 @@
 
 
                             <strong><h:outputText value="#{msg['conceptoN']}"  style=" position: absolute;left: 10px; top: 90px;text-transform: uppercase" /></strong>
-                            <p:inputText  autocomplete="false"   id="nuevoPersona" value="#{controlConceptosSoportes.nuevoConceptosSoportes.concepto.descripcion}" style=" width: 135px; position: absolute; left: 120px; top: 85px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"   id="nuevoPersona" value="#{controlConceptosSoportes.nuevoConceptosSoportes.concepto.descripcion}" style=" width: 135px; position: absolute; left: 120px; top: 85px;text-transform: uppercase">
                                 <p:ajax event="click" listener="#{controlConceptosSoportes.valoresBackupAutocompletar(1,'PERSONA')}" />
                                 <p:ajax event="change" listener="#{controlConceptosSoportes.autocompletarNuevo('PERSONA',controlConceptosSoportes.nuevoConceptosSoportes.concepto.descripcion, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlConceptosSoportes.asignarVariableConceptos(0)}" />
@@ -336,7 +336,7 @@
                             <p:watermark for="nuevoPersona" value="#{msg['conceptoNN']}" />
 
                             <strong><h:outputText value="#{msg['operandoN']}"  style=" position: absolute;left: 10px; top: 120px;text-transform: uppercase" /></strong>
-                            <p:inputText  autocomplete="false"   id="nuevoCargo" disabled="#{controlConceptosSoportes.banderaConceptoEscogido}"  value="#{controlConceptosSoportes.nuevoConceptosSoportes.operando.nombre}" style=" width: 135px; position: absolute; left: 120px; top: 115px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"   id="nuevoCargo" disabled="#{controlConceptosSoportes.banderaConceptoEscogido}"  value="#{controlConceptosSoportes.nuevoConceptosSoportes.operando.nombre}" style=" width: 135px; position: absolute; left: 120px; top: 115px;text-transform: uppercase">
                                 <p:ajax event="click" listener="#{controlConceptosSoportes.valoresBackupAutocompletar(1,'CARGO')}" />
                                 <p:ajax event="change" listener="#{controlConceptosSoportes.autocompletarNuevo('CARGO',controlConceptosSoportes.nuevoConceptosSoportes.operando.nombre, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlConceptosSoportes.asignarVariableOperandos(0)}" />
@@ -359,7 +359,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlConceptosSoportes.seleccionConceptoSoporte()}" process="@this" onstart="PF('lovCentrosCostos').clearFilters()" update="lovCentrosCostos, :form:datosConceptosSoportes"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['conceptoSoporteD']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovCentrosCostos').filter();" style="width:150px; position: relative; left: 80px;" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovCentrosCostos').filter();" style="width:150px; position: relative; left: 80px;" />  
                             </f:facet>
                             <p:column filterBy="#{centroscostosporempresa.concepto.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 30px">
                                 <f:facet name="header">
@@ -393,7 +393,7 @@
                         <p:panel id="duplicarTE" style="border: none;">
 
                             <strong><h:outputText value="#{msg['codigoN']}"  style=" position: absolute;left: 10px; top: 60px;text-transform: uppercase" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarCodigo" value="#{controlConceptosSoportes.duplicarConceptosSoportes.concepto.codigo}"  style=" width: 135px; position: absolute; left: 120px; top: 55px;" >
+                            <p:inputText  autocomplete="off"  id="duplicarCodigo" value="#{controlConceptosSoportes.duplicarConceptosSoportes.concepto.codigo}"  style=" width: 135px; position: absolute; left: 120px; top: 55px;" >
                                 <p:ajax event="click" listener="#{controlConceptosSoportes.valoresBackupAutocompletar(2,'CODIGOCONCEPTO')}" />
                                 <p:ajax event="change" listener="#{controlConceptosSoportes.autocompletarDuplicadoCodigoBigInteger('CODIGOCONCEPTO', controlConceptosSoportes.duplicarConceptosSoportes.concepto.codigo , 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlConceptosSoportes.asignarVariableConceptos(1)}" />
@@ -401,7 +401,7 @@
                             <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 270px; top: 55px;  " id="btnduplicarCodigo" icon="ui-icon-search" process="@this"  actionListener="#{controlConceptosSoportes.asignarVariableConceptos(1)}"/>   
                             <p:watermark for="duplicarPersona" value="#{msg['codigoNN']}" />
                             <strong><h:outputText value="#{msg['conceptoN']}"  style=" position: absolute;left: 10px; top: 90px;text-transform: uppercase" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarPersona" value="#{controlConceptosSoportes.duplicarConceptosSoportes.concepto.descripcion}"  style=" width: 135px; position: absolute; left: 120px; top: 85px;" >
+                            <p:inputText  autocomplete="off"  id="duplicarPersona" value="#{controlConceptosSoportes.duplicarConceptosSoportes.concepto.descripcion}"  style=" width: 135px; position: absolute; left: 120px; top: 85px;" >
                                 <p:ajax event="click" listener="#{controlConceptosSoportes.valoresBackupAutocompletar(2,'PERSONA')}" />
                                 <p:ajax event="change" listener="#{controlConceptosSoportes.autocompletarDuplicado('PERSONA', controlConceptosSoportes.duplicarConceptosSoportes.concepto.descripcion , 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlConceptosSoportes.asignarVariableConceptos(1)}" />
@@ -410,7 +410,7 @@
                             <p:watermark for="duplicarPersona" value="#{msg['conceptoNN']}" />
 
                             <strong><h:outputText value="#{msg['operandoN']}"  style=" position: absolute;left: 10px; top: 120px;text-transform: uppercase" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarCargo" value="#{controlConceptosSoportes.duplicarConceptosSoportes.operando.nombre}" disabled="#{controlConceptosSoportes.banderaConceptoEscogido}" style=" width: 135px; position: absolute; left: 120px; top: 115px;" >
+                            <p:inputText  autocomplete="off"  id="duplicarCargo" value="#{controlConceptosSoportes.duplicarConceptosSoportes.operando.nombre}" disabled="#{controlConceptosSoportes.banderaConceptoEscogido}" style=" width: 135px; position: absolute; left: 120px; top: 115px;" >
                                 <p:ajax event="click" listener="#{controlConceptosSoportes.valoresBackupAutocompletar(2,'CARGO')}" />
                                 <p:ajax event="change" listener="#{controlConceptosSoportes.autocompletarDuplicado('CARGO', controlConceptosSoportes.duplicarConceptosSoportes.operando.nombre , 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlConceptosSoportes.asignarVariableOperandos(1)}" />

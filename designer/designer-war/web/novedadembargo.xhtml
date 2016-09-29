@@ -21,9 +21,9 @@
                             <legend style="font-size: 14px; color: blue;text-align: left"><strong>#{msg['empleados']}</strong></legend>
                             <p:panel id="panelInf" style="border: none">
                                 <h:outputText value="#{msg['codigo']}" style="color: #14388B;  font-weight: bold; position: absolute; top: 20px; left: 9px"/>
-                                <p:inputText  autocomplete="false"  value="#{controlNovedadEmbargo.empleadoActual.codigoempleado}"  readonly="true" style="position: absolute; top: 35px; width: 70px; left: 9px"/>
+                                <p:inputText  autocomplete="off"  value="#{controlNovedadEmbargo.empleadoActual.codigoempleado}"  readonly="true" style="position: absolute; top: 35px; width: 70px; left: 9px"/>
                                 <h:outputText value="#{msg['nombre']}" style="color: #14388B;  font-weight: bold; position: absolute; left: 122px; top: 20px"/>
-                                <p:inputText  autocomplete="false"  value="#{controlNovedadEmbargo.empleadoActual.persona.nombreCompleto}" readonly="true" style="position: absolute; top: 35px; left: 122px; width: 500px"/>
+                                <p:inputText  autocomplete="off"  value="#{controlNovedadEmbargo.empleadoActual.persona.nombreCompleto}" readonly="true" style="position: absolute; top: 35px; left: 122px; width: 500px"/>
 
                                 <p:commandButton style="position: absolute; left: 643px; top: 24px;   width: 20px; height: 20px; background-image: url(Imagenes/Iconos/arriba.png); background-size: 100% 100%; background-repeat: no-repeat; "  value="" actionListener="#{controlNovedadEmbargo.anteriorEmpleado()}" process="@this" />
                                 <p:commandButton style="position: absolute; left: 643px; top: 45px;   width: 20px; height: 20px; background-image: url(Imagenes/Iconos/abajo.png); background-size: 100% 100%; background-repeat: no-repeat; " value=""  actionListener="#{controlNovedadEmbargo.siguienteEmpleado()}" process="@this" />
@@ -46,7 +46,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{embargos.tipoembargo.descripcion}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{embargos.tipoembargo.descripcion}" id="editarTipoEmbargo" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px"> 
+                                            <p:inputText  autocomplete="off"  value="#{embargos.tipoembargo.descripcion}" id="editarTipoEmbargo" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px"> 
                                                 <p:ajax event="change" listener="#{controlNovedadEmbargo.modificarEmbargos(indice, 'TIPO', embargos.tipoembargo.descripcion)}"/>
                                                 <p:ajax event="select" listener="#{controlNovedadEmbargo.cambiarIndice(indice, 0)}" process="@this"/>
                                                 <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndex(indice, 0, 0)}"/>
@@ -68,7 +68,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{embargos.documento}" style="text-transform: uppercase " /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{embargos.documento}" id="editarDocumento" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px;" > 
+                                            <p:inputText  autocomplete="off"  value="#{embargos.documento}" id="editarDocumento" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px;" > 
                                                 <p:ajax event="select" listener="#{controlNovedadEmbargo.cambiarIndice(indice, 1)}" />
                                                 <p:ajax event="change" listener="#{controlNovedadEmbargo.modificarEmbargos(indice, 'N', embargos.documento)}"/>
                                             </p:inputText>
@@ -88,7 +88,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="editFechaOficio" value="#{embargos.fechadocumento}"> 
+                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editFechaOficio" value="#{embargos.fechadocumento}"> 
                                                 <p:ajax event="dateSelect"  update="editFechaInicial"/>
                                                 <p:ajax event="change" listener="#{controlNovedadEmbargo.modificarEmbargos(indice, 'N', embargos.fechadocumento)}"/>
                                                 <p:ajax event="select" listener="#{controlNovedadEmbargo.cambiarIndice(indice, 2)}" />
@@ -109,7 +109,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{embargos.numeroproceso}" style="text-transform: uppercase " /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{embargos.numeroproceso}" id="editarNumeroProceso" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px;" > 
+                                            <p:inputText  autocomplete="off"  value="#{embargos.numeroproceso}" id="editarNumeroProceso" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px;" > 
                                                 <p:ajax event="select" listener="#{controlNovedadEmbargo.cambiarIndice(indice, 3)}" />
                                                 <p:ajax event="change" listener="#{controlNovedadEmbargo.modificarEmbargos(indice, 'N', embargos.numeroproceso)}"/>
                                             </p:inputText>
@@ -125,7 +125,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{embargos.juzgado.nombre}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{embargos.juzgado.nombre}" id="editarJuzgados" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px"> 
+                                            <p:inputText  autocomplete="off"  value="#{embargos.juzgado.nombre}" id="editarJuzgados" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px"> 
                                                 <p:ajax event="change" listener="#{controlNovedadEmbargo.modificarEmbargos(indice, 'JUZGADO', embargos.juzgado.nombre)}"/>
                                                 <p:ajax event="select" listener="#{controlNovedadEmbargo.cambiarIndice(indice, 4)}" process="@this"/>
                                                 <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndex(indice, 1, 0)}"/>
@@ -142,7 +142,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{embargos.motivoembargo.nombre}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{embargos.motivoembargo.nombre}" id="editarMotivos" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px"> 
+                                            <p:inputText  autocomplete="off"  value="#{embargos.motivoembargo.nombre}" id="editarMotivos" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px"> 
                                                 <p:ajax event="change" listener="#{controlNovedadEmbargo.modificarEmbargos(indice, 'MOTIVO', embargos.motivoembargo.nombre)}"/>
                                                 <p:ajax event="select" listener="#{controlNovedadEmbargo.cambiarIndice(indice, 5)}" process="@this"/>
                                                 <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndex(indice, 2, 0)}"/>
@@ -161,7 +161,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{embargos.demandante.nombre}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{embargos.demandante.nombre}" id="editarDemandante" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px"> 
+                                            <p:inputText  autocomplete="off"  value="#{embargos.demandante.nombre}" id="editarDemandante" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px"> 
                                                 <p:ajax event="change" listener="#{controlNovedadEmbargo.modificarEmbargos(indice, 'DEMANDANTE', embargos.demandante.nombre)}"/>
                                                 <p:ajax event="select" listener="#{controlNovedadEmbargo.cambiarIndice(indice, 6)}" process="@this"/>
                                                 <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndex(indice, 3, 0)}"/>
@@ -179,7 +179,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{embargos.tercero.strNit}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{embargos.tercero.strNit}" id="editarNITTercero" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px"> 
+                                            <p:inputText  autocomplete="off"  value="#{embargos.tercero.strNit}" id="editarNITTercero" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px"> 
                                                 <p:ajax event="change" listener="#{controlNovedadEmbargo.modificarEmbargos(indice, 'TERCERO', embargos.tercero.strNit)}"/>
                                                 <p:ajax event="select" listener="#{controlNovedadEmbargo.cambiarIndice(indice, 7)}" process="@this"/>
                                                 <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndex(indice, 4, 0)}"/>
@@ -200,7 +200,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{embargos.tercero.nombre}" style="text-transform: uppercase " /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{embargos.tercero.nombre}" id="editarTercero" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px;" > 
+                                            <p:inputText  autocomplete="off"  value="#{embargos.tercero.nombre}" id="editarTercero" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px;" > 
                                                 <p:ajax event="select" listener="#{controlNovedadEmbargo.cambiarIndice(indice, 8)}" />
                                                 <p:ajax event="change" listener="#{controlNovedadEmbargo.modificarEmbargos(indice, 'N', embargos.tercero.nombre)}"/>
                                             </p:inputText>
@@ -220,7 +220,7 @@
                                         <f:facet name="output"><h:outputText value="#{embargos.valortotal}" style="text-transform: uppercase " />
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{embargos.valortotal}" id="editarValor" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px;" > 
+                                            <p:inputText  autocomplete="off"  value="#{embargos.valortotal}" id="editarValor" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px;" > 
                                                 <p:ajax event="select" listener="#{controlNovedadEmbargo.cambiarIndice(indice, 9)}" />
                                                 <p:ajax event="change" listener="#{controlNovedadEmbargo.modificarEmbargos(indice, 'N', embargos.valortotal)}"/>
                                             </p:inputText>
@@ -240,7 +240,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy"   value="#{embargos.fechainiciodescuento}" id="editFechaInicial"   styleClass="ui-datepicker, myClass"  
+                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy"   value="#{embargos.fechainiciodescuento}" id="editFechaInicial"   styleClass="ui-datepicker, myClass"  
                                                           navigator="true" showButtonPanel="true" locale="es" pattern="dd/MM/yyyy" autocomplete="true">                                         
                                                 <p:ajax event="dateSelect"  update="editFechaInicial"/>
                                                 <p:ajax event="change" listener="#{controlNovedadEmbargo.modificarEmbargos(indice, 'N', embargos.fechainiciodescuento)}"/>
@@ -260,7 +260,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{embargos.formadto.descripcion}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{embargos.formadto.descripcion}" id="editarForma" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px"> 
+                                            <p:inputText  autocomplete="off"  value="#{embargos.formadto.descripcion}" id="editarForma" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px"> 
                                                 <p:ajax event="change" listener="#{controlNovedadEmbargo.modificarEmbargos(indice, 'FORMADTO', embargos.formadto.descripcion)}"/>
                                                 <p:ajax event="select" listener="#{controlNovedadEmbargo.cambiarIndice(indice, 11)}" process="@this"/>
                                                 <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndex(indice, 5, 0)}"/>
@@ -281,7 +281,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{embargos.cancelaciondocumento}" style="text-transform: uppercase " /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{embargos.cancelaciondocumento}" id="editarCancelacion" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px;" > 
+                                            <p:inputText  autocomplete="off"  value="#{embargos.cancelaciondocumento}" id="editarCancelacion" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px;" > 
                                                 <p:ajax event="select" listener="#{controlNovedadEmbargo.cambiarIndice(indice, 12)}" />
                                                 <p:ajax event="change" listener="#{controlNovedadEmbargo.modificarEmbargos(indice, 'N', embargos.cancelaciondocumento)}"/>
                                             </p:inputText>
@@ -301,7 +301,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="editFechaCancelacion" value="#{embargos.cancelacionfechahasta}"> 
+                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editFechaCancelacion" value="#{embargos.cancelacionfechahasta}"> 
                                                 <p:ajax event="dateSelect"  update="editFechaCancelacion"/>
                                                 <p:ajax event="change" listener="#{controlNovedadEmbargo.modificarEmbargos(indice, 'N', embargos.cancelacionfechahasta)}"/>
                                                 <p:ajax event="select" listener="#{controlNovedadEmbargo.cambiarIndice(indice, 13)}" />
@@ -321,7 +321,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{embargos.observaciones}" style="text-transform: uppercase " /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{embargos.observaciones}" id="editarObservaciones" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px;" > 
+                                            <p:inputText  autocomplete="off"  value="#{embargos.observaciones}" id="editarObservaciones" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px;" > 
                                                 <p:ajax event="select" listener="#{controlNovedadEmbargo.cambiarIndice(indice, 14)}" />
                                                 <p:ajax event="change" listener="#{controlNovedadEmbargo.modificarEmbargos(indice, 'N', embargos.observaciones)}"/>
                                             </p:inputText>
@@ -399,7 +399,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{detalles.detalleformadto.descripcion}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{detalles.detalleformadto.descripcion}" id="editarPagos" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px"> 
+                                            <p:inputText  autocomplete="off"  value="#{detalles.detalleformadto.descripcion}" id="editarPagos" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px"> 
                                                 <p:ajax event="change" listener="#{controlNovedadEmbargo.modificarDetallesEmbargos(indice, 'TIPO', detalles.detalleformadto.descripcion)}"/>
                                                 <p:ajax event="select" listener="#{controlNovedadEmbargo.cambiarIndiceD(indiceD, 0)}" process="@this"/>
                                                 <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndexD(indiceD, 0, 0)}"/>
@@ -420,7 +420,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{detalles.detalleformadto.tipodto.ika}" style="text-transform: uppercase " /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  readonly="true" value="#{detalles.detalleformadto.tipodto.ika}" id="editarDetalle" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px;" > 
+                                            <p:inputText  autocomplete="off"  readonly="true" value="#{detalles.detalleformadto.tipodto.ika}" id="editarDetalle" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px;" > 
                                                 <p:ajax event="select" listener="#{controlNovedadEmbargo.cambiarIndiceD(indiceD, 1)}" />
                                                 <p:ajax event="change" listener="#{controlNovedadEmbargo.modificarDetallesEmbargos(indiceD, 'N', detalles.detalleformadto.tipodto.ika)}"/>
                                             </p:inputText>
@@ -440,7 +440,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{detalles.porcentaje}" style="text-transform: uppercase " /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{detalles.porcentaje}" id="editarPorcentaje" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px;" > 
+                                            <p:inputText  autocomplete="off"   value="#{detalles.porcentaje}" id="editarPorcentaje" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px;" > 
                                                 <p:ajax event="select" listener="#{controlNovedadEmbargo.cambiarIndiceD(indiceD, 2)}" />
                                                 <p:ajax event="change" listener="#{controlNovedadEmbargo.modificarDetallesEmbargos(indiceD, 'N', detalles.porcentaje)}"/>
                                             </p:inputText>
@@ -460,7 +460,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{detalles.valor}" style="text-transform: uppercase " /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{detalles.valor}" id="editarValor" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px;" > 
+                                            <p:inputText  autocomplete="off"  value="#{detalles.valor}" id="editarValor" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px;" > 
                                                 <p:ajax event="select" listener="#{controlNovedadEmbargo.cambiarIndiceD(indiceD, 3)}" />
                                                 <p:ajax event="change" listener="#{controlNovedadEmbargo.modificarDetallesEmbargos(indiceD, 'N', detalles.valor)}"/>
                                             </p:inputText>
@@ -480,7 +480,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{detalles.saldoinicial}" style="text-transform: uppercase " /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{detalles.saldoinicial}" id="editarSaldo" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px;" > 
+                                            <p:inputText  autocomplete="off"  value="#{detalles.saldoinicial}" id="editarSaldo" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px;" > 
                                                 <p:ajax event="select" listener="#{controlNovedadEmbargo.cambiarIndiceD(indiceD, 4)}" />
                                                 <p:ajax event="change" listener="#{controlNovedadEmbargo.modificarDetallesEmbargos(indiceD, 'N', detalles.saldoinicial)}"/>
                                             </p:inputText>
@@ -500,7 +500,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{detalles.periodicidad.codigoStr}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{detalles.periodicidad.codigoStr}" id="editarPeriodicidadCodigo" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px"> 
+                                            <p:inputText  autocomplete="off"  value="#{detalles.periodicidad.codigoStr}" id="editarPeriodicidadCodigo" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px"> 
                                                 <p:ajax event="change" listener="#{controlNovedadEmbargo.modificarDetallesEmbargos(indiceD, 'PERIODICIDAD', detalles.periodicidad.codigoStr)}"/>
                                                 <p:ajax event="select" listener="#{controlNovedadEmbargo.cambiarIndiceD(indiceD, 5)}" process="@this"/>
                                                 <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndexD(indiceD, 1, 0)}"/>
@@ -521,7 +521,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{detalles.periodicidad.nombre}" style="text-transform: uppercase " /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  readonly="true" value="#{detalles.periodicidad.nombre}" id="editarPeriodicidadNombre" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px;" > 
+                                            <p:inputText  autocomplete="off"  readonly="true" value="#{detalles.periodicidad.nombre}" id="editarPeriodicidadNombre" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px;" > 
                                                 <p:ajax event="select" listener="#{controlNovedadEmbargo.cambiarIndiceD(indiceD, 6)}" />
                                                 <p:ajax event="change" listener="#{controlNovedadEmbargo.modificarDetallesEmbargos(indiceD, 'N', detalles.periodicidad.nombre)}"/>
                                             </p:inputText>
@@ -541,7 +541,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{detalles.detalleformadto.concepto.codigo}" style="text-transform: uppercase " /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{detalles.detalleformadto.concepto.codigo}" id="editarConceptoCodigo" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px;" > 
+                                            <p:inputText  autocomplete="off"  value="#{detalles.detalleformadto.concepto.codigo}" id="editarConceptoCodigo" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px;" > 
                                                 <p:ajax event="select" listener="#{controlNovedadEmbargo.cambiarIndiceD(indiceD, 7)}" />
                                                 <p:ajax event="change" listener="#{controlNovedadEmbargo.modificarDetallesEmbargos(indiceD, 'N', detalles.detalleformadto.concepto.codigo)}"/>
                                             </p:inputText>
@@ -561,7 +561,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{detalles.detalleformadto.concepto.descripcion}" style="text-transform: uppercase " /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{detalles.detalleformadto.concepto.descripcion}" id="editarConceptoDescripcion" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px;" > 
+                                            <p:inputText  autocomplete="off"  value="#{detalles.detalleformadto.concepto.descripcion}" id="editarConceptoDescripcion" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px;" > 
                                                 <p:ajax event="select" listener="#{controlNovedadEmbargo.cambiarIndiceD(indiceD, 8)}" />
                                                 <p:ajax event="change" listener="#{controlNovedadEmbargo.modificarDetallesEmbargos(indiceD, 'N', detalles.detalleformadto.concepto.descripcion)}"/>
                                             </p:inputText>
@@ -581,7 +581,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{detalles.detalleformadto.concepto.empresa.nombre}" style="text-transform: uppercase " /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{detalles.detalleformadto.concepto.empresa.nombre}" id="editarEmpresa" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px;" > 
+                                            <p:inputText  autocomplete="off"  value="#{detalles.detalleformadto.concepto.empresa.nombre}" id="editarEmpresa" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px;" > 
                                                 <p:ajax event="select" listener="#{controlNovedadEmbargo.cambiarIndiceD(indiceD, 9)}" />
                                                 <p:ajax event="change" listener="#{controlNovedadEmbargo.modificarDetallesEmbargos(indiceD, 'N', detalles.detalleformadto.concepto.empresa.nombre)}"/>
                                             </p:inputText>
@@ -608,7 +608,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{descuentos.concepto.descripcion}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  readonly="true" value="#{descuetos.concepto.descripcion}" id="editarDescuentosConceptoDescripcion" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px"> 
+                                            <p:inputText  autocomplete="off"  readonly="true" value="#{descuetos.concepto.descripcion}" id="editarDescuentosConceptoDescripcion" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px"> 
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -626,7 +626,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{descuentos.valor}" style="text-transform: uppercase " /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  readonly="true" value="#{descuentos.valor}" id="editarDescuentosValor" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px;" > 
+                                            <p:inputText  autocomplete="off"  readonly="true" value="#{descuentos.valor}" id="editarDescuentosValor" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px;" > 
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -644,7 +644,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{descuentos.saldo}" style="text-transform: uppercase " /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  readonly="true" value="#{descuentos.saldo}" id="editarDescuentosSaldo" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px;" > 
+                                            <p:inputText  autocomplete="off"  readonly="true" value="#{descuentos.saldo}" id="editarDescuentosSaldo" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px;" > 
 
                                             </p:inputText>
                                         </f:facet>  
@@ -663,7 +663,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="editDescuentosFechaDesde" value="#{descuentos.fechaDesde}"> 
+                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editDescuentosFechaDesde" value="#{descuentos.fechaDesde}"> 
                                                 <p:ajax event="dateSelect"  update="editFechaCancelacion"/>
                                             </p:calendar>
                                         </f:facet>   
@@ -682,7 +682,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy"  readonly="true"  value="#{descuentos.fechaHasta}" id="editDescuentosFechaHasta"   styleClass="ui-datepicker, myClass"  
+                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy"  readonly="true"  value="#{descuentos.fechaHasta}" id="editDescuentosFechaHasta"   styleClass="ui-datepicker, myClass"  
                                                          navigator="true" showButtonPanel="true" locale="es" pattern="dd/MM/yyyy" autocomplete="true">                                         
                                                 <f:convertDateTime pattern="dd/MM/yyyy" />
                                             </p:calendar>
@@ -709,7 +709,7 @@
                             <fieldset style="position: absolute; left: 10px; top: 40px;  width: 665px; height: 318px; border-radius: 10px; ">
 
                                 <strong><h:outputText value="#{msg['tipoembargoN']}" style=" position: absolute; top: 17px;" /></strong>
-                                <p:inputText  autocomplete="false"  id="nuevoTipoEmbargo" value="#{controlNovedadEmbargo.nuevoEmbargo.tipoembargo.descripcion}" style=" width: 122px; position: absolute; left: 152px; top: 15px; text-transform: uppercase" onclick="select();">
+                                <p:inputText  autocomplete="off"  id="nuevoTipoEmbargo" value="#{controlNovedadEmbargo.nuevoEmbargo.tipoembargo.descripcion}" style=" width: 122px; position: absolute; left: 152px; top: 15px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="click" listener="#{controlNovedadEmbargo.valoresBackupAutocompletar(1, 'TIPOEMBARGO')}" />
                                     <p:ajax event="change" listener="#{controlNovedadEmbargo.autocompletarNuevoyDuplicado('TIPOEMBARGO', controlNovedadEmbargo.nuevoEmbargo.tipoembargo.descripcion, 1)}" />
                                     <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndex(indice, 0, 1)}" />
@@ -717,24 +717,24 @@
                                 <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 283px; top: 15px;  " id="btnNuevoTipoEmbargo" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndex(indice, 0, 1)}"/>   
 
                                 <strong><h:outputText value="#{msg['fechaoficioN']}" style=" position: absolute; top: 57px;" /></strong>
-                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy"  id="nuevaFechaOficio" style=" position: absolute; top: 55px; left: 152px;" value="#{controlNovedadEmbargo.nuevoEmbargo.fechadocumento}"  styleClass="ui-datepicker, myClass2"  
+                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy"  id="nuevaFechaOficio" style=" position: absolute; top: 55px; left: 152px;" value="#{controlNovedadEmbargo.nuevoEmbargo.fechadocumento}"  styleClass="ui-datepicker, myClass2"  
                                              navigator="true" showButtonPanel="true" locale="es" pattern="dd/MM/yyyy">
                                     <p:ajax event="dateSelect" update="nuevaFechaOficio"/>
                                     <p:ajax event="change" update="nuevaFechaOficio"/>
                                 </p:calendar>
 
                                 <strong><h:outputText value="#{msg['numeroprocesoN']}"  style=" position: absolute; top: 97px;" /></strong>
-                                <p:inputText  autocomplete="false"  id="nuevoNumeroProceso" value="#{controlNovedadEmbargo.nuevoEmbargo.numeroproceso}" style=" width: 122px; position: absolute; left: 152px; top: 95px; text-transform: uppercase" onclick="select();">
+                                <p:inputText  autocomplete="off"  id="nuevoNumeroProceso" value="#{controlNovedadEmbargo.nuevoEmbargo.numeroproceso}" style=" width: 122px; position: absolute; left: 152px; top: 95px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="change" update="nuevoNumeroProceso"/>
                                 </p:inputText>
 
                                 <strong><h:outputText value="#{msg['valortotalN']}"  style=" position: absolute;  top: 137px;" /></strong>
-                                <p:inputText  autocomplete="false"  id="nuevoValor" value="#{controlNovedadEmbargo.nuevoEmbargo.valortotal}" style=" width: 122px; position: absolute; top: 135px; left: 152px; text-transform: uppercase" onclick="select();">
+                                <p:inputText  autocomplete="off"  id="nuevoValor" value="#{controlNovedadEmbargo.nuevoEmbargo.valortotal}" style=" width: 122px; position: absolute; top: 135px; left: 152px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="change" update="nuevoValor"/>
                                 </p:inputText>
 
                                 <strong><h:outputText value="#{msg['nitN']}" style=" position: absolute; top: 177px;" /></strong>
-                                <p:inputText  autocomplete="false"  id="nuevoNIT" value="#{controlNovedadEmbargo.nuevoEmbargo.tercero.nit}" style=" width: 122px; position: absolute; top: 175px; left: 152px; text-transform:uppercase" onclick="select();">
+                                <p:inputText  autocomplete="off"  id="nuevoNIT" value="#{controlNovedadEmbargo.nuevoEmbargo.tercero.nit}" style=" width: 122px; position: absolute; top: 175px; left: 152px; text-transform:uppercase" onclick="select();">
                                     <p:ajax event="click" listener="#{controlNovedadEmbargo.valoresBackupAutocompletar(1, 'NIT')}" />
                                     <p:ajax event="change" listener="#{controlNovedadEmbargo.autocompletarNuevoyDuplicado('NIT', controlNovedadEmbargo.nuevoEmbargo.tercero.nit, 1)}" />
                                     <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndex(indice, 4, 1)}" />
@@ -742,26 +742,26 @@
                                 <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 283px; top: 175px;  " id="btnNuevoNIT" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndex(indice, 4, 1)}"/>   
 
                                 <strong><h:outputText value="#{msg['fechainicialdescuentoN']}" style=" position: absolute; top: 217px;" /></strong>
-                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy"  id="nuevaFechaInicio" style=" position: absolute; top: 215px; left: 152px;" value="#{controlNovedadEmbargo.nuevoEmbargo.fechainiciodescuento}"  styleClass="ui-datepicker, myClass2"  
+                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy"  id="nuevaFechaInicio" style=" position: absolute; top: 215px; left: 152px;" value="#{controlNovedadEmbargo.nuevoEmbargo.fechainiciodescuento}"  styleClass="ui-datepicker, myClass2"  
                                              navigator="true" showButtonPanel="true" locale="es" pattern="dd/MM/yyyy">
                                     <p:ajax event="dateSelect" update="nuevaFechaInicio"/>
                                     <p:ajax event="change" update="nuevaFechaInicio"/>
                                 </p:calendar>
 
                                 <strong><h:outputText value="#{msg['fechacancelacionN']}" style=" position: absolute; top: 257px;" /></strong>
-                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy"  id="nuevaFechaCancelacion" style=" position: absolute; top: 255px; left: 152px;" value="#{controlNovedadEmbargo.nuevoEmbargo.cancelacionfechahasta}"  styleClass="ui-datepicker, myClass2"  
+                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy"  id="nuevaFechaCancelacion" style=" position: absolute; top: 255px; left: 152px;" value="#{controlNovedadEmbargo.nuevoEmbargo.cancelacionfechahasta}"  styleClass="ui-datepicker, myClass2"  
                                              navigator="true" showButtonPanel="true" locale="es" pattern="dd/MM/yyyy">
                                     <p:ajax event="dateSelect" update="nuevaFechaCancelacion"/>
                                     <p:ajax event="change" update="nuevaFechaCancelacion"/>
                                 </p:calendar>
 
                                 <strong><h:outputText value="#{msg['observacionN']}"  style=" position: absolute;  top: 297px;" /></strong>
-                                <p:inputText  autocomplete="false"  id="nuevaObservacion" value="#{controlNovedadEmbargo.nuevoEmbargo.observaciones}" style=" width: 504px; position: absolute; top: 295px; left: 152px; text-transform: uppercase" onclick="select();">
+                                <p:inputText  autocomplete="off"  id="nuevaObservacion" value="#{controlNovedadEmbargo.nuevoEmbargo.observaciones}" style=" width: 504px; position: absolute; top: 295px; left: 152px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="change" update="nuevaObservacion"/>
                                 </p:inputText>
 
                                 <strong><h:outputText value="#{msg['motivoembargoN']}" style=" position: absolute; top: 17px;left: 350px;" /></strong>
-                                <p:inputText  autocomplete="false"  id="nuevoMotivo" value="#{controlNovedadEmbargo.nuevoEmbargo.motivoembargo.nombre}" style=" width: 122px; position: absolute; left: 500px; top:15px; text-transform: uppercase" onclick="select();">
+                                <p:inputText  autocomplete="off"  id="nuevoMotivo" value="#{controlNovedadEmbargo.nuevoEmbargo.motivoembargo.nombre}" style=" width: 122px; position: absolute; left: 500px; top:15px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="click" listener="#{controlNovedadEmbargo.valoresBackupAutocompletar(1, 'MOTIVO')}" />
                                     <p:ajax event="change" listener="#{controlNovedadEmbargo.autocompletarNuevoyDuplicado('MOTIVO', controlNovedadEmbargo.nuevoEmbargo.motivoembargo.nombre, 1)}" />
                                     <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndex(indice, 2, 1)}" />
@@ -769,12 +769,12 @@
                                 <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 631px; top: 15px;  " id="btnNuevoMotivo" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndex(indice, 2, 1)}"/>   
 
                                 <strong><h:outputText value="#{msg['numerooficioN']}"  style=" position: absolute; top: 57px; left:350px;" /></strong>
-                                <p:inputText  autocomplete="false"  id="nuevoNumero" value="#{controlNovedadEmbargo.nuevoEmbargo.documento}" style=" width: 122px; position: absolute; left: 500px; top: 55px; text-transform: uppercase" onclick="select();">
+                                <p:inputText  autocomplete="off"  id="nuevoNumero" value="#{controlNovedadEmbargo.nuevoEmbargo.documento}" style=" width: 122px; position: absolute; left: 500px; top: 55px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="change" update="nuevoNumero"/>
                                 </p:inputText>
 
                                 <strong><h:outputText value="#{msg['juzgadoN']}" style=" position: absolute; top: 97px;left:350px;" /></strong>
-                                <p:inputText  autocomplete="false"  id="nuevoJuzgado" value="#{controlNovedadEmbargo.nuevoEmbargo.juzgado.nombre}" style=" width: 122px; position: absolute; left: 500px; top:95px; text-transform: uppercase" onclick="select();">
+                                <p:inputText  autocomplete="off"  id="nuevoJuzgado" value="#{controlNovedadEmbargo.nuevoEmbargo.juzgado.nombre}" style=" width: 122px; position: absolute; left: 500px; top:95px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="click" listener="#{controlNovedadEmbargo.valoresBackupAutocompletar(1, 'JUZGADO')}" />
                                     <p:ajax event="change" listener="#{controlNovedadEmbargo.autocompletarNuevoyDuplicado('JUZGADO', controlNovedadEmbargo.nuevoEmbargo.juzgado.nombre, 1)}" />
                                     <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndex(indice, 1, 1)}" />
@@ -782,7 +782,7 @@
                                 <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 631px; top: 95px;  " id="btnNuevoJuzgado" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndex(indice, 1, 1)}"/>   
 
                                 <strong><h:outputText value="#{msg['demandanteN']}" style=" position: absolute; top: 137px;left: 350px;" /></strong>
-                                <p:inputText  autocomplete="false"  id="nuevoDemandante" value="#{controlNovedadEmbargo.nuevoEmbargo.demandante.nombre}" style=" width: 122px; position: absolute; left: 500px; top:135px; text-transform: uppercase" onclick="select();">
+                                <p:inputText  autocomplete="off"  id="nuevoDemandante" value="#{controlNovedadEmbargo.nuevoEmbargo.demandante.nombre}" style=" width: 122px; position: absolute; left: 500px; top:135px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="click" listener="#{controlNovedadEmbargo.valoresBackupAutocompletar(1, 'DEMANDANTE')}" />
                                     <p:ajax event="change" listener="#{controlNovedadEmbargo.autocompletarNuevoyDuplicado('DEMANDANTE', controlNovedadEmbargo.nuevoEmbargo.demandante.nombre, 1)}" />
                                     <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndex(indice, 3, 1)}" />
@@ -790,12 +790,12 @@
                                 <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 631px; top: 135px;  " id="btnNuevoDemandante" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndex(indice, 3, 1)}"/>   
 
                                 <strong><h:outputText value="#{msg['descuentoN']}"  style=" position: absolute;  top: 177px; left: 350px;" /></strong>
-                                <p:inputText  autocomplete="false"  readonly="true" id="nuevoTercero" value="#{controlNovedadEmbargo.nuevoEmbargo.tercero.nombre}" style=" width: 122px; position: absolute; top: 175px; left: 500px; text-transform: uppercase" onclick="select();">
+                                <p:inputText  autocomplete="off"  readonly="true" id="nuevoTercero" value="#{controlNovedadEmbargo.nuevoEmbargo.tercero.nombre}" style=" width: 122px; position: absolute; top: 175px; left: 500px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="change" update="nuevoTercero"/>
                                 </p:inputText>
 
                                 <strong><h:outputText value="#{msg['formadescuentoN']}" style=" position: absolute; top: 217px; left: 350px;" /></strong>
-                                <p:inputText  autocomplete="false"  id="nuevaForma" value="#{controlNovedadEmbargo.nuevoEmbargo.formadto.descripcion}" style=" width: 122px; position: absolute; top: 215px; left: 500px; text-transform:uppercase" onclick="select();">
+                                <p:inputText  autocomplete="off"  id="nuevaForma" value="#{controlNovedadEmbargo.nuevoEmbargo.formadto.descripcion}" style=" width: 122px; position: absolute; top: 215px; left: 500px; text-transform:uppercase" onclick="select();">
                                     <p:ajax event="click" listener="#{controlNovedadEmbargo.valoresBackupAutocompletar(1, 'FORMA')}" />
                                     <p:ajax event="change" listener="#{controlNovedadEmbargo.autocompletarNuevoyDuplicado('FORMA', controlNovedadEmbargo.nuevoEmbargo.formadto.descripcion, 1)}" />
                                     <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndex(indice, 5, 1)}" />
@@ -803,7 +803,7 @@
                                 <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 631px; top: 215px;  " id="btnNuevaForma" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndex(indice, 5, 1)}"/>   
 
                                 <strong><h:outputText value="#{msg['cancelaciondocumentoN']}"  style=" position: absolute;  top: 255px; left: 350px;" /></strong>
-                                <p:inputText  autocomplete="false"  id="nuevaCancelacion" value="#{controlNovedadEmbargo.nuevoEmbargo.cancelaciondocumento}" style=" width: 122px; position: absolute; top: 255px; left: 500px; text-transform: uppercase" onclick="select();">
+                                <p:inputText  autocomplete="off"  id="nuevaCancelacion" value="#{controlNovedadEmbargo.nuevoEmbargo.cancelaciondocumento}" style=" width: 122px; position: absolute; top: 255px; left: 500px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="change" update="nuevaCancelacion"/>
                                 </p:inputText>
 
@@ -835,7 +835,7 @@
                             <fieldset style="position: absolute; left: 10px; top: 40px;  width: 665px; height: 318px; border-radius: 10px; ">
 
                                 <strong><h:outputText value="#{msg['tipoembargoN']}" style=" position: absolute; top: 17px;" /></strong>
-                                <p:inputText  autocomplete="false"  id="duplicarTipoEmbargo" value="#{controlNovedadEmbargo.duplicarEmbargo.tipoembargo.descripcion}" style=" width: 122px; position: absolute; left: 152px; top: 15px; text-transform: uppercase" onclick="select();">
+                                <p:inputText  autocomplete="off"  id="duplicarTipoEmbargo" value="#{controlNovedadEmbargo.duplicarEmbargo.tipoembargo.descripcion}" style=" width: 122px; position: absolute; left: 152px; top: 15px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="click" listener="#{controlNovedadEmbargo.valoresBackupAutocompletar(2, 'TIPOEMBARGO')}" />
                                     <p:ajax event="change" listener="#{controlNovedadEmbargo.autocompletarNuevoyDuplicado('TIPOEMBARGO', controlNovedadEmbargo.duplicarEmbargo.tipoembargo.descripcion, 2)}" />
                                     <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndex(indice, 0, 2)}" />
@@ -843,24 +843,24 @@
                                 <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 283px; top: 15px;  " id="btnDuplicarTipoEmbargo" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndex(indice, 0, 2)}"/>   
 
                                 <strong><h:outputText value="#{msg['fechaoficioN']}" style=" position: absolute; top: 57px;" /></strong>
-                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy"  id="duplicarFechaOficio" style=" position: absolute; top: 55px; left: 152px;" value="#{controlNovedadEmbargo.duplicarEmbargo.fechadocumento}"  styleClass="ui-datepicker, myClass2"  
+                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy"  id="duplicarFechaOficio" style=" position: absolute; top: 55px; left: 152px;" value="#{controlNovedadEmbargo.duplicarEmbargo.fechadocumento}"  styleClass="ui-datepicker, myClass2"  
                                              navigator="true" showButtonPanel="true" locale="es" pattern="dd/MM/yyyy">
                                     <p:ajax event="dateSelect" update="duplicarFechaOficio"/>
                                     <p:ajax event="change" update="duplicarFechaOficio"/>
                                 </p:calendar>
 
                                 <strong><h:outputText value="#{msg['numeroprocesoN']}"  style=" position: absolute; top: 97px;" /></strong>
-                                <p:inputText  autocomplete="false"  id="duplicarNumeroProceso" value="#{controlNovedadEmbargo.duplicarEmbargo.numeroproceso}" style=" width: 122px; position: absolute; left: 152px; top: 95px; text-transform: uppercase" onclick="select();">
+                                <p:inputText  autocomplete="off"  id="duplicarNumeroProceso" value="#{controlNovedadEmbargo.duplicarEmbargo.numeroproceso}" style=" width: 122px; position: absolute; left: 152px; top: 95px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="change" update="duplicarNumeroProceso"/>
                                 </p:inputText>
 
                                 <strong><h:outputText value="#{msg['valortotalN']}"  style=" position: absolute;  top: 137px;" /></strong>
-                                <p:inputText  autocomplete="false"  id="duplicarValor" value="#{controlNovedadEmbargo.duplicarEmbargo.valortotal}" style=" width: 122px; position: absolute; top: 135px; left: 152px; text-transform: uppercase" onclick="select();">
+                                <p:inputText  autocomplete="off"  id="duplicarValor" value="#{controlNovedadEmbargo.duplicarEmbargo.valortotal}" style=" width: 122px; position: absolute; top: 135px; left: 152px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="change" update="duplicarValor"/>
                                 </p:inputText>
 
                                 <strong><h:outputText value="#{msg['nitN']}" style=" position: absolute; top: 177px;" /></strong>
-                                <p:inputText  autocomplete="false"  id="duplicarNIT" value="#{controlNovedadEmbargo.duplicarEmbargo.tercero.nit}" style=" width: 122px; position: absolute; top: 175px; left: 152px; text-transform:uppercase" onclick="select();">
+                                <p:inputText  autocomplete="off"  id="duplicarNIT" value="#{controlNovedadEmbargo.duplicarEmbargo.tercero.nit}" style=" width: 122px; position: absolute; top: 175px; left: 152px; text-transform:uppercase" onclick="select();">
                                     <p:ajax event="click" listener="#{controlNovedadEmbargo.valoresBackupAutocompletar(2, 'NIT')}" />
                                     <p:ajax event="change" listener="#{controlNovedadEmbargo.autocompletarNuevoyDuplicado('NIT', controlNovedadEmbargo.duplicarEmbargo.tercero.nit, 2)}" />
                                     <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndex(indice, 4, 2)}" />
@@ -868,26 +868,26 @@
                                 <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 283px; top: 175px;  " id="btnDuplicarNIT" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndex(indice, 4, 2)}"/>   
 
                                 <strong><h:outputText value="#{msg['fechainicialdescuentoN']}" style=" position: absolute; top: 217px;" /></strong>
-                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy"  id="duplicarFechaInicio" style=" position: absolute; top: 215px; left: 152px;" value="#{controlNovedadEmbargo.duplicarEmbargo.fechainiciodescuento}"  styleClass="ui-datepicker, myClass2"  
+                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy"  id="duplicarFechaInicio" style=" position: absolute; top: 215px; left: 152px;" value="#{controlNovedadEmbargo.duplicarEmbargo.fechainiciodescuento}"  styleClass="ui-datepicker, myClass2"  
                                              navigator="true" showButtonPanel="true" locale="es" pattern="dd/MM/yyyy">
                                     <p:ajax event="dateSelect" update="duplicarFechaInicio"/>
                                     <p:ajax event="change" update="duplicarFechaInicio"/>
                                 </p:calendar>
 
                                 <strong><h:outputText value="#{msg['fechacancelacionN']}" style=" position: absolute; top: 257px;" /></strong>
-                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy"  id="duplicarFechaCancelacion" style=" position: absolute; top: 255px; left: 152px;" value="#{controlNovedadEmbargo.duplicarEmbargo.cancelacionfechahasta}"  styleClass="ui-datepicker, myClass2"  
+                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy"  id="duplicarFechaCancelacion" style=" position: absolute; top: 255px; left: 152px;" value="#{controlNovedadEmbargo.duplicarEmbargo.cancelacionfechahasta}"  styleClass="ui-datepicker, myClass2"  
                                              navigator="true" showButtonPanel="true" locale="es" pattern="dd/MM/yyyy">
                                     <p:ajax event="dateSelect" update="duplicarFechaCancelacion"/>
                                     <p:ajax event="change" update="duplicarFechaCancelacion"/>
                                 </p:calendar>
 
                                 <strong><h:outputText value="#{msg['observacionN']}"  style=" position: absolute;  top: 297px;" /></strong>
-                                <p:inputText  autocomplete="false"  id="duplicarObservacion" value="#{controlNovedadEmbargo.duplicarEmbargo.observaciones}" style=" width: 504px; position: absolute; top: 295px; left: 152px; text-transform: uppercase" onclick="select();">
+                                <p:inputText  autocomplete="off"  id="duplicarObservacion" value="#{controlNovedadEmbargo.duplicarEmbargo.observaciones}" style=" width: 504px; position: absolute; top: 295px; left: 152px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="change" update="duplicarObservacion"/>
                                 </p:inputText>
 
                                 <strong><h:outputText value="#{msg['motivoembargoN']}" style=" position: absolute; top: 17px;left: 350px;" /></strong>
-                                <p:inputText  autocomplete="false"  id="duplicarMotivo" value="#{controlNovedadEmbargo.duplicarEmbargo.motivoembargo.nombre}" style=" width: 122px; position: absolute; left: 500px; top:15px; text-transform: uppercase" onclick="select();">
+                                <p:inputText  autocomplete="off"  id="duplicarMotivo" value="#{controlNovedadEmbargo.duplicarEmbargo.motivoembargo.nombre}" style=" width: 122px; position: absolute; left: 500px; top:15px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="click" listener="#{controlNovedadEmbargo.valoresBackupAutocompletar(2, 'MOTIVO')}" />
                                     <p:ajax event="change" listener="#{controlNovedadEmbargo.autocompletarNuevoyDuplicado('MOTIVO', controlNovedadEmbargo.duplicarEmbargo.motivoembargo.nombre, 2)}" />
                                     <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndex(indice, 2, 2)}" />
@@ -896,12 +896,12 @@
 
 
                                 <strong><h:outputText value="#{msg['numerooficioN']}"  style=" position: absolute; top: 57px; left:350px;" /></strong>
-                                <p:inputText  autocomplete="false"  id="duplicarNumero" value="#{controlNovedadEmbargo.duplicarEmbargo.documento}" style=" width: 122px; position: absolute; left: 500px; top: 55px; text-transform: uppercase" onclick="select();">
+                                <p:inputText  autocomplete="off"  id="duplicarNumero" value="#{controlNovedadEmbargo.duplicarEmbargo.documento}" style=" width: 122px; position: absolute; left: 500px; top: 55px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="change" update="duplicarNumero"/>
                                 </p:inputText>
 
                                 <strong><h:outputText value="#{msg['juzgadoN']}" style=" position: absolute; top: 97px;left:350px;" /></strong>
-                                <p:inputText  autocomplete="false"  id="duplicarJuzgado" value="#{controlNovedadEmbargo.duplicarEmbargo.juzgado.nombre}" style=" width: 122px; position: absolute; left: 500px; top:95px; text-transform: uppercase" onclick="select();">
+                                <p:inputText  autocomplete="off"  id="duplicarJuzgado" value="#{controlNovedadEmbargo.duplicarEmbargo.juzgado.nombre}" style=" width: 122px; position: absolute; left: 500px; top:95px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="click" listener="#{controlNovedadEmbargo.valoresBackupAutocompletar(2, 'JUZGADO')}" />
                                     <p:ajax event="change" listener="#{controlNovedadEmbargo.autocompletarNuevoyDuplicado('JUZGADO', controlNovedadEmbargo.duplicarEmbargo.juzgado.nombre, 2)}" />
                                     <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndex(indice, 1, 2)}" />
@@ -909,7 +909,7 @@
                                 <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 631px; top: 95px;  " id="btnDuplicarJuzgado" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndex(indice, 1, 2)}"/>   
 
                                 <strong><h:outputText value="#{msg['demandanteN']}" style=" position: absolute; top: 137px;left: 350px;" /></strong>
-                                <p:inputText  autocomplete="false"  id="duplicarDemandante" value="#{controlNovedadEmbargo.duplicarEmbargo.demandante.nombre}" style=" width: 122px; position: absolute; left: 500px; top:135px; text-transform: uppercase" onclick="select();">
+                                <p:inputText  autocomplete="off"  id="duplicarDemandante" value="#{controlNovedadEmbargo.duplicarEmbargo.demandante.nombre}" style=" width: 122px; position: absolute; left: 500px; top:135px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="click" listener="#{controlNovedadEmbargo.valoresBackupAutocompletar(2, 'DEMANDANTE')}" />
                                     <p:ajax event="change" listener="#{controlNovedadEmbargo.autocompletarNuevoyDuplicado('DEMANDANTE', controlNovedadEmbargo.duplicarEmbargo.demandante.nombre, 2)}" />
                                     <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndex(indice, 3, 2)}" />
@@ -917,12 +917,12 @@
                                 <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 631px; top: 135px;  " id="btnDuplicarDemandante" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndex(indice, 3, 2)}"/>   
 
                                 <strong><h:outputText value="#{msg['descuentoN']}"  style=" position: absolute;  top: 177px; left: 350px;" /></strong>
-                                <p:inputText  autocomplete="false"  readonly="true" id="duplicarTercero" value="#{controlNovedadEmbargo.duplicarEmbargo.tercero.nombre}" style=" width: 122px; position: absolute; top: 175px; left: 500px; text-transform: uppercase" onclick="select();">
+                                <p:inputText  autocomplete="off"  readonly="true" id="duplicarTercero" value="#{controlNovedadEmbargo.duplicarEmbargo.tercero.nombre}" style=" width: 122px; position: absolute; top: 175px; left: 500px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="change" update="duplicarTercero"/>
                                 </p:inputText>
 
                                 <strong><h:outputText value="#{msg['formadescuentoN']}" style=" position: absolute; top: 217px; left: 350px;" /></strong>
-                                <p:inputText  autocomplete="false"  id="duplicarForma" value="#{controlNovedadEmbargo.duplicarEmbargo.formadto.descripcion}" style=" width: 122px; position: absolute; top: 215px; left: 500px; text-transform:uppercase" onclick="select();">
+                                <p:inputText  autocomplete="off"  id="duplicarForma" value="#{controlNovedadEmbargo.duplicarEmbargo.formadto.descripcion}" style=" width: 122px; position: absolute; top: 215px; left: 500px; text-transform:uppercase" onclick="select();">
                                     <p:ajax event="click" listener="#{controlNovedadEmbargo.valoresBackupAutocompletar(2, 'FORMA')}" />
                                     <p:ajax event="change" listener="#{controlNovedadEmbargo.autocompletarNuevoyDuplicado('FORMA', controlNovedadEmbargo.duplicarEmbargo.formadto.descripcion, 2)}" />
                                     <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndex(indice, 5, 2)}" />
@@ -930,7 +930,7 @@
                                 <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 631px; top: 215px;  " id="btnDuplicarForma" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndex(indice, 5, 2)}"/>   
 
                                 <strong><h:outputText value="#{msg['cancelaciondocumentoN']}"  style=" position: absolute;  top: 255px; left: 350px;" /></strong>
-                                <p:inputText  autocomplete="false"  id="duplicarCancelacion" value="#{controlNovedadEmbargo.duplicarEmbargo.cancelaciondocumento}" style=" width: 122px; position: absolute; top: 255px; left: 500px; text-transform: uppercase" onclick="select();">
+                                <p:inputText  autocomplete="off"  id="duplicarCancelacion" value="#{controlNovedadEmbargo.duplicarEmbargo.cancelaciondocumento}" style=" width: 122px; position: absolute; top: 255px; left: 500px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="change" update="duplicarCancelacion"/>
                                 </p:inputText>
 
@@ -950,7 +950,7 @@
                             <fieldset style="position: absolute; left: 10px; top: 40px;  width: 665px; height: 318px; border-radius: 10px; ">
 
                                 <strong><h:outputText value="#{msg['pagoscomprometidosN']}" style=" position: absolute; top: 17px;" /></strong>
-                                <p:inputText  autocomplete="false"  id="nuevoPagoComprometido" value="#{controlNovedadEmbargo.nuevoDetalleEmbargo.detalleformadto.descripcion}" style=" width: 122px; position: absolute; left: 200px; top: 12px; text-transform: uppercase" onclick="select();">
+                                <p:inputText  autocomplete="off"  id="nuevoPagoComprometido" value="#{controlNovedadEmbargo.nuevoDetalleEmbargo.detalleformadto.descripcion}" style=" width: 122px; position: absolute; left: 200px; top: 12px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="click" listener="#{controlNovedadEmbargo.valoresBackupAutocompletarD(1, 'PAGO')}" />
                                     <p:ajax event="change" listener="#{controlNovedadEmbargo.autocompletarNuevoyDuplicadoD('PAGO', controlNovedadEmbargo.nuevoDetalleEmbargo.detalleformadto.descripcion, 1)}" />
                                     <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndexD(indiceD, 0, 1)}" />
@@ -958,28 +958,28 @@
                                 <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 12px;  " id="btnNuevoPagoComprometido" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndexD(indiceD, 0, 1)}"/>   
 
                                 <strong><h:outputText value="#{msg['ikaN']}"  style=" position: absolute; top: 57px;" /></strong>
-                                <p:inputText  autocomplete="false"  readonly="true" id="nuevoIKA" value="#{controlNovedadEmbargo.nuevoDetalleEmbargo.detalleformadto.tipodto.ika}" style=" width: 122px; position: absolute; left: 200px; top: 52px; text-transform: uppercase" onclick="select();">
+                                <p:inputText  autocomplete="off"  readonly="true" id="nuevoIKA" value="#{controlNovedadEmbargo.nuevoDetalleEmbargo.detalleformadto.tipodto.ika}" style=" width: 122px; position: absolute; left: 200px; top: 52px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="change" update="nuevoIKA"/>
                                 </p:inputText>
 
                                 <strong><h:outputText value="#{msg['porcentajeN']}"  style=" position: absolute; top: 97px;" /></strong>
-                                <p:inputText  autocomplete="false"  maxlength="6" id="nuevoPorcentaje" value="#{controlNovedadEmbargo.nuevoDetalleEmbargo.porcentaje}" style=" width: 122px; position: absolute; left: 200px; top: 92px; text-transform: uppercase" onclick="select();">
+                                <p:inputText  autocomplete="off"  maxlength="6" id="nuevoPorcentaje" value="#{controlNovedadEmbargo.nuevoDetalleEmbargo.porcentaje}" style=" width: 122px; position: absolute; left: 200px; top: 92px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="change" update="nuevoPorcentaje"/>
                                     <p:ajax event="click" listener="#{controlNovedadEmbargo.validarValor(1)}"/>
                                 </p:inputText>
 
                                 <strong><h:outputText value="#{msg['valorN']}"  style=" position: absolute; top: 137px;" /></strong>
-                                <p:inputText  autocomplete="false"  id="nuevoValorD" value="#{controlNovedadEmbargo.nuevoDetalleEmbargo.valor}" style=" width: 122px; position: absolute; left: 200px; top: 132px; text-transform: uppercase" onclick="select();">
+                                <p:inputText  autocomplete="off"  id="nuevoValorD" value="#{controlNovedadEmbargo.nuevoDetalleEmbargo.valor}" style=" width: 122px; position: absolute; left: 200px; top: 132px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="change" update="nuevoValorD"/>
                                 </p:inputText>
 
                                 <strong><h:outputText value="#{msg['saldoN']}"  style=" position: absolute; top: 177px;" /></strong>
-                                <p:inputText  autocomplete="false"  id="nuevoSaldo" value="#{controlNovedadEmbargo.nuevoDetalleEmbargo.saldoinicial}" style=" width: 122px; position: absolute; left: 200px; top: 172px; text-transform: uppercase" onclick="select();">
+                                <p:inputText  autocomplete="off"  id="nuevoSaldo" value="#{controlNovedadEmbargo.nuevoDetalleEmbargo.saldoinicial}" style=" width: 122px; position: absolute; left: 200px; top: 172px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="change" update="nuevoSaldo"/>
                                 </p:inputText>
 
                                 <strong><h:outputText value="#{msg['cpN']}" style=" position: absolute; top: 217px;" /></strong>
-                                <p:inputText  autocomplete="false"  id="nuevoCodigoPeriodicidad" value="#{controlNovedadEmbargo.nuevoDetalleEmbargo.periodicidad.codigoStr}" style=" width: 122px; position: absolute; left: 200px; top: 212px; text-transform: uppercase" onclick="select();">
+                                <p:inputText  autocomplete="off"  id="nuevoCodigoPeriodicidad" value="#{controlNovedadEmbargo.nuevoDetalleEmbargo.periodicidad.codigoStr}" style=" width: 122px; position: absolute; left: 200px; top: 212px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="click" listener="#{controlNovedadEmbargo.valoresBackupAutocompletarD(1, 'PERIODICIDAD')}" />
                                     <p:ajax event="change" listener="#{controlNovedadEmbargo.autocompletarNuevoyDuplicadoD('PERIODICIDAD', controlNovedadEmbargo.nuevoDetalleEmbargo.periodicidad.codigoStr, 1)}" />
                                     <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndexD(indiceD, 1, 1)}" />
@@ -987,20 +987,20 @@
                                 <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 212px;  " id="btnNuevoCodigoPeriodicidad" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndexD(indiceD, 1, 1)}"/>   
 
                                 <strong><h:outputText value="#{msg['nombreperiodicidadN']}"  style=" position: absolute; top: 257px;" /></strong>
-                                <p:inputText  autocomplete="false"  readonly="true" id="nuevoNombrePeriodicidad" value="#{controlNovedadEmbargo.nuevoDetalleEmbargo.detalleformadto.concepto.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 252px; text-transform: uppercase" onclick="select();">
+                                <p:inputText  autocomplete="off"  readonly="true" id="nuevoNombrePeriodicidad" value="#{controlNovedadEmbargo.nuevoDetalleEmbargo.detalleformadto.concepto.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 252px; text-transform: uppercase" onclick="select();">
                                 </p:inputText>
 
                                 <strong><h:outputText value="#{msg['codigoN']}"  style=" position: absolute; top: 297px;" /></strong>
-                                <p:inputText  autocomplete="false"  readonly="true" id="nuevoCodigoConcepto" value="#{controlNovedadEmbargo.nuevoDetalleEmbargo.periodicidad.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 292px; text-transform: uppercase" onclick="select();">
+                                <p:inputText  autocomplete="off"  readonly="true" id="nuevoCodigoConcepto" value="#{controlNovedadEmbargo.nuevoDetalleEmbargo.periodicidad.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 292px; text-transform: uppercase" onclick="select();">
                                 </p:inputText>
 
                                 <strong><h:outputText value="#{msg['nombreconceptoN']}"  style=" position: absolute;  top: 17px; left: 390px;" /></strong>
-                                <p:inputText  autocomplete="false"  readonly="true" id="nuevoNombreConcepto" value="#{controlNovedadEmbargo.nuevoDetalleEmbargo.detalleformadto.concepto.descripcion}" style=" width: 122px; position: absolute; top: 12px; left: 540px; text-transform: uppercase" onclick="select();">
+                                <p:inputText  autocomplete="off"  readonly="true" id="nuevoNombreConcepto" value="#{controlNovedadEmbargo.nuevoDetalleEmbargo.detalleformadto.concepto.descripcion}" style=" width: 122px; position: absolute; top: 12px; left: 540px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="change" update="nuevoNombreConcepto"/>
                                 </p:inputText>
 
                                 <strong><h:outputText value="#{msg['empresaN']}" style=" position: absolute;  top: 57px; left: 390px;" /></strong>
-                                <p:inputText  autocomplete="false"  readonly="true" id="nuevaEmpresa" value="#{controlNovedadEmbargo.nuevoDetalleEmbargo.detalleformadto.concepto.empresa.nombre}" style=" width: 122px; position: absolute; top: 52px; left: 540px; text-transform: uppercase" onclick="select();">
+                                <p:inputText  autocomplete="off"  readonly="true" id="nuevaEmpresa" value="#{controlNovedadEmbargo.nuevoDetalleEmbargo.detalleformadto.concepto.empresa.nombre}" style=" width: 122px; position: absolute; top: 52px; left: 540px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="change" update="nuevaEmpresa"/>
                                 </p:inputText>
 
@@ -1021,7 +1021,7 @@
                             <fieldset style="position: absolute; left: 10px; top: 40px;  width: 665px; height: 318px; border-radius: 10px; ">
 
                                 <strong><h:outputText value="#{msg['pagoscomprometidosN']}" style=" position: absolute; top: 17px;" /></strong>
-                                <p:inputText  autocomplete="false"  id="duplicarPagoComprometido" value="#{controlNovedadEmbargo.duplicarDetalleEmbargo.detalleformadto.descripcion}" style=" width: 122px; position: absolute; left: 200px; top: 12px; text-transform: uppercase" onclick="select();">
+                                <p:inputText  autocomplete="off"  id="duplicarPagoComprometido" value="#{controlNovedadEmbargo.duplicarDetalleEmbargo.detalleformadto.descripcion}" style=" width: 122px; position: absolute; left: 200px; top: 12px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="click" listener="#{controlNovedadEmbargo.valoresBackupAutocompletarD(2, 'PAGO')}" />
                                     <p:ajax event="change" listener="#{controlNovedadEmbargo.autocompletarNuevoyDuplicadoD('PAGO', controlNovedadEmbargo.duplicarDetalleEmbargo.detalleformadto.descripcion, 2)}" />
                                     <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndexD(indiceD, 0, 2)}" />
@@ -1029,27 +1029,27 @@
                                 <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 12px;  " id="btnDuplicarPagoComprometido" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndexD(indiceD, 0, 2)}"/>   
 
                                 <strong><h:outputText value="#{msg['ikaN']}" style=" position: absolute; top: 57px;" /></strong>
-                                <p:inputText  autocomplete="false"  readonly="true" id="duplicarIKA" value="#{controlNovedadEmbargo.duplicarDetalleEmbargo.detalleformadto.tipodto.ika}" style=" width: 122px; position: absolute; left: 200px; top: 52px; text-transform: uppercase" onclick="select();">
+                                <p:inputText  autocomplete="off"  readonly="true" id="duplicarIKA" value="#{controlNovedadEmbargo.duplicarDetalleEmbargo.detalleformadto.tipodto.ika}" style=" width: 122px; position: absolute; left: 200px; top: 52px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="change" update="duplicarIKA"/>
                                 </p:inputText>
 
                                 <strong><h:outputText value="#{msg['porcentajeN']}" style=" position: absolute; top: 97px;" /></strong>
-                                <p:inputText  autocomplete="false"  id="duplicarPorcentaje" value="#{controlNovedadEmbargo.duplicarDetalleEmbargo.porcentaje}" style=" width: 122px; position: absolute; left: 200px; top: 92px; text-transform: uppercase" onclick="select();">
+                                <p:inputText  autocomplete="off"  id="duplicarPorcentaje" value="#{controlNovedadEmbargo.duplicarDetalleEmbargo.porcentaje}" style=" width: 122px; position: absolute; left: 200px; top: 92px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="change" update="duplicarPorcentaje"/>
                                 </p:inputText>
 
                                 <strong><h:outputText value="#{msg['valorN']}"  style=" position: absolute; top: 137px;" /></strong>
-                                <p:inputText  autocomplete="false"  id="duplicarValorD" value="#{controlNovedadEmbargo.duplicarDetalleEmbargo.valor}" style=" width: 122px; position: absolute; left: 200px; top: 132px; text-transform: uppercase" onclick="select();">
+                                <p:inputText  autocomplete="off"  id="duplicarValorD" value="#{controlNovedadEmbargo.duplicarDetalleEmbargo.valor}" style=" width: 122px; position: absolute; left: 200px; top: 132px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="change" update="duplicarValorD"/>
                                 </p:inputText>
 
                                 <strong><h:outputText value="#{msg['saldoN']}"  style=" position: absolute; top: 177px;" /></strong>
-                                <p:inputText  autocomplete="false"  id="duplicarSaldo" value="#{controlNovedadEmbargo.duplicarDetalleEmbargo.saldoinicial}" style=" width: 122px; position: absolute; left: 200px; top: 172px; text-transform: uppercase" onclick="select();">
+                                <p:inputText  autocomplete="off"  id="duplicarSaldo" value="#{controlNovedadEmbargo.duplicarDetalleEmbargo.saldoinicial}" style=" width: 122px; position: absolute; left: 200px; top: 172px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="change" update="duplicarSaldo"/>
                                 </p:inputText>
 
                                 <strong><h:outputText value="#{msg['cpN']}" style=" position: absolute; top: 217px;" /></strong>
-                                <p:inputText  autocomplete="false"  id="duplicarCodigoPeriodicidad" value="#{controlNovedadEmbargo.duplicarDetalleEmbargo.periodicidad.codigoStr}" style=" width: 122px; position: absolute; left: 200px; top: 212px; text-transform: uppercase" onclick="select();">
+                                <p:inputText  autocomplete="off"  id="duplicarCodigoPeriodicidad" value="#{controlNovedadEmbargo.duplicarDetalleEmbargo.periodicidad.codigoStr}" style=" width: 122px; position: absolute; left: 200px; top: 212px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="click" listener="#{controlNovedadEmbargo.valoresBackupAutocompletarD(2, 'PERIODICIDAD')}" />
                                     <p:ajax event="change" listener="#{controlNovedadEmbargo.autocompletarNuevoyDuplicadoD('PERIODICIDAD', controlNovedadEmbargo.duplicarDetalleEmbargo.periodicidad.codigoStr, 2)}" />
                                     <p:ajax event="dblclick" listener="#{controlNovedadEmbargo.asignarIndexD(indiceD, 1, 2)}" />
@@ -1057,20 +1057,20 @@
                                 <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 212px;  " id="btnDuplicarCodigoPeriodicidad" icon="ui-icon-search" process="@this"  actionListener="#{controlNovedadEmbargo.asignarIndexD(indiceD, 1, 2)}"/>   
 
                                 <strong><h:outputText value="#{msg['nombreperiodicidadN']}"  style=" position: absolute; top: 257px;" /></strong>
-                                <p:inputText  autocomplete="false"  readonly="true" id="duplicarNombrePeriodicidad" value="#{controlNovedadEmbargo.duplicarDetalleEmbargo.detalleformadto.concepto.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 252px; text-transform: uppercase" onclick="select();">
+                                <p:inputText  autocomplete="off"  readonly="true" id="duplicarNombrePeriodicidad" value="#{controlNovedadEmbargo.duplicarDetalleEmbargo.detalleformadto.concepto.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 252px; text-transform: uppercase" onclick="select();">
                                 </p:inputText>
 
                                 <strong><h:outputText value="#{msg['codigoN']}"  style=" position: absolute; top: 297px;" /></strong>
-                                <p:inputText  autocomplete="false"  readonly="true" id="duplicarCodigoConcepto" value="#{controlNovedadEmbargo.duplicarDetalleEmbargo.periodicidad.nombre}" style=" width: 122px; position: absolute; left: 200px; top:292px; text-transform: uppercase" onclick="select();">
+                                <p:inputText  autocomplete="off"  readonly="true" id="duplicarCodigoConcepto" value="#{controlNovedadEmbargo.duplicarDetalleEmbargo.periodicidad.nombre}" style=" width: 122px; position: absolute; left: 200px; top:292px; text-transform: uppercase" onclick="select();">
                                 </p:inputText>
 
                                 <strong><h:outputText value="#{msg['nombreconceptoN']}"  style=" position: absolute; top: 17px; left: 390px;" /></strong>
-                                <p:inputText  autocomplete="false"  readonly="true" id="duplicarNombreConcepto" value="#{controlNovedadEmbargo.duplicarDetalleEmbargo.detalleformadto.concepto.descripcion}" style=" width: 122px; position: absolute; top: 12px; left: 540px; text-transform: uppercase" onclick="select();">
+                                <p:inputText  autocomplete="off"  readonly="true" id="duplicarNombreConcepto" value="#{controlNovedadEmbargo.duplicarDetalleEmbargo.detalleformadto.concepto.descripcion}" style=" width: 122px; position: absolute; top: 12px; left: 540px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="change" update="duplicarNombreConcepto"/>
                                 </p:inputText>
 
                                 <strong><h:outputText value="#{msg['empresaN']}"  style=" position: absolute;  top: 57px; left: 390px;" /></strong>
-                                <p:inputText  autocomplete="false"  readonly="true" id="duplicarEmpresa" value="#{controlNovedadEmbargo.duplicarDetalleEmbargo.detalleformadto.concepto.empresa.nombre}" style=" width: 122px; position: absolute; top: 52px; left: 540px; text-transform: uppercase" onclick="select();">
+                                <p:inputText  autocomplete="off"  readonly="true" id="duplicarEmpresa" value="#{controlNovedadEmbargo.duplicarDetalleEmbargo.detalleformadto.concepto.empresa.nombre}" style=" width: 122px; position: absolute; top: 52px; left: 540px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="change" update="duplicarEmpresa"/>
                                 </p:inputText>
 
@@ -1118,7 +1118,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlNovedadEmbargo.actualizarFormasDtos()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarFD']}"  style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('LOVFormasDtos').filter();" style="width: 100px; position: relative; left: 80px;" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVFormasDtos').filter();" style="width: 100px; position: relative; left: 80px;" />  
                             </f:facet>
 
                             <p:column sortBy="#{formasdtos.descripcion}" filterBy="#{formasdtos.descripcion}" width="200" filterMatchMode="contains" > 
@@ -1147,7 +1147,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlNovedadEmbargo.actualizarMotivoEmbargo()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarM']}"  style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('LOVMotivosEmbargos').filter();" style="width: 150px; position: relative; left: 60px;" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVMotivosEmbargos').filter();" style="width: 150px; position: relative; left: 60px;" />  
                             </f:facet>
 
                             <p:column sortBy="#{motivos.nombre}" filterBy="#{motivos.nombre}" width="100" filterMatchMode="contains" > 
@@ -1176,7 +1176,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlNovedadEmbargo.actualizarJuzgado()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarJ']}"  style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('LOVJuzgados').filter();" style="width: 150px; position: relative; left: 60px;" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVJuzgados').filter();" style="width: 150px; position: relative; left: 60px;" />  
                             </f:facet>
 
                             <p:column sortBy="#{juzgados.nombre}" filterBy="#{juzgados.nombre}" width="100" filterMatchMode="contains" > 
@@ -1205,7 +1205,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlNovedadEmbargo.actualizarTipoEmbargo()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarTE']}"  style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('LOVTiposEmbargos').filter();" style="width: 150px; position: relative; left: 60px;" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVTiposEmbargos').filter();" style="width: 150px; position: relative; left: 60px;" />  
                             </f:facet>
 
                             <p:column sortBy="#{tipos.descripcion}" filterBy="#{tipos.descripcion}" width="100" filterMatchMode="contains" > 
@@ -1236,7 +1236,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlNovedadEmbargo.actualizarDetallesFormasDtos()}" process="@this" onstart="PF('"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarF']}"  style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('LOVFormas').filter();" style="width: 100px; position: relative; left: 80px;" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVFormas').filter();" style="width: 100px; position: relative; left: 80px;" />  
                             </f:facet>
 
                             <p:column sortBy="#{formas.descripcion}" filterBy="#{formas.descripcion}" width="300" filterMatchMode="contains" > 
@@ -1279,7 +1279,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlNovedadEmbargo.actualizarPeriodicidades()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarP']}"  style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('LOVPeriodicidades').filter();" style="width: 150px; position: relative; left: 60px;" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVPeriodicidades').filter();" style="width: 150px; position: relative; left: 60px;" />  
                             </f:facet>
 
                             <p:column sortBy="#{periodicidades.codigo}" filterBy="#{periodicidades.codigo}" width="15%" filterMatchMode="contains" filterStyle="width:30px;" > 
@@ -1315,7 +1315,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlNovedadEmbargo.actualizarTerceros()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarT']}"  style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('LOVTerceros').filter();" style="width: 150px; position: relative; left: 60px;" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVTerceros').filter();" style="width: 150px; position: relative; left: 60px;" />  
                             </f:facet>
 
                             <p:column sortBy="#{terceros.nit}" filterBy="#{terceros.nit}" filterStyle="width: 55px;" width="7%" filterMatchMode="contains" > 
@@ -1358,7 +1358,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlNovedadEmbargo.actualizarDemandantes()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarD']}"  style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('LOVDemandantes').filter();" style="width: 150px; position: relative; left: 60px;" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVDemandantes').filter();" style="width: 150px; position: relative; left: 60px;" />  
                             </f:facet>
 
                             <p:column sortBy="#{demandantes.nit}" filterBy="#{demandantes.nit}" filterStyle="width: 55px;" width="7%" filterMatchMode="contains" > 
@@ -1400,7 +1400,7 @@
 
                             <f:facet name="header" >  
                                 <h:outputText value="#{msg['buscarB']}"  style="position: absolute; left: 22px; top: 18px;"/>  
-                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovEmpleados').filter();" style="width:150px; position: relative; left: -150px;"/>
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovEmpleados').filter();" style="width:150px; position: relative; left: -150px;"/>
 
                             </f:facet>
 
@@ -1419,7 +1419,7 @@
                     <!-- DIALOGOS EDITAR -->
 
                     <p:dialog id="editarTipoEmbargoE" header="#{msg['editarTipoEmbargoE']}" widgetVar="editarTipoEmbargoE" resizable="false" draggable="true" modal="true" height="93" width="240" style=" padding: 0px">  
-                        <p:inputText  autocomplete="false"  value="#{controlNovedadEmbargo.editarEmbargos.tipoembargo.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
+                        <p:inputText  autocomplete="off"  value="#{controlNovedadEmbargo.editarEmbargos.tipoembargo.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
                         </p:inputText>
                     </p:dialog>
 
@@ -1428,13 +1428,13 @@
                     </p:dialog>
 
                     <p:dialog id="editarFechaOficioE" header="#{msg['editarFechaOficioE']}" widgetVar="editarFechaOficioE" resizable="false" draggable="true" modal="true" height="93" width="270"  >  
-                        <p:inputText  autocomplete="false"  value="#{controlNovedadEmbargo.editarEmbargos.fechadocumento}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
+                        <p:inputText  autocomplete="off"  value="#{controlNovedadEmbargo.editarEmbargos.fechadocumento}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </p:inputText>
                     </p:dialog> 
 
                     <p:dialog id="editarNumeroProcesoE" header="#{msg['editarNumeroProcesoE']}" widgetVar="editarNumeroProcesoE" resizable="false" draggable="true" modal="true" height="93" width="240" style=" padding: 0px">  
-                        <p:inputText  autocomplete="false"  value="#{controlNovedadEmbargo.editarEmbargos.numeroproceso}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
+                        <p:inputText  autocomplete="off"  value="#{controlNovedadEmbargo.editarEmbargos.numeroproceso}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
                         </p:inputText>
                     </p:dialog>
 
@@ -1463,7 +1463,7 @@
                     </p:dialog>
 
                     <p:dialog id="editarFechaInicialDescuentoE" header="#{msg['editarFechaInicialDescuentoE']}" widgetVar="editarFechaInicialDescuentoE" resizable="false" draggable="true" modal="true" height="93" width="270"  >  
-                        <p:inputText  autocomplete="false"  value="#{controlNovedadEmbargo.editarEmbargos.fechainiciodescuento}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
+                        <p:inputText  autocomplete="off"  value="#{controlNovedadEmbargo.editarEmbargos.fechainiciodescuento}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </p:inputText>
                     </p:dialog> 
@@ -1477,7 +1477,7 @@
                     </p:dialog>
 
                     <p:dialog id="editarFechaCancelacionE" header="#{msg['editarFechaCancelacionE']}" widgetVar="editarFechaCancelacionE" resizable="false" draggable="true" modal="true" height="93" width="270"  >  
-                        <p:inputText  autocomplete="false"  value="#{controlNovedadEmbargo.editarEmbargos.cancelacionfechahasta}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
+                        <p:inputText  autocomplete="off"  value="#{controlNovedadEmbargo.editarEmbargos.cancelacionfechahasta}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </p:inputText>
                     </p:dialog> 
@@ -1489,7 +1489,7 @@
                     <!-- Editar DETALLES EMBARGOS-->
 
                     <p:dialog id="editarPagosD" header="#{msg['editarPagosD']}" widgetVar="editarPagosD" resizable="false" draggable="true" modal="true" height="93" width="240" style=" padding: 0px">  
-                        <p:inputText  autocomplete="false"  value="#{controlNovedadEmbargo.editarDetallesEmbargos.detalleformadto.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputText  autocomplete="off"  value="#{controlNovedadEmbargo.editarDetallesEmbargos.detalleformadto.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarIkaD" header="#{msg['editarIkaD']}" widgetVar="editarIkaD" resizable="false" draggable="true" modal="true" height="93" width="240" >  

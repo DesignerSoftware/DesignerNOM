@@ -91,7 +91,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.nombre}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.nombre}" maxlength="50" id="editarNombre" style="height: 12px;   border-radius: 0px; width: 400px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"  value="#{info.nombre}" maxlength="50" id="editarNombre" style="height: 12px;   border-radius: 0px; width: 400px; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlPryClientes.cambiarIndice(info, 0)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlPryClientes.modificarPryCliente(info, 'N', info.nombre)}"  update="nombre"/>
                                             </p:inputText>
@@ -104,7 +104,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.direccion}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.direccion}" maxlength="50" id="editarDireccion" style="height: 12px;  border-radius: 0px; width: 420px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"  value="#{info.direccion}" maxlength="50" id="editarDireccion" style="height: 12px;  border-radius: 0px; width: 420px; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlPryClientes.cambiarIndice(info, 1)}" process="@this"/> 
                                                 <p:ajax event="change"  listener="#{controlPryClientes.modificarPryCliente(info, 'N', info.direccion)}" update="direccion"/>
                                             </p:inputText>
@@ -118,7 +118,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.telefono}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.telefono}" maxlength="30" id="editarTelefono" style="height: 12px;  border-radius: 0px; width: 420px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"  value="#{info.telefono}" maxlength="30" id="editarTelefono" style="height: 12px;  border-radius: 0px; width: 420px; text-transform: uppercase"  > 
                                                  <p:keyFilter for="telefono" mask="num"/>
                                                 <p:ajax event="select" listener="#{controlPryClientes.cambiarIndice(info, 2)}" process="@this"/> 
                                                 <p:ajax event="change"  listener="#{controlPryClientes.modificarPryCliente(info, 'N', info.telefono)}" update="telefono"/>
@@ -131,7 +131,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.contacto}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.contacto}" maxlength="30" id="editarContacto" style="height: 12px;  border-radius: 0px; width: 420px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"  value="#{info.contacto}" maxlength="30" id="editarContacto" style="height: 12px;  border-radius: 0px; width: 420px; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlPryClientes.cambiarIndice(info, 3)}" process="@this"/> 
                                                 <p:ajax event="change"  listener="#{controlPryClientes.modificarPryCliente(info, 'N', info.contacto)}" update="contacto"/>
                                             </p:inputText>
@@ -256,26 +256,26 @@
                         <p:panel id="nuevaaPryCliente" style="border: none;">
 
                             <strong><h:outputText value="*Nombre: "  style=" position: absolute; top: 60px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoNombre" maxlength="50" value="#{controlPryClientes.nuevoPryCliente.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="nuevoNombre" maxlength="50" value="#{controlPryClientes.nuevoPryCliente.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoNombre" value="Nombre" />
 
                             <strong><h:outputText value="Direccion: "  style=" position: absolute; top: 90px;" /></strong>
-                            <p:inputText  autocomplete="false"   id="nuevoDireccion" maxlength="50" value="#{controlPryClientes.nuevoPryCliente.direccion}" style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"   id="nuevoDireccion" maxlength="50" value="#{controlPryClientes.nuevoPryCliente.direccion}" style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoDireccion" value="Descripción" />
 
                             <strong><h:outputText value="Telefono: "  style=" position: absolute; top: 120px;" /></strong>
-                            <p:inputText  autocomplete="false"   id="nuevoTelefono" maxlength="30" value="#{controlPryClientes.nuevoPryCliente.telefono}" style="width: 140px; position: absolute; left: 150px; top: 115px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"   id="nuevoTelefono" maxlength="30" value="#{controlPryClientes.nuevoPryCliente.telefono}" style="width: 140px; position: absolute; left: 150px; top: 115px;text-transform: uppercase">
                                  <p:keyFilter for="nuevoTelefono" mask="num"/>
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoTelefono" value="Telefono" />
 
                             <strong><h:outputText value="Contacto: "  style=" position: absolute; top: 150px;" /></strong>
-                            <p:inputText  autocomplete="false"   id="nuevoContacto" maxlength="30" value="#{controlPryClientes.nuevoPryCliente.contacto}" style="width: 140px; position: absolute; left: 150px; top: 145px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"   id="nuevoContacto" maxlength="30" value="#{controlPryClientes.nuevoPryCliente.contacto}" style="width: 140px; position: absolute; left: 150px; top: 145px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoContacto" value="Contacto" />
@@ -292,26 +292,26 @@
 
                         <p:panel id="duplicarPRYC" style="border: none;">
                             <strong><h:outputText value="*Nombre: "  style=" position: absolute; top: 60px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarNombre" maxlength="50" value="#{controlPryClientes.duplicarPryCliente.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="duplicarNombre" maxlength="50" value="#{controlPryClientes.duplicarPryCliente.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarNombre" value="Nombre" />
 
                             <strong><h:outputText value="Dirección:"  style=" position: absolute; top: 90px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarDireccion" maxlength="50" value="#{controlPryClientes.duplicarPryCliente.direccion}"  style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="duplicarDireccion" maxlength="50" value="#{controlPryClientes.duplicarPryCliente.direccion}"  style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarDireccion" value="Direccion" />
 
                             <strong><h:outputText value="Telefono: "  style=" position: absolute; top: 120px;" /></strong>
-                            <p:inputText  autocomplete="false"   id="duplicarTelefono" maxlength="30" value="#{controlPryClientes.nuevoPryCliente.telefono}" style="width: 140px; position: absolute; left: 150px; top: 115px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"   id="duplicarTelefono" maxlength="30" value="#{controlPryClientes.nuevoPryCliente.telefono}" style="width: 140px; position: absolute; left: 150px; top: 115px;text-transform: uppercase">
                                  <p:keyFilter for="duplicarTelefono" mask="num"/>
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarTelefono" value="Telefono" />
 
                             <strong><h:outputText value="Contacto: "  style=" position: absolute; top: 150px;" /></strong>
-                            <p:inputText  autocomplete="false"   id="duplicarContacto"  maxlength="30" value="#{controlPryClientes.nuevoPryCliente.contacto}" style="width: 140px; position: absolute; left: 150px; top: 145px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"   id="duplicarContacto"  maxlength="30" value="#{controlPryClientes.nuevoPryCliente.contacto}" style="width: 140px; position: absolute; left: 150px; top: 145px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarContacto" value="Contacto" />

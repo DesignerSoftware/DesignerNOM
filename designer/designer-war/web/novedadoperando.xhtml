@@ -29,7 +29,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{tf.operando.nombre}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{tf.operando.nombre}" id="editarOperando" style="font-size: 10px; border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"  value="#{tf.operando.nombre}" id="editarOperando" style="font-size: 10px; border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlNovedadOperando.modificarNovedadesOperandos(indice, 'FORMULA', tf.formula.nombrecorto)}"/>
                                                 <p:ajax event="select" listener="#{controlNovedadOperando.cambiarIndice(indice, 0)}" process="@this"/>
                                                 <p:ajax event="dblclick" listener="#{controlNovedadOperando.asignarIndex(indice, 0, 0)}"/>
@@ -126,7 +126,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlNovedadOperando.actualizarOperando()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarO']}"  style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('LOVOperandos').filter();" style="width: 200px; position: relative; left: 60px;" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVOperandos').filter();" style="width: 200px; position: relative; left: 60px;" />  
                             </f:facet>
 
                             <p:column sortBy="#{operandos.nombre}" filterBy="#{operandos.nombre}" width="60" filterMatchMode="contains" filterStyle="width:40px;" > 
@@ -152,7 +152,7 @@
                         <p:panel id="nuevoNovedadOperando" style="border: none;">
 
                             <strong><h:outputText value="#{msg['nombreN']}" style="font-size: 12px; position: absolute; top: 67px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoOperando" value="#{controlNovedadOperando.nuevoNovedadOperando.operando.nombre}" style="font-size: 12px; width: 122px; position: absolute; left: 180px; top: 65px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="nuevoOperando" value="#{controlNovedadOperando.nuevoNovedadOperando.operando.nombre}" style="font-size: 12px; width: 122px; position: absolute; left: 180px; top: 65px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlNovedadOperando.valoresBackupAutocompletar(1, 'OPERANDO')}" />
                                 <p:ajax event="change" listener="#{controlNovedadOperando.autocompletarNuevoyDuplicado('OPERANDO', controlNovedadOperando.nuevoNovedadOperando.operando.nombre, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlNovedadOperando.asignarIndex(indice, 0, 1)}" />
@@ -174,7 +174,7 @@
                         <p:panel id="duplicarNovedadOperando" style="border: none;">
 
                             <strong><h:outputText value="#{msg['nombreN']}" style="font-size: 12px; position: absolute; top: 145px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarOperando" value="#{controlNovedadOperando.duplicarNovedadOperando.operando.nombre}" style="font-size: 12px; width: 122px; position: absolute; left: 180px; top: 145px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="duplicarOperando" value="#{controlNovedadOperando.duplicarNovedadOperando.operando.nombre}" style="font-size: 12px; width: 122px; position: absolute; left: 180px; top: 145px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlNovedadOperando.valoresBackupAutocompletar(2, 'OPERANDO')}" />
                                 <p:ajax event="change" listener="#{controlNovedadOperando.autocompletarNuevoyDuplicado('OPERANDO', controlNovedadOperando.duplicarNovedadOperando.operando.nombre, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlNovedadOperando.asignarIndex(indice, 0, 2)}" />

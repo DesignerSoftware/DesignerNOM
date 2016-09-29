@@ -241,7 +241,7 @@
                                         <f:facet name="output">
                                             <h:outputText value="#{ausentismos.tipo.descripcion}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{ausentismos.tipo.descripcion}" id="editarAusentismoTipo" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height: 12px"> 
+                                            <p:inputText  autocomplete="off"   value="#{ausentismos.tipo.descripcion}" id="editarAusentismoTipo" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height: 12px"> 
                                                 <p:ajax event="change" listener="#{controlAusentismos.modificarAusentismos(ausentismos, 'TIPO', ausentismos.tipo.descripcion)}"/>
                                                 <p:ajax event="select" listener="#{controlAusentismos.cambiarIndice(ausentismos, 0)}" process="@this"/>
                                                 <p:ajax event="dblclick" listener="#{controlAusentismos.asignarIndex(ausentismos, 1, 0)}"/>
@@ -257,7 +257,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{ausentismos.clase.descripcion}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{ausentismos.clase.descripcion}" id="editarAusentismoClase" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
+                                            <p:inputText  autocomplete="off"   value="#{ausentismos.clase.descripcion}" id="editarAusentismoClase" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
                                                 <p:ajax event="change" listener="#{controlAusentismos.modificarAusentismos(ausentismos, 'CLASE', ausentismos.clase.descripcion)}"/>
                                                 <p:ajax event="select" listener="#{controlAusentismos.cambiarIndice(ausentismos, 1)}" process="@this"/>
                                                 <p:ajax event="dblclick" listener="#{controlAusentismos.asignarIndex(ausentismos, 2, 0)}"/>
@@ -274,7 +274,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{ausentismos.causa.descripcion}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{ausentismos.causa.descripcion}" id="editarAusentismoCausa" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
+                                            <p:inputText  autocomplete="off"   value="#{ausentismos.causa.descripcion}" id="editarAusentismoCausa" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
                                                 <p:ajax event="change" listener="#{controlAusentismos.modificarAusentismos(ausentismos, 'CAUSA', ausentismos.causa.descripcion)}"/>
                                                 <p:ajax event="select" listener="#{controlAusentismos.cambiarIndice(ausentismos, 2)}" process="@this"/>
                                                 <p:ajax event="dblclick" listener="#{controlAusentismos.asignarIndex(ausentismos, 3, 0)}"/>
@@ -291,7 +291,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{ausentismos.dias}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{ausentismos.dias}" id="editarDias" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
+                                            <p:inputText  autocomplete="off"   value="#{ausentismos.dias}" id="editarDias" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
                                                 <p:ajax event="change" listener="#{controlAusentismos.modificarAusentismos(ausentismos, 'N', ausentismos.dias)}"/>
                                                 <p:ajax event="select" listener="#{controlAusentismos.cambiarIndice(ausentismos, 3)}" process="@this"/>
                                             </p:inputText>
@@ -303,7 +303,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{ausentismos.horas}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{ausentismos.horas}" id="editarHoras" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
+                                            <p:inputText  autocomplete="off"   value="#{ausentismos.horas}" id="editarHoras" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
                                                 <p:ajax event="change" listener="#{controlAusentismos.modificarAusentismos(ausentismos, 'N', ausentismos.horas)}"/>
                                                 <p:ajax event="select" listener="#{controlAusentismos.cambiarIndice(ausentismos, 4)}" process="@this"/>
                                             </p:inputText>
@@ -319,7 +319,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="editFecha" value="#{ausentismos.fecha}"> 
+                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editFecha" value="#{ausentismos.fecha}"> 
                                                 <p:ajax event="dateSelect" listener="#{controlAusentismos.modificarAusentismos(ausentismos, 'N', ausentismos.fecha)}" process="@this" update="editFecha"/>
                                                 <p:ajax event="change" listener="#{controlAusentismos.modificarAusentismos(ausentismos, 'N', ausentismos.fecha)}" update="@this" process="@this"/>
                                                 <p:ajax event="click" listener="#{controlAusentismos.cambiarIndice(ausentismos, 5)}" process="@this" />
@@ -336,7 +336,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="editFechaFinaus" value="#{ausentismos.fechafinaus}"> 
+                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editFechaFinaus" value="#{ausentismos.fechafinaus}"> 
                                                 <p:ajax event="dateSelect" listener="#{controlAusentismos.modificarAusentismos(ausentismos, 'N', ausentismos.fechafinaus)}" process="@this" update="editFechaFinaus"/>
                                                 <p:ajax event="change" listener="#{controlAusentismos.modificarAusentismos(ausentismos, 'N', ausentismos.fechafinaus)}" update="@this" process="@this"/>
                                                 <p:ajax event="click" listener="#{controlAusentismos.cambiarIndice(ausentismos, 6)}" process="@this" />
@@ -354,7 +354,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="editFechaExpedicion" value="#{ausentismos.fechaexpedicion}"> 
+                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editFechaExpedicion" value="#{ausentismos.fechaexpedicion}"> 
                                                 <p:ajax event="dateSelect" listener="#{controlAusentismos.modificarAusentismos(ausentismos, 'N', ausentismos.fechaexpedicion)}" process="@this" update="editFechaExpedicion"/>
                                                 <p:ajax event="change" listener="#{controlAusentismos.modificarAusentismos(ausentismos, 'N', ausentismos.fechaexpedicion)}" update="@this" process="@this"/>
                                                 <p:ajax event="click" listener="#{controlAusentismos.cambiarIndice(ausentismos, 7)}" process="@this" />
@@ -371,7 +371,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="editFechaInipago" value="#{ausentismos.fechainipago}"> 
+                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editFechaInipago" value="#{ausentismos.fechainipago}"> 
                                                 <p:ajax event="dateSelect" listener="#{controlAusentismos.modificarAusentismos(ausentismos, 'N', ausentismos.fechainipago)}"  process="@this" update="editFechaInipago"/>
                                                 <p:ajax event="change" listener="#{controlAusentismos.modificarAusentismos(ausentismos, 'N', ausentismos.fechainipago)}"  process="@this" update="editFechaInipago"/>
                                                 <p:ajax event="click" listener="#{controlAusentismos.cambiarIndice(ausentismos, 8)}" process="@this" />
@@ -388,7 +388,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="editFechaFinpago" value="#{ausentismos.fechafinpago}"> 
+                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editFechaFinpago" value="#{ausentismos.fechafinpago}"> 
                                                 <p:ajax event="dateSelect" listener="#{controlAusentismos.modificarAusentismos(ausentismos, 'N', ausentismos.fechafinpago)}" process="@this" update="editFechaFinpago"/>
                                                 <p:ajax event="change" listener="#{controlAusentismos.modificarAusentismos(ausentismos, 'N', ausentismos.fechafinpago)}" process="@this" update="editFechaFinpago"/>
                                                 <p:ajax event="click" listener="#{controlAusentismos.cambiarIndice(ausentismos, 9)}" process="@this" />
@@ -401,7 +401,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{ausentismos.porcentajeindividual}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{ausentismos.porcentajeindividual}" id="editarPorcentaje" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
+                                            <p:inputText  autocomplete="off"   value="#{ausentismos.porcentajeindividual}" id="editarPorcentaje" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
                                                 <p:ajax event="change" listener="#{controlAusentismos.modificarAusentismos(ausentismos, 'PORCENTAJE', ausentismos.porcentajeindividual)}"/>
                                                 <p:ajax event="select" listener="#{controlAusentismos.cambiarIndice(ausentismos, 10)}" process="@this"/>
                                                 <p:ajax event="dblclick" listener="#{controlAusentismos.asignarIndex(ausentismos, 4, 0)}"/>
@@ -414,7 +414,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{ausentismos.baseliquidacion}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{ausentismos.baseliquidacion}" id="editarBaseLiquidacion" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
+                                            <p:inputText  autocomplete="off"   value="#{ausentismos.baseliquidacion}" id="editarBaseLiquidacion" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
                                                 <p:ajax event="change" listener="#{controlAusentismos.modificarAusentismos(ausentismos, 'BASE', ausentismos.baseliquidacion)}"/>
                                                 <p:ajax event="select" listener="#{controlAusentismos.cambiarIndice(ausentismos, 11)}" process="@this"/>
                                                 <p:ajax event="dblclick" listener="#{controlAusentismos.asignarIndex(ausentismos, 5, 0)}"/>
@@ -427,7 +427,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{ausentismos.formaliquidacion}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{ausentismos.formaliquidacion}" id="editarFormaLiquidacion" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
+                                            <p:inputText  autocomplete="off"   value="#{ausentismos.formaliquidacion}" id="editarFormaLiquidacion" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
                                                 <p:ajax event="change" listener="#{controlAusentismos.modificarAusentismos(ausentismos, 'FORMA', ausentismos.formaliquidacion)}"/>
                                                 <p:ajax event="select" listener="#{controlAusentismos.cambiarIndice(ausentismos, 12)}" process="@this"/>
                                                 <p:ajax event="dblclick" listener="#{controlAusentismos.asignarIndex(ausentismos, 6, 0)}"/>
@@ -440,7 +440,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{ausentismos.accidente.descripcioncaso}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{ausentismos.accidente.descripcioncaso}" id="editarDescripcionAccidente" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
+                                            <p:inputText  autocomplete="off"   value="#{ausentismos.accidente.descripcioncaso}" id="editarDescripcionAccidente" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
                                                 <p:ajax event="change" listener="#{controlAusentismos.modificarAusentismos(ausentismos, 'AD', ausentismos.accidente.descripcioncaso)}"/>
                                                 <p:ajax event="select" listener="#{controlAusentismos.cambiarIndice(ausentismos, 13)}" process="@this"/>
                                                 <p:ajax event="dblclick" listener="#{controlAusentismos.asignarIndex(ausentismos, 7, 0)}"/>
@@ -453,7 +453,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{ausentismos.enfermedad.categoria.descripcion}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{ausentismos.enfermedad.categoria.descripcion}" id="editarEnfermedad" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
+                                            <p:inputText  autocomplete="off"   value="#{ausentismos.enfermedad.categoria.descripcion}" id="editarEnfermedad" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
                                                 <p:ajax event="change" listener="#{controlAusentismos.modificarAusentismos(ausentismos, 'ENFERMEDAD', ausentismos.enfermedad)}"/>
                                                 <p:ajax event="select" listener="#{controlAusentismos.cambiarIndice(ausentismos, 14)}" process="@this"/>
                                                 <p:ajax event="dblclick" listener="#{controlAusentismos.asignarIndex(ausentismos, 9, 0)}"/>
@@ -466,7 +466,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{ausentismos.numerocertificado}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{ausentismos.numerocertificado}" id="editarNumeroCertificado" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
+                                            <p:inputText  autocomplete="off"   value="#{ausentismos.numerocertificado}" id="editarNumeroCertificado" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
                                                 <p:ajax event="change" listener="#{controlAusentismos.modificarAusentismos(ausentismos, 'N', ausentismos.numerocertificado)}"/>
                                                 <p:ajax event="select" listener="#{controlAusentismos.cambiarIndice(ausentismos, 15)}" process="@this"/>
                                             </p:inputText>
@@ -478,7 +478,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{ausentismos.diagnosticocategoria.descripcion}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{ausentismos.diagnosticocategoria.descripcion}" id="editarDiagnostico" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
+                                            <p:inputText  autocomplete="off"   value="#{ausentismos.diagnosticocategoria.descripcion}" id="editarDiagnostico" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
                                                 <p:ajax event="change" listener="#{controlAusentismos.modificarAusentismos(ausentismos, 'AD', ausentismos.diagnosticocategoria.descripcion)}"/>
                                                 <p:ajax event="select" listener="#{controlAusentismos.cambiarIndice(ausentismos, 16)}" process="@this"/>
                                                 <p:ajax event="dblclick" listener="#{controlAusentismos.asignarIndex(ausentismos, 11, 0)}"/>
@@ -494,7 +494,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{ausentismos.prorroga.prorrogaAusentismo}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{ausentismos.prorroga.prorrogaAusentismo}" id="editarProrroga" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
+                                            <p:inputText  autocomplete="off"   value="#{ausentismos.prorroga.prorrogaAusentismo}" id="editarProrroga" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
                                                 <p:ajax event="change" listener="#{controlAusentismos.modificarAusentismos(ausentismos, 'PRORROGA', ausentismos.prorroga.prorrogaAusentismo)}"/>
                                                 <p:ajax event="select" listener="#{controlAusentismos.cambiarIndice(ausentismos, 17)}" process="@this"/>
                                                 <p:ajax event="dblclick" listener="#{controlAusentismos.asignarIndex(ausentismos, 10, 0)}"/>
@@ -506,7 +506,7 @@
                                     <p:cellEditor>
                                         <f:facet name="output"><h:outputText value="#{ausentismos.relacion}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   readonly="true" value="#{ausentismos.relacion}" id="editarRelacion" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px;" onselect="periodoAusentismo();"> 
+                                            <p:inputText  autocomplete="off"   readonly="true" value="#{ausentismos.relacion}" id="editarRelacion" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px;" onselect="periodoAusentismo();"> 
                                                 <p:ajax event="select" listener="#{controlAusentismos.cambiarIndice(ausentismos, 18)}" process="@this"/>
                                             </p:inputText>
                                         </f:facet>
@@ -523,7 +523,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{ausentismos.tercero.nombre}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{ausentismos.tercero.nombre}" id="editarTercero" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
+                                            <p:inputText  autocomplete="off"   value="#{ausentismos.tercero.nombre}" id="editarTercero" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
                                                 <p:ajax event="change" listener="#{controlAusentismos.modificarAusentismos(ausentismos, 'TERCERO', ausentismos.tercero.nombre)}"/>
                                                 <p:ajax event="select" listener="#{controlAusentismos.cambiarIndice(ausentismos, 19)}" process="@this"/>
                                                 <p:ajax event="dblclick" listener="#{controlAusentismos.asignarIndex(ausentismos, 8, 0)}"/>
@@ -536,7 +536,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{ausentismos.observaciones}" style="text-transform:uppercase" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{ausentismos.observaciones}" id="editarObservaciones" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height: 12px"> 
+                                            <p:inputText  autocomplete="off"   value="#{ausentismos.observaciones}" id="editarObservaciones" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height: 12px"> 
                                                 <p:ajax event="change" listener="#{controlAusentismos.modificarAusentismos(ausentismos, 'N', ausentismos.observaciones)}"/>
                                                 <p:ajax event="select" listener="#{controlAusentismos.cambiarIndice(ausentismos, 20)}" process="@this"/>
                                             </p:inputText>
@@ -567,7 +567,7 @@
                         <p:panel id="nuevoAusentismo" style="border: none;">
 
                             <strong><h:outputText value="#{msg['tipoN']}" style=" position: absolute; top: 85px;" /></strong>
-                            <p:inputText  autocomplete="false"   id="nuevoTipo" value="#{controlAusentismos.nuevoAusentismo.tipo.descripcion}" style=" width: 122px; position: absolute; left: 110px; top: 80px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"   id="nuevoTipo" value="#{controlAusentismos.nuevoAusentismo.tipo.descripcion}" style=" width: 122px; position: absolute; left: 110px; top: 80px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlAusentismos.valoresBackupAutocompletar(1, 'TIPO')}" />
                                 <p:ajax event="change" listener="#{controlAusentismos.autocompletarNuevoyDuplicado('TIPO', controlAusentismos.nuevoAusentismo.tipo.descripcion, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlAusentismos.asignarIndex(1, 1)}" />
@@ -576,7 +576,7 @@
                                              id="btnNuevoTipo" actionListener="#{controlAusentismos.asignarIndex(1, 1)}" value=" " process="@this" />
 
                             <strong><h:outputText value="#{msg['claseN']}" style=" position: absolute; top: 125px;" /></strong>
-                            <p:inputText  autocomplete="false"   id="nuevaClase" value="#{controlAusentismos.nuevoAusentismo.clase.descripcion}" style=" width: 122px; position: absolute; left: 110px; top: 120px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"   id="nuevaClase" value="#{controlAusentismos.nuevoAusentismo.clase.descripcion}" style=" width: 122px; position: absolute; left: 110px; top: 120px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlAusentismos.valoresBackupAutocompletar(1, 'CLASE')}" />
                                 <p:ajax event="change" listener="#{controlAusentismos.autocompletarNuevoyDuplicado('CLASE', controlAusentismos.nuevoAusentismo.clase.descripcion, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlAusentismos.asignarIndex(2, 1)}" />
@@ -585,7 +585,7 @@
                                              id="btnNuevaClase" actionListener="#{controlAusentismos.asignarIndex(2, 1)}" value=" " process="@this" />
 
                             <strong><h:outputText value="#{msg['causaN']}" style=" position: absolute; top: 165px;" /></strong>
-                            <p:inputText  autocomplete="false"   id="nuevaCausa" value="#{controlAusentismos.nuevoAusentismo.causa.descripcion}" style=" width: 122px; position: absolute; left: 110px; top: 160px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"   id="nuevaCausa" value="#{controlAusentismos.nuevoAusentismo.causa.descripcion}" style=" width: 122px; position: absolute; left: 110px; top: 160px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlAusentismos.valoresBackupAutocompletar(1, 'CAUSA')}" />
                                 <p:ajax event="change" listener="#{controlAusentismos.autocompletarNuevoyDuplicado('CAUSA', controlAusentismos.nuevoAusentismo.causa.descripcion, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlAusentismos.asignarIndex(3, 1)}" />
@@ -594,18 +594,18 @@
                                              id="btnNuevaCausa" actionListener="#{controlAusentismos.asignarIndex(3, 1)}" value=" " process="@this" />
 
                             <strong><h:outputText value="#{msg['diasN']}" style=" position: absolute; top: 205px;" /></strong>
-                            <p:inputText  autocomplete="false"   id="nuevoDia" value="#{controlAusentismos.nuevoAusentismo.dias}" style=" width: 122px; position: absolute; left: 110px; top: 200px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"   id="nuevoDia" value="#{controlAusentismos.nuevoAusentismo.dias}" style=" width: 122px; position: absolute; left: 110px; top: 200px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['horasN']}" style=" position: absolute; top: 245px;" /></strong>
-                            <p:inputText  autocomplete="false"   id="nuevaHora" value="#{controlAusentismos.nuevoAusentismo.horas}" style=" width: 122px; position: absolute; left: 110px; top: 240px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"   id="nuevaHora" value="#{controlAusentismos.nuevoAusentismo.horas}" style=" width: 122px; position: absolute; left: 110px; top: 240px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['iausenciaN']}" style=" position: absolute; top: 285px;" /></strong>
                             <div id="posicionFechaInicialNuevoReg" style=" position: absolute; top: 280px; left: 110px">
-                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="nuevaFecha" value="#{controlAusentismos.nuevoAusentismo.fecha}" >
+                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFecha" value="#{controlAusentismos.nuevoAusentismo.fecha}" >
                                     <p:ajax event="dateSelect" update="nuevaFecha" process="@this"/>
                                     <p:ajax event="change" update="nuevaFecha" process="@this"/>
                                 </p:calendar>
@@ -613,7 +613,7 @@
 
                             <strong><h:outputText value="#{msg['fausenciaN']}" style=" position: absolute; top: 325px;" /></strong>
                             <div id="posicionFechaFinalNuevoReg" style=" position: absolute; top: 320px; left: 110px">
-                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinaus" value="#{controlAusentismos.nuevoAusentismo.fechafinaus}" >
+                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinaus" value="#{controlAusentismos.nuevoAusentismo.fechafinaus}" >
                                     <p:ajax event="dateSelect"  update="nuevaFechaFinaus" process="@this"/>
                                     <p:ajax event="change"  update="nuevaFechaFinaus" process="@this"/>
                                 </p:calendar>
@@ -621,7 +621,7 @@
 
                             <strong><h:outputText value="#{msg['expedicionN']}" style=" position: absolute; top: 85px; left: 300px;" /></strong>
                             <div id="posicionFechaExpedicionNuevoReg" style=" position: absolute; top: 80px; left: 400px">
-                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaExpedicion" value="#{controlAusentismos.nuevoAusentismo.fechaexpedicion}" >
+                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaExpedicion" value="#{controlAusentismos.nuevoAusentismo.fechaexpedicion}" >
                                     <p:ajax event="dateSelect"  update="nuevaFechaExpedicion" process="@this"/>
                                     <p:ajax event="change"  update="nuevaFechaExpedicion" process="@this"/>
                                 </p:calendar>
@@ -629,7 +629,7 @@
 
                             <strong><h:outputText value="#{msg['ipagoN']}" style=" position: absolute; top: 125px; left: 300px;"  /></strong>
                             <div id="posicionFechaInicioPagoNuevoReg" style=" position: absolute; top: 120px; left: 400px">
-                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicioPago" value="#{controlAusentismos.nuevoAusentismo.fechainipago}" >
+                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicioPago" value="#{controlAusentismos.nuevoAusentismo.fechainipago}" >
                                     <p:ajax event="dateSelect"  update="nuevaFechaInicioPago" process="@this"/>
                                     <p:ajax event="change"  update="nuevaFechaInicioPago" process="@this"/>
                                 </p:calendar>
@@ -637,14 +637,14 @@
 
                             <strong><h:outputText value="#{msg['fpagoN']}" style=" position: absolute; top: 165px; left: 300px;" /></strong>
                             <div id="posicionFechaFinalPagoNuevoReg" style=" position: absolute; top: 160px; left: 400px">
-                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinalPago" value="#{controlAusentismos.nuevoAusentismo.fechafinpago}" >
+                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinalPago" value="#{controlAusentismos.nuevoAusentismo.fechafinpago}" >
                                     <p:ajax event="dateSelect"  update="nuevaFechaFinalPago" process="@this"/>
                                     <p:ajax event="change"  update="nuevaFechaFinalPago" process="@this"/>
                                 </p:calendar>
                             </div>
 
                             <strong><h:outputText value="%: " style="position: absolute; top: 205px; left: 300px"/></strong>
-                            <p:inputText  autocomplete="false"   id="nuevoPorcentaje" value="#{controlAusentismos.nuevoAusentismo.porcentajeindividual}" style=" width: 122px; position: absolute; left: 400px; top: 200px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"   id="nuevoPorcentaje" value="#{controlAusentismos.nuevoAusentismo.porcentajeindividual}" style=" width: 122px; position: absolute; left: 400px; top: 200px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlAusentismos.valoresBackupAutocompletar(1, 'PORCENTAJE')}" />
                                 <p:ajax event="change" listener="#{controlAusentismos.autocompletarNuevoyDuplicado('PORCENTAJE', controlAusentismos.nuevoAusentismo.porcentajeindividual, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlAusentismos.asignarIndex(4, 1)}" />
@@ -653,7 +653,7 @@
                                              id="btnNuevoPorcentaje" actionListener="#{controlAusentismos.asignarIndex(4, 1)}" value=" " process="@this" />
 
                             <strong><h:outputText value="#{msg['bliquidacionN']}" style=" position: absolute; top: 245px; left: 300px;" /></strong>
-                            <p:inputText  autocomplete="false"   id="nuevaBase" value="#{controlAusentismos.nuevoAusentismo.baseliquidacion}" style=" width: 122px; position: absolute; left: 400px; top: 240px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"   id="nuevaBase" value="#{controlAusentismos.nuevoAusentismo.baseliquidacion}" style=" width: 122px; position: absolute; left: 400px; top: 240px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlAusentismos.valoresBackupAutocompletar(1, 'BASE')}" />
                                 <p:ajax event="change" listener="#{controlAusentismos.autocompletarNuevoyDuplicado('BASE', controlAusentismos.nuevoAusentismo.baseliquidacion, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlAusentismos.asignarIndex(5, 1)}" />
@@ -662,7 +662,7 @@
                                              id="btnNuevaBase" actionListener="#{controlAusentismos.asignarIndex(ausentismos, 5, 1)}" value=" " process="@this" />
 
                             <strong><h:outputText value="* #{msg['fliquidacionN']}" style=" position: absolute; top: 285px; left: 300px;" /></strong>
-                            <p:inputText  autocomplete="false"   id="nuevaForma" value="#{controlAusentismos.nuevoAusentismo.formaliquidacion}" style=" width: 122px; position: absolute; left: 400px; top: 280px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"   id="nuevaForma" value="#{controlAusentismos.nuevoAusentismo.formaliquidacion}" style=" width: 122px; position: absolute; left: 400px; top: 280px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlAusentismos.valoresBackupAutocompletar(1, 'FORMA')}" />
                                 <p:ajax event="change" listener="#{controlAusentismos.autocompletarNuevoyDuplicado('FORMA', controlAusentismos.nuevoAusentismo.formaliquidacion, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlAusentismos.asignarIndex(6, 1)}" />
@@ -677,7 +677,7 @@
                                 <p:ajax event="toggle" listener="#{controlAusentismos.cambiosToggle()}" process="@this"/> 
 
                                 <strong><h:outputText value="#{msg['accident']}" style=" position: absolute; top: 65px;" /></strong>
-                                <p:inputText  autocomplete="false"   id="nuevoAccidente" value="#{controlAusentismos.nuevoAusentismo.accidente.descripcioncaso}" style=" width: 122px; position: absolute; left: 110px; top: 60px; text-transform: uppercase" onclick="select();">
+                                <p:inputText  autocomplete="off"   id="nuevoAccidente" value="#{controlAusentismos.nuevoAusentismo.accidente.descripcioncaso}" style=" width: 122px; position: absolute; left: 110px; top: 60px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="click" listener="#{controlAusentismos.valoresBackupAutocompletar(1, 'AD')}" />
                                     <p:ajax event="change" listener="#{controlAusentismos.autocompletarNuevoyDuplicado('AD', controlAusentismos.nuevoAusentismo.accidente.descripcioncaso, 1)}" />
                                     <p:ajax event="dblclick" listener="#{controlAusentismos.asignarIndex(7, 1)}" />
@@ -686,7 +686,7 @@
                                                  id="btnNuevoAccidente" actionListener="#{controlAusentismos.asignarIndex(7, 1)}" value=" " process="@this" />
 
                                 <strong><h:outputText value="#{msg['enf']}" style=" position: absolute; top: 105px;" /></strong>
-                                <p:inputText  autocomplete="false"   id="nuevaEnfermedad" value="#{controlAusentismos.nuevoAusentismo.enfermedad.categoria.descripcion}" style=" width: 122px; position: absolute; left: 110px; top: 100px; text-transform: uppercase" onclick="select();">
+                                <p:inputText  autocomplete="off"   id="nuevaEnfermedad" value="#{controlAusentismos.nuevoAusentismo.enfermedad.categoria.descripcion}" style=" width: 122px; position: absolute; left: 110px; top: 100px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="click" listener="#{controlAusentismos.valoresBackupAutocompletar(1, 'ENFERMEDAD')}" />
                                     <p:ajax event="change" listener="#{controlAusentismos.autocompletarNuevoyDuplicado('ENFERMEDAD', controlAusentismos.nuevoAusentismo.enfermedad.categoria.descripcion, 1)}" />
                                     <p:ajax event="dblclick" listener="#{controlAusentismos.asignarIndex(9, 1)}" />
@@ -695,12 +695,12 @@
                                                  id="btnNuevaEnfermedad" actionListener="#{controlAusentismos.asignarIndex(9, 1)}" value=" " process="@this" />
 
                                 <strong><h:outputText value="#{msg['numero']}" style=" position: absolute; top: 145px;" /></strong>
-                                <p:inputText  autocomplete="false"   id="nuevoNumero" value="#{controlAusentismos.nuevoAusentismo.numerocertificado}" style=" width: 122px; position: absolute; left: 110px; top: 140px; text-transform: uppercase" onclick="select();">
+                                <p:inputText  autocomplete="off"   id="nuevoNumero" value="#{controlAusentismos.nuevoAusentismo.numerocertificado}" style=" width: 122px; position: absolute; left: 110px; top: 140px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="change" update="@this"/>
                                 </p:inputText>
 
                                 <strong><h:outputText value="#{msg['cdiagnostico']}" style=" position: absolute; top: 185px;" /></strong>
-                                <p:inputText  autocomplete="false"   id="nuevoDiagnostico" value="#{controlAusentismos.nuevoAusentismo.diagnosticocategoria.descripcion}" style=" width: 122px; position: absolute; left: 110px; top: 180px; text-transform: uppercase" onclick="select();">
+                                <p:inputText  autocomplete="off"   id="nuevoDiagnostico" value="#{controlAusentismos.nuevoAusentismo.diagnosticocategoria.descripcion}" style=" width: 122px; position: absolute; left: 110px; top: 180px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="click" listener="#{controlAusentismos.valoresBackupAutocompletar(1, 'DIAGNOSTICO')}" />
                                     <p:ajax event="change" listener="#{controlAusentismos.autocompletarNuevoyDuplicado('DIAGNOSTICO', controlAusentismos.nuevoAusentismo.diagnosticocategoria.codigo, 1)}" />
                                     <p:ajax event="dblclick" listener="#{controlAusentismos.asignarIndex(11,1)}"/>
@@ -709,7 +709,7 @@
                                                  id="btnNuevoDiagnostico" actionListener="#{controlAusentismos.asignarIndex(11, 1)}" value=" " process="@this" />
 
                                 <strong><h:outputText value="#{msg['prorroga']}" style=" position: absolute; top: 65px; left: 280px;" /></strong>
-                                <p:inputText  autocomplete="false"   id="nuevaProrroga" value="#{controlAusentismos.nuevoAusentismo.prorroga.prorrogaAusentismo}" style=" width: 122px; position: absolute; left: 380px; top: 60px; text-transform: uppercase" onclick="select();">
+                                <p:inputText  autocomplete="off"   id="nuevaProrroga" value="#{controlAusentismos.nuevoAusentismo.prorroga.prorrogaAusentismo}" style=" width: 122px; position: absolute; left: 380px; top: 60px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="click" listener="#{controlAusentismos.valoresBackupAutocompletar(1, 'PRORROGA')}" />
                                     <p:ajax event="change" listener="#{controlAusentismos.autocompletarNuevoyDuplicado('PRORROGA', controlAusentismos.nuevoAusentismo.prorroga.prorrogaAusentismo, 1)}" />
                                     <p:ajax event="dblclick" listener="#{controlAusentismos.asignarIndex(10, 1)}" />
@@ -718,7 +718,7 @@
                                                  id="btnNuevaProrroga" actionListener="#{controlAusentismos.asignarIndex(10, 1)}" value=" " process="@this" />
 
                                 <strong><h:outputText value="#{msg['tercero']}" style=" position: absolute; top: 105px;left: 280px;" /></strong>
-                                <p:inputText  autocomplete="false"   id="nuevoTercero" value="#{controlAusentismos.nuevoAusentismo.tercero.nombre}" style=" width: 122px; position: absolute; left: 380px; top: 100px; text-transform: uppercase" onclick="select();">
+                                <p:inputText  autocomplete="off"   id="nuevoTercero" value="#{controlAusentismos.nuevoAusentismo.tercero.nombre}" style=" width: 122px; position: absolute; left: 380px; top: 100px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="click" listener="#{controlAusentismos.valoresBackupAutocompletar(1, 'TERCERO')}" />
                                     <p:ajax event="change" listener="#{controlAusentismos.autocompletarNuevoyDuplicado('TERCERO', controlAusentismos.nuevoAusentismo.tercero.nombre, 1)}" />
                                     <p:ajax event="dblclick" listener="#{controlAusentismos.asignarIndex(8, 1)}" />
@@ -727,7 +727,7 @@
                                                  id="btnNuevoTercero" actionListener="#{controlAusentismos.asignarIndex(8, 1)}" value=" " process="@this" />
 
                                 <strong><h:outputText value="#{msg['observaciones']}" style=" position: absolute; top: 145px;left: 280px;" /></strong>
-                                <p:inputText  autocomplete="false"   id="nuevaObservacion" value="#{controlAusentismos.nuevoAusentismo.observaciones}" style=" width: 122px; position: absolute; left: 380px; top: 145px; text-transform: uppercase" onclick="select();">
+                                <p:inputText  autocomplete="off"   id="nuevaObservacion" value="#{controlAusentismos.nuevoAusentismo.observaciones}" style=" width: 122px; position: absolute; left: 380px; top: 145px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="change" update="@this"/>
                                 </p:inputText>
                             </p:panel>
@@ -760,7 +760,7 @@
                         <p:panel id="duplicarAusentismo" style="border: none;">
 
                             <strong><h:outputText value="#{msg['tipo']}" style=" position: absolute; top: 85px;" /></strong>
-                            <p:inputText  autocomplete="false"   id="duplicarTipo" value="#{controlAusentismos.duplicarAusentismo.tipo.descripcion}" style=" width: 122px; position: absolute; left: 110px; top: 80px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"   id="duplicarTipo" value="#{controlAusentismos.duplicarAusentismo.tipo.descripcion}" style=" width: 122px; position: absolute; left: 110px; top: 80px; text-transform: uppercase" onclick="select();">
                                 <p:ajax disabled="true" event="click" listener="#{controlAusentismos.valoresBackupAutocompletar(2, 'TIPO')}" />
                                 <p:ajax disabled="true" event="change" listener="#{controlAusentismos.autocompletarNuevoyDuplicado('TIPO', controlAusentismos.duplicarAusentismo.tipo.descripcion, 2)}" />
                                 <p:ajax disabled="true" event="dblclick" listener="#{controlAusentismos.asignarIndex(ausentismos, 1, 2)}" />
@@ -769,7 +769,7 @@
                                              id="btnDuplicarTipo" actionListener="#{controlAusentismos.asignarIndex(1, 2)}" value=" " process="@this" />
 
                             <strong><h:outputText value="#{msg['clase']}" style=" position: absolute; top: 125px;" /></strong>
-                            <p:inputText  autocomplete="false"   id="duplicarClase" value="#{controlAusentismos.duplicarAusentismo.clase.descripcion}" style=" width: 122px; position: absolute; left: 110px; top: 120px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"   id="duplicarClase" value="#{controlAusentismos.duplicarAusentismo.clase.descripcion}" style=" width: 122px; position: absolute; left: 110px; top: 120px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlAusentismos.valoresBackupAutocompletar(2, 'CLASE')}" />
                                 <p:ajax event="change" listener="#{controlAusentismos.autocompletarNuevoyDuplicado('CLASE', controlAusentismos.duplicarAusentismo.clase.descripcion, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlAusentismos.asignarIndex(ausentismos, 2, 2)}" />
@@ -778,7 +778,7 @@
                                              id="btnDuplicarClase" actionListener="#{controlAusentismos.asignarIndex(2, 2)}" value=" " process="@this" />
 
                             <strong><h:outputText value="#{msg['causa']}" style=" position: absolute; top: 165px;" /></strong>
-                            <p:inputText  autocomplete="false"   id="duplicarCausa" value="#{controlAusentismos.duplicarAusentismo.causa.descripcion}" style=" width: 122px; position: absolute; left: 110px; top: 160px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"   id="duplicarCausa" value="#{controlAusentismos.duplicarAusentismo.causa.descripcion}" style=" width: 122px; position: absolute; left: 110px; top: 160px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlAusentismos.valoresBackupAutocompletar(2, 'CAUSA')}" />
                                 <p:ajax event="change" listener="#{controlAusentismos.autocompletarNuevoyDuplicado('CAUSA', controlAusentismos.duplicarAusentismo.causa.descripcion, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlAusentismos.asignarIndex(ausentismos, 3, 2)}" />
@@ -787,18 +787,18 @@
                                              id="btnDuplicarCausa" actionListener="#{controlAusentismos.asignarIndex(3, 2)}" value=" " process="@this" />
 
                             <strong><h:outputText value="#{msg['dias']}" style=" position: absolute; top: 205px;" /></strong>
-                            <p:inputText  autocomplete="false"   id="duplicarDia" value="#{controlAusentismos.duplicarAusentismo.dias}" style=" width: 122px; position: absolute; left: 110px; top: 200px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"   id="duplicarDia" value="#{controlAusentismos.duplicarAusentismo.dias}" style=" width: 122px; position: absolute; left: 110px; top: 200px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['horas']}" style=" position: absolute; top: 245px;" /></strong>
-                            <p:inputText  autocomplete="false"   id="duplicarHora" value="#{controlAusentismos.duplicarAusentismo.horas}" style=" width: 122px; position: absolute; left: 110px; top: 240px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"   id="duplicarHora" value="#{controlAusentismos.duplicarAusentismo.horas}" style=" width: 122px; position: absolute; left: 110px; top: 240px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['iausenciaN']}" style=" position: absolute; top: 285px;" /></strong>
                             <div id="posicionFechaInicialDuplicarReg" style=" position: absolute; top: 280px; left: 110px">
-                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="duplicarFecha" value="#{controlAusentismos.duplicarAusentismo.fecha}" >
+                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFecha" value="#{controlAusentismos.duplicarAusentismo.fecha}" >
                                     <p:ajax event="dateSelect"  update="duplicarFecha" process="@this"/>
                                     <p:ajax event="change" update="duplicarFecha" process="@this"/>
                                 </p:calendar>
@@ -806,7 +806,7 @@
 
                             <strong><h:outputText value="#{msg['fausenciaN']}" style=" position: absolute; top: 325px;" /></strong>
                             <div id="posicionFechaFinalDuplicarReg" style=" position: absolute; top: 320px; left: 110px">
-                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinaus" value="#{controlAusentismos.duplicarAusentismo.fechafinaus}" >
+                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinaus" value="#{controlAusentismos.duplicarAusentismo.fechafinaus}" >
                                     <p:ajax event="dateSelect"  update="duplicarFechaFinaus" process="@this"/>
                                     <p:ajax event="change"  update="duplicarFechaFinaus" process="@this"/>
                                 </p:calendar>
@@ -814,7 +814,7 @@
 
                             <strong><h:outputText value="#{msg['expedicionN']}" style=" position: absolute; top: 85px; left: 300px;" /></strong>
                             <div id="posicionFechaExpedicionDuplicarReg" style=" position: absolute; top: 80px; left: 400px">
-                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaExpedicion" value="#{controlAusentismos.duplicarAusentismo.fechaexpedicion}" >
+                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaExpedicion" value="#{controlAusentismos.duplicarAusentismo.fechaexpedicion}" >
                                     <p:ajax event="dateSelect"  update="duplicarFechaExpedicion" process="@this"/>
                                     <p:ajax event="change"  update="duplicarFechaExpedicion" process="@this"/>
                                 </p:calendar>
@@ -822,7 +822,7 @@
 
                             <strong><h:outputText value="#{msg['ipagoN']}" style=" position: absolute; top: 125px; left: 300px;"  /></strong>
                             <div id="posicionFechaInicioPagoDuplicarReg" style=" position: absolute; top: 120px; left: 400px">
-                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicioPago" value="#{controlAusentismos.duplicarAusentismo.fechainipago}" >
+                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicioPago" value="#{controlAusentismos.duplicarAusentismo.fechainipago}" >
                                     <p:ajax event="dateSelect"  update="duplicarFechaInicioPago" process="@this"/>
                                     <p:ajax event="change"  update="duplicarFechaInicioPago" process="@this"/>
                                 </p:calendar>
@@ -830,14 +830,14 @@
 
                             <strong><h:outputText value="#{msg['fpago']}" style=" position: absolute; top: 165px; left:300px;" /></strong>
                             <div id="posicionFechaInicioPagoDuplicarReg" style=" position: absolute; top: 160px; left: 400px">
-                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinPago" value="#{controlAusentismos.duplicarAusentismo.fechafinpago}" >
+                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinPago" value="#{controlAusentismos.duplicarAusentismo.fechafinpago}" >
                                     <p:ajax event="dateSelect"  update="duplicarFechaFinPago" process="@this"/>
                                     <p:ajax event="change"  update="duplicarFechaFinPago" process="@this"/>
                                 </p:calendar>
                             </div>
 
                             <strong><h:outputText value="%: " style=" position: absolute; top: 205px; left: 300px"/></strong>
-                            <p:inputText  autocomplete="false"   id="duplicarPorcentaje" value="#{controlAusentismos.duplicarAusentismo.porcentajeindividual}" style=" width: 122px; position: absolute; left: 400px; top: 200px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"   id="duplicarPorcentaje" value="#{controlAusentismos.duplicarAusentismo.porcentajeindividual}" style=" width: 122px; position: absolute; left: 400px; top: 200px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlAusentismos.valoresBackupAutocompletar(2, 'PORCENTAJE')}" />
                                 <p:ajax event="change" listener="#{controlAusentismos.autocompletarNuevoyDuplicado('PORCENTAJE', controlAusentismos.duplicarAusentismo.porcentajeindividual, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlAusentismos.asignarIndex(4, 2)}" />
@@ -846,7 +846,7 @@
                                              id="btnDuplicarPorcentaje" actionListener="#{controlAusentismos.asignarIndex(4, 2)}" value=" " process="@this" />
 
                             <strong><h:outputText value="#{msg['bliquidacion']}" style=" position: absolute; top: 245px; left:300px;" /></strong>
-                            <p:inputText  autocomplete="false"   id="duplicarBase" value="#{controlAusentismos.duplicarAusentismo.baseliquidacion}" style=" width: 122px; position: absolute; left: 400px; top: 240px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"   id="duplicarBase" value="#{controlAusentismos.duplicarAusentismo.baseliquidacion}" style=" width: 122px; position: absolute; left: 400px; top: 240px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlAusentismos.valoresBackupAutocompletar(2, 'BASE')}" />
                                 <p:ajax event="change" listener="#{controlAusentismos.autocompletarNuevoyDuplicado('BASE', controlAusentismos.duplicarAusentismo.baseliquidacion, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlAusentismos.asignarIndex(5, 2)}" />
@@ -855,7 +855,7 @@
                                              id="btnDuplicarBase" actionListener="#{controlAusentismos.asignarIndex(ausentismos, 5, 2)}" value=" " process="@this" />
 
                             <strong><h:outputText value="* #{msg['fliquidacion']}" style=" position: absolute; top: 285px; left: 300px;" /></strong>
-                            <p:inputText  autocomplete="false"   id="duplicarForma" value="#{controlAusentismos.duplicarAusentismo.formaliquidacion}" style=" width: 122px; position: absolute; left: 400px; top: 280px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"   id="duplicarForma" value="#{controlAusentismos.duplicarAusentismo.formaliquidacion}" style=" width: 122px; position: absolute; left: 400px; top: 280px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlAusentismos.valoresBackupAutocompletar(1, 'FORMA')}" />
                                 <p:ajax event="change" listener="#{controlAusentismos.autocompletarNuevoyDuplicado('FORMA', controlAusentismos.duplicarAusentismo.formaliquidacion, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlAusentismos.asignarIndex(6, 1)}" />
@@ -868,7 +868,7 @@
                                 <p:ajax event="toggle" listener="#{controlAusentismos.cambiosToggleD()}" process="@this"/> 
 
                                 <strong><h:outputText value="#{msg['accident']}" style=" position: absolute; top: 65px;" /></strong>
-                                <p:inputText  autocomplete="false"   id="duplicarAccidente" value="#{controlAusentismos.duplicarAusentismo.accidente.descripcioncaso}" style=" width: 122px; position: absolute; left: 110px; top: 60px; text-transform: uppercase" onclick="select();">
+                                <p:inputText  autocomplete="off"   id="duplicarAccidente" value="#{controlAusentismos.duplicarAusentismo.accidente.descripcioncaso}" style=" width: 122px; position: absolute; left: 110px; top: 60px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="click" listener="#{controlAusentismos.valoresBackupAutocompletar(2, 'AD')}" />
                                     <p:ajax event="change" listener="#{controlAusentismos.autocompletarNuevoyDuplicado('AD', controlAusentismos.duplicarAusentismo.accidente.descripcioncaso, 2)}" />
                                     <p:ajax event="dblclick" listener="#{controlAusentismos.asignarIndex(7, 2)}" />
@@ -877,7 +877,7 @@
                                                  id="btnDuplicarAccidente" actionListener="#{controlAusentismos.asignarIndex(ausentismos, 7, 2)}" value=" " process="@this" />
 
                                 <strong><h:outputText value="#{msg['enf']}" style=" position: absolute; top: 105px;" /></strong>
-                                <p:inputText  autocomplete="false"   id="duplicarEnfermedad" value="#{controlAusentismos.duplicarAusentismo.enfermedad.categoria.descripcion}" style=" width: 122px; position: absolute; left: 110px; top: 100px; text-transform: uppercase" onclick="select();">
+                                <p:inputText  autocomplete="off"   id="duplicarEnfermedad" value="#{controlAusentismos.duplicarAusentismo.enfermedad.categoria.descripcion}" style=" width: 122px; position: absolute; left: 110px; top: 100px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="click" listener="#{controlAusentismos.valoresBackupAutocompletar(2, 'ENFERMEDAD')}" />
                                     <p:ajax event="change" listener="#{controlAusentismos.autocompletarNuevoyDuplicado('ENFERMEDAD', controlAusentismos.duplicarAusentismo.enfermedad.categoria.descripcion, 2)}" />
                                     <p:ajax event="dblclick" listener="#{controlAusentismos.asignarIndex(9, 2)}" />
@@ -886,12 +886,12 @@
                                                  id="btnDuplicarEnfermedad" actionListener="#{controlAusentismos.asignarIndex(8, 2)}" value=" " process="@this" />
 
                                 <strong><h:outputText value="#{msg['numero']}" style=" position: absolute; top: 145px;" /></strong>
-                                <p:inputText  autocomplete="false"   id="duplicarNumero" value="#{controlAusentismos.duplicarAusentismo.numerocertificado}" style=" width: 122px; position: absolute; left: 110px; top: 140px; text-transform: uppercase" onclick="select();">
+                                <p:inputText  autocomplete="off"   id="duplicarNumero" value="#{controlAusentismos.duplicarAusentismo.numerocertificado}" style=" width: 122px; position: absolute; left: 110px; top: 140px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="change" update="@this"/>
                                 </p:inputText>
 
                                 <strong><h:outputText value="#{msg['cdiagnostico']}" style=" position: absolute; top: 185px;" /></strong>
-                                <p:inputText  autocomplete="false"   id="duplicarDiagnostico" value="#{controlAusentismos.duplicarAusentismo.diagnosticocategoria.descripcion}" style=" width: 122px; position: absolute; left: 110px; top: 180px; text-transform: uppercase" onclick="select();">
+                                <p:inputText  autocomplete="off"   id="duplicarDiagnostico" value="#{controlAusentismos.duplicarAusentismo.diagnosticocategoria.descripcion}" style=" width: 122px; position: absolute; left: 110px; top: 180px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="click" listener="#{controlAusentismos.valoresBackupAutocompletar(2, 'DIAGNOSTICO')}" />
                                     <p:ajax event="change" listener="#{controlAusentismos.autocompletarNuevoyDuplicado('DIAGNOSTICO', controlAusentismos.duplicarAusentismo.diagnosticocategoria.codigo, 2)}" />
                                     <p:ajax event="dblclick" listener="#{controlAusentismos.asignarIndex(11, 2)}" />
@@ -900,7 +900,7 @@
                                                  id="btnDuplicarDiagnostico" actionListener="#{controlAusentismos.asignarIndex(ausentismos, 9, 2)}" value=" " process="@this" />
 
                                 <strong><h:outputText value="#{msg['prorroga']}" style=" position: absolute; top: 65px; left: 280px;" /></strong>
-                                <p:inputText  autocomplete="false"   id="duplicarProrroga" value="#{controlAusentismos.duplicarAusentismo.prorroga.prorrogaAusentismo}" style=" width: 122px; position: absolute; left: 380px; top: 60px; text-transform: uppercase" onclick="select();">
+                                <p:inputText  autocomplete="off"   id="duplicarProrroga" value="#{controlAusentismos.duplicarAusentismo.prorroga.prorrogaAusentismo}" style=" width: 122px; position: absolute; left: 380px; top: 60px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="click" listener="#{controlAusentismos.valoresBackupAutocompletar(2, 'PRORROGA')}" />
                                     <p:ajax event="change" listener="#{controlAusentismos.autocompletarNuevoyDuplicado('PRORROGA', controlAusentismos.duplicarAusentismo.prorroga.prorrogaAusentismo, 2)}" />
                                     <p:ajax event="dblclick" listener="#{controlAusentismos.asignarIndex(10, 2)}" />
@@ -909,7 +909,7 @@
                                                  id="btnDuplicarProrroga" actionListener="#{controlAusentismos.asignarIndex(ausentismos, 10, 2)}" value=" " process="@this" />
 
                                 <strong><h:outputText value="#{msg['tercero']}" style=" position: absolute; top: 105px;left: 280px;" /></strong>
-                                <p:inputText  autocomplete="false"   id="duplicarTercero" value="#{controlAusentismos.duplicarAusentismo.tercero.nombre}" style=" width: 122px; position: absolute; left: 380px; top: 100px; text-transform: uppercase" onclick="select();">
+                                <p:inputText  autocomplete="off"   id="duplicarTercero" value="#{controlAusentismos.duplicarAusentismo.tercero.nombre}" style=" width: 122px; position: absolute; left: 380px; top: 100px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="click" listener="#{controlAusentismos.valoresBackupAutocompletar(2, 'TERCERO')}" />
                                     <p:ajax event="change" listener="#{controlAusentismos.autocompletarNuevoyDuplicado('TERCERO', controlAusentismos.duplicarAusentismo.tercero.nombre, 2)}" />
                                     <p:ajax event="dblclick" listener="#{controlAusentismos.asignarIndex(8, 2)}" />
@@ -918,7 +918,7 @@
                                                  id="btnDuplicarTercero" actionListener="#{controlAusentismos.asignarIndex(ausentismos, 11, 2)}" value=" " process="@this" />
 
                                 <strong><h:outputText value="#{msg['observaciones']}" style=" position: absolute; top: 145px;left: 280px;" /></strong>
-                                <p:inputText  autocomplete="false"   id="duplicarObservacion" value="#{controlAusentismos.duplicarAusentismo.observaciones}" style=" width: 122px; position: absolute; left: 380px; top: 145px; text-transform: uppercase" onclick="select();">
+                                <p:inputText  autocomplete="off"   id="duplicarObservacion" value="#{controlAusentismos.duplicarAusentismo.observaciones}" style=" width: 122px; position: absolute; left: 380px; top: 145px; text-transform: uppercase" onclick="select();">
                                     <p:ajax event="change" update="@this"/>
                                 </p:inputText>
                             </p:panel>
@@ -1011,31 +1011,31 @@
                     </p:dialog>
 
                     <p:dialog id="editarFIausencias" header="#{msg['iausencia']}" widgetVar="editarFIausencias" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" value="#{controlAusentismos.editarAusentismos.fecha}" id="editarFechaInicialAusencia"  styleClass="ui-datepicker, myClass"  
+                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" value="#{controlAusentismos.editarAusentismos.fecha}" id="editarFechaInicialAusencia"  styleClass="ui-datepicker, myClass"  
                                     navigator="true" showButtonPanel="true">
                         </p:calendar>
                     </p:dialog>
 
                     <p:dialog id="editFFausencias" header="#{msg['fausencia']}" widgetVar="editarFFausencias" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy"   value="#{controlAusentismos.editarAusentismos.fechafinaus}" id="editarFechaFinalAusencia"  styleClass="ui-datepicker, myClass"  
+                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy"   value="#{controlAusentismos.editarAusentismos.fechafinaus}" id="editarFechaFinalAusencia"  styleClass="ui-datepicker, myClass"  
                                     navigator="true" showButtonPanel="true">
                         </p:calendar>
                     </p:dialog>
 
                     <p:dialog id="editarFexpediciones" header="#{msg['expediciones']}" widgetVar="editarFexpediciones" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy"   value="#{controlAusentismos.editarAusentismos.fechaexpedicion}" id="editarFechaExpedicion"  styleClass="ui-datepicker, myClass"  
+                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy"   value="#{controlAusentismos.editarAusentismos.fechaexpedicion}" id="editarFechaExpedicion"  styleClass="ui-datepicker, myClass"  
                                     navigator="true" showButtonPanel="true">
                         </p:calendar>
                     </p:dialog>
 
                     <p:dialog id="editarFIpagos" header="#{msg['ipago']}" widgetVar="editarFIpagos" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy"   value="#{controlAusentismos.editarAusentismos.fechainipago}" id="editarFechaInicialPagos"  styleClass="ui-datepicker, myClass"  
+                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy"   value="#{controlAusentismos.editarAusentismos.fechainipago}" id="editarFechaInicialPagos"  styleClass="ui-datepicker, myClass"  
                                     navigator="true" showButtonPanel="true">
                         </p:calendar>
                     </p:dialog>
 
                     <p:dialog id="editarFFpagos" header="#{msg['fpago']}" widgetVar="editarFFpagos" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy"   value="#{controlAusentismos.editarAusentismos.fechafinpago}" id="editarFechaFinalPagos"  styleClass="ui-datepicker, myClass"  
+                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy"   value="#{controlAusentismos.editarAusentismos.fechafinpago}" id="editarFechaFinalPagos"  styleClass="ui-datepicker, myClass"  
                                     navigator="true" showButtonPanel="true">
                         </p:calendar>
                     </p:dialog>
@@ -1097,7 +1097,7 @@
                             <p:ajax event="filter" listener="#{controlAusentismos.eventoFiltrarTipo()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarTA']}"  style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText  autocomplete="false"   id="globalFilter" onkeyup="PF('LOVTiposAusentismos').filter();" style="width: 150px; position: relative; left: 60px;" />  
+                                <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('LOVTiposAusentismos').filter();" style="width: 150px; position: relative; left: 60px;" />  
                             </f:facet>
 
                             <p:column sortBy="#{tipo.codigo}" filterBy="#{tipo.codigo}" filterStyle="width: 20px;" width="20" filterMatchMode="contains" > 
@@ -1134,7 +1134,7 @@
                             <p:ajax event="filter" listener="#{controlAusentismos.eventoFiltrarClase()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarCL']}"  style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText  autocomplete="false"   id="globalFilter" onkeyup="PF('LOVClasesAusentismos').filter();" style="width: 150px; position: relative; left: 60px;" />  
+                                <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('LOVClasesAusentismos').filter();" style="width: 150px; position: relative; left: 60px;" />  
                             </f:facet>
 
                             <p:column sortBy="#{clase.codigo}" filterBy="#{clase.codigo}" filterStyle="width: 30px;" width="10" filterMatchMode="contains" > 
@@ -1174,7 +1174,7 @@
                             <p:ajax event="filter" listener="#{controlAusentismos.eventoFiltrarCausa()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarCA']}"  style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText  autocomplete="false"   id="globalFilter" onkeyup="PF('LOVCausasAusentismos').filter();" style="width: 150px; position: relative; left: 60px;" />  
+                                <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('LOVCausasAusentismos').filter();" style="width: 150px; position: relative; left: 60px;" />  
                             </f:facet>
 
                             <p:column sortBy="#{causa.codigo}" filterBy="#{causa.codigo}" filterStyle="width: 80% !important;" width="20" filterMatchMode="contains"> 
@@ -1211,7 +1211,7 @@
                             <p:ajax event="filter" listener="#{controlAusentismos.eventoFiltrarEmpleadosLov()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarE']}"  style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText  autocomplete="false"   id="globalFilter" onkeyup="PF('LOVEmpleados').filter();" style="position: relative; left: 20px;" />  
+                                <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('LOVEmpleados').filter();" style="position: relative; left: 20px;" />  
                             </f:facet>
 
                             <p:column sortBy="#{emp.codigoempleado}" filterBy="#{emp.codigoempleado}" width="10" filterStyle="width:50px;" filterMatchMode="contains"> 
@@ -1250,7 +1250,7 @@
                             <p:ajax event="filter" listener="#{controlAusentismos.eventoFiltrarPorcentaje()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarP']}"  style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText  autocomplete="false"   id="globalFilter" onkeyup="PF('LOVPorcentajes').filter();" style="width: 150px; position: relative; left: 60px;" />  
+                                <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('LOVPorcentajes').filter();" style="width: 150px; position: relative; left: 60px;" />  
                             </f:facet>
 
                             <p:column sortBy="#{por}" filterBy="#{por}" width="60" filterMatchMode="contains" filterStyle="width: 80% !important"> 
@@ -1282,7 +1282,7 @@
                             <p:ajax event="filter" listener="#{controlAusentismos.eventoFiltrarBase()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarI']}"  style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText  autocomplete="false"   id="globalFilter" onkeyup="PF('LOVIbcs').filter();" style="width: 400px; position: relative; left: 60px;" />  
+                                <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('LOVIbcs').filter();" style="width: 400px; position: relative; left: 60px;" />  
                             </f:facet>
 
                             <p:column sortBy="#{ibcs.valor}" filterBy="#{ibcs.valor}" width="150" filterMatchMode="contains" filterStyle="width: 80% !important"> 
@@ -1333,7 +1333,7 @@
                             <p:ajax event="filter" listener="#{controlAusentismos.eventoFiltrarForma()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarF']}"  style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText  autocomplete="false"   id="globalFilter" onkeyup="PF('LOVFormas').filter();" style="width: 150px; position: relative; left: 60px;" />  
+                                <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('LOVFormas').filter();" style="width: 150px; position: relative; left: 60px;" />  
                             </f:facet>
 
                             <p:column sortBy="#{for}" filterBy="#{for}" width="10" filterMatchMode="contains" filterStyle="width: 80% !important"> 
@@ -1363,7 +1363,7 @@
                             <p:ajax event="filter" listener="#{controlAusentismos.eventoFiltrarAccidente()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarA']}"  style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText  autocomplete="false"   id="globalFilter" onkeyup="PF('LOVAccidentes').filter();" style="width: 400px; position: relative; left: 60px;" />  
+                                <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('LOVAccidentes').filter();" style="width: 400px; position: relative; left: 60px;" />  
                             </f:facet>
 
                             <p:column sortBy="#{accidentes.hora}" filterBy="#{accidentes.hora}" width="150" filterMatchMode="contains" filterStyle="width: 80% !important"> 
@@ -1417,7 +1417,7 @@
                             <p:ajax event="filter" listener="#{controlAusentismos.eventoFiltrarDiagnosticos()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarD']}"  style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText  autocomplete="false"   id="globalFilter" onkeyup="PF('LOVDiagnosticos').filter();" style="width: 400px; position: relative; left: 60px;" />  
+                                <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('LOVDiagnosticos').filter();" style="width: 400px; position: relative; left: 60px;" />  
                             </f:facet>
 
                             <p:column sortBy="#{diagnosticos.codigo}" filterBy="#{diagnosticos.codigo}" width="10" filterMatchMode="contains" filterStyle="width: 30px"> 
@@ -1455,7 +1455,7 @@
                             <p:ajax event="filter" listener="#{controlAusentismos.eventoFiltrarProrroga()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarPR']}" style="width: 120px; position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText  autocomplete="false"   id="globalFilter" onkeyup="PF('LOVProrrogas').filter();" style="width: 400px; position: relative; left: 60px;" />  
+                                <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('LOVProrrogas').filter();" style="width: 400px; position: relative; left: 60px;" />  
                             </f:facet>
 
                             <p:column sortBy="#{prorrogas.causa.descripcion}" filterBy="#{prorrogas.causa.descripcion}" width="150" filterMatchMode="contains" filterStyle="width: 80% !important"> 
@@ -1539,7 +1539,7 @@
                             <p:ajax event="filter" listener="#{controlAusentismos.eventoFiltrarTerceros()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarT']}" style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText  autocomplete="false"   id="globalFilter" onkeyup="PF('LOVTerceros').filter();" style="width: 150px; position: relative; left: 60px;" />  
+                                <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('LOVTerceros').filter();" style="width: 150px; position: relative; left: 60px;" />  
                             </f:facet>
 
                             <p:column sortBy="#{terceros.nombre}" filterBy="#{terceros.nombre}" width="40" filterMatchMode="contains" filterStyle="width: 80% !important"> 
@@ -1568,7 +1568,7 @@
                             <p:ajax event="filter" listener="#{controlAusentismos.eventoFiltrarEnfermedad()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarEN']}"  style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText  autocomplete="false"   id="globalFilter" onkeyup="PF('LOVEnfermedades').filter();" style="width: 400px; position: relative; left: 60px;" />  
+                                <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('LOVEnfermedades').filter();" style="width: 400px; position: relative; left: 60px;" />  
                             </f:facet>
 
                             <p:column sortBy="#{enfermedades.fechanotificacion}" filterBy="#{enfermedades.fechanotificacion}" width="150" filterMatchMode="contains" filterStyle="width: 80% !important"> 

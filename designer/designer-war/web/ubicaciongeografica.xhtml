@@ -100,7 +100,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.codigo}" id="editarCodigoCC" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase" > 
+                                            <p:inputText  autocomplete="off"  value="#{info.codigo}" id="editarCodigoCC" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase" > 
                                                 <p:ajax  event="change" listener="#{controlUbicacionesGeograficas.modificandoUbicacionGeografica(indice, 'N', info.codigo)}" update="@this"/>
                                                 <p:ajax event="select" listener="#{controlUbicacionesGeograficas.cambiarIndice(indice,0)}" /> 
                                             </p:inputText>
@@ -115,7 +115,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.descripcion}" style="text-transform: uppercase" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  id="editarNombreCentroCoso" maxlength="40" value="#{info.descripcion}" style="height: 12px; border-radius: 0px; width: 95%; text-transform: uppercase">
+                                            <p:inputText  autocomplete="off"  id="editarNombreCentroCoso" maxlength="40" value="#{info.descripcion}" style="height: 12px; border-radius: 0px; width: 95%; text-transform: uppercase">
                                                 <p:ajax event="change" listener="#{controlUbicacionesGeograficas.modificandoUbicacionGeografica(indice, 'N', info.descripcion)}" update="@this" />
                                                 <p:ajax event="select" listener="#{controlUbicacionesGeograficas.cambiarIndice(indice, 1)}" />
                                             </p:inputText>
@@ -127,7 +127,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.ciudad.nombre}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.ciudad.nombre}" id="editarTipoCentroCosto" style="height: 12px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
+                                            <p:inputText  autocomplete="off"  value="#{info.ciudad.nombre}" id="editarTipoCentroCosto" style="height: 12px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
                                                 <p:ajax event="change" listener="#{controlUbicacionesGeograficas.modificandoUbicacionGeografica(indice, 'CIUDADES', info.ciudad.nombre)}" update="@this" />
                                                 <p:ajax event="select" listener="#{controlUbicacionesGeograficas.cambiarIndice(indice, 2)}" />
                                                 <p:ajax event="dblclick" listener="#{controlUbicacionesGeograficas.asignarIndex(indice, 0, 2)}"/>
@@ -143,7 +143,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.direccion}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.direccion}" maxlength="60" id="editarCodigoCTT" style="height: 12px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
+                                            <p:inputText  autocomplete="off"  value="#{info.direccion}" maxlength="60" id="editarCodigoCTT" style="height: 12px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
                                                 <p:ajax event="change" listener="#{controlUbicacionesGeograficas.modificandoUbicacionGeografica(indice, 'N', info.direccion )}" update="@this" />
                                                 <p:ajax event="select" listener="#{controlUbicacionesGeograficas.cambiarIndice(indice, 3)}" />
                                             </p:inputText>
@@ -156,7 +156,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.telefono}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.telefono}" maxlength="12" id="editarTelefono" style="height: 12px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
+                                            <p:inputText  autocomplete="off"  value="#{info.telefono}" maxlength="12" id="editarTelefono" style="height: 12px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
                                                 <p:ajax event="change" listener="#{controlUbicacionesGeograficas.modificandoUbicacionGeografica(indice, 'N', info.telefono )}" update="@this" />
                                                 <p:ajax event="select" listener="#{controlUbicacionesGeograficas.cambiarIndice(indice, 4)}" />
                                             </p:inputText>
@@ -171,7 +171,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.fax}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.fax}" maxlength="12" id="editarFax" style="height: 12px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
+                                            <p:inputText  autocomplete="off"  value="#{info.fax}" maxlength="12" id="editarFax" style="height: 12px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
                                                 <p:ajax event="change" listener="#{controlUbicacionesGeograficas.modificandoUbicacionGeografica(indice, 'N', info.fax)}" update="@this" />
                                                 <p:ajax event="select" listener="#{controlUbicacionesGeograficas.cambiarIndice(indice, 5)}" />
                                             </p:inputText>
@@ -184,7 +184,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.observacion}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.observacion}" maxlength="50" id="editarObservacion" style="height: 12px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
+                                            <p:inputText  autocomplete="off"  value="#{info.observacion}" maxlength="50" id="editarObservacion" style="height: 12px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
                                                 <p:ajax event="change" listener="#{controlUbicacionesGeograficas.modificandoUbicacionGeografica(indice, 'N', info.observacion)}" update="@this" />
                                                 <p:ajax event="select" listener="#{controlUbicacionesGeograficas.cambiarIndice(indice, 6)}" />
                                             </p:inputText>
@@ -213,7 +213,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.actividadeconomica}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.actividadeconomica}" id="editarActividadEconomica" style="height: 12px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
+                                            <p:inputText  autocomplete="off"  value="#{info.actividadeconomica}" id="editarActividadEconomica" style="height: 12px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
                                                 <p:ajax event="change" listener="#{controlUbicacionesGeograficas.modificandoUbicacionGeografica(indice, 'N', info.actividadeconomica)}" update="@this" />
                                                 <p:ajax event="select" listener="#{controlUbicacionesGeograficas.cambiarIndice(indice, 8)}" />
                                             </p:inputText>
@@ -225,7 +225,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.sucursalPila.descripcion}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.sucursalPila.descripcion}" id="editarSucursalPila" style="height: 12px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
+                                            <p:inputText  autocomplete="off"  value="#{info.sucursalPila.descripcion}" id="editarSucursalPila" style="height: 12px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
                                                 <p:ajax event="change" listener="#{controlUbicacionesGeograficas.modificandoUbicacionGeografica(indice, 'SUCURSALESPILA', info.sucursalPila.descripcion)}" update="@this" />
                                                 <p:ajax event="select" listener="#{controlUbicacionesGeograficas.cambiarIndice(indice, 9)}" />
                                                 <p:ajax event="dblclick" listener="#{controlUbicacionesGeograficas.asignarIndex(indice, 0, 9)}"/>
@@ -241,7 +241,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.codigoalternativo}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.codigoalternativo}" maxlength="4" id="editarCodigoAT" style="height: 12px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
+                                            <p:inputText  autocomplete="off"  value="#{info.codigoalternativo}" maxlength="4" id="editarCodigoAT" style="height: 12px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
                                                 <p:ajax event="change" listener="#{controlUbicacionesGeograficas.modificandoUbicacionGeografica(indice, 'N', info.codigoalternativo )}" update="@this" />
                                                 <p:ajax event="select" listener="#{controlUbicacionesGeograficas.cambiarIndice(indice, 10)}" />
                                             </p:inputText>
@@ -264,7 +264,7 @@
 
                                 <f:facet name="header">  
                                     <h:outputText value="Buscar Ciudad"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovTipoUbicacionesGeograficas').filter();" style="width:150px; position: relative; left: 50px;" />  
+                                    <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovTipoUbicacionesGeograficas').filter();" style="width:150px; position: relative; left: 50px;" />  
                                 </f:facet>
                                 <p:column filterBy="#{ciudades.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 30px">
                                     <f:facet name="header">
@@ -295,7 +295,7 @@
 
                                 <f:facet name="header">  
                                     <h:outputText value="Buscar Sucursal Pila:"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovSucursalesPila').filter();" style="width:150px; position: relative; left: 50px;" />  
+                                    <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovSucursalesPila').filter();" style="width:150px; position: relative; left: 50px;" />  
                                 </f:facet>
                                 <p:column filterBy="#{sucursalPila.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 30px">
                                     <f:facet name="header">
@@ -423,19 +423,19 @@
 
                             <!--0-->
                             <strong><h:outputText value="*Codigo : " style="left: 10px; position: absolute; top: 60px; " /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaCodigoCC" value="#{controlUbicacionesGeograficas.nuevaUbicacionGeografica.codigo}" style=" width: 135px; position: absolute; left: 120px; top: 55px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="nuevaCodigoCC" value="#{controlUbicacionesGeograficas.nuevaUbicacionGeografica.codigo}" style=" width: 135px; position: absolute; left: 120px; top: 55px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevaCodigoCC" value="Codigo" />
 
                             <strong><h:outputText value="*Descripcion : " style="left: 10px; position: absolute; top: 90px; " /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaDescripcion" maxlength="40" value="#{controlUbicacionesGeograficas.nuevaUbicacionGeografica.descripcion}" style=" width: 135px; position: absolute; left: 120px; top: 85px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="nuevaDescripcion" maxlength="40" value="#{controlUbicacionesGeograficas.nuevaUbicacionGeografica.descripcion}" style=" width: 135px; position: absolute; left: 120px; top: 85px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevaDescripcion" value="Descripcion" />
 
                             <strong><h:outputText value="Ciudad:" style="left: 10px; position: absolute; top: 120px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaTipoCentroCostos" value="#{controlUbicacionesGeograficas.nuevaUbicacionGeografica.ciudad.nombre}" style=" width: 135px; position: absolute; left: 120px; top: 115px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="nuevaTipoCentroCostos" value="#{controlUbicacionesGeograficas.nuevaUbicacionGeografica.ciudad.nombre}" style=" width: 135px; position: absolute; left: 120px; top: 115px;text-transform: uppercase">
                                 <p:ajax event="click" listener="#{controlUbicacionesGeograficas.valoresBackupAutocompletar(1, 'CIUDADES')}" />
                                 <p:ajax event="change" listener="#{controlUbicacionesGeograficas.autocompletarNuevo('CIUDADES', controlUbicacionesGeograficas.nuevaUbicacionGeografica.ciudad.nombre , 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlUbicacionesGeograficas.asignarVariableTiposCC(0)}" />
@@ -444,25 +444,25 @@
                             <p:watermark for="nuevaTipoCentroCostos" value="Ciudad" />
 
                             <strong><h:outputText value="Direccion: " style="left: 10px; position: absolute; top: 150px; " /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaDireccion" value="#{controlUbicacionesGeograficas.nuevaUbicacionGeografica.direccion}" style=" width: 135px; position: absolute; left: 120px; top: 145px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="nuevaDireccion" value="#{controlUbicacionesGeograficas.nuevaUbicacionGeografica.direccion}" style=" width: 135px; position: absolute; left: 120px; top: 145px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevaDireccion" value="Direccion" />
 
 
                             <strong><h:outputText value="Telefono : " style="left: 10px; position: absolute; top: 180px; " /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaTelefono" maxlength="12" value="#{controlUbicacionesGeograficas.nuevaUbicacionGeografica.telefono}" style=" width: 135px; position: absolute; left: 120px; top: 175px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="nuevaTelefono" maxlength="12" value="#{controlUbicacionesGeograficas.nuevaUbicacionGeografica.telefono}" style=" width: 135px; position: absolute; left: 120px; top: 175px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevaTelefono" value="Telefono" />
                             <strong><h:outputText value="Fax : " style="left: 10px; position: absolute; top: 210px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaFax" maxlength="12" value="#{controlUbicacionesGeograficas.nuevaUbicacionGeografica.fax}" style=" width: 135px; position: absolute; left: 120px; top: 205px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="nuevaFax" maxlength="12" value="#{controlUbicacionesGeograficas.nuevaUbicacionGeografica.fax}" style=" width: 135px; position: absolute; left: 120px; top: 205px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevaFax" value="Fax" />
 
                             <strong><h:outputText value="Observacion : " style=" position: absolute; left:320px ;top: 60px; " /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaObservacion" maxlength="50" value="#{controlUbicacionesGeograficas.nuevaUbicacionGeografica.observacion}" style=" width: 135px; position: absolute; left: 480px; top: 55px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="nuevaObservacion" maxlength="50" value="#{controlUbicacionesGeograficas.nuevaUbicacionGeografica.observacion}" style=" width: 135px; position: absolute; left: 480px; top: 55px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevaObservacion" value="Observacion" />
@@ -477,13 +477,13 @@
                             <p:watermark for="nuevaZona" value="Zona" />
 
                             <strong><h:outputText value="Actividad Economica : " style=" position: absolute;left:320px ; top: 120px; " /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaAC" value="#{controlUbicacionesGeograficas.nuevaUbicacionGeografica.actividadeconomica}" style=" width: 135px; position: absolute; left: 480px; top: 115px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="nuevaAC" value="#{controlUbicacionesGeograficas.nuevaUbicacionGeografica.actividadeconomica}" style=" width: 135px; position: absolute; left: 480px; top: 115px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevaAC" value="Actividad Economica" />
 
                             <strong><h:outputText value="Sucursal:" style=" position: absolute;left:320px ; top: 150px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaSucursal" value="#{controlUbicacionesGeograficas.nuevaUbicacionGeografica.sucursalPila.descripcion}" style=" width: 135px; position: absolute; left: 480px; top: 145px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="nuevaSucursal" value="#{controlUbicacionesGeograficas.nuevaUbicacionGeografica.sucursalPila.descripcion}" style=" width: 135px; position: absolute; left: 480px; top: 145px;text-transform: uppercase">
                                 <p:ajax event="click" listener="#{controlUbicacionesGeograficas.valoresBackupAutocompletar(1, 'SUCURSALESPILA')}" />
                                 <p:ajax event="change" listener="#{controlUbicacionesGeograficas.autocompletarNuevo('SUCURSALESPILA', controlUbicacionesGeograficas.nuevaUbicacionGeografica.sucursalPila.descripcion , 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlUbicacionesGeograficas.asignarVariableSucursalesPila(0)}" />
@@ -492,7 +492,7 @@
                             <p:watermark for="nuevaSucursal" value="Sucursal" />
 
                             <strong><h:outputText value="Codigo Alternativo : " style=" position: absolute;left:320px ; top: 180px; " /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaCA" maxlength="4" value="#{controlUbicacionesGeograficas.nuevaUbicacionGeografica.codigoalternativo}" style=" width: 135px; position: absolute; left: 480px; top: 175px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="nuevaCA" maxlength="4" value="#{controlUbicacionesGeograficas.nuevaUbicacionGeografica.codigoalternativo}" style=" width: 135px; position: absolute; left: 480px; top: 175px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevaCA" value="Codigo Alternativo" />
@@ -519,19 +519,19 @@
                         <p:panel id="duplicarUbicacionGeograficas" style="border: none;">
                             <!--0-->
                             <strong><h:outputText value="Codigo : " style="left: 10px; position: absolute; top: 60px; " /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarCodigo" value="#{controlUbicacionesGeograficas.duplicarUbicacionGeografica.codigo}" style=" width: 135px; position: absolute; left: 120px; top: 55px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="duplicarCodigo" value="#{controlUbicacionesGeograficas.duplicarUbicacionGeografica.codigo}" style=" width: 135px; position: absolute; left: 120px; top: 55px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarCodigo" value="Codigo" />
 
                             <strong><h:outputText value="Descripcion : " style="left: 10px; position: absolute; top: 90px; " /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarDescripcion" maxlength="40" value="#{controlUbicacionesGeograficas.duplicarUbicacionGeografica.descripcion}" style=" width: 135px; position: absolute; left: 120px; top: 85px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="duplicarDescripcion" maxlength="40" value="#{controlUbicacionesGeograficas.duplicarUbicacionGeografica.descripcion}" style=" width: 135px; position: absolute; left: 120px; top: 85px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarDescripcion" value="Descripcion" />
 
                             <strong><h:outputText value="Ciudad" style="left: 10px; position: absolute; top: 120px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarTipoCentroCostos" value="#{controlUbicacionesGeograficas.duplicarUbicacionGeografica.ciudad.nombre}" style=" width: 135px; position: absolute; left: 120px; top: 115px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="duplicarTipoCentroCostos" value="#{controlUbicacionesGeograficas.duplicarUbicacionGeografica.ciudad.nombre}" style=" width: 135px; position: absolute; left: 120px; top: 115px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlUbicacionesGeograficas.valoresBackupAutocompletar(2, 'CIUDADES')}" />
                                 <p:ajax event="change" listener="#{controlUbicacionesGeograficas.autocompletarDuplicado('CIUDADES', controlBetaCentrosCostos.duplicarCentroCosto.tipocentrocosto.nombre , 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlUbicacionesGeograficas.asignarVariableTiposCC(1)}" />
@@ -541,26 +541,26 @@
 
 
                             <strong><h:outputText value="Direccion: " style="left: 10px; position: absolute; top: 150px; " /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarDireccion" maxlength="60" value="#{controlUbicacionesGeograficas.duplicarUbicacionGeografica.direccion}" style=" width: 135px; position: absolute; left: 120px; top: 145px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="duplicarDireccion" maxlength="60" value="#{controlUbicacionesGeograficas.duplicarUbicacionGeografica.direccion}" style=" width: 135px; position: absolute; left: 120px; top: 145px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarDireccion" value="Direccion" />
 
 
                             <strong><h:outputText value="Telefono : " style="left: 10px; position: absolute; top: 180px; " /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarTelefono" maxlength="12" value="#{controlUbicacionesGeograficas.duplicarUbicacionGeografica.telefono}" style=" width: 135px; position: absolute; left: 120px; top: 175px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="duplicarTelefono" maxlength="12" value="#{controlUbicacionesGeograficas.duplicarUbicacionGeografica.telefono}" style=" width: 135px; position: absolute; left: 120px; top: 175px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarTelefono" value="Telefono" />
 
                             <strong><h:outputText value="Fax : " style="left: 10px; position: absolute; top: 210px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarFax" maxlength="12" value="#{controlUbicacionesGeograficas.duplicarUbicacionGeografica.fax}" style=" width: 135px; position: absolute; left: 120px; top: 205px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="duplicarFax" maxlength="12" value="#{controlUbicacionesGeograficas.duplicarUbicacionGeografica.fax}" style=" width: 135px; position: absolute; left: 120px; top: 205px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarFax" value="Fax" />
 
                             <strong><h:outputText value="Observacion : " style=" position: absolute; left: 320px;top: 60px; " /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarObservacion" maxlength="50" value="#{controlUbicacionesGeograficas.duplicarUbicacionGeografica.observacion}" style=" width: 135px; position: absolute; left: 480px; top: 55px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="duplicarObservacion" maxlength="50" value="#{controlUbicacionesGeograficas.duplicarUbicacionGeografica.observacion}" style=" width: 135px; position: absolute; left: 480px; top: 55px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarObservacion" value="Observacion" />
@@ -575,14 +575,14 @@
                             <p:watermark for="duplicarZona" value="Zona" />
 
                             <strong><h:outputText value="Actividad Economica : " style=" position: absolute;left:320px ; top: 120px; " /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarAC" value="#{controlUbicacionesGeograficas.duplicarUbicacionGeografica.actividadeconomica}" style=" width: 135px; position: absolute; left: 480px; top: 115px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="duplicarAC" value="#{controlUbicacionesGeograficas.duplicarUbicacionGeografica.actividadeconomica}" style=" width: 135px; position: absolute; left: 480px; top: 115px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarAC" value="Actividad Economica" />
 
 
                             <strong><h:outputText value="Sucural :" style=" position: absolute;left: 320px; top: 150px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarSucursalPila" value="#{controlUbicacionesGeograficas.duplicarUbicacionGeografica.sucursalPila.descripcion}" style=" width: 135px; position: absolute; left: 480px; top: 145px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="duplicarSucursalPila" value="#{controlUbicacionesGeograficas.duplicarUbicacionGeografica.sucursalPila.descripcion}" style=" width: 135px; position: absolute; left: 480px; top: 145px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlUbicacionesGeograficas.valoresBackupAutocompletar(2, 'SUCURSALESPILA')}" />
                                 <p:ajax event="change" listener="#{controlUbicacionesGeograficas.autocompletarDuplicado('SUCURSALESPILA', controlUbicacionesGeograficas.duplicarUbicacionGeografica.sucursalPila.descripcion , 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlUbicacionesGeograficas.asignarVariableSucursalesPila(1)}" />
@@ -591,7 +591,7 @@
                             <p:watermark for="duplicarSucursalPila" value="Sucursal Pila" />
 
                             <strong><h:outputText value="Codigo Alternativo : " style=" position: absolute;left: 320px; top: 180px; " /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarCA" maxlength="4" value="#{controlUbicacionesGeograficas.duplicarUbicacionGeografica.codigoalternativo}" style=" width: 135px; position: absolute; left: 480px; top: 175px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="duplicarCA" maxlength="4" value="#{controlUbicacionesGeograficas.duplicarUbicacionGeografica.codigoalternativo}" style=" width: 135px; position: absolute; left: 480px; top: 175px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarCA" value="Codigo Alternativo" />
@@ -614,7 +614,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlUbicacionesGeograficas.cambiarEmpresa()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="buscar empresa :"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovEmpresas').filter();" style="width:120px; position: relative; left: 40px;" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovEmpresas').filter();" style="width:120px; position: relative; left: 40px;" />  
                             </f:facet>
                             <p:column filterBy="#{empresa.nit}" width="60" filterMatchMode="contains" filterStyle="width: 50px">
                                 <f:facet name="header">

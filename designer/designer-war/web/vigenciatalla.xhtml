@@ -97,7 +97,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.fechavigencia}"> 
+                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.fechavigencia}"> 
                                                 <p:ajax event="select" listener="#{controlVigenciasTallas.cambiarIndice(indice, 0)}" process="@this"/>  
                                                 <p:ajax event="change" listener="#{controlVigenciasTallas.mostrarInfo(indice,0)}" process="@this"/> 
                                                 <p:ajax event="dateSelect" listener="#{controlVigenciasTallas.mostrarInfo(indice,0)}" process="@this" update="dateFechaInicial"/>
@@ -111,7 +111,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.tipoTalla.descripcion}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.tipoTalla.descripcion}" maxlength="50" id="editarparentesco" style="height: 12px;  border-radius: 0px; width: 210px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"  value="#{info.tipoTalla.descripcion}" maxlength="50" id="editarparentesco" style="height: 12px;  border-radius: 0px; width: 210px; text-transform: uppercase"  > 
                                                 <p:ajax event="click" listener="#{controlVigenciasTallas.cambiarIndice(indice, 1)}" process="@this"/> 
                                                 <p:ajax event="dblclick" listener="#{controlVigenciasTallas.asignarIndex(indice, 0,1)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlVigenciasTallas.modificarVigenciasTallas(indice, 'TIPOSTALLAS', info.tipoTalla.descripcion)}"/>
@@ -129,7 +129,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.talla}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.talla}" maxlength="50" id="editarCargo" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"  value="#{info.talla}" maxlength="50" id="editarCargo" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlVigenciasTallas.cambiarIndice(indice, 2)}" process="@this"/> 
                                                 <p:ajax event="change"  listener="#{controlVigenciasTallas.modificarVigenciasTallas(indice, 'N', info.talla)}" update="idTalla"/>
                                             </p:inputText>
@@ -143,7 +143,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.observaciones}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.observaciones}" maxlength="12" id="editarTelefono" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"  value="#{info.observaciones}" maxlength="12" id="editarTelefono" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlVigenciasTallas.cambiarIndice(indice, 3)}" process="@this"/> 
                                                 <p:ajax event="change"  listener="#{controlVigenciasTallas.modificarVigenciasTallas(indice, 'N', info.observaciones)}" update="idObservaciones"/>
                                             </p:inputText>
@@ -171,7 +171,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlVigenciasTallas.actualizarTipoFamiliar()}" process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="Buscar Parentesco"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovTiposTallas').filter();" style="width:150px; position: relative; left: 50px;" />  
+                                    <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovTiposTallas').filter();" style="width:150px; position: relative; left: 50px;" />  
                                 </f:facet>
                                 <p:column filterBy="#{tipotallita.codigo}" width="60" filterStyle="width:50px;" filterMatchMode="contains">
                                     <f:facet name="header">
@@ -310,7 +310,7 @@
 
                             <strong><h:outputText value="*Fecha:"  style=" position: absolute; top: 60px;" /></strong>
                             <div  id="nuevaFechaa" style="width: 135px; position: absolute; top: 55px; left: 150px;">
-                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="nuevaFecha" value="#{controlVigenciasTallas.nuevoVigenciaTalla.fechavigencia}">
+                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFecha" value="#{controlVigenciasTallas.nuevoVigenciaTalla.fechavigencia}">
                                     <p:ajax event="dateSelect" update="nuevaFecha"/>
                                     <p:ajax event="change" update="nuevaFecha"/>
                                 </p:calendar>
@@ -318,7 +318,7 @@
                             <p:watermark for="nuevaFecha" value="Fecha" />
 
                             <strong><h:outputText value="*Tipo Talla : " style=" position: absolute; top: 90px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoTipoTalla" value="#{controlVigenciasTallas.nuevoVigenciaTalla.tipoTalla.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 85px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="nuevoTipoTalla" value="#{controlVigenciasTallas.nuevoVigenciaTalla.tipoTalla.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 85px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlVigenciasTallas.valoresBackupAutocompletar(1, 'TIPOSTALLAS')}" />
                                 <p:ajax event="change" listener="#{controlVigenciasTallas.autocompletarNuevoyDuplicado('TIPOSTALLAS', controlVigenciasTallas.nuevoVigenciaTalla.tipoTalla.descripcion, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlVigenciasTallas.asignarVariableTiposTallasNuevo(0)}" />
@@ -327,14 +327,14 @@
                             <p:watermark for="nuevoTipoTalla" value="Tipo Talla" />
 
                             <strong><h:outputText value="Talla :"  style=" position: absolute; top: 120px;" /></strong>
-                            <p:inputText  autocomplete="false"   id="newTalla" maxlength="12" value="#{controlVigenciasTallas.nuevoVigenciaTalla.talla}" style=" width: 140px; position: absolute; left: 150px; top: 115px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"   id="newTalla" maxlength="12" value="#{controlVigenciasTallas.nuevoVigenciaTalla.talla}" style=" width: 140px; position: absolute; left: 150px; top: 115px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="newTalla" value="Talla" />
 
 
                             <strong><h:outputText value="Observación :"  style=" position: absolute; top: 150px;" /></strong>
-                            <p:inputText  autocomplete="false"   id="newObservacion" maxlength="12" value="#{controlVigenciasTallas.nuevoVigenciaTalla.observaciones}" style="width: 140px;position: absolute; left: 150px; top: 145px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"   id="newObservacion" maxlength="12" value="#{controlVigenciasTallas.nuevoVigenciaTalla.observaciones}" style="width: 140px;position: absolute; left: 150px; top: 145px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="newObservacion" value="Observacion" />
@@ -360,7 +360,7 @@
 
                             <strong><h:outputText value="*Fecha:"  style=" position: absolute; top: 60px;" /></strong>
                             <div  id="duplicarFechaa" style="width: 135px; position: absolute; top: 55px; left: 150px;">
-                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="duplicarFecha" value="#{controlVigenciasTallas.duplicarVigenciaTalla.fechavigencia}">
+                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFecha" value="#{controlVigenciasTallas.duplicarVigenciaTalla.fechavigencia}">
                                     <p:ajax event="dateSelect" update="duplicarFecha"/>
                                     <p:ajax event="change" update="duplicarFecha"/>
                                 </p:calendar>
@@ -368,7 +368,7 @@
                             <p:watermark for="duplicarFecha" value="Fecha" />
 
                             <strong><h:outputText value="*Tipo Talla : " style=" position: absolute; top: 90px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarDescripcionTipoTallas" value="#{controlVigenciasTallas.duplicarVigenciaTalla.tipoTalla.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 85px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="duplicarDescripcionTipoTallas" value="#{controlVigenciasTallas.duplicarVigenciaTalla.tipoTalla.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 85px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlVigenciasTallas.valoresBackupAutocompletar(2, 'TIPOSTALLAS')}" />
                                 <p:ajax event="change" listener="#{controlVigenciasTallas.autocompletarDuplicado('TIPOSTALLAS', controlVigenciasTallas.duplicarVigenciaTalla.tipoTalla.descripcion, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlVigenciasTallas.asignarVariableTiposTallasNuevo(1)}" />
@@ -377,13 +377,13 @@
                             <p:watermark for="duplicarDescripcionTipoTallas" value="Tipo Talla" />
 
                             <strong><h:outputText value="Talla :"  style=" position: absolute; top: 120px;" /></strong>
-                            <p:inputText  autocomplete="false"   id="duplicarCargo" maxlength="50" value="#{controlVigenciasTallas.duplicarVigenciaTalla.talla}" style=" width: 140px; position: absolute; left: 150px; top: 115px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"   id="duplicarCargo" maxlength="50" value="#{controlVigenciasTallas.duplicarVigenciaTalla.talla}" style=" width: 140px; position: absolute; left: 150px; top: 115px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarCargo" value="Cargo" />
 
                             <strong><h:outputText value="Observacion:"  style=" position: absolute; top: 150px;" /></strong>
-                            <p:inputText  autocomplete="false"   id="duplicarCelular" maxlength="12" value="#{controlVigenciasTallas.duplicarVigenciaTalla.observaciones}" style="width: 140px;position: absolute; left: 150px; top: 145px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"   id="duplicarCelular" maxlength="12" value="#{controlVigenciasTallas.duplicarVigenciaTalla.observaciones}" style="width: 140px;position: absolute; left: 150px; top: 145px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarCelular" value="Celular" />

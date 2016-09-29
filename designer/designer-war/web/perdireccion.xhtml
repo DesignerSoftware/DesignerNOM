@@ -109,7 +109,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar  autocomplete="false"  pattern="dd/MM/yyyy" id="editFecha" value="#{direccion.fechavigencia}">
+                                            <p:calendar  autocomplete="off"  pattern="dd/MM/yyyy" id="editFecha" value="#{direccion.fechavigencia}">
                                                 <p:ajax event="dateSelect"  update="editFecha"/>
                                                 <p:ajax event="change" />
                                                 <p:ajax event="select" listener="#{controlPerDirecciones.cambiarIndice(direccion, 0)}" />
@@ -152,7 +152,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{direccion.ppal}" style="text-transform: uppercase " /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{direccion.ppal}" id="editarDescripcionUbicacionPrincipal" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px;" > 
+                                            <p:inputText  autocomplete="off"  value="#{direccion.ppal}" id="editarDescripcionUbicacionPrincipal" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px;" > 
                                                 <p:ajax event="select" listener="#{controlPerDirecciones.cambiarIndice(direccion, 2)}" />
                                                 <p:ajax event="change" listener="#{controlPerDirecciones.modificarDirecciones(direccion, 'N', direccion.ppal)}"/>
                                             </p:inputText>
@@ -194,7 +194,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{direccion.secundario}" style="text-transform: uppercase "/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{direccion.secundario}" id="editarDescripcionUbicacionSecundaria" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px;" > 
+                                            <p:inputText  autocomplete="off"  value="#{direccion.secundario}" id="editarDescripcionUbicacionSecundaria" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px;" > 
                                                 <p:ajax event="select" listener="#{controlPerDirecciones.cambiarIndice(direccion, 4)}" />
                                                 <p:ajax event="change" listener="#{controlPerDirecciones.modificarDirecciones(direccion, 'N', direccion.secundario)}"/>
                                             </p:inputText>
@@ -214,7 +214,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{direccion.interior}" style="text-transform: uppercase "/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{direccion.interior}" id="editarInterior" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px;" > 
+                                            <p:inputText  autocomplete="off"  value="#{direccion.interior}" id="editarInterior" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px;" > 
                                                 <p:ajax event="select" listener="#{controlPerDirecciones.cambiarIndice(direccion, 5)}" />
                                                 <p:ajax event="change" listener="#{controlPerDirecciones.modificarDirecciones(direccion, 'N', direccion.interior)}"/>
                                             </p:inputText>
@@ -231,7 +231,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{direccion.ciudad.nombre}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{direccion.ciudad.nombre}" id="editarCiudad" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px;" > 
+                                            <p:inputText  autocomplete="off"  value="#{direccion.ciudad.nombre}" id="editarCiudad" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px;" > 
                                                 <p:ajax event="change" listener="#{controlPerDirecciones.modificarDirecciones(direccion, 'CIUDAD', direccion.ciudad.nombre)}"/>
                                                 <p:ajax event="select" listener="#{controlPerDirecciones.cambiarIndice(direccion, 6)}" />
                                                 <p:ajax event="dblclick" listener="#{controlPerDirecciones.asignarIndex(direccion)}"/>
@@ -284,7 +284,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{direccion.direccionalternativa}" style="text-transform: uppercase"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{direccion.direccionalternativa}" id="editarDireccionAlternativa" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px;" > 
+                                            <p:inputText  autocomplete="off"  value="#{direccion.direccionalternativa}" id="editarDireccionAlternativa" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px;" > 
                                                 <p:ajax event="select" listener="#{controlPerDirecciones.cambiarIndice(direccion, 9)}" />
                                                 <p:ajax event="change" listener="#{controlPerDirecciones.modificarDirecciones(direccion, 'N', direccion.direccionalternativa)}"/>
                                             </p:inputText>
@@ -322,7 +322,7 @@
 
                             <strong><h:outputText value="*Fecha: " style=" position: absolute; top: 85px;" /></strong>
                             <div style=" position: absolute; top: 80px; left: 200px;">
-                                <p:calendar  autocomplete="false"  pattern="dd/MM/yyyy" id="nuevaFecha" value="#{controlPerDirecciones.nuevaDireccion.fechavigencia}">
+                                <p:calendar  autocomplete="off"  pattern="dd/MM/yyyy" id="nuevaFecha" value="#{controlPerDirecciones.nuevaDireccion.fechavigencia}">
                                     <p:ajax event="dateSelect" update="@this"/>
                                     <p:ajax event="change" update="@this"/>
                                 </p:calendar>
@@ -342,7 +342,7 @@
                             <p:watermark for="nuevaUbicacionPrincipal" value="Ubicacion Principal" />
 
                             <strong><h:outputText value="*Descripcion U. Principal:  " style=" position: absolute; top: 155px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaDescripcionUbicacionPrincipal" value="#{controlPerDirecciones.nuevaDireccion.ppal}" style=" width: 122px; position: absolute; left: 200px; top: 150px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="nuevaDescripcionUbicacionPrincipal" value="#{controlPerDirecciones.nuevaDireccion.ppal}" style=" width: 122px; position: absolute; left: 200px; top: 150px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="nuevaDescripcionUbicacionPrincipal"/>
                             </p:inputText>
                             <p:watermark for="nuevaDescripcionUbicacionPrincipal" value="Descripcion Ubicacion Principal" />
@@ -361,19 +361,19 @@
                             <p:watermark for="nuevaUbicacionSecundaria" value="Ubicacion Secundaria" />
 
                             <strong><h:outputText value="*Descripcion U. Secundaria: " style=" position: absolute; top: 225px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaDescripcionUbicacionSecundaria" value="#{controlPerDirecciones.nuevaDireccion.secundario}" style=" width: 122px; position: absolute; left: 200px; top: 220px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="nuevaDescripcionUbicacionSecundaria" value="#{controlPerDirecciones.nuevaDireccion.secundario}" style=" width: 122px; position: absolute; left: 200px; top: 220px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="nuevaDescripcionUbicacionSecundaria"/>
                             </p:inputText>
                             <p:watermark for="nuevaDescripcionUbicacionSecundaria" value="Descripcion Ubicacion Secundaria" />
 
                             <strong><h:outputText value="* Barrio: " style=" position: absolute; top: 260px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoInterior" value="#{controlPerDirecciones.nuevaDireccion.interior}" style=" width: 122px; position: absolute; left: 200px; top: 255px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="nuevoInterior" value="#{controlPerDirecciones.nuevaDireccion.interior}" style=" width: 122px; position: absolute; left: 200px; top: 255px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="nuevoInterior"/>
                             </p:inputText>
                             <p:watermark for="nuevoInterior" value="Barrio" />                            
 
                             <strong><h:outputText value="*Ciudad: " style=" position: absolute; top: 295px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaCiudad" value="#{controlPerDirecciones.nuevaDireccion.ciudad.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 290px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="nuevaCiudad" value="#{controlPerDirecciones.nuevaDireccion.ciudad.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 290px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlPerDirecciones.valoresBackupAutocompletar(1)}" />
                                 <p:ajax event="change" listener="#{controlPerDirecciones.autocompletarNuevoyDuplicado(controlPerDirecciones.nuevaDireccion.ciudad.nombre, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlPerDirecciones.llamarLovCiudad(1)}" />
@@ -399,7 +399,7 @@
                             <p:watermark for="nuevaHipoteca" value="Hipoteca" />
 
                             <strong><h:outputText value="Direccion Alternativa: "  style=" position: absolute; top: 400px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaDireccionAlternativa" value="#{controlPerDirecciones.nuevaDireccion.direccionalternativa}" style=" width: 122px; position: absolute; left: 200px; top: 395px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="nuevaDireccionAlternativa" value="#{controlPerDirecciones.nuevaDireccion.direccionalternativa}" style=" width: 122px; position: absolute; left: 200px; top: 395px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="nuevaDireccionAlternativa"/>
                                 <p:ajax event="click" listener="#{controlPerDirecciones.pregunta(1)}"/>
                             </p:inputText>
@@ -421,7 +421,7 @@
                             
                             <strong><h:outputText value="*Fecha: " style=" position: absolute; top: 85px;" /></strong>
                             <div style=" position: absolute; top: 80px; left: 200px;">
-                                <p:calendar  autocomplete="false"  pattern="dd/MM/yyyy" id="duplicarFecha" value="#{controlPerDirecciones.duplicarDireccion.fechavigencia}">
+                                <p:calendar  autocomplete="off"  pattern="dd/MM/yyyy" id="duplicarFecha" value="#{controlPerDirecciones.duplicarDireccion.fechavigencia}">
                                     <p:ajax event="dateSelect" update="@this"/>
                                     <p:ajax event="change" update="@this"/>
                                 </p:calendar>
@@ -441,7 +441,7 @@
                             <p:watermark for="duplicarUbicacionPrincipal" value="Ubicacion Principal" />
 
                             <strong><h:outputText value="*Descripcion U. Principal:  " style=" position: absolute; top: 155px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarDescripcionUbicacionPrincipal" value="#{controlPerDirecciones.duplicarDireccion.ppal}" style=" width: 122px; position: absolute; left: 200px; top: 150px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="duplicarDescripcionUbicacionPrincipal" value="#{controlPerDirecciones.duplicarDireccion.ppal}" style=" width: 122px; position: absolute; left: 200px; top: 150px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="duplicarDescripcionUbicacionPrincipal"/>
                             </p:inputText>
                             <p:watermark for="duplicarDescripcionUbicacionPrincipal" value="Descripcion Ubicacion Principal" />
@@ -460,19 +460,19 @@
                             <p:watermark for="duplicarUbicacionSecundaria" value="Ubicacion Secundaria" />
 
                             <strong><h:outputText value="*Descripcion U. Secundaria: " style=" position: absolute; top: 225px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarDescripcionUbicacionSecundaria" value="#{controlPerDirecciones.duplicarDireccion.secundario}" style=" width: 122px; position: absolute; left: 200px; top: 220px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="duplicarDescripcionUbicacionSecundaria" value="#{controlPerDirecciones.duplicarDireccion.secundario}" style=" width: 122px; position: absolute; left: 200px; top: 220px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="duplicarDescripcionUbicacionSecundaria"/>
                             </p:inputText>
                             <p:watermark for="duplicarDescripcionUbicacionSecundaria" value="Descripcion Ubicacion Secundaria" />
 
                             <strong><h:outputText value="* Barrio: " style=" position: absolute; top: 260px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarInterior" value="#{controlPerDirecciones.duplicarDireccion.interior}" style=" width: 122px; position: absolute; left: 200px; top: 255px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="duplicarInterior" value="#{controlPerDirecciones.duplicarDireccion.interior}" style=" width: 122px; position: absolute; left: 200px; top: 255px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="duplicarInterior"/>
                             </p:inputText>
                             <p:watermark for="duplicarInterior" value="Barrio" />                            
 
                             <strong><h:outputText value="*Ciudad: " style=" position: absolute; top: 295px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarCiudad" value="#{controlPerDirecciones.duplicarDireccion.ciudad.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 290px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="duplicarCiudad" value="#{controlPerDirecciones.duplicarDireccion.ciudad.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 290px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlPerDirecciones.valoresBackupAutocompletar(2)}" />
                                 <p:ajax event="change" listener="#{controlPerDirecciones.autocompletarNuevoyDuplicado(controlPerDirecciones.duplicarDireccion.ciudad.nombre, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlPerDirecciones.llamarLovCiudad(2)}" />
@@ -498,7 +498,7 @@
                             <p:watermark for="duplicarHipoteca" value="Hipoteca" />
 
                             <strong><h:outputText value="Direccion Alternativa: "  style=" position: absolute; top: 400px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarDireccionAlternativa" value="#{controlPerDirecciones.duplicarDireccion.direccionalternativa}" style=" width: 122px; position: absolute; left: 200px; top: 395px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="duplicarDireccionAlternativa" value="#{controlPerDirecciones.duplicarDireccion.direccionalternativa}" style=" width: 122px; position: absolute; left: 200px; top: 395px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="duplicarDireccionAlternativa"/>
                                 <p:ajax event="click" listener="#{controlPerDirecciones.pregunta(2)}"/>
                             </p:inputText>
@@ -537,7 +537,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlPerDirecciones.actualizarCiudades()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarC']}" />  
-                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="LOVCiudades.filter();" class="cssFiltroLOV" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="LOVCiudades.filter();" class="cssFiltroLOV" />  
                             </f:facet>
 
                             <p:column  filterBy="#{ciudad.nombre}" width="50" filterMatchMode="contains" filterStyle="width: 100px;" > 

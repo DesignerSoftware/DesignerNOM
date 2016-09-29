@@ -94,7 +94,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{g.codigo}" style="text-transform: uppercase;"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="false"  value="#{g.codigo}" id="editarCodigo" style="font-size: 10px; border-radius: 0px; width: 93.5%;text-transform: uppercase;"> 
+                                 <p:inputText  autocomplete="off"  value="#{g.codigo}" id="editarCodigo" style="font-size: 10px; border-radius: 0px; width: 93.5%;text-transform: uppercase;"> 
                                     <p:ajax event="select" listener="#{controlGrupoConcepto.cambiarIndice(indice, 0)}"/>
                                     <p:ajax event="change" listener="#{controlGrupoConcepto.modificarGruposConceptos(indice, 'N', g.codigo)}"/>
                                  </p:inputText>
@@ -112,7 +112,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{g.descripcion}" style="text-transform: uppercase;" /></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="false"  value="#{g.descripcion}" id="editarDescripcion" style="font-size: 10px; border-radius: 0px; width: 93.5%;text-transform: uppercase;"> 
+                                 <p:inputText  autocomplete="off"  value="#{g.descripcion}" id="editarDescripcion" style="font-size: 10px; border-radius: 0px; width: 93.5%;text-transform: uppercase;"> 
                                     <p:ajax event="select" listener="#{controlGrupoConcepto.cambiarIndice(indice, 1)}"/>
                                     <p:ajax event="change" listener="#{controlGrupoConcepto.modificarGruposConceptos(indice, 'N', g.descripcion)}"/>
                                  </p:inputText>
@@ -157,7 +157,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{v.concepto.codigoSTR}" /></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="false"  value="#{v.concepto.codigoSTR}" id="editarCodigoVGC" style="font-size: 10px; border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                 <p:inputText  autocomplete="off"  value="#{v.concepto.codigoSTR}" id="editarCodigoVGC" style="font-size: 10px; border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                     <p:ajax event="change" listener="#{controlGrupoConcepto.modificarVigenciasGruposConceptos(indiceD, 'CONCEPTO', v.concepto.codigoSTR)}"/>
                                     <p:ajax event="select" listener="#{controlGrupoConcepto.cambiarIndiceD(indiceD, 0)}" />
                                     <p:ajax event="dblclick" listener="#{controlGrupoConcepto.asignarIndex(indiceD,0,0)}"/>
@@ -177,7 +177,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{v.concepto.descripcion}" style="text-transform: uppercase " /></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="false"  value="#{v.concepto.descripcion}" id="editarDescripcionVGC" style="font-size: 10px; border-radius: 0px; width: 93.5%;text-transform: uppercase" > 
+                                 <p:inputText  autocomplete="off"  value="#{v.concepto.descripcion}" id="editarDescripcionVGC" style="font-size: 10px; border-radius: 0px; width: 93.5%;text-transform: uppercase" > 
                                     <p:ajax event="select" listener="#{controlGrupoConcepto.cambiarIndiceD(indiceD, 1)}" />
                                     <p:ajax event="change" listener="#{controlGrupoConcepto.modificarVigenciasGruposConceptos(indiceD, 'N', v.concepto.descripcion)}"/>
                                  </p:inputText>
@@ -196,7 +196,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{v.concepto.naturalezaConcepto}" style="text-transform: uppercase " /></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="false"  value="#{v.concepto.naturalezaConcepto}" id="editarNaturalezaVGC" style="font-size: 10px; border-radius: 0px; width: 93.5%;text-transform: uppercase" > 
+                                 <p:inputText  autocomplete="off"  value="#{v.concepto.naturalezaConcepto}" id="editarNaturalezaVGC" style="font-size: 10px; border-radius: 0px; width: 93.5%;text-transform: uppercase" > 
                                     <p:ajax event="select" listener="#{controlGrupoConcepto.cambiarIndiceD(indiceD, 2)}" />
                                     <p:ajax event="change" listener="#{controlGrupoConcepto.modificarVigenciasGruposConceptos(indiceD, 'N', v.concepto.naturalezaConcepto)}"/>
                                  </p:inputText>
@@ -215,7 +215,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{v.fechainicial}" > 
+                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{v.fechainicial}" > 
                                     <p:ajax event="dateSelect" listener="#{controlGrupoConcepto.modificarFechas(indiceD,3)}" update="dateFechaInicial" process="@this"/>
                                     <p:ajax event="change" listener="#{controlGrupoConcepto.modificarFechas(indiceD,3)}" update="dateFechaInicial" process="@this"/>
                                     <p:ajax event="select" listener="#{controlGrupoConcepto.cambiarIndiceD(indiceD,3)}" process="@this"/> 
@@ -235,7 +235,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="dateFechaFinal" value="#{v.fechafinal}" > 
+                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaFinal" value="#{v.fechafinal}" > 
                                     <p:ajax event="dateSelect" listener="#{controlGrupoConcepto.modificarFechas(indiceD,4)}" update="dateFechaFinal" process="@this"/>
                                     <p:ajax event="change" listener="#{controlGrupoConcepto.modificarFechas(indiceD,4)}" update="dateFechaFinal" process="@this"/>
                                     <p:ajax event="select" listener="#{controlGrupoConcepto.cambiarIndiceD(indiceD,4)}" process="@this"/> 
@@ -251,7 +251,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{v.concepto.empresa.nombre}" /></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="false"  value="#{v.concepto.empresa.nombre}" id="editarEmpresaVGC" style="font-size: 10px; border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                 <p:inputText  autocomplete="off"  value="#{v.concepto.empresa.nombre}" id="editarEmpresaVGC" style="font-size: 10px; border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                     <p:ajax event="change" listener="#{controlGrupoConcepto.modificarVigenciasGruposConceptos(indiceD, 'EMPRESA', v.concepto.empresa.nombre)}"/>
                                     <p:ajax event="select" listener="#{controlGrupoConcepto.cambiarIndiceD(indiceD,5)}" />
                                     <p:ajax event="dblclick" listener="#{controlGrupoConcepto.asignarIndex(indiceD,0,0)}"/>
@@ -284,12 +284,12 @@
                      <fieldset style="position: absolute; left: 10px; top: 40px; font-size: 11px; width: 285px; height: 138px; border-radius: 10px; ">
 
                         <strong><h:outputText value="#{msg['codigoN']}" style="font-size: 12px; position: absolute; top: 19px;" /></strong>
-                        <p:inputText  autocomplete="false"  maxlength="7" id="nuevoCodigo" value="#{controlGrupoConcepto.nuevoGruposConceptos.codigo}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 15px; text-transform: uppercase" onclick="select();">
+                        <p:inputText  autocomplete="off"  maxlength="7" id="nuevoCodigo" value="#{controlGrupoConcepto.nuevoGruposConceptos.codigo}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 15px; text-transform: uppercase" onclick="select();">
                            <p:ajax event="change" update="nuevoCodigo" />
                         </p:inputText>
 
                         <strong><h:outputText value="#{msg['descripcionN']}" style="font-size: 12px; position: absolute; top: 59px;" /></strong>
-                        <p:inputText  autocomplete="false"  maxlength="50" id="nuevoDescripcion" value="#{controlGrupoConcepto.nuevoGruposConceptos.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 57px; text-transform: uppercase" onclick="select();">
+                        <p:inputText  autocomplete="off"  maxlength="50" id="nuevoDescripcion" value="#{controlGrupoConcepto.nuevoGruposConceptos.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 57px; text-transform: uppercase" onclick="select();">
                            <p:ajax event="change" update="nuevoDescripcion" />
                         </p:inputText>
 
@@ -320,12 +320,12 @@
                      <fieldset style="position: absolute; left: 10px; top: 40px; font-size: 11px; width: 285px; height: 138px; border-radius: 10px; ">
 
                         <strong><h:outputText value="#{msg['codigoN']}" style="font-size: 12px; position: absolute; top: 19px;" /></strong>
-                        <p:inputText  autocomplete="false"  maxlength="7" id="duplicarCodigo" value="#{controlGrupoConcepto.duplicarGruposConceptos.codigo}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 15px; text-transform: uppercase" onclick="select();">
+                        <p:inputText  autocomplete="off"  maxlength="7" id="duplicarCodigo" value="#{controlGrupoConcepto.duplicarGruposConceptos.codigo}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 15px; text-transform: uppercase" onclick="select();">
                            <p:ajax event="change" update="duplicarCodigo" />
                         </p:inputText>
 
                         <strong><h:outputText value="#{msg['descripcionN']}" style="font-size: 12px; position: absolute; top: 59px;" /></strong>
-                        <p:inputText  autocomplete="false"  maxlength="50" id="duplicarDescripcion" value="#{controlGrupoConcepto.duplicarGruposConceptos.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 57px; text-transform: uppercase" onclick="select();">
+                        <p:inputText  autocomplete="off"  maxlength="50" id="duplicarDescripcion" value="#{controlGrupoConcepto.duplicarGruposConceptos.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 57px; text-transform: uppercase" onclick="select();">
                            <p:ajax event="change" update="duplicarDescripcion" />
                         </p:inputText>
 
@@ -352,7 +352,7 @@
                      <fieldset style="position: absolute; left: 10px; top: 40px; font-size: 11px; width: 295px; height: 238px; border-radius: 10px; ">
 
                         <strong><h:outputText value="#{msg['codigoN']}" style="font-size: 12px; position: absolute; top: 17px;" /></strong>
-                        <p:inputText  autocomplete="false"  id="nuevoCodigoV" value="#{controlGrupoConcepto.nuevoVigenciaGruposConceptos.concepto.codigoSTR}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 15px; text-transform: uppercase" onclick="select();">
+                        <p:inputText  autocomplete="off"  id="nuevoCodigoV" value="#{controlGrupoConcepto.nuevoVigenciaGruposConceptos.concepto.codigoSTR}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 15px; text-transform: uppercase" onclick="select();">
                            <p:ajax event="click" listener="#{controlGrupoConcepto.valoresBackupAutocompletar(1, 'CONCEPTO')}" />
                            <p:ajax event="change" listener="#{controlGrupoConcepto.autocompletarNuevoyDuplicado('CONCEPTO', controlGrupoConcepto.nuevoVigenciaGruposConceptos.concepto.codigoSTR, 1)}" />
                            <p:ajax event="dblclick" listener="#{controlGrupoConcepto.asignarIndex(indice, 0, 1)}" />
@@ -360,18 +360,18 @@
                         <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 285px; top: 15px;  " id="btnNuevoConcepto" actionListener="#{controlGrupoConcepto.asignarIndex(indice, 0, 1)}" icon="ui-icon-search" process="@this" />
 
                         <strong><h:outputText value="#{msg['descripcionN']}"  style="font-size: 12px; position: absolute; top: 57px;" /></strong>
-                        <p:inputText  autocomplete="false"  id="nuevoDescripcionV" value="#{controlGrupoConcepto.nuevoVigenciaGruposConceptos.concepto.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 55px; text-transform: uppercase" onclick="select();">
+                        <p:inputText  autocomplete="off"  id="nuevoDescripcionV" value="#{controlGrupoConcepto.nuevoVigenciaGruposConceptos.concepto.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 55px; text-transform: uppercase" onclick="select();">
                            <p:ajax event="change" update="nuevoDescripcionV"/>
                         </p:inputText>
 
                         <strong><h:outputText value="#{msg['naturalezaN']}"  style="font-size: 12px; position: absolute; top: 97px;" /></strong>
-                        <p:inputText  autocomplete="false"  id="nuevoNaturaleza" value="#{controlGrupoConcepto.nuevoVigenciaGruposConceptos.concepto.naturalezaConcepto}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 95px; text-transform: uppercase" onclick="select();">
+                        <p:inputText  autocomplete="off"  id="nuevoNaturaleza" value="#{controlGrupoConcepto.nuevoVigenciaGruposConceptos.concepto.naturalezaConcepto}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 95px; text-transform: uppercase" onclick="select();">
                            <p:ajax event="change" update="nuevoNaturaleza"/>
                         </p:inputText>
 
                         <strong><h:outputText value="#{msg['inicialN']}" style="font-size: 14px; position: absolute; top: 137px;" /></strong>
                         <div id="posicionFechaIniNuevoReg" style="font-size: 10px; position: absolute; top: 135px; left: 152px">
-                           <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicial" value="#{controlGrupoConcepto.nuevoVigenciaGruposConceptos.fechainicial}" >
+                           <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicial" value="#{controlGrupoConcepto.nuevoVigenciaGruposConceptos.fechainicial}" >
                               <p:ajax event="dateSelect" update="nuevaFechaInicial" process="@this"/>
                               <p:ajax event="change" update="nuevaFechaInicial" process="@this"/>
                            </p:calendar>
@@ -379,14 +379,14 @@
 
                         <strong><h:outputText value="#{msg['finalN']}" style="font-size: 14px; position: absolute; top: 177px;" /></strong>
                         <div id="posicionFechaFinNuevoReg" style="font-size: 10px; position: absolute; top: 175px; left: 152px">
-                           <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinal" value="#{controlGrupoConcepto.nuevoVigenciaGruposConceptos.fechafinal}" >
+                           <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinal" value="#{controlGrupoConcepto.nuevoVigenciaGruposConceptos.fechafinal}" >
                               <p:ajax event="dateSelect" update="nuevaFechaFinal" process="@this"/>
                               <p:ajax event="change" update="nuevaFechaFinal" process="@this"/>
                            </p:calendar>
                         </div>
 
                         <strong><h:outputText value="#{msg['empresaN']}" style="font-size: 12px; position: absolute; top: 217px;" /></strong>
-                        <p:inputText  autocomplete="false"  id="nuevoEmpresa" value="#{controlGrupoConcepto.nuevoVigenciaGruposConceptos.concepto.empresa.nombre}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 215px; text-transform: uppercase" onclick="select();">
+                        <p:inputText  autocomplete="off"  id="nuevoEmpresa" value="#{controlGrupoConcepto.nuevoVigenciaGruposConceptos.concepto.empresa.nombre}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 215px; text-transform: uppercase" onclick="select();">
                            <p:ajax event="click" listener="#{controlGrupoConcepto.valoresBackupAutocompletar(1, 'EMPRESA')}" />
                            <p:ajax event="change" listener="#{controlGrupoConcepto.autocompletarNuevoyDuplicado('EMPRESA', controlGrupoConcepto.nuevoVigenciaGruposConceptos.concepto.empresa.nombre, 1)}" />
                            <p:ajax event="dblclick" listener="#{controlGrupoConcepto.asignarIndex(indice, 0, 1)}" />
@@ -409,7 +409,7 @@
                      <fieldset style="position: absolute; left: 10px; top: 40px; font-size: 11px; width: 295px; height: 238px; border-radius: 10px; ">
 
                         <strong><h:outputText value="#{msg['codigoN']}" style="font-size: 12px; position: absolute; top: 17px;" /></strong>
-                        <p:inputText  autocomplete="false"  id="duplicarCodigoV" value="#{controlGrupoConcepto.duplicarVigenciaGruposConceptos.concepto.codigoSTR}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 15px; text-transform: uppercase" onclick="select();">
+                        <p:inputText  autocomplete="off"  id="duplicarCodigoV" value="#{controlGrupoConcepto.duplicarVigenciaGruposConceptos.concepto.codigoSTR}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 15px; text-transform: uppercase" onclick="select();">
                            <p:ajax event="click" listener="#{controlGrupoConcepto.valoresBackupAutocompletar(2, 'CONCEPTO')}" />
                            <p:ajax event="change" listener="#{controlGrupoConcepto.autocompletarNuevoyDuplicado('CONCEPTO', controlGrupoConcepto.duplicarVigenciaGruposConceptos.concepto.codigoSTR, 2)}" />
                            <p:ajax event="dblclick" listener="#{controlGrupoConcepto.asignarIndex(indice, 0, 2)}" />
@@ -417,18 +417,18 @@
                         <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 285px; top: 15px;  " id="btnDuplicarConcepto" actionListener="#{controlGrupoConcepto.asignarIndex(indice, 0, 2)}" icon="ui-icon-search" process="@this" />
 
                         <strong><h:outputText value="#{msg['descripcionN']}"  style="font-size: 12px; position: absolute; top: 57px;" /></strong>
-                        <p:inputText  autocomplete="false"  id="duplicarDescripcionV" value="#{controlGrupoConcepto.duplicarVigenciaGruposConceptos.concepto.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 55px; text-transform: uppercase" onclick="select();">
+                        <p:inputText  autocomplete="off"  id="duplicarDescripcionV" value="#{controlGrupoConcepto.duplicarVigenciaGruposConceptos.concepto.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 55px; text-transform: uppercase" onclick="select();">
                            <p:ajax event="change" update="duplicarDescripcionV"/>
                         </p:inputText>
 
                         <strong><h:outputText value="#{msg['naturalezaN']}"  style="font-size: 12px; position: absolute; top: 97px;" /></strong>
-                        <p:inputText  autocomplete="false"  id="duplicarNaturaleza" value="#{controlGrupoConcepto.duplicarVigenciaGruposConceptos.concepto.naturalezaConcepto}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 95px; text-transform: uppercase" onclick="select();">
+                        <p:inputText  autocomplete="off"  id="duplicarNaturaleza" value="#{controlGrupoConcepto.duplicarVigenciaGruposConceptos.concepto.naturalezaConcepto}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 95px; text-transform: uppercase" onclick="select();">
                            <p:ajax event="change" update="duplicarNaturaleza"/>
                         </p:inputText>
 
                         <strong><h:outputText value="#{msg['inicialN']}" style="font-size: 14px; position: absolute; top: 137px;" /></strong>
                         <div id="posicionFechaIniNuevoRegDuplicar" style="font-size: 10px; position: absolute; top: 135px; left: 152px">
-                           <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicial" value="#{controlGrupoConcepto.duplicarVigenciaGruposConceptos.fechainicial}" >
+                           <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicial" value="#{controlGrupoConcepto.duplicarVigenciaGruposConceptos.fechainicial}" >
                               <p:ajax event="dateSelect" update="duplicarFechaInicial" process="@this"/>
                               <p:ajax event="change" update="duplicarFechaInicial" process="@this"/>
                            </p:calendar>
@@ -436,14 +436,14 @@
 
                         <strong><h:outputText value="#{msg['finalN']}" style="font-size: 14px; position: absolute; top: 177px;" /></strong>
                         <div id="posicionFechaFinNuevoRegDuplicar" style="font-size: 10px; position: absolute; top: 175px; left: 152px">
-                           <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinal" value="#{controlGrupoConcepto.duplicarVigenciaGruposConceptos.fechafinal}" >
+                           <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinal" value="#{controlGrupoConcepto.duplicarVigenciaGruposConceptos.fechafinal}" >
                               <p:ajax event="dateSelect" update="duplicarFechaFinal" process="@this"/>
                               <p:ajax event="change" update="duplicarFechaFinal" process="@this"/>
                            </p:calendar>
                         </div>
 
                         <strong><h:outputText value="#{msg['empresaN']}" style="font-size: 12px; position: absolute; top: 217px;" /></strong>
-                        <p:inputText  autocomplete="false"  id="duplicarEmpresa" value="#{controlGrupoConcepto.duplicarVigenciaGruposConceptos.concepto.empresa.nombre}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 215px; text-transform: uppercase" onclick="select();">
+                        <p:inputText  autocomplete="off"  id="duplicarEmpresa" value="#{controlGrupoConcepto.duplicarVigenciaGruposConceptos.concepto.empresa.nombre}" style="font-size: 12px; width: 122px; position: absolute; left: 152px; top: 215px; text-transform: uppercase" onclick="select();">
                            <p:ajax event="click" listener="#{controlGrupoConcepto.valoresBackupAutocompletar(2, 'EMPRESA')}" />
                            <p:ajax event="change" listener="#{controlGrupoConcepto.autocompletarNuevoyDuplicado('EMPRESA', controlGrupoConcepto.duplicarVigenciaGruposConceptos.concepto.empresa.nombre, 2)}" />
                            <p:ajax event="dblclick" listener="#{controlGrupoConcepto.asignarIndex(indice, 0, 2)}" />
@@ -491,7 +491,7 @@
                      <p:ajax event="rowDblselect" listener="#{controlGrupoConcepto.actualizarGruposConceptos()}" process="@this" />
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarGC']}"  style="position: absolute; left: 27px; top: 15px;"/>  
-                        <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('LOVGrupos').filter();" style="width: 150px; position: relative; left: 60px;" />  
+                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVGrupos').filter();" style="width: 150px; position: relative; left: 60px;" />  
                      </f:facet>
 
                      <p:column sortBy="#{g.codigo}" filterBy="#{g.codigo}" filterStyle="width: 50px;" width="10%" filterMatchMode="contains" > 
@@ -528,7 +528,7 @@
                      <p:ajax event="rowDblselect" listener="#{controlGrupoConcepto.actualizarConceptos()}" process="@this" />
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarC']}"  style="position: absolute; left: 27px; top: 15px;"/>  
-                        <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('LOVConceptos').filter();" style="width: 150px; position: relative; left: 60px;" />  
+                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVConceptos').filter();" style="width: 150px; position: relative; left: 60px;" />  
                      </f:facet>
 
                      <p:column sortBy="#{con.codigo}" filterBy="#{tipo.codigo}" filterStyle="width: 20px;" width="10%" filterMatchMode="contains" > 
@@ -570,13 +570,13 @@
                Editar Grupos Conceptos-->
 
                <p:dialog id="editarCodigoGC" header="#{msg['editarCodigoGC']}" widgetVar="editarCodigoGC" resizable="false" draggable="true" modal="true" height="93" width="240" style="font-size: 12px; padding: 0px">  
-                  <p:inputText  autocomplete="false"  value="#{controlGrupoConcepto.editarGruposConceptos.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
+                  <p:inputText  autocomplete="off"  value="#{controlGrupoConcepto.editarGruposConceptos.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
                   </p:inputText>
                   <p:commandButton id="cancelarCodigoGC" value="#{msg['atras']}" onclick="PF('editarCodigoGC').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="editarDescripcionGC" header="#{msg['editarDescripcionGC']}" widgetVar="editarDescripcionGC" resizable="false" draggable="true" modal="true" height="93" width="240" style="font-size: 12px; padding: 0px">  
-                  <p:inputText  autocomplete="false"  value="#{controlGrupoConcepto.editarGruposConceptos.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
+                  <p:inputText  autocomplete="off"  value="#{controlGrupoConcepto.editarGruposConceptos.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
                   </p:inputText>
                   <p:commandButton id="cancelarDescripcionGC" value="#{msg['atras']}" onclick="PF('editarDescripcionGC').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                </p:dialog>
@@ -584,7 +584,7 @@
                <!-- Editar Vigencias Grupos Conceptos-->
 
                <p:dialog id="editarCodigoV" header="#{msg['editarCodigoV']}" widgetVar="editarCodigoV" resizable="false" draggable="true" modal="true" height="93" width="240" style="font-size: 12px; padding: 0px">  
-                  <p:inputText  autocomplete="false"  value="#{controlGrupoConcepto.editarVigenciasGruposConceptos.concepto.codigoSTR}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                  <p:inputText  autocomplete="off"  value="#{controlGrupoConcepto.editarVigenciasGruposConceptos.concepto.codigoSTR}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                   <p:commandButton id="cancelarCodigoV" value="#{msg['atras']}" onclick="PF('editarCodigoV').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                </p:dialog>
 
@@ -599,14 +599,14 @@
                </p:dialog>
 
                <p:dialog id="editarFechaInicialV" header="#{msg['editarFechaInicialV']}" widgetVar="editarFechaInicialV" resizable="false" draggable="true" modal="true" height="30" width="240" style="font-size: 12px; padding: 0px">  
-                  <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy"  style="font-size: 10px; left: 4px; top: 4px; position: absolute" value="#{controlGrupoConcepto.editarVigenciasGruposConceptos.fechainicial}" id="editFechaInicialCelda"  styleClass="ui-datepicker, myClass"  
+                  <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy"  style="font-size: 10px; left: 4px; top: 4px; position: absolute" value="#{controlGrupoConcepto.editarVigenciasGruposConceptos.fechainicial}" id="editFechaInicialCelda"  styleClass="ui-datepicker, myClass"  
                               navigator="true" showButtonPanel="true" locale="es">
                   </p:calendar>
                   <p:commandButton id="cancelarFechaInicialV" value="#{msg['atras']}" onclick="PF('editarFechaInicialV').hide();" style="position: absolute; top: 5px; left: 148px; font-size: 11px;" process="@this" />
                </p:dialog>
 
                <p:dialog id="editarFechaFinalV" header="#{msg['editarFechaFinalV']}" widgetVar="editarFechaFinalV" resizable="false" draggable="true" modal="true" height="30" width="240" style="font-size: 12px; padding: 0px">  
-                  <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy"  style="font-size: 10px; left: 4px; top: 4px; position: absolute" value="#{controlGrupoConcepto.editarVigenciasGruposConceptos.fechafinal}" id="editFechaFinalCelda"  styleClass="ui-datepicker, myClass"  
+                  <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy"  style="font-size: 10px; left: 4px; top: 4px; position: absolute" value="#{controlGrupoConcepto.editarVigenciasGruposConceptos.fechafinal}" id="editFechaFinalCelda"  styleClass="ui-datepicker, myClass"  
                               navigator="true" showButtonPanel="true" locale="es">
                   </p:calendar>
                   <p:commandButton id="cancelarFechaFinalV" value="#{msg['atras']}" onclick="PF('editarFechaFinalV').hide();" style="position: absolute; top: 5px; left: 148px; font-size: 11px;" process="@this" />

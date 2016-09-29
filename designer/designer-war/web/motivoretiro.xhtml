@@ -27,7 +27,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.codigo}" id="editarCodigo" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"  value="#{info.codigo}" id="editarCodigo" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlMotivosRetiros.cambiarIndice(indice, 0)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlMotivosRetiros.modificarMotivosRetiros(indice, 'N', info.codigo)}"  update="codigo"/>
                                             </p:inputText>
@@ -39,7 +39,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.nombre}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.nombre}" id="editarNombre" style="height: 12px;  border-radius: 0px; width: 420px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"  value="#{info.nombre}" id="editarNombre" style="height: 12px;  border-radius: 0px; width: 420px; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlMotivosRetiros.cambiarIndice(indice, 1)}" process="@this"/> 
                                                 <p:ajax event="change"  listener="#{controlMotivosRetiros.modificarMotivosRetiros(indice, 'N', info.nombre)}" update="descripcion"/>
                                             </p:inputText>
@@ -220,13 +220,13 @@
                         <p:panel id="nuevaTipoempresa" style="border: none;">
 
                             <strong><h:outputText value="*Código: "  style=" position: absolute; top: 60px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoCodigo" value="#{controlMotivosRetiros.nuevoMotivosRetiros.codigo}" style=" width: 135px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="nuevoCodigo" value="#{controlMotivosRetiros.nuevoMotivosRetiros.codigo}" style=" width: 135px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoCodigo" value="Código" />
 
                             <strong><h:outputText value="*Descripcion: "  style=" position: absolute; top: 90px;" /></strong>
-                            <p:inputText  autocomplete="false"   id="nuevoNombre" value="#{controlMotivosRetiros.nuevoMotivosRetiros.nombre}" style=" width: 135px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"   id="nuevoNombre" value="#{controlMotivosRetiros.nuevoMotivosRetiros.nombre}" style=" width: 135px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoNombre" value="Nombre" />
@@ -243,13 +243,13 @@
 
                         <p:panel id="duplicarTE" style="border: none;">
                             <strong><h:outputText value="*Código:"  style=" position: absolute; top: 60px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarCodigo" value="#{controlMotivosRetiros.duplicarMotivosRetiros.codigo}" style=" width: 135px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="duplicarCodigo" value="#{controlMotivosRetiros.duplicarMotivosRetiros.codigo}" style=" width: 135px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarCodigo" value="Código" />
 
                             <strong><h:outputText value="*Descripcion:"  style=" position: absolute; top: 90px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarNombre" value="#{controlMotivosRetiros.duplicarMotivosRetiros.nombre}"  style=" width: 135px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="duplicarNombre" value="#{controlMotivosRetiros.duplicarMotivosRetiros.nombre}"  style=" width: 135px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarNombre" value="Descripcion" />

@@ -32,7 +32,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.codigo}" maxlength="4" id="editarCodigo" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"  value="#{info.codigo}" maxlength="4" id="editarCodigo" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlTiposReemplazos.cambiarIndice(indice, 0)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlTiposReemplazos.modificandoTipoReemplazo(indice, 'N', info.codigo)}"  update="codigo"/>
                                             </p:inputText>
@@ -44,7 +44,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.nombre}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.nombre}" maxlength="30" id="editarNombre" style="height: 12px;  border-radius: 0px; width: 420px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"  value="#{info.nombre}" maxlength="30" id="editarNombre" style="height: 12px;  border-radius: 0px; width: 420px; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlTiposReemplazos.cambiarIndice(indice, 1)}" process="@this"/> 
                                                 <p:ajax event="change"  listener="#{controlTiposReemplazos.modificandoTipoReemplazo(indice, 'N', info.nombre)}" update="descripcion"/>
                                             </p:inputText>
@@ -56,7 +56,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.factorreemplazado}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.factorreemplazado}" id="editarFactorReemplazado" style="height: 12px;  border-radius: 0px; width: 420px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"  value="#{info.factorreemplazado}" id="editarFactorReemplazado" style="height: 12px;  border-radius: 0px; width: 420px; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlTiposReemplazos.cambiarIndice(indice, 2)}" process="@this"/> 
                                                 <p:ajax event="change"  listener="#{controlTiposReemplazos.modificandoTipoReemplazo(indice, 'N', info.factorreemplazado)}" update="factorReemplazado"/>
                                             </p:inputText>
@@ -238,18 +238,18 @@
                         <p:panel id="nuevaTipoReemplazo" style="border: none;">
 
                             <strong><h:outputText value="*Código: "  style=" position: absolute; top: 60px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoCodigo" maxlength="4" value="#{controlTiposReemplazos.nuevoTipoReemplazo.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="nuevoCodigo" maxlength="4" value="#{controlTiposReemplazos.nuevoTipoReemplazo.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoCodigo" value="Código" />
 
                             <strong><h:outputText value="*Nombre: "  style=" position: absolute; top: 90px;" /></strong>
-                            <p:inputText  autocomplete="false"   id="nuevoNombre" maxlength="30" value="#{controlTiposReemplazos.nuevoTipoReemplazo.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"   id="nuevoNombre" maxlength="30" value="#{controlTiposReemplazos.nuevoTipoReemplazo.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoNombre" value="Nombre" />
                             <strong><h:outputText value="Factor: "  style=" position: absolute; top: 120px;" /></strong>
-                            <p:inputText  autocomplete="false"   id="nuevoFactor" value="#{controlTiposReemplazos.nuevoTipoReemplazo.factorreemplazado}" style=" width: 140px; position: absolute; left: 150px; top: 115px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"   id="nuevoFactor" value="#{controlTiposReemplazos.nuevoTipoReemplazo.factorreemplazado}" style=" width: 140px; position: absolute; left: 150px; top: 115px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoFactor" value="Factor" />
@@ -266,19 +266,19 @@
 
                         <p:panel id="duplicarTTR" style="border: none;">
                             <strong><h:outputText value="*Código "  style=" position: absolute; top: 60px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarCodigo" maxlength="4" value="#{controlTiposReemplazos.duplicarTipoReemplazo.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="duplicarCodigo" maxlength="4" value="#{controlTiposReemplazos.duplicarTipoReemplazo.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarCodigo" value="Código" />
 
                             <strong><h:outputText value="*Nombre:"  style=" position: absolute; top: 90px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarNombre" maxlength="30" value="#{controlTiposReemplazos.duplicarTipoReemplazo.nombre}"  style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="duplicarNombre" maxlength="30" value="#{controlTiposReemplazos.duplicarTipoReemplazo.nombre}"  style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarNombre" value="Nombre" />
 
                             <strong><h:outputText value="*Factor:"  style=" position: absolute; top: 120px;" /></strong>
-                            <p:inputText  autocomplete="false"   id="duplicarFactor" value="#{controlTiposReemplazos.duplicarTipoReemplazo.factorreemplazado}" style=" width: 140px; position: absolute; left: 150px; top: 115px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"   id="duplicarFactor" value="#{controlTiposReemplazos.duplicarTipoReemplazo.factorreemplazado}" style=" width: 140px; position: absolute; left: 150px; top: 115px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarFactor" value="Factor" />

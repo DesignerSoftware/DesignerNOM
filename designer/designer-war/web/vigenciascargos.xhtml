@@ -17,7 +17,7 @@
 
                         <h:outputText style="position: absolute; width: 450px; left: 150px; height: 22px; top: 100px; font-size: 12px; font-family: Arial, Helvetica, sans-serif; text-align: justify" value="Ingrese el cargo asignado al empleado, todo cargo debe estar asignado a una estructura, de esta forma podemos comparar los cargos asignados, contra los cargos artorizados por estructura." id="jgj"/>
                         <h:outputText value=" " style="position: absolute; left: 70px; top: 100px; background-image: url(Imagenes/Iconos/interrogacion.png); width:50px ;height:50px; background-repeat: no-repeat; background-size: 100% 100%;  " id="jgg"/> 
-                        <p:inputText  autocomplete="false"  style="position: absolute; left: 9px; top: 160px; width: 200px; height: 12px;position: absolute; " disabled="true" id="T_EMPLEADO" value="#{ctrlVigenciasCargos.empleado.persona.primerapellido} #{ctrlVigenciasCargos.empleado.persona.segundoapellido} #{ctrlVigenciasCargos.empleado.persona.nombre}"/>  
+                        <p:inputText  autocomplete="off"  style="position: absolute; left: 9px; top: 160px; width: 200px; height: 12px;position: absolute; " disabled="true" id="T_EMPLEADO" value="#{ctrlVigenciasCargos.empleado.persona.primerapellido} #{ctrlVigenciasCargos.empleado.persona.segundoapellido} #{ctrlVigenciasCargos.empleado.persona.nombre}"/>  
 
                         <h:commandLink  style="position: absolute; left: 590px; top: 170px">  
                             <p:graphicImage value="Imagenes/Iconos/XML.png"  width="30" height="30"/>  
@@ -41,7 +41,7 @@
                                     <f:facet name="header">  
                                         <h:outputText value="Fecha" />  
                                     </f:facet> 
-                                    <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" value="#{info.fechavigencia}" id="editFecha" showOn="button" navigator="true" showButtonPanel="true" locale="co" pattern="dd/MM/yyyy">
+                                    <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" value="#{info.fechavigencia}" id="editFecha" showOn="button" navigator="true" showButtonPanel="true" locale="co" pattern="dd/MM/yyyy">
                                         <f:convertDateTime pattern="dd/MM/yyyy"/>                                    
                                     </p:calendar>
                                 </p:column>                        
@@ -50,35 +50,35 @@
                                     <f:facet name="header">  
                                         <h:outputText value="Estructura" />  
                                     </f:facet> 
-                                    <p:inputText  autocomplete="false"  value="#{info.estructura.nombre}" id="editEstructura"  style="width: 117px; height: 14px;" />                             
+                                    <p:inputText  autocomplete="off"  value="#{info.estructura.nombre}" id="editEstructura"  style="width: 117px; height: 14px;" />                             
                                 </p:column>  
 
                                 <p:column id="vcMotivo" width="150" sortBy="#{info.motivocambiocargo.nombre}"  filterBy="#{info.motivocambiocargo.nombre}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">                                                               
                                     <f:facet name="header">  
                                         <h:outputText value="Motivo" />  
                                     </f:facet> 
-                                    <p:inputText  autocomplete="false"  value="#{info.motivocambiocargo.nombre}" id="editMotivo" readonly="true" style="width: 140px;height: 14px;" />                              
+                                    <p:inputText  autocomplete="off"  value="#{info.motivocambiocargo.nombre}" id="editMotivo" readonly="true" style="width: 140px;height: 14px;" />                              
                                 </p:column>  
 
                                 <p:column id="vcNombreCargo" headerText="Nombre_Cargo" width="150" sortBy="#{info.cargo.nombre}"  filterBy="#{info.cargo.nombre}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">                                                              
                                     <f:facet name="header">  
                                         <h:outputText value="Nombre Cargo" />  
                                     </f:facet> 
-                                    <p:inputText  autocomplete="false"  value="#{info.cargo.nombre}" id="editNombreCargo" readonly="true" style="width: 140px;height: 14px"/>                            
+                                    <p:inputText  autocomplete="off"  value="#{info.cargo.nombre}" id="editNombreCargo" readonly="true" style="width: 140px;height: 14px"/>                            
                                 </p:column>  
 
                                 <p:column id="vcCentrosC" headerText="Centro_Costo" width="150" sortBy="#{info.estructura.centrocosto.nombre}"  filterBy="#{info.estructura.centrocosto.nombre}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">                                                              
                                     <f:facet name="header">  
                                         <h:outputText value="Centro Costo" />  
                                     </f:facet> 
-                                    <p:inputText  autocomplete="false"  value="#{info.estructura.centrocosto.codigo}-#{info.estructura.centrocosto.nombre}" id="editCentroCosto" readonly="true" style="width: 140px;height: 14px"/>                                                        
+                                    <p:inputText  autocomplete="off"  value="#{info.estructura.centrocosto.codigo}-#{info.estructura.centrocosto.nombre}" id="editCentroCosto" readonly="true" style="width: 140px;height: 14px"/>                                                        
                                 </p:column>  
 
                                 <p:column id="vcNombreJefe" headerText="Nombre_Jefe" width="150" sortBy="#{info.empleadojefe.persona.nombre}"  filterBy="#{info.empleadojefe.persona.nombre}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">                                                              
                                     <f:facet name="header">  
                                         <h:outputText value="Nombre Jefe" />  
                                     </f:facet> 
-                                    <p:inputText  autocomplete="false"  value="#{info.empleadojefe.persona.nombre}" id="editNombreJefe" readonly="true" style="width: 140px;height: 14px"/>                                                        
+                                    <p:inputText  autocomplete="off"  value="#{info.empleadojefe.persona.nombre}" id="editNombreJefe" readonly="true" style="width: 140px;height: 14px"/>                                                        
                                 </p:column>
 
                                 <p:column headerText="R" width="26" exportable="false">  

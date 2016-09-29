@@ -38,7 +38,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.codigo}" maxlength="4" id="editarCodigoCC" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase" > 
+                                            <p:inputText  autocomplete="off"  value="#{info.codigo}" maxlength="4" id="editarCodigoCC" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase" > 
                                                 <p:ajax  event="change" listener="#{controlSucursalesPila.modificandoCentroCosto(indice, 'N', info.codigo)}" update="@this"/>
                                                 <p:ajax event="select" listener="#{controlSucursalesPila.cambiarIndice(indice,0)}" /> 
                                             </p:inputText>
@@ -51,7 +51,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.descripcion}" style="text-transform: uppercase" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  id="editarNombreCentroCoso" maxlength="50"  value="#{info.descripcion}" style="height: 12px; border-radius: 0px; width: 99.5%; text-transform: uppercase">
+                                            <p:inputText  autocomplete="off"  id="editarNombreCentroCoso" maxlength="50"  value="#{info.descripcion}" style="height: 12px; border-radius: 0px; width: 99.5%; text-transform: uppercase">
                                                 <p:ajax event="change" listener="#{controlSucursalesPila.modificandoCentroCosto(indice, 'N', info.descripcion)}" update="@this" />
                                                 <p:ajax event="select" listener="#{controlSucursalesPila.cambiarIndice(indice, 1)}" />
                                             </p:inputText>
@@ -224,13 +224,13 @@
 
                             <!--0-->
                             <strong><h:outputText value="*Código:" style=" position: absolute; top: 60px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaCodigoCC"  maxlength="4" value="#{controlSucursalesPila.nuevoCentroCosto.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="nuevaCodigoCC"  maxlength="4" value="#{controlSucursalesPila.nuevoCentroCosto.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevaCodigoCC" value="Código" />
                             <!--1-->
                             <strong><h:outputText value="*Descripcion:" style=" position: absolute; top: 90px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaNombreCentroCostos"  maxlength="50" value="#{controlSucursalesPila.nuevoCentroCosto.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="nuevaNombreCentroCostos"  maxlength="50" value="#{controlSucursalesPila.nuevoCentroCosto.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevaNombreCentroCostos" value="Descripcion" />
@@ -249,13 +249,13 @@
                         <p:panel id="duplicarSucursalesPila" style="border: none;">
                             <!--0-->
                             <strong><h:outputText value="*Código:" style=" position: absolute; top: 60px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarCodigoCC"  maxlength="4" value="#{controlSucursalesPila.duplicarCentroCosto.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="duplicarCodigoCC"  maxlength="4" value="#{controlSucursalesPila.duplicarCentroCosto.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarCodigoCC" value="Código" />
                             <!--1-->
                             <strong><h:outputText value="*Descripción:" style=" position: absolute; top: 90px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarNombreCentroCostos"  maxlength="50" value="#{controlSucursalesPila.duplicarCentroCosto.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="duplicarNombreCentroCostos"  maxlength="50" value="#{controlSucursalesPila.duplicarCentroCosto.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarNombreCentroCostos" value="Descripción" />
@@ -277,7 +277,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlSucursalesPila.cambiarEmpresa()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="Empresas:"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovEmpresas').filter();" style="width:100px; position: relative; left: 10px;" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovEmpresas').filter();" style="width:100px; position: relative; left: 10px;" />  
                             </f:facet>
                             <p:column filterBy="#{empresa.nit}" width="60" filterMatchMode="contains" filterStyle="width: 50px">
                                 <f:facet name="header">

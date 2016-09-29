@@ -124,7 +124,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="editFechaVigencia" value="#{infoDVS.fechavigencia}">  
+                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editFechaVigencia" value="#{infoDVS.fechavigencia}">  
                                                 <p:ajax event="dateSelect" listener="#{controlVigenciaSueldo.modificarFechasVigenciaSueldo(infoDVS,0)}" update="editFechaVigencia" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlVigenciaSueldo.modificarFechasVigenciaSueldo(infoDVS,0)}" update="editFechaVigencia" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlVigenciaSueldo.cambiarIndice(infoDVS,0)}" update=":form:datosVAVigencia"/> 
@@ -142,7 +142,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoDVS.motivocambiosueldo.nombre}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{infoDVS.motivocambiosueldo.nombre}"  id="editarMotivoCambioSueldo" style="width: 93.5%; text-transform: uppercase;"> 
+                                            <p:inputText  autocomplete="off"  value="#{infoDVS.motivocambiosueldo.nombre}"  id="editarMotivoCambioSueldo" style="width: 93.5%; text-transform: uppercase;"> 
                                                 <p:ajax event="change" listener="#{controlVigenciaSueldo.modificarVS(infoDVS, 'MOTIVOCAMBIOSUELDO', infoDVS.motivocambiosueldo.nombre)}" process="@this" update="editarMotivoCambioSueldo"/>
                                                 <p:ajax event="dblclick" listener="#{controlVigenciaSueldo.asignarIndex(infoDVS,0,0,0)}" process="@this" update="editarMotivoCambioSueldo" oncomplete="PF('lovMotivoCambioSueldo').unselectAllRows()"/>
                                                 <p:ajax event="select" listener="#{controlVigenciaSueldo.cambiarIndice(infoDVS,1)}" update=":form:datosVAVigencia"/>
@@ -159,7 +159,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoDVS.tiposueldo.descripcion}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  maxlength="30" value="#{infoDVS.tiposueldo.descripcion}"  id="editarTipoSueldo" style="width: 93.5%; text-transform: uppercase;"> 
+                                            <p:inputText  autocomplete="off"  maxlength="30" value="#{infoDVS.tiposueldo.descripcion}"  id="editarTipoSueldo" style="width: 93.5%; text-transform: uppercase;"> 
                                                 <p:ajax event="change" listener="#{controlVigenciaSueldo.modificarVS(infoDVS, 'TIPOSUELDO', infoDVS.tiposueldo.descripcion)}" update="editarTipoSueldo" process="@this"/>
                                                 <p:ajax event="dblclick" listener="#{controlVigenciaSueldo.asignarIndex(infoDVS,1,0,0)}" process="@this" update="editarTipoSueldo" oncomplete="PF('lovTipoSueldo').unselectAllRows()"/>
                                                 <p:ajax event="select" listener="#{controlVigenciaSueldo.cambiarIndice(infoDVS,2)}" update=":form:datosVAVigencia"/>
@@ -200,7 +200,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="editFechaVigenciaRetroactivo" value="#{infoDVS.fechavigenciaretroactivo}">
+                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editFechaVigenciaRetroactivo" value="#{infoDVS.fechavigenciaretroactivo}">
                                                 <p:ajax event="dateSelect" listener="#{controlVigenciaSueldo.modificarFechasVigenciaSueldo(infoDVS,4)}" update="editFechaVigenciaRetroactivo" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlVigenciaSueldo.modificarFechasVigenciaSueldo(infoDVS,4)}" update="editFechaVigenciaRetroactivo" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlVigenciaSueldo.cambiarIndice(infoDVS,4)}" update=":form:datosVAVigencia"/> 
@@ -221,7 +221,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{infoDVS.valor}" id="editarValor" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
+                                            <p:inputText  autocomplete="off"  value="#{infoDVS.valor}" id="editarValor" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
                                                 <p:ajax event="change" listener="#{controlVigenciaSueldo.modificarVS(infoDVS)}" update="editarValor" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlVigenciaSueldo.cambiarIndice(infoDVS, 5)}" update=":form:datosVAVigencia"/>
                                                 <f:convertNumber currencySymbol="$" type="currency" />
@@ -239,7 +239,7 @@
                                             <h:outputText value="#{infoDVS.observaciones}"/>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{infoDVS.observaciones}" id="editarObservaciones" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
+                                            <p:inputText  autocomplete="off"  value="#{infoDVS.observaciones}" id="editarObservaciones" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
                                                 <p:ajax event="change" listener="#{controlVigenciaSueldo.modificarVS(infoDVS)}" process="@this" update="editarObservaciones"/>
                                                 <p:ajax event="select" listener="#{controlVigenciaSueldo.cambiarIndice(infoDVS, 6)}" update=":form:datosVAVigencia"/>
                                             </p:inputText>
@@ -273,7 +273,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="editarFechaInicialVA" value="#{info.fechainicial}"> 
+                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editarFechaInicialVA" value="#{info.fechainicial}"> 
                                                 <p:ajax event="dateSelect" listener="#{controlVigenciaSueldo.modificarFechasVigenciaAfiliaciones(info,0)}" update="editarFechaInicialVA" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlVigenciaSueldo.modificarFechasVigenciaAfiliaciones(info,0)}" update="editarFechaInicialVA" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlVigenciaSueldo.cambiarIndiceVA(info,0)}"/> 
@@ -294,7 +294,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="editarFechaFinalVA" value="#{info.fechafinal}"> 
+                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editarFechaFinalVA" value="#{info.fechafinal}"> 
                                                 <p:ajax event="dateSelect" listener="#{controlVigenciaSueldo.modificarFechasVigenciaAfiliaciones(info,1)}" update="editarFechaFinalVA" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlVigenciaSueldo.modificarFechasVigenciaAfiliaciones(info,1)}" update="editarFechaFinalVA" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlVigenciaSueldo.cambiarIndiceVA(info,1)}"/> 
@@ -311,7 +311,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.tercerosucursal.tercero.nombre}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.tercerosucursal.tercero.nombre}" id="editarTerceroVA" style=" border-radius: 0px; width: 97%;text-transform: uppercase; height: 12px"> 
+                                            <p:inputText  autocomplete="off"  value="#{info.tercerosucursal.tercero.nombre}" id="editarTerceroVA" style=" border-radius: 0px; width: 97%;text-transform: uppercase; height: 12px"> 
                                                 <p:ajax event="select" listener="#{controlVigenciaSueldo.cambiarIndiceVA(info,2)}"/> 
                                                 <p:ajax event="dblclick" listener="#{controlVigenciaSueldo.asignarIndex(info,0,0,1)}"  oncomplete="PF('lovTercero').unselectAllRows()" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlVigenciaSueldo.modificarVA(info, 'TERCEROS', info.tercerosucursal.tercero.nombre)}" process="@this" update="editarTerceroVA"/>                                                
@@ -328,7 +328,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.tipoentidad.nombre}" style="width: 100px; "/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.tipoentidad.nombre}" id="editarTipoEntidadVA" style=" border-radius: 0px; width: 97%;text-transform: uppercase; height: 12px"> 
+                                            <p:inputText  autocomplete="off"  value="#{info.tipoentidad.nombre}" id="editarTipoEntidadVA" style=" border-radius: 0px; width: 97%;text-transform: uppercase; height: 12px"> 
                                                 <p:ajax event="select" listener="#{controlVigenciaSueldo.cambiarIndiceVA(info,3)}"/> 
                                                 <p:ajax event="dblclick" listener="#{controlVigenciaSueldo.asignarIndex(info,1,0,1)}" oncomplete="PF('lovTipoEntidad').unselectAllRows()" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlVigenciaSueldo.modificarVA(info, 'TIPOENTIDAD', info.tipoentidad.nombre)}" process="@this" update="editarTipoEntidadVA"/>
@@ -349,7 +349,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.valor}" id="editarValorVA" style=" border-radius: 0px; width: 97%;text-transform: uppercase; height: 12px"> 
+                                            <p:inputText  autocomplete="off"  value="#{info.valor}" id="editarValorVA" style=" border-radius: 0px; width: 97%;text-transform: uppercase; height: 12px"> 
                                                 <p:ajax event="select" listener="#{controlVigenciaSueldo.cambiarIndiceVA(info,4)}"/> 
                                                 <p:ajax event="change" listener="#{controlVigenciaSueldo.modificarVA(info)}" process="@this" update="editarValorVA"/>
                                                 <f:convertNumber currencySymbol="$" type="currency" />
@@ -388,7 +388,7 @@
 
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarM']}"/>  
-                                    <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovMotivoCambioSueldo').filter();" value="#{filtrado}" style="width: 40% !important" class="cssFiltroLOV"/>  
+                                    <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovMotivoCambioSueldo').filter();" value="#{filtrado}" style="width: 40% !important" class="cssFiltroLOV"/>  
                                 </f:facet>
                                 <p:column filterBy="#{motivoCS.codigo}" width="60" filterMatchMode="contains" filterStyle="width: 85% !important">
                                     <f:facet name="header">
@@ -428,7 +428,7 @@
 
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarT']}" />  
-                                    <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovTipoSueldo').filter();" value="#{filtrado}" class="cssFiltroLOV"/>  
+                                    <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovTipoSueldo').filter();" value="#{filtrado}" class="cssFiltroLOV"/>  
                                 </f:facet>
                                 <p:column filterBy="#{tipoS.codigo}" width="60" filterMatchMode="contains" filterStyle="width: 85% !important">
                                     <f:facet name="header">
@@ -468,7 +468,7 @@
 
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarTE']}" />
-                                    <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovTipoEntidad').filter();" value="#{filtrado}" class="cssFiltroLOV"/>  
+                                    <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovTipoEntidad').filter();" value="#{filtrado}" class="cssFiltroLOV"/>  
                                 </f:facet>
                                 <p:column filterBy="#{tipoE.codigo}" width="70" filterMatchMode="contains" filterStyle="width: 85% !important">
                                     <f:facet name="header">
@@ -509,7 +509,7 @@
 
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarTER']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovTercero').filter();" value="#{filtrado}" class="cssFiltroLOV" />  
+                                    <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovTercero').filter();" value="#{filtrado}" class="cssFiltroLOV" />  
                                 </f:facet>
                                 <p:column filterBy="#{tercero.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important">
                                     <f:facet name="header">
@@ -634,13 +634,13 @@
                         <p:panel id="nuevaVS" style="border: none;">
                             <strong><h:outputText value="#{msg['fechavigenciaVS']}" style=" position: absolute; top: 70px; left: 50px;" /></strong>
                             <div id="posicionFormulaFechaVigNuevoRegVS" style=" position: absolute; top: 70px; left: 220px">
-                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaVigencia" value="#{controlVigenciaSueldo.nuevaVigencia.fechavigencia}" >
+                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaVigencia" value="#{controlVigenciaSueldo.nuevaVigencia.fechavigencia}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaVigencia" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaVigencia" process="@this"/>
                                 </p:calendar>
                             </div>
                             <strong><h:outputText value="#{msg['motivocambiosueldoVS']}" style=" position: absolute; top: 110px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaMotivoCambioSueldo" value="#{controlVigenciaSueldo.nuevaVigencia.motivocambiosueldo.nombre}" style=" width: 122px; position: absolute; left: 220px; top: 110px; text-transform: uppercase" onclick="select();" >
+                            <p:inputText  autocomplete="off"  id="nuevaMotivoCambioSueldo" value="#{controlVigenciaSueldo.nuevaVigencia.motivocambiosueldo.nombre}" style=" width: 122px; position: absolute; left: 220px; top: 110px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="dblclick" listener="#{controlVigenciaSueldo.asignarIndex(infoDVS,0,1,0)}" oncomplete="PF('lovMotivoCambioSueldo').unselectAllRows()"/>
                                 <p:ajax event="click" listener="#{controlVigenciaSueldo.valoresBackupAutocompletar(1, 'MOTIVOCAMBIOSUELDO')}" />
                                 <p:ajax event="change" listener="#{controlVigenciaSueldo.autocompletarNuevoyDuplicado('MOTIVOCAMBIOSUELDO', controlVigenciaSueldo.nuevaVigencia.motivocambiosueldo.nombre,1)}" />
@@ -650,7 +650,7 @@
                             <p:watermark for="nuevaMotivoCambioSueldo" value="#{msg['motivocambiosueldoVS']}" />
 
                             <strong><h:outputText value="#{msg['tiposueldoVS']}" style=" position: absolute; top: 150px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  maxlength="30" id="nuevaTipoSueldo" value="#{controlVigenciaSueldo.nuevaVigencia.tiposueldo.descripcion}" style=" width: 122px; position: absolute; left: 220px; top: 150px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  maxlength="30" id="nuevaTipoSueldo" value="#{controlVigenciaSueldo.nuevaVigencia.tiposueldo.descripcion}" style=" width: 122px; position: absolute; left: 220px; top: 150px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlVigenciaSueldo.asignarIndex(infoDVS,1,1,0)}" oncomplete="PF('lovTipoSueldo').unselectAllRows()"/>
                                 <p:ajax event="click" listener="#{controlVigenciaSueldo.valoresBackupAutocompletar(1, 'TIPOSUELDO')}" />
                                 <p:ajax event="change" listener="#{controlVigenciaSueldo.autocompletarNuevoyDuplicado('TIPOSUELDO', controlVigenciaSueldo.nuevaVigencia.tiposueldo.descripcion,1)}" update="nuevaTipoSueldo"/>
@@ -666,20 +666,20 @@
 
                             <strong><h:outputText value="#{msg['vigenciaretroactivoVS']}" style=" position: absolute; top: 230px; left: 50px;" /></strong>
                             <div id="posicionFormulaFechaRetroNuevoRegVS" style=" position: absolute; top: 230px; left: 220px">
-                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="nuevaVigenciaRetroactivo" value="#{controlVigenciaSueldo.nuevaVigencia.fechavigenciaretroactivo}" >
+                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaVigenciaRetroactivo" value="#{controlVigenciaSueldo.nuevaVigencia.fechavigenciaretroactivo}" >
                                     <p:ajax event="dateSelect" update="nuevaVigenciaRetroactivo" process="@this"/>
                                     <p:ajax event="change" update="nuevaVigenciaRetroactivo" process="@this"/>
                                 </p:calendar>
                             </div>
 
                             <strong><h:outputText value="#{msg['valorVS']}" style=" position: absolute; top: 270px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaValor" value="#{controlVigenciaSueldo.nuevaVigencia.valor}" style=" width: 122px; position: absolute; left: 220px; top: 270px; text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="nuevaValor" value="#{controlVigenciaSueldo.nuevaVigencia.valor}" style=" width: 122px; position: absolute; left: 220px; top: 270px; text-transform: uppercase">
                                 <p:ajax event="change" update="nuevaValor"/>
                             </p:inputText>
                             <p:watermark for="nuevaValor" value="#{msg['valor']}"/>
 
                             <strong><h:outputText value="#{msg['observacionesVS']}" style=" position: absolute; top: 310px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaObservaciones" value="#{controlVigenciaSueldo.nuevaVigencia.observaciones}" style=" width: 122px; position: absolute; left: 220px; top: 310px; text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="nuevaObservaciones" value="#{controlVigenciaSueldo.nuevaVigencia.observaciones}" style=" width: 122px; position: absolute; left: 220px; top: 310px; text-transform: uppercase">
                                 <p:ajax event="change" update="nuevaObservaciones"/>
                             </p:inputText>
                             <p:watermark for="nuevaObservaciones" value="#{msg['observaciones']}" />
@@ -697,14 +697,14 @@
                         <p:panel id="duplicarVS" style="border: none;">
                             <strong><h:outputText value="#{msg['fechavigenciaVS']}" style=" position: absolute; top: 70px; left: 50px;" /></strong>
                             <div id="posicionFormulaFechaVigDuplicarRegVS" style=" position: absolute; top: 70px; left: 220px">
-                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaVigencia" value="#{controlVigenciaSueldo.duplicarVS.fechavigencia}" >
+                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaVigencia" value="#{controlVigenciaSueldo.duplicarVS.fechavigencia}" >
                                     <p:ajax event="dateSelect" update="duplicarFechaVigencia" process="@this"/>
                                     <p:ajax event="change" update="duplicarFechaVigencia" process="@this"/>
                                 </p:calendar>
                             </div>
 
                             <strong><h:outputText value="#{msg['motivocambiosueldoVS']}" style=" position: absolute; top: 110px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarMotivoCambioSueldo" value="#{controlVigenciaSueldo.duplicarVS.motivocambiosueldo.nombre}" style=" width: 122px; position: absolute; left: 220px; top: 110px; text-transform: uppercase" onclick="select();" >
+                            <p:inputText  autocomplete="off"  id="duplicarMotivoCambioSueldo" value="#{controlVigenciaSueldo.duplicarVS.motivocambiosueldo.nombre}" style=" width: 122px; position: absolute; left: 220px; top: 110px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="dblclick" listener="#{controlVigenciaSueldo.asignarIndex(infoDVS,0,2,0)}" oncomplete="PF('lovMotivoCambioSueldo').unselectAllRows()"/>
                                 <p:ajax event="click" listener="#{controlVigenciaSueldo.valoresBackupAutocompletar(2, 'MOTIVOCAMBIOSUELDO')}" />
                                 <p:ajax event="change" listener="#{controlVigenciaSueldo.autocompletarNuevoyDuplicado('MOTIVOCAMBIOSUELDO', controlVigenciaSueldo.duplicarVS.motivocambiosueldo.nombre, 2)}" update="duplicarMotivoCambioSueldo"/>
@@ -714,7 +714,7 @@
                             <p:watermark for="duplicarMotivoCambioSueldo" value="#{msg['motivocambiosueldo']}" />
 
                             <strong><h:outputText value="#{msg['tiposueldoVS']}" style=" position: absolute; top: 150px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  maxlength="30" id="duplicarTipoSueldo" value="#{controlVigenciaSueldo.duplicarVS.tiposueldo.descripcion}" style=" width: 122px; position: absolute; left: 220px; top: 150px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  maxlength="30" id="duplicarTipoSueldo" value="#{controlVigenciaSueldo.duplicarVS.tiposueldo.descripcion}" style=" width: 122px; position: absolute; left: 220px; top: 150px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlVigenciaSueldo.asignarIndex(infoDVS,1,2,0)}" oncomplete="PF('lovTipoSueldo').unselectAllRows()"/>
                                 <p:ajax event="click" listener="#{controlVigenciaSueldo.valoresBackupAutocompletar(2, 'TIPOSUELDO')}" />
                                 <p:ajax event="change" listener="#{controlVigenciaSueldo.autocompletarNuevoyDuplicado('TIPOSUELDO', controlVigenciaSueldo.duplicarVS.tiposueldo.descripcion, 2)}" update="duplicarTipoSueldo"/>
@@ -730,20 +730,20 @@
 
                             <strong><h:outputText value="#{msg['vigenciaretroactivoVS']}" style=" position: absolute; top: 230px; left: 50px;" /></strong>
                             <div id="posicionFormulaFechaRetroDuplicarRegVS" style=" position: absolute; top: 230px; left: 220px">
-                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="duplicarVigenciaRetroactivo" value="#{controlVigenciaSueldo.duplicarVS.fechavigenciaretroactivo}" >
+                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarVigenciaRetroactivo" value="#{controlVigenciaSueldo.duplicarVS.fechavigenciaretroactivo}" >
                                     <p:ajax event="dateSelect" update="duplicarVigenciaRetroactivo" process="@this"/>
                                     <p:ajax event="change" update="duplicarVigenciaRetroactivo" process="@this"/>
                                 </p:calendar>
                             </div>
 
                             <strong><h:outputText value="#{msg['valorVS']}" style=" position: absolute; top: 270px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarValor" value="#{controlVigenciaSueldo.duplicarVS.valor}" style=" width: 122px; position: absolute; left: 220px; top: 270px; text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="duplicarValor" value="#{controlVigenciaSueldo.duplicarVS.valor}" style=" width: 122px; position: absolute; left: 220px; top: 270px; text-transform: uppercase">
                                 <p:ajax event="change" update="duplicarValor"/>
                             </p:inputText>
                             <p:watermark for="duplicarValor" value="#{msg['valor']}" />
 
                             <strong><h:outputText value="#{msg['observacionesVS']}" style=" position: absolute; top: 310px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarObservaciones" value="#{controlVigenciaSueldo.duplicarVS.observaciones}" style=" width: 122px; position: absolute; left: 220px; top: 310px; text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="duplicarObservaciones" value="#{controlVigenciaSueldo.duplicarVS.observaciones}" style=" width: 122px; position: absolute; left: 220px; top: 310px; text-transform: uppercase">
                                 <p:ajax event="change" update="duplicarObservaciones"/>
                             </p:inputText>
                             <p:watermark for="duplicarObservaciones" value="#{msg['observaciones']}" />
@@ -762,7 +762,7 @@
 
                             <strong><h:outputText value="#{msg['fechainicialVA']}" style=" position: absolute; top: 70px; left: 50px;" /></strong>
                             <div id="posicionFormulaFechaIniNuevoRegVA" style=" position: absolute; top: 70px; left: 200px">
-                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicialVA" value="#{controlVigenciaSueldo.nuevaVigenciaA.fechainicial}" >
+                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicialVA" value="#{controlVigenciaSueldo.nuevaVigenciaA.fechainicial}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaInicialVA" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaInicialVA" process="@this"/>
                                 </p:calendar>
@@ -770,13 +770,13 @@
 
                             <strong><h:outputText value="#{msg['fechafinalVA']}" style=" position: absolute; top: 110px; left: 50px;" /></strong>
                             <div id="posicionFormulaFechaFinNuevoReg" style=" position: absolute; top: 110px; left: 200px">
-                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinalVA" value="#{controlVigenciaSueldo.nuevaVigenciaA.fechafinal}" >
+                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinalVA" value="#{controlVigenciaSueldo.nuevaVigenciaA.fechafinal}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaFinalVA" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaFinalVA" process="@this"/>
                                 </p:calendar>
                             </div>
                             <strong><h:outputText value="#{msg['terceroVA']}" style=" position: absolute; top: 150px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaTerceroVA" value="#{controlVigenciaSueldo.nuevaVigenciaA.tercerosucursal.tercero.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 150px; text-transform: uppercase" onclick="select();" >
+                            <p:inputText  autocomplete="off"  id="nuevaTerceroVA" value="#{controlVigenciaSueldo.nuevaVigenciaA.tercerosucursal.tercero.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 150px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="dblclick" listener="#{controlVigenciaSueldo.asignarIndex(infoDVS,0,1,1)}" oncomplete="PF('lovTercero').unselectAllRows()" process="@this"/>
                                 <p:ajax event="click" listener="#{controlVigenciaSueldo.valoresBackupAutocompletarVA(1, 'TERCERO')}" process="@this"/>
                                 <p:ajax event="change" listener="#{controlVigenciaSueldo.autocompletarNuevoyDuplicadoVA('TERCERO', controlVigenciaSueldo.nuevaVigenciaA.tercerosucursal.tercero.nombre,1)}" process="@this" update="nuevaTerceroVA"/>
@@ -786,7 +786,7 @@
                             <p:watermark for="nuevaTerceroVA" value="#{msg['tercero']}" />
 
                             <strong><h:outputText value="#{msg['tipoentidadVA']}" style=" position: absolute; top: 190px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaTipoEntidadVA" value="#{controlVigenciaSueldo.nuevaVigenciaA.tipoentidad.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 190px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="nuevaTipoEntidadVA" value="#{controlVigenciaSueldo.nuevaVigenciaA.tipoentidad.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 190px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlVigenciaSueldo.asignarIndex(infoDVS,1,1,1)}" oncomplete="PF('lovTipoEntidad').unselectAllRows()"/>
                                 <p:ajax event="click" listener="#{controlVigenciaSueldo.valoresBackupAutocompletarVA(1,'TIPOENTIDAD')}" />
                                 <p:ajax event="change" listener="#{controlVigenciaSueldo.autocompletarNuevoyDuplicadoVA('TIPOENTIDAD', controlVigenciaSueldo.nuevaVigenciaA.tipoentidad.nombre, 1)}" update="nuevaTipoEntidadVA"/>
@@ -796,7 +796,7 @@
                             <p:watermark for="nuevaTipoEntidadVA" value="#{msg['tipodeentidad']}" />
 
                             <strong><h:outputText value="#{msg['valorVA']}" style=" position: absolute; top: 230px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaValorVA" value="#{controlVigenciaSueldo.nuevaVigenciaA.valor}" style=" width: 122px; position: absolute; left: 200px; top: 230px; text-transform: uppercase" >
+                            <p:inputText  autocomplete="off"  id="nuevaValorVA" value="#{controlVigenciaSueldo.nuevaVigenciaA.valor}" style=" width: 122px; position: absolute; left: 200px; top: 230px; text-transform: uppercase" >
                                 <p:ajax event="change" update="nuevaValorVA"  />
                             </p:inputText>
                             <p:watermark for="nuevaValorVA" value="#{msg['valor']}" />
@@ -815,21 +815,21 @@
 
                             <strong><h:outputText value="#{msg['fechainicialVA']}" style=" position: absolute; top: 70px; left: 50px;" /></strong>
                             <div id="posicionFormulaFechaIniDupliReg" style=" position: absolute; top: 70px; left: 200px">
-                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicialVA" value="#{controlVigenciaSueldo.duplicarVA.fechainicial}" >
+                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicialVA" value="#{controlVigenciaSueldo.duplicarVA.fechainicial}" >
                                     <p:ajax event="dateSelect" update="duplicarFechaInicialVA" process="@this"/>
                                     <p:ajax event="change" update="duplicarFechaInicialVA" process="@this"/>
                                 </p:calendar>
                             </div>
                             <strong><h:outputText value="#{msg['fechafinalVA']}" style=" position: absolute; top: 110px; left: 50px;" /></strong>
                             <div id="posicionFormulaFechaFinDupliReg" style=" position: absolute; top: 110px; left: 200px">
-                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinalVA" value="#{controlVigenciaSueldo.duplicarVA.fechafinal}" >
+                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinalVA" value="#{controlVigenciaSueldo.duplicarVA.fechafinal}" >
                                     <p:ajax event="dateSelect" update="duplicarFechaFinalVA" process="@this"/>
                                     <p:ajax event="change" update="duplicarFechaFinalVA" process="@this"/>
                                 </p:calendar>
                             </div>
 
                             <strong><h:outputText value="#{msg['terceroVA']}" style=" position: absolute; top: 150px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarTerceroVA" value="#{controlVigenciaSueldo.duplicarVA.tercerosucursal.tercero.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 150px; text-transform: uppercase" onclick="select();" >
+                            <p:inputText  autocomplete="off"  id="duplicarTerceroVA" value="#{controlVigenciaSueldo.duplicarVA.tercerosucursal.tercero.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 150px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="dblclick" listener="#{controlVigenciaSueldo.asignarIndex(infoDVS,0,2,1)}"/>
                                 <p:ajax event="click" listener="#{controlVigenciaSueldo.valoresBackupAutocompletarVA(2,'TERCERO')}" />
                                 <p:ajax event="change" listener="#{controlVigenciaSueldo.autocompletarNuevoyDuplicadoVA('TERCERO', controlVigenciaSueldo.duplicarVA.tercerosucursal.tercero.nombre, 2)}" update="duplicarTerceroVA"/>
@@ -839,7 +839,7 @@
                             <p:watermark for="duplicarTerceroVA" value="#{msg['tercero']}" />
 
                             <strong><h:outputText value="#{msg['tipoentidadVA']}" style=" position: absolute; top: 190px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarTipoEntidadVA" value="#{controlVigenciaSueldo.duplicarVA.tipoentidad.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 190px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="duplicarTipoEntidadVA" value="#{controlVigenciaSueldo.duplicarVA.tipoentidad.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 190px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlVigenciaSueldo.asignarIndex(infoDVS,1,2,1)}"/>
                                 <p:ajax event="click" listener="#{controlVigenciaSueldo.valoresBackupAutocompletarVA(2, 'TIPOENTIDAD')}" />
                                 <p:ajax event="change" listener="#{controlVigenciaSueldo.autocompletarNuevoyDuplicadoVA('TIPOENTIDAD',controlVigenciaSueldo.duplicarVA.tipoentidad.nombre,2)}" update="duplicarTipoEntidadVA"/>
@@ -849,7 +849,7 @@
                             <p:watermark for="duplicarTipoEntidadVA" value="#{msg['tipodeentidad']}" />
 
                             <strong><h:outputText value="#{msg['valorVA']}" style=" position: absolute; top: 230px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarValorVA" value="#{controlVigenciaSueldo.duplicarVA.valor}" style=" width: 122px; position: absolute; left: 200px; top: 230px; text-transform: uppercase" >
+                            <p:inputText  autocomplete="off"  id="duplicarValorVA" value="#{controlVigenciaSueldo.duplicarVA.valor}" style=" width: 122px; position: absolute; left: 200px; top: 230px; text-transform: uppercase" >
                                 <p:ajax event="change" update="duplicarValorVA"  />
                             </p:inputText>
                             <p:watermark for="duplicarValorVA" value="#{msg['valor']}" /> 

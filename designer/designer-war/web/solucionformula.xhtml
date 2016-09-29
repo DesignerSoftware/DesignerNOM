@@ -92,7 +92,7 @@
                                                 <f:convertDateTime pattern="dd/MM/yyyy" />
                                             </h:outputText></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.solucionnodo.fechahasta}" onselect="posicionTabla([{name: 'n', value: '0'}, {name: 't', value: '#{indice}'}]);" readonly="true" id="editFechaHasta" style="border-radius: 0px; width: 93.5%;text-transform: uppercase" > 
+                                            <p:inputText  autocomplete="off"  value="#{info.solucionnodo.fechahasta}" onselect="posicionTabla([{name: 'n', value: '0'}, {name: 't', value: '#{indice}'}]);" readonly="true" id="editFechaHasta" style="border-radius: 0px; width: 93.5%;text-transform: uppercase" > 
                                                 <f:convertDateTime pattern="dd/MM/yyyy" />
                                             </p:inputText>
                                         </f:facet>  
@@ -109,7 +109,7 @@
                                         <f:facet name="output"><h:outputText value="#{info.solucionnodo.concepto.descripcion}" >
                                             </h:outputText></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.solucionnodo.concepto.descripcion}" onselect="posicionTabla([{name: 'n', value: '1'}, {name: 't', value: '#{indice}'}]);" readonly="true" id="editConcepto" style="border-radius: 0px; width: 93.5%;text-transform: uppercase" > 
+                                            <p:inputText  autocomplete="off"  value="#{info.solucionnodo.concepto.descripcion}" onselect="posicionTabla([{name: 'n', value: '1'}, {name: 't', value: '#{indice}'}]);" readonly="true" id="editConcepto" style="border-radius: 0px; width: 93.5%;text-transform: uppercase" > 
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -125,7 +125,7 @@
                                                 <f:convertNumber currencySymbol="$" type="currency" />
                                             </h:outputText></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.solucionnodo.valor}" readonly="true" onselect="posicionTabla([{name: 'n', value: '2'}, {name: 't', value: '#{indice}'}]);" id="editValor" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"  value="#{info.solucionnodo.valor}" readonly="true" onselect="posicionTabla([{name: 'n', value: '2'}, {name: 't', value: '#{indice}'}]);" id="editValor" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <f:convertNumber currencySymbol="$" type="currency" />
                                             </p:inputText>
                                         </f:facet>  
@@ -142,7 +142,7 @@
                                                 <f:convertNumber currencySymbol="$" type="currency" />
                                             </h:outputText></f:facet> 
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.solucionnodo.saldo}" id="editSaldo" onselect="posicionTabla([{name: 'n', value: '3'}, {name: 't', value: '#{indice}'}]);"  readonly="true" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"  value="#{info.solucionnodo.saldo}" id="editSaldo" onselect="posicionTabla([{name: 'n', value: '3'}, {name: 't', value: '#{indice}'}]);"  readonly="true" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <f:convertNumber currencySymbol="$" type="currency" />
                                             </p:inputText>
                                         </f:facet>  
@@ -160,7 +160,7 @@
                                                 <f:convertDateTime pattern="dd/MM/yyyy" />
                                             </h:outputText></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.solucionnodo.fechapago}" readonly="true" onselect="posicionTabla([{name: 'n', value: '4'}, {name: 't', value: '#{indice}'}]);" id="editFechaPago" style="border-radius: 0px; width: 93.5%;text-transform: uppercase" > 
+                                            <p:inputText  autocomplete="off"  value="#{info.solucionnodo.fechapago}" readonly="true" onselect="posicionTabla([{name: 'n', value: '4'}, {name: 't', value: '#{indice}'}]);" id="editFechaPago" style="border-radius: 0px; width: 93.5%;text-transform: uppercase" > 
                                                 <f:convertDateTime pattern="dd/MM/yyyy" />
                                             </p:inputText>
                                         </f:facet>  
@@ -176,7 +176,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.solucionnodo.proceso.descripcion}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.solucionnodo.proceso.descripcion}" readonly="true" onselect="posicionTabla([{name: 'n', value: '5'}, {name: 't', value: '#{indice}'}]);" id="editProceso" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"  value="#{info.solucionnodo.proceso.descripcion}" readonly="true" onselect="posicionTabla([{name: 'n', value: '5'}, {name: 't', value: '#{indice}'}]);" id="editProceso" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -191,7 +191,7 @@
                                         <f:facet name="output"><h:outputText value="#{info.solucionnodo.formula.nombrelargo}" >
                                             </h:outputText></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.solucionnodo.formula.nombrelargo}" readonly="true" onselect="posicionTabla([{name: 'n', value: '6'}, {name: 't', value: '#{indice}'}]);" id="editFormula" style="border-radius: 0px; width: 93.5%;text-transform: uppercase" > 
+                                            <p:inputText  autocomplete="off"  value="#{info.solucionnodo.formula.nombrelargo}" readonly="true" onselect="posicionTabla([{name: 'n', value: '6'}, {name: 't', value: '#{indice}'}]);" id="editFormula" style="border-radius: 0px; width: 93.5%;text-transform: uppercase" > 
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>

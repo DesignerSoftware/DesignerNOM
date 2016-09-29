@@ -110,7 +110,7 @@
                                                 <f:convertDateTime pattern="dd/MM/yyyy" />
                                             </h:outputText></f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="dateFecha" value="#{info.fecha}" > 
+                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFecha" value="#{info.fecha}" > 
                                                 <p:ajax event="dateSelect" listener="#{controlEstructuraPlanta.modificacionesFechas(info,0)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlEstructuraPlanta.modificacionesFechas(info,0)}" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlEstructuraPlanta.cambiarIndice(info,0)}" process="@this"/> 
@@ -127,7 +127,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.codigo}" style="text-transform: uppercase"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.codigo}"  readonly="true"  onselect="posicionOrganigrama([{name: 'n', value: '1'}, {name: 't', value: '#{indice}'}]);" onclick="select();" id="editarCodigoOrganigrama" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"  value="#{info.codigo}"  readonly="true"  onselect="posicionOrganigrama([{name: 'n', value: '1'}, {name: 't', value: '#{indice}'}]);" onclick="select();" id="editarCodigoOrganigrama" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                 <p:ajax event="select" listener="#{controlEstructuraPlanta.cambiarIndice(info, 1)}" process="@this"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -145,7 +145,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.empresa.nombre}" onclick="select();" onselect="posicionOrganigrama([{name: 'n', value: '2'}, {name: 't', value: '#{indice}'}]);" id="editarEmpresaOrganigrama" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"  value="#{info.empresa.nombre}" onclick="select();" onselect="posicionOrganigrama([{name: 'n', value: '2'}, {name: 't', value: '#{indice}'}]);" id="editarEmpresaOrganigrama" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlEstructuraPlanta.modificarOrganigrama(info, 'EMPRESA', info.empresa.nombre)}" />
                                                 <p:ajax event="dblclick" listener="#{controlEstructuraPlanta.asignarIndexTabla(info)}"/>
                                                 <p:ajax event="select" listener="#{controlEstructuraPlanta.cambiarIndice(info,2)}"/> 
@@ -165,7 +165,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.empresa.nit}" onclick="select();"  readonly="true"  onselect="posicionOrganigrama([{name: 'n', value: '3'}, {name: 't', value: '#{indice}'}]);" id="editarNITOrganigrama" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"  value="#{info.empresa.nit}" onclick="select();"  readonly="true"  onselect="posicionOrganigrama([{name: 'n', value: '3'}, {name: 't', value: '#{indice}'}]);" id="editarNITOrganigrama" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                 <p:ajax event="select" listener="#{controlEstructuraPlanta.cambiarIndice(info,2)}" process="@this"/> 
                                             </p:inputText>
                                         </f:facet>   
@@ -183,7 +183,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.estado}" onclick="select();"  readonly="true"  onselect="posicionOrganigrama([{name: 'n', value: '4'}, {name: 't', value: '#{indice}'}]);" id="editarEstadoOrganigrama" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"  value="#{info.estado}" onclick="select();"  readonly="true"  onselect="posicionOrganigrama([{name: 'n', value: '4'}, {name: 't', value: '#{indice}'}]);" id="editarEstadoOrganigrama" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                 <p:ajax event="select" listener="#{controlEstructuraPlanta.cambiarIndice(info,2)}" process="@this"/> 
                                             </p:inputText>
                                         </f:facet>   
@@ -221,7 +221,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{infoE.codigo}" onclick="select();"  id="editarCodigoEstructura" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"  value="#{infoE.codigo}" onclick="select();"  id="editarCodigoEstructura" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlEstructuraPlanta.procesoModificacionEstructura(infoE)}" process="@this" update="editarCodigoEstructura"/>
                                                 <p:ajax event="select" listener="#{controlEstructuraPlanta.cambiarIndiceEstructura(infoE,0)}" process="@this"/> 
                                             </p:inputText>
@@ -239,7 +239,7 @@
                                             <h:outputText  value="#{infoE.nombre}"  style="text-transform: uppercase"/>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{infoE.nombre}" onclick="select();"  id="editarEstructuraEstructura" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"  value="#{infoE.nombre}" onclick="select();"  id="editarEstructuraEstructura" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlEstructuraPlanta.procesoModificacionEstructura(infoE)}" process="@this" update="editarEstructuraEstructura"/>
                                                 <p:ajax event="select" listener="#{controlEstructuraPlanta.cambiarIndiceEstructura(infoE,1)}" process="@this"/> 
                                             </p:inputText>
@@ -262,7 +262,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input"> 
-                                            <p:inputText  autocomplete="false"  value="#{infoE.cantidadCargosControlar}" onclick="select();"  readonly="true"  onselect="posicionEstructura([{name: 'n', value: '2'}, {name: 't', value: '#{indiceE}'}]);" 
+                                            <p:inputText  autocomplete="off"  value="#{infoE.cantidadCargosControlar}" onclick="select();"  readonly="true"  onselect="posicionEstructura([{name: 'n', value: '2'}, {name: 't', value: '#{indiceE}'}]);" 
                                                          ondblclick="dispararDialogo([{name: 'n', value: '2'}, {name: 't', value: '#{indiceE}'}]);" id="editarCantidadControlarEstructura" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                             </p:inputText>
                                         </f:facet>   
@@ -284,7 +284,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{infoE.cantidadCargosEmplActivos}" onclick="select();" readonly="true"  onselect="posicionEstructura([{name: 'n', value: '3'}, {name: 't', value: '#{indiceE}'}]);" 
+                                            <p:inputText  autocomplete="off"  value="#{infoE.cantidadCargosEmplActivos}" onclick="select();" readonly="true"  onselect="posicionEstructura([{name: 'n', value: '3'}, {name: 't', value: '#{indiceE}'}]);" 
                                                          id="editarCantidadActivosEstructura" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                             </p:inputText>
                                         </f:facet>   
@@ -301,7 +301,7 @@
                                             <h:outputText  value="#{infoE.centrocosto.codigoNombre}" style="text-transform: uppercase"/>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{infoE.centrocosto.codigoNombre}" onclick="select();" id="editarCentroCostoEstructura" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"  value="#{infoE.centrocosto.codigoNombre}" onclick="select();" id="editarCentroCostoEstructura" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlEstructuraPlanta.modificarEstructura(infoE, 'CENTROCOSTO', infoE.centrocosto.codigoNombre)}" process="@this" update="editarCentroCostoEstructura"/>
                                                 <p:ajax event="select" listener="#{controlEstructuraPlanta.cambiarIndiceEstructura(infoE,4)}" process="@this"/> 
                                                 <p:ajax event="dblclick" listener="#{controlEstructuraPlanta.asignarIndex(infoE,0,0)}" process="@this" update="editarCentroCostoEstructura"/>
@@ -320,7 +320,7 @@
                                             <h:outputText  value="#{infoE.estructurapadre.nombre}" style="text-transform: uppercase"/>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{infoE.estructurapadre.nombre}" onclick="select();"  id="editarEstructuraPadreEstructura" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"  value="#{infoE.estructurapadre.nombre}" onclick="select();"  id="editarEstructuraPadreEstructura" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlEstructuraPlanta.modificarEstructura(infoE, 'PADRE', infoE.estructurapadre.nombre)}" process="@this" update="editarEstructuraPadreEstructura"/>
                                                 <p:ajax event="select" listener="#{controlEstructuraPlanta.cambiarIndiceEstructura(infoE,5)}" process="@this"/> 
                                                 <p:ajax event="dblclick" listener="#{controlEstructuraPlanta.asignarIndex(infoE,1,0)}" process="@this" update="editarEstructuraPadreEstructura"/>
@@ -348,7 +348,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlEstructuraPlanta.actualizarEmpresa()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarEM']}" />  
-                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovEmpresas').filter();" class="cssFiltroLOV"/>  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovEmpresas').filter();" class="cssFiltroLOV"/>  
                             </f:facet>
                             <p:column filterBy="#{empresa.nit}" width="80" filterMatchMode="contains" filterStyle="width: 85% !important">
                                 <f:facet name="header">
@@ -384,7 +384,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlEstructuraPlanta.actualizarCentroCosto()}"  process="@this"  />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarCC']}" />  
-                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovCentroCosto').filter();" class="cssFiltroLOV" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovCentroCosto').filter();" class="cssFiltroLOV" />  
                             </f:facet>
                             <p:column filterBy="#{centroCosto.codigoNombre}" filterMatchMode="contains" filterStyle="width: 85% !important;">
                                 <f:facet name="header">
@@ -416,7 +416,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlEstructuraPlanta.actualizarEstructuraPadre()}"  process="@this"  />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarEP']}" />  
-                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovEstructuraPadre').filter();" class="cssFiltroLOV" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovEstructuraPadre').filter();" class="cssFiltroLOV" />  
                             </f:facet>
 
                             <p:column filterBy="#{ePadre.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important;">
@@ -587,28 +587,28 @@
                         <p:panel id="nuevoEstructura" widgetVar="nuevoEstructura" style="border: none;">
 
                             <strong><h:outputText value="*#{msg['codifoNE']}" style="position: absolute; top: 65px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoEstructuraCodigo" onclick="select();" value="#{controlEstructuraPlanta.nuevoEstructura.codigo}" 
+                            <p:inputText  autocomplete="off"  id="nuevoEstructuraCodigo" onclick="select();" value="#{controlEstructuraPlanta.nuevoEstructura.codigo}" 
                                          style="width: 122px; position: absolute; left: 200px; top: 60px;text-transform: uppercase">
                                 <p:ajax event="change" update="nuevoEstructuraCodigo"/>
                             </p:inputText>
                             <p:watermark value="#{msg['codigo']}" for="nuevoEstructuraCodigo"/>
 
                             <strong><h:outputText value="*#{msg['estructuraNE']}" style="position: absolute; top: 95px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoEstructuraEstructura" onclick="select();" value="#{controlEstructuraPlanta.nuevoEstructura.nombre}" 
+                            <p:inputText  autocomplete="off"  id="nuevoEstructuraEstructura" onclick="select();" value="#{controlEstructuraPlanta.nuevoEstructura.nombre}" 
                                          style="width: 122px; position: absolute; left: 200px; top: 90px;text-transform: uppercase">
                                 <p:ajax event="change" update="nuevoEstructuraEstructura"/>
                             </p:inputText>
                             <p:watermark value="#{msg['estructura']}" for="nuevoEstructuraEstructura"/>
 
                             <strong><h:outputText value="#{msg['cantidadCargosControlar']}" style="position: absolute; top: 125px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoEstructuraCantidadCargosControlar" onclick="select();" readonly="true" value="#{controlEstructuraPlanta.nuevoEstructura.cantidadCargosControlar}" 
+                            <p:inputText  autocomplete="off"  id="nuevoEstructuraCantidadCargosControlar" onclick="select();" readonly="true" value="#{controlEstructuraPlanta.nuevoEstructura.cantidadCargosControlar}" 
                                          style="width: 122px; position: absolute; left: 200px; top: 120px;text-transform: uppercase">
                                 <p:ajax event="change" update="nuevoEstructuraCantidadCargosControlar"/>
                             </p:inputText>
                             <p:watermark value="#{msg['infoCantidadCargosControlar']}" for="nuevoEstructuraCantidadCargosControlar"/>
 
                             <strong><h:outputText value="#{msg['cantidadCargosControlarActivos']}" style="position: absolute; top: 155px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoEstructuraCantidadCargosActivos" onclick="select();" readonly="true" value="#{controlEstructuraPlanta.nuevoEstructura.cantidadCargosEmplActivos}"
+                            <p:inputText  autocomplete="off"  id="nuevoEstructuraCantidadCargosActivos" onclick="select();" readonly="true" value="#{controlEstructuraPlanta.nuevoEstructura.cantidadCargosEmplActivos}"
                                          style="width: 122px; position: absolute; left: 200px; top: 150px;text-transform: uppercase">
                                 <p:ajax event="change" update="nuevoEstructuraCantidadCargosActivos"/>
                             </p:inputText>
@@ -616,7 +616,7 @@
 
 
                             <strong><h:outputText value="#{msg['centroCostoNE']}" style="position: absolute; top: 185px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoEstructuraCentroCosto" onclick="select();" value="#{controlEstructuraPlanta.nuevoEstructura.centrocosto.nombre}" style="width: 122px; position: absolute; left: 200px; top: 180px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="nuevoEstructuraCentroCosto" onclick="select();" value="#{controlEstructuraPlanta.nuevoEstructura.centrocosto.nombre}" style="width: 122px; position: absolute; left: 200px; top: 180px;text-transform: uppercase">
                                 <p:ajax event="dblclick" listener="#{controlEstructuraPlanta.asignarIndex(0,1)}" process="@this" update="nuevoEstructuraCentroCosto"/>
                                 <p:ajax event="click" listener="#{controlEstructuraPlanta.valoresBackupAutocompletarGeneral(1, 'CENTROCOSTO')}" />
                                 <p:ajax event="change" listener="#{controlEstructuraPlanta.autocompletarNuevoyDuplicadoEstructura('CENTROCOSTO', controlEstructuraPlanta.nuevoEstructura.centrocosto.nombre, 1)}" />
@@ -626,7 +626,7 @@
                                              value="" id="btnNuevoCentroCostoEstructura" process="@this" actionListener="#{controlEstructuraPlanta.asignarIndex(0,1)}"/>   
 
                             <strong><h:outputText value="#{msg['estructuraPadreNE']}" style="position: absolute; top: 215px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoEstructuraEstructuraPadre" onclick="select();" value="#{controlEstructuraPlanta.nuevoEstructura.estructurapadre.nombre}" style="width: 122px; position: absolute; left: 200px; top: 210px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="nuevoEstructuraEstructuraPadre" onclick="select();" value="#{controlEstructuraPlanta.nuevoEstructura.estructurapadre.nombre}" style="width: 122px; position: absolute; left: 200px; top: 210px;text-transform: uppercase">
                                 <p:ajax event="dblclick" listener="#{controlEstructuraPlanta.asignarIndex(1,1)}" process="@this" update="nuevoEstructuraCentroCosto"/>
                                 <p:ajax event="click" listener="#{controlEstructuraPlanta.valoresBackupAutocompletarGeneral(1, 'PADRE')}" />
                                 <p:ajax event="change" listener="#{controlEstructuraPlanta.autocompletarNuevoyDuplicadoEstructura('PADRE', controlEstructuraPlanta.nuevoEstructura.estructurapadre.nombre, 1)}" />
@@ -647,35 +647,35 @@
                         <p:panel id="duplicarEstructura" widgetVar="duplicarEstructura" style="border: none;">
 
                             <strong><h:outputText value="*#{msg['codifoNE']}" style="position: absolute; top: 65px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarEstructuraCodigo" onclick="select();" value="#{controlEstructuraPlanta.duplicarEstructura.codigo}" 
+                            <p:inputText  autocomplete="off"  id="duplicarEstructuraCodigo" onclick="select();" value="#{controlEstructuraPlanta.duplicarEstructura.codigo}" 
                                          style="width: 122px; position: absolute; left: 200px; top: 60px;text-transform: uppercase">
                                 <p:ajax event="change" update="duplicarEstructuraCodigo"/>
                             </p:inputText>
                             <p:watermark value="#{msg['codigo']}" for="duplicarEstructuraCodigo"/>
 
                             <strong><h:outputText value="*#{msg['estructuraNE']}" style="position: absolute; top: 95px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarEstructuraEstructura" onclick="select();" value="#{controlEstructuraPlanta.duplicarEstructura.nombre}" 
+                            <p:inputText  autocomplete="off"  id="duplicarEstructuraEstructura" onclick="select();" value="#{controlEstructuraPlanta.duplicarEstructura.nombre}" 
                                          style="width: 122px; position: absolute; left: 200px; top: 90px;text-transform: uppercase">
                                 <p:ajax event="change" update="duplicarEstructuraEstructura"/>
                             </p:inputText>
                             <p:watermark value="#{msg['estructura']}" for="duplicarEstructuraEstructura"/>
 
                             <strong><h:outputText value="#{msg['cantidadCargosControlar']}" style="position: absolute; top: 125px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarEstructuraCantidadCargosControlar" onclick="select();" readonly="true" value="#{controlEstructuraPlanta.duplicarEstructura.cantidadCargosControlar}" 
+                            <p:inputText  autocomplete="off"  id="duplicarEstructuraCantidadCargosControlar" onclick="select();" readonly="true" value="#{controlEstructuraPlanta.duplicarEstructura.cantidadCargosControlar}" 
                                          style="width: 122px; position: absolute; left: 200px; top: 120px;text-transform: uppercase">
                                 <p:ajax event="change" update="duplicarEstructuraCantidadCargosControlar"/>
                             </p:inputText>
                             <p:watermark value="#{msg['infoCantidadCargosControlar']}" for="duplicarEstructuraCantidadCargosControlar"/>
 
                             <strong><h:outputText value="#{msg['cantidadCargosControlarActivos']}" style="position: absolute; top: 155px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarEstructuraCantidadCargosActivos" onclick="select();" readonly="true" value="#{controlEstructuraPlanta.duplicarEstructura.cantidadCargosEmplActivos}" 
+                            <p:inputText  autocomplete="off"  id="duplicarEstructuraCantidadCargosActivos" onclick="select();" readonly="true" value="#{controlEstructuraPlanta.duplicarEstructura.cantidadCargosEmplActivos}" 
                                          style="width: 122px; position: absolute; left: 200px; top: 150px;text-transform: uppercase">
                                 <p:ajax event="change" update="duplicarEstructuraCantidadCargosActivos"/>
                             </p:inputText>
                             <p:watermark value="#{msg['infoCantidadCargosActivos']}" for="duplicarEstructuraCantidadCargosActivos"/>
 
                             <strong><h:outputText value="#{msg['centroCostoNE']}" style="position: absolute; top: 185px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarEstructuraCentroCosto" onclick="select();" value="#{controlEstructuraPlanta.duplicarEstructura.centrocosto.nombre}" 
+                            <p:inputText  autocomplete="off"  id="duplicarEstructuraCentroCosto" onclick="select();" value="#{controlEstructuraPlanta.duplicarEstructura.centrocosto.nombre}" 
                                          style="width: 122px; position: absolute; left: 200px; top: 180px;text-transform: uppercase">
                                 <p:ajax event="dblclick" listener="#{controlEstructuraPlanta.asignarIndex(0,2)}" process="@this" update="duplicarEstructuraCentroCosto"/>
                                 <p:ajax event="click" listener="#{controlEstructuraPlanta.valoresBackupAutocompletarGeneral(2, 'CENTROCOSTO')}" />
@@ -686,7 +686,7 @@
                                              value="" id="btnDuplicarCentroCostoEstructura" process="@this"  actionListener="#{controlEstructuraPlanta.asignarIndex(0,2)}"/>   
 
                             <strong><h:outputText value="#{msg['estructuraPadreNE']}" style="position: absolute; top: 215px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarEstructuraEstructuraPadre" onclick="select();" value="#{controlEstructuraPlanta.duplicarEstructura.estructurapadre.nombre}" 
+                            <p:inputText  autocomplete="off"  id="duplicarEstructuraEstructuraPadre" onclick="select();" value="#{controlEstructuraPlanta.duplicarEstructura.estructurapadre.nombre}" 
                                          style="width: 122px; position: absolute; left: 200px; top: 210px;text-transform: uppercase">
                                 <p:ajax event="dblclick" listener="#{controlEstructuraPlanta.asignarIndex(1,2)}" process="@this" update="duplicarEstructuraCentroCosto"/>
                                 <p:ajax event="click" listener="#{controlEstructuraPlanta.valoresBackupAutocompletarGeneral(2, 'PADRE')}" />
@@ -711,20 +711,20 @@
 
                             <strong><h:outputText value="*#{msg['fechaN']}" style="position: absolute; top: 75px;" /></strong>
                             <div id="posicionFechaNuevoReg" style=" position: absolute; top: 70px; left: 120px;width: 120px">
-                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="nuevaFecha" value="#{controlEstructuraPlanta.nuevoOrganigrama.fecha}" >
+                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFecha" value="#{controlEstructuraPlanta.nuevoOrganigrama.fecha}" >
                                     <p:ajax event="dateSelect" update="nuevaFecha" process="@this"/>
                                     <p:ajax event="change" update="nuevaFecha" process="@this"/>
                                 </p:calendar>
                             </div>
 
                             <strong><h:outputText value="*#{msg['codigoN']}" style="position: absolute; top: 105px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoCodigo" value="#{controlEstructuraPlanta.nuevoOrganigrama.codigo}" style="width: 122px; position: absolute; left: 120px; top: 100px; text-transform: uppercase" maxlength="4" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="nuevoCodigo" value="#{controlEstructuraPlanta.nuevoOrganigrama.codigo}" style="width: 122px; position: absolute; left: 120px; top: 100px; text-transform: uppercase" maxlength="4" onclick="select();">
                                 <p:ajax event="change" update="@this" />
                             </p:inputText>
                             <p:watermark for="nuevoCodigo" value="#{msg['codigo']}" />
 
                             <strong><h:outputText value="*#{msg['empresaN']}" style="position: absolute; top: 135px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaEmpresa" value="#{controlEstructuraPlanta.nuevoOrganigrama.empresa.nombre}" style="width: 122px; position: absolute; left: 120px; top: 130px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="nuevaEmpresa" value="#{controlEstructuraPlanta.nuevoOrganigrama.empresa.nombre}" style="width: 122px; position: absolute; left: 120px; top: 130px; text-transform: uppercase" onclick="select();">
                                 <!--                                <p:ajax event="click" listener="#/{controlEstructuraPlanta.valoresBackupAutocompletar(1)}" />-->
                                 <p:ajax event="change" listener="#{controlEstructuraPlanta.autocompletarNuevoyDuplicado(controlEstructuraPlanta.nuevoOrganigrama.empresa.nombre, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlEstructuraPlanta.asignarIndexDialogos(1)}" />
@@ -734,7 +734,7 @@
                                              id="btnNuevaEmpresa" process="@this" value="" actionListener="#{controlEstructuraPlanta.asignarIndexDialogos(1)}"/>
 
                             <strong><h:outputText value="*#{msg['nitN']}" style="position: absolute; top: 165px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoNit" readonly="true" value="#{controlEstructuraPlanta.nuevoOrganigrama.empresa.nit}" style="width: 122px; position: absolute; left: 120px; top: 160px; text-transform: uppercase" onclick="select();">                                
+                            <p:inputText  autocomplete="off"  id="nuevoNit" readonly="true" value="#{controlEstructuraPlanta.nuevoOrganigrama.empresa.nit}" style="width: 122px; position: absolute; left: 120px; top: 160px; text-transform: uppercase" onclick="select();">                                
                                 <p:ajax event="change" update="@this" />
                             </p:inputText>
                             <p:watermark for="nuevoNit" value="#{msg['nit']}" />
@@ -761,20 +761,20 @@
 
                             <strong><h:outputText value="*#{msg['fechaN']}" style="position: absolute; top: 75px;" /></strong>
                             <div id="posicionFechaDuplicarReg" style="position: absolute; top: 70px; left: 120px;width: 120px">
-                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="duplicarFecha" value="#{controlEstructuraPlanta.duplicarOrganigrama.fecha}" >
+                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFecha" value="#{controlEstructuraPlanta.duplicarOrganigrama.fecha}" >
                                     <p:ajax event="dateSelect" update="duplicarFecha" process="@this"/>
                                     <p:ajax event="change" update="duplicarFecha" process="@this"/>
                                 </p:calendar>
                             </div>
 
                             <strong><h:outputText value="*#{msg['codigoN']}" style="position: absolute; top: 105px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarCodigo" value="#{controlEstructuraPlanta.duplicarOrganigrama.codigo}" style="width: 122px; position: absolute; left: 120px; top: 100px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="duplicarCodigo" value="#{controlEstructuraPlanta.duplicarOrganigrama.codigo}" style="width: 122px; position: absolute; left: 120px; top: 100px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarCodigo" value="#{msg['codigo']}" />
 
                             <strong><h:outputText value="*#{msg['empresaN']}" style="position: absolute; top: 135px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarEmpresa" value="#{controlEstructuraPlanta.duplicarOrganigrama.empresa.nombre}" style="width: 122px; position: absolute; left: 120px; top: 130px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="duplicarEmpresa" value="#{controlEstructuraPlanta.duplicarOrganigrama.empresa.nombre}" style="width: 122px; position: absolute; left: 120px; top: 130px; text-transform: uppercase" onclick="select();">
                                 <!--                                <p:ajax event="click" listener="#/{controlEstructuraPlanta.valoresBackupAutocompletar(2)}" />-->
                                 <p:ajax event="change" listener="#{controlEstructuraPlanta.autocompletarNuevoyDuplicado(controlEstructuraPlanta.nuevoOrganigrama.empresa.nombre, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlEstructuraPlanta.asignarIndexDialogos(2)}" />
@@ -784,7 +784,7 @@
                                              id="btnDuplicarEmpresa" process="@this" value="" actionListener="#{controlEstructuraPlanta.asignarIndexDialogos(2)}"/>
 
                             <strong><h:outputText value="*#{msg['nitN']}" style="position: absolute; top: 165px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarNit" readonly="true" value="#{controlEstructuraPlanta.duplicarOrganigrama.empresa.nit}" style="width: 122px; position: absolute; left: 120px; top: 160px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="duplicarNit" readonly="true" value="#{controlEstructuraPlanta.duplicarOrganigrama.empresa.nit}" style="width: 122px; position: absolute; left: 120px; top: 160px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarNit" value="#{msg['nit']}" />

@@ -123,7 +123,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="dateFechaInicialMvrs" value="#{infoMvr.fechainicial}"> 
+                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaInicialMvrs" value="#{infoMvr.fechainicial}"> 
                                     <p:ajax event="dateSelect" listener="#{controlEmplMvr.modificarFechasMvrs(infoMvr,0)}" update="dateFechaInicialMvrs" process="@this"/>
                                     <p:ajax event="change" listener="#{controlEmplMvr.modificarFechasMvrs(infoMvr,0)}" update="dateFechaInicialMvrs" process="@this"/>
                                     <p:ajax event="select" listener="#{controlEmplMvr.cambiarIndiceMvr(infoMvr,0)}" process="@this"/> 
@@ -145,7 +145,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="dateFechaFinalMvrs" value="#{infoMvr.fechafinal}"> 
+                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaFinalMvrs" value="#{infoMvr.fechafinal}"> 
                                     <p:ajax event="dateSelect" listener="#{controlEmplMvr.modificarFechasMvrs(infoMvr,1)}" update="dateFechaFinalMvrs" process="@this"/>
                                     <p:ajax event="change" listener="#{controlEmplMvr.modificarFechasMvrs(infoMvr,1)}" update="dateFechaFinalMvrs" process="@this"/>
                                     <p:ajax event="select" listener="#{controlEmplMvr.cambiarIndiceMvr(infoMvr,1)}" process="@this"/> 
@@ -167,7 +167,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="false"  value="#{infoMvr.valor}" id="editarValorMvr" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px;"> 
+                                 <p:inputText  autocomplete="off"  value="#{infoMvr.valor}" id="editarValorMvr" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px;"> 
                                     <p:ajax event="change" listener="#{controlEmplMvr.modificarMvrs(infoMvr)}" update="editarValorMvr" process="@this"/>
                                     <p:ajax event="select" listener="#{controlEmplMvr.cambiarIndiceMvr(infoMvr,2)}"/>
                                  </p:inputText>
@@ -183,7 +183,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{infoMvr.motivo.nombre}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="false"  value="#{infoMvr.motivo.nombre}"  id="editarMotivoMvr" style=" border-radius: 0px; width: 98%;text-transform: uppercase; height: 12px;"> 
+                                 <p:inputText  autocomplete="off"  value="#{infoMvr.motivo.nombre}"  id="editarMotivoMvr" style=" border-radius: 0px; width: 98%;text-transform: uppercase; height: 12px;"> 
                                     <p:ajax event="change" listener="#{controlEmplMvr.modificarMvrs(infoMvr, 'MOTIVO', infoMvr.motivo.nombre)}" process="@this" update="editarMotivoMvr"/>
                                     <p:ajax event="dblclick" listener="#{controlEmplMvr.asignarIndexMVR(infoMvr,0,0)}" process="@this"/>
                                     <p:ajax event="select" listener="#{controlEmplMvr.cambiarIndiceMvr(infoMvr,3)}" process="@this"/>
@@ -204,7 +204,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="false"  value="#{infoMvr.valoranualoriginal}" id="editarValorAnualMvr" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px;"> 
+                                 <p:inputText  autocomplete="off"  value="#{infoMvr.valoranualoriginal}" id="editarValorAnualMvr" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px;"> 
                                     <p:ajax event="change" listener="#{controlEmplMvr.modificarMvrs(infoMvr)}" update="editarValorAnualMvr" process="@this"/>
                                     <p:ajax event="select" listener="#{controlEmplMvr.cambiarIndiceMvr(infoMvr,4)}"/>
                                  </p:inputText>
@@ -239,7 +239,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="dateFechaInicialOC" value="#{info.fechainicial}"> 
+                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaInicialOC" value="#{info.fechainicial}"> 
                                     <p:ajax event="dateSelect" listener="#{controlEmplMvr.modificarFechasOtros(info,0)}" update="dateFechaInicialOC" process="@this"/>
                                     <p:ajax event="change" listener="#{controlEmplMvr.modificarFechasOtros(info,0)}" update="dateFechaInicialOC" process="@this"/>
                                     <p:ajax event="select" listener="#{controlEmplMvr.cambiarIndiceOtrosCertificados(info,0)}" process="@this"/> 
@@ -260,7 +260,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="dateFechaFinalOC" value="#{info.fechafinal}"> 
+                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaFinalOC" value="#{info.fechafinal}"> 
                                     <p:ajax event="dateSelect" listener="#{controlEmplMvr.modificarFechasOtros(info,1)}" update="dateFechaFinalOC" process="@this"/>
                                     <p:ajax event="change" listener="#{controlEmplMvr.modificarFechasOtros(info,1)}" update="dateFechaFinalOC" process="@this"/>
                                     <p:ajax event="select" listener="#{controlEmplMvr.cambiarIndiceOtrosCertificados(info,1)}" process="@this"/> 
@@ -284,7 +284,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="false"  value="#{info.valor}" id="editarValorOC" style="text-align: right; border-radius: 0px; width: 93.5%; text-transform: uppercase; height: 12px; width: 100%;"> 
+                                 <p:inputText  autocomplete="off"  value="#{info.valor}" id="editarValorOC" style="text-align: right; border-radius: 0px; width: 93.5%; text-transform: uppercase; height: 12px; width: 100%;"> 
                                     <p:ajax event="select" listener="#{controlEmplMvr.cambiarIndiceOtrosCertificados(info,2)}" process="@this"/> 
                                     <p:ajax event="change" listener="#{controlEmplMvr.modificarOtrosCertificados(info)}" process="@this" update="editarValorOC"/>
                                  </p:inputText>
@@ -300,7 +300,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.estado}" /></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="false"  value="#{info.estado}" id="editarEstadoOC" style=" border-radius: 0px; width: 95%;text-transform: uppercase; height: 12px;" onselect="">
+                                 <p:inputText  autocomplete="off"  value="#{info.estado}" id="editarEstadoOC" style=" border-radius: 0px; width: 95%;text-transform: uppercase; height: 12px;" onselect="">
                                     <!--  onselect="posicionOtro([{name: 'n', value: '3'}, {name: 't', value: '#/{indiceOC}'}]);" -->
                                     <p:ajax event="select" listener="#{controlEmplMvr.cambiarIndiceOtrosCertificados(info,3)}" oncomplete="PF('datosMvrEmpleado').unselectAllRows()" /> 
                                     <p:ajax event="change" listener="#{controlEmplMvr.modificarEstado()}" process="@this"/>
@@ -317,7 +317,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.tipocertificado.descripcion}" /></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="false"  value="#{info.tipocertificado.descripcion}" id="editarCertificadoOC" style=" border-radius: 0px; width: 97%;text-transform: uppercase; height: 12px;">
+                                 <p:inputText  autocomplete="off"  value="#{info.tipocertificado.descripcion}" id="editarCertificadoOC" style=" border-radius: 0px; width: 97%;text-transform: uppercase; height: 12px;">
                                     <!--onselect="posicionOtro([{name: 'n', value: '4'}, {name: 't', value: '#/{indiceOC}'}]);"-->
 
                                     <p:ajax event="select" listener="#{controlEmplMvr.cambiarIndiceOtrosCertificados(info,4)}" process="@this"/> 
@@ -337,7 +337,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.diascontratados}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="false"  value="#{info.diascontratados}" id="editarDiasOC" style=" border-radius: 0px; width: 94%; text-transform: uppercase; height: 12px;"> 
+                                 <p:inputText  autocomplete="off"  value="#{info.diascontratados}" id="editarDiasOC" style=" border-radius: 0px; width: 94%; text-transform: uppercase; height: 12px;"> 
                                     <p:ajax event="select" listener="#{controlEmplMvr.cambiarIndiceOtrosCertificados(info,5)}" process="@this"/> 
                                     <p:ajax event="change" listener="#{controlEmplMvr.modificarOtrosCertificados(info)}" process="@this" update="editarDiasOC"/>
                                  </p:inputText>
@@ -371,7 +371,7 @@
                              oncomplete="PF('CertificadosDialogo').hide(), PF('lovCertificado').clearFilters()" update=":form:CertificadosDialogo"/>
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarC']}"  />  
-                        <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovCertificado').filter();" value="#{filtrado}" class="cssFiltroLOV" />  
+                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovCertificado').filter();" value="#{filtrado}" class="cssFiltroLOV" />  
                      </f:facet>
                      <p:column filterBy="#{tipoC.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 85% !important">
                         <f:facet name="header">
@@ -409,7 +409,7 @@
 
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarM']}" />  
-                        <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovMotivo').filter();" value="#{filtrado}" class="cssFiltroLOV" />  
+                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovMotivo').filter();" value="#{filtrado}" class="cssFiltroLOV" />  
                      </f:facet>
 
                      <p:column filterBy="#{motivo.codigo}" width="80" filterMatchMode="contains" filterStyle="width: 85% !important" >
@@ -561,7 +561,7 @@
 
                      <strong><h:outputText value="*#{msg['inicialMVRS']}" style=" position: absolute; top: 75px; left: 50px;" /></strong>
                      <div id="posicionFormulaFechaIniNuevoMvrReg" style=" position: absolute; top: 70px; left: 170px">
-                        <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicialMVRS" value="#{controlEmplMvr.nuevaMvrs.fechainicial}" >
+                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicialMVRS" value="#{controlEmplMvr.nuevaMvrs.fechainicial}" >
                            <p:ajax event="dateSelect" update="nuevaFechaInicialMVRS" process="@this"/>
                            <p:ajax event="change" update="nuevaFechaInicialMVRS" process="@this"/>
                         </p:calendar>
@@ -569,20 +569,20 @@
 
                      <strong><h:outputText value="#{msg['finalMVRS']}" style=" position: absolute; top: 105px; left: 50px;" /></strong>
                      <div id="posicionFormulaFechaFinNuevoRegMvr" style=" position: absolute; top: 100px; left: 170px">
-                        <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinalMVRS" value="#{controlEmplMvr.nuevaMvrs.fechafinal}" >
+                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinalMVRS" value="#{controlEmplMvr.nuevaMvrs.fechafinal}" >
                            <p:ajax event="dateSelect" update="nuevaFechaFinalMVRS" process="@this"/>
                            <p:ajax event="change" update="nuevaFechaFinalMVRS" process="@this"/>
                         </p:calendar>
                      </div>
 
                      <strong><h:outputText value="#{msg['valormensualMVRS']}" style=" position: absolute; top: 135px; left: 50px;" /></strong>
-                     <p:inputText  autocomplete="false"  id="nuevaValorMMVRS" value="#{controlEmplMvr.nuevaMvrs.valor}" style=" width: 122px; position: absolute; left: 170px; top: 130px; text-transform: uppercase">
+                     <p:inputText  autocomplete="off"  id="nuevaValorMMVRS" value="#{controlEmplMvr.nuevaMvrs.valor}" style=" width: 122px; position: absolute; left: 170px; top: 130px; text-transform: uppercase">
                         <p:ajax event="change" update="nuevaValorMMVRS"/>
                      </p:inputText>
                      <p:watermark for="nuevaValorMMVRS" value="#{msg['valor']}" />
 
                      <strong><h:outputText value="*#{msg['motivoMVRS']}" style=" position: absolute; top: 165px; left: 50px;" /></strong>
-                     <p:inputText  autocomplete="false"  id="nuevaMotivoMVRS" value="#{controlEmplMvr.nuevaMvrs.motivo.nombre}" style=" width: 122px; position: absolute; left: 170px; top: 160px; text-transform: uppercase" onclick="select();" >
+                     <p:inputText  autocomplete="off"  id="nuevaMotivoMVRS" value="#{controlEmplMvr.nuevaMvrs.motivo.nombre}" style=" width: 122px; position: absolute; left: 170px; top: 160px; text-transform: uppercase" onclick="select();" >
                         <p:ajax event="dblclick" listener="#{controlEmplMvr.asignarIndex(0,1,0)}"/>
                         <p:ajax event="click" listener="#{controlEmplMvr.valoresBackupAutocompletarMvr(1, 'MOTIVO')}" />
                         <p:ajax event="change" listener="#{controlEmplMvr.autocompletarNuevoyDuplicadoMvr('MOTIVO', controlEmplMvr.nuevaMvrs.motivo.nombre, 1)}" />
@@ -592,7 +592,7 @@
                      <p:watermark for="nuevaMotivoMVRS" value="#{msg['motivo']}" />
 
                      <strong><h:outputText value="#{msg['valoranualMVRS']}" style=" position: absolute; top: 195px; left: 50px;" /></strong>
-                     <p:inputText  autocomplete="false"  id="nuevaValorAMVRS" value="#{controlEmplMvr.nuevaMvrs.valoranualoriginal}" style=" width: 122px; position: absolute; left: 170px; top: 190px; text-transform: uppercase">
+                     <p:inputText  autocomplete="off"  id="nuevaValorAMVRS" value="#{controlEmplMvr.nuevaMvrs.valoranualoriginal}" style=" width: 122px; position: absolute; left: 170px; top: 190px; text-transform: uppercase">
                         <p:ajax event="change" update="nuevaValorAMVRS"/>
                      </p:inputText>
                      <p:watermark for="nuevaValorAMVRS" value="#{msg['valor']}" />   
@@ -613,7 +613,7 @@
 
                      <strong><h:outputText value="*#{msg['inicialMVRS']}" style=" position: absolute; top: 75px; left: 50px;" /></strong>
                      <div id="posicionFormulaFechaIniDupliMvrReg" style=" position: absolute; top: 70px; left: 170px">
-                        <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicialMVRS" value="#{controlEmplMvr.duplicarMvrs.fechainicial}" >
+                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicialMVRS" value="#{controlEmplMvr.duplicarMvrs.fechainicial}" >
                            <p:ajax event="dateSelect" update="duplicarFechaInicialMVRS" process="@this"/>
                            <p:ajax event="change" update="duplicarFechaInicialMVRS" process="@this"/>
                         </p:calendar>
@@ -622,20 +622,20 @@
 
                      <strong><h:outputText value="#{msg['finalMVRS']}" style=" position: absolute; top: 105px; left: 50px;" /></strong>
                      <div id="posicionFormulaFechaFinDupliMvrReg" style=" position: absolute; top: 100px; left: 170px">
-                        <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinalMVRS" value="#{controlEmplMvr.duplicarMvrs.fechafinal}" >
+                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinalMVRS" value="#{controlEmplMvr.duplicarMvrs.fechafinal}" >
                            <p:ajax event="dateSelect" update="duplicarFechaFinalMVRS" process="@this"/>
                            <p:ajax event="change" update="duplicarFechaFinalMVRS" process="@this"/>
                         </p:calendar>
                      </div>
 
                      <strong><h:outputText value="#{msg['valormensualMVRS']}" style=" position: absolute; top: 135px; left: 50px;" /></strong>
-                     <p:inputText  autocomplete="false"  id="duplicarValorMMVRS" value="#{controlEmplMvr.duplicarMvrs.valor}" style=" width: 122px; position: absolute; left: 170px; top: 130px; text-transform: uppercase">
+                     <p:inputText  autocomplete="off"  id="duplicarValorMMVRS" value="#{controlEmplMvr.duplicarMvrs.valor}" style=" width: 122px; position: absolute; left: 170px; top: 130px; text-transform: uppercase">
                         <p:ajax event="change" update="duplicarValorMMVRS"/>
                      </p:inputText>
                      <p:watermark for="duplicarValorMMVRS" value="#{msg['valor']}" />
 
                      <strong><h:outputText value="*#{msg['motivoMVRS']}" style=" position: absolute; top: 165px; left: 50px;" /></strong>
-                     <p:inputText  autocomplete="false"  id="duplicarMotivoMVRS" value="#{controlEmplMvr.duplicarMvrs.motivo.nombre}" style=" width: 122px; position: absolute; left: 170px; top: 160px; text-transform: uppercase" onclick="select();" >
+                     <p:inputText  autocomplete="off"  id="duplicarMotivoMVRS" value="#{controlEmplMvr.duplicarMvrs.motivo.nombre}" style=" width: 122px; position: absolute; left: 170px; top: 160px; text-transform: uppercase" onclick="select();" >
                         <p:ajax event="dblclick" listener="#{controlEmplMvr.asignarIndex(0,2,0)}"/>
                         <p:ajax event="click" listener="#{controlEmplMvr.valoresBackupAutocompletarMvr(2, 'MOTIVO')}" />
                         <p:ajax event="change" listener="#{controlEmplMvr.autocompletarNuevoyDuplicadoMvr('MOTIVO', controlEmplMvr.duplicarMvrs.motivo.nombre, 2)}" />
@@ -645,7 +645,7 @@
                      <p:watermark for="duplicarMotivoMVRS" value="#{msg['motivo']}" />
 
                      <strong><h:outputText value="#{msg['valoranualMVRS']}" style=" position: absolute; top: 195px; left: 50px;" /></strong>
-                     <p:inputText  autocomplete="false"  id="duplicarValorAMVRS" value="#{controlEmplMvr.duplicarMvrs.valoranualoriginal}" style=" width: 122px; position: absolute; left: 170px; top: 190px; text-transform: uppercase">
+                     <p:inputText  autocomplete="off"  id="duplicarValorAMVRS" value="#{controlEmplMvr.duplicarMvrs.valoranualoriginal}" style=" width: 122px; position: absolute; left: 170px; top: 190px; text-transform: uppercase">
                         <p:ajax event="change" update="duplicarValorAMVRS"/>
                      </p:inputText>
                      <p:watermark for="duplicarValorAMVRS" value="#{msg['valor']}" />   
@@ -665,7 +665,7 @@
 
                      <strong><h:outputText value="*#{msg['inicialOC']}" style=" position: absolute; top: 75px; left: 50px;" /></strong>
                      <div id="posicionFormulaFechaIniNuevoRegOC" style=" position: absolute; top: 70px; left: 170px">
-                        <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicialOC" value="#{controlEmplMvr.nuevaOtroCertificado.fechainicial}" >
+                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicialOC" value="#{controlEmplMvr.nuevaOtroCertificado.fechainicial}" >
                            <p:ajax event="dateSelect" update="nuevaFechaInicialOC" process="@this"/>
                            <p:ajax event="change" update="nuevaFechaInicialOC" process="@this"/>
                         </p:calendar>
@@ -674,26 +674,26 @@
 
                      <strong><h:outputText value="*#{msg['finalOC']}" style=" position: absolute; top: 105px; left: 50px;" /></strong>
                      <div id="posicionFormulaFechaFinNuevoRegOC" style=" position: absolute; top: 100px; left: 170px">
-                        <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinalOC" value="#{controlEmplMvr.nuevaOtroCertificado.fechafinal}" >
+                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinalOC" value="#{controlEmplMvr.nuevaOtroCertificado.fechafinal}" >
                            <p:ajax event="dateSelect" update="nuevaFechaFinalOC" process="@this"/>
                            <p:ajax event="change" update="nuevaFechaFinalOC" process="@this"/>
                         </p:calendar>
                      </div>
 
                      <strong><h:outputText value="#{msg['valorOC']}" style=" position: absolute; top: 135px; left: 50px;" /></strong>
-                     <p:inputText  autocomplete="false"  id="nuevaValorMOC" value="#{controlEmplMvr.nuevaOtroCertificado.valor}" style=" width: 122px; position: absolute; left: 170px; top: 130px; text-transform: uppercase">
+                     <p:inputText  autocomplete="off"  id="nuevaValorMOC" value="#{controlEmplMvr.nuevaOtroCertificado.valor}" style=" width: 122px; position: absolute; left: 170px; top: 130px; text-transform: uppercase">
                         <p:ajax event="change" update="nuevaValorMOC"/>
                      </p:inputText>
                      <p:watermark for="nuevaValorMOC" value="#{msg['valor']}" />
 
                      <strong><h:outputText  value="*#{msg['estadoOC']}" style=" position: absolute; top: 165px; left: 50px;" /></strong>
-                     <p:inputText  autocomplete="false"  disabled="true" id="nuevaEstadoOC" readonly="true" value="MANUAL" style=" width: 122px; position: absolute; left: 170px; top: 160px; text-transform: uppercase">
+                     <p:inputText  autocomplete="off"  disabled="true" id="nuevaEstadoOC" readonly="true" value="MANUAL" style=" width: 122px; position: absolute; left: 170px; top: 160px; text-transform: uppercase">
                         <p:ajax event="change" update="nuevaEstadoOC"/>
                      </p:inputText>
                      <p:watermark for="nuevaEstadoOC" value="#{msg['estado']}" />
 
                      <strong><h:outputText value="*#{msg['certificadoOC']}" style=" position: absolute; top: 195px; left: 50px;" /></strong>
-                     <p:inputText  autocomplete="false"  maxlength="50" id="nuevaCertificadoOC" value="#{controlEmplMvr.nuevaOtroCertificado.tipocertificado.descripcion}" style=" width: 122px; position: absolute; left: 170px; top: 190px; text-transform: uppercase" onclick="select();" >
+                     <p:inputText  autocomplete="off"  maxlength="50" id="nuevaCertificadoOC" value="#{controlEmplMvr.nuevaOtroCertificado.tipocertificado.descripcion}" style=" width: 122px; position: absolute; left: 170px; top: 190px; text-transform: uppercase" onclick="select();" >
                         <p:ajax event="dblclick" listener="#{controlEmplMvr.asignarIndex(0,1,1)}"/>
                         <p:ajax event="click" listener="#{controlEmplMvr.valoresBackupAutocompletarOtrosCertificados(1, 'CERTIFICADOS')}" />
                         <p:ajax event="change" listener="#{controlEmplMvr.autocompletarNuevoyDuplicadoOtrosCertificados('CERTIFICADOS', controlEmplMvr.nuevaOtroCertificado.tipocertificado.descripcion, 1)}" />
@@ -703,7 +703,7 @@
                      <p:watermark for="nuevaCertificadoOC" value="#{msg['certificado']}" />
 
                      <strong><h:outputText value="#{msg['diasOC']}" style=" position: absolute; top: 225px; left: 50px;" /></strong>
-                     <p:inputText  autocomplete="false"  id="nuevaDiasOC" value="#{controlEmplMvr.nuevaOtroCertificado.diascontratados}" style=" width: 122px; position: absolute; left: 170px; top: 220px; text-transform: uppercase">
+                     <p:inputText  autocomplete="off"  id="nuevaDiasOC" value="#{controlEmplMvr.nuevaOtroCertificado.diascontratados}" style=" width: 122px; position: absolute; left: 170px; top: 220px; text-transform: uppercase">
                         <p:ajax event="change" update="nuevaDiasOC"/>
                      </p:inputText>
                      <p:watermark for="nuevaDiasOC" value="#{msg['dias']}" />   
@@ -724,7 +724,7 @@
 
                      <strong><h:outputText value="*#{msg['inicialOC']}" style=" position: absolute; top: 75px; left: 50px;" /></strong>
                      <div id="posicionFormulaFechaIniDupliOCReg" style=" position: absolute; top: 70px; left: 170px">
-                        <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicialOC" value="#{controlEmplMvr.duplicarOtrosCertificados.fechainicial}" >
+                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicialOC" value="#{controlEmplMvr.duplicarOtrosCertificados.fechainicial}" >
                            <p:ajax event="dateSelect" update="duplicarFechaInicialOC" process="@this"/>
                            <p:ajax event="change" update="duplicarFechaInicialOC" process="@this"/>
                         </p:calendar>
@@ -733,26 +733,26 @@
 
                      <strong><h:outputText value="*#{msg['finalOC']}" style=" position: absolute; top: 105px; left: 50px;" /></strong>
                      <div id="posicionFormulaFechaFinDupliOCReg" style=" position: absolute; top: 100px; left: 170px">
-                        <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinalOC" value="#{controlEmplMvr.duplicarOtrosCertificados.fechafinal}" >
+                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinalOC" value="#{controlEmplMvr.duplicarOtrosCertificados.fechafinal}" >
                            <p:ajax event="dateSelect" update="duplicarFechaFinalOC" process="@this"/>
                            <p:ajax event="change" update="duplicarFechaFinalOC" process="@this"/>
                         </p:calendar>
                      </div>
 
                      <strong><h:outputText value="#{msg['valorOC']}" style=" position: absolute; top: 135px; left: 50px;" /></strong>
-                     <p:inputText  autocomplete="false"  id="duplicarValorMOC" value="#{controlEmplMvr.duplicarOtrosCertificados.valor}" style=" width: 122px; position: absolute; left: 170px; top: 130px; text-transform: uppercase">
+                     <p:inputText  autocomplete="off"  id="duplicarValorMOC" value="#{controlEmplMvr.duplicarOtrosCertificados.valor}" style=" width: 122px; position: absolute; left: 170px; top: 130px; text-transform: uppercase">
                         <p:ajax event="change" update="duplicarValorMOC"/>
                      </p:inputText>
                      <p:watermark for="duplicarValorMOC" value="#{msg['valor']}" />
 
                      <strong><h:outputText  value="*#{msg['estadoOC']}" style=" position: absolute; top: 165px; left: 50px;" /></strong>
-                     <p:inputText  autocomplete="false"  id="duplicarEstadoOC" readonly="true" value="#{controlEmplMvr.duplicarOtrosCertificados.estado}" style=" width: 122px; position: absolute; left: 170px; top: 160px; text-transform: uppercase">
+                     <p:inputText  autocomplete="off"  id="duplicarEstadoOC" readonly="true" value="#{controlEmplMvr.duplicarOtrosCertificados.estado}" style=" width: 122px; position: absolute; left: 170px; top: 160px; text-transform: uppercase">
                         <p:ajax event="change" update="duplicarEstadoOC"/>
                      </p:inputText>
                      <p:watermark for="duplicarEstadoOC" value="#{msg['estado']}" />
 
                      <strong><h:outputText value="*#{msg['certificadoOC']}" style=" position: absolute; top: 195px; left: 50px;" /></strong>
-                     <p:inputText  autocomplete="false"  maxlength="50" id="duplicarCertificadoOC" value="#{controlEmplMvr.duplicarOtrosCertificados.tipocertificado.descripcion}" style=" width: 122px; position: absolute; left: 170px; top: 190px; text-transform: uppercase" onclick="select();" >
+                     <p:inputText  autocomplete="off"  maxlength="50" id="duplicarCertificadoOC" value="#{controlEmplMvr.duplicarOtrosCertificados.tipocertificado.descripcion}" style=" width: 122px; position: absolute; left: 170px; top: 190px; text-transform: uppercase" onclick="select();" >
                         <p:ajax event="dblclick" listener="#{controlEmplMvr.asignarIndex(0,2,1)}"/>
                         <p:ajax event="click" listener="#{controlEmplMvr.valoresBackupAutocompletarOtrosCertificados(2, 'CERTIFICADOS')}" />
                         <p:ajax event="change" listener="#{controlEmplMvr.autocompletarNuevoyDuplicadoOtrosCertificados('CERTIFICADOS', controlEmplMvr.duplicarOtrosCertificados.tipocertificado.descripcion, 2)}" />
@@ -762,7 +762,7 @@
                      <p:watermark for="duplicarCertificadoOC" value="#{msg['certificado']}" />
 
                      <strong><h:outputText value="#{msg['dias']}" style=" position: absolute; top: 225px; left: 50px;" /></strong>
-                     <p:inputText  autocomplete="false"  id="duplicarDiasOC" value="#{controlEmplMvr.duplicarOtrosCertificados.diascontratados}" style=" width: 122px; position: absolute; left: 170px; top: 220px; text-transform: uppercase">
+                     <p:inputText  autocomplete="off"  id="duplicarDiasOC" value="#{controlEmplMvr.duplicarOtrosCertificados.diascontratados}" style=" width: 122px; position: absolute; left: 170px; top: 220px; text-transform: uppercase">
                         <p:ajax event="change" update="duplicarDiasOC"/>
                      </p:inputText>
                      <p:watermark for="duplicarDiasOC" value="#{msg['dias']}" />   

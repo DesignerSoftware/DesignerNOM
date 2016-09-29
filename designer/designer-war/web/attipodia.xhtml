@@ -29,7 +29,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{info.codigo}" maxlength="4" id="editarCodigo" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"   value="#{info.codigo}" maxlength="4" id="editarCodigo" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlTiposDias.cambiarIndice(indice, 0)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlTiposDias.modificandoTipoDia(indice, 'N', info.codigo)}"  update="codigo"/>
                                             </p:inputText>
@@ -41,7 +41,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.descripcion}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{info.descripcion}" maxlength="30" id="editarNombre" style="height: 12px;  border-radius: 0px; width: 420px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"   value="#{info.descripcion}" maxlength="30" id="editarNombre" style="height: 12px;  border-radius: 0px; width: 420px; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlTiposDias.cambiarIndice(indice, 1)}" process="@this"/> 
                                                 <p:ajax event="change"  listener="#{controlTiposDias.modificandoTipoDia(indice, 'N', info.descripcion)}" update="descripcion"/>
                                             </p:inputText>
@@ -235,13 +235,13 @@
                         <p:panel id="nuevaTipoReemplazo" style="border: none;">
 
                             <strong><h:outputText value="*#{msg['codigoN']}"  style="left: 15px; position: absolute; top: 60px;" /></strong>
-                            <p:inputText  autocomplete="false"   id="nuevoCodigo" maxlength="4" value="#{controlTiposDias.nuevoTipoDia.codigo}" style="left: 15px; width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"   id="nuevoCodigo" maxlength="4" value="#{controlTiposDias.nuevoTipoDia.codigo}" style="left: 15px; width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoCodigo" value="#{msg['codigoWM']}" />
 
                             <strong><h:outputText value="*#{msg['descripcionN']}"  style="left: 15px; position: absolute; top: 90px;" /></strong>
-                            <p:inputText  autocomplete="false"    id="nuevoNombre" maxlength="30" value="#{controlTiposDias.nuevoTipoDia.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"    id="nuevoNombre" maxlength="30" value="#{controlTiposDias.nuevoTipoDia.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoNombre" value="#{msg['descripcionWM']}" />
@@ -269,13 +269,13 @@
 
                         <p:panel id="duplicarTTR" style="border: none;">
                             <strong><h:outputText value="#{msg['codigoN']}"  style="left: 15px; position: absolute; top: 60px;" /></strong>
-                            <p:inputText  autocomplete="false"   id="duplicarCodigo" maxlength="4" value="#{controlTiposDias.duplicarTipoDia.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">  
+                            <p:inputText  autocomplete="off"   id="duplicarCodigo" maxlength="4" value="#{controlTiposDias.duplicarTipoDia.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">  
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarCodigo" value="#{msg['codigoWM']}" />
 
                             <strong><h:outputText value="#{msg['descripcionN']}"  style="left: 15px; position: absolute; top: 90px;" /></strong>
-                            <p:inputText  autocomplete="false"   id="duplicarNombre" maxlength="30" value="#{controlTiposDias.duplicarTipoDia.descripcion}"  style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">  
+                            <p:inputText  autocomplete="off"   id="duplicarNombre" maxlength="30" value="#{controlTiposDias.duplicarTipoDia.descripcion}"  style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">  
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarNombre" value="#{msg['descripcionWM']}" />

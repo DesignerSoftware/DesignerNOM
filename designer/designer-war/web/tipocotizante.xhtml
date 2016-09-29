@@ -92,7 +92,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{tipos.codigo}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{tipos.codigo}" id="editarCodigo" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase;height:12px;" > 
+                                            <p:inputText  autocomplete="off"  value="#{tipos.codigo}" id="editarCodigo" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase;height:12px;" > 
                                                 <p:ajax event="select" listener="#{controlTipoCotizante.cambiarIndice(indice, 0)}" />
                                             </p:inputText>
                                         </f:facet>  
@@ -106,7 +106,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{tipos.descripcion}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{tipos.descripcion}" id="editarDescripcion" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase;height:12px;" > 
+                                            <p:inputText  autocomplete="off"  value="#{tipos.descripcion}" id="editarDescripcion" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase;height:12px;" > 
                                                 <p:ajax event="select" listener="#{controlTipoCotizante.cambiarIndice(indice, 1)}" />
                                             </p:inputText>
                                         </f:facet>  
@@ -229,7 +229,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{tipos.codigoalternativo}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{tipos.codigoalternativo}" id="editarCodigoalternativo" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase;height:12px;" > 
+                                            <p:inputText  autocomplete="off"  value="#{tipos.codigoalternativo}" id="editarCodigoalternativo" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase;height:12px;" > 
                                                 <p:ajax event="select" listener="#{controlTipoCotizante.cambiarIndice(indice, 2)}" />
                                             </p:inputText>
                                         </f:facet>  
@@ -258,7 +258,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{detallesTipos.tipoentidad.nombre}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{detallesTipos.tipoentidad.nombre}" id="editarTipoEntidad" style=" border-radius: 0px; width: 96.5%;text-transform: uppercase;height:12px"> 
+                                            <p:inputText  autocomplete="off"  value="#{detallesTipos.tipoentidad.nombre}" id="editarTipoEntidad" style=" border-radius: 0px; width: 96.5%;text-transform: uppercase;height:12px"> 
                                                 <p:ajax event="change" listener="#{controlTipoCotizante.modificarDetallesTiposCotizantes(indiceNF, 'TIPOENTIDAD', detallesTipos.tipoentidad.nombre)}"/>
                                                 <p:ajax event="select" listener="#{controlTipoCotizante.cambiarIndiceNF(indiceNF,0)}" />
                                                 <p:ajax event="dblclick" listener="#{controlTipoCotizante.asignarIndexNF(indiceNF,0,0)}"/>
@@ -275,7 +275,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{detallesTipos.minimosml}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{detallesTipos.minimosml}" id="editarMinimo" style=" border-radius: 0px; width: 96.5%;text-transform: uppercase;height:12px;" > 
+                                            <p:inputText  autocomplete="off"  value="#{detallesTipos.minimosml}" id="editarMinimo" style=" border-radius: 0px; width: 96.5%;text-transform: uppercase;height:12px;" > 
                                                 <p:ajax event="select" listener="#{controlTipoCotizante.cambiarIndiceNF(indiceNF,1)}" />
                                                 <p:ajax event="change" listener="#{controlTipoCotizante.modificarDetallesTiposCotizantes(indiceNF,'N',detallesTipos.minimosml)}"/>
                                             </p:inputText>
@@ -292,7 +292,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{detallesTipos.maximosml}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{detallesTipos.maximosml}" id="editarMaximo" style=" border-radius: 0px; width: 96.5%;text-transform: uppercase;height:12px;" > 
+                                            <p:inputText  autocomplete="off"  value="#{detallesTipos.maximosml}" id="editarMaximo" style=" border-radius: 0px; width: 96.5%;text-transform: uppercase;height:12px;" > 
                                                 <p:ajax event="select" listener="#{controlTipoCotizante.cambiarIndiceNF(indiceNF,2)}" />
                                                 <p:ajax event="change" listener="#{controlTipoCotizante.modificarDetallesTiposCotizantes(indiceNF,'N',detallesTipos.maximosml)}"/>
                                             </p:inputText>
@@ -310,19 +310,19 @@
                         <fieldset style="position: absolute; left: 10px; top: 410px;  width: 830px; height: 50px; border-radius: 10px; ">
                             <legend style="font-size: 14px; color: #14388B"><strong>Tipos Cotizantes</strong></legend>
                             <h:outputText value="#{msg['codigo']}" style=" top: 15px; position: absolute" />
-                            <p:inputText  autocomplete="false"  id="ClonarTipoCotizante" value="#{controlTipoCotizante.clonarTipoCotizante.codigo}" style=" width: 122px; position: absolute; left: 5px; top: 31px; text-transform: uppercase;height:12px;" onclick="select();" >
+                            <p:inputText  autocomplete="off"  id="ClonarTipoCotizante" value="#{controlTipoCotizante.clonarTipoCotizante.codigo}" style=" width: 122px; position: absolute; left: 5px; top: 31px; text-transform: uppercase;height:12px;" onclick="select();" >
                                 <p:ajax event="dblclick" listener="#{controlTipoCotizante.asignarIndexC(1, 0)}" update="@this"/>
                             </p:inputText>
                             <h:outputText value="#{msg['nombredeltipocotizanteorigen']}" style=" top: 15px; position: absolute; left: 150px;" />
-                            <p:inputText  autocomplete="false"  readonly="true" id="ClonarTipoCotizanteDescripcion" value="#{controlTipoCotizante.clonarTipoCotizante.descripcion}" style=" width: 222px; position: absolute; left: 140px; top: 31px; text-transform: uppercase;height:12px;" onclick="select();" >
+                            <p:inputText  autocomplete="off"  readonly="true" id="ClonarTipoCotizanteDescripcion" value="#{controlTipoCotizante.clonarTipoCotizante.descripcion}" style=" width: 222px; position: absolute; left: 140px; top: 31px; text-transform: uppercase;height:12px;" onclick="select();" >
                             </p:inputText>
 
                             <h:outputText value="#{msg['codigo']}" style=" top: 15px; left: 380px; position: absolute" />
-                            <p:inputText  autocomplete="false"  id="ClonarNuevoTipoCotizante" value="#{controlTipoCotizante.clonarCodigo}" style=" width: 122px; position: absolute; left: 380px; top: 31px; text-transform: uppercase;height:12px;" onclick="select();" >
+                            <p:inputText  autocomplete="off"  id="ClonarNuevoTipoCotizante" value="#{controlTipoCotizante.clonarCodigo}" style=" width: 122px; position: absolute; left: 380px; top: 31px; text-transform: uppercase;height:12px;" onclick="select();" >
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <h:outputText value="#{msg['nombredelnuevotipocotizante']}" style="top: 15px; position: absolute; left: 520px;" />
-                            <p:inputText  autocomplete="false"  id="ClonarDescripcionNuevoTipoCotizante" value="#{controlTipoCotizante.clonarDescripcion}" style=" width: 222px; position: absolute; left: 515px; top: 31px; text-transform: uppercase;height:12px;" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="ClonarDescripcionNuevoTipoCotizante" value="#{controlTipoCotizante.clonarDescripcion}" style=" width: 222px; position: absolute; left: 515px; top: 31px; text-transform: uppercase;height:12px;" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
@@ -381,7 +381,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlTipoCotizante.actualizarTipoEntidad()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarTE']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('LOVTiposEntidades').filter();" style="width:150px; position: relative; left: 50px;" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVTiposEntidades').filter();" style="width:150px; position: relative; left: 50px;" />  
                             </f:facet>
                             <p:column filterBy="#{tiposEntidades.codigo}" width="80"  filterMatchMode="contains">
                                 <f:facet name="header">
@@ -411,7 +411,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlTipoCotizante.actualizarTipoCotizante()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarTC']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('LOVTiposCotizantes').filter();" style="width:150px; position: relative; left: 65px;" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVTiposCotizantes').filter();" style="width:150px; position: relative; left: 65px;" />  
                             </f:facet>
                             <p:column filterBy="#{tiposCotizantes.codigo}" width="80"  filterMatchMode="contains">
                                 <f:facet name="header">
@@ -446,12 +446,12 @@
                         <p:panel id="nuevoRegistroTipoCotizante" style="border: none;">
 
                             <strong><h:outputText value="#{msg['codigoNTC']}" style=" position: absolute; top: 85px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoCodigoTipoCotizante" value="#{controlTipoCotizante.nuevoTipoCotizante.codigo}" style=" width: 122px; position: absolute; left: 180px; top: 80px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="nuevoCodigoTipoCotizante" value="#{controlTipoCotizante.nuevoTipoCotizante.codigo}" style=" width: 122px; position: absolute; left: 180px; top: 80px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['descripcionNTC']}" style=" position: absolute; top: 125px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaDescripcionTipoCotizante" value="#{controlTipoCotizante.nuevoTipoCotizante.descripcion}" style=" width: 122px; position: absolute; left: 180px; top: 120px; text-transform: uppercase" onclick="select();" >
+                            <p:inputText  autocomplete="off"  id="nuevaDescripcionTipoCotizante" value="#{controlTipoCotizante.nuevoTipoCotizante.descripcion}" style=" width: 122px; position: absolute; left: 180px; top: 120px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
@@ -503,7 +503,7 @@
                             </p:selectOneMenu>
 
                             <strong><h:outputText value="#{msg['codigoalternativoNTC']}" style=" position: absolute;left:350px; top: 205px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoCodigoAlternativoTipoCotizante" value="#{controlTipoCotizante.nuevoTipoCotizante.codigoalternativo}" style=" width: 122px; position: absolute; left: 470px; top: 200px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="nuevoCodigoAlternativoTipoCotizante" value="#{controlTipoCotizante.nuevoTipoCotizante.codigoalternativo}" style=" width: 122px; position: absolute; left: 470px; top: 200px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
@@ -522,7 +522,7 @@
                         <p:panel id="nuevoRegistroDetalleTipoCotizante" style="border: none;">
 
                             <strong><h:outputText value="#{msg['tipoentidadNDTC']}" style=" position: absolute; top: 85px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoTipoEntidad" value="#{controlTipoCotizante.nuevaDetalleTipoCotizante.tipoentidad.nombre}" style=" width: 122px; position: absolute; left: 180px; top: 80px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="nuevoTipoEntidad" value="#{controlTipoCotizante.nuevaDetalleTipoCotizante.tipoentidad.nombre}" style=" width: 122px; position: absolute; left: 180px; top: 80px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlTipoCotizante.valoresBackupAutocompletarNF(1, 'TIPOENTIDAD')}" />
                                 <p:ajax event="change" listener="#{controlTipoCotizante.autocompletarNuevoyDuplicadoNF('TIPOENTIDAD', controlTipoCotizante.nuevaDetalleTipoCotizante.tipoentidad.nombre, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlTipoCotizante.asignarIndexNF(indiceNF, 0, 1)}" />
@@ -531,12 +531,12 @@
 
 
                             <strong><h:outputText value="#{msg['minimosmlNDTC']}" style=" position: absolute; top: 125px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoMinimoSML" value="#{controlTipoCotizante.nuevaDetalleTipoCotizante.minimosml}" style=" width: 122px; position: absolute; left: 180px; top: 120px; text-transform: uppercase" onclick="select();" >
+                            <p:inputText  autocomplete="off"  id="nuevoMinimoSML" value="#{controlTipoCotizante.nuevaDetalleTipoCotizante.minimosml}" style=" width: 122px; position: absolute; left: 180px; top: 120px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['maximosmlNDTC']}" style=" position: absolute; top: 165px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoMaximoSML" value="#{controlTipoCotizante.nuevaDetalleTipoCotizante.maximosml}" style=" width: 122px; position: absolute; left: 180px; top: 160px; text-transform: uppercase" onclick="select();" >
+                            <p:inputText  autocomplete="off"  id="nuevoMaximoSML" value="#{controlTipoCotizante.nuevaDetalleTipoCotizante.maximosml}" style=" width: 122px; position: absolute; left: 180px; top: 160px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
@@ -564,12 +564,12 @@
                         <p:panel id="duplicarRegistroTipoCotizante" style="border: none;">
 
                             <strong><h:outputText value="#{msg['codigoNTC']}" style=" position: absolute; top: 85px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarCodigoTipoCotizante" value="#{controlTipoCotizante.duplicarTipoCotizante.codigo}" style=" width: 122px; position: absolute; left: 180px; top: 80px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="duplicarCodigoTipoCotizante" value="#{controlTipoCotizante.duplicarTipoCotizante.codigo}" style=" width: 122px; position: absolute; left: 180px; top: 80px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['descripcionNTC']}" style=" position: absolute; top: 125px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarDescripcionTipoCotizante" value="#{controlTipoCotizante.duplicarTipoCotizante.descripcion}" style=" width: 122px; position: absolute; left: 180px; top: 120px; text-transform: uppercase" onclick="select();" >
+                            <p:inputText  autocomplete="off"  id="duplicarDescripcionTipoCotizante" value="#{controlTipoCotizante.duplicarTipoCotizante.descripcion}" style=" width: 122px; position: absolute; left: 180px; top: 120px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
@@ -621,7 +621,7 @@
                             </p:selectOneMenu>
 
                             <strong><h:outputText value="#{msg['codigoalternativoNTC']}" style=" position: absolute;left:350px; top: 205px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarCodigoAlternativoTipoCotizante" value="#{controlTipoCotizante.duplicarTipoCotizante.codigoalternativo}" style=" width: 122px; position: absolute; left: 470px; top: 200px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="duplicarCodigoAlternativoTipoCotizante" value="#{controlTipoCotizante.duplicarTipoCotizante.codigoalternativo}" style=" width: 122px; position: absolute; left: 470px; top: 200px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
@@ -640,7 +640,7 @@
                         <p:panel id="duplicarRegistroDetalleTipoCotizante" style="border: none;">
 
                             <strong><h:outputText value="#{msg['tipoentidadNDTC']}" style=" position: absolute; top: 85px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarTipoEntidad" value="#{controlTipoCotizante.duplicarDetalleTipoCotizante.tipoentidad.nombre}" style=" width: 122px; position: absolute; left: 180px; top: 80px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="duplicarTipoEntidad" value="#{controlTipoCotizante.duplicarDetalleTipoCotizante.tipoentidad.nombre}" style=" width: 122px; position: absolute; left: 180px; top: 80px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlTipoCotizante.valoresBackupAutocompletarNF(2, 'TIPOENTIDAD')}" />
                                 <p:ajax event="change" listener="#{controlTipoCotizante.autocompletarNuevoyDuplicadoNF('TIPOENTIDAD', controlTipoCotizante.nuevaDetalleTipoCotizante.tipoentidad.nombre, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlTipoCotizante.asignarIndexNF(indiceNF, 0, 2)}" />
@@ -648,12 +648,12 @@
                             <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 312px; top: 80px;  " id="btnDuplicarTipoEntidad" icon="ui-icon-search" process="@this"  actionListener="#{controlTipoCotizante.asignarIndexNF(indiceNF, 0, 2)}"/>   
 
                             <strong><h:outputText value="#{msg['minimosmlNDTC']}" style=" position: absolute; top: 125px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarMinimoSML" value="#{controlTipoCotizante.duplicarDetalleTipoCotizante.minimosml}" style=" width: 122px; position: absolute; left: 180px; top: 120px; text-transform: uppercase" onclick="select();" >
+                            <p:inputText  autocomplete="off"  id="duplicarMinimoSML" value="#{controlTipoCotizante.duplicarDetalleTipoCotizante.minimosml}" style=" width: 122px; position: absolute; left: 180px; top: 120px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['maximosmlNDTC']}" style=" position: absolute; top: 165px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarMaximoSML" value="#{controlTipoCotizante.duplicarDetalleTipoCotizante.maximosml}" style=" width: 122px; position: absolute; left: 180px; top: 160px; text-transform: uppercase" onclick="select();" >
+                            <p:inputText  autocomplete="off"  id="duplicarMaximoSML" value="#{controlTipoCotizante.duplicarDetalleTipoCotizante.maximosml}" style=" width: 122px; position: absolute; left: 180px; top: 160px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 

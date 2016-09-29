@@ -84,7 +84,7 @@
                                 <legend style="color: blue;text-align:left"><strong>#{msg['parametros']}</strong></legend>
                                 <h:outputText value="#{msg['fechadesde']}:" style="position: absolute; top: 20px; left: 30px;"/>
                                 <div id="posicionFechaDesdeParametro" style="position: absolute; top: 40px; left: 30px;width: 90px">
-                                    <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" value="#{controlNReporteContabilidad.parametroDeInforme.fechadesde}" id="fechaDesdeParametroL">
+                                    <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" value="#{controlNReporteContabilidad.parametroDeInforme.fechadesde}" id="fechaDesdeParametroL">
                                         <p:ajax event="click" listener="#{controlNReporteContabilidad.posicionCelda(1)}" process="@this"/>
                                         <p:ajax event="change" listener="#{controlNReporteContabilidad.modificarParametroInforme()}" process="@this" update="fechaDesdeParametroL"/>
                                         <p:ajax event="dateSelect" listener="#{controlNReporteContabilidad.modificarParametroInforme()}" process="@this" update="fechaDesdeParametroL"/>
@@ -93,7 +93,7 @@
 
                                 <h:outputText value="#{msg['fechahasta']}:" style="position: absolute; top: 20px; left: 150px;"/>
                                 <div id="posicionFechaHastaParametro" style="position: absolute; top: 40px; left: 150px;width: 90px">
-                                    <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="fechaHastaParametroL" value="#{controlNReporteContabilidad.parametroDeInforme.fechahasta}">
+                                    <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="fechaHastaParametroL" value="#{controlNReporteContabilidad.parametroDeInforme.fechahasta}">
                                         <p:ajax event="click" listener="#{controlNReporteContabilidad.posicionCelda(3)}" process="@this"/> 
                                         <p:ajax event="change" listener="#{controlNReporteContabilidad.modificarParametroInforme()}" process="@this" update="fechaHastaParametroL"/>
                                         <p:ajax event="dateSelect" listener="#{controlNReporteContabilidad.modificarParametroInforme()}" process="@this" update="fechaHastaParametroL"/>
@@ -103,14 +103,14 @@
                                 <p:separator id="separator"  style="vertical-align: central;position: absolute;height: 70px;width: 1px;top: 5px;left: 240px "/>  
 
                                 <h:outputText value="#{msg['empleadodesde']}:" style="position: absolute; top: 20px; left: 260px;"/>
-                                <p:inputText  autocomplete="false"  value="#{controlNReporteContabilidad.parametroDeInforme.codigoempleadodesde}" id="empleadoDesdeParametroL" style="position: absolute; top: 40px; left: 260px;height: 15px;width: 90px;" onclick="select();">
+                                <p:inputText  autocomplete="off"  value="#{controlNReporteContabilidad.parametroDeInforme.codigoempleadodesde}" id="empleadoDesdeParametroL" style="position: absolute; top: 40px; left: 260px;height: 15px;width: 90px;" onclick="select();">
                                     <p:ajax event="click" listener="#{controlNReporteContabilidad.posicionCelda(2)}" process="@this"/> 
                                     <p:ajax event="change" update="empleadoDesdeParametroL" listener="#{controlNReporteContabilidad.autocompletarGeneral('DESDE',controlNReporteContabilidad.parametroDeInforme.codigoempleadodesde)}"  process="@this"/>
                                     <p:ajax event="dblclick" listener="#{controlNReporteContabilidad.mostrarDialogosListas()}"/>
                                 </p:inputText>
 
                                 <h:outputText value="#{msg['empleadohasta']}:" style="position: absolute; top: 20px; left: 400px"/>
-                                <p:inputText  autocomplete="false"  value="#{controlNReporteContabilidad.parametroDeInforme.codigoempleadohasta}" id="empleadoHastaParametroL" style="position: absolute; top: 40px; left: 400px;height: 15px;width: 90px;" onclick="select();">
+                                <p:inputText  autocomplete="off"  value="#{controlNReporteContabilidad.parametroDeInforme.codigoempleadohasta}" id="empleadoHastaParametroL" style="position: absolute; top: 40px; left: 400px;height: 15px;width: 90px;" onclick="select();">
                                     <p:ajax event="click" listener="#{controlNReporteContabilidad.posicionCelda(4)}" process="@this"/> 
                                     <p:ajax event="change" update="empleadoHastaParametroL" listener="#{controlNReporteContabilidad.autocompletarGeneral('HASTA',controlNReporteContabilidad.parametroDeInforme.codigoempleadohasta)}" process="@this"/>
                                     <p:ajax event="dblclick" listener="#{controlNReporteContabilidad.mostrarDialogosListas()}"/>
@@ -119,7 +119,7 @@
                                 <p:separator id="separator2"  style="vertical-align: central;position: absolute;height: 70px;width: 1px;top: 5px;left: 520px "/>  
 
                                 <h:outputText value="#{msg['proceso']}:" style="position: absolute; top: 20px; left: 565px;"/>
-                                <p:inputText  autocomplete="false"  value="#{controlNReporteContabilidad.parametroDeInforme.proceso.descripcion}" id="procesoParametroL" style="position: absolute; top: 40px; left: 540px;height: 15px;width: 100px;" onclick="select()">
+                                <p:inputText  autocomplete="off"  value="#{controlNReporteContabilidad.parametroDeInforme.proceso.descripcion}" id="procesoParametroL" style="position: absolute; top: 40px; left: 540px;height: 15px;width: 100px;" onclick="select()">
                                     <p:ajax event="click" listener="#{controlNReporteContabilidad.posicionCelda(5)}" process="@this"/> 
                                     <p:ajax event="change" update="procesoParametroL" listener="#{controlNReporteContabilidad.autocompletarGeneral('PROCESO',controlNReporteContabilidad.parametroDeInforme.proceso.descripcion)}"  process="@this"/>
                                     <p:ajax event="dblclick" listener="#{controlNReporteContabilidad.mostrarDialogosListas()}" process="@this"/>
@@ -192,7 +192,7 @@
                                         <f:facet id="hacerReporte" name="output"><img src="Imagenes/Iconos/generarReporte.png" width="18" height="18" /></f:facet>  
                                         <p:tooltip for="hacerReporte" value="#{msg['generarReporte']}"/>
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="G" maxlength="1" style="background-color: blue; width: 6px; height: 6px;" id="EdGenerarR">
+                                            <p:inputText  autocomplete="off"  value="G" maxlength="1" style="background-color: blue; width: 6px; height: 6px;" id="EdGenerarR">
                                                 <p:ajax event="select" process="@this" listener="#{controlNReporteContabilidad.generarReporte(info)}"/>
                                             </p:inputText>
                                         </f:facet>
@@ -241,7 +241,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlNReporteContabilidad.actualizarProceso()}"  process="@this"  />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarP']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovProceso').filter();" style="width:150px; position: relative; left: -5px;" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovProceso').filter();" style="width:150px; position: relative; left: -5px;" />  
                             </f:facet>
                             <p:column filterBy="#{proceso.descripcion}"  filterMatchMode="contains">
                                 <f:facet name="header">
@@ -274,7 +274,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlNReporteContabilidad.actualizarEmplDesde()}"  process="@this"  />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarEMP']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovEmpleadoDesde').filter();" style="width:150px; position: relative; left: -5px;" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovEmpleadoDesde').filter();" style="width:150px; position: relative; left: -5px;" />  
                             </f:facet>
                             <p:column filterBy="#{empleadoDesde.codigoempleado}" filterMatchMode="contains" filterStyle="width: 50px">
                                 <f:facet name="header">
@@ -305,7 +305,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlNReporteContabilidad.actualizarEmplHasta()}"  process="@this"   />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarEMPH']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovEmpleadoHasta').filter();" style="width:150px; position: relative; left: -5px;" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovEmpleadoHasta').filter();" style="width:150px; position: relative; left: -5px;" />  
                             </f:facet>
                             <p:column filterBy="#{empleadoHasta.codigoempleado}"  filterMatchMode="contains" filterStyle="width: 50px">
                                 <f:facet name="header">
@@ -339,13 +339,13 @@
                         <fieldset  style="position: absolute; left: 10px; top: 110px; width: 400px; height: 150px; border-radius: 10px; text-align: left">
                             <legend style="color: blue;text-align: left"><strong>#{msg['envioporcorreo']}</strong></legend>
                             <strong><h:outputText value="#{msg['de']}" style="position: absolute; left: 10px; top: 25px;"/></strong>
-                            <p:inputText  autocomplete="false"  value="nomina@designer.com.co" style="position: absolute; left: 80px; top: 20px;width: 300px"/>
+                            <p:inputText  autocomplete="off"  value="nomina@designer.com.co" style="position: absolute; left: 80px; top: 20px;width: 300px"/>
                             <strong><h:outputText value="#{msg['para']}" style="position: absolute; left: 10px; top: 60px;"/></strong>
-                            <p:inputText  autocomplete="false"  style="position: absolute; left: 80px; top: 55px;width: 300px"/>
+                            <p:inputText  autocomplete="off"  style="position: absolute; left: 80px; top: 55px;width: 300px"/>
                             <strong><h:outputText value="#{msg['cc']}" style="position: absolute; left: 10px; top: 95px;"/></strong>
-                            <p:inputText  autocomplete="false"  style="position: absolute; left: 80px; top: 90px;width: 300px"/>
+                            <p:inputText  autocomplete="off"  style="position: absolute; left: 80px; top: 90px;width: 300px"/>
                             <strong><h:outputText value="#{msg['asunto']}" style="position: absolute; left: 10px; top: 130px;"/></strong>
-                            <p:inputText  autocomplete="false"  style="position: absolute; left: 80px; top: 125px;width: 300px"/>
+                            <p:inputText  autocomplete="off"  style="position: absolute; left: 80px; top: 125px;width: 300px"/>
 
                         </fieldset>
                         <p:commandButton icon="ui-icon-mail-closed" id="registroEnvio" style="position: absolute; left: 190px; top: 280px;" value="#{msg['registrodeenvios']}"  onclick="PF('EnvioCorreoDialogo').hide()"  process="@this"/>

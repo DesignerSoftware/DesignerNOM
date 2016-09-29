@@ -35,7 +35,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.codigo}" id="editarCodigo" style="  border-radius: 0px; width: 400px; text-transform: uppercase; height: 12px;"  > 
+                                            <p:inputText  autocomplete="off"  value="#{info.codigo}" id="editarCodigo" style="  border-radius: 0px; width: 400px; text-transform: uppercase; height: 12px;"  > 
                                                 <p:ajax event="select" listener="#{controlProcesosProductivos.cambiarIndice(indice, 0)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlProcesosProductivos.modificarProcesosProductivos(indice, 'N', info.codigo)}"  update="codigo"/>
                                             </p:inputText>
@@ -47,7 +47,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.descripcion}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.descripcion}" maxlength="100" id="editarNombre" style="  border-radius: 0px; width: 99%; text-transform: uppercase;height: 12px;"  > 
+                                            <p:inputText  autocomplete="off"  value="#{info.descripcion}" maxlength="100" id="editarNombre" style="  border-radius: 0px; width: 99%; text-transform: uppercase;height: 12px;"  > 
                                                 <p:ajax event="select" listener="#{controlProcesosProductivos.cambiarIndice(indice, 1)}" process="@this"/> 
                                                 <p:ajax event="change"  listener="#{controlProcesosProductivos.modificarProcesosProductivos(indice, 'N', info.descripcion)}" update="descripcion"/>
                                             </p:inputText>
@@ -59,7 +59,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.centrocosto.nombre}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.centrocosto.nombre}" id="editarPersonaFirma" style="  border-radius: 0px; width: 99%; text-transform: uppercase;height: 12px;"  > 
+                                            <p:inputText  autocomplete="off"  value="#{info.centrocosto.nombre}" id="editarPersonaFirma" style="  border-radius: 0px; width: 99%; text-transform: uppercase;height: 12px;"  > 
                                                 <p:ajax event="select" listener="#{controlProcesosProductivos.cambiarIndice(indice, 2)}" process="@this"/> 
                                                 <p:ajax event="dblclick" listener="#{controlProcesosProductivos.asignarIndex(indice, 0,2)}" process="@this"/>
                                                 <p:ajax event="change"  listener="#{controlProcesosProductivos.modificarProcesosProductivos(indice, 'PERSONAS', info.centrocosto.nombre)}" update="personafir"/>
@@ -143,7 +143,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlProcesosProductivos.actualizarCentrosCostos()}" process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="Buscar Centro Costo:"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovCentrosCostos').filter();" style="width:150px; position: relative; left: 20px;" />  
+                                    <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovCentrosCostos').filter();" style="width:150px; position: relative; left: 20px;" />  
                                 </f:facet>
 
                                 <p:column filterBy="#{centrosCostosD.codigo}" width="50" filterStyle="width:30px;" filterMatchMode="contains">
@@ -283,19 +283,19 @@
                         <p:panel id="nuevaTipoempresa" style="border: none;">
 
                             <strong><h:outputText value="#{msg['codigoN']}"  style=" position: absolute;left: 10px; top: 60px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoCodigo" value="#{controlProcesosProductivos.nuevoProcesosProductivos.codigo}" style=" width: 135px; position: absolute; left: 125px; top: 55px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="nuevoCodigo" value="#{controlProcesosProductivos.nuevoProcesosProductivos.codigo}" style=" width: 135px; position: absolute; left: 125px; top: 55px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoCodigo" value="#{msg['codigoNN']}" />
 
                             <strong><h:outputText value="#{msg['descripcionN']}"  style=" position: absolute;left: 10px; top: 90px;" /></strong>
-                            <p:inputText  autocomplete="false"   id="nuevoNombre"  maxlength="100"  value="#{controlProcesosProductivos.nuevoProcesosProductivos.descripcion}" style=" width: 135px; position: absolute; left: 125px; top: 85px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"   id="nuevoNombre"  maxlength="100"  value="#{controlProcesosProductivos.nuevoProcesosProductivos.descripcion}" style=" width: 135px; position: absolute; left: 125px; top: 85px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoNombre" value="#{msg['descripcionNN']}" />
 
                             <strong><h:outputText value="#{msg['centroCostoN']}"  style=" position: absolute;left: 10px; top: 120px;" /></strong>
-                            <p:inputText  autocomplete="false"   id="nuevoPersona" value="#{controlProcesosProductivos.nuevoProcesosProductivos.centrocosto.nombre}" style=" width: 135px; position: absolute; left: 125px; top: 115px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"   id="nuevoPersona" value="#{controlProcesosProductivos.nuevoProcesosProductivos.centrocosto.nombre}" style=" width: 135px; position: absolute; left: 125px; top: 115px;text-transform: uppercase">
                                 <p:ajax event="click" listener="#{controlProcesosProductivos.valoresBackupAutocompletar(1,'PERSONA')}" />
                                 <p:ajax event="change" listener="#{controlProcesosProductivos.autocompletarNuevo('PERSONA',controlProcesosProductivos.nuevoProcesosProductivos.centrocosto.nombre, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlProcesosProductivos.asignarVariableCentrosCostos(0)}" />
@@ -317,19 +317,19 @@
                         <p:panel id="duplicarTE" style="border: none;">
 
                             <strong><h:outputText value="#{msg['codigoN']}"  style=" position: absolute;left: 10px; top: 60px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarCodigo" value="#{controlProcesosProductivos.duplicarProcesosProductivos.codigo}" style=" width: 135px; position: absolute; left: 125px; top: 55px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="duplicarCodigo" value="#{controlProcesosProductivos.duplicarProcesosProductivos.codigo}" style=" width: 135px; position: absolute; left: 125px; top: 55px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarCodigo" value="#{msg['codigoNN']}" />
 
                             <strong><h:outputText value="#{msg['descripcionN']} "  style=" position: absolute;left: 10px; top: 90px;" /></strong>
-                            <p:inputText  autocomplete="false"   id="duplicarNombre" value="#{controlProcesosProductivos.duplicarProcesosProductivos.descripcion}" style=" width: 135px; position: absolute; left: 125px; top: 85px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"   id="duplicarNombre" value="#{controlProcesosProductivos.duplicarProcesosProductivos.descripcion}" style=" width: 135px; position: absolute; left: 125px; top: 85px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarNombre" value="#{msg['descripcionNN']}" />
 
                             <strong><h:outputText value="#{msg['centroCostoN']}"  style=" position: absolute;left: 10px; top: 120px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarPersona" maxlength="100"  value="#{controlProcesosProductivos.duplicarProcesosProductivos.centrocosto.nombre}"  style=" width: 135px; position: absolute; left: 125px; top: 115px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="duplicarPersona" maxlength="100"  value="#{controlProcesosProductivos.duplicarProcesosProductivos.centrocosto.nombre}"  style=" width: 135px; position: absolute; left: 125px; top: 115px;text-transform: uppercase">
                                 <p:ajax event="click" listener="#{controlProcesosProductivos.valoresBackupAutocompletar(2,'PERSONA')}" />
                                 <p:ajax event="change" listener="#{controlProcesosProductivos.autocompletarDuplicado('PERSONA', controlProcesosProductivos.duplicarProcesosProductivos.centrocosto.nombre , 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlProcesosProductivos.asignarVariableCentrosCostos(1)}" />

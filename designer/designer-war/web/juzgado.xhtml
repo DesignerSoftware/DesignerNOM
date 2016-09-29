@@ -30,7 +30,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.codigo}" id="editarCodigo" style="font-size: 10px; border-radius: 0px; width: 99%; text-transform: uppercase" > 
+                                            <p:inputText  autocomplete="off"  value="#{info.codigo}" id="editarCodigo" style="font-size: 10px; border-radius: 0px; width: 99%; text-transform: uppercase" > 
                                                 <p:ajax  event="change" listener="#{controlJuzgados.modificandoJuzgados(indice, 'N', info.codigo)}" update="@this"/>
                                                 <p:ajax event="select" listener="#{controlJuzgados.cambiarIndice(indice,0)}" /> 
                                             </p:inputText>
@@ -46,7 +46,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.nombre}" style="text-transform: uppercase" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  id="editarNombreCentroCoso" value="#{info.nombre}" style="font-size: 10px; border-radius: 0px; width: 93.5%; text-transform: uppercase">
+                                            <p:inputText  autocomplete="off"  id="editarNombreCentroCoso" value="#{info.nombre}" style="font-size: 10px; border-radius: 0px; width: 93.5%; text-transform: uppercase">
                                                 <p:ajax event="change" listener="#{controlJuzgados.modificandoJuzgados(indice, 'N', info.nombre)}" update="@this" />
                                                 <p:ajax event="select" listener="#{controlJuzgados.cambiarIndice(indice, 1)}" />
                                             </p:inputText>
@@ -62,7 +62,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.oficina}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.oficina}" id="editarOficina" style="font-size: 10px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
+                                            <p:inputText  autocomplete="off"  value="#{info.oficina}" id="editarOficina" style="font-size: 10px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
                                                 <p:ajax event="change" listener="#{controlJuzgados.modificandoJuzgados(indice, 'N', info.oficina)}" update="@this" />
                                                 <p:ajax event="select" listener="#{controlJuzgados.cambiarIndice(indice, 2)}" />
                                             </p:inputText>
@@ -77,7 +77,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.observaciones}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.observaciones}" id="editarObservaciones" style="font-size: 10px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
+                                            <p:inputText  autocomplete="off"  value="#{info.observaciones}" id="editarObservaciones" style="font-size: 10px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
                                                 <p:ajax event="change" listener="#{controlJuzgados.modificandoJuzgados(indice, 'N', info.observaciones)}" update="@this" />
                                                 <p:ajax event="select" listener="#{controlJuzgados.cambiarIndice(indice, 3)}" />
                                             </p:inputText>
@@ -92,7 +92,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.ciudad.nombre}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.ciudad.nombre}" id="editarCiudad" style="font-size: 10px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
+                                            <p:inputText  autocomplete="off"  value="#{info.ciudad.nombre}" id="editarCiudad" style="font-size: 10px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
                                                 <p:ajax event="change" listener="#{controlJuzgados.modificandoJuzgados(indice, 'CIUDADES', info.ciudad.nombre)}" update="@this" />
                                                 <p:ajax event="select" listener="#{controlJuzgados.cambiarIndice(indice, 4)}" />
                                                 <p:ajax event="dblclick" listener="#{controlJuzgados.asignarIndex(indice, 0, 4)}"/>
@@ -162,7 +162,7 @@
 
                                 <f:facet name="header">  
                                     <h:outputText value="Buscar Ciudad "  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovTipoCentrosCostos').filter();" style="width:150px; position: relative; left: 50px;" />  
+                                    <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovTipoCentrosCostos').filter();" style="width:150px; position: relative; left: 50px;" />  
                                 </f:facet>
                                 <p:column filterBy="#{mostrarCiudad.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 30px">
                                     <f:facet name="header">
@@ -300,33 +300,33 @@
 
                             <!--0-->
                             <strong><h:outputText value="Codigo : " style="font-size: 12px; position: absolute; top: 71px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaCodigoCC" value="#{controlJuzgados.nuevoJuzgado.codigo}" style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 65px;">
+                            <p:inputText  autocomplete="off"  id="nuevaCodigoCC" value="#{controlJuzgados.nuevoJuzgado.codigo}" style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 65px;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevaCodigoCC" value="Codigo" />
                             <!--1-->
                             <strong><h:outputText value="Nombre: " style="font-size: 12px; position: absolute; top: 126px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaNombreCentroCostos" value="#{controlJuzgados.nuevoJuzgado.nombre}" style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 121px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="nuevaNombreCentroCostos" value="#{controlJuzgados.nuevoJuzgado.nombre}" style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 121px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevaNombreCentroCostos" value="Nombre" />
 
                             <!--4-->
                             <strong><h:outputText value="Oficina:" style="font-size: 12px; position: absolute; top: 181px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaCodigoAT" value="#{controlJuzgados.nuevoJuzgado.oficina}" style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 176px;">
+                            <p:inputText  autocomplete="off"  id="nuevaCodigoAT" value="#{controlJuzgados.nuevoJuzgado.oficina}" style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 176px;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevaCodigoAT" value="Oficina" />
                             <!--5-->
 
                             <strong><h:outputText value="Observaciones:" style="font-size: 12px; position: absolute; top: 228px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaCodigoCTT" value="#{controlJuzgados.nuevoJuzgado.observaciones}" style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 223px;">
+                            <p:inputText  autocomplete="off"  id="nuevaCodigoCTT" value="#{controlJuzgados.nuevoJuzgado.observaciones}" style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 223px;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevaCodigoCTT" value="Observaciones" />
 
                             <strong><h:outputText value="Ciudad: " style="font-size: 12px; position: absolute; top: 283px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaTipoCentroCostos" value="#{controlJuzgados.nuevoJuzgado.ciudad.nombre}" style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 278px;">
+                            <p:inputText  autocomplete="off"  id="nuevaTipoCentroCostos" value="#{controlJuzgados.nuevoJuzgado.ciudad.nombre}" style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 278px;">
                                 <p:ajax event="click" listener="#{controlJuzgados.valoresBackupAutocompletar(1)}" />
                                 <p:ajax event="change" listener="#{controlJuzgados.autocompletarNuevo('CIUDADES', controlJuzgados.nuevoJuzgado.ciudad.nombre , 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlJuzgados.asignarVariableCiudad(0)}" />
@@ -349,31 +349,31 @@
                         <p:panel id="duplicarCentroCostos" style="border: none;">
                             <!--0-->
                             <strong><h:outputText value="Codigo: " style="font-size: 12px; position: absolute; top: 71px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarCodigoCC" value="#{controlJuzgados.duplicarJuzgado.codigo}" style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 65px;">
+                            <p:inputText  autocomplete="off"  id="duplicarCodigoCC" value="#{controlJuzgados.duplicarJuzgado.codigo}" style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 65px;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarCodigoCC" value="Codigo" />
                             <!--1-->
                             <strong><h:outputText value="Nombre: "  style="font-size: 12px; position: absolute; top: 126px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarNombreCentroCostos" value="#{controlJuzgados.duplicarJuzgado.nombre}" style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 121px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="duplicarNombreCentroCostos" value="#{controlJuzgados.duplicarJuzgado.nombre}" style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 121px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarNombreCentroCostos" value="Nombre" />
                             <!--2-->
                             <strong><h:outputText value="Oficina:" style="font-size: 12px; position: absolute; top: 181px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarCodigoAT" value="#{controlJuzgados.duplicarJuzgado.oficina}"  style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 176px;">
+                            <p:inputText  autocomplete="off"  id="duplicarCodigoAT" value="#{controlJuzgados.duplicarJuzgado.oficina}"  style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 176px;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarCodigoAT" value="Oficina" />
 
                             <strong><h:outputText value="Observaciones:" style="font-size: 12px; position: absolute; top: 228px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarCodigoCTT" value="#{controlJuzgados.duplicarJuzgado.observaciones}" style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 223px;">
+                            <p:inputText  autocomplete="off"  id="duplicarCodigoCTT" value="#{controlJuzgados.duplicarJuzgado.observaciones}" style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 223px;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarCodigoCTT" value="Observaciones" />
 
                             <strong><h:outputText value="Ciudad: " style="font-size: 12px; position: absolute; top: 283px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarTipoCentroCostos" value="#{controlJuzgados.duplicarJuzgado.ciudad.nombre}"  style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 278px;" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="duplicarTipoCentroCostos" value="#{controlJuzgados.duplicarJuzgado.ciudad.nombre}"  style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 278px;" onclick="select();">
                                 <p:ajax event="click" listener="#{controlJuzgados.valoresBackupAutocompletar(2)}" />
                                 <p:ajax event="change" listener="#{controlJuzgados.autocompletarDuplicado('CIUDADES', controlJuzgados.duplicarJuzgado.ciudad.nombre , 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlJuzgados.asignarVariableCiudad(1)}" />
@@ -399,7 +399,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlJuzgados.cambiarCiudad()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="Buscar Ciudades"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovEmpresas').filter();" style="width:120px; position: relative; left: 60px;" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovEmpresas').filter();" style="width:120px; position: relative; left: 60px;" />  
                             </f:facet>
                             <p:column filterBy="#{ciudades.codigo}" width="60" filterMatchMode="contains" filterStyle="width: 50px">
                                 <f:facet name="header">

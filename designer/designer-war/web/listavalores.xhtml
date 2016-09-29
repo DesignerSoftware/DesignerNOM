@@ -33,7 +33,7 @@
 
             <f:facet name="header" >  
                <h:outputText value="Buscar Empleado: "  style="position: absolute; left: 22px; top: 18px"/>  
-               <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('busquedaR').filter();" style="width:150px; position: relative; left: -150px;" />  
+               <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('busquedaR').filter();" style="width:150px; position: relative; left: -150px;" />  
             </f:facet>
 
             <p:column  headerText="Codigo Empleado" filterOptions="" filterBy="#{item.empleado.codigoempleado}" filterMatchMode="contains">  

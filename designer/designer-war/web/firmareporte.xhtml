@@ -29,7 +29,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.codigo}" id="editarCodigo" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"  value="#{info.codigo}" id="editarCodigo" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlFirmasReportes.cambiarIndice(indice, 0)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlFirmasReportes.modificarFirmasReportes(indice, 'N', info.codigo)}"  update="codigo"/>
                                             </p:inputText>
@@ -40,7 +40,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.descripcion}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.descripcion}" maxlength="100"  id="editarNombre" style="height: 12px;  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"  value="#{info.descripcion}" maxlength="100"  id="editarNombre" style="height: 12px;  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlFirmasReportes.cambiarIndice(indice, 1)}" process="@this"/> 
                                                 <p:ajax event="change"  listener="#{controlFirmasReportes.modificarFirmasReportes(indice, 'N', info.descripcion)}" update="descripcion"/>
                                             </p:inputText>
@@ -52,7 +52,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.empresa.nombre}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.empresa.nombre}" id="editarPais" style="height: 12px;  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"  value="#{info.empresa.nombre}" id="editarPais" style="height: 12px;  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlFirmasReportes.cambiarIndice(indice, 2)}" process="@this"/> 
                                                 <p:ajax event="dblclick" listener="#{controlFirmasReportes.asignarIndex(indice, 0,2)}" process="@this"/>
                                                 <p:ajax event="change"  listener="#{controlFirmasReportes.modificarFirmasReportes(indice, 'PAISES', info.empresa.nombre)}" update="pais"/>
@@ -67,7 +67,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.subtitulofirma}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.subtitulofirma}" maxlength="50" id="editarSubTituloFirma" style="height: 12px;  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"  value="#{info.subtitulofirma}" maxlength="50" id="editarSubTituloFirma" style="height: 12px;  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlFirmasReportes.cambiarIndice(indice, 3)}" process="@this"/> 
                                                 <p:ajax event="change"  listener="#{controlFirmasReportes.modificarFirmasReportes(indice, 'N', info.subtitulofirma)}" update="subTituloFirma"/>
                                             </p:inputText>
@@ -79,7 +79,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.personaFirma.nombre}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.personaFirma.nombre}" id="editarPersonaFirma" style="height: 12px;  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"  value="#{info.personaFirma.nombre}" id="editarPersonaFirma" style="height: 12px;  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlFirmasReportes.cambiarIndice(indice, 4)}" process="@this"/> 
                                                 <p:ajax event="dblclick" listener="#{controlFirmasReportes.asignarIndex(indice, 0,4)}" process="@this"/>
                                                 <p:ajax event="change"  listener="#{controlFirmasReportes.modificarFirmasReportes(indice, 'PERSONAS', info.personaFirma.nombre)}" update="personafir"/>
@@ -94,7 +94,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.cargo.nombre}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.cargo.nombre}" id="editarCCcargo" style="height: 12px;  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"  value="#{info.cargo.nombre}" id="editarCCcargo" style="height: 12px;  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlFirmasReportes.cambiarIndice(indice, 5)}" process="@this"/> 
                                                 <p:ajax event="dblclick" listener="#{controlFirmasReportes.asignarIndex(indice, 0,5)}" process="@this"/>
                                                 <p:ajax event="change"  listener="#{controlFirmasReportes.modificarFirmasReportes(indice, 'CARGOS', info.cargo.nombre)}" update="personafir"/>
@@ -175,7 +175,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlFirmasReportes.actualizarPais()}" process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="Buscar Empresa : "  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovTiposFamiliares').filter();" style="width:200px; position: relative; left: 30px;" />  
+                                    <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovTiposFamiliares').filter();" style="width:200px; position: relative; left: 30px;" />  
                                 </f:facet>
                                 <p:column filterBy="#{tipofamiliar.codigo}" width="50" filterStyle="width:30px;" filterMatchMode="contains">
                                     <f:facet name="header">
@@ -208,7 +208,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlFirmasReportes.actualizarPersonas()}" process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="Buscar Personas : "  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovPersonas').filter();" style="width: 200px; position: relative; left: 30px;" />  
+                                    <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovPersonas').filter();" style="width: 200px; position: relative; left: 30px;" />  
                                 </f:facet>
 
                                 <p:column filterBy="#{personaFirmas.numerodocumento}" width="100" filterStyle="width:30px;" filterMatchMode="contains">
@@ -242,7 +242,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlFirmasReportes.actualizarCargos()}" process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="Buscar Cargo :"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovCargos').filter();" style=" width:200px; position: relative; left: 30px;" />  
+                                    <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovCargos').filter();" style=" width:200px; position: relative; left: 30px;" />  
                                 </f:facet>
 
                                 <p:column filterBy="#{personaCargos.codigo}" width="100" filterStyle="width:30px;" filterMatchMode="contains">
@@ -388,19 +388,19 @@
                         <p:panel id="nuevaTipoempresa" style="border: none;">
 
                             <strong><h:outputText value="*Código: "  style=" position: absolute; top: 60px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoCodigo" value="#{controlFirmasReportes.nuevoFirmasReportes.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="nuevoCodigo" value="#{controlFirmasReportes.nuevoFirmasReportes.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoCodigo" value="Código" />
 
                             <strong><h:outputText value="*Descripcion: "  style=" position: absolute; top: 90px;" /></strong>
-                            <p:inputText  autocomplete="false"   id="nuevoNombre" maxlength="100" value="#{controlFirmasReportes.nuevoFirmasReportes.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"   id="nuevoNombre" maxlength="100" value="#{controlFirmasReportes.nuevoFirmasReportes.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoNombre" value="Nombre" />
 
                             <strong><h:outputText value="*Empresa: "  style=" position: absolute; top: 120px;" /></strong>
-                            <p:inputText  autocomplete="false"   id="nuevoPais" value="#{controlFirmasReportes.nuevoFirmasReportes.empresa.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 115px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"   id="nuevoPais" value="#{controlFirmasReportes.nuevoFirmasReportes.empresa.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 115px;text-transform: uppercase">
                                 <p:ajax event="click" listener="#{controlFirmasReportes.valoresBackupAutocompletar(1,'EMPRESAS')}" />
                                 <p:ajax event="change" listener="#{controlFirmasReportes.autocompletarNuevo('EMPRESAS',controlFirmasReportes.nuevoFirmasReportes.empresa.nombre, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlFirmasReportes.asignarVariableEmpresas(0)}" />
@@ -409,13 +409,13 @@
                             <p:watermark for="nuevoPais" value="Empresa" />
 
                             <strong><h:outputText value="*SubTituloFirma: "  style=" position: absolute; top: 150px;" /></strong>
-                            <p:inputText  autocomplete="false"   id="nuevoSubtituloFirma" maxlength="50" value="#{controlFirmasReportes.nuevoFirmasReportes.subtitulofirma}" style=" width: 140px; position: absolute; left: 150px; top: 145px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"   id="nuevoSubtituloFirma" maxlength="50" value="#{controlFirmasReportes.nuevoFirmasReportes.subtitulofirma}" style=" width: 140px; position: absolute; left: 150px; top: 145px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoSubtituloFirma" value="Subtitulo Firma" />
 
                             <strong><h:outputText value="*Persona: "  style=" position: absolute; top: 180px;" /></strong>
-                            <p:inputText  autocomplete="false"   id="nuevoPersona" value="#{controlFirmasReportes.nuevoFirmasReportes.personaFirma.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 175px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"   id="nuevoPersona" value="#{controlFirmasReportes.nuevoFirmasReportes.personaFirma.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 175px;text-transform: uppercase">
                                 <p:ajax event="click" listener="#{controlFirmasReportes.valoresBackupAutocompletar(1,'PERSONA')}" />
                                 <p:ajax event="change" listener="#{controlFirmasReportes.autocompletarNuevo('PERSONA',controlFirmasReportes.nuevoFirmasReportes.personaFirma.nombre, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlFirmasReportes.asignarVariablePersonas(0)}" />
@@ -424,7 +424,7 @@
                             <p:watermark for="nuevoPersona" value="Persona" />
 
                             <strong><h:outputText value="*Cargo: "  style=" position: absolute; top: 210px;" /></strong>
-                            <p:inputText  autocomplete="false"   id="nuevoCargo" value="#{controlFirmasReportes.nuevoFirmasReportes.cargo.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 205px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"   id="nuevoCargo" value="#{controlFirmasReportes.nuevoFirmasReportes.cargo.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 205px;text-transform: uppercase">
                                 <p:ajax event="click" listener="#{controlFirmasReportes.valoresBackupAutocompletar(1,'CARGO')}" />
                                 <p:ajax event="change" listener="#{controlFirmasReportes.autocompletarNuevo('CARGO',controlFirmasReportes.nuevoFirmasReportes.cargo.nombre, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlFirmasReportes.asignarVariableCargos(0)}" />
@@ -446,19 +446,19 @@
 
                         <p:panel id="duplicarTE" style="border: none;">
                             <strong><h:outputText value="código "  style=" position: absolute; top: 60px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarCodigo" value="#{controlFirmasReportes.duplicarFirmasReportes.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="duplicarCodigo" value="#{controlFirmasReportes.duplicarFirmasReportes.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarCodigo" value="Código" />
 
                             <strong><h:outputText value="Descripcion"  style=" position: absolute; top: 90px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarNombre" maxlength="100" value="#{controlFirmasReportes.duplicarFirmasReportes.descripcion}"  style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase" >
+                            <p:inputText  autocomplete="off"  id="duplicarNombre" maxlength="100" value="#{controlFirmasReportes.duplicarFirmasReportes.descripcion}"  style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase" >
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarNombre" value="Descripcion" />
 
                             <strong><h:outputText value="Empresa"  style=" position: absolute; top: 120px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarPais" value="#{controlFirmasReportes.duplicarFirmasReportes.empresa.nombre}"  style=" width: 140px; position: absolute; left: 150px; top: 115px;text-transform: uppercase" >
+                            <p:inputText  autocomplete="off"  id="duplicarPais" value="#{controlFirmasReportes.duplicarFirmasReportes.empresa.nombre}"  style=" width: 140px; position: absolute; left: 150px; top: 115px;text-transform: uppercase" >
                                 <p:ajax event="click" listener="#{controlFirmasReportes.valoresBackupAutocompletar(2,'EMPRESAS')}" />
                                 <p:ajax event="change" listener="#{controlFirmasReportes.autocompletarDuplicado('EMPRESAS', controlFirmasReportes.duplicarFirmasReportes.empresa.nombre , 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlFirmasReportes.asignarVariableEmpresas(1)}" />
@@ -467,13 +467,13 @@
                             <p:watermark for="duplicarPais" value="Empresa" />
 
                             <strong><h:outputText value="SubtituloFirma"  style=" position: absolute; top: 150px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarSubtituloFirma" maxlength="50" value="#{controlFirmasReportes.duplicarFirmasReportes.subtitulofirma}"  style=" width: 140px; position: absolute; left: 150px; top:145px;text-transform: uppercase" >
+                            <p:inputText  autocomplete="off"  id="duplicarSubtituloFirma" maxlength="50" value="#{controlFirmasReportes.duplicarFirmasReportes.subtitulofirma}"  style=" width: 140px; position: absolute; left: 150px; top:145px;text-transform: uppercase" >
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarSubtituloFirma" value="SubtituloFirma" />
 
                             <strong><h:outputText value="Persona"  style=" position: absolute; top: 180px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarPersona" value="#{controlFirmasReportes.duplicarFirmasReportes.personaFirma.nombre}"  style=" width: 140px; position: absolute; left: 150px; top: 175px;text-transform: uppercase" >
+                            <p:inputText  autocomplete="off"  id="duplicarPersona" value="#{controlFirmasReportes.duplicarFirmasReportes.personaFirma.nombre}"  style=" width: 140px; position: absolute; left: 150px; top: 175px;text-transform: uppercase" >
                                 <p:ajax event="click" listener="#{controlFirmasReportes.valoresBackupAutocompletar(2,'PERSONA')}" />
                                 <p:ajax event="change" listener="#{controlFirmasReportes.autocompletarDuplicado('PERSONA', controlFirmasReportes.duplicarFirmasReportes.personaFirma.nombre , 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlFirmasReportes.asignarVariablePersonas(1)}" />
@@ -482,7 +482,7 @@
                             <p:watermark for="duplicarPersona" value="Persona" />
 
                             <strong><h:outputText value="Cargo"  style=" position: absolute; top: 210px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarCargo" value="#{controlFirmasReportes.duplicarFirmasReportes.cargo.nombre}"  style=" width: 140px; position: absolute; left: 150px; top: 205px;text-transform: uppercase" >
+                            <p:inputText  autocomplete="off"  id="duplicarCargo" value="#{controlFirmasReportes.duplicarFirmasReportes.cargo.nombre}"  style=" width: 140px; position: absolute; left: 150px; top: 205px;text-transform: uppercase" >
                                 <p:ajax event="click" listener="#{controlFirmasReportes.valoresBackupAutocompletar(2,'CARGO')}" />
                                 <p:ajax event="change" listener="#{controlFirmasReportes.autocompletarDuplicado('CARGO', controlFirmasReportes.duplicarFirmasReportes.cargo.nombre , 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlFirmasReportes.asignarVariableCargos(1)}" />

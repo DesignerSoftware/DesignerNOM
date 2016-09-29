@@ -85,7 +85,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.codigo}" maxlength="4" id="editarCodigo" style="height: 12px;  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"  value="#{info.codigo}" maxlength="4" id="editarCodigo" style="height: 12px;  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlTiposEntidades.cambiarIndice(info, 0)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlTiposEntidades.modificarTipoEntidad(info, 'N', info.codigo)}" update="codigo"/>
                                             </p:inputText>
@@ -97,7 +97,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.nombre}" style=" text-transform: uppercase" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.nombre}" maxlength="30" id="editarNombre" style="height: 12px;   border-radius: 0px; width: 99%; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"  value="#{info.nombre}" maxlength="30" id="editarNombre" style="height: 12px;   border-radius: 0px; width: 99%; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlTiposEntidades.cambiarIndice(info, 1)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlTiposEntidades.modificarTipoEntidad(info, 'N', info.nombre)}" update="nombre"/>
                                             </p:inputText>
@@ -109,7 +109,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.grupo.nombre}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.grupo.nombre}" id="editarGrupoAsociado" style="height: 12px;   border-radius: 0px; width: 99%; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"  value="#{info.grupo.nombre}" id="editarGrupoAsociado" style="height: 12px;   border-radius: 0px; width: 99%; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlTiposEntidades.cambiarIndice(info, 2)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlTiposEntidades.modificarTipoEntidad(info, 'GRUPOSTIPOSENTIDADES', info.grupo.nombre)}" update="grupoAsociado"/>                                         
                                                 <p:ajax event="dblclick" listener="#{controlTiposEntidades.asignarIndex(info, 0,2)}" process="@this"/>
@@ -142,7 +142,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlTiposEntidades.actualizarGrupoTipoEntidad()}" update=":form:gruposTiposEntidadesDialogo" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="Buscar Grupo de Tipo Entidad : "  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="false"  id="globalFilter" value="#{filtrado}" onkeyup="PF('lovGruposTiposEntidades').filter();" style="width:110px; position: relative; left: 90px;" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" value="#{filtrado}" onkeyup="PF('lovGruposTiposEntidades').filter();" style="width:110px; position: relative; left: 90px;" />  
                             </f:facet>
                             <p:column filterBy="#{grupos.codigo}" width="60" filterStyle="width:50px;" filterMatchMode="contains">
                                 <f:facet name="header">
@@ -272,19 +272,19 @@
                         <p:panel id="nuevoTipoEntidad" style="border: none;">
 
                             <strong><h:outputText value="*Código: "  style="left: 10px; position: absolute; top: 60px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoCodigo" maxlength="4" value="#{controlTiposEntidades.nuevoTipoEntidad.codigo}" style=" width: 135px; position: absolute; left: 150px; top: 55px; text-transform: uppercase" >
+                            <p:inputText  autocomplete="off"  id="nuevoCodigo" maxlength="4" value="#{controlTiposEntidades.nuevoTipoEntidad.codigo}" style=" width: 135px; position: absolute; left: 150px; top: 55px; text-transform: uppercase" >
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoCodigo" value="Código" />
 
                             <strong><h:outputText value="*Nombre: "  style="left: 10px; position: absolute; top: 90px;" /></strong>
-                            <p:inputText  autocomplete="false"   id="nuevoNombre" maxlength="30" value="#{controlTiposEntidades.nuevoTipoEntidad.nombre}" style=" width: 135px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"   id="nuevoNombre" maxlength="30" value="#{controlTiposEntidades.nuevoTipoEntidad.nombre}" style=" width: 135px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoNombre" value="Nombre" />
 
                             <strong><h:outputText value="*Grupo Asociado: " style="left: 10px; position: absolute; top: 120px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoGrupoAsociado" value="#{controlTiposEntidades.nuevoTipoEntidad.grupo.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 115px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="nuevoGrupoAsociado" value="#{controlTiposEntidades.nuevoTipoEntidad.grupo.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 115px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlTiposEntidades.valoresBackupAutocompletar(1, 'GRUPOSTIPOSENTIDADES')}" />
                                 <p:ajax event="change" listener="#{controlTiposEntidades.autocompletarNuevoyDuplicado('GRUPOSTIPOSENTIDADES', controlTiposEntidades.nuevoTipoEntidad.grupo.nombre, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlTiposEntidades.asignarVariableGrupoTipoEntidadNueva(0)}" />
@@ -305,20 +305,20 @@
 
                         <p:panel id="duplicarTiposEntidades" style="border: none;">
                             <strong><h:outputText value="*Código: "  style="left: 10px; position: absolute; top: 60px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarCodigo" maxlength="4" value="#{controlTiposEntidades.duplicarTipoEntidad.codigo}" style=" width: 135px; position: absolute; left: 150px; top: 55px; text-transform: uppercase" >
+                            <p:inputText  autocomplete="off"  id="duplicarCodigo" maxlength="4" value="#{controlTiposEntidades.duplicarTipoEntidad.codigo}" style=" width: 135px; position: absolute; left: 150px; top: 55px; text-transform: uppercase" >
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarCodigo" value="Codigo" />
 
                             <strong><h:outputText value="*Nombre:"  style="left: 10px; position: absolute; top: 90px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarNombre" maxlength="30" value="#{controlTiposEntidades.duplicarTipoEntidad.nombre}"  style=" width: 135px; position: absolute; left: 150px; top: 85px; text-transform: uppercase" >
+                            <p:inputText  autocomplete="off"  id="duplicarNombre" maxlength="30" value="#{controlTiposEntidades.duplicarTipoEntidad.nombre}"  style=" width: 135px; position: absolute; left: 150px; top: 85px; text-transform: uppercase" >
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarNombre" value="Nombre" />
 
 
                             <strong><h:outputText value="*Grupo Asociado: " style="left: 10px; position: absolute; top: 120px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarGrupoTipoEntidad" value="#{controlTiposEntidades.duplicarTipoEntidad.grupo.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 115px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="duplicarGrupoTipoEntidad" value="#{controlTiposEntidades.duplicarTipoEntidad.grupo.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 115px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlTiposEntidades.valoresBackupAutocompletar(2, 'GRUPOSTIPOSENTIDADES')}" />
                                 <p:ajax event="change" listener="#{controlTiposEntidades.autocompletarNuevoyDuplicado('GRUPOSTIPOSENTIDADES', controlTiposEntidades.duplicarTipoEntidad.grupo.nombre, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlTiposEntidades.asignarVariableGrupoTipoEntidadNueva(1)}" />

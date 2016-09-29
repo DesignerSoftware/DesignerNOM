@@ -122,7 +122,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{encargaturas.reemplazado.persona.nombreCompleto}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{encargaturas.reemplazado.persona.nombreCompleto}" id="editarNombreReemplazado" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
+                                            <p:inputText  autocomplete="off"  value="#{encargaturas.reemplazado.persona.nombreCompleto}" id="editarNombreReemplazado" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
                                                 <p:ajax event="change" listener="#{controlNovedadesReemplazos.modificarEncargaturas(encargaturas, 'REEMPLAZADO', encargaturas.reemplazado.persona.nombreCompleto)}"/>
                                                 <p:ajax event="select" listener="#{controlNovedadesReemplazos.cambiarIndice(encargaturas, 0)}" process="@this"/>
                                                 <p:ajax event="dblclick" listener="#{controlNovedadesReemplazos.asignarIndex(encargaturas, 5, 0)}"/>
@@ -139,7 +139,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{encargaturas.tiporeemplazo.nombre}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{encargaturas.tiporeemplazo.nombre}" id="editarTipoReemplazo" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
+                                            <p:inputText  autocomplete="off"  value="#{encargaturas.tiporeemplazo.nombre}" id="editarTipoReemplazo" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
                                                 <p:ajax event="change" listener="#{controlNovedadesReemplazos.modificarEncargaturas(encargaturas, 'TIPOREEMPLAZO', encargaturas.tiporeemplazo.nombre)}"/>
                                                 <p:ajax event="select" listener="#{controlNovedadesReemplazos.cambiarIndice(encargaturas, 1)}" process="@this"/>
                                                 <p:ajax event="dblclick" listener="#{controlNovedadesReemplazos.asignarIndex(encargaturas, 1, 0)}"/>
@@ -160,7 +160,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="editFechaPago" value="#{encargaturas.fechapago}"> 
+                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editFechaPago" value="#{encargaturas.fechapago}"> 
                                                 <p:ajax event="dateSelect"  update="editFechaPago"/>
                                                 <p:ajax event="change" listener="#{controlNovedadesReemplazos.modificarEncargaturas(encargaturas, 'N', encargaturas.fechapago)}"/>
                                                 <p:ajax event="select" listener="#{controlNovedadesReemplazos.cambiarIndice(encargaturas, 2)}" process="@this" />
@@ -181,7 +181,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="editFechaInicial" value="#{encargaturas.fechainicial}"> 
+                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editFechaInicial" value="#{encargaturas.fechainicial}"> 
                                                 <p:ajax event="dateSelect"  update="editFechaInicial"/>
                                                 <p:ajax event="change" listener="#{controlNovedadesReemplazos.modificarEncargaturas(encargaturas, 'N', encargaturas.fechainicial)}"/>
                                                 <p:ajax event="select" listener="#{controlNovedadesReemplazos.cambiarIndice(encargaturas, 3)}" process="@this" />
@@ -202,7 +202,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="editFechaFinal" value="#{encargaturas.fechainicial}"> 
+                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editFechaFinal" value="#{encargaturas.fechainicial}"> 
                                                 <p:ajax event="dateSelect"  update="editFechaFinal"/>
                                                 <p:ajax event="change" listener="#{controlNovedadesReemplazos.modificarEncargaturas(encargaturas, 'N', encargaturas.fechafinal)}"/>
                                                 <p:ajax event="select" listener="#{controlNovedadesReemplazos.cambiarIndice(encargaturas, 4)}" process="@this" />
@@ -220,7 +220,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{encargaturas.cargo.nombre}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{encargaturas.cargo.nombre}" id="editarCargo" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
+                                            <p:inputText  autocomplete="off"  value="#{encargaturas.cargo.nombre}" id="editarCargo" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
                                                 <p:ajax event="change" listener="#{controlNovedadesReemplazos.modificarEncargaturas(encargaturas, 'CARGOS', encargaturas.cargo.nombre)}"/>
                                                 <p:ajax event="select" listener="#{controlNovedadesReemplazos.cambiarIndice(encargaturas, 5)}" process="@this"/>
                                                 <p:ajax event="dblclick" listener="#{controlNovedadesReemplazos.asignarIndex(encargaturas, 3, 0)}"/>
@@ -237,7 +237,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{encargaturas.motivoreemplazo.nombre}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{encargaturas.motivoreemplazo.nombre}" id="editarMotivoReemplazo" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
+                                            <p:inputText  autocomplete="off"  value="#{encargaturas.motivoreemplazo.nombre}" id="editarMotivoReemplazo" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
                                                 <p:ajax event="change" listener="#{controlNovedadesReemplazos.modificarEncargaturas(encargaturas, 'MOTIVOREEMPLAZO', encargaturas.motivoreemplazo.nombre)}"/>
                                                 <p:ajax event="select" listener="#{controlNovedadesReemplazos.cambiarIndice(encargaturas, 6)}" process="@this"/>
                                                 <p:ajax event="dblclick" listener="#{controlNovedadesReemplazos.asignarIndex(encargaturas, 2, 0)}"/>
@@ -254,7 +254,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{encargaturas.estructura.nombre}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{encargaturas.estructura.nombre}" id="editarEncargatura" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
+                                            <p:inputText  autocomplete="off"  value="#{encargaturas.estructura.nombre}" id="editarEncargatura" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
                                                 <p:ajax event="change" listener="#{controlNovedadesReemplazos.modificarEncargaturas(encargaturas, 'ESTRUCTURAS', encargaturas.estructura.nombre)}"/>
                                                 <p:ajax event="select" listener="#{controlNovedadesReemplazos.cambiarIndice(encargaturas, 7)}" process="@this"/>
                                                 <p:ajax event="dblclick" listener="#{controlNovedadesReemplazos.asignarIndex(encargaturas, 4, 0)}"/>
@@ -378,7 +378,7 @@
                             <p:ajax event="filter" listener="#{controlNovedadesReemplazos.contarRegistrosCargos()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarC']}" />  
-                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('LOVCargos').filter();" class="cssFiltroLOV" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVCargos').filter();" class="cssFiltroLOV" />  
                             </f:facet>
 
                             <p:column sortBy="#{cargos.nombre}" filterBy="#{cargos.nombre}" width="200" filterMatchMode="contains" > 
@@ -418,7 +418,7 @@
                             <p:ajax event="filter" listener="#{controlNovedadesReemplazos.contarRegistrosEmpleados()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarEF']}" />  
-                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('LOVEmpleados').filter();" class="cssFiltroLOV" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVEmpleados').filter();" class="cssFiltroLOV" />  
                             </f:facet>
 
                             <p:column sortBy="#{empleados.codigoempleado}" filterBy="#{empleados.persona.nombreCompleto}" width="200" filterMatchMode="contains" > 
@@ -456,7 +456,7 @@
                             <p:ajax event="filter" listener="#{controlNovedadesReemplazos.contarRegistrosEmpleadosLOV()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarE']}" />  
-                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('LOVEmpleadosAbajo').filter();" class="cssFiltroLOV" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVEmpleadosAbajo').filter();" class="cssFiltroLOV" />  
                             </f:facet>
 
                             <p:column sortBy="#{empleadosAbajo.persona.nombreCompleto}" filterBy="#{empleadosAbajo.persona.nombreCompleto}" width="200" filterMatchMode="contains" > 
@@ -495,7 +495,7 @@
                             <p:ajax event="filter" listener="#{controlNovedadesReemplazos.contarRegistrosTiposReemplazos()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarT']}" />  
-                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('LOVTiposReemplazos').filter();" class="cssFiltroLOV" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVTiposReemplazos').filter();" class="cssFiltroLOV" />  
                             </f:facet>
 
                             <p:column filterBy="#{tiposReemplazos.nombre}" width="150" filterMatchMode="contains" > 
@@ -529,7 +529,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlNovedadesReemplazos.actualizarMotivosReemplazos()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarM']}"/>  
-                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('LOVMotivosReemplazos').filter();" class="cssFiltroLOV" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVMotivosReemplazos').filter();" class="cssFiltroLOV" />  
                             </f:facet>
 
                             <p:column filterBy="#{motivosReemplazos.nombre}" width="150" filterMatchMode="contains" > 
@@ -564,7 +564,7 @@
                             <p:ajax event="filter" listener="#{controlNovedadesReemplazos.contarRegistrosEstructuras()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarES']}" />  
-                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('LOVEstructuras').filter();" class="cssFiltroLOV" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVEstructuras').filter();" class="cssFiltroLOV" />  
                             </f:facet>
 
                             <p:column filterBy="#{estructuras.codigo}" width="150" filterMatchMode="contains" > 
@@ -600,7 +600,7 @@
                         <p:panel id="nuevaEncargatura" style="border: none;">
 
                             <strong><h:outputText value="#{msg['empleadoreemplazadoN']}" style=" position: absolute; top: 85px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoReemplazado" value="#{controlNovedadesReemplazos.nuevaEncargatura.reemplazado.persona.nombreCompleto}" style=" width: 122px; position: absolute; left: 200px; top: 80px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="nuevoReemplazado" value="#{controlNovedadesReemplazos.nuevaEncargatura.reemplazado.persona.nombreCompleto}" style=" width: 122px; position: absolute; left: 200px; top: 80px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlNovedadesReemplazos.valoresBackupAutocompletar(1, 'REEMPLAZADO')}" />
                                 <p:ajax event="change" listener="#{controlNovedadesReemplazos.autocompletarNuevoyDuplicado('REEMPLAZADO', controlNovedadesReemplazos.nuevaEncargatura.reemplazado.persona.nombreCompleto, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlNovedadesReemplazos.asignarIndex(encargaturas, 5, 1)}" />
@@ -608,7 +608,7 @@
                             <p:commandButton style="position: absolute; left: 331px; top: 80px;" class="cssBotonLovDialogos" id="btnNuevoReemplazado" actionListener="#{controlNovedadesReemplazos.asignarIndex(encargaturas, 5, 1)}" value=" " process="@this" />
 
                             <strong><h:outputText value="#{msg['tiporeemplazoN']}" style=" position: absolute; top: 125px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoTipoReemplazo" value="#{controlNovedadesReemplazos.nuevaEncargatura.tiporeemplazo.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 120px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="nuevoTipoReemplazo" value="#{controlNovedadesReemplazos.nuevaEncargatura.tiporeemplazo.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 120px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlNovedadesReemplazos.valoresBackupAutocompletar(1, 'TIPOREEMPLAZO')}" />
                                 <p:ajax event="change" listener="#{controlNovedadesReemplazos.autocompletarNuevoyDuplicado('TIPOREEMPLAZO', controlNovedadesReemplazos.nuevaEncargatura.tiporeemplazo.nombre, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlNovedadesReemplazos.asignarIndex(encargaturas, 1, 1)}" />
@@ -618,7 +618,7 @@
 
                             <strong><h:outputText value="#{msg['fechapagoN']}" style=" position: absolute; top: 165px;" /></strong>
                             <div id="posicionFormulaFechaPagoNuevoReg" style=" position: absolute; top: 160px; left: 200px">
-                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaPago" value="#{controlNovedadesReemplazos.nuevaEncargatura.fechapago}" >
+                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaPago" value="#{controlNovedadesReemplazos.nuevaEncargatura.fechapago}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaPago" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaPago" process="@this"/>
                                 </p:calendar>
@@ -626,7 +626,7 @@
 
                             <strong><h:outputText value="#{msg['fechainicialN']}" style=" position: absolute; top: 205px;" /></strong>
                             <div id="posicionFormulaFechaIniNuevoReg" style=" position: absolute; top: 200px; left: 200px">
-                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicial" value="#{controlNovedadesReemplazos.nuevaEncargatura.fechainicial}" >
+                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicial" value="#{controlNovedadesReemplazos.nuevaEncargatura.fechainicial}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaInicial" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaInicial" process="@this"/>
                                 </p:calendar>
@@ -634,14 +634,14 @@
 
                             <strong><h:outputText value="#{msg['fechafinalN']}" style=" position: absolute; top: 245px;" /></strong>
                             <div id="posicionFormulaFechaFinalNuevoReg" style=" position: absolute; top: 240px; left: 200px">
-                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinal" value="#{controlNovedadesReemplazos.nuevaEncargatura.fechafinal}" >
+                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinal" value="#{controlNovedadesReemplazos.nuevaEncargatura.fechafinal}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaFinal" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaFinal" process="@this"/>
                                 </p:calendar>
                             </div>
 
                             <strong><h:outputText value="#{msg['cargoN']}" style=" position: absolute; top: 285px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoCargo" value="#{controlNovedadesReemplazos.nuevaEncargatura.cargo.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 280px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="nuevoCargo" value="#{controlNovedadesReemplazos.nuevaEncargatura.cargo.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 280px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlNovedadesReemplazos.valoresBackupAutocompletar(1, 'CARGO')}" />
                                 <p:ajax event="change" listener="#{controlNovedadesReemplazos.autocompletarNuevoyDuplicado('CARGO', controlNovedadesReemplazos.nuevaEncargatura.cargo.nombre, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlNovedadesReemplazos.asignarIndex(encargaturas, 3, 1)}" />
@@ -650,7 +650,7 @@
 
 
                             <strong><h:outputText value="#{msg['motivoreemplazoN']}" style=" position: absolute; top: 325px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoMotivoReemplazo" value="#{controlNovedadesReemplazos.nuevaEncargatura.motivoreemplazo.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 320px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="nuevoMotivoReemplazo" value="#{controlNovedadesReemplazos.nuevaEncargatura.motivoreemplazo.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 320px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlNovedadesReemplazos.valoresBackupAutocompletar(1, 'MOTIVOREEMPLAZO')}" />
                                 <p:ajax event="change" listener="#{controlNovedadesReemplazos.autocompletarNuevoyDuplicado('MOTIVOREEMPLAZO', controlNovedadesReemplazos.nuevaEncargatura.motivoreemplazo.nombre, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlNovedadesReemplazos.asignarIndex(encargaturas, 2, 1)}" />
@@ -658,7 +658,7 @@
                             <p:commandButton style=" position: absolute; left: 331px; top: 320px; " class="cssBotonLovDialogos" id="btnNuevoMotivoReemplazo" actionListener="#{controlNovedadesReemplazos.asignarIndex(encargaturas, 2, 1)}" value=" " process="@this" />
 
                             <strong><h:outputText value="#{msg['estructuraN']}" style=" position: absolute; top: 365px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaEstructura" value="#{controlNovedadesReemplazos.nuevaEncargatura.estructura.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 360px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="nuevaEstructura" value="#{controlNovedadesReemplazos.nuevaEncargatura.estructura.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 360px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlNovedadesReemplazos.valoresBackupAutocompletar(1, 'ESTRUCTURA')}" />
                                 <p:ajax event="change" listener="#{controlNovedadesReemplazos.autocompletarNuevoyDuplicado('ESTRUCTURA', controlNovedadesReemplazos.nuevaEncargatura.estructura.nombre, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlNovedadesReemplazos.asignarIndex(encargaturas, 4, 1)}" />
@@ -679,7 +679,7 @@
                         <p:panel id="duplicarEncargatura" style="border: none;">
 
                             <strong><h:outputText value="#{msg['empleadoreemplazadoN']}" style=" position: absolute; top: 85px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarReemplazado" value="#{controlNovedadesReemplazos.duplicarEncargatura.reemplazado.persona.nombreCompleto}" style=" width: 122px; position: absolute; left: 200px; top: 80px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="duplicarReemplazado" value="#{controlNovedadesReemplazos.duplicarEncargatura.reemplazado.persona.nombreCompleto}" style=" width: 122px; position: absolute; left: 200px; top: 80px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlNovedadesReemplazos.valoresBackupAutocompletar(2, 'REEMPLAZADO')}" />
                                 <p:ajax event="change" listener="#{controlNovedadesReemplazos.autocompletarNuevoyDuplicado('REEMPLAZADO', controlNovedadesReemplazos.duplicarEncargatura.reemplazado.persona.nombreCompleto, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlNovedadesReemplazos.asignarIndex(encargaturas, 5, 2)}" />
@@ -688,7 +688,7 @@
                             <p:commandButton style="position: absolute; left: 331px; top: 80px;" class="cssBotonLovDialogos" id="btnDuplicarReemplazado" value=" " process="@this"  actionListener="#{controlNovedadesReemplazos.asignarIndex(encargaturas, 5, 2)}"/>   
 
                             <strong><h:outputText value="#{msg['tiporeemplazoN']}" style=" position: absolute; top: 125px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarTipoReemplazo" value="#{controlNovedadesReemplazos.duplicarEncargatura.tiporeemplazo.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 120px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="duplicarTipoReemplazo" value="#{controlNovedadesReemplazos.duplicarEncargatura.tiporeemplazo.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 120px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlNovedadesReemplazos.valoresBackupAutocompletar(2, 'TIPOREEMPLAZO')}" />
                                 <p:ajax event="change" listener="#{controlNovedadesReemplazos.autocompletarNuevoyDuplicado('TIPOREEMPLAZO', controlNovedadesReemplazos.duplicarEncargatura.tiporeemplazo.nombre, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlNovedadesReemplazos.asignarIndex(encargaturas, 1, 2)}" />
@@ -698,7 +698,7 @@
 
                             <strong><h:outputText value="#{msg['fechapagoN']}" style=" position: absolute; top: 165px;" /></strong>
                             <div id="posicionFormulaFechaPagoNuevoReg" style=" position: absolute; top: 160px; left: 200px">
-                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaPago" value="#{controlNovedadesReemplazos.duplicarEncargatura.fechapago}" >
+                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaPago" value="#{controlNovedadesReemplazos.duplicarEncargatura.fechapago}" >
                                     <p:ajax event="dateSelect" update="duplicarFechaPago" process="@this"/>
                                     <p:ajax event="change" update="duplicarFechaPago" process="@this"/>
                                 </p:calendar>
@@ -706,7 +706,7 @@
 
                             <strong><h:outputText value="#{msg['fechainicialN']}" style=" position: absolute; top: 205px;" /></strong>
                             <div id="posicionFormulaFechaIniNuevoReg" style=" position: absolute; top: 200px; left: 200px">
-                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicial" value="#{controlNovedadesReemplazos.duplicarEncargatura.fechainicial}" >
+                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicial" value="#{controlNovedadesReemplazos.duplicarEncargatura.fechainicial}" >
                                     <p:ajax event="dateSelect" update="duplicarFechaInicial" process="@this"/>
                                     <p:ajax event="change" update="duplicarFechaInicial" process="@this"/>
                                 </p:calendar>
@@ -714,14 +714,14 @@
 
                             <strong><h:outputText value="#{msg['fechafinalN']}" style=" position: absolute; top: 245px;" /></strong>
                             <div id="posicionFormulaFechaIniNuevoReg" style=" position: absolute; top: 240px; left: 200px">
-                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinal" value="#{controlNovedadesReemplazos.duplicarEncargatura.fechafinal}" >
+                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinal" value="#{controlNovedadesReemplazos.duplicarEncargatura.fechafinal}" >
                                     <p:ajax event="dateSelect" update="duplicarFechaFinal" process="@this"/>
                                     <p:ajax event="change" update="duplicarFechaFinal" process="@this"/>
                                 </p:calendar>
                             </div>
 
                             <strong><h:outputText value="#{msg['cargosN']}" style=" position: absolute; top: 285px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarCargos" value="#{controlNovedadesReemplazos.duplicarEncargatura.cargo.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 280px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="duplicarCargos" value="#{controlNovedadesReemplazos.duplicarEncargatura.cargo.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 280px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlNovedadesReemplazos.valoresBackupAutocompletar(2, 'CARGO')}" />
                                 <p:ajax event="change" listener="#{controlNovedadesReemplazos.autocompletarNuevoyDuplicado('CARGO', controlNovedadesReemplazos.duplicarEncargatura.cargo.nombre, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlNovedadesReemplazos.asignarIndex(encargaturas, 3, 2)}" />
@@ -731,7 +731,7 @@
 
 
                             <strong><h:outputText value="#{msg['motivoreemplazoN']}" style=" position: absolute; top: 325px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarMotivoReemplazo" value="#{controlNovedadesReemplazos.duplicarEncargatura.motivoreemplazo.nombre }" style=" width: 122px; position: absolute; left: 200px; top: 320px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="duplicarMotivoReemplazo" value="#{controlNovedadesReemplazos.duplicarEncargatura.motivoreemplazo.nombre }" style=" width: 122px; position: absolute; left: 200px; top: 320px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlNovedadesReemplazos.valoresBackupAutocompletar(2, 'MOTIVOREEMPLAZO')}" />
                                 <p:ajax event="change" listener="#{controlNovedadesReemplazos.autocompletarNuevoyDuplicado('MOTIVOREEMPLAZO', controlNovedadesReemplazos.duplicarEncargatura.motivoreemplazo.nombre , 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlNovedadesReemplazos.asignarIndex(encargaturas, 2 , 2)}" />
@@ -740,7 +740,7 @@
                             <p:commandButton style="position: absolute; left: 331px; top: 320px;" class="cssBotonLovDialogos" id="btnDuplicarMotivoReemplazo" value=" " process="@this"  actionListener="#{controlNovedadesReemplazos.asignarIndex(encargaturas, 2, 2)}"/>   
 
                             <strong><h:outputText value="#{msg['estructuraN']}" style=" position: absolute; top: 365px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarEstructura" value="#{controlNovedadesReemplazos.duplicarEncargatura.estructura.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 365px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="duplicarEstructura" value="#{controlNovedadesReemplazos.duplicarEncargatura.estructura.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 365px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlNovedadesReemplazos.valoresBackupAutocompletar(2, 'ESTRUCTURA')}" />
                                 <p:ajax event="change" listener="#{controlNovedadesReemplazos.autocompletarNuevoyDuplicado('ESTRUCTURA', controlNovedadesReemplazos.duplicarEncargatura.estructura.nombre, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlNovedadesReemplazos.asignarIndex(encargaturas, 4 , 2)}" />

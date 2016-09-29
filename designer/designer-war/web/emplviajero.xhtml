@@ -104,7 +104,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.fechavigencia}"> 
+                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.fechavigencia}"> 
                                                 <p:ajax event="select" listener="#{controlVigenciasViajeros.cambiarIndice(info, 0)}" process="@this"/>  
                                                 <p:ajax event="change" listener="#{controlVigenciasViajeros.mostrarInfo(info,0)}" process="@this"/> 
                                                 <p:ajax event="dateSelect" listener="#{controlVigenciasViajeros.mostrarInfo(info,0)}" process="@this" update=":formularioDialogos:editarFecha"/>
@@ -121,7 +121,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.tipoViajero.nombre}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.tipoViajero.nombre}" id="editarparentesco" style="  border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;"  > 
+                                            <p:inputText  autocomplete="off"  value="#{info.tipoViajero.nombre}" id="editarparentesco" style="  border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;"  > 
                                                 <p:ajax event="select" listener="#{controlVigenciasViajeros.cambiarIndice(info, 1)}" process="@this"/> 
                                                 <p:ajax event="dblclick" listener="#{controlVigenciasViajeros.asignarIndex(info, 0,1)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlVigenciasViajeros.modificandoVigenciasViajeros(info, 'VIGENCIASVIAJEROS',info.tipoViajero.nombre)}"/>
@@ -155,7 +155,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlVigenciasViajeros.actualizarViajero}" immediate="true" update=":form:sucursalesDialogo" process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarTV']}" />  
-                                    <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovTiposViajeros').filter();" value="#{filtrado}" class="cssFiltroLOV" />  
+                                    <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovTiposViajeros').filter();" value="#{filtrado}" class="cssFiltroLOV" />  
                                 </f:facet>
                                 <p:column filterBy="#{tipoviajeroD.codigo}" width="60" filterStyle="width:50px;" filterMatchMode="contains">
                                     <f:facet name="header">
@@ -233,7 +233,7 @@
 
                             <strong><h:outputText value="*#{msg['fechaN']}"  style=" position: absolute; top: 55px;" /></strong>
                             <div  id="nuevaFecha" style="width: 135px; position: absolute; top: 50px; left: 135px;">
-                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="nuevaFecha" value="#{controlVigenciasViajeros.nuevoVigenciasViajeros.fechavigencia}">
+                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFecha" value="#{controlVigenciasViajeros.nuevoVigenciasViajeros.fechavigencia}">
                                     <p:ajax event="dateSelect" update="nuevaFecha"/>
                                     <p:ajax event="change" update="nuevaFecha"/>
                                 </p:calendar>
@@ -241,7 +241,7 @@
                             <p:watermark for="nuevaFecha" value="#{msg['fecha']}" />
 
                             <strong><h:outputText value="*#{msg['tipoViajeroN']}" style=" position: absolute; top: 90px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoNombreSucursal" value="#{controlVigenciasViajeros.nuevoVigenciasViajeros.tipoViajero.nombre}" style=" width: 127px; position: absolute; left: 135px; top: 85px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="nuevoNombreSucursal" value="#{controlVigenciasViajeros.nuevoVigenciasViajeros.tipoViajero.nombre}" style=" width: 127px; position: absolute; left: 135px; top: 85px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlVigenciasViajeros.valoresBackupAutocompletar(1)}" />
                                 <p:ajax event="change" listener="#{controlVigenciasViajeros.autocompletarNuevo('VIGENCIASVIAJEROS',controlVigenciasViajeros.nuevoVigenciasViajeros.tipoViajero.nombre, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlVigenciasViajeros.asignarVariableTiposviajeros(0)}" />
@@ -264,7 +264,7 @@
 
                             <strong><h:outputText value="*#{msg['fechaN']}"  style=" position: absolute; top: 55px;" /></strong>
                             <div  id="duplicarFecha" style="width: 135px; position: absolute; top: 50px; left: 135px;">
-                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaa" value="#{controlVigenciasViajeros.duplicarVigenciasViajeros.fechavigencia}">
+                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaa" value="#{controlVigenciasViajeros.duplicarVigenciasViajeros.fechavigencia}">
                                     <p:ajax event="dateSelect" update="@this"/>
                                     <p:ajax event="change" update="@this"/>
                                 </p:calendar>
@@ -272,7 +272,7 @@
                             <p:watermark for="duplicarFechaa" value="#{msg['fecha']}" />
 
                             <strong><h:outputText value="*#{msg['tipoViajeroN']}" style=" position: absolute; top: 90px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarTipoCentroCostos" value="#{controlVigenciasViajeros.duplicarVigenciasViajeros.tipoViajero.nombre}" style=" width: 127px; position: absolute; left: 135px; top: 85px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="duplicarTipoCentroCostos" value="#{controlVigenciasViajeros.duplicarVigenciasViajeros.tipoViajero.nombre}" style=" width: 127px; position: absolute; left: 135px; top: 85px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlVigenciasViajeros.valoresBackupAutocompletar(2)}" />
                                 <p:ajax event="change" listener="#{controlVigenciasViajeros.autocompletarDuplicado('VIGENCIASVIAJEROS',controlVigenciasViajeros.duplicarVigenciasViajeros.tipoViajero.nombre, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlVigenciasViajeros.asignarVariableTiposviajeros(1)}" />

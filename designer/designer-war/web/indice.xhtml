@@ -34,7 +34,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.codigo}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.codigo}" maxlength="4" id="editarCodigo" style="height: 12px;  border-radius: 0px;width: 420px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"  value="#{info.codigo}" maxlength="4" id="editarCodigo" style="height: 12px;  border-radius: 0px;width: 420px; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlIndices.cambiarIndice(indice, 0)}" process="@this"/> 
                                                 <p:ajax event="change"  listener="#{controlIndices.modificarIndice(indice, 'CODIGO', info.codigo)}" update="@this"/>
                                             </p:inputText>
@@ -49,7 +49,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.descripcion}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.descripcion}" maxlength="50" id="editarDescripcion" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"  value="#{info.descripcion}" maxlength="50" id="editarDescripcion" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlIndices.cambiarIndice(indice, 1)}" process="@this"/> 
                                                 <p:ajax event="change"  listener="#{controlIndices.modificarIndice(indice, 'N', info.descripcion)}" update="@this"/>
                                             </p:inputText>
@@ -66,7 +66,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.tipoindice.descripcion}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.tipoindice.descripcion}" maxlength="50" id="editarparentesco" style="height: 12px;  border-radius: 0px; width: 210px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"  value="#{info.tipoindice.descripcion}" maxlength="50" id="editarparentesco" style="height: 12px;  border-radius: 0px; width: 210px; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlIndices.cambiarIndice(indice, 2)}" process="@this"/> 
                                                 <p:ajax event="dblclick" listener="#{controlIndices.asignarIndex(indice, 0,2)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlIndices.modificarIndice(indice, 'TIPOSINDICES', info.tipoindice.descripcion)}"/>
@@ -88,7 +88,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.porcentajeestandar}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.porcentajeestandar}" maxlength="3" id="editarTelefono" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"  value="#{info.porcentajeestandar}" maxlength="3" id="editarTelefono" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlIndices.cambiarIndice(indice, 3)}" process="@this"/> 
                                                 <p:ajax event="change"  listener="#{controlIndices.modificarIndice(indice, 'N', info.porcentajeestandar)}" update="@this"/>
                                             </p:inputText>
@@ -101,7 +101,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.objetivo}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.objetivo}"  id="editarPuntaje" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"  value="#{info.objetivo}"  id="editarPuntaje" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlIndices.cambiarIndice(indice, 4)}" process="@this"/> 
                                                 <p:ajax event="change"  listener="#{controlIndices.modificarIndice(indice, 'N', info.objetivo)}" update="@this"/>
                                             </p:inputText>
@@ -114,7 +114,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.dividendo}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.dividendo}"  id="editarDividendo" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"  value="#{info.dividendo}"  id="editarDividendo" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlIndices.cambiarIndice(indice, 5)}" process="@this"/> 
                                                 <p:ajax event="change"  listener="#{controlIndices.modificarIndice(indice, 'N', info.dividendo)}" update="@this"/>
                                             </p:inputText>
@@ -127,7 +127,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.divisor}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.divisor}"  id="editarDivisor" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"  value="#{info.divisor}"  id="editarDivisor" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlIndices.cambiarIndice(indice, 6)}" process="@this"/> 
                                                 <p:ajax event="change"  listener="#{controlIndices.modificarIndice(indice, 'N', info.divisor)}" update="@this"/>
                                             </p:inputText>
@@ -207,7 +207,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlIndices.actualizarTipoIndice()}" process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="Buscar Tipo Indice"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovTiposIndices').filter();" style="width:150px; position: relative; left: 50px;" />  
+                                    <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovTiposIndices').filter();" style="width:150px; position: relative; left: 50px;" />  
                                 </f:facet>
                                 <p:column filterBy="#{tpoindice.codigo}" width="60" filterStyle="width:50px;" filterMatchMode="contains">
                                     <f:facet name="header">
@@ -356,19 +356,19 @@
 
 
                             <strong><h:outputText value="*Codigo :"  style=" position: absolute; top: 60px;" /></strong>
-                            <p:inputText  autocomplete="false"   id="nuevoNombre" maxlength="4" value="#{controlIndices.nuevoIndices.codigo}" style=" width: 140px; position: absolute; left: 175px; top: 55px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"   id="nuevoNombre" maxlength="4" value="#{controlIndices.nuevoIndices.codigo}" style=" width: 140px; position: absolute; left: 175px; top: 55px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoNombre" value="Codigo" />
 
                             <strong><h:outputText value="Descripción :"  style=" position: absolute; top: 90px;" /></strong>
-                            <p:inputText  autocomplete="false"   id="nuevoCargo" value="#{controlIndices.nuevoIndices.descripcion}" style=" width: 140px; position: absolute; left: 175px; top: 85px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"   id="nuevoCargo" value="#{controlIndices.nuevoIndices.descripcion}" style=" width: 140px; position: absolute; left: 175px; top: 85px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoCargo" value="Descripción" />
 
                             <strong><h:outputText value="Tipo Indice : " style=" position: absolute; top: 120px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoNombreSucursal" value="#{controlIndices.nuevoIndices.tipoindice.descripcion}" style=" width: 140px; position: absolute; left: 175px; top: 115px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="nuevoNombreSucursal" value="#{controlIndices.nuevoIndices.tipoindice.descripcion}" style=" width: 140px; position: absolute; left: 175px; top: 115px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlIndices.valoresBackupAutocompletar(1, 'TIPOSINDICES')}" />
                                 <p:ajax event="change" listener="#{controlIndices.autocompletarNuevoyDuplicado('TIPOSINDICES', controlIndices.nuevoIndices.tipoindice.descripcion, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlIndices.asignarVariableTiposIndicesNuevo(0)}" />
@@ -377,27 +377,27 @@
                             <p:watermark for="nuevoNombreSucursal" value="Tipo Indice" />
 
                             <strong><h:outputText value="Porcentaje Estandar :"  style=" position: absolute; top: 150px;" /></strong>
-                            <p:inputText  autocomplete="false"   id="newTelefono" maxlength="3" value="#{controlIndices.nuevoIndices.porcentajeestandar}" style=" width: 140px; position: absolute; left: 175px; top: 145px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"   id="newTelefono" maxlength="3" value="#{controlIndices.nuevoIndices.porcentajeestandar}" style=" width: 140px; position: absolute; left: 175px; top: 145px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="newTelefono" value="Porcentaje Estandar" />
 
 
                             <strong><h:outputText value="Objetivo :"  style=" position: absolute; top: 180px;" /></strong>
-                            <p:inputText  autocomplete="false"   id="newCelular" value="#{controlIndices.nuevoIndices.objetivo}" style="width: 140px;position: absolute; left: 175px; top: 175px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"   id="newCelular" value="#{controlIndices.nuevoIndices.objetivo}" style="width: 140px;position: absolute; left: 175px; top: 175px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="newCelular" value="Objetivo" />
 
 
                             <strong><h:outputText value="Dividendo :"  style=" position: absolute; top: 210px;" /></strong>
-                            <p:inputText  autocomplete="false"   id="newObjetivo" value="#{controlIndices.nuevoIndices.dividendo}" style="width: 140px;position: absolute; left: 175px; top: 205px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"   id="newObjetivo" value="#{controlIndices.nuevoIndices.dividendo}" style="width: 140px;position: absolute; left: 175px; top: 205px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="newObjetivo" value="Dividendo" />
 
                             <strong><h:outputText value="Divisor :"  style=" position: absolute; top: 240px;" /></strong>
-                            <p:inputText  autocomplete="false"   id="newDivisor" value="#{controlIndices.nuevoIndices.divisor}" style="width: 140px;position: absolute; left: 175px; top: 235px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"   id="newDivisor" value="#{controlIndices.nuevoIndices.divisor}" style="width: 140px;position: absolute; left: 175px; top: 235px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="newDivisor" value="Divisor" />
@@ -417,17 +417,17 @@
 
 
                             <strong><h:outputText value="*Codigo :"  style=" position: absolute; top: 60px;" /></strong>
-                            <p:inputText  autocomplete="false"   id="duplicarNombre" maxlength="4" value="#{controlIndices.duplicarIndices.codigo}" style=" width: 140px; position: absolute; left: 175px; top: 55px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"   id="duplicarNombre" maxlength="4" value="#{controlIndices.duplicarIndices.codigo}" style=" width: 140px; position: absolute; left: 175px; top: 55px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarNombre" value="Codigo" />
                             <strong><h:outputText value="Descripción :"  style=" position: absolute; top: 90px;" /></strong>
-                            <p:inputText  autocomplete="false"   id="duplicarCargo" maxlength="50" value="#{controlIndices.duplicarIndices.descripcion}" style=" width: 140px; position: absolute; left: 175px; top: 85px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"   id="duplicarCargo" maxlength="50" value="#{controlIndices.duplicarIndices.descripcion}" style=" width: 140px; position: absolute; left: 175px; top: 85px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarCargo" value="Descripcion" />
                             <strong><h:outputText value="Tipo Indice : " style=" position: absolute; top: 120px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarNombreSucursal" value="#{controlIndices.duplicarIndices.tipoindice.descripcion}" style=" width: 140px; position: absolute; left: 175px; top: 115px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="duplicarNombreSucursal" value="#{controlIndices.duplicarIndices.tipoindice.descripcion}" style=" width: 140px; position: absolute; left: 175px; top: 115px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlIndices.valoresBackupAutocompletar(2, 'TIPOSINDICES')}" />
                                 <p:ajax event="change" listener="#{controlIndices.autocompletarDuplicado('TIPOSINDICES', controlIndices.duplicarIndices.tipoindice.descripcion, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlIndices.asignarVariableTiposIndicesNuevo(1)}" />
@@ -435,25 +435,25 @@
                             <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 325px; top: 115px;  " id="btnduplicarNombreSucursal" icon="ui-icon-search" process="@this"  actionListener="#{controlIndices.asignarVariableTiposIndicesNuevo(1)}"/>   
                             <p:watermark for="duplicarNombreSucursal" value="Tipo Indice" />
                             <strong><h:outputText value="Porcentaje Estandar :"  style=" position: absolute; top: 150px;" /></strong>
-                            <p:inputText  autocomplete="false"   id="duplicarTelefono" maxlength="3" value="#{controlIndices.duplicarIndices.porcentajeestandar}" style=" width: 140px; position: absolute; left: 175px; top: 145px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"   id="duplicarTelefono" maxlength="3" value="#{controlIndices.duplicarIndices.porcentajeestandar}" style=" width: 140px; position: absolute; left: 175px; top: 145px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarTelefono" value="Porcentaje Estandar" />
 
                             <strong><h:outputText value="Objetivo :"  style=" position: absolute; top: 180px;" /></strong>
-                            <p:inputText  autocomplete="false"   id="duplicarCelular" value="#{controlIndices.duplicarIndices.objetivo}" style="width: 140px;position: absolute; left: 175px; top: 175px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"   id="duplicarCelular" value="#{controlIndices.duplicarIndices.objetivo}" style="width: 140px;position: absolute; left: 175px; top: 175px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarCelular" value="Objetivo" />
 
                             <strong><h:outputText value="Dividendo :"  style=" position: absolute; top: 210px;" /></strong>
-                            <p:inputText  autocomplete="false"   id="duplicarDividendo" value="#{controlIndices.duplicarIndices.dividendo}" style="width: 140px;position: absolute; left: 175px; top: 205px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"   id="duplicarDividendo" value="#{controlIndices.duplicarIndices.dividendo}" style="width: 140px;position: absolute; left: 175px; top: 205px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarDividendo" value="Dividendo" />
 
                             <strong><h:outputText value="Divisor :"  style=" position: absolute; top: 240px;" /></strong>
-                            <p:inputText  autocomplete="false"   id="duplicarDivisor" value="#{controlIndices.duplicarIndices.divisor}" style="width: 140px;position: absolute; left: 175px; top: 235px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"   id="duplicarDivisor" value="#{controlIndices.duplicarIndices.divisor}" style="width: 140px;position: absolute; left: 175px; top: 235px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarDivisor" value="Divisor" />

@@ -94,7 +94,7 @@
                                             <h:outputText value="#{info.codigo}" />
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.codigo}" id="codcurso" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase ;height: 12px;"> 
+                                            <p:inputText  autocomplete="off"  value="#{info.codigo}" id="codcurso" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase ;height: 12px;"> 
                                                 <p:keyFilter for="codcurso" mask="num"/>
                                                 <p:ajax event="select" listener="#{controlCursos.cambiarIndice(info,0)}" />
                                                 <p:ajax event="change" listener="#{controlCursos.modificarCursos(info, 'N', info.codigo)}" update="@this"/>
@@ -113,7 +113,7 @@
                                             <h:outputText value="#{info.nombre}" />
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.nombre}" id="desccurso" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase ;height: 12px;"> 
+                                            <p:inputText  autocomplete="off"  value="#{info.nombre}" id="desccurso" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase ;height: 12px;"> 
                                                 <p:ajax event="select" listener="#{controlCursos.cambiarIndice(info,1)}" />
                                                 <p:ajax event="change" listener="#{controlCursos.modificarCursos(info, 'N', info.nombre)}" update="@this"/>
                                             </p:inputText> 
@@ -131,7 +131,7 @@
                                             <h:outputText value="#{info.tipocurso.descripcion}" />
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.tipocurso.descripcion}" id="tipocurso" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase ;height: 12px;"> 
+                                            <p:inputText  autocomplete="off"  value="#{info.tipocurso.descripcion}" id="tipocurso" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase ;height: 12px;"> 
                                                 <p:ajax event="select" listener="#{controlCursos.cambiarIndice(info,2)}" />
                                                 <p:ajax event="change" listener="#{controlCursos.modificarCursos(info, 'N', info.tipocurso.descripcion)}" update="@this"/>
                                                 <p:ajax event="dblclick" listener="#{controlCursos.asignarIndex(3, 0)}"/>
@@ -151,7 +151,7 @@
                                             <h:outputText value="#{info.objetivo}" />
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.objetivo}" id="objcurso" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase ;height: 12px;"> 
+                                            <p:inputText  autocomplete="off"  value="#{info.objetivo}" id="objcurso" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase ;height: 12px;"> 
                                                 <p:ajax event="select" listener="#{controlCursos.cambiarIndice(info,3)}" />
                                                 <p:ajax event="change" listener="#{controlCursos.modificarCursos(info, 'N', info.objetivo)}" update="@this"/>
                                             </p:inputText> 
@@ -183,19 +183,19 @@
 
                         <p:panel id="nuevoCurso" style="border: none;">
                             <strong><h:outputText value="Código: " style=" position: absolute; top: 63px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoCodigoCurso" value="#{controlCursos.nuevoCurso.codigo}" style=" width: 122px; position: absolute; left: 130px; top: 59px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText  autocomplete="off"  id="nuevoCodigoCurso" value="#{controlCursos.nuevoCurso.codigo}" style=" width: 122px; position: absolute; left: 130px; top: 59px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoCodigoCurso" value="Código" />
 
                             <strong><h:outputText value="Descripción: " style=" position: absolute; top: 93px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoNombreCurso" value="#{controlCursos.nuevoCurso.nombre}" maxlength="20" style=" width: 122px; position: absolute; left: 130px; top: 89px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText  autocomplete="off"  id="nuevoNombreCurso" value="#{controlCursos.nuevoCurso.nombre}" maxlength="20" style=" width: 122px; position: absolute; left: 130px; top: 89px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
                             <p:watermark for="nuevoNombreCurso" value="Descripción" />
 
                             <strong><h:outputText value="Tipo Curso: " style=" position: absolute; top: 124px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoTipoCurso" value="#{controlCursos.nuevoCurso.tipocurso.descripcion}" maxlength="20" style=" width: 122px; position: absolute; left: 130px; top: 119px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText  autocomplete="off"  id="nuevoTipoCurso" value="#{controlCursos.nuevoCurso.tipocurso.descripcion}" maxlength="20" style=" width: 122px; position: absolute; left: 130px; top: 119px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
                             <p:watermark for="nuevoTipoCurso" value="Tipo Curso" />
@@ -203,7 +203,7 @@
                                              id="btnNuevoTipoCurso" value="" process="@this"  actionListener="#{controlCursos.asignarIndex(2, 1)}"/> 
 
                             <strong><h:outputText value="Objetivo: " style=" position: absolute; top: 124px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoObjCurso" value="#{controlCursos.nuevoCurso.objetivo}" maxlength="20" style=" width: 122px; position: absolute; left: 130px; top: 149px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText  autocomplete="off"  id="nuevoObjCurso" value="#{controlCursos.nuevoCurso.objetivo}" maxlength="20" style=" width: 122px; position: absolute; left: 130px; top: 149px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
                             <p:watermark for="nuevoObjCurso" value="Objetivo" />
@@ -221,19 +221,19 @@
                         <p:panel id="duplicarCurso" style="border: none;">
 
                             <strong><h:outputText value="Código: " style=" position: absolute; top: 63px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarCodigoCurso" value="#{controlCursos.nuevoCurso.codigo}" style=" width: 122px; position: absolute; left: 130px; top: 59px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText  autocomplete="off"  id="duplicarCodigoCurso" value="#{controlCursos.nuevoCurso.codigo}" style=" width: 122px; position: absolute; left: 130px; top: 59px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarCodigoCurso" value="Código" />
 
                             <strong><h:outputText value="Descripción: " style=" position: absolute; top: 93px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarNombreCurso" value="#{controlCursos.nuevoCurso.nombre}" maxlength="20" style=" width: 122px; position: absolute; left: 130px; top: 89px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText  autocomplete="off"  id="duplicarNombreCurso" value="#{controlCursos.nuevoCurso.nombre}" maxlength="20" style=" width: 122px; position: absolute; left: 130px; top: 89px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
                             <p:watermark for="duplicarNombreCurso" value="Descripción" />
 
                             <strong><h:outputText value="Tipo Curso: " style=" position: absolute; top: 124px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarTipoCurso" value="#{controlCursos.nuevoCurso.tipocurso.descripcion}" maxlength="20" style=" width: 122px; position: absolute; left: 130px; top: 119px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText  autocomplete="off"  id="duplicarTipoCurso" value="#{controlCursos.nuevoCurso.tipocurso.descripcion}" maxlength="20" style=" width: 122px; position: absolute; left: 130px; top: 119px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
                             <p:watermark for="duplicarTipoCurso" value="Tipo Curso" />
@@ -241,7 +241,7 @@
                                              id="btnDuplicarTipoCurso" value="" process="@this"  actionListener="#{controlCursos.asignarIndex(2, 2)}"/>   
 
                             <strong><h:outputText value="Objetivo: " style=" position: absolute; top: 124px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarObjCurso" value="#{controlCursos.nuevoCurso.objetivo}" maxlength="20" style=" width: 122px; position: absolute; left: 130px; top: 149px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText  autocomplete="off"  id="duplicarObjCurso" value="#{controlCursos.nuevoCurso.objetivo}" maxlength="20" style=" width: 122px; position: absolute; left: 130px; top: 149px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
                             <p:watermark for="duplicarObjCurso" value="Objetivo" />
@@ -341,7 +341,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlCursos.actualizarDeporte()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarM']}" />  
-                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovDeportes').filter();" class="cssFiltroLOV" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovDeportes').filter();" class="cssFiltroLOV" />  
                             </f:facet>
 
                             <p:column filterBy="#{deportes.nombre}" filterMatchMode="contains" filterStyle="width:80%">

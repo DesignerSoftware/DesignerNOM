@@ -107,7 +107,7 @@
                                             <h:outputText value="#{info.personafamiliar.nombreCompleto}" />
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.personafamiliar.nombreCompleto}" id="editarNombre" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"  >
+                                            <p:inputText  autocomplete="off"  value="#{info.personafamiliar.nombreCompleto}" id="editarNombre" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"  >
                                                 <p:ajax event="select" listener="#{controlFamiliares.cambiarIndice(info, 1)}" process="@this" />   
                                                 <p:ajax event="change" listener="#{controlFamiliares.modificarFamiliares(info)}" process="@this" update="editarNombre" />
                                             </p:inputText>
@@ -127,7 +127,7 @@
                                             <h:outputText value="#{info.ocupacion}" style="text-transform: uppercase" />
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.ocupacion}" id="editarOcu" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"  >
+                                            <p:inputText  autocomplete="off"  value="#{info.ocupacion}" id="editarOcu" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"  >
                                                 <p:ajax event="select" listener="#{controlFamiliares.cambiarIndice(info, 2)}"  process="@this" />   
                                                 <p:ajax event="change" listener="#{controlFamiliares.modificarFamiliares(info)}" process="@this" update="editarOcu" />
 
@@ -145,7 +145,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.tipofamiliar.tipo}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.tipofamiliar.tipo}" id="editarDescripcionVigencia" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"  value="#{info.tipofamiliar.tipo}" id="editarDescripcionVigencia" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlFamiliares.modificarFamiliar(info, 'N', info.tipofamiliar.tipo )}"/>
                                                 <p:ajax event="select" listener="#{controlFamiliares.cambiarIndice(info, 3)}" />
                                                 <p:ajax event="dblclick" listener="#{controlFamiliares.asignarIndex(info, 2, 0)}"/>
@@ -229,7 +229,7 @@
                                             <h:outputText value="#{info.valorupcadicional}" />
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.valorupcadicional}" id="editarVlorUpc" style="border-radius: 0px; width: 93.5%;text-transform: uppercase; text-align: center"  >
+                                            <p:inputText  autocomplete="off"  value="#{info.valorupcadicional}" id="editarVlorUpc" style="border-radius: 0px; width: 93.5%;text-transform: uppercase; text-align: center"  >
                                                 <p:keyFilter for="editarVlorUpc" mask="num"/>
                                                 <p:ajax event="select" listener="#{controlFamiliares.cambiarIndice(info, 8)}" process="@this" />   
                                                 <p:ajax event="change" listener="#{controlFamiliares.modificarFamiliares(info)}" process="@this" update="editarVlorUpc" />
@@ -284,7 +284,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlFamiliares.actualizarTipoFamiliar()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarM']}" />  
-                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovFamiliares').filter();" class="cssFiltroLOV" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovFamiliares').filter();" class="cssFiltroLOV" />  
                             </f:facet>
 
                             <p:column filterBy="#{familiar.tipo}" filterMatchMode="contains" filterStyle="width:80%">
@@ -314,7 +314,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlFamiliares.actualizarPersonaFamiliar()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarM']}" />  
-                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovPersonasFamiliares').filter();" class="cssFiltroLOV" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovPersonasFamiliares').filter();" class="cssFiltroLOV" />  
                             </f:facet>
 
                             <p:column filterBy="#{persona.nombreCompleto}" filterMatchMode="contains" filterStyle="width:80%">
@@ -355,7 +355,7 @@
 
                             <f:facet name="header">  
                                 <h:outputText value="Buscar Tipo Documento"  />  
-                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovTipoDocumento').filter();" class="cssFiltroLOV"/>  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovTipoDocumento').filter();" class="cssFiltroLOV"/>  
                             </f:facet>
                             <p:column filterBy="#{tipoDIP.nombrelargo}" width="100" filterMatchMode="contains" filterStyle="width: 85% !important">
                                 <f:facet name="header">
@@ -395,7 +395,7 @@
 
                             <f:facet name="header"> 
                                 <h:outputText value="Buscar Ciudad de Nacimiento"/>  
-                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovCiudadDocumento').filter();" class="cssFiltroLOV"/>  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovCiudadDocumento').filter();" class="cssFiltroLOV"/>  
                             </f:facet>
 
                             <p:column filterBy="#{ciudadDIP.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
@@ -437,7 +437,7 @@
 
                             <f:facet name="header">  
                                 <h:outputText value="Buscar Ciudad de Nacimiento"/>  
-                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovCiudadNacimiento').filter();" class="cssFiltroLOV"/>  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovCiudadNacimiento').filter();" class="cssFiltroLOV"/>  
                             </f:facet>
                             <p:column filterBy="#{ciudadDIP.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
                                 <f:facet name="header">
@@ -466,7 +466,7 @@
                         <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
                         <p:panel id="nuevoPersonaFamiliar" style="border: none;">
                             <strong><h:outputText value="*Nombre" style="position: absolute; top: 55px; left: 43px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoNombre" value="#{controlFamiliares.nuevoFamiliar.personafamiliar.nombreCompleto}"
+                            <p:inputText  autocomplete="off"  id="nuevoNombre" value="#{controlFamiliares.nuevoFamiliar.personafamiliar.nombreCompleto}"
                                          style="width: 122px; position: absolute; left: 220px; top: 50px;">
                                 <p:ajax event="dblclick" listener="#{controlFamiliares.asignarIndex(info,1,1)}"/>
                             </p:inputText>
@@ -474,14 +474,14 @@
                             <p:watermark for="nuevoNombre" value="#{msg['nombre']}" />
 
                             <strong><h:outputText value="#{msg['ocupacion']}" style="position: absolute; top: 85px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaOcupacion" value="#{controlFamiliares.nuevoFamiliar.ocupacion}" 
+                            <p:inputText  autocomplete="off"  id="nuevaOcupacion" value="#{controlFamiliares.nuevoFamiliar.ocupacion}" 
                                          style="width: 122px; position: absolute; left: 220px; top: 80px;">
                                 <p:ajax event="change" update="nuevaOcupacion"/>
                             </p:inputText>
                             <p:watermark for="nuevaOcupacion" value="#{msg['ocupacion']}" />
 
                             <strong><h:outputText value="*#{msg['tipof']}" style="position: absolute; top: 115px; left: 43px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoTipoFamiliar" value="#{controlFamiliares.nuevoFamiliar.tipofamiliar.tipo}"
+                            <p:inputText  autocomplete="off"  id="nuevoTipoFamiliar" value="#{controlFamiliares.nuevoFamiliar.tipofamiliar.tipo}"
                                          style="width: 122px; position: absolute; left: 220px; top: 110px;">
                                 <p:ajax event="dblclick" listener="#{controlFamiliares.asignarIndex(info,2,1)}"/>
                                 <p:ajax event="click" listener="#{controlFamiliares.valoresBackupAutocompletar(1, 'TIPOFAMILIAR')}" />
@@ -508,7 +508,7 @@
                             </p:selectBooleanCheckbox>   
 
                             <strong><h:outputText value="Valor UPC" style="position: absolute; top: 265px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoVlrupc" value="#{controlFamiliares.nuevoFamiliar.valorupcadicional}" 
+                            <p:inputText  autocomplete="off"  id="nuevoVlrupc" value="#{controlFamiliares.nuevoFamiliar.valorupcadicional}" 
                                          style="width: 122px; position: absolute; left: 220px; top: 260px;">
                                 <p:keyFilter for="nuevoVlrupc" mask="num"/>
                                 <p:ajax event="change" update="nuevoVlrupc"/>
@@ -526,7 +526,7 @@
                         <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
                         <p:panel id="duplicarPersonaFamiliar" style="border: none;">
                             <strong><h:outputText value="*Nombre" style="position: absolute; top: 55px; left: 43px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarNombre" value="#{controlFamiliares.duplicarFamiliares.personafamiliar.nombreCompleto}"
+                            <p:inputText  autocomplete="off"  id="duplicarNombre" value="#{controlFamiliares.duplicarFamiliares.personafamiliar.nombreCompleto}"
                                          style="width: 122px; position: absolute; left: 220px; top: 50px;">
                                 <p:ajax event="dblclick" listener="#{controlFamiliares.asignarIndex(info,1,2)}"/>
                             </p:inputText>
@@ -534,14 +534,14 @@
                             <p:watermark for="duplicarNombre" value="#{msg['nombre']}" />
 
                             <strong><h:outputText value="#{msg['ocupacion']}" style="position: absolute; top: 85px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarOcupacion" value="#{controlFamiliares.duplicarFamiliares.ocupacion}" 
+                            <p:inputText  autocomplete="off"  id="duplicarOcupacion" value="#{controlFamiliares.duplicarFamiliares.ocupacion}" 
                                          style="width: 122px; position: absolute; left: 220px; top: 80px;">
                                 <p:ajax event="change" update="duplicarOcupacion"/>
                             </p:inputText>
                             <p:watermark for="duplicarOcupacion" value="#{msg['ocupacion']}" />
 
                             <strong><h:outputText value="*#{msg['tipof']}" style="position: absolute; top: 115px; left: 43px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarTipoFamiliar" value="#{controlFamiliares.duplicarFamiliares.tipofamiliar.tipo}"
+                            <p:inputText  autocomplete="off"  id="duplicarTipoFamiliar" value="#{controlFamiliares.duplicarFamiliares.tipofamiliar.tipo}"
                                          style="width: 122px; position: absolute; left: 220px; top: 110px;">
                                 <p:ajax event="dblclick" listener="#{controlFamiliares.asignarIndex(info,2,2)}"/>
                                 <p:ajax event="click" listener="#{controlFamiliares.valoresBackupAutocompletar(1, 'TIPOFAMILIAR')}" />
@@ -568,7 +568,7 @@
                             </p:selectBooleanCheckbox>   
 
                             <strong><h:outputText value="Valor UPC" style="position: absolute; top: 265px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarVlrupc" value="#{controlFamiliares.duplicarFamiliares.valorupcadicional}" 
+                            <p:inputText  autocomplete="off"  id="duplicarVlrupc" value="#{controlFamiliares.duplicarFamiliares.valorupcadicional}" 
                                          style="width: 122px; position: absolute; left: 220px; top: 260px;">
                                 <p:keyFilter for="duplicarVlrupc" mask="num"/>
                                 <p:ajax event="change" update="duplicarVlrupc"/>
@@ -585,21 +585,21 @@
                         <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
                         <p:panel id="nuevoFamiliarP" style="border: none;">
                             <strong><h:outputText value="* #{msg['papellido']}" style="position: absolute; top: 55px; left: 38px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoApellido" value="#{controlFamiliares.personas.primerapellido}" 
+                            <p:inputText  autocomplete="off"  id="nuevoApellido" value="#{controlFamiliares.personas.primerapellido}" 
                                          style="width: 122px; position: absolute; left: 220px; top: 50px;">
                                 <p:ajax event="change" update="nuevoApellido"/>
                             </p:inputText>
                             <p:watermark for="nuevoApellido" value="#{msg['papellido']}" />
 
                             <strong><h:outputText value="#{msg['sapellido']}" style="position: absolute; top: 85px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoSegundoApellido" value="#{controlFamiliares.personas.segundoapellido}" 
+                            <p:inputText  autocomplete="off"  id="nuevoSegundoApellido" value="#{controlFamiliares.personas.segundoapellido}" 
                                          style="width: 122px; position: absolute; left: 220px; top: 80px;">
                                 <p:ajax event="change" update="nuevoSegundoApellido"/>
                             </p:inputText>
                             <p:watermark for="nuevoSegundoApellido" value="#{msg['sapellido']}" />
 
                             <strong><h:outputText value="* #{msg['pnombre']}" style="position: absolute; top: 115px; left: 38px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoNombreD" value="#{controlFamiliares.personas.nombre}" 
+                            <p:inputText  autocomplete="off"  id="nuevoNombreD" value="#{controlFamiliares.personas.nombre}" 
                                          style="width: 122px; position: absolute; left: 220px; top: 110px;">
                                 <p:ajax event="change" update="nuevoNombreD"/>
                             </p:inputText>
@@ -615,7 +615,7 @@
                             <p:watermark for="nuevoSexo" value="Sexo" />
 
                             <strong><h:outputText value="* #{msg['tipoDoc']}:" style="position: absolute; top: 175px; left: 38px" /> </strong>
-                            <p:inputText  autocomplete="false"  onclick="select();" value="#{controlFamiliares.personas.tipodocumento.nombrelargo}" id="tipoDocumentoModPersonal"
+                            <p:inputText  autocomplete="off"  onclick="select();" value="#{controlFamiliares.personas.tipodocumento.nombrelargo}" id="tipoDocumentoModPersonal"
                                          style="position: absolute; top: 170px; left: 220px; width: 150px; text-transform: uppercase;">
                             <!--<p:ajax event="change" listener="#{controlFamiliares.autocompletarNuevoyDuplicado('TIPODOCUMENTO', controlFamiliares.personas.tipodocumento.nombrelargo, 1)}"/>-->
                                 <p:ajax event="dblclick" listener="#{controlFamiliares.asignarIndex(info, 3, 1)}" process="@this"/>
@@ -625,14 +625,14 @@
                             </p:inputText>
 
                             <h:outputText  value="* #{msg['numdoc']}:" style="position: absolute; top: 205px; left: 38px; font-weight: bold;"/>
-                            <p:inputText  autocomplete="false"  onclick="select();" value="#{controlFamiliares.personas.numerodocumento}" id="numeroDocumentoModPersonal" widgetVar="numeroDocumentoModPersonal"
+                            <p:inputText  autocomplete="off"  onclick="select();" value="#{controlFamiliares.personas.numerodocumento}" id="numeroDocumentoModPersonal" widgetVar="numeroDocumentoModPersonal"
                                          style="position: absolute; top: 200px; left: 220px; width: 150px; text-transform: uppercase;">
                                 <p:ajax event="change" update="numeroDocumentoModPersonal" process="@this"/>
                                 <p:keyFilter for="numeroDocumentoModPersonal" mask="num"/>
                             </p:inputText>
 
                             <h:outputText  value="* #{msg['ciudoc']}:" style="position: absolute; top: 235px; left: 38px; font-weight: bold;"/>
-                            <p:inputText  autocomplete="false"  widgetVar="ciudadDocumentoModPersonal" onclick="select();" value="#{controlFamiliares.personas.ciudaddocumento.nombre}" id="ciudadDocumentoModPersonal"
+                            <p:inputText  autocomplete="off"  widgetVar="ciudadDocumentoModPersonal" onclick="select();" value="#{controlFamiliares.personas.ciudaddocumento.nombre}" id="ciudadDocumentoModPersonal"
                                          style="position: absolute; top: 230px; left: 220px; width: 150px; text-transform: uppercase;">
  <!--                               <p:ajax event="change" listener="#{controlFamiliares.autocompletarNuevoyDuplicado('CIUDAD', controlFamiliares.personas.ciudaddocumento.nombre, 1)}"/>
                                 <p:ajax event="click" listener="#{controlFamiliares.valoresBackupAutocompletar(1, 'CIUDAD')}" />-->
@@ -643,14 +643,14 @@
 
                             <h:outputText  value="* #{msg['fechaNacimiento']}:" style="position: absolute; top: 265px; left: 38px;font-weight: bold;"/>
                             <div style="position: absolute; top: 260px; left: 220px;">
-                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" value="#{controlFamiliares.personas.fechanacimiento}" id="fechaNacimientoModPersonal" >
+                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" value="#{controlFamiliares.personas.fechanacimiento}" id="fechaNacimientoModPersonal" >
                                     <p:ajax event="dateSelect"  update="@this" />
                                     <p:ajax event="change"  update="@this" />
                                 </p:calendar>
                             </div>
 
                             <h:outputText value="* #{msg['ciunac']}:" style="position: absolute; top: 295px; left: 38px; font-weight: bold;"/>
-                            <p:inputText  autocomplete="false"  widgetVar="ciudadNacimientoModPersonal" onclick="select();" value="#{controlFamiliares.personas.ciudadnacimiento.nombre}" id="ciudadNacimientoModPersonal"
+                            <p:inputText  autocomplete="off"  widgetVar="ciudadNacimientoModPersonal" onclick="select();" value="#{controlFamiliares.personas.ciudadnacimiento.nombre}" id="ciudadNacimientoModPersonal"
                                          style="position: absolute; top: 290px; left: 220px; width: 150px; text-transform: uppercase;">
  <!--                               <p:ajax event="change" listener="#{controlFamiliares.autocompletarNuevoyDuplicado('CIUDADNACIMIENTO', controlFamiliares.personas.ciudaddocumento.nombre, 1)}"/>
                                 <p:ajax event="click" listener="#{controlFamiliares.valoresBackupAutocompletar(1, 'CIUDADNACIMIENTO')}" />-->
@@ -680,14 +680,14 @@
 
                             <strong><h:outputText value="* #{msg['fechaf']}" style="position: absolute; top: 385px; left: 38px;" /></strong>
                             <div style="position: absolute; top: 380px; left: 220px;">
-                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" value="#{controlFamiliares.personas.fechafallecimiento}" id="nuevaFechaF" >
+                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" value="#{controlFamiliares.personas.fechafallecimiento}" id="nuevaFechaF" >
                                     <p:ajax event="dateSelect"  update="@this" />
                                     <p:ajax event="change"  update="@this" />
                                 </p:calendar>
                             </div>
 
                             <strong><h:outputText value="* #{msg['obs']}" style="position: absolute; top: 415px; left: 38px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaObs" value="#{controlFamiliares.personas.primerapellido}" 
+                            <p:inputText  autocomplete="off"  id="nuevaObs" value="#{controlFamiliares.personas.primerapellido}" 
                                          style="width: 122px; position: absolute; left: 220px; top: 410px;">
                                 <p:ajax event="change" update="nuevaObs"/>
                             </p:inputText>

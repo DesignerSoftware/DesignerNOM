@@ -85,7 +85,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.codigo}" id="editarCodigo" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"  value="#{info.codigo}" id="editarCodigo" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlGruposInfAdicionales.cambiarIndice(info, 0)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlGruposInfAdicionales.modificarGruposInfAdicionales(info, 'N', info.codigo)}"  update="codigo"/>
                                             </p:inputText>
@@ -99,7 +99,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.descripcion}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.descripcion}" id="editarNombre" style="height: 12px;  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"  value="#{info.descripcion}" id="editarNombre" style="height: 12px;  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlGruposInfAdicionales.cambiarIndice(info, 1)}" process="@this"/> 
                                                 <p:ajax event="change"  listener="#{controlGruposInfAdicionales.modificarGruposInfAdicionales(info, 'N', info.descripcion)}" update="descripcion"/>
                                             </p:inputText>
@@ -113,7 +113,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.estado}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.estado}" id="editarEestado" style="height: 12px;  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"  value="#{info.estado}" id="editarEestado" style="height: 12px;  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlGruposInfAdicionales.cambiarIndice(info, 2)}" process="@this"/> 
                                                 <p:ajax event="change"  listener="#{controlGruposInfAdicionales.modificarGruposInfAdicionales(info, 'N', info.estado)}" update="estado"/>
                                             </p:inputText>
@@ -236,18 +236,18 @@
                         <p:panel id="nuevaTipoempresa" style="border: none;">
 
                             <strong><h:outputText value="*Código: "  style=" position: absolute; top: 60px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoCodigo" value="#{controlGruposInfAdicionales.nuevoGruposInfAdicionales.codigo}" style="width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="nuevoCodigo" value="#{controlGruposInfAdicionales.nuevoGruposInfAdicionales.codigo}" style="width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoCodigo" value="Código" />
 
                             <strong><h:outputText value="*Descripción: "  style=" position: absolute; top: 90px;" /></strong>
-                            <p:inputText  autocomplete="false"   id="nuevoNombre" value="#{controlGruposInfAdicionales.nuevoGruposInfAdicionales.descripcion}" style="width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"   id="nuevoNombre" value="#{controlGruposInfAdicionales.nuevoGruposInfAdicionales.descripcion}" style="width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoNombre" value="Descripción" />
                             <strong><h:outputText value="*Estado : "  style=" position: absolute; top: 120px;" /></strong>
-                            <p:inputText  autocomplete="false"   id="nuevoEstado" value="#{controlGruposInfAdicionales.nuevoGruposInfAdicionales.estado}" style="width: 140px; position: absolute; left: 150px; top: 115px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"   id="nuevoEstado" value="#{controlGruposInfAdicionales.nuevoGruposInfAdicionales.estado}" style="width: 140px; position: absolute; left: 150px; top: 115px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoEstado" value="Estado" />
@@ -264,18 +264,18 @@
 
                         <p:panel id="duplicarTE" style="border: none;">
                             <strong><h:outputText value="*Código :"  style=" position: absolute; top: 60px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarCodigo" value="#{controlGruposInfAdicionales.duplicarGruposInfAdicionales.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="duplicarCodigo" value="#{controlGruposInfAdicionales.duplicarGruposInfAdicionales.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarCodigo" value="Código" />
 
                             <strong><h:outputText value="*Descripción :"  style=" position: absolute; top: 90px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarNombre" value="#{controlGruposInfAdicionales.duplicarGruposInfAdicionales.descripcion}"  style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase" >
+                            <p:inputText  autocomplete="off"  id="duplicarNombre" value="#{controlGruposInfAdicionales.duplicarGruposInfAdicionales.descripcion}"  style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase" >
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarNombre" value="Descripción" />
                             <strong><h:outputText value="*Estado : "  style=" position: absolute; top: 120px;" /></strong>
-                            <p:inputText  autocomplete="false"   id="duplicarEstado" value="#{controlGruposInfAdicionales.duplicarGruposInfAdicionales.estado}" style="width: 140px; position: absolute; left: 150px; top: 115px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"   id="duplicarEstado" value="#{controlGruposInfAdicionales.duplicarGruposInfAdicionales.estado}" style="width: 140px; position: absolute; left: 150px; top: 115px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarEstado" value="Estado" />

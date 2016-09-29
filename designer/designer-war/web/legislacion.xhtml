@@ -106,7 +106,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><img src="Imagenes/Iconos/editar.png" width="18" height="18" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="D" maxlength="1" style="background-color: blue; width: 6px; height: 6px;" id="editarD">
+                                            <p:inputText  autocomplete="off"  value="D" maxlength="1" style="background-color: blue; width: 6px; height: 6px;" id="editarD">
                                                 <p:ajax event="select" listener="#{controlLegislacion.verDetalle(contrato)}" immediate="#{controlDetalleLegislacion.obtenerContrato(contrato.secuencia)}"/>
                                             </p:inputText>
                                         </f:facet>
@@ -124,7 +124,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{contrato.codigo}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{contrato.codigo}" id="editarCodigo" style="border-radius: 0px; width: 99.5%; text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"  value="#{contrato.codigo}" id="editarCodigo" style="border-radius: 0px; width: 99.5%; text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlLegislacion.modificarContrato(contrato, 'COD', contrato.codigo)}"/>
                                                 <p:ajax event="select" listener="#{controlLegislacion.cambiarIndice(contrato, 0)}" />
                                             </p:inputText> 
@@ -139,7 +139,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{contrato.descripcion}" style="text-transform: uppercase" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  id="editarDescripcion" maxlength="50" value="#{contrato.descripcion}" style="border-radius: 0px; width: 99.5%; text-transform: uppercase">
+                                            <p:inputText  autocomplete="off"  id="editarDescripcion" maxlength="50" value="#{contrato.descripcion}" style="border-radius: 0px; width: 99.5%; text-transform: uppercase">
                                                 <p:ajax event="change" listener="#{controlLegislacion.modificarContrato(contrato, 'N', contrato.descripcion)}"/>
                                                 <p:ajax event="select" listener="#{controlLegislacion.cambiarIndice(contrato, 1)}" />
                                             </p:inputText>
@@ -157,7 +157,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{contrato.tipocotizante.descripcion}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  id="editorTipoCotizante" value="#{contrato.tipocotizante.descripcion}" style="border-radius: 0px; text-transform: uppercase; width: 94%;">
+                                            <p:inputText  autocomplete="off"  id="editorTipoCotizante" value="#{contrato.tipocotizante.descripcion}" style="border-radius: 0px; text-transform: uppercase; width: 94%;">
                                                 <p:ajax event="change" listener="#{controlLegislacion.modificarContrato(contrato, 'TC', contrato.tipocotizante.descripcion)}"/>
                                                 <p:ajax event="select" listener="#{controlLegislacion.cambiarIndice(contrato, 2)}" />
                                                 <p:ajax event="dblclick" listener="#{controlLegislacion.llamarDialogosLista(contrato)}"/>
@@ -196,11 +196,11 @@
                         <fieldset style="position: absolute; left: 5px; top: 402px; width: 835px; height: 70px; border-radius: 10px; ">
                             <legend style="color: blue"><strong>#{msg['clonar']}</strong></legend>
                             <h:outputText value="#{msg['contratoaactualizar']}"   style="color: #14388B; font-weight: bold; position: absolute"/>
-                            <p:inputText  autocomplete="false"  id="descripcionContrato1" value="#{controlLegislacion.contratoClon.informacionContrato}" style="position: absolute; top: 35px; width: 340px; left: 7px"/>
+                            <p:inputText  autocomplete="off"  id="descripcionContrato1" value="#{controlLegislacion.contratoClon.informacionContrato}" style="position: absolute; top: 35px; width: 340px; left: 7px"/>
                             <p:commandButton value="" actionListener="#{controlLegislacion.lovContratos(2)}" style="position: absolute; top: 35px; left: 331px; background-image: url(Imagenes/Iconos/lupa.png); 
                                              background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px;" process="@this"/>
                             <h:outputText value="#{msg['contratodeorigen']}"   style="color: #14388B; font-weight: bold; position: absolute; left: 380px"/>
-                            <p:inputText  autocomplete="false"  id="descripcionContrato2" value="#{controlLegislacion.contratoOriginal.informacionContrato}" style="position: absolute; top: 35px; left: 360px; width: 330px;"/>
+                            <p:inputText  autocomplete="off"  id="descripcionContrato2" value="#{controlLegislacion.contratoOriginal.informacionContrato}" style="position: absolute; top: 35px; left: 360px; width: 330px;"/>
                             <p:commandButton value="" actionListener="#{controlLegislacion.lovContratos(1)}" style="position: absolute; top: 35px; left: 674px; background-image: url(Imagenes/Iconos/lupa.png); 
                                              background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px;" process="@this"/>
 
@@ -226,7 +226,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlLegislacion.actualizarTipoCotizante()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarTC']}"  style="position: absolute; left: 27px; top: 16px"/>  
-                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovTiposCotizantes').filter();" style="width:200px; position: relative; left: 50px;"/>  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovTiposCotizantes').filter();" style="width:200px; position: relative; left: 50px;"/>  
                                 <p:watermark for="globalFilter" value="" />
                             </f:facet>
                             <p:column filterBy="#{tipoCotizante.codigo}" width="50" filterMatchMode="contains" filterStyle="width: 85% !important">
@@ -264,7 +264,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlLegislacion.seleccionContrato()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarC']}"   style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovContratos').filter();" style="width:200px; position: relative; left: 15px;"/>  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovContratos').filter();" style="width:200px; position: relative; left: 15px;"/>  
                             </f:facet>
                             <p:column filterBy="#{contratoLOV.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 85% !important">
                                 <f:facet name="header">
@@ -303,17 +303,17 @@
 
                         <p:panel id="nuevoContrato" style="border: none; position: relative; top: -50px;">
                             <strong><h:outputText value="*#{msg['codigoN']}"  style="position: absolute; top: 75px;" /></strong>
-                            <p:inputText  autocomplete="false"  value="#{controlLegislacion.nuevoContrato.codigo}" style="position: absolute; top: 70px; left: 180px; width: 110px">
+                            <p:inputText  autocomplete="off"  value="#{controlLegislacion.nuevoContrato.codigo}" style="position: absolute; top: 70px; left: 180px; width: 110px">
                                 <p:ajax event="change" update="@this" />
                             </p:inputText>
 
                             <strong><h:outputText value="*#{msg['descripcionN']}"  style="position: absolute; top: 105px;" /></strong>
-                            <p:inputText  autocomplete="false"  value="#{controlLegislacion.nuevoContrato.descripcion}" maxlength="50" style="width: 110px; position: absolute; left: 180px; top: 100px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  value="#{controlLegislacion.nuevoContrato.descripcion}" maxlength="50" style="width: 110px; position: absolute; left: 180px; top: 100px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this" />
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['tipocotizanteN']}"  style="position: absolute; top: 135px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaDescripcionTipoCotizante" value="#{controlLegislacion.nuevoContrato.tipocotizante.descripcion}" style="width: 110px; position: absolute; left: 180px; top: 130px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="nuevaDescripcionTipoCotizante" value="#{controlLegislacion.nuevoContrato.tipocotizante.descripcion}" style="width: 110px; position: absolute; left: 180px; top: 130px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlLegislacion.valoresBackupAutocompletar(1)}" />
                                 <p:ajax event="change" listener="#{controlLegislacion.autocompletarNuevoyDuplicado(controlLegislacion.nuevoContrato.tipocotizante.descripcion, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlLegislacion.llamarLOVNuevo_Duplicado(1)}"/>
@@ -341,17 +341,17 @@
 
                         <p:panel id="duplicarContrato" style="border: none; position: relative; top: -50px">
                             <strong><h:outputText value="*#{msg['codigoN']}"  style="position: absolute; top: 75px;" /></strong>
-                            <p:inputText  autocomplete="false"  value="#{controlLegislacion.duplicarContrato.codigo}" style="position: absolute; top: 70px; left: 180px; width: 110px;">
+                            <p:inputText  autocomplete="off"  value="#{controlLegislacion.duplicarContrato.codigo}" style="position: absolute; top: 70px; left: 180px; width: 110px;">
                                 <p:ajax event="change" update="@this" />
                             </p:inputText>
 
                             <strong><h:outputText value="*#{msg['descripcionN']}"  style="position: absolute; top: 105px;" /></strong>
-                            <p:inputText  autocomplete="false"  maxlength="50" value="#{controlLegislacion.duplicarContrato.descripcion}" style="width: 110px; position: absolute; left: 180px; top: 100px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  maxlength="50" value="#{controlLegislacion.duplicarContrato.descripcion}" style="width: 110px; position: absolute; left: 180px; top: 100px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this" />
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['tipocotizanteN']}"  style="position: absolute; top: 135px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarDescripcionTipoCotizante" value="#{controlLegislacion.duplicarContrato.tipocotizante.descripcion}" style="width: 110px; position: absolute; left: 180px; top: 130px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="duplicarDescripcionTipoCotizante" value="#{controlLegislacion.duplicarContrato.tipocotizante.descripcion}" style="width: 110px; position: absolute; left: 180px; top: 130px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlLegislacion.valoresBackupAutocompletar(2)}" />
                                 <p:ajax event="change" listener="#{controlLegislacion.autocompletarNuevoyDuplicado(controlLegislacion.duplicarContrato.tipocotizante.descripcion, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlLegislacion.llamarLOVNuevo_Duplicado(2)}"/>

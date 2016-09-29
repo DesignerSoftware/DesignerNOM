@@ -81,7 +81,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.codigo}" maxlength="4" id="editarCodigo" style="  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"  value="#{info.codigo}" maxlength="4" id="editarCodigo" style="  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlMetodoPago.cambiarIndice(indice, 0)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlMetodoPago.modificarMetodosPagos(indice, 'N', info.codigo)}"  update="codigo"/>
                                             </p:inputText>
@@ -92,7 +92,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.descripcion}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.descripcion}" maxlength="40" id="editarNombre" style="  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"  value="#{info.descripcion}" maxlength="40" id="editarNombre" style="  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlMetodoPago.cambiarIndice(indice, 1)}" process="@this"/> 
                                                 <p:ajax event="change"  listener="#{controlMetodoPago.modificarMetodosPagos(indice, 'N', info.descripcion)}"  update="descripcion"/>
                                             </p:inputText>
@@ -227,13 +227,13 @@
                         <p:panel id="nuevoMetodosPagos" style="border: none;">
 
                             <strong><h:outputText value="*Código : "  style="left: 15px; position: absolute; top: 60px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoCodigo" maxlength="4" value="#{controlMetodoPago.nuevoMetodoPago.codigo}" style=" width: 135px; position: absolute; left: 150px; top: 55px;">
+                            <p:inputText  autocomplete="off"  id="nuevoCodigo" maxlength="4" value="#{controlMetodoPago.nuevoMetodoPago.codigo}" style=" width: 135px; position: absolute; left: 150px; top: 55px;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoCodigo" value="Código" />
 
                             <strong><h:outputText value="*Descripción : "  style="left: 15px; position: absolute; top: 90px;" /></strong>
-                            <p:inputText  autocomplete="false"   id="nuevoNombre" maxlength="40" value="#{controlMetodoPago.nuevoMetodoPago.descripcion}" style=" width: 135px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"   id="nuevoNombre" maxlength="40" value="#{controlMetodoPago.nuevoMetodoPago.descripcion}" style=" width: 135px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoNombre" value="Descripción" />
@@ -257,13 +257,13 @@
 
                         <p:panel id="duplicarMetodosPagos" style="border: none;">
                             <strong><h:outputText value="*Código :"  style="left: 15px; position: absolute; top: 60px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarCodigo" maxlength="4" value="#{controlMetodoPago.duplicarMetodoPago.codigo}" style=" width: 135px; position: absolute; left: 150px; top: 55px;">
+                            <p:inputText  autocomplete="off"  id="duplicarCodigo" maxlength="4" value="#{controlMetodoPago.duplicarMetodoPago.codigo}" style=" width: 135px; position: absolute; left: 150px; top: 55px;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarCodigo" value="Código" />
 
                             <strong><h:outputText value="*Descripción :"  style="left: 15px; position: absolute; top: 90px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarNombre" maxlength="20" value="#{controlMetodoPago.duplicarMetodoPago.descripcion}"  style=" width: 135px; position: absolute; left: 150px; top: 85px;" >
+                            <p:inputText  autocomplete="off"  id="duplicarNombre" maxlength="20" value="#{controlMetodoPago.duplicarMetodoPago.descripcion}"  style=" width: 135px; position: absolute; left: 150px; top: 85px;" >
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarNombre" value="Descripción" />

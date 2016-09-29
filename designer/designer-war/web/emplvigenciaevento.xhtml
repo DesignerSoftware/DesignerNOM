@@ -112,7 +112,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.fechainicial}" >  
+                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.fechainicial}" >  
                                                 <p:ajax event="dateSelect" listener="#{controlEmplVigenciaEvento.modificarFechas(info,0)}" update="dateFechaInicial" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlEmplVigenciaEvento.modificarFechas(info,0)}" update="dateFechaInicial" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlEmplVigenciaEvento.cambiarIndice(info,0)}" process="@this"/> 
@@ -134,7 +134,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="dateFechaFinal" value="#{info.fechafinal}" >  
+                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaFinal" value="#{info.fechafinal}" >  
                                                 <p:ajax event="dateSelect" listener="#{controlEmplVigenciaEvento.modificarFechas(info,1)}" update="dateFechaFinal" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlEmplVigenciaEvento.modificarFechas(info,1)}" update="dateFechaFinal" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlEmplVigenciaEvento.cambiarIndice(info,1)}" process="@this"/> 
@@ -152,7 +152,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.evento.descripcion}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.evento.descripcion}" id="editarDescripcionVigencia" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"  value="#{info.evento.descripcion}" id="editarDescripcionVigencia" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlEmplVigenciaEvento.modificarVigenciaEvento(info, 'EVENTOS', info.evento.descripcion)}"/>
                                                 <p:ajax event="select" listener="#{controlEmplVigenciaEvento.cambiarIndice(info, 2)}" />
                                                 <p:ajax event="dblclick" listener="#{controlEmplVigenciaEvento.asignarIndex(info, 0)}"/>
@@ -174,7 +174,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.valorcuantitativo}" style="width: 100px;"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{info.valorcuantitativo}" id="editarIndividual" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"   value="#{info.valorcuantitativo}" id="editarIndividual" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:keyFilter for="editarIndividual" mask="num"/>
                                                 <p:ajax event="select" listener="#{controlEmplVigenciaEvento.cambiarIndice(info,3)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlEmplVigenciaEvento.modificarVigenciaEvento(info)}" process="@this" update="editarIndividual"/>                                   
@@ -195,7 +195,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.valorcualitativo}" style="width: 100px;"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{info.valorcualitativo}" id="editarCIndividual" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"   value="#{info.valorcualitativo}" id="editarCIndividual" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:keyFilter for="editarCIndividual" mask="num"/>
                                                 <p:ajax event="select" listener="#{controlEmplVigenciaEvento.cambiarIndice(info,4)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlEmplVigenciaEvento.modificarVigenciaEvento(info)}" process="@this" update="editarCIndividual"/>                                   
@@ -216,7 +216,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.valorcuantitativogrupo}" style="width: 100px;"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{info.valorcuantitativogrupo}" id="editarGrupal" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"   value="#{info.valorcuantitativogrupo}" id="editarGrupal" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:keyFilter for="editarGrupal" mask="num"/>
                                                 <p:ajax event="select" listener="#{controlEmplVigenciaEvento.cambiarIndice(info,5)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlEmplVigenciaEvento.modificarVigenciaEvento(info)}" process="@this" update="editarGrupal"/>                                   
@@ -237,7 +237,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.valorcuantitativogrupo}" style="width: 100px;"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{info.valorcuantitativogrupo}" id="editarCGrupal" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"   value="#{info.valorcuantitativogrupo}" id="editarCGrupal" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:keyFilter for="editarCGrupal" mask="num"/>
                                                 <p:ajax event="select" listener="#{controlEmplVigenciaEvento.cambiarIndice(info,6)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlEmplVigenciaEvento.modificarVigenciaEvento(info)}" process="@this" update="editarCGrupal"/>                                   
@@ -263,7 +263,7 @@
                                 <p:ajax event="filter" listener="#{controlEmplVigenciaEvento.contarRegistroEventos()}"/>
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarEV']}"  />  
-                                    <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovEventos').filter();" class="cssFiltroLOV"/>  
+                                    <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovEventos').filter();" class="cssFiltroLOV"/>  
                                 </f:facet>
 
                                 <p:column filterBy="#{eventos.descripcion}" filterMatchMode="contains" >
@@ -360,7 +360,7 @@
 
                             <strong><h:outputText value="*#{msg['inicialN']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
                             <div id="posicionFormulaFechaIniNuevoReg" style="position: absolute; top: 70px; left: 220px">
-                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicialV" value="#{controlEmplVigenciaEvento.nuevaVigenciaEvento.fechainicial}" >
+                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicialV" value="#{controlEmplVigenciaEvento.nuevaVigenciaEvento.fechainicial}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaInicialV" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaInicialV" process="@this"/>
                                 </p:calendar>
@@ -368,14 +368,14 @@
 
                             <strong><h:outputText value="#{msg['finalN']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
                             <div id="posicionFormulaFechaFinNuevoReg" style="position: absolute; top: 100px; left: 220px">
-                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinalV" value="#{controlEmplVigenciaEvento.nuevaVigenciaEvento.fechafinal}" >
+                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinalV" value="#{controlEmplVigenciaEvento.nuevaVigenciaEvento.fechafinal}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaFinalV" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaFinalV" process="@this"/>
                                 </p:calendar>
                             </div>
 
                             <strong><h:outputText value="*#{msg['descripcionN']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaDescripcion" value="#{controlEmplVigenciaEvento.nuevaVigenciaEvento.evento.descripcion}" style="width: 122px; position: absolute; left: 220px; top: 130px;">
+                            <p:inputText  autocomplete="off"  id="nuevaDescripcion" value="#{controlEmplVigenciaEvento.nuevaVigenciaEvento.evento.descripcion}" style="width: 122px; position: absolute; left: 220px; top: 130px;">
                                 <p:ajax event="dblclick" listener="#{controlEmplVigenciaEvento.asignarIndex(info,1)}"/>
                                 <p:ajax event="click" listener="#{controlEmplVigenciaEvento.valoresBackupAutocompletar(1, 'EVENTOS')}" />
                                 <p:ajax event="change" listener="#{controlEmplVigenciaEvento.autocompletarNuevoyDuplicado('EVENTOS', controlEmplVigenciaEvento.nuevaVigenciaEvento.evento.descripcion, 1)}" />
@@ -384,28 +384,28 @@
                             <p:watermark for="nuevaDescripcion" value="#{msg['descripcion']}" />
 
                             <strong><h:outputText value="#{msg['puntajeindividual']}" style="position: absolute; top: 165px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaIndividual" value="#{controlEmplVigenciaEvento.nuevaVigenciaEvento.valorcuantitativo}" style="width: 122px; position: absolute; left: 220px; top: 160px;">
+                            <p:inputText  autocomplete="off"  id="nuevaIndividual" value="#{controlEmplVigenciaEvento.nuevaVigenciaEvento.valorcuantitativo}" style="width: 122px; position: absolute; left: 220px; top: 160px;">
                                 <p:keyFilter for="nuevaIndividual" mask="num"/>
                                 <p:ajax event="change" update="nuevaIndividual"/>
                             </p:inputText>
                             <p:watermark for="nuevaIndividual" value="#{msg['puntajeind']}" />
 
                             <strong><h:outputText value="#{msg['pciN']}" style="position: absolute; top: 195px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaGIndividual" value="#{controlEmplVigenciaEvento.nuevaVigenciaEvento.valorcualitativo}" style="width: 122px; position: absolute; left: 220px; top: 190px;">
+                            <p:inputText  autocomplete="off"  id="nuevaGIndividual" value="#{controlEmplVigenciaEvento.nuevaVigenciaEvento.valorcualitativo}" style="width: 122px; position: absolute; left: 220px; top: 190px;">
                                 <p:keyFilter for="nuevaGIndividual" mask="num"/>
                                 <p:ajax event="change" update="nuevaGIndividual"/>
                             </p:inputText>
                             <p:watermark for="nuevaGIndividual" value="#{msg['pciNN']}" />
 
                             <strong><h:outputText value="#{msg['puntajegrupalN']}" style="position: absolute; top: 225px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaGrupal" value="#{controlEmplVigenciaEvento.nuevaVigenciaEvento.valorcuantitativogrupo}" style=" width: 122px; position: absolute; left: 220px; top: 220px;">
+                            <p:inputText  autocomplete="off"  id="nuevaGrupal" value="#{controlEmplVigenciaEvento.nuevaVigenciaEvento.valorcuantitativogrupo}" style=" width: 122px; position: absolute; left: 220px; top: 220px;">
                                 <p:keyFilter for="nuevaGrupal" mask="num"/>
                                 <p:ajax event="change" update="nuevaGrupal"/>
                             </p:inputText>
                             <p:watermark for="nuevaGrupal" value="#{msg['puntajegrupalNN']}" />
 
                             <strong><h:outputText value="#{msg['pcgN']}" style="position: absolute; top: 255px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaCGrupal" value="#{controlEmplVigenciaEvento.nuevaVigenciaEvento.valorcualitativogrupo}" style="width: 122px; position: absolute; left: 220px; top: 250px;">
+                            <p:inputText  autocomplete="off"  id="nuevaCGrupal" value="#{controlEmplVigenciaEvento.nuevaVigenciaEvento.valorcualitativogrupo}" style="width: 122px; position: absolute; left: 220px; top: 250px;">
                                 <p:keyFilter for="nuevaCGrupal" mask="num"/>
                                 <p:ajax event="change" update="nuevaCGrupal"/>
                             </p:inputText>
@@ -426,7 +426,7 @@
 
                             <strong><h:outputText value="*#{msg['inicialN']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
                             <div id="posicionFormulaFechaIniNuevoReg" style="position: absolute; top: 70px; left: 220px">
-                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicialV" value="#{controlEmplVigenciaEvento.duplicarVigenciaEvento.fechainicial}" >
+                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicialV" value="#{controlEmplVigenciaEvento.duplicarVigenciaEvento.fechainicial}" >
                                     <p:ajax event="dateSelect" update="duplicarFechaInicialV" process="@this"/>
                                     <p:ajax event="change" update="duplicarFechaInicialV" process="@this"/>
                                 </p:calendar>
@@ -434,14 +434,14 @@
 
                             <strong><h:outputText value="#{msg['finalN']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
                             <div id="posicionFormulaFechaFinNuevoReg" style="position: absolute; top: 100px; left: 220px">
-                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinalV" value="#{controlEmplVigenciaEvento.duplicarVigenciaEvento.fechafinal}" >
+                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinalV" value="#{controlEmplVigenciaEvento.duplicarVigenciaEvento.fechafinal}" >
                                     <p:ajax event="dateSelect" update="duplicarFechaFinalV" process="@this"/>
                                     <p:ajax event="change" update="duplicarFechaFinalV" process="@this"/>
                                 </p:calendar>
                             </div>
 
                             <strong><h:outputText value="*#{msg['descripcionN']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarDescripcion" value="#{controlEmplVigenciaEvento.duplicarVigenciaEvento.evento.descripcion}" style="width: 122px; position: absolute; left: 220px; top: 130px;">
+                            <p:inputText  autocomplete="off"  id="duplicarDescripcion" value="#{controlEmplVigenciaEvento.duplicarVigenciaEvento.evento.descripcion}" style="width: 122px; position: absolute; left: 220px; top: 130px;">
                                 <p:ajax event="dblclick" listener="#{controlEmplVigenciaEvento.asignarIndex(info,2)}"/>
                                 <p:ajax event="click" listener="#{controlEmplVigenciaEvento.valoresBackupAutocompletar(2, 'EVENTOS')}" />
                                 <p:ajax event="change" listener="#{controlEmplVigenciaEvento.autocompletarNuevoyDuplicado('EVENTOS', controlEmplVigenciaEvento.duplicarVigenciaEvento.evento.descripcion, 2)}" />
@@ -450,28 +450,28 @@
                             <p:watermark for="duplicarDescripcion" value="#{msg['descripcion']}" />
 
                             <strong><h:outputText value="#{msg['puntajeindividualN']}" style="position: absolute; top: 165px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarIndividual" value="#{controlEmplVigenciaEvento.duplicarVigenciaEvento.valorcuantitativo}" style="width: 122px; position: absolute; left: 220px; top: 160px;">
+                            <p:inputText  autocomplete="off"  id="duplicarIndividual" value="#{controlEmplVigenciaEvento.duplicarVigenciaEvento.valorcuantitativo}" style="width: 122px; position: absolute; left: 220px; top: 160px;">
                                 <p:keyFilter for="duplicarIndividual" mask="num"/>
                                 <p:ajax event="change" update="duplicarIndividual"/>
                             </p:inputText>
                             <p:watermark for="duplicarIndividual" value="#{msg['puntajeind']}" />
 
                             <strong><h:outputText value="#{msg['pciN']}" style="position: absolute; top: 195px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarGIndividual" value="#{controlEmplVigenciaEvento.duplicarVigenciaEvento.valorcualitativo}" style="width: 122px; position: absolute; left: 220px; top: 190px;">
+                            <p:inputText  autocomplete="off"  id="duplicarGIndividual" value="#{controlEmplVigenciaEvento.duplicarVigenciaEvento.valorcualitativo}" style="width: 122px; position: absolute; left: 220px; top: 190px;">
                                 <p:keyFilter for="duplicarGIndividual" mask="num"/>
                                 <p:ajax event="change" update="duplicarGIndividual"/>
                             </p:inputText>
                             <p:watermark for="duplicarGIndividual" value="#{msg['pciNN']}" />
 
                             <strong><h:outputText value="#{msg['puntajegrupalN']}" style="position: absolute; top: 225px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarGrupal" value="#{controlEmplVigenciaEvento.duplicarVigenciaEvento.valorcuantitativogrupo}" style="width: 122px; position: absolute; left: 220px; top: 220px;">
+                            <p:inputText  autocomplete="off"  id="duplicarGrupal" value="#{controlEmplVigenciaEvento.duplicarVigenciaEvento.valorcuantitativogrupo}" style="width: 122px; position: absolute; left: 220px; top: 220px;">
                                 <p:keyFilter for="duplicarGrupal" mask="num"/>
                                 <p:ajax event="change" update="duplicarGrupal"/>
                             </p:inputText>
                             <p:watermark for="duplicarGrupal" value="#{msg['puntajegrupalNN']}" />
 
                             <strong><h:outputText value="#{msg['pcgN']}" style="position: absolute; top: 255px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarCGrupal" value="#{controlEmplVigenciaEvento.duplicarVigenciaEvento.valorcualitativogrupo}" style=" width: 122px; position: absolute; left: 220px; top: 250px;">
+                            <p:inputText  autocomplete="off"  id="duplicarCGrupal" value="#{controlEmplVigenciaEvento.duplicarVigenciaEvento.valorcualitativogrupo}" style=" width: 122px; position: absolute; left: 220px; top: 250px;">
                                 <p:keyFilter for="duplicarCGrupal" mask="num"/>
                                 <p:ajax event="change" update="duplicarCGrupal"/>
                             </p:inputText>

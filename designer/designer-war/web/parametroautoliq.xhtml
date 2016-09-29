@@ -105,7 +105,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoPA.ano}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{infoPA.ano}" readonly="true" id="editarAno" style="border-radius: 0px; width: 98.5%;" onselect="operacionEnProceso').show();
+                                            <p:inputText  autocomplete="off"  value="#{infoPA.ano}" readonly="true" id="editarAno" style="border-radius: 0px; width: 98.5%;" onselect="operacionEnProceso').show();
                                                     posicionParametro([{name: 'n', value: '0'}, {name: 't', value: '#{indice}'}]);"  /> 
                                         </f:facet>  
                                     </p:cellEditor>
@@ -142,7 +142,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoPA.tipotrabajador.nombre}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  onselect="operacionEnProceso').show()" value="#{infoPA.tipotrabajador.nombre}" id="editarTipoTrabajador" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"  onselect="operacionEnProceso').show()" value="#{infoPA.tipotrabajador.nombre}" id="editarTipoTrabajador" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarParametroAutoliq(infoPA, 'TIPOTRABAJADOR', info.tipotrabajador.nombre)}"/>
                                                 <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndice(infoPA, 2)}"  process="@this"/>
                                                 <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndex(infoPA, 0, 1)}"/>
@@ -159,7 +159,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoPA.empresa.nombre}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{infoPA.empresa.nombre}" readonly="true" id="editarEmpresa" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"   onselect="operacionEnProceso').show();
+                                            <p:inputText  autocomplete="off"   value="#{infoPA.empresa.nombre}" readonly="true" id="editarEmpresa" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"   onselect="operacionEnProceso').show();
                                                     posicionParametro([{name: 'n', value: '3'}, {name: 't', value: '#{indice}'}]);" /> 
                                         </f:facet>  
                                     </p:cellEditor>
@@ -194,7 +194,7 @@
                                             <h:outputText value="#{infoAE.empleado.codigoempleado}" />
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{infoAE.empleado.codigoempleado}" readonly="true" id="editarCodigoEmpleado" style="border-radius: 0px; width: 98.5%;"
+                                            <p:inputText  autocomplete="off"  value="#{infoAE.empleado.codigoempleado}" readonly="true" id="editarCodigoEmpleado" style="border-radius: 0px; width: 98.5%;"
                                                          onselect="posicionAporteEntidad([{name: 'n', value: '0'}, {name: 't', value: '#{indiceAE}'}]);" /> 
                                         </f:facet>  
                                     </p:cellEditor>
@@ -211,7 +211,7 @@
                                     <p:cellEditor> 
                                         <f:facet name="output"><h:outputText value="#{infoAE.ano}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{infoAE.ano}" readonly="true" id="editarAnoAporte" style="border-radius: 0px; width: 98.5%;"
+                                            <p:inputText  autocomplete="off"  value="#{infoAE.ano}" readonly="true" id="editarAnoAporte" style="border-radius: 0px; width: 98.5%;"
                                                          onselect="posicionAporteEntidad([{name: 'n', value: '1'}, {name: 't', value: '#{indiceAE}'}]);" /> 
                                         </f:facet>  
                                     </p:cellEditor>
@@ -228,7 +228,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoAE.mes}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{infoAE.mes}" readonly="true" id="editarMesAporte" style="border-radius: 0px; width: 98.5%;"
+                                            <p:inputText  autocomplete="off"  value="#{infoAE.mes}" readonly="true" id="editarMesAporte" style="border-radius: 0px; width: 98.5%;"
                                                          onselect="posicionAporteEntidad([{name: 'n', value: '2'}, {name: 't', value: '#{indiceAE}'}]);"  /> 
                                         </f:facet>  
                                     </p:cellEditor>
@@ -246,7 +246,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoAE.empleado.persona.nombreCompleto}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{infoAE.empleado.persona.nombreCompleto}" id="editarNombreEmpleadoAporte" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"   value="#{infoAE.empleado.persona.nombreCompleto}" id="editarNombreEmpleadoAporte" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE, 'EMPLEADO', infoAE.empleado.persona.nombreCompleto)}" update="@this"/>
                                                 <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 3)}" />
                                                 <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 0, 1)}"/>
@@ -267,7 +267,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoAE.terceroRegistro.nit}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{infoAE.terceroRegistro.nit}" id="editarNITAporte" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"   value="#{infoAE.terceroRegistro.nit}" id="editarNITAporte" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE, 'TERCERO', infoAE.terceroRegistro.nit)}" update="@this"/>
                                                 <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 4)}" />
                                                 <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 0, 2)}"/>
@@ -287,7 +287,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoAE.terceroRegistro.nombre}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{infoAE.terceroRegistro.nombre}" readonly="true" id="editarTerceroAporte" style="border-radius: 0px; width: 98.5%;"
+                                            <p:inputText  autocomplete="off"  value="#{infoAE.terceroRegistro.nombre}" readonly="true" id="editarTerceroAporte" style="border-radius: 0px; width: 98.5%;"
                                                          onselect="posicionAporteEntidad([{name: 'n', value: '5'}, {name: 't', value: '#{indiceAE}'}]);"  /> 
                                         </f:facet>  
                                     </p:cellEditor>
@@ -305,7 +305,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoAE.tipoentidad.nombre}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{infoAE.tipoentidad.nombre}" id="editarTipoEntidadAporte" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"   value="#{infoAE.tipoentidad.nombre}" id="editarTipoEntidadAporte" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE, 'TIPOENTIDAD', infoAE.tipoentidad.nombre)}" update="@this"/>
                                                 <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 6)}" />
                                                 <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 0, 3)}"/>
@@ -329,7 +329,7 @@
                                             </h:outputText>    
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{infoAE.cotizacion1}" id="editarEmpleadoAporte" style="border-radius: 0px; width: 98.5%;"> 
+                                            <p:inputText  autocomplete="off"   value="#{infoAE.cotizacion1}" id="editarEmpleadoAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
                                                 <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 7)}" />
                                             </p:inputText>
@@ -352,7 +352,7 @@
                                             </h:outputText>    
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{infoAE.cotizacion2}" id="editarEmpleadorAporte" style="border-radius: 0px; width: 98.5%;"> 
+                                            <p:inputText  autocomplete="off"   value="#{infoAE.cotizacion2}" id="editarEmpleadorAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
                                                 <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 8)}" />
                                             </p:inputText>
@@ -374,7 +374,7 @@
                                                 <f:convertNumber pattern="#0.00" />
                                             </h:outputText>    </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{infoAE.cotizacion5}" id="editarAjustePatronalAporte" style="border-radius: 0px; width: 98.5%;"> 
+                                            <p:inputText  autocomplete="off"   value="#{infoAE.cotizacion5}" id="editarAjustePatronalAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
                                                 <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 9)}" />
                                             </p:inputText>
@@ -396,7 +396,7 @@
                                                 <f:convertNumber pattern="#0.00" />
                                             </h:outputText>    </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{infoAE.novedad3}" id="editarSolidaridadAporte" style="border-radius: 0px; width: 98.5%;"> 
+                                            <p:inputText  autocomplete="off"   value="#{infoAE.novedad3}" id="editarSolidaridadAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
                                                 <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 10)}" />
                                             </p:inputText>
@@ -418,7 +418,7 @@
                                                 <f:convertNumber pattern="#0.00" />
                                             </h:outputText>    </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{infoAE.novedad4}" id="editarSubSistenciaAporte" style="border-radius: 0px; width: 98.5%;"> 
+                                            <p:inputText  autocomplete="off"   value="#{infoAE.novedad4}" id="editarSubSistenciaAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
                                                 <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 11)}" />
                                             </p:inputText>
@@ -440,7 +440,7 @@
                                                 <f:convertNumber pattern="#0.00" />
                                             </h:outputText>    </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{infoAE.novedad5}" id="editarSubsPensionadosAporte" style="border-radius: 0px; width: 98.5%;"> 
+                                            <p:inputText  autocomplete="off"   value="#{infoAE.novedad5}" id="editarSubsPensionadosAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
                                                 <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 12)}" />
                                             </p:inputText>
@@ -463,7 +463,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{infoAE.salariobasico}" id="editarSalarioBasicoAporte" style="border-radius: 0px; width: 98.5%;"> 
+                                            <p:inputText  autocomplete="off"   value="#{infoAE.salariobasico}" id="editarSalarioBasicoAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
                                                 <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 13)}" />
                                             </p:inputText>
@@ -485,7 +485,7 @@
                                                 <f:convertNumber pattern="#0.00" />
                                             </h:outputText>    </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{infoAE.ibc}" id="editarIBCAporte" style="border-radius: 0px; width: 98.5%;"> 
+                                            <p:inputText  autocomplete="off"   value="#{infoAE.ibc}" id="editarIBCAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
                                                 <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 14)}" />
                                             </p:inputText>
@@ -505,7 +505,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoAE.ibcreferencia}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{infoAE.ibcreferencia}" id="editarIBCReferenciaAporte" style="border-radius: 0px; width: 98.5%;"> 
+                                            <p:inputText  autocomplete="off"   value="#{infoAE.ibcreferencia}" id="editarIBCReferenciaAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
                                                 <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 15)}" />
                                             </p:inputText>
@@ -525,7 +525,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoAE.diascotizados}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{infoAE.diascotizados}" id="editarDiasCotizadosAporte" style="border-radius: 0px; width: 98.5%;"> 
+                                            <p:inputText  autocomplete="off"   value="#{infoAE.diascotizados}" id="editarDiasCotizadosAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
                                                 <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 16)}" />
                                             </p:inputText>
@@ -545,7 +545,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoAE.tipoaportante}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{infoAE.tipoaportante}" id="editarTipoAportanteAporte" style="border-radius: 0px; width: 98.5%;"> 
+                                            <p:inputText  autocomplete="off"   value="#{infoAE.tipoaportante}" id="editarTipoAportanteAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
                                                 <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 17)}" />
                                             </p:inputText>
@@ -791,7 +791,7 @@
                                                 <f:convertNumber pattern="#0.0000" />
                                             </h:outputText></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{infoAE.tarifaeps}" id="editarTarifaEPSAporte" style="border-radius: 0px; width: 98.5%;"> 
+                                            <p:inputText  autocomplete="off"   value="#{infoAE.tarifaeps}" id="editarTarifaEPSAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
                                                 <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 34)}" />
                                             </p:inputText>
@@ -813,7 +813,7 @@
                                                 <f:convertNumber pattern="#0.0000" />
                                             </h:outputText></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{infoAE.tarifaafp}" id="editarTarifaAAFPAporte" style="border-radius: 0px; width: 98.5%;"> 
+                                            <p:inputText  autocomplete="off"   value="#{infoAE.tarifaafp}" id="editarTarifaAAFPAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
                                                 <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 35)}" />
                                             </p:inputText>
@@ -835,7 +835,7 @@
                                                 <f:convertNumber pattern="#0.0000" />
                                             </h:outputText></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{infoAE.tarifactt}" id="editarTarifaACTTPAporte" style="border-radius: 0px; width: 98.5%;"> 
+                                            <p:inputText  autocomplete="off"   value="#{infoAE.tarifactt}" id="editarTarifaACTTPAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
                                                 <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 36)}" />
                                             </p:inputText>
@@ -855,7 +855,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoAE.codigoctt}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{infoAE.codigoctt}" id="editarCodigoCTTPAporte" style="border-radius: 0px; width: 98.5%;"> 
+                                            <p:inputText  autocomplete="off"   value="#{infoAE.codigoctt}" id="editarCodigoCTTPAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
                                                 <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 37)}" />
                                             </p:inputText>
@@ -875,7 +875,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoAE.avpevalor}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{infoAE.avpevalor}" id="editarAVPEValorAporte" style="border-radius: 0px; width: 98.5%;"> 
+                                            <p:inputText  autocomplete="off"   value="#{infoAE.avpevalor}" id="editarAVPEValorAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
                                                 <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 38)}" />
                                             </p:inputText>
@@ -895,7 +895,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoAE.avppvalor}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{infoAE.avppvalor}" id="editarAVPPValorAporte" style="border-radius: 0px; width: 98.5%;"> 
+                                            <p:inputText  autocomplete="off"   value="#{infoAE.avppvalor}" id="editarAVPPValorAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
                                                 <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 39)}" />
                                             </p:inputText>
@@ -915,7 +915,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoAE.retcontavpvalor}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{infoAE.retcontavpvalor}" id="editarRETCONTAValorAporte" style="border-radius: 0px; width: 98.5%;"> 
+                                            <p:inputText  autocomplete="off"   value="#{infoAE.retcontavpvalor}" id="editarRETCONTAValorAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
                                                 <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 40)}" />
                                             </p:inputText>
@@ -935,7 +935,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoAE.codigoneps}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{infoAE.codigoneps}" id="editarCodigoNEPSAporte" style="border-radius: 0px; width: 98.5%;"> 
+                                            <p:inputText  autocomplete="off"   value="#{infoAE.codigoneps}" id="editarCodigoNEPSAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
                                                 <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 41)}" />
                                             </p:inputText>
@@ -955,7 +955,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoAE.codigonafp}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{infoAE.codigonafp}" id="editarCodigoNAFPAporte" style="border-radius: 0px; width: 98.5%;"> 
+                                            <p:inputText  autocomplete="off"   value="#{infoAE.codigonafp}" id="editarCodigoNAFPAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
                                                 <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 42)}" />
                                             </p:inputText>
@@ -977,7 +977,7 @@
                                                 <f:convertNumber pattern="#0.000" />
                                             </h:outputText></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{infoAE.egvalor}" id="editarEGValorAporte" style="border-radius: 0px; width: 98.5%;"> 
+                                            <p:inputText  autocomplete="off"   value="#{infoAE.egvalor}" id="editarEGValorAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
                                                 <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 43)}" />
                                             </p:inputText>
@@ -997,7 +997,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoAE.egautorizacion}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{infoAE.egautorizacion}" id="editarEGAutorizacionAporte" style="border-radius: 0px; width: 98.5%;"> 
+                                            <p:inputText  autocomplete="off"   value="#{infoAE.egautorizacion}" id="editarEGAutorizacionAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
                                                 <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 44)}" />
                                             </p:inputText>
@@ -1019,7 +1019,7 @@
                                                 <f:convertNumber pattern="#0.000" />
                                             </h:outputText></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{infoAE.maternidadvalor}" id="editarMaternidadValorAporte" style="border-radius: 0px; width: 98.5%;"> 
+                                            <p:inputText  autocomplete="off"   value="#{infoAE.maternidadvalor}" id="editarMaternidadValorAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
                                                 <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 45)}" />
                                             </p:inputText>
@@ -1039,7 +1039,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoAE.maternidadautorizacion}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{infoAE.maternidadautorizacion}" id="editarMaternidadAutoAporte" style="border-radius: 0px; width: 98.5%;"> 
+                                            <p:inputText  autocomplete="off"   value="#{infoAE.maternidadautorizacion}" id="editarMaternidadAutoAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
                                                 <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 46)}" />
                                             </p:inputText>
@@ -1061,7 +1061,7 @@
                                                 <f:convertNumber pattern="#0.000" />
                                             </h:outputText></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{infoAE.upcvalor}" id="editarUPCValorAporte" style="border-radius: 0px; width: 98.5%;"> 
+                                            <p:inputText  autocomplete="off"   value="#{infoAE.upcvalor}" id="editarUPCValorAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
                                                 <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 47)}" />
                                             </p:inputText>
@@ -1081,7 +1081,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoAE.tipo}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{infoAE.tipo}" id="editarTipoAporte" style="border-radius: 0px; width: 98.5%;"> 
+                                            <p:inputText  autocomplete="off"   value="#{infoAE.tipo}" id="editarTipoAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
                                                 <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 48)}" />
                                             </p:inputText>
@@ -1101,7 +1101,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoAE.tipopensionado}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{infoAE.tipopensionado}" id="editarTipoPensionadoAporte" style="border-radius: 0px; width: 98.5%;"> 
+                                            <p:inputText  autocomplete="off"   value="#{infoAE.tipopensionado}" id="editarTipoPensionadoAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
                                                 <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 49)}" />
                                             </p:inputText>
@@ -1121,7 +1121,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoAE.pensioncompartida}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{infoAE.pensioncompartida}" id="editarPensionCompartidaAporte" style="border-radius: 0px; width: 98.5%;"> 
+                                            <p:inputText  autocomplete="off"   value="#{infoAE.pensioncompartida}" id="editarPensionCompartidaAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
                                                 <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 50)}" />
                                             </p:inputText>
@@ -1141,7 +1141,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoAE.extranjero}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{infoAE.extranjero}" id="editarExtranjeroAporte" style="border-radius: 0px; width: 98.5%;"> 
+                                            <p:inputText  autocomplete="off"   value="#{infoAE.extranjero}" id="editarExtranjeroAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
                                                 <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 51)}" />
                                             </p:inputText>
@@ -1165,7 +1165,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="editarFechaIngresoAporte" value="#{infoAE.fechaingreso}" >
+                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editarFechaIngresoAporte" value="#{infoAE.fechaingreso}" >
                                                 <p:ajax event="dateSelect" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="editarFechaIngresoAporte"/>
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this" />
                                                 <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 52)}" />
@@ -1216,7 +1216,7 @@
                                                 <f:convertNumber pattern="#0.000" />
                                             </h:outputText></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{infoAE.tarifacaja}" id="editarTarifaCajaAporte" style="border-radius: 0px; width: 98.5%;"> 
+                                            <p:inputText  autocomplete="off"   value="#{infoAE.tarifacaja}" id="editarTarifaCajaAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
                                                 <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 54)}" />
                                             </p:inputText>
@@ -1238,7 +1238,7 @@
                                                 <f:convertNumber pattern="#0.000" />
                                             </h:outputText></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{infoAE.tarifasena}" id="editarTarifaSenaAporte" style="border-radius: 0px; width: 98.5%;"> 
+                                            <p:inputText  autocomplete="off"   value="#{infoAE.tarifasena}" id="editarTarifaSenaAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
                                                 <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 55)}" />
                                             </p:inputText>
@@ -1261,7 +1261,7 @@
                                                 <f:convertNumber pattern="#0.000" />
                                             </h:outputText></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{infoAE.tarifaicbf}" id="editarTarifaICBFAporte" style="border-radius: 0px; width: 98.5%;"> 
+                                            <p:inputText  autocomplete="off"   value="#{infoAE.tarifaicbf}" id="editarTarifaICBFAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
                                                 <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 56)}" />
                                             </p:inputText>
@@ -1283,7 +1283,7 @@
                                                 <f:convertNumber pattern="#0.000" />
                                             </h:outputText></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{infoAE.tarifaesap}" id="editarTarifaESAPAporte" style="border-radius: 0px; width: 98.5%;"> 
+                                            <p:inputText  autocomplete="off"   value="#{infoAE.tarifaesap}" id="editarTarifaESAPAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
                                                 <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 57)}" />
                                             </p:inputText>
@@ -1305,7 +1305,7 @@
                                                 <f:convertNumber pattern="#0.000" />
                                             </h:outputText></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{infoAE.tarifamen}" id="editarTarifaMENAporte" style="border-radius: 0px; width: 98.5%;"> 
+                                            <p:inputText  autocomplete="off"   value="#{infoAE.tarifamen}" id="editarTarifaMENAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
                                                 <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 58)}" />
                                             </p:inputText>
@@ -1380,7 +1380,7 @@
                             <p:ajax event="filter" listener="#{controlParametroAutoliq.contarRegistroTiposTrabajadores()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarTT']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovTipoTrabajador').filter();" style="width: 150px; position: relative; left: 50px;" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovTipoTrabajador').filter();" style="width: 150px; position: relative; left: 50px;" />  
                             </f:facet>
 
                             <p:column filterBy="#{tipoT.nombre}"  filterMatchMode="contains" filterStyle="width: 85% !important">
@@ -1412,7 +1412,7 @@
                             <p:ajax event="filter" listener="#{controlParametroAutoliq.contarRegistroEmpresa()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarE']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovEmpresa').filter();" style="width:150px; position: relative; left: -40px;" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovEmpresa').filter();" style="width:150px; position: relative; left: -40px;" />  
                             </f:facet>
 
                             <p:column filterBy="#{empresa.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
@@ -1456,7 +1456,7 @@
                             <p:ajax event="filter" listener="#{controlParametroAutoliq.contarRegistroTiposEntidades()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarTE']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovTipoEntidad').filter();" style="width:150px; position: relative; left: 50px;" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovTipoEntidad').filter();" style="width:150px; position: relative; left: 50px;" />  
                             </f:facet>
 
                             <p:column filterBy="#{tipoE.nombre}"  filterMatchMode="contains" filterStyle="width: 85% !important">
@@ -1488,7 +1488,7 @@
                             <p:ajax event="filter" listener="#{controlParametroAutoliq.contarRegistroEmpleados()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarEMPL']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovEmpleado').filter();" style="width:150px; position: relative; left: 50px;" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovEmpleado').filter();" style="width:150px; position: relative; left: 50px;" />  
                             </f:facet>
 
                             <p:column filterBy="#{empleado.codigoempleado}" filterStyle="width: 85% !important" width="80" filterMatchMode="contains">
@@ -1527,7 +1527,7 @@
                             <p:ajax event="filter" listener="#{controlParametroAutoliq.contarRegistroTercero()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarT']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovTercero').filter();" style="width:200px; position: relative; left: -40px;" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovTercero').filter();" style="width:200px; position: relative; left: -40px;" />  
                             </f:facet>
 
                             <p:column filterBy="#{tercero.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
@@ -1571,7 +1571,7 @@
                             <p:ajax event="filter" listener="#{controlParametroAutoliq.contarRegistroAportesEntidades()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarBA']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovBuscarAporte').filter();" style="width:200px; position: relative; left: -40px;" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovBuscarAporte').filter();" style="width:200px; position: relative; left: -40px;" />  
                             </f:facet>
 
                             <p:column filterBy="#{buscarA.ano}" width="90" filterMatchMode="contains" filterStyle="width: 85% !important">
@@ -1743,7 +1743,7 @@
                         <p:panel id="nuevaParametro" style="border: none;">
 
                             <strong><h:outputText value="*#{msg['anoN']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaAnoParametro" value="#{controlParametroAutoliq.nuevoParametro.ano}" maxlength="4" style="width: 122px; position: absolute; left: 200px; top: 70px;">
+                            <p:inputText  autocomplete="off"  id="nuevaAnoParametro" value="#{controlParametroAutoliq.nuevoParametro.ano}" maxlength="4" style="width: 122px; position: absolute; left: 200px; top: 70px;">
                                 <p:ajax event="change" update="nuevaAnoParametro"/>
                             </p:inputText>
                             <p:watermark for="nuevaAnoParametro" value="#{msg['ano']}" />
@@ -1767,7 +1767,7 @@
                             </p:selectOneMenu>
 
                             <strong><h:outputText value="#{msg['tipoTrabajadorN']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaTipoTrabajadorParametro" value="#{controlParametroAutoliq.nuevoParametro.tipotrabajador.nombre}" style="width: 122px; position: absolute; left: 200px; top: 130px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="nuevaTipoTrabajadorParametro" value="#{controlParametroAutoliq.nuevoParametro.tipotrabajador.nombre}" style="width: 122px; position: absolute; left: 200px; top: 130px;text-transform: uppercase">
                                 <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndex(infoPA,1, 1)}"/>
                                 <p:ajax event="click" listener="#{controlParametroAutoliq.valoresBackupAutocompletar(1, 'TIPOTRABAJADOR')}" />
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.autocompletarNuevoyDuplicadoParametroAutoliq('TIPOTRABAJADOR', controlParametroAutoliq.nuevoParametro.tipotrabajador.nombre, 1)}" />
@@ -1777,7 +1777,7 @@
 
 
                             <strong><h:outputText value="*#{msg['empresaN']}" style="position: absolute; top: 165px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaEmpresaParametro" value="#{controlParametroAutoliq.nuevoParametro.empresa.nombre}" style="width: 122px; position: absolute; left: 200px; top: 160px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="nuevaEmpresaParametro" value="#{controlParametroAutoliq.nuevoParametro.empresa.nombre}" style="width: 122px; position: absolute; left: 200px; top: 160px;text-transform: uppercase">
                                 <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndex(infoPA,1, 2)}"/>
                                 <p:ajax event="click" listener="#{controlParametroAutoliq.valoresBackupAutocompletar(1, 'EMPRESA')}" />
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.autocompletarNuevoyDuplicadoParametroAutoliq('EMPRESA', controlParametroAutoliq.nuevoParametro.empresa.nombre, 1)}" />
@@ -1798,7 +1798,7 @@
                         <p:panel id="duplicarParametro" style="border: none;">
 
                             <strong><h:outputText value="*#{msg['anoN']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarAnoParametro" value="#{controlParametroAutoliq.duplicarParametro.ano}" maxlength="4" style="width: 122px; position: absolute; left: 200px; top: 70px;">
+                            <p:inputText  autocomplete="off"  id="duplicarAnoParametro" value="#{controlParametroAutoliq.duplicarParametro.ano}" maxlength="4" style="width: 122px; position: absolute; left: 200px; top: 70px;">
                                 <p:ajax event="change" update="duplicarAnoParametro"/>
                             </p:inputText>
                             <p:watermark for="duplicarAnoParametro" value="#{msg['ano']}" />
@@ -1822,7 +1822,7 @@
                             </p:selectOneMenu>
 
                             <strong><h:outputText value="#{msg['tipoTrabajadorN']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarTipoTrabajadorParametro" value="#{controlParametroAutoliq.duplicarParametro.tipotrabajador.nombre}" style="width: 122px; position: absolute; left: 200px; top: 130px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="duplicarTipoTrabajadorParametro" value="#{controlParametroAutoliq.duplicarParametro.tipotrabajador.nombre}" style="width: 122px; position: absolute; left: 200px; top: 130px;text-transform: uppercase">
                                 <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndex(infoPA,2,1)}"/>
                                 <p:ajax event="click" listener="#{controlParametroAutoliq.valoresBackupAutocompletar(1, 'TIPOTRABAJADOR')}" />
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.autocompletarNuevoyDuplicadoParametroAutoliq('TIPOTRABAJADOR', controlParametroAutoliq.duplicarParametro.tipotrabajador.nombre, 2)}" />
@@ -1831,7 +1831,7 @@
                             <p:watermark for="duplicarTipoTrabajadorParametro" value="#{msg['tipoTrabajador']}" />
 
                             <strong><h:outputText value="*#{msg['empresaN']}" style="position: absolute; top: 165px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarEmpresaParametro" value="#{controlParametroAutoliq.duplicarParametro.empresa.nombre}" style="width: 122px; position: absolute; left: 200px; top: 160px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="duplicarEmpresaParametro" value="#{controlParametroAutoliq.duplicarParametro.empresa.nombre}" style="width: 122px; position: absolute; left: 200px; top: 160px;text-transform: uppercase">
                                 <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndex(infoPA,2,1)}"/>
                                 <p:ajax event="click" listener="#{controlParametroAutoliq.valoresBackupAutocompletar(2, 'EMPRESA')}" />
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.autocompletarNuevoyDuplicadoParametroAutoliq('EMPRESA', controlParametroAutoliq.duplicarParametro.empresa.nombre, 2)}" />
@@ -1855,17 +1855,17 @@
 
 
                             <strong><h:outputText value="Año" style=" position: absolute; top: 25px; left: 40px;"/></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoanioaporte" value="#{controlParametroAutoliq.nuevoAporteEntidad.ano}" readonly="true"
+                            <p:inputText  autocomplete="off"  id="nuevoanioaporte" value="#{controlParametroAutoliq.nuevoAporteEntidad.ano}" readonly="true"
                                          style=" width: 122px; position: absolute; left: 200px; top: 20px; text-transform: uppercase" onclick="select();" >
                             </p:inputText>
 
                             <strong><h:outputText value="Mes" style=" position: absolute; top: 55px; left: 40px;"/></strong>
-                            <p:inputText  autocomplete="false"  id="nuevomesaporte" value="#{controlParametroAutoliq.nuevoAporteEntidad.mes}" readonly="true"
+                            <p:inputText  autocomplete="off"  id="nuevomesaporte" value="#{controlParametroAutoliq.nuevoAporteEntidad.mes}" readonly="true"
                                          style=" width: 122px; position: absolute; left: 200px; top: 50px; text-transform: uppercase" onclick="select();" >
                             </p:inputText>
 
                             <strong><h:outputText value="Código Empleado" style=" position: absolute; top: 85px; left: 40px;"/></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoCodempl" widgetVar="nuevoCodempl" value="#{controlParametroAutoliq.nuevoAporteEntidad.empleado.codigoempleado}"
+                            <p:inputText  autocomplete="off"  id="nuevoCodempl" widgetVar="nuevoCodempl" value="#{controlParametroAutoliq.nuevoAporteEntidad.empleado.codigoempleado}"
                                          style=" width: 122px; position: absolute; left: 200px; top: 80px; text-transform: uppercase">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE, 'EMPLEADO', infoAE.empleado.persona.nombreCompleto)}"/>
                                 <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 1, 1)}"/>
@@ -1875,7 +1875,7 @@
                                              height: 23px; position: absolute; left: 331px; top: 80px;  " id="btnNuevoemp" actionListener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 1, 1)}" value="" process="@this" />
 
                             <strong><h:outputText value="Nombre Empleado" style=" position: absolute; top: 115px; left: 40px"/></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoNomEmpl" value="#{controlParametroAutoliq.nuevoAporteEntidad.empleado.persona.nombreCompleto}" 
+                            <p:inputText  autocomplete="off"  id="nuevoNomEmpl" value="#{controlParametroAutoliq.nuevoAporteEntidad.empleado.persona.nombreCompleto}" 
                                          style=" width: 122px; position: absolute; left: 200px; top: 110px; text-transform: uppercase" onclick="select();">
                                 <!--                                <p:ajax event="change" listener="#/{controlParametroAutoliq.modificarAporteEntidad(infoAE, 'EMPLEADO', infoAE.empleado.persona.nombreCompleto)}"/>
                                                                 <p:ajax event="dblclick" listener="#/{controlParametroAutoliq.asignarIndexAporte(infoAE, 1, 1)}"/>
@@ -1885,7 +1885,7 @@
                                                                          height: 23px; position: absolute; left: 331px; top: 110px;  " id="btnNuevoemp" actionListener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 1, 1)}" value="" process="@this" />-->
 
                             <strong><h:outputText value="NIT Tercero" style=" position: absolute; top: 145px; left: 40px"/></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoNitTercero" value="#{controlParametroAutoliq.nuevoAporteEntidad.terceroRegistro.nit}" 
+                            <p:inputText  autocomplete="off"  id="nuevoNitTercero" value="#{controlParametroAutoliq.nuevoAporteEntidad.terceroRegistro.nit}" 
                                          style=" width: 122px; position: absolute; left: 200px; top: 140px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE, 'TERCERO', infoAE.terceroRegistro.nit)}"/>
                                 <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 1, 2)}"/>
@@ -1895,12 +1895,12 @@
                                              height: 23px; position: absolute; left: 331px; top: 140px;  " id="btnNuevonit" actionListener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 1, 2)}" value="" process="@this" />
 
                             <strong><h:outputText value="Nombre Tercero" style=" position: absolute; top: 175px; left: 40px;"/></strong>
-                            <p:inputText  autocomplete="false"  id="nuevonombretercero" value="#{controlParametroAutoliq.nuevoAporteEntidad.terceroRegistro.nombre}" 
+                            <p:inputText  autocomplete="off"  id="nuevonombretercero" value="#{controlParametroAutoliq.nuevoAporteEntidad.terceroRegistro.nombre}" 
                                          style=" width: 122px; position: absolute; left: 200px; top: 170px; text-transform: uppercase" onclick="select();" >
                             </p:inputText>
 
                             <strong><h:outputText value="Tipo Entidad" style=" position: absolute; top: 205px; left: 40px"/></strong>
-                            <p:inputText  autocomplete="false"  id="nuevotipoentidad" value="#{controlParametroAutoliq.nuevoAporteEntidad.tipoentidad.nombre}" 
+                            <p:inputText  autocomplete="off"  id="nuevotipoentidad" value="#{controlParametroAutoliq.nuevoAporteEntidad.tipoentidad.nombre}" 
                                          style=" width: 122px; position: absolute; left: 200px; top: 200px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE, 'TIPOENTIDAD', infoAE.tipoentidad.nombre)}"/>
                                 <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 1, 3)}"/>
@@ -1910,67 +1910,67 @@
                                              height: 23px; position: absolute; left: 331px; top: 200px;  " id="btnNuevotipoentidad" actionListener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 1, 3)}" value="" process="@this" />
 
                             <strong><h:outputText value="Aporte Empleado" style=" position: absolute; top: 235px; left: 40px;"/></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoaporteemp" value="#{controlParametroAutoliq.nuevoAporteEntidad.cotizacion1}" 
+                            <p:inputText  autocomplete="off"  id="nuevoaporteemp" value="#{controlParametroAutoliq.nuevoAporteEntidad.cotizacion1}" 
                                          style=" width: 122px; position: absolute; left: 200px; top: 230px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevoaporteemp"/>
                             </p:inputText>
 
                             <strong><h:outputText value="Aporte Empleador" style=" position: absolute; top: 265px; left: 40px;"/></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoaporteempleador" value="#{controlParametroAutoliq.nuevoAporteEntidad.cotizacion2}" 
+                            <p:inputText  autocomplete="off"  id="nuevoaporteempleador" value="#{controlParametroAutoliq.nuevoAporteEntidad.cotizacion2}" 
                                          style=" width: 122px; position: absolute; left: 200px; top: 260px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevoaporteempleador"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Ajuste Patronal" style=" position: absolute; top: 295px; left: 40px;"/></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoajustep" value="#{controlParametroAutoliq.nuevoAporteEntidad.cotizacion5}" 
+                            <p:inputText  autocomplete="off"  id="nuevoajustep" value="#{controlParametroAutoliq.nuevoAporteEntidad.cotizacion5}" 
                                          style=" width: 122px; position: absolute; left: 200px; top: 290px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevoajustep"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Solidaridad" style=" position: absolute; top: 325px; left: 40px;"/></strong>
-                            <p:inputText  autocomplete="false"  id="nuevosolidaridad" value="#{controlParametroAutoliq.nuevoAporteEntidad.novedad3}" 
+                            <p:inputText  autocomplete="off"  id="nuevosolidaridad" value="#{controlParametroAutoliq.nuevoAporteEntidad.novedad3}" 
                                          style=" width: 122px; position: absolute; left: 200px; top: 320px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevosolidaridad"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Subsistencia" style=" position: absolute; top: 355px; left: 40px;"/></strong>
-                            <p:inputText  autocomplete="false"  id="nuevosubs" value="#{controlParametroAutoliq.nuevoAporteEntidad.novedad4}" 
+                            <p:inputText  autocomplete="off"  id="nuevosubs" value="#{controlParametroAutoliq.nuevoAporteEntidad.novedad4}" 
                                          style=" width: 122px; position: absolute; left: 200px; top: 350px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevosubs"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Sub. Pensionados" style=" position: absolute; top: 385px; left: 40px;"/></strong>
-                            <p:inputText  autocomplete="false"  id="nuevosubsp" value="#{controlParametroAutoliq.nuevoAporteEntidad.novedad5}" 
+                            <p:inputText  autocomplete="off"  id="nuevosubsp" value="#{controlParametroAutoliq.nuevoAporteEntidad.novedad5}" 
                                          style=" width: 122px; position: absolute; left: 200px; top: 380px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevosubsp"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Salario Básico" style=" position: absolute; top: 415px; left: 40px;"/></strong>
-                            <p:inputText  autocomplete="false"  id="nuevosalbasico" value="#{controlParametroAutoliq.nuevoAporteEntidad.salariobasico}" 
+                            <p:inputText  autocomplete="off"  id="nuevosalbasico" value="#{controlParametroAutoliq.nuevoAporteEntidad.salariobasico}" 
                                          style=" width: 122px; position: absolute; left: 200px; top: 410px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevosalbasico"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="IBC" style=" position: absolute; top: 445px; left: 40px;"/></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoibc" value="#{controlParametroAutoliq.nuevoAporteEntidad.ibc}" 
+                            <p:inputText  autocomplete="off"  id="nuevoibc" value="#{controlParametroAutoliq.nuevoAporteEntidad.ibc}" 
                                          style=" width: 122px; position: absolute; left: 200px; top: 440px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevoibc"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="IBC Ref." style=" position: absolute; top: 475px; left: 40px;"/></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoibcref" value="#{controlParametroAutoliq.nuevoAporteEntidad.ibcreferencia}" 
+                            <p:inputText  autocomplete="off"  id="nuevoibcref" value="#{controlParametroAutoliq.nuevoAporteEntidad.ibcreferencia}" 
                                          style=" width: 122px; position: absolute; left: 200px; top: 470px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevoibcref"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Días Cotizados" style=" position: absolute; top: 505px; left: 40px;"/></strong>
-                            <p:inputText  autocomplete="false"  id="nuevodiascot" value="#{controlParametroAutoliq.nuevoAporteEntidad.diascotizados}" 
+                            <p:inputText  autocomplete="off"  id="nuevodiascot" value="#{controlParametroAutoliq.nuevoAporteEntidad.diascotizados}" 
                                          style=" width: 122px; position: absolute; left: 200px; top: 500px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevodiascot"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Tipo Aportante" style=" position: absolute; top: 535px; left: 40px;"/></strong>
-                            <p:inputText  autocomplete="false"  id="nuevotipoapor" value="#{controlParametroAutoliq.nuevoAporteEntidad.tipoaportante}" 
+                            <p:inputText  autocomplete="off"  id="nuevotipoapor" value="#{controlParametroAutoliq.nuevoAporteEntidad.tipoaportante}" 
                                          style=" width: 122px; position: absolute; left: 200px; top: 530px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevotipoapor"/>    
                             </p:inputText>
@@ -2057,13 +2057,13 @@
                             </p:selectBooleanCheckbox>  
 
                             <strong><h:outputText value="Tarifa EPS" style=" position: absolute; top: 750px; left: 40px"/></strong>
-                            <p:inputText  autocomplete="false"  id="nuevotarifaeps" value="#{controlParametroAutoliq.nuevoAporteEntidad.tarifaeps}" 
+                            <p:inputText  autocomplete="off"  id="nuevotarifaeps" value="#{controlParametroAutoliq.nuevoAporteEntidad.tarifaeps}" 
                                          style=" width: 122px; position: absolute; left: 200px; top: 745px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevotarifaeps"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Tarifa AFP" style=" position: absolute; top: 780px; left: 40px"/></strong>
-                            <p:inputText  autocomplete="false"  id="nuevotarifaafp" value="#{controlParametroAutoliq.nuevoAporteEntidad.tarifaafp}" 
+                            <p:inputText  autocomplete="off"  id="nuevotarifaafp" value="#{controlParametroAutoliq.nuevoAporteEntidad.tarifaafp}" 
                                          style=" width: 122px; position: absolute; left: 200px; top: 775px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevotarifaafp"/>    
                             </p:inputText>
@@ -2071,98 +2071,98 @@
 
 
                             <strong><h:outputText value="Tarifa CTT" style=" position: absolute; top: 25px; left: 450px"/></strong>
-                            <p:inputText  autocomplete="false"  id="nuevotarifactt" value="#{controlParametroAutoliq.nuevoAporteEntidad.tarifactt}" 
+                            <p:inputText  autocomplete="off"  id="nuevotarifactt" value="#{controlParametroAutoliq.nuevoAporteEntidad.tarifactt}" 
                                          style=" width: 122px; position: absolute; left: 600px; top: 20px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevotarifactt"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Código CTT" style=" position: absolute; top: 55px; left: 450px"/></strong>
-                            <p:inputText  autocomplete="false"  id="nuevocodigoctt" value="#{controlParametroAutoliq.nuevoAporteEntidad.codigoctt}" 
+                            <p:inputText  autocomplete="off"  id="nuevocodigoctt" value="#{controlParametroAutoliq.nuevoAporteEntidad.codigoctt}" 
                                          style=" width: 122px; position: absolute; left: 600px; top: 50px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevocodigoctt"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Valor AVPE" style=" position: absolute; top: 85px; left: 450px"/></strong>
-                            <p:inputText  autocomplete="false"  id="nuevovaloravpe" value="#{controlParametroAutoliq.nuevoAporteEntidad.avpevalor}" 
+                            <p:inputText  autocomplete="off"  id="nuevovaloravpe" value="#{controlParametroAutoliq.nuevoAporteEntidad.avpevalor}" 
                                          style=" width: 122px; position: absolute; left: 600px; top: 80px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevovaloravpe"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Valor AVPP" style=" position: absolute; top: 115px; left: 450px"/></strong>
-                            <p:inputText  autocomplete="false"  id="nuevovaloravpp" value="#{controlParametroAutoliq.nuevoAporteEntidad.avppvalor}" 
+                            <p:inputText  autocomplete="off"  id="nuevovaloravpp" value="#{controlParametroAutoliq.nuevoAporteEntidad.avppvalor}" 
                                          style=" width: 122px; position: absolute; left: 600px; top: 110px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevovaloravpe"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="RETCONTA" style=" position: absolute; top: 145px; left: 450px"/></strong>
-                            <p:inputText  autocomplete="false"  id="nuevovaloretconta" value="#{controlParametroAutoliq.nuevoAporteEntidad.retcontavpvalor}" 
+                            <p:inputText  autocomplete="off"  id="nuevovaloretconta" value="#{controlParametroAutoliq.nuevoAporteEntidad.retcontavpvalor}" 
                                          style=" width: 122px; position: absolute; left: 600px; top: 140px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevovaloretconta"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Código NEPS" style=" position: absolute; top: 175px; left: 450px"/></strong>
-                            <p:inputText  autocomplete="false"  id="nuevovalorneps" value="#{controlParametroAutoliq.nuevoAporteEntidad.codigoneps}" 
+                            <p:inputText  autocomplete="off"  id="nuevovalorneps" value="#{controlParametroAutoliq.nuevoAporteEntidad.codigoneps}" 
                                          style=" width: 122px; position: absolute; left: 600px; top: 170px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevovalorneps"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Código NAFP" style=" position: absolute; top: 205px; left: 450px"/></strong>
-                            <p:inputText  autocomplete="false"  id="nuevovalornafp" value="#{controlParametroAutoliq.nuevoAporteEntidad.codigonafp}" 
+                            <p:inputText  autocomplete="off"  id="nuevovalornafp" value="#{controlParametroAutoliq.nuevoAporteEntidad.codigonafp}" 
                                          style=" width: 122px; position: absolute; left: 600px; top: 200px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevovalornafp"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Valor EG" style=" position: absolute; top: 235px; left: 450px"/></strong>
-                            <p:inputText  autocomplete="false"  id="nuevovaloreg" value="#{controlParametroAutoliq.nuevoAporteEntidad.egvalor}" 
+                            <p:inputText  autocomplete="off"  id="nuevovaloreg" value="#{controlParametroAutoliq.nuevoAporteEntidad.egvalor}" 
                                          style=" width: 122px; position: absolute; left: 600px; top: 230px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevovaloreg"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Auto. EG" style=" position: absolute; top: 265px; left: 450px"/></strong>
-                            <p:inputText  autocomplete="false"  id="nuevovalorautoeg" value="#{controlParametroAutoliq.nuevoAporteEntidad.egautorizacion}" 
+                            <p:inputText  autocomplete="off"  id="nuevovalorautoeg" value="#{controlParametroAutoliq.nuevoAporteEntidad.egautorizacion}" 
                                          style=" width: 122px; position: absolute; left: 600px; top: 260px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevovalorautoeg"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Valor Maternidad" style=" position: absolute; top: 295px; left: 450px"/></strong>
-                            <p:inputText  autocomplete="false"  id="nuevovalorma" value="#{controlParametroAutoliq.nuevoAporteEntidad.maternidadvalor}" 
+                            <p:inputText  autocomplete="off"  id="nuevovalorma" value="#{controlParametroAutoliq.nuevoAporteEntidad.maternidadvalor}" 
                                          style=" width: 122px; position: absolute; left: 600px; top: 290px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevovalorma"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Auto. Maternidad" style=" position: absolute; top: 325px; left: 450px"/></strong>
-                            <p:inputText  autocomplete="false"  id="nuevovalorautoma" value="#{controlParametroAutoliq.nuevoAporteEntidad.maternidadautorizacion}" 
+                            <p:inputText  autocomplete="off"  id="nuevovalorautoma" value="#{controlParametroAutoliq.nuevoAporteEntidad.maternidadautorizacion}" 
                                          style=" width: 122px; position: absolute; left: 600px; top: 320px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevovalorautoma"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Valor UPC" style=" position: absolute; top: 355px; left: 450px"/></strong>
-                            <p:inputText  autocomplete="false"  id="nuevovalorupc" value="#{controlParametroAutoliq.nuevoAporteEntidad.upcvalor}" 
+                            <p:inputText  autocomplete="off"  id="nuevovalorupc" value="#{controlParametroAutoliq.nuevoAporteEntidad.upcvalor}" 
                                          style=" width: 122px; position: absolute; left: 600px; top: 350px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevovalorupc"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Tipo Empleado" style=" position: absolute; top: 385px; left: 450px"/></strong>
-                            <p:inputText  autocomplete="false"  id="nuevovalortipoemp" value="#{controlParametroAutoliq.nuevoAporteEntidad.tipo}" 
+                            <p:inputText  autocomplete="off"  id="nuevovalortipoemp" value="#{controlParametroAutoliq.nuevoAporteEntidad.tipo}" 
                                          style=" width: 122px; position: absolute; left: 600px; top: 380px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevovalortipoemp"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Tipo Pensionado" style=" position: absolute; top: 415px; left: 450px"/></strong>
-                            <p:inputText  autocomplete="false"  id="nuevovalortipopensionado" value="#{controlParametroAutoliq.nuevoAporteEntidad.tipopensionado}" 
+                            <p:inputText  autocomplete="off"  id="nuevovalortipopensionado" value="#{controlParametroAutoliq.nuevoAporteEntidad.tipopensionado}" 
                                          style=" width: 122px; position: absolute; left: 600px; top: 410px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevovalortipopensionado"/>    
                             </p:inputText>
 
 
                             <strong><h:outputText value="Pensión Compartida" style=" position: absolute; top: 445px; left: 450px"/></strong>
-                            <p:inputText  autocomplete="false"  id="nuevopensioncompartida" value="#{controlParametroAutoliq.nuevoAporteEntidad.pensioncompartida}" 
+                            <p:inputText  autocomplete="off"  id="nuevopensioncompartida" value="#{controlParametroAutoliq.nuevoAporteEntidad.pensioncompartida}" 
                                          style=" width: 122px; position: absolute; left: 600px; top: 440px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevopensioncompartida"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Extranjero" style=" position: absolute; top: 475px; left: 450px"/></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoextranjero" value="#{controlParametroAutoliq.nuevoAporteEntidad.extranjero}" 
+                            <p:inputText  autocomplete="off"  id="nuevoextranjero" value="#{controlParametroAutoliq.nuevoAporteEntidad.extranjero}" 
                                          style=" width: 122px; position: absolute; left: 600px; top: 470px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevoextranjero"/>    
                             </p:inputText>
@@ -2170,7 +2170,7 @@
 
                             <strong><h:outputText value="Fecha Ingreso" style="position: absolute; top: 505px; left: 450px;" /></strong>
                             <div id="nuevaFechaIngreso" style="position: absolute; top: 500px; left: 600px">
-                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaI" value="#{controlParametroAutoliq.nuevoAporteEntidad.fechaingreso}"  >
+                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaI" value="#{controlParametroAutoliq.nuevoAporteEntidad.fechaingreso}"  >
                                     <p:ajax event="dateSelect" update="nuevaFechaI" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaI" process="@this"/>
                                 </p:calendar>
@@ -2192,27 +2192,27 @@
                             </p:selectOneMenu>
 
                             <strong><h:outputText value="Tarifa Caja" style=" position: absolute; top: 565px; left: 450px"/></strong>
-                            <p:inputText  autocomplete="false"  id="nuevotarifacaja" value="#{controlParametroAutoliq.nuevoAporteEntidad.tarifacaja}" 
+                            <p:inputText  autocomplete="off"  id="nuevotarifacaja" value="#{controlParametroAutoliq.nuevoAporteEntidad.tarifacaja}" 
                                          style=" width: 122px; position: absolute; left: 600px; top: 560px; text-transform: uppercase" onclick="select();">
                             </p:inputText>
 
                             <strong><h:outputText value="Tarifa SENA" style=" position: absolute; top: 595px; left: 450px"/></strong>
-                            <p:inputText  autocomplete="false"  id="nuevotarifasena" value="#{controlParametroAutoliq.nuevoAporteEntidad.tarifasena}" 
+                            <p:inputText  autocomplete="off"  id="nuevotarifasena" value="#{controlParametroAutoliq.nuevoAporteEntidad.tarifasena}" 
                                          style=" width: 122px; position: absolute; left: 600px; top: 590px; text-transform: uppercase" onclick="select();">
                             </p:inputText>
 
                             <strong><h:outputText value="Tarifa ICBF" style=" position: absolute; top: 625px; left: 450px"/></strong>
-                            <p:inputText  autocomplete="false"  id="nuevotarifaicbf" value="#{controlParametroAutoliq.nuevoAporteEntidad.tarifaicbf}" 
+                            <p:inputText  autocomplete="off"  id="nuevotarifaicbf" value="#{controlParametroAutoliq.nuevoAporteEntidad.tarifaicbf}" 
                                          style=" width: 122px; position: absolute; left: 600px; top: 620px; text-transform: uppercase" onclick="select();">
                             </p:inputText>
 
                             <strong><h:outputText value="Tarifa ESAP" style=" position: absolute; top: 655px; left: 450px"/></strong>
-                            <p:inputText  autocomplete="false"  id="nuevotarifaesap" value="#{controlParametroAutoliq.nuevoAporteEntidad.tarifaesap}" 
+                            <p:inputText  autocomplete="off"  id="nuevotarifaesap" value="#{controlParametroAutoliq.nuevoAporteEntidad.tarifaesap}" 
                                          style=" width: 122px; position: absolute; left: 600px; top: 650px; text-transform: uppercase" onclick="select();">
                             </p:inputText>
 
                             <strong><h:outputText value="Tarifa MEN" style=" position: absolute; top: 685px; left: 450px"/></strong>
-                            <p:inputText  autocomplete="false"  id="nuevotarifamen" value="#{controlParametroAutoliq.nuevoAporteEntidad.tarifamen}" 
+                            <p:inputText  autocomplete="off"  id="nuevotarifamen" value="#{controlParametroAutoliq.nuevoAporteEntidad.tarifamen}" 
                                          style=" width: 122px; position: absolute; left: 600px; top: 680px; text-transform: uppercase" onclick="select();">
                             </p:inputText>
 
@@ -2234,17 +2234,17 @@
 
 
                             <strong><h:outputText value="Año" style=" position: absolute; top: 25px; left: 40px;"/></strong>
-                            <p:inputText  autocomplete="false"  id="duplicaranioaporte" value="#{controlParametroAutoliq.duplicarAporteEntidad.ano}" readonly="true"
+                            <p:inputText  autocomplete="off"  id="duplicaranioaporte" value="#{controlParametroAutoliq.duplicarAporteEntidad.ano}" readonly="true"
                                          style=" width: 122px; position: absolute; left: 200px; top: 20px; text-transform: uppercase" onclick="select();" >
                             </p:inputText>
 
                             <strong><h:outputText value="Mes" style=" position: absolute; top: 55px; left: 40px;"/></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarmesaporte" value="#{controlParametroAutoliq.duplicarAporteEntidad.mes}" readonly="true"
+                            <p:inputText  autocomplete="off"  id="duplicarmesaporte" value="#{controlParametroAutoliq.duplicarAporteEntidad.mes}" readonly="true"
                                          style=" width: 122px; position: absolute; left: 200px; top: 50px; text-transform: uppercase" onclick="select();" >
                             </p:inputText>
 
                             <strong><h:outputText value="Código Empleado" style=" position: absolute; top: 85px; left: 40px;"/></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarCodempl" widgetVar="duplicarCodempl" value="#{controlParametroAutoliq.duplicarAporteEntidad.empleado.codigoempleado}"
+                            <p:inputText  autocomplete="off"  id="duplicarCodempl" widgetVar="duplicarCodempl" value="#{controlParametroAutoliq.duplicarAporteEntidad.empleado.codigoempleado}"
                                          style=" width: 122px; position: absolute; left: 200px; top: 80px; text-transform: uppercase">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE, 'EMPLEADO', infoAE.empleado.persona.nombreCompleto)}"/>
                                 <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 2, 1)}"/>
@@ -2254,12 +2254,12 @@
                                              height: 23px; position: absolute; left: 331px; top: 80px;  " id="btnDuplicaremp" actionListener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 2, 1)}" value="" process="@this" />
 
                             <strong><h:outputText value="Nombre Empleado" style=" position: absolute; top: 115px; left: 40px"/></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarNomEmpl" value="#{controlParametroAutoliq.duplicarAporteEntidad.empleado.persona.nombreCompleto}" 
+                            <p:inputText  autocomplete="off"  id="duplicarNomEmpl" value="#{controlParametroAutoliq.duplicarAporteEntidad.empleado.persona.nombreCompleto}" 
                                          style=" width: 122px; position: absolute; left: 200px; top: 110px; text-transform: uppercase" onclick="select();">
                             </p:inputText>
 
                             <strong><h:outputText value="NIT Tercero" style=" position: absolute; top: 145px; left: 40px"/></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarNitTercero" value="#{controlParametroAutoliq.duplicarAporteEntidad.terceroRegistro.nit}" 
+                            <p:inputText  autocomplete="off"  id="duplicarNitTercero" value="#{controlParametroAutoliq.duplicarAporteEntidad.terceroRegistro.nit}" 
                                          style=" width: 122px; position: absolute; left: 200px; top: 140px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE, 'TERCERO', infoAE.terceroRegistro.nit)}"/>
                                 <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 2, 2)}"/>
@@ -2269,12 +2269,12 @@
                                              height: 23px; position: absolute; left: 331px; top: 140px;  " id="btnDuplicarnit" actionListener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 2, 2)}" value="" process="@this" />
 
                             <strong><h:outputText value="Nombre Tercero" style=" position: absolute; top: 175px; left: 40px;"/></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarnombretercero" value="#{controlParametroAutoliq.duplicarAporteEntidad.terceroRegistro.nombre}" 
+                            <p:inputText  autocomplete="off"  id="duplicarnombretercero" value="#{controlParametroAutoliq.duplicarAporteEntidad.terceroRegistro.nombre}" 
                                          style=" width: 122px; position: absolute; left: 200px; top: 170px; text-transform: uppercase" onclick="select();" >
                             </p:inputText>
 
                             <strong><h:outputText value="Tipo Entidad" style=" position: absolute; top: 205px; left: 40px"/></strong>
-                            <p:inputText  autocomplete="false"  id="duplicartipoentidad" value="#{controlParametroAutoliq.duplicarAporteEntidad.tipoentidad.nombre}" 
+                            <p:inputText  autocomplete="off"  id="duplicartipoentidad" value="#{controlParametroAutoliq.duplicarAporteEntidad.tipoentidad.nombre}" 
                                          style=" width: 122px; position: absolute; left: 200px; top: 200px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE, 'TIPOENTIDAD', infoAE.tipoentidad.nombre)}"/>
                                 <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 2, 3)}"/>
@@ -2284,67 +2284,67 @@
                                              height: 23px; position: absolute; left: 331px; top: 200px;  " id="btnDuplicartipoentidad" actionListener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 2, 3)}" value="" process="@this" />
 
                             <strong><h:outputText value="Aporte Empleado" style=" position: absolute; top: 235px; left: 40px;"/></strong>
-                            <p:inputText  autocomplete="false"  id="duplicaraporteemp" value="#{controlParametroAutoliq.duplicarAporteEntidad.cotizacion1}" 
+                            <p:inputText  autocomplete="off"  id="duplicaraporteemp" value="#{controlParametroAutoliq.duplicarAporteEntidad.cotizacion1}" 
                                          style=" width: 122px; position: absolute; left: 200px; top: 230px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicaraporteemp"/>
                             </p:inputText>
 
                             <strong><h:outputText value="Aporte Empleador" style=" position: absolute; top: 265px; left: 40px;"/></strong>
-                            <p:inputText  autocomplete="false"  id="duplicaraporteempleador" value="#{controlParametroAutoliq.duplicarAporteEntidad.cotizacion2}" 
+                            <p:inputText  autocomplete="off"  id="duplicaraporteempleador" value="#{controlParametroAutoliq.duplicarAporteEntidad.cotizacion2}" 
                                          style=" width: 122px; position: absolute; left: 200px; top: 260px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicaraporteempleador"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Ajuste Patronal" style=" position: absolute; top: 295px; left: 40px;"/></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarajustep" value="#{controlParametroAutoliq.duplicarAporteEntidad.cotizacion5}" 
+                            <p:inputText  autocomplete="off"  id="duplicarajustep" value="#{controlParametroAutoliq.duplicarAporteEntidad.cotizacion5}" 
                                          style=" width: 122px; position: absolute; left: 200px; top: 290px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicarajustep"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Solidaridad" style=" position: absolute; top: 325px; left: 40px;"/></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarsolidaridad" value="#{controlParametroAutoliq.duplicarAporteEntidad.novedad3}" 
+                            <p:inputText  autocomplete="off"  id="duplicarsolidaridad" value="#{controlParametroAutoliq.duplicarAporteEntidad.novedad3}" 
                                          style=" width: 122px; position: absolute; left: 200px; top: 320px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicarsolidaridad"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Subsistencia" style=" position: absolute; top: 355px; left: 40px;"/></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarsubs" value="#{controlParametroAutoliq.duplicarAporteEntidad.novedad4}" 
+                            <p:inputText  autocomplete="off"  id="duplicarsubs" value="#{controlParametroAutoliq.duplicarAporteEntidad.novedad4}" 
                                          style=" width: 122px; position: absolute; left: 200px; top: 350px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicarsubs"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Sub. Pensionados" style=" position: absolute; top: 385px; left: 40px;"/></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarsubsp" value="#{controlParametroAutoliq.duplicarAporteEntidad.novedad5}" 
+                            <p:inputText  autocomplete="off"  id="duplicarsubsp" value="#{controlParametroAutoliq.duplicarAporteEntidad.novedad5}" 
                                          style=" width: 122px; position: absolute; left: 200px; top: 380px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicarsubsp"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Salario Básico" style=" position: absolute; top: 415px; left: 40px;"/></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarsalbasico" value="#{controlParametroAutoliq.duplicarAporteEntidad.salariobasico}" 
+                            <p:inputText  autocomplete="off"  id="duplicarsalbasico" value="#{controlParametroAutoliq.duplicarAporteEntidad.salariobasico}" 
                                          style=" width: 122px; position: absolute; left: 200px; top: 410px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicarsalbasico"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="IBC" style=" position: absolute; top: 445px; left: 40px;"/></strong>
-                            <p:inputText  autocomplete="false"  id="duplicaribc" value="#{controlParametroAutoliq.duplicarAporteEntidad.ibc}" 
+                            <p:inputText  autocomplete="off"  id="duplicaribc" value="#{controlParametroAutoliq.duplicarAporteEntidad.ibc}" 
                                          style=" width: 122px; position: absolute; left: 200px; top: 440px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicaribc"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="IBC Ref." style=" position: absolute; top: 475px; left: 40px;"/></strong>
-                            <p:inputText  autocomplete="false"  id="duplicaribcref" value="#{controlParametroAutoliq.duplicarAporteEntidad.ibcreferencia}" 
+                            <p:inputText  autocomplete="off"  id="duplicaribcref" value="#{controlParametroAutoliq.duplicarAporteEntidad.ibcreferencia}" 
                                          style=" width: 122px; position: absolute; left: 200px; top: 470px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicaribcref"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Días Cotizados" style=" position: absolute; top: 505px; left: 40px;"/></strong>
-                            <p:inputText  autocomplete="false"  id="duplicardiascot" value="#{controlParametroAutoliq.duplicarAporteEntidad.diascotizados}" 
+                            <p:inputText  autocomplete="off"  id="duplicardiascot" value="#{controlParametroAutoliq.duplicarAporteEntidad.diascotizados}" 
                                          style=" width: 122px; position: absolute; left: 200px; top: 500px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicardiascot"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Tipo Aportante" style=" position: absolute; top: 535px; left: 40px;"/></strong>
-                            <p:inputText  autocomplete="false"  id="duplicartipoapor" value="#{controlParametroAutoliq.duplicarAporteEntidad.tipoaportante}" 
+                            <p:inputText  autocomplete="off"  id="duplicartipoapor" value="#{controlParametroAutoliq.duplicarAporteEntidad.tipoaportante}" 
                                          style=" width: 122px; position: absolute; left: 200px; top: 530px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicartipoapor"/>    
                             </p:inputText>
@@ -2431,13 +2431,13 @@
                             </p:selectBooleanCheckbox>  
 
                             <strong><h:outputText value="Tarifa EPS" style=" position: absolute; top: 750px; left: 40px"/></strong>
-                            <p:inputText  autocomplete="false"  id="duplicartarifaeps" value="#{controlParametroAutoliq.duplicarAporteEntidad.tarifaeps}" 
+                            <p:inputText  autocomplete="off"  id="duplicartarifaeps" value="#{controlParametroAutoliq.duplicarAporteEntidad.tarifaeps}" 
                                          style=" width: 122px; position: absolute; left: 200px; top: 745px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicartarifaeps"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Tarifa AFP" style=" position: absolute; top: 780px; left: 40px"/></strong>
-                            <p:inputText  autocomplete="false"  id="duplicartarifaafp" value="#{controlParametroAutoliq.duplicarAporteEntidad.tarifaafp}" 
+                            <p:inputText  autocomplete="off"  id="duplicartarifaafp" value="#{controlParametroAutoliq.duplicarAporteEntidad.tarifaafp}" 
                                          style=" width: 122px; position: absolute; left: 200px; top: 775px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicartarifaafp"/>    
                             </p:inputText>
@@ -2445,98 +2445,98 @@
 
 
                             <strong><h:outputText value="Tarifa CTT" style=" position: absolute; top: 25px; left: 450px"/></strong>
-                            <p:inputText  autocomplete="false"  id="duplicartarifactt" value="#{controlParametroAutoliq.duplicarAporteEntidad.tarifactt}" 
+                            <p:inputText  autocomplete="off"  id="duplicartarifactt" value="#{controlParametroAutoliq.duplicarAporteEntidad.tarifactt}" 
                                          style=" width: 122px; position: absolute; left: 600px; top: 20px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicartarifactt"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Código CTT" style=" position: absolute; top: 55px; left: 450px"/></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarcodigoctt" value="#{controlParametroAutoliq.duplicarAporteEntidad.codigoctt}" 
+                            <p:inputText  autocomplete="off"  id="duplicarcodigoctt" value="#{controlParametroAutoliq.duplicarAporteEntidad.codigoctt}" 
                                          style=" width: 122px; position: absolute; left: 600px; top: 50px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicarcodigoctt"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Valor AVPE" style=" position: absolute; top: 85px; left: 450px"/></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarvaloravpe" value="#{controlParametroAutoliq.duplicarAporteEntidad.avpevalor}" 
+                            <p:inputText  autocomplete="off"  id="duplicarvaloravpe" value="#{controlParametroAutoliq.duplicarAporteEntidad.avpevalor}" 
                                          style=" width: 122px; position: absolute; left: 600px; top: 80px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicarvaloravpe"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Valor AVPP" style=" position: absolute; top: 115px; left: 450px"/></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarvaloravpp" value="#{controlParametroAutoliq.duplicarAporteEntidad.avppvalor}" 
+                            <p:inputText  autocomplete="off"  id="duplicarvaloravpp" value="#{controlParametroAutoliq.duplicarAporteEntidad.avppvalor}" 
                                          style=" width: 122px; position: absolute; left: 600px; top: 110px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicarvaloravpe"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="RETCONTA" style=" position: absolute; top: 145px; left: 450px"/></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarvaloretconta" value="#{controlParametroAutoliq.duplicarAporteEntidad.retcontavpvalor}" 
+                            <p:inputText  autocomplete="off"  id="duplicarvaloretconta" value="#{controlParametroAutoliq.duplicarAporteEntidad.retcontavpvalor}" 
                                          style=" width: 122px; position: absolute; left: 600px; top: 140px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicarvaloretconta"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Código NEPS" style=" position: absolute; top: 175px; left: 450px"/></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarvalorneps" value="#{controlParametroAutoliq.duplicarAporteEntidad.codigoneps}" 
+                            <p:inputText  autocomplete="off"  id="duplicarvalorneps" value="#{controlParametroAutoliq.duplicarAporteEntidad.codigoneps}" 
                                          style=" width: 122px; position: absolute; left: 600px; top: 170px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicarvalorneps"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Código NAFP" style=" position: absolute; top: 205px; left: 450px"/></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarvalornafp" value="#{controlParametroAutoliq.duplicarAporteEntidad.codigonafp}" 
+                            <p:inputText  autocomplete="off"  id="duplicarvalornafp" value="#{controlParametroAutoliq.duplicarAporteEntidad.codigonafp}" 
                                          style=" width: 122px; position: absolute; left: 600px; top: 200px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicarvalornafp"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Valor EG" style=" position: absolute; top: 235px; left: 450px"/></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarvaloreg" value="#{controlParametroAutoliq.duplicarAporteEntidad.egvalor}" 
+                            <p:inputText  autocomplete="off"  id="duplicarvaloreg" value="#{controlParametroAutoliq.duplicarAporteEntidad.egvalor}" 
                                          style=" width: 122px; position: absolute; left: 600px; top: 230px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicarvaloreg"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Auto. EG" style=" position: absolute; top: 265px; left: 450px"/></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarvalorautoeg" value="#{controlParametroAutoliq.duplicarAporteEntidad.egautorizacion}" 
+                            <p:inputText  autocomplete="off"  id="duplicarvalorautoeg" value="#{controlParametroAutoliq.duplicarAporteEntidad.egautorizacion}" 
                                          style=" width: 122px; position: absolute; left: 600px; top: 260px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicarvalorautoeg"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Valor Maternidad" style=" position: absolute; top: 295px; left: 450px"/></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarvalorma" value="#{controlParametroAutoliq.duplicarAporteEntidad.maternidadvalor}" 
+                            <p:inputText  autocomplete="off"  id="duplicarvalorma" value="#{controlParametroAutoliq.duplicarAporteEntidad.maternidadvalor}" 
                                          style=" width: 122px; position: absolute; left: 600px; top: 290px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicarvalorma"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Auto. Maternidad" style=" position: absolute; top: 325px; left: 450px"/></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarvalorautoma" value="#{controlParametroAutoliq.duplicarAporteEntidad.maternidadautorizacion}" 
+                            <p:inputText  autocomplete="off"  id="duplicarvalorautoma" value="#{controlParametroAutoliq.duplicarAporteEntidad.maternidadautorizacion}" 
                                          style=" width: 122px; position: absolute; left: 600px; top: 320px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicarvalorautoma"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Valor UPC" style=" position: absolute; top: 355px; left: 450px"/></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarvalorupc" value="#{controlParametroAutoliq.duplicarAporteEntidad.upcvalor}" 
+                            <p:inputText  autocomplete="off"  id="duplicarvalorupc" value="#{controlParametroAutoliq.duplicarAporteEntidad.upcvalor}" 
                                          style=" width: 122px; position: absolute; left: 600px; top: 350px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicarvalorupc"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Tipo Empleado" style=" position: absolute; top: 385px; left: 450px"/></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarvalortipoemp" value="#{controlParametroAutoliq.duplicarAporteEntidad.tipo}" 
+                            <p:inputText  autocomplete="off"  id="duplicarvalortipoemp" value="#{controlParametroAutoliq.duplicarAporteEntidad.tipo}" 
                                          style=" width: 122px; position: absolute; left: 600px; top: 380px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicarvalortipoemp"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Tipo Pensionado" style=" position: absolute; top: 415px; left: 450px"/></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarvalortipopensionado" value="#{controlParametroAutoliq.duplicarAporteEntidad.tipopensionado}" 
+                            <p:inputText  autocomplete="off"  id="duplicarvalortipopensionado" value="#{controlParametroAutoliq.duplicarAporteEntidad.tipopensionado}" 
                                          style=" width: 122px; position: absolute; left: 600px; top: 410px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicarvalortipopensionado"/>    
                             </p:inputText>
 
 
                             <strong><h:outputText value="Pensión Compartida" style=" position: absolute; top: 445px; left: 450px"/></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarpensioncompartida" value="#{controlParametroAutoliq.duplicarAporteEntidad.pensioncompartida}" 
+                            <p:inputText  autocomplete="off"  id="duplicarpensioncompartida" value="#{controlParametroAutoliq.duplicarAporteEntidad.pensioncompartida}" 
                                          style=" width: 122px; position: absolute; left: 600px; top: 440px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicarpensioncompartida"/>    
                             </p:inputText>
 
                             <strong><h:outputText value="Extranjero" style=" position: absolute; top: 475px; left: 450px"/></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarextranjero" value="#{controlParametroAutoliq.duplicarAporteEntidad.extranjero}" 
+                            <p:inputText  autocomplete="off"  id="duplicarextranjero" value="#{controlParametroAutoliq.duplicarAporteEntidad.extranjero}" 
                                          style=" width: 122px; position: absolute; left: 600px; top: 470px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="duplicarextranjero"/>    
                             </p:inputText>
@@ -2544,7 +2544,7 @@
 
                             <strong><h:outputText value="Fecha Ingreso" style="position: absolute; top: 505px; left: 450px;" /></strong>
                             <div id="duplicarFechaIngreso" style="position: absolute; top: 500px; left: 600px">
-                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaI" value="#{controlParametroAutoliq.duplicarAporteEntidad.fechaingreso}"  >
+                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaI" value="#{controlParametroAutoliq.duplicarAporteEntidad.fechaingreso}"  >
                                     <p:ajax event="dateSelect" update="duplicarFechaI" process="@this"/>
                                     <p:ajax event="change" update="duplicarFechaI" process="@this"/>
                                 </p:calendar>
@@ -2566,27 +2566,27 @@
                             </p:selectOneMenu>
 
                             <strong><h:outputText value="Tarifa Caja" style=" position: absolute; top: 565px; left: 450px"/></strong>
-                            <p:inputText  autocomplete="false"  id="duplicartarifacaja" value="#{controlParametroAutoliq.duplicarAporteEntidad.tarifacaja}" 
+                            <p:inputText  autocomplete="off"  id="duplicartarifacaja" value="#{controlParametroAutoliq.duplicarAporteEntidad.tarifacaja}" 
                                          style=" width: 122px; position: absolute; left: 600px; top: 560px; text-transform: uppercase" onclick="select();">
                             </p:inputText>
 
                             <strong><h:outputText value="Tarifa SENA" style=" position: absolute; top: 595px; left: 450px"/></strong>
-                            <p:inputText  autocomplete="false"  id="duplicartarifasena" value="#{controlParametroAutoliq.duplicarAporteEntidad.tarifasena}" 
+                            <p:inputText  autocomplete="off"  id="duplicartarifasena" value="#{controlParametroAutoliq.duplicarAporteEntidad.tarifasena}" 
                                          style=" width: 122px; position: absolute; left: 600px; top: 590px; text-transform: uppercase" onclick="select();">
                             </p:inputText>
 
                             <strong><h:outputText value="Tarifa ICBF" style=" position: absolute; top: 625px; left: 450px"/></strong>
-                            <p:inputText  autocomplete="false"  id="duplicartarifaicbf" value="#{controlParametroAutoliq.duplicarAporteEntidad.tarifaicbf}" 
+                            <p:inputText  autocomplete="off"  id="duplicartarifaicbf" value="#{controlParametroAutoliq.duplicarAporteEntidad.tarifaicbf}" 
                                          style=" width: 122px; position: absolute; left: 600px; top: 620px; text-transform: uppercase" onclick="select();">
                             </p:inputText>
 
                             <strong><h:outputText value="Tarifa ESAP" style=" position: absolute; top: 655px; left: 450px"/></strong>
-                            <p:inputText  autocomplete="false"  id="duplicartarifaesap" value="#{controlParametroAutoliq.duplicarAporteEntidad.tarifaesap}" 
+                            <p:inputText  autocomplete="off"  id="duplicartarifaesap" value="#{controlParametroAutoliq.duplicarAporteEntidad.tarifaesap}" 
                                          style=" width: 122px; position: absolute; left: 600px; top: 650px; text-transform: uppercase" onclick="select();">
                             </p:inputText>
 
                             <strong><h:outputText value="Tarifa MEN" style=" position: absolute; top: 685px; left: 450px"/></strong>
-                            <p:inputText  autocomplete="false"  id="duplicartarifamen" value="#{controlParametroAutoliq.duplicarAporteEntidad.tarifamen}" 
+                            <p:inputText  autocomplete="off"  id="duplicartarifamen" value="#{controlParametroAutoliq.duplicarAporteEntidad.tarifamen}" 
                                          style=" width: 122px; position: absolute; left: 600px; top: 680px; text-transform: uppercase" onclick="select();">
                             </p:inputText>
 

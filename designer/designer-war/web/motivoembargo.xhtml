@@ -26,7 +26,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.codigo}" id="editarCodigo" style=" font-size: 10px; border-radius: 0px; width: 400px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"  value="#{info.codigo}" id="editarCodigo" style=" font-size: 10px; border-radius: 0px; width: 400px; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlMotivosEmbargos.cambiarIndice(indice, 0)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlMotivosEmbargos.modificandoMotivoEmbargo(indice, 'N', info.codigo)}"  update="codigo"/>
                                             </p:inputText>
@@ -41,7 +41,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase; width: 99%" value="#{info.nombre}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.nombre}" id="editarNombre" style=" font-size: 10px; border-radius: 0px; width: 99%; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"  value="#{info.nombre}" id="editarNombre" style=" font-size: 10px; border-radius: 0px; width: 99%; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlMotivosEmbargos.cambiarIndice(indice, 1)}" process="@this"/> 
                                                 <p:ajax event="change"  listener="#{controlMotivosEmbargos.modificandoMotivoEmbargo(indice, 'N', info.nombre)}" update="descripcion"/>
                                             </p:inputText>
@@ -215,13 +215,13 @@
                         <p:panel id="nuevaTipoReemplazo" style="border: none;">
 
                             <strong><h:outputText value="Código: "  style="font-size: 12px; position: absolute; top: 60px;text-transform: uppercase" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoCodigo" value="#{controlMotivosEmbargos.nuevoMotivoEmbargo.codigo}" style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 55px;">
+                            <p:inputText  autocomplete="off"  id="nuevoCodigo" value="#{controlMotivosEmbargos.nuevoMotivoEmbargo.codigo}" style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 55px;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoCodigo" value="Código" />
 
                             <strong><h:outputText value="Nombre: "  style="font-size: 12px; position: absolute; top: 110px;text-transform: uppercase" /></strong>
-                            <p:inputText  autocomplete="false"   id="nuevoNombre" value="#{controlMotivosEmbargos.nuevoMotivoEmbargo.nombre}" style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 105px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"   id="nuevoNombre" value="#{controlMotivosEmbargos.nuevoMotivoEmbargo.nombre}" style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 105px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoNombre" value="Nombre " />
@@ -239,13 +239,13 @@
 
                         <p:panel id="duplicarTTR" style="border: none;">
                             <strong><h:outputText value="código "  style="font-size: 12px; position: absolute; top: 60px;text-transform: uppercase" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarCodigo" value="#{controlMotivosEmbargos.duplicarMotivoEmbargo.codigo}" style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 55px;">
+                            <p:inputText  autocomplete="off"  id="duplicarCodigo" value="#{controlMotivosEmbargos.duplicarMotivoEmbargo.codigo}" style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 55px;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarCodigo" value="Código" />
 
                             <strong><h:outputText value="Nombre:"  style="font-size: 12px; position: absolute; top: 110px;text-transform: uppercase" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarNombre" value="#{controlMotivosEmbargos.duplicarMotivoEmbargo.nombre}"  style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 105px;" >
+                            <p:inputText  autocomplete="off"  id="duplicarNombre" value="#{controlMotivosEmbargos.duplicarMotivoEmbargo.nombre}"  style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 105px;" >
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarNombre" value="Nombre" />

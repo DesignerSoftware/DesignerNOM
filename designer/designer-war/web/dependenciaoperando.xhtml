@@ -30,7 +30,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{tf.codigo}" /></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="false"  value="#{tf.codigo}" id="editarCodigo" style="font-size: 10px; border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                 <p:inputText  autocomplete="off"  value="#{tf.codigo}" id="editarCodigo" style="font-size: 10px; border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                     <p:ajax event="change" listener="#{controlDependenciaOperando.modificarDependenciasOperandos(indice, 'OPERANDO', tf.codigo)}"/>
                                     <p:ajax event="select" listener="#{controlDependenciaOperando.cambiarIndice(indice, 0)}" process="@this"/>
                                     <p:ajax event="dblclick" listener="#{controlDependenciaOperando.asignarIndex(indice, 0, 0)}"/>
@@ -50,7 +50,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="false"  readonly="true" value="#{tf.descripcion}" id="editarNombre" style="font-size: 10px; border-radius: 0px; width: 99.5%; text-transform: uppercase"> 
+                                 <p:inputText  autocomplete="off"  readonly="true" value="#{tf.descripcion}" id="editarNombre" style="font-size: 10px; border-radius: 0px; width: 99.5%; text-transform: uppercase"> 
                                     <p:ajax event="select" listener="#{controlDependenciaOperando.cambiarIndice(indice, 1)}" process="@this" />
                                     <p:ajax event="change" listener="#{controlDependenciaOperando.modificarDependenciasOperandos(indice, 'N', tf.descripcion)}" update="@this" />
                                  </p:inputText> 
@@ -69,7 +69,7 @@
                                  </h:outputText>
                               </f:facet>
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="false"  value="#{tf.consecutivo}" id="editarConsecutivo" style="font-size: 10px; border-radius: 0px; width: 99.5%; text-transform: uppercase"> 
+                                 <p:inputText  autocomplete="off"  value="#{tf.consecutivo}" id="editarConsecutivo" style="font-size: 10px; border-radius: 0px; width: 99.5%; text-transform: uppercase"> 
                                     <p:ajax event="select" listener="#{controlDependenciaOperando.cambiarIndice(indice, 2)}" process="@this" />
                                     <p:ajax event="change" listener="#{controlDependenciaOperando.modificarDependenciasOperandos(indice, 'N', tf.consecutivo)}" update="@this" />
                                  </p:inputText> 
@@ -170,7 +170,7 @@
                      <p:ajax event="rowDblselect" listener="#{controlDependenciaOperando.actualizarOperando()}" process="@this" />
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarO']}"  style="position: absolute; left: 27px; top: 15px;"/>  
-                        <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('LOVOperandos').filter();" style="width: 200px; position: relative; left: 60px;" />  
+                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVOperandos').filter();" style="width: 200px; position: relative; left: 60px;" />  
                      </f:facet>
 
                      <p:column sortBy="#{operandos.codigo}" filterBy="#{operandos.codigo}" width="5" filterMatchMode="contains" filterStyle="width:40px;" > 
@@ -211,7 +211,7 @@
                   <p:panel id="nuevoDependenciaOperando" style="border: none;">
 
                      <strong><h:outputText value="#{msg['codigoN']}" style="font-size: 12px; position: absolute; top: 65px;" /></strong>
-                     <p:inputText  autocomplete="false"  id="nuevoCodigo" value="#{controlDependenciaOperando.nuevoDependenciaOperando.codigo}" style="font-size: 12px; width: 122px; position: absolute; left: 180px; top: 65px; text-transform: uppercase" onclick="select();">
+                     <p:inputText  autocomplete="off"  id="nuevoCodigo" value="#{controlDependenciaOperando.nuevoDependenciaOperando.codigo}" style="font-size: 12px; width: 122px; position: absolute; left: 180px; top: 65px; text-transform: uppercase" onclick="select();">
                         <p:ajax event="click" listener="#{controlDependenciaOperando.valoresBackupAutocompletar(1, 'OPERANDO')}" />
                         <p:ajax event="change" listener="#{controlDependenciaOperando.autocompletarNuevoyDuplicado('OPERANDO', controlDependenciaOperando.nuevoDependenciaOperando.codigo, 1)}" />
                         <p:ajax event="dblclick" listener="#{controlDependenciaOperando.asignarIndex(indice, 0, 1)}" />
@@ -219,12 +219,12 @@
                      <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 311px; top: 65px;  " id="btnNuevoOperando" actionListener="#{controlDependenciaOperando.asignarIndex(indice, 0, 1)}" icon="ui-icon-search" process="@this" />
 
                      <strong><h:outputText value="#{msg['nombreN']}" style="font-size: 12px; position: absolute; top: 105px;" /></strong>
-                     <p:inputText  autocomplete="false"  readonly="true" id="nuevoNombre" value="#{controlDependenciaOperando.nuevoDependenciaOperando.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 180px; top: 105px; text-transform: uppercase" >
+                     <p:inputText  autocomplete="off"  readonly="true" id="nuevoNombre" value="#{controlDependenciaOperando.nuevoDependenciaOperando.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 180px; top: 105px; text-transform: uppercase" >
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
 
                      <strong><h:outputText value="#{msg['consecutivoN']}" style="font-size: 12px; position: absolute; top: 145px;" /></strong>
-                     <p:inputText  autocomplete="false"  id="nuevoConsecutivo" value="#{controlDependenciaOperando.nuevoDependenciaOperando.consecutivo}" style="font-size: 12px; width: 122px; position: absolute; left: 180px; top: 145px; text-transform: uppercase" >
+                     <p:inputText  autocomplete="off"  id="nuevoConsecutivo" value="#{controlDependenciaOperando.nuevoDependenciaOperando.consecutivo}" style="font-size: 12px; width: 122px; position: absolute; left: 180px; top: 145px; text-transform: uppercase" >
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
 
@@ -243,7 +243,7 @@
                   <p:panel id="duplicarDependenciaOperando" style="border: none;">
 
                      <strong><h:outputText value="#{msg['codigoN']}" style="font-size: 12px; position: absolute; top: 65px;" /></strong>
-                     <p:inputText  autocomplete="false"  id="duplicarCodigo" value="#{controlDependenciaOperando.duplicarDependenciaOperando.codigo}" style="font-size: 12px; width: 122px; position: absolute; left: 180px; top: 65px; text-transform: uppercase" onclick="select();">
+                     <p:inputText  autocomplete="off"  id="duplicarCodigo" value="#{controlDependenciaOperando.duplicarDependenciaOperando.codigo}" style="font-size: 12px; width: 122px; position: absolute; left: 180px; top: 65px; text-transform: uppercase" onclick="select();">
                         <p:ajax event="click" listener="#{controlDependenciaOperando.valoresBackupAutocompletar(2, 'OPERANDO')}" />
                         <p:ajax event="change" listener="#{controlDependenciaOperando.autocompletarNuevoyDuplicado('OPERANDO', controlDependenciaOperando.duplicarDependenciaOperando.codigo, 2)}" />
                         <p:ajax event="dblclick" listener="#{controlDependenciaOperando.asignarIndex(indice, 0, 2)}" />
@@ -251,12 +251,12 @@
                      <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 311px; top: 65px;  " id="btnDuplicarOperando" actionListener="#{controlDependenciaOperando.asignarIndex(indice, 0, 2)}" icon="ui-icon-search" process="@this" />
 
                      <strong><h:outputText value="#{msg['nombreN']}" style="font-size: 12px; position: absolute; top: 105px;" /></strong>
-                     <p:inputText  autocomplete="false"  readonly="true" id="duplicarNombre" value="#{controlDependenciaOperando.duplicarDependenciaOperando.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 180px; top: 105px; text-transform: uppercase" >
+                     <p:inputText  autocomplete="off"  readonly="true" id="duplicarNombre" value="#{controlDependenciaOperando.duplicarDependenciaOperando.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 180px; top: 105px; text-transform: uppercase" >
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
 
                      <strong><h:outputText value="#{msg['consecutivoN']}" style="font-size: 12px; position: absolute; top: 145px;" /></strong>
-                     <p:inputText  autocomplete="false"  id="duplicarConsecutivo" value="#{controlDependenciaOperando.duplicarDependenciaOperando.consecutivo}" style="font-size: 12px; width: 122px; position: absolute; left: 180px; top: 145px; text-transform: uppercase" >
+                     <p:inputText  autocomplete="off"  id="duplicarConsecutivo" value="#{controlDependenciaOperando.duplicarDependenciaOperando.consecutivo}" style="font-size: 12px; width: 122px; position: absolute; left: 180px; top: 145px; text-transform: uppercase" >
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
 

@@ -89,7 +89,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.empresa.nombre}" style="text-transform: uppercase"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.empresa.nombre}" id="editarEmpresaDetalle" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"  value="#{info.empresa.nombre}" id="editarEmpresaDetalle" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                 <p:ajax event="select" listener="#{controlDetalleEmpresa.cambiarIndice(indiceDE,0)}"/> 
                                                 <p:ajax event="dblclick" listener="#{controlDetalleEmpresa.asignarIndex(indiceDE,0,0)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlDetalleEmpresa.modificarDetalleEmpresa(indiceDE, 'EMPRESA', info.empresa.nombre)}" process="@this" update="editarEmpresaDetalle"/>
@@ -122,7 +122,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.tipo}" style="text-transform: uppercase"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{info.tipo}" maxlength="10" id="editarTipoDetalle" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"   value="#{info.tipo}" maxlength="10" id="editarTipoDetalle" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                 <p:ajax event="select" listener="#{controlDetalleEmpresa.cambiarIndice(indiceDE,2)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlDetalleEmpresa.modificarDetalleEmpresa(indiceDE)}" process="@this" update="editarTipoDetalle"/>                                   
                                             </p:inputText>
@@ -138,7 +138,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.direccion}" style="text-transform: uppercase"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.direccion}" maxlength="40" id="editarDireccionDetalle" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"  value="#{info.direccion}" maxlength="40" id="editarDireccionDetalle" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:ajax event="select" listener="#{controlDetalleEmpresa.cambiarIndice(indiceDE,3)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlDetalleEmpresa.modificarDetalleEmpresa(indiceDE)}" process="@this" update="editarDireccionDetalle"/>                                   
                                             </p:inputText>
@@ -154,7 +154,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.ciudad.nombre}" style="text-transform: uppercase"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.ciudad.nombre}" id="editarCiudadDetalle" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"  value="#{info.ciudad.nombre}" id="editarCiudadDetalle" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                 <p:ajax event="select" listener="#{controlDetalleEmpresa.cambiarIndice(indiceDE,4)}" process="@this"/> 
                                                 <p:ajax event="dblclick" listener="#{controlDetalleEmpresa.asignarIndex(indiceDE,1,0)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlDetalleEmpresa.modificarDetalleEmpresa(indiceDE, 'CIUDAD', info.ciudad.nombre)}" process="@this" update="editarCiudadDetalle"/>
@@ -171,7 +171,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.telefono}" style="text-transform: uppercase"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{info.telefono}" maxlength="10" id="editarTelefonoDetalle" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"   value="#{info.telefono}" maxlength="10" id="editarTelefonoDetalle" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                 <p:ajax event="select" listener="#{controlDetalleEmpresa.cambiarIndice(indiceDE,5)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlDetalleEmpresa.modificarDetalleEmpresa(indiceDE)}" process="@this" update="editarTelefonoDetalle"/>                                   
                                             </p:inputText>
@@ -187,7 +187,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.fax}" style="text-transform: uppercase"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{info.fax}" maxlength="10" id="editarFaxDetalle" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"   value="#{info.fax}" maxlength="10" id="editarFaxDetalle" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                 <p:ajax event="select" listener="#{controlDetalleEmpresa.cambiarIndice(indiceDE,6)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlDetalleEmpresa.modificarDetalleEmpresa(indiceDE)}" process="@this" update="editarFaxDetalle"/>                                   
                                             </p:inputText>
@@ -203,7 +203,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.nombrerepresentante}" style="text-transform: uppercase"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.nombrerepresentante}" maxlength="40" id="editarNombreRepresentanteDetalle" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"  value="#{info.nombrerepresentante}" maxlength="40" id="editarNombreRepresentanteDetalle" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                 <p:ajax event="select" listener="#{controlDetalleEmpresa.cambiarIndice(indiceDE,7)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlDetalleEmpresa.modificarDetalleEmpresa(indiceDE)}" process="@this" update="editarNombreRepresentanteDetalle"/>                                   
                                             </p:inputText>
@@ -219,7 +219,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.documentorepresentante}" style="text-transform: uppercase"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{info.documentorepresentante}" maxlength="15" id="editarDocumentoRepresentanteDetalle" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"   value="#{info.documentorepresentante}" maxlength="15" id="editarDocumentoRepresentanteDetalle" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                 <p:ajax event="select" listener="#{controlDetalleEmpresa.cambiarIndice(indiceDE,8)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlDetalleEmpresa.modificarDetalleEmpresa(indiceDE)}" process="@this" update="editarDocumentoRepresentanteDetalle"/>                                   
                                             </p:inputText>
@@ -235,7 +235,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.ciudaddocumentorepresentante.nombre}" style="text-transform: uppercase"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.ciudaddocumentorepresentante.nombre}" id="editarCiudadDocumentoDetalle" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"  value="#{info.ciudaddocumentorepresentante.nombre}" id="editarCiudadDocumentoDetalle" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                 <p:ajax event="select" listener="#{controlDetalleEmpresa.cambiarIndice(indiceDE,9)}" process="@this"/> 
                                                 <p:ajax event="dblclick" listener="#{controlDetalleEmpresa.asignarIndex(indiceDE,2,0)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlDetalleEmpresa.modificarDetalleEmpresa(indiceDE, 'CIUDADDOCUMENTO', info.ciudaddocumentorepresentante.nombre)}" process="@this" update="editarCiudadDocumentoDetalle"/>
@@ -252,7 +252,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.tiponit}" style="text-transform: uppercase"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{info.tiponit}" id="editarTipoNitDetalle" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"   value="#{info.tiponit}" id="editarTipoNitDetalle" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                 <p:ajax event="select" listener="#{controlDetalleEmpresa.cambiarIndice(indiceDE,10)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlDetalleEmpresa.modificarDetalleEmpresa(indiceDE)}" process="@this" update="editarTipoNitDetalle"/>                                   
                                             </p:inputText>
@@ -268,7 +268,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.digitoverificacion}" style="text-transform: uppercase"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{info.digitoverificacion}" id="editarDigitoVerificacionDetalle" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"   value="#{info.digitoverificacion}" id="editarDigitoVerificacionDetalle" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                 <p:ajax event="select" listener="#{controlDetalleEmpresa.cambiarIndice(indiceDE,11)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlDetalleEmpresa.modificarDetalleEmpresa(indiceDE)}" process="@this" update="editarDigitoVerificacionDetalle"/>                                   
                                             </p:inputText>
@@ -284,7 +284,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.gerentegeneral.persona.nombreCompleto}" style="text-transform: uppercase"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.gerentegeneral.persona.nombreCompleto}" id="editarGerenteGeneralDetalle" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"  value="#{info.gerentegeneral.persona.nombreCompleto}" id="editarGerenteGeneralDetalle" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                 <p:ajax event="select" listener="#{controlDetalleEmpresa.cambiarIndice(indiceDE,12)}" process="@this"/> 
                                                 <p:ajax event="dblclick" listener="#{controlDetalleEmpresa.asignarIndex(indiceDE,3,0)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlDetalleEmpresa.modificarDetalleEmpresa(indiceDE, 'GERENTE', info.gerentegeneral.persona.nombreCompleto)}" process="@this" update="editarGerenteGeneralDetalle"/>
@@ -301,7 +301,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.personafirmaconstancia.nombreCompleto}" style="text-transform: uppercase"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.personafirmaconstancia.nombreCompleto}" id="editarPersonaFirmaDetalle" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"  value="#{info.personafirmaconstancia.nombreCompleto}" id="editarPersonaFirmaDetalle" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                 <p:ajax event="select" listener="#{controlDetalleEmpresa.cambiarIndice(indiceDE,13)}" process="@this"/> 
                                                 <p:ajax event="dblclick" listener="#{controlDetalleEmpresa.asignarIndex(indiceDE,4,0)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlDetalleEmpresa.modificarDetalleEmpresa(indiceDE, 'PERSONA', info.personafirmaconstancia.nombreCompleto)}" process="@this" update="editarPersonaFirmaDetalle"/>
@@ -318,7 +318,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.cargofirmaconstancia.nombre}" style="text-transform: uppercase"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.cargofirmaconstancia.nombre}" id="editarCargoFirmaDetalle" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"  value="#{info.cargofirmaconstancia.nombre}" id="editarCargoFirmaDetalle" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                 <p:ajax event="select" listener="#{controlDetalleEmpresa.cambiarIndice(indiceDE,14)}" process="@this"/> 
                                                 <p:ajax event="dblclick" listener="#{controlDetalleEmpresa.asignarIndex(indiceDE,5,0)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlDetalleEmpresa.modificarDetalleEmpresa(indiceDE, 'CARGO', info.cargofirmaconstancia.nombre)}" process="@this" update="editarCargoFirmaDetalle"/>
@@ -335,7 +335,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.email}" style="text-transform: uppercase"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{info.email}" maxlength="100" id="editarEmailDetalle" style="border-radius: 0px; width: 99.5%;"> 
+                                            <p:inputText  autocomplete="off"   value="#{info.email}" maxlength="100" id="editarEmailDetalle" style="border-radius: 0px; width: 99.5%;"> 
                                                 <p:ajax event="select" listener="#{controlDetalleEmpresa.cambiarIndice(indiceDE,15)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlDetalleEmpresa.modificarDetalleEmpresa(indiceDE)}" process="@this" update="editarEmailDetalle"/>                                   
                                             </p:inputText>
@@ -367,7 +367,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.ciiu}" style="text-transform: uppercase"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{info.ciiu}" maxlength="10" id="editarCIIUDetalle" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"   value="#{info.ciiu}" maxlength="10" id="editarCIIUDetalle" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                 <p:ajax event="select" listener="#{controlDetalleEmpresa.cambiarIndice(indiceDE,17)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlDetalleEmpresa.modificarDetalleEmpresa(indiceDE)}" process="@this" update="editarCIIUDetalle"/>                                   
                                             </p:inputText>
@@ -383,7 +383,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.actividadeconomica}" style="text-transform: uppercase"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{info.actividadeconomica}" maxlength="200" id="editarActEconomicaDetalle" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"   value="#{info.actividadeconomica}" maxlength="200" id="editarActEconomicaDetalle" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                 <p:ajax event="select" listener="#{controlDetalleEmpresa.cambiarIndice(indiceDE,18)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlDetalleEmpresa.modificarDetalleEmpresa(indiceDE)}" process="@this" update="editarActEconomicaDetalle"/>                                   
                                             </p:inputText>
@@ -399,7 +399,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.subgerente.persona.nombreCompleto}" style="text-transform: uppercase"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.subgerente.persona.nombreCompleto}" id="editarSubGerenteDetalle" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"  value="#{info.subgerente.persona.nombreCompleto}" id="editarSubGerenteDetalle" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                 <p:ajax event="select" listener="#{controlDetalleEmpresa.cambiarIndice(indiceDE,19)}" process="@this"/> 
                                                 <p:ajax event="dblclick" listener="#{controlDetalleEmpresa.asignarIndex(indiceDE,6,0)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlDetalleEmpresa.modificarDetalleEmpresa(indiceDE, 'SUBGERENTE', info.subgerente.persona.nombreCompleto)}" process="@this" update="editarSubGerenteDetalle"/>
@@ -416,7 +416,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.nombrearquitecto}" style="text-transform: uppercase"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.nombrearquitecto}" maxlength="100" id="editarArquitectoDetalle" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"  value="#{info.nombrearquitecto}" maxlength="100" id="editarArquitectoDetalle" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                 <p:ajax event="select" listener="#{controlDetalleEmpresa.cambiarIndice(indiceDE,20)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlDetalleEmpresa.modificarDetalleEmpresa(indiceDE)}" process="@this" update="editarArquitectoDetalle"/>                                   
                                             </p:inputText>
@@ -432,7 +432,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.cargoarquitecto}" style="text-transform: uppercase"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{info.cargoarquitecto}" maxlength="50" id="editarCargoArquitectoDetalle" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"   value="#{info.cargoarquitecto}" maxlength="50" id="editarCargoArquitectoDetalle" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                 <p:ajax event="select" listener="#{controlDetalleEmpresa.cambiarIndice(indiceDE,21)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlDetalleEmpresa.modificarDetalleEmpresa(indiceDE)}" process="@this" update="editarCargoArquitectoDetalle"/>                                   
                                             </p:inputText>
@@ -448,7 +448,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.representantecir.persona.nombreCompleto}" style="text-transform: uppercase"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.representantecir.persona.nombreCompleto}" id="editarRepresentanteDetalle" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"  value="#{info.representantecir.persona.nombreCompleto}" id="editarRepresentanteDetalle" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                 <p:ajax event="select" listener="#{controlDetalleEmpresa.cambiarIndice(indiceDE,22)}" process="@this"/> 
                                                 <p:ajax event="dblclick" listener="#{controlDetalleEmpresa.asignarIndex(indiceDE,7,0)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlDetalleEmpresa.modificarDetalleEmpresa(indiceDE, 'REPRESENTANTE', info.representantecir.persona.nombreCompleto)}" process="@this" update="editarRepresentanteDetalle"/>
@@ -465,7 +465,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.pilaultimaplanilla}" style="text-transform: uppercase"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"   value="#{info.pilaultimaplanilla}"  maxlength="20" id="editarPlanillaDetalle" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"   value="#{info.pilaultimaplanilla}"  maxlength="20" id="editarPlanillaDetalle" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                 <p:ajax event="select" listener="#{controlDetalleEmpresa.cambiarIndice(indiceDE,23)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlDetalleEmpresa.modificarDetalleEmpresa(indiceDE)}" process="@this" update="editarPlanillaDetalle"/>                                   
                                             </p:inputText>
@@ -577,7 +577,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="dateFechaCamara" value="#{info.fechacamaracomercio}">  
+                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaCamara" value="#{info.fechacamaracomercio}">  
                                                 <p:ajax event="dateSelect" listener="#{controlDetalleEmpresa.modificacionesFechaCamaraComercio(indiceDE,30)}"  process="@this"/>
                                                 <p:ajax event="change" listener="#{controlDetalleEmpresa.modificacionesFechaCamaraComercio(indiceDE,30)}" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlDetalleEmpresa.cambiarIndice(indiceDE,30)}" process="@this"/> 
@@ -686,7 +686,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlDetalleEmpresa.actualizarEmpresa()}"  process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarE']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovEmpresas').filter();" style="width:150px; position: relative; left: 30px;" />  
+                                    <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovEmpresas').filter();" style="width:150px; position: relative; left: 30px;" />  
                                 </f:facet>
                                 <p:column filterBy="#{empresa.nombre}"  filterMatchMode="contains">
                                     <f:facet name="header">
@@ -712,7 +712,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlDetalleEmpresa.actualizarCiudad()}"  process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarC']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovCiudad').filter();" style="width:150px; position: relative; left: 30px;" />  
+                                    <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovCiudad').filter();" style="width:150px; position: relative; left: 30px;" />  
                                 </f:facet>
                                 <p:column filterBy="#{ciudad.nombre}"  filterMatchMode="contains">
                                     <f:facet name="header">
@@ -737,7 +737,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlDetalleEmpresa.actualizarCiudadDocumento()}"  process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarC']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovCiudadDocumento').filter();" style="width:150px; position: relative; left: 30px;" />  
+                                    <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovCiudadDocumento').filter();" style="width:150px; position: relative; left: 30px;" />  
                                 </f:facet>
                                 <p:column filterBy="#{ciudadDoc.nombre}"  filterMatchMode="contains">
                                     <f:facet name="header">
@@ -762,7 +762,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlDetalleEmpresa.actualizarGerente()}"  process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarG']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovGerente').filter();" style="width:150px; position: relative; left: 30px;" />  
+                                    <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovGerente').filter();" style="width:150px; position: relative; left: 30px;" />  
                                 </f:facet>
                                 <p:column filterBy="#{gerente.persona.nombreCompleto}" filterMatchMode="contains">
                                     <f:facet name="header">
@@ -787,7 +787,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlDetalleEmpresa.actualizarPersona()}"  process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscaP']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovPersona').filter();" style="width:150px; position: relative; left: 30px;" />  
+                                    <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovPersona').filter();" style="width:150px; position: relative; left: 30px;" />  
                                 </f:facet>
                                 <p:column filterBy="#{persona.nombreCompleto}"  filterMatchMode="contains">
                                     <f:facet name="header">
@@ -812,7 +812,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlDetalleEmpresa.actualizarCargo()}"  process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscaCar']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovCargoFirma').filter();" style="width:150px; position: relative; left: 30px;" />  
+                                    <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovCargoFirma').filter();" style="width:150px; position: relative; left: 30px;" />  
                                 </f:facet>
                                 <p:column filterBy="#{cargo.nombre}" filterMatchMode="contains">
                                     <f:facet name="header">
@@ -837,7 +837,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlDetalleEmpresa.actualizarSubGerente()}"  process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarG']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovSubGerente').filter();" style="width:150px; position: relative; left: 30px;" />  
+                                    <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovSubGerente').filter();" style="width:150px; position: relative; left: 30px;" />  
                                 </f:facet>
                                 <p:column filterBy="#{subGerente.persona.nombreCompleto}" width="140"  filterMatchMode="contains">
                                     <f:facet name="header">
@@ -862,7 +862,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlDetalleEmpresa.actualizarRepresentante()}"  process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarG']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovRepresentante').filter();" style="width:150px; position: relative; left: 30px;" />  
+                                    <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovRepresentante').filter();" style="width:150px; position: relative; left: 30px;" />  
                                 </f:facet>
                                 <p:column filterBy="#{representante.persona.nombreCompleto}" width="140"  filterMatchMode="contains">globalFilter
                                     <f:facet name="header">
@@ -973,7 +973,7 @@
                                 <div  style="width: 470px; height: 250px">
 
                                     <strong><h:outputText value="#{msg['empresaN']}*" style="position: absolute; top: 15px; left: 25px;" /></strong>
-                                    <p:inputText  autocomplete="false"  id="nuevaEmpresaDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.empresa.nombre}" style="width: 122px; position: absolute; left: 230px; top: 10px; text-transform: uppercase" onclick="select();">
+                                    <p:inputText  autocomplete="off"  id="nuevaEmpresaDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.empresa.nombre}" style="width: 122px; position: absolute; left: 230px; top: 10px; text-transform: uppercase" onclick="select();">
                                         <p:ajax event="dblclick" listener="#{controlDetalleEmpresa.asignarIndex(indice,0,1)}"/>
                                         <p:ajax event="click" listener="#{controlDetalleEmpresa.valoresBackupAutocompletarDetalleEmpresa(1, 'EMPRESA')}" />
                                         <p:ajax event="change" listener="#{controlDetalleEmpresa.autocompletarNuevoyDuplicadoDetalleEmpresa('EMPRESA', controlDetalleEmpresa.nuevaDetalleEmpresa.empresa.nombre,1)}" process="@this" update="nuevaEmpresaDetalle"/>
@@ -982,19 +982,19 @@
                                     <p:watermark for="nuevaEmpresaDetalle" value="#{msg['empresa']}" />
 
                                     <strong><h:outputText value="#{msg['tipoEmpresaN']}*" style="position: absolute; top: 45px; left: 25px; " /></strong>
-                                    <p:inputText  autocomplete="false"  id="nuevaTipoEmpresaDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.tipo}" style="width: 122px; position: absolute; left: 230px; top: 40px; text-transform: uppercase" onclick="select();" >
+                                    <p:inputText  autocomplete="off"  id="nuevaTipoEmpresaDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.tipo}" style="width: 122px; position: absolute; left: 230px; top: 40px; text-transform: uppercase" onclick="select();" >
                                         <p:ajax event="change" update="nuevaTipoEmpresaDetalle"/>
                                     </p:inputText>
                                     <p:watermark for="nuevaTipoEmpresaDetalle" value="#{msg['tipoEmpresa']}" />
 
                                     <strong><h:outputText value="#{msg['direccionN']}*" style="position: absolute; top: 75px; left: 25px; " /></strong>
-                                    <p:inputText  autocomplete="false"  id="nuevaDireccionDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.direccion}"  style="width: 122px; position: absolute; left: 230px; top: 70px; text-transform: uppercase" onclick="select();" >
+                                    <p:inputText  autocomplete="off"  id="nuevaDireccionDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.direccion}"  style="width: 122px; position: absolute; left: 230px; top: 70px; text-transform: uppercase" onclick="select();" >
                                         <p:ajax event="change" update="nuevaDireccionDetalle"/>
                                     </p:inputText>
                                     <p:watermark for="nuevaDireccionDetalle" value="#{msg['direccion']}" />
 
                                     <strong><h:outputText value="#{msg['ciudadN']}*" style="position: absolute; top: 105px; left: 25px; " /></strong>
-                                    <p:inputText  autocomplete="false"  id="nuevaCiudadDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.ciudad.nombre}" style="width: 122px; position: absolute; left: 230px; top: 100px; text-transform: uppercase" onclick="select();">
+                                    <p:inputText  autocomplete="off"  id="nuevaCiudadDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.ciudad.nombre}" style="width: 122px; position: absolute; left: 230px; top: 100px; text-transform: uppercase" onclick="select();">
                                         <p:ajax event="dblclick" listener="#{controlDetalleEmpresa.asignarIndex(indice,1,1)}"/>
                                         <p:ajax event="click" listener="#{controlDetalleEmpresa.valoresBackupAutocompletarDetalleEmpresa(1, 'CIUDAD')}" />
                                         <p:ajax event="change" listener="#{controlDetalleEmpresa.autocompletarNuevoyDuplicadoDetalleEmpresa('CIUDAD', controlDetalleEmpresa.nuevaDetalleEmpresa.ciudad.nombre,1)}" process="@this" update="nuevaCiudadDetalle"/>
@@ -1003,25 +1003,25 @@
                                     <p:watermark for="nuevaCiudadDetalle" value="#{msg['ciudad']}" />
 
                                     <strong><h:outputText value="#{msg['telefonoN']}*" style="position: absolute; top: 135px; left: 25px; " /></strong>
-                                    <p:inputText  autocomplete="false"  id="nuevaTelefonoDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.telefono}"  style="width: 122px; position: absolute; left: 230px; top: 130px; text-transform: uppercase" onclick="select();" >
+                                    <p:inputText  autocomplete="off"  id="nuevaTelefonoDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.telefono}"  style="width: 122px; position: absolute; left: 230px; top: 130px; text-transform: uppercase" onclick="select();" >
                                         <p:ajax event="change" update="nuevaTelefonoDetalle"/>
                                     </p:inputText>
                                     <p:watermark for="nuevaTelefonoDetalle" value="#{msg['telefono']}" />
 
                                     <strong><h:outputText value="#{msg['faxN']}*" style="position: absolute; top: 165px; left: 25px; " /></strong>
-                                    <p:inputText  autocomplete="false"  id="nuevaFaxDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.fax}"  style="width: 122px; position: absolute; left: 230px; top: 160px; text-transform: uppercase" onclick="select();" >
+                                    <p:inputText  autocomplete="off"  id="nuevaFaxDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.fax}"  style="width: 122px; position: absolute; left: 230px; top: 160px; text-transform: uppercase" onclick="select();" >
                                         <p:ajax event="change" update="nuevaFaxDetalle"/>
                                     </p:inputText>
                                     <p:watermark for="nuevaFaxDetalle" value="#{msg['fax']}" />
 
                                     <strong><h:outputText value="#{msg['tipoNitN']}" style="position: absolute; top: 195px; left: 25px;" /></strong>
-                                    <p:inputText  autocomplete="false"  id="nuevaTipoNitDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.tiponit}"  style="width: 122px; position: absolute; left: 230px; top: 190px; text-transform: uppercase" onclick="select();" >
+                                    <p:inputText  autocomplete="off"  id="nuevaTipoNitDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.tiponit}"  style="width: 122px; position: absolute; left: 230px; top: 190px; text-transform: uppercase" onclick="select();" >
                                         <p:ajax event="change" update="nuevaTipoNitDetalle"/>
                                     </p:inputText>
                                     <p:watermark for="nuevaTipoNitDetalle" value="#{msg['tipoNit']}" />
 
                                     <strong><h:outputText value="#{msg['digitoVerificacionN']}" style="position: absolute; top: 225px; left: 25px;" /></strong>
-                                    <p:inputText  autocomplete="false"  id="nuevaDigitoDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.digitoverificacion}"  style="width: 122px; position: absolute; left: 230px; top: 220px; text-transform: uppercase" onclick="select();" >
+                                    <p:inputText  autocomplete="off"  id="nuevaDigitoDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.digitoverificacion}"  style="width: 122px; position: absolute; left: 230px; top: 220px; text-transform: uppercase" onclick="select();" >
                                         <p:ajax event="change" update="nuevaDigitoDetalle"/>
                                     </p:inputText>
                                     <p:watermark for="nuevaDigitoDetalle" value="#{msg['digitoVer']}" />
@@ -1101,19 +1101,19 @@
                                 <div style="width: 470px; height: 310px">
 
                                     <strong><h:outputText value="#{msg['nombreRepresentanteN']}*" style="position: absolute; top: 15px; left: 25px; " /></strong>
-                                    <p:inputText  autocomplete="false"  id="nuevaNombreRepresentanteDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.nombrerepresentante}"  style="width: 122px; position: absolute; left: 230px; top: 10px; text-transform: uppercase" onclick="select();" >
+                                    <p:inputText  autocomplete="off"  id="nuevaNombreRepresentanteDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.nombrerepresentante}"  style="width: 122px; position: absolute; left: 230px; top: 10px; text-transform: uppercase" onclick="select();" >
                                         <p:ajax event="change" update="nuevaNombreRepresentanteDetalle"/>
                                     </p:inputText>
                                     <p:watermark for="nuevaNombreRepresentanteDetalle" value="#{msg['nombreRepre']}" />
 
                                     <strong><h:outputText value="#{msg['documentoRepresentanteN']}*" style="position: absolute; top: 45px; left: 25px; " /></strong>
-                                    <p:inputText  autocomplete="false"  id="nuevaDocumentoRepresentanteDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.documentorepresentante}"  style="width: 122px; position: absolute; left: 230px; top: 40px; text-transform: uppercase" onclick="select();" >
+                                    <p:inputText  autocomplete="off"  id="nuevaDocumentoRepresentanteDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.documentorepresentante}"  style="width: 122px; position: absolute; left: 230px; top: 40px; text-transform: uppercase" onclick="select();" >
                                         <p:ajax event="change" update="nuevaDocumentoRepresentanteDetalle"/>
                                     </p:inputText>
                                     <p:watermark for="nuevaDocumentoRepresentanteDetalle" value="#{msg['documentoRepre']}" />
 
                                     <strong><h:outputText value="#{msg['ciudadDocumentoN']}" style="position: absolute; top: 75px; left: 25px;" /></strong>
-                                    <p:inputText  autocomplete="false"  id="nuevaCiudadDocumentoDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.ciudaddocumentorepresentante.nombre}" style="width: 122px; position: absolute; left: 230px; top: 70px; text-transform: uppercase" onclick="select();">
+                                    <p:inputText  autocomplete="off"  id="nuevaCiudadDocumentoDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.ciudaddocumentorepresentante.nombre}" style="width: 122px; position: absolute; left: 230px; top: 70px; text-transform: uppercase" onclick="select();">
                                         <p:ajax event="dblclick" listener="#{controlDetalleEmpresa.asignarIndex(indice,2,1)}"/>
                                         <p:ajax event="click" listener="#{controlDetalleEmpresa.valoresBackupAutocompletarDetalleEmpresa(1, 'CIUDADDOCUMENTO')}" />
                                         <p:ajax event="change" listener="#{controlDetalleEmpresa.autocompletarNuevoyDuplicadoDetalleEmpresa('CIUDADDOCUMENTO', controlDetalleEmpresa.nuevaDetalleEmpresa.ciudaddocumentorepresentante.nombre,1)}" process="@this" update="nuevaCiudadDocumentoDetalle"/>
@@ -1122,19 +1122,19 @@
                                     <p:watermark for="nuevaCiudadDocumentoDetalle" value="#{msg['ciudadDoc']}" />
 
                                     <strong><h:outputText value="#{msg['arquitectoN']}" style="position: absolute; top: 105px; left: 25px;" /></strong>
-                                    <p:inputText  autocomplete="false"  id="nuevaArquitectoDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.nombrearquitecto}"  style="width: 122px; position: absolute; left: 230px; top: 100px; text-transform: uppercase" onclick="select();" >
+                                    <p:inputText  autocomplete="off"  id="nuevaArquitectoDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.nombrearquitecto}"  style="width: 122px; position: absolute; left: 230px; top: 100px; text-transform: uppercase" onclick="select();" >
                                         <p:ajax event="change" update="nuevaArquitectoDetalle"/>
                                     </p:inputText>
                                     <p:watermark for="nuevaArquitectoDetalle" value="#{msg['arquitecto']}" />
 
                                     <strong><h:outputText value="#{msg['cargoArquitectoN']}" style="position: absolute; top: 135px; left: 25px;" /></strong>
-                                    <p:inputText  autocomplete="false"  id="nuevaCargoArquitectoDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.nombrearquitecto}"  style="width: 122px; position: absolute; left: 230px; top: 130px; text-transform: uppercase" onclick="select();" >
+                                    <p:inputText  autocomplete="off"  id="nuevaCargoArquitectoDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.nombrearquitecto}"  style="width: 122px; position: absolute; left: 230px; top: 130px; text-transform: uppercase" onclick="select();" >
                                         <p:ajax event="change" update="nuevaCargoArquitectoDetalle"/>
                                     </p:inputText>
                                     <p:watermark for="nuevaCargoArquitectoDetalle" value="#{msg['cargoArquitecto']}" />
 
                                     <strong><h:outputText value="#{msg['gerenteN']}" style="position: absolute; top: 165px; left: 25px;" /></strong>
-                                    <p:inputText  autocomplete="false"  id="nuevaGerenteDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.gerentegeneral.persona.nombreCompleto}" style="width: 122px; position: absolute; left: 230px; top: 160px; text-transform: uppercase" onclick="select();">
+                                    <p:inputText  autocomplete="off"  id="nuevaGerenteDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.gerentegeneral.persona.nombreCompleto}" style="width: 122px; position: absolute; left: 230px; top: 160px; text-transform: uppercase" onclick="select();">
                                         <p:ajax event="dblclick" listener="#{controlDetalleEmpresa.asignarIndex(indice,3,1)}"/>
                                         <p:ajax event="click" listener="#{controlDetalleEmpresa.valoresBackupAutocompletarDetalleEmpresa(1, 'GERENTE')}" />
                                         <p:ajax event="change" listener="#{controlDetalleEmpresa.autocompletarNuevoyDuplicadoDetalleEmpresa('GERENTE', controlDetalleEmpresa.nuevaDetalleEmpresa.gerentegeneral.persona.nombreCompleto,1)}" process="@this" update="nuevaGerenteDetalle"/>
@@ -1143,7 +1143,7 @@
                                     <p:watermark for="nuevaGerenteDetalle" value="#{msg['gerenteGeneral']}" />
 
                                     <strong><h:outputText value="#{msg['subGerenteN']}" style="position: absolute; top: 195px; left: 25px;" /></strong>
-                                    <p:inputText  autocomplete="false"  id="nuevaSubGerenteDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.subgerente.persona.nombreCompleto}" style="width: 122px; position: absolute; left: 230px; top: 190px; text-transform: uppercase" onclick="select();">
+                                    <p:inputText  autocomplete="off"  id="nuevaSubGerenteDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.subgerente.persona.nombreCompleto}" style="width: 122px; position: absolute; left: 230px; top: 190px; text-transform: uppercase" onclick="select();">
                                         <p:ajax event="dblclick" listener="#{controlDetalleEmpresa.asignarIndex(indice,6,1)}"/>
                                         <p:ajax event="click" listener="#{controlDetalleEmpresa.valoresBackupAutocompletarDetalleEmpresa(1, 'SUBGERENTE')}" />
                                         <p:ajax event="change" listener="#{controlDetalleEmpresa.autocompletarNuevoyDuplicadoDetalleEmpresa('SUBGERENTE', controlDetalleEmpresa.nuevaDetalleEmpresa.subgerente.persona.nombreCompleto,1)}" process="@this" update="nuevaSubGerenteDetalle"/>
@@ -1152,7 +1152,7 @@
                                     <p:watermark for="nuevaSubGerenteDetalle" value="#{msg['subGerente']}" />
 
                                     <strong><h:outputText value="#{msg['representanteN']}" style="position: absolute; top: 225px; left: 25px;" /></strong>
-                                    <p:inputText  autocomplete="false"  id="nuevaRepresentanteDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.representantecir.persona.nombreCompleto}" style="width: 122px; position: absolute; left: 230px; top: 220px; text-transform: uppercase" onclick="select();">
+                                    <p:inputText  autocomplete="off"  id="nuevaRepresentanteDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.representantecir.persona.nombreCompleto}" style="width: 122px; position: absolute; left: 230px; top: 220px; text-transform: uppercase" onclick="select();">
                                         <p:ajax event="dblclick" listener="#{controlDetalleEmpresa.asignarIndex(indice,7,1)}"/>
                                         <p:ajax event="click" listener="#{controlDetalleEmpresa.valoresBackupAutocompletarDetalleEmpresa(1, 'REPRESENTANTE')}" />
                                         <p:ajax event="change" listener="#{controlDetalleEmpresa.autocompletarNuevoyDuplicadoDetalleEmpresa('REPRESENTANTE', controlDetalleEmpresa.nuevaDetalleEmpresa.representantecir.persona.nombreCompleto,1)}" process="@this" update="nuevaRepresentanteDetalle"/>
@@ -1161,7 +1161,7 @@
                                     <p:watermark for="nuevaRepresentanteDetalle" value="#{msg['representante']}" />
 
                                     <strong><h:outputText value="#{msg['personaFirmaN']}" style="position: absolute; top: 255px; left: 25px;" /></strong>
-                                    <p:inputText  autocomplete="false"  id="nuevaPersonaFirmaDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.personafirmaconstancia.nombreCompleto}" style="width: 122px; position: absolute; left: 230px; top: 250px; text-transform: uppercase" onclick="select();">
+                                    <p:inputText  autocomplete="off"  id="nuevaPersonaFirmaDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.personafirmaconstancia.nombreCompleto}" style="width: 122px; position: absolute; left: 230px; top: 250px; text-transform: uppercase" onclick="select();">
                                         <p:ajax event="dblclick" listener="#{controlDetalleEmpresa.asignarIndex(indice,4,1)}"/>
                                         <p:ajax event="click" listener="#{controlDetalleEmpresa.valoresBackupAutocompletarDetalleEmpresa(1, 'PERSONA')}" />
                                         <p:ajax event="change" listener="#{controlDetalleEmpresa.autocompletarNuevoyDuplicadoDetalleEmpresa('PERSONA', controlDetalleEmpresa.nuevaDetalleEmpresa.personafirmaconstancia.nombreCompleto,1)}" process="@this" update="nuevaPersonaFirmaDetalle"/>
@@ -1170,7 +1170,7 @@
                                     <p:watermark for="nuevaPersonaFirmaDetalle" value="#{msg['personaFirma']}" />
 
                                     <strong><h:outputText value="#{msg['cargoFirmaN']}" style="position: absolute; top: 285px; left: 25px;" /></strong>
-                                    <p:inputText  autocomplete="false"  id="nuevaCargoFirmaDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.cargofirmaconstancia.nombre}" style="width: 122px; position: absolute; left: 230px; top: 280px; text-transform: uppercase" onclick="select();">
+                                    <p:inputText  autocomplete="off"  id="nuevaCargoFirmaDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.cargofirmaconstancia.nombre}" style="width: 122px; position: absolute; left: 230px; top: 280px; text-transform: uppercase" onclick="select();">
                                         <p:ajax event="dblclick" listener="#{controlDetalleEmpresa.asignarIndex(indice,5,1)}"/>
                                         <p:ajax event="click" listener="#{controlDetalleEmpresa.valoresBackupAutocompletarDetalleEmpresa(1, 'CARGO')}" />
                                         <p:ajax event="change" listener="#{controlDetalleEmpresa.autocompletarNuevoyDuplicadoDetalleEmpresa('CARGO', controlDetalleEmpresa.nuevaDetalleEmpresa.cargofirmaconstancia.nombre,1)}" process="@this" update="nuevaCargoFirmaDetalle"/>
@@ -1185,7 +1185,7 @@
                                 <div style="width: 470px; height: 190px">
 
                                     <strong><h:outputText value="#{msg['emailN']}" style="position: absolute; top: 15px; left: 25px;" /></strong>
-                                    <p:inputText  autocomplete="false"  id="nuevaEmailDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.email}"  style="width: 122px; position: absolute; left: 230px; top: 10px; " onclick="select();" >
+                                    <p:inputText  autocomplete="off"  id="nuevaEmailDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.email}"  style="width: 122px; position: absolute; left: 230px; top: 10px; " onclick="select();" >
                                         <p:ajax event="change" update="nuevaEmailDetalle"/>
                                     </p:inputText>
                                     <p:watermark for="nuevaEmailDetalle" value="#{msg['email']}" />
@@ -1198,19 +1198,19 @@
                                     </p:selectOneMenu>
 
                                     <strong><h:outputText value="#{msg['ciiuN']}" style="position: absolute; top: 75px; left: 25px;" /></strong>
-                                    <p:inputText  autocomplete="false"  id="nuevaCIIUDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.ciiu}"  style="width: 122px; position: absolute; left: 230px; top: 70px; text-transform: uppercase" onclick="select();" >
+                                    <p:inputText  autocomplete="off"  id="nuevaCIIUDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.ciiu}"  style="width: 122px; position: absolute; left: 230px; top: 70px; text-transform: uppercase" onclick="select();" >
                                         <p:ajax event="change" update="nuevaCIIUDetalle"/>
                                     </p:inputText>
                                     <p:watermark for="nuevaCIIUDetalle" value="CIIU" />
 
                                     <strong><h:outputText value="#{msg['actEconomicaN']}" style="position: absolute; top: 105px; left: 25px;" /></strong>
-                                    <p:inputText  autocomplete="false"  id="nuevaActividadEconomicaDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.actividadeconomica}"  style="width: 122px; position: absolute; left: 230px; top: 100px; text-transform: uppercase" onclick="select();" >
+                                    <p:inputText  autocomplete="off"  id="nuevaActividadEconomicaDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.actividadeconomica}"  style="width: 122px; position: absolute; left: 230px; top: 100px; text-transform: uppercase" onclick="select();" >
                                         <p:ajax event="change" update="nuevaActividadEconomicaDetalle"/>
                                     </p:inputText>
                                     <p:watermark for="nuevaActividadEconomicaDetalle" value="#{msg['actividadEconomica']}" />
                                     
                                     <strong><h:outputText value="#{msg['planillaN']}" style="position: absolute; top: 135px; left: 25px;" /></strong>
-                                    <p:inputText  autocomplete="false"  id="nuevaPlanillaDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.pilaultimaplanilla}"  style="width: 122px; position: absolute; left: 230px; top: 130px; text-transform: uppercase" onclick="select();" >
+                                    <p:inputText  autocomplete="off"  id="nuevaPlanillaDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.pilaultimaplanilla}"  style="width: 122px; position: absolute; left: 230px; top: 130px; text-transform: uppercase" onclick="select();" >
                                         <p:ajax event="change" update="nuevaPlanillaDetalle"/>
                                     </p:inputText>
                                     <p:watermark for="nuevaPlanillaDetalle" value="#{msg['planilla']}" />
@@ -1233,7 +1233,7 @@
 
                                     <strong><h:outputText value="#{msg['camaraComercioN']}" style="position: absolute; top: 15px; left: 25px;" /></strong>
                                     <div id="posicionFormulaFechaCamaraNuevoReg" style="position: absolute; top: 10px; left: 230px;width: 122px">
-                                        <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaCamaraDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.fechacamaracomercio}" >
+                                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaCamaraDetalle" value="#{controlDetalleEmpresa.nuevaDetalleEmpresa.fechacamaracomercio}" >
                                             <p:ajax event="dateSelect" update="nuevaFechaCamaraDetalle" process="@this"/>
                                             <p:ajax event="change" update="nuevaFechaCamaraDetalle" process="@this"/>
                                         </p:calendar>
@@ -1296,7 +1296,7 @@
                                 <div style="width: 470px; height: 250px">
 
                                     <strong><h:outputText value="#{msg['empresaN']}*" style="position: absolute; top: 15px; left: 25px;" /></strong>
-                                    <p:inputText  autocomplete="false"  id="duplicarEmpresaDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.empresa.nombre}" style="width: 122px; position: absolute; left: 230px; top: 10px; text-transform: uppercase" onclick="select();">
+                                    <p:inputText  autocomplete="off"  id="duplicarEmpresaDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.empresa.nombre}" style="width: 122px; position: absolute; left: 230px; top: 10px; text-transform: uppercase" onclick="select();">
                                         <p:ajax event="dblclick" listener="#{controlDetalleEmpresa.asignarIndex(indice,0,2)}"/>
                                         <p:ajax event="click" listener="#{controlDetalleEmpresa.valoresBackupAutocompletarDetalleEmpresa(2, 'EMPRESA')}" />
                                         <p:ajax event="change" listener="#{controlDetalleEmpresa.autocompletarNuevoyDuplicadoDetalleEmpresa('EMPRESA', controlDetalleEmpresa.duplicarDetalleEmpresa.empresa.nombre,2)}" process="@this" update="duplicarEmpresaDetalle"/>
@@ -1305,19 +1305,19 @@
                                     <p:watermark for="duplicarEmpresaDetalle" value="#{msg['empresa']}" />
 
                                     <strong><h:outputText value="#{msg['tipoEmpresaN']}*" style="position: absolute; top: 45px; left: 25px; " /></strong>
-                                    <p:inputText  autocomplete="false"  id="duplicarTipoEmpresaDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.tipo}" style="width: 122px; position: absolute; left: 230px; top: 40px; text-transform: uppercase" onclick="select();" >
+                                    <p:inputText  autocomplete="off"  id="duplicarTipoEmpresaDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.tipo}" style="width: 122px; position: absolute; left: 230px; top: 40px; text-transform: uppercase" onclick="select();" >
                                         <p:ajax event="change" update="duplicarTipoEmpresaDetalle"/>
                                     </p:inputText>
                                     <p:watermark for="duplicarTipoEmpresaDetalle" value="#{msg['tipoEmpresa']}" />
 
                                     <strong><h:outputText value="#{msg['direccionN']}*" style="position: absolute; top: 75px; left: 25px; " /></strong>
-                                    <p:inputText  autocomplete="false"  id="duplicarDireccionDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.direccion}"  style="width: 122px; position: absolute; left: 230px; top: 70px; text-transform: uppercase" onclick="select();" >
+                                    <p:inputText  autocomplete="off"  id="duplicarDireccionDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.direccion}"  style="width: 122px; position: absolute; left: 230px; top: 70px; text-transform: uppercase" onclick="select();" >
                                         <p:ajax event="change" update="duplicarDireccionDetalle"/>
                                     </p:inputText>
                                     <p:watermark for="duplicarDireccionDetalle" value="#{msg['direccion']}" />
 
                                     <strong><h:outputText value="#{msg['ciudadN']}*" style="position: absolute; top: 105px; left: 25px; " /></strong>
-                                    <p:inputText  autocomplete="false"  id="duplicarCiudadDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.ciudad.nombre}" style="width: 122px; position: absolute; left: 230px; top: 100px; text-transform: uppercase" onclick="select();">
+                                    <p:inputText  autocomplete="off"  id="duplicarCiudadDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.ciudad.nombre}" style="width: 122px; position: absolute; left: 230px; top: 100px; text-transform: uppercase" onclick="select();">
                                         <p:ajax event="dblclick" listener="#{controlDetalleEmpresa.asignarIndex(indice,1,2)}"/>
                                         <p:ajax event="click" listener="#{controlDetalleEmpresa.valoresBackupAutocompletarDetalleEmpresa(2, 'CIUDAD')}" />
                                         <p:ajax event="change" listener="#{controlDetalleEmpresa.autocompletarNuevoyDuplicadoDetalleEmpresa('CIUDAD', controlDetalleEmpresa.duplicarDetalleEmpresa.ciudad.nombre,1)}" process="@this" update="duplicarCiudadDetalle"/>
@@ -1326,25 +1326,25 @@
                                     <p:watermark for="duplicarCiudadDetalle" value="#{msg['ciudad']}" />
 
                                     <strong><h:outputText value="#{msg['telefonoN']}*" style="position: absolute; top: 135px; left: 25px; " /></strong>
-                                    <p:inputText  autocomplete="false"  id="duplicarTelefonoDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.telefono}"  style="width: 122px; position: absolute; left: 230px; top: 130px; text-transform: uppercase" onclick="select();" >
+                                    <p:inputText  autocomplete="off"  id="duplicarTelefonoDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.telefono}"  style="width: 122px; position: absolute; left: 230px; top: 130px; text-transform: uppercase" onclick="select();" >
                                         <p:ajax event="change" update="duplicarTelefonoDetalle"/>
                                     </p:inputText>
                                     <p:watermark for="duplicarTelefonoDetalle" value="#{msg['telefono']}" />
 
                                     <strong><h:outputText value="#{msg['faxN']}*" style="position: absolute; top: 165px; left: 25px; " /></strong>
-                                    <p:inputText  autocomplete="false"  id="duplicarFaxDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.fax}"  style="width: 122px; position: absolute; left: 230px; top: 160px; text-transform: uppercase" onclick="select();" >
+                                    <p:inputText  autocomplete="off"  id="duplicarFaxDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.fax}"  style="width: 122px; position: absolute; left: 230px; top: 160px; text-transform: uppercase" onclick="select();" >
                                         <p:ajax event="change" update="duplicarFaxDetalle"/>
                                     </p:inputText>
                                     <p:watermark for="duplicarFaxDetalle" value="#{msg['fax']}" />
 
                                     <strong><h:outputText value="#{msg['tipoNitN']}" style="position: absolute; top: 195px; left: 25px;" /></strong>
-                                    <p:inputText  autocomplete="false"  id="duplicarTipoNitDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.tiponit}"  style=" width: 122px; position: absolute; left: 230px; top: 190px; text-transform: uppercase" onclick="select();" >
+                                    <p:inputText  autocomplete="off"  id="duplicarTipoNitDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.tiponit}"  style=" width: 122px; position: absolute; left: 230px; top: 190px; text-transform: uppercase" onclick="select();" >
                                         <p:ajax event="change" update="duplicarTipoNitDetalle"/>
                                     </p:inputText>
                                     <p:watermark for="duplicarTipoNitDetalle" value="#{msg['tipoNit']}" />
 
                                     <strong><h:outputText value="#{msg['digitoVerificacionN']}" style="position: absolute; top: 225px; left: 25px;" /></strong>
-                                    <p:inputText  autocomplete="false"  id="duplicarDigitoDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.digitoverificacion}"  style=" width: 122px; position: absolute; left: 230px; top: 220px; text-transform: uppercase" onclick="select();" >
+                                    <p:inputText  autocomplete="off"  id="duplicarDigitoDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.digitoverificacion}"  style=" width: 122px; position: absolute; left: 230px; top: 220px; text-transform: uppercase" onclick="select();" >
                                         <p:ajax event="change" update="duplicarDigitoDetalle"/>
                                     </p:inputText>
                                     <p:watermark for="duplicarDigitoDetalle" value="#{msg['digitoVer']}" />
@@ -1424,19 +1424,19 @@
                                 <div style="width: 470px; height: 310px">
 
                                     <strong><h:outputText value="#{msg['nombreRepresentanteN']}*" style="position: absolute; top: 15px; left: 25px; " /></strong>
-                                    <p:inputText  autocomplete="false"  id="duplicarNombreRepresentanteDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.nombrerepresentante}"  style="width: 122px; position: absolute; left: 230px; top: 10px; text-transform: uppercase" onclick="select();" >
+                                    <p:inputText  autocomplete="off"  id="duplicarNombreRepresentanteDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.nombrerepresentante}"  style="width: 122px; position: absolute; left: 230px; top: 10px; text-transform: uppercase" onclick="select();" >
                                         <p:ajax event="change" update="duplicarNombreRepresentanteDetalle"/>
                                     </p:inputText>
                                     <p:watermark for="duplicarNombreRepresentanteDetalle" value="#{msg['nombreRepre']}" />
 
                                     <strong><h:outputText value="#{msg['documentoRepresentanteN']}*" style="position: absolute; top: 45px; left: 25px; " /></strong>
-                                    <p:inputText  autocomplete="false"  id="duplicarDocumentoRepresentanteDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.documentorepresentante}"  style="width: 122px; position: absolute; left: 230px; top: 40px; text-transform: uppercase" onclick="select();" >
+                                    <p:inputText  autocomplete="off"  id="duplicarDocumentoRepresentanteDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.documentorepresentante}"  style="width: 122px; position: absolute; left: 230px; top: 40px; text-transform: uppercase" onclick="select();" >
                                         <p:ajax event="change" update="duplicarDocumentoRepresentanteDetalle"/>
                                     </p:inputText>
                                     <p:watermark for="duplicarDocumentoRepresentanteDetalle" value="#{msg['documentoRepre']}" />
 
                                     <strong><h:outputText value="#{msg['ciudadDocumentoN']}" style="position: absolute; top: 75px; left: 25px;" /></strong>
-                                    <p:inputText  autocomplete="false"  id="duplicarCiudadDocumentoDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.ciudaddocumentorepresentante.nombre}" style="width: 122px; position: absolute; left: 230px; top: 70px; text-transform: uppercase" onclick="select();">
+                                    <p:inputText  autocomplete="off"  id="duplicarCiudadDocumentoDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.ciudaddocumentorepresentante.nombre}" style="width: 122px; position: absolute; left: 230px; top: 70px; text-transform: uppercase" onclick="select();">
                                         <p:ajax event="dblclick" listener="#{controlDetalleEmpresa.asignarIndex(indice,2,2)}"/>
                                         <p:ajax event="click" listener="#{controlDetalleEmpresa.valoresBackupAutocompletarDetalleEmpresa(2, 'CIUDADDOCUMENTO')}" />
                                         <p:ajax event="change" listener="#{controlDetalleEmpresa.autocompletarNuevoyDuplicadoDetalleEmpresa('CIUDADDOCUMENTO', controlDetalleEmpresa.duplicarDetalleEmpresa.ciudaddocumentorepresentante.nombre,2)}" process="@this" update="duplicarCiudadDocumentoDetalle"/>
@@ -1445,19 +1445,19 @@
                                     <p:watermark for="duplicarCiudadDocumentoDetalle" value="#{msg['ciudadDoc']}" />
 
                                     <strong><h:outputText value="#{msg['arquitectoN']}" style="position: absolute; top: 105px; left: 25px;" /></strong>
-                                    <p:inputText  autocomplete="false"  id="duplicarArquitectoDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.nombrearquitecto}"  style="width: 122px; position: absolute; left: 230px; top: 100px; text-transform: uppercase" onclick="select();" >
+                                    <p:inputText  autocomplete="off"  id="duplicarArquitectoDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.nombrearquitecto}"  style="width: 122px; position: absolute; left: 230px; top: 100px; text-transform: uppercase" onclick="select();" >
                                         <p:ajax event="change" update="duplicarArquitectoDetalle"/>
                                     </p:inputText>
                                     <p:watermark for="duplicarArquitectoDetalle" value="#{msg['arquitecto']}" />
 
                                     <strong><h:outputText value="#{msg['cargoArquitectoN']}" style="position: absolute; top: 135px; left: 25px;" /></strong>
-                                    <p:inputText  autocomplete="false"  id="duplicarCargoArquitectoDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.nombrearquitecto}"  style="width: 122px; position: absolute; left: 230px; top: 130px; text-transform: uppercase" onclick="select();" >
+                                    <p:inputText  autocomplete="off"  id="duplicarCargoArquitectoDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.nombrearquitecto}"  style="width: 122px; position: absolute; left: 230px; top: 130px; text-transform: uppercase" onclick="select();" >
                                         <p:ajax event="change" update="duplicarCargoArquitectoDetalle"/>
                                     </p:inputText>
                                     <p:watermark for="duplicarCargoArquitectoDetalle" value="#{msg['cargoArquitecto']}" />
 
                                     <strong><h:outputText value="#{msg['gerenteN']}" style="position: absolute; top: 165px; left: 25px;" /></strong>
-                                    <p:inputText  autocomplete="false"  id="duplicarGerenteDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.gerentegeneral.persona.nombreCompleto}" style="width: 122px; position: absolute; left: 230px; top: 160px; text-transform: uppercase" onclick="select();">
+                                    <p:inputText  autocomplete="off"  id="duplicarGerenteDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.gerentegeneral.persona.nombreCompleto}" style="width: 122px; position: absolute; left: 230px; top: 160px; text-transform: uppercase" onclick="select();">
                                         <p:ajax event="dblclick" listener="#{controlDetalleEmpresa.asignarIndex(indice,3,2)}"/>
                                         <p:ajax event="click" listener="#{controlDetalleEmpresa.valoresBackupAutocompletarDetalleEmpresa(2, 'GERENTE')}" />
                                         <p:ajax event="change" listener="#{controlDetalleEmpresa.autocompletarNuevoyDuplicadoDetalleEmpresa('GERENTE', controlDetalleEmpresa.duplicarDetalleEmpresa.gerentegeneral.persona.nombreCompleto,2)}" process="@this" update="duplicarGerenteDetalle"/>
@@ -1466,7 +1466,7 @@
                                     <p:watermark for="duplicarGerenteDetalle" value="#{msg['gerenteGeneral']}" />
 
                                     <strong><h:outputText value="#{msg['subGerenteN']}" style="position: absolute; top: 195px; left: 25px;" /></strong>
-                                    <p:inputText  autocomplete="false"  id="duplicarSubGerenteDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.subgerente.persona.nombreCompleto}" style="width: 122px; position: absolute; left: 230px; top: 190px; text-transform: uppercase" onclick="select();">
+                                    <p:inputText  autocomplete="off"  id="duplicarSubGerenteDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.subgerente.persona.nombreCompleto}" style="width: 122px; position: absolute; left: 230px; top: 190px; text-transform: uppercase" onclick="select();">
                                         <p:ajax event="dblclick" listener="#{controlDetalleEmpresa.asignarIndex(indice,6,2)}"/>
                                         <p:ajax event="click" listener="#{controlDetalleEmpresa.valoresBackupAutocompletarDetalleEmpresa(2, 'SUBGERENTE')}" />
                                         <p:ajax event="change" listener="#{controlDetalleEmpresa.autocompletarNuevoyDuplicadoDetalleEmpresa('SUBGERENTE', controlDetalleEmpresa.duplicarDetalleEmpresa.subgerente.persona.nombreCompleto,2)}" process="@this" update="duplicarSubGerenteDetalle"/>
@@ -1475,7 +1475,7 @@
                                     <p:watermark for="duplicarSubGerenteDetalle" value="#{msg['subGerente']}" />
 
                                     <strong><h:outputText value="#{msg['representanteN']}" style="position: absolute; top: 225px; left: 25px;" /></strong>
-                                    <p:inputText  autocomplete="false"  id="duplicarRepresentanteDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.representantecir.persona.nombreCompleto}" style="width: 122px; position: absolute; left: 230px; top: 220px; text-transform: uppercase" onclick="select();">
+                                    <p:inputText  autocomplete="off"  id="duplicarRepresentanteDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.representantecir.persona.nombreCompleto}" style="width: 122px; position: absolute; left: 230px; top: 220px; text-transform: uppercase" onclick="select();">
                                         <p:ajax event="dblclick" listener="#{controlDetalleEmpresa.asignarIndex(indice,7,2)}"/>
                                         <p:ajax event="click" listener="#{controlDetalleEmpresa.valoresBackupAutocompletarDetalleEmpresa(2, 'REPRESENTANTE')}" />
                                         <p:ajax event="change" listener="#{controlDetalleEmpresa.autocompletarNuevoyDuplicadoDetalleEmpresa('REPRESENTANTE', controlDetalleEmpresa.duplicarDetalleEmpresa.representantecir.persona.nombreCompleto,2)}" process="@this" update="duplicarRepresentanteDetalle"/>
@@ -1484,7 +1484,7 @@
                                     <p:watermark for="duplicarRepresentanteDetalle" value="#{msg['representante']}" />
 
                                     <strong><h:outputText value="#{msg['personaFirmaN']}" style="position: absolute; top: 255px; left: 25px;" /></strong>
-                                    <p:inputText  autocomplete="false"  id="duplicarPersonaFirmaDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.personafirmaconstancia.nombreCompleto}" style="width: 122px; position: absolute; left: 230px; top: 250px; text-transform: uppercase" onclick="select();">
+                                    <p:inputText  autocomplete="off"  id="duplicarPersonaFirmaDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.personafirmaconstancia.nombreCompleto}" style="width: 122px; position: absolute; left: 230px; top: 250px; text-transform: uppercase" onclick="select();">
                                         <p:ajax event="dblclick" listener="#{controlDetalleEmpresa.asignarIndex(indice,4,2)}"/>
                                         <p:ajax event="click" listener="#{controlDetalleEmpresa.valoresBackupAutocompletarDetalleEmpresa(2, 'PERSONA')}" />
                                         <p:ajax event="change" listener="#{controlDetalleEmpresa.autocompletarNuevoyDuplicadoDetalleEmpresa('PERSONA', controlDetalleEmpresa.duplicarDetalleEmpresa.personafirmaconstancia.nombreCompleto,2)}" process="@this" update="duplicarPersonaFirmaDetalle"/>
@@ -1493,7 +1493,7 @@
                                     <p:watermark for="duplicarPersonaFirmaDetalle" value="#{msg['personaFirma']}" />
 
                                     <strong><h:outputText value="#{msg['cargoFirmaN']}" style="position: absolute; top: 285px; left: 25px;" /></strong>
-                                    <p:inputText  autocomplete="false"  id="duplicarCargoFirmaDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.cargofirmaconstancia.nombre}" style="width: 122px; position: absolute; left: 230px; top: 280px; text-transform: uppercase" onclick="select();">
+                                    <p:inputText  autocomplete="off"  id="duplicarCargoFirmaDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.cargofirmaconstancia.nombre}" style="width: 122px; position: absolute; left: 230px; top: 280px; text-transform: uppercase" onclick="select();">
                                         <p:ajax event="dblclick" listener="#{controlDetalleEmpresa.asignarIndex(indice,5,2)}"/>
                                         <p:ajax event="click" listener="#{controlDetalleEmpresa.valoresBackupAutocompletarDetalleEmpresa(2, 'CARGO')}" />
                                         <p:ajax event="change" listener="#{controlDetalleEmpresa.autocompletarNuevoyDuplicadoDetalleEmpresa('CARGO', controlDetalleEmpresa.duplicarDetalleEmpresa.cargofirmaconstancia.nombre,2)}" process="@this" update="duplicarCargoFirmaDetalle"/>
@@ -1508,7 +1508,7 @@
                                 <div style="width: 470px; height: 190px">
 
                                     <strong><h:outputText value="#{msg['emailN']}" style="position: absolute; top: 15px; left: 25px;" /></strong>
-                                    <p:inputText  autocomplete="false"  id="duplicarEmailDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.email}"  style="width: 122px; position: absolute; left: 230px; top: 10px;" onclick="select();" >
+                                    <p:inputText  autocomplete="off"  id="duplicarEmailDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.email}"  style="width: 122px; position: absolute; left: 230px; top: 10px;" onclick="select();" >
                                         <p:ajax event="change" update="duplicarEmailDetalle"/>
                                     </p:inputText>
                                     <p:watermark for="duplicarEmailDetalle" value="#{msg['email']}" />
@@ -1521,19 +1521,19 @@
                                     </p:selectOneMenu>
 
                                     <strong><h:outputText value="#{msg['ciiuN']}" style="position: absolute; top: 75px; left: 25px;" /></strong>
-                                    <p:inputText  autocomplete="false"  id="duplicarCIIUDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.ciiu}"  style="width: 122px; position: absolute; left: 230px; top: 70px; text-transform: uppercase" onclick="select();" >
+                                    <p:inputText  autocomplete="off"  id="duplicarCIIUDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.ciiu}"  style="width: 122px; position: absolute; left: 230px; top: 70px; text-transform: uppercase" onclick="select();" >
                                         <p:ajax event="change" update="duplicarCIIUDetalle"/>
                                     </p:inputText>
                                     <p:watermark for="duplicarCIIUDetalle" value="CIIU" />
 
                                     <strong><h:outputText value="#{msg['actEconomicaN']}" style="position: absolute; top: 105px; left: 25px;" /></strong>
-                                    <p:inputText  autocomplete="false"  id="duplicarActividadEconomicaDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.actividadeconomica}"  style="width: 122px; position: absolute; left: 230px; top: 100px; text-transform: uppercase" onclick="select();" >
+                                    <p:inputText  autocomplete="off"  id="duplicarActividadEconomicaDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.actividadeconomica}"  style="width: 122px; position: absolute; left: 230px; top: 100px; text-transform: uppercase" onclick="select();" >
                                         <p:ajax event="change" update="duplicarActividadEconomicaDetalle"/>
                                     </p:inputText>
                                     <p:watermark for="duplicarActividadEconomicaDetalle" value="#{msg['actividadEconomica']}" />
                                     
                                     <strong><h:outputText value="#{msg['planillaN']}" style="position: absolute; top: 135px; left: 25px;" /></strong>
-                                    <p:inputText  autocomplete="false"  id="duplicarPlanillaDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.pilaultimaplanilla}"  style="width: 122px; position: absolute; left: 230px; top: 130px; text-transform: uppercase" onclick="select();" >
+                                    <p:inputText  autocomplete="off"  id="duplicarPlanillaDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.pilaultimaplanilla}"  style="width: 122px; position: absolute; left: 230px; top: 130px; text-transform: uppercase" onclick="select();" >
                                         <p:ajax event="change" update="duplicarPlanillaDetalle"/>
                                     </p:inputText>
                                     <p:watermark for="duplicarPlanillaDetalle" value="#{msg['planilla']}" />
@@ -1556,7 +1556,7 @@
 
                                     <strong><h:outputText value="#{msg['camaraComercioN']}" style="position: absolute; top: 15px; left: 25px;" /></strong>
                                     <div id="posicionFormulaFechaCamaraNuevoReg" style="position: absolute; top: 10px; left: 230px;width: 122px">
-                                        <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaCamaraDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.fechacamaracomercio}" >
+                                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaCamaraDetalle" value="#{controlDetalleEmpresa.duplicarDetalleEmpresa.fechacamaracomercio}" >
                                             <p:ajax event="dateSelect" update="duplicarFechaCamaraDetalle" process="@this"/>
                                             <p:ajax event="change" update="duplicarFechaCamaraDetalle" process="@this"/>
                                         </p:calendar>

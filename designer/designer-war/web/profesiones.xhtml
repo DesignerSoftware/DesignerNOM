@@ -97,7 +97,7 @@
                                             <h:outputText value="#{info.codigo}" />
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.codigo}" id="CodigosProfesiones" > 
+                                            <p:inputText  autocomplete="off"  value="#{info.codigo}" id="CodigosProfesiones" > 
                                                 <p:keyFilter for="CodigosProfesiones" mask="num"/>
                                                 <p:ajax event="select" listener="#{controlProfesiones.cambiarIndice(info,0)}" />
                                                 <p:ajax event="change" listener="#{controlProfesiones.modificarProfesiones(info, 'N', info.codigo)}" update="@this"/>
@@ -117,7 +117,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.descripcion}" id="NombresProfesiones" maxlength="40" > 
+                                            <p:inputText  autocomplete="off"  value="#{info.descripcion}" id="NombresProfesiones" maxlength="40" > 
                                                 <p:ajax event="select" listener="#{controlProfesiones.cambiarIndice(info,1)}" />
                                                 <p:ajax event="change" listener="#{controlProfesiones.modificarProfesiones(info, 'N', info.descripcion)}" update="@this" />
                                             </p:inputText> 
@@ -168,13 +168,13 @@
 
                         <p:panel id="nuevaProfesion" style="border: none;">
                             <strong><h:outputText value="Código: " style=" position: absolute; top: 63px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoCodigoProfesion" value="#{controlProfesiones.nuevaProfesion.codigo}" maxlength="4" style=" width: 122px; position: absolute; left: 130px; top: 59px; text-transform: uppercase" >
+                            <p:inputText  autocomplete="off"  id="nuevoCodigoProfesion" value="#{controlProfesiones.nuevaProfesion.codigo}" maxlength="4" style=" width: 122px; position: absolute; left: 130px; top: 59px; text-transform: uppercase" >
                                 <p:ajax event="change" update="nuevoCodigoProfesion"/>
                             </p:inputText>
                             <p:watermark for="nuevoCodigoProfesion" value="Código" />
 
                             <strong><h:outputText value="Descripción: " style=" position: absolute; top: 93px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoNombreProfesion" value="#{controlProfesiones.nuevaProfesion.descripcion}" maxlength="50" style=" width: 122px; position: absolute; left: 130px; top: 89px; text-transform: uppercase" >
+                            <p:inputText  autocomplete="off"  id="nuevoNombreProfesion" value="#{controlProfesiones.nuevaProfesion.descripcion}" maxlength="50" style=" width: 122px; position: absolute; left: 130px; top: 89px; text-transform: uppercase" >
                                 <p:ajax event="change" update="nuevoNombreProfesion"/>
                             </p:inputText> 
                             <p:watermark for="nuevoNombreProfesion" value="Nombre" />
@@ -194,13 +194,13 @@
                         <p:panel id="duplicarProfesion" style="border: none;">
 
                             <strong><h:outputText value="Codigo: " style=" position: absolute; top: 63px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarCodigo" value="#{controlProfesiones.duplicarProfesion.codigo}" maxlength="4" style=" width: 122px; position: absolute; left: 130px; top: 59px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText  autocomplete="off"  id="duplicarCodigo" value="#{controlProfesiones.duplicarProfesion.codigo}" maxlength="4" style=" width: 122px; position: absolute; left: 130px; top: 59px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" update="duplicarProfesion"/>
                             </p:inputText>
                             <p:watermark for="duplicarCodigo" value="Código" />
 
                             <strong><h:outputText value="Descripción: " style=" position: absolute; top: 93px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarNombre" value="#{controlProfesiones.duplicarProfesion.descripcion}" maxlength="20" style=" width: 122px; position: absolute; left: 130px; top: 89px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText  autocomplete="off"  id="duplicarNombre" value="#{controlProfesiones.duplicarProfesion.descripcion}" maxlength="20" style=" width: 122px; position: absolute; left: 130px; top: 89px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" update="duplicarProfesion"/>
                             </p:inputText>
                             <p:watermark for="duplicarNombre" value="Nombre" />

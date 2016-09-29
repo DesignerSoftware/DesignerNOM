@@ -113,7 +113,7 @@
                                     <p:cellEditor>                                          
                                         <f:facet name="output"><h:outputText value="#{infoT.nombre}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{infoT.nombre}" maxlength="30"  id="editarTerceroNombre" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"  value="#{infoT.nombre}" maxlength="30"  id="editarTerceroNombre" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:ajax event="select" listener="#{controlTercero.cambiarIndice(infoT, 0)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlTercero.modificarTercero(infoT)}" process="@this"/>
                                             </p:inputText>
@@ -132,7 +132,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoT.nit}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{infoT.nit}"  id="editarTerceroNIT" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"  value="#{infoT.nit}"  id="editarTerceroNIT" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:ajax event="select" listener="#{controlTercero.cambiarIndice(infoT, 1)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlTercero.modificarTercero(infoT)}" process="@this"/>
                                             </p:inputText>
@@ -151,7 +151,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoT.digitoverificacion}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{infoT.digitoverificacion}"  id="editarTerceroDigitoVerificacion" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"  value="#{infoT.digitoverificacion}"  id="editarTerceroDigitoVerificacion" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:ajax event="select" listener="#{controlTercero.cambiarIndice(infoT, 2)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlTercero.modificarTercero(infoT)}" process="@this"/>
                                             </p:inputText>
@@ -170,7 +170,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoT.nitalternativo}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{infoT.nitalternativo}" maxlength="30" id="editarTerceroNITAlternativo" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"  value="#{infoT.nitalternativo}" maxlength="30" id="editarTerceroNITAlternativo" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:ajax event="select" listener="#{controlTercero.cambiarIndice(infoT, 3)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlTercero.modificarTercero(infoT)}" process="@this"/>
                                             </p:inputText>
@@ -189,7 +189,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoT.codigoss}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{infoT.codigoss}" maxlength="6" id="editarTerceroCodigoSS" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"  value="#{infoT.codigoss}" maxlength="6" id="editarTerceroCodigoSS" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:ajax event="select" listener="#{controlTercero.cambiarIndice(infoT, 4)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlTercero.modificarTercero(infoT)}" process="@this"/>
                                             </p:inputText>
@@ -208,7 +208,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoT.codigosp}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{infoT.codigosp}" maxlength="6" id="editarTerceroCodigoSP" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"  value="#{infoT.codigosp}" maxlength="6" id="editarTerceroCodigoSP" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:ajax event="select" listener="#{controlTercero.cambiarIndice(infoT, 5)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlTercero.modificarTercero(infoT)}" process="@this"/>
                                             </p:inputText>
@@ -227,7 +227,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoT.codigosc}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{infoT.codigosc}" maxlength="6" id="editarTerceroCodigoSC" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"  value="#{infoT.codigosc}" maxlength="6" id="editarTerceroCodigoSC" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:ajax event="select" listener="#{controlTercero.cambiarIndice(infoT, 6)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlTercero.modificarTercero(infoT)}" process="@this"/>
                                             </p:inputText>
@@ -246,7 +246,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoT.terceroconsolidador.nombre}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{infoT.terceroconsolidador.nombre}"  id="editarTConsolidador" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"  value="#{infoT.terceroconsolidador.nombre}"  id="editarTConsolidador" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:ajax event="select" listener="#{controlTercero.cambiarIndice(infoT, 7)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlTercero.modificarTerceroAutocompletar(infoT, 'TERCEROCONSOLIDADOR', infoT.terceroconsolidador.nombre)}" process="@this" update="editarTConsolidador"/>
                                                 <p:ajax event="dblclick" listener="#{controlTercero.asignarIndex(infoT,0,0,0)}" process="@this" update="editarTConsolidador"/>
@@ -266,7 +266,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoT.terceroconsolidador.nit}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{infoT.terceroconsolidador.nit}"  id="editarTerceroNITConsolidado" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"  value="#{infoT.terceroconsolidador.nit}"  id="editarTerceroNITConsolidado" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:ajax event="select" listener="#{controlTercero.cambiarIndice(infoT, 8)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlTercero.modificarTercero(infoT)}" process="@this"/>
                                             </p:inputText>
@@ -285,7 +285,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoT.ciudad.nombre}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{infoT.ciudad.nombre}"  id="editarTerceroCiudad" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"  value="#{infoT.ciudad.nombre}"  id="editarTerceroCiudad" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:ajax event="select" listener="#{controlTercero.cambiarIndice(infoT, 9)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlTercero.modificarTerceroAutocompletar(infoT, 'CIUDAD', infoT.ciudad.nombre)}" process="@this" update="editarTerceroCiudad"/>
                                                 <p:ajax event="dblclick" listener="#{controlTercero.asignarIndex(infoT,1, 0,0)}" process="@this" update="editarTerceroCiudad"/>
@@ -305,7 +305,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoT.codigoalternativo}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{infoT.codigoalternativo}"  id="editarTerceroCodigoAlterno" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"  value="#{infoT.codigoalternativo}"  id="editarTerceroCodigoAlterno" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:ajax event="select" listener="#{controlTercero.cambiarIndice(infoT, 10)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlTercero.modificarTercero(infoT)}" process="@this"/>
                                             </p:inputText>
@@ -385,7 +385,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoTS.codigosucursal}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{infoTS.codigosucursal}"  id="editarTerceroSucursalCodigo" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"  value="#{infoTS.codigosucursal}"  id="editarTerceroSucursalCodigo" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:ajax event="select" listener="#{controlTercero.cambiarIndiceTS(infoTS, 0)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlTercero.modificarTerceroSucursal(infoTS)}" process="@this"/>
                                             </p:inputText>
@@ -405,7 +405,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoTS.codigopatronal}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{infoTS.codigopatronal}"  id="editarTerceroSucursalPatronal" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"  value="#{infoTS.codigopatronal}"  id="editarTerceroSucursalPatronal" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:ajax event="select" listener="#{controlTercero.cambiarIndiceTS(infoTS, 1)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlTercero.modificarTerceroSucursal(infoTS)}" process="@this"/>
                                             </p:inputText>
@@ -425,7 +425,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoTS.descripcion}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{infoTS.descripcion}" maxlength="200" id="editarTerceroSucursalObservacion" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"  value="#{infoTS.descripcion}" maxlength="200" id="editarTerceroSucursalObservacion" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:ajax event="select" listener="#{controlTercero.cambiarIndiceTS(infoTS, 2)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlTercero.modificarTerceroSucursal(infoTS)}" process="@this"/>
                                             </p:inputText>
@@ -445,7 +445,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoTS.ciudad.nombre}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{infoTS.ciudad.nombre}"  id="editarTerceroSucursalCiudad" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"  value="#{infoTS.ciudad.nombre}"  id="editarTerceroSucursalCiudad" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:ajax event="select" listener="#{controlTercero.cambiarIndiceTS(infoTS, 3)}" process="@this"/>
                                                 <p:ajax event="dblclick" listener="#{controlTercero.asignarIndex(infoTS,0,0,1)}" process="@this" update="editarTerceroSucursalCiudad"/>
                                                 <p:ajax event="change" listener="#{controlTercero.modificarTerceroSucursalAutocompletar(infoTS, 'CIUDAD', infoTS.ciudad.nombre)}" process="@this" update="editarTerceroSucursalCiudad"/>
@@ -477,7 +477,7 @@
 
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarT']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovBuscarTercero').filter();" value="#{filtrado}" style="width:150px; position: relative; left: 20px;" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovBuscarTercero').filter();" value="#{filtrado}" style="width:150px; position: relative; left: 20px;" />  
                             </f:facet>
                             <p:column filterBy="#{tercero.nit}" filterMatchMode="contains">
                                 <f:facet name="header">
@@ -511,7 +511,7 @@
 
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarT']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovTercero').filter();" value="#{filtrado}" style="width:150px; position: relative; left: 20px;" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovTercero').filter();" value="#{filtrado}" style="width:150px; position: relative; left: 20px;" />  
                             </f:facet> 
                             <p:column filterBy="#{tercero.nit}"  filterMatchMode="contains">
                                 <f:facet name="header">
@@ -547,7 +547,7 @@
 
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarC']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovCiudad').filter();" value="#{filtrado}" style="width:150px; position: relative; left: 20px;" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovCiudad').filter();" value="#{filtrado}" style="width:150px; position: relative; left: 20px;" />  
                             </f:facet>
                             <p:column filterBy="#{ciudad.codigo}" filterMatchMode="contains">
                                 <f:facet name="header">
@@ -583,7 +583,7 @@
 
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarC']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="false"  id="globalFilter" value="#{filtrado}" onkeyup="PF('lovCiudadTS').filter();" style="width:150px; position: relative; left: 20px;" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" value="#{filtrado}" onkeyup="PF('lovCiudadTS').filter();" style="width:150px; position: relative; left: 20px;" />  
                             </f:facet> 
                             <p:column filterBy="#{ciudad.codigo}"  filterMatchMode="contains">
                                 <f:facet name="header">
@@ -724,48 +724,48 @@
                         <p:panel id="nuevaT" style="border: none;">
 
                             <strong><h:outputText value="*#{msg['nombreNT']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaNombreT" maxlength="30" value="#{controlTercero.nuevoTercero.nombre}" style="width: 122px; position: absolute; left: 200px; top: 70px; text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="nuevaNombreT" maxlength="30" value="#{controlTercero.nuevoTercero.nombre}" style="width: 122px; position: absolute; left: 200px; top: 70px; text-transform: uppercase">
                                 <p:ajax event="change" update="nuevaNombreT"/>
                             </p:inputText>
                             <p:watermark for="nuevaNombreT" value="#{msg['nombreWM']}" />
                             <strong><h:outputText value="*#{msg['nitNT']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaNITT" value="#{controlTercero.nuevoTercero.nit}" style="width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="nuevaNITT" value="#{controlTercero.nuevoTercero.nit}" style="width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase">
                                 <p:ajax event="change" update="nuevaNITT"/>
                             </p:inputText>
                             <p:watermark for="nuevaNITT" value="#{msg['nitWM']}" />
 
                             <strong><h:outputText value="#{msg['digitoNT']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaDigitoVT" value="#{controlTercero.nuevoTercero.digitoverificacion}" style="width: 122px; position: absolute; left: 200px; top: 130px; text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="nuevaDigitoVT" value="#{controlTercero.nuevoTercero.digitoverificacion}" style="width: 122px; position: absolute; left: 200px; top: 130px; text-transform: uppercase">
                                 <p:ajax event="change" update="nuevaDigitoVT"/>
                             </p:inputText>
                             <p:watermark for="nuevaDigitoVT" value="#{msg['digitoWM']}" />
 
                             <strong><h:outputText value="#{msg['nitalternativoNT']}:" style="position: absolute; top: 165px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaNITAT" maxlength="30" value="#{controlTercero.nuevoTercero.nitalternativo}" style="width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="nuevaNITAT" maxlength="30" value="#{controlTercero.nuevoTercero.nitalternativo}" style="width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase">
                                 <p:ajax event="change" update="nuevaNITAT"/>
                             </p:inputText>
                             <p:watermark for="nuevaNITAT" value="#{msg['nitalternativoWM']}" />
 
                             <strong><h:outputText value="#{msg['codigossNT']}" style="position: absolute; top: 195px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaCSST" maxlength="6" value="#{controlTercero.nuevoTercero.codigoss}" style="width: 122px; position: absolute; left: 200px; top: 190px;; text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="nuevaCSST" maxlength="6" value="#{controlTercero.nuevoTercero.codigoss}" style="width: 122px; position: absolute; left: 200px; top: 190px;; text-transform: uppercase">
                                 <p:ajax event="change" update="nuevaCSST"/>
                             </p:inputText>
                             <p:watermark for="nuevaCSST" value="#{msg['codigossWM']}" />
 
                             <strong><h:outputText value="#{msg['codigospNT']}" style="position: absolute; top: 225px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaCSPT" maxlength="6" value="#{controlTercero.nuevoTercero.codigosp}" style="width: 122px; position: absolute; left: 200px; top: 220px; text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="nuevaCSPT" maxlength="6" value="#{controlTercero.nuevoTercero.codigosp}" style="width: 122px; position: absolute; left: 200px; top: 220px; text-transform: uppercase">
                                 <p:ajax event="change" update="nuevaCSPT"/>
                             </p:inputText>
                             <p:watermark for="nuevaCSPT" value="#{msg['codigospWM']}" />
 
                             <strong><h:outputText value="#{msg['codigoscNT']}" style="position: absolute; top: 255px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaCSCT" maxlength="6" value="#{controlTercero.nuevoTercero.codigosc}" style="width: 122px; position: absolute; left: 200px; top: 250px; text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="nuevaCSCT" maxlength="6" value="#{controlTercero.nuevoTercero.codigosc}" style="width: 122px; position: absolute; left: 200px; top: 250px; text-transform: uppercase">
                                 <p:ajax event="change" update="nuevaCSCT"/>
                             </p:inputText>
                             <p:watermark for="nuevaCSCT" value="#{msg['codigoscWM']}" />
 
                             <strong><h:outputText value="#{msg['consolidadorNT']}" style="position: absolute; top: 75px; left: 360px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaTerceroCT" value="#{controlTercero.nuevoTercero.terceroconsolidador.nombre}" style="width: 122px; position: absolute; left: 540px; top: 70px; text-transform: uppercase" onclick="select();" >
+                            <p:inputText  autocomplete="off"  id="nuevaTerceroCT" value="#{controlTercero.nuevoTercero.terceroconsolidador.nombre}" style="width: 122px; position: absolute; left: 540px; top: 70px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="dblclick" listener="#{controlTercero.asignarIndex(indice,0,1,0)}"/>
                                 <p:ajax event="click" listener="#{controlTercero.valoresBackupAutocompletar(1, 'TERCEROCONSOLIDADOR',0)}" />
                                 <p:ajax event="change" listener="#{controlTercero.autocompletarNuevoyDuplicadoTercero('TERCEROCONSOLIDADOR', controlTercero.nuevoTercero.terceroconsolidador.nombre, 1)}" />
@@ -774,12 +774,12 @@
                             <p:watermark for="nuevaTerceroCT" value="#{msg['consolidadorWM']}" />
 
                             <strong><h:outputText value="#{msg['nitconsolidadorNT']}" style="position: absolute; top: 105px; left: 360px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaTerceroCNITT" value="#{controlTercero.nuevoTercero.terceroconsolidador.nit}" style="width: 122px; position: absolute; left: 540px; top: 100px; text-transform: uppercase" readonly="true">
+                            <p:inputText  autocomplete="off"  id="nuevaTerceroCNITT" value="#{controlTercero.nuevoTercero.terceroconsolidador.nit}" style="width: 122px; position: absolute; left: 540px; top: 100px; text-transform: uppercase" readonly="true">
                             </p:inputText>
                             <p:watermark for="nuevaTerceroCNITT" value="#{msg['nitconsolidadorWM']}" />
 
                             <strong><h:outputText value="#{msg['ciudadNT']}" style="position: absolute; top: 135px; left: 360px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaCiudadT" value="#{controlTercero.nuevoTercero.ciudad.nombre}" style="width: 122px; position: absolute; left: 540px; top: 130px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="nuevaCiudadT" value="#{controlTercero.nuevoTercero.ciudad.nombre}" style="width: 122px; position: absolute; left: 540px; top: 130px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlTercero.asignarIndex(indice,1,1,0)}"/>
                                 <p:ajax event="click" listener="#{controlTercero.valoresBackupAutocompletar(1, 'CIUDAD',0)}" />
                                 <p:ajax event="change" listener="#{controlTercero.autocompletarNuevoyDuplicadoTercero('CIUDAD', controlTercero.nuevoTercero.ciudad.nombre, 1)}" update="nuevaCiudadT"/>
@@ -788,7 +788,7 @@
                             <p:watermark for="nuevaCiudadT" value="#{msg['ciudadWM']}" />
 
                             <strong><h:outputText value="#{msg['codigoalternativoNT']}" style="position: absolute; top: 165px; left: 360px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaCodigoAT" value="#{controlTercero.nuevoTercero.codigoalternativo}" style="width: 122px; position: absolute; left: 540px; top: 160px; text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="nuevaCodigoAT" value="#{controlTercero.nuevoTercero.codigoalternativo}" style="width: 122px; position: absolute; left: 540px; top: 160px; text-transform: uppercase">
                                 <p:ajax event="change" update="nuevaCodigoAT"/>
                             </p:inputText>
                             <p:watermark for="nuevaCodigoAT" value="#{msg['codigoalternativoWM']}" />
@@ -825,49 +825,49 @@
                         <p:panel id="duplicarT" style="border: none;">
 
                             <strong><h:outputText value="*#{msg['nombreNT']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarTNombreT" maxlength="30" value="#{controlTercero.duplicarTecero.nombre}" style="width: 122px; position: absolute; left: 200px; top: 70px; text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="duplicarTNombreT" maxlength="30" value="#{controlTercero.duplicarTecero.nombre}" style="width: 122px; position: absolute; left: 200px; top: 70px; text-transform: uppercase">
                                 <p:ajax event="change" update="duplicarTNombreT"/>
                             </p:inputText>
                             <p:watermark for="duplicarTNombreT" value="#{msg['nombreWM']}" />
 
                             <strong><h:outputText value="*#{msg['nitNT']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarTNITT" value="#{controlTercero.duplicarTecero.nit}" style="width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="duplicarTNITT" value="#{controlTercero.duplicarTecero.nit}" style="width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase">
                                 <p:ajax event="change" update="duplicarTNITT"/>
                             </p:inputText>
                             <p:watermark for="duplicarTNITT" value="#{msg['nitWM']}" />
 
                             <strong><h:outputText value="#{msg['digitoNT']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarTDigitoVT" value="#{controlTercero.duplicarTecero.digitoverificacion}" style="width: 122px; position: absolute; left: 200px; top: 130px; text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="duplicarTDigitoVT" value="#{controlTercero.duplicarTecero.digitoverificacion}" style="width: 122px; position: absolute; left: 200px; top: 130px; text-transform: uppercase">
                                 <p:ajax event="change" update="duplicarTDigitoVT"/>
                             </p:inputText>
                             <p:watermark for="duplicarTDigitoVT" value="#{msg['digitoWM']}" />
 
                             <strong><h:outputText value="#{msg['nitalternativoNT']}:" style="position: absolute; top: 165px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarTNITAT" maxlength="30" value="#{controlTercero.duplicarTecero.nitalternativo}" style="width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="duplicarTNITAT" maxlength="30" value="#{controlTercero.duplicarTecero.nitalternativo}" style="width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase">
                                 <p:ajax event="change" update="duplicarTNITAT"/>
                             </p:inputText>
                             <p:watermark for="duplicarTNITAT" value="#{msg['nitalternativoWM']}" />
 
                             <strong><h:outputText value="#{msg['codigossNT']}" style="position: absolute; top: 195px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarTCSST" maxlength="6" value="#{controlTercero.duplicarTecero.codigoss}" style="width: 122px; position: absolute; left: 200px; top: 190px; text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="duplicarTCSST" maxlength="6" value="#{controlTercero.duplicarTecero.codigoss}" style="width: 122px; position: absolute; left: 200px; top: 190px; text-transform: uppercase">
                                 <p:ajax event="change" update="duplicarTCSST"/>
                             </p:inputText>
                             <p:watermark for="duplicarTCSST" value="#{msg['codigossWM']}" />
 
                             <strong><h:outputText value="#{msg['codigospNT']}" style="position: absolute; top: 225px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarTCSPT" maxlength="6" value="#{controlTercero.duplicarTecero.codigosp}" style="width: 122px; position: absolute; left: 200px; top: 220px; text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="duplicarTCSPT" maxlength="6" value="#{controlTercero.duplicarTecero.codigosp}" style="width: 122px; position: absolute; left: 200px; top: 220px; text-transform: uppercase">
                                 <p:ajax event="change" update="duplicarTCSPT"/>
                             </p:inputText>
                             <p:watermark for="duplicarTCSPT" value="#{msg['codigospWM']}" />
 
                             <strong><h:outputText value="#{msg['codigoscNT']}" style="position: absolute; top: 255px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarTCSCT" maxlength="6" value="#{controlTercero.duplicarTecero.codigosc}" style="width: 122px; position: absolute; left: 200px; top: 250px; text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="duplicarTCSCT" maxlength="6" value="#{controlTercero.duplicarTecero.codigosc}" style="width: 122px; position: absolute; left: 200px; top: 250px; text-transform: uppercase">
                                 <p:ajax event="change" update="duplicarTCSCT"/>
                             </p:inputText>
                             <p:watermark for="duplicarTCSCT" value="#{msg['codigoscWM']}" />
 
                             <strong><h:outputText value="#{msg['consolidadorNT']}" style="position: absolute; top: 75px; left: 360px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarTTerceroCT" value="#{controlTercero.duplicarTecero.terceroconsolidador.nombre}" style="width: 122px; position: absolute; left: 540px; top: 70px; text-transform: uppercase" onclick="select();" >
+                            <p:inputText  autocomplete="off"  id="duplicarTTerceroCT" value="#{controlTercero.duplicarTecero.terceroconsolidador.nombre}" style="width: 122px; position: absolute; left: 540px; top: 70px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="dblclick" listener="#{controlTercero.asignarIndex(indice,0,2,0)}"/>
                                 <p:ajax event="click" listener="#{controlTercero.valoresBackupAutocompletar(2, 'TERCEROCONSOLIDADOR',0)}" />
                                 <p:ajax event="change" listener="#{controlTercero.autocompletarNuevoyDuplicadoTercero('TERCEROCONSOLIDADOR', controlTercero.duplicarTecero.terceroconsolidador.nombre, 2)}" />
@@ -876,12 +876,12 @@
                             <p:watermark for="duplicarTTerceroCT" value="#{msg['consolidadorWM']}" />
 
                             <strong><h:outputText value="#{msg['nitconsolidadorNT']}" style="position: absolute; top: 105px; left: 360px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarTTerceroCNITT" value="#{controlTercero.duplicarTecero.terceroconsolidador.nit}" style="width: 122px; position: absolute; left: 540px; top: 100px; text-transform: uppercase" readonly="true">
+                            <p:inputText  autocomplete="off"  id="duplicarTTerceroCNITT" value="#{controlTercero.duplicarTecero.terceroconsolidador.nit}" style="width: 122px; position: absolute; left: 540px; top: 100px; text-transform: uppercase" readonly="true">
                             </p:inputText>
                             <p:watermark for="duplicarTTerceroCNITT" value="#{msg['nitconsolidadorWM']}" />
 
                             <strong><h:outputText value="#{msg['ciudadNT']}" style="position: absolute; top: 135px; left: 360px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarTCiudadT" value="#{controlTercero.duplicarTecero.ciudad.nombre}" style="width: 122px; position: absolute; left: 540px; top: 130px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="duplicarTCiudadT" value="#{controlTercero.duplicarTecero.ciudad.nombre}" style="width: 122px; position: absolute; left: 540px; top: 130px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlTercero.asignarIndex(indice,1,2,0)}"/>
                                 <p:ajax event="click" listener="#{controlTercero.valoresBackupAutocompletar(2, 'CIUDAD',0)}" />
                                 <p:ajax event="change" listener="#{controlTercero.autocompletarNuevoyDuplicadoTercero('CIUDAD', controlTercero.duplicarTecero.ciudad.nombre, 2)}" update="duplicarTCiudadT"/>
@@ -890,7 +890,7 @@
                             <p:watermark for="duplicarTCiudadT" value="#{msg['ciudadWM']}"/>
 
                             <strong><h:outputText value="#{msg['codigoalternativoNT']}" style="position: absolute; top: 165px; left: 360px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarTCodigoAT" value="#{controlTercero.duplicarTecero.codigoalternativo}" style="width: 122px; position: absolute; left: 540px; top: 160px; text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="duplicarTCodigoAT" value="#{controlTercero.duplicarTecero.codigoalternativo}" style="width: 122px; position: absolute; left: 540px; top: 160px; text-transform: uppercase">
                                 <p:ajax event="change" update="nuevaCodigoAT"/>
                             </p:inputText>
                             <p:watermark for="duplicarTCodigoAT" value="#{msg['codigoalternativoWM']}" />
@@ -927,25 +927,25 @@
                         <p:panel id="nuevaTS" style="border: none;">
 
                             <strong><h:outputText value="*#{msg['codigosucursalNS']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaSucursalTS" value="#{controlTercero.nuevoTerceroSucursal.codigosucursal}" style="width: 122px; position: absolute; left: 220px; top: 70px; text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="nuevaSucursalTS" value="#{controlTercero.nuevoTerceroSucursal.codigosucursal}" style="width: 122px; position: absolute; left: 220px; top: 70px; text-transform: uppercase">
                                 <p:ajax event="change" update="nuevaSucursalTS" process="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevaSucursalTS" value="#{msg['codigosucursalWM']}" />
 
                             <strong><h:outputText value="#{msg['codigopatronalNS']}" style="position: absolute; top:105px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaPatronalTS" value="#{controlTercero.nuevoTerceroSucursal.codigopatronal}" style="width: 122px; position: absolute; left: 220px; top: 100px; text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="nuevaPatronalTS" value="#{controlTercero.nuevoTerceroSucursal.codigopatronal}" style="width: 122px; position: absolute; left: 220px; top: 100px; text-transform: uppercase">
                                 <p:ajax event="change" update="nuevaPatronalTS" process="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevaPatronalTS" value="#{msg['codigopatronalWM']}" />
 
                             <strong><h:outputText value="#{msg['observacionNS']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaObservacionTS" maxlength="200" value="#{controlTercero.nuevoTerceroSucursal.descripcion}" style="width: 122px; position: absolute; left: 220px; top: 130px; text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="nuevaObservacionTS" maxlength="200" value="#{controlTercero.nuevoTerceroSucursal.descripcion}" style="width: 122px; position: absolute; left: 220px; top: 130px; text-transform: uppercase">
                                 <p:ajax event="change" update="nuevaObservacionTS" process="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevaObservacionTS" value="#{msg['observacionWM']}" />
 
                             <strong><h:outputText value="#{msg['ciudadNS']}" style="position: absolute; top: 165px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaCiudadTS" value="#{controlTercero.nuevoTerceroSucursal.ciudad.nombre}" style="width: 122px; position: absolute; left: 220px; top: 160px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="nuevaCiudadTS" value="#{controlTercero.nuevoTerceroSucursal.ciudad.nombre}" style="width: 122px; position: absolute; left: 220px; top: 160px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlTercero.asignarIndex(indice,0,1,1)}"/>
                                 <p:ajax event="click" listener="#{controlTercero.valoresBackupAutocompletar(1, 'CIUDAD',1)}" />
                                 <p:ajax event="change" listener="#{controlTercero.autocompletarNuevoyDuplicadoTerceroSucursal('CIUDAD', controlTercero.nuevoTerceroSucursal.ciudad.nombre, 1)}" update="nuevaCiudadTS" process="@this"/>
@@ -964,25 +964,25 @@
                         <p:panel id="duplicarTS" style="border: none;">
 
                             <strong><h:outputText value="*#{msg['codigosucursalNS']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarucursalTS" value="#{controlTercero.duplicarTerceroSucursal.codigosucursal}" style="width: 122px; position: absolute; left: 220px; top: 70px; text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="duplicarucursalTS" value="#{controlTercero.duplicarTerceroSucursal.codigosucursal}" style="width: 122px; position: absolute; left: 220px; top: 70px; text-transform: uppercase">
                                 <p:ajax event="change" update="duplicarucursalTS" process="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarucursalTS" value="#{msg['codigosucursalWM']}" />
 
                             <strong><h:outputText value="#{msg['codigopatronalNS']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarPatronalTS" value="#{controlTercero.duplicarTerceroSucursal.codigopatronal}" style="width: 122px; position: absolute; left: 220px; top: 100px; text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="duplicarPatronalTS" value="#{controlTercero.duplicarTerceroSucursal.codigopatronal}" style="width: 122px; position: absolute; left: 220px; top: 100px; text-transform: uppercase">
                                 <p:ajax event="change" update="duplicarPatronalTS" process="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarPatronalTS" value="#{msg['codigopatronalWM']}" />
 
                             <strong><h:outputText value="#{msg['observacionNS']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarObservacionTS" maxlength="200" value="#{controlTercero.duplicarTerceroSucursal.descripcion}" style="width: 122px; position: absolute; left: 220px; top: 130px; text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="duplicarObservacionTS" maxlength="200" value="#{controlTercero.duplicarTerceroSucursal.descripcion}" style="width: 122px; position: absolute; left: 220px; top: 130px; text-transform: uppercase">
                                 <p:ajax event="change" update="duplicarObservacionTS" process="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarObservacionTS" value="#{msg['observacionWM']}" />
 
                             <strong><h:outputText value="#{msg['ciudadNS']}" style=" position: absolute; top: 165px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarCiudadTS" value="#{controlTercero.duplicarTerceroSucursal.ciudad.nombre}" style="width: 122px; position: absolute; left: 220px; top: 160px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="duplicarCiudadTS" value="#{controlTercero.duplicarTerceroSucursal.ciudad.nombre}" style="width: 122px; position: absolute; left: 220px; top: 160px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlTercero.asignarIndex(indice,0,2,1)}"/>
                                 <p:ajax event="click" listener="#{controlTercero.valoresBackupAutocompletar(2, 'CIUDAD',1)}" />
                                 <p:ajax event="change" listener="#{controlTercero.autocompletarNuevoyDuplicadoTerceroSucursal('CIUDAD', controlTercero.duplicarTerceroSucursal.ciudad.nombre, 1)}" update="duplicarCiudadTS" process="@this"/>
@@ -1009,7 +1009,7 @@
 
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarE']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovEmpresas').filter();" value="#{filtrado}" style="width:100px; position: relative; left: 10px;" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovEmpresas').filter();" value="#{filtrado}" style="width:100px; position: relative; left: 10px;" />  
                             </f:facet>
                             <p:column filterBy="#{empresa.nit}" width="90" filterMatchMode="contains" filterStyle="width: 80px">
                                 <f:facet name="header">

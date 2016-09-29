@@ -33,7 +33,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.codigo}" id="editarCodigo" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"  value="#{info.codigo}" id="editarCodigo" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlSoPoblacionObjetivos.cambiarIndice(indice, 0)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlSoPoblacionObjetivos.modificarSoPoblacionObjetivos(indice, 'N', info.codigo)}"  update="codigo"/>
                                             </p:inputText>
@@ -44,7 +44,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.descripcion}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.descripcion}" maxlength="50" id="editarNombre" style="height: 12px;  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"  value="#{info.descripcion}" maxlength="50" id="editarNombre" style="height: 12px;  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlSoPoblacionObjetivos.cambiarIndice(indice, 1)}" process="@this"/> 
                                                 <p:ajax event="change"  listener="#{controlSoPoblacionObjetivos.modificarSoPoblacionObjetivos(indice, 'N', info.descripcion)}" update="descripcion"/>
                                             </p:inputText>
@@ -228,13 +228,13 @@
                         <p:panel id="nuevaTipoempresa" style="border: none;">
 
                             <strong><h:outputText value="#{msg['codigoN']}"  style=" position: absolute; top: 60px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoCodigo" value="#{controlSoPoblacionObjetivos.nuevoSoPoblacionObjetivos.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="nuevoCodigo" value="#{controlSoPoblacionObjetivos.nuevoSoPoblacionObjetivos.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoCodigo" value="#{msg['codigo']}" />
 
                             <strong><h:outputText value="#{msg['descripcionN']}"  style=" position: absolute; top: 90px;" /></strong>
-                            <p:inputText  autocomplete="false"   id="nuevoNombre" maxlength="50" value="#{controlSoPoblacionObjetivos.nuevoSoPoblacionObjetivos.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"   id="nuevoNombre" maxlength="50" value="#{controlSoPoblacionObjetivos.nuevoSoPoblacionObjetivos.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoNombre" value="#{msg['descripcion']}" />
@@ -254,13 +254,13 @@
                         <p:panel id="duplicarTE" style="border: none;">
 
                             <strong><h:outputText value="#{msg['codigoN']}"  style=" position: absolute; top: 60px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarCodigo" value="#{controlSoPoblacionObjetivos.duplicarSoPoblacionObjetivos.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="duplicarCodigo" value="#{controlSoPoblacionObjetivos.duplicarSoPoblacionObjetivos.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarCodigo" value="#{msg['codigo']}" />
 
                             <strong><h:outputText value="#{msg['descripcionN']}"  style=" position: absolute; top: 90px;" /></strong>
-                            <p:inputText  autocomplete="false"   id="duplicarNombre" maxlength="50" value="#{controlSoPoblacionObjetivos.duplicarSoPoblacionObjetivos.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"   id="duplicarNombre" maxlength="50" value="#{controlSoPoblacionObjetivos.duplicarSoPoblacionObjetivos.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarNombre" value="#{msg['descripcion']}" />

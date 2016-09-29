@@ -37,7 +37,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.concepto.descripcion}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.concepto.descripcion}" id="editarCodigoCC" style=" border-radius: 0px; width: 99%; height: 12px; text-transform: uppercase" > 
+                                            <p:inputText  autocomplete="off"  value="#{info.concepto.descripcion}" id="editarCodigoCC" style=" border-radius: 0px; width: 99%; height: 12px; text-transform: uppercase" > 
                                                 <p:ajax  event="change" listener="#{controlProyecciones.modificandoProyecciones(indice, 'N', info.concepto.descripcion)}" update="@this"/>
                                                 <p:ajax event="select" listener="#{controlProyecciones.cambiarIndice(indice,0)}" /> 
                                             </p:inputText>
@@ -51,7 +51,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.empleado.persona.nombreCompleto}" style="text-transform: uppercase" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  id="editarNombreCentroCoso" value="#{info.empleado.persona.nombreCompleto}" style=" border-radius: 0px; width: 99%;height: 12px; text-transform: uppercase">
+                                            <p:inputText  autocomplete="off"  id="editarNombreCentroCoso" value="#{info.empleado.persona.nombreCompleto}" style=" border-radius: 0px; width: 99%;height: 12px; text-transform: uppercase">
                                                 <p:ajax event="change" listener="#{controlProyecciones.modificandoProyecciones(indice, 'N', info.empleado.persona.nombreCompleto)}" update="@this" />
                                                 <p:ajax event="select" listener="#{controlProyecciones.cambiarIndice(indice, 1)}" />
                                             </p:inputText>
@@ -69,7 +69,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="dateFechaDeste" value="#{info.fechaDesde}"> 
+                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaDeste" value="#{info.fechaDesde}"> 
                                                 <p:ajax event="select" listener="#{controlProyecciones.cambiarIndice(indice, 2)}" process="@this"/>  
                                                 <p:ajax event="change" listener="#{controlProyecciones.mostrarInfo(indice,2)}" process="@this" update="@this"/>
                                                 <p:ajax event="dateSelect" listener="#{controlProyecciones.mostrarInfo(indice,2)}" process="@this" update="@this"/>
@@ -88,7 +88,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="dateFechaHasta" value="#{info.fechaHasta}"> 
+                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaHasta" value="#{info.fechaHasta}"> 
                                                 <p:ajax event="select" listener="#{controlProyecciones.cambiarIndice(indice, 3)}" process="@this"/>  
                                                 <p:ajax event="change" listener="#{controlProyecciones.mostrarInfo(indice,3)}" process="@this" update="@this"/>
                                                 <p:ajax event="dateSelect" listener="#{controlProyecciones.mostrarInfo(indice,3)}" process="@this" update="@this"/>
@@ -101,7 +101,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.valor}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.valor}" maxlength="30" id="editarCodigoAT" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase" > 
+                                            <p:inputText  autocomplete="off"  value="#{info.valor}" maxlength="30" id="editarCodigoAT" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase" > 
                                                 <p:ajax event="change" listener="#{controlProyecciones.modificandoProyecciones(indice, 'N', info.valor )}" update="@this" />
                                                 <p:ajax event="select" listener="#{controlProyecciones.cambiarIndice(indice, 4)}" />
                                             </p:inputText>
@@ -114,7 +114,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.formula.nombrelargo}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.formula.nombrelargo}" maxlength="20" id="editarCodigoCTT" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase" > 
+                                            <p:inputText  autocomplete="off"  value="#{info.formula.nombrelargo}" maxlength="20" id="editarCodigoCTT" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase" > 
                                                 <p:ajax event="change" listener="#{controlProyecciones.modificandoProyecciones(indice, 'N', info.formula.nombrelargo )}" update="@this" />
                                                 <p:ajax event="select" listener="#{controlProyecciones.cambiarIndice(indice, 5)}" />
                                             </p:inputText>
@@ -128,7 +128,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.centroCosto.nombre}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.centroCosto.nombre}" maxlength="20" id="editarCC" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase" > 
+                                            <p:inputText  autocomplete="off"  value="#{info.centroCosto.nombre}" maxlength="20" id="editarCC" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase" > 
                                                 <p:ajax event="change" listener="#{controlProyecciones.modificandoProyecciones(indice, 'N', info.centroCosto.nombre)}" update="@this" />
                                                 <p:ajax event="select" listener="#{controlProyecciones.cambiarIndice(indice, 6)}" />
                                             </p:inputText>
@@ -141,7 +141,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.cuentaC.codigo}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.cuentaC.codigo}" maxlength="20" id="editarCCC" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase" > 
+                                            <p:inputText  autocomplete="off"  value="#{info.cuentaC.codigo}" maxlength="20" id="editarCCC" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase" > 
                                                 <p:ajax event="change" listener="#{controlProyecciones.modificandoProyecciones(indice, 'N', info.cuentaC.codigo)}" update="@this" />
                                                 <p:ajax event="select" listener="#{controlProyecciones.cambiarIndice(indice, 7)}" />
                                             </p:inputText>
@@ -155,7 +155,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.cuentaC.descripcion}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.cuentaC.descripcion}" maxlength="20" id="editarCCD" style="height: 12px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
+                                            <p:inputText  autocomplete="off"  value="#{info.cuentaC.descripcion}" maxlength="20" id="editarCCD" style="height: 12px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
                                                 <p:ajax event="change" listener="#{controlProyecciones.modificandoProyecciones(indice, 'N', info.cuentaC.descripcion)}" update="@this" />
                                                 <p:ajax event="select" listener="#{controlProyecciones.cambiarIndice(indice, 8)}" />
                                             </p:inputText>
@@ -169,7 +169,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.cuentaD.codigo}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.cuentaD.codigo}" maxlength="20" id="editarCDC" style="height: 12px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
+                                            <p:inputText  autocomplete="off"  value="#{info.cuentaD.codigo}" maxlength="20" id="editarCDC" style="height: 12px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
                                                 <p:ajax event="change" listener="#{controlProyecciones.modificandoProyecciones(indice, 'N', info.cuentaD.codigo)}" update="@this" />
                                                 <p:ajax event="select" listener="#{controlProyecciones.cambiarIndice(indice, 9)}" />
                                             </p:inputText>
@@ -183,7 +183,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.cuentaD.descripcion}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.cuentaD.descripcion}" maxlength="20" id="editarCDD" style="height: 12px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
+                                            <p:inputText  autocomplete="off"  value="#{info.cuentaD.descripcion}" maxlength="20" id="editarCDD" style="height: 12px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
                                                 <p:ajax event="change" listener="#{controlProyecciones.modificandoProyecciones(indice, 'N', info.cuentaD.descripcion)}" update="@this" />
                                                 <p:ajax event="select" listener="#{controlProyecciones.cambiarIndice(indice, 10)}" />
                                             </p:inputText>
@@ -197,7 +197,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.nit.codigo}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.nit.codigo}" maxlength="20" id="editarnitcodigo" style="height: 12px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
+                                            <p:inputText  autocomplete="off"  value="#{info.nit.codigo}" maxlength="20" id="editarnitcodigo" style="height: 12px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
                                                 <p:ajax event="change" listener="#{controlProyecciones.modificandoProyecciones(indice, 'N', info.nit.codigo)}" update="@this" />
                                                 <p:ajax event="select" listener="#{controlProyecciones.cambiarIndice(indice, 11)}" />
                                             </p:inputText>
@@ -211,7 +211,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.nit.nombre}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.nit.nombre}" maxlength="20" id="editarnitnombre" style="height: 12px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
+                                            <p:inputText  autocomplete="off"  value="#{info.nit.nombre}" maxlength="20" id="editarnitnombre" style="height: 12px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
                                                 <p:ajax event="change" listener="#{controlProyecciones.modificandoProyecciones(indice, 'N', info.nit.nombre)}" update="@this" />
                                                 <p:ajax event="select" listener="#{controlProyecciones.cambiarIndice(indice, 12)}" />
                                             </p:inputText>
@@ -415,7 +415,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlProyecciones.cambiarEmpleado()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="Buscar Empleados :"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovEmpleados').filter();" style="width:100px; position: relative; left: 10px;" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovEmpleados').filter();" style="width:100px; position: relative; left: 10px;" />  
                             </f:facet>
                             <p:column filterBy="#{empresa.persona.numerodocumento}" width="60" filterMatchMode="contains" filterStyle="width: 50px">
                                 <f:facet name="header">

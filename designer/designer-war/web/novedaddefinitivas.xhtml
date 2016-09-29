@@ -152,7 +152,7 @@
 
                                     <h:outputText value="#{msg['fechaliquidacion']}:" style=" top: 55px; right: 672px; position:absolute"/>
                                     <div id="posicionFormulaFechaLiquidacion" style=" position: absolute; top: 50px; left: 170px">
-                                        <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" disabled="#{controlNovedadesDefinitivas.activate}" id="fechaLiquidacion" 
+                                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" disabled="#{controlNovedadesDefinitivas.activate}" id="fechaLiquidacion" 
                                                       value="#{controlNovedadesDefinitivas.novedadMostrar.fechainicialdisfrute}"> 
                                             <p:ajax event="dateSelect" listener="#{controlNovedadesDefinitivas.cambiosCampos()}" update="fechaLiquidacion" process="@this"/>
                                             <p:ajax event="change" listener="#{controlNovedadesDefinitivas.cambiosCampos()}" update="fechaLiquidacion" process="@this"/>
@@ -161,7 +161,7 @@
                                     </div>
 
                                     <h:outputText value="#{msg['motivoliquidacion']}:" style=" top: 55px; left: 312px; position: absolute"/>
-                                    <p:inputText  autocomplete="false"  disabled="#{controlNovedadesDefinitivas.activate}" id="motivoLiquidacion" 
+                                    <p:inputText  autocomplete="off"  disabled="#{controlNovedadesDefinitivas.activate}" id="motivoLiquidacion" 
                                                  value="#{controlNovedadesDefinitivas.novedadMostrar.motivodefinitiva.nombre}" 
                                                  style="top: 50px; left:480px; width: 327px; position: absolute;text-transform: uppercase ;height:12px">
                                         <p:ajax event="dblclick" listener="#{controlNovedadesDefinitivas.asignarIndex(1, 0)}" process="@this"/>
@@ -173,7 +173,7 @@
                                                      background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px " id="btnPantallaMotivos" process="@this" />
 
                                     <h:outputText value="#{msg['motivoretiro']}:" style="right: 672px;  position: absolute; top:85px;"/>
-                                    <p:inputText  autocomplete="false"  disabled="#{controlNovedadesDefinitivas.activate}" id="motivoRetiro" 
+                                    <p:inputText  autocomplete="off"  disabled="#{controlNovedadesDefinitivas.activate}" id="motivoRetiro" 
                                                  value="#{controlNovedadesDefinitivas.novedadMostrar.motivoretiro.nombre}" 
                                                  style="left:170px; position: absolute; width:440px; top:80px; text-transform: uppercase ; height:12px">
                                         <p:ajax event="dblclick" listener="#{controlNovedadesDefinitivas.asignarIndex(2, 0)}" process="@this"/>
@@ -193,7 +193,7 @@
 
                                     <h:outputText value="#{msg['observaciones']}:" style=" top: 113px; right: 672px; position: absolute">
                                     </h:outputText>
-                                    <p:inputText  autocomplete="false"  disabled="#{controlNovedadesDefinitivas.activate}" id="observaciones" onclick="select();" 
+                                    <p:inputText  autocomplete="off"  disabled="#{controlNovedadesDefinitivas.activate}" id="observaciones" onclick="select();" 
                                                  value="#{controlNovedadesDefinitivas.novedadMostrar.observaciones}" 
                                                  style="top: 109px; left:170px; width: 635px; position: absolute;text-transform: uppercase;height:12px;" >
                                         <p:ajax event="change" listener="#{controlNovedadesDefinitivas.cambiosCampos()}" process="@this" update="@this"/>
@@ -294,14 +294,14 @@
 
                             <strong><h:outputText value="#{msg['fechaliquidacionN']}" style=" position: absolute; top: 55px;" /></strong>
                             <div id="posicionFormulaFechaNuevoReg" style=" position: absolute; top: 50px; left: 220px; width: 122px">
-                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="nuevaFecha" value="#{controlNovedadesDefinitivas.nuevaNovedad.fechainicialdisfrute}">
+                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFecha" value="#{controlNovedadesDefinitivas.nuevaNovedad.fechainicialdisfrute}">
                                     <p:ajax event="dateSelect" update="nuevaFecha" process="@this"/>
                                     <p:ajax event="change" update="nuevaFecha" process="@this"/>
                                 </p:calendar>
                             </div>
 
                             <strong><h:outputText value="#{msg['motivoliquidacionN']}" style=" position: absolute; top: 95px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoMotivo" value="#{controlNovedadesDefinitivas.nuevaNovedad.motivodefinitiva.nombre}" 
+                            <p:inputText  autocomplete="off"  id="nuevoMotivo" value="#{controlNovedadesDefinitivas.nuevaNovedad.motivodefinitiva.nombre}" 
                                          style=" width: 122px; position: absolute; left: 220px; top: 90px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlNovedadesDefinitivas.valoresBackupAutocompletar('MOTIVO')}" />
                                 <p:ajax event="change" listener="#{controlNovedadesDefinitivas.autocompletar('MOTIVO', controlNovedadesDefinitivas.nuevaNovedad.motivodefinitiva.nombre)}" />
@@ -311,7 +311,7 @@
                                              actionListener="#{controlNovedadesDefinitivas.asignarIndex(1, 1)}" process="@this" />
 
                             <strong><h:outputText value="#{msg['motivoretiroN']}" style=" position: absolute; top: 135px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoRetiro" value="#{controlNovedadesDefinitivas.nuevaNovedad.motivoretiro.nombre}" 
+                            <p:inputText  autocomplete="off"  id="nuevoRetiro" value="#{controlNovedadesDefinitivas.nuevaNovedad.motivoretiro.nombre}" 
                                          style=" width: 122px; position: absolute; left: 220px; top: 130px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlNovedadesDefinitivas.valoresBackupAutocompletar('RETIRO')}" />
                                 <p:ajax event="change" listener="#{controlNovedadesDefinitivas.autocompletar('RETIRO', controlNovedadesDefinitivas.nuevaNovedad.motivoretiro.nombre)}" />
@@ -321,7 +321,7 @@
                                              actionListener="#{controlNovedadesDefinitivas.asignarIndex(2,1)}" process="@this" />
 
                             <strong><h:outputText value="#{msg['observacionN']}" style=" position: absolute; top: 175px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaObservacion" value="#{controlNovedadesDefinitivas.nuevaNovedad.observaciones}" 
+                            <p:inputText  autocomplete="off"  id="nuevaObservacion" value="#{controlNovedadesDefinitivas.nuevaNovedad.observaciones}" 
                                          style=" width: 122px; position: absolute; left: 220px; top: 170px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
@@ -341,14 +341,14 @@
 
                             <strong><h:outputText value="#{msg['fechaliquidacionN']}" style=" position: absolute; top: 55px;" /></strong>
                             <div id="posicionFormulaFechaDuplicarReg" style=" position: absolute; top: 50px; left: 220px">
-                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="duplicarFecha" value="#{controlNovedadesDefinitivas.duplicarNovedad.fechainicialdisfrute}" >
+                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFecha" value="#{controlNovedadesDefinitivas.duplicarNovedad.fechainicialdisfrute}" >
                                     <p:ajax event="dateSelect" update="duplicarFecha" process="@this"/>
                                     <p:ajax event="change" update="duplicarFecha" process="@this"/>
                                 </p:calendar>
                             </div>
 
                             <strong><h:outputText value="#{msg['motivoliquidacionN']}" style=" position: absolute; top: 95px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarMotivo" value="#{controlNovedadesDefinitivas.duplicarNovedad.motivodefinitiva.nombre}" 
+                            <p:inputText  autocomplete="off"  id="duplicarMotivo" value="#{controlNovedadesDefinitivas.duplicarNovedad.motivodefinitiva.nombre}" 
                                          style=" width: 122px; position: absolute; left: 220px; top: 90px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlNovedadesDefinitivas.valoresBackupAutocompletar('MOTIVO')}" />
                                 <p:ajax event="change" listener="#{controlNovedadesDefinitivas.autocompletar('MOTIVO', controlNovedadesDefinitivas.duplicarNovedad.motivodefinitiva.nombre)}" />
@@ -359,7 +359,7 @@
                                              actionListener="#{controlNovedadesDefinitivas.asignarIndex(1, 2)}" process="@this" />
 
                             <strong><h:outputText value="#{msg['motivoretiroN']}" style=" position: absolute; top: 135px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarRetiro" value="#{controlNovedadesDefinitivas.duplicarNovedad.motivoretiro.nombre}" 
+                            <p:inputText  autocomplete="off"  id="duplicarRetiro" value="#{controlNovedadesDefinitivas.duplicarNovedad.motivoretiro.nombre}" 
                                          style=" width: 122px; position: absolute; left: 220px; top: 130px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlNovedadesDefinitivas.valoresBackupAutocompletar('RETIRO')}" />
                                 <p:ajax event="change" listener="#{controlNovedadesDefinitivas.autocompletar('RETIRO', controlNovedadesDefinitivas.duplicarNovedad.motivoretiro.nombre)}" />
@@ -370,7 +370,7 @@
                                              actionListener="#{controlNovedadesDefinitivas.asignarIndex(2,2)}" process="@this" />
 
                             <strong><h:outputText value="#{msg['observacionN']}" style=" position: absolute; top: 175px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarObservacion" value="#{controlNovedadesDefinitivas.duplicarNovedad.observaciones}" 
+                            <p:inputText  autocomplete="off"  id="duplicarObservacion" value="#{controlNovedadesDefinitivas.duplicarNovedad.observaciones}" 
                                          style=" width: 122px; position: absolute; left: 220px; top: 170px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
@@ -434,7 +434,7 @@
                             
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarM']}"  style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('LOVMotivos').filter();" style="width: 150px; position: relative; left: 75px;" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVMotivos').filter();" style="width: 150px; position: relative; left: 75px;" />  
                             </f:facet>
 
                             <p:column sortBy="#{motivos.codigo}" filterBy="#{motivos.codigo}" width="50" filterMatchMode="contains" filterStyle="width: 80% !important" > 
@@ -475,7 +475,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlNovedadesDefinitivas.actualizarRetiros()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarR']}"  style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('LOVRetiros').filter();" style="width: 150px; position: relative; left: 70px;" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVRetiros').filter();" style="width: 150px; position: relative; left: 70px;" />  
                             </f:facet>
 
                             <p:column sortBy="#{retiros.codigo}" filterBy="#{retiros.codigo}" width="50" filterMatchMode="contains" filterStyle="width: 85% !important" > 
@@ -516,7 +516,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlNovedadesDefinitivas.actualizarEmpleadosNovedad()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarE']}"  style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('LOVEmpleados').filter();" style="width: 150px; position: relative; left: 60px;" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVEmpleados').filter();" style="width: 150px; position: relative; left: 60px;" />  
                             </f:facet>
 
                             <p:column style="text-align: center" sortBy="#{emp.codigoempleado}" filterBy="#{emp.codigoempleado}" width="80" filterMatchMode="contains"  filterStyle="width: 80% !important" > 

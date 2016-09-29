@@ -106,7 +106,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">                                            
-                                 <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="editFecha" value="#{info.fechavigencia}">
+                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editFecha" value="#{info.fechavigencia}">
                                     <p:ajax event="dateSelect" listener="#{controlVigenciasTiposContratos.modificarVTC(info, 'N', info.fechavigencia)}" update="@this"/>
                                     <p:ajax event="change" listener="#{controlVigenciasTiposContratos.modificarVTC(info, 'N', info.fechavigencia)}" update="@this" process="@this"/>
                                     <p:ajax event="select" listener="#{controlVigenciasTiposContratos.cambiarIndice(info, 0)}" process="@this"/> 
@@ -120,7 +120,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.motivocontrato.nombre}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="false"  value="#{info.motivocontrato.nombre}" id="editarContrato" style=" border-radius: 0px; width: 93.5%; height: 12px; text-transform: uppercase;"> 
+                                 <p:inputText  autocomplete="off"  value="#{info.motivocontrato.nombre}" id="editarContrato" style=" border-radius: 0px; width: 93.5%; height: 12px; text-transform: uppercase;"> 
                                     <p:ajax event="change" listener="#{controlVigenciasTiposContratos.modificarVTC(info, 'MOTIVOC', info.motivocontrato.nombre)}"/>
                                     <p:ajax event="select" listener="#{controlVigenciasTiposContratos.cambiarIndice(info, 1)}" />
                                     <p:ajax event="dblclick" listener="#{controlVigenciasTiposContratos.asignarIndex(info, 0)}"/>
@@ -138,7 +138,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.tipocontrato.nombre}" /></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="false"  id="editarTipoContrato" value="#{info.tipocontrato.nombre}" style=" border-radius: 0px; width: 93.5%; height: 12px; text-transform: uppercase">
+                                 <p:inputText  autocomplete="off"  id="editarTipoContrato" value="#{info.tipocontrato.nombre}" style=" border-radius: 0px; width: 93.5%; height: 12px; text-transform: uppercase">
                                     <p:ajax event="change" listener="#{controlVigenciasTiposContratos.modificarVTC(info, 'TIPOC', info.tipocontrato.nombre)}"/>
                                     <p:ajax event="select" listener="#{controlVigenciasTiposContratos.cambiarIndice(info, 2)}" />
                                     <p:ajax event="dblclick" listener="#{controlVigenciasTiposContratos.asignarIndex(info, 1)}"/>
@@ -155,7 +155,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText id="outCiudad" value="#{info.ciudad.nombre}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="false"  value="#{info.ciudad.nombre}" widgetVar="editCiudad" id="editCiudad" style=" border-radius: 0px; width: 93.5%; height: 12px; text-transform: uppercase"  >
+                                 <p:inputText  autocomplete="off"  value="#{info.ciudad.nombre}" widgetVar="editCiudad" id="editCiudad" style=" border-radius: 0px; width: 93.5%; height: 12px; text-transform: uppercase"  >
                                     <p:ajax event="change" listener="#{controlVigenciasTiposContratos.modificarVTC(info, 'CIUDAD', info.ciudad.nombre)}" />
                                     <p:ajax event="select" listener="#{controlVigenciasTiposContratos.cambiarIndice(info, 3)}" />
                                     <p:ajax event="dblclick" listener="#{controlVigenciasTiposContratos.asignarIndex(info, 2)}" />
@@ -178,7 +178,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="editarFechaInicialSP" value="#{info.iniciosustitucion}">
+                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editarFechaInicialSP" value="#{info.iniciosustitucion}">
                                     <p:ajax event="dateSelect" listener="#{controlVigenciasTiposContratos.modificarFechasNoObligatorias(info)}" update="@this" process="@this" />
                                     <p:ajax event="change" listener="#{controlVigenciasTiposContratos.modificarFechasNoObligatorias(info)}" update="@this" process="@this" />
                                     <p:ajax event="select" listener="#{controlVigenciasTiposContratos.cambiarIndice(info, 4)}"/>
@@ -198,7 +198,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="editarFechaInicialFlexi" value="#{info.inicioflexibiliza}">
+                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editarFechaInicialFlexi" value="#{info.inicioflexibiliza}">
                                     <p:ajax event="dateSelect" listener="#{controlVigenciasTiposContratos.modificarVTC(info, 'N', info.inicioflexibiliza)}" update="@this" process="@this"/>
                                     <p:ajax event="change" listener="#{controlVigenciasTiposContratos.modificarVTC(info, 'N', info.inicioflexibiliza)}" update="@this" process="@this" />
                                     <p:ajax event="select" listener="#{controlVigenciasTiposContratos.cambiarIndice(info, 5)}" />
@@ -212,7 +212,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.observaciones}" style="text-transform: uppercase;"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="false"  value="#{info.observaciones}" id="editarObservacion" style=" border-radius: 0px; width: 93.5%; height: 12px; text-transform: uppercase" >
+                                 <p:inputText  autocomplete="off"  value="#{info.observaciones}" id="editarObservacion" style=" border-radius: 0px; width: 93.5%; height: 12px; text-transform: uppercase" >
                                     <p:ajax event="change" listener="#{controlVigenciasTiposContratos.modificarVTC(info, 'N', info.inicioflexibiliza)}"/>
                                     <p:ajax event="select" listener="#{controlVigenciasTiposContratos.cambiarIndice(info, 6)}" />
                                  </p:inputText> 
@@ -254,7 +254,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">                                            
-                                 <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="editFechaSc" value="#{info.fechaSolucioncontinuidad}">
+                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editFechaSc" value="#{info.fechaSolucioncontinuidad}">
                                     <p:ajax event="dateSelect" listener="#{controlVigenciasTiposContratos.modificarVTC(info, 'N', info.fechavigencia)}" update="@this"/>
                                     <p:ajax event="change" listener="#{controlVigenciasTiposContratos.modificarVTC(info, 'N', info.fechavigencia)}" update="@this" process="@this"/>
                                     <p:ajax event="select" listener="#{controlVigenciasTiposContratos.cambiarIndice(info, 9)}" process="@this"/> 
@@ -377,7 +377,7 @@
 
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarC']}" />  
-                        <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovCiudades').filter();" value="#{filtrado}" class="cssFiltroLOV" />  
+                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovCiudades').filter();" value="#{filtrado}" class="cssFiltroLOV" />  
                      </f:facet>
                      
                      <p:column filterBy="#{ItemCiudad.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 85% !important">
@@ -417,7 +417,7 @@
 
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarT']}" />  
-                        <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovTiposContrato').filter();" class="cssFiltroLOV" />  
+                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovTiposContrato').filter();" class="cssFiltroLOV" />  
                      </f:facet>
                      
                      <p:column filterBy="#{TiposC.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 85% !important">
@@ -457,7 +457,7 @@
 
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarM']}" />  
-                        <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovMotivosContrato').filter();" value="#{filtrado}" class="cssFiltroLOV" />  
+                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovMotivosContrato').filter();" value="#{filtrado}" class="cssFiltroLOV" />  
                      </f:facet>
                      
                      <p:column filterBy="#{MotivosC.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 85% !important">
@@ -490,14 +490,14 @@
                   <p:panel id="nuevaVTC" style="border: none; position: relative; top: -50px">     
                      <strong><h:outputText value="#{msg['fechaN']}" style=" position: absolute; top: 85px;" /></strong>
                      <div style=" position: absolute; top: 80px; left: 200px;">
-                        <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="nuevaFecha" value="#{controlVigenciasTiposContratos.nuevaVigencia.fechavigencia}">
+                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFecha" value="#{controlVigenciasTiposContratos.nuevaVigencia.fechavigencia}">
                            <p:ajax event="dateSelect" update="@this"/>
                            <p:ajax event="change" update="@this"/>
                         </p:calendar>
                      </div>
 
                      <strong><h:outputText value="#{msg['motivoN']}" style=" position: absolute; top: 118px;" /></strong>
-                     <p:inputText  autocomplete="false"  id="nuevoMotivoContrato" value="#{controlVigenciasTiposContratos.nuevaVigencia.motivocontrato.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 115px; text-transform: uppercase" onclick="select();">
+                     <p:inputText  autocomplete="off"  id="nuevoMotivoContrato" value="#{controlVigenciasTiposContratos.nuevaVigencia.motivocontrato.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 115px; text-transform: uppercase" onclick="select();">
                         <p:ajax event="click" listener="#{controlVigenciasTiposContratos.valoresBackupAutocompletar(1, 'MOTIVOC')}" />
                         <p:ajax event="change" listener="#{controlVigenciasTiposContratos.autocompletarNuevoyDuplicado('MOTIVOC', controlVigenciasTiposContratos.nuevaVigencia.motivocontrato.nombre, 1)}" />
                         <p:ajax event="dblclick" listener="#{controlVigenciasTiposContratos.asignarIndexNueYDup(0, 1)}" />
@@ -507,7 +507,7 @@
                      <p:watermark for="nuevoMotivoContrato" value="#{msg['motivo']}" />
 
                      <strong><h:outputText value="#{msg['tipoN']}" style=" position: absolute; top: 153px;" /></strong>
-                     <p:inputText  autocomplete="false"  id="nuevoTipoContrato" value="#{controlVigenciasTiposContratos.nuevaVigencia.tipocontrato.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 150px; text-transform: uppercase" onclick="select();">
+                     <p:inputText  autocomplete="off"  id="nuevoTipoContrato" value="#{controlVigenciasTiposContratos.nuevaVigencia.tipocontrato.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 150px; text-transform: uppercase" onclick="select();">
                         <p:ajax event="click" listener="#{controlVigenciasTiposContratos.valoresBackupAutocompletar(1, 'TIPOC')}" />
                         <p:ajax event="change" listener="#{controlVigenciasTiposContratos.autocompletarNuevoyDuplicado('TIPOC', controlVigenciasTiposContratos.nuevaVigencia.tipocontrato.nombre, 1)}" />
                         <p:ajax event="dblclick" listener="#{controlVigenciasTiposContratos.asignarIndexNueYDup(1, 1)}" />
@@ -517,7 +517,7 @@
                                       id="btnNuevoTipoContrato" process="@this" value="" actionListener="#{controlVigenciasTiposContratos.asignarIndexNueYDup(1, 1)}"/>
 
                      <strong><h:outputText value="#{msg['ciudadN']}" style=" position: absolute; top: 188px;" /></strong>
-                     <p:inputText  autocomplete="false"  id="nuevaCiudad" value="#{controlVigenciasTiposContratos.nuevaVigencia.ciudad.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 185px; text-transform: uppercase" onclick="select();">
+                     <p:inputText  autocomplete="off"  id="nuevaCiudad" value="#{controlVigenciasTiposContratos.nuevaVigencia.ciudad.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 185px; text-transform: uppercase" onclick="select();">
                         <p:ajax event="click" listener="#{controlVigenciasTiposContratos.valoresBackupAutocompletar(1, 'CIUDAD')}" />
                         <p:ajax event="change" listener="#{controlVigenciasTiposContratos.autocompletarNuevoyDuplicado('CIUDAD', controlVigenciasTiposContratos.nuevaVigencia.ciudad.nombre, 1)}" />
                         <p:ajax event="dblclick" listener="#{controlVigenciasTiposContratos.asignarIndexNueYDup(2, 1)}" />
@@ -528,7 +528,7 @@
 
                      <strong><h:outputText value="#{msg['fisN']}" style=" position: absolute; top: 223px;" /></strong>
                      <div style=" position: absolute; top: 220px; left: 200px;">
-                        <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaS" value="#{controlVigenciasTiposContratos.nuevaVigencia.iniciosustitucion}">
+                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaS" value="#{controlVigenciasTiposContratos.nuevaVigencia.iniciosustitucion}">
                            <p:ajax event="dateSelect" update="@this"/>
                            <p:ajax event="change" update="@this"/>
                         </p:calendar>
@@ -536,7 +536,7 @@
 
                      <strong><h:outputText value="#{msg['fifN']}" style=" position: absolute; top: 258px;" /></strong>
                      <div style=" position: absolute; top: 255px; left: 200px;">
-                        <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaF" value="#{controlVigenciasTiposContratos.nuevaVigencia.inicioflexibiliza}">
+                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaF" value="#{controlVigenciasTiposContratos.nuevaVigencia.inicioflexibiliza}">
                            <p:ajax event="dateSelect" update="@this"/>
                            <p:ajax event="change" update="@this"/>
                         </p:calendar>
@@ -561,14 +561,14 @@
                   <p:panel id="duplicarVTC" style="border: none; position: relative; top: -50px">
                      <strong><h:outputText value="#{msg['fechaN']}" style=" position: absolute; top: 85px;" /></strong>
                      <div style=" position: absolute; top: 80px; left: 200px;">
-                        <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="duplicarFecha" value="#{controlVigenciasTiposContratos.duplicarVTC.fechavigencia}">
+                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFecha" value="#{controlVigenciasTiposContratos.duplicarVTC.fechavigencia}">
                            <p:ajax event="dateSelect" update="@this"/>
                            <p:ajax event="change" update="@this"/>
                         </p:calendar>
                      </div>
 
                      <strong><h:outputText value="#{msg['motivoN']}" style=" position: absolute; top: 118px;" /></strong>
-                     <p:inputText  autocomplete="false"  id="duplicarMotivoContrato" value="#{controlVigenciasTiposContratos.duplicarVTC.motivocontrato.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 115px; text-transform: uppercase" onclick="select();">
+                     <p:inputText  autocomplete="off"  id="duplicarMotivoContrato" value="#{controlVigenciasTiposContratos.duplicarVTC.motivocontrato.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 115px; text-transform: uppercase" onclick="select();">
                         <p:ajax event="click" listener="#{controlVigenciasTiposContratos.valoresBackupAutocompletar(2, 'MOTIVOC')}" />
                         <p:ajax event="change" listener="#{controlVigenciasTiposContratos.autocompletarNuevoyDuplicado('MOTIVOC', controlVigenciasTiposContratos.duplicarVTC.motivocontrato.nombre, 2)}" />
                         <p:ajax event="dblclick" listener="#{controlVigenciasTiposContratos.asignarIndexNueYDup(0, 2)}" />
@@ -578,7 +578,7 @@
                      <p:watermark for="duplicarMotivoContrato" value="#{msg['motivo']}" />
 
                      <strong><h:outputText value="#{msg['tipoN']}" style=" position: absolute; top: 153px;" /></strong>
-                     <p:inputText  autocomplete="false"  id="duplicarTipoContrato" value="#{controlVigenciasTiposContratos.duplicarVTC.tipocontrato.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 150px; text-transform: uppercase" onclick="select();">
+                     <p:inputText  autocomplete="off"  id="duplicarTipoContrato" value="#{controlVigenciasTiposContratos.duplicarVTC.tipocontrato.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 150px; text-transform: uppercase" onclick="select();">
                         <p:ajax event="click" listener="#{controlVigenciasTiposContratos.valoresBackupAutocompletar(2, 'TIPOC')}" />
                         <p:ajax event="change" listener="#{controlVigenciasTiposContratos.autocompletarNuevoyDuplicado('TIPOC', controlVigenciasTiposContratos.duplicarVTC.tipocontrato.nombre, 2)}" />
                         <p:ajax event="dblclick" listener="#{controlVigenciasTiposContratos.asignarIndexNueYDup(1, 2)}" />
@@ -588,7 +588,7 @@
                                       id="btnDuplcarTipoContrato" process="@this" value="" actionListener="#{controlVigenciasTiposContratos.asignarIndexNueYDup(1, 2)}"/>
 
                      <strong><h:outputText value="#{msg['ciudadN']}" style=" position: absolute; top: 188px;" /></strong>
-                     <p:inputText  autocomplete="false"  id="duplicarCiudad" value="#{controlVigenciasTiposContratos.duplicarVTC.ciudad.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 185px; text-transform: uppercase" onclick="select();">
+                     <p:inputText  autocomplete="off"  id="duplicarCiudad" value="#{controlVigenciasTiposContratos.duplicarVTC.ciudad.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 185px; text-transform: uppercase" onclick="select();">
                         <p:ajax event="click" listener="#{controlVigenciasTiposContratos.valoresBackupAutocompletar(2, 'CIUDAD')}" />
                         <p:ajax event="change" listener="#{controlVigenciasTiposContratos.autocompletarNuevoyDuplicado('CIUDAD', controlVigenciasTiposContratos.duplicarVTC.ciudad.nombre, 2)}" />
                         <p:ajax event="dblclick" listener="#{controlVigenciasTiposContratos.asignarIndexNueYDup(2, 2)}"/>
@@ -599,7 +599,7 @@
 
                      <strong><h:outputText value="#{msg['fisN']}" style=" position: absolute; top: 223px;" /></strong>
                      <div style=" position: absolute; top: 220px; left: 200px;">
-                        <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaS" value="#{controlVigenciasTiposContratos.duplicarVTC.iniciosustitucion}">
+                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaS" value="#{controlVigenciasTiposContratos.duplicarVTC.iniciosustitucion}">
                            <p:ajax event="dateSelect" update="@this"/>
                            <p:ajax event="change" update="@this"/>
                         </p:calendar>
@@ -607,7 +607,7 @@
 
                      <strong><h:outputText value="#{msg['fifN']}" style=" position: absolute; top: 258px;" /></strong>
                      <div style=" position: absolute; top: 255px; left: 200px;">
-                        <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaF" value="#{controlVigenciasTiposContratos.duplicarVTC.inicioflexibiliza}">
+                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaF" value="#{controlVigenciasTiposContratos.duplicarVTC.inicioflexibiliza}">
                            <p:ajax event="dateSelect" update="@this"/>
                            <p:ajax event="change" update="@this"/>
                         </p:calendar>

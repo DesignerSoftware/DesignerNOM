@@ -97,7 +97,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.concepto.codigo}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  onselect="prueba([{name: 'n', value: '0'}, {name: 't', value: '#{indice}'}])" value="#{info.concepto.codigo}" readonly="true" id="editarCodigoConcepto" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px"> 
+                                            <p:inputText  autocomplete="off"  onselect="prueba([{name: 'n', value: '0'}, {name: 't', value: '#{indice}'}])" value="#{info.concepto.codigo}" readonly="true" id="editarCodigoConcepto" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px"> 
                                                 <p:ajax event="change" listener="#{controlEmplNovedad.modificarNovedades(indice)}"/>
                                                 <p:ajax event="select" listener="#{controlEmplNovedad.cambiarIndice(indice, 0)}" />
                                             </p:inputText>
@@ -113,7 +113,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.concepto.descripcion}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  onselect="prueba([{name: 'n', value: '1'}, {name: 't', value: '#{indice}'}])" value="#{info.concepto.descripcion}" readonly="true" id="editarDescripcionConcepto" style="; border-radius: 0px; width: 93.5%;text-transform: uppercase;height:12px"> 
+                                            <p:inputText  autocomplete="off"  onselect="prueba([{name: 'n', value: '1'}, {name: 't', value: '#{indice}'}])" value="#{info.concepto.descripcion}" readonly="true" id="editarDescripcionConcepto" style="; border-radius: 0px; width: 93.5%;text-transform: uppercase;height:12px"> 
                                                 <p:ajax event="change" listener="#{controlEmplNovedad.modificarNovedades(indice)}"/>
                                                 <p:ajax event="select" listener="#{controlEmplNovedad.cambiarIndice(indice, 1)}" />
                                             </p:inputText>
@@ -132,7 +132,7 @@
                                                 <f:convertDateTime pattern="dd/MM/yyyy" />
                                             </h:outputText></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  style="height:12px;" readonly="true" value="#{info.fechainicial}" id="editFechaInicial"   styleClass="ui-datepicker, myClass"  
+                                            <p:inputText  autocomplete="off"  style="height:12px;" readonly="true" value="#{info.fechainicial}" id="editFechaInicial"   styleClass="ui-datepicker, myClass"  
                                                          autocomplete="true" onselect="prueba([{name: 'n', value: '2'}, {name: 't', value: '#{indice}'}])"> 
                                                 <p:ajax event="change" listener="#{controlEmplNovedad.modificarNovedades(indice)}" />
                                                 <p:ajax event="select" listener="#{controlEmplNovedad.cambiarIndice(indice,2)}" /> 
@@ -152,7 +152,7 @@
                                                 <f:convertDateTime pattern="dd/MM/yyyy" />
                                             </h:outputText></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  style="height:12px;" readonly="true" value="#{info.fechafinal}" id="editFechaFinal"   styleClass="ui-datepicker, myClass"  
+                                            <p:inputText  autocomplete="off"  style="height:12px;" readonly="true" value="#{info.fechafinal}" id="editFechaFinal"   styleClass="ui-datepicker, myClass"  
                                                          autocomplete="true" onselect="prueba([{name: 'n', value: '3'}, {name: 't', value: '#{indice}'}])"> 
                                                 <p:ajax event="change" listener="#{controlEmplNovedad.modificarNovedades(indice)}" />
                                                 <p:ajax event="select" listener="#{controlEmplNovedad.cambiarIndice(indice,3)}" /> 
@@ -173,7 +173,7 @@
                                                 <f:convertNumber currencySymbol="$" type="currency" />
                                             </h:outputText></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  onselect="prueba([{name: 'n', value: '4'}, {name: 't', value: '#{indice}'}])" value="#{info.valortotal}" readonly="true" id="editarValor" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase;height:12px"> 
+                                            <p:inputText  autocomplete="off"  onselect="prueba([{name: 'n', value: '4'}, {name: 't', value: '#{indice}'}])" value="#{info.valortotal}" readonly="true" id="editarValor" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase;height:12px"> 
                                                 <p:ajax event="change" listener="#{controlEmplNovedad.modificarNovedades(indice)}" update="editarValor"/>
                                                 <p:ajax event="select" listener="#{controlEmplNovedad.cambiarIndice(indice, 4)}" />
                                                 <f:convertNumber currencySymbol="$" type="currency" />
@@ -192,7 +192,7 @@
                                                 <f:convertNumber currencySymbol="$" type="currency" />
                                             </h:outputText></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  onselect="prueba([{name: 'n', value: '5'}, {name: 't', value: '#{indice}'}])" value="#{info.saldo}" readonly="true" id="editarSaldo" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase;height:12px"> 
+                                            <p:inputText  autocomplete="off"  onselect="prueba([{name: 'n', value: '5'}, {name: 't', value: '#{indice}'}])" value="#{info.saldo}" readonly="true" id="editarSaldo" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase;height:12px"> 
                                                 <p:ajax event="change" listener="#{controlEmplNovedad.modificarNovedades(indice)}" update="editarSaldo"/>
                                                 <p:ajax event="select" listener="#{controlEmplNovedad.cambiarIndice(indice, 5)}" />
                                                 <f:convertNumber currencySymbol="$" type="currency" />
@@ -209,7 +209,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.periodicidad.codigo}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  onselect="prueba([{name: 'n', value: '6'}, {name: 't', value: '#{indice}'}])" value="#{info.periodicidad.codigo}" readonly="true" id="editarCodigoPeriodicidad" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase;height:12px"> 
+                                            <p:inputText  autocomplete="off"  onselect="prueba([{name: 'n', value: '6'}, {name: 't', value: '#{indice}'}])" value="#{info.periodicidad.codigo}" readonly="true" id="editarCodigoPeriodicidad" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase;height:12px"> 
                                                 <p:ajax event="change" listener="#{controlEmplNovedad.modificarNovedades(indice)}" update="editarCodigoPeriodicidad"/>
                                                 <p:ajax event="select" listener="#{controlEmplNovedad.cambiarIndice(indice, 6)}" />
                                             </p:inputText>
@@ -225,7 +225,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.periodicidad.nombre}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  onselect="prueba([{name: 'n', value: '7'}, {name: 't', value: '#{indice}'}])" value="#{info.periodicidad.nombre}" readonly="true" id="editarDescripcionPeriodicidad" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase;height:12px"> 
+                                            <p:inputText  autocomplete="off"  onselect="prueba([{name: 'n', value: '7'}, {name: 't', value: '#{indice}'}])" value="#{info.periodicidad.nombre}" readonly="true" id="editarDescripcionPeriodicidad" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase;height:12px"> 
                                                 <p:ajax event="change" listener="#{controlEmplNovedad.modificarNovedades(indice)}" update="editarDescripcionPeriodicidad"/>
                                                 <p:ajax event="select" listener="#{controlEmplNovedad.cambiarIndice(indice, 7)}" />
                                             </p:inputText>
@@ -241,7 +241,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.tercero.nombre}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  onselect="prueba([{name: 'n', value: '8'}, {name: 't', value: '#{indice}'}])" value="#{info.tercero.nombre}" readonly="true" id="editarTercero" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase;height:12px"> 
+                                            <p:inputText  autocomplete="off"  onselect="prueba([{name: 'n', value: '8'}, {name: 't', value: '#{indice}'}])" value="#{info.tercero.nombre}" readonly="true" id="editarTercero" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase;height:12px"> 
                                                 <p:ajax event="change" listener="#{controlEmplNovedad.modificarNovedades(indice)}" update="editarTercero" />
                                                 <p:ajax event="select" listener="#{controlEmplNovedad.cambiarIndice(indice, 8)}" />
                                             </p:inputText>
@@ -257,7 +257,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.observaciones}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  onselect="prueba([{name: 'n', value: '9'}, {name: 't', value: '#{indice}'}])" value="#{info.observaciones}" readonly="true" id="editarObservacion" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase;height:12px"> 
+                                            <p:inputText  autocomplete="off"  onselect="prueba([{name: 'n', value: '9'}, {name: 't', value: '#{indice}'}])" value="#{info.observaciones}" readonly="true" id="editarObservacion" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase;height:12px"> 
                                                 <p:ajax event="change" listener="#{controlEmplNovedad.modificarNovedades(indice)}" update="editarObservacion" />
                                                 <p:ajax event="select" listener="#{controlEmplNovedad.cambiarIndice(indice, 9)}" />
                                             </p:inputText>
@@ -276,7 +276,7 @@
                                                 <f:convertDateTime pattern="dd/MM/yyyy" />
                                             </h:outputText></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  style="height:12px;" readonly="true" value="#{info.fechareporte}" id="editFechaReporte"   styleClass="ui-datepicker, myClass"  
+                                            <p:inputText  autocomplete="off"  style="height:12px;" readonly="true" value="#{info.fechareporte}" id="editFechaReporte"   styleClass="ui-datepicker, myClass"  
                                                          autocomplete="true" onselect="prueba([{name: 'n', value: '10'}, {name: 't', value: '#{indice}'}])"> 
                                                 <p:ajax event="change" listener="#{controlEmplNovedad.modificarNovedades(indice)}" />
                                                 <p:ajax event="select" listener="#{controlEmplNovedad.cambiarIndice(indice,10)}" /> 
@@ -298,7 +298,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><img src="Imagenes/Iconos/editar.png" width="18" height="18" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="" maxlength="1" style="background-color: blue; width: 6px; height: 6px;" id="editarD">
+                                            <p:inputText  autocomplete="off"  value="" maxlength="1" style="background-color: blue; width: 6px; height: 6px;" id="editarD">
                                                 <p:ajax event="select" listener="#{controlEmplNovedad.verDetalle(novedad)}"/><!--immediate="#{controlHistoriaFormula.recibirFormula(formula.secuencia)}"/-->
                                             </p:inputText>
                                         </f:facet>

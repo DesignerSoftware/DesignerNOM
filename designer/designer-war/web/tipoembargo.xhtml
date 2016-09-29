@@ -26,7 +26,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.codigo}" id="editarCodigo" style=" font-size: 10px; border-radius: 0px; width: 99%; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"  value="#{info.codigo}" id="editarCodigo" style=" font-size: 10px; border-radius: 0px; width: 99%; text-transform: uppercase"  > 
                                                 <p:ajax event="select"  listener="#{controlTiposEmbargos.cambiarIndice(indice, 0)}"  process="@this"/> 
                                                 <p:ajax event="change"  listener="#{controlTiposEmbargos.modificandoTiposEmbargos(indice, 'N', info.codigo)}"  update="codigo"/>
                                             </p:inputText>
@@ -41,7 +41,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.descripcion}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.descripcion}" id="editarNombre" style=" font-size: 10px; border-radius: 0px; width: 99%; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"  value="#{info.descripcion}" id="editarNombre" style=" font-size: 10px; border-radius: 0px; width: 99%; text-transform: uppercase"  > 
                                                 <p:ajax event="select"   listener="#{controlTiposEmbargos.cambiarIndice(indice, 1)}" process="@this"/> 
                                                 <p:ajax event="change"  listener="#{controlTiposEmbargos.modificandoTiposEmbargos(indice, 'N', info.descripcion)}" update="descripcion"/>
                                             </p:inputText>
@@ -231,13 +231,13 @@
                         <p:panel id="nuevosTiposEmbargos" style="border: none;">
 
                             <strong><h:outputText value="Código: "  style="font-size: 12px; position: absolute; top: 60px;text-transform: uppercase" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoCodigo" value="#{controlTiposEmbargos.nuevoTipoEmbargo.codigo}" style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 55px;">
+                            <p:inputText  autocomplete="off"  id="nuevoCodigo" value="#{controlTiposEmbargos.nuevoTipoEmbargo.codigo}" style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 55px;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoCodigo" value="Código" />
 
                             <strong><h:outputText value="Descripción: "  style="font-size: 12px; position: absolute; top: 110px;text-transform: uppercase" /></strong>
-                            <p:inputText  autocomplete="false"   id="nuevoNombre" value="#{controlTiposEmbargos.nuevoTipoEmbargo.descripcion}" style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 105px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"   id="nuevoNombre" value="#{controlTiposEmbargos.nuevoTipoEmbargo.descripcion}" style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 105px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoNombre" value="Descripción" />
@@ -262,13 +262,13 @@
 
                         <p:panel id="duplicarTiposEmbargos" style="border: none;">
                             <strong><h:outputText value="código "  style="font-size: 12px; position: absolute; top: 60px;text-transform: uppercase" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarCodigo" value="#{controlTiposEmbargos.duplicarTipoEmbargo.codigo}" style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 55px;">
+                            <p:inputText  autocomplete="off"  id="duplicarCodigo" value="#{controlTiposEmbargos.duplicarTipoEmbargo.codigo}" style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 55px;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarCodigo" value="Código" />
 
                             <strong><h:outputText value="Descripción"  style="font-size: 12px; position: absolute; top: 110px;text-transform: uppercase" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarNombre" value="#{controlTiposEmbargos.duplicarTipoEmbargo.descripcion}"  style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 105px;" >
+                            <p:inputText  autocomplete="off"  id="duplicarNombre" value="#{controlTiposEmbargos.duplicarTipoEmbargo.descripcion}"  style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 105px;" >
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarNombre" value="Descripción" />

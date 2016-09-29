@@ -35,7 +35,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.codigo}" id="editarEscalafonCodigo" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"  value="#{info.codigo}" id="editarEscalafonCodigo" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlEscalafonSalarial.procesoModificacionEscalafonSalarial(indice)}" update="editarEscalafonCodigo" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlEscalafonSalarial.cambiarIndice(indice, 0)}"  process="@this"/>
                                             </p:inputText>
@@ -52,7 +52,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.descripcion}" style="text-transform: uppercase"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.descripcion}" maxlength="30" id="editarEscalafonDescripcion" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"  value="#{info.descripcion}" maxlength="30" id="editarEscalafonDescripcion" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlEscalafonSalarial.procesoModificacionEscalafonSalarial(indice)}" update="editarEscalafonDescripcion" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlEscalafonSalarial.cambiarIndice(indice, 1)}" process="@this"/>
                                             </p:inputText>
@@ -70,7 +70,7 @@
                                         <f:facet name="output"><h:outputText value="#{info.tipotrabajador.nombre}" >
                                             </h:outputText></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{info.tipotrabajador.nombre}" id="editarEscalafonTipoTrabajador" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"  value="#{info.tipotrabajador.nombre}" id="editarEscalafonTipoTrabajador" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
                                                 <p:ajax event="select" listener="#{controlEscalafonSalarial.cambiarIndice(indice, 2)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlEscalafonSalarial.modificarEscalafonSalarial(indice, 'TIPOTRABAJADOR', info.tipotrabajador.nombre)}" process="@this" update="editarEscalafonTipoTrabajador"/>
                                                 <p:ajax event="dblclick" listener="#{controlEscalafonSalarial.asignarIndex(indice,0,0)}" process="@this" update="editarEscalafonTipoTrabajador"/>
@@ -161,7 +161,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{infoGS.descripcion}" id="editarGrupoDescripcion" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"  value="#{infoGS.descripcion}" id="editarGrupoDescripcion" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlEscalafonSalarial.procesoModificacionGrupoSalarial(indiceGS)}" update="editarGrupoDescripcion" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlEscalafonSalarial.cambiarIndiceGrupoSalarial(indiceGS,0)}" process="@this"/> 
                                             </p:inputText>
@@ -178,7 +178,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{infoGS.salario}" id="editarGrupoSalario" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"  value="#{infoGS.salario}" id="editarGrupoSalario" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlEscalafonSalarial.procesoModificacionGrupoSalarial(indiceGS)}" update="editarGrupoDescripcion" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlEscalafonSalarial.cambiarIndiceGrupoSalarial(indiceGS,1)}" process="@this"/> 
                                             </p:inputText>
@@ -282,7 +282,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlEscalafonSalarial.actualizarTipoTrabajador()}"  process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarTT']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovTipoTrabajador').filter();" style="width:140px; position: relative; left: 70px;" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovTipoTrabajador').filter();" style="width:140px; position: relative; left: 70px;" />  
                             </f:facet>
                             <p:column filterBy="#{dias.nombre}"  filterMatchMode="contains">
                                 <f:facet name="header">
@@ -332,19 +332,19 @@
                         <p:panel id="nuevoEscalafonSalarial" style="border: none;">
 
                             <strong><h:outputText value="*#{msg['codigoNES']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoEscalafonSalarialCodigo" value="#{controlEscalafonSalarial.nuevoEscalafonSalarial.codigo}" style="width: 122px; position: absolute; left: 200px; top: 70px;">
+                            <p:inputText  autocomplete="off"  id="nuevoEscalafonSalarialCodigo" value="#{controlEscalafonSalarial.nuevoEscalafonSalarial.codigo}" style="width: 122px; position: absolute; left: 200px; top: 70px;">
                                 <p:ajax event="change" update="nuevoEscalafonSalarialCodigo"/>
                             </p:inputText>
                             <p:watermark value="#{msg['codigo']}" for="nuevoEscalafonSalarialCodigo"/>
 
                             <strong><h:outputText value="*#{msg['descripcionNES']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoEscalafonSalarialDescripcion" maxlength="30" value="#{controlEscalafonSalarial.nuevoEscalafonSalarial.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 100px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="nuevoEscalafonSalarialDescripcion" maxlength="30" value="#{controlEscalafonSalarial.nuevoEscalafonSalarial.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 100px;text-transform: uppercase">
                                 <p:ajax event="change" update="nuevoEscalafonSalarialDescripcion"/>
                             </p:inputText>
                             <p:watermark value="#{msg['descripcion']}" for="nuevoEscalafonSalarialDescripcion"/>
 
                             <strong><h:outputText value="*#{msg['tipotrabajadorNES']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoEscalafonSalarialTipoTrabajador" value="#{controlEscalafonSalarial.nuevoEscalafonSalarial.tipotrabajador.nombre}" style="width: 122px; position: absolute; left: 200px; top: 130px;text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="nuevoEscalafonSalarialTipoTrabajador" value="#{controlEscalafonSalarial.nuevoEscalafonSalarial.tipotrabajador.nombre}" style="width: 122px; position: absolute; left: 200px; top: 130px;text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlEscalafonSalarial.asignarIndex(indice,0,1)}"/> 
                                 <p:ajax event="click" listener="#{controlEscalafonSalarial.valoresBackupAutocompletarGeneral(1, 'TIPOTRABAJADOR')}" /> 
                                 <p:ajax event="change" listener="#{controlEscalafonSalarial.autocompletarNuevoyDuplicadoEscalafonSalarial('TIPOTRABAJADOR', controlEscalafonSalarial.nuevoEscalafonSalarial.tipotrabajador.nombre, 1)}" />
@@ -365,19 +365,19 @@
                         <p:panel id="duplicarEscalafonSalarial" style="border: none;">
 
                             <strong><h:outputText value="*#{msg['codigoNES']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarEscalafonSalarialCodigo" value="#{controlEscalafonSalarial.duplicarEscalafonSalarial.codigo}" style="width: 122px; position: absolute; left: 200px; top: 70px;">
+                            <p:inputText  autocomplete="off"  id="duplicarEscalafonSalarialCodigo" value="#{controlEscalafonSalarial.duplicarEscalafonSalarial.codigo}" style="width: 122px; position: absolute; left: 200px; top: 70px;">
                                 <p:ajax event="change" update="duplicarEscalafonSalarialCodigo"/>
                             </p:inputText>
                             <p:watermark value="#{msg['codigo']}" for="duplicarEscalafonSalarialCodigo"/>
 
                             <strong><h:outputText value="*#{msg['descripcionNES']}" style=" position: absolute; top: 105px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarEscalafonSalarialDescripcion" maxlength="30" value="#{controlEscalafonSalarial.duplicarEscalafonSalarial.descripcion}" style=" width: 122px; position: absolute; left: 200px; top: 100px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="duplicarEscalafonSalarialDescripcion" maxlength="30" value="#{controlEscalafonSalarial.duplicarEscalafonSalarial.descripcion}" style=" width: 122px; position: absolute; left: 200px; top: 100px;text-transform: uppercase">
                                 <p:ajax event="change" update="duplicarEscalafonSalarialDescripcion"/>
                             </p:inputText>
                             <p:watermark value="#{msg['descripcion']}" for="duplicarEscalafonSalarialDescripcion"/>
 
                             <strong><h:outputText value="*#{msg['tipotrabajadorNES']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarEscalafonSalarialTipoTrabajador" value="#{controlEscalafonSalarial.duplicarEscalafonSalarial.tipotrabajador.nombre}" style="width: 122px; position: absolute; left: 200px; top: 130px;text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="duplicarEscalafonSalarialTipoTrabajador" value="#{controlEscalafonSalarial.duplicarEscalafonSalarial.tipotrabajador.nombre}" style="width: 122px; position: absolute; left: 200px; top: 130px;text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlEscalafonSalarial.asignarIndex(indice,0,2)}"/> 
                                 <p:ajax event="click" listener="#{controlEscalafonSalarial.valoresBackupAutocompletarGeneral(2, 'TIPOTRABAJADOR')}" /> 
                                 <p:ajax event="change" listener="#{controlEscalafonSalarial.autocompletarNuevoyDuplicadoEscalafonSalarial('TIPOTRABAJADOR', controlEscalafonSalarial.duplicarEscalafonSalarial.tipotrabajador.nombre, 2)}" />
@@ -397,14 +397,14 @@
                         <p:panel id="nuevoGrupoSalarial" style="border: none;">
 
                             <strong><h:outputText value="*#{msg['descripcionNGS']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoGrupoDescripcion" value="#{controlEscalafonSalarial.nuevoGrupoSalarial.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 70px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="nuevoGrupoDescripcion" value="#{controlEscalafonSalarial.nuevoGrupoSalarial.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 70px;text-transform: uppercase">
                                 <p:ajax event="change" update="nuevoGrupoDescripcion"/>
                             </p:inputText>
                             <p:watermark value="#{msg['descripcion']}" for="nuevoGrupoDescripcion"/>
 
 
                             <strong><h:outputText value="*#{msg['salarioNGS']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoGrupoSalario" value="#{controlEscalafonSalarial.nuevoGrupoSalarial.salario}" style="width: 122px; position: absolute; left: 200px; top: 100px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="nuevoGrupoSalario" value="#{controlEscalafonSalarial.nuevoGrupoSalarial.salario}" style="width: 122px; position: absolute; left: 200px; top: 100px;text-transform: uppercase">
                                 <p:ajax event="change" update="nuevoGrupoSalario" process="@this"/>
                             </p:inputText>
                             <p:watermark value="#{msg['salario']}" for="nuevoGrupoSalario"/>
@@ -420,14 +420,14 @@
                         <p:panel id="duplicarGrupoSalarial" style="border: none;">
 
                             <strong><h:outputText value="*#{msg['descripcionNGS']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarGrupoDescripcion" value="#{controlEscalafonSalarial.duplicarGrupoSalarial.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 70px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="duplicarGrupoDescripcion" value="#{controlEscalafonSalarial.duplicarGrupoSalarial.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 70px;text-transform: uppercase">
                                 <p:ajax event="change" update="duplicarGrupoDescripcion"/>
                             </p:inputText>
                             <p:watermark value="#{msg['descripcion']}" for="duplicarGrupoDescripcion"/>
 
 
                             <strong><h:outputText value="*#{msg['salarioNGS']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarGrupoSalario" value="#{controlEscalafonSalarial.duplicarGrupoSalarial.salario}" style="width: 122px; position: absolute; left: 200px; top: 100px;text-transform: uppercase">
+                            <p:inputText  autocomplete="off"  id="duplicarGrupoSalario" value="#{controlEscalafonSalarial.duplicarGrupoSalarial.salario}" style="width: 122px; position: absolute; left: 200px; top: 100px;text-transform: uppercase">
                                 <p:ajax event="change" update="duplicarGrupoSalario"/>
                             </p:inputText>
                             <p:watermark value="#{msg['salario']}" for="duplicarGrupoSalario"/>

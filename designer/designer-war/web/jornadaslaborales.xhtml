@@ -87,7 +87,7 @@
                                             <h:outputText value="#{JornadasLaborales.codigo}" />
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{JornadasLaborales.codigo}" id="editarJornadaLaboralCodigo" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase;height: 12px"> 
+                                            <p:inputText  autocomplete="off"  value="#{JornadasLaborales.codigo}" id="editarJornadaLaboralCodigo" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase;height: 12px"> 
                                                 <p:ajax event="select" listener="#{controlJornadasLaborales.cambiarIndice(indice, 0)}"/>
                                                 <p:ajax event="change" listener="#{controlJornadasLaborales.modificarJornadasLaborales(indice, 'C', JornadasLaborales.codigo)}"/>
 
@@ -104,7 +104,7 @@
                                             <h:outputText value="#{JornadasLaborales.descripcion}" />
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{JornadasLaborales.descripcion}" id="editarJornadaLaboralDescripcion" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase;height: 12px"> 
+                                            <p:inputText  autocomplete="off"  value="#{JornadasLaborales.descripcion}" id="editarJornadaLaboralDescripcion" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase;height: 12px"> 
                                                 <p:ajax event="change" listener="#{controlJornadasLaborales.modificarJornadasLaborales(indice, 'D', JornadasLaborales.descripcion)}"/>
                                                 <p:ajax event="select" listener="#{controlJornadasLaborales.cambiarIndice(indice, 1)}" />
                                             </p:inputText>
@@ -123,7 +123,7 @@
                                             <h:outputText  value="#{JornadasLaborales.horasdiarias}" />
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{JornadasLaborales.horasdiarias}" id="editarJornadaLaboralHorasDiarias" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase;height: 12px"> 
+                                            <p:inputText  autocomplete="off"  value="#{JornadasLaborales.horasdiarias}" id="editarJornadaLaboralHorasDiarias" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase;height: 12px"> 
                                                 <p:ajax event="change" listener="#{controlJornadasLaborales.modificarJornadasLaborales(indice, 'N', JornadasLaborales.horasdiarias)}"/>
                                                 <p:ajax event="select" listener="#{controlJornadasLaborales.cambiarIndice(indice, 2)}" />
                                             </p:inputText>
@@ -142,7 +142,7 @@
                                             <h:outputText value="#{JornadasLaborales.horasmensuales}" />
                                         </f:facet>
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{JornadasLaborales.horasmensuales}" id="editarJornadaLaboralHorasMensuales" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase;height: 12px"> 
+                                            <p:inputText  autocomplete="off"  value="#{JornadasLaborales.horasmensuales}" id="editarJornadaLaboralHorasMensuales" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase;height: 12px"> 
                                                 <p:ajax event="change" listener="#{controlJornadasLaborales.modificarJornadasLaborales(indice, 'N', JornadasLaborales.horasmensuales)}"/>
                                                 <p:ajax event="select" listener="#{controlJornadasLaborales.cambiarIndice(indice, 3)}" />
                                             </p:inputText>
@@ -184,7 +184,7 @@
                                             <p:tooltip  for="headerCuadrillaHorasDiarias" value="#{msg['cuadrillahorasdiarias']}" />
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{JornadasLaborales.cuadrillahorasdiarias}" id="editarJornadaLaboralCuadrillaHorasDiarias" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase;height: 12px">
+                                            <p:inputText  autocomplete="off"  value="#{JornadasLaborales.cuadrillahorasdiarias}" id="editarJornadaLaboralCuadrillaHorasDiarias" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase;height: 12px">
                                                 <p:ajax event="change" listener="#{controlJornadasLaborales.modificarJornadasLaborales(indice, 'N', JornadasLaborales.cuadrillahorasdiarias)}"/>
                                                 <p:ajax event="select" listener="#{controlJornadasLaborales.cambiarIndice(indice, 6)}" />
                                             </p:inputText>
@@ -198,7 +198,7 @@
                                         <f:facet name="output">
                                             <h:outputText value="#{JornadasLaborales.jornada.descripcion}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{JornadasLaborales.jornada.descripcion}" id="editarJornada" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase;height: 12px"> 
+                                            <p:inputText  autocomplete="off"  value="#{JornadasLaborales.jornada.descripcion}" id="editarJornada" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase;height: 12px"> 
                                                 <p:ajax event="change" listener="#{controlJornadasLaborales.modificarJornadasLaborales(indice, 'JORNADAS', JornadasLaborales.jornada.descripcion)}"/>
                                                 <p:ajax event="select" listener="#{controlJornadasLaborales.cambiarIndice(indice, 7)}" />
                                                 <p:ajax event="dblclick" listener="#{controlJornadasLaborales.asignarIndex(indice, 0, 0)}"/>
@@ -252,7 +252,7 @@
                                             <p:tooltip  for="headerHoraInicial" value="#{msg['horainicialtt']}" />
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{SemanasLaborales.horainicial}" id="editarJornadaSemanalHoraInicial" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase;height: 12px">
+                                            <p:inputText  autocomplete="off"  value="#{SemanasLaborales.horainicial}" id="editarJornadaSemanalHoraInicial" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase;height: 12px">
                                                 <p:ajax event="change" listener="#{controlJornadasLaborales.modificarJornadasSemanales(indiceJS, 'N', SemanasLaborales.horainicial)}"/>
                                                 <p:ajax event="select" listener="#{controlJornadasLaborales.cambiarIndiceJS(indiceJS, 1)}" />
                                             </p:inputText>
@@ -272,7 +272,7 @@
                                             <p:tooltip  for="headerMinutoInicial" value="#{msg['minutoinicialtt']}" />
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{SemanasLaborales.minutoinicial}" id="editarJornadaSemanalMinutoInicial" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase;height: 12px">
+                                            <p:inputText  autocomplete="off"  value="#{SemanasLaborales.minutoinicial}" id="editarJornadaSemanalMinutoInicial" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase;height: 12px">
                                                 <p:ajax event="change" listener="#{controlJornadasLaborales.modificarJornadasSemanales(indiceJS, 'N', SemanasLaborales.minutoinicial)}"/>
                                                 <p:ajax event="select" listener="#{controlJornadasLaborales.cambiarIndiceJS(indiceJS, 2)}" />
                                             </p:inputText>
@@ -291,7 +291,7 @@
                                             <p:tooltip  for="headerHoraInicialAlimentacion" value="#{msg['horainicialalimentacion']}" />
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{SemanasLaborales.horainicialalimentacion}" id="editarJornadaSemanalHoraInicialAlimentacion" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase;height: 12px">
+                                            <p:inputText  autocomplete="off"  value="#{SemanasLaborales.horainicialalimentacion}" id="editarJornadaSemanalHoraInicialAlimentacion" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase;height: 12px">
                                                 <p:ajax event="change" listener="#{controlJornadasLaborales.modificarJornadasSemanales(indiceJS, 'N', SemanasLaborales.horainicialalimentacion)}"/>
                                                 <p:ajax event="select" listener="#{controlJornadasLaborales.cambiarIndiceJS(indiceJS, 3)}" />
                                             </p:inputText>
@@ -310,7 +310,7 @@
                                             <p:tooltip  for="headerMinutoInicialAlimentacion" value="#{msg['minutoinicialalimentacion']}" />
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{SemanasLaborales.minutoinicialalimentacion}" id="editarJornadaSemanalMinutoInicialAlimentacion" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase;height: 12px">
+                                            <p:inputText  autocomplete="off"  value="#{SemanasLaborales.minutoinicialalimentacion}" id="editarJornadaSemanalMinutoInicialAlimentacion" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase;height: 12px">
                                                 <p:ajax event="change" listener="#{controlJornadasLaborales.modificarJornadasSemanales(indiceJS, 'N', SemanasLaborales.minutoinicialalimentacion)}"/>
                                                 <p:ajax event="select" listener="#{controlJornadasLaborales.cambiarIndiceJS(indiceJS, 4)}" />
                                             </p:inputText>
@@ -329,7 +329,7 @@
                                             <p:tooltip  for="headerHoraFinalAlimentancion" value="Hora Final Alimentación" />
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{SemanasLaborales.horafinalalimentacion}" id="editarJornadaSemanalHoraFinalAlimentacion" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase;height: 12px">
+                                            <p:inputText  autocomplete="off"  value="#{SemanasLaborales.horafinalalimentacion}" id="editarJornadaSemanalHoraFinalAlimentacion" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase;height: 12px">
                                                 <p:ajax event="change" listener="#{controlJornadasLaborales.modificarJornadasSemanales(indiceJS, 'N', SemanasLaborales.horafinalalimentacion)}"/>
                                                 <p:ajax event="select" listener="#{controlJornadasLaborales.cambiarIndiceJS(indiceJS, 5)}" />
                                             </p:inputText>
@@ -348,7 +348,7 @@
                                             <p:tooltip  for="headerMinutoFinalAlimentancion" value="Minuto Final Alimentación" />
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{SemanasLaborales.minutofinalalimentacion}" id="editarJornadaSemanalMinutoFinalAlimentacion" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase;height: 12px">
+                                            <p:inputText  autocomplete="off"  value="#{SemanasLaborales.minutofinalalimentacion}" id="editarJornadaSemanalMinutoFinalAlimentacion" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase;height: 12px">
                                                 <p:ajax event="change" listener="#{controlJornadasLaborales.modificarJornadasSemanales(indiceJS, 'N', SemanasLaborales.minutofinalalimentacion)}"/>
                                                 <p:ajax event="select" listener="#{controlJornadasLaborales.cambiarIndiceJS(indiceJS, 6)}" />
                                             </p:inputText>
@@ -367,7 +367,7 @@
                                             <p:tooltip  for="headerHoraFinal" value="#{msg['horafinaltt']}" />
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{SemanasLaborales.horafinal}" id="editarJornadaSemanalHoraFinal" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase;height: 12px">
+                                            <p:inputText  autocomplete="off"  value="#{SemanasLaborales.horafinal}" id="editarJornadaSemanalHoraFinal" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase;height: 12px">
                                                 <p:ajax event="change" listener="#{controlJornadasLaborales.modificarJornadasSemanales(indiceJS, 'N', SemanasLaborales.horafinal)}"/>
                                                 <p:ajax event="select" listener="#{controlJornadasLaborales.cambiarIndiceJS(indiceJS, 7)}" />
                                             </p:inputText>
@@ -386,7 +386,7 @@
                                             <p:tooltip  for="headerMinutoFinal" value="#{msg['minutofinaltt']}" />
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{SemanasLaborales.minutofinal}" id="editarJornadaSemanalMinutoFinal" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase;height: 12px">
+                                            <p:inputText  autocomplete="off"  value="#{SemanasLaborales.minutofinal}" id="editarJornadaSemanalMinutoFinal" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase;height: 12px">
                                                 <p:ajax event="change" listener="#{controlJornadasLaborales.modificarJornadasSemanales(indiceJS, 'N', SemanasLaborales.minutofinal)}"/>
                                                 <p:ajax event="select" listener="#{controlJornadasLaborales.cambiarIndiceJS(indiceJS, 7)}" />
                                             </p:inputText>
@@ -451,22 +451,22 @@
                         <p:panel id="nuevaJornadaLaboral" style="border: none;">
 
                             <strong><h:outputText value="#{msg['codigojl']}"  style=" position: absolute; top: 75px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoCodigo" value="#{controlJornadasLaborales.nuevaJornadaLaboral.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 70px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="nuevoCodigo" value="#{controlJornadasLaborales.nuevaJornadaLaboral.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 70px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="nuevoCodigo"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['descripcionjl']} " style=" position: absolute; top: 105px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaDescripcion" value="#{controlJornadasLaborales.nuevaJornadaLaboral.descripcion}" style=" width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="nuevaDescripcion" value="#{controlJornadasLaborales.nuevaJornadaLaboral.descripcion}" style=" width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="nuevaDescripcion"/>
                             </p:inputText>   
 
                             <strong><h:outputText value="#{msg['horasdiariasjl']}"  style=" position: absolute; top: 135px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaHoraDiaria" value="#{controlJornadasLaborales.nuevaJornadaLaboral.horasdiarias}" style=" width: 122px; position: absolute; left: 200px; top: 130px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="nuevaHoraDiaria" value="#{controlJornadasLaborales.nuevaJornadaLaboral.horasdiarias}" style=" width: 122px; position: absolute; left: 200px; top: 130px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="nuevaHoraDiaria"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['horasmensualesjl']}"  style=" position: absolute; top: 165px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaHoraMensual" value="#{controlJornadasLaborales.nuevaJornadaLaboral.horasmensuales}" style=" width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="nuevaHoraMensual" value="#{controlJornadasLaborales.nuevaJornadaLaboral.horasmensuales}" style=" width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="nuevaHoraMensual"/>
                             </p:inputText>
 
@@ -481,12 +481,12 @@
                             </p:selectBooleanCheckbox>
 
                             <strong><h:outputText value="#{msg['cuadrillahorasdiariasjl']}"  style=" position: absolute; top: 255px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaCuadrillaHorasDiarias" value="#{controlJornadasLaborales.nuevaJornadaLaboral.cuadrillahorasdiarias}" style=" width: 122px; position: absolute; left: 200px; top: 250px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="nuevaCuadrillaHorasDiarias" value="#{controlJornadasLaborales.nuevaJornadaLaboral.cuadrillahorasdiarias}" style=" width: 122px; position: absolute; left: 200px; top: 250px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="nuevaCuadrillaHorasDiarias"/>
                             </p:inputText> 
 
                             <strong><h:outputText value="#{msg['jornadajl']}" style=" position: absolute; top: 285px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaJornada" value="#{controlJornadasLaborales.nuevaJornadaLaboral.jornada.descripcion}" style=" width: 122px; position: absolute; left: 200px; top: 285px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="nuevaJornada" value="#{controlJornadasLaborales.nuevaJornadaLaboral.jornada.descripcion}" style=" width: 122px; position: absolute; left: 200px; top: 285px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlJornadasLaborales.valoresBackupAutocompletar(1, 'JORNADA')}" />
                                 <p:ajax event="change" listener="#{controlJornadasLaborales.autocompletarNuevoyDuplicado('JORNADA', controlJornadasLaborales.nuevaJornadaLaboral.jornada.descripcion, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlJornadasLaborales.asignarIndex(indice, 0, 1)}" />
@@ -508,22 +508,22 @@
                         <p:panel id="duplicarJornadaLaboral" style="border: none;">
 
                             <strong><h:outputText value="#{msg['codigojl']}" style=" position: absolute; top: 75px;" /></strong>
-                            <p:inputText  autocomplete="false"  maxlength="4" id="duplicarCodigo" value="#{controlJornadasLaborales.duplicarJornadaLaboral.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 70px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  maxlength="4" id="duplicarCodigo" value="#{controlJornadasLaborales.duplicarJornadaLaboral.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 70px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['descripcionjl']}" style=" position: absolute; top: 105px;" /></strong>
-                            <p:inputText  autocomplete="false"  maxlength="30" id="duplicarDescripcion" value="#{controlJornadasLaborales.duplicarJornadaLaboral.descripcion}" style=" width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  maxlength="30" id="duplicarDescripcion" value="#{controlJornadasLaborales.duplicarJornadaLaboral.descripcion}" style=" width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['horasdiariasjl']}" style=" position: absolute; top: 135px;" /></strong>
-                            <p:inputText  autocomplete="false"  maxlength="4" id="duplicarHorasDiarias" value="#{controlJornadasLaborales.duplicarJornadaLaboral.horasdiarias}" style=" width: 122px; position: absolute; left: 200px; top: 130px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  maxlength="4" id="duplicarHorasDiarias" value="#{controlJornadasLaborales.duplicarJornadaLaboral.horasdiarias}" style=" width: 122px; position: absolute; left: 200px; top: 130px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['horasmensualesjl']}" style=" position: absolute; top: 165px;" /></strong>
-                            <p:inputText  autocomplete="false"  maxlength="4" id="duplicarHorasMensuales" value="#{controlJornadasLaborales.duplicarJornadaLaboral.horasmensuales}" style=" width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  maxlength="4" id="duplicarHorasMensuales" value="#{controlJornadasLaborales.duplicarJornadaLaboral.horasmensuales}" style=" width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
@@ -538,12 +538,12 @@
                             </p:selectBooleanCheckbox>                          
 
                             <strong><h:outputText value="#{msg['cuadrillahorasdiariasjl']}" style=" position: absolute; top: 255px;" /></strong>
-                            <p:inputText  autocomplete="false"  maxlength="4" id="duplicarCuadrillaHorasDiarias" value="#{controlJornadasLaborales.duplicarJornadaLaboral.cuadrillahorasdiarias}" style=" width: 122px; position: absolute; left: 200px; top: 250px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  maxlength="4" id="duplicarCuadrillaHorasDiarias" value="#{controlJornadasLaborales.duplicarJornadaLaboral.cuadrillahorasdiarias}" style=" width: 122px; position: absolute; left: 200px; top: 250px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['jornadajl']}" style=" position: absolute; top: 285px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarJornada" value="#{controlJornadasLaborales.duplicarJornadaLaboral.jornada.descripcion}" style=" width: 122px; position: absolute; left: 200px; top: 285px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="duplicarJornada" value="#{controlJornadasLaborales.duplicarJornadaLaboral.jornada.descripcion}" style=" width: 122px; position: absolute; left: 200px; top: 285px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlJornadasLaborales.valoresBackupAutocompletar(2, 'JORNADA')}" />
                                 <p:ajax event="change" listener="#{controlJornadasLaborales.autocompletarNuevoyDuplicado('JORNADA', controlJornadasLaborales.nuevaJornadaLaboral.jornada.descripcion, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlJornadasLaborales.llamarLovJornadas(2)}" />
@@ -577,35 +577,35 @@
                             </p:selectOneMenu>
 
                             <strong><h:outputText value="#{msg['horainicialsl']}"  style=" position: absolute; top: 105px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaHoraInicial" value="#{controlJornadasLaborales.nuevaJornadaSemanal.horainicial}" style=" width: 122px; position: absolute; left: 210px; top: 100px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="nuevaHoraInicial" value="#{controlJornadasLaborales.nuevaJornadaSemanal.horainicial}" style=" width: 122px; position: absolute; left: 210px; top: 100px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="nuevaHoraInicial"/>
                             </p:inputText>
                             <strong><h:outputText value="#{msg['minutoinicialsl']}"  style=" position: absolute; top: 135px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoMinutoInicial" value="#{controlJornadasLaborales.nuevaJornadaSemanal.minutoinicial}" style=" width: 122px; position: absolute; left: 210px; top: 130px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="nuevoMinutoInicial" value="#{controlJornadasLaborales.nuevaJornadaSemanal.minutoinicial}" style=" width: 122px; position: absolute; left: 210px; top: 130px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="nuevoMinutoInicial"/>
                             </p:inputText>
                             <strong><h:outputText value="#{msg['horainicialalimentacionsl']}"  style=" position: absolute; top: 165px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaHoraInicialAlimentacion" value="#{controlJornadasLaborales.nuevaJornadaSemanal.horainicialalimentacion}" style=" width: 122px; position: absolute; left: 210px; top: 160px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="nuevaHoraInicialAlimentacion" value="#{controlJornadasLaborales.nuevaJornadaSemanal.horainicialalimentacion}" style=" width: 122px; position: absolute; left: 210px; top: 160px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="nuevaHoraInicialAlimentacion"/>
                             </p:inputText>
                             <strong><h:outputText value="#{msg['minutoinicialalimentacionsl']}"  style=" position: absolute; top: 195px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoMinutoInicialAlimentacion" value="#{controlJornadasLaborales.nuevaJornadaSemanal.minutoinicialalimentacion}" style=" width: 122px; position: absolute; left: 210px; top: 190px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="nuevoMinutoInicialAlimentacion" value="#{controlJornadasLaborales.nuevaJornadaSemanal.minutoinicialalimentacion}" style=" width: 122px; position: absolute; left: 210px; top: 190px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="nuevoMinutoInicialAlimentacion"/>
                             </p:inputText>
                             <strong><h:outputText value="#{msg['horafinalalimentacionsl']}"  style=" position: absolute; top: 225px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaHoraFinalAlimentacion" value="#{controlJornadasLaborales.nuevaJornadaSemanal.horafinalalimentacion}" style=" width: 122px; position: absolute; left: 210px; top: 220px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="nuevaHoraFinalAlimentacion" value="#{controlJornadasLaborales.nuevaJornadaSemanal.horafinalalimentacion}" style=" width: 122px; position: absolute; left: 210px; top: 220px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="nuevaHoraFinalAlimentacion"/>
                             </p:inputText>
                             <strong><h:outputText value="#{msg['minutofinalalimentacionsl']}"  style=" position: absolute; top: 255px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoMinutoFinalAlimentacion" value="#{controlJornadasLaborales.nuevaJornadaSemanal.minutofinalalimentacion}" style=" width: 122px; position: absolute; left: 210px; top: 250px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="nuevoMinutoFinalAlimentacion" value="#{controlJornadasLaborales.nuevaJornadaSemanal.minutofinalalimentacion}" style=" width: 122px; position: absolute; left: 210px; top: 250px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="nuevoMinutoFinalAlimentacion"/>
                             </p:inputText>
                             <strong><h:outputText value="#{msg['horafinalsl']}"  style=" position: absolute; top: 285px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaHoraFinal" value="#{controlJornadasLaborales.nuevaJornadaSemanal.horafinal}" style=" width: 122px; position: absolute; left: 210px; top: 280px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="nuevaHoraFinal" value="#{controlJornadasLaborales.nuevaJornadaSemanal.horafinal}" style=" width: 122px; position: absolute; left: 210px; top: 280px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="nuevaHoraFinal"/>
                             </p:inputText>
                             <strong><h:outputText value="#{msg['minutofinalsl']}"  style=" position: absolute; top: 315px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoMinutoFinal" value="#{controlJornadasLaborales.nuevaJornadaSemanal.minutofinal}" style=" width: 122px; position: absolute; left: 210px; top: 310px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="nuevoMinutoFinal" value="#{controlJornadasLaborales.nuevaJornadaSemanal.minutofinal}" style=" width: 122px; position: absolute; left: 210px; top: 310px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="nuevoMinutoFinal"/>
                             </p:inputText>
 
@@ -636,35 +636,35 @@
                             </p:selectOneMenu>                           
 
                             <strong><h:outputText value="#{msg['horainicialsl']}"  style=" position: absolute; top: 105px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarHoraInicial" value="#{controlJornadasLaborales.duplicarSemanaLaboral.horainicial}" style=" width: 122px; position: absolute; left: 210px; top: 100px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="duplicarHoraInicial" value="#{controlJornadasLaborales.duplicarSemanaLaboral.horainicial}" style=" width: 122px; position: absolute; left: 210px; top: 100px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <strong><h:outputText value="#{msg['minutoinicialsl']}"  style=" position: absolute; top: 135px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarMinutoInicial" value="#{controlJornadasLaborales.duplicarSemanaLaboral.minutoinicial}" style=" width: 122px; position: absolute; left: 210px; top: 130px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="duplicarMinutoInicial" value="#{controlJornadasLaborales.duplicarSemanaLaboral.minutoinicial}" style=" width: 122px; position: absolute; left: 210px; top: 130px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <strong><h:outputText value="#{msg['horainicialalimentacionsl']}"  style=" position: absolute; top: 165px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarHoraInicialAlimentacion" value="#{controlJornadasLaborales.duplicarSemanaLaboral.horainicialalimentacion}" style=" width: 122px; position: absolute; left: 210px; top: 160px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="duplicarHoraInicialAlimentacion" value="#{controlJornadasLaborales.duplicarSemanaLaboral.horainicialalimentacion}" style=" width: 122px; position: absolute; left: 210px; top: 160px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <strong><h:outputText value="#{msg['minutoinicialalimentacionsl']}"  style=" position: absolute; top: 195px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarMinutoInicialAlimentacion" value="#{controlJornadasLaborales.duplicarSemanaLaboral.minutoinicialalimentacion}" style=" width: 122px; position: absolute; left: 210px; top: 190px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="duplicarMinutoInicialAlimentacion" value="#{controlJornadasLaborales.duplicarSemanaLaboral.minutoinicialalimentacion}" style=" width: 122px; position: absolute; left: 210px; top: 190px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <strong><h:outputText value="#{msg['horafinalalimentacionsl']}"  style=" position: absolute; top: 225px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarHoraFinalAlimentacion" value="#{controlJornadasLaborales.duplicarSemanaLaboral.horafinalalimentacion}" style=" width: 122px; position: absolute; left: 210px; top: 220px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="duplicarHoraFinalAlimentacion" value="#{controlJornadasLaborales.duplicarSemanaLaboral.horafinalalimentacion}" style=" width: 122px; position: absolute; left: 210px; top: 220px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <strong><h:outputText value="#{msg['minutofinalalimentacionsl']}"  style=" position: absolute; top: 255px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarMinutoFinalAlimentacion" value="#{controlJornadasLaborales.duplicarSemanaLaboral.minutofinalalimentacion}" style=" width: 122px; position: absolute; left: 210px; top: 250px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="duplicarMinutoFinalAlimentacion" value="#{controlJornadasLaborales.duplicarSemanaLaboral.minutofinalalimentacion}" style=" width: 122px; position: absolute; left: 210px; top: 250px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <strong><h:outputText value="#{msg['horafinalsl']}"  style=" position: absolute; top: 285px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarHoraFinal" value="#{controlJornadasLaborales.duplicarSemanaLaboral.horafinal}" style=" width: 122px; position: absolute; left: 210px; top: 280px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="duplicarHoraFinal" value="#{controlJornadasLaborales.duplicarSemanaLaboral.horafinal}" style=" width: 122px; position: absolute; left: 210px; top: 280px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <strong><h:outputText value="#{msg['minutofinalsl']}"  style=" position: absolute; top: 315px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarMinutoFinal" value="#{controlJornadasLaborales.duplicarSemanaLaboral.minutofinal}" style=" width: 122px; position: absolute; left: 210px; top: 310px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="duplicarMinutoFinal" value="#{controlJornadasLaborales.duplicarSemanaLaboral.minutofinal}" style=" width: 122px; position: absolute; left: 210px; top: 310px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
@@ -709,7 +709,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlJornadasLaborales.actualizarJornadas()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarj']}"  style="position: absolute; left: 27px; top: 15px"/>  
-                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('LOVJornadas').filter();" style="width:100px; position: relative; left: 60px;" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVJornadas').filter();" style="width:100px; position: relative; left: 60px;" />  
                             </f:facet>
 
                             <p:column filterBy="#{jornadas.descripcion}" width="100" filterMatchMode="contains" > 
@@ -842,53 +842,53 @@
                     </p:dialog>
 
                     <p:dialog id="editarDescripcion" header="#{msg['descripcione']}" widgetVar="editarDescripcion" resizable="false" draggable="true" modal="true" height="80" width="400">  
-                        <p:inputText  autocomplete="false"  value="#{controlJornadasLaborales.editarJornadaLaboral.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                                
+                        <p:inputText  autocomplete="off"  value="#{controlJornadasLaborales.editarJornadaLaboral.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                                
                         </p:inputText>
                     </p:dialog>
                     <p:dialog id="editarHorasDiarias" header="#{msg['horasdiariase']}" widgetVar="editarHorasDiarias" resizable="false" draggable="true" modal="true" height="80" width="400">  
-                        <p:inputText  autocomplete="false"  value="#{controlJornadasLaborales.editarJornadaLaboral.horasdiarias}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                                
+                        <p:inputText  autocomplete="off"  value="#{controlJornadasLaborales.editarJornadaLaboral.horasdiarias}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                                
                         </p:inputText>
                     </p:dialog>
                     <p:dialog id="editarHorasMensuales" header="#{msg['horasmensualese']}" widgetVar="editarHorasMensuales" resizable="false" draggable="true" modal="true" height="80" width="400">  
-                        <p:inputText  autocomplete="false"  value="#{controlJornadasLaborales.editarJornadaLaboral.horasmensuales}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
+                        <p:inputText  autocomplete="off"  value="#{controlJornadasLaborales.editarJornadaLaboral.horasmensuales}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
 
                         </p:inputText>
                     </p:dialog>
                     <p:dialog id="editarJornada" header="#{msg['jornadae']}" widgetVar="editarJornada" resizable="false" draggable="true" modal="true" height="80" width="400">  
-                        <p:inputText  autocomplete="false"  value="#{controlJornadasLaborales.editarJornadaLaboral.jornada.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                               
+                        <p:inputText  autocomplete="off"  value="#{controlJornadasLaborales.editarJornadaLaboral.jornada.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                               
                         </p:inputText>
                     </p:dialog>
                     <!-- Editar Semana Laboral -->
                     <p:dialog id="editarHoraInicialJS" header="#{msg['horainiciale']}" widgetVar="editarHoraInicialJS" resizable="false" draggable="true" modal="true" height="80" width="400">  
-                        <p:inputText  autocomplete="false"  value="#{controlJornadasLaborales.editarJornadaSemanal.horainicial}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                                
+                        <p:inputText  autocomplete="off"  value="#{controlJornadasLaborales.editarJornadaSemanal.horainicial}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                                
                         </p:inputText>
                     </p:dialog>
                     <p:dialog id="editarMinutoInicialJS" header="#{msg['minutoiniciale']}" widgetVar="editarMinutoInicialJS" resizable="false" draggable="true" modal="true" height="80" width="400">  
-                        <p:inputText  autocomplete="false"  value="#{controlJornadasLaborales.editarJornadaSemanal.minutoinicial}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                                
+                        <p:inputText  autocomplete="off"  value="#{controlJornadasLaborales.editarJornadaSemanal.minutoinicial}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                                
                         </p:inputText>
                     </p:dialog>
                     <p:dialog id="editarHoraInicialAlimentacionJS" header="#{msg['horainicialalimentacione']}" widgetVar="editarHoraInicialAlimentacionJS" resizable="false" draggable="true" modal="true" height="80" width="400">  
-                        <p:inputText  autocomplete="false"  value="#{controlJornadasLaborales.editarJornadaSemanal.horainicialalimentacion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                                
+                        <p:inputText  autocomplete="off"  value="#{controlJornadasLaborales.editarJornadaSemanal.horainicialalimentacion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                                
                         </p:inputText>
                     </p:dialog>
                     <p:dialog id="editarMinutoInicialAlimentacionJS" header="#{msg['minutoinicialalimentacione']}" widgetVar="editarMinutoInicialAlimentacionJS" resizable="false" draggable="true" modal="true" height="80" width="400">  
-                        <p:inputText  autocomplete="false"  value="#{controlJornadasLaborales.editarJornadaSemanal.minutoinicialalimentacion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                                
+                        <p:inputText  autocomplete="off"  value="#{controlJornadasLaborales.editarJornadaSemanal.minutoinicialalimentacion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                                
                         </p:inputText>
                     </p:dialog>
                     <p:dialog id="editarHoraFinalAlimentacionJS" header="#{msg['horafinalalimentacione']}" widgetVar="editarHoraFinalAlimentacionJS" resizable="false" draggable="true" modal="true" height="80" width="400">  
-                        <p:inputText  autocomplete="false"  value="#{controlJornadasLaborales.editarJornadaSemanal.horafinalalimentacion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                                
+                        <p:inputText  autocomplete="off"  value="#{controlJornadasLaborales.editarJornadaSemanal.horafinalalimentacion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                                
                         </p:inputText>
                     </p:dialog>
                     <p:dialog id="editarMinutoFinalAlimentacionJS" header="#{msg['minutofinalalimentacione']}" widgetVar="editarMinutoFinalAlimentacionJS" resizable="false" draggable="true" modal="true" height="80" width="400">  
-                        <p:inputText  autocomplete="false"  value="#{controlJornadasLaborales.editarJornadaSemanal.minutofinalalimentacion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                                
+                        <p:inputText  autocomplete="off"  value="#{controlJornadasLaborales.editarJornadaSemanal.minutofinalalimentacion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                                
                         </p:inputText>
                     </p:dialog>
                     <p:dialog id="editarHoraFinalJS" header="Hora Final" widgetVar="#{msg['horafinale']}" resizable="false" draggable="true" modal="true" height="80" width="400">  
-                        <p:inputText  autocomplete="false"  value="#{controlJornadasLaborales.editarJornadaSemanal.horafinal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                                
+                        <p:inputText  autocomplete="off"  value="#{controlJornadasLaborales.editarJornadaSemanal.horafinal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                                
                         </p:inputText>
                     </p:dialog>
                     <p:dialog id="editarMinutoFinalJS" header="Minuto Final" widgetVar="#{msg['minutofinale']}" resizable="false" draggable="true" modal="true" height="80" width="400">  
-                        <p:inputText  autocomplete="false"  value="#{controlJornadasLaborales.editarJornadaSemanal.minutofinal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                                
+                        <p:inputText  autocomplete="off"  value="#{controlJornadasLaborales.editarJornadaSemanal.minutofinal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                                
                         </p:inputText>
                     </p:dialog>
                 </h:form>

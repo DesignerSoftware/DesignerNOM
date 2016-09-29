@@ -92,7 +92,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{usuariovista.descripcion}" id="editarDescripcion" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase;height: 12px"> 
+                                            <p:inputText  autocomplete="off"  value="#{usuariovista.descripcion}" id="editarDescripcion" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase;height: 12px"> 
                                                 <p:ajax event="select" listener="#{controlUsuariosVistas.cambiarIndice(indice, 0)}" />
                                                 <p:ajax event="change" listener="#{controlUsuariosVistas.modificarUsuariosVistas(indice, 'N', usuariovista.descripcion)}" update="@this" />
                                             </p:inputText> 
@@ -112,7 +112,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{usuariovista.nombrevista}" id="editarNombreVista" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase;height: 12px"> 
+                                            <p:inputText  autocomplete="off"  value="#{usuariovista.nombrevista}" id="editarNombreVista" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase;height: 12px"> 
                                                 <p:ajax event="select" listener="#{controlUsuariosVistas.cambiarIndice(indice, 1)}" />
                                                 <p:ajax event="change" listener="#{controlUsuariosVistas.modificarUsuariosVistas(indice, 'N', usuariovista.nombrevista)}" update="@this" />
                                             </p:inputText> 
@@ -130,7 +130,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{usuariovista.objetodb.nombre}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{usuariovista.objetodb.nombre}" id="editarObjetoDB" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase;height: 12px"> 
+                                            <p:inputText  autocomplete="off"  value="#{usuariovista.objetodb.nombre}" id="editarObjetoDB" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase;height: 12px"> 
                                                 <p:ajax event="change" listener="#{controlUsuariosVistas.modificarUsuariosVistas(indice, 'OBJETOSDB', usuariovista.objetodb.nombre)}" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlUsuariosVistas.cambiarIndice(indice, 2)}" process="@this" />
                                                 <p:ajax event="dblclick" listener="#{controlUsuariosVistas.asignarIndexObjeto(indice, 0, 0)}" process="@this"/>
@@ -153,7 +153,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{usuariovista.alias}" id="editarAlias" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase;height: 12px"> 
+                                            <p:inputText  autocomplete="off"  value="#{usuariovista.alias}" id="editarAlias" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase;height: 12px"> 
                                                 <p:ajax event="select" listener="#{controlUsuariosVistas.cambiarIndice(indice, 3)}" />
                                                 <p:ajax event="change" listener="#{controlUsuariosVistas.modificarUsuariosVistas(indice, 'A', usuariovista.alias)}" update="@this" />
                                             </p:inputText> 
@@ -184,7 +184,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{usuariovista.estructurajoin}" id="editarEstructuraJOIN" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase;height: 12px"> 
+                                            <p:inputText  autocomplete="off"  value="#{usuariovista.estructurajoin}" id="editarEstructuraJOIN" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase;height: 12px"> 
                                                 <p:ajax event="select" listener="#{controlUsuariosVistas.cambiarIndice(indice, 5)}" />
                                                 <p:ajax event="change" listener="#{controlUsuariosVistas.modificarUsuariosVistas(indice, 'N', usuariovista.estructurajoin)}" update="@this" />
                                             </p:inputText> 
@@ -204,7 +204,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{usuariovista.condicion}" id="editarCondicion" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase;height: 12px"> 
+                                            <p:inputText  autocomplete="off"  value="#{usuariovista.condicion}" id="editarCondicion" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase;height: 12px"> 
                                                 <p:ajax event="select" listener="#{controlUsuariosVistas.cambiarIndice(indice, 6)}" />
                                                 <p:ajax event="change" listener="#{controlUsuariosVistas.modificarUsuariosVistas(indice, 'N', usuariovista.condicion)}" update="@this" />
                                             </p:inputText> 
@@ -224,7 +224,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{usuariovista.hintprincipal}" id="editarHINTPrincipal" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase;height: 12px"> 
+                                            <p:inputText  autocomplete="off"  value="#{usuariovista.hintprincipal}" id="editarHINTPrincipal" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase;height: 12px"> 
                                                 <p:ajax event="select" listener="#{controlUsuariosVistas.cambiarIndice(indice, 7)}" />
                                                 <p:ajax event="change" listener="#{controlUsuariosVistas.modificarUsuariosVistas(indice, 'N', usuariovista.hintprincipal)}" update="@this" />
                                             </p:inputText> 
@@ -291,17 +291,17 @@
                         <p:panel id="nuevaUsuarioVista" style="border: none;">                           
 
                             <strong><h:outputText value="#{msg['descripcionN']}" style=" position: absolute; top: 65px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoDescripcion" value="#{controlUsuariosVistas.nuevaUsuariosVistas.descripcion}" style=" width: 122px; position: absolute; left: 185px; top: 60px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="nuevoDescripcion" value="#{controlUsuariosVistas.nuevaUsuariosVistas.descripcion}" style=" width: 122px; position: absolute; left: 185px; top: 60px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
 
                             <strong><h:outputText value="#{msg['nombrevistaN']}" style=" position: absolute; top: 95px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoNombreVista" value="#{controlUsuariosVistas.nuevaUsuariosVistas.nombrevista}" style=" width: 122px; position: absolute; left: 185px; top: 90px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="nuevoNombreVista" value="#{controlUsuariosVistas.nuevaUsuariosVistas.nombrevista}" style=" width: 122px; position: absolute; left: 185px; top: 90px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
                             
                             <strong><h:outputText value="#{msg['objetodbN']}" style=" position: absolute; top: 125px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoObjetoDB" value="#{controlUsuariosVistas.nuevaUsuariosVistas.objetodb.nombre}" style=" width: 122px; position: absolute; left: 185px; top: 120px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="nuevoObjetoDB" value="#{controlUsuariosVistas.nuevaUsuariosVistas.objetodb.nombre}" style=" width: 122px; position: absolute; left: 185px; top: 120px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlUsuariosVistas.valoresBackupAutocompletarObjetosDB(1)}" />
                                 <p:ajax event="change" listener="#{controlUsuariosVistas.autocompletarNuevoyDuplicadoObjetoDB(controlUsuariosVistas.nuevaUsuariosVistas.objetodb.nombre,1)}"/>
                                 <p:ajax event="dblclick" listener="#{controlUsuariosVistas.llamarLovObjetosDB(1)}" />
@@ -309,7 +309,7 @@
                             <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 317px; top: 120px;  " id="btnNuevoObjetoDB" icon="ui-icon-search" process="@this"  actionListener="#{controlUsuariosVistas.llamarLovObjetosDB(1)}"/>
 
                             <strong><h:outputText value="#{msg['aliasN']}" style=" position: absolute; top: 155px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoAlias" value="#{controlUsuariosVistas.nuevaUsuariosVistas.alias}" style=" width: 122px; position: absolute; left: 185px; top: 150px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="nuevoAlias" value="#{controlUsuariosVistas.nuevaUsuariosVistas.alias}" style=" width: 122px; position: absolute; left: 185px; top: 150px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
                             
@@ -321,17 +321,17 @@
                             </p:selectOneMenu>
                                                         
                             <strong><h:outputText value="#{msg['estructurajoinN']}" style=" position: absolute; top: 215px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoEstructuraJOIN" value="#{controlUsuariosVistas.nuevaUsuariosVistas.estructurajoin}" style=" width: 122px; position: absolute; left: 185px; top: 210px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="nuevoEstructuraJOIN" value="#{controlUsuariosVistas.nuevaUsuariosVistas.estructurajoin}" style=" width: 122px; position: absolute; left: 185px; top: 210px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
                             
                             <strong><h:outputText value="#{msg['condicionN']}" style=" position: absolute; top: 245px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoCondicion" value="#{controlUsuariosVistas.nuevaUsuariosVistas.condicion}" style=" width: 122px; position: absolute; left: 185px; top: 240px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="nuevoCondicion" value="#{controlUsuariosVistas.nuevaUsuariosVistas.condicion}" style=" width: 122px; position: absolute; left: 185px; top: 240px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
                             
                             <strong><h:outputText value="#{msg['hintprincipalN']}" style=" position: absolute; top: 275px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoHINTPrincipal" value="#{controlUsuariosVistas.nuevaUsuariosVistas.hintprincipal}" style=" width: 122px; position: absolute; left: 185px; top: 270px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="nuevoHINTPrincipal" value="#{controlUsuariosVistas.nuevaUsuariosVistas.hintprincipal}" style=" width: 122px; position: absolute; left: 185px; top: 270px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
 
@@ -350,17 +350,17 @@
                         <p:panel id="duplicarUsuarioVista" style="border: none;">
 
                             <strong><h:outputText value="#{msg['descripcionN']}" style=" position: absolute; top: 65px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicadoDescripcion" value="#{controlUsuariosVistas.duplicarUsuariosVistas.descripcion}" style=" width: 122px; position: absolute; left: 185px; top: 60px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="duplicadoDescripcion" value="#{controlUsuariosVistas.duplicarUsuariosVistas.descripcion}" style=" width: 122px; position: absolute; left: 185px; top: 60px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
 
                             <strong><h:outputText value="#{msg['nombrevistaN']}" style=" position: absolute; top: 95px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicadoNombreVista" value="#{controlUsuariosVistas.duplicarUsuariosVistas.nombrevista}" style=" width: 122px; position: absolute; left: 185px; top: 90px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="duplicadoNombreVista" value="#{controlUsuariosVistas.duplicarUsuariosVistas.nombrevista}" style=" width: 122px; position: absolute; left: 185px; top: 90px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
                             
                             <strong><h:outputText value="#{msg['objetodbN']}" style=" position: absolute; top: 125px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicadoObjetoDB" value="#{controlUsuariosVistas.duplicarUsuariosVistas.objetodb.nombre}" style=" width: 122px; position: absolute; left: 185px; top: 120px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="duplicadoObjetoDB" value="#{controlUsuariosVistas.duplicarUsuariosVistas.objetodb.nombre}" style=" width: 122px; position: absolute; left: 185px; top: 120px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlUsuariosVistas.valoresBackupAutocompletarObjetosDB(2)}" />
                                 <p:ajax event="change" listener="#{controlUsuariosVistas.autocompletarNuevoyDuplicadoObjetoDB(controlUsuariosVistas.duplicarUsuariosVistas.objetodb.nombre,2)}"/>
                                 <p:ajax event="dblclick" listener="#{controlUsuariosVistas.llamarLovObjetosDB(2)}" />
@@ -368,7 +368,7 @@
                             <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 317px; top: 120px;  " id="btnDuplicadoObjetoDB" icon="ui-icon-search" process="@this"  actionListener="#{controlUsuariosVistas.llamarLovObjetosDB(2)}"/>
 
                             <strong><h:outputText value="#{msg['aliasN']}" style=" position: absolute; top: 155px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicadoAlias" value="#{controlUsuariosVistas.duplicarUsuariosVistas.alias}" style=" width: 122px; position: absolute; left: 185px; top: 150px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="duplicadoAlias" value="#{controlUsuariosVistas.duplicarUsuariosVistas.alias}" style=" width: 122px; position: absolute; left: 185px; top: 150px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
                             
@@ -380,17 +380,17 @@
                             </p:selectOneMenu>
                                                         
                             <strong><h:outputText value="#{msg['estructurajoinN']}" style=" position: absolute; top: 215px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicadoEstructuraJOIN" value="#{controlUsuariosVistas.duplicarUsuariosVistas.estructurajoin}" style=" width: 122px; position: absolute; left: 185px; top: 210px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="duplicadoEstructuraJOIN" value="#{controlUsuariosVistas.duplicarUsuariosVistas.estructurajoin}" style=" width: 122px; position: absolute; left: 185px; top: 210px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
                             
                             <strong><h:outputText value="#{msg['condicionN']}" style=" position: absolute; top: 245px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicadoCondicion" value="#{controlUsuariosVistas.duplicarUsuariosVistas.condicion}" style=" width: 122px; position: absolute; left: 185px; top: 240px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="duplicadoCondicion" value="#{controlUsuariosVistas.duplicarUsuariosVistas.condicion}" style=" width: 122px; position: absolute; left: 185px; top: 240px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
                             
                             <strong><h:outputText value="#{msg['hintprincipalN']}" style=" position: absolute; top: 275px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicadoHINTPrincipal" value="#{controlUsuariosVistas.duplicarUsuariosVistas.hintprincipal}" style=" width: 122px; position: absolute; left: 185px; top: 270px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="duplicadoHINTPrincipal" value="#{controlUsuariosVistas.duplicarUsuariosVistas.hintprincipal}" style=" width: 122px; position: absolute; left: 185px; top: 270px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
 
@@ -412,7 +412,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlUsuariosVistas.actualizarObjetosDB()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarOB']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('LOVObjetosDB').filter();" style="width:120px; position: relative; left: 80px;" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVObjetosDB').filter();" style="width:120px; position: relative; left: 80px;" />  
                             </f:facet>
                             <p:column filterBy="#{objetos.nombre}" width="80" filterStyle="width:80px;" filterMatchMode="contains">
                                 <f:facet name="header">

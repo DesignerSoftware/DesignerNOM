@@ -137,7 +137,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{novedades.empleado.codigoempleadoSTR}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{novedades.empleado.codigoempleadoSTR}" id="editarEmpleadoCodigo" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
+                                            <p:inputText  autocomplete="off"  value="#{novedades.empleado.codigoempleadoSTR}" id="editarEmpleadoCodigo" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
                                                 <p:ajax event="change" listener="#{controlNovedadesTerceros.modificarNovedades(novedades, 'EMPLEADO', novedades.empleado.codigoempleadoSTR)}"/>
                                                 <p:ajax event="select" listener="#{controlNovedadesTerceros.cambiarIndice(novedades, 0)}" process="@this"/>
                                                 <p:ajax event="dblclick" listener="#{controlNovedadesTerceros.asignarIndex(novedades, 0, 0)}"/>
@@ -156,7 +156,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{novedades.empleado.persona.nombreCompleto}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{novedades.empleado.persona.nombreCompleto}" id="editarnombreEmpleado" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px;" > 
+                                            <p:inputText  autocomplete="off"  value="#{novedades.empleado.persona.nombreCompleto}" id="editarnombreEmpleado" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px;" > 
                                                 <p:ajax event="change" listener="#{controlNovedadesTerceros.asignarIndex(novedades, 0, 0)}" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlNovedadesTerceros.cambiarIndice(novedades, 1)}" process="@this"/>
                                             </p:inputText>
@@ -178,7 +178,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{novedades.concepto.codigoSTR}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{novedades.concepto.codigoSTR}" id="editarConceptoCodigo" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"  value="#{novedades.concepto.codigoSTR}" id="editarConceptoCodigo" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlNovedadesTerceros.modificarNovedades(novedades, 'CONCEPTO', novedades.concepto.codigoSTR)}" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlNovedadesTerceros.cambiarIndice(novedades, 2)}" process="@this"/>
                                                 <p:ajax event="dblclick" listener="#{controlNovedadesTerceros.asignarIndex(novedades, 1, 0)}"/>
@@ -197,7 +197,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{novedades.concepto.descripcion}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{novedades.concepto.descripcion}" id="editarCodigoConcepto" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase" > 
+                                            <p:inputText  autocomplete="off"  value="#{novedades.concepto.descripcion}" id="editarCodigoConcepto" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase" > 
                                                 <p:ajax event="change" listener="#{controlNovedadesTerceros.asignarIndex(novedades, 1, 0)}"/>
                                                 <p:ajax event="select" listener="#{controlNovedadesTerceros.cambiarIndice(novedades, 3)}" process="@this"/>
                                             </p:inputText>
@@ -217,7 +217,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="editFechaInicial" value="#{novedades.fechainicial}"> 
+                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editFechaInicial" value="#{novedades.fechainicial}"> 
                                                 <p:ajax event="dateSelect"  update="editFechaInicial"/>
                                                 <p:ajax event="change" listener="#{controlNovedadesTerceros.modificarNovedades(novedades, 'N', novedades.fechainicial)}"/>
                                                 <p:ajax event="click" listener="#{controlNovedadesTerceros.cambiarIndice(novedades, 4)}" process="@this" />
@@ -239,7 +239,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="editFechaFinal" value="#{novedades.fechafinal}"> 
+                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editFechaFinal" value="#{novedades.fechafinal}"> 
                                                 <p:ajax event="dateSelect"  update="editFechaFinal"/>
                                                 <p:ajax event="change" listener="#{controlNovedadesTerceros.modificarNovedades(novedades, 'N', novedades.fechafinal)}"/>
                                                 <p:ajax event="click" listener="#{controlNovedadesTerceros.cambiarIndice(novedades, 5)}" process="@this" />
@@ -257,7 +257,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{novedades.valortotal}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{novedades.valortotal}" id="editarValor" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"  value="#{novedades.valortotal}" id="editarValor" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlNovedadesTerceros.modificarNovedades(novedades, 'N', novedades.valortotal)}"/>
                                                 <p:ajax event="select" listener="#{controlNovedadesTerceros.cambiarIndice(novedades, 6)}" process="@this"/>
                                             </p:inputText>
@@ -275,7 +275,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{novedades.saldo}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{novedades.saldo}" id="editarSaldo" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"  value="#{novedades.saldo}" id="editarSaldo" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlNovedadesTerceros.modificarNovedades(novedades, 'N', novedades.saldo)}"/>
                                                 <p:ajax event="select" listener="#{controlNovedadesTerceros.cambiarIndice(novedades, 7)}" process="@this"/>
                                             </p:inputText>
@@ -292,7 +292,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{novedades.periodicidad.codigoStr}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{novedades.periodicidad.codigoStr}" id="editarPeriodicidadCodigo" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
+                                            <p:inputText  autocomplete="off"  value="#{novedades.periodicidad.codigoStr}" id="editarPeriodicidadCodigo" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
                                                 <p:ajax event="change" listener="#{controlNovedadesTerceros.modificarNovedades(novedades, 'CODIGOPERIODICIDAD', novedades.periodicidad.codigoStr)}"/>
                                                 <p:ajax event="select" listener="#{controlNovedadesTerceros.cambiarIndice(novedades, 8)}" process="@this"/>
                                                 <p:ajax event="dblclick" listener="#{controlNovedadesTerceros.asignarIndex(novedades, 3, 0)}"/>
@@ -309,7 +309,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{novedades.periodicidad.nombre}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{novedades.periodicidad.nombre}" id="editarDescripcionPeriodicidad" readonly="true" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
+                                            <p:inputText  autocomplete="off"  value="#{novedades.periodicidad.nombre}" id="editarDescripcionPeriodicidad" readonly="true" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
                                                 <p:ajax event="select" listener="#{controlNovedadesConceptos.cambiarIndice(novedades, 7)}" process="@this"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -326,7 +326,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{novedades.formula.nombrelargo}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{novedades.formula.nombrelargo}" id="editarFormula" 
+                                            <p:inputText  autocomplete="off"  value="#{novedades.formula.nombrelargo}" id="editarFormula" 
                                                          style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
                                                 <p:ajax event="change" listener="#{controlNovedadesTerceros.modificarNovedades(novedades, 'FORMULA', novedades.formula.nombrelargo)}"/>
                                                 <p:ajax event="select" listener="#{controlNovedadesTerceros.cambiarIndice(novedades, 12)}" process="@this"/>
@@ -349,7 +349,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{novedades.unidadesparteentera}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{novedades.unidadesparteentera}" id="editarDiasHoras" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"  value="#{novedades.unidadesparteentera}" id="editarDiasHoras" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlNovedadesTerceros.modificarNovedades(novedades, 'N', novedades.unidadesparteentera)}"/>
                                                 <p:ajax event="select" listener="#{controlNovedadesTerceros.cambiarIndice(novedades, 13)}" process="@this"/>
                                             </p:inputText>
@@ -371,7 +371,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{novedades.unidadespartefraccion}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="false"  value="#{novedades.unidadespartefraccion}" id="editarMinutosHoras" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"  value="#{novedades.unidadespartefraccion}" id="editarMinutosHoras" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlNovedadesTerceros.modificarNovedades(novedades, 'N', novedades.unidadespartefraccion)}"/>
                                                 <p:ajax event="select" listener="#{controlNovedadesTerceros.cambiarIndice(novedades, 14)}" process="@this"/>
                                             </p:inputText>
@@ -426,7 +426,7 @@
                         <p:panel id="duplicarNovedad" style="border: none;">
 
                             <strong><h:outputText value="#{msg['empleadoN']}" style=" position: absolute; top: 85px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarEmpleadoCodigo" value="#{controlNovedadesTerceros.duplicarNovedad.empleado.codigoempleadoSTR}" style=" width: 122px; position: absolute; left: 200px; top: 80px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="duplicarEmpleadoCodigo" value="#{controlNovedadesTerceros.duplicarNovedad.empleado.codigoempleadoSTR}" style=" width: 122px; position: absolute; left: 200px; top: 80px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlNovedadesTerceros.valoresBackupAutocompletar(2, 'EMPLEADO')}" />
                                 <p:ajax event="change" listener="#{controlNovedadesTerceros.autocompletarNuevoyDuplicado('EMPLEADO', controlNovedadesTerceros.duplicarNovedad.concepto.codigoSTR, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlNovedadesTerceros.asignarIndex( 0, 2)}" />
@@ -434,12 +434,12 @@
                             <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 331px; top: 80px;  " id="btnDuplicarEmpleadoCodigo" actionListener="#{controlNovedadesTerceros.asignarIndex( 0, 2)}" value="" process="@this" />
 
                             <strong><h:outputText value="#{msg['nombreN']}" style=" position: absolute; top: 125px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarEmpleadoNombre" value="#{controlNovedadesTerceros.duplicarNovedad.empleado.persona.nombreCompleto}" style=" width: 122px; position: absolute; left: 200px; top: 120px; text-transform: uppercase" onclick="select();" readonly="true" >
+                            <p:inputText  autocomplete="off"  id="duplicarEmpleadoNombre" value="#{controlNovedadesTerceros.duplicarNovedad.empleado.persona.nombreCompleto}" style=" width: 122px; position: absolute; left: 200px; top: 120px; text-transform: uppercase" onclick="select();" readonly="true" >
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['conceptoN']}" style=" position: absolute; top: 165px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarConceptoCodigo" value="#{controlNovedadesTerceros.duplicarNovedad.concepto.codigoSTR}" style=" width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="duplicarConceptoCodigo" value="#{controlNovedadesTerceros.duplicarNovedad.concepto.codigoSTR}" style=" width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlNovedadesTerceros.valoresBackupAutocompletar(2, 'CONCEPTO')}" />
                                 <p:ajax event="change" listener="#{controlNovedadesTerceros.autocompletarNuevoyDuplicado('CONCEPTO', controlNovedadesTerceros.duplicarNovedad.concepto.codigoSTR, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlNovedadesTerceros.asignarIndex( 1, 2)}" />
@@ -447,13 +447,13 @@
                             <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 331px; top: 160px;  "  value="" id="btnDuplicarConceptoCodigo" actionListener="#{controlNovedadesTerceros.asignarIndex( 0, 2)}" process="@this" />
 
                             <strong><h:outputText value="#{msg['descripcionconceptoN']}" style=" position: absolute; top: 205px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarConceptoDescripcion" value="#{controlNovedadesTerceros.duplicarNovedad.concepto.descripcion}" style=" width: 122px; position: absolute; left: 200px; top: 200px; text-transform: uppercase" onclick="select();" readonly="true" >
+                            <p:inputText  autocomplete="off"  id="duplicarConceptoDescripcion" value="#{controlNovedadesTerceros.duplicarNovedad.concepto.descripcion}" style=" width: 122px; position: absolute; left: 200px; top: 200px; text-transform: uppercase" onclick="select();" readonly="true" >
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['fechainicialN']}" style=" position: absolute; top: 245px;" /></strong>
                             <div id="posicionFormulaFechaInicialDuplicarReg" style=" position: absolute; top: 240px; left: 200px">
-                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicial" value="#{controlNovedadesTerceros.duplicarNovedad.fechainicial}" >
+                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicial" value="#{controlNovedadesTerceros.duplicarNovedad.fechainicial}" >
                                     <p:ajax event="dateSelect" update="duplicarFechaInicial" process="@this"/>
                                     <p:ajax event="change" update="duplicarFechaInicial" process="@this"/>
                                 </p:calendar>
@@ -461,24 +461,24 @@
 
                             <strong><h:outputText value="#{msg['fechafinalN']}" style=" position: absolute; top: 285px;" /></strong>
                             <div id="posicionFormulaFechaFinalDuplicarReg" style=" position: absolute; top: 280px; left: 200px">
-                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinal" value="#{controlNovedadesTerceros.duplicarNovedad.fechafinal}" >
+                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinal" value="#{controlNovedadesTerceros.duplicarNovedad.fechafinal}" >
                                     <p:ajax event="dateSelect" update="duplicarFechaFinal" process="@this"/>
                                     <p:ajax event="change" update="duplicarFechaFinal" process="@this"/>
                                 </p:calendar>
                             </div>
 
                             <strong><h:outputText value="#{msg['valorN']}" style=" position: absolute; top: 325px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarValor" value="#{controlNovedadesTerceros.duplicarNovedad.valortotal}" style=" width: 122px; position: absolute; left: 200px; top: 320px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="duplicarValor" value="#{controlNovedadesTerceros.duplicarNovedad.valortotal}" style=" width: 122px; position: absolute; left: 200px; top: 320px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['saldoN']}" style=" position: absolute; top: 85px; left: 400px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarSaldo" value="#{controlNovedadesTerceros.duplicarNovedad.saldo}" style=" width: 122px; position: absolute; left: 600px; top: 80px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="duplicarSaldo" value="#{controlNovedadesTerceros.duplicarNovedad.saldo}" style=" width: 122px; position: absolute; left: 600px; top: 80px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['codigoN']}" style=" position: absolute; top: 125px; left:400px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarPeriodicidadCodigo" value="#{controlNovedadesTerceros.duplicarNovedad.periodicidad.codigoStr}" style=" width: 122px; position: absolute; left: 600px; top: 120px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="duplicarPeriodicidadCodigo" value="#{controlNovedadesTerceros.duplicarNovedad.periodicidad.codigoStr}" style=" width: 122px; position: absolute; left: 600px; top: 120px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlNovedadesTerceros.valoresBackupAutocompletar(2, 'CODIGO')}" />
                                 <p:ajax event="change" listener="#{controlNovedadesTerceros.autocompletarNuevoyDuplicado('CODIGO', controlNovedadesTerceros.duplicarNovedad.periodicidad.codigoStr, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlNovedadesTerceros.asignarIndex( 3, 2)}" />
@@ -486,12 +486,12 @@
                             <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 731px; top: 120px;  " id="btnDuplicarPeriodicidad" actionListener="#{controlNovedadesTerceros.asignarIndex( 3, 2)}" value=" " process="@this" />
 
                             <strong><h:outputText value="#{msg['descripcionN']}" style=" position: absolute; top: 165px; left: 400px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarPeriocidadDescripcion" value="#{controlNovedadesTerceros.duplicarNovedad.periodicidad.nombre}" style=" width: 122px; position: absolute; left: 600px; top: 160px; text-transform: uppercase" onclick="select();" readonly="true" >
+                            <p:inputText  autocomplete="off"  id="duplicarPeriocidadDescripcion" value="#{controlNovedadesTerceros.duplicarNovedad.periodicidad.nombre}" style=" width: 122px; position: absolute; left: 600px; top: 160px; text-transform: uppercase" onclick="select();" readonly="true" >
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['formulaN']}" style=" position: absolute; top: 205px; left: 400px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarFormula" value="#{controlNovedadesTerceros.duplicarNovedad.formula.nombrelargo}" style=" width: 122px; position: absolute; left: 600px; top: 200px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="duplicarFormula" value="#{controlNovedadesTerceros.duplicarNovedad.formula.nombrelargo}" style=" width: 122px; position: absolute; left: 600px; top: 200px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlNovedadesTerceros.valoresBackupAutocompletar(2, 'FORMULA')}" />
                                 <p:ajax event="change" listener="#{controlNovedadesTerceros.autocompletarNuevoyDuplicado('FORMULA', controlNovedadesTerceros.duplicarNovedad.formula.nombrelargo, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlNovedadesTerceros.asignarIndex( 2, 2)}" />
@@ -499,12 +499,12 @@
                             <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 731px; top: 200px;  " id="btnDuplicarFormula" actionListener="#{controlNovedadesTerceros.asignarIndex( 2, 2)}" value="" process="@this" />
 
                             <strong><h:outputText value="#{msg['horasdiasN']}" style=" position: absolute; top: 245px; left: 400px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarHorasDias" value="#{controlNovedadesTerceros.duplicarNovedad.unidadesparteentera}" style=" width: 122px; position: absolute; left: 600px; top: 240px; text-transform: uppercase" onclick="select();" >
+                            <p:inputText  autocomplete="off"  id="duplicarHorasDias" value="#{controlNovedadesTerceros.duplicarNovedad.unidadesparteentera}" style=" width: 122px; position: absolute; left: 600px; top: 240px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['minutoshorasN']}" style=" position: absolute; top: 285px; left: 400px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="duplicarMinutosHoras" value="#{controlNovedadesTerceros.duplicarNovedad.unidadespartefraccion}" style=" width: 122px; position: absolute; left: 600px; top: 280px; text-transform: uppercase" onclick="select();" >
+                            <p:inputText  autocomplete="off"  id="duplicarMinutosHoras" value="#{controlNovedadesTerceros.duplicarNovedad.unidadespartefraccion}" style=" width: 122px; position: absolute; left: 600px; top: 280px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
@@ -530,7 +530,7 @@
                         <p:panel id="nuevaNovedad" style="border: none;">
 
                             <strong><h:outputText value="#{msg['codigoN']}" style=" position: absolute; top: 85px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoEmpleadoCodigo" value="#{controlNovedadesTerceros.nuevaNovedad.empleado.codigoempleadoSTR}" style=" width: 122px; position: absolute; left: 200px; top: 80px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="nuevoEmpleadoCodigo" value="#{controlNovedadesTerceros.nuevaNovedad.empleado.codigoempleadoSTR}" style=" width: 122px; position: absolute; left: 200px; top: 80px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlNovedadesTerceros.valoresBackupAutocompletar(1, 'EMPLEADO')}" />
                                 <p:ajax event="change" listener="#{controlNovedadesTerceros.autocompletarNuevoyDuplicado('EMPLEADO', controlNovedadesTerceros.nuevaNovedad.empleado.codigoempleadoSTR, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlNovedadesTerceros.asignarIndex( 0, 1)}" />
@@ -538,12 +538,12 @@
                             <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 331px; top: 80px;" id="btnNuevoEmpleado" actionListener="#{controlNovedadesTerceros.asignarIndex( 0, 1)}" value="" process="@this" />
 
                             <strong><h:outputText value="#{msg['nombreN']}" style=" position: absolute; top: 125px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoEmpleadoNombre" value="#{controlNovedadesTerceros.nuevaNovedad.empleado.persona.nombreCompleto}" style=" width: 122px; position: absolute; left: 200px; top: 120px; text-transform: uppercase" onclick="select();" readonly="true" >
+                            <p:inputText  autocomplete="off"  id="nuevoEmpleadoNombre" value="#{controlNovedadesTerceros.nuevaNovedad.empleado.persona.nombreCompleto}" style=" width: 122px; position: absolute; left: 200px; top: 120px; text-transform: uppercase" onclick="select();" readonly="true" >
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['codigoN']}" style=" position: absolute; top: 165px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoConceptoCodigo" value="#{controlNovedadesTerceros.nuevaNovedad.concepto.codigoSTR}" style=" width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="nuevoConceptoCodigo" value="#{controlNovedadesTerceros.nuevaNovedad.concepto.codigoSTR}" style=" width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlNovedadesTerceros.valoresBackupAutocompletar(1, 'CONCEPTO')}" />
                                 <p:ajax event="change" listener="#{controlNovedadesTerceros.autocompletarNuevoyDuplicado('CONCEPTO', controlNovedadesTerceros.nuevaNovedad.concepto.codigoSTR, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlNovedadesTerceros.asignarIndex(1, 1)}" process="@this" />
@@ -551,13 +551,13 @@
                             <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 331px; top: 160px;  " id="btnNuevoConcepto" actionListener="#{controlNovedadesTerceros.asignarIndex(1, 1)}" value="" process="@this" />
 
                             <strong><h:outputText value="#{msg['descripcionconceptoN']}" style=" position: absolute; top: 205px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoConceptoDescripcion" value="#{controlNovedadesTerceros.nuevaNovedad.concepto.descripcion}" style=" width: 122px; position: absolute; left: 200px; top: 205px; text-transform: uppercase" onclick="select();" readonly="true" >
+                            <p:inputText  autocomplete="off"  id="nuevoConceptoDescripcion" value="#{controlNovedadesTerceros.nuevaNovedad.concepto.descripcion}" style=" width: 122px; position: absolute; left: 200px; top: 205px; text-transform: uppercase" onclick="select();" readonly="true" >
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['fechainicialN']}" style=" position: absolute; top: 240px;" /></strong>
                             <div id="posicionFormulaFechaInicialNuevoReg" style=" position: absolute; top: 240px; left: 200px">
-                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicial" value="#{controlNovedadesTerceros.nuevaNovedad.fechainicial}" >
+                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicial" value="#{controlNovedadesTerceros.nuevaNovedad.fechainicial}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaInicial" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaInicial" process="@this"/>
                                 </p:calendar>
@@ -565,24 +565,24 @@
 
                             <strong><h:outputText value="#{msg['fechafinalN']}" style=" position: absolute; top: 280px;" /></strong>
                             <div id="posicionFormulaFechaFinalNuevoReg" style=" position: absolute; top: 280px; left: 200px">
-                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinal" value="#{controlNovedadesTerceros.nuevaNovedad.fechafinal}" >
+                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinal" value="#{controlNovedadesTerceros.nuevaNovedad.fechafinal}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaFinal" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaFinal" process="@this"/>
                                 </p:calendar>
                             </div>
 
                             <strong><h:outputText value="#{msg['valorN']}" style=" position: absolute; top: 320px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoValor" value="#{controlNovedadesTerceros.nuevaNovedad.valortotal}" style=" width: 122px; position: absolute; left: 200px; top: 320px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="nuevoValor" value="#{controlNovedadesTerceros.nuevaNovedad.valortotal}" style=" width: 122px; position: absolute; left: 200px; top: 320px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['saldoN']}" style=" position: absolute; top: 80px; left:400px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoSaldo" value="#{controlNovedadesTerceros.nuevaNovedad.saldo}" style=" width: 122px; position: absolute; left: 600px; top: 80px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="nuevoSaldo" value="#{controlNovedadesTerceros.nuevaNovedad.saldo}" style=" width: 122px; position: absolute; left: 600px; top: 80px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['codigoN']}" style=" position: absolute; top: 120px; left: 400px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaPeriodicidadCodigo" value="#{controlNovedadesTerceros.nuevaNovedad.periodicidad.codigoStr}" style=" width: 122px; position: absolute; left: 600px; top: 120px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="nuevaPeriodicidadCodigo" value="#{controlNovedadesTerceros.nuevaNovedad.periodicidad.codigoStr}" style=" width: 122px; position: absolute; left: 600px; top: 120px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlNovedadesTerceros.valoresBackupAutocompletar(1, 'CODIGO')}" />
                                 <p:ajax event="change" listener="#{controlNovedadesTerceros.autocompletarNuevoyDuplicado('CODIGO', controlNovedadesConceptos.nuevaNovedad.periodicidad.codigoStr, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlNovedadesTerceros.asignarIndex( 3, 1)}" />
@@ -590,12 +590,12 @@
                             <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 731px; top: 120px;  " id="btnNuevaPeriodicidad" actionListener="#{controlNovedadesTerceros.asignarIndex( 3, 1)}" value="" process="@this" />
 
                             <strong><h:outputText value="#{msg['descripcionN']}" style=" position: absolute; top: 165px; left: 400px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaPeriodicidadDescripcion" value="#{controlNovedadesTerceros.nuevaNovedad.periodicidad.nombre}" style=" width: 122px; position: absolute; left: 600px; top: 160px; text-transform: uppercase" onclick="select();" readonly="true" >
+                            <p:inputText  autocomplete="off"  id="nuevaPeriodicidadDescripcion" value="#{controlNovedadesTerceros.nuevaNovedad.periodicidad.nombre}" style=" width: 122px; position: absolute; left: 600px; top: 160px; text-transform: uppercase" onclick="select();" readonly="true" >
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['formulaN']}" style=" position: absolute; top: 205px; left: 400px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevaFormula" value="#{controlNovedadesTerceros.nuevaNovedad.formula.nombrelargo}" style=" width: 122px; position: absolute; left: 600px; top: 200px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="nuevaFormula" value="#{controlNovedadesTerceros.nuevaNovedad.formula.nombrelargo}" style=" width: 122px; position: absolute; left: 600px; top: 200px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlNovedadesTerceros.valoresBackupAutocompletar(1, 'FORMULA')}" />
                                 <p:ajax event="change" listener="#{controlNovedadesTerceros.autocompletarNuevoyDuplicado('FORMULA', controlNovedadesTerceros.nuevaNovedad.formula.nombrelargo, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlNovedadesTerceros.asignarIndex( 2, 1)}" />
@@ -603,12 +603,12 @@
                             <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 731px; top: 200px; " id="btnNuevaFormula" actionListener="#{controlNovedadesTerceros.asignarIndex( 2, 1)}" value="" process="@this" />
 
                             <strong><h:outputText value="#{msg['horasdiasN']}" style=" position: absolute; top: 245px; left: 400px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoHorasDias" value="#{controlNovedadesTerceros.nuevaNovedad.unidadesparteentera}" style=" width: 122px; position: absolute; left: 600px; top: 240px; text-transform: uppercase" onclick="select();" >
+                            <p:inputText  autocomplete="off"  id="nuevoHorasDias" value="#{controlNovedadesTerceros.nuevaNovedad.unidadesparteentera}" style=" width: 122px; position: absolute; left: 600px; top: 240px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['minutoshorasN']}" style=" position: absolute; top: 285px; left: 400px;" /></strong>
-                            <p:inputText  autocomplete="false"  id="nuevoMinutosHoras" value="#{controlNovedadesTerceros.nuevaNovedad.unidadespartefraccion}" style=" width: 122px; position: absolute; left: 600px; top: 280px; text-transform: uppercase" onclick="select();" >
+                            <p:inputText  autocomplete="off"  id="nuevoMinutosHoras" value="#{controlNovedadesTerceros.nuevaNovedad.unidadespartefraccion}" style=" width: 122px; position: absolute; left: 600px; top: 280px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
@@ -788,7 +788,7 @@
                            
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarC']}"  style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('LOVConceptos').filter();" style="width: 400px; position: relative; left: 60px;" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVConceptos').filter();" style="width: 400px; position: relative; left: 60px;" />  
                             </f:facet>
 
                             <p:column sortBy="#{conceptos.codigo}" filterBy="#{conceptos.codigo}" width="100" filterMatchMode="contains" > 
@@ -837,7 +837,7 @@
                            
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarE']}"  style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('LOVEmpleados').filter();" style="width: 100px; position: relative; left: 60px;" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVEmpleados').filter();" style="width: 100px; position: relative; left: 60px;" />  
                             </f:facet>
                             <p:column sortBy="#{emp.codigoempleado}" filterBy="#{emp.codigoempleado}" width="80" filterStyle="width:45px;" filterMatchMode="contains" > 
                                 <f:facet name="header">
@@ -877,7 +877,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlNovedadesTerceros.actualizarFormulas()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarF']}"  style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('LOVFormulas').filter();" style="width: 150px; position: relative; left: 60px;" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVFormulas').filter();" style="width: 150px; position: relative; left: 60px;" />  
                             </f:facet>
 
                             <p:column sortBy="#{formulas.nombrelargo}" filterBy="#{formulas.nombrelargo}" width="200" filterMatchMode="contains" filterStyle="width: 80% !important" > 
@@ -910,7 +910,7 @@
                          
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarP']}"  style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('LOVPeriodicidades').filter();" style="width: 150px; position: relative; left: 60px;" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVPeriodicidades').filter();" style="width: 150px; position: relative; left: 60px;" />  
                             </f:facet>
 
                             <p:column sortBy="#{periodicidades.codigo}" filterBy="#{periodicidades.codigo}" width="30" filterMatchMode="contains" filterStyle="width:40px;" > 
@@ -954,7 +954,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlNovedadesTerceros.actualizarTercerosNovedad()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarT']}"  style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('LOVTerceros').filter();" style="width: 150px; position: relative; left: 60px;" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVTerceros').filter();" style="width: 150px; position: relative; left: 60px;" />  
                             </f:facet>
 
                             <p:column sortBy="#{terceros.nit}" filterBy="#{terceros.nit}" width="70" filterStyle="width:94%" filterMatchMode="contains" > 
