@@ -89,7 +89,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
                                         <f:facet name="input">
-                                            <!--<p:inputText value="#{info.codigo}"  maxlength="4" id="editarCodigo" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase">--> 
+                                            <!--<p:inputText  autocomplete="false"   value="#{info.codigo}"  maxlength="4" id="editarCodigo" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase">--> 
                                             <p:inputMask id="editarCodigo" value="#{info.codigo}" mask="9999" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase;">
                                                 <p:ajax event="select" listener="#{controlAficiones.cambiarIndice(info, 0)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlAficiones.modificarAficion(info, 'N', info.codigo)}"  update="codigo"/>
@@ -105,7 +105,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.descripcion}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.descripcion}" maxlength="30" id="editarNombre" style="height: 12px;  border-radius: 0px; width: 420px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="false"   value="#{info.descripcion}" maxlength="30" id="editarNombre" style="height: 12px;  border-radius: 0px; width: 420px; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlAficiones.cambiarIndice(info, 1)}" process="@this"/> 
                                                 <p:ajax event="change"  listener="#{controlAficiones.modificarAficion(info, 'M', info.nombre)}" update="descripcion"/>
                                             </p:inputText>
@@ -213,10 +213,10 @@
                     </p:dialog>
 
                     <p:dialog id="editCodigo" header="#{msg['editCodigo']}" widgetVar="editCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" style="text-transform: uppercase">  
-                        <p:inputTextarea value="#{controlAficiones.editarDeportes.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea  value="#{controlAficiones.editarDeportes.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
                     <p:dialog id="editDescripcion" header="#{msg['editDescripcion']}" widgetVar="editDescripcion" resizable="false" draggable="true" modal="true" height="80" width="400" style="text-transform: uppercase">  
-                        <p:inputTextarea value="#{controlAficiones.editarDeportes.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea  value="#{controlAficiones.editarDeportes.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="nuevoRegistroAficion" header="#{msg['nuevoregistro']}" widgetVar="nuevoRegistroAficion" closable="false" resizable="false"  draggable="true" modal="true" height="170" width="330" style=" padding: 0px">  
@@ -225,7 +225,7 @@
                         <p:panel id="nuevaAficion" style="border: none;">
 
                             <strong><h:outputText value="*#{msg['codigoN']}"  style=" position: absolute; top: 60px;" /></strong>
-                            <!--<p:inputText id="nuevoCodigo" maxlength="4" value="#{controlAficiones.nuevoDeporte.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">-->
+                            <!--<p:inputText  autocomplete="false"   id="nuevoCodigo" maxlength="4" value="#{controlAficiones.nuevoDeporte.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">-->
                             <p:inputMask id="nuevoCodigo" value="#{controlAficiones.nuevaAficion.codigo}" mask="9999"
                                          style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
@@ -233,7 +233,7 @@
                             <p:watermark for="nuevoCodigo" value="#{msg['codigoWM']}" />
 
                             <strong><h:outputText value="*#{msg['nombreN']}"  style=" position: absolute; top: 90px;" /></strong>
-                            <p:inputText  id="nuevoNombre" maxlength="30" value="#{controlAficiones.nuevaAficion.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
+                            <p:inputText  autocomplete="false"    id="nuevoNombre" maxlength="30" value="#{controlAficiones.nuevaAficion.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoNombre" value="#{msg['nombreWM']}" />
@@ -248,13 +248,13 @@
 
                         <p:panel id="duplicarDepor" style="border: none;">
                             <strong><h:outputText value="*#{msg['codigoN']}"  style=" position: absolute; top: 60px;" /></strong>
-                            <p:inputText id="duplicarCodigo" maxlength="4" value="#{controlAficiones.duplicarAficion.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
+                            <p:inputText  autocomplete="false"   id="duplicarCodigo" maxlength="4" value="#{controlAficiones.duplicarAficion.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarCodigo" value="#{msg['codigoWM']}" />
 
                             <strong><h:outputText value="*#{msg['nombreN']}"  style=" position: absolute; top: 90px;" /></strong>
-                            <p:inputText id="duplicarNombre" maxlength="30" value="#{controlAficiones.duplicarAficion.descripcion}"  style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
+                            <p:inputText  autocomplete="false"   id="duplicarNombre" maxlength="30" value="#{controlAficiones.duplicarAficion.descripcion}"  style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarNombre" value="*#{msg['nombreWM']}" />

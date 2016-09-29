@@ -80,9 +80,9 @@
                                     <h:outputText value="#{msg['codigo']}" style="color: #14388B; font-weight: bold; position: relative; top: -8px; left: 0px; display: inline-block"/>
                                     <h:outputText value="#{msg['nombrecompleto']}" style="color: #14388B; font-weight: bold; position: relative; left: 35px; top: -8px; display: inline-block"/>
                                     <h:outputText value="#{msg['correo']}" style="color: #14388B; font-weight: bold; position: relative; left: 290px; top: -8px; display: inline-block"/>
-                                    <p:inputText value="#{controlComprobantes.parametroActual.empleado.codigoempleado}"  readonly="true" style="position: relative; top: -6px; height: 12px; width: 70px; left: -10px; display: block;"/>
-                                    <p:inputText value="#{controlComprobantes.parametroActual.empleado.persona.nombreCompleto}" readonly="true" style="position: relative; top: -28px; height: 12px; left: 75px; width: 350px; display: inline-block;"/>
-                                    <p:inputText value="#{controlComprobantes.parametroActual.empleado.persona.email}" readonly="true" style="position: relative; top: -28px; height: 12px; left: 80px; width: 240px; display: inline-block;"/>
+                                    <p:inputText  autocomplete="false"   value="#{controlComprobantes.parametroActual.empleado.codigoempleado}"  readonly="true" style="position: relative; top: -6px; height: 12px; width: 70px; left: -10px; display: block;"/>
+                                    <p:inputText  autocomplete="false"   value="#{controlComprobantes.parametroActual.empleado.persona.nombreCompleto}" readonly="true" style="position: relative; top: -28px; height: 12px; left: 75px; width: 350px; display: inline-block;"/>
+                                    <p:inputText  autocomplete="false"   value="#{controlComprobantes.parametroActual.empleado.persona.email}" readonly="true" style="position: relative; top: -28px; height: 12px; left: 80px; width: 240px; display: inline-block;"/>
                                 </div>
 
                                 <div>
@@ -133,7 +133,7 @@
                                     </f:facet>
                                     <h:outputText value="#{solucionNodoEmpleado.codigoconcepto}" />
                                     <!--                                    <p:cellEditor> 
-                                                                            <p:inputText value="#{solucionNodoEmpleado.codigoconcepto}" style="width: 98%; text-transform: uppercase" readonly="true" 
+                                                                            <p:inputText  autocomplete="false"   value="#{solucionNodoEmpleado.codigoconcepto}" style="width: 98%; text-transform: uppercase" readonly="true" 
                                                                                            onselect="posicionOtro([{name: 'celda', value: '1'}, {name: 'registro', value: '#{indice}'}]);"  >
                                                                             </p:inputText>
                                                                             <f:facet name="output"> 
@@ -153,7 +153,7 @@
                                     <!--<f:facet name="output">-->
                                     <!--</f:facet>-->  
                                     <!--                                        <f:facet name="input">
-                                                                                <p:inputText value="#{solucionNodoEmpleado.nombreconcepto}" style="width: 98%; text-transform: uppercase" readonly="true"
+                                                                                <p:inputText  autocomplete="false"   value="#{solucionNodoEmpleado.nombreconcepto}" style="width: 98%; text-transform: uppercase" readonly="true"
                                                                                              onselect="posicionOtro([{name: 'celda', value: '2'}, {name: 'registro', value: '#{indice}'}]);" >
                                                                                 <p:ajax event="select" listener="#{controlComprobantes.cambiarIndice(solucionNodoEmpleado,2)}" />
                                                                                 </p:inputText>
@@ -171,7 +171,7 @@
                                     <!--<f:facet name="output">-->
                                     <!--</f:facet>-->  
                                     <!--                                        <f:facet name="input">
-                                                                                <p:inputText value="#{solucionNodoEmpleado.unidades}" style="width: 98%; text-transform: uppercase" readonly="true"
+                                                                                <p:inputText  autocomplete="false"   value="#{solucionNodoEmpleado.unidades}" style="width: 98%; text-transform: uppercase" readonly="true"
                                                                                              onselect="posicionOtro([{name: 'celda', value: '3'}, {name: 'registro', value: '#{indice}'}]);" >
                                                                                 <p:ajax event="select" listener="#{controlComprobantes.cambiarIndice(solucionNodoEmpleado,3)}" />
                                                                                 </p:inputText>
@@ -191,7 +191,7 @@
                                     <!--<f:facet name="output">-->
                                     <!--</f:facet>-->  
                                     <!--                                        <f:facet name="input">
-                                                                                <p:inputText value="#{solucionNodoEmpleado.pago}" style="width: 98%; text-transform: uppercase; text-align: right" readonly="true"
+                                                                                <p:inputText  autocomplete="false"   value="#{solucionNodoEmpleado.pago}" style="width: 98%; text-transform: uppercase; text-align: right" readonly="true"
                                                                                              onselect="posicionOtro([{name: 'celda', value: '4'}, {name: 'registro', value: '#{indice}'}]);" >
                                                                                     <f:convertNumber currencyCode="COP"/>
                                                                                 </p:inputText>
@@ -210,7 +210,7 @@
                                     <!--<f:facet name="output">-->
                                     <!--</f:facet>-->  
                                     <!--                                        <f:facet name="input">
-                                                                                <p:inputText value="#{solucionNodoEmpleado.descuento}" style="width: 98%; text-transform: uppercase" readonly="true" 
+                                                                                <p:inputText  autocomplete="false"   value="#{solucionNodoEmpleado.descuento}" style="width: 98%; text-transform: uppercase" readonly="true" 
                                                                                              onselect="posicionOtro([{name: 'celda', value: '5'}, {name: 'registro', value: '#{indice}'}]);" >
                                                                                     <p:ajax event="select" listener="#{controlComprobantes.cambiarIndice(solucionNodoEmpleado,5)}" />
                                                                                     <f:convertNumber currencyCode="COP"/>
@@ -228,7 +228,7 @@
                                     <!--<f:facet name="output">-->
                                     <!--</f:facet>-->  
                                     <!--                                        <f:facet name="input">
-                                                                                <p:inputText value="#{solucionNodoEmpleado.nombretercero}" style="width: 98%; text-transform: uppercase" readonly="true"
+                                                                                <p:inputText  autocomplete="false"   value="#{solucionNodoEmpleado.nombretercero}" style="width: 98%; text-transform: uppercase" readonly="true"
                                                                                             onselect="posicionOtro([{name: 'celda', value: '6'}, {name: 'registro', value: '#{indice}'}]);" >
                                                                                 <p:ajax event="select" listener="#{controlComprobantes.cambiarIndice(solucionNodoEmpleado,6)}" />
                                                                                 </p:inputText>
@@ -248,7 +248,7 @@
                                     <!--<f:facet name="output">-->
                                     <!--</f:facet>-->  
                                     <!--                                        <f:facet name="input">
-                                                                                <p:inputText value="#{solucionNodoEmpleado.fechahasta}" style="width: 98%; text-transform: uppercase" readonly="true"
+                                                                                <p:inputText  autocomplete="false"   value="#{solucionNodoEmpleado.fechahasta}" style="width: 98%; text-transform: uppercase" readonly="true"
                                                                                              onselect="posicionOtro([{name: 'celda', value: '7'}, {name: 'registro', value: '#{indice}'}]);" >
                                                                                     <p:ajax event="select" listener="#{controlComprobantes.cambiarIndice(solucionNodoEmpleado,7)}" />
                                                                                     <f:convertDateTime pattern="dd/MM/yyyy" />
@@ -267,7 +267,7 @@
                                     <!--<f:facet name="output">-->
                                     <!--</f:facet>-->  
                                     <!--                                        <f:facet name="input">
-                                                                                <p:inputText value="#{solucionNodoEmpleado.codigocuentad}" style="width: 98%; text-transform: uppercase" readonly="true"
+                                                                                <p:inputText  autocomplete="false"   value="#{solucionNodoEmpleado.codigocuentad}" style="width: 98%; text-transform: uppercase" readonly="true"
                                                                                              onselect="posicionOtro([{name: 'celda', value: '8'}, {name: 'registro', value: '#{indice}'}]);" >
                                                                                 <p:ajax event="select" listener="#{controlComprobantes.cambiarIndice(solucionNodoEmpleado,8)}" />
                                                                                 </p:inputText>
@@ -285,7 +285,7 @@
                                     <!--<f:facet name="output">-->
                                     <!--</f:facet>-->  
                                     <!--                                        <f:facet name="input">
-                                                                                <p:inputText value="#{solucionNodoEmpleado.nombrecentrocostod}" style="width: 98%; text-transform: uppercase" readonly="true"
+                                                                                <p:inputText  autocomplete="false"   value="#{solucionNodoEmpleado.nombrecentrocostod}" style="width: 98%; text-transform: uppercase" readonly="true"
                                                                                             onselect="posicionOtro([{name: 'celda', value: '9'}, {name: 'registro', value: '#{indice}'}]);" >
                                                                                 </p:inputText>
                                                                             </f:facet>
@@ -301,7 +301,7 @@
                                     <!--<f:facet name="output">-->
                                     <!--</f:facet>-->  
                                     <!--                                        <f:facet name="input">
-                                                                                <p:inputText value="#{solucionNodoEmpleado.codigocuentac}" style="width: 98%; text-transform: uppercase" readonly="true"
+                                                                                <p:inputText  autocomplete="false"   value="#{solucionNodoEmpleado.codigocuentac}" style="width: 98%; text-transform: uppercase" readonly="true"
                                                                                              onselect="posicionOtro([{name: 'celda', value: '10'}, {name: 'registro', value: '#{indice}'}]);" >
                                                                                 </p:inputText>
                                                                             </f:facet>
@@ -318,7 +318,7 @@
                                     <!--<f:facet name="output">-->
                                     <!--</f:facet>-->  
                                     <!--                                        <f:facet name="input">
-                                                                                <p:inputText value="#{solucionNodoEmpleado.nombrecentrocostoc}" style="width: 98%; text-transform: uppercase" readonly="true" 
+                                                                                <p:inputText  autocomplete="false"   value="#{solucionNodoEmpleado.nombrecentrocostoc}" style="width: 98%; text-transform: uppercase" readonly="true" 
                                                                                             onselect="posicionOtro([{name: 'celda', value: '11'}, {name: 'registro', value: '#{indice}'}]);" >
                                                                                 </p:inputText>
                                                                             </f:facet>
@@ -331,7 +331,7 @@
                                     <h:outputText value="#{solucionNodoEmpleado.saldo}" />
                                     <!--</f:facet>-->  
                                     <!--                                        <f:facet name="input">
-                                                                                <p:inputText value="#{solucionNodoEmpleado.saldo}" style="width: 98%; text-transform: uppercase" readonly="true"
+                                                                                <p:inputText  autocomplete="false"   value="#{solucionNodoEmpleado.saldo}" style="width: 98%; text-transform: uppercase" readonly="true"
                                                                                              onselect="posicionOtro([{name: 'celda', value: '12'}, {name: 'registro', value: '#{indice}'}]);" >
                                                                                 </p:inputText>
                                                                             </f:facet>
@@ -350,7 +350,7 @@
                                     <!--<f:facet name="output">-->
                                     <!--</f:facet>-->  
                                     <!--                                        <f:facet name="input">
-                                                                                <p:inputText value="#{solucionNodoEmpleado.fechadesde}" style="width: 98%; text-transform: uppercase" readonly="true"
+                                                                                <p:inputText  autocomplete="false"   value="#{solucionNodoEmpleado.fechadesde}" style="width: 98%; text-transform: uppercase" readonly="true"
                                                                                              onselect="posicionOtro([{name: 'celda', value: '13'}, {name: 'registro', value: '#{indice}'}]);" >
                                                                                     <f:convertDateTime pattern="dd/MM/yyyy" />
                                                                                 </p:inputText>
@@ -370,7 +370,7 @@
                                     <!--<f:facet name="output">-->
                                     <!--</f:facet>-->  
                                     <!--                                        <f:facet name="input">
-                                                                                <p:inputText value="#{solucionNodoEmpleado.fechapago}" style="width: 98%; text-transform: uppercase" readonly="true" 
+                                                                                <p:inputText  autocomplete="false"   value="#{solucionNodoEmpleado.fechapago}" style="width: 98%; text-transform: uppercase" readonly="true" 
                                                                                             onselect="posicionOtro([{name: 'celda', value: '14'}, {name: 'registro', value: '#{indice}'}]);" >
                                                                                     <f:convertDateTime pattern="dd/MM/yyyy" />
                                                                                 </p:inputText>
@@ -390,7 +390,7 @@
                                     <!--<f:facet name="output">-->
                                     <!--</f:facet>-->  
                                     <!--                                        <f:facet name="input">
-                                                                                <p:inputText value="#{solucionNodoEmpleado.ultimamodificacion}" style="width: 98%; text-transform: uppercase" readonly="true" 
+                                                                                <p:inputText  autocomplete="false"   value="#{solucionNodoEmpleado.ultimamodificacion}" style="width: 98%; text-transform: uppercase" readonly="true" 
                                                                                              onselect="posicionOtro([{name: 'celda', value: '15'}, {name: 'registro', value: '#{indice}'}]);" >
                                                                                     <f:convertDateTime pattern="dd/MM/yyyy - hh:mm" />
                                                                                 </p:inputText>
@@ -430,7 +430,7 @@
                                     <!--<f:facet name="output">-->
                                     <!--</f:facet>-->  
                                     <!--                                        <f:facet name="input">
-                                                                                <p:inputText value="#{solucionNodoEmpleador.codigoconcepto}" style="width: 98%; text-transform: uppercase" readonly="true"
+                                                                                <p:inputText  autocomplete="false"   value="#{solucionNodoEmpleador.codigoconcepto}" style="width: 98%; text-transform: uppercase" readonly="true"
                                                                                              onselect="posicionOtroEmpleador([{name: 'celda', value: '1'}, {name: 'registro', value: '#{indiceER}'}]);"/>
                                                                             </f:facet>
                                                                         </p:cellEditor>-->
@@ -446,7 +446,7 @@
                                     <!--<f:facet name="output">-->
                                     <!--</f:facet>-->  
                                     <!--                                        <f:facet name="input">
-                                                                                <p:inputText value="#{solucionNodoEmpleador.nombreconcepto}" style="width: 98%; text-transform: uppercase" readonly="true"
+                                                                                <p:inputText  autocomplete="false"   value="#{solucionNodoEmpleador.nombreconcepto}" style="width: 98%; text-transform: uppercase" readonly="true"
                                                                                              onselect="posicionOtroEmpleador([{name: 'celda', value: '2'}, {name: 'registro', value: '#{indiceER}'}]);" />
                                                                             </f:facet>
                                                                         </p:cellEditor>-->
@@ -462,7 +462,7 @@
                                     <!--<f:facet name="output">-->
                                     <!--</f:facet>-->  
                                     <!--                                        <f:facet name="input">
-                                                                                <p:inputText value="#{solucionNodoEmpleador.unidades}" style="width: 98%; text-transform: uppercase" readonly="true"
+                                                                                <p:inputText  autocomplete="false"   value="#{solucionNodoEmpleador.unidades}" style="width: 98%; text-transform: uppercase" readonly="true"
                                                                                              onselect="posicionOtroEmpleador([{name: 'celda', value: '3'}, {name: 'registro', value: '#{indiceER}'}]);" />
                                                                             </f:facet>
                                                                         </p:cellEditor>-->
@@ -480,7 +480,7 @@
                                     <!--<f:facet name="output">-->
                                     <!--</f:facet>-->  
                                     <!--                                        <f:facet name="input">
-                                                                                <p:inputText value="#{solucionNodoEmpleador.pasivo}" style="width: 98%; text-transform: uppercase" readonly="true"
+                                                                                <p:inputText  autocomplete="false"   value="#{solucionNodoEmpleador.pasivo}" style="width: 98%; text-transform: uppercase" readonly="true"
                                                                                              onselect="posicionOtroEmpleador([{name: 'celda', value: '4'}, {name: 'registro', value: '#{indiceER}'}]);" >
                                                                                     <f:convertNumber currencyCode="COP"/>
                                                                                 </p:inputText>
@@ -499,7 +499,7 @@
                                     <!--<f:facet name="output">-->
                                     <!--</f:facet>-->  
                                     <!--                                        <f:facet name="input">
-                                                                                <p:inputText value="#{solucionNodoEmpleador.gasto}" style="width: 98%; text-transform: uppercase;" readonly="true" 
+                                                                                <p:inputText  autocomplete="false"   value="#{solucionNodoEmpleador.gasto}" style="width: 98%; text-transform: uppercase;" readonly="true" 
                                                                                             onselect="posicionOtroEmpleador([{name: 'celda', value: '5'}, {name: 'registro', value: '#{indiceER}'}]);" >
                                                                                     <f:convertNumber currencyCode="COP"/>
                                                                                 </p:inputText>
@@ -516,7 +516,7 @@
                                     <!--<f:facet name="output">-->
                                     <!--</f:facet>-->  
                                     <!--                                        <f:facet name="input">
-                                                                                <p:inputText value="#{solucionNodoEmpleador.nombretercero}" style="width: 98%; text-transform: uppercase" readonly="true"
+                                                                                <p:inputText  autocomplete="false"   value="#{solucionNodoEmpleador.nombretercero}" style="width: 98%; text-transform: uppercase" readonly="true"
                                                                                              onselect="posicionOtroEmpleador([{name: 'celda', value: '6'}, {name: 'registro', value: '#{indiceER}'}]);" />
                                                                             </f:facet>
                                                                         </p:cellEditor>-->
@@ -534,7 +534,7 @@
                                     <!--<f:facet name="output">-->
                                     <!--</f:facet>-->  
                                     <!--                                        <f:facet name="input">
-                                                                                <p:inputText value="#{solucionNodoEmpleador.fechahasta}" style="width: 98%; text-transform: uppercase" readonly="true" 
+                                                                                <p:inputText  autocomplete="false"   value="#{solucionNodoEmpleador.fechahasta}" style="width: 98%; text-transform: uppercase" readonly="true" 
                                                                                              onselect="posicionOtroEmpleador([{name: 'celda', value: '7'}, {name: 'registro', value: '#{indiceER}'}]);" >
                                                                                     <f:convertDateTime pattern="dd/MM/yyyy" />
                                                                                 </p:inputText>
@@ -552,7 +552,7 @@
                                     <!--<f:facet name="output">-->
                                     <!--</f:facet>-->  
                                     <!--                                        <f:facet name="input">
-                                                                                <p:inputText value="#{solucionNodoEmpleador.codigocuentad}" style="width: 98%; text-transform: uppercase" readonly="true" 
+                                                                                <p:inputText  autocomplete="false"   value="#{solucionNodoEmpleador.codigocuentad}" style="width: 98%; text-transform: uppercase" readonly="true" 
                                                                                             onselect="posicionOtroEmpleador([{name: 'celda', value: '8'}, {name: 'registro', value: '#{indiceER}'}]);" />
                                                                             </f:facet>
                                                                         </p:cellEditor>-->
@@ -568,7 +568,7 @@
                                     <!--<f:facet name="output">-->
                                     <!--</f:facet>-->
                                     <!--                                        <f:facet name="input">
-                                                                                <p:inputText value="#{solucionNodoEmpleador.nombrecentrocostod}" style="width: 98%; text-transform: uppercase" readonly="true"
+                                                                                <p:inputText  autocomplete="false"   value="#{solucionNodoEmpleador.nombrecentrocostod}" style="width: 98%; text-transform: uppercase" readonly="true"
                                                                                              onselect="posicionOtroEmpleador([{name: 'celda', value: '9'}, {name: 'registro', value: '#{indiceER}'}]);"/>
                                                                             </f:facet>
                                                                         </p:cellEditor>-->
@@ -583,7 +583,7 @@
                                     <!--<f:facet name="output">-->
                                     <!--</f:facet>-->  
                                     <!--                                        <f:facet name="input">
-                                                                                <p:inputText value="#{solucionNodoEmpleador.codigocuentac}" style="width: 98%; text-transform: uppercase" readonly="true" 
+                                                                                <p:inputText  autocomplete="false"   value="#{solucionNodoEmpleador.codigocuentac}" style="width: 98%; text-transform: uppercase" readonly="true" 
                                                                                              onselect="posicionOtroEmpleador([{name: 'celda', value: '10'}, {name: 'registro', value: '#{indiceER}'}]);" />
                                                                             </f:facet>
                                                                         </p:cellEditor>-->
@@ -599,7 +599,7 @@
                                     <!--<f:facet name="output">-->
                                     <!--</f:facet>-->  
                                     <!--                                        <f:facet name="input">
-                                                                                <p:inputText value="#{solucionNodoEmpleador.nombrecentrocostoc}" style="width: 98%; text-transform: uppercase" readonly="true"
+                                                                                <p:inputText  autocomplete="false"   value="#{solucionNodoEmpleador.nombrecentrocostoc}" style="width: 98%; text-transform: uppercase" readonly="true"
                                                                                              onselect="posicionOtroEmpleador([{name: 'celda', value: '11'}, {name: 'registro', value: '#{indiceER}'}]);"/>
                                                                             </f:facet>
                                                                         </p:cellEditor>-->
@@ -615,7 +615,7 @@
                                     <!--<f:facet name="output">-->
                                     <!--</f:facet>-->  
                                     <!--                                        <f:facet name="input">
-                                                                                <p:inputText value="#{solucionNodoEmpleador.saldo}" style="width: 98%; text-transform: uppercase" readonly="true"
+                                                                                <p:inputText  autocomplete="false"   value="#{solucionNodoEmpleador.saldo}" style="width: 98%; text-transform: uppercase" readonly="true"
                                                                                              onselect="posicionOtroEmpleador([{name: 'celda', value: '12'}, {name: 'registro', value: '#{indiceER}'}]);" />
                                                                             </f:facet>
                                                                         </p:cellEditor>-->
@@ -633,7 +633,7 @@
                                     <!--<f:facet name="output">-->
                                     <!--</f:facet>-->  
                                     <!--                                        <f:facet name="input">
-                                                                                <p:inputText value="#{solucionNodoEmpleador.fechadesde}" style="width: 98%; text-transform: uppercase" readonly="true" 
+                                                                                <p:inputText  autocomplete="false"   value="#{solucionNodoEmpleador.fechadesde}" style="width: 98%; text-transform: uppercase" readonly="true" 
                                                                                              onselect="posicionOtroEmpleador([{name: 'celda', value: '13'}, {name: 'registro', value: '#{indiceER}'}]);" >
                                                                                     <f:convertDateTime pattern="dd/MM/yyyy" />
                                                                                 </p:inputText>
@@ -653,7 +653,7 @@
                                     <!--<f:facet name="output">-->
                                     <!--</f:facet>-->  
                                     <!--                                        <f:facet name="input">
-                                                                                <p:inputText value="#{solucionNodoEmpleador.fechapago}" style="width: 98%; text-transform: uppercase" readonly="true"
+                                                                                <p:inputText  autocomplete="false"   value="#{solucionNodoEmpleador.fechapago}" style="width: 98%; text-transform: uppercase" readonly="true"
                                                                                              onselect="posicionOtroEmpleador([{name: 'celda', value: '14'}, {name: 'registro', value: '#{indiceER}'}]);" >
                                                                                     <f:convertDateTime pattern="dd/MM/yyyy" />
                                                                                 </p:inputText>
@@ -673,7 +673,7 @@
                                     <!--<f:facet name="output">-->
                                     <!--</f:facet>-->  
                                     <!--                                        <f:facet name="input">
-                                                                                <p:inputText value="#{solucionNodoEmpleador.ultimamodificacion}" style="width: 98%; text-transform: uppercase" readonly="true" 
+                                                                                <p:inputText  autocomplete="false"   value="#{solucionNodoEmpleador.ultimamodificacion}" style="width: 98%; text-transform: uppercase" readonly="true" 
                                                                                              onselect="posicionOtroEmpleador([{name: 'celda', value: '15'}, {name: 'registro', value: '#{indiceER}'}]);" >
                                                                                     <f:convertDateTime pattern="dd/MM/yyyy - hh:mm" />
                                                                                 </p:inputText>
@@ -712,7 +712,7 @@
 
                             <f:facet name="header" >  
                                 <h:outputText value="#{msg['buscar']}"  style="position: absolute; left: 22px; top: 18px;"/>  
-                                <p:inputText id="globalFilter" onkeyup="PF('lovEmpleados').filter();" style="width:150px; position: relative; left: -150px;"/>
+                                <p:inputText  autocomplete="false"   id="globalFilter" onkeyup="PF('lovEmpleados').filter();" style="width:150px; position: relative; left: -150px;"/>
                                 <p:watermark for="globalFilter" value="#{msg['ingresar']}" />
                             </f:facet>
 
@@ -742,7 +742,7 @@
                     </p:dialog>
 
                     <p:dialog id="parcialesConcepto" header="#{msg['parciales']}" widgetVar="parcialesConcepto"  resizable="false" draggable="true" modal="true" height="182" width="345"  closable="false">  
-                        <p:inputTextarea value="#{controlComprobantes.parcialesSolucionNodos}" style="position: absolute; left: 10px; top: 10px; width: 300px; height: 125px; font-weight:bold; overflow: auto" readonly="true" />
+                        <p:inputTextarea  value="#{controlComprobantes.parcialesSolucionNodos}" style="position: absolute; left: 10px; top: 10px; width: 300px; height: 125px; font-weight:bold; overflow: auto" readonly="true" />
                         <p:commandButton value="#{msg['aceptar']}" style="position: absolute; top: 148px; left: 225px;" icon="ui-icon-check" onclick="PF('parcialesConcepto').hide();
                                 confirmacionFormatoExtendido').show();"/>
                     </p:dialog>
@@ -769,15 +769,15 @@
                                           rowKey="#{detalleFormula.id}">
 
                                 <p:column  headerText="#{msg['valor']}" width="80" style="padding: 0px">  
-                                    <p:inputText value="#{detalleFormula.valor}" style="border-radius: 0px; width: 87%" />  
+                                    <p:inputText  autocomplete="false"   value="#{detalleFormula.valor}" style="border-radius: 0px; width: 87%" />  
                                 </p:column>  
 
                                 <p:column headerText="#{msg['formula']}" style="padding: 0px">  
-                                    <p:inputText value="#{detalleFormula.nombreNodo}" style="border-radius: 0px; width: 94.5%"/>  
+                                    <p:inputText  autocomplete="false"   value="#{detalleFormula.nombreNodo}" style="border-radius: 0px; width: 94.5%"/>  
                                 </p:column>  
 
                                 <p:column headerText="#{msg['descripcion']}" style="padding: 0px">  
-                                    <p:inputText value="#{detalleFormula.descripcion}" style="border-radius: 0px; width: 94.5%"/>  
+                                    <p:inputText  autocomplete="false"   value="#{detalleFormula.descripcion}" style="border-radius: 0px; width: 94.5%"/>  
                                 </p:column> 
                             </p:dataTable>
                         </fieldset>
@@ -787,73 +787,73 @@
                     <!--formularios editar nodo empleado     -->
 
                     <p:dialog id="editarCodEmpleado" header="#{msg['codigoConcepto']}" widgetVar="editarCodEmpleado" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlComprobantes.solucionNodoSeleccionada.codigoconcepto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea  value="#{controlComprobantes.solucionNodoSeleccionada.codigoconcepto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarDescConcepto" header="#{msg['descConcepto']}" widgetVar="editarDescConcepto" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlComprobantes.solucionNodoSeleccionada.nombreconcepto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea  value="#{controlComprobantes.solucionNodoSeleccionada.nombreconcepto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarUnd" header="#{msg['und']}" widgetVar="editarUnd" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlComprobantes.solucionNodoSeleccionada.unidades}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea  value="#{controlComprobantes.solucionNodoSeleccionada.unidades}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarPago" header="#{msg['pago']}" widgetVar="editarPago" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlComprobantes.solucionNodoSeleccionada.pago}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
+                        <p:inputTextarea  value="#{controlComprobantes.solucionNodoSeleccionada.pago}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
                             <f:convertNumber currencyCode="COP"/>
                         </p:inputTextarea>
                     </p:dialog>
 
                     <p:dialog id="editarDescuento" header="#{msg['descuento']}" widgetVar="editarDescuento" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlComprobantes.solucionNodoSeleccionada.descuento}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
+                        <p:inputTextarea  value="#{controlComprobantes.solucionNodoSeleccionada.descuento}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
                             <f:convertNumber currencyCode="COP"/>
                         </p:inputTextarea>
                     </p:dialog>
 
                     <p:dialog id="editarTercero" header="#{msg['tercero']}" widgetVar="editarTercero" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlComprobantes.solucionNodoSeleccionada.nombretercero}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea  value="#{controlComprobantes.solucionNodoSeleccionada.nombretercero}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarFechaHasta" header="#{msg['fechahasta']}" widgetVar="editarFechaHasta" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlComprobantes.solucionNodoSeleccionada.fechahasta}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+                        <p:inputTextarea  value="#{controlComprobantes.solucionNodoSeleccionada.fechahasta}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
                     <p:dialog id="editarDebito" header="#{msg['debito']}" widgetVar="editarDebito" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlComprobantes.solucionNodoSeleccionada.codigocuentad}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea  value="#{controlComprobantes.solucionNodoSeleccionada.codigocuentad}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarCCDebito" header="#{msg['dcosto']}" widgetVar="editarCCDebito" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlComprobantes.solucionNodoSeleccionada.nombrecentrocostod}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea  value="#{controlComprobantes.solucionNodoSeleccionada.nombrecentrocostod}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarCredito" header="#{msg['credito']}" widgetVar="editarCredito" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlComprobantes.solucionNodoSeleccionada.codigocuentac}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea  value="#{controlComprobantes.solucionNodoSeleccionada.codigocuentac}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarCCCredito" header="#{msg['ccosto']}" widgetVar="editarCCCredito" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlComprobantes.solucionNodoSeleccionada.nombrecentrocostoc}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea  value="#{controlComprobantes.solucionNodoSeleccionada.nombrecentrocostoc}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarSaldo" header="#{msg['saldo']}" widgetVar="editarSaldo" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlComprobantes.solucionNodoSeleccionada.saldo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea  value="#{controlComprobantes.solucionNodoSeleccionada.saldo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarFechaDesde" header="#{msg['fechadesde']}" widgetVar="editarFechaDesde" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlComprobantes.solucionNodoSeleccionada.fechadesde}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+                        <p:inputTextarea  value="#{controlComprobantes.solucionNodoSeleccionada.fechadesde}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
                     <p:dialog id="editarFechaPago" header="#{msg['fechapago']}" widgetVar="editarFechaPago" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlComprobantes.solucionNodoSeleccionada.fechapago}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+                        <p:inputTextarea  value="#{controlComprobantes.solucionNodoSeleccionada.fechapago}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
                     <p:dialog id="editarFechaModificacion" header="#{msg['fechamodificacion']}" widgetVar="editarFechaModificacion" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlComprobantes.solucionNodoSeleccionada.ultimamodificacion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+                        <p:inputTextarea  value="#{controlComprobantes.solucionNodoSeleccionada.ultimamodificacion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
@@ -861,73 +861,73 @@
                     <!--formularios editar nodo empleador     -->
 
                     <p:dialog id="editarCodEmpleador" header="#{msg['codigoConcepto']}" widgetVar="editarCodEmpleador" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.codigoconcepto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea  value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.codigoconcepto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarDescConceptoEmpleador" header="#{msg['descConcepto']}" widgetVar="editarDescConceptoEmpleador" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.nombreconcepto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea  value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.nombreconcepto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarUndEmpleador" header="#{msg['und']}" widgetVar="editarUndEmpleador" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.unidades}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea  value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.unidades}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarPasivo" header="#{msg['pasivo']}" widgetVar="editarPasivo" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.pasivo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
+                        <p:inputTextarea  value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.pasivo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
                             <f:convertNumber currencyCode="COP"/>
                         </p:inputTextarea>
                     </p:dialog>
 
                     <p:dialog id="editarGasto" header="#{msg['gasto']}" widgetVar="editarGasto" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.gasto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
+                        <p:inputTextarea  value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.gasto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
                             <f:convertNumber currencyCode="COP"/>
                         </p:inputTextarea>
                     </p:dialog>
 
                     <p:dialog id="editarTerceroEmpleador" header="#{msg['tercero']}" widgetVar="editarTerceroEmpleador" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.nombretercero}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea  value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.nombretercero}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarFechaHastaEmpleador" header="#{msg['fechahasta']}" widgetVar="editarFechaHastaEmpleador" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.fechahasta}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+                        <p:inputTextarea  value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.fechahasta}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
                     <p:dialog id="editarDebitoEmpleador" header="#{msg['debito']}" widgetVar="editarDebitoEmpleador" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.codigocuentad}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea  value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.codigocuentad}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarCCDebitoEmpleador" header="#{msg['dcosto']}" widgetVar="editarCCDebitoEmpleador" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.nombrecentrocostod}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea  value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.nombrecentrocostod}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarCreditoEmpleador" header="#{msg['credito']}" widgetVar="editarCreditoEmpleador" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.codigocuentac}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea  value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.codigocuentac}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarCCCreditoEmpleador" header="#{msg['ccosto']}" widgetVar="editarCCCreditoEmpleador" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.nombrecentrocostoc}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea  value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.nombrecentrocostoc}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarSaldoEmpleador" header="#{msg['saldo']}" widgetVar="editarSaldoEmpleador" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.saldo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea  value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.saldo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarFechaDesdeEmpleador" header="#{msg['fechadesde']}" widgetVar="editarFechaDesdeEmpleador" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.fechadesde}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+                        <p:inputTextarea  value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.fechadesde}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
                     <p:dialog id="editarFechaPagoEmpleador" header="#{msg['fechapago']}" widgetVar="editarFechaPagoEmpleador" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.fechapago}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+                        <p:inputTextarea  value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.fechapago}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
                     <p:dialog id="editarFechaModificacionEmpleador" header="#{msg['fechamodificacion']}" widgetVar="editarFechaModificacionEmpleador" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.ultimamodificacion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+                        <p:inputTextarea  value="#{controlComprobantes.solucionNodoEmpleadorSeleccionada.ultimamodificacion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>

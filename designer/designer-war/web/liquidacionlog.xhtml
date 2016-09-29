@@ -74,7 +74,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.empleado.persona.nombreCompleto}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.empleado.persona.nombreCompleto}" disabled="true" maxlength="50" id="editarEmpleado" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="false"  value="#{info.empleado.persona.nombreCompleto}" disabled="true" maxlength="50" id="editarEmpleado" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase"  > 
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -84,7 +84,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.operando.nombre}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.operando.nombre}" maxlength="50" disabled="true" id="editarOperando" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="false"  value="#{info.operando.nombre}" maxlength="50" disabled="true" id="editarOperando" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase"  > 
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -94,7 +94,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.proceso.descripcion}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.proceso.descripcion}" disabled="true" maxlength="50" id="editarPproceso" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="false"  value="#{info.proceso.descripcion}" disabled="true" maxlength="50" id="editarPproceso" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase"  > 
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -105,7 +105,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.valor}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.valor}" disabled="true" maxlength="50" id="editarValor" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="false"  value="#{info.valor}" disabled="true" maxlength="50" id="editarValor" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase"  > 
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -194,7 +194,7 @@
 
                                 <f:facet name="header">  
                                     <h:outputText value="Buscar Empleado"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovTipoCentrosCostos').filter();" style="width:150px; position: relative; left: 60px;" />  
+                                    <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovTipoCentrosCostos').filter();" style="width:150px; position: relative; left: 60px;" />  
                                 </f:facet>
                                 <p:column filterBy="#{empleado.persona.numerodocumento}" width="40" filterMatchMode="contains" filterStyle="width: 30px">
                                     <f:facet name="header">

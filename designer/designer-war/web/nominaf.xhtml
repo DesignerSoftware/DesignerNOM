@@ -57,9 +57,9 @@
                                         <p:outputLabel id="pa" value="#{msg['primerapellido']}" style="position: relative; left:49px; top: 4px;
                                                        color: #14388B; font-weight: bold;"  />
                                         <br/>
-                                        <p:inputText id="codigo" readonly="true" value="#{controlRemoto.vwActualesTiposTrabajadoresesPosicion.empleado.codigoempleado}" 
+                                        <p:inputText  autocomplete="false"  id="codigo" readonly="true" value="#{controlRemoto.vwActualesTiposTrabajadoresesPosicion.empleado.codigoempleado}" 
                                                      style="position: relative; top: 10px; width: 79px; height: 20px; border-width: 1px;" onclick="select();"/>
-                                        <p:inputText id="primerapellido" readonly="true" value="#{controlRemoto.vwActualesTiposTrabajadoresesPosicion.empleado.persona.nombreCompleto}" 
+                                        <p:inputText  autocomplete="false"  id="primerapellido" readonly="true" value="#{controlRemoto.vwActualesTiposTrabajadoresesPosicion.empleado.persona.nombreCompleto}" 
                                                      style="position: relative; top: 10px; width: 310px; height: 20px; border-width: 1px;" onclick="select();"/>
                                         <!-- Panel Derecho - Superior -->
                                         <h:outputText id="informaciontt" value="#{controlRemoto.informacionTiposTrabajadores}" style="position: absolute; left: 432px; top: 7px; color: #14388B; font-weight: bold;"/>
@@ -256,28 +256,28 @@
 
                                         <!-- Cajas de Texto -->
 
-                                        <p:inputText id="vcargodesempenhado" style="position: absolute; left: 50px; top: 20px; width: 210px; height: 12px; box-shadow: none; border: none; font-size:0.9em;" readonly="true" value="#{controlRemoto.actualCargo}"  /> 
-                                        <p:inputText id="vfechacontratacion" style="position: absolute; left: 50px; top: 65px; width: 210px; height: 12px; box-shadow: none; border: none; font-size:0.9em;" readonly="true" value="Fecha: #{controlRemoto.fechaActualesTiposContratos} - #{controlRemoto.vwActualesTiposContratos.tipoContrato.nombre}"/>
-                                        <p:inputText id="vnormalaboral" style="position: absolute; left: 50px; top: 110px; width: 210px; height: 12px; box-shadow: none; border: none; font-size:0.9em;" readonly="true" value="#{controlRemoto.vwActualesNormasEmpleados.normaLaboral.nombre}" />
-                                        <p:inputText id="vafiliaciones" style="position: absolute; left: 50px; top: 155px; width: 210px; height: 12px; box-shadow: none; border: none; font-size:0.9em;" readonly="true" value="#{controlRemoto.vwActualesAfiliacionesSalud.tiposEntidades.nombre} - #{controlRemoto.vwActualesAfiliacionesSalud.tercerosSucursales.tercero.nombre} - #{controlRemoto.vwActualesAfiliacionesPension.tiposEntidades.nombre} - #{controlRemoto.vwActualesAfiliacionesPension.tercerosSucursales.tercero.nombre}" />
-                                        <p:inputText id="vibc" style="position: absolute; left: 50px; top: 200px; width: 210px; height: 12px; box-shadow: none; border: none; font-size:0.9em;" readonly="true" value="#{controlRemoto.actualIBC}" />
-                                        <p:inputText id="vtipoviajero" style="position: absolute; left: 50px; top: 245px; width: 210px; height: 12px; box-shadow: none; border: none; font-size:0.9em;" readonly="true" value="#{controlRemoto.vwActualesVigenciasViajeros.tipoViajero.nombre}"/>
+                                        <p:inputText  autocomplete="false"  id="vcargodesempenhado" style="position: absolute; left: 50px; top: 20px; width: 210px; height: 12px; box-shadow: none; border: none; font-size:0.9em;" readonly="true" value="#{controlRemoto.actualCargo}"  /> 
+                                        <p:inputText  autocomplete="false"  id="vfechacontratacion" style="position: absolute; left: 50px; top: 65px; width: 210px; height: 12px; box-shadow: none; border: none; font-size:0.9em;" readonly="true" value="Fecha: #{controlRemoto.fechaActualesTiposContratos} - #{controlRemoto.vwActualesTiposContratos.tipoContrato.nombre}"/>
+                                        <p:inputText  autocomplete="false"  id="vnormalaboral" style="position: absolute; left: 50px; top: 110px; width: 210px; height: 12px; box-shadow: none; border: none; font-size:0.9em;" readonly="true" value="#{controlRemoto.vwActualesNormasEmpleados.normaLaboral.nombre}" />
+                                        <p:inputText  autocomplete="false"  id="vafiliaciones" style="position: absolute; left: 50px; top: 155px; width: 210px; height: 12px; box-shadow: none; border: none; font-size:0.9em;" readonly="true" value="#{controlRemoto.vwActualesAfiliacionesSalud.tiposEntidades.nombre} - #{controlRemoto.vwActualesAfiliacionesSalud.tercerosSucursales.tercero.nombre} - #{controlRemoto.vwActualesAfiliacionesPension.tiposEntidades.nombre} - #{controlRemoto.vwActualesAfiliacionesPension.tercerosSucursales.tercero.nombre}" />
+                                        <p:inputText  autocomplete="false"  id="vibc" style="position: absolute; left: 50px; top: 200px; width: 210px; height: 12px; box-shadow: none; border: none; font-size:0.9em;" readonly="true" value="#{controlRemoto.actualIBC}" />
+                                        <p:inputText  autocomplete="false"  id="vtipoviajero" style="position: absolute; left: 50px; top: 245px; width: 210px; height: 12px; box-shadow: none; border: none; font-size:0.9em;" readonly="true" value="#{controlRemoto.vwActualesVigenciasViajeros.tipoViajero.nombre}"/>
 
-                                        <p:inputText id="vcentrodecosto" style="position: absolute; left: 325px; top: 20px; width: 210px; height: 12px; box-shadow: none; border: none; font-size:0.9em;" readonly="true" value="#{controlRemoto.vwActualesLocalizaciones.localizacion.centrocosto.codigo} - #{controlRemoto.vwActualesLocalizaciones.localizacion.nombre}"  />
-                                        <p:inputText id="vtipotrabajador" style="position: absolute; left: 325px; top: 65px; width: 210px; height: 12px; box-shadow: none; border: none; font-size:0.9em;" readonly="true" value="#{controlRemoto.vwActualesTiposTrabajadores.tipoTrabajador.nombre}" />
-                                        <p:inputText id="vlegislacionlaboral" style="position: absolute; left: 325px; top: 110px; width: 210px; height: 12px; box-shadow: none; border: none; font-size:0.9em;" readonly="true" value="#{controlRemoto.vwActualesContratos.contrato.descripcion}" />
-                                        <p:inputText id="vjornada" style="position: absolute; left: 325px; top: 155px; width: 210px; height: 12px; box-shadow: none; border: none; font-size:0.9em;" readonly="true" value="#{controlRemoto.vwActualesJornadas.jornadaTrabajo.descripcion}"  />
-                                        <p:inputText id="vmenorvalorretencio" style="position: absolute; left: 325px; top: 200px; width: 210px; height: 12px; box-shadow: none; border: none; font-size:0.9em;" readonly="true" value="#{controlRemoto.actualMVR}">
+                                        <p:inputText  autocomplete="false"  id="vcentrodecosto" style="position: absolute; left: 325px; top: 20px; width: 210px; height: 12px; box-shadow: none; border: none; font-size:0.9em;" readonly="true" value="#{controlRemoto.vwActualesLocalizaciones.localizacion.centrocosto.codigo} - #{controlRemoto.vwActualesLocalizaciones.localizacion.nombre}"  />
+                                        <p:inputText  autocomplete="false"  id="vtipotrabajador" style="position: absolute; left: 325px; top: 65px; width: 210px; height: 12px; box-shadow: none; border: none; font-size:0.9em;" readonly="true" value="#{controlRemoto.vwActualesTiposTrabajadores.tipoTrabajador.nombre}" />
+                                        <p:inputText  autocomplete="false"  id="vlegislacionlaboral" style="position: absolute; left: 325px; top: 110px; width: 210px; height: 12px; box-shadow: none; border: none; font-size:0.9em;" readonly="true" value="#{controlRemoto.vwActualesContratos.contrato.descripcion}" />
+                                        <p:inputText  autocomplete="false"  id="vjornada" style="position: absolute; left: 325px; top: 155px; width: 210px; height: 12px; box-shadow: none; border: none; font-size:0.9em;" readonly="true" value="#{controlRemoto.vwActualesJornadas.jornadaTrabajo.descripcion}"  />
+                                        <p:inputText  autocomplete="false"  id="vmenorvalorretencio" style="position: absolute; left: 325px; top: 200px; width: 210px; height: 12px; box-shadow: none; border: none; font-size:0.9em;" readonly="true" value="#{controlRemoto.actualMVR}">
                                             <f:convertNumber pattern="$ #,###.00"/>
                                         </p:inputText>
-                                        <p:inputText id="vvacaciones" style="position: absolute; left: 325px; top: 245px; width: 210px; height: 12px; box-shadow: none; border: none; font-size:0.9em;" readonly="true" value="#{controlRemoto.estadoVacaciones}"/>
+                                        <p:inputText  autocomplete="false"  id="vvacaciones" style="position: absolute; left: 325px; top: 245px; width: 210px; height: 12px; box-shadow: none; border: none; font-size:0.9em;" readonly="true" value="#{controlRemoto.estadoVacaciones}"/>
 
-                                        <p:inputText id="vsueldo" style="position: absolute; left: 595px; top: 20px; width: 210px; height: 12px; box-shadow: none; border: none; font-size:0.9em;" readonly="true" value="#{controlRemoto.sueldo}"/>
-                                        <p:inputText id="vtiposalario" style="position: absolute; left: 595px; top: 65px; width: 210px; height: 12px; box-shadow: none; border: none; font-size:0.9em;" readonly="true" value="#{controlRemoto.vwActualesReformasLaborales.reformaLaboral.nombre}" />
-                                        <p:inputText id="vubicacion" style="position: absolute; left: 595px; top: 110px; width: 210px; height: 12px; box-shadow: none; border: none; font-size:0.9em;" readonly="true" value="#{controlRemoto.vwActualesUbicaciones.ubicacion.descripcion} #{controlRemoto.vwActualesUbicaciones.ubicacion.ciudad.nombre}" />
-                                        <p:inputText id="vformadepago" style="position: absolute; left: 595px; top: 155px; width: 210px; height: 12px; box-shadow: none; border: none; font-size:0.9em;" readonly="true" value="#{controlRemoto.vwActualesFormasPagos.formaPago.nombre}" />
-                                        <p:inputText id="vset" style="position: absolute; left: 595px; top: 200px; width: 210px; height: 12px; box-shadow: none; border: none; font-size:0.9em;" readonly="true" value="#{controlRemoto.actualSet}"/>
-                                        <p:inputText id="vcomprobantes" style="position: absolute; left: 595px; top: 245px; width: 210px; height: 12px; box-shadow: none; border: none; font-size:0.9em;" readonly="true" value="#{controlRemoto.actualComprobante}"/>
+                                        <p:inputText  autocomplete="false"  id="vsueldo" style="position: absolute; left: 595px; top: 20px; width: 210px; height: 12px; box-shadow: none; border: none; font-size:0.9em;" readonly="true" value="#{controlRemoto.sueldo}"/>
+                                        <p:inputText  autocomplete="false"  id="vtiposalario" style="position: absolute; left: 595px; top: 65px; width: 210px; height: 12px; box-shadow: none; border: none; font-size:0.9em;" readonly="true" value="#{controlRemoto.vwActualesReformasLaborales.reformaLaboral.nombre}" />
+                                        <p:inputText  autocomplete="false"  id="vubicacion" style="position: absolute; left: 595px; top: 110px; width: 210px; height: 12px; box-shadow: none; border: none; font-size:0.9em;" readonly="true" value="#{controlRemoto.vwActualesUbicaciones.ubicacion.descripcion} #{controlRemoto.vwActualesUbicaciones.ubicacion.ciudad.nombre}" />
+                                        <p:inputText  autocomplete="false"  id="vformadepago" style="position: absolute; left: 595px; top: 155px; width: 210px; height: 12px; box-shadow: none; border: none; font-size:0.9em;" readonly="true" value="#{controlRemoto.vwActualesFormasPagos.formaPago.nombre}" />
+                                        <p:inputText  autocomplete="false"  id="vset" style="position: absolute; left: 595px; top: 200px; width: 210px; height: 12px; box-shadow: none; border: none; font-size:0.9em;" readonly="true" value="#{controlRemoto.actualSet}"/>
+                                        <p:inputText  autocomplete="false"  id="vcomprobantes" style="position: absolute; left: 595px; top: 245px; width: 210px; height: 12px; box-shadow: none; border: none; font-size:0.9em;" readonly="true" value="#{controlRemoto.actualComprobante}"/>
                                     </fieldset>
                                 </p:panel>
 
@@ -726,7 +726,7 @@
 
                             <f:facet name="header">
                                 <h:outputText value="#{msg['buscarE']}" />
-                                <p:inputText id="globalFilter" onkeyup="PF('lvbusquedarapida').filter();" value="#{filtrado}" class="cssFiltroLOV" />  
+                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lvbusquedarapida').filter();" value="#{filtrado}" class="cssFiltroLOV" />  
                                 <p:watermark for="globalFilter" value="#{msg['ingresarvalor']}"/>
                             </f:facet>
 
@@ -776,7 +776,7 @@
 
                             <f:facet name="header" >  
                                 <h:outputText value="#{msg['buscarE']}" />  
-                                <p:inputText id="globalFilter" onkeyup="PF('lvbuscarempleado').filter()" class="cssFiltroLOV" />
+                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lvbuscarempleado').filter()" class="cssFiltroLOV" />
                                 <p:watermark for="globalFilter" value="#{msg['ingresarvalor']}" />
                             </f:facet>
 
@@ -816,7 +816,7 @@
                             <p:ajax event="filter" listener="#{controlRemoto.contarRegistroBT()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarT']}" />  
-                                <p:inputText id="globalFilter" onkeyup="PF('lovtablas').filter();" class="cssFiltroLOV" />  
+                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovtablas').filter();" class="cssFiltroLOV" />  
                             </f:facet>
                             <p:column filterBy="#{tabla.nombre}" sortBy="#{tabla.nombre}" filterMatchMode="contains" filterStyle="width: 150px">
                                 <f:facet name="header">
@@ -852,7 +852,7 @@
 
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarEIP']} :" />  
-                                <p:inputText id="globalFilter" onkeyup="PF('LovEmpresasTabla').filter();" class="cssFiltroLOV"/>  
+                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('LovEmpresasTabla').filter();" class="cssFiltroLOV"/>  
                             </f:facet>
 
                             <p:column filterBy="#{empresaIPV.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important; height: 12px; text-transform: uppercase;">

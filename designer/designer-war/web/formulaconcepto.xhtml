@@ -103,7 +103,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:calendar mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{infoFC.fechainicial}" > 
+                                 <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{infoFC.fechainicial}" > 
                                     <p:ajax event="select" listener="#{controlFormulaConcepto.cambiarIndiceFormulaConcepto(infoFC,0)}" process="@this"/>
                                     <p:ajax event="change" listener="#{controlFormulaConcepto.modificacionesFechaFormula(infoFC,0)}" process="@this" update="dateFechaInicial"/>
                                     <p:ajax event="dateSelect" listener="#{controlFormulaConcepto.modificacionesFechaFormula(infoFC,0)}" process="@this" update="dateFechaInicial"/>
@@ -124,7 +124,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:calendar mask="true" pattern="dd/MM/yyyy" id="dateFecha" value="#{infoFC.fechafinal}" > 
+                                 <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="dateFecha" value="#{infoFC.fechafinal}" > 
                                     <p:ajax event="select" listener="#{controlFormulaConcepto.cambiarIndiceFormulaConcepto(infoFC,1)}" process="@this"/>
                                     <p:ajax event="change" listener="#{controlFormulaConcepto.modificacionesFechaFormula(infoFC,1)}" process="@this" update="dateFecha"/>
                                     <p:ajax event="dateSelect" listener="#{controlFormulaConcepto.modificacionesFechaFormula(infoFC,1)}" process="@this" update="dateFecha"/>
@@ -141,7 +141,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{infoFC.codigoConcepto}" style="text-transform: uppercase;"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText value="#{infoFC.codigoConcepto}"  id="editarCodigoFC" style="border-radius: 0px; width: 99%; text-transform: uppercase;"> 
+                                 <p:inputText  autocomplete="false"  value="#{infoFC.codigoConcepto}"  id="editarCodigoFC" style="border-radius: 0px; width: 99%; text-transform: uppercase;"> 
                                     <p:ajax event="select"  listener="#{controlFormulaConcepto.cambiarIndiceFormulaConcepto(infoFC, 2)}" process="@this"/>
                                     <p:ajax event="change" update="editarCodigoFC" listener="#{controlFormulaConcepto.modificarFormulaConcepto(infoFC,'CODIGO',infoFC.codigoConcepto)}" process="@this"/>
                                     <p:ajax event="dblclick" listener="#{controlFormulaConcepto.asignarIndex(infoFC,0,0)}" process="@this"/>
@@ -158,7 +158,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{infoFC.nombreConcepto}" style="text-transform: uppercase;"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText value="#{infoFC.nombreConcepto}"  id="editarDescripcionFC" style="border-radius: 0px; width: 99%;text-transform: uppercase"> 
+                                 <p:inputText  autocomplete="false"  value="#{infoFC.nombreConcepto}"  id="editarDescripcionFC" style="border-radius: 0px; width: 99%;text-transform: uppercase"> 
                                     <p:ajax event="select"  listener="#{controlFormulaConcepto.cambiarIndiceFormulaConcepto(infoFC, 3)}" process="@this"/>
                                     <p:ajax event="change" update="editarDescripcionFC" listener="#{controlFormulaConcepto.modificarFormulaConcepto(infoFC,'CONCEPTO',infoFC.nombreConcepto)}" process="@this"/>
                                     <p:ajax event="dblclick" listener="#{controlFormulaConcepto.asignarIndex(infoFC,0,0)}" process="@this"/>
@@ -175,7 +175,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{infoFC.strOrden}" style="text-transform: uppercase"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText value="#{infoFC.strOrden}"  id="editarOrdenFC" style="border-radius: 0px; width: 99%;text-transform: uppercase"> 
+                                 <p:inputText  autocomplete="false"  value="#{infoFC.strOrden}"  id="editarOrdenFC" style="border-radius: 0px; width: 99%;text-transform: uppercase"> 
                                     <p:ajax event="select"  listener="#{controlFormulaConcepto.cambiarIndiceFormulaConcepto(infoFC, 4)}" process="@this"/>
                                     <p:ajax event="change" update="editarOrdenFC" listener="#{controlFormulaConcepto.modificarFormulaConcepto(infoFC,'ORDEN',infoFC.strOrden)}" process="@this"/>
                                     <p:ajax event="dblclick" listener="#{controlFormulaConcepto.asignarIndex(infoFC,1,0)}" process="@this"/>
@@ -192,7 +192,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{infoFC.nombreEmpresa}" style="text-transform: uppercase"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText value="#{infoFC.nombreEmpresa}"  id="editarEmpresaFC" style="border-radius: 0px;  width: 99%;text-transform: uppercase"> 
+                                 <p:inputText  autocomplete="false"  value="#{infoFC.nombreEmpresa}"  id="editarEmpresaFC" style="border-radius: 0px;  width: 99%;text-transform: uppercase"> 
                                     <p:ajax event="select"  listener="#{controlFormulaConcepto.cambiarIndiceFormulaConcepto(infoFC, 5)}" process="@this"/>
                                     <p:ajax event="change" update="editarEmpresaFC" listener="#{controlFormulaConcepto.modificarFormulaConcepto(infoFC,'EMPRESA',infoFC.nombreEmpresa)}" process="@this"/>
                                     <p:ajax event="dblclick" listener="#{controlFormulaConcepto.asignarIndex(infoFC,0,0)}" process="@this"/>
@@ -209,7 +209,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{infoFC.nitEmpresa}" style="text-transform: uppercase"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText value="#{infoFC.nitEmpresa}"  id="editarNITFC" style="border-radius: 0px; width: 99%;text-transform: uppercase"> 
+                                 <p:inputText  autocomplete="false"  value="#{infoFC.nitEmpresa}"  id="editarNITFC" style="border-radius: 0px; width: 99%;text-transform: uppercase"> 
                                     <p:ajax event="select"  listener="#{controlFormulaConcepto.cambiarIndiceFormulaConcepto(infoFC, 6)}" process="@this"/>
                                     <p:ajax event="change" update="editarNITFC" listener="#{controlFormulaConcepto.modificarFormulaConcepto(infoFC,'NIT',infoFC.nitEmpresa)}" process="@this"/>
                                     <p:ajax event="dblclick" listener="#{controlFormulaConcepto.asignarIndex(infoFC,0,0)}" process="@this"/>
@@ -306,7 +306,7 @@
                      
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarO']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                        <p:inputText id="globalFilter" onkeyup="PF('lovOrden').filter();" style="width:140px; position: relative; left: -10px;" />  
+                        <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovOrden').filter();" style="width:140px; position: relative; left: -10px;" />  
                      </f:facet>
                      
                      <p:column filterBy="#{orden.orden}" width="80" filterStyle="width : 60px;" filterMatchMode="contains">
@@ -339,7 +339,7 @@
                      <p:ajax event="rowDblselect" listener="#{controlFormulaConcepto.actualizarConcepto()}" process="@this" />
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarC']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                        <p:inputText id="globalFilter" onkeyup="PF('lovConcepto').filter();" style="width:140px; position: relative; left: -85px;" />  
+                        <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovConcepto').filter();" style="width:140px; position: relative; left: -85px;" />  
                      </f:facet>
                      <p:column filterBy="#{concepto.codigo}" width="80" filterStyle="width : 60px;"  filterMatchMode="contains">
                         <f:facet name="header">
@@ -385,7 +385,7 @@
 
                      <strong><h:outputText value="*#{msg['fechaInicialN']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
                      <div id="posicionFechaIniNuevoReg" style="position: absolute; top: 70px; left: 220px">
-                        <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaDateFechaInicial" value="#{controlFormulaConcepto.nuevaFormulaConcepto.fechainicial}" >
+                        <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="nuevaDateFechaInicial" value="#{controlFormulaConcepto.nuevaFormulaConcepto.fechainicial}" >
                            <p:ajax event="dateSelect" update="nuevaDateFechaInicial" process="@this"/>
                            <p:ajax event="change" update="nuevaDateFechaInicial" process="@this"/>
                         </p:calendar>
@@ -393,14 +393,14 @@
 
                      <strong><h:outputText value="*#{msg['fechaFinalN']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
                      <div id="posicionFechaFinNuevoReg" style="position: absolute; top: 100px; left: 220px">
-                        <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaDateFechaFinal" value="#{controlFormulaConcepto.nuevaFormulaConcepto.fechafinal}" >
+                        <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="nuevaDateFechaFinal" value="#{controlFormulaConcepto.nuevaFormulaConcepto.fechafinal}" >
                            <p:ajax event="dateSelect" update="nuevaDateFechaFinal" process="@this"/>
                            <p:ajax event="change" update="nuevaDateFechaFinal" process="@this"/>
                         </p:calendar>
                      </div>
 
                      <strong><h:outputText value="*#{msg['codigoN']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
-                     <p:inputText id="nuevaCodigo" value="#{controlFormulaConcepto.nuevaFormulaConcepto.codigoConcepto}" style="width: 122px; position: absolute; left: 220px; top: 130px; text-transform: uppercase" onclick="select();" >
+                     <p:inputText  autocomplete="false"  id="nuevaCodigo" value="#{controlFormulaConcepto.nuevaFormulaConcepto.codigoConcepto}" style="width: 122px; position: absolute; left: 220px; top: 130px; text-transform: uppercase" onclick="select();" >
                         <p:ajax event="dblclick" listener="#{controlFormulaConcepto.asignarIndex(0,1)}"/>
                         <p:ajax event="click" listener="#{controlFormulaConcepto.valoresBackupAutocompletar(1,'CODIGO')}" />
                         <p:ajax event="change" listener="#{controlFormulaConcepto.autocompletarNuevoyDuplicadoFormulaConcepto('CODIGO', controlFormulaConcepto.nuevaFormulaConcepto.codigoConcepto, 1)}" />
@@ -410,7 +410,7 @@
                      <p:watermark for="nuevaCodigo" value="#{msg['codigo']}" />
 
                      <strong><h:outputText value="*#{msg['descripcionN']}" style="position: absolute; top: 165px; left: 50px;" /></strong>
-                     <p:inputText id="nuevaConcepto" value="#{controlFormulaConcepto.nuevaFormulaConcepto.nombreConcepto}" style="width: 122px; position: absolute; left: 220px; top: 160px; text-transform: uppercase" onclick="select();">
+                     <p:inputText  autocomplete="false"  id="nuevaConcepto" value="#{controlFormulaConcepto.nuevaFormulaConcepto.nombreConcepto}" style="width: 122px; position: absolute; left: 220px; top: 160px; text-transform: uppercase" onclick="select();">
                         <p:ajax event="dblclick" listener="#{controlFormulaConcepto.asignarIndex(0,1)}"/>
                         <p:ajax event="click" listener="#{controlFormulaConcepto.valoresBackupAutocompletar(1, 'CONCEPTO')}" />
                         <p:ajax event="change" listener="#{controlFormulaConcepto.autocompletarNuevoyDuplicadoFormulaConcepto('CONCEPTO', controlFormulaConcepto.nuevaFormulaConcepto.nombreConcepto, 1)}" />
@@ -420,7 +420,7 @@
                      <p:watermark for="nuevaConcepto" value="#{msg['descripcion']}" />
 
                      <strong><h:outputText value="*#{msg['ordenN']}" style="position: absolute; top: 195px; left: 50px;" /></strong>
-                     <p:inputText id="nuevaOrden" value="#{controlFormulaConcepto.nuevaFormulaConcepto.strOrden}" style="width: 122px; position: absolute; left: 220px; top: 190px; text-transform: uppercase" onclick="select();">
+                     <p:inputText  autocomplete="false"  id="nuevaOrden" value="#{controlFormulaConcepto.nuevaFormulaConcepto.strOrden}" style="width: 122px; position: absolute; left: 220px; top: 190px; text-transform: uppercase" onclick="select();">
                         <p:ajax event="dblclick" listener="#{controlFormulaConcepto.asignarIndex(1,1)}"/>
                         <p:ajax event="click" listener="#{controlFormulaConcepto.valoresBackupAutocompletar(1, 'ORDEN')}" />
                         <p:ajax event="change" listener="#{controlFormulaConcepto.autocompletarNuevoyDuplicadoFormulaConcepto('ORDEN', controlFormulaConcepto.nuevaFormulaConcepto.strOrden, 1)}" />
@@ -430,7 +430,7 @@
                      <p:watermark for="nuevaOrden" value="#{msg['orden']}" />
 
                      <strong><h:outputText value="*#{msg['empresaN']}" style="position: absolute; top: 225px; left: 50px;" /></strong>
-                     <p:inputText id="nuevaEmpresa" value="#{controlFormulaConcepto.nuevaFormulaConcepto.nombreEmpresa}" style="width: 122px; position: absolute; left: 220px; top: 220px; text-transform: uppercase" onclick="select();">
+                     <p:inputText  autocomplete="false"  id="nuevaEmpresa" value="#{controlFormulaConcepto.nuevaFormulaConcepto.nombreEmpresa}" style="width: 122px; position: absolute; left: 220px; top: 220px; text-transform: uppercase" onclick="select();">
                         <p:ajax event="dblclick" listener="#{controlFormulaConcepto.asignarIndex(0,1)}"/>
                         <p:ajax event="click" listener="#{controlFormulaConcepto.valoresBackupAutocompletar(1, 'EMPRESA')}" />
                         <p:ajax event="change" listener="#{controlFormulaConcepto.autocompletarNuevoyDuplicadoFormulaConcepto('EMPRESA', controlFormulaConcepto.nuevaFormulaConcepto.nombreEmpresa, 1)}" />
@@ -440,7 +440,7 @@
                      <p:watermark for="nuevaEmpresa" value="#{msg['empresa']}" />
 
                      <strong><h:outputText value="*#{msg['nitN']}" style="position: absolute; top: 255px; left: 50px;" /></strong>
-                     <p:inputText id="nuevaNIT" value="#{controlFormulaConcepto.nuevaFormulaConcepto.nitEmpresa}" style="width: 122px; position: absolute; left: 220px; top: 250px; text-transform: uppercase" onclick="select();">
+                     <p:inputText  autocomplete="false"  id="nuevaNIT" value="#{controlFormulaConcepto.nuevaFormulaConcepto.nitEmpresa}" style="width: 122px; position: absolute; left: 220px; top: 250px; text-transform: uppercase" onclick="select();">
                         <p:ajax event="dblclick" listener="#{controlFormulaConcepto.asignarIndex(0,1)}"/>
                         <p:ajax event="click" listener="#{controlFormulaConcepto.valoresBackupAutocompletar(1, 'NIT')}" />
                         <p:ajax event="change" listener="#{controlFormulaConcepto.autocompletarNuevoyDuplicadoFormulaConcepto('NIT', controlFormulaConcepto.nuevaFormulaConcepto.nitEmpresa, 1)}" />
@@ -463,7 +463,7 @@
 
                      <strong><h:outputText value="*#{msg['fechaInicialN']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
                      <div id="posicionFechaIniDuplicarReg" style="position: absolute; top: 70px; left: 220px">
-                        <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarDateFechaInicial" value="#{controlFormulaConcepto.duplicarFormulaConcepto.fechainicial}" >
+                        <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="duplicarDateFechaInicial" value="#{controlFormulaConcepto.duplicarFormulaConcepto.fechainicial}" >
                            <p:ajax event="dateSelect" update="duplicarDateFechaInicial" process="@this"/>
                            <p:ajax event="change" update="duplicarDateFechaInicial" process="@this"/>
                         </p:calendar>
@@ -471,14 +471,14 @@
 
                      <strong><h:outputText value="*#{msg['fechaFinalN']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
                      <div id="posicionFechaFinDuplicarReg" style="position: absolute; top: 100px; left: 220px">
-                        <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarDateFechaFinal" value="#{controlFormulaConcepto.duplicarFormulaConcepto.fechafinal}" >
+                        <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="duplicarDateFechaFinal" value="#{controlFormulaConcepto.duplicarFormulaConcepto.fechafinal}" >
                            <p:ajax event="dateSelect" update="duplicarDateFechaFinal" process="@this"/>
                            <p:ajax event="change" update="duplicarDateFechaFinal" process="@this"/>
                         </p:calendar>
                      </div>
 
                      <strong><h:outputText value="*#{msg['codigoN']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
-                     <p:inputText id="duplicarCodigo" value="#{controlFormulaConcepto.duplicarFormulaConcepto.codigoConcepto}" style="width: 122px; position: absolute; left: 220px; top: 130px; text-transform: uppercase" onclick="select();" >
+                     <p:inputText  autocomplete="false"  id="duplicarCodigo" value="#{controlFormulaConcepto.duplicarFormulaConcepto.codigoConcepto}" style="width: 122px; position: absolute; left: 220px; top: 130px; text-transform: uppercase" onclick="select();" >
                         <p:ajax event="dblclick" listener="#{controlFormulaConcepto.asignarIndex(0,2)}"/>
                         <p:ajax event="click" listener="#{controlFormulaConcepto.valoresBackupAutocompletar(2, 'CODIGO')}" />
                         <p:ajax event="change" listener="#{controlFormulaConcepto.autocompletarNuevoyDuplicadoFormulaConcepto('CODIGO', controlFormulaConcepto.duplicarFormulaConcepto.codigoConcepto, 2)}" />
@@ -488,7 +488,7 @@
                      <p:watermark for="duplicarCodigo" value="#{msg['codigo']}" />
 
                      <strong><h:outputText value="*#{msg['descripcionN']}" style="position: absolute; top: 165px; left: 50px;" /></strong>
-                     <p:inputText id="duplicarConcepto" value="#{controlFormulaConcepto.duplicarFormulaConcepto.nombreConcepto}" style="width: 122px; position: absolute; left: 220px; top: 160px; text-transform: uppercase" onclick="select();">
+                     <p:inputText  autocomplete="false"  id="duplicarConcepto" value="#{controlFormulaConcepto.duplicarFormulaConcepto.nombreConcepto}" style="width: 122px; position: absolute; left: 220px; top: 160px; text-transform: uppercase" onclick="select();">
                         <p:ajax event="dblclick" listener="#{controlFormulaConcepto.asignarIndex(0,2)}"/>
                         <p:ajax event="click" listener="#{controlFormulaConcepto.valoresBackupAutocompletar(2, 'CONCEPTO')}" />
                         <p:ajax event="change" listener="#{controlFormulaConcepto.autocompletarNuevoyDuplicadoFormulaConcepto('CONCEPTO', controlFormulaConcepto.duplicarFormulaConcepto.nombreConcepto, 2)}" />
@@ -498,7 +498,7 @@
                      <p:watermark for="duplicarConcepto" value="#{msg['descripcion']}" />
 
                      <strong><h:outputText value="*#{msg['ordenN']}" style="position: absolute; top: 195px; left: 50px;" /></strong>
-                     <p:inputText id="duplicarOrden" value="#{controlFormulaConcepto.duplicarFormulaConcepto.strOrden}" style="width: 122px; position: absolute; left: 220px; top: 190px; text-transform: uppercase" onclick="select();">
+                     <p:inputText  autocomplete="false"  id="duplicarOrden" value="#{controlFormulaConcepto.duplicarFormulaConcepto.strOrden}" style="width: 122px; position: absolute; left: 220px; top: 190px; text-transform: uppercase" onclick="select();">
                         <p:ajax event="dblclick" listener="#{controlFormulaConcepto.asignarIndex(1,2)}"/>
                         <p:ajax event="click" listener="#{controlFormulaConcepto.valoresBackupAutocompletar(2, 'ORDEN')}" />
                         <p:ajax event="change" listener="#{controlFormulaConcepto.autocompletarNuevoyDuplicadoFormulaConcepto('ORDEN', controlFormulaConcepto.duplicarFormulaConcepto.strOrden, 2)}" />
@@ -508,7 +508,7 @@
                      <p:watermark for="duplicarOrden" value="#{msg['orden']}" />
 
                      <strong><h:outputText value="*#{msg['empresaN']}" style="position: absolute; top: 225px; left: 50px;" /></strong>
-                     <p:inputText id="duplicarEmpresa" value="#{controlFormulaConcepto.duplicarFormulaConcepto.nombreEmpresa}" style="width: 122px; position: absolute; left: 220px; top: 220px; text-transform: uppercase" onclick="select();">
+                     <p:inputText  autocomplete="false"  id="duplicarEmpresa" value="#{controlFormulaConcepto.duplicarFormulaConcepto.nombreEmpresa}" style="width: 122px; position: absolute; left: 220px; top: 220px; text-transform: uppercase" onclick="select();">
                         <p:ajax event="dblclick" listener="#{controlFormulaConcepto.asignarIndex(0,2)}"/>
                         <p:ajax event="click" listener="#{controlFormulaConcepto.valoresBackupAutocompletar(2, 'EMPRESA')}" />
                         <p:ajax event="change" listener="#{controlFormulaConcepto.autocompletarNuevoyDuplicadoFormulaConcepto('EMPRESA', controlFormulaConcepto.duplicarFormulaConcepto.nombreEmpresa, 2)}" />
@@ -518,7 +518,7 @@
                      <p:watermark for="duplicarEmpresa" value="#{msg['empresa']}" />
 
                      <strong><h:outputText value="*#{msg['nitN']}" style="position: absolute; top: 255px; left: 50px;" /></strong>
-                     <p:inputText id="duplicarNIT" value="#{controlFormulaConcepto.duplicarFormulaConcepto.nitEmpresa}" style="width: 122px; position: absolute; left: 220px; top: 250px; text-transform: uppercase" onclick="select();">
+                     <p:inputText  autocomplete="false"  id="duplicarNIT" value="#{controlFormulaConcepto.duplicarFormulaConcepto.nitEmpresa}" style="width: 122px; position: absolute; left: 220px; top: 250px; text-transform: uppercase" onclick="select();">
                         <p:ajax event="dblclick" listener="#{controlFormulaConcepto.asignarIndex(0,2)}"/>
                         <p:ajax event="click" listener="#{controlFormulaConcepto.valoresBackupAutocompletar(2, 'NIT')}" />
                         <p:ajax event="change" listener="#{controlFormulaConcepto.autocompletarNuevoyDuplicadoFormulaConcepto('NIT', controlFormulaConcepto.duplicarFormulaConcepto.nitEmpresa, 2)}" />

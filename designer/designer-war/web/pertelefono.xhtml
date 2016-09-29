@@ -105,7 +105,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar pattern="dd/MM/yyyy" id="editFecha" value="#{telefono.fechavigencia}">
+                                            <p:calendar  autocomplete="false"  pattern="dd/MM/yyyy" id="editFecha" value="#{telefono.fechavigencia}">
                                                 <p:ajax event="dateSelect"  update="editFecha"/>
                                                 <p:ajax event="change" />
                                                 <p:ajax event="select" listener="#{controlPerTelefonos.cambiarIndice(telefono, 0)}" />
@@ -123,7 +123,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{telefono.tipotelefono.nombre}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{telefono.tipotelefono.nombre}" id="editarTipoTelefono" style=" border-radius: 0px; width: 96.5%;text-transform: uppercase;height: 12px;"> 
+                                            <p:inputText  autocomplete="false"  value="#{telefono.tipotelefono.nombre}" id="editarTipoTelefono" style=" border-radius: 0px; width: 96.5%;text-transform: uppercase;height: 12px;"> 
                                                 <p:ajax event="change" listener="#{controlPerTelefonos.modificarTelefonos(telefono, 'TIPOTELEFONO', telefono.tipotelefono.nombre)}"/>
                                                 <p:ajax event="select" listener="#{controlPerTelefonos.cambiarIndice(telefono, 1)}" />
                                                 <p:ajax event="dblclick" listener="#{controlPerTelefonos.asignarIndex(telefono, 0, 0)}"/>
@@ -141,7 +141,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{telefono.numerotelefono}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{telefono.numerotelefono}" id="editarNumeroTelefono" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase ;height: 12px;" > 
+                                            <p:inputText  autocomplete="false"  value="#{telefono.numerotelefono}" id="editarNumeroTelefono" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase ;height: 12px;" > 
                                                 <p:keyFilter for="editarNumeroTelefono" mask="num"/>
                                                 <p:ajax event="select" listener="#{controlPerTelefonos.cambiarIndice(telefono, 2)}" />
                                                 <p:ajax event="change" listener="#{controlPerTelefonos.modificarTelefonos(telefono, 'N', telefono.numerotelefono)}"/>
@@ -158,7 +158,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{telefono.ciudad.nombre}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{telefono.ciudad.nombre}" id="editarCiudad" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase ;height: 12px;" > 
+                                            <p:inputText  autocomplete="false"  value="#{telefono.ciudad.nombre}" id="editarCiudad" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase ;height: 12px;" > 
                                                 <p:ajax event="change" listener="#{controlPerTelefonos.modificarTelefonos(telefono, 'CIUDAD', telefono.ciudad.nombre)}"/>
                                                 <p:ajax event="select" listener="#{controlPerTelefonos.cambiarIndice(telefono, 3)}" />
                                                 <p:ajax event="dblclick" listener="#{controlPerTelefonos.asignarIndex(telefono, 1, 0)}"/>
@@ -185,14 +185,14 @@
                         <p:panel id="nuevoTelefono" style="border: none;">
                             <strong><h:outputText value="* #{msg['fechaN']}" style=" position: absolute; top: 85px;" /></strong>
                             <div style=" position: absolute; top: 80px; left: 150px;">
-                                <p:calendar pattern="dd/MM/yyyy" id="nuevaFecha" value="#{controlPerTelefonos.nuevoTelefono.fechavigencia}">
+                                <p:calendar  autocomplete="false"  pattern="dd/MM/yyyy" id="nuevaFecha" value="#{controlPerTelefonos.nuevoTelefono.fechavigencia}">
                                     <p:ajax event="dateSelect" update="@this"/>
                                     <p:ajax event="change" update="@this"/>
                                 </p:calendar>
                             </div>
 
                             <strong><h:outputText value="* #{msg['tipoN']}" style=" position: absolute; top: 120px;" /></strong>
-                            <p:inputText id="nuevoTipoTelefono" value="#{controlPerTelefonos.nuevoTelefono.tipotelefono.nombre}" style=" width: 122px; position: absolute; left: 150px; top: 115px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="false"  id="nuevoTipoTelefono" value="#{controlPerTelefonos.nuevoTelefono.tipotelefono.nombre}" style=" width: 122px; position: absolute; left: 150px; top: 115px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlPerTelefonos.valoresBackupAutocompletar(1, 'TIPOT')}" />
                                 <p:ajax event="change" listener="#{controlPerTelefonos.autocompletarNuevoyDuplicado('TIPOT', controlPerTelefonos.nuevoTelefono.tipotelefono.nombre, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlPerTelefonos.asignarIndex(telefono, 0, 1)}" />
@@ -200,13 +200,13 @@
                             <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 285px; top: 115px;  " id="btnNuevoTipoTelefono" value=" " process="@this"  actionListener="#{controlPerTelefonos.asignarIndex(telefono, 0, 1)}"/>   
 
                             <strong><h:outputText value="* #{msg['numeroN']}"  style=" position: absolute; top: 155px;" /></strong>
-                            <p:inputText maxlength="12" id="nuevoNumero" value="#{controlPerTelefonos.nuevoTelefono.numerotelefono}" style=" width: 122px; position: absolute; left: 150px; top: 150px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="false"  maxlength="12" id="nuevoNumero" value="#{controlPerTelefonos.nuevoTelefono.numerotelefono}" style=" width: 122px; position: absolute; left: 150px; top: 150px; text-transform: uppercase" onclick="select();">
                                 <p:keyFilter for="nuevoNumero" mask="num"/>
                                 <p:ajax event="change" update="nuevoNumero"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['ciudadN']}" style=" position: absolute; top: 190px;" /></strong>
-                            <p:inputText id="nuevaCiudad" value="#{controlPerTelefonos.nuevoTelefono.ciudad.nombre}" style=" width: 122px; position: absolute; left: 150px; top: 185px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="false"  id="nuevaCiudad" value="#{controlPerTelefonos.nuevoTelefono.ciudad.nombre}" style=" width: 122px; position: absolute; left: 150px; top: 185px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlPerTelefonos.valoresBackupAutocompletar(1, 'CIUDAD')}" />
                                 <p:ajax event="change" listener="#{controlPerTelefonos.autocompletarNuevoyDuplicado('CIUDAD', controlPerTelefonos.nuevoTelefono.ciudad.nombre, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlPerTelefonos.asignarIndex(telefono, 1, 1)}" />
@@ -229,14 +229,14 @@
 
                             <strong><h:outputText value="* #{msg['fechaN']}" style=" position: absolute; top: 85px;" /></strong>
                             <div style=" position: absolute; top: 80px; left: 150px;">
-                                <p:calendar pattern="dd/MM/yyyy" id="duplicarFecha" value="#{controlPerTelefonos.duplicarTelefono.fechavigencia}">
+                                <p:calendar  autocomplete="false"  pattern="dd/MM/yyyy" id="duplicarFecha" value="#{controlPerTelefonos.duplicarTelefono.fechavigencia}">
                                     <p:ajax event="dateSelect" update="duplicarFecha"/>
                                     <p:ajax event="change" update="duplicarFecha"/>
                                 </p:calendar>
                             </div>
 
                             <strong><h:outputText value="* #{msg['tipoN']}" style=" position: absolute; top: 120px;" /></strong>
-                            <p:inputText id="duplicarTipoTelefono" value="#{controlPerTelefonos.duplicarTelefono.tipotelefono.nombre}" style=" width: 122px; position: absolute; left: 150px; top: 115px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="false"  id="duplicarTipoTelefono" value="#{controlPerTelefonos.duplicarTelefono.tipotelefono.nombre}" style=" width: 122px; position: absolute; left: 150px; top: 115px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlPerTelefonos.valoresBackupAutocompletar(2, 'TIPOT')}" />
                                 <p:ajax event="change" listener="#{controlPerTelefonos.autocompletarNuevoyDuplicado('TIPOT', controlPerTelefonos.duplicarTelefono.tipotelefono.nombre, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlPerTelefonos.asignarIndex(telefono, 0, 2)}" />
@@ -244,14 +244,14 @@
                             <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png);background-size: 100% 100%; background-repeat: no-repeat; border: none;  width: 23px; height: 23px; position: absolute; left: 285px; top: 115px;  " id="btnDuplicarTipoTelefono" value=" " process="@this"  actionListener="#{controlPerTelefonos.asignarIndex(telefono, 0, 2)}"/>   
 
                             <strong><h:outputText value="* #{msg['numeroN']}" style=" position: absolute; top: 155px;" /></strong>
-                            <p:inputText maxlength="12" id="duplicarNumero" value="#{controlPerTelefonos.duplicarTelefono.numerotelefono}" style=" width: 122px; position: absolute; left: 150px; top: 150px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="false"  maxlength="12" id="duplicarNumero" value="#{controlPerTelefonos.duplicarTelefono.numerotelefono}" style=" width: 122px; position: absolute; left: 150px; top: 150px; text-transform: uppercase" onclick="select();">
                                 <p:keyFilter for="duplicarNumero" mask="num"/>
                                 <p:ajax event="change" update="duplicarNumero"/>
                             </p:inputText>
                             <p:watermark for="duplicarNumero" value="Numero" />
 
                             <strong><h:outputText value="#{msg['ciudadN']}" style=" position: absolute; top: 190px;" /></strong>
-                            <p:inputText id="duplicarCiudad" value="#{controlPerTelefonos.duplicarTelefono.ciudad.nombre}" style=" width: 122px; position: absolute; left: 150px; top: 185px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="false"  id="duplicarCiudad" value="#{controlPerTelefonos.duplicarTelefono.ciudad.nombre}" style=" width: 122px; position: absolute; left: 150px; top: 185px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlPerTelefonos.valoresBackupAutocompletar(2, 'CIUDAD')}" />
                                 <p:ajax event="change" listener="#{controlPerTelefonos.autocompletarNuevoyDuplicado('CIUDAD', controlPerTelefonos.duplicarTelefono.ciudad.nombre, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlPerTelefonos.asignarIndex(telefono, 1 , 2)}" />
@@ -303,7 +303,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlPerTelefonos.actualizarTiposTelefonos()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarT']}"/>  
-                                <p:inputText id="globalFilter" onkeyup="LOVTiposTelefonos.filter();" class="cssFiltroLOV" />  
+                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="LOVTiposTelefonos.filter();" class="cssFiltroLOV" />  
                             </f:facet>
 
                             <p:column  filterBy="#{tipoTelefono.codigo}" width="50" filterMatchMode="contains" filterStyle="width: 40px;" > 
@@ -343,7 +343,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlPerTelefonos.actualizarCiudad()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarC']}" />  
-                                <p:inputText id="globalFilter" onkeyup="LOVCiudades.filter();" class="cssFiltroLOV" />  
+                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="LOVCiudades.filter();" class="cssFiltroLOV" />  
                             </f:facet>
 
                             <p:column  filterBy="#{ciudad.nombre}" width="50" filterMatchMode="contains" filterStyle="width: 100px;" > 

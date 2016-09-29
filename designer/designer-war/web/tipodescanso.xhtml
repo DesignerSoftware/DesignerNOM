@@ -29,7 +29,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.codigo}" maxlength="3" id="editarCodigo" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="false"  value="#{info.codigo}" maxlength="3" id="editarCodigo" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlTiposDescansos.cambiarIndice(indice, 0)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlTiposDescansos.modificarTiposDescansos(indice, 'N', info.codigo)}"  update="codigo"/>
                                             </p:inputText>
@@ -41,7 +41,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.descripcion}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.descripcion}" maxlength="50" id="editarNombre" style="height: 12px;  border-radius: 0px; width: 550px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="false"  value="#{info.descripcion}" maxlength="50" id="editarNombre" style="height: 12px;  border-radius: 0px; width: 550px; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlTiposDescansos.cambiarIndice(indice, 1)}" process="@this"/> 
                                                 <p:ajax event="change"  listener="#{controlTiposDescansos.modificarTiposDescansos(indice, 'N', info.descripcion)}" update="descripcion"/>
                                             </p:inputText>
@@ -53,7 +53,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.diastrabajados}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.diastrabajados}" id="editardiasTrabajados" style="height: 12px;  border-radius: 0px; width: 550px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="false"  value="#{info.diastrabajados}" id="editardiasTrabajados" style="height: 12px;  border-radius: 0px; width: 550px; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlTiposDescansos.cambiarIndice(indice, 2)}" process="@this"/> 
                                                 <p:ajax event="change"  listener="#{controlTiposDescansos.modificarTiposDescansos(indice, 'N', info.diastrabajados)}" update="descripcion"/>
                                             </p:inputText>
@@ -65,7 +65,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.diasdescansados}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.diasdescansados}" id="editardiasDescansados" style="height: 12px;  border-radius: 0px; width: 550px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="false"  value="#{info.diasdescansados}" id="editardiasDescansados" style="height: 12px;  border-radius: 0px; width: 550px; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlTiposDescansos.cambiarIndice(indice, 3)}" process="@this"/> 
                                                 <p:ajax event="change"  listener="#{controlTiposDescansos.modificarTiposDescansos(indice, 'N', info.diasdescansados)}" update="descripcion"/>
                                             </p:inputText>
@@ -252,24 +252,24 @@
                         <p:panel id="nuevaTipoempresa" style="border: none;">
 
                             <strong><h:outputText value="*Código : "  style="left: 10px; position: absolute; top: 60px;" /></strong>
-                            <p:inputText id="nuevoCodigo" maxlength="3" value="#{controlTiposDescansos.nuevoTiposDescansos.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
+                            <p:inputText  autocomplete="false"  id="nuevoCodigo" maxlength="3" value="#{controlTiposDescansos.nuevoTiposDescansos.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoCodigo" value="Código" />
 
                             <strong><h:outputText value="*Descripción: "  style="left: 10px; position: absolute; top: 90px;" /></strong>
-                            <p:inputText  id="nuevoNombre" maxlength="50" value="#{controlTiposDescansos.nuevoTiposDescansos.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
+                            <p:inputText  autocomplete="false"   id="nuevoNombre" maxlength="50" value="#{controlTiposDescansos.nuevoTiposDescansos.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoNombre" value="Descripcion" />
 
                             <strong><h:outputText value="Dias Trabajados : "  style="left: 10px; position: absolute; top: 120px;" /></strong>
-                            <p:inputText  id="nuevoDiasTrabajados" value="#{controlTiposDescansos.nuevoTiposDescansos.diastrabajados}" style=" width: 140px; position: absolute; left: 150px; top: 115px;text-transform: uppercase">
+                            <p:inputText  autocomplete="false"   id="nuevoDiasTrabajados" value="#{controlTiposDescansos.nuevoTiposDescansos.diastrabajados}" style=" width: 140px; position: absolute; left: 150px; top: 115px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoDiasTrabajados" value="Dias Trabajados "  />
                             <strong><h:outputText value="Dias Descansados : "  style="left: 10px; position: absolute; top: 150px;" /></strong>
-                            <p:inputText  id="nuevoDiasDescansados" value="#{controlTiposDescansos.nuevoTiposDescansos.diasdescansados}" style=" width: 140px; position: absolute; left: 150px; top: 145px;text-transform: uppercase">
+                            <p:inputText  autocomplete="false"   id="nuevoDiasDescansados" value="#{controlTiposDescansos.nuevoTiposDescansos.diasdescansados}" style=" width: 140px; position: absolute; left: 150px; top: 145px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoDiasDescansados" value="Dias Descansados" />
@@ -286,23 +286,23 @@
 
                         <p:panel id="duplicarTE" style="border: none;">
                             <strong><h:outputText value="*Código : "  style="left: 10px; position: absolute; top: 60px;" /></strong>
-                            <p:inputText id="duplicarCodigo" maxlength="3" value="#{controlTiposDescansos.duplicarTiposDescansos.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
+                            <p:inputText  autocomplete="false"  id="duplicarCodigo" maxlength="3" value="#{controlTiposDescansos.duplicarTiposDescansos.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarCodigo" value="Código" />
 
                             <strong><h:outputText value="*Descripción :"  style="left: 10px; position: absolute; top: 90px;" /></strong>
-                            <p:inputText id="duplicarNombre" maxlength="50" value="#{controlTiposDescansos.duplicarTiposDescansos.descripcion}"  style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
+                            <p:inputText  autocomplete="false"  id="duplicarNombre" maxlength="50" value="#{controlTiposDescansos.duplicarTiposDescansos.descripcion}"  style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarNombre" value="Descripcion" />
                             <strong><h:outputText value="Días Trabajados : "  style="left: 10px; position: absolute; top: 120px;" /></strong>
-                            <p:inputText  id="duplicarDiasTrabajados" value="#{controlTiposDescansos.duplicarTiposDescansos.diastrabajados}" style=" width: 140px; position: absolute; left: 150px; top: 115px;text-transform: uppercase">
+                            <p:inputText  autocomplete="false"   id="duplicarDiasTrabajados" value="#{controlTiposDescansos.duplicarTiposDescansos.diastrabajados}" style=" width: 140px; position: absolute; left: 150px; top: 115px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarDiasTrabajados" value="Dias Trabajados" />
                             <strong><h:outputText value="Días Descansados : "  style="left: 10px; position: absolute; top: 150px;" /></strong>
-                            <p:inputText  id="duplicarDiasDescansados" value="#{controlTiposDescansos.duplicarTiposDescansos.diasdescansados}" style=" width: 140px; position: absolute; left: 150px; top: 145px;text-transform: uppercase">
+                            <p:inputText  autocomplete="false"   id="duplicarDiasDescansados" value="#{controlTiposDescansos.duplicarTiposDescansos.diasdescansados}" style=" width: 140px; position: absolute; left: 150px; top: 145px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarDiasDescansados" value="Dias Descansados" />

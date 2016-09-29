@@ -94,7 +94,7 @@
                                     <p:cellEditor>
                                         <f:facet name="output"> <h:outputText value="#{cabecera.empresa.nombre}" /> </f:facet>   
                                         <f:facet name="input">
-                                            <p:inputText value="#{cabecera.empresa.nombre}" style="border-radius: 0px; width: 98.5%;" >  
+                                            <p:inputText  autocomplete="false"  value="#{cabecera.empresa.nombre}" style="border-radius: 0px; width: 98.5%;" >  
                                                 <p:ajax event="change" listener="#{controlOdiCabecera.modificarOdiCabecera(cabecera, 'EMPRESAS', cabecera.empresa.nombre)}"/>
                                                 <p:ajax event="select" listener="#{controlOdiCabecera.cambiarIndice(cabecera, 0)}" />
                                                 <p:ajax event="dblclick" listener="#{controlOdiCabecera.asignarIndex(cabecera, 0,0)}"/>
@@ -113,7 +113,7 @@
                                     <p:cellEditor>
                                         <f:facet name="output"> <h:outputText value="#{cabecera.sucursalpila.descripcion}"/> </f:facet>   
                                         <f:facet name="input">
-                                            <p:inputText value="#{cabecera.sucursalpila.descripcion}"  style="border-radius: 0px; width: 98.5%;" >
+                                            <p:inputText  autocomplete="false"  value="#{cabecera.sucursalpila.descripcion}"  style="border-radius: 0px; width: 98.5%;" >
                                                 <p:ajax event="change" listener="#{controlOdiCabecera.modificarOdiCabecera(cabecera, 'SUCURSAL', cabecera.empresa.nombre)}"/>
                                                 <p:ajax event="select" listener="#{controlOdiCabecera.cambiarIndice(cabecera, 1)}" />
                                                 <p:ajax event="dblclick" listener="#{controlOdiCabecera.asignarIndex(cabecera, 1,0)}"/>  
@@ -132,7 +132,7 @@
                                     <p:cellEditor>
                                         <f:facet name="output"> <h:outputText value="#{cabecera.tercero.nombre}"/>    </f:facet>   
                                         <f:facet name="input">
-                                            <p:inputText value="#{cabecera.tercero.nombre}"  style="border-radius: 0px; width: 98.5%;" >
+                                            <p:inputText  autocomplete="false"  value="#{cabecera.tercero.nombre}"  style="border-radius: 0px; width: 98.5%;" >
                                                 <p:ajax event="select" listener="#{controlOdiCabecera.cambiarIndice(cabecera, 2)}" />    
                                             </p:inputText>   
                                         </f:facet>
@@ -148,7 +148,7 @@
                                     <p:cellEditor>
                                         <f:facet name="output"> <h:outputText value="#{cabecera.tipoentidad.nombre}"/>    </f:facet>   
                                         <f:facet name="input">
-                                            <p:inputText value="#{cabecera.tipoentidad.nombre}"  style="border-radius: 0px; width: 98.5%;" > 
+                                            <p:inputText  autocomplete="false"  value="#{cabecera.tipoentidad.nombre}"  style="border-radius: 0px; width: 98.5%;" > 
                                                 <p:ajax event="change" listener="#{controlOdiCabecera.modificarOdiCabecera(cabecera, 'TIPOENTIDAD', cabecera.empresa.nombre)}"/>
                                                 <p:ajax event="select" listener="#{controlOdiCabecera.cambiarIndice(cabecera, 3)}" />
                                                 <p:ajax event="dblclick" listener="#{controlOdiCabecera.asignarIndex(cabecera, 4,0)}"/>  
@@ -166,7 +166,7 @@
                                     <p:cellEditor>
                                         <f:facet name="output"> <h:outputText value="#{cabecera.valortotal}"/>    </f:facet>   
                                         <f:facet name="input">
-                                            <p:inputText value="#{cabecera.valortotal}"  style="border-radius: 0px; width: 98.5%;" >   
+                                            <p:inputText  autocomplete="false"  value="#{cabecera.valortotal}"  style="border-radius: 0px; width: 98.5%;" >   
                                                 <p:ajax event="select" listener="#{controlOdiCabecera.cambiarIndice(cabecera, 4)}" />    
                                             </p:inputText>       
                                         </f:facet>
@@ -182,7 +182,7 @@
                                     <p:cellEditor>
                                         <f:facet name="output"> <h:outputText value="#{cabecera.numeroautorizacion}"/>    </f:facet>   
                                         <f:facet name="input">
-                                            <p:inputText value="#{cabecera.numeroautorizacion}" maxlength="50"  style="border-radius: 0px; width: 98.5%;">
+                                            <p:inputText  autocomplete="false"  value="#{cabecera.numeroautorizacion}" maxlength="50"  style="border-radius: 0px; width: 98.5%;">
                                                 <p:ajax event="select" listener="#{controlOdiCabecera.cambiarIndice(cabecera, 5)}" />    
                                             </p:inputText>    
                                         </f:facet>
@@ -240,7 +240,7 @@
                                     <p:cellEditor>
                                         <f:facet name="output"> <h:outputText value="#{cabecera.anio}"/>    </f:facet>   
                                         <f:facet name="input">
-                                            <p:inputText value="#{cabecera.anio}"  style="border-radius: 0px; width: 98.5%;"  readonly="true"
+                                            <p:inputText  autocomplete="false"  value="#{cabecera.anio}"  style="border-radius: 0px; width: 98.5%;"  readonly="true"
                                                          onselect="posicionOtro([{name: 'celda', value: '8'}, {name: 'registro', value: '#{indice}'}]);">
                                                 <p:ajax event="select" listener="#{controlOdiCabecera.cambiarIndice(cabecera, 7)}" />    
                                             </p:inputText>    
@@ -258,7 +258,7 @@
                                     <p:cellEditor>
                                         <f:facet name="output"> <h:outputText value="#{cabecera.mes}"/>    </f:facet>   
                                         <f:facet name="input">
-                                            <p:inputText value="#{cabecera.mes}" readonly="true" style="border-radius: 0px; width: 98.5%;"
+                                            <p:inputText  autocomplete="false"  value="#{cabecera.mes}" readonly="true" style="border-radius: 0px; width: 98.5%;"
                                                          onselect="posicionOtro([{name: 'celda', value: '9'}, {name: 'registro', value: '#{indice}'}]);">
                                                 <p:ajax event="select" listener="#{controlOdiCabecera.cambiarIndice(cabecera, 8)}" />    
                                             </p:inputText>       
@@ -287,7 +287,7 @@
                                     <p:cellEditor >
                                         <f:facet name="output"> <h:outputText value="#{detalles.empleado.persona.nombreCompleto}" /> </f:facet>   
                                         <f:facet name="input">
-                                            <p:inputText value="#{cabecera.empresa.nombre}" style="border-radius: 0px; width: 98.5%;" >  
+                                            <p:inputText  autocomplete="false"  value="#{cabecera.empresa.nombre}" style="border-radius: 0px; width: 98.5%;" >  
                                                 <p:ajax event="change" listener="#{controlOdiCabecera.modificarOdiDetalles(detalles, 'EMPLEADO', detalles.empleado.persona.nombreCompleto)}"/>
                                                 <p:ajax event="select" listener="#{controlOdiCabecera.cambiarIndiceDetalles(detalles, 0)}" />
                                                 <p:ajax event="dblclick" listener="#{controlOdiCabecera.asignarIndexDetalles(detalles, 0,0)}"/>
@@ -307,7 +307,7 @@
                                     <p:cellEditor >
                                         <f:facet name="output"> <h:outputText value="#{detalles.numerodetalle}"/> </f:facet>   
                                         <f:facet name="input" >
-                                            <p:inputText value="#{detalles.numerodetalle}"  style="border-radius: 0px; width: 98.5%;" >
+                                            <p:inputText  autocomplete="false"  value="#{detalles.numerodetalle}"  style="border-radius: 0px; width: 98.5%;" >
                                                 <p:ajax event="change" update="numdetalle"/>
                                                 <p:ajax event="select" listener="#{controlOdiCabecera.cambiarIndiceDetalles(detalles, 1)}" />
                                             </p:inputText>    
@@ -325,7 +325,7 @@
                                     <p:cellEditor>
                                         <f:facet name="output"> <h:outputText value="#{detalles.observacion}"/>    </f:facet>   
                                         <f:facet name="input">
-                                            <p:inputText value="#{detalles.observacion}"  style="border-radius: 0px; width: 98.5%;" >
+                                            <p:inputText  autocomplete="false"  value="#{detalles.observacion}"  style="border-radius: 0px; width: 98.5%;" >
                                                 <p:ajax event="select" listener="#{controlOdiCabecera.cambiarIndiceDetalles(detalles, 2)}" />    
                                             </p:inputText>   
                                         </f:facet>
@@ -341,7 +341,7 @@
                                     <p:cellEditor>
                                         <f:facet name="output"> <h:outputText value="#{detalles.valor}"/>    </f:facet>   
                                         <f:facet name="input">
-                                            <p:inputText value="#{detalles.valor}"  style="border-radius: 0px; width: 98.5%;" >   
+                                            <p:inputText  autocomplete="false"  value="#{detalles.valor}"  style="border-radius: 0px; width: 98.5%;" >   
                                                 <p:ajax event="select" listener="#{controlOdiCabecera.cambiarIndiceDetalles(detalles, 3)}" />    
                                             </p:inputText>       
                                         </f:facet>
@@ -357,7 +357,7 @@
                                     <p:cellEditor>
                                         <f:facet name="output"> <h:outputText value="#{detalles.relacionincapacidad}"/>    </f:facet>   
                                         <!--<f:facet name="input">-->
-<!--                                            <p:inputText value="#{detalles.relacionincapacidad}"  style="border-radius: 0px; width: 98.5%;" > 
+<!--                                            <p:inputText  autocomplete="false"  value="#{detalles.relacionincapacidad}"  style="border-radius: 0px; width: 98.5%;" > 
                                                 <p:ajax event="change" listener="#{controlOdiCabecera.modificarOdiDetalles(cabecera, 'TIPOENTIDAD', cabecera.empresa.nombre)}"/>
                                                 <p:ajax event="select" listener="#{controlOdiCabecera.cambiarIndice(cabecera, 4)}" />
                                                 <p:ajax event="dblclick" listener="#{controlOdiCabecera.asignarIndex(cabecera, 4,0)}"/>  
@@ -375,7 +375,7 @@
                                     <p:cellEditor>
                                         <f:facet name="output"> <h:outputText value="#{detalles.relacionincapacidad.soausentismos.numerocertificado}"/>    </f:facet>   
                                         <f:facet name="input">
-                                            <p:inputText value="#{detalles.relacionincapacidad.soausentismos.numerocertificado}" maxlength="50"  style="border-radius: 0px; width: 98.5%;">
+                                            <p:inputText  autocomplete="false"  value="#{detalles.relacionincapacidad.soausentismos.numerocertificado}" maxlength="50"  style="border-radius: 0px; width: 98.5%;">
                                                 <p:ajax event="select" listener="#{controlOdiCabecera.cambiarIndiceDetalles(detalles, 5)}" />    
                                             </p:inputText>    
                                         </f:facet>
@@ -390,7 +390,7 @@
                                           filterMatchMode="contains" filterBy="#{detalles.relacionincapacidad.valorcobro}" filterStyle="display: none; visibility: hidden;">
                                     <p:cellEditor>
                                         <f:facet name ="output"><h:outputText value="#{detalles.relacionincapacidad.valorcobro}"  style="text-transform: uppercase"/> </f:facet>
-                                        <p:inputText readonly="true" value="#{detalles.relacionincapacidad.valorcobro}" maxlength="50"   style="border-radius: 0px; width: 98.5%;">
+                                        <p:inputText  autocomplete="false"  readonly="true" value="#{detalles.relacionincapacidad.valorcobro}" maxlength="50"   style="border-radius: 0px; width: 98.5%;">
                                             <!--<p:ajax event="select" listener="#{controlOdiCabecera.cambiarIndiceDetalles(detalles, 5)}" />-->    
                                         </p:inputText>    
                                         <f:facet name="footer">
@@ -497,7 +497,7 @@
                         <p:panel id="nuevaOdiCabecera" style="border: none;">
 
                             <strong><h:outputText value="Empresa" style="position: absolute; top: 80px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaEmpresa" value="#{controlOdiCabecera.nuevaOdiCabecera.empresa.nombre}"
+                            <p:inputText  autocomplete="false"  id="nuevaEmpresa" value="#{controlOdiCabecera.nuevaOdiCabecera.empresa.nombre}"
                                          style="width: 122px; position: absolute; left: 220px; top: 75px;">
                                 <p:ajax event="dblclick" listener="#{controlOdiCabecera.asignarIndex(novedades,0,1)}"/>
                                 <p:ajax event="click" listener="#{controlOdiCabecera.valoresBackupAutocompletar(1, 'EMPRESA')}" />
@@ -509,7 +509,7 @@
 
 
                             <strong><h:outputText value="Sucursal" style="position: absolute; top: 110px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaSucursal" value="#{controlOdiCabecera.nuevaOdiCabecera.sucursalpila.descripcion}"
+                            <p:inputText  autocomplete="false"  id="nuevaSucursal" value="#{controlOdiCabecera.nuevaOdiCabecera.sucursalpila.descripcion}"
                                          style="width: 122px; position: absolute; left: 220px; top: 105px;">
                                 <p:ajax event="dblclick" listener="#{controlOdiCabecera.asignarIndex(novedades,1,1)}"/>
                                 <p:ajax event="click" listener="#{controlOdiCabecera.valoresBackupAutocompletar(1, 'SUCURSAL')}" />
@@ -520,7 +520,7 @@
                             <p:watermark for="nuevaSucursal" value="Sucursal" />
 
                             <strong><h:outputText value="Tercero" style="position: absolute; top: 140px; left: 50px;" /></strong>
-                            <p:inputText id="nuevonombretercero"  value="#{controlOdiCabecera.nuevaOdiCabecera.tercero.nombre}" style="width: 122px; position: absolute; left: 220px; top: 135px;">
+                            <p:inputText  autocomplete="false"  id="nuevonombretercero"  value="#{controlOdiCabecera.nuevaOdiCabecera.tercero.nombre}" style="width: 122px; position: absolute; left: 220px; top: 135px;">
                                 <p:ajax event="dblclick" listener="#{controlOdiCabecera.asignarIndex(novedades,2,1)}"/>
                                 <!--                                <p:ajax event="change" update="nuevonombretercero"/>-->
                                 <p:ajax event="click" listener="#{controlOdiCabecera.valoresBackupAutocompletar(1, 'TERCERO')}" />
@@ -531,7 +531,7 @@
                             <p:watermark for="nuevonombretercero" value="Nombre Tercero" />
 
                             <strong><h:outputText value="Tipo Entidad" style="position: absolute; top: 170px; left: 50px;" /></strong>
-                            <p:inputText id="nuevoTipoEntidad" value="#{controlOdiCabecera.nuevaOdiCabecera.tipoentidad.nombre}"
+                            <p:inputText  autocomplete="false"  id="nuevoTipoEntidad" value="#{controlOdiCabecera.nuevaOdiCabecera.tipoentidad.nombre}"
                                          style="width: 122px; position: absolute; left: 220px; top: 165px;">
                                 <p:ajax event="dblclick" listener="#{controlOdiCabecera.asignarIndex(novedades,3,1)}" process="@this"/>
                                 <p:ajax event="click" listener="#{controlOdiCabecera.valoresBackupAutocompletar(1, 'TIPOENTIDAD')}" />
@@ -542,19 +542,19 @@
                             <p:watermark for="nuevoTipoEntidad" value="Tipo Entidad" />
 
                             <strong><h:outputText value="Valor" style="position: absolute; top: 200px; left: 50px;" /></strong>
-                            <p:inputText id="nuevoValor" value="#{controlOdiCabecera.nuevaOdiCabecera.valortotal}"  style="width: 122px; position: absolute; left: 220px; top: 195px;">
+                            <p:inputText  autocomplete="false"  id="nuevoValor" value="#{controlOdiCabecera.nuevaOdiCabecera.valortotal}"  style="width: 122px; position: absolute; left: 220px; top: 195px;">
                                 <p:ajax event="change" update="nuevoValor"/>
                             </p:inputText>
                             <p:watermark for="nuevoValor" value="Valor Total" />
 
                             <strong><h:outputText value="Número de Autorización" style="position: absolute; top: 230px; left: 50px;" /></strong>
-                            <p:inputText id="nuevonumAutorizacion" value="#{controlOdiCabecera.nuevaOdiCabecera.numeroautorizacion}" maxlength="20" style="width: 122px; position: absolute; left: 220px; top: 225px;">
+                            <p:inputText  autocomplete="false"  id="nuevonumAutorizacion" value="#{controlOdiCabecera.nuevaOdiCabecera.numeroautorizacion}" maxlength="20" style="width: 122px; position: absolute; left: 220px; top: 225px;">
                                 <p:ajax event="change" update="nuevonumAutorizacion"/>
                             </p:inputText>
                             <p:watermark for="nuevonumAutorizacion" value="Número de Autorización" />
 
                             <strong><h:outputText value="Origen Incapacidad" style="position: absolute; top: 260px; left: 50px;" /></strong>
-<!--                            <p:inputText id="nuevoorigen" value="#{controlOdiCabecera.nuevaOdiCabecera.origenincapacidad}" maxlength="3" style="width: 122px; position: absolute; left: 220px; top: 255px;">
+<!--                            <p:inputText  autocomplete="false"  id="nuevoorigen" value="#{controlOdiCabecera.nuevaOdiCabecera.origenincapacidad}" maxlength="3" style="width: 122px; position: absolute; left: 220px; top: 255px;">
                                 <p:ajax event="change" update="nuevoorigen"/>-->
                             <p:selectOneMenu value="#{controlOdiCabecera.nuevaOdiCabecera.origenincapacidad}" id="nuevoorigen" maxlength="3"  style="width: 122px; position: absolute; left: 220px; top: 255px;font-weight: bold;text-transform: uppercase;"  >  
                                 <f:selectItem itemLabel="EG" itemValue="EG" />  
@@ -574,13 +574,13 @@
                             </p:selectBooleanCheckbox>
 
                             <strong><h:outputText value="* Año" style="position: absolute; top: 320px; left: 50px;" /></strong>
-                            <p:inputText id="nuevoAnio" value="#{controlOdiCabecera.nuevaOdiCabecera.anio}" readonly="true" style="width: 122px; position: absolute; left: 220px; top: 315px;">
+                            <p:inputText  autocomplete="false"  id="nuevoAnio" value="#{controlOdiCabecera.nuevaOdiCabecera.anio}" readonly="true" style="width: 122px; position: absolute; left: 220px; top: 315px;">
                                 <p:ajax event="change" update="nuevoAnio"/>
                             </p:inputText>
                             <p:watermark for="nuevoAnio" value="Año" />
 
                             <strong><h:outputText value="* Mes" style="position: absolute; top: 350px; left: 50px;" /></strong>
-                            <p:inputText id="nuevoMes" value="#{controlOdiCabecera.nuevaOdiCabecera.mes}" readonly="true" style="width: 122px; position: absolute; left: 220px; top: 345px;">
+                            <p:inputText  autocomplete="false"  id="nuevoMes" value="#{controlOdiCabecera.nuevaOdiCabecera.mes}" readonly="true" style="width: 122px; position: absolute; left: 220px; top: 345px;">
                                 <p:ajax event="change" update="nuevoMes"/>
                             </p:inputText>
                             <p:watermark for="nuevoMes" value="Mes" />
@@ -598,7 +598,7 @@
                         <p:panel id="duplicarOdiCabecera" style="border: none;">
 
                             <strong><h:outputText value="Empresa" style="position: absolute; top: 80px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarEmpresa" value="#{controlOdiCabecera.duplicarOdiCabecera.empresa.nombre}"   style="width: 122px; position: absolute; left: 220px; top: 75px;">
+                            <p:inputText  autocomplete="false"  id="duplicarEmpresa" value="#{controlOdiCabecera.duplicarOdiCabecera.empresa.nombre}"   style="width: 122px; position: absolute; left: 220px; top: 75px;">
                                 <p:ajax event="dblclick" listener="#{controlOdiCabecera.asignarIndex(novedades,0,2)}"/>
                                 <p:ajax event="click" listener="#{controlOdiCabecera.valoresBackupAutocompletar(2, 'EMPRESA')}" />
                                 <p:ajax event="change" listener="#{controlOdiCabecera.autocompletarNuevoyDuplicado('EMPRESA', controlOdiCabecera.duplicarOdiCabecera.empresa.nombre, 2)}" />
@@ -609,7 +609,7 @@
 
 
                             <strong><h:outputText value="Sucursal" style="position: absolute; top: 110px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarSucursal" value="#{controlOdiCabecera.duplicarOdiCabecera.sucursalpila.descripcion}"
+                            <p:inputText  autocomplete="false"  id="duplicarSucursal" value="#{controlOdiCabecera.duplicarOdiCabecera.sucursalpila.descripcion}"
                                          style="width: 122px; position: absolute; left: 220px; top: 105px;">
                                 <p:ajax event="dblclick" listener="#{controlOdiCabecera.asignarIndex(novedades,1,2)}"/>
                                 <p:ajax event="click" listener="#{controlOdiCabecera.valoresBackupAutocompletar(2, 'SUCURSAL')}" />
@@ -620,7 +620,7 @@
                             <p:watermark for="duplicarSucursal" value="Sucursal" />
 
                             <strong><h:outputText value="Tercero" style="position: absolute; top: 140px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarnombretercero"  value="#{controlOdiCabecera.duplicarOdiCabecera.tercero.nombre}" style="width: 122px; position: absolute; left: 220px; top: 135px;">
+                            <p:inputText  autocomplete="false"  id="duplicarnombretercero"  value="#{controlOdiCabecera.duplicarOdiCabecera.tercero.nombre}" style="width: 122px; position: absolute; left: 220px; top: 135px;">
                                 <p:ajax event="dblclick" listener="#{controlOdiCabecera.asignarIndex(novedades,2,2)}"/>
                                 <p:ajax event="change" update="duplicarnombretercero"/>
                                 <p:ajax event="click" listener="#{controlOdiCabecera.valoresBackupAutocompletar(2, 'TERCERO')}" />
@@ -631,7 +631,7 @@
                             <p:watermark for="duplicarnombretercero" value="Nombre Tercero" />
 
                             <strong><h:outputText value="Tipo Entidad" style="position: absolute; top: 170px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarTipoEntidad" value="#{controlOdiCabecera.duplicarOdiCabecera.tipoentidad.nombre}"
+                            <p:inputText  autocomplete="false"  id="duplicarTipoEntidad" value="#{controlOdiCabecera.duplicarOdiCabecera.tipoentidad.nombre}"
                                          style="width: 122px; position: absolute; left: 220px; top: 165px;">
                                 <p:ajax event="dblclick" listener="#{controlOdiCabecera.asignarIndex(novedades,3,2)}" process="@this"/>
                                 <p:ajax event="click" listener="#{controlOdiCabecera.valoresBackupAutocompletar(2, 'TIPOENTIDAD')}" />
@@ -642,19 +642,19 @@
                             <p:watermark for="duplicarTipoEntidad" value="Tipo Entidad" />
 
                             <strong><h:outputText value="Valor" style="position: absolute; top: 200px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarValor" value="#{controlOdiCabecera.duplicarOdiCabecera.valortotal}"  style="width: 122px; position: absolute; left: 220px; top: 195px;">
+                            <p:inputText  autocomplete="false"  id="duplicarValor" value="#{controlOdiCabecera.duplicarOdiCabecera.valortotal}"  style="width: 122px; position: absolute; left: 220px; top: 195px;">
                                 <p:ajax event="change" update="duplicarValor"/>
                             </p:inputText>
                             <p:watermark for="duplicarValor" value="Valor Total" />
 
                             <strong><h:outputText value="Número de Autorización" style="position: absolute; top: 230px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarnumAutorizacion" value="#{controlOdiCabecera.duplicarOdiCabecera.numeroautorizacion}" maxlength="20" style="width: 122px; position: absolute; left: 220px; top: 225px;">
+                            <p:inputText  autocomplete="false"  id="duplicarnumAutorizacion" value="#{controlOdiCabecera.duplicarOdiCabecera.numeroautorizacion}" maxlength="20" style="width: 122px; position: absolute; left: 220px; top: 225px;">
                                 <p:ajax event="change" update="duplicarnumAutorizacion"/>
                             </p:inputText>
                             <p:watermark for="duplicarnumAutorizacion" value="Número de Autorización" />
 
                             <strong><h:outputText value="Origen Incapacidad" style="position: absolute; top: 260px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarorigen" value="#{controlOdiCabecera.duplicarOdiCabecera.origenincapacidad}" maxlength="3" style="width: 122px; position: absolute; left: 220px; top: 255px;">
+                            <p:inputText  autocomplete="false"  id="duplicarorigen" value="#{controlOdiCabecera.duplicarOdiCabecera.origenincapacidad}" maxlength="3" style="width: 122px; position: absolute; left: 220px; top: 255px;">
                                 <p:ajax event="change" update="duplicarorigen"/>
                                 <p:selectOneMenu value="#{controlOdiCabecera.duplicarOdiCabecera.origenincapacidad}" id="dupOrigen" maxlength="3"  style="width: 122px; position: absolute; left: 220px; top: 255px;font-weight: bold;text-transform: uppercase;"  >  
                                     <f:selectItem itemLabel="EG" itemValue="EG" />  
@@ -674,13 +674,13 @@
                             </p:selectBooleanCheckbox>
 
                             <strong><h:outputText value="* Año" style="position: absolute; top: 320px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarAnio" value="#{controlOdiCabecera.duplicarOdiCabecera.anio}" readonly="true" style="width: 122px; position: absolute; left: 220px; top: 315px;">
+                            <p:inputText  autocomplete="false"  id="duplicarAnio" value="#{controlOdiCabecera.duplicarOdiCabecera.anio}" readonly="true" style="width: 122px; position: absolute; left: 220px; top: 315px;">
                                 <p:ajax event="change" update="duplicarAnio"/>
                             </p:inputText>
                             <p:watermark for="duplicarAnio" value="Año" />
 
                             <strong><h:outputText value="* Mes" style="position: absolute; top: 350px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarMes" value="#{controlOdiCabecera.duplicarOdiCabecera.mes}" readonly="true" style="width: 122px; position: absolute; left: 220px; top: 345px;">
+                            <p:inputText  autocomplete="false"  id="duplicarMes" value="#{controlOdiCabecera.duplicarOdiCabecera.mes}" readonly="true" style="width: 122px; position: absolute; left: 220px; top: 345px;">
                                 <p:ajax event="change" update="duplicarMes"/>
                             </p:inputText>
                             <p:watermark for="duplicarMes" value="Mes" />
@@ -698,7 +698,7 @@
                         <p:panel id="nuevoOdiDetalle" style="border: none;">
 
                             <strong><h:outputText value="Empleado" style="position: absolute; top: 80px; left: 50px;" /></strong>
-                            <p:inputText id="nuevoEmpleado" value="#{controlOdiCabecera.nuevaOdiDetalles.empleado.persona.nombreCompleto}"
+                            <p:inputText  autocomplete="false"  id="nuevoEmpleado" value="#{controlOdiCabecera.nuevaOdiDetalles.empleado.persona.nombreCompleto}"
                                          style="width: 122px; position: absolute; left: 220px; top: 75px;">
                                 <p:ajax event="dblclick" listener="#{controlOdiCabecera.asignarIndexDetalles(detalles, 1, 1)}"/>
                                 <p:ajax event="click" listener="#{controlOdiCabecera.valoresBackupAutocompletar(1, 'EMPLEADO')}" />
@@ -709,39 +709,39 @@
                             <p:watermark for="nuevoEmpleado" value="Empleado" />
 
                             <strong><h:outputText value="Número de Detalle" style="position: absolute; top: 110px; left: 50px;" /></strong>
-                            <p:inputText id="nuevoNumDetalle" value="#{controlOdiCabecera.nuevaOdiDetalles.numerodetalle}"
+                            <p:inputText  autocomplete="false"  id="nuevoNumDetalle" value="#{controlOdiCabecera.nuevaOdiDetalles.numerodetalle}"
                                          style="width: 122px; position: absolute; left: 220px; top: 105px;">
                                 <p:ajax event="change" update="nuevoNumDetalle" />
                             </p:inputText>
                             <p:watermark for="nuevoNumDetalle" value="Número de Detalle" />
 
                             <strong><h:outputText value="Observación" style="position: absolute; top: 140px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaObservacion"  value="#{controlOdiCabecera.nuevaOdiDetalles.observacion}" style="width: 122px; position: absolute; left: 220px; top: 135px;">
+                            <p:inputText  autocomplete="false"  id="nuevaObservacion"  value="#{controlOdiCabecera.nuevaOdiDetalles.observacion}" style="width: 122px; position: absolute; left: 220px; top: 135px;">
                                 <p:ajax event="change" update="nuevaObservacion" />
                             </p:inputText>
                             <p:watermark for="nuevaObservacion" value="Observación" />
 
                             <strong><h:outputText value="Valor" style="position: absolute; top: 170px; left: 50px;" /></strong>
-                            <p:inputText id="nuevoValorDetalle" value="#{controlOdiCabecera.nuevaOdiDetalles.valor}"
+                            <p:inputText  autocomplete="false"  id="nuevoValorDetalle" value="#{controlOdiCabecera.nuevaOdiDetalles.valor}"
                                          style="width: 122px; position: absolute; left: 220px; top: 165px;">
                                 <p:ajax event="change" update="nuevoValorDetalle"/>
                             </p:inputText>
                             <p:watermark for="nuevoValorDetalle" value="Valor" />
 
                             <strong><h:outputText value="Relación Incapacidad" style="position: absolute; top: 200px; left: 50px;" /></strong>
-                            <p:inputText id="nuevoRelInca" value="#{controlOdiCabecera.nuevaOdiDetalles.relacionincapacidad.valorcobro}"  style="width: 122px; position: absolute; left: 220px; top: 195px;">
+                            <p:inputText  autocomplete="false"  id="nuevoRelInca" value="#{controlOdiCabecera.nuevaOdiDetalles.relacionincapacidad.valorcobro}"  style="width: 122px; position: absolute; left: 220px; top: 195px;">
                                 <p:ajax event="change" update="nuevoValor"/>
                             </p:inputText>
                             <p:watermark for="nuevoRelInca" value="Relación Incapacidad" />
 
                             <strong><h:outputText value="Número de Certificado" style="position: absolute; top: 230px; left: 50px;" /></strong>
-                            <p:inputText id="nuevonumCertificado" value="#{controlOdiCabecera.nuevaOdiDetalles.relacionincapacidad.soausentismos.numerocertificado}" maxlength="20" style="width: 122px; position: absolute; left: 220px; top: 225px;">
+                            <p:inputText  autocomplete="false"  id="nuevonumCertificado" value="#{controlOdiCabecera.nuevaOdiDetalles.relacionincapacidad.soausentismos.numerocertificado}" maxlength="20" style="width: 122px; position: absolute; left: 220px; top: 225px;">
                                 <!--<p:ajax event="change" update="nuevonumAutorizacion"/>-->
                             </p:inputText>
                             <p:watermark for="nuevonumCertificado" value="Número de Certificado" />
 
                             <strong><h:outputText value="Valor Cobrado" style="position: absolute; top: 260px; left: 50px;" /></strong>
-                            <p:inputText id="nuevoValorCobrado" value="#{controlOdiCabecera.nuevaOdiDetalles.relacionincapacidad.valorcobro}"  style="width: 122px; position: absolute; left: 220px; top: 255px;">
+                            <p:inputText  autocomplete="false"  id="nuevoValorCobrado" value="#{controlOdiCabecera.nuevaOdiDetalles.relacionincapacidad.valorcobro}"  style="width: 122px; position: absolute; left: 220px; top: 255px;">
                                 <p:ajax event="change" update="nuevoValorCobrado"/>
                             </p:inputText>
                             <p:watermark for="nuevoValorCobrado" value="Valor Cobrado" />
@@ -764,7 +764,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlOdiCabecera.actualizarEmpresa()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="Buscar Empresa"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="PF('lovEmpresas').filter();" style="width:150px; position: relative; left: 5px;" />  
+                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovEmpresas').filter();" style="width:150px; position: relative; left: 5px;" />  
                             </f:facet>
 
                             <p:column filterBy="#{empresa.nombre}" sortBy="#{empresa.nombre}" filterMatchMode="contains" filterStyle="width:80%">
@@ -797,7 +797,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlOdiCabecera.actualizarTercero()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="Buscar Tercero: "  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="PF('lovTerceros').filter();" style="width:150px; position: relative; left: 5px;" />  
+                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovTerceros').filter();" style="width:150px; position: relative; left: 5px;" />  
                             </f:facet>
 
                             <p:column filterBy="#{terceros.nit}" sortBy="#{terceros.nit}" filterMatchMode="contains" filterStyle="width:80%">
@@ -831,7 +831,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlOdiCabecera.actualizarSucursal()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="Buscar Sucursal: "  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="PF('lovSucursales').filter();" style="width:150px; position: relative; left: 5px;" />  
+                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovSucursales').filter();" style="width:150px; position: relative; left: 5px;" />  
                             </f:facet>
 
                             <p:column filterBy="#{sucursal.descripcion}" sortBy="#{sucursal.descripcion}" filterMatchMode="contains" filterStyle="width:80%">
@@ -864,7 +864,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlOdiCabecera.actualizarTipoEntidad()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="Buscar Tipo Entidad: "  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="PF('lovTiposEntidades').filter();" style="width:150px; position: relative; left: 5px;" />  
+                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovTiposEntidades').filter();" style="width:150px; position: relative; left: 5px;" />  
                             </f:facet>
 
                             <p:column filterBy="#{tipoentidad.nombre}" sortBy="#{tipoentidad.nombre}" filterMatchMode="contains" filterStyle="width:80%">
@@ -893,7 +893,7 @@
                             <p:ajax event="filter" listener="#{controlOdiCabecera.eventoFiltrarEmpleados()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="Nombre: " style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText id="globalFilter" onkeyup="PF('LOVEmpleados').filter();" style="width: 400px; position: relative; left: 60px;" />  
+                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('LOVEmpleados').filter();" style="width: 400px; position: relative; left: 60px;" />  
                             </f:facet>
 
 

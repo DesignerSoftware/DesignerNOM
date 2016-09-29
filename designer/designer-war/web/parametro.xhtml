@@ -89,7 +89,7 @@
                            <h:outputText value="#{msg['nombrecentrocosto']}" style="font-weight: bold; color: #14388B; position: relative; top: -10px; left: 222px; display: inline-block;"/>
 
                            <div style="position: relative; top: -6px; left: -7px; display: block;">
-                              <p:calendar mask="true" pattern="dd/MM/yyyy" id="fechaDesde" value="#{controlParametro.parametroLiquidacion.fechadesdecausado}" 
+                              <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="fechaDesde" value="#{controlParametro.parametroLiquidacion.fechadesdecausado}" 
                                           onclick="PF('ubicacionC(([{name: 'CAMPO', value: 'FECHA DESDE'}]));">
                                  <p:ajax event="dateSelect" listener="#{controlParametro.cambiosCampos()}" update="@this"/>
                                  <p:ajax event="change" listener="#{controlParametro.cambiosCampos()}" update="@this"/>
@@ -97,7 +97,7 @@
                            </div>
 
                            <div style="position: relative; top: -24px; left: 86px; display: inline-block;">
-                              <p:calendar mask="true" pattern="dd/MM/yyyy" id="fechaHasta" value="#{controlParametro.parametroLiquidacion.fechahastacausado}"
+                              <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="fechaHasta" value="#{controlParametro.parametroLiquidacion.fechahastacausado}"
                                           onclick="PF('ubicacionC(([{name: 'CAMPO', value: 'FECHA HASTA'}]));">
                                  <p:ajax event="dateSelect" listener="#{controlParametro.cambiosCampos()}" update="@this"/>
                                  <p:ajax event="change" listener="#{controlParametro.cambiosCampos()}" update="@this"/>
@@ -105,25 +105,25 @@
                            </div>
 
                            <div style="position: relative; top: -24px; left: 86px; display: inline-block;">
-                              <p:calendar mask="true" pattern="dd/MM/yyyy" id="fechaCorte" value="#{controlParametro.parametroLiquidacion.fechasistema}"
+                              <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="fechaCorte" value="#{controlParametro.parametroLiquidacion.fechasistema}"
                                           onclick="PF('ubicacionC(([{name: 'CAMPO', value: 'FECHA CORTE'}]));">
                                  <p:ajax event="dateSelect" listener="#{controlParametro.cambiosCampos()}" update="@this"/>
                                  <p:ajax event="change" listener="#{controlParametro.cambiosCampos()}" update="@this"/>
                               </p:calendar>
                            </div>
 
-                           <p:inputText id="Estructura" value="#{controlParametro.parametroLiquidacion.estructura.nombre}" 
+                           <p:inputText  autocomplete="false"  id="Estructura" value="#{controlParametro.parametroLiquidacion.estructura.nombre}" 
                                         style="position: relative; top: -24px; left: 118px; width: 180px; font-weight: bold; text-transform: uppercase; height: 12px; display: inline-block;" 
                                         ondblclick="llamarLov(([{name: 'LOV', value: 'ESTRUCTURA'}]));" onclick="select();">
                               <p:ajax event="click" listener="#{controlParametro.valoresBackupAutocompletar('ESTRUCTURA')}"/>
                               <p:ajax event="change" listener="#{controlParametro.autocompletar('ESTRUCTURA', controlParametro.parametroLiquidacion.estructura.nombre)}"/>
                            </p:inputText>
 
-                           <p:inputText id="codigoCC" value="#{controlParametro.parametroLiquidacion.estructura.centrocosto.codigo}" 
+                           <p:inputText  autocomplete="false"  id="codigoCC" value="#{controlParametro.parametroLiquidacion.estructura.centrocosto.codigo}" 
                                         style="position: relative; top: -24px; left: 125px; width: 70px; height: 12px; display: inline-block;" readonly="true"
                                         onclick="PF('ubicacionC(([{name: 'CAMPO', value: 'CODIGO CC'}]));"/>
 
-                           <p:inputText id="nombreCC" value="#{controlParametro.parametroLiquidacion.estructura.centrocosto.nombre}" 
+                           <p:inputText  autocomplete="false"  id="nombreCC" value="#{controlParametro.parametroLiquidacion.estructura.centrocosto.nombre}" 
                                         style="position: relative; top: -24px; left: 128px; width: 230px; height: 12px; display: inline-block;" readonly="true"
                                         onclick="PF('ubicacionC(([{name: 'CAMPO', value: 'NOMBRE CC'}]));"/>
 
@@ -138,13 +138,13 @@
                            <h:outputText value="#{msg['tipotrabajador']}" style="font-weight: bold; color: #14388B; position: relative; top: -43px; left: 0px; display: inline-block;"/>
                            <h:outputText value="#{msg['proceso']}" style="font-weight: bold; color: #14388B; position: relative; top: -43px; left: 207px; display: inline-block;"/>
 
-                           <p:inputText id="tipoTrabajador" value="#{controlParametro.parametroLiquidacion.tipotrabajador.nombre}" 
+                           <p:inputText  autocomplete="false"  id="tipoTrabajador" value="#{controlParametro.parametroLiquidacion.tipotrabajador.nombre}" 
                                         style="position: relative; top: -41px; width: 263px; left: -5px; text-transform: uppercase; height: 12px; display: block;" 
                                         ondblclick="llamarLov(([{name: 'LOV', value: 'TIPO TRABAJADOR'}]));" onclick="select();">
                               <p:ajax event="click" listener="#{controlParametro.valoresBackupAutocompletar('TIPO TRABAJADOR')}"/>
                               <p:ajax event="change" listener="#{controlParametro.autocompletar('TIPO TRABAJADOR', controlParametro.parametroLiquidacion.tipotrabajador.nombre)}"/>
                            </p:inputText>
-                           <p:inputText id="proceso" value="#{controlParametro.parametroLiquidacion.proceso.descripcion}" 
+                           <p:inputText  autocomplete="false"  id="proceso" value="#{controlParametro.parametroLiquidacion.proceso.descripcion}" 
                                         style="position: relative; top: -59px; left: 277px; width: 205px; text-transform: uppercase; height: 12px; display: inline-block;" 
                                         ondblclick="llamarLov(([{name: 'LOV', value: 'PROCESO'}]));" onclick="select();">
                               <p:ajax event="click" listener="#{controlParametro.valoresBackupAutocompletar('PROCESO')}"/>
@@ -185,7 +185,7 @@
                                                                </h:outputText>
                                                             </f:facet>  
                                                             <f:facet name="input">-->
-                              <p:inputText value="#{empleadoParametro.parametroestructura.fechadesdecausado}" readonly="true"
+                              <p:inputText  autocomplete="false"  value="#{empleadoParametro.parametroestructura.fechadesdecausado}" readonly="true"
                                            onfocus="ubicacionTabla(([{name: 'CAMPO', value: 'DESDE'}, {name: 'INDICE', value: '#{indice}'}]));">
                                  <f:convertDateTime pattern="dd/MM/yyyy" />
                               </p:inputText><!--
@@ -208,7 +208,7 @@
                                                                </h:outputText>
                                                             </f:facet>  
                                                             <f:facet name="input">-->
-                              <p:inputText value="#{empleadoParametro.parametroestructura.fechahastacausado}" readonly="true" id="editFD" widgetVar="editFD"
+                              <p:inputText  autocomplete="false"  value="#{empleadoParametro.parametroestructura.fechahastacausado}" readonly="true" id="editFD" widgetVar="editFD"
                                            onfocus="ubicacionTabla(([{name: 'CAMPO', value: 'HASTA'}, {name: 'INDICE', value: '#{indice}'}]));">
                                  <f:convertDateTime pattern="dd/MM/yyyy" />
                               </p:inputText>
@@ -225,7 +225,7 @@
                               <!--                           <p:cellEditor>  
                                                             <f:facet name="output"><h:outputText value="#{empleadoParametro.empleado.codigoempleado}" /></f:facet>  
                                                             <f:facet name="input">-->
-                              <p:inputText value="#{empleadoParametro.empleado.codigoempleado}" readonly="true" id="inpCodigo" widgetVar="inpCodigo"
+                              <p:inputText  autocomplete="false"  value="#{empleadoParametro.empleado.codigoempleado}" readonly="true" id="inpCodigo" widgetVar="inpCodigo"
                                            style=" border-radius: 0px; width: 93.5%; text-transform: uppercase;"
                                            onfocus="ubicacionTabla(([{name: 'CAMPO', value: 'CODIGO'}, {name: 'INDICE', value: '#{indice}'}]));"/> 
                               <!--                              </f:facet>  
@@ -240,7 +240,7 @@
                               <!--                           <p:cellEditor>  
                                                             <f:facet name="output"><h:outputText value="#{empleadoParametro.empleado.persona.primerapellido}" /></f:facet>  
                                                             <f:facet name="input">-->
-                              <p:inputText value="#{empleadoParametro.empleado.persona.primerapellido}" readonly="true"
+                              <p:inputText  autocomplete="false"  value="#{empleadoParametro.empleado.persona.primerapellido}" readonly="true"
                                            onfocus="ubicacionTabla(([{name: 'CAMPO', value: 'PAPELLIDO'}, {name: 'INDICE', value: '#{indice}'}]));"
                                            style=" border-radius: 0px; width: 93.5%; text-transform: uppercase;"/> 
                               <!--                              </f:facet>  
@@ -255,7 +255,7 @@
                               <!--                           <p:cellEditor>  
                                                             <f:facet name="output"><h:outputText value="#{empleadoParametro.empleado.persona.segundoapellido}" /></f:facet>  
                                                             <f:facet name="input">-->
-                              <p:inputText value="#{empleadoParametro.empleado.persona.segundoapellido}" readonly="true" 
+                              <p:inputText  autocomplete="false"  value="#{empleadoParametro.empleado.persona.segundoapellido}" readonly="true" 
                                            onfocus="ubicacionTabla(([{name: 'CAMPO', value: 'SAPELLIDO'}, {name: 'INDICE', value: '#{indice}'}]));"
                                            style=" border-radius: 0px; width: 93.5%; text-transform: uppercase;"/> 
                               <!--                              </f:facet>  
@@ -270,7 +270,7 @@
                               <!--                           <p:cellEditor>  
                                                             <f:facet name="output"><h:outputText value="#{empleadoParametro.empleado.persona.nombre}" /></f:facet>  
                                                             <f:facet name="input">-->
-                              <p:inputText value="#{empleadoParametro.empleado.persona.nombre}" readonly="true" 
+                              <p:inputText  autocomplete="false"  value="#{empleadoParametro.empleado.persona.nombre}" readonly="true" 
                                            onfocus="ubicacionTabla(([{name: 'CAMPO', value: 'NOMBRE'}, {name: 'INDICE', value: '#{indice}'}]));"
                                            style=" border-radius: 0px; width: 93.5%; text-transform: uppercase;"/> 
                               <!--                              </f:facet>  
@@ -286,7 +286,7 @@
                               <!--                           <p:cellEditor>  
                                                             <f:facet name="output"><h:outputText value="#{empleadoParametro.estadoParametro}" /></f:facet>  
                                                             <f:facet name="input">-->
-                              <p:inputText value="#{empleadoParametro.estadoParametro}" readonly="true"  
+                              <p:inputText  autocomplete="false"  value="#{empleadoParametro.estadoParametro}" readonly="true"  
                                            onfocus="ubicacionTabla(([{name: 'CAMPO', value: 'ESTADO'}, {name: 'INDICE', value: '#{indice}'}]));"
                                            style=" border-radius: 0px; width: 93.5%; text-transform: uppercase;"/> 
                               <!--                              </f:facet>  
@@ -407,7 +407,7 @@
 
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarE']}"  style="position: absolute; left: 27px; top: 15px"/>  
-                        <p:inputText id="globalFilter" onkeyup="PF('lOVEstructuras').filter();" style="width: 200px; position: relative; left: -50px;" />  
+                        <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lOVEstructuras').filter();" style="width: 200px; position: relative; left: -50px;" />  
                      </f:facet>                       
                      <p:column headerText="#{msg['nombreE']}" width="200" filterBy="#{estructura.nombre}" filterMatchMode="contains" filterStyle="width: 80% !important" >  
                         <h:outputText value="#{estructura.nombre}" />  
@@ -440,7 +440,7 @@
 
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarTT']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                        <p:inputText id="globalFilter" onkeyup="PF('lovTipoTrabajador').filter();" style="width: 180px; position: relative; left: 70px;" />  
+                        <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovTipoTrabajador').filter();" style="width: 180px; position: relative; left: 70px;" />  
                      </f:facet>
                      <p:column filterBy="#{tipoTrabajador.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 80% !important">
                         <f:facet name="header">
@@ -474,7 +474,7 @@
                      <p:ajax event="rowDblselect" listener="#{controlParametro.actualizarProceso()}" process="@this" />
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarP']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                        <p:inputText id="globalFilter" onkeyup="PF('lovProcesos').filter();" style="width: 200px; position: relative; left: 30px;" />  
+                        <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovProcesos').filter();" style="width: 200px; position: relative; left: 30px;" />  
                      </f:facet>
                      <p:column filterBy="#{proceso.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 80% !important">
                         <f:facet name="header">
@@ -511,7 +511,7 @@
 
                      <f:facet name="header" >  
                         <h:outputText value="#{msg['buscarEM']}"  style="position: absolute; left: 22px; top: 18px;"/>  
-                        <p:inputText id="globalFilter" onkeyup="PF('lovEmpleados').filter();" style="width: 200px; position: relative; left: -75px;"/>
+                        <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovEmpleados').filter();" style="width: 200px; position: relative; left: -75px;"/>
                         <p:watermark for="globalFilter" value="#{msg['ingresarvalorabuscar']}" />
                      </f:facet>
 

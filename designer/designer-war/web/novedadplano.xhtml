@@ -83,7 +83,7 @@
                         <fieldset style="position: absolute; left: 10px; top: 75px; width: 265px; height: 185px; border-radius: 10px; ">
                             <center><h:outputText value="#{msg['cap']}" style="color: #009; font-weight: bold;"/></center>
                             <br></br>
-                            <p:inputText id="nombreArchivo" value="#{cargarArchivoPlano.nombreArchivoPlano}" readonly="true" style="position:  absolute; top: 40px; left: 8px; width: 140px; z-index: 1;"/>
+                            <p:inputText  autocomplete="false"  id="nombreArchivo" value="#{cargarArchivoPlano.nombreArchivoPlano}" readonly="true" style="position:  absolute; top: 40px; left: 8px; width: 140px; z-index: 1;"/>
                             <p:watermark for="nombreArchivo" value="#{msg['nombredelarchivo']}" />
                             <p:fileUpload  id="FileUp" mode="advanced" disabled="#{cargarArchivoPlano.botones}"
                                            style="position:  absolute; top: 44px; left: 167px;" fileUploadListener="#{cargarArchivoPlano.cargarArchivo}"
@@ -91,7 +91,7 @@
                                            invalidSizeMessage="#{msg['tamaño']}" auto="true"
                                            styleClass="ui-fileupload"/>
                             <h:outputText value="#{msg['formula']}" style="font-weight: bold; position: absolute; top: 70px"/>
-                            <p:inputText id="formula" value="#{cargarArchivoPlano.formulaUsada.nombrecorto}" disabled="#{cargarArchivoPlano.botones}" style="position:  absolute; top: 88px; left: 8px; font-weight: bold; text-transform: uppercase" maxlength="6" onclick="select();">
+                            <p:inputText  autocomplete="false"  id="formula" value="#{cargarArchivoPlano.formulaUsada.nombrecorto}" disabled="#{cargarArchivoPlano.botones}" style="position:  absolute; top: 88px; left: 8px; font-weight: bold; text-transform: uppercase" maxlength="6" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{cargarArchivoPlano.botonListaValores()}" process="@this"/>
                                 <p:ajax event="select" listener="#{cargarArchivoPlano.valorAnteriorFormula()}"/>
                                 <p:ajax event="change" listener="#{cargarArchivoPlano.autocompletarFormula(cargarArchivoPlano.formulaUsada.nombrecorto)}"/>
@@ -168,7 +168,7 @@
                                             <h:outputText value="#{tNovedades.concepto}" />
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{tNovedades.concepto}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px;"
+                                            <p:inputText  autocomplete="false"  value="#{tNovedades.concepto}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px;"
                                                          onselect="posicionTablaNovedad([{name: 'n', value: '0'}, {name: 't', value: '#{pos}'}]);"
                                                          />
                                         </f:facet>   
@@ -185,7 +185,7 @@
                                             <h:outputText value="#{tNovedades.empleado}" />
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{tNovedades.empleado}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px"
+                                            <p:inputText  autocomplete="false"  value="#{tNovedades.empleado}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px"
                                                          onselect="posicionTablaNovedad([{name: 'n', value: '1'}, {name: 't', value: '#{pos}'}]);"
                                                          />
                                         </f:facet>   
@@ -204,7 +204,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{tNovedades.fechainicial}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px"
+                                            <p:inputText  autocomplete="false"  value="#{tNovedades.fechainicial}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px"
                                                          onselect="posicionTablaNovedad([{name: 'n', value: '2'}, {name: 't', value: '#{pos}'}]);"
                                                          >
                                                 <f:convertDateTime pattern="dd/MM/yyyy" />
@@ -225,7 +225,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{tNovedades.fechafinal}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px"
+                                            <p:inputText  autocomplete="false"  value="#{tNovedades.fechafinal}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px"
                                                          onselect="posicionTablaNovedad([{name: 'n', value: '3'}, {name: 't', value: '#{pos}'}]);"
                                                          >
                                                 <f:convertDateTime pattern="dd/MM/yyyy" />
@@ -247,7 +247,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{tNovedades.fechareporte}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px"
+                                            <p:inputText  autocomplete="false"  value="#{tNovedades.fechareporte}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px"
                                                          onselect="posicionTablaNovedad([{name: 'n', value: '4'}, {name: 't', value: '#{pos}'}]);"
                                                          >
                                                 <f:convertDateTime pattern="dd/MM/yyyy" />
@@ -267,7 +267,7 @@
                                             <h:outputText value="#{tNovedades.documentosoporte}" />
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{tNovedades.documentosoporte}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px"
+                                            <p:inputText  autocomplete="false"  value="#{tNovedades.documentosoporte}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px"
                                                          onselect="posicionTablaNovedad([{name: 'n', value: '5'}, {name: 't', value: '#{pos}'}]);"
                                                          />
                                         </f:facet>   
@@ -286,7 +286,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{tNovedades.valortotal}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px;"
+                                            <p:inputText  autocomplete="false"  value="#{tNovedades.valortotal}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px;"
                                                          onselect="posicionTablaNovedad([{name: 'n', value: '6'}, {name: 't', value: '#{pos}'}]);"
                                                          >
                                                 <f:convertNumber currencyCode="COP"/>
@@ -305,7 +305,7 @@
                                             <h:outputText value="#{tNovedades.periodicidad}"/>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{tNovedades.periodicidad}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px;" 
+                                            <p:inputText  autocomplete="false"  value="#{tNovedades.periodicidad}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px;" 
                                                          onselect="posicionTablaNovedad([{name: 'n', value: '7'}, {name: 't', value: '#{pos}'}]);"
                                                          />
                                         </f:facet>   
@@ -322,7 +322,7 @@
                                             <h:outputText value="#{tNovedades.tercero}" />
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{tNovedades.tercero}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px;" 
+                                            <p:inputText  autocomplete="false"  value="#{tNovedades.tercero}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px;" 
                                                          onselect="posicionTablaNovedad([{name: 'n', value: '8'}, {name: 't', value: '#{pos}'}]);"
                                                          />
                                         </f:facet>   
@@ -341,7 +341,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{tNovedades.saldo}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px;"
+                                            <p:inputText  autocomplete="false"  value="#{tNovedades.saldo}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px;"
                                                          onselect="posicionTablaNovedad([{name: 'n', value: '9'}, {name: 't', value: '#{pos}'}]);"
                                                          >
                                                 <f:convertNumber currencyCode="COP"/>
@@ -360,7 +360,7 @@
                                             <h:outputText value="#{tNovedades.unidadesparteentera}" />
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{tNovedades.unidadesparteentera}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px;" 
+                                            <p:inputText  autocomplete="false"  value="#{tNovedades.unidadesparteentera}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px;" 
                                                          onselect="posicionTablaNovedad([{name: 'n', value: '10'}, {name: 't', value: '#{pos}'}]);"
                                                          />
                                         </f:facet>   
@@ -377,7 +377,7 @@
                                             <h:outputText value="#{tNovedades.unidadespartefraccion}"/>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{tNovedades.unidadespartefraccion}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px;"  
+                                            <p:inputText  autocomplete="false"  value="#{tNovedades.unidadespartefraccion}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px;"  
                                                          onselect="posicionTablaNovedad([{name: 'n', value: '11'}, {name: 't', value: '#{pos}'}]);"
                                                          />
                                         </f:facet>   
@@ -385,7 +385,7 @@
                                 </p:column>
                             </p:dataTable>
                             <h:outputText value="#{msg['subtotal']}" style="font-weight: bold; position: absolute; top: 181px; left: 500px"/>
-                            <p:inputText id="subtotal" value="#{cargarArchivoPlano.subTotal}" style="position:  absolute; top: 177px; left: 560px; font-weight: bold; width: 63px; border-radius: 0px; text-align: right" readonly="true" onclick="select();">
+                            <p:inputText  autocomplete="false"  id="subtotal" value="#{cargarArchivoPlano.subTotal}" style="position:  absolute; top: 177px; left: 560px; font-weight: bold; width: 63px; border-radius: 0px; text-align: right" readonly="true" onclick="select();">
                                 <f:convertNumber currencyCode="COP"/>
                             </p:inputText> 
                         </fieldset>
@@ -433,7 +433,7 @@
                             <fieldset style="position: absolute; left: 10px; width: 260px; height: 85px; border-radius: 10px; ">
                                 <legend style="color: blue"><strong>Reversar Cargue Novedades</strong></legend>
                                 <strong><h:outputText value="#{msg['documentosoporte']}" style="position: absolute; top: 30px; width: 200px;" /></strong>
-                                <p:inputText id="documentoR" value="#{cargarArchivoPlano.documentoSoporteReversar}" style="position: absolute; left: 100px; top: 26px; text-transform: uppercase;" onclick="select();"> 
+                                <p:inputText  autocomplete="false"  id="documentoR" value="#{cargarArchivoPlano.documentoSoporteReversar}" style="position: absolute; left: 100px; top: 26px; text-transform: uppercase;" onclick="select();"> 
                                     <p:ajax event="dblclick" listener="#{cargarArchivoPlano.llamarDialogoDocumentoSoporte()}" />
                                     <p:ajax event="change" listener="#{cargarArchivoPlano.autocompletarDocumentoSoporte}" update="@this"/>
                                 </p:inputText>
@@ -497,7 +497,7 @@
                             <p:ajax event="filter" listener="#{cargarArchivoPlano.eventoFiltrarFormulas()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarF']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="PF('lovFormulas').filter();" style="width:150px; position: relative; left: 5px;" />  
+                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovFormulas').filter();" style="width:150px; position: relative; left: 5px;" />  
                             </f:facet>
                             <p:column filterBy="#{formula.nombrecorto}" filterMatchMode="contains">
                                 <f:facet name="header">
@@ -529,7 +529,7 @@
                             <p:ajax event="rowDblselect" process="@this" listener="#{cargarArchivoPlano.seleccionarDocumentoSoporte()}" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarDS']}"  style="position: absolute; left: 27px; top: 16px"/>  
-                                <p:inputText id="globalFilter" onkeyup="PF('lovDocumentoSoporte').filter();" style="width: 150px; position: relative; left: 60px;" />  
+                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovDocumentoSoporte').filter();" style="width: 150px; position: relative; left: 60px;" />  
                             </f:facet>
                             <p:column filterBy="#{documentoSoporte}" width="300"  filterMatchMode="contains">
                                 <f:facet name="header">

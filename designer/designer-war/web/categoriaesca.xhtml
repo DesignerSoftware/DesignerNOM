@@ -79,7 +79,7 @@
                                             <h:outputText value="#{info.codigo}"/>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.codigo}" id="editarCodigo" style="border-radius: 0px; width: 99.5%;text-transform: uppercase" onclick="select();"> 
+                                            <p:inputText  autocomplete="false"   value="#{info.codigo}" id="editarCodigo" style="border-radius: 0px; width: 99.5%;text-transform: uppercase" onclick="select();"> 
                                                 <p:ajax event="change" listener="#{controlCategoriaEsca.modificarCategoria(indice)}" update="editarCodigo"/>
                                                 <p:ajax event="select" listener="#{controlCategoriaEsca.cambiarIndice(indice, 0)}" />
                                             </p:inputText>
@@ -95,7 +95,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.descripcion}" style="text-transform: uppercase"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.descripcion}"  maxlength="100" id="editarDescripcion" style="border-radius: 0px; width: 99.5%;text-transform: uppercase" onclick="select();"> 
+                                            <p:inputText  autocomplete="false"   value="#{info.descripcion}"  maxlength="100" id="editarDescripcion" style="border-radius: 0px; width: 99.5%;text-transform: uppercase" onclick="select();"> 
                                                 <p:ajax event="change" listener="#{controlCategoriaEsca.modificarCategoria(indice)}"/>
                                                 <p:ajax event="select" listener="#{controlCategoriaEsca.cambiarIndice(indice, 1)}" />
                                             </p:inputText>
@@ -112,7 +112,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.clasecategoria.descripcion}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.clasecategoria.descripcion}" id="editarClaseCategoria" style="border-radius: 0px; width: 99.5%;text-transform: uppercase" onclick="select();"> 
+                                            <p:inputText  autocomplete="false"   value="#{info.clasecategoria.descripcion}" id="editarClaseCategoria" style="border-radius: 0px; width: 99.5%;text-transform: uppercase" onclick="select();"> 
                                                 <p:ajax event="change" listener="#{controlCategoriaEsca.modificarCategoria(indice, 'CLASE', info.clasecategoria.descripcion)}"/>
                                                 <p:ajax event="select" listener="#{controlCategoriaEsca.cambiarIndice(indice, 2)}" />
                                                 <p:ajax event="dblclick" listener="#{controlCategoriaEsca.asignarIndex(indice,0,0)}"/>
@@ -130,7 +130,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.tiposueldo.descripcion}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.tiposueldo.descripcion}" id="editarTipoSueldo" style="border-radius: 0px; width: 99.5%;text-transform: uppercase" onclick="select();"> 
+                                            <p:inputText  autocomplete="false"   value="#{info.tiposueldo.descripcion}" id="editarTipoSueldo" style="border-radius: 0px; width: 99.5%;text-transform: uppercase" onclick="select();"> 
                                                 <p:ajax event="change" listener="#{controlCategoriaEsca.modificarCategoria(indice, 'TIPO', info.tiposueldo.descripcion)}"/>
                                                 <p:ajax event="select" listener="#{controlCategoriaEsca.cambiarIndice(indice, 3)}" />
                                                 <p:ajax event="dblclick" listener="#{controlCategoriaEsca.asignarIndex(indice,0,1)}"/>
@@ -148,7 +148,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.concepto.descripcion}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.concepto.descripcion}" id="editarConcepto" style="border-radius: 0px; width: 99.5%;text-transform: uppercase" onclick="select();"> 
+                                            <p:inputText  autocomplete="false"   value="#{info.concepto.descripcion}" id="editarConcepto" style="border-radius: 0px; width: 99.5%;text-transform: uppercase" onclick="select();"> 
                                                 <p:ajax event="change" listener="#{controlCategoriaEsca.modificarCategoria(indice, 'CONCEPTO', info.concepto.descripcion)}"/>
                                                 <p:ajax event="select" listener="#{controlCategoriaEsca.cambiarIndice(indice, 4)}" />
                                                 <p:ajax event="dblclick" listener="#{controlCategoriaEsca.asignarIndex(indice,0,2)}"/>
@@ -172,7 +172,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlCategoriaEsca.actualizarClaseCategoria()}" process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarCCat']}" style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovClaseCategoria').filter();" style="width:150px; position: relative; left: 30px;" />  
+                                    <p:inputText  autocomplete="false"   id="globalFilter" onkeyup="PF('lovClaseCategoria').filter();" style="width:150px; position: relative; left: 30px;" />  
                                 </f:facet>
                                 <p:column filterBy="#{clase.descripcion}" width="200"  filterMatchMode="contains">
                                     <f:facet name="header">
@@ -195,7 +195,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlCategoriaEsca.actualizarTipoSueldo()}"  process="@this"  />
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarT']}" style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovTipoSueldo').filter();" style="width:150px; position: relative; left: 30px;" />  
+                                    <p:inputText  autocomplete="false"   id="globalFilter" onkeyup="PF('lovTipoSueldo').filter();" style="width:150px; position: relative; left: 30px;" />  
                                 </f:facet>
                                 <p:column filterBy="#{tipo.descripcion}" width="200"  filterMatchMode="contains">
                                     <f:facet name="header">
@@ -219,7 +219,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlCategoriaEsca.actualizarConcepto()}"  process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarC']}" style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovConcepto').filter();" style="width:150px; position: relative; left: 30px;" />  
+                                    <p:inputText  autocomplete="false"   id="globalFilter" onkeyup="PF('lovConcepto').filter();" style="width:150px; position: relative; left: 30px;" />  
                                 </f:facet>
                                 <p:column filterBy="#{concepto.descripcion}" width="100"  filterMatchMode="contains">
                                     <f:facet name="header">
@@ -316,18 +316,18 @@
                         <p:panel id="nuevaCategoria" style="border: none;">
 
                             <strong><h:outputText value="#{msg['codigoN']}" style="font-size: 14px; position: absolute; top: 70px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaCodigo" value="#{controlCategoriaEsca.nuevaCategoria.codigo}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 67px;" onclick="select();">
+                            <p:inputText  autocomplete="false"   id="nuevaCodigo" value="#{controlCategoriaEsca.nuevaCategoria.codigo}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 67px;" onclick="select();">
                                 <p:ajax event="change" update="nuevaCodigo" />
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['descripcionN']}" style="font-size: 14px; position: absolute; top: 100px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaDescripcion" value="#{controlCategoriaEsca.nuevaCategoria.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 97px;text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="false"   id="nuevaDescripcion" value="#{controlCategoriaEsca.nuevaCategoria.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 97px;text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="nuevaDescripcion" />
                             </p:inputText>
                             <p:watermark for="nuevaDescripcion" value="#{msg['descripcion']}" />
 
                             <strong><h:outputText value="#{msg['claseCategoriaN']}" style="font-size: 14px; position: absolute; top: 130px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaClaseCategoria" value="#{controlCategoriaEsca.nuevaCategoria.clasecategoria.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 127px;" onclick="select();">
+                            <p:inputText  autocomplete="false"   id="nuevaClaseCategoria" value="#{controlCategoriaEsca.nuevaCategoria.clasecategoria.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 127px;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlCategoriaEsca.asignarIndex(indice,1,0)}"/>
                                 <p:ajax event="click" listener="#{controlCategoriaEsca.valoresBackupAutocompletar(1, 'CLASE')}" />
                                 <p:ajax event="change" listener="#{controlCategoriaEsca.autocompletarNuevoyDuplicado('CLASE', controlCategoriaEsca.nuevaCategoria.clasecategoria.descripcion, 1)}" />
@@ -336,7 +336,7 @@
                             <p:watermark for="nuevaClaseCategoria" value="#{msg['claseCategoria']}" />
 
                             <strong><h:outputText value="#{msg['tipoSueldoN']}" style="font-size: 14px; position: absolute; top: 160px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaTipoSueldo" value="#{controlCategoriaEsca.nuevaCategoria.tiposueldo.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 157px;" onclick="select();">
+                            <p:inputText  autocomplete="false"   id="nuevaTipoSueldo" value="#{controlCategoriaEsca.nuevaCategoria.tiposueldo.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 157px;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlCategoriaEsca.asignarIndex(indice,1,1)}"/>
                                 <p:ajax event="click" listener="#{controlCategoriaEsca.valoresBackupAutocompletar(1, 'TIPO')}" />
                                 <p:ajax event="change" listener="#{controlCategoriaEsca.autocompletarNuevoyDuplicado('TIPO', controlCategoriaEsca.nuevaCategoria.tiposueldo.descripcion, 1)}" />
@@ -345,7 +345,7 @@
                             <p:watermark for="nuevaTipoSueldo" value="#{msg['tipoSueldo']}" />
 
                             <strong><h:outputText value="#{msg['conceptoN']}" style="font-size: 14px; position: absolute; top: 190px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaConcepto" value="#{controlCategoriaEsca.nuevaCategoria.concepto.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 187px;" onclick="select();">
+                            <p:inputText  autocomplete="false"   id="nuevaConcepto" value="#{controlCategoriaEsca.nuevaCategoria.concepto.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 187px;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlCategoriaEsca.asignarIndex(indice,1,2)}"/>
                                 <p:ajax event="click" listener="#{controlCategoriaEsca.valoresBackupAutocompletar(1, 'CONCEPTO')}" />
                                 <p:ajax event="change" listener="#{controlCategoriaEsca.autocompletarNuevoyDuplicado('CONCEPTO', controlCategoriaEsca.nuevaCategoria.concepto.descripcion, 1)}" />
@@ -367,18 +367,18 @@
                         <p:panel id="duplicarCate" style="border: none;">
 
                             <strong><h:outputText value="#{msg['codigoN']}" style="font-size: 14px; position: absolute; top: 70px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarCodigo" value="#{controlCategoriaEsca.duplicarCategoria.codigo}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 67px;" onclick="select();">
+                            <p:inputText  autocomplete="false"   id="duplicarCodigo" value="#{controlCategoriaEsca.duplicarCategoria.codigo}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 67px;" onclick="select();">
                                 <p:ajax event="change" update="duplicarCodigo" />
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['descripcionN']}" style="font-size: 14px; position: absolute; top: 100px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarDescripcion" value="#{controlCategoriaEsca.duplicarCategoria.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 97px;text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="false"   id="duplicarDescripcion" value="#{controlCategoriaEsca.duplicarCategoria.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 97px;text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="duplicarDescripcion" />
                             </p:inputText>
                             <p:watermark for="duplicarDescripcion" value="#{msg['descripcion']}" />
 
                             <strong><h:outputText value="#{msg['claseCategoriaN']}" style="font-size: 14px; position: absolute; top: 130px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarClaseCategoria" value="#{controlCategoriaEsca.duplicarCategoria.clasecategoria.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 127px;" onclick="select();">
+                            <p:inputText  autocomplete="false"   id="duplicarClaseCategoria" value="#{controlCategoriaEsca.duplicarCategoria.clasecategoria.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 127px;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlCategoriaEsca.asignarIndex(indice,2,0)}"/>
                                 <p:ajax event="click" listener="#{controlCategoriaEsca.valoresBackupAutocompletar(2, 'CLASE')}" />
                                 <p:ajax event="change" listener="#{controlCategoriaEsca.autocompletarNuevoyDuplicado('CLASE', controlCategoriaEsca.duplicarCategoria.clasecategoria.descripcion, 2)}" />
@@ -387,7 +387,7 @@
                             <p:watermark for="duplicarClaseCategoria" value="#{msg['claseCategoria']}" />
 
                             <strong><h:outputText value="#{msg['tipoSueldoN']}" style="font-size: 14px; position: absolute; top: 160px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarTipoSueldo" value="#{controlCategoriaEsca.duplicarCategoria.tiposueldo.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 157px;" onclick="select();">
+                            <p:inputText  autocomplete="false"   id="duplicarTipoSueldo" value="#{controlCategoriaEsca.duplicarCategoria.tiposueldo.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 157px;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlCategoriaEsca.asignarIndex(indice,2,1)}"/>
                                 <p:ajax event="click" listener="#{controlCategoriaEsca.valoresBackupAutocompletar(2, 'TIPO')}" />
                                 <p:ajax event="change" listener="#{controlCategoriaEsca.autocompletarNuevoyDuplicado('TIPO', controlCategoriaEsca.duplicarCategoria.tiposueldo.descripcion, 2)}" />
@@ -396,7 +396,7 @@
                             <p:watermark for="duplicarTipoSueldo" value="#{msg['tipoSueldo']}" />
 
                             <strong><h:outputText value="#{msg['conceptoN']}" style="font-size: 14px; position: absolute; top: 190px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarConcepto" value="#{controlCategoriaEsca.duplicarCategoria.concepto.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 187px;" onclick="select();">
+                            <p:inputText  autocomplete="false"   id="duplicarConcepto" value="#{controlCategoriaEsca.duplicarCategoria.concepto.descripcion}" style="font-size: 12px; width: 122px; position: absolute; left: 200px; top: 187px;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlCategoriaEsca.asignarIndex(indice,2,2)}"/>
                                 <p:ajax event="click" listener="#{controlCategoriaEsca.valoresBackupAutocompletar(2, 'CONCEPTO')}" />
                                 <p:ajax event="change" listener="#{controlCategoriaEsca.autocompletarNuevoyDuplicado('CONCEPTO', controlCategoriaEsca.duplicarCategoria.concepto.descripcion, 2)}" />
@@ -412,27 +412,27 @@
                     </p:dialog>
 
                     <p:dialog id="editarCodigoD" header="#{msg['codigoE']}" widgetVar="editarCodigoD" resizable="false" draggable="true" modal="true" height="93" width="240" style="font-size: 12px">  
-                        <p:inputTextarea value="#{controlCategoriaEsca.editarCategoria.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea  value="#{controlCategoriaEsca.editarCategoria.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                         <p:commandButton id="cancelarCodigoD" value="#{msg['atras']}" onclick="PF('editarCodigoD').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="editarDescripcionD" header="#{msg['descripcionE']}" widgetVar="editarDescripcionD" resizable="false" draggable="true" modal="true" height="93" width="240" style="font-size: 12px">  
-                        <p:inputTextarea value="#{controlCategoriaEsca.editarCategoria.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea  value="#{controlCategoriaEsca.editarCategoria.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                         <p:commandButton id="cancelarDescripcionD" value="#{msg['atras']}" onclick="PF('editarDescripcionD').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="editarClaseD" header="#{msg['claseE']}" widgetVar="editarClaseD" resizable="false" draggable="true" modal="true" height="93" width="240" style="font-size: 12px">  
-                        <p:inputTextarea value="#{controlCategoriaEsca.editarCategoria.clasecategoria.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea  value="#{controlCategoriaEsca.editarCategoria.clasecategoria.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                         <p:commandButton id="cancelarClaseD" value="#{msg['atras']}" onclick="PF('editarClaseD').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="editarTipoD" header="#{msg['tipoE']}" widgetVar="editarTipoD" resizable="false" draggable="true" modal="true" height="93" width="240" style="font-size: 12px">  
-                        <p:inputTextarea value="#{controlCategoriaEsca.editarCategoria.tiposueldo.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea  value="#{controlCategoriaEsca.editarCategoria.tiposueldo.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                         <p:commandButton id="cancelarTipoD" value="#{msg['atras']}" onclick="PF('editarTipoD').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="editarConceptoD" header="#{msg['conceptoE']}" widgetVar="editarConceptoD" resizable="false" draggable="true" modal="true" height="93" width="240" style="font-size: 12px">  
-                        <p:inputTextarea value="#{controlCategoriaEsca.editarCategoria.concepto.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea  value="#{controlCategoriaEsca.editarCategoria.concepto.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                         <p:commandButton id="cancelarConceptoD" value="#{msg['atras']}" onclick="PF('editarConceptoD').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                     </p:dialog>
 

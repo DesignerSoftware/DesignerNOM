@@ -93,7 +93,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.codigo}" id="editarCodigoCuadrilla" style=" border-radius: 0px; width: 99%;"> 
+                                            <p:inputText  autocomplete="false"   value="#{info.codigo}" id="editarCodigoCuadrilla" style=" border-radius: 0px; width: 99%;"> 
                                                 <p:ajax event="change" listener="#{controlATCuadrilla.modificarParametrosObligatoriosCuadrilla(indice)}" process="@this" update="@this"/>
                                                 <p:ajax event="select" listener="#{controlATCuadrilla.cambiarIndiceCuadrilla(indice, 0)}" />
                                             </p:inputText>
@@ -106,7 +106,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.descripcion}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.descripcion}" maxlength="40" id="editarDescripcionCuadrilla" style=" border-radius: 0px; width: 99%;text-transform: uppercase;"> 
+                                            <p:inputText  autocomplete="false"   value="#{info.descripcion}" maxlength="40" id="editarDescripcionCuadrilla" style=" border-radius: 0px; width: 99%;text-transform: uppercase;"> 
                                                 <p:ajax event="change" listener="#{controlATCuadrilla.modificarParametrosObligatoriosCuadrilla(indice)}" process="@this" update="@this"/>
                                                 <p:ajax event="select" listener="#{controlATCuadrilla.cambiarIndiceCuadrilla(indice, 1)}" />
                                             </p:inputText>
@@ -128,7 +128,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.modulo}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.modulo}"  id="editarModuloCuadrilla" style=" border-radius: 0px; width: 99%;"> 
+                                            <p:inputText  autocomplete="false"   value="#{info.modulo}"  id="editarModuloCuadrilla" style=" border-radius: 0px; width: 99%;"> 
                                                 <p:ajax event="change" listener="#{controlATCuadrilla.modificarCuadrilla(indice)}" process="@this" update="@this"/>
                                                 <p:ajax event="select" listener="#{controlATCuadrilla.cambiarIndiceCuadrilla(indice, 3)}" />
                                             </p:inputText>
@@ -150,7 +150,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.diasciclo}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.diasciclo}"  id="editarDiasCuadrilla" style=" border-radius: 0px; width: 99%;"> 
+                                            <p:inputText  autocomplete="false"   value="#{info.diasciclo}"  id="editarDiasCuadrilla" style=" border-radius: 0px; width: 99%;"> 
                                                 <p:ajax event="change" listener="#{controlATCuadrilla.modificarCuadrilla(indice)}" process="@this" update="@this"/>
                                                 <p:ajax event="select" listener="#{controlATCuadrilla.cambiarIndiceCuadrilla(indice, 5)}" />
                                             </p:inputText>
@@ -184,7 +184,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{infoTR.codigo}" id="editarCodigoTurno" style=" border-radius: 0px; width: 99%;"> 
+                                            <p:inputText  autocomplete="false"   value="#{infoTR.codigo}" id="editarCodigoTurno" style=" border-radius: 0px; width: 99%;"> 
                                                 <p:ajax event="change" listener="#{controlATCuadrilla.modificarTurno(indiceTR)}" process="@this" update="@this"/>
                                                 <p:ajax event="select" listener="#{controlATCuadrilla.cambiarIndiceTurno(indiceTR, 0)}" />
                                             </p:inputText>
@@ -197,7 +197,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoTR.descripcion}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{infoTR.descripcion}" maxlength="40" id="editarDescripcionTurno" style=" border-radius: 0px; width: 99%;text-transform: uppercase;"> 
+                                            <p:inputText  autocomplete="false"   value="#{infoTR.descripcion}" maxlength="40" id="editarDescripcionTurno" style=" border-radius: 0px; width: 99%;text-transform: uppercase;"> 
                                                 <p:ajax event="change" listener="#{controlATCuadrilla.modificarTurno(indiceTR)}" process="@this" update="@this"/>
                                                 <p:ajax event="select" listener="#{controlATCuadrilla.cambiarIndiceTurno(indiceTR, 1)}" />
                                             </p:inputText>
@@ -214,7 +214,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="editarFechaSemillaTurno" value="#{infoTR.fechasemilla}" > 
+                                            <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="editarFechaSemillaTurno" value="#{infoTR.fechasemilla}" > 
                                                 <p:ajax event="dateSelect" listener="#{controlATCuadrilla.modificarFechaTurno(indiceTR,2)}" update="editarFechaSemillaTurno" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlATCuadrilla.modificarFechaTurno(indiceTR,2)}" update="editarFechaSemillaTurno" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlATCuadrilla.cambiarIndiceTurno(indiceTR,2)}" process="@this"/> 
@@ -228,7 +228,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoTR.horainicial}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{infoTR.horainicial}"  id="editarHoraInicialTurno" style=" border-radius: 0px; width: 99%;"> 
+                                            <p:inputText  autocomplete="false"   value="#{infoTR.horainicial}"  id="editarHoraInicialTurno" style=" border-radius: 0px; width: 99%;"> 
                                                 <p:ajax event="change" listener="#{controlATCuadrilla.modificarTurno(indiceTR)}" process="@this" update="@this"/>
                                                 <p:ajax event="select" listener="#{controlATCuadrilla.cambiarIndiceTurno(indiceTR, 3)}" />
                                             </p:inputText>
@@ -241,7 +241,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoTR.horafinal}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{infoTR.horafinal}"  id="editarHoraFinalTurno" style=" border-radius: 0px; width: 99%;"> 
+                                            <p:inputText  autocomplete="false"   value="#{infoTR.horafinal}"  id="editarHoraFinalTurno" style=" border-radius: 0px; width: 99%;"> 
                                                 <p:ajax event="change" listener="#{controlATCuadrilla.modificarTurno(indiceTR)}" process="@this" update="@this"/>
                                                 <p:ajax event="select" listener="#{controlATCuadrilla.cambiarIndiceTurno(indiceTR, 4)}" />
                                             </p:inputText>
@@ -254,7 +254,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoTR.minutoinicial}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{infoTR.minutoinicial}"  id="editarMinInicialTurno" style=" border-radius: 0px; width: 99%;"> 
+                                            <p:inputText  autocomplete="false"   value="#{infoTR.minutoinicial}"  id="editarMinInicialTurno" style=" border-radius: 0px; width: 99%;"> 
                                                 <p:ajax event="change" listener="#{controlATCuadrilla.modificarTurno(indiceTR)}" process="@this" update="@this"/>
                                                 <p:ajax event="select" listener="#{controlATCuadrilla.cambiarIndiceTurno(indiceTR, 5)}" />
                                             </p:inputText>
@@ -267,7 +267,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoTR.minutofinal}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{infoTR.minutofinal}"  id="editarMinFinalTurno" style=" border-radius: 0px; width: 99%;"> 
+                                            <p:inputText  autocomplete="false"   value="#{infoTR.minutofinal}"  id="editarMinFinalTurno" style=" border-radius: 0px; width: 99%;"> 
                                                 <p:ajax event="change" listener="#{controlATCuadrilla.modificarTurno(indiceTR)}" process="@this" update="@this"/>
                                                 <p:ajax event="select" listener="#{controlATCuadrilla.cambiarIndiceTurno(indiceTR, 6)}" />
                                             </p:inputText>
@@ -301,7 +301,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{infoDTR.orden}" id="editarOrdenDetalle" style=" border-radius: 0px; width: 99%;"> 
+                                            <p:inputText  autocomplete="false"   value="#{infoDTR.orden}" id="editarOrdenDetalle" style=" border-radius: 0px; width: 99%;"> 
                                                 <p:ajax event="change" listener="#{controlATCuadrilla.modificarDetalle(indiceDTR)}" process="@this" update="@this"/>
                                                 <p:ajax event="select" listener="#{controlATCuadrilla.cambiarIndiceDetalle(indiceDTR, 0)}" />
                                             </p:inputText>
@@ -314,7 +314,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoDTR.empleado.codigoempleadoSTR}" style="text-transform: uppercase"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{infoDTR.empleado.codigoempleado}" id="editarCodigoDetalle" style=" border-radius: 0px; width: 99%;text-transform: uppercase;"> 
+                                            <p:inputText  autocomplete="false"   value="#{infoDTR.empleado.codigoempleado}" id="editarCodigoDetalle" style=" border-radius: 0px; width: 99%;text-transform: uppercase;"> 
                                                 <p:ajax event="change" listener="#{controlATCuadrilla.modificarDetalle(indiceDTR, 'CODIGO', infoDTR.codigoempleado)}" process="@this" update="@this"/>
                                                 <p:ajax event="dblclick" listener="#{controlATCuadrilla.asignarIndex(indiceDTR, 0)}"/>
                                                 <p:ajax event="select" listener="#{controlATCuadrilla.cambiarIndiceDetalle(indiceDTR, 1)}" />
@@ -329,7 +329,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoDTR.empleado.persona.nombreCompleto}" style="text-transform: uppercase"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{infoDTR.empleado.persona.nombreCompleto}" id="editarEmpleadoDetalle" style=" border-radius: 0px; width: 99%;text-transform: uppercase;"> 
+                                            <p:inputText  autocomplete="false"   value="#{infoDTR.empleado.persona.nombreCompleto}" id="editarEmpleadoDetalle" style=" border-radius: 0px; width: 99%;text-transform: uppercase;"> 
                                                 <p:ajax event="change" listener="#{controlATCuadrilla.modificarDetalle(indiceDTR, 'NOMBRE', infoDTR.empleado.persona.nombreCompleto)}" process="@this" update="@this"/>
                                                 <p:ajax event="dblclick" listener="#{controlATCuadrilla.asignarIndex(indiceDTR, 0)}"/>
                                                 <p:ajax event="select" listener="#{controlATCuadrilla.cambiarIndiceDetalle(indiceDTR, 2)}" />
@@ -550,7 +550,7 @@
 
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarE']}" style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="PF('lovEmpleado').filter();" style="width:150px; position: relative; left: 30px;" />  
+                                <p:inputText  autocomplete="false"   id="globalFilter" onkeyup="PF('lovEmpleado').filter();" style="width:150px; position: relative; left: 30px;" />  
                             </f:facet>
                             <p:column filterBy="#{empleados.codigoempleado}" width="60" filterMatchMode="contains" filterStyle="width: 50px">
                                 <f:facet name="header">
@@ -585,7 +585,7 @@
 
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarE']}" style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="PF('lovEmpleadoCuadrilla').filter();" style="width:150px; position: relative; left: 30px;" />  
+                                <p:inputText  autocomplete="false"   id="globalFilter" onkeyup="PF('lovEmpleadoCuadrilla').filter();" style="width:150px; position: relative; left: 30px;" />  
                             </f:facet>
                             <p:column filterBy="#{empleadosCuadrillas.codigoempleado}" width="60" filterMatchMode="contains" filterStyle="width: 50px">
                                 <f:facet name="header">
@@ -636,13 +636,13 @@
                         <p:panel id="nuevaCuadrilla" style="border: none;">
 
                             <strong><h:outputText value="#{msg['codigoN']}" style=" position: absolute; top: 75px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaCodigoCuadrilla" value="#{controlATCuadrilla.nuevaCuadrilla.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 70px;">
+                            <p:inputText  autocomplete="false"   id="nuevaCodigoCuadrilla" value="#{controlATCuadrilla.nuevaCuadrilla.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 70px;">
                                 <p:ajax event="change" process="@this" update="@this" />
                             </p:inputText>
                             <p:watermark for="nuevaCodigoCuadrilla" value="#{msg['codigo']}" />
 
                             <strong><h:outputText value="#{msg['descripcionCuadrillaN']}" style=" position: absolute; top: 105px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaDescripcionCuadrilla" maxlength="40" value="#{controlATCuadrilla.nuevaCuadrilla.descripcion}" style=" width: 122px; position: absolute; left: 200px; top: 100px;text-transform: uppercase">
+                            <p:inputText  autocomplete="false"   id="nuevaDescripcionCuadrilla" maxlength="40" value="#{controlATCuadrilla.nuevaCuadrilla.descripcion}" style=" width: 122px; position: absolute; left: 200px; top: 100px;text-transform: uppercase">
                                 <p:ajax event="change" process="@this" update="@this" />
                             </p:inputText>
                             <p:watermark for="nuevaDescripcionCuadrilla" value="#{msg['descripcionCuadrilla']}" />
@@ -655,7 +655,7 @@
                             </p:selectOneMenu>
 
                             <strong><h:outputText value="#{msg['moduloN']}" style=" position: absolute; top: 165px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaModuloCuadrilla"  value="#{controlATCuadrilla.nuevaCuadrilla.modulo}" style=" width: 122px; position: absolute; left: 200px; top: 160px;">
+                            <p:inputText  autocomplete="false"   id="nuevaModuloCuadrilla"  value="#{controlATCuadrilla.nuevaCuadrilla.modulo}" style=" width: 122px; position: absolute; left: 200px; top: 160px;">
                                 <p:ajax event="change" process="@this" update="@this" />
                             </p:inputText>
                             <p:watermark for="nuevaModuloCuadrilla" value="#{msg['modulo']}" />
@@ -668,7 +668,7 @@
                             </p:selectOneMenu>
 
                             <strong><h:outputText value="#{msg['diasN']}" style=" position: absolute; top: 225px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaDiasCuadrilla"  value="#{controlATCuadrilla.nuevaCuadrilla.diasciclo}" style=" width: 122px; position: absolute; left: 200px; top: 220px;">
+                            <p:inputText  autocomplete="false"   id="nuevaDiasCuadrilla"  value="#{controlATCuadrilla.nuevaCuadrilla.diasciclo}" style=" width: 122px; position: absolute; left: 200px; top: 220px;">
                                 <p:ajax event="change" process="@this" update="@this" />
                             </p:inputText>
                             <p:watermark for="nuevaDiasCuadrilla" value="#{msg['dias']}" />
@@ -686,13 +686,13 @@
                         <p:panel id="duplicarCuadrilla" style="border: none;">
 
                             <strong><h:outputText value="#{msg['codigoN']}" style=" position: absolute; top: 75px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarCodigoCuadrilla" value="#{controlATCuadrilla.duplicarCuadrilla.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 70px;">
+                            <p:inputText  autocomplete="false"   id="duplicarCodigoCuadrilla" value="#{controlATCuadrilla.duplicarCuadrilla.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 70px;">
                                 <p:ajax event="change" process="@this" update="@this" />
                             </p:inputText>
                             <p:watermark for="duplicarCodigoCuadrilla" value="#{msg['codigo']}" />
 
                             <strong><h:outputText value="#{msg['descripcionCuadrillaN']}" style=" position: absolute; top: 105px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarDescripcionCuadrilla" maxlength="40" value="#{controlATCuadrilla.duplicarCuadrilla.descripcion}" style=" width: 122px; position: absolute; left: 200px; top: 100px;text-transform: uppercase">
+                            <p:inputText  autocomplete="false"   id="duplicarDescripcionCuadrilla" maxlength="40" value="#{controlATCuadrilla.duplicarCuadrilla.descripcion}" style=" width: 122px; position: absolute; left: 200px; top: 100px;text-transform: uppercase">
                                 <p:ajax event="change" process="@this" update="@this" />
                             </p:inputText>
                             <p:watermark for="duplicarDescripcionCuadrilla" value="#{msg['descripcionCuadrilla']}" />
@@ -705,7 +705,7 @@
                             </p:selectOneMenu>
 
                             <strong><h:outputText value="#{msg['moduloN']}" style=" position: absolute; top: 165px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarModuloCuadrilla"  value="#{controlATCuadrilla.duplicarCuadrilla.modulo}" style=" width: 122px; position: absolute; left: 200px; top: 160px;">
+                            <p:inputText  autocomplete="false"   id="duplicarModuloCuadrilla"  value="#{controlATCuadrilla.duplicarCuadrilla.modulo}" style=" width: 122px; position: absolute; left: 200px; top: 160px;">
                                 <p:ajax event="change" process="@this" update="@this" />
                             </p:inputText>
                             <p:watermark for="duplicarModuloCuadrilla" value="#{msg['modulo']}" />
@@ -718,7 +718,7 @@
                             </p:selectOneMenu>
 
                             <strong><h:outputText value="#{msg['diasN']}" style=" position: absolute; top: 225px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarDiasCuadrilla"  value="#{controlATCuadrilla.duplicarCuadrilla.diasciclo}" style=" width: 122px; position: absolute; left: 200px; top: 220px;">
+                            <p:inputText  autocomplete="false"   id="duplicarDiasCuadrilla"  value="#{controlATCuadrilla.duplicarCuadrilla.diasciclo}" style=" width: 122px; position: absolute; left: 200px; top: 220px;">
                                 <p:ajax event="change" process="@this" update="@this" />
                             </p:inputText>
                             <p:watermark for="duplicarDiasCuadrilla" value="#{msg['dias']}" />
@@ -736,46 +736,46 @@
                         <p:panel id="nuevaTurno" style="border: none;">
 
                             <strong><h:outputText value="#{msg['codigoN']}" style=" position: absolute; top: 75px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaCodigoTurno" value="#{controlATCuadrilla.nuevaTurnoRotativo.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 70px;">
+                            <p:inputText  autocomplete="false"   id="nuevaCodigoTurno" value="#{controlATCuadrilla.nuevaTurnoRotativo.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 70px;">
                                 <p:ajax event="change" process="@this" update="@this" />
                             </p:inputText>
                             <p:watermark for="nuevaCodigoTurno" value="#{msg['codigo']}" />
 
                             <strong><h:outputText value="#{msg['descripcionN']}" style=" position: absolute; top: 105px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaDescripcionTurno" maxlength="40" value="#{controlATCuadrilla.nuevaTurnoRotativo.descripcion}" style=" width: 122px; position: absolute; left: 200px; top: 100px;">
+                            <p:inputText  autocomplete="false"   id="nuevaDescripcionTurno" maxlength="40" value="#{controlATCuadrilla.nuevaTurnoRotativo.descripcion}" style=" width: 122px; position: absolute; left: 200px; top: 100px;">
                                 <p:ajax event="change" process="@this" update="@this" />
                             </p:inputText>
                             <p:watermark for="nuevaDescripcionTurno" value="#{msg['descripcion']}" />
 
                             <strong><h:outputText value="#{msg['fechaSemillaN']}" style=" position: absolute; top: 135px; left: 50px;" /></strong>
                             <div id="posicionFechaSemillaNuevoReg" style=" position: absolute; top: 130px; left: 200px">
-                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFechaSemillaTurno" value="#{controlATCuadrilla.nuevaTurnoRotativo.fechasemilla}" >
+                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaSemillaTurno" value="#{controlATCuadrilla.nuevaTurnoRotativo.fechasemilla}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaSemillaTurno" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaSemillaTurno" process="@this"/>
                                 </p:calendar>
                             </div>
 
                             <strong><h:outputText value="#{msg['horaInicialN']}" style=" position: absolute; top: 165px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaHoraInicialTurno"  value="#{controlATCuadrilla.nuevaTurnoRotativo.horainicial}" style=" width: 122px; position: absolute; left: 200px; top: 160px;">
+                            <p:inputText  autocomplete="false"   id="nuevaHoraInicialTurno"  value="#{controlATCuadrilla.nuevaTurnoRotativo.horainicial}" style=" width: 122px; position: absolute; left: 200px; top: 160px;">
                                 <p:ajax event="change" process="@this" update="@this" />
                             </p:inputText>
                             <p:watermark for="nuevaHoraInicialTurno" value="#{msg['horaInicial']}" />
 
                             <strong><h:outputText value="#{msg['horaFinalN']}" style=" position: absolute; top: 195px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaHoraFinalTurno"  value="#{controlATCuadrilla.nuevaTurnoRotativo.horafinal}" style=" width: 122px; position: absolute; left: 200px; top: 190px;">
+                            <p:inputText  autocomplete="false"   id="nuevaHoraFinalTurno"  value="#{controlATCuadrilla.nuevaTurnoRotativo.horafinal}" style=" width: 122px; position: absolute; left: 200px; top: 190px;">
                                 <p:ajax event="change" process="@this" update="@this" />
                             </p:inputText>
                             <p:watermark for="nuevaHoraFinalTurno" value="#{msg['horaFinal']}" />
 
 
                             <strong><h:outputText value="#{msg['minInicialN']}" style=" position: absolute; top: 225px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaMinInicialTurno"  value="#{controlATCuadrilla.nuevaTurnoRotativo.minutoinicial}" style=" width: 122px; position: absolute; left: 200px; top: 220px;">
+                            <p:inputText  autocomplete="false"   id="nuevaMinInicialTurno"  value="#{controlATCuadrilla.nuevaTurnoRotativo.minutoinicial}" style=" width: 122px; position: absolute; left: 200px; top: 220px;">
                                 <p:ajax event="change" process="@this" update="@this" />
                             </p:inputText>
                             <p:watermark for="nuevaMinInicialTurno" value="#{msg['minInicial']}" />
 
                             <strong><h:outputText value="#{msg['minFinalN']}" style=" position: absolute; top: 255px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaMinFinalTurno"  value="#{controlATCuadrilla.nuevaTurnoRotativo.minutofinal}" style=" width: 122px; position: absolute; left: 200px; top: 250px;">
+                            <p:inputText  autocomplete="false"   id="nuevaMinFinalTurno"  value="#{controlATCuadrilla.nuevaTurnoRotativo.minutofinal}" style=" width: 122px; position: absolute; left: 200px; top: 250px;">
                                 <p:ajax event="change" process="@this" update="@this" />
                             </p:inputText>
                             <p:watermark for="nuevaMinFinalTurno" value="#{msg['minFinal']}" />                            
@@ -793,46 +793,46 @@
                         <p:panel id="duplicarTurno" style="border: none;">
 
                             <strong><h:outputText value="#{msg['codigoN']}" style=" position: absolute; top: 75px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarCodigoTurno" value="#{controlATCuadrilla.duplicarTurnoRotativo.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 70px;">
+                            <p:inputText  autocomplete="false"   id="duplicarCodigoTurno" value="#{controlATCuadrilla.duplicarTurnoRotativo.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 70px;">
                                 <p:ajax event="change" process="@this" update="@this" />
                             </p:inputText>
                             <p:watermark for="duplicarCodigoTurno" value="#{msg['codigo']}" />
 
                             <strong><h:outputText value="#{msg['descripcionN']}" style=" position: absolute; top: 105px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarDescripcionTurno" maxlength="40" value="#{controlATCuadrilla.duplicarTurnoRotativo.descripcion}" style=" width: 122px; position: absolute; left: 200px; top: 100px;">
+                            <p:inputText  autocomplete="false"   id="duplicarDescripcionTurno" maxlength="40" value="#{controlATCuadrilla.duplicarTurnoRotativo.descripcion}" style=" width: 122px; position: absolute; left: 200px; top: 100px;">
                                 <p:ajax event="change" process="@this" update="@this" />
                             </p:inputText>
                             <p:watermark for="duplicarDescripcionTurno" value="#{msg['descripcion']}" />
 
                             <strong><h:outputText value="#{msg['fechaSemillaN']}" style=" position: absolute; top: 135px; left: 50px;" /></strong>
                             <div id="posicionFechaSemillaDuplicarReg" style=" position: absolute; top: 130px; left: 200px">
-                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarFechaSemillaTurno" value="#{controlATCuadrilla.duplicarTurnoRotativo.fechasemilla}" >
+                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaSemillaTurno" value="#{controlATCuadrilla.duplicarTurnoRotativo.fechasemilla}" >
                                     <p:ajax event="dateSelect" update="duplicarFechaSemillaTurno" process="@this"/>
                                     <p:ajax event="change" update="duplicarFechaSemillaTurno" process="@this"/>
                                 </p:calendar>
                             </div>
 
                             <strong><h:outputText value="#{msg['horaInicialN']}" style=" position: absolute; top: 165px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarHoraInicialTurno"  value="#{controlATCuadrilla.duplicarTurnoRotativo.horainicial}" style=" width: 122px; position: absolute; left: 200px; top: 160px;">
+                            <p:inputText  autocomplete="false"   id="duplicarHoraInicialTurno"  value="#{controlATCuadrilla.duplicarTurnoRotativo.horainicial}" style=" width: 122px; position: absolute; left: 200px; top: 160px;">
                                 <p:ajax event="change" process="@this" update="@this" />
                             </p:inputText>
                             <p:watermark for="duplicarHoraInicialTurno" value="#{msg['horaInicial']}" />
 
                             <strong><h:outputText value="#{msg['horaFinalN']}" style=" position: absolute; top: 195px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarHoraFinalTurno"  value="#{controlATCuadrilla.duplicarTurnoRotativo.horafinal}" style=" width: 122px; position: absolute; left: 200px; top: 190px;">
+                            <p:inputText  autocomplete="false"   id="duplicarHoraFinalTurno"  value="#{controlATCuadrilla.duplicarTurnoRotativo.horafinal}" style=" width: 122px; position: absolute; left: 200px; top: 190px;">
                                 <p:ajax event="change" process="@this" update="@this" />
                             </p:inputText>
                             <p:watermark for="duplicarHoraFinalTurno" value="#{msg['horaFinal']}" />
 
 
                             <strong><h:outputText value="#{msg['minInicialN']}" style=" position: absolute; top: 225px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarMinInicialTurno"  value="#{controlATCuadrilla.duplicarTurnoRotativo.minutoinicial}" style=" width: 122px; position: absolute; left: 200px; top: 220px;">
+                            <p:inputText  autocomplete="false"   id="duplicarMinInicialTurno"  value="#{controlATCuadrilla.duplicarTurnoRotativo.minutoinicial}" style=" width: 122px; position: absolute; left: 200px; top: 220px;">
                                 <p:ajax event="change" process="@this" update="@this" />
                             </p:inputText>
                             <p:watermark for="duplicarMinInicialTurno" value="#{msg['minInicial']}" />
 
                             <strong><h:outputText value="#{msg['minFinalN']}" style=" position: absolute; top: 255px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarMinFinalTurno"  value="#{controlATCuadrilla.duplicarTurnoRotativo.minutofinal}" style=" width: 122px; position: absolute; left: 200px; top: 250px;">
+                            <p:inputText  autocomplete="false"   id="duplicarMinFinalTurno"  value="#{controlATCuadrilla.duplicarTurnoRotativo.minutofinal}" style=" width: 122px; position: absolute; left: 200px; top: 250px;">
                                 <p:ajax event="change" process="@this" update="@this" />
                             </p:inputText>
                             <p:watermark for="duplicarMinFinalTurno" value="#{msg['minFinal']}" />                            
@@ -850,13 +850,13 @@
                         <p:panel id="nuevaDetalle" style="border: none;">
 
                             <strong><h:outputText value="#{msg['ordenN']}" style=" position: absolute; top: 75px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaOrdenDetalle" value="#{controlATCuadrilla.nuevaDetalle.orden}" style=" width: 122px; position: absolute; left: 200px; top: 70px;">
+                            <p:inputText  autocomplete="false"   id="nuevaOrdenDetalle" value="#{controlATCuadrilla.nuevaDetalle.orden}" style=" width: 122px; position: absolute; left: 200px; top: 70px;">
                                 <p:ajax event="change" process="@this" update="@this" />
                             </p:inputText>
                             <p:watermark for="nuevaCodigoCuadrilla" value="#{msg['codigo']}" />
 
                             <strong><h:outputText value="#{msg['codigoEmpleadoN']}" style=" position: absolute; top: 105px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaCodigoDetalle"  value="#{controlATCuadrilla.nuevaDetalle.empleado.codigoempleado}" style=" width: 122px; position: absolute; left: 200px; top: 100px;text-transform: uppercase">
+                            <p:inputText  autocomplete="false"   id="nuevaCodigoDetalle"  value="#{controlATCuadrilla.nuevaDetalle.empleado.codigoempleado}" style=" width: 122px; position: absolute; left: 200px; top: 100px;text-transform: uppercase">
                                 <p:ajax event="dblclick" listener="#{controlATCuadrilla.asignarIndex(indiceDTR,1)}"/>
                                 <p:ajax event="click" listener="#{controlATCuadrilla.valoresBackupAutocompletarDetalle(1, 'CODIGO')}" />
                                 <p:ajax event="change" listener="#{controlATCuadrilla.autocompletarNuevoyDuplicadoDetalle('CODIGO', controlATCuadrilla.nuevaDetalle.empleado.codigoempleado, 1)}" />
@@ -865,7 +865,7 @@
                             <p:watermark for="nuevaCodigoDetalle" value="#{msg['codigoEmpleado']}" />
 
                             <strong><h:outputText value="#{msg['nombreEmpleadoN']}" style=" position: absolute; top: 135px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaEmpleadoDetalle"  value="#{controlATCuadrilla.nuevaDetalle.empleado.persona.nombreCompleto}" style=" width: 122px; position: absolute; left: 200px; top: 130px;text-transform: uppercase">
+                            <p:inputText  autocomplete="false"   id="nuevaEmpleadoDetalle"  value="#{controlATCuadrilla.nuevaDetalle.empleado.persona.nombreCompleto}" style=" width: 122px; position: absolute; left: 200px; top: 130px;text-transform: uppercase">
                                 <p:ajax event="dblclick" listener="#{controlATCuadrilla.asignarIndex(indiceDTR,1)}"/>
                                 <p:ajax event="click" listener="#{controlATCuadrilla.valoresBackupAutocompletarDetalle(1, 'NOMBRE')}" />
                                 <p:ajax event="change" listener="#{controlATCuadrilla.autocompletarNuevoyDuplicadoDetalle('NOMBRE', controlATCuadrilla.nuevaDetalle.empleado.persona.nombreCompleto, 1)}" />
@@ -886,13 +886,13 @@
                         <p:panel id="duplicarDetalle" style="border: none;">
 
                             <strong><h:outputText value="#{msg['ordenN']}" style=" position: absolute; top: 75px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarOrdenDetalle" value="#{controlATCuadrilla.duplicarDetalle.orden}" style=" width: 122px; position: absolute; left: 200px; top: 70px;">
+                            <p:inputText  autocomplete="false"   id="duplicarOrdenDetalle" value="#{controlATCuadrilla.duplicarDetalle.orden}" style=" width: 122px; position: absolute; left: 200px; top: 70px;">
                                 <p:ajax event="change" process="@this" update="@this" />
                             </p:inputText>
                             <p:watermark for="duplicarOrdenDetalle" value="#{msg['codigo']}" />
 
                             <strong><h:outputText value="#{msg['codigoEmpleadoN']}" style=" position: absolute; top: 105px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarCodigoDetalle"  value="#{controlATCuadrilla.duplicarDetalle.empleado.codigoempleado}" style=" width: 122px; position: absolute; left: 200px; top: 100px;text-transform: uppercase">
+                            <p:inputText  autocomplete="false"   id="duplicarCodigoDetalle"  value="#{controlATCuadrilla.duplicarDetalle.empleado.codigoempleado}" style=" width: 122px; position: absolute; left: 200px; top: 100px;text-transform: uppercase">
                                 <p:ajax event="dblclick" listener="#{controlATCuadrilla.asignarIndex(indiceDTR,2)}"/>
                                 <p:ajax event="click" listener="#{controlATCuadrilla.valoresBackupAutocompletarDetalle(2, 'CODIGO')}" />
                                 <p:ajax event="change" listener="#{controlATCuadrilla.autocompletarNuevoyDuplicadoDetalle('CODIGO', controlATCuadrilla.duplicarDetalle.empleado.codigoempleado, 2)}" />
@@ -901,7 +901,7 @@
                             <p:watermark for="duplicarCodigoDetalle" value="#{msg['codigoEmpleado']}" />
 
                             <strong><h:outputText value="#{msg['nombreEmpleadoN']}" style=" position: absolute; top: 135px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarEmpleadoDetalle"  value="#{controlATCuadrilla.duplicarDetalle.empleado.persona.nombreCompleto}" style=" width: 122px; position: absolute; left: 200px; top: 130px;text-transform: uppercase">
+                            <p:inputText  autocomplete="false"   id="duplicarEmpleadoDetalle"  value="#{controlATCuadrilla.duplicarDetalle.empleado.persona.nombreCompleto}" style=" width: 122px; position: absolute; left: 200px; top: 130px;text-transform: uppercase">
                                 <p:ajax event="dblclick" listener="#{controlATCuadrilla.asignarIndex(indiceDTR,2)}"/>
                                 <p:ajax event="click" listener="#{controlATCuadrilla.valoresBackupAutocompletarDetalle(2, 'NOMBRE')}" />
                                 <p:ajax event="change" listener="#{controlATCuadrilla.autocompletarNuevoyDuplicadoDetalle('NOMBRE', controlATCuadrilla.duplicarDetalle.empleado.persona.nombreCompleto, 2)}" />
@@ -917,66 +917,66 @@
 
 
                     <p:dialog id="editarCuadrillaCodigo" header="#{msg['editarCuadrillaCodigo']}" widgetVar="editarCuadrillaCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlATCuadrilla.editarCuadrilla.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea  value="#{controlATCuadrilla.editarCuadrilla.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarCuadrillaDescripcion" header="#{msg['editarCuadrillaDescripcion']}" widgetVar="editarCuadrillaDescripcion" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlATCuadrilla.editarCuadrilla.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea  value="#{controlATCuadrilla.editarCuadrilla.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarCuadrillaModulo" header="#{msg['editarCuadrillaModulo']}" widgetVar="editarCuadrillaModulo" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlATCuadrilla.editarCuadrilla.modulo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea  value="#{controlATCuadrilla.editarCuadrilla.modulo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarCuadrillaDias" header="#{msg['editarCuadrillaDias']}" widgetVar="editarCuadrillaDias" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlATCuadrilla.editarCuadrilla.diasciclo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea  value="#{controlATCuadrilla.editarCuadrilla.diasciclo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <!-- -->
 
                     <p:dialog id="editarTurnoCodigo" header="#{msg['editarTurnoCodigo']}" widgetVar="editarTurnoCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlATCuadrilla.editarTurnoRotativo.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea  value="#{controlATCuadrilla.editarTurnoRotativo.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarTurnoDescripcion" header="#{msg['editarTurnoDescripcion']}" widgetVar="editarTurnoDescripcion" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlATCuadrilla.editarTurnoRotativo.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea  value="#{controlATCuadrilla.editarTurnoRotativo.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarTurnoFechaSemilla" header="#{msg['editarTurnoFechaSemilla']}" widgetVar="editarTurnoFechaSemilla" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlATCuadrilla.editarTurnoRotativo.fechasemilla}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+                        <p:inputTextarea  value="#{controlATCuadrilla.editarTurnoRotativo.fechasemilla}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
                     <p:dialog id="editarTurnoHoraInicial" header="#{msg['editarTurnoHoraInicial']}" widgetVar="editarTurnoHoraInicial" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlATCuadrilla.editarTurnoRotativo.horainicial}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea  value="#{controlATCuadrilla.editarTurnoRotativo.horainicial}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarTurnoHoraFinal" header="#{msg['editarTurnoHoraFinal']}" widgetVar="editarTurnoHoraFinal" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlATCuadrilla.editarTurnoRotativo.horafinal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea  value="#{controlATCuadrilla.editarTurnoRotativo.horafinal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarTurnoMinInicial" header="#{msg['editarTurnoMinInicial']}" widgetVar="editarTurnoMinInicial" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlATCuadrilla.editarTurnoRotativo.minutoinicial}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea  value="#{controlATCuadrilla.editarTurnoRotativo.minutoinicial}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarTurnoMinFinal" header="#{msg['editarTurnoMinFinal']}" widgetVar="editarTurnoMinFinal" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlATCuadrilla.editarTurnoRotativo.minutofinal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea  value="#{controlATCuadrilla.editarTurnoRotativo.minutofinal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
 
                     <!-- -->
 
                     <p:dialog id="editarDetalleOrden" header="#{msg['editarDetalleOrden']}" widgetVar="editarDetalleOrden" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlATCuadrilla.editarDetalle.orden}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea  value="#{controlATCuadrilla.editarDetalle.orden}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarDetalleCodigo" header="#{msg['editarDetalleCodigo']}" widgetVar="editarDetalleCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlATCuadrilla.editarDetalle.empleado.codigoempleado}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea  value="#{controlATCuadrilla.editarDetalle.empleado.codigoempleado}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarDetalleEmpleado" header="#{msg['editarDetalleEmpleado']}" widgetVar="editarDetalleEmpleado" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlATCuadrilla.editarDetalle.empleado.persona.nombreCompleto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea  value="#{controlATCuadrilla.editarDetalle.empleado.persona.nombreCompleto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
 

@@ -99,7 +99,7 @@ and open the template in the editor.
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{causaausentismo.codigo}" id="editarCodigo" style="border-radius: 0px; width: 99.5%; text-transform: uppercase;height: 12px"> 
+                                            <p:inputText  autocomplete="false"   value="#{causaausentismo.codigo}" id="editarCodigo" style="border-radius: 0px; width: 99.5%; text-transform: uppercase;height: 12px"> 
                                                 <p:ajax event="select" listener="#{controlCausasAusentismos.cambiarIndice(causaausentismo, 0)}" />
                                                 <p:ajax event="change" listener="#{controlCausasAusentismos.modificarCausasAusentismos (causaausentismo, 'C', causaausentismo.codigo)}" update="@this"/>
                                             </p:inputText> 
@@ -120,7 +120,7 @@ and open the template in the editor.
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{causaausentismo.descripcion}" id="editarDescripcion" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase;height: 12px"> 
+                                            <p:inputText  autocomplete="false"   value="#{causaausentismo.descripcion}" id="editarDescripcion" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase;height: 12px"> 
                                                 <p:ajax event="select" listener="#{controlCausasAusentismos.cambiarIndice(causaausentismo, 1)}" />
                                                 <p:ajax event="change" listener="#{controlCausasAusentismos.modificarCausasAusentismos (causaausentismo, 'N', causaausentismo.descripcion)}" update="@this" />
                                             </p:inputText> 
@@ -138,7 +138,7 @@ and open the template in the editor.
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{causaausentismo.clase.descripcion}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{causaausentismo.clase.descripcion}" id="editarClase" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase;height: 12px"> 
+                                            <p:inputText  autocomplete="false"   value="#{causaausentismo.clase.descripcion}" id="editarClase" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase;height: 12px"> 
                                                 <p:ajax event="change" listener="#{controlCausasAusentismos.modificarCausasAusentismos(causaausentismo, 'CLASESAUSENTISMOS', causaausentismo.clase.descripcion)}"/>
                                                 <p:ajax event="select" listener="#{controlCausasAusentismos.cambiarIndice(causaausentismo, 2)}" />
                                                 <p:ajax event="dblclick" listener="#{controlCausasAusentismos.asignarIndex(causaausentismo,0,0)}"/>
@@ -185,7 +185,7 @@ and open the template in the editor.
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{causaausentismo.porcentajeliquidacion}" id="editarPorcentajeLiquidacion" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase;height: 12px"> 
+                                            <p:inputText  autocomplete="false"   value="#{causaausentismo.porcentajeliquidacion}" id="editarPorcentajeLiquidacion" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase;height: 12px"> 
                                                 <p:ajax event="select" listener="#{controlCausasAusentismos.cambiarIndice(causaausentismo, 4)}" />
                                                 <p:ajax event="change" listener="#{controlCausasAusentismos.modificarCausasAusentismos (causaausentismo, 'N', causaausentismo.porcentajeliquidacion)}" update="@this" />
                                             </p:inputText> 
@@ -206,7 +206,7 @@ and open the template in the editor.
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{causaausentismo.restadiasincapacidad}" id="editarRestaDiasIncapacidad" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase;height: 12px"> 
+                                            <p:inputText  autocomplete="false"   value="#{causaausentismo.restadiasincapacidad}" id="editarRestaDiasIncapacidad" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase;height: 12px"> 
                                                 <p:ajax event="select" listener="#{controlCausasAusentismos.cambiarIndice(causaausentismo, 5)}" />
                                                 <p:ajax event="change" listener="#{controlCausasAusentismos.modificarCausasAusentismos (causaausentismo, 'N', causaausentismo.restadiasincapacidad)}" update="@this" />
                                             </p:inputText> 
@@ -333,17 +333,17 @@ and open the template in the editor.
 
                         <p:panel id="nuevaCausasAusentismos" style="border: none;">
                             <strong><h:outputText value="#{msg['codigoN']}" style=" position: absolute; top: 75px;" /></strong>
-                            <p:inputText maxlength="4" id="nuevoCodigo" value="#{controlCausasAusentismos.nuevaCausasAusentismos.codigo}" style=" width: 122px; position: absolute; left: 185px; top: 70px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="false"   maxlength="4" id="nuevoCodigo" value="#{controlCausasAusentismos.nuevaCausasAusentismos.codigo}" style=" width: 122px; position: absolute; left: 185px; top: 70px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['descripcionN']}" style=" position: absolute; top: 105px;" /></strong>
-                            <p:inputText id="nuevoDescripcion" value="#{controlCausasAusentismos.nuevaCausasAusentismos.descripcion}" style=" width: 122px; position: absolute; left: 185px; top: 100px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="false"   id="nuevoDescripcion" value="#{controlCausasAusentismos.nuevaCausasAusentismos.descripcion}" style=" width: 122px; position: absolute; left: 185px; top: 100px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
 
                             <strong><h:outputText value="#{msg['claseN']}" style=" position: absolute; top: 135px;" /></strong>
-                            <p:inputText id="nuevoClase" value="#{controlCausasAusentismos.nuevaCausasAusentismos.clase.descripcion}" style=" width: 122px; position: absolute; left: 185px; top: 130px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="false"   id="nuevoClase" value="#{controlCausasAusentismos.nuevaCausasAusentismos.clase.descripcion}" style=" width: 122px; position: absolute; left: 185px; top: 130px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlCausasAusentismos.valoresBackupAutocompletar(1)}" />
                                 <p:ajax event="change" listener="#{controlCausasAusentismos.autocompletarNuevoyDuplicado(controlCausasAusentismos.nuevaCausasAusentismos.clase.descripcion,1)}"/>
                                 <p:ajax event="dblclick" listener="#{controlCausasAusentismos.llamarLovClasesAusentismos(1)}" />
@@ -362,12 +362,12 @@ and open the template in the editor.
                             </p:selectOneMenu>
 
                             <strong><h:outputText value="#{msg['porcentajeliquidacionN']}" style=" position: absolute; top: 195px;" /></strong>
-                            <p:inputText id="nuevoPorcentajeLiquidacion" value="#{controlCausasAusentismos.nuevaCausasAusentismos.porcentajeliquidacion}" style=" width: 122px; position: absolute; left: 185px; top: 190px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="false"   id="nuevoPorcentajeLiquidacion" value="#{controlCausasAusentismos.nuevaCausasAusentismos.porcentajeliquidacion}" style=" width: 122px; position: absolute; left: 185px; top: 190px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
 
                             <strong><h:outputText value="#{msg['restadiasincapacidadN']}" style=" position: absolute; top: 225px;" /></strong>
-                            <p:inputText id="nuevoRestaDiasIncapacidad" value="#{controlCausasAusentismos.nuevaCausasAusentismos.restadiasincapacidad}" style=" width: 122px; position: absolute; left: 185px; top: 220px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="false"   id="nuevoRestaDiasIncapacidad" value="#{controlCausasAusentismos.nuevaCausasAusentismos.restadiasincapacidad}" style=" width: 122px; position: absolute; left: 185px; top: 220px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
 
@@ -419,17 +419,17 @@ and open the template in the editor.
                         <p:panel id="duplicarCausaAusentismo" style="border: none;">
 
                             <strong><h:outputText value="#{msg['codigoN']}" style=" position: absolute; top: 75px;" /></strong>
-                            <p:inputText maxlength="4" id="duplicadoCodigo" value="#{controlCausasAusentismos.duplicarCausasAusentismos.codigo}" style=" width: 122px; position: absolute; left: 185px; top: 70px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="false"   maxlength="4" id="duplicadoCodigo" value="#{controlCausasAusentismos.duplicarCausasAusentismos.codigo}" style=" width: 122px; position: absolute; left: 185px; top: 70px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['descripcionN']}" style=" position: absolute; top: 105px;" /></strong>
-                            <p:inputText id="duplicadoDescripcion" value="#{controlCausasAusentismos.duplicarCausasAusentismos.descripcion}" style=" width: 122px; position: absolute; left: 185px; top: 100px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="false"   id="duplicadoDescripcion" value="#{controlCausasAusentismos.duplicarCausasAusentismos.descripcion}" style=" width: 122px; position: absolute; left: 185px; top: 100px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
 
                             <strong><h:outputText value="#{msg['claseN']}" style=" position: absolute; top: 135px;" /></strong>
-                            <p:inputText id="duplicadoClase" value="#{controlCausasAusentismos.duplicarCausasAusentismos.clase.descripcion}" style=" width: 122px; position: absolute; left: 185px; top: 130px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="false"   id="duplicadoClase" value="#{controlCausasAusentismos.duplicarCausasAusentismos.clase.descripcion}" style=" width: 122px; position: absolute; left: 185px; top: 130px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlCausasAusentismos.valoresBackupAutocompletar(2)}" />
                                 <p:ajax event="change" listener="#{controlCausasAusentismos.autocompletarNuevoyDuplicado(controlCausasAusentismos.duplicarCausasAusentismos.clase.descripcion,2)}"/>
                                 <p:ajax event="dblclick" listener="#{controlCausasAusentismos.llamarLovClasesAusentismos(2)}" />
@@ -448,12 +448,12 @@ and open the template in the editor.
                             </p:selectOneMenu>
 
                             <strong><h:outputText value="#{msg['porcentajeliquidacionN']}" style=" position: absolute; top: 195px;" /></strong>
-                            <p:inputText id="duplicadoPorcentajeLiquidacion" value="#{controlCausasAusentismos.duplicarCausasAusentismos.porcentajeliquidacion}" style=" width: 122px; position: absolute; left: 185px; top: 190px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="false"   id="duplicadoPorcentajeLiquidacion" value="#{controlCausasAusentismos.duplicarCausasAusentismos.porcentajeliquidacion}" style=" width: 122px; position: absolute; left: 185px; top: 190px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
 
                             <strong><h:outputText value="#{msg['restadiasincapacidadN']}" style=" position: absolute; top: 225px;" /></strong>
-                            <p:inputText id="duplicadoRestaDiasIncapacidad" value="#{controlCausasAusentismos.duplicarCausasAusentismos.restadiasincapacidad}" style=" width: 122px; position: absolute; left: 185px; top: 220px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="false"   id="duplicadoRestaDiasIncapacidad" value="#{controlCausasAusentismos.duplicarCausasAusentismos.restadiasincapacidad}" style=" width: 122px; position: absolute; left: 185px; top: 220px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
 
@@ -556,7 +556,7 @@ and open the template in the editor.
                             <p:ajax event="filter" listener="#{controlCausasAusentismos.eventoFiltrarLovClases()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarCLA']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="PF('LOVClasesAusentismos').filter();" style="width:120px; position: relative; left: 80px;" />  
+                                <p:inputText  autocomplete="false"   id="globalFilter" onkeyup="PF('LOVClasesAusentismos').filter();" style="width:120px; position: relative; left: 80px;" />  
                             </f:facet>
                             <p:column filterBy="#{clasesAusentismos.codigo}" width="10" filterStyle="width:30px;" filterMatchMode="contains">
                                 <f:facet name="header">
@@ -582,23 +582,23 @@ and open the template in the editor.
                     <!-- DIALOGOS EDITAR -->
 
                     <p:dialog id="editarCodigo" header="#{msg['codigoe']}" widgetVar="editarCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlCausasAusentismos.editarCausasAusentismos.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea  value="#{controlCausasAusentismos.editarCausasAusentismos.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarDescripcion" header="#{msg['descripcione']}" widgetVar="editarDescripcion" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlCausasAusentismos.editarCausasAusentismos.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea  value="#{controlCausasAusentismos.editarCausasAusentismos.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarClase" header="#{msg['clasee']}" widgetVar="editarClase" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlCausasAusentismos.editarCausasAusentismos.clase.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea  value="#{controlCausasAusentismos.editarCausasAusentismos.clase.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarPorcentajeLiquidacion" header="#{msg['porcentajeliquidacione']}" widgetVar="editarPorcentajeLiquidacion" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlCausasAusentismos.editarCausasAusentismos.porcentajeliquidacion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea  value="#{controlCausasAusentismos.editarCausasAusentismos.porcentajeliquidacion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarRestaDiasIncapacidad" header="#{msg['restadiasincapacidade']}" widgetVar="editarRestaDiasIncapacidad" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlCausasAusentismos.editarCausasAusentismos.restadiasincapacidad}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea  value="#{controlCausasAusentismos.editarCausasAusentismos.restadiasincapacidad}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                 </h:form>

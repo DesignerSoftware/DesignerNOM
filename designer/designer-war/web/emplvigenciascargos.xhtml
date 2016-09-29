@@ -129,7 +129,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:calendar mask="true" pattern="dd/MM/yyyy" id="editFecha" value="#{info.fechavigencia}">
+                                 <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="editFecha" value="#{info.fechavigencia}">
                                     <p:ajax event="dateSelect" listener="#{controlVigenciasCargos.modificarVC(info, 'N', info.fechavigencia)}" update="@this"/>
                                     <p:ajax event="change" listener="#{controlVigenciasCargos.modificarVC(info, 'N', info.fechavigencia)}" update="@this" process="@this"/>
                                     <p:ajax event="select" listener="#{controlVigenciasCargos.cambiarIndice(info, 0)}" process="@this"/> 
@@ -147,7 +147,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.estructura.nombre}" /></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText value="#{info.estructura.nombre}" id="editEstructura" style="border-radius: 0px; text-transform: uppercase; height: 12px;  width: 94%;"> 
+                                 <p:inputText  autocomplete="false"  value="#{info.estructura.nombre}" id="editEstructura" style="border-radius: 0px; text-transform: uppercase; height: 12px;  width: 94%;"> 
                                     <p:ajax event="change" listener="#{controlVigenciasCargos.modificarVC(info, 'ESTRUCTURA', info.estructura.nombre)}"/>
                                     <p:ajax event="select" listener="#{controlVigenciasCargos.cambiarIndice(info, 1)}" />
                                     <p:ajax event="dblclick" listener="#{controlVigenciasCargos.cargarEstructuras(info)}" update=":form:dlgEstructuras"/>
@@ -164,7 +164,7 @@
                            <p:cellEditor>  
                               <f:facet name="output" ><h:outputText value="#{info.motivocambiocargo.nombre}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText id="editMotivoC" value="#{info.motivocambiocargo.nombre}" style="border-radius: 0px; text-transform: uppercase; height: 12px;  width: 250%;">
+                                 <p:inputText  autocomplete="false"  id="editMotivoC" value="#{info.motivocambiocargo.nombre}" style="border-radius: 0px; text-transform: uppercase; height: 12px;  width: 250%;">
                                     <p:ajax event="change" listener="#{controlVigenciasCargos.modificarVC(info, 'MOTIVOC', info.motivocambiocargo.nombre)}"/>
                                     <p:ajax event="select" listener="#{controlVigenciasCargos.cambiarIndice(info, 2)}" />
                                     <p:ajax event="dblclick"  listener="#{controlVigenciasCargos.asignarIndex(info, 0)}"/>
@@ -181,7 +181,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.cargo.nombre}" /></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText value="#{info.cargo.nombre}" id="editNombreCargo" style="border-radius: 0px; text-transform: uppercase; height: 12px; width: 94%;" >
+                                 <p:inputText  autocomplete="false"  value="#{info.cargo.nombre}" id="editNombreCargo" style="border-radius: 0px; text-transform: uppercase; height: 12px; width: 94%;" >
                                     <p:ajax event="change" listener="#{controlVigenciasCargos.modificarVC(info, 'NOMBREC', info.cargo.nombre)}"/>
                                     <p:ajax event="select" listener="#{controlVigenciasCargos.cambiarIndice(info, 3)}" />
                                     <p:ajax event="dblclick" listener="#{controlVigenciasCargos.asignarIndex(info, 1)}"/>
@@ -198,7 +198,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.estructura.centrocosto.nombre}" /></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText value="#{info.estructura.centrocosto.nombre}" id="editCentroCosto"  style="border-radius: 0px; height: 12px;  width: 94%;">
+                                 <p:inputText  autocomplete="false"  value="#{info.estructura.centrocosto.nombre}" id="editCentroCosto"  style="border-radius: 0px; height: 12px;  width: 94%;">
                                     <p:ajax event="change" listener="#{controlVigenciasCargos.modificarVC(info, 'N', info.estructura.centrocosto.nombre)}"/>
                                     <p:ajax event="select" listener="#{controlVigenciasCargos.cambiarIndice(info, 4)}" />
                                  </p:inputText>
@@ -215,7 +215,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.empleadojefe.persona.nombreCompleto}" /></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText value="#{info.empleadojefe.persona.nombreCompleto}" id="editNombreJefe" style=" border-radius: 0px; text-transform: uppercase; height: 12px;  width: 94%;" >
+                                 <p:inputText  autocomplete="false"  value="#{info.empleadojefe.persona.nombreCompleto}" id="editNombreJefe" style=" border-radius: 0px; text-transform: uppercase; height: 12px;  width: 94%;" >
                                     <p:ajax event="change" listener="#{controlVigenciasCargos.modificarVC(info, 'EMPLEADOJ', info.empleadojefe.persona.nombreCompleto)}"/>
                                     <p:ajax event="select" listener="#{controlVigenciasCargos.cambiarIndice(info, 5)}"  />
                                     <p:ajax event="dblclick" listener="#{controlVigenciasCargos.asignarIndex(info, 2)}"/>
@@ -276,7 +276,7 @@
 
                         <f:facet name="header">  
                            <h:outputText value="#{msg['buscarE']}"/>  
-                           <p:inputText id="globalFilter" onkeyup="PF('estructurasLOV').filter();" value="#{filtrado}" class="cssFiltroLOV" />  
+                           <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('estructurasLOV').filter();" value="#{filtrado}" class="cssFiltroLOV" />  
                            <p:watermark for="globalFilter" value="#{msg['ingreseEJ']}" />
                         </f:facet>  
 
@@ -318,7 +318,7 @@
 
                         <f:facet name="header">  
                            <h:outputText value="#{msg['buscarM']}"/>  
-                           <p:inputText id="globalFilter" onkeyup="PF('motivosCambCargo').filter();" value="#{filtrado}" class="cssFiltroLOV"/>  
+                           <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('motivosCambCargo').filter();" value="#{filtrado}" class="cssFiltroLOV"/>  
                            <p:watermark for="globalFilter" value="#{msg['ingreseEJ']}" />
                         </f:facet>
 
@@ -365,7 +365,7 @@
 
                         <f:facet name="header">  
                            <h:outputText value="#{msg['buscarC']}"/>  
-                           <p:inputText id="globalFilter" value="#{filtrado}" onkeyup="PF('lOVCargos').filter();" class="cssFiltroLOV" />  
+                           <p:inputText  autocomplete="false"  id="globalFilter" value="#{filtrado}" onkeyup="PF('lOVCargos').filter();" class="cssFiltroLOV" />  
                            <p:watermark for="globalFilter" value="#{msg['ingreseEJ']}" />
                         </f:facet>
 
@@ -433,7 +433,7 @@
 
                         <f:facet name="header" >  
                            <h:outputText value="#{msg['buscarEJ']}"/>  
-                           <p:inputText id="globalFilter" onkeyup="PF('lvEmpleadoJefe').filter();" class="cssFiltroLOV"/>
+                           <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lvEmpleadoJefe').filter();" class="cssFiltroLOV"/>
                            <p:watermark for="globalFilter" value="#{msg['ingreseEJ']}" />
                         </f:facet>
 
@@ -569,14 +569,14 @@
 
                      <strong><h:outputText value="*#{msg['fechaN']}" style=" position: absolute; top: 70px;" /></strong>
                      <div style=" position: absolute; top: 65px; left: 130px;">
-                        <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFecha" value="#{controlVigenciasCargos.nuevaVigencia.fechavigencia}">
+                        <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="nuevaFecha" value="#{controlVigenciasCargos.nuevaVigencia.fechavigencia}">
                            <p:ajax event="dateSelect" update="@this"/>
                            <p:ajax event="change" update="@this"/>
                         </p:calendar>
                      </div>
 
                      <strong><h:outputText value="*#{msg['estructuraN']}" style=" position: absolute; top: 100px;" /></strong>
-                     <p:inputText id="nuevaEstructura" value="#{controlVigenciasCargos.nuevaVigencia.estructura.nombre}" style=" width: 122px; position: absolute; left: 130px; top: 95px; text-transform: uppercase" onclick="select();">
+                     <p:inputText  autocomplete="false"  id="nuevaEstructura" value="#{controlVigenciasCargos.nuevaVigencia.estructura.nombre}" style=" width: 122px; position: absolute; left: 130px; top: 95px; text-transform: uppercase" onclick="select();">
                         <p:ajax event="click" listener="#{controlVigenciasCargos.valoresBackupAutocompletar(1, 'ESTRUCTURA')}" />
                         <p:ajax event="change" listener="#{controlVigenciasCargos.autocompletarNuevoyDuplicado('ESTRUCTURA', controlVigenciasCargos.nuevaVigencia.estructura.nombre, 1)}" />
                         <p:ajax event="dblclick" listener="#{controlVigenciasCargos.cargarEstructurasNuevoRegistro(0)}" update=":form:estructurasLOV" />
@@ -586,7 +586,7 @@
                      <p:watermark for="nuevaEstructura" value="#{msg['estructura']}" />
 
                      <strong><h:outputText value="*#{msg['motivoN']}" style=" position: absolute; top: 135px;" /></strong>
-                     <p:inputText id="nuevoMotivo" value="#{controlVigenciasCargos.nuevaVigencia.motivocambiocargo.nombre}" style=" width: 122px; position: absolute; left: 130px; top: 130px; text-transform: uppercase" onclick="select();">
+                     <p:inputText  autocomplete="false"  id="nuevoMotivo" value="#{controlVigenciasCargos.nuevaVigencia.motivocambiocargo.nombre}" style=" width: 122px; position: absolute; left: 130px; top: 130px; text-transform: uppercase" onclick="select();">
                         <p:ajax event="click" listener="#{controlVigenciasCargos.valoresBackupAutocompletar(1, 'MOTIVOC')}" />
                         <p:ajax event="change" listener="#{controlVigenciasCargos.autocompletarNuevoyDuplicado('MOTIVOC', controlVigenciasCargos.nuevaVigencia.motivocambiocargo.nombre, 1)}" />
                         <p:ajax event="dblclick" listener="#{controlVigenciasCargos.asignarVariableMotivoCargoNuevo(0)}" />
@@ -596,7 +596,7 @@
                                       width: 23px; height: 23px;" id="nuevoMot" process="@this" actionListener="#{controlVigenciasCargos.asignarVariableMotivoCargoNuevo(0)}"/>
 
                      <strong><h:outputText value="*#{msg['cargoN']}" style=" position: absolute; top: 170px;" /></strong>
-                     <p:inputText id="nuevoNombreCargo" value="#{controlVigenciasCargos.nuevaVigencia.cargo.nombre}" style=" width: 122px; position: absolute; left: 130px; top: 165px; text-transform: uppercase" onclick="select();">
+                     <p:inputText  autocomplete="false"  id="nuevoNombreCargo" value="#{controlVigenciasCargos.nuevaVigencia.cargo.nombre}" style=" width: 122px; position: absolute; left: 130px; top: 165px; text-transform: uppercase" onclick="select();">
                         <p:ajax event="click" listener="#{controlVigenciasCargos.valoresBackupAutocompletar(1, 'CARGO')}" />
                         <p:ajax event="change" listener="#{controlVigenciasCargos.autocompletarNuevoyDuplicado('NOMBREC', controlVigenciasCargos.nuevaVigencia.cargo.nombre, 1)}" />
                         <p:ajax event="dblclick" listener="#{controlVigenciasCargos.asignarVariableCargoNuevo(0)}" />
@@ -606,11 +606,11 @@
                                       width: 23px; height: 23px;" id="NuevoC" actionListener="#{controlVigenciasCargos.asignarVariableCargoNuevo(0)}" process="@this" />
 
                      <strong><h:outputText value="#{msg['centrocostoN']}"  style=" position: absolute; top: 205px;" /></strong>
-                     <p:inputText id="nuevoCentroC" value="#{controlVigenciasCargos.nuevaVigencia.estructura.centrocosto.nombre}" style=" width: 122px; position: absolute; left: 130px; top: 200px;" readonly="true"/>
+                     <p:inputText  autocomplete="false"  id="nuevoCentroC" value="#{controlVigenciasCargos.nuevaVigencia.estructura.centrocosto.nombre}" style=" width: 122px; position: absolute; left: 130px; top: 200px;" readonly="true"/>
                      <p:watermark for="nuevoCentroC" value="#{msg['centrocosto']}" />
 
                      <strong><h:outputText value="#{msg['nombrejefeN']}" style=" position: absolute; top: 240px;" /></strong>
-                     <p:inputText id="nuevoJefe" value="#{controlVigenciasCargos.nuevaVigencia.empleadojefe.persona.nombreCompleto}" style=" width: 122px; position: absolute; left: 130px; top: 235px; text-transform: uppercase" onclick="select();">
+                     <p:inputText  autocomplete="false"  id="nuevoJefe" value="#{controlVigenciasCargos.nuevaVigencia.empleadojefe.persona.nombreCompleto}" style=" width: 122px; position: absolute; left: 130px; top: 235px; text-transform: uppercase" onclick="select();">
                         <p:ajax event="click" listener="#{controlVigenciasCargos.valoresBackupAutocompletar(1, 'EMPLEADOJ')}" process="@this"/>
                         <p:ajax event="change" listener="#{controlVigenciasCargos.autocompletarNuevoyDuplicado('EMPLEADOJ', controlVigenciasCargos.nuevaVigencia.empleadojefe.persona.nombreCompleto, 1)}" />
                         <p:ajax event="dblclick" listener="#{controlVigenciasCargos.asignarVariableEmpleadoJefeNuevo(0)}" />
@@ -632,13 +632,13 @@
                   <p:panel id="duplicarVC" style="border: none; margin-left: 15px;">
                      <strong><h:outputText value="*#{msg['fechaN']}" style=" position: absolute; top: 65px;" /></strong>
                      <div style=" position: absolute; top: 60px; left: 130px;">
-                        <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarFecha" value="#{controlVigenciasCargos.duplicarVC.fechavigencia}">
+                        <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="duplicarFecha" value="#{controlVigenciasCargos.duplicarVC.fechavigencia}">
                            <p:ajax event="dateSelect" update="@this"/>
                            <p:ajax event="change" update="@this"/>
                         </p:calendar>
                      </div>
                      <strong><h:outputText value="*#{msg['estructuraN']}" style=" position: absolute; top: 100px;" /></strong>
-                     <p:inputText id="duplicarEstructura" value="#{controlVigenciasCargos.duplicarVC.estructura.nombre}" style=" width: 122px; position: absolute; left: 130px; top: 95px; text-transform: uppercase" onclick="select();">
+                     <p:inputText  autocomplete="false"  id="duplicarEstructura" value="#{controlVigenciasCargos.duplicarVC.estructura.nombre}" style=" width: 122px; position: absolute; left: 130px; top: 95px; text-transform: uppercase" onclick="select();">
                         <p:ajax event="click" listener="#{controlVigenciasCargos.valoresBackupAutocompletar(2, 'ESTRUCTURA')}" />
                         <p:ajax event="change" listener="#{controlVigenciasCargos.autocompletarNuevoyDuplicado('ESTRUCTURA', controlVigenciasCargos.duplicarVC.estructura.nombre, 2)}" />
                         <p:ajax event="dblclick" listener="#{controlVigenciasCargos.cargarEstructurasNuevoRegistro(1)}" update=":form:estructurasLOV"/>
@@ -648,7 +648,7 @@
                      <p:watermark for="duplicarEstructura" value="#{msg['estructura']}" />
 
                      <strong><h:outputText value="*#{msg['motivoN']}" style=" position: absolute; top: 135px;" /></strong>
-                     <p:inputText id="duplicarMotivo" value="#{controlVigenciasCargos.duplicarVC.motivocambiocargo.nombre}" style=" width: 122px; position: absolute; left: 130px; top: 130px; text-transform: uppercase" onclick="select();">
+                     <p:inputText  autocomplete="false"  id="duplicarMotivo" value="#{controlVigenciasCargos.duplicarVC.motivocambiocargo.nombre}" style=" width: 122px; position: absolute; left: 130px; top: 130px; text-transform: uppercase" onclick="select();">
                         <p:ajax event="click" listener="#{controlVigenciasCargos.valoresBackupAutocompletar(2, 'MOTIVOC')}" />
                         <p:ajax event="change" listener="#{controlVigenciasCargos.autocompletarNuevoyDuplicado('MOTIVOC', controlVigenciasCargos.duplicarVC.motivocambiocargo.nombre, 2)}" />
                         <p:ajax event="dblclick" listener="#{controlVigenciasCargos.asignarVariableMotivoCargoNuevo(1)}" />
@@ -658,7 +658,7 @@
                                       width: 23px; height: 23px;" id="btnDuplicarMot" process="@this" actionListener="#{controlVigenciasCargos.asignarVariableMotivoCargoNuevo(1)}"/>
 
                      <strong><h:outputText value="*#{msg['cargoN']}" style=" position: absolute; top: 170px;" /></strong>
-                     <p:inputText id="duplicarNombreCargo" value="#{controlVigenciasCargos.duplicarVC.cargo.nombre}" style=" width: 122px; position: absolute; left: 130px; top: 165px; text-transform: uppercase" onclick="select();">
+                     <p:inputText  autocomplete="false"  id="duplicarNombreCargo" value="#{controlVigenciasCargos.duplicarVC.cargo.nombre}" style=" width: 122px; position: absolute; left: 130px; top: 165px; text-transform: uppercase" onclick="select();">
                         <p:ajax event="click" listener="#{controlVigenciasCargos.valoresBackupAutocompletar(2, 'CARGO')}" />
                         <p:ajax event="change" listener="#{controlVigenciasCargos.autocompletarNuevoyDuplicado('NOMBREC', controlVigenciasCargos.duplicarVC.cargo.nombre, 2)}" />
                         <p:ajax event="dblclick" listener="#{controlVigenciasCargos.asignarVariableCargoNuevo(1)}" />
@@ -668,11 +668,11 @@
                                       width: 23px; height: 23px;" id="btnDuplicarC" actionListener="#{controlVigenciasCargos.asignarVariableCargoNuevo(1)}" process="@this" />
 
                      <strong><h:outputText value="#{msg['centrocostoN']}"  style=" position: absolute; top: 205px;" /></strong>
-                     <p:inputText id="duplicarCentroC" value="#{controlVigenciasCargos.duplicarVC.estructura.centrocosto.nombre}" style=" width: 122px; position: absolute; left: 130px; top: 200px;" readonly="true"/>
+                     <p:inputText  autocomplete="false"  id="duplicarCentroC" value="#{controlVigenciasCargos.duplicarVC.estructura.centrocosto.nombre}" style=" width: 122px; position: absolute; left: 130px; top: 200px;" readonly="true"/>
                      <p:watermark for="duplicarCentroC" value="#{msg['centrocosto']}" />
 
                      <strong><h:outputText value="#{msg['nombrejefeN']}" style=" position: absolute; top: 240px;" /></strong>
-                     <p:inputText id="duplicarJefe" value="#{controlVigenciasCargos.duplicarVC.empleadojefe.persona.nombreCompleto}" style=" width: 122px; position: absolute; left: 130px; top: 235px; text-transform: uppercase" onclick="select();">
+                     <p:inputText  autocomplete="false"  id="duplicarJefe" value="#{controlVigenciasCargos.duplicarVC.empleadojefe.persona.nombreCompleto}" style=" width: 122px; position: absolute; left: 130px; top: 235px; text-transform: uppercase" onclick="select();">
                         <p:ajax event="click" listener="#{controlVigenciasCargos.valoresBackupAutocompletar(2, 'EMPLEADOJ')}" />
                         <p:ajax event="change" listener="#{controlVigenciasCargos.autocompletarNuevoyDuplicado('EMPLEADOJ', controlVigenciasCargos.duplicarVC.empleadojefe.persona.nombreCompleto, 2)}" />
                         <p:ajax event="dblclick" listener="#{controlVigenciasCargos.asignarVariableEmpleadoJefeNuevo(1)}" />

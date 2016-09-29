@@ -39,7 +39,7 @@
                                             <h:outputText value="#{info.codigo}" />
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.codigo}" id="editarExtraCodigo" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="false"   value="#{info.codigo}" id="editarExtraCodigo" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlATExtraRecargo.modificarExtraRecargo(indice)}" update="editarExtraCodigo" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlATExtraRecargo.cambiarIndice(indice, 0)}"  process="@this"/>
                                             </p:inputText>
@@ -57,7 +57,7 @@
                                             <h:outputText value="#{info.descripcion}" />
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.descripcion}" maxlength="40" id="editarExtraDescripcion" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="false"   value="#{info.descripcion}" maxlength="40" id="editarExtraDescripcion" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlATExtraRecargo.procesoModificacionExtraRecargo(indice)}" update="editarExtraDescripcion" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlATExtraRecargo.cambiarIndice(indice, 1)}" process="@this"/>
                                             </p:inputText>
@@ -76,7 +76,7 @@
                                             <h:outputText value="#{info.tipodia.descripcion}" />
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.tipodia.descripcion}" id="editarExtraTipoDia" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="false"   value="#{info.tipodia.descripcion}" id="editarExtraTipoDia" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
                                                 <p:ajax event="select" listener="#{controlATExtraRecargo.cambiarIndice(indice, 2)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlATExtraRecargo.modificarExtraRecargo(indice, 'DIAS', info.tipodia.descripcion)}" process="@this" update="editarExtraTipoDia"/>
                                                 <p:ajax event="dblclick" listener="#{controlATExtraRecargo.asignarIndex(indice,0,0,0)}" process="@this" update="editarExtraTipoDia"/>
@@ -97,7 +97,7 @@
                                             <h:outputText value="#{info.tipojornada.descripcion}" />
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.tipojornada.descripcion}" id="editarExtraTipoJornada" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="false"   value="#{info.tipojornada.descripcion}" id="editarExtraTipoJornada" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlATExtraRecargo.modificarExtraRecargo(indice, 'JORNADA', info.tipojornada.descripcion)}" process="@this" update="editarExtraTipoJornada"/>
                                                 <p:ajax event="dblclick" listener="#{controlATExtraRecargo.asignarIndex(indice,1,0,0)}" process="@this" update="editarExtraTipoJornada"/>
                                                 <p:ajax event="select" listener="#{controlATExtraRecargo.cambiarIndice(indice, 3)}" />
@@ -117,7 +117,7 @@
                                             <h:outputText value="#{info.tipolegislacion.descripcion}" />
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.tipolegislacion.descripcion}" id="editarExtraTipoLegislacion" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="false"   value="#{info.tipolegislacion.descripcion}" id="editarExtraTipoLegislacion" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlATExtraRecargo.modificarExtraRecargo(indice, 'LEGISLACION', info.tipolegislacion.descripcion)}" process="@this" update="editarExtraTipoLegislacion"/>
                                                 <p:ajax event="dblclick" listener="#{controlATExtraRecargo.asignarIndex(indice,2,0,0)}" process="@this" update="editarExtraTipoLegislacion"/>
                                                 <p:ajax event="select" listener="#{controlATExtraRecargo.cambiarIndice(indice, 4)}" />
@@ -248,7 +248,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{infoD.horasinicial}" id="editarDetalleHI" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="false"   value="#{infoD.horasinicial}" id="editarDetalleHI" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlATExtraRecargo.procesoModificacionDetalleExtraRecargo(indiceD)}" update="editarDetalleHI" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlATExtraRecargo.cambiarIndiceDER(indiceD,0)}" process="@this"/> 
                                             </p:inputText>
@@ -272,7 +272,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{infoD.horasfinal}" id="editarDetalleHF" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="false"   value="#{infoD.horasfinal}" id="editarDetalleHF" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlATExtraRecargo.procesoModificacionDetalleExtraRecargo(indiceD)}" update="editarDetalleHF" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlATExtraRecargo.cambiarIndiceDER(indiceD,1)}" process="@this"/> 
                                             </p:inputText>
@@ -290,7 +290,7 @@
                                         <f:facet name="output"><h:outputText value="#{infoD.concepto.descripcion}" >
                                             </h:outputText></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{infoD.concepto.descripcion}" id="editarDetalleConcepto" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="false"   value="#{infoD.concepto.descripcion}" id="editarDetalleConcepto" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlATExtraRecargo.modificarDetalleExtraRecargo(indiceD, 'CONCEPTO', infoD.concepto.descripcion)}" process="@this" update="editarDetalleConcepto"/>
                                                 <p:ajax event="dblclick" listener="#{controlATExtraRecargo.asignarIndex(indiceD,0,0,1)}" process="@this" update="editarDetalleConcepto"/>
                                                 <p:ajax event="select" listener="#{controlATExtraRecargo.cambiarIndiceDER(indiceD, 2)}" />
@@ -309,7 +309,7 @@
                                         <f:facet name="output"><h:outputText value="#{infoD.concepto.empresa.nombre}" >
                                             </h:outputText></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{infoD.concepto.empresa.nombre}" id="editarDetalleEmpresa" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="false"   value="#{infoD.concepto.empresa.nombre}" id="editarDetalleEmpresa" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlATExtraRecargo.modificarDetalleExtraRecargo(indiceD, 'EMPRESA', infoD.concepto.empresa.nombre)}" process="@this" update="editarDetalleEmpresa"/>
                                                 <p:ajax event="dblclick" listener="#{controlATExtraRecargo.asignarIndex(indiceD,1,0,1)}" process="@this" update="editarDetalleEmpresa"/>
                                                 <p:ajax event="select" listener="#{controlATExtraRecargo.cambiarIndiceDER(indiceD, 3)}" process="@this" />
@@ -364,7 +364,7 @@
                                         <f:facet name="output"><h:outputText value="#{infoD.minimominutospagar}" >
                                             </h:outputText></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{infoD.minimominutospagar}" id="editarDetalleMinuto" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="false"   value="#{infoD.minimominutospagar}" id="editarDetalleMinuto" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlATExtraRecargo.modificarDetalleExtraRecargo(indiceD)}"  process="@this"/>
                                                 <p:ajax event="select" listener="#{controlATExtraRecargo.cambiarIndiceDER(indiceD, 5)}" process="@this"/>
                                             </p:inputText>
@@ -510,7 +510,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlATExtraRecargo.actualizarTipoDia()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarTD']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="PF('lovTipoDia').filter();" style="width:140px; position: relative; left: 70px;" />  
+                                <p:inputText  autocomplete="false"   id="globalFilter" onkeyup="PF('lovTipoDia').filter();" style="width:140px; position: relative; left: 70px;" />  
                             </f:facet>
                             <p:column filterBy="#{dias.codigo}" filterMatchMode="contains">
                                 <f:facet name="header">
@@ -549,7 +549,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlATExtraRecargo.actualizarTipoJornada()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarTJ']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="PF('lovTipoJornada').filter();" style="width:140px; position: relative; left: 70px;" />  
+                                <p:inputText  autocomplete="false"   id="globalFilter" onkeyup="PF('lovTipoJornada').filter();" style="width:140px; position: relative; left: 70px;" />  
                             </f:facet>
 
                             <p:column filterBy="#{jornada.codigo}"  filterMatchMode="contains">
@@ -612,7 +612,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlATExtraRecargo.actualizarLegislacion()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarTL']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="PF('lovLegislacion').filter();" style="width:140px; position: relative; left: 70px;" />  
+                                <p:inputText  autocomplete="false"   id="globalFilter" onkeyup="PF('lovLegislacion').filter();" style="width:140px; position: relative; left: 70px;" />  
                             </f:facet>
                             <p:column filterBy="#{legislacion.codigo}" width="80" filterMatchMode="contains">
                                 <f:facet name="header">
@@ -650,7 +650,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlATExtraRecargo.actualizarConcepto()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarC']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="PF('lovConcepto').filter();" style="width:140px; position: relative; left: 70px;" />  
+                                <p:inputText  autocomplete="false"   id="globalFilter" onkeyup="PF('lovConcepto').filter();" style="width:140px; position: relative; left: 70px;" />  
                             </f:facet>
                             <p:column filterBy="#{concepto.codigo}" filterMatchMode="contains">
                                 <f:facet name="header">
@@ -706,19 +706,19 @@
                         <p:panel id="nuevoExtra" style="border: none;">
 
                             <strong><h:outputText value="#{msg['codigoNER']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                            <p:inputText id="nuevoExtraCodigo" value="#{controlATExtraRecargo.nuevoExtraRecargo.codigo}" style="width: 122px; position: absolute; left: 200px; top: 70px;">
+                            <p:inputText  autocomplete="false"   id="nuevoExtraCodigo" value="#{controlATExtraRecargo.nuevoExtraRecargo.codigo}" style="width: 122px; position: absolute; left: 200px; top: 70px;">
                                 <p:ajax event="change" update="nuevoExtraCodigo"/>
                             </p:inputText>
                             <p:watermark value="#{msg['codigoWM']}" for="nuevoExtraCodigo"/>
 
                             <strong><h:outputText value="*#{msg['descripcionNER']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
-                            <p:inputText id="nuevoExtraDescripcion" maxlength="40" value="#{controlATExtraRecargo.nuevoExtraRecargo.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 100px;">
+                            <p:inputText  autocomplete="false"   id="nuevoExtraDescripcion" maxlength="40" value="#{controlATExtraRecargo.nuevoExtraRecargo.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 100px;">
                                 <p:ajax event="change" update="nuevoExtraDescripcion"/>
                             </p:inputText>
                             <p:watermark value="#{msg['descripcionWM']}" for="nuevoExtraDescripcion"/>
 
                             <strong><h:outputText value="*#{msg['tipodiaNER']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
-                            <p:inputText id="nuevoExtraTipoDia" value="#{controlATExtraRecargo.nuevoExtraRecargo.tipodia.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 130px;" onclick="select();">
+                            <p:inputText  autocomplete="false"   id="nuevoExtraTipoDia" value="#{controlATExtraRecargo.nuevoExtraRecargo.tipodia.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 130px;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlATExtraRecargo.asignarIndex(indice,0,1,0)}"/>
                                 <p:ajax event="click" listener="#{controlATExtraRecargo.valoresBackupAutocompletarGeneral(1, 'DIAS',0)}" />
                                 <p:ajax event="change" listener="#{controlATExtraRecargo.autocompletarNuevoyDuplicadoExtraRecargo('DIAS', controlATExtraRecargo.nuevoExtraRecargo.tipodia.descripcion, 1)}" />
@@ -726,7 +726,7 @@
                             <p:watermark value="#{msg['tipodiaWM']}" for="nuevoExtraTipoDia"/>
 
                             <strong><h:outputText value="*#{msg['tipojornadaNER']}" style="position: absolute; top: 165px; left: 50px;" /></strong>
-                            <p:inputText id="nuevoExtraTipoJornada" value="#{controlATExtraRecargo.nuevoExtraRecargo.tipojornada.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 160px;" onclick="select();">
+                            <p:inputText  autocomplete="false"   id="nuevoExtraTipoJornada" value="#{controlATExtraRecargo.nuevoExtraRecargo.tipojornada.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 160px;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlATExtraRecargo.asignarIndex(indice,1,1,0)}"/>
                                 <p:ajax event="click" listener="#{controlATExtraRecargo.valoresBackupAutocompletarGeneral(1, 'JORNADA',0)}" />
                                 <p:ajax event="change" listener="#{controlATExtraRecargo.autocompletarNuevoyDuplicadoExtraRecargo('JORNADA', controlATExtraRecargo.nuevoExtraRecargo.tipojornada.descripcion, 1)}" />
@@ -734,7 +734,7 @@
                             <p:watermark value="#{msg['tipojornadaWM']}" for="nuevoExtraTipoJornada"/>
 
                             <strong><h:outputText value="*#{msg['legislacionlaboralNER']}" style="position: absolute; top: 195px; left: 50px;" /></strong>
-                            <p:inputText id="nuevoExtraLegislacion" value="#{controlATExtraRecargo.nuevoExtraRecargo.tipolegislacion.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 190px;" onclick="select();">
+                            <p:inputText  autocomplete="false"   id="nuevoExtraLegislacion" value="#{controlATExtraRecargo.nuevoExtraRecargo.tipolegislacion.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 190px;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlATExtraRecargo.asignarIndex(indice,2,1,0)}"/>
                                 <p:ajax event="click" listener="#{controlATExtraRecargo.valoresBackupAutocompletarGeneral(1, 'LEGISLACION',0)}" />
                                 <p:ajax event="change" listener="#{controlATExtraRecargo.autocompletarNuevoyDuplicadoExtraRecargo('LEGISLACION', controlATExtraRecargo.nuevoExtraRecargo.tipolegislacion.descripcion, 1)}" />
@@ -764,19 +764,19 @@
                         <p:panel id="duplicarExtra" style="border: none;">
 
                             <strong><h:outputText value="#{msg['codigoNER']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarExtraCodigo" value="#{controlATExtraRecargo.duplicarExtraRecargo.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 70px;">
+                            <p:inputText  autocomplete="false"   id="duplicarExtraCodigo" value="#{controlATExtraRecargo.duplicarExtraRecargo.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 70px;">
                                 <p:ajax event="change" update="duplicarExtraCodigo"/>
                             </p:inputText>
                             <p:watermark value="#{msg['codigoWM']}" for="duplicarExtraCodigo"/>
 
                             <strong><h:outputText value="*#{msg['descripcionNER']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarExtraDescripcion" maxlength="40" value="#{controlATExtraRecargo.duplicarExtraRecargo.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 100px;">
+                            <p:inputText  autocomplete="false"   id="duplicarExtraDescripcion" maxlength="40" value="#{controlATExtraRecargo.duplicarExtraRecargo.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 100px;">
                                 <p:ajax event="change" update="duplicarExtraDescripcion"/>
                             </p:inputText>
                             <p:watermark value="#{msg['descripcionWM']}" for="duplicarExtraDescripcion"/>
 
                             <strong><h:outputText value="*#{msg['tipodiaNER']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarExtraTipoDia" value="#{controlATExtraRecargo.duplicarExtraRecargo.tipodia.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 130px;">
+                            <p:inputText  autocomplete="false"   id="duplicarExtraTipoDia" value="#{controlATExtraRecargo.duplicarExtraRecargo.tipodia.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 130px;">
                                 <p:ajax event="dblclick" listener="#{controlATExtraRecargo.asignarIndex(indice,0,2,0)}"/>
                                 <p:ajax event="click" listener="#{controlATExtraRecargo.valoresBackupAutocompletarGeneral(2, 'DIAS',0)}" />
                                 <p:ajax event="change" listener="#{controlATExtraRecargo.autocompletarNuevoyDuplicadoExtraRecargo('DIAS', controlATExtraRecargo.nuevoExtraRecargo.tipodia.descripcion, 2)}" />
@@ -784,7 +784,7 @@
                             <p:watermark value="#{msg['tipodiaWM']}" for="duplicarExtraTipoDia"/>
 
                             <strong><h:outputText value="*#{msg['tipojornadaNER']}" style="position: absolute; top: 165px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarExtraTipoJornada" value="#{controlATExtraRecargo.duplicarExtraRecargo.tipojornada.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 160px;">
+                            <p:inputText  autocomplete="false"   id="duplicarExtraTipoJornada" value="#{controlATExtraRecargo.duplicarExtraRecargo.tipojornada.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 160px;">
                                 <p:ajax event="dblclick" listener="#{controlATExtraRecargo.asignarIndex(indice,1,2,0)}"/>
                                 <p:ajax event="click" listener="#{controlATExtraRecargo.valoresBackupAutocompletarGeneral(2, 'JORNADA',0)}" />
                                 <p:ajax event="change" listener="#{controlATExtraRecargo.autocompletarNuevoyDuplicadoExtraRecargo('JORNADA', controlATExtraRecargo.nuevoExtraRecargo.tipojornada.descripcion, 2)}" />
@@ -792,7 +792,7 @@
                             <p:watermark value="#{msg['tipojornadaWM']}" for="duplicarExtraTipoJornada"/>
 
                             <strong><h:outputText value="*#{msg['legislacionlaboralNER']}" style="position: absolute; top: 195px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarExtraLegislacion" value="#{controlATExtraRecargo.duplicarExtraRecargo.tipolegislacion.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 190px;">
+                            <p:inputText  autocomplete="false"   id="duplicarExtraLegislacion" value="#{controlATExtraRecargo.duplicarExtraRecargo.tipolegislacion.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 190px;">
                                 <p:ajax event="dblclick" listener="#{controlATExtraRecargo.asignarIndex(indice,2,2,0)}"/>
                                 <p:ajax event="click" listener="#{controlATExtraRecargo.valoresBackupAutocompletarGeneral(2, 'LEGISLACION',0)}" />
                                 <p:ajax event="change" listener="#{controlATExtraRecargo.autocompletarNuevoyDuplicadoExtraRecargo('LEGISLACION', controlATExtraRecargo.nuevoExtraRecargo.tipolegislacion.descripcion, 2)}" />
@@ -820,20 +820,20 @@
                         <p:panel id="nuevoDetalleExtra" style="border: none;">
 
                             <strong><h:outputText value="*#{msg['horainicialNDER']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                            <p:inputText id="nuevoDetalleHI" value="#{controlATExtraRecargo.nuevoDetalleExtraRecargo.horasinicial}" style="width: 122px; position: absolute; left: 200px; top: 70px;">
+                            <p:inputText  autocomplete="false"   id="nuevoDetalleHI" value="#{controlATExtraRecargo.nuevoDetalleExtraRecargo.horasinicial}" style="width: 122px; position: absolute; left: 200px; top: 70px;">
                                 <p:ajax event="change" update="nuevoDetalleHI"/>
                             </p:inputText>
                             <p:watermark value="#{msg['horainicialWM']}" for="nuevoDetalleHI"/>
 
 
                             <strong><h:outputText value="*#{msg['horafinalNDER']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
-                            <p:inputText id="nuevoDetalleHF" value="#{controlATExtraRecargo.nuevoDetalleExtraRecargo.horasfinal}" style="width: 122px; position: absolute; left: 200px; top: 100px;">
+                            <p:inputText  autocomplete="false"   id="nuevoDetalleHF" value="#{controlATExtraRecargo.nuevoDetalleExtraRecargo.horasfinal}" style="width: 122px; position: absolute; left: 200px; top: 100px;">
                                 <p:ajax event="change" update="nuevoDetalleHF"/>
                             </p:inputText>
                             <p:watermark value="#{msg['horafinalWM']}" for="nuevoDetalleHF"/>
 
                             <strong><h:outputText value="#{msg['conceptoNDER']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
-                            <p:inputText id="nuevoDetalleConcepto" value="#{controlATExtraRecargo.nuevoDetalleExtraRecargo.concepto.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 130px;">
+                            <p:inputText  autocomplete="false"   id="nuevoDetalleConcepto" value="#{controlATExtraRecargo.nuevoDetalleExtraRecargo.concepto.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 130px;">
                                 <p:ajax event="dblclick" listener="#{controlATExtraRecargo.asignarIndex(indice,0,1,1)}"/>
                                 <p:ajax event="click" listener="#{controlATExtraRecargo.valoresBackupAutocompletarGeneral(1, 'CONCEPTO',1)}" />
                                 <p:ajax event="change" listener="#{controlATExtraRecargo.autocompletarNuevoyDuplicadoDetalleExtraRecargo('CONCEPTO', controlATExtraRecargo.nuevoDetalleExtraRecargo.concepto.descripcion, 1)}" />
@@ -841,7 +841,7 @@
                             <p:watermark value="#{msg['conceptoWM']}" for="nuevoDetalleConcepto"/>
 
                             <strong><h:outputText value="#{msg['empresaNDER']}" style="position: absolute; top: 165px; left: 50px;" /></strong>
-                            <p:inputText id="nuevoExtraEmpresa" value="#{controlATExtraRecargo.nuevoDetalleExtraRecargo.concepto.empresa.nombre}" style="width: 122px; position: absolute; left: 200px; top: 160px;">
+                            <p:inputText  autocomplete="false"   id="nuevoExtraEmpresa" value="#{controlATExtraRecargo.nuevoDetalleExtraRecargo.concepto.empresa.nombre}" style="width: 122px; position: absolute; left: 200px; top: 160px;">
                                 <p:ajax event="dblclick" listener="#{controlATExtraRecargo.asignarIndex(indice,1,1,1)}"/>
                                 <p:ajax event="click" listener="#{controlATExtraRecargo.valoresBackupAutocompletarGeneral(1, 'EMPRESA',1)}" />
                                 <p:ajax event="change" listener="#{controlATExtraRecargo.autocompletarNuevoyDuplicadoDetalleExtraRecargo('EMPRESA', controlATExtraRecargo.nuevoDetalleExtraRecargo.concepto.empresa.nombre, 1)}" />
@@ -868,7 +868,7 @@
                             </p:selectBooleanCheckbox>
 
                             <strong><h:outputText value="#{msg['mincantminutosNDER']}" style="position: absolute; top: 255px; left: 50px;" /></strong>
-                            <p:inputText id="nuevoDetalleMinuto" value="#{controlATExtraRecargo.nuevoDetalleExtraRecargo.minimominutospagar}" style="width: 122px; position: absolute; left: 200px; top: 250px;">
+                            <p:inputText  autocomplete="false"   id="nuevoDetalleMinuto" value="#{controlATExtraRecargo.nuevoDetalleExtraRecargo.minimominutospagar}" style="width: 122px; position: absolute; left: 200px; top: 250px;">
                                 <p:ajax event="change" update="nuevoDetalleMinuto"/>
                             </p:inputText>
                             <p:watermark value="#{msg['mincantminutosWM']}" for="nuevoDetalleMinuto"/>
@@ -902,20 +902,20 @@
 
 
                             <strong><h:outputText value="*#{msg['horainicialNDER']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarDetalleHI" value="#{controlATExtraRecargo.duplicarDetalleExtraRecargo.horasinicial}" style="width: 122px; position: absolute; left: 200px; top: 70px;">
+                            <p:inputText  autocomplete="false"   id="duplicarDetalleHI" value="#{controlATExtraRecargo.duplicarDetalleExtraRecargo.horasinicial}" style="width: 122px; position: absolute; left: 200px; top: 70px;">
                                 <p:ajax event="change" update="duplicarDetalleHI"/>
                             </p:inputText>
                             <p:watermark value="#{msg['horainicialWM']}" for="duplicarDetalleHI"/>
 
 
                             <strong><h:outputText value="*#{msg['horafinalNDER']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarDetalleHF" value="#{controlATExtraRecargo.duplicarDetalleExtraRecargo.horasfinal}" style="width: 122px; position: absolute; left: 200px; top: 100px;">
+                            <p:inputText  autocomplete="false"   id="duplicarDetalleHF" value="#{controlATExtraRecargo.duplicarDetalleExtraRecargo.horasfinal}" style="width: 122px; position: absolute; left: 200px; top: 100px;">
                                 <p:ajax event="change" update="duplicarDetalleHF"/>
                             </p:inputText>
                             <p:watermark value="#{msg['horafinalWM']}" for="duplicarDetalleHF"/>
 
                             <strong><h:outputText value="#{msg['conceptoNDER']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarDetalleConcepto" value="#{controlATExtraRecargo.duplicarDetalleExtraRecargo.concepto.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 130px;" onclick="select();">
+                            <p:inputText  autocomplete="false"   id="duplicarDetalleConcepto" value="#{controlATExtraRecargo.duplicarDetalleExtraRecargo.concepto.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 130px;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlATExtraRecargo.asignarIndex(indice,0,2,1)}"/>
                                 <p:ajax event="click" listener="#{controlATExtraRecargo.valoresBackupAutocompletarGeneral(2, 'CONCEPTO',1)}" />
                                 <p:ajax event="change" listener="#{controlATExtraRecargo.autocompletarNuevoyDuplicadoDetalleExtraRecargo('CONCEPTO', controlATExtraRecargo.nuevoDetalleExtraRecargo.concepto.descripcion, 2)}" />
@@ -923,7 +923,7 @@
                             <p:watermark value="#{msg['conceptoWM']}" for="duplicarDetalleConcepto"/>
 
                             <strong><h:outputText value="#{msg['empresaNDER']}" style="position: absolute; top: 165px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarExtraEmpresa" value="#{controlATExtraRecargo.duplicarDetalleExtraRecargo.concepto.empresa.nombre}" style="width: 122px; position: absolute; left: 200px; top: 160px;" onclick="select();">
+                            <p:inputText  autocomplete="false"   id="duplicarExtraEmpresa" value="#{controlATExtraRecargo.duplicarDetalleExtraRecargo.concepto.empresa.nombre}" style="width: 122px; position: absolute; left: 200px; top: 160px;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlATExtraRecargo.asignarIndex(indice,1,2,1)}"/>
                                 <p:ajax event="click" listener="#{controlATExtraRecargo.valoresBackupAutocompletarGeneral(2, 'EMPRESA',1)}" />
                                 <p:ajax event="change" listener="#{controlATExtraRecargo.autocompletarNuevoyDuplicadoDetalleExtraRecargo('EMPRESA', controlATExtraRecargo.nuevoDetalleExtraRecargo.concepto.empresa.nombre, 2)}" />
@@ -950,7 +950,7 @@
                             </p:selectBooleanCheckbox>
 
                             <strong><h:outputText value="#{msg['mincantminutosNDER']}" style="position: absolute; top: 255px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarDetalleMinuto" value="#{controlATExtraRecargo.duplicarDetalleExtraRecargo.minimominutospagar}" style="width: 122px; position: absolute; left: 200px; top: 250px;" onclick="select();">
+                            <p:inputText  autocomplete="false"   id="duplicarDetalleMinuto" value="#{controlATExtraRecargo.duplicarDetalleExtraRecargo.minimominutospagar}" style="width: 122px; position: absolute; left: 200px; top: 250px;" onclick="select();">
                                 <p:ajax event="change" update="duplicarDetalleMinuto"/>
                             </p:inputText>
                             <p:watermark value="#{msg['mincantminutosWM']}" for="duplicarDetalleMinuto"/>
@@ -982,49 +982,49 @@
                     <!-- editar celdas extras recargos -->
 
                     <p:dialog id="editarExtraCodigoD" header="#{msg['editarExtraCodigoD']}" widgetVar="editarExtraCodigoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlATExtraRecargo.editarExtraRecargo.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea  value="#{controlATExtraRecargo.editarExtraRecargo.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarExtraDescripcionD" header="#{msg['editarExtraDescripcionD']}" widgetVar="editarExtraDescripcionD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlATExtraRecargo.editarExtraRecargo.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea  value="#{controlATExtraRecargo.editarExtraRecargo.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarExtraTipoDiaD" header="#{msg['editarExtraTipoDiaD']}" widgetVar="editarExtraTipoDiaD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlATExtraRecargo.editarExtraRecargo.tipodia.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea  value="#{controlATExtraRecargo.editarExtraRecargo.tipodia.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarExtraTipoJornadaD" header="#{msg['editarExtraTipoJornadaD']}" widgetVar="editarExtraTipoJornadaD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlATExtraRecargo.editarExtraRecargo.tipojornada.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea  value="#{controlATExtraRecargo.editarExtraRecargo.tipojornada.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarExtraLegislacionD" header="#{msg['editarExtraLegislacionD']}" widgetVar="editarExtraLegislacionD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlATExtraRecargo.editarExtraRecargo.tipolegislacion.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea  value="#{controlATExtraRecargo.editarExtraRecargo.tipolegislacion.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <!-- editar celdas detalles extras recargos -->
 
                     <p:dialog id="editarDetalleHID" header="#{msg['editarDetalleHID']}" widgetVar="editarDetalleHID" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlATExtraRecargo.editarDetalleExtraRecargo.horasinicial}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
+                        <p:inputTextarea  value="#{controlATExtraRecargo.editarDetalleExtraRecargo.horasinicial}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
                             <f:convertNumber pattern="#00.00" />
                         </p:inputTextarea>
                     </p:dialog>
 
                     <p:dialog id="editarDetalleHFD" header="#{msg['editarDetalleHFD']}" widgetVar="editarDetalleHFD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlATExtraRecargo.editarDetalleExtraRecargo.horasfinal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
+                        <p:inputTextarea  value="#{controlATExtraRecargo.editarDetalleExtraRecargo.horasfinal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
                             <f:convertNumber pattern="#00.00" />
                         </p:inputTextarea>
                     </p:dialog>
 
                     <p:dialog id="editarDetalleConceptoD" header="#{msg['editarDetalleConceptoD']}" widgetVar="editarDetalleConceptoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlATExtraRecargo.editarDetalleExtraRecargo.concepto.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea  value="#{controlATExtraRecargo.editarDetalleExtraRecargo.concepto.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarDetalleEmpresaD" header="#{msg['editarDetalleEmpresaD']}" widgetVar="editarDetalleEmpresaD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlATExtraRecargo.editarDetalleExtraRecargo.concepto.empresa.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea  value="#{controlATExtraRecargo.editarDetalleExtraRecargo.concepto.empresa.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarDetalleMinutoD" header="#{msg['editarDetalleMinutoD']}" widgetVar="editarDetalleMinutoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlATExtraRecargo.editarDetalleExtraRecargo.minimominutospagar}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea  value="#{controlATExtraRecargo.editarDetalleExtraRecargo.minimominutospagar}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
                     </p:dialog>
 
 

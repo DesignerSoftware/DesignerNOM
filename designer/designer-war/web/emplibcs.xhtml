@@ -34,7 +34,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet  name="input">                                            
-                                            <p:inputText  readonly="true" value="#{info.fechainicial}" id="editarFechaInicial" style="border-radius: 0px; width: 99.5%"
+                                            <p:inputText  autocomplete="false"   readonly="true" value="#{info.fechainicial}" id="editarFechaInicial" style="border-radius: 0px; width: 99.5%"
                                                           onselect="posicionIBCS([{name: 'n', value: '0'}, {name: 't', value: '#{indice}'}]);"> 
                                                 <f:convertDateTime pattern="dd/MM/yyyy" />
                                             </p:inputText>
@@ -53,7 +53,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet  name="input">
-                                            <p:inputText  readonly="true" value="#{info.fechafinal}" id="editarfechaFinal" style="border-radius: 0px; width: 99.5%"
+                                            <p:inputText  autocomplete="false"   readonly="true" value="#{info.fechafinal}" id="editarfechaFinal" style="border-radius: 0px; width: 99.5%"
                                                           onselect="posicionIBCS([{name: 'n', value: '1'}, {name: 't', value: '#{indice}'}]);"> 
                                                 <f:convertDateTime pattern="dd/MM/yyyy" />
                                             </p:inputText>
@@ -72,7 +72,7 @@
                                             </h:outputText>
                                         </f:facet>
                                         <f:facet name="input">
-                                            <p:inputText  readonly="true" value="#{info.valor}" id="editarUnidades" style="border-radius: 0px; width: 99.5%"
+                                            <p:inputText  autocomplete="false"   readonly="true" value="#{info.valor}" id="editarUnidades" style="border-radius: 0px; width: 99.5%"
                                                           onselect="posicionIBCS([{name: 'n', value: '2'}, {name: 't', value: '#{indice}'}]);"> 
                                                 <f:convertNumber currencySymbol="$" type="currency" />
                                             </p:inputText>
@@ -161,11 +161,11 @@
 
                     <p:dialog id="dialogoIbcs" header="#{msg['dialogoIbcs']}" widgetVar="dialogoIbcs" resizable="false" draggable="true" modal="true" height="225" width="300" style=" padding: 0px">  
                         <h:outputText value="#{msg['fechaInicialN']}" style=" position: absolute;left: 15px ; top: 25px "  />
-                        <p:inputText readonly="true"  style=" position: absolute;left:110px ; top: 20px "  value="#{controlEmplIbcs.dialogoIbcsPorEmpleado.fechainicial}" styleClass="ui-datepicker, myClass">
+                        <p:inputText  autocomplete="false"  readonly="true"  style=" position: absolute;left:110px ; top: 20px "  value="#{controlEmplIbcs.dialogoIbcsPorEmpleado.fechainicial}" styleClass="ui-datepicker, myClass">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </p:inputText>
                         <h:outputText value="#{msg['fechaFinalN']}" style=" position: absolute;left: 15px ; top: 75px "  />
-                        <p:inputText readonly="true"  style=" position: absolute;left:110px ; top: 70px;"  value="#{controlEmplIbcs.dialogoIbcsPorEmpleado.fechafinal}" styleClass="ui-datepicker, myClass">
+                        <p:inputText  autocomplete="false"  readonly="true"  style=" position: absolute;left:110px ; top: 70px;"  value="#{controlEmplIbcs.dialogoIbcsPorEmpleado.fechafinal}" styleClass="ui-datepicker, myClass">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </p:inputText>
                         <h:outputText value="#{msg['valorN']}" style=" position: absolute;left: 15px ; top: 125px "  />

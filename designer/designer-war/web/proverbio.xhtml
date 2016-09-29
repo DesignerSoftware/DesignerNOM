@@ -87,7 +87,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{p.mensaje}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{p.mensaje}" id="editarMensaje" style=" border-radius: 0px; width: 99%; text-transform: uppercase; height:12px; border-radius: 3px;" > 
+                                            <p:inputText  autocomplete="false"  value="#{p.mensaje}" id="editarMensaje" style=" border-radius: 0px; width: 99%; text-transform: uppercase; height:12px; border-radius: 3px;" > 
                                                 <p:ajax event="select" listener="#{controlProverbio.cambiarIndice(p, 0)}" />
                                                 <p:ajax event="change" listener="#{controlProverbio.modificarProverbio(p, 'N', p.mensaje)}" update="@this"/>
                                             </p:inputText>
@@ -228,7 +228,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{m.mensaje}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{m.mensaje}" id="editarMensaje2" style=" border-radius: 0px; width: 98.5%;text-transform: uppercase; " > 
+                                            <p:inputText  autocomplete="false"  value="#{m.mensaje}" id="editarMensaje2" style=" border-radius: 0px; width: 98.5%;text-transform: uppercase; " > 
                                                 <p:ajax event="select" listener="#{controlProverbio.cambiarIndiceNF(m, 3)}" />
                                                 <p:ajax event="change" listener="#{controlProverbio.modificarMensajeUsuario(m, 'N', m.mensaje)}" update="@this"/>
                                             </p:inputText>
@@ -256,7 +256,7 @@
                         <p:panel id="nuevoRegistroProverbio" style="border: none;">
 
                             <strong><h:outputText value="#{msg['mensajeNP']}" style=" position: absolute; top: 70px;" /></strong>
-                            <p:inputText id="nuevoMensaje" value="#{controlProverbio.nuevoProverbio.mensaje}" style=" width: 180px; position: absolute; left: 130px; top: 65px; text-transform: uppercase" onclick="select();" >
+                            <p:inputText  autocomplete="false"  id="nuevoMensaje" value="#{controlProverbio.nuevoProverbio.mensaje}" style=" width: 180px; position: absolute; left: 130px; top: 65px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
@@ -275,7 +275,7 @@
                         <p:panel id="duplicarRegistroProverbio" style="border: none;">
 
                             <strong><h:outputText value="#{msg['mensajeNP']}" style=" position: absolute; top: 70px;" /></strong>
-                            <p:inputText id="duplicarMensaje" value="#{controlProverbio.duplicarProverbio.mensaje}" style=" width: 180px; position: absolute; left: 130px; top: 65px; text-transform: uppercase" onclick="select();" >
+                            <p:inputText  autocomplete="false"  id="duplicarMensaje" value="#{controlProverbio.duplicarProverbio.mensaje}" style=" width: 180px; position: absolute; left: 130px; top: 65px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
@@ -358,7 +358,7 @@
                             </p:selectOneMenu>
 
                             <strong><h:outputText value="#{msg['mensajeNM']}" style=" position: absolute; top: 190px;" /></strong>
-                            <p:inputText id="nuevoMensajeMU" value="#{controlProverbio.nuevoRegistroMensajesUsuarios.mensaje}" style=" width: 122px; position: absolute; left: 120px; top: 185px; text-transform: uppercase" onclick="select();" >
+                            <p:inputText  autocomplete="false"  id="nuevoMensajeMU" value="#{controlProverbio.nuevoRegistroMensajesUsuarios.mensaje}" style=" width: 122px; position: absolute; left: 120px; top: 185px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
@@ -441,7 +441,7 @@
                             </p:selectOneMenu>
 
                             <strong><h:outputText value="#{msg['mensajeNM']}" style=" position: absolute; top: 190px;" /></strong>
-                            <p:inputText id="duplicarMensajeMU" value="#{controlProverbio.duplicarRegistroMensajesUsuarios.mensaje}" style=" width: 122px; position: absolute; left: 120px; top: 185px; text-transform: uppercase" onclick="select();" >
+                            <p:inputText  autocomplete="false"  id="duplicarMensajeMU" value="#{controlProverbio.duplicarRegistroMensajesUsuarios.mensaje}" style=" width: 122px; position: absolute; left: 120px; top: 185px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 

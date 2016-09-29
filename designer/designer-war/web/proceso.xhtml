@@ -104,7 +104,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText value="#{info.codigo}" onclick="select();" id="editarCodigoProceso" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                 <p:inputText  autocomplete="false"  value="#{info.codigo}" onclick="select();" id="editarCodigoProceso" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                     <p:ajax event="change" listener="#{controlProceso.procesoModificacionProceso(indice)}" update="editarCodigoProceso" process="@this"/>
                                     <p:ajax event="select" listener="#{controlProceso.cambiarIndice(indice, 0)}"  process="@this"/>
                                  </p:inputText>
@@ -120,7 +120,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.descripcion}" style="text-transform: uppercase" /></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText value="#{info.descripcion}" maxlength="30" onclick="select();" id="editarDescripcionProceso" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                 <p:inputText  autocomplete="false"  value="#{info.descripcion}" maxlength="30" onclick="select();" id="editarDescripcionProceso" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                     <p:ajax event="change" listener="#{controlProceso.procesoModificacionProceso(indice)}" update="editarDescripcionProceso" process="@this"/>
                                     <p:ajax event="select" listener="#{controlProceso.cambiarIndice(indice, 1)}" process="@this"/>
                                  </p:inputText>
@@ -139,7 +139,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText value="#{info.tipopago.descripcion}" onclick="select();"  id="editarTipoPagoProceso" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                 <p:inputText  autocomplete="false"  value="#{info.tipopago.descripcion}" onclick="select();"  id="editarTipoPagoProceso" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                     <p:ajax event="change" listener="#{controlProceso.modificarProceso(indice, 'TIPOPAGO', info.tipopago.descripcion)}" process="@this" update="editarTipoPagoProceso"/>
                                     <p:ajax event="select" listener="#{controlProceso.cambiarIndice(indice,2)}" process="@this"/> 
                                     <p:ajax event="dblclick" listener="#{controlProceso.asignarIndex(indice,0,0,0)}" process="@this" update="editarTipoPagoProceso"/>
@@ -156,7 +156,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.comentarios}" style="text-transform: uppercase" /></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText value="#{info.comentarios}" maxlength="500" onclick="select();" id="editarComentarioProceso" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                 <p:inputText  autocomplete="false"  value="#{info.comentarios}" maxlength="500" onclick="select();" id="editarComentarioProceso" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                     <p:ajax event="change" listener="#{controlProceso.procesoModificacionProceso(indice)}" update="editarComentarioProceso" process="@this"/>
                                     <p:ajax event="select" listener="#{controlProceso.cambiarIndice(indice, 3)}" process="@this"/>
                                  </p:inputText>
@@ -176,7 +176,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.numerocierrerequerido}" style="text-transform: uppercase" /></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText value="#{info.numerocierrerequerido}" onclick="select();" id="editarNumeroProceso" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                 <p:inputText  autocomplete="false"  value="#{info.numerocierrerequerido}" onclick="select();" id="editarNumeroProceso" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                     <p:ajax event="change" listener="#{controlProceso.procesoModificacionProceso(indice)}" update="editarNumeroProceso" process="@this"/>
                                     <p:ajax event="select" listener="#{controlProceso.cambiarIndice(indice, 4)}" process="@this"/>
                                  </p:inputText>
@@ -282,7 +282,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText value="#{infoFP.formula.nombrelargo}" onclick="select();"  id="editarFormulaFormulaProceso" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                 <p:inputText  autocomplete="false"  value="#{infoFP.formula.nombrelargo}" onclick="select();"  id="editarFormulaFormulaProceso" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                     <p:ajax event="change" listener="#{controlProceso.modificarFormulaProceso(indiceFP, 'FORMULA', infoFP.formula.nombrelargo)}" process="@this" update="editarFormulaFormulaProceso"/>
                                     <p:ajax event="select" listener="#{controlProceso.cambiarIndiceFormulaProceso(indiceFP,0)}" process="@this"/> 
                                     <p:ajax event="dblclick" listener="#{controlProceso.asignarIndex(indiceFP,0,0,1)}" process="@this" update="editarFormulaFormulaProceso"/>
@@ -325,7 +325,7 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText value="#{infoOL.operando.descripcion}" onclick="select();"  id="editarOperandoOperando" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                 <p:inputText  autocomplete="false"  value="#{infoOL.operando.descripcion}" onclick="select();"  id="editarOperandoOperando" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                     <p:ajax event="change" listener="#{controlProceso.modificarOperandoLog(indiceOL, 'OPERANDO', indiceOL.grupotipoentidad.nombre)}" process="@this" update="editarOperandoOperando"/>
                                     <p:ajax event="select" listener="#{controlProceso.cambiarIndiceOperandoLog(indiceOL,0)}" process="@this"/> 
                                     <p:ajax event="dblclick" listener="#{controlProceso.asignarIndex(indiceOL,0,0,2)}" process="@this" update="editarOperandoOperando"/>
@@ -341,7 +341,7 @@
                                  <h:outputText value="#{infoOL.operando.codigo}" style="text-transform: uppercase"/>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText readonly="true" onclick="select();" onselect="posicionOperando([{name: 'n', value: '1'}, {name: 't', value: '#{indiceOL}'}]);" value="#{infoOL.operando.codigo}"  id="editarOperandoDescripcion" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"/> 
+                                 <p:inputText  autocomplete="false"  readonly="true" onclick="select();" onselect="posicionOperando([{name: 'n', value: '1'}, {name: 't', value: '#{indiceOL}'}]);" value="#{infoOL.operando.codigo}"  id="editarOperandoDescripcion" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"/> 
                               </f:facet>   
                            </p:cellEditor>
                         </p:column>
@@ -353,21 +353,21 @@
                      <legend style="color: blue"><strong>#{msg['procesoClonar']}</strong></legend>
 
                      <h:outputText style="position: absolute; top: 15px; left: 30px;" value="#{msg['nuevoClonado']}"/>
-                     <p:inputText id="CodigoNuevoClonado" value="#{controlProceso.procesoNuevoClonado.codigo}" onclick="select();" style="position: absolute; top: 35px; left: 10px; width: 65px">
+                     <p:inputText  autocomplete="false"  id="CodigoNuevoClonado" value="#{controlProceso.procesoNuevoClonado.codigo}" onclick="select();" style="position: absolute; top: 35px; left: 10px; width: 65px">
                         <p:ajax event="change" update="CodigoNuevoClonado" process="@this"/>
                      </p:inputText>
-                     <p:inputText id="DescripcionNuevoClonado" value="#{controlProceso.procesoNuevoClonado.descripcion}" onclick="select();" style="position: absolute; top: 35px; left: 90px; width: 285px;text-transform: uppercase">
+                     <p:inputText  autocomplete="false"  id="DescripcionNuevoClonado" value="#{controlProceso.procesoNuevoClonado.descripcion}" onclick="select();" style="position: absolute; top: 35px; left: 90px; width: 285px;text-transform: uppercase">
                         <p:ajax event="change" update="DescripcionNuevoClonado" process="@this"/>
                      </p:inputText>
 
 
                      <h:outputText style="position: absolute; top: 15px; left: 420px;" value="#{msg['baseClonado']}"/>
-                     <p:inputText id="CodigoBaseClonado" value="#{controlProceso.procesoBaseClonado.codigo}" onclick="select();" style="position: absolute; top: 35px; left: 400px; width: 65px">
+                     <p:inputText  autocomplete="false"  id="CodigoBaseClonado" value="#{controlProceso.procesoBaseClonado.codigo}" onclick="select();" style="position: absolute; top: 35px; left: 400px; width: 65px">
                         <p:ajax event="change" update="CodigoBaseClonado" process="@this" listener="#{controlProceso.autoCompletarSeleccionarProcesoClonado(controlProceso.procesoBaseClonado.codigo,0)}"/>
                         <p:ajax event="select" process="@this" listener="#{controlProceso.posicionProcesoClonado()}"/>
                         <p:ajax event="dblclick" process="@this" listener="#{controlProceso.dispararDialogoClonarProceso()}"/>
                      </p:inputText>
-                     <p:inputText id="DescripcionBaseClonado" onclick="select();" value="#{controlProceso.procesoBaseClonado.descripcion}" style="position: absolute; top: 35px; left: 480px; width: 285px;text-transform: uppercase">
+                     <p:inputText  autocomplete="false"  id="DescripcionBaseClonado" onclick="select();" value="#{controlProceso.procesoBaseClonado.descripcion}" style="position: absolute; top: 35px; left: 480px; width: 285px;text-transform: uppercase">
                         <p:ajax event="change" update="DescripcionBaseClonado"  process="@this" listener="#{controlProceso.autoCompletarSeleccionarProcesoClonado(controlProceso.procesoBaseClonado.descripcion,1)}"/>
                         <p:ajax event="select" process="@this" listener="#{controlProceso.posicionProcesoClonado()}"/>
                         <p:ajax event="dblclick" process="@this" listener="#{controlProceso.dispararDialogoClonarProceso()}"/>
@@ -487,7 +487,7 @@
                      <p:ajax event="rowDblselect" listener="#{controlProceso.actualizarFormula()}"  process="@this"   />
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarF']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                        <p:inputText id="globalFilter" onkeyup="PF('lovFormula').filter();" style="width:140px; position: relative; left: -50px;" />  
+                        <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovFormula').filter();" style="width:140px; position: relative; left: -50px;" />  
                      </f:facet>
                      <p:column filterBy="#{formula.nombrelargo}" filterMatchMode="contains">
                         <f:facet name="header">
@@ -525,7 +525,7 @@
                      <p:ajax event="rowDblselect" listener="#{controlProceso.actualizarTipoPago()}"  process="@this" />
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarTP']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                        <p:inputText id="globalFilter" onkeyup="PF('lovTipoPago').filter();" style="width:140px; position: relative; left: 25px;" />  
+                        <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovTipoPago').filter();" style="width:140px; position: relative; left: 25px;" />  
                      </f:facet>
                      <p:column filterBy="#{tipoP.descripcion}" filterMatchMode="contains">
                         <f:facet name="header">
@@ -551,7 +551,7 @@
                      <p:ajax event="rowDblselect" listener="#{controlProceso.seleccionarProcesoClonado()}"  process="@this" />
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarP']}: "  style="position: absolute; left: 27px; top: 14px"/>  
-                        <p:inputText id="globalFilter" onkeyup="PF('lovProceso').filter();" style="width:140px; position: relative; left: -10px;" />  
+                        <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovProceso').filter();" style="width:140px; position: relative; left: -10px;" />  
                      </f:facet>
                      <p:column filterBy="#{proceso.codigo}" filterMatchMode="contains">
                         <f:facet name="header">
@@ -583,7 +583,7 @@
                      <p:ajax event="rowDblselect" listener="#{controlProceso.actualizarOperando()}"  process="@this"  />
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarO']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                        <p:inputText id="globalFilter" onkeyup="PF('lovOperando').filter();" style="width:140px; position: relative; left: -40px;" />  
+                        <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovOperando').filter();" style="width:140px; position: relative; left: -40px;" />  
                      </f:facet>
                      <p:column filterBy="#{operando.codigo}" filterMatchMode="contains">
                         <f:facet name="header">
@@ -634,19 +634,19 @@
                   <p:panel id="nuevoProceso" style="border: none;">
 
                      <strong><h:outputText value="*#{msg['codigoNP']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                     <p:inputText id="nuevoProcesoCodigo" onclick="select();" value="#{controlProceso.nuevoProceso.codigo}" style="width: 122px; position: absolute; left: 200px; top: 70px;">
+                     <p:inputText  autocomplete="false"  id="nuevoProcesoCodigo" onclick="select();" value="#{controlProceso.nuevoProceso.codigo}" style="width: 122px; position: absolute; left: 200px; top: 70px;">
                         <p:ajax event="change" update="nuevoProcesoCodigo"/>
                      </p:inputText>
                      <p:watermark value="#{msg['codigo']}" for="nuevoProcesoCodigo"/>
 
                      <strong><h:outputText value="*#{msg['descripcionNP']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
-                     <p:inputText id="nuevoProcesoDescripcion" maxlength="30" onclick="select();" value="#{controlProceso.nuevoProceso.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 100px;text-transform: uppercase">
+                     <p:inputText  autocomplete="false"  id="nuevoProcesoDescripcion" maxlength="30" onclick="select();" value="#{controlProceso.nuevoProceso.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 100px;text-transform: uppercase">
                         <p:ajax event="change" update="nuevoProcesoDescripcion"/>
                      </p:inputText>
                      <p:watermark value="#{msg['descripcion']}" for="nuevoProcesoDescripcion"/>
 
                      <strong><h:outputText value="*#{msg['tipoPagoNP']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
-                     <p:inputText id="nuevoProcesoTipoPago" onclick="select();" value="#{controlProceso.nuevoProceso.tipopago.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 130px;text-transform: uppercase">
+                     <p:inputText  autocomplete="false"  id="nuevoProcesoTipoPago" onclick="select();" value="#{controlProceso.nuevoProceso.tipopago.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 130px;text-transform: uppercase">
                         <p:ajax event="dblclick" listener="#{controlProceso.asignarIndex(indice,0,1,0)}" process="@this" update="nuevoProcesoTipoPago"/>
                         <p:ajax event="click" listener="#{controlProceso.valoresBackupAutocompletarGeneral(1, 'TIPOPAGO')}" />
                         <p:ajax event="change" listener="#{controlProceso.autocompletarNuevoyDuplicadoProceso('TIPOPAGO', controlProceso.nuevoProceso.tipopago.descripcion, 1)}" />
@@ -655,13 +655,13 @@
                      <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 130px;  " id="btnNuevoProcesoTipoPago" icon="ui-icon-search" process="@this"  actionListener="#{controlProceso.asignarIndex(indice,0,1,0)}"/>   
 
                      <strong><h:outputText value="#{msg['comentarioNP']}" style="position: absolute; top: 165px; left: 50px;" /></strong>
-                     <p:inputText id="nuevoProcesoComentario" onclick="select();" maxlength="500" value="#{controlProceso.nuevoProceso.comentarios}" style="width: 122px; position: absolute; left: 200px; top: 160px;text-transform: uppercase">
+                     <p:inputText  autocomplete="false"  id="nuevoProcesoComentario" onclick="select();" maxlength="500" value="#{controlProceso.nuevoProceso.comentarios}" style="width: 122px; position: absolute; left: 200px; top: 160px;text-transform: uppercase">
                         <p:ajax event="change" update="nuevoProcesoComentario"/>
                      </p:inputText>
                      <p:watermark value="#{msg['comentario']}" for="nuevoProcesoComentario"/>
 
                      <strong><h:outputText value="#{msg['numeroProcesosNP']}" style="position: absolute; top: 195px; left: 50px;" /></strong>
-                     <p:inputText id="nuevoProcesoNumero" onclick="select();" value="#{controlProceso.nuevoProceso.numerocierrerequerido}" style="width: 122px; position: absolute; left: 200px; top: 190px;text-transform: uppercase">
+                     <p:inputText  autocomplete="false"  id="nuevoProcesoNumero" onclick="select();" value="#{controlProceso.nuevoProceso.numerocierrerequerido}" style="width: 122px; position: absolute; left: 200px; top: 190px;text-transform: uppercase">
                         <p:ajax event="change" update="nuevoProcesoNumero"/>
                      </p:inputText>
                      <p:watermark value="#{msg['numeroProcesosNPInfo']}" for="nuevoProcesoNumero"/>
@@ -705,19 +705,19 @@
                   <p:panel id="duplicarProceso" style="border: none;">
 
                      <strong><h:outputText value="*#{msg['codigoNP']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                     <p:inputText id="duplicarProcesoCodigo" onclick="select();" value="#{controlProceso.duplicarProceso.codigo}" style="width: 122px; position: absolute; left: 200px; top: 70px;">
+                     <p:inputText  autocomplete="false"  id="duplicarProcesoCodigo" onclick="select();" value="#{controlProceso.duplicarProceso.codigo}" style="width: 122px; position: absolute; left: 200px; top: 70px;">
                         <p:ajax event="change" update="duplicarProcesoCodigo"/>
                      </p:inputText>
                      <p:watermark value="#{msg['codigo']}" for="duplicarProcesoCodigo"/>
 
                      <strong><h:outputText value="*#{msg['descripcionNP']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
-                     <p:inputText id="duplicarProcesoDescripcion" maxlength="30" onclick="select();" value="#{controlProceso.duplicarProceso.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 100px;text-transform: uppercase">
+                     <p:inputText  autocomplete="false"  id="duplicarProcesoDescripcion" maxlength="30" onclick="select();" value="#{controlProceso.duplicarProceso.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 100px;text-transform: uppercase">
                         <p:ajax event="change" update="duplicarProcesoDescripcion"/>
                      </p:inputText>
                      <p:watermark value="#{msg['descripcion']}" for="duplicarProcesoDescripcion"/>
 
                      <strong><h:outputText value="*#{msg['tipoPagoNP']}" style=" position: absolute; top: 135px; left: 50px;" /></strong>
-                     <p:inputText id="duplicarProcesoTipoPago" onclick="select();" value="#{controlProceso.duplicarProceso.tipopago.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 130px;text-transform: uppercase">
+                     <p:inputText  autocomplete="false"  id="duplicarProcesoTipoPago" onclick="select();" value="#{controlProceso.duplicarProceso.tipopago.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 130px;text-transform: uppercase">
                         <p:ajax event="dblclick" listener="#{controlProceso.asignarIndex(indice,0,2,0)}" process="@this" update="duplicarProcesoTipoPago"/>
                         <p:ajax event="click" listener="#{controlProceso.valoresBackupAutocompletarGeneral(2, 'TIPOPAGO')}" />
                         <p:ajax event="change" listener="#{controlProceso.autocompletarNuevoyDuplicadoProceso('TIPOPAGO', controlProceso.duplicarProceso.tipopago.descripcion, 2)}" />
@@ -726,13 +726,13 @@
                      <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 130px;  " id="btnDuplicarProcesoTipoPago" icon="ui-icon-search" process="@this"  actionListener="#{controlProceso.asignarIndex(indice,0,2,0)}"/>   
 
                      <strong><h:outputText value="#{msg['comentarioNP']}" style="position: absolute; top: 165px; left: 50px;" /></strong>
-                     <p:inputText id="duplicarProcesoComentario" onclick="select();" maxlength="500" value="#{controlProceso.duplicarProceso.comentarios}" style="width: 122px; position: absolute; left: 200px; top: 160px;text-transform: uppercase">
+                     <p:inputText  autocomplete="false"  id="duplicarProcesoComentario" onclick="select();" maxlength="500" value="#{controlProceso.duplicarProceso.comentarios}" style="width: 122px; position: absolute; left: 200px; top: 160px;text-transform: uppercase">
                         <p:ajax event="change" update="duplicarProcesoComentario"/>
                      </p:inputText>
                      <p:watermark value="#{msg['comentario']}" for="duplicarProcesoComentario"/>
 
                      <strong><h:outputText value="#{msg['numeroProcesosNP']}" style="position: absolute; top: 195px; left: 50px;" /></strong>
-                     <p:inputText id="duplicarProcesoNumero" onclick="select();" value="#{controlProceso.duplicarProceso.numerocierrerequerido}" style="width: 122px; position: absolute; left: 200px; top: 190px;text-transform: uppercase">
+                     <p:inputText  autocomplete="false"  id="duplicarProcesoNumero" onclick="select();" value="#{controlProceso.duplicarProceso.numerocierrerequerido}" style="width: 122px; position: absolute; left: 200px; top: 190px;text-transform: uppercase">
                         <p:ajax event="change" update="duplicarProcesoNumero"/>
                      </p:inputText>
                      <p:watermark value="#{msg['numeroProcesosNPInfo']}" for="duplicarProcesoNumero"/>
@@ -773,7 +773,7 @@
                   <p:panel id="nuevoFormulaProceso" style="border: none;">
 
                      <strong><h:outputText value="*#{msg['formulaNFP']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                     <p:inputText id="nuevoFormulaProcesoFormula" onclick="select();" value="#{controlProceso.nuevoFormulaProceso.formula.nombrelargo}" style="width: 122px; position: absolute; left: 200px; top: 70px;text-transform: uppercase">
+                     <p:inputText  autocomplete="false"  id="nuevoFormulaProcesoFormula" onclick="select();" value="#{controlProceso.nuevoFormulaProceso.formula.nombrelargo}" style="width: 122px; position: absolute; left: 200px; top: 70px;text-transform: uppercase">
                         <p:ajax event="dblclick" listener="#{controlProceso.asignarIndex(indiceFP,0,1,1)}" process="@this" update="nuevoFormulaProcesoFormula"/>
                         <p:ajax event="click" listener="#{controlProceso.valoresBackupAutocompletarGeneral(1, 'FORMULA')}" />
                         <p:ajax event="change" listener="#{controlProceso.autocompletarNuevoyDuplicadoFormulaProceso('FORMULA', controlProceso.nuevoFormulaProceso.formula.nombrelargo, 1)}" />
@@ -797,7 +797,7 @@
                   <p:panel id="duplicaFormulaProceso" style="border: none;">
 
                      <strong><h:outputText value="*#{msg['formulaNFP']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                     <p:inputText id="duplicarFormulaProcesoFormula" onclick="select();" value="#{controlProceso.duplicarFormulaProceso.formula.nombrelargo}" style="width: 122px; position: absolute; left: 200px; top: 70px;text-transform: uppercase">
+                     <p:inputText  autocomplete="false"  id="duplicarFormulaProcesoFormula" onclick="select();" value="#{controlProceso.duplicarFormulaProceso.formula.nombrelargo}" style="width: 122px; position: absolute; left: 200px; top: 70px;text-transform: uppercase">
                         <p:ajax event="dblclick" listener="#{controlProceso.asignarIndex(indiceFP,0,2,1)}" process="@this" update="duplicarFormulaProcesoFormula"/>
                         <p:ajax event="click" listener="#{controlProceso.valoresBackupAutocompletarGeneral(2, 'FORMULA')}" />
                         <p:ajax event="change" listener="#{controlProceso.autocompletarNuevoyDuplicadoFormulaProceso('FORMULA', controlProceso.duplicarFormulaProceso.formula.nombrelargo, 2)}" />
@@ -822,7 +822,7 @@
                   <p:panel id="nuevoOperandoLog" style="border: none;">
 
                      <strong><h:outputText value="*#{msg['operandoOL']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                     <p:inputText id="nuevoOperandoLogOperando" onclick="select();" value="#{controlProceso.nuevoOperandoLog.operando.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 70px;text-transform: uppercase">
+                     <p:inputText  autocomplete="false"  id="nuevoOperandoLogOperando" onclick="select();" value="#{controlProceso.nuevoOperandoLog.operando.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 70px;text-transform: uppercase">
                         <p:ajax event="dblclick" listener="#{controlProceso.asignarIndex(indiceOL,0,1,2)}" process="@this" update="nuevoOperandoLogOperando"/>
                         <p:ajax event="click" listener="#{controlProceso.valoresBackupAutocompletarGeneral(1, 'OPERANDO')}" />
                         <p:ajax event="change" listener="#{controlProceso.autocompletarNuevoyDuplicadoOperandoLog('OPERANDO', controlProceso.nuevoOperandoLog.operando.descripcion, 1)}" />
@@ -831,7 +831,7 @@
                      <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 70px;  " id="btnNuevoOperandoLogOperando" icon="ui-icon-search" process="@this"  actionListener="#{controlProceso.asignarIndex(indiceOL,0,1,2)}"/>   
 
                      <strong><h:outputText value="#{msg['descripcionOL']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
-                     <p:inputText id="nuevoOperandoLogDescripcion" readonly="true" onclick="select();" value="#{controlProceso.nuevoOperandoLog.operando.codigo}" style="width: 122px; position: absolute; left: 200px; top: 100px;text-transform: uppercase"/>
+                     <p:inputText  autocomplete="false"  id="nuevoOperandoLogDescripcion" readonly="true" onclick="select();" value="#{controlProceso.nuevoOperandoLog.operando.codigo}" style="width: 122px; position: absolute; left: 200px; top: 100px;text-transform: uppercase"/>
                      <p:watermark value="#{msg['descripcion']}" for="nuevoOperandoLogDescripcion"/>
 
                      <p:commandButton icon="ui-icon-trash" id="limpiarNOL" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 140px;" actionListener="#{controlProceso.limpiarNuevaOperandoLog()}" update="nuevoOperandoLog" process="@this"/>
@@ -845,7 +845,7 @@
                   <p:panel id="duplicarOperandoLog" style="border: none;">
 
                      <strong><h:outputText value="*#{msg['operandoOL']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                     <p:inputText id="duplicarOperandoLogOperando" onclick="select();" value="#{controlProceso.duplicarOperandoLog.operando.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 70px;text-transform: uppercase">
+                     <p:inputText  autocomplete="false"  id="duplicarOperandoLogOperando" onclick="select();" value="#{controlProceso.duplicarOperandoLog.operando.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 70px;text-transform: uppercase">
                         <p:ajax event="dblclick" listener="#{controlProceso.asignarIndex(indiceOL,0,2,2)}" process="@this" update="duplicarOperandoLogOperando"/>
                         <p:ajax event="click" listener="#{controlProceso.valoresBackupAutocompletarGeneral(2, 'OPERANDO')}" />
                         <p:ajax event="change" listener="#{controlProceso.autocompletarNuevoyDuplicadoOperandoLog('OPERANDO', controlProceso.duplicarOperandoLog.operando.descripcion, 2)}" />
@@ -854,7 +854,7 @@
                      <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 331px; top: 70px;  " id="btnDuplicarOperandoLogOperando" icon="ui-icon-search" process="@this"  actionListener="#{controlProceso.asignarIndex(indiceOL,0,2,2)}"/>   
 
                      <strong><h:outputText value="#{msg['descripcionOL']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
-                     <p:inputText id="duplicarOperandoLogDescripcion" readonly="true" onclick="select();" value="#{controlProceso.duplicarOperandoLog.operando.codigo}" style="width: 122px; position: absolute; left: 200px; top: 100px;text-transform: uppercase"/>
+                     <p:inputText  autocomplete="false"  id="duplicarOperandoLogDescripcion" readonly="true" onclick="select();" value="#{controlProceso.duplicarOperandoLog.operando.codigo}" style="width: 122px; position: absolute; left: 200px; top: 100px;text-transform: uppercase"/>
                      <p:watermark value="#{msg['descripcion']}" for="duplicarOperandoLogDescripcion"/>
 
                      <p:commandButton icon="ui-icon-trash" id="limpiarDOL" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 140px;" actionListener="#{controlProceso.limpiarDuplicarOperandoLog()}" update="duplicarOperandoLog" process="@this"/>

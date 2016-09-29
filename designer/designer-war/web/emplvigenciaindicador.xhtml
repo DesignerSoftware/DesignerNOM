@@ -105,7 +105,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.fechainicial}"> 
+                                            <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.fechainicial}"> 
                                                 <p:ajax event="dateSelect" listener="#{controlEmplVigenciaIndicador.modificarFechas(info,0)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlEmplVigenciaIndicador.modificarFechas(info,0)}" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlEmplVigenciaIndicador.cambiarIndiceV(info,0)}" process="@this"/> 
@@ -126,7 +126,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="dateFechaFinal" value="#{info.fechafinal}"> 
+                                            <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="dateFechaFinal" value="#{info.fechafinal}"> 
                                                 <p:ajax event="dateSelect" listener="#{controlEmplVigenciaIndicador.modificarFechas(info,1)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlEmplVigenciaIndicador.modificarFechas(info,1)}" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlEmplVigenciaIndicador.cambiarIndiceV(info,1)}" process="@this"/> 
@@ -143,7 +143,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.tipoindicador.descripcion}" style="text-transform: uppercase"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.tipoindicador.descripcion}" id="editarTipoIndicadorVI" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="false"  value="#{info.tipoindicador.descripcion}" id="editarTipoIndicadorVI" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                 <p:ajax event="select" listener="#{controlEmplVigenciaIndicador.cambiarIndiceV(info,2)}" process="@this"/> 
                                                 <p:ajax event="dblclick" listener="#{controlEmplVigenciaIndicador.asignarIndex(info,0,0)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlEmplVigenciaIndicador.modificarVigencia(info, 'TIPOS', info.tipoindicador.descripcion)}" process="@this" update="editarTipoIndicadorVI"/>
@@ -161,7 +161,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.indicador.descripcion}" style="text-transform: uppercase"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.indicador.descripcion}" id="editarIndicadorVI" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="false"  value="#{info.indicador.descripcion}" id="editarIndicadorVI" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                 <p:ajax event="select" listener="#{controlEmplVigenciaIndicador.cambiarIndiceV(info,3)}" process="@this"/> 
                                                 <p:ajax event="dblclick" listener="#{controlEmplVigenciaIndicador.asignarIndex(info,1,0)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlEmplVigenciaIndicador.modificarVigencia(info, 'INDICADORES', info.indicador.descripcion)}" process="@this" update="editarIndicadorVI"/>
@@ -187,7 +187,7 @@
                                 <p:ajax event="filter" listener="#{controlEmplVigenciaIndicador.contarRegistroTipo()}"/>
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarTI']}" />  
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovTipos').filter();" class="cssFiltroLOV" />  
+                                    <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovTipos').filter();" class="cssFiltroLOV" />  
                                 </f:facet>
                                 <p:column filterBy="#{tipo.descripcion}" width="140"  filterMatchMode="contains">
                                     <f:facet name="header">
@@ -216,7 +216,7 @@
                                 <p:ajax event="filter" listener="#{controlEmplVigenciaIndicador.contarRegistroIndicador()}"/>
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarI']}" />  
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovIndicador').filter();" class="cssFiltroLOV" />  
+                                    <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovIndicador').filter();" class="cssFiltroLOV" />  
                                 </f:facet>
 
                                 <p:column filterBy="#{indicador.descripcion}" width="140" filterMatchMode="contains" >
@@ -318,7 +318,7 @@
 
                             <strong><h:outputText value="*#{msg['fechaInicialN']}" style=" position: absolute; top: 75px; left: 50px;" /></strong>
                             <div id="posicionFormulaFechaIniNuevoReg" style="position: absolute; top: 70px; left: 200px">
-                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicialV" value="#{controlEmplVigenciaIndicador.nuevaVigencia.fechainicial}" >
+                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicialV" value="#{controlEmplVigenciaIndicador.nuevaVigencia.fechainicial}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaInicialV" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaInicialV" process="@this"/>
                                 </p:calendar>
@@ -326,14 +326,14 @@
 
                             <strong><h:outputText value="#{msg['fechaFinalN']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
                             <div id="posicionFormulaFechaFinNuevoReg" style="position: absolute; top: 100px; left: 200px">
-                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinalV" value="#{controlEmplVigenciaIndicador.nuevaVigencia.fechafinal}" >
+                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinalV" value="#{controlEmplVigenciaIndicador.nuevaVigencia.fechafinal}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaFinalV" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaFinalV" process="@this"/>
                                 </p:calendar>
                             </div>
 
                             <strong><h:outputText value="#{msg['tipoIndicadorN']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaTipoIndicadorV" value="#{controlEmplVigenciaIndicador.nuevaVigencia.tipoindicador.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 130px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="false"  id="nuevaTipoIndicadorV" value="#{controlEmplVigenciaIndicador.nuevaVigencia.tipoindicador.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 130px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlEmplVigenciaIndicador.asignarIndex(info,0,1)}"/>
                                 <p:ajax event="click" listener="#{controlEmplVigenciaIndicador.valoresBackupAutocompletarVigencia(1, 'TIPOS')}" />
                                 <p:ajax event="change" listener="#{controlEmplVigenciaIndicador.autocompletarNuevoyDuplicadoVigencia('TIPOS', controlEmplVigenciaIndicador.nuevaVigencia.tipoindicador.descripcion,1)}" process="@this" update="nuevaTipoIndicadorV"/>
@@ -342,7 +342,7 @@
                             <p:watermark for="nuevaTipoIndicadorV" value="#{msg['tipoIndicador']}" />
 
                             <strong><h:outputText value="*#{msg['indicadorN']}" style="position: absolute; top: 165px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaIndicadorV" value="#{controlEmplVigenciaIndicador.nuevaVigencia.indicador.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="false"  id="nuevaIndicadorV" value="#{controlEmplVigenciaIndicador.nuevaVigencia.indicador.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlEmplVigenciaIndicador.asignarIndex(info,1,1)}"/>
                                 <p:ajax event="click" listener="#{controlEmplVigenciaIndicador.valoresBackupAutocompletarVigencia(1, 'INDICADORES')}" />
                                 <p:ajax event="change" listener="#{controlEmplVigenciaIndicador.autocompletarNuevoyDuplicadoVigencia('INDICADORES', controlEmplVigenciaIndicador.nuevaVigencia.indicador.descripcion,1)}" process="@this" update="nuevaIndicadorV"/>
@@ -364,7 +364,7 @@
 
                             <strong><h:outputText value="*#{msg['fechaInicialN']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
                             <div id="posicionFormulaFechaIniNuevoReg" style="position: absolute; top: 70px; left: 200px">
-                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicialV" value="#{controlEmplVigenciaIndicador.duplicarVigenciaIndicador.fechainicial}" >
+                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicialV" value="#{controlEmplVigenciaIndicador.duplicarVigenciaIndicador.fechainicial}" >
                                     <p:ajax event="dateSelect" update="duplicarFechaInicialV" process="@this"/>
                                     <p:ajax event="change" update="duplicarFechaInicialV" process="@this"/>
                                 </p:calendar>
@@ -372,14 +372,14 @@
 
                             <strong><h:outputText value="#{msg['fechaFinalN']}" style=" position: absolute; top: 105px; left: 50px;" /></strong>
                             <div id="posicionFormulaFechaFinNuevoReg" style="position: absolute; top: 100px; left: 200px">
-                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinalV" value="#{controlEmplVigenciaIndicador.duplicarVigenciaIndicador.fechafinal}" >
+                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinalV" value="#{controlEmplVigenciaIndicador.duplicarVigenciaIndicador.fechafinal}" >
                                     <p:ajax event="dateSelect" update="duplicarFechaFinalV" process="@this"/>
                                     <p:ajax event="change" update="duplicarFechaFinalV" process="@this"/>
                                 </p:calendar>
                             </div>
 
                             <strong><h:outputText value="#{msg['tipoIndicadorN']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarTipoV" value="#{controlEmplVigenciaIndicador.duplicarVigenciaIndicador.tipoindicador.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 130px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="false"  id="duplicarTipoV" value="#{controlEmplVigenciaIndicador.duplicarVigenciaIndicador.tipoindicador.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 130px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlEmplVigenciaIndicador.asignarIndex(info,0,2)}"/>
                                 <p:ajax event="click" listener="#{controlEmplVigenciaIndicador.valoresBackupAutocompletarVigencia(2, 'TIPOS')}" />
                                 <p:ajax event="change" listener="#{controlEmplVigenciaIndicador.autocompletarNuevoyDuplicadoVigencia('TIPOS', controlEmplVigenciaIndicador.duplicarVigenciaIndicador.tipoindicador.descripcion,2)}" process="@this" update="duplicarTipoV"/>
@@ -388,7 +388,7 @@
                             <p:watermark for="duplicarTipoV" value="#{msg['tipoIndicador']}" />
 
                             <strong><h:outputText value="*#{msg['indicadorN']}" style="position: absolute; top: 165px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarIndicadorV" value="#{controlEmplVigenciaIndicador.duplicarVigenciaIndicador.indicador.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="false"  id="duplicarIndicadorV" value="#{controlEmplVigenciaIndicador.duplicarVigenciaIndicador.indicador.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlEmplVigenciaIndicador.asignarIndex(info,1,2)}"/>
                                 <p:ajax event="click" listener="#{controlEmplVigenciaIndicador.valoresBackupAutocompletarVigencia(2, 'INDICADORES')}" />
                                 <p:ajax event="change" listener="#{controlEmplVigenciaIndicador.autocompletarNuevoyDuplicadoVigencia('INDICADORES', controlEmplVigenciaIndicador.duplicarVigenciaIndicador.indicador.descripcion,2)}" process="@this" update="duplicarIndicadorV"/>

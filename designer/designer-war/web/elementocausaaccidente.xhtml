@@ -29,7 +29,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.codigo}" maxlength="4" id="editarCodigo" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="false"  value="#{info.codigo}" maxlength="4" id="editarCodigo" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlElementosCausasAccidentes.cambiarIndice(indice, 0)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlElementosCausasAccidentes.modificandoElementosCausasAccidentes(indice, 'N', info.codigo)}"  update="codigo"/>
                                             </p:inputText>
@@ -41,7 +41,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText  style="text-transform: uppercase" value="#{info.descripcion}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.descripcion}" maxlength="1000" id="editarNombre" style="height: 12px;  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="false"  value="#{info.descripcion}" maxlength="1000" id="editarNombre" style="height: 12px;  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlElementosCausasAccidentes.cambiarIndice(indice, 1)}" process="@this"/> 
                                                 <p:ajax event="change"  listener="#{controlElementosCausasAccidentes.modificandoElementosCausasAccidentes(indice, 'N', info.descripcion)}" update="descripcion"/>
                                             </p:inputText>
@@ -222,13 +222,13 @@
                         <p:panel id="nuevooElementoCausaAccidente" style="border: none;">
 
                             <strong><h:outputText value="*#{msg['codigoN']}"  style=" position: absolute; top: 60px;" /></strong>
-                            <p:inputText id="nuevoCodigo" maxlength="4" value="#{controlElementosCausasAccidentes.nuevoElementoCausaAccidente.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
+                            <p:inputText  autocomplete="false"  id="nuevoCodigo" maxlength="4" value="#{controlElementosCausasAccidentes.nuevoElementoCausaAccidente.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoCodigo" value="#{msg['codigoWM']}" />
 
                             <strong><h:outputText value="*#{msg['descripcionN']}"  style=" position: absolute; top: 90px;" /></strong>
-                            <p:inputText  id="nuevoNombre" maxlength="1000" value="#{controlElementosCausasAccidentes.nuevoElementoCausaAccidente.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
+                            <p:inputText  autocomplete="false"   id="nuevoNombre" maxlength="1000" value="#{controlElementosCausasAccidentes.nuevoElementoCausaAccidente.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoNombre" value="#{msg['descripcionWM']}" />
@@ -245,13 +245,13 @@
 
                         <p:panel id="duplicarECA" style="border: none;">
                             <strong><h:outputText value="*#{msg['codigoN']}"  style=" position: absolute; top: 60px;" /></strong>
-                            <p:inputText id="duplicarCodigo" maxlength="4" value="#{controlElementosCausasAccidentes.duplicarElementoCausaAccidente.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
+                            <p:inputText  autocomplete="false"  id="duplicarCodigo" maxlength="4" value="#{controlElementosCausasAccidentes.duplicarElementoCausaAccidente.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarCodigo" value="#{msg['codigoWM']}" />
 
                             <strong><h:outputText value="*#{msg['descripcionN']}"  style=" position: absolute; top: 90px;" /></strong>
-                            <p:inputText id="duplicarNombre"  maxlength="1000" value="#{controlElementosCausasAccidentes.duplicarElementoCausaAccidente.descripcion}"  style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase" >
+                            <p:inputText  autocomplete="false"  id="duplicarNombre"  maxlength="1000" value="#{controlElementosCausasAccidentes.duplicarElementoCausaAccidente.descripcion}"  style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase" >
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarNombre" value="#{msg['descripcionWM']}" />

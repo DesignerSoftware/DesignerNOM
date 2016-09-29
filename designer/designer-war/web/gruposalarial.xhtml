@@ -95,7 +95,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.codigo}" id="editarCodigo" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="false"  value="#{info.codigo}" id="editarCodigo" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlGrupoSalarial.modificarGrupoSalarial(indice)}"/>
                                                 <p:ajax event="select" listener="#{controlGrupoSalarial.cambiarIndice(indice, 0)}" />
                                             </p:inputText>
@@ -108,7 +108,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.descripcion}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.descripcion}" maxlength="30" id="editarDescripcion" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="false"  value="#{info.descripcion}" maxlength="30" id="editarDescripcion" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlGrupoSalarial.modificarGrupoSalarial(indice)}"/>
                                                 <p:ajax event="select" listener="#{controlGrupoSalarial.cambiarIndice(indice, 1)}" />
                                             </p:inputText>
@@ -123,7 +123,7 @@
                                                 <f:convertNumber currencySymbol="$" type="currency" />
                                             </h:outputText></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.salario}" id="editarSalario" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="false"  value="#{info.salario}" id="editarSalario" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlGrupoSalarial.modificarGrupoSalarial(indice)}"/>
                                                 <p:ajax event="select" listener="#{controlGrupoSalarial.cambiarIndice(indice, 2)}" />
                                             </p:inputText>
@@ -152,7 +152,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="editFechaVigencia" value="#{infoV.fechavigencia}"> 
+                                            <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="editFechaVigencia" value="#{infoV.fechavigencia}"> 
                                                 <p:ajax event="dateSelect" listener="#{controlGrupoSalarial.modificarFechas(indiceV,0)}" update="editFechaVigencia" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlGrupoSalarial.modificarFechas(indiceV,0)}" update="editFechaVigencia" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlGrupoSalarial.cambiarIndiceVigencia(indiceV,0)}" process="@this"/> 
@@ -169,7 +169,7 @@
                                                 <f:convertNumber currencySymbol="$" type="currency" />
                                             </h:outputText></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{infoV.valor}" id="editarValor" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="false"  value="#{infoV.valor}" id="editarValor" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlGrupoSalarial.modificarVigenciaGrupoSalarial(indiceV)}"/>
                                                 <p:ajax event="select" listener="#{controlGrupoSalarial.cambiarIndiceVigencia(indiceV, 1)}" />
                                             </p:inputText>
@@ -284,19 +284,19 @@
                         <p:panel id="nuevoGrupo" style="border: none;">
 
                             <strong><h:outputText value="#{msg['codigoN']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                            <p:inputText id="nuevoCodigo" value="#{controlGrupoSalarial.nuevoGrupoSalarial.codigo}" style="width: 122px; position: absolute; left: 200px; top: 70px;">
+                            <p:inputText  autocomplete="false"  id="nuevoCodigo" value="#{controlGrupoSalarial.nuevoGrupoSalarial.codigo}" style="width: 122px; position: absolute; left: 200px; top: 70px;">
                                 <p:ajax event="change" update="nuevoCodigo"/>
                             </p:inputText>
                             <p:watermark value="#{msg['codigo']}" for="nuevoCodigo"/>
 
                             <strong><h:outputText value="*#{msg['descripcionN']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
-                            <p:inputText id="nuevoDescripcion" maxlength="30" value="#{controlGrupoSalarial.nuevoGrupoSalarial.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 100px;">
+                            <p:inputText  autocomplete="false"  id="nuevoDescripcion" maxlength="30" value="#{controlGrupoSalarial.nuevoGrupoSalarial.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 100px;">
                                 <p:ajax event="change" update="nuevoDescripcion"/>
                             </p:inputText>
                             <p:watermark value="#{msg['descripcion']}" for="nuevoDescripcion"/>
 
                             <strong><h:outputText value="#{msg['salarioN']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
-                            <p:inputText id="nuevoSalario" value="#{controlGrupoSalarial.nuevoGrupoSalarial.salario}" style="width: 122px; position: absolute; left: 200px; top: 130px;">
+                            <p:inputText  autocomplete="false"  id="nuevoSalario" value="#{controlGrupoSalarial.nuevoGrupoSalarial.salario}" style="width: 122px; position: absolute; left: 200px; top: 130px;">
                                 <p:ajax event="change" update="nuevoSalario"/>
                             </p:inputText>
                             <p:watermark value="#{msg['salario']}" for="nuevoSalario"/>
@@ -314,19 +314,19 @@
                         <p:panel id="duplicarGrupo" style="border: none;">
 
                             <strong><h:outputText value="#{msg['codigoN']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarCodigo" value="#{controlGrupoSalarial.duplicarGrupoSalarial.codigo}" style="width: 122px; position: absolute; left: 200px; top: 70px;">
+                            <p:inputText  autocomplete="false"  id="duplicarCodigo" value="#{controlGrupoSalarial.duplicarGrupoSalarial.codigo}" style="width: 122px; position: absolute; left: 200px; top: 70px;">
                                 <p:ajax event="change" update="duplicarCodigo"/>
                             </p:inputText>
                             <p:watermark value="#{msg['codigo']}" for="duplicarCodigo"/>
 
                             <strong><h:outputText value="*#{msg['descripcionN']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarDescripcion" maxlength="30" value="#{controlGrupoSalarial.duplicarGrupoSalarial.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 100px;">
+                            <p:inputText  autocomplete="false"  id="duplicarDescripcion" maxlength="30" value="#{controlGrupoSalarial.duplicarGrupoSalarial.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 100px;">
                                 <p:ajax event="change" update="duplicarDescripcion"/>
                             </p:inputText>
                             <p:watermark value="#{msg['descripcion']}" for="duplicarDescripcion"/>
 
                             <strong><h:outputText value="#{msg['salarioN']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarSalario" value="#{controlGrupoSalarial.duplicarGrupoSalarial.salario}" style="width: 122px; position: absolute; left: 200px; top: 130px;">
+                            <p:inputText  autocomplete="false"  id="duplicarSalario" value="#{controlGrupoSalarial.duplicarGrupoSalarial.salario}" style="width: 122px; position: absolute; left: 200px; top: 130px;">
                                 <p:ajax event="change" update="duplicarSalario"/>
                             </p:inputText>
                             <p:watermark value="#{msg['salario']}" for="duplicarSalario"/>
@@ -345,14 +345,14 @@
 
                             <strong><h:outputText value="*#{msg['fechavigenciaN']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
                             <div id="posicionFormulaFechaVigNuevoReg" style="position: absolute; top: 70px; left: 200px">
-                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFechaVigencia" value="#{controlGrupoSalarial.nuevoVigenciaGrupoSalarial.fechavigencia}" >
+                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaVigencia" value="#{controlGrupoSalarial.nuevoVigenciaGrupoSalarial.fechavigencia}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaVigencia" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaVigencia" process="@this"/>
                                 </p:calendar>
                             </div>
 
                             <strong><h:outputText value="*#{msg['valorN']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
-                            <p:inputText id="nuevoValor" value="#{controlGrupoSalarial.nuevoVigenciaGrupoSalarial.valor}" style="width: 122px; position: absolute; left: 200px; top: 100px;">
+                            <p:inputText  autocomplete="false"  id="nuevoValor" value="#{controlGrupoSalarial.nuevoVigenciaGrupoSalarial.valor}" style="width: 122px; position: absolute; left: 200px; top: 100px;">
                                 <p:ajax event="change" update="nuevoValor"/>
                             </p:inputText>
                             <p:watermark value="#{msg['valor']}" for="nuevoValor"/>
@@ -371,14 +371,14 @@
 
                             <strong><h:outputText value="*#{msg['fechavigenciaN']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
                             <div id="posicionFormulaFechaVigDupliReg" style="position: absolute; top: 70px; left: 200px">
-                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarFechaVigencia" value="#{controlGrupoSalarial.duplicarVigenciaGrupoSalarial.fechavigencia}" >
+                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaVigencia" value="#{controlGrupoSalarial.duplicarVigenciaGrupoSalarial.fechavigencia}" >
                                     <p:ajax event="dateSelect" update="duplicarFechaVigencia" process="@this"/>
                                     <p:ajax event="change" update="duplicarFechaVigencia" process="@this"/>
                                 </p:calendar>
                             </div>
 
                             <strong><h:outputText value="*#{msg['valorN']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarValor" value="#{controlGrupoSalarial.duplicarVigenciaGrupoSalarial.valor}" style="width: 122px; position: absolute; left: 200px; top: 100px;">
+                            <p:inputText  autocomplete="false"  id="duplicarValor" value="#{controlGrupoSalarial.duplicarVigenciaGrupoSalarial.valor}" style="width: 122px; position: absolute; left: 200px; top: 100px;">
                                 <p:ajax event="change" update="duplicarValor"/>
                             </p:inputText>
                             <p:watermark value="#{msg['valor']}" for="duplicarValor"/>

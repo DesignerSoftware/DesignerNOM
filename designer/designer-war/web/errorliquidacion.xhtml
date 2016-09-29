@@ -43,7 +43,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.fechadesde}"> 
+                                            <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.fechadesde}"> 
                                                 <p:ajax event="select" listener="#{controlErroresLiquidacion.cambiarIndice(indice, 0)}" process="@this"/>  
                                                 <p:ajax event="change" listener="#{controlErroresLiquidacion.mostrarInfo(indice,0)}" process="@this"/> 
                                             </p:calendar>
@@ -61,7 +61,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="dateFechaFinal" value="#{info.fechahasta}"> 
+                                            <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="dateFechaFinal" value="#{info.fechahasta}"> 
                                                 <p:ajax event="select" listener="#{controlErroresLiquidacion.cambiarIndice(indice, 1)}" process="@this"/>  
                                                 <p:ajax event="change" listener="#{controlErroresLiquidacion.mostrarInfo(indice,1)}" process="@this"/> 
                                             </p:calendar>
@@ -74,7 +74,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.empleado.persona.nombreCompleto}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.empleado.persona.nombreCompleto}"  maxlength="50" id="editarEmpleado" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="false"  value="#{info.empleado.persona.nombreCompleto}"  maxlength="50" id="editarEmpleado" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlErroresLiquidacion.cambiarIndice(indice, 2)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlErroresLiquidacion.modificarLiquidacionesLogSinGuardar(indice, 'N', info.empleado.persona.nombreCompleto)}"  update="@this"/>
                                             </p:inputText>
@@ -86,7 +86,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.vigenciaLocalizacion.localizacion.centrocosto.tipocentrocosto.nombre}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.vigenciaLocalizacion.localizacion.centrocosto.tipocentrocosto.nombre}" maxlength="50"  id="editarOperando" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="false"  value="#{info.vigenciaLocalizacion.localizacion.centrocosto.tipocentrocosto.nombre}" maxlength="50"  id="editarOperando" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlErroresLiquidacion.cambiarIndice(indice, 3)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlErroresLiquidacion.modificarLiquidacionesLogSinGuardar(indice, 'N', info.vigenciaLocalizacion.localizacion.centrocosto.tipocentrocosto.nombre)}"  update="@this"/>
                                             </p:inputText>
@@ -98,7 +98,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.concepto.descripcion}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.concepto.descripcion}"  maxlength="50" id="editarPproceso" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="false"  value="#{info.concepto.descripcion}"  maxlength="50" id="editarPproceso" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlErroresLiquidacion.cambiarIndice(indice, 4)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlErroresLiquidacion.modificarLiquidacionesLogSinGuardar(indice, 'N', info.concepto.descripcion)}"  update="@this"/>
                                             </p:inputText>
@@ -110,7 +110,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.formula.nombrelargo}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.formula.nombrelargo}"  maxlength="50" id="editarNombreLargo" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="false"  value="#{info.formula.nombrelargo}"  maxlength="50" id="editarNombreLargo" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlErroresLiquidacion.cambiarIndice(indice, 5)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlErroresLiquidacion.modificarLiquidacionesLogSinGuardar(indice, 'N', info.concepto.descripcion)}"  update="@this"/>
                                             </p:inputText>
@@ -129,7 +129,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="dateFecha" value="#{info.fecha}"> 
+                                            <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="dateFecha" value="#{info.fecha}"> 
                                                 <p:ajax event="select" listener="#{controlErroresLiquidacion.cambiarIndice(indice, 6)}" process="@this"/>  
                                                 <p:ajax event="change" listener="#{controlErroresLiquidacion.mostrarInfo(indice,6)}" process="@this"/> 
                                             </p:calendar>
@@ -142,7 +142,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.error}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.error}"  maxlength="50" id="editarValor" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="false"  value="#{info.error}"  maxlength="50" id="editarValor" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlErroresLiquidacion.cambiarIndice(indice, 7)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlErroresLiquidacion.modificarLiquidacionesLogSinGuardar(indice, 'N', info.error)}"  update="@this"/>
                                             </p:inputText>
@@ -154,7 +154,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.paquete}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.paquete}"  maxlength="50" id="editarPaquete" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="false"  value="#{info.paquete}"  maxlength="50" id="editarPaquete" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlErroresLiquidacion.cambiarIndice(indice, 8)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlErroresLiquidacion.modificarLiquidacionesLogSinGuardar(indice, 'N', info.paquete)}"  update="@this"/>
 

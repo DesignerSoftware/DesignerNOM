@@ -44,7 +44,7 @@
                <h:outputLabel/>
                <h:outputLabel for="usuario" value="Usuario: " 
                               style="color: white; font-size: 13px; font-weight: bold;"/>
-               <p:inputText id="usuario" value="#{controlInicioRed.usuario}" disabled="#{controlInicioRed.estadoInicio}"
+               <p:inputText  autocomplete="false"  id="usuario" value="#{controlInicioRed.usuario}" disabled="#{controlInicioRed.estadoInicio}"
                             style="font-weight: bold; text-transform: uppercase;"/>
                <h:outputLabel/>
                <h:outputLabel for="contrasenha" value="Contrase&ntilde;a: " style="color: white; font-size: 13px; font-weight: bold;"/>
@@ -53,7 +53,7 @@
                <h:outputLabel/>
                <h:outputLabel for="baseDatos" value="Base de datos: " 
                               style="color: white; font-size: 13px; font-weight: bold;"/>
-               <p:inputText id="baseDatos" value="#{controlInicioRed.baseDatos}" disabled="#{controlInicioRed.estadoInicio}"
+               <p:inputText  autocomplete="false"  id="baseDatos" value="#{controlInicioRed.baseDatos}" disabled="#{controlInicioRed.estadoInicio}"
                             style="font-weight: bold; text-transform: uppercase;"/>
                <h:outputLabel/>
                <p:commandButton id="btnLogin" value="#{controlInicioRed.txtBoton}" actionListener="#{controlInicioRed.ingresar()}"

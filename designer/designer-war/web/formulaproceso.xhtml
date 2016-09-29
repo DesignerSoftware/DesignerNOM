@@ -107,7 +107,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.proceso.descripcion}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText value="#{info.proceso.descripcion}" id="editarFormulaProceso" style="border-radius: 2px; width: 96%; text-transform: uppercase; margin-left: 5px;"> 
+                                 <p:inputText  autocomplete="false"  value="#{info.proceso.descripcion}" id="editarFormulaProceso" style="border-radius: 2px; width: 96%; text-transform: uppercase; margin-left: 5px;"> 
                                     <p:ajax event="change" listener="#{controlFormulaProceso.modificarFormulaProceso(info, 'PROCESO', info.formula.nombrecorto)}" process="@this" update="editarFormulaProceso"/>
                                     <p:ajax event="dblclick" listener="#{controlFormulaProceso.asignarIndex(info,0,0)}" process="@this" update="editarFormulaProceso"/>
                                     <p:ajax event="select" listener="#{controlFormulaProceso.cambiarIndice(info, 0)}"  process="@this"/>
@@ -233,7 +233,7 @@
 
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarP']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                        <p:inputText id="globalFilter" onkeyup="PF('lovProceso').filter();" style="width: 160px; position: relative; left: 20px;" />  
+                        <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovProceso').filter();" style="width: 160px; position: relative; left: 20px;" />  
                      </f:facet>
 
                      <p:column filterBy="#{proceso.codigo}" width="50" filterMatchMode="contains" filterStyle="width: 85% !important">
@@ -266,7 +266,7 @@
                   <p:panel id="nuevoFormula" style="border: none;">
 
                      <strong><h:outputText value="*#{msg['procesoN']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                     <p:inputText id="nuevoFormulaProceso" value="#{controlFormulaProceso.nuevoFormulaProceso.proceso.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 70px;" onclick="select();">
+                     <p:inputText  autocomplete="false"  id="nuevoFormulaProceso" value="#{controlFormulaProceso.nuevoFormulaProceso.proceso.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 70px;" onclick="select();">
                         <p:ajax event="dblclick" listener="#{controlFormulaProceso.asignarIndex(indice,0,1)}"/>
                         <p:ajax event="click" listener="#{controlFormulaProceso.valoresBackupAutocompletar(1, 'PROCESO')}" />
                         <p:ajax event="change" listener="#{controlFormulaProceso.autocompletarNuevoyDuplicadoFormulaProceso('PROCESO', controlFormulaProceso.nuevoFormulaProceso.proceso.descripcion, 1)}" />
@@ -292,7 +292,7 @@
                   <p:panel id="duplicarFormula" style="border: none;">
 
                      <strong><h:outputText value="*#{msg['procesoN']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                     <p:inputText id="duplicarFormulaProceso" value="#{controlFormulaProceso.duplicarFormulaProceso.proceso.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 70px;" onclick="select();">
+                     <p:inputText  autocomplete="false"  id="duplicarFormulaProceso" value="#{controlFormulaProceso.duplicarFormulaProceso.proceso.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 70px;" onclick="select();">
                         <p:ajax event="dblclick" listener="#{controlFormulaProceso.asignarIndex(indice,0,2)}"/>
                         <p:ajax event="click" listener="#{controlFormulaProceso.valoresBackupAutocompletar(2, 'PROCESO')}" />
                         <p:ajax event="change" listener="#{controlFormulaProceso.autocompletarNuevoyDuplicadoFormulaProceso('PROCESO', controlFormulaProceso.duplicarFormulaProceso.proceso.descripcion, 2)}" />

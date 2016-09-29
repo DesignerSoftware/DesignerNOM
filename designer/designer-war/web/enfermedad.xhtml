@@ -26,7 +26,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.codigo}" id="editarCodigo" style=" font-size: 10px; border-radius: 0px; width: 400px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="false"  value="#{info.codigo}" id="editarCodigo" style=" font-size: 10px; border-radius: 0px; width: 400px; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlEnfermedades.cambiarIndice(indice, 0)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlEnfermedades.modificarEnfermedad(indice, 'N', info.codigo)}"  update="codigo"/>
                                             </p:inputText>
@@ -41,7 +41,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.descripcion}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.descripcion}" id="editarNombre" style=" font-size: 10px; border-radius: 0px; width: 420px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="false"  value="#{info.descripcion}" id="editarNombre" style=" font-size: 10px; border-radius: 0px; width: 420px; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlEnfermedades.cambiarIndice(indice, 1)}" process="@this"/> 
                                                 <p:ajax event="change"  listener="#{controlEnfermedades.modificarEnfermedad(indice, 'N', info.descripcion)}" update="descripcion"/>
                                             </p:inputText>
@@ -212,13 +212,13 @@
                         <p:panel id="nuevaEnfermedad" style="border: none;">
 
                             <strong><h:outputText value="Código: "  style="font-size: 12px; position: absolute; top: 60px;text-transform: uppercase" /></strong>
-                            <p:inputText id="nuevoCodigo" value="#{controlEnfermedades.nuevaEnfermedad.codigo}" style="font-size: 12px; width: 102px; position: absolute; left: 150px; top: 55px;">
+                            <p:inputText  autocomplete="false"  id="nuevoCodigo" value="#{controlEnfermedades.nuevaEnfermedad.codigo}" style="font-size: 12px; width: 102px; position: absolute; left: 150px; top: 55px;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoCodigo" value="Código" />
 
                             <strong><h:outputText value="Nombre "  style="font-size: 12px; position: absolute; top: 110px;text-transform: uppercase" /></strong>
-                            <p:inputText  id="nuevoNombre" value="#{controlEnfermedades.nuevaEnfermedad.descripcion}" style="font-size: 12px; width: 102px; position: absolute; left: 150px; top: 105px;text-transform: uppercase">
+                            <p:inputText  autocomplete="false"   id="nuevoNombre" value="#{controlEnfermedades.nuevaEnfermedad.descripcion}" style="font-size: 12px; width: 102px; position: absolute; left: 150px; top: 105px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoNombre" value="Nombre" />
@@ -235,13 +235,13 @@
 
                         <p:panel id="duplicarEnfer" style="border: none;">
                             <strong><h:outputText value="código "  style="font-size: 12px; position: absolute; top: 60px;text-transform: uppercase" /></strong>
-                            <p:inputText id="duplicarCodigo" value="#{controlEnfermedades.duplicarEnfermedad.codigo}" style="font-size: 12px; width: 102px; position: absolute; left: 150px; top: 55px;">
+                            <p:inputText  autocomplete="false"  id="duplicarCodigo" value="#{controlEnfermedades.duplicarEnfermedad.codigo}" style="font-size: 12px; width: 102px; position: absolute; left: 150px; top: 55px;">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarCodigo" value="Código" />
 
                             <strong><h:outputText value="Nombre"  style="font-size: 12px; position: absolute; top: 110px;text-transform: uppercase" /></strong>
-                            <p:inputText id="duplicarNombre" value="#{controlEnfermedades.duplicarEnfermedad.descripcion}"  style="font-size: 12px; width: 102px; position: absolute; left: 150px; top: 105px;" >
+                            <p:inputText  autocomplete="false"  id="duplicarNombre" value="#{controlEnfermedades.duplicarEnfermedad.descripcion}"  style="font-size: 12px; width: 102px; position: absolute; left: 150px; top: 105px;" >
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarNombre" value="Nombre" />

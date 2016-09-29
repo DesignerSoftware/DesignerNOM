@@ -101,7 +101,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="editFecha" value="#{info.fechavigencia}">
+                                            <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="editFecha" value="#{info.fechavigencia}">
                                                 <p:ajax event="dateSelect" listener="#{controlVigenciasUbicaciones.modificarVU(info, 'N', info.fechavigencia)}" update="editFecha"/>
                                                 <p:ajax event="change" listener="#{controlVigenciasUbicaciones.modificarVU(info, 'N', info.fechavigencia)}" />
                                                 <p:ajax event="select" listener="#{controlVigenciasUbicaciones.cambiarIndice(info, 0)}" />
@@ -118,7 +118,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.ubicacion.descripcion}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.ubicacion.descripcion}" id="editarUbicacion" style=" border-radius: 0px; width: 98%; text-transform: uppercase; height: 12px;" > 
+                                            <p:inputText  autocomplete="false"  value="#{info.ubicacion.descripcion}" id="editarUbicacion" style=" border-radius: 0px; width: 98%; text-transform: uppercase; height: 12px;" > 
                                                 <p:ajax event="change" listener="#{controlVigenciasUbicaciones.modificarVU(info, 'UBICACION', info.ubicacion.descripcion)}"/>
                                                 <p:ajax event="select" listener="#{controlVigenciasUbicaciones.cambiarIndice(info, 1)}" />
                                                 <p:ajax event="dblclick" listener="#{controlVigenciasUbicaciones.asignarIndex(info, 0)}"/>
@@ -136,7 +136,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.ubicacion.ciudad.nombre}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText id="editarCiudad" value="#{info.ubicacion.ciudad.nombre}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" onselect="cambioIndice([{name: 'INDEX', value: '#{indice}'}]);" readonly="true"/>
+                                            <p:inputText  autocomplete="false"  id="editarCiudad" value="#{info.ubicacion.ciudad.nombre}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" onselect="cambioIndice([{name: 'INDEX', value: '#{indice}'}]);" readonly="true"/>
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
@@ -164,7 +164,7 @@
                                 
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarU']}" />  
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovUbicaciones').filter();" value="#{filtrado}" class="cssFiltroLOV" />  
+                                    <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovUbicaciones').filter();" value="#{filtrado}" class="cssFiltroLOV" />  
                                 </f:facet>
                                 
                                 <p:column filterBy="#{ubicaciones.codigo}" width="60" filterMatchMode="contains" filterStyle="width: 85% !important">
@@ -303,14 +303,14 @@
                         <p:panel id="nuevaVU" style="border: none;">
                             <strong><h:outputText value="*#{msg['fechaN']}" style=" position: absolute; top: 85px;" /></strong>
                             <div id="posicionFechaNuevoReg" style=" position: absolute; top: 80px; left: 130px">
-                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFecha" value="#{controlVigenciasUbicaciones.nuevaVigencia.fechavigencia}" >
+                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="nuevaFecha" value="#{controlVigenciasUbicaciones.nuevaVigencia.fechavigencia}" >
                                     <p:ajax event="dateSelect" update="nuevaFecha" process="@this"/>
                                     <p:ajax event="change" update="nuevaFecha" process="@this"/>
                                 </p:calendar>
                             </div>
 
                             <strong><h:outputText value="*#{msg['descripcionN']}" style=" position: absolute; top: 118px;" /></strong>
-                            <p:inputText id="nuevaDescripcion" value="#{controlVigenciasUbicaciones.nuevaVigencia.ubicacion.descripcion}" style=" width: 122px; position: absolute; left: 130px; top: 115px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="false"  id="nuevaDescripcion" value="#{controlVigenciasUbicaciones.nuevaVigencia.ubicacion.descripcion}" style=" width: 122px; position: absolute; left: 130px; top: 115px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlVigenciasUbicaciones.valoresBackupAutocompletar(1, 'UBICACION')}" />
                                 <p:ajax event="change" listener="#{controlVigenciasUbicaciones.autocompletarNuevoyDuplicado('UBICACION', controlVigenciasUbicaciones.nuevaVigencia.ubicacion.descripcion, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlVigenciasUbicaciones.asignarIndex(info, 1)}" />
@@ -319,7 +319,7 @@
                             <p:watermark for="nuevaDescripcion" value="#{msg['descripcion']}" />
 
                             <strong><h:outputText value="#{msg['ciudadN']}" style=" position: absolute; top: 153px;" /></strong>
-                            <p:inputText id="nuevaCiudad" value="#{controlVigenciasUbicaciones.nuevaVigencia.ubicacion.ciudad.nombre}" readonly="true" style=" width: 122px; position: absolute; left: 130px; top: 150px;"/>
+                            <p:inputText  autocomplete="false"  id="nuevaCiudad" value="#{controlVigenciasUbicaciones.nuevaVigencia.ubicacion.ciudad.nombre}" readonly="true" style=" width: 122px; position: absolute; left: 130px; top: 150px;"/>
                             <p:watermark for="nuevaCiudad" value="#{msg['ciudad']}" />
 
                             <p:commandButton id="limpiar" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 200px;" icon="ui-icon-trash" actionListener="#{controlVigenciasUbicaciones.limpiarNuevaVU()}" update="nuevaVU" process="@this"/>
@@ -335,14 +335,14 @@
                         <p:panel id="duplicarVU" style="border: none;">
                             <strong><h:outputText value="*#{msg['fechaN']}" style=" position: absolute; top: 85px;" /></strong>
                             <div id="posicionFechaDuplicarReg" style=" position: absolute; top: 80px; left: 130px">
-                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="duplicarFecha" value="#{controlVigenciasUbicaciones.duplicarVU.fechavigencia}" >
+                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="duplicarFecha" value="#{controlVigenciasUbicaciones.duplicarVU.fechavigencia}" >
                                     <p:ajax event="dateSelect" update="duplicarFecha" process="@this"/>
                                     <p:ajax event="change" update="duplicarFecha" process="@this"/>
                                 </p:calendar>
                             </div>
 
                             <strong><h:outputText value="*#{msg['descripcionN']}" style=" position: absolute; top: 118px;" /></strong>
-                            <p:inputText id="duplicarDescripcion" value="#{controlVigenciasUbicaciones.duplicarVU.ubicacion.descripcion}" style=" width: 122px; position: absolute; left: 130px; top: 115px;">
+                            <p:inputText  autocomplete="false"  id="duplicarDescripcion" value="#{controlVigenciasUbicaciones.duplicarVU.ubicacion.descripcion}" style=" width: 122px; position: absolute; left: 130px; top: 115px;">
                                 <p:ajax event="click" listener="#{controlVigenciasUbicaciones.valoresBackupAutocompletar(1, 'UBICACION')}" />
                                 <p:ajax event="change" listener="#{controlVigenciasUbicaciones.autocompletarNuevoyDuplicado('UBICACION', controlVigenciasUbicaciones.duplicarVU.ubicacion.descripcion, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlVigenciasUbicaciones.asignarIndex(info, 2)}" />
@@ -351,7 +351,7 @@
                             <p:watermark for="duplicarDescripcion" value="#{msg['descripcion']}" />
 
                             <strong><h:outputText value="#{msg['ciudadN']}" style=" position: absolute; top: 153px;" /></strong>
-                            <p:inputText id="duplicarCiudad" value="#{controlVigenciasUbicaciones.duplicarVU.ubicacion.ciudad.nombre}" readonly="true" style=" width: 122px; position: absolute; left: 130px; top: 150px;"/>
+                            <p:inputText  autocomplete="false"  id="duplicarCiudad" value="#{controlVigenciasUbicaciones.duplicarVU.ubicacion.ciudad.nombre}" readonly="true" style=" width: 122px; position: absolute; left: 130px; top: 150px;"/>
                             <p:watermark for="duplicarCiudad" value="#{msg['ciudad']}" />
 
                             <p:commandButton id="limpiarDuplicadoVU" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 200px;" icon="ui-icon-trash" actionListener="#{controlVigenciasUbicaciones.limpiarduplicarVU()}" update="duplicarVU" process="@this"/>

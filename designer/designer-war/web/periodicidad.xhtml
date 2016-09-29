@@ -87,7 +87,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.codigo}" maxlength="4" id="editarCodigoCC" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase" > 
+                                            <p:inputText  autocomplete="false"  value="#{info.codigo}" maxlength="4" id="editarCodigoCC" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase" > 
                                                 <p:ajax  event="change" listener="#{controlPeriodicidades.modificandoUnidad(indice, 'N', info.codigo)}" update="@this"/>
                                                 <p:ajax event="select" listener="#{controlPeriodicidades.cambiarIndice(indice,0)}" /> 
                                             </p:inputText>
@@ -100,7 +100,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.nombre}" style="text-transform: uppercase" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText id="editarNombreCentroCoso" maxlength="30" value="#{info.nombre}" style="height: 12px; border-radius: 0px; width: 99.5%; text-transform: uppercase">
+                                            <p:inputText  autocomplete="false"  id="editarNombreCentroCoso" maxlength="30" value="#{info.nombre}" style="height: 12px; border-radius: 0px; width: 99.5%; text-transform: uppercase">
                                                 <p:ajax event="change" listener="#{controlPeriodicidades.modificandoUnidad(indice, 'N', info.nombre)}" update="@this" />
                                                 <p:ajax event="select" listener="#{controlPeriodicidades.cambiarIndice(indice, 1)}" />
                                             </p:inputText>
@@ -112,7 +112,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.unidad.codigo}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.unidad.codigo}" id="editarCodigoUnidad" style="height: 12px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
+                                            <p:inputText  autocomplete="false"  value="#{info.unidad.codigo}" id="editarCodigoUnidad" style="height: 12px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
                                                 <p:ajax event="change" listener="#{controlPeriodicidades.modificandoUnidad(indice, 'UNIDADES', info.unidad.codigo)}" update="@this" />
                                                 <p:ajax event="select" listener="#{controlPeriodicidades.cambiarIndice(indice, 2)}" />
                                                 <p:ajax event="dblclick" listener="#{controlPeriodicidades.asignarIndex(indice, 0, 2)}"/>
@@ -127,7 +127,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.unidad.nombre}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.unidad.nombre}" id="editarTipoUnidad" style="height: 12px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
+                                            <p:inputText  autocomplete="false"  value="#{info.unidad.nombre}" id="editarTipoUnidad" style="height: 12px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
                                                 <p:ajax event="change" listener="#{controlPeriodicidades.modificandoUnidad(indice, 'UNIDADES', info.unidad.nombre)}" update="@this" />
                                                 <p:ajax event="select" listener="#{controlPeriodicidades.cambiarIndice(indice,3)}" />
                                                 <p:ajax event="dblclick" listener="#{controlPeriodicidades.asignarIndex(indice, 0, 3)}"/>
@@ -142,7 +142,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.unidadbase.codigo}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.unidadbase.codigo}" id="editarCodigoUnidadBase" style="height: 12px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
+                                            <p:inputText  autocomplete="false"  value="#{info.unidadbase.codigo}" id="editarCodigoUnidadBase" style="height: 12px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
                                                 <p:ajax event="change" listener="#{controlPeriodicidades.modificandoUnidad(indice, 'UNIDADESBASE', info.unidadbase.codigo)}" update="@this" />
                                                 <p:ajax event="select" listener="#{controlPeriodicidades.cambiarIndice(indice, 4)}" />
                                                 <p:ajax event="dblclick" listener="#{controlPeriodicidades.asignarIndex(indice, 0, 4)}"/>
@@ -157,7 +157,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.unidadbase.nombre}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.unidadbase.nombre}" id="editarUnidadBase" style="height: 12px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
+                                            <p:inputText  autocomplete="false"  value="#{info.unidadbase.nombre}" id="editarUnidadBase" style="height: 12px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
                                                 <p:ajax event="change" listener="#{controlPeriodicidades.modificandoUnidad(indice, 'UNIDADESBASE', info.unidadbase.nombre)}" update="@this" />
                                                 <p:ajax event="select" listener="#{controlPeriodicidades.cambiarIndice(indice,5)}" />
                                                 <p:ajax event="dblclick" listener="#{controlPeriodicidades.asignarIndex(indice, 0, 5)}"/>
@@ -185,7 +185,7 @@
 
                                 <f:facet name="header">  
                                     <h:outputText value="Buscar Unidad"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovTipoPeriodicidades').filter();" style="width:150px; position: relative; left: 50px;" />  
+                                    <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovTipoPeriodicidades').filter();" style="width:150px; position: relative; left: 50px;" />  
                                 </f:facet>
                                 <p:column filterBy="#{unidads.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 30px">
                                     <f:facet name="header">
@@ -217,7 +217,7 @@
 
                                 <f:facet name="header">  
                                     <h:outputText value="Buscar Unidad Base"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovUnidadesBase').filter();" style="width:150px; position: relative; left: 50px;" />  
+                                    <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovUnidadesBase').filter();" style="width:150px; position: relative; left: 50px;" />  
                                 </f:facet>
                                 <p:column filterBy="#{unidads.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 30px">
                                     <f:facet name="header">
@@ -345,20 +345,20 @@
 
                             <!--0-->
                             <strong><h:outputText value="*Codigo :" style="left: 15px; position: absolute; top: 60px;" /></strong>
-                            <p:inputText id="nuevaCodigoCC" maxlength="4" value="#{controlPeriodicidades.nuevaPeriodicidad.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 55px; text-transform: uppercase">
+                            <p:inputText  autocomplete="false"  id="nuevaCodigoCC" maxlength="4" value="#{controlPeriodicidades.nuevaPeriodicidad.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 55px; text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevaCodigoCC" value="Codigo" />
                             <!--1-->
                             <strong><h:outputText value="*Nombre :" style="left: 15px; position: absolute; top: 90px;" /></strong>
-                            <p:inputText id="nuevaNombreUnidads" maxlength="30" value="#{controlPeriodicidades.nuevaPeriodicidad.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 85px;text-transform: uppercase">
+                            <p:inputText  autocomplete="false"  id="nuevaNombreUnidads" maxlength="30" value="#{controlPeriodicidades.nuevaPeriodicidad.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 85px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevaNombreUnidads" value="Nombre" />
                             <!--2-->
 
                             <strong><h:outputText value="*Codigo Unidad :" style="left: 15px; position: absolute; top: 120px;" /></strong>
-                            <p:inputText id="nuevaTipoUnidadsCodigo" value="#{controlPeriodicidades.nuevaPeriodicidad.unidad.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 115px; text-transform: uppercase">
+                            <p:inputText  autocomplete="false"  id="nuevaTipoUnidadsCodigo" value="#{controlPeriodicidades.nuevaPeriodicidad.unidad.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 115px; text-transform: uppercase">
                                 <p:ajax event="click" listener="#{controlPeriodicidades.valoresBackupAutocompletar(1, 'UNIDADCODIGO')}" />
                                 <p:ajax event="change" listener="#{controlPeriodicidades.autocompletarNuevo('UNIDADCODIGO', controlPeriodicidades.nuevaPeriodicidad.unidad.codigo , 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlPeriodicidades.asignarVariableUnidad(0)}" />
@@ -367,7 +367,7 @@
                             <p:watermark for="nuevaTipoUnidadsCodigo" value="Codigo Unidad" />
 
                             <strong><h:outputText value="*Unidad :" style="left: 15px; position: absolute; top: 150px;" /></strong>
-                            <p:inputText id="nuevaTipoUnidads" value="#{controlPeriodicidades.nuevaPeriodicidad.unidad.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 145px; text-transform: uppercase">
+                            <p:inputText  autocomplete="false"  id="nuevaTipoUnidads" value="#{controlPeriodicidades.nuevaPeriodicidad.unidad.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 145px; text-transform: uppercase">
                                 <p:ajax event="click" listener="#{controlPeriodicidades.valoresBackupAutocompletar(1, 'UNIDADNOMBRE')}" />
                                 <p:ajax event="change" listener="#{controlPeriodicidades.autocompletarNuevo('UNIDADNOMBRE', controlPeriodicidades.nuevaPeriodicidad.unidad.nombre , 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlPeriodicidades.asignarVariableUnidad(0)}" />
@@ -376,7 +376,7 @@
                             <p:watermark for="nuevaTipoUnidads" value="Unidad" />
 
                             <strong><h:outputText value="*Codigo Unidad Base :" style="left: 15px; position: absolute; top: 180px;" /></strong>
-                            <p:inputText id="nuevaCodigoBase" value="#{controlPeriodicidades.nuevaPeriodicidad.unidadbase.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 175px; text-transform: uppercase">
+                            <p:inputText  autocomplete="false"  id="nuevaCodigoBase" value="#{controlPeriodicidades.nuevaPeriodicidad.unidadbase.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 175px; text-transform: uppercase">
                                 <p:ajax event="click" listener="#{controlPeriodicidades.valoresBackupAutocompletar(1, 'UNIDADBASECODIGO')}" />
                                 <p:ajax event="change" listener="#{controlPeriodicidades.autocompletarNuevo('UNIDADBASECODIGO', controlPeriodicidades.nuevaPeriodicidad.unidadbase.codigo , 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlPeriodicidades.asignarVariableUnidadBase(0)}" />
@@ -385,7 +385,7 @@
                             <p:watermark for="nuevaCodigoBase" value="Codigo Base" />
 
                             <strong><h:outputText value="*Descripción Base :" style="left: 15px; position: absolute; top: 210px;" /></strong>
-                            <p:inputText id="nuevaNombreBase" value="#{controlPeriodicidades.nuevaPeriodicidad.unidadbase.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 205px; text-transform: uppercase">
+                            <p:inputText  autocomplete="false"  id="nuevaNombreBase" value="#{controlPeriodicidades.nuevaPeriodicidad.unidadbase.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 205px; text-transform: uppercase">
                                 <p:ajax event="click" listener="#{controlPeriodicidades.valoresBackupAutocompletar(1, 'UNIDADBASENOMBRE')}" />
                                 <p:ajax event="change" listener="#{controlPeriodicidades.autocompletarNuevo('UNIDADBASENOMBRE', controlPeriodicidades.nuevaPeriodicidad.unidadbase.nombre , 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlPeriodicidades.asignarVariableUnidadBase(0)}" />
@@ -413,7 +413,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlPeriodicidades.seleccionPeriodicidades()}" process="@this"  />
                             <f:facet name="header">  
                                 <h:outputText value="Buscar Periodicidad : "  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="PF('lovPeriodicidades').filter();" style="width:150px; position: relative; left: 50px;" />  
+                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovPeriodicidades').filter();" style="width:150px; position: relative; left: 50px;" />  
                             </f:facet>
                             <p:column filterBy="#{centroscostosporempresa.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 30px">
                                 <f:facet name="header">
@@ -443,19 +443,19 @@
                         <p:panel id="duplicarUnidads" style="border: none;">
                             <!--0-->
                             <strong><h:outputText value="*Codigo :" style="left: 15px; position: absolute; top: 60px;" /></strong>
-                            <p:inputText id="duplicarCodigoCC" maxlength="4" value="#{controlPeriodicidades.duplicarPeriodicidad.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 55px; text-transform: uppercase">
+                            <p:inputText  autocomplete="false"  id="duplicarCodigoCC" maxlength="4" value="#{controlPeriodicidades.duplicarPeriodicidad.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 55px; text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarCodigoCC" value="Codigo" />
                             <!--1-->
                             <strong><h:outputText value="*Nombre :" style="left: 15px; position: absolute; top: 90px;" /></strong>
-                            <p:inputText id="duplicarNombreUnidads" maxlength="30"  value="#{controlPeriodicidades.duplicarPeriodicidad.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 85px; text-transform: uppercase">
+                            <p:inputText  autocomplete="false"  id="duplicarNombreUnidads" maxlength="30"  value="#{controlPeriodicidades.duplicarPeriodicidad.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 85px; text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarNombreUnidads" value="Nombre" />
                             <!--2-->
                             <strong><h:outputText value="*Codigo Unidad :" style="left: 15px; position: absolute; top: 120px;" /></strong>
-                            <p:inputText id="duplicarCodigoUnidades" value="#{controlPeriodicidades.duplicarPeriodicidad.unidad.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 115px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="false"  id="duplicarCodigoUnidades" value="#{controlPeriodicidades.duplicarPeriodicidad.unidad.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 115px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlPeriodicidades.valoresBackupAutocompletar(2, 'UNIDADCODIGO')}" />
                                 <p:ajax event="change" listener="#{controlPeriodicidades.autocompletarDuplicado('UNIDADCODIGO', controlPeriodicidades.duplicarPeriodicidad.unidad.codigo , 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlPeriodicidades.asignarVariableUnidad(1)}" />
@@ -464,7 +464,7 @@
                             <p:watermark for="duplicarCodigoUnidades" value="Codigo Unidad" />
 
                             <strong><h:outputText value="*Nombre Unidad :" style="left: 15px; position: absolute; top: 150px;" /></strong>
-                            <p:inputText id="duplicarTipoUnidads" value="#{controlPeriodicidades.duplicarPeriodicidad.unidad.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 145px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="false"  id="duplicarTipoUnidads" value="#{controlPeriodicidades.duplicarPeriodicidad.unidad.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 145px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlPeriodicidades.valoresBackupAutocompletar(2, 'UNIDADNOMBRE')}" />
                                 <p:ajax event="change" listener="#{controlPeriodicidades.autocompletarDuplicado('UNIDADNOMBRE', controlPeriodicidades.duplicarPeriodicidad.unidad.nombre , 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlPeriodicidades.asignarVariableUnidad(1)}" />
@@ -473,7 +473,7 @@
                             <p:watermark for="duplicarTipoUnidads" value="Nombre Unidad" />
 
                             <strong><h:outputText value="*Codigo Unidad Base:" style="left: 15px; position: absolute; top: 180px;" /></strong>
-                            <p:inputText id="duplicarCodigoUnidadesBase" value="#{controlPeriodicidades.duplicarPeriodicidad.unidadbase.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 175px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="false"  id="duplicarCodigoUnidadesBase" value="#{controlPeriodicidades.duplicarPeriodicidad.unidadbase.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 175px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlPeriodicidades.valoresBackupAutocompletar(2, 'UNIDADBASECODIGO')}" />
                                 <p:ajax event="change" listener="#{controlPeriodicidades.autocompletarDuplicado('UNIDADBASECODIGO', controlPeriodicidades.duplicarPeriodicidad.unidadbase.codigo  , 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlPeriodicidades.asignarVariableUnidad(1)}" />
@@ -482,7 +482,7 @@
                             <p:watermark for="duplicarCodigoUnidadesBase" value="Codigo Unidad Base" />
 
                             <strong><h:outputText value="*Descripcion Unidad Base:" style="left: 15px; position: absolute; top: 210px;" /></strong>
-                            <p:inputText id="duplicarDescripcionUnidadesBase" value="#{controlPeriodicidades.duplicarPeriodicidad.unidadbase.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 205px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="false"  id="duplicarDescripcionUnidadesBase" value="#{controlPeriodicidades.duplicarPeriodicidad.unidadbase.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 205px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlPeriodicidades.valoresBackupAutocompletar(2, 'UNIDADBASENOMBRE')}" />
                                 <p:ajax event="change" listener="#{controlPeriodicidades.autocompletarDuplicado('UNIDADBASENOMBRE', controlPeriodicidades.duplicarPeriodicidad.unidadbase.nombre , 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlPeriodicidades.asignarVariableUnidad(1)}" />

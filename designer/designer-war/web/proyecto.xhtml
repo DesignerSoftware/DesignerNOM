@@ -92,7 +92,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.empresa.nombre}" style="text-transform: uppercase"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.empresa.nombre}" id="editarEmpresaP" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="false"  value="#{info.empresa.nombre}" id="editarEmpresaP" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                 <p:ajax event="select" listener="#{controlProyecto.cambiarIndiceP(info,0)}" process="@this"/> 
                                                 <p:ajax event="dblclick" listener="#{controlProyecto.asignarIndex(info,0,0)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlProyecto.modificarProyecto(info, 'EMPRESAS', info.empresa.nombre)}" process="@this" update="editarEmpresaP"/>
@@ -107,7 +107,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.codigo}" style="text-transform: uppercase"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  value="#{info.codigo}" id="editarCodigoP" maxlength="20" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="false"   value="#{info.codigo}" id="editarCodigoP" maxlength="20" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                 <p:ajax event="select" listener="#{controlProyecto.cambiarIndiceP(info,1)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlProyecto.modificarProyecto(info)}" process="@this" update="editarCodigoP"/>                                   
                                             </p:inputText>
@@ -121,7 +121,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.nombreproyecto}" style="width: 100px;text-transform: uppercase"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  value="#{info.nombreproyecto}" maxlength="50" id="editarNombreP" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="false"   value="#{info.nombreproyecto}" maxlength="50" id="editarNombreP" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                 <p:ajax event="select" listener="#{controlProyecto.cambiarIndiceP(info,2)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlProyecto.modificarProyecto(info)}" process="@this" update="editarNombreP"/>                                   
                                             </p:inputText>
@@ -135,7 +135,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.pryCliente.nombre}" style="text-transform: uppercase"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.pryCliente.nombre}" id="editarClienteP" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="false"  value="#{info.pryCliente.nombre}" id="editarClienteP" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:ajax event="select" listener="#{controlProyecto.cambiarIndiceP(info,3)}" process="@this"/> 
                                                 <p:ajax event="dblclick" listener="#{controlProyecto.asignarIndex(info,1,0)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlProyecto.modificarProyecto(info, 'CLIENTES', info.pryCliente.nombre)}" process="@this" update="editarClienteP"/>
@@ -153,7 +153,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.pryPlataforma.descripcion}" style="text-transform: uppercase"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.pryPlataforma.descripcion}" id="editarPlataformaP" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="false"  value="#{info.pryPlataforma.descripcion}" id="editarPlataformaP" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:ajax event="select" listener="#{controlProyecto.cambiarIndiceP(info,4)}" process="@this"/> 
                                                 <p:ajax event="dblclick" listener="#{controlProyecto.asignarIndex(info,2,0)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlProyecto.modificarProyecto(info, 'PLATAFORMAS', info.pryPlataforma.descripcion )}" process="@this" update="editarPlataformaP"/>
@@ -173,7 +173,7 @@
                                                 <f:convertNumber currencySymbol="$" type="currency" />
                                             </h:outputText></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  value="#{info.monto}" id="editarMontoP" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="false"   value="#{info.monto}" id="editarMontoP" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:ajax event="select" listener="#{controlProyecto.cambiarIndiceP(info,5)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlProyecto.modificarProyecto(info)}" process="@this" update="editarMontoP"/>                                   
                                             </p:inputText>
@@ -187,7 +187,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.tipomoneda.nombre}" style="width: 100px; text-transform: uppercase"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.tipomoneda.nombre}" id="editarMonedaP" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="false"  value="#{info.tipomoneda.nombre}" id="editarMonedaP" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:ajax event="select" listener="#{controlProyecto.cambiarIndiceP(info,6)}" process="@this"/> 
                                                 <p:ajax event="dblclick" listener="#{controlProyecto.asignarIndex(info,3,0)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlProyecto.modificarProyecto(info, 'MONEDAS', info.tipomoneda.nombre )}" process="@this" update="editarMonedaP"/>
@@ -202,7 +202,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.cantidadpersonas}" style="width: 100px;text-transform: uppercase"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  value="#{info.cantidadpersonas}" id="editarPersonasP" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="false"   value="#{info.cantidadpersonas}" id="editarPersonasP" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:ajax event="select" listener="#{controlProyecto.cambiarIndiceP(info,7)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlProyecto.modificarProyecto(info)}" process="@this" update="editarPersonasP"/>                                   
                                             </p:inputText>
@@ -220,7 +220,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.fechainicial}" >  
+                                            <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.fechainicial}" >  
                                                 <p:ajax event="dateSelect" listener="#{controlProyecto.modificacionesFechas(info,8)}"  process="@this"/>
                                                 <p:ajax event="change" listener="#{controlProyecto.modificacionesFechas(info,8)}" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlProyecto.cambiarIndiceP(info,8)}" process="@this"/> 
@@ -239,7 +239,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="editarFechaFinalP" value="#{info.fechafinal}" >  
+                                            <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="editarFechaFinalP" value="#{info.fechafinal}" >  
                                                 <p:ajax event="dateSelect" listener="#{controlProyecto.modificacionesFechas(info,9)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlProyecto.modificacionesFechas(info,9)}"  process="@this"/>
                                                 <p:ajax event="select" listener="#{controlProyecto.cambiarIndiceP(info,9)}" process="@this"/> 
@@ -254,7 +254,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.descripcionproyecto}" style="text-transform: uppercase"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  value="#{info.descripcionproyecto}" maxlength="200" id="editarDescripcionP" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="false"   value="#{info.descripcionproyecto}" maxlength="200" id="editarDescripcionP" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:ajax event="select" listener="#{controlProyecto.cambiarIndiceP(info,10)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlProyecto.modificarProyecto(info)}" process="@this" update="editarDescripcionP"/>                                   
                                             </p:inputText>
@@ -280,7 +280,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlProyecto.actualizarEmpresa()}" process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarE']}" />  
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovEmpresas').filter();" class="cssFiltroLOV"  />  
+                                    <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovEmpresas').filter();" class="cssFiltroLOV"  />  
                                 </f:facet>
                                 <p:column filterBy="#{empresa.nombre}" filterMatchMode="contains">
                                     <f:facet name="header">
@@ -315,7 +315,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlProyecto.actualizarCliente()}" process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarC']}" />  
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovClientes').filter();" class="cssFiltroLOV" />  
+                                    <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovClientes').filter();" class="cssFiltroLOV" />  
                                 </f:facet>
                                 <p:column filterBy="#{cliente.nombre}" width="140" filterMatchMode="contains" >
                                     <f:facet name="header">
@@ -362,7 +362,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlProyecto.actualizarPlataforma()}" process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarP']}" />  
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovPlataforma').filter();" class="cssFiltroLOV" />  
+                                    <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovPlataforma').filter();" class="cssFiltroLOV" />  
                                 </f:facet>
                                 <p:column filterBy="#{plataforma.codigo}"  filterMatchMode="contains">
                                     <f:facet name="header">
@@ -404,7 +404,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlProyecto.actualizarMoneda()}" process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarM']}"  />  
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovMoneda').filter();" class="cssFiltroLOV" />  
+                                    <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovMoneda').filter();" class="cssFiltroLOV" />  
                                 </f:facet>
                                 <p:column filterBy="#{moneda.codigo}" width="100"  filterMatchMode="contains">
                                     <f:facet name="header">
@@ -440,7 +440,7 @@
                                 <p:ajax event="rowDblselect" listener="#{controlProyecto.actualizarProyecto()}" process="@this" onstart="PF('lovProyecto').clearFilters()"/>
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarPR']}:"/>  
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovProyecto').filter();" class="cssFiltroLOV" />  
+                                    <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovProyecto').filter();" class="cssFiltroLOV" />  
                                 </f:facet>
                                 <p:column filterBy="#{proyecto.codigo}" width="100"  filterMatchMode="contains">
                                     <f:facet name="header">
@@ -554,7 +554,7 @@
                         <p:panel id="nuevaP" style="border: none;">
 
                             <strong><h:outputText value="#{msg['empresaN']}" style=" position: absolute; top: 75px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaEmpresaP" value="#{controlProyecto.nuevaProyectos.empresa.nombre}" style="width: 122px; position: absolute; left: 200px; top: 70px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="false"  id="nuevaEmpresaP" value="#{controlProyecto.nuevaProyectos.empresa.nombre}" style="width: 122px; position: absolute; left: 200px; top: 70px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlProyecto.asignarIndex(info,0,1)}"/>
                                 <p:ajax event="click" listener="#{controlProyecto.valoresBackupAutocompletarProyecto(1, 'EMPRESAS')}" />
                                 <p:ajax event="change" listener="#{controlProyecto.autocompletarNuevoyDuplicadoProyecto('EMPRESAS', controlProyecto.nuevaProyectos.empresa.nombre,1)}" process="@this" update="nuevaEmpresaP"/>
@@ -563,19 +563,19 @@
                             <p:watermark for="nuevaEmpresaP" value="#{msg['empresa']}" />
 
                             <strong><h:outputText value="#{msg['codigoN']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaCodigoP" maxlength="20" value="#{controlProyecto.nuevaProyectos.codigo}"  style="width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase" onclick="select();" >
+                            <p:inputText  autocomplete="false"  id="nuevaCodigoP" maxlength="20" value="#{controlProyecto.nuevaProyectos.codigo}"  style="width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" update="nuevaCodigoP"/>
                             </p:inputText>
                             <p:watermark for="nuevaCodigoP" value="#{msg['codigo']}" />
 
                             <strong><h:outputText value="#{msg['nombreN']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaProyectoP" maxlength="50" value="#{controlProyecto.nuevaProyectos.nombreproyecto}"  style="width: 122px; position: absolute; left: 200px; top: 130px; text-transform: uppercase" onclick="select();" >
+                            <p:inputText  autocomplete="false"  id="nuevaProyectoP" maxlength="50" value="#{controlProyecto.nuevaProyectos.nombreproyecto}"  style="width: 122px; position: absolute; left: 200px; top: 130px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" update="nuevaProyectoP"/>
                             </p:inputText>
                             <p:watermark for="nuevaProyectoP" value="#{msg['nombreproyecto']}" />
 
                             <strong><h:outputText value="#{msg['clienteN']}" style="position: absolute; top: 165px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaClienteP" value="#{controlProyecto.nuevaProyectos.pryCliente.nombre}" style="width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="false"  id="nuevaClienteP" value="#{controlProyecto.nuevaProyectos.pryCliente.nombre}" style="width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlProyecto.asignarIndex(info,1,1)}"/>
                                 <p:ajax event="click" listener="#{controlProyecto.valoresBackupAutocompletarProyecto(1, 'CLIENTES')}" />
                                 <p:ajax event="change" listener="#{controlProyecto.autocompletarNuevoyDuplicadoProyecto('CLIENTES', controlProyecto.nuevaProyectos.pryCliente.nombre,1)}" process="@this" update="nuevaClienteP"/>
@@ -584,7 +584,7 @@
                             <p:watermark for="nuevaClienteP" value="#{msg['cliente']}" />
 
                             <strong><h:outputText value="#{msg['plataformaN']}" style="position: absolute; top: 195px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaPlataformaP" value="#{controlProyecto.nuevaProyectos.pryPlataforma.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 190px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="false"  id="nuevaPlataformaP" value="#{controlProyecto.nuevaProyectos.pryPlataforma.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 190px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlProyecto.asignarIndex(info,2,1)}"/>
                                 <p:ajax event="click" listener="#{controlProyecto.valoresBackupAutocompletarProyecto(1, 'PLATAFORMAS')}" />
                                 <p:ajax event="change" listener="#{controlProyecto.autocompletarNuevoyDuplicadoProyecto('PLATAFORMAS', controlProyecto.nuevaProyectos.pryPlataforma.descripcion,1)}" process="@this" update="nuevaPlataformaP"/>
@@ -593,13 +593,13 @@
                             <p:watermark for="nuevaPlataformaP" value="#{msg['plataforma']}" />
 
                             <strong><h:outputText value="#{msg['montoN']}" style="position: absolute; top: 225px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaMontoP" value="#{controlProyecto.nuevaProyectos.monto}"  style="width: 122px; position: absolute; left: 200px; top: 220px; text-transform: uppercase" onclick="select();" >
+                            <p:inputText  autocomplete="false"  id="nuevaMontoP" value="#{controlProyecto.nuevaProyectos.monto}"  style="width: 122px; position: absolute; left: 200px; top: 220px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" update="nuevaMontoP"/>
                             </p:inputText>
                             <p:watermark for="nuevaMontoP" value="#{msg['monto']}" />
 
                             <strong><h:outputText value="#{msg['tipomonedaN']}" style="position: absolute; top: 255px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaMonedaP" value="#{controlProyecto.nuevaProyectos.tipomoneda.nombre}" style="width: 122px; position: absolute; left: 200px; top: 250px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="false"  id="nuevaMonedaP" value="#{controlProyecto.nuevaProyectos.tipomoneda.nombre}" style="width: 122px; position: absolute; left: 200px; top: 250px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlProyecto.asignarIndex(info,3,1)}"/>
                                 <p:ajax event="click" listener="#{controlProyecto.valoresBackupAutocompletarProyecto(1, 'MONEDAS')}" />
                                 <p:ajax event="change" listener="#{controlProyecto.autocompletarNuevoyDuplicadoProyecto('MONEDAS', controlProyecto.nuevaProyectos.tipomoneda.nombre,1)}" process="@this" update="nuevaMonedaP"/>
@@ -609,14 +609,14 @@
 
 
                             <strong><h:outputText value="#{msg['fechainicioN']}" style="position: absolute; top: 285px; left: 50px;" /></strong>
-                            <p:calendar mask="true" pattern="dd/MM/yyyy"  id="nuevaFechaInicialP" value="#{controlProyecto.nuevaProyectos.fechainicial}" style="position: absolute;  top: 280px; left: 200px;" styleClass="ui-datepicker, myClass2"  
+                            <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy"  id="nuevaFechaInicialP" value="#{controlProyecto.nuevaProyectos.fechainicial}" style="position: absolute;  top: 280px; left: 200px;" styleClass="ui-datepicker, myClass2"  
                                         navigator="true" showButtonPanel="true" locale="es" >
                                 <p:ajax event="dateSelect" update="nuevaFechaInicialP"/>
                                 <p:ajax event="change" update="nuevaFechaInicialP"/>
                             </p:calendar>
 
                             <strong><h:outputText value="#{msg['fechafinalizacionN']}" style="position: absolute; top: 315px; left: 50px;" /></strong>
-                            <p:calendar mask="true" pattern="dd/MM/yyyy"  id="nuevaFechaFinalP" value="#{controlProyecto.nuevaProyectos.fechafinal}" style="position: absolute;  top: 310px; left: 200px;" styleClass="ui-datepicker, myClass2"  
+                            <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy"  id="nuevaFechaFinalP" value="#{controlProyecto.nuevaProyectos.fechafinal}" style="position: absolute;  top: 310px; left: 200px;" styleClass="ui-datepicker, myClass2"  
                                         navigator="true" showButtonPanel="true" locale="es" >
                                 <p:ajax event="dateSelect" update="nuevaFechaFinalP"/>
                                 <p:ajax event="change" update="nuevaFechaFinalP"/>
@@ -642,7 +642,7 @@
                         <p:panel id="duplicarP" style="border: none;">
 
                             <strong><h:outputText value="#{msg['empresaN']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarEmpresaP" value="#{controlProyecto.duplicarProyecto.empresa.nombre}" style="width: 122px; position: absolute; left: 200px; top: 70px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="false"  id="duplicarEmpresaP" value="#{controlProyecto.duplicarProyecto.empresa.nombre}" style="width: 122px; position: absolute; left: 200px; top: 70px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlProyecto.asignarIndex(info,0,2)}"/>
                                 <p:ajax event="click" listener="#{controlProyecto.valoresBackupAutocompletarProyecto(2, 'EMPRESAS')}" />
                                 <p:ajax event="change" listener="#{controlProyecto.autocompletarNuevoyDuplicadoProyecto('EMPRESAS', controlProyecto.duplicarProyecto.empresa.nombre,2)}" process="@this" update="duplicarEmpresaP"/>
@@ -651,19 +651,19 @@
                             <p:watermark for="duplicarEmpresaP" value="#{msg['empresa']}" />
 
                             <strong><h:outputText value="#{msg['codigoN']}" style=" position: absolute; top: 105px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarCodigoP" maxlength="20" value="#{controlProyecto.duplicarProyecto.codigo}"  style=" width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase" onclick="select();" >
+                            <p:inputText  autocomplete="false"  id="duplicarCodigoP" maxlength="20" value="#{controlProyecto.duplicarProyecto.codigo}"  style=" width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" update="duplicarCodigoP"/>
                             </p:inputText>
                             <p:watermark for="duplicarCodigoP" value="#{msg['codigo']}" />
 
                             <strong><h:outputText value="#{msg['nombreN']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarProyectoP" maxlength="50" value="#{controlProyecto.duplicarProyecto.nombreproyecto}"  style="width: 122px; position: absolute; left: 200px; top: 130px; text-transform: uppercase" onclick="select();" >
+                            <p:inputText  autocomplete="false"  id="duplicarProyectoP" maxlength="50" value="#{controlProyecto.duplicarProyecto.nombreproyecto}"  style="width: 122px; position: absolute; left: 200px; top: 130px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" update="duplicarProyectoP"/>
                             </p:inputText>
                             <p:watermark for="duplicarProyectoP" value="#{msg['nombreproyecto']}" />
 
                             <strong><h:outputText value="#{msg['clienteN']}" style="position: absolute; top: 165px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarClienteP" value="#{controlProyecto.duplicarProyecto.pryCliente.nombre}" style="width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="false"  id="duplicarClienteP" value="#{controlProyecto.duplicarProyecto.pryCliente.nombre}" style="width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlProyecto.asignarIndex(info,1,2)}"/>
                                 <p:ajax event="click" listener="#{controlProyecto.valoresBackupAutocompletarProyecto(2, 'CLIENTES')}" />
                                 <p:ajax event="change" listener="#{controlProyecto.autocompletarNuevoyDuplicadoProyecto('CLIENTES', controlProyecto.duplicarProyecto.pryCliente.nombre,2)}" process="@this" update="duplicarClienteP"/>
@@ -672,7 +672,7 @@
                             <p:watermark for="duplicarClienteP" value="#{msg['cliente']}" />
 
                             <strong><h:outputText value="#{msg['plataformaN']}" style="position: absolute; top: 195px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarPlataformaP" value="#{controlProyecto.duplicarProyecto.pryPlataforma.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 190px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="false"  id="duplicarPlataformaP" value="#{controlProyecto.duplicarProyecto.pryPlataforma.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 190px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlProyecto.asignarIndex(info,2,2)}"/>
                                 <p:ajax event="click" listener="#{controlProyecto.valoresBackupAutocompletarProyecto(2, 'PLATAFORMAS')}" />
                                 <p:ajax event="change" listener="#{controlProyecto.autocompletarNuevoyDuplicadoProyecto('PLATAFORMAS', controlProyecto.duplicarProyecto.pryPlataforma.descripcion,2)}" process="@this" update="duplicarPlataformaP"/>
@@ -681,13 +681,13 @@
                             <p:watermark for="duplicarPlataformaP" value="#{msg['plataforma']}" />
 
                             <strong><h:outputText value="#{msg['montoN']}" style="position: absolute; top: 225px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarMontoP" value="#{controlProyecto.duplicarProyecto.monto}"  style="width: 122px; position: absolute; left: 200px; top: 220px; text-transform: uppercase" onclick="select();" >
+                            <p:inputText  autocomplete="false"  id="duplicarMontoP" value="#{controlProyecto.duplicarProyecto.monto}"  style="width: 122px; position: absolute; left: 200px; top: 220px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" update="duplicarMontoP"/>
                             </p:inputText>
                             <p:watermark for="duplicarMontoP" value="#{msg['monto']}" />
 
                             <strong><h:outputText value="#{msg['tipomonedaN']}" style="position: absolute; top: 255px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarMonedaP" value="#{controlProyecto.duplicarProyecto.tipomoneda.nombre}" style="width: 122px; position: absolute; left: 200px; top: 250px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="false"  id="duplicarMonedaP" value="#{controlProyecto.duplicarProyecto.tipomoneda.nombre}" style="width: 122px; position: absolute; left: 200px; top: 250px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlProyecto.asignarIndex(info,3,2)}"/>
                                 <p:ajax event="click" listener="#{controlProyecto.valoresBackupAutocompletarProyecto(2, 'MONEDAS')}" />
                                 <p:ajax event="change" listener="#{controlProyecto.autocompletarNuevoyDuplicadoProyecto('MONEDAS', controlProyecto.duplicarProyecto.tipomoneda.nombre,2)}" process="@this" update="duplicarMonedaP"/>
@@ -696,14 +696,14 @@
                             <p:watermark for="duplicarMonedaP" value="#{msg['tipomoneda']}" />
 
                             <strong><h:outputText value="#{msg['fechainicioN']}" style="position: absolute; top: 285px; left: 50px;" /></strong>
-                            <p:calendar mask="true" pattern="dd/MM/yyyy"  id="duplicarFechaInicialP" value="#{controlProyecto.duplicarProyecto.fechainicial}" style="position: absolute;  top: 280px; left: 200px;" styleClass="ui-datepicker, myClass2"  
+                            <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy"  id="duplicarFechaInicialP" value="#{controlProyecto.duplicarProyecto.fechainicial}" style="position: absolute;  top: 280px; left: 200px;" styleClass="ui-datepicker, myClass2"  
                                         navigator="true" showButtonPanel="true" locale="es" >
                                 <p:ajax event="dateSelect" update="duplicarFechaInicialP"/>
                                 <p:ajax event="change" update="duplicarFechaInicialP"/>
                             </p:calendar>
 
                             <strong><h:outputText value="#{msg['fechafinalizacionN']}" style="position: absolute; top: 315px; left: 50px;" /></strong>
-                            <p:calendar mask="true" pattern="dd/MM/yyyy"  id="duplicarFechaFinalP" value="#{controlProyecto.duplicarProyecto.fechafinal}" style="position: absolute;  top: 310px; left: 200px;" styleClass="ui-datepicker, myClass2"  
+                            <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy"  id="duplicarFechaFinalP" value="#{controlProyecto.duplicarProyecto.fechafinal}" style="position: absolute;  top: 310px; left: 200px;" styleClass="ui-datepicker, myClass2"  
                                         navigator="true" showButtonPanel="true" locale="es" >
                                 <p:ajax event="dateSelect" update="duplicarFechaFinalP"/>
                                 <p:ajax event="change" update="duplicarFechaFinalP"/>

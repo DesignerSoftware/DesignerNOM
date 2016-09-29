@@ -29,7 +29,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.codigo}" maxlength="4" id="editarCodigo" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="false"  value="#{info.codigo}" maxlength="4" id="editarCodigo" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlNiveles.cambiarIndice(indice, 0)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlNiveles.modificarNiveles(indice, 'N', info.codigo)}"  update="codigo"/>
                                             </p:inputText>
@@ -41,7 +41,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.descripcion}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.descripcion}" maxlength="40" id="editarNombre" style="height: 12px;  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="false"  value="#{info.descripcion}" maxlength="40" id="editarNombre" style="height: 12px;  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlNiveles.cambiarIndice(indice, 1)}" process="@this"/> 
                                                 <p:ajax event="change"  listener="#{controlNiveles.modificarNiveles(indice, 'N', info.descripcion)}" update="descripcion"/>
                                             </p:inputText>
@@ -220,13 +220,13 @@
                         <p:panel id="nuevaTipoempresa" style="border: none;">
 
                             <strong><h:outputText value="*Código: "  style="left: 10px; position: absolute; top: 60px;" /></strong>
-                            <p:inputText id="nuevoCodigo" maxlength="4" value="#{controlNiveles.nuevoNiveles.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
+                            <p:inputText  autocomplete="false"  id="nuevoCodigo" maxlength="4" value="#{controlNiveles.nuevoNiveles.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoCodigo" value="Código" />
 
                             <strong><h:outputText value="*Descripción: "  style="left: 10px; position: absolute; top: 90px;" /></strong>
-                            <p:inputText  id="nuevoNombre" maxlength="40" value="#{controlNiveles.nuevoNiveles.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
+                            <p:inputText  autocomplete="false"   id="nuevoNombre" maxlength="40" value="#{controlNiveles.nuevoNiveles.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoNombre" value="Descripcion" />
@@ -244,13 +244,13 @@
 
                         <p:panel id="duplicarTE" style="border: none;">
                             <strong><h:outputText value="*código: "  style=" position: absolute; top: 60px;" /></strong>
-                            <p:inputText id="duplicarCodigo" maxlength="4" value="#{controlNiveles.duplicarNiveles.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
+                            <p:inputText  autocomplete="false"  id="duplicarCodigo" maxlength="4" value="#{controlNiveles.duplicarNiveles.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarCodigo" value="Código" />
 
                             <strong><h:outputText value="*Descripción:"  style=" position: absolute; top: 90px;" /></strong>
-                            <p:inputText id="duplicarNombre" maxlength="40" value="#{controlNiveles.duplicarNiveles.descripcion}"  style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
+                            <p:inputText  autocomplete="false"  id="duplicarNombre" maxlength="40" value="#{controlNiveles.duplicarNiveles.descripcion}"  style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarNombre" value="Descripcion" />

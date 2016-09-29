@@ -92,7 +92,7 @@
                                             <h:outputText value="#{info.codigo}"  />  
                                         </f:facet>
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.codigo}" id="CodigoInstituciones" style="border-radius: 0px; width: 93.5%; text-transform: uppercase ;">
+                                            <p:inputText  autocomplete="false"  value="#{info.codigo}" id="CodigoInstituciones" style="border-radius: 0px; width: 93.5%; text-transform: uppercase ;">
                                                 <p:keyFilter for="CodigoInstituciones" mask="num"/>
                                                 <p:ajax event="select" listener="#{controlInstituciones.cambiarIndice(info, 0)}" />
                                                 <p:ajax event="change" listener="#{controlInstituciones.modificarInstituciones(info, 'N', info.codigo)}" update="@this" />
@@ -112,7 +112,7 @@
                                             <h:outputText value="#{info.descripcion}"/>    
                                         </f:facet>
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.descripcion}" id="DescInstituciones" style="border-radius: 0px; width: 93.5%; text-transform: uppercase ;">
+                                            <p:inputText  autocomplete="false"  value="#{info.descripcion}" id="DescInstituciones" style="border-radius: 0px; width: 93.5%; text-transform: uppercase ;">
                                                 <p:ajax event="select" listener="#{controlInstituciones.cambiarIndice(info, 0)}" />
                                                 <p:ajax event="change" listener="#{controlInstituciones.modificarInstituciones(info, 'N', info.descripcion)}" update="@this" />
                                             </p:inputText>
@@ -131,7 +131,7 @@
                                             <h:outputText value="#{info.contacto}"  />  
                                         </f:facet>
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.contacto}" id="ContactoInstituciones" style="border-radius: 0px; width: 93.5%; text-transform: uppercase ;">
+                                            <p:inputText  autocomplete="false"  value="#{info.contacto}" id="ContactoInstituciones" style="border-radius: 0px; width: 93.5%; text-transform: uppercase ;">
                                                 <p:ajax event="select" listener="#{controlInstituciones.cambiarIndice(info, 0)}" />
                                                 <p:ajax event="change" listener="#{controlInstituciones.modificarInstituciones(info, 'N', info.contacto)}" update="@this" />
                                             </p:inputText>
@@ -150,7 +150,7 @@
                                             <h:outputText value="#{info.telefono}"/>    
                                         </f:facet>
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.telefono}" id="TelefonoInstituciones" style="border-radius: 0px; width: 93.5%; text-transform: uppercase ;">
+                                            <p:inputText  autocomplete="false"  value="#{info.telefono}" id="TelefonoInstituciones" style="border-radius: 0px; width: 93.5%; text-transform: uppercase ;">
                                                 <p:ajax event="select" listener="#{controlInstituciones.cambiarIndice(info, 0)}" />
                                                 <p:ajax event="change" listener="#{controlInstituciones.modificarInstituciones(info, 'N', info.telefono)}" update="@this" />
                                             </p:inputText>
@@ -178,25 +178,25 @@
                         <center><strong><h:outputText value="Ingresar nueva Institución" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
                         <p:panel id="nuevaInstitucion" style="border: none;">
                             <strong><h:outputText value="Código: " style=" position: absolute; top: 63px;" /></strong>
-                            <p:inputText id="nuevoCodigoInstitucion" value="#{controlInstituciones.nuevoInstitucion.codigo}" maxlength="4" style=" width: 122px; position: absolute; left: 130px; top: 59px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText  autocomplete="false"  id="nuevoCodigoInstitucion" value="#{controlInstituciones.nuevoInstitucion.codigo}" maxlength="4" style=" width: 122px; position: absolute; left: 130px; top: 59px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoCodigoInstitucion" value="#{msg['codigo']}" />
 
                             <strong><h:outputText value="Nombre: " style=" position: absolute; top: 93px;" /></strong>
-                            <p:inputText id="nuevaDescripcionInstitucion" value="#{controlInstituciones.nuevoInstitucion.descripcion}" maxlength="20" style=" width: 122px; position: absolute; left: 130px; top: 89px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText  autocomplete="false"  id="nuevaDescripcionInstitucion" value="#{controlInstituciones.nuevoInstitucion.descripcion}" maxlength="20" style=" width: 122px; position: absolute; left: 130px; top: 89px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
                             <p:watermark for="nuevaDescripcionInstitucion" value="#{msg['desc']}" />
 
                             <strong><h:outputText value="Contacto: " style=" position: absolute; top: 124px;" /></strong>
-                            <p:inputText id="nuevoContactoInstitucion" value="#{controlInstituciones.nuevoInstitucion.contacto}" maxlength="20" style=" width: 122px; position: absolute; left: 130px; top: 119px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText  autocomplete="false"  id="nuevoContactoInstitucion" value="#{controlInstituciones.nuevoInstitucion.contacto}" maxlength="20" style=" width: 122px; position: absolute; left: 130px; top: 119px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
                             <p:watermark for="nuevoContactoInstitucion" value="Contacto" />
                             
                             <strong><h:outputText value="#{msg['tel']} " style=" position: absolute; top: 154px;" /></strong>
-                            <p:inputText id="nuevoTelefonoInstitucion" value="#{controlInstituciones.nuevoInstitucion.telefono}" maxlength="20" style=" width: 122px; position: absolute; left: 130px; top: 149px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText  autocomplete="false"  id="nuevoTelefonoInstitucion" value="#{controlInstituciones.nuevoInstitucion.telefono}" maxlength="20" style=" width: 122px; position: absolute; left: 130px; top: 149px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
                             <p:watermark for="nuevoTelefonoInstitucion" value="#{msg['tel']}" />
@@ -211,25 +211,25 @@
                         <center><strong><h:outputText value="Ingresar nueva Institución" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
                         <p:panel id="duplicarInstitucion" style="border: none;">
                             <strong><h:outputText value="Código: " style=" position: absolute; top: 63px;" /></strong>
-                            <p:inputText id="duplicarCodigoInstitucion" value="#{controlInstituciones.duplicarInstitucion.codigo}" maxlength="4" style=" width: 122px; position: absolute; left: 130px; top: 59px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText  autocomplete="false"  id="duplicarCodigoInstitucion" value="#{controlInstituciones.duplicarInstitucion.codigo}" maxlength="4" style=" width: 122px; position: absolute; left: 130px; top: 59px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarCodigoInstitucion" value="#{msg['codigo']}" />
 
                             <strong><h:outputText value="Nombre: " style=" position: absolute; top: 93px;" /></strong>
-                            <p:inputText id="duplicarDescripcionInstitucion" value="#{controlInstituciones.duplicarInstitucion.descripcion}" maxlength="20" style=" width: 122px; position: absolute; left: 130px; top: 89px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText  autocomplete="false"  id="duplicarDescripcionInstitucion" value="#{controlInstituciones.duplicarInstitucion.descripcion}" maxlength="20" style=" width: 122px; position: absolute; left: 130px; top: 89px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
                             <p:watermark for="duplicarDescripcionInstitucion" value="#{msg['desc']}" />
 
                             <strong><h:outputText value="Contacto: " style=" position: absolute; top: 124px;" /></strong>
-                            <p:inputText id="duplicarContactoInstitucion" value="#{controlInstituciones.duplicarInstitucion.contacto}" maxlength="20" style=" width: 122px; position: absolute; left: 130px; top: 119px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText  autocomplete="false"  id="duplicarContactoInstitucion" value="#{controlInstituciones.duplicarInstitucion.contacto}" maxlength="20" style=" width: 122px; position: absolute; left: 130px; top: 119px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
                             <p:watermark for="duplicarContactoInstitucion" value="Contacto" />
                             
                             <strong><h:outputText value="#{msg['tel']} " style=" position: absolute; top: 154px;" /></strong>
-                            <p:inputText id="duplicarTelefonoInstitucion" value="#{controlInstituciones.duplicarInstitucion.telefono}" maxlength="20" style=" width: 122px; position: absolute; left: 130px; top: 149px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText  autocomplete="false"  id="duplicarTelefonoInstitucion" value="#{controlInstituciones.duplicarInstitucion.telefono}" maxlength="20" style=" width: 122px; position: absolute; left: 130px; top: 149px; text-transform: uppercase" onclick="PF('select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
                             <p:watermark for="duplicarTelefonoInstitucion" value="#{msg['tel']}" />

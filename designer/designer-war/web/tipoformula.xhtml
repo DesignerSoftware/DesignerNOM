@@ -36,7 +36,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="editFechaInicial" value="#{tf.fechainicial}">
+                                            <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="editFechaInicial" value="#{tf.fechainicial}">
                                                 <p:ajax event="dateSelect" listener="#{controlTipoFormula.modificarTiposFormulas(indice, 'N', tf.fechainicial)}" update="@this"/>
                                                 <p:ajax event="change" listener="#{controlTipoFormula.modificarTiposFormulas(indice, 'N', tf.fechainicial)}" update="@this" />
                                                 <p:ajax event="select" listener="#{controlTipoFormula.cambiarIndice(indice, 0)}" process="@this" />
@@ -56,7 +56,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar mask="true" pattern="dd/MM/yyyy" id="editFechaFinal" value="#{tf.fechafinal}">
+                                            <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="editFechaFinal" value="#{tf.fechafinal}">
                                                 <p:ajax event="dateSelect" listener="#{controlTipoFormula.modificarTiposFormulas(indice, 'N', tf.fechafinal)}" update="@this"/>
                                                 <p:ajax event="change" listener="#{controlTipoFormula.modificarTiposFormulas(indice, 'N', tf.fechafinal)}" update="@this" />
                                                 <p:ajax event="select" listener="#{controlTipoFormula.cambiarIndice(indice, 1)}" process="@this" />
@@ -73,7 +73,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{tf.formula.nombrecorto}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{tf.formula.nombrecorto}" id="editarFormula" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase;height:12px"> 
+                                            <p:inputText  autocomplete="false"  value="#{tf.formula.nombrecorto}" id="editarFormula" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase;height:12px"> 
                                                 <p:ajax event="change" listener="#{controlTipoFormula.modificarTiposFormulas(indice, 'FORMULA', tf.formula.nombrecorto)}"/>
                                                 <p:ajax event="select" listener="#{controlTipoFormula.cambiarIndice(indice, 3)}" process="@this"/>
                                                 <p:ajax event="dblclick" listener="#{controlTipoFormula.asignarIndex(indice, 0, 0)}"/>
@@ -90,7 +90,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{tf.formula.estado}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText readonly="true" value="#{tf.formula.estado}" id="editarEstadoFormula" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase;height:12px;" > 
+                                            <p:inputText  autocomplete="false"  readonly="true" value="#{tf.formula.estado}" id="editarEstadoFormula" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase;height:12px;" > 
                                                 <p:ajax event="select" listener="#{controlTipoFormula.cambiarIndice(indice, 4)}" process="@this"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -163,14 +163,14 @@
 
                     <!-- DIALOGOS EDITAR -->
                     <p:dialog id="editarFechasIniciales" header="#{msg['editarFechasIniciales']}" widgetVar="editarFechasIniciales" resizable="false" draggable="true" modal="true" height="93" width="240" style=" padding: 0px">  
-                        <p:calendar mask="true" pattern="dd/MM/yyyy"   value="#{controlTipoFormula.editarTiposFormulas.fechainicial}" id="editarFechaInicial"  styleClass="ui-datepicker, myClass"  
+                        <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy"   value="#{controlTipoFormula.editarTiposFormulas.fechainicial}" id="editarFechaInicial"  styleClass="ui-datepicker, myClass"  
                                       navigator="true" showButtonPanel="true" pattern="dd/MM/yyyy">
                         </p:calendar>
                         <p:commandButton id="cancelarFechasIniciales" value="#{msg['atras']}" onclick="PF('editarFechasIniciales').hide();" style="position: absolute; top: 60px; left: 148px; " process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="editarFechasFinales" header="#{msg['editarFechasFinales']}" widgetVar="editarFechasFinales" resizable="false" draggable="true" modal="true" height="93" width="240" >  
-                        <p:calendar mask="true" pattern="dd/MM/yyyy"   value="#{controlTipoFormula.editarTiposFormulas.fechafinal}" id="editarFechaFinal"  styleClass="ui-datepicker, myClass"  
+                        <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy"   value="#{controlTipoFormula.editarTiposFormulas.fechafinal}" id="editarFechaFinal"  styleClass="ui-datepicker, myClass"  
                                       navigator="true" showButtonPanel="true" pattern="dd/MM/yyyy">
                         </p:calendar><p:commandButton id="cancelarFechasFinales" value="#{msg['atras']}" onclick="PF('editarFechasFinales').hide();" style="position: absolute; top: 60px; left: 148px; " process="@this"/>
                     </p:dialog>
@@ -205,7 +205,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlTipoFormula.actualizarFormulas()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarF']}"  style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText id="globalFilter" onkeyup="PF('LOVFormulas').filter();" style="width: 200px; position: relative; left: 60px;" />  
+                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('LOVFormulas').filter();" style="width: 200px; position: relative; left: 60px;" />  
                             </f:facet>
 
                             <p:column sortBy="#{formulas.estado}" filterBy="#{formulas.estado}" width="60" filterMatchMode="contains" filterStyle="width:40px;" > 
@@ -245,21 +245,21 @@
                         <p:panel id="nuevoTipoFormula" style="border: none;">
 
                             <strong><h:outputText value="#{msg['fechainicialN']}" style=" position: absolute; top: 65px;" /></strong>
-                            <p:calendar mask="true" pattern="dd/MM/yyyy"  id="nuevaFechaInicial" style=" position: absolute; top: 65px; left: 180px;" value="#{controlTipoFormula.nuevoTipoFormula.fechainicial}"  styleClass="ui-datepicker, myClass2"  
+                            <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy"  id="nuevaFechaInicial" style=" position: absolute; top: 65px; left: 180px;" value="#{controlTipoFormula.nuevoTipoFormula.fechainicial}"  styleClass="ui-datepicker, myClass2"  
                                          navigator="true" showButtonPanel="true" pattern="dd/MM/yyyy">
                                 <p:ajax event="dateSelect" update="nuevaFechaInicial"/>
                                 <p:ajax event="change" update="nuevaFechaInicial"/>
                             </p:calendar>
 
                             <strong><h:outputText value="#{msg['fechafinalN']}" style=" position: absolute; top: 105px;" /></strong>
-                            <p:calendar mask="true" pattern="dd/MM/yyyy"  id="nuevaFechaFinal" style=" position: absolute; top: 105px; left: 180px;" value="#{controlTipoFormula.nuevoTipoFormula.fechafinal}"  styleClass="ui-datepicker, myClass2"  
+                            <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy"  id="nuevaFechaFinal" style=" position: absolute; top: 105px; left: 180px;" value="#{controlTipoFormula.nuevoTipoFormula.fechafinal}"  styleClass="ui-datepicker, myClass2"  
                                          navigator="true" showButtonPanel="true" pattern="dd/MM/yyyy">
                                 <p:ajax event="dateSelect" update="nuevaFechaFinal"/>
                                 <p:ajax event="change" update="nuevaFechaFinal"/>
                             </p:calendar>
 
                             <strong><h:outputText value="#{msg['formulaN']}" style=" position: absolute; top: 145px;" /></strong>
-                            <p:inputText id="nuevaFormula" value="#{controlTipoFormula.nuevoTipoFormula.formula.nombrecorto}" style=" width: 122px; position: absolute; left: 180px; top: 145px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="false"  id="nuevaFormula" value="#{controlTipoFormula.nuevoTipoFormula.formula.nombrecorto}" style=" width: 122px; position: absolute; left: 180px; top: 145px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlTipoFormula.valoresBackupAutocompletar(1, 'FORMULA')}" />
                                 <p:ajax event="change" listener="#{controlTipoFormula.autocompletarNuevoyDuplicado('FORMULA', controlTipoFormula.nuevoTipoFormula.formula.nombrecorto, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlTipoFormula.asignarIndex(indice, 0, 1)}" />
@@ -267,7 +267,7 @@
                             <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 311px; top: 145px;  " id="btnNuevaFormula" actionListener="#{controlTipoFormula.asignarIndex(indice, 0, 1)}" icon="ui-icon-search" process="@this" />
 
                             <strong><h:outputText value="#{msg['estadoN']}" style=" position: absolute; top: 185px;" /></strong>
-                            <p:inputText readonly="true" id="nuevoEstado" value="#{controlTipoFormula.nuevoTipoFormula.formula.estado}" style=" width: 122px; position: absolute; left: 180px; top: 185px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="false"  readonly="true" id="nuevoEstado" value="#{controlTipoFormula.nuevoTipoFormula.formula.estado}" style=" width: 122px; position: absolute; left: 180px; top: 185px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
@@ -286,21 +286,21 @@
                         <p:panel id="duplicarTipoFormula" style="border: none;">
 
                             <strong><h:outputText value="#{msg['fechainicialN']}" style=" position: absolute; top: 65px;" /></strong>
-                            <p:calendar mask="true" pattern="dd/MM/yyyy"  id="duplicarFechaInicial" style=" position: absolute; top: 65px; left: 180px;" value="#{controlTipoFormula.duplicarTipoFormula.fechainicial}"  styleClass="ui-datepicker, myClass2"  
+                            <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy"  id="duplicarFechaInicial" style=" position: absolute; top: 65px; left: 180px;" value="#{controlTipoFormula.duplicarTipoFormula.fechainicial}"  styleClass="ui-datepicker, myClass2"  
                                          navigator="true" showButtonPanel="true" pattern="dd/MM/yyyy">
                                 <p:ajax event="dateSelect" update="duplicarFechaInicial"/>
                                 <p:ajax event="change" update="duplicarFechaInicial"/>
                             </p:calendar>
 
                             <strong><h:outputText value="#{msg['fechafinalN']}" style=" position: absolute; top: 105px;" /></strong>
-                            <p:calendar mask="true" pattern="dd/MM/yyyy"  id="duplicarFechaFinal" style=" position: absolute; top: 105px; left: 180px;" value="#{controlTipoFormula.duplicarTipoFormula.fechafinal}"  styleClass="ui-datepicker, myClass2"  
+                            <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy"  id="duplicarFechaFinal" style=" position: absolute; top: 105px; left: 180px;" value="#{controlTipoFormula.duplicarTipoFormula.fechafinal}"  styleClass="ui-datepicker, myClass2"  
                                          navigator="true" showButtonPanel="true" pattern="dd/MM/yyyy">
                                 <p:ajax event="dateSelect" update="duplicarFechaFinal"/>
                                 <p:ajax event="change" update="duplicarFechaFinal"/>
                             </p:calendar>
 
                             <strong><h:outputText value="#{msg['formulaN']}" style=" position: absolute; top: 145px;" /></strong>
-                            <p:inputText id="duplicarFormula" value="#{controlTipoFormula.duplicarTipoFormula.formula.nombrecorto}" style=" width: 122px; position: absolute; left: 180px; top: 145px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="false"  id="duplicarFormula" value="#{controlTipoFormula.duplicarTipoFormula.formula.nombrecorto}" style=" width: 122px; position: absolute; left: 180px; top: 145px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlTipoFormula.valoresBackupAutocompletar(2, 'FORMULA')}" />
                                 <p:ajax event="change" listener="#{controlTipoFormula.autocompletarNuevoyDuplicado('FORMULA', controlTipoFormula.duplicarTipoFormula.formula.nombrecorto, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlTipoFormula.asignarIndex(indice, 0, 2)}" />
@@ -308,7 +308,7 @@
                             <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 311px; top: 145px;  " id="btnDuplicarFormula" actionListener="#{controlTipoFormula.asignarIndex(indice, 0, 2)}" icon="ui-icon-search" process="@this" />
 
                             <strong><h:outputText value="#{msg['estadoN']}" style=" position: absolute; top: 185px;" /></strong>
-                            <p:inputText readonly="true" id="duplicarEstado" value="#{controlTipoFormula.duplicarTipoFormula.formula.estado}" style=" width: 122px; position: absolute; left: 180px; top: 185px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="false"  readonly="true" id="duplicarEstado" value="#{controlTipoFormula.duplicarTipoFormula.formula.estado}" style=" width: 122px; position: absolute; left: 180px; top: 185px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 

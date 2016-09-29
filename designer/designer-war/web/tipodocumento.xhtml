@@ -33,7 +33,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.nombrecorto}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.nombrecorto}" maxlength="3" id="editarCodigo" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="false"  value="#{info.nombrecorto}" maxlength="3" id="editarCodigo" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlTiposDocumentos.cambiarIndice(indice, 0)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlTiposDocumentos.modificarTiposDocumentos(indice, 'N', info.nombrecorto)}"  update="codigo"/>
                                             </p:inputText>
@@ -45,7 +45,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.nombrelargo}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.nombrelargo}" maxlength="30" id="editarNombre" style="height: 12px;  border-radius: 0px; width: 550px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="false"  value="#{info.nombrelargo}" maxlength="30" id="editarNombre" style="height: 12px;  border-radius: 0px; width: 550px; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlTiposDocumentos.cambiarIndice(indice, 1)}" process="@this"/> 
                                                 <p:ajax event="change"  listener="#{controlTiposDocumentos.modificarTiposDocumentos(indice, 'N', info.nombrelargo)}" update="descripcion"/>
                                             </p:inputText>
@@ -221,13 +221,13 @@
                         <p:panel id="nuevaTipoempresa" style="border: none;">
 
                             <strong><h:outputText value="Corto:"  style=" position: absolute; top: 60px;" /></strong>
-                            <p:inputText id="nuevoCodigo" maxlength="3" value="#{controlTiposDocumentos.nuevoTiposDocumentos.nombrecorto}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
+                            <p:inputText  autocomplete="false"  id="nuevoCodigo" maxlength="3" value="#{controlTiposDocumentos.nuevoTiposDocumentos.nombrecorto}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoCodigo" value="Corto" />
 
                             <strong><h:outputText value="*Descripcion:"  style=" position: absolute; top: 90px;" /></strong>
-                            <p:inputText  id="nuevoNombre" maxlength="30" value="#{controlTiposDocumentos.nuevoTiposDocumentos.nombrelargo}" style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
+                            <p:inputText  autocomplete="false"   id="nuevoNombre" maxlength="30" value="#{controlTiposDocumentos.nuevoTiposDocumentos.nombrelargo}" style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoNombre" value="Descripcion" />
@@ -244,13 +244,13 @@
 
                         <p:panel id="duplicarTE" style="border: none;">
                             <strong><h:outputText value="Corto: "  style=" position: absolute; top: 60px;" /></strong>
-                            <p:inputText id="duplicarCodigo" maxlength="3" value="#{controlTiposDocumentos.duplicarTiposDocumentos.nombrecorto}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
+                            <p:inputText  autocomplete="false"  id="duplicarCodigo" maxlength="3" value="#{controlTiposDocumentos.duplicarTiposDocumentos.nombrecorto}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarCodigo" value="Corto" />
 
                             <strong><h:outputText value="*Descripcion:"  style=" position: absolute; top: 90px;" /></strong>
-                            <p:inputText id="duplicarNombre" maxlength="30" value="#{controlTiposDocumentos.duplicarTiposDocumentos.nombrelargo}"  style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
+                            <p:inputText  autocomplete="false"  id="duplicarNombre" maxlength="30" value="#{controlTiposDocumentos.duplicarTiposDocumentos.nombrelargo}"  style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarNombre" value="Descripcion" />

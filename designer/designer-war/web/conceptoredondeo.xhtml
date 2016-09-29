@@ -79,7 +79,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{cr.concepto.descripcion}" style="text-transform: uppercase;"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{cr.concepto.descripcion}"  id="editarConceptoDescripcion" style="font-size: 10px; border-radius: 0px; width: 99%;text-transform: uppercase;"> 
+                                            <p:inputText  autocomplete="false"  value="#{cr.concepto.descripcion}"  id="editarConceptoDescripcion" style="font-size: 10px; border-radius: 0px; width: 99%;text-transform: uppercase;"> 
                                                 <p:ajax event="select"  listener="#{controlConceptoRedondeo.cambiarIndice(indice, 0)}" process="@this"/>
                                                 <p:ajax event="change" update="editarConceptoDescripcion" listener="#{controlConceptoRedondeo.modificarConceptosRedondeos(indice,'CONCEPTO',cr.concepto.descripcion)}" process="@this"/>
                                                 <p:ajax event="dblclick" listener="#{controlConceptoRedondeo.asignarIndex(indice,0,0)}" process="@this"/>
@@ -96,7 +96,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{cr.tiporedondeo.descripcion}" style="text-transform: uppercase;"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{cr.tiporedondeo.descripcion}"  id="editarTipoRedondeoCR" style="font-size: 10px; border-radius: 0px; width: 99%;text-transform: uppercase;"> 
+                                            <p:inputText  autocomplete="false"  value="#{cr.tiporedondeo.descripcion}"  id="editarTipoRedondeoCR" style="font-size: 10px; border-radius: 0px; width: 99%;text-transform: uppercase;"> 
                                                 <p:ajax event="select"  listener="#{controlConceptoRedondeo.cambiarIndice(indice, 1)}" process="@this"/>
                                                 <p:ajax event="change" update="editarTipoRedondeoCR" listener="#{controlConceptoRedondeo.modificarConceptosRedondeos(indice,'TIPO',cr.tiporedondeo.descripcion)}" process="@this"/>
                                                 <p:ajax event="dblclick" listener="#{controlConceptoRedondeo.asignarIndex(indice,1,0)}" process="@this"/>
@@ -154,7 +154,7 @@
                             <fieldset style="position: absolute; left: 10px; top: 40px; font-size: 11px; width: 345px; height: 88px; border-radius: 10px; ">
 
                                 <strong><h:outputText value="#{msg['conceptoN']}" style="font-size: 12px; position: absolute; top: 17px;" /></strong>
-                                <p:inputText id="nuevoConcepto" value="#{controlConceptoRedondeo.nuevoConceptoRedondeo.concepto.descripcion}" style="font-size: 12px; width: 122px; position: absolute; top: 17px; left: 152px; text-transform:uppercase" onclick="select();">
+                                <p:inputText  autocomplete="false"  id="nuevoConcepto" value="#{controlConceptoRedondeo.nuevoConceptoRedondeo.concepto.descripcion}" style="font-size: 12px; width: 122px; position: absolute; top: 17px; left: 152px; text-transform:uppercase" onclick="select();">
                                     <p:ajax event="click" listener="#{controlConceptoRedondeo.valoresBackupAutocompletar(1, 'CONCEPTO')}" />
                                     <p:ajax event="change" listener="#{controlConceptoRedondeo.autocompletarNuevoyDuplicado('CONCEPTO', controlConceptoRedondeo.nuevoConceptoRedondeo.concepto.descripcion, 1)}" />
                                     <p:ajax event="dblclick" listener="#{controlConceptoRedondeo.asignarIndex(indice, 0, 1)}" />
@@ -162,7 +162,7 @@
                                 <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 283px; top: 17px;  " id="btnNuevoConcepto" icon="ui-icon-search" process="@this"  actionListener="#{controlConceptoRedondeo.asignarIndex(indice, 0, 1)}"/>   
 
                                 <strong><h:outputText value="#{msg['tiporedondeoN']}" style="font-size: 12px; position: absolute; top: 57px;" /></strong>
-                                <p:inputText id="nuevoTipo" value="#{controlConceptoRedondeo.nuevoConceptoRedondeo.tiporedondeo.descripcion}" style="font-size: 12px; width: 122px; position: absolute; top: 57px; left: 152px; text-transform:uppercase" onclick="select();">
+                                <p:inputText  autocomplete="false"  id="nuevoTipo" value="#{controlConceptoRedondeo.nuevoConceptoRedondeo.tiporedondeo.descripcion}" style="font-size: 12px; width: 122px; position: absolute; top: 57px; left: 152px; text-transform:uppercase" onclick="select();">
                                     <p:ajax event="click" listener="#{controlConceptoRedondeo.valoresBackupAutocompletar(1, 'TIPO')}" />
                                     <p:ajax event="change" listener="#{controlConceptoRedondeo.autocompletarNuevoyDuplicado('TIPO', controlConceptoRedondeo.nuevoConceptoRedondeo.tiporedondeo.descripcion, 1)}" />
                                     <p:ajax event="dblclick" listener="#{controlConceptoRedondeo.asignarIndex(indice, 1, 1)}" />
@@ -186,7 +186,7 @@
                             <fieldset style="position: absolute; left: 10px; top: 40px; font-size: 11px; width: 345px; height: 88px; border-radius: 10px; ">
 
                                 <strong><h:outputText value="#{msg['conceptoN']}"  style="font-size: 12px; position: absolute; top: 17px;" /></strong>
-                                <p:inputText id="duplicarConcepto" value="#{controlConceptoRedondeo.duplicarConceptoRedondeo.concepto.descripcion}" style="font-size: 12px; width: 122px; position: absolute; top: 17px; left: 152px; text-transform:uppercase" onclick="select();">
+                                <p:inputText  autocomplete="false"  id="duplicarConcepto" value="#{controlConceptoRedondeo.duplicarConceptoRedondeo.concepto.descripcion}" style="font-size: 12px; width: 122px; position: absolute; top: 17px; left: 152px; text-transform:uppercase" onclick="select();">
                                     <p:ajax event="click" listener="#{controlConceptoRedondeo.valoresBackupAutocompletar(2, 'CONCEPTO')}" />
                                     <p:ajax event="change" listener="#{controlConceptoRedondeo.autocompletarNuevoyDuplicado('CONCEPTO', controlConceptoRedondeo.duplicarConceptoRedondeo.concepto.descripcion, 2)}" />
                                     <p:ajax event="dblclick" listener="#{controlConceptoRedondeo.asignarIndex(indice, 0, 2)}" />
@@ -194,7 +194,7 @@
                                 <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 283px; top: 17px;  " id="btnDuplicarConcepto" icon="ui-icon-search" process="@this"  actionListener="#{controlConceptoRedondeo.asignarIndex(indice, 0, 2)}"/>   
 
                                 <strong><h:outputText value="#{msg['tiporedondeoN']}"  style="font-size: 12px; position: absolute; top: 57px;" /></strong>
-                                <p:inputText id="duplicarTipo" value="#{controlConceptoRedondeo.duplicarConceptoRedondeo.tiporedondeo.descripcion}" style="font-size: 12px; width: 122px; position: absolute; top: 57px; left: 152px; text-transform:uppercase" onclick="select();">
+                                <p:inputText  autocomplete="false"  id="duplicarTipo" value="#{controlConceptoRedondeo.duplicarConceptoRedondeo.tiporedondeo.descripcion}" style="font-size: 12px; width: 122px; position: absolute; top: 57px; left: 152px; text-transform:uppercase" onclick="select();">
                                     <p:ajax event="click" listener="#{controlConceptoRedondeo.valoresBackupAutocompletar(2, 'TIPO')}" />
                                     <p:ajax event="change" listener="#{controlConceptoRedondeo.autocompletarNuevoyDuplicado('TIPO', controlConceptoRedondeo.duplicarConceptoRedondeo.tiporedondeo.descripcion, 2)}" />
                                     <p:ajax event="dblclick" listener="#{controlConceptoRedondeo.asignarIndex(indice, 1, 2)}" />
@@ -274,7 +274,7 @@
 
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarC']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="PF('LOVConcepto').filter();" style="width:140px; position: relative; left: 70px;" />  
+                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('LOVConcepto').filter();" style="width:140px; position: relative; left: 70px;" />  
                             </f:facet>
                             <p:column filterBy="#{concepto.codigo}" style="width:50px;" filterStyle="width:40px;" filterMatchMode="contains">
                                 <f:facet name="header">
@@ -307,7 +307,7 @@
 
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarT']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="PF('LOVTiposRedondeos').filter();" style="width:140px; position: relative; left: 70px;" />  
+                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('LOVTiposRedondeos').filter();" style="width:140px; position: relative; left: 70px;" />  
                             </f:facet>
                             <p:column filterBy="#{t.descripcion}" width="100" filterMatchMode="contains">
                                 <f:facet name="header">
@@ -339,7 +339,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlConceptoRedondeo.actualizarConceptosRedondeos()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarCR']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="PF('LOVConceptosRedondeos').filter();" style="width:140px; position: relative; left: 70px;" />  
+                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('LOVConceptosRedondeos').filter();" style="width:140px; position: relative; left: 70px;" />  
                             </f:facet>
                             <p:column filterBy="#{cr.concepto.descripcion}"  filterMatchMode="contains">
                                 <f:facet name="header">

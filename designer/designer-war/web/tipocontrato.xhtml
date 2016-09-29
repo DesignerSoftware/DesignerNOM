@@ -99,7 +99,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.codigo}" onclick="select();" id="editarCodigoTipoContrato" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="false"  value="#{info.codigo}" onclick="select();" id="editarCodigoTipoContrato" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlTipoContrato.procesoModificacionTipoContrato(info)}" update="editarCodigoTipoContrato" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlTipoContrato.cambiarIndice(info, 0)}"  process="@this"/>
                                             </p:inputText>
@@ -115,7 +115,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.nombre}" style="text-transform: uppercase"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.nombre}" maxlength="30" onclick="select();" id="editarNombreTipoContrato" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="false"  value="#{info.nombre}" maxlength="30" onclick="select();" id="editarNombreTipoContrato" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlTipoContrato.procesoModificacionTipoContrato(info)}" update="editarNombreTipoContrato" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlTipoContrato.cambiarIndice(info, 1)}" process="@this"/>
                                             </p:inputText>
@@ -131,7 +131,7 @@
                                         <f:facet name="output"><h:outputText value="#{info.duracionperiodoprueba}" />
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.duracionperiodoprueba}" onclick="select();" id="editarPeriodoTipoContrato" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="false"  value="#{info.duracionperiodoprueba}" onclick="select();" id="editarPeriodoTipoContrato" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlTipoContrato.modificarTipoContrato(info)}" update="editarPeriodoTipoContrato" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlTipoContrato.cambiarIndice(info, 2)}" process="@this"/>
                                             </p:inputText>
@@ -199,7 +199,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{infoD.tipodia.descripcion}"  maxlength="30" id="editarTipoDiaDiasLab" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="false"  value="#{infoD.tipodia.descripcion}"  maxlength="30" id="editarTipoDiaDiasLab" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlTipoContrato.modificarDiaLaborable(infoD, 'DIAS', infoD.tipodia.descripcion)}" process="@this" update="editarTipoDiaDiasLab"/>
                                                 <p:ajax event="select" listener="#{controlTipoContrato.cambiarIndiceDia(infoD,0)}" process="@this"/> 
                                                 <p:ajax event="dblclick" listener="#{controlTipoContrato.asignarIndex(infoD,0,0)}" process="@this" update="editarTipoDiaDiasLab"/>
@@ -240,7 +240,7 @@
                                         <f:facet name="output"><h:outputText value="#{infoD.horaslaborables}" >
                                             </h:outputText></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{infoD.horaslaborables}" id="editarHLDiasLab" style=" border-radius: 0px; text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="false"  value="#{infoD.horaslaborables}" id="editarHLDiasLab" style=" border-radius: 0px; text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlTipoContrato.modificarDiaLaborable(infoD)}" process="@this" update="editarHLDiasLab"/>
                                                 <p:ajax event="select" listener="#{controlTipoContrato.cambiarIndiceDia(infoD, 2)}" />
                                             </p:inputText>
@@ -261,12 +261,12 @@
                             <h:outputText value="#{msg['codigo']}" style="display: inline-block; position: relative; top : 5px; left: 20px"/> 
                             <h:outputText value="#{msg['nombreNClonarTC']}" style="display: inline-block; position: relative; top : 5px; left: 70px"/>
 
-                            <p:inputText onclick="select();" id="codigoTipoCClonar" value="#{controlTipoContrato.codigoTipoCClonar}" 
+                            <p:inputText  autocomplete="false"  onclick="select();" id="codigoTipoCClonar" value="#{controlTipoContrato.codigoTipoCClonar}" 
                                          style="display: block; position: relative; top : 11px; left: 10px;width: 75px;text-transform: uppercase">
                                  <p:keyFilter for="codigoTipoCClonarBase" mask="num"/>
                                 <p:ajax event="change" update="codigoTipoCClonar" process="@this"/>
                             </p:inputText>
-                            <p:inputText onclick="select();" id="nombreTipoCClonar" maxlength="30" value="#{controlTipoContrato.nombreTipoCClonar}" 
+                            <p:inputText  autocomplete="false"  onclick="select();" id="nombreTipoCClonar" maxlength="30" value="#{controlTipoContrato.nombreTipoCClonar}" 
                                          style="display: inline-block; position: relative; top : -13px; left: 100px; width: 220px;text-transform: uppercase">
                                 <p:ajax event="change" update="nombreTipoCClonar" process="@this"/>
                             </p:inputText>
@@ -274,14 +274,14 @@
                             <h:outputText value="#{msg['codigo']}" style="display: block; position: relative; top : 0px; left: 20px"/> 
                             <h:outputText value="#{msg['nombreBClonarTC']}" style="display: inline-block; position: relative; top : -15px; left: 105px"/> 
 
-                            <p:inputText onclick="select();" id="codigoTipoCClonarBase" value="#{controlTipoContrato.tipoContratoAClonar.codigo}"
+                            <p:inputText  autocomplete="false"  onclick="select();" id="codigoTipoCClonarBase" value="#{controlTipoContrato.tipoContratoAClonar.codigo}"
                                          style="display: block; position: relative; top : -14px; left: 10px;width: 75px">
                                  <p:keyFilter for="codigoTipoCClonarBase" mask="num"/>
                                 <p:ajax event="change" update="codigoTipoCClonarBase" process="@this" listener="#{controlTipoContrato.autoCompletarSeleccionarTipoContratoClonar(controlTipoContrato.tipoContratoAClonar.codigo,0)}"/>
                                 <p:ajax event="select" process="@this" listener="#{controlTipoContrato.posicionTipoContratoClonar()}"/>
                                 <p:ajax event="dblclick" process="@this" listener="#{controlTipoContrato.dispararDialogoClonarTipoContrato()}"/>
                             </p:inputText>
-                            <p:inputText onclick="select();" id="nombreTipoCClonarBase" value="#{controlTipoContrato.tipoContratoAClonar.nombre}" 
+                            <p:inputText  autocomplete="false"  onclick="select();" id="nombreTipoCClonarBase" value="#{controlTipoContrato.tipoContratoAClonar.nombre}" 
                                          style="display: inline-block; position: relative; top : -38px; left: 100px; width: 220px;text-transform: uppercase">
                                 <p:ajax event="change" update="nombreTipoCClonarBase" process="@this" listener="#{controlTipoContrato.autoCompletarSeleccionarTipoContratoClonar(controlTipoContrato.tipoContratoAClonar.nombre,1)}"/>
                                 <p:ajax event="select" process="@this" listener="#{controlTipoContrato.posicionTipoContratoClonar()}"/>
@@ -427,7 +427,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlTipoContrato.actualizarTipoDia()}"  process="@this"   />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarTD']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="PF('lovTipoDia').filter();" style="width:140px; position: relative; left: -5px;" />  
+                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovTipoDia').filter();" style="width:140px; position: relative; left: -5px;" />  
                             </f:facet>
                             <p:column filterBy="#{dias.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important">
                                 <f:facet name="header">
@@ -455,7 +455,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlTipoContrato.seleccionarTipoContratoClonar()}"  process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarTC']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="PF('lovTipoContrato').filter();" style="width:140px; position: relative; left: 50px;" />  
+                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovTipoContrato').filter();" style="width:140px; position: relative; left: 50px;" />  
                             </f:facet>
                             <p:column filterBy="#{tipoC.codigo}" width="90" filterStyle="width: 85% !important" filterMatchMode="contains">
                                 <f:facet name="header">
@@ -502,21 +502,21 @@
                         <p:panel id="nuevoTipoContrato" style="border: none;">
 
                             <strong><h:outputText value="*#{msg['codigoNTC']}" style="position: absolute; top: 60px; left: 50px;" /></strong>
-                            <p:inputText id="nuevoTipoContratoCodigo" onclick="select();" maxlength="30" value="#{controlTipoContrato.nuevoTipoContrato.codigo}" 
+                            <p:inputText  autocomplete="false"  id="nuevoTipoContratoCodigo" onclick="select();" maxlength="30" value="#{controlTipoContrato.nuevoTipoContrato.codigo}" 
                                          style="width: 122px; position: absolute; left: 200px; top: 55px;">
                                 <p:ajax event="change" update="nuevoTipoContratoCodigo"/>
                             </p:inputText>
                             <p:watermark value="#{msg['codigo']}" for="nuevoTipoContratoCodigo"/>
 
                             <strong><h:outputText value="*#{msg['nombreNTC']}" style="position: absolute; top: 90px; left: 50px;" /></strong>
-                            <p:inputText id="nuevoTipoContratoNombre" maxlength="30" onclick="select();" value="#{controlTipoContrato.nuevoTipoContrato.nombre}"
+                            <p:inputText  autocomplete="false"  id="nuevoTipoContratoNombre" maxlength="30" onclick="select();" value="#{controlTipoContrato.nuevoTipoContrato.nombre}"
                                          style="width: 122px; position: absolute; left: 200px; top: 85px;">
                                 <p:ajax event="change" update="nuevoTipoContratoNombre"/>
                             </p:inputText>
                             <p:watermark value="#{msg['nombre']}" for="nuevoTipoContratoNombre"/>
 
                             <strong><h:outputText value="#{msg['periodoNTC']}" style="position: absolute; top: 120px; left: 50px;" /></strong>
-                            <p:inputText id="nuevoTipoContratoPeriodo" value="#{controlTipoContrato.nuevoTipoContrato.duracionperiodoprueba}" 
+                            <p:inputText  autocomplete="false"  id="nuevoTipoContratoPeriodo" value="#{controlTipoContrato.nuevoTipoContrato.duracionperiodoprueba}" 
                                          style="width: 122px; position: absolute; left: 200px; top: 115px;" onclick="select();">
                                 <p:ajax event="change" update="nuevoTipoContratoPeriodo"/>
                             </p:inputText>
@@ -548,21 +548,21 @@
                         <p:panel id="duplicarTipoContrato" style="border: none;">
 
                             <strong><h:outputText value="*#{msg['codigoNTC']}"  style="position: absolute; top: 60px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarTipoContratoCodigo" onclick="select();"  maxlength="30" value="#{controlTipoContrato.duplicarTipoContrato.codigo}" 
+                            <p:inputText  autocomplete="false"  id="duplicarTipoContratoCodigo" onclick="select();"  maxlength="30" value="#{controlTipoContrato.duplicarTipoContrato.codigo}" 
                                          style="width: 122px; position: absolute; left: 200px; top: 55px;">
                                 <p:ajax event="change" update="duplicarTipoContratoCodigo"/>
                             </p:inputText>
                             <p:watermark value="#{msg['codigo']}" for="duplicarTipoContratoCodigo"/>
 
                             <strong><h:outputText value="*#{msg['nombreNTC']}" style="position: absolute; top: 90px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarTipoContratoNombre" maxlength="30" onclick="select();" value="#{controlTipoContrato.duplicarTipoContrato.nombre}" 
+                            <p:inputText  autocomplete="false"  id="duplicarTipoContratoNombre" maxlength="30" onclick="select();" value="#{controlTipoContrato.duplicarTipoContrato.nombre}" 
                                          style="width: 122px; position: absolute; left: 200px; top: 85px;">
                                 <p:ajax event="change" update="duplicarTipoContratoNombre"/>
                             </p:inputText>
                             <p:watermark value="#{msg['nombre']}" for="duplicarTipoContratoNombre"/>
 
                             <strong><h:outputText value="#{msg['periodoNTC']}" style="position: absolute; top: 120px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarTipoContratoPeriodo" onclick="select();" value="#{controlTipoContrato.duplicarTipoContrato.duracionperiodoprueba}" 
+                            <p:inputText  autocomplete="false"  id="duplicarTipoContratoPeriodo" onclick="select();" value="#{controlTipoContrato.duplicarTipoContrato.duracionperiodoprueba}" 
                                          style="width: 122px; position: absolute; left: 200px; top: 115px;">
                                 <p:ajax event="change" update="duplicarTipoContratoPeriodo"/>
                             </p:inputText>
@@ -592,7 +592,7 @@
                         <p:panel id="nuevoDiaLaborable" style="border: none;">
 
                             <strong><h:outputText value="*#{msg['tipoDiaNDL']}" style="position: absolute; top: 60px; left: 50px;" /></strong>
-                            <p:inputText id="nuevoDiaLabTipoDia" onclick="select();" value="#{controlTipoContrato.nuevoDiaLaborable.tipodia.descripcion}" 
+                            <p:inputText  autocomplete="false"  id="nuevoDiaLabTipoDia" onclick="select();" value="#{controlTipoContrato.nuevoDiaLaborable.tipodia.descripcion}" 
                                          style="width: 122px; position: absolute; left: 200px; top: 55px;">
                                 <p:ajax event="dblclick" listener="#{controlTipoContrato.asignarIndex(infoD,0,1)}" process="@this" update="nuevoDiaLabTipoDia"/>
                                 <p:ajax event="click" listener="#{controlTipoContrato.valoresBackupAutocompletarGeneral(1, 'DIAS')}" />
@@ -618,7 +618,7 @@
                             </p:selectOneMenu>
 
                             <strong><h:outputText value=" H.L.:" style="position: absolute; top: 120px; left: 50px;" /></strong>
-                            <p:inputText id="nuevoHLDiaLab" onclick="select();" value="#{controlTipoContrato.nuevoDiaLaborable.horaslaborables}" 
+                            <p:inputText  autocomplete="false"  id="nuevoHLDiaLab" onclick="select();" value="#{controlTipoContrato.nuevoDiaLaborable.horaslaborables}" 
                                          style="width: 122px; position: absolute; left: 200px; top: 115px;">
                                 <p:ajax event="change" update="nuevoHLDiaLab" />
                             </p:inputText>
@@ -636,7 +636,7 @@
 
 
                             <strong><h:outputText value="*#{msg['tipoDiaNDL']}" style="position: absolute; top: 60px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarDiaLabTipoDia" onclick="select();" value="#{controlTipoContrato.duplicarDiaLaborable.tipodia.descripcion}" 
+                            <p:inputText  autocomplete="false"  id="duplicarDiaLabTipoDia" onclick="select();" value="#{controlTipoContrato.duplicarDiaLaborable.tipodia.descripcion}" 
                                          style="width: 122px; position: absolute; left: 200px; top: 55px;">
                                 <p:ajax event="dblclick" listener="#{controlTipoContrato.asignarIndex(infoD,0,2)}" process="@this" update="duplicarDiaLabTipoDia"/>
                                 <p:ajax event="click" listener="#{controlTipoContrato.valoresBackupAutocompletarGeneral(2, 'DIAS')}" />
@@ -662,7 +662,7 @@
                             </p:selectOneMenu>
 
                             <strong><h:outputText value=" H.L.:" style="position: absolute; top: 120px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarHLDiaLab" onclick="select();" value="#{controlTipoContrato.duplicarDiaLaborable.horaslaborables}"
+                            <p:inputText  autocomplete="false"  id="duplicarHLDiaLab" onclick="select();" value="#{controlTipoContrato.duplicarDiaLaborable.horaslaborables}"
                                          style="width: 122px; position: absolute; left: 200px; top: 115px;">
                                 <p:ajax event="change" update="duplicarHLDiaLab" />
                             </p:inputText>

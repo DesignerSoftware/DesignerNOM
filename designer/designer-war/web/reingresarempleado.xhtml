@@ -75,20 +75,20 @@
                             <legend style="font-size: 14px; color: blue"><strong>Reingresar un Empleado</strong></legend>
 
                             <h:outputText value="#{msg['nombredelempleado']}" style="position: absolute; left: 15px; top: 25px; font-weight: bold"/>
-                            <p:inputText id="nombreEmpleado" value="#{controlReingresarEmpleado.empleado.persona.nombreCompleto}" style="position: absolute; left: 15px; top: 65px; height: 15px; width: 128px;" onclick="select();">
+                            <p:inputText  autocomplete="false"  id="nombreEmpleado" value="#{controlReingresarEmpleado.empleado.persona.nombreCompleto}" style="position: absolute; left: 15px; top: 65px; height: 15px; width: 128px;" onclick="select();">
                                 <p:ajax event="change" listener="#{controlReingresarEmpleado.modificarReingreso('EMPLEADO', controlReingresarEmpleado.empleado.persona.nombreCompleto)}"/>
                                 <p:ajax event="dblclick" listener="#{controlReingresarEmpleado.asignarIndex(0)}"/>
                             </p:inputText>
 
                             <h:outputText value="#{msg['estructura']}" style="position: absolute; left: 15px; top: 105px; font-weight: bold"/>
-                            <p:inputText id="estructura" value="#{controlReingresarEmpleado.estructura.nombre}" style="position: absolute; left: 15px; top: 145px; height: 15px; width: 128px;" onclick="select();">
+                            <p:inputText  autocomplete="false"  id="estructura" value="#{controlReingresarEmpleado.estructura.nombre}" style="position: absolute; left: 15px; top: 145px; height: 15px; width: 128px;" onclick="select();">
                                 <p:ajax event="change" listener="#{controlReingresarEmpleado.modificarReingreso('ESTRUCTURA', controlReingresarEmpleado.estructura.nombre)}"/>
                                 <p:ajax event="dblclick" listener="#{controlReingresarEmpleado.asignarIndex(1)}"/>
                             </p:inputText>
 
                             <h:outputText  value="#{msg['fechareingreso']}" style="position: absolute; top: 185px; left: 15px;font-weight: bold"/>
                             <div id="divFechaReingreso" style="position: absolute; top: 225px; left: 15px;">
-                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="fechaReingreso" value="#{controlReingresarEmpleado.fechaReingreso}">
+                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="fechaReingreso" value="#{controlReingresarEmpleado.fechaReingreso}">
                                     <p:ajax event="dateSelect"  update="fechaReingreso" process="@this"/>
                                     <p:ajax event="change" update="fechaReingreso" process="@this"/>
                                 </p:calendar>
@@ -97,7 +97,7 @@
                             <h:outputText  value="#{msg['fechafincontrato']}" style="position: absolute; top: 265px; left: 15px;font-weight: bold"/>
 
                             <div id="divFechaFinContrato" style="position: absolute; top: 305px; left: 15px;">
-                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="fechaFinContrato" value="#{controlReingresarEmpleado.fechaFinContrato}">
+                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="fechaFinContrato" value="#{controlReingresarEmpleado.fechaFinContrato}">
                                     <p:ajax event="dateSelect" update="fechaFinContrato" process="@this"/>
                                     <p:ajax event="change" update="fechaFinContrato" process="@this"/>
                                 </p:calendar>
@@ -140,7 +140,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlReingresarEmpleado.actualizarEmpleados()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarEM']}"  style="position: absolute; left: 27px; top: 15px"/>  
-                                <p:inputText id="globalFilter" onkeyup="PF('LOVEmpleados').filter();" style="width:100px; position: relative; left: 80px;" />  
+                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('LOVEmpleados').filter();" style="width:100px; position: relative; left: 80px;" />  
                             </f:facet>
 
                             <p:column  filterBy="#{emp.codigoempleado}" width="50" filterMatchMode="contains" filterStyle="width: 40px;" > 
@@ -175,7 +175,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlReingresarEmpleado.actualizarEstructuras()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarE']}"  style="position: absolute; left: 27px; top: 15px"/>  
-                                <p:inputText id="globalFilter" onkeyup="PF('LOVEstructuras').filter();" style="width:100px; position: relative; left: 80px;" />  
+                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('LOVEstructuras').filter();" style="width:100px; position: relative; left: 80px;" />  
                             </f:facet>
 
                             <p:column  filterBy="#{es.codigo}" width="50" filterMatchMode="contains" filterStyle="width: 40px;" > 

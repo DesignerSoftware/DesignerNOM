@@ -36,7 +36,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.codigo}" onclick="select();" id="editarCodigoReforma" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="false"  value="#{info.codigo}" onclick="select();" id="editarCodigoReforma" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlReformaLaboral.procesoModificacionReformaLaboral(indice)}" update="editarCodigoReforma" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlReformaLaboral.cambiarIndice(indice, 0)}"  process="@this"/>
                                             </p:inputText>
@@ -50,7 +50,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.nombre}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.nombre}" maxlength="30" onclick="select();" id="editarNombreReforma" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="false"  value="#{info.nombre}" maxlength="30" onclick="select();" id="editarNombreReforma" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlReformaLaboral.procesoModificacionReformaLaboral(indice)}" update="editarNombreReforma" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlReformaLaboral.cambiarIndice(indice, 1)}" process="@this"/>
                                             </p:inputText>
@@ -152,7 +152,7 @@
                                         <f:facet name="output"><h:outputText value="#{infoD.tipopago}" >
                                             </h:outputText></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{infoD.tipopago}" maxlength="10" id="editarTipoPagoDetalle" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="false"  value="#{infoD.tipopago}" maxlength="10" id="editarTipoPagoDetalle" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlReformaLaboral.procesoModificacionDetalleReformaLaboral(indiceD)}" process="@this" update="editarTipoPagoDetalle"/>
                                                 <p:ajax event="select" listener="#{controlReformaLaboral.cambiarIndiceDetalle(indiceD, 0)}" />
                                             </p:inputText>
@@ -167,7 +167,7 @@
                                         <f:facet name="output"><h:outputText value="#{infoD.factor}" >
                                             </h:outputText></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{infoD.factor}" id="editarFactorDetalle" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="false"  value="#{infoD.factor}" id="editarFactorDetalle" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlReformaLaboral.procesoModificacionDetalleReformaLaboral(indiceD)}" process="@this" update="editarFactorDetalle"/>
                                                 <p:ajax event="select" listener="#{controlReformaLaboral.cambiarIndiceDetalle(indiceD, 1)}" />
                                             </p:inputText>
@@ -184,24 +184,24 @@
                             <legend style="color: blue"><strong>#{msg['clonarRL']}</strong></legend>
 
                             <h:outputText value="#{msg['codigo']}" style="position: absolute; top : 35px; left: 30px"/> 
-                            <p:inputText onclick="select();" id="codigoReformaLaboralClonar" value="#{controlReformaLaboral.codigoReformaClonar}" style="position: absolute; top : 50px; left: 10px;width: 75px;text-transform: uppercase">
+                            <p:inputText  autocomplete="false"  onclick="select();" id="codigoReformaLaboralClonar" value="#{controlReformaLaboral.codigoReformaClonar}" style="position: absolute; top : 50px; left: 10px;width: 75px;text-transform: uppercase">
                                 <p:ajax event="change" update="codigoReformaLaboralClonar" process="@this"/>
                             </p:inputText>
                             <h:outputText value="#{msg['nombreNClonarRL']}"  style="position: absolute; top : 35px; left: 170px"/> 
-                            <p:inputText onclick="select();" id="nombreReformaLaboralClonar"  maxlength="30"  value="#{controlReformaLaboral.nombreReformaClonar}" style="position: absolute; top : 50px; left: 150px;width: 200px;text-transform: uppercase">
+                            <p:inputText  autocomplete="false"  onclick="select();" id="nombreReformaLaboralClonar"  maxlength="30"  value="#{controlReformaLaboral.nombreReformaClonar}" style="position: absolute; top : 50px; left: 150px;width: 200px;text-transform: uppercase">
                                 <p:ajax event="change" update="nombreReformaLaboralClonar" process="@this"/>
                             </p:inputText>
 
 
 
                             <h:outputText value="#{msg['codigo']}" style="position: absolute; top : 100px; left: 30px"/> 
-                            <p:inputText onclick="select();" id="codigoReformaLaboralClonarBase" value="#{controlReformaLaboral.reformaLaboralAClonar.codigo}" style="position: absolute; top : 115px; left: 10px;width: 75px">
+                            <p:inputText  autocomplete="false"  onclick="select();" id="codigoReformaLaboralClonarBase" value="#{controlReformaLaboral.reformaLaboralAClonar.codigo}" style="position: absolute; top : 115px; left: 10px;width: 75px">
                                 <p:ajax event="change" update="codigoReformaLaboralClonarBase" process="@this" listener="#{controlReformaLaboral.autoCompletarSeleccionarReformaLaboralClonar(controlReformaLaboral.reformaLaboralAClonar.codigo,0)}"/>
                                 <p:ajax event="select" process="@this" listener="#{controlReformaLaboral.posicionReformaLaboralClonar()}"/>
                                 <p:ajax event="dblclick" process="@this" listener="#{controlReformaLaboral.dispararDialogoClonarReformaLaboral()}"/>
                             </p:inputText>
                             <h:outputText value="#{msg['nombreBClonarRL']}" style="position: absolute; top : 100px; left: 170px"/> 
-                            <p:inputText onclick="select();" id="nombreReformaLaboralClonarBase" maxlength="30" value="#{controlReformaLaboral.reformaLaboralAClonar.nombre}" style="position: absolute; top : 115px; left: 150px;width: 200px;text-transform: uppercase">
+                            <p:inputText  autocomplete="false"  onclick="select();" id="nombreReformaLaboralClonarBase" maxlength="30" value="#{controlReformaLaboral.reformaLaboralAClonar.nombre}" style="position: absolute; top : 115px; left: 150px;width: 200px;text-transform: uppercase">
                                 <p:ajax event="change" update="nombreReformaLaboralClonarBase" process="@this" listener="#{controlReformaLaboral.autoCompletarSeleccionarReformaLaboralClonar(controlReformaLaboral.reformaLaboralAClonar.nombre,1)}"/>
                                 <p:ajax event="select" process="@this" listener="#{controlReformaLaboral.posicionReformaLaboralClonar()}"/>
                                 <p:ajax event="dblclick" process="@this" listener="#{controlReformaLaboral.dispararDialogoClonarReformaLaboral()}"/>
@@ -330,7 +330,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlReformaLaboral.seleccionarReformaLaboralClonar()}"  process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarRL']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="PF('lovReformaLaboral').filter();" style="width:140px; position: relative; left: 70px;" />  
+                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovReformaLaboral').filter();" style="width:140px; position: relative; left: 70px;" />  
                             </f:facet>
                             <p:column filterBy="#{reforma.codigo}" filterMatchMode="contains">
                                 <f:facet name="header">
@@ -373,13 +373,13 @@
                         <p:panel id="nuevoReformaLaboral" style="border: none;">
 
                             <strong><h:outputText value="*#{msg['codigoNRL']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                            <p:inputText id="nuevoReformaLaboralCodigo" onclick="select();" maxlength="30" value="#{controlReformaLaboral.nuevoReformaLaboral.codigo}" style="width: 122px; position: absolute; left: 200px; top: 70px;">
+                            <p:inputText  autocomplete="false"  id="nuevoReformaLaboralCodigo" onclick="select();" maxlength="30" value="#{controlReformaLaboral.nuevoReformaLaboral.codigo}" style="width: 122px; position: absolute; left: 200px; top: 70px;">
                                 <p:ajax event="change" update="nuevoReformaLaboralCodigo"/>
                             </p:inputText>
                             <p:watermark value="#{msg['codigo']}" for="nuevoReformaLaboralCodigo"/>
 
                             <strong><h:outputText value="*#{msg['nombreNRL']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
-                            <p:inputText id="nuevoReformaLaboralNombre" maxlength="30" onclick="select();" value="#{controlReformaLaboral.nuevoReformaLaboral.nombre}" style="width: 122px; position: absolute; left: 200px; top: 100px;">
+                            <p:inputText  autocomplete="false"  id="nuevoReformaLaboralNombre" maxlength="30" onclick="select();" value="#{controlReformaLaboral.nuevoReformaLaboral.nombre}" style="width: 122px; position: absolute; left: 200px; top: 100px;">
                                 <p:ajax event="change" update="nuevoReformaLaboralNombre"/>
                             </p:inputText>
                             <p:watermark value="#{msg['nombre']}" for="nuevoReformaLaboralNombre"/>
@@ -405,13 +405,13 @@
 
 
                             <strong><h:outputText value="*#{msg['codigoNRL']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarReformaLaboralCodigo" onclick="select();" maxlength="30" value="#{controlReformaLaboral.duplicarReformaLaboral.codigo}" style="width: 122px; position: absolute; left: 200px; top: 70px;">
+                            <p:inputText  autocomplete="false"  id="duplicarReformaLaboralCodigo" onclick="select();" maxlength="30" value="#{controlReformaLaboral.duplicarReformaLaboral.codigo}" style="width: 122px; position: absolute; left: 200px; top: 70px;">
                                 <p:ajax event="change" update="duplicarReformaLaboralCodigo"/>
                             </p:inputText>
                             <p:watermark value="#{msg['codigo']}" for="duplicarReformaLaboralCodigo"/>
 
                             <strong><h:outputText value="*#{msg['nombreNRL']}" style=" position: absolute; top: 105px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarReformaLaboralNombre" maxlength="30" onclick="select();" value="#{controlReformaLaboral.duplicarReformaLaboral.nombre}" style="width: 122px; position: absolute; left: 200px; top: 100px;">
+                            <p:inputText  autocomplete="false"  id="duplicarReformaLaboralNombre" maxlength="30" onclick="select();" value="#{controlReformaLaboral.duplicarReformaLaboral.nombre}" style="width: 122px; position: absolute; left: 200px; top: 100px;">
                                 <p:ajax event="change" update="duplicarReformaLaboralNombre"/>
                             </p:inputText>
                             <p:watermark value="#{msg['nombre']}" for="duplicarReformaLaboralNombre"/>
@@ -435,13 +435,13 @@
                         <p:panel id="nuevoDetalleReformaLaboral" style="border: none;">
 
                             <strong><h:outputText value="*#{msg['tipoPagoNDRL']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                            <p:inputText id="nuevoTipoPagoDetalle" onclick="select();" maxlength="10"  value="#{controlReformaLaboral.nuevoDetalleReformaLaboral.tipopago}" style="width: 122px; position: absolute; left: 200px; top: 70px;">
+                            <p:inputText  autocomplete="false"  id="nuevoTipoPagoDetalle" onclick="select();" maxlength="10"  value="#{controlReformaLaboral.nuevoDetalleReformaLaboral.tipopago}" style="width: 122px; position: absolute; left: 200px; top: 70px;">
                                 <p:ajax event="change" update="nuevoTipoPagoDetalle" />
                             </p:inputText>
                             <p:watermark value="#{msg['tipoPago']}" for="nuevoTipoPagoDetalle"/>
 
                             <strong><h:outputText value="*#{msg['factorNDRL']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
-                            <p:inputText id="nuevoFactorDetalle" onclick="select();" value="#{controlReformaLaboral.nuevoDetalleReformaLaboral.factor}" style="width: 122px; position: absolute; left: 200px; top: 100px;">
+                            <p:inputText  autocomplete="false"  id="nuevoFactorDetalle" onclick="select();" value="#{controlReformaLaboral.nuevoDetalleReformaLaboral.factor}" style="width: 122px; position: absolute; left: 200px; top: 100px;">
                                 <p:ajax event="change" update="nuevoFactorDetalle" />
                             </p:inputText>
                             <p:watermark value="#{msg['factor']}" for="nuevoFactorDetalle"/>
@@ -458,13 +458,13 @@
                         <p:panel id="duplicarDetalleReformaLaboral" style="border: none;">
 
                             <strong><h:outputText value="*#{msg['tipoPagoNDRL']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarTipoPagoDetalle" maxlength="10" onclick="select();" value="#{controlReformaLaboral.duplicarDetalleReformaLaboral.tipopago}" style="width: 122px; position: absolute; left: 200px; top: 70px;">
+                            <p:inputText  autocomplete="false"  id="duplicarTipoPagoDetalle" maxlength="10" onclick="select();" value="#{controlReformaLaboral.duplicarDetalleReformaLaboral.tipopago}" style="width: 122px; position: absolute; left: 200px; top: 70px;">
                                 <p:ajax event="change" update="duplicarTipoPagoDetalle" />
                             </p:inputText>
                             <p:watermark value="#{msg['tipoPago']}" for="duplicarTipoPagoDetalle"/>
 
                             <strong><h:outputText value="*#{msg['factorNDRL']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarFactorDetalle" onclick="select();" value="#{controlReformaLaboral.duplicarDetalleReformaLaboral.factor}" style="width: 122px; position: absolute; left: 200px; top: 100px;">
+                            <p:inputText  autocomplete="false"  id="duplicarFactorDetalle" onclick="select();" value="#{controlReformaLaboral.duplicarDetalleReformaLaboral.factor}" style="width: 122px; position: absolute; left: 200px; top: 100px;">
                                 <p:ajax event="change" update="duplicarFactorDetalle" />
                             </p:inputText>
                             <p:watermark value="#{msg['factor']}" for="duplicarFactorDetalle"/>

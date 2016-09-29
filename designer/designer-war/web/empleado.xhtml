@@ -139,7 +139,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.codigoalternativodeudor}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.codigoalternativodeudor}" id="editarcodigodeudor" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"
+                                            <p:inputText  autocomplete="false"  value="#{info.codigoalternativodeudor}" id="editarcodigodeudor" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"
                                                          onselect="posicionOtro([{name: 'n', value: '2'}, {name: 't', value: '#{indice}'}]);"> 
                                                 <p:ajax event="change" listener="#{controlEmpleado.modificarEmpleados(info)}" process="@this" update="editarcodigodeudor"/>                                   
                                             </p:inputText>
@@ -156,7 +156,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.codigoalternativoacreedor}" style="width: 100px;"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.codigoalternativoacreedor}" id="editarcodigoacreedor" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"
+                                            <p:inputText  autocomplete="false"  value="#{info.codigoalternativoacreedor}" id="editarcodigoacreedor" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"
                                                          onselect="posicionOtro([{name: 'n', value: '3'}, {name: 't', value: '#{indice}'}]);"> 
                                                 <p:ajax event="change" listener="#{controlEmpleado.modificarEmpleados(info)}" process="@this" update="editarcodigoacreedor"/>                                   
                                             </p:inputText>
@@ -176,7 +176,7 @@
                                             </h:outputText>    
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  readonly="true" onselect="posicionOtro([{name: 'n', value: '4'}, {name: 't', value: '#{indice}'}]);" /> 
+                                            <p:inputText  autocomplete="false"   readonly="true" onselect="posicionOtro([{name: 'n', value: '4'}, {name: 't', value: '#{indice}'}]);" /> 
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
@@ -209,7 +209,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlEmpleado.actualizarEmpleados()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarE']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="PF('lovDeLOVEmpleados').filter();" style="width:150px; position: relative; left: 5px;" />  
+                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovDeLOVEmpleados').filter();" style="width:150px; position: relative; left: 5px;" />  
                             </f:facet>
 
                             <p:column filterBy="#{empl.codigoempleado}" filterMatchMode="contains" filterStyle="width:80%">

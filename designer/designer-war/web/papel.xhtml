@@ -36,7 +36,7 @@
                            <p:cellEditor>  
                               <f:facet name="output" ><h:outputText value="#{info.codigo}" style="text-transform: uppercase"  /></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText value="#{info.codigo}" maxlength="30" id="editarCodigoCC" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase" > 
+                                 <p:inputText  autocomplete="false"  value="#{info.codigo}" maxlength="30" id="editarCodigoCC" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase" > 
                                     <p:ajax  event="change" listener="#{controlPapeles.modificandoPapel(indice, 'N', info.codigo)}" update="@this"/>
                                     <p:ajax event="select" listener="#{controlPapeles.cambiarIndice(indice,0)}" /> 
                                  </p:inputText>
@@ -50,7 +50,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.descripcion}" style="text-transform: uppercase" /></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText id="editarNombreCentroCoso" maxlength="200" value="#{info.descripcion}" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase">
+                                 <p:inputText  autocomplete="false"  id="editarNombreCentroCoso" maxlength="200" value="#{info.descripcion}" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase">
                                     <p:ajax event="change" listener="#{controlPapeles.modificandoPapel(indice, 'N', info.descripcion)}" update="@this" />
                                     <p:ajax event="select" listener="#{controlPapeles.cambiarIndice(indice, 1)}" />
                                  </p:inputText>
@@ -62,7 +62,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.codigoalternativo}" style="text-transform: uppercase"  /></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText value="#{info.codigoalternativo}" maxlength="50" id="editarCodigoAT" style="height: 12px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
+                                 <p:inputText  autocomplete="false"  value="#{info.codigoalternativo}" maxlength="50" id="editarCodigoAT" style="height: 12px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
                                     <p:ajax event="change" listener="#{controlPapeles.modificandoPapel(indice, 'N', info.codigoalternativo )}" update="@this" />
                                     <p:ajax event="select" listener="#{controlPapeles.cambiarIndice(indice, 2)}" />
                                  </p:inputText>
@@ -234,18 +234,18 @@
 
                      <!--0-->
                      <strong><h:outputText value="*Codigo:" style="left: 10px; position: absolute; top: 60px;" /></strong>
-                     <p:inputText id="nuevaCodigoCC" maxlength="30" value="#{controlPapeles.nuevoPapel.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
+                     <p:inputText  autocomplete="false"  id="nuevaCodigoCC" maxlength="30" value="#{controlPapeles.nuevoPapel.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
                      <p:watermark for="nuevaCodigoCC" value="Codigo" />
                      <!--1-->
                      <strong><h:outputText value="*Descripcion:" style="left: 10px; position: absolute; top: 90px;" /></strong>
-                     <p:inputText id="nuevaNombrePapeles" maxlength="200" value="#{controlPapeles.nuevoPapel.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
+                     <p:inputText  autocomplete="false"  id="nuevaNombrePapeles" maxlength="200" value="#{controlPapeles.nuevoPapel.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
                      <p:watermark for="nuevaNombrePapeles" value="Descripcion" />
                      <strong><h:outputText value="Codigo Alternativo:" style=" left: 10px;position: absolute; top: 120px;" /></strong>
-                     <p:inputText id="nuevaCodigoAT" maxlength="50" value="#{controlPapeles.nuevoPapel.codigoalternativo}" style=" width: 140px; position: absolute; left: 150px; top: 115px;text-transform: uppercase">
+                     <p:inputText  autocomplete="false"  id="nuevaCodigoAT" maxlength="50" value="#{controlPapeles.nuevoPapel.codigoalternativo}" style=" width: 140px; position: absolute; left: 150px; top: 115px;text-transform: uppercase">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
                      <p:watermark for="nuevaCodigoAT" value="CODIGO ALTERNATIVO" />
@@ -265,19 +265,19 @@
                   <p:panel id="duplicarPapeles" style="border: none;">
                      <!--0-->
                      <strong><h:outputText value="Codigo" style=" position: absolute; left: 10px; top:60px;" /></strong>
-                     <p:inputText id="duplicarCodigoCC" maxlength="30" value="#{controlPapeles.duplicarPapel.codigo}" style="left: 150px; width: 140px; position: absolute;  top: 55px;text-transform: uppercase">
+                     <p:inputText  autocomplete="false"  id="duplicarCodigoCC" maxlength="30" value="#{controlPapeles.duplicarPapel.codigo}" style="left: 150px; width: 140px; position: absolute;  top: 55px;text-transform: uppercase">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
                      <p:watermark for="duplicarCodigoCC" value="Codigo" />
                      <!--1-->
                      <strong><h:outputText value="Descripcion" style=" position: absolute;left: 10px; top: 90px;" /></strong>
-                     <p:inputText id="duplicarNombrePapeles" maxlength="200" value="#{controlPapeles.duplicarPapel.descripcion}" style="left: 150px; width: 140px; position: absolute;  top: 85px;text-transform: uppercase">
+                     <p:inputText  autocomplete="false"  id="duplicarNombrePapeles" maxlength="200" value="#{controlPapeles.duplicarPapel.descripcion}" style="left: 150px; width: 140px; position: absolute;  top: 85px;text-transform: uppercase">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
                      <p:watermark for="duplicarNombrePapeles" value="Descripcion" />
                      <!--4-->
                      <strong><h:outputText value="Codigo Alternativo" style=" position: absolute; left: 10px; top: 120px;" /></strong>
-                     <p:inputText id="duplicarCodigoAT" maxlength="50" value="#{controlPapeles.duplicarPapel.codigoalternativo}" style="left: 150px; width: 140px; position: absolute; top: 115px;text-transform: uppercase">
+                     <p:inputText  autocomplete="false"  id="duplicarCodigoAT" maxlength="50" value="#{controlPapeles.duplicarPapel.codigoalternativo}" style="left: 150px; width: 140px; position: absolute; top: 115px;text-transform: uppercase">
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
                      <p:watermark for="duplicarCodigoAT" value="Codigo Alternativo" />
@@ -299,7 +299,7 @@
                      <p:ajax event="rowDblselect" listener="#{controlPapeles.cambiarEmpresa()}" process="@this" />
                      <f:facet name="header">  
                         <h:outputText value="Buscar Empresa"  style="position: absolute; left: 27px; top: 14px"/>  
-                        <p:inputText id="globalFilter" onkeyup="PF('lovEmpresas').filter();" style="width:100px; position: relative; left: 10px;" />  
+                        <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovEmpresas').filter();" style="width:100px; position: relative; left: 10px;" />  
                      </f:facet>
                      <p:column filterBy="#{empresa.nit}" width="60" filterMatchMode="contains" filterStyle="width: 50px">
                         <f:facet name="header">

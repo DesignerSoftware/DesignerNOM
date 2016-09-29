@@ -92,7 +92,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.formula.nombrecorto}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.formula.nombrecorto}" id="editarFormulaCorto" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="false"  value="#{info.formula.nombrecorto}" id="editarFormulaCorto" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlFormulaNovedad.modificarFormulaNovedad(indice, 'FORMULA', info.formula.nombrecorto)}" process="@this" update="editarFormulaCorto"/>
                                                 <p:ajax event="dblclick" listener="#{controlFormulaNovedad.asignarIndex(indice,0,0)}" process="@this" update="editarFormulaCorto"/>
                                                 <p:ajax event="select" listener="#{controlFormulaNovedad.cambiarIndice(indice, 0)}"  process="@this"/>
@@ -110,7 +110,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.formula.nombrelargo}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.formula.nombrelargo}" readonly="true" onselect="posicionFormula([{name: 'n', value: '1'}, {name: 't', value: '#{indice}'}]);" id="editarFormulaNombre" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"/> 
+                                            <p:inputText  autocomplete="false"  value="#{info.formula.nombrelargo}" readonly="true" onselect="posicionFormula([{name: 'n', value: '1'}, {name: 't', value: '#{indice}'}]);" id="editarFormulaNombre" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"/> 
                                         </f:facet>  
                                     </p:cellEditor>
 
@@ -262,7 +262,7 @@
                             <p:ajax event="rowDblselect" listener="#{controlFormulaNovedad.actualizarFormula()}" process="@this" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarF']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText id="globalFilter" onkeyup="PF('lovFormula').filter();" style="width:140px; position: relative; left: 70px;" />  
+                                <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovFormula').filter();" style="width:140px; position: relative; left: 70px;" />  
                             </f:facet>
                             <p:column filterBy="#{formula.nombrecorto}" filterMatchMode="contains">
                                 <f:facet name="header">
@@ -296,7 +296,7 @@
                         <p:panel id="nuevoFormula" style="border: none;">
 
                             <strong><h:outputText value="*#{msg['nombreCortoN']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                            <p:inputText id="nuevoFormulaCorto" value="#{controlFormulaNovedad.nuevoFormulaNovedad.formula.nombrecorto}" style="width: 122px; position: absolute; left: 200px; top: 70px;" onclick="select();">
+                            <p:inputText  autocomplete="false"  id="nuevoFormulaCorto" value="#{controlFormulaNovedad.nuevoFormulaNovedad.formula.nombrecorto}" style="width: 122px; position: absolute; left: 200px; top: 70px;" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlFormulaNovedad.asignarIndex(indice,0,1)}"/>
                                 <p:ajax event="click" listener="#{controlFormulaNovedad.valoresBackupAutocompletar(1, 'FORMULA')}" />
                                 <p:ajax event="change" listener="#{controlFormulaNovedad.autocompletarNuevoyDuplicadoFormulaNovedad('FORMULA', controlFormulaNovedad.nuevoFormulaNovedad.formula.nombrecorto, 1)}" />
@@ -305,7 +305,7 @@
                             <p:watermark value="#{msg['nombreCorto']}" for="nuevoFormulaCorto"/>
 
                             <strong><h:outputText value="*#{msg['formulaN']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
-                            <p:inputText id="nuevoFormulaDescripcion" value="#{controlFormulaNovedad.nuevoFormulaNovedad.formula.nombrelargo}" readonly="true" style="width: 122px; position: absolute; left: 200px; top: 100px;"/>
+                            <p:inputText  autocomplete="false"  id="nuevoFormulaDescripcion" value="#{controlFormulaNovedad.nuevoFormulaNovedad.formula.nombrelargo}" readonly="true" style="width: 122px; position: absolute; left: 200px; top: 100px;"/>
                             <p:watermark value="#{msg['formula']}" for="nuevoFormulaDescripcion"/>
 
                             <strong><h:outputText value="#{msg['sN']}" style="position: absolute; top: 135px; left: 50px;" /></strong>                            
@@ -341,7 +341,7 @@
                         <p:panel id="duplicarFormula" style="border: none;">
 
                             <strong><h:outputText value="*#{msg['nombreCortoN']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarFormulaCorto" value="#{controlFormulaNovedad.duplicarFormulaNovedad.formula.nombrecorto}" style="width: 122px; position: absolute; left: 200px; top: 70px;">
+                            <p:inputText  autocomplete="false"  id="duplicarFormulaCorto" value="#{controlFormulaNovedad.duplicarFormulaNovedad.formula.nombrecorto}" style="width: 122px; position: absolute; left: 200px; top: 70px;">
                                 <p:ajax event="dblclick" listener="#{controlFormulaNovedad.asignarIndex(indice,0,2)}"/>
                                 <p:ajax event="click" listener="#{controlFormulaNovedad.valoresBackupAutocompletar(2, 'FORMULA')}" />
                                 <p:ajax event="change" listener="#{controlFormulaNovedad.autocompletarNuevoyDuplicadoFormulaNovedad('FORMULA', controlFormulaNovedad.duplicarFormulaNovedad.formula.nombrecorto, 2)}" />
@@ -350,7 +350,7 @@
                             <p:watermark value="#{msg['nombreCorto']}" for="duplicarFormulaCorto"/>
 
                             <strong><h:outputText value="*#{msg['formulaN']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
-                            <p:inputText id="duplicarFormulaDescripcion" value="#{controlFormulaNovedad.duplicarFormulaNovedad.formula.nombrelargo}" readonly="true" style="width: 122px; position: absolute; left: 200px; top: 110px;"/>
+                            <p:inputText  autocomplete="false"  id="duplicarFormulaDescripcion" value="#{controlFormulaNovedad.duplicarFormulaNovedad.formula.nombrelargo}" readonly="true" style="width: 122px; position: absolute; left: 200px; top: 110px;"/>
                             <p:watermark value="#{msg['formula']}" for="duplicarFormulaDescripcion"/>
 
                             <strong><h:outputText value="#{msg['sN']}" style="position: absolute; top: 135px; left: 50px;" /></strong>                            

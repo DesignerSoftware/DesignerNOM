@@ -104,7 +104,7 @@
                                     <p:cellEditor>  
                                         <f:facet  name="output"><h:outputText value="#{info.concepto_Codigo}" /></f:facet>  
                                         <f:facet name="input" >
-                                            <p:inputText  value="#{info.concepto_Codigo}" id="editarConceptoCodigo" style=" height: 12px;   border-radius: 0px; width: 205px; text-transform: uppercase; height:12px;"  > 
+                                            <p:inputText  autocomplete="false"   value="#{info.concepto_Codigo}" id="editarConceptoCodigo" style=" height: 12px;   border-radius: 0px; width: 205px; text-transform: uppercase; height:12px;"  > 
                                                 <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(indice, 0)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlEmplAcumulados.revisarCambios()}" update="editarConceptoCodigo"/>
                                             </p:inputText>
@@ -123,7 +123,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.concepto_Descripcion}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  value="#{info.concepto_Descripcion}" id="editarConceptoDescripcion" style=" height: 12px;   border-radius: 0px; width: 320px; text-transform: uppercase; height:12px;"  > 
+                                            <p:inputText  autocomplete="false"   value="#{info.concepto_Descripcion}" id="editarConceptoDescripcion" style=" height: 12px;   border-radius: 0px; width: 320px; text-transform: uppercase; height:12px;"  > 
                                                 <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(indice, 1)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlEmplAcumulados.revisarCambios()}"  update="@this"/>
                                             </p:inputText>
@@ -147,7 +147,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet  name="input">
-                                            <p:inputText value="#{info.fechaDesde}" id="editarFechaDesde" style="  border-radius: 0px; width: 193px; text-transform: uppercase; height:12px;"  > 
+                                            <p:inputText  autocomplete="false"  value="#{info.fechaDesde}" id="editarFechaDesde" style="  border-radius: 0px; width: 193px; text-transform: uppercase; height:12px;"  > 
                                                 <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(indice, 2)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlEmplAcumulados.revisarCambios()}"   update="editarFechaDesde"/>
                                                 <f:convertDateTime pattern="dd/MM/yyyy" />
@@ -171,7 +171,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet  name="input">
-                                            <p:inputText  value="#{info.fechaPago}" id="editarfechaPago" style="  border-radius: 0px; width: 193px; text-transform: uppercase; height:12px;"  > 
+                                            <p:inputText  autocomplete="false"   value="#{info.fechaPago}" id="editarfechaPago" style="  border-radius: 0px; width: 193px; text-transform: uppercase; height:12px;"  > 
                                                 <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(indice, 3)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlEmplAcumulados.revisarCambios()}"  update="editarfechaPago"/>
                                                 <f:convertDateTime pattern="dd/MM/yyyy" />
@@ -191,7 +191,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.unidades}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.unidades}" id="editarUnidades" style=" height: 12px;   border-radius: 0px; width: 202px; text-transform: uppercase; height:12px;"  > 
+                                            <p:inputText  autocomplete="false"  value="#{info.unidades}" id="editarUnidades" style=" height: 12px;   border-radius: 0px; width: 202px; text-transform: uppercase; height:12px;"  > 
                                                 <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(indice, 4)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlEmplAcumulados.revisarCambios()}"  update="editarUnidades"/>
                                             </p:inputText>
@@ -210,7 +210,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.valor}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.valor}" id="editarValor" style=" height: 12px;   border-radius: 0px; width: 195px; text-transform: uppercase; height:12px;"  > 
+                                            <p:inputText  autocomplete="false"  value="#{info.valor}" id="editarValor" style=" height: 12px;   border-radius: 0px; width: 195px; text-transform: uppercase; height:12px;"  > 
                                                 <p:ajax event="select"  listener="#{controlEmplAcumulados.cambiarIndice(indice, 5)}" process="@this"/> 
                                                 <p:ajax event="change"  listener="#{controlEmplAcumulados.revisarCambios()}" update="editarValor"/>
                                             </p:inputText>
@@ -229,7 +229,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.saldo}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.saldo}" id="editarSaldo" style=" height: 12px;   border-radius: 0px; width: 195px; text-transform: uppercase; height:12px;"  > 
+                                            <p:inputText  autocomplete="false"  value="#{info.saldo}" id="editarSaldo" style=" height: 12px;   border-radius: 0px; width: 195px; text-transform: uppercase; height:12px;"  > 
                                                 <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(indice, 6)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlEmplAcumulados.revisarCambios()}"   update="editarSaldo"/>
                                             </p:inputText>
@@ -248,7 +248,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.tipo}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.tipo}" id="editarTipo" style=" height: 12px;   border-radius: 0px; width: 210px; text-transform: uppercase; height:12px;"  > 
+                                            <p:inputText  autocomplete="false"  value="#{info.tipo}" id="editarTipo" style=" height: 12px;   border-radius: 0px; width: 210px; text-transform: uppercase; height:12px;"  > 
                                                 <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(indice, 7)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlEmplAcumulados.revisarCambios()}"  update="editarTipo"/>
                                             </p:inputText>
@@ -267,7 +267,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.corteProceso.proceso.descripcion}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.corteProceso.proceso.descripcion}" id="editarCorteProceso" style=" height: 12px;   border-radius: 0px; width: 195px; text-transform: uppercase; height:12px;"  > 
+                                            <p:inputText  autocomplete="false"  value="#{info.corteProceso.proceso.descripcion}" id="editarCorteProceso" style=" height: 12px;   border-radius: 0px; width: 195px; text-transform: uppercase; height:12px;"  > 
                                                 <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(indice, 8)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlEmplAcumulados.revisarCambios()}"  update="editarCorteProceso"/>
                                             </p:inputText>
@@ -286,7 +286,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.nit_nombre}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.nit_nombre}" id="editarTercero" style="  height: 12px;  border-radius: 0px; width: 210px; text-transform: uppercase; height:12px;"  > 
+                                            <p:inputText  autocomplete="false"  value="#{info.nit_nombre}" id="editarTercero" style="  height: 12px;  border-radius: 0px; width: 210px; text-transform: uppercase; height:12px;"  > 
                                                 <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(indice, 9)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlEmplAcumulados.revisarCambios()}"  update="editarTercero"/>
                                             </p:inputText>
@@ -305,7 +305,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.formula.nombrelargo}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.formula.nombrelargo}" id="editarFormula" style=" height: 12px;   border-radius: 0px; width: 210px; text-transform: uppercase; height:12px;"  > 
+                                            <p:inputText  autocomplete="false"  value="#{info.formula.nombrelargo}" id="editarFormula" style=" height: 12px;   border-radius: 0px; width: 210px; text-transform: uppercase; height:12px;"  > 
                                                 <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(indice, 10)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlEmplAcumulados.revisarCambios()}"  update="editarFormula"/>
                                             </p:inputText>
@@ -324,7 +324,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.cuentaD.codigo}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.cuentaD.codigo}" id="editarDebito" style="  height: 12px;  border-radius: 0px; width: 210px; text-transform: uppercase; height:12px;"  > 
+                                            <p:inputText  autocomplete="false"  value="#{info.cuentaD.codigo}" id="editarDebito" style="  height: 12px;  border-radius: 0px; width: 210px; text-transform: uppercase; height:12px;"  > 
                                                 <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(indice, 11)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlEmplAcumulados.revisarCambios()}"  update="editarDebito"/>
                                             </p:inputText>
@@ -343,7 +343,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.centroCostoD.nombre}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.centroCostoD.nombre}" id="editarCentroCostoDebito" style="  height: 12px;  border-radius: 0px; width: 210px; text-transform: uppercase; height:12px;"  > 
+                                            <p:inputText  autocomplete="false"  value="#{info.centroCostoD.nombre}" id="editarCentroCostoDebito" style="  height: 12px;  border-radius: 0px; width: 210px; text-transform: uppercase; height:12px;"  > 
                                                 <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(indice, 12)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlEmplAcumulados.revisarCambios()}"  update="editarCentroCostoDebito"/>
                                             </p:inputText>
@@ -362,7 +362,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.cuentaC.codigo}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.cuentaC.codigo}" id="editarCredito" style=" height: 12px;   border-radius: 0px; width: 210px; text-transform: uppercase; height:12px;"  > 
+                                            <p:inputText  autocomplete="false"  value="#{info.cuentaC.codigo}" id="editarCredito" style=" height: 12px;   border-radius: 0px; width: 210px; text-transform: uppercase; height:12px;"  > 
                                                 <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(indice, 13)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlEmplAcumulados.revisarCambios()}"  update="editarCredito"/>
                                             </p:inputText>
@@ -381,7 +381,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.centroCostoC.nombre}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.centroCostoC.nombre}" id="editarCentroCostoCredito" style="  height: 12px;  border-radius: 0px; width: 210px; text-transform: uppercase; height:12px;"  > 
+                                            <p:inputText  autocomplete="false"  value="#{info.centroCostoC.nombre}" id="editarCentroCostoCredito" style="  height: 12px;  border-radius: 0px; width: 210px; text-transform: uppercase; height:12px;"  > 
                                                 <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(indice, 14)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlEmplAcumulados.revisarCambios()}" update="editarCentroCostoCredito"/>
                                             </p:inputText>
@@ -404,7 +404,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet  name="input">
-                                            <p:inputText value="#{info.ultimaModificacion}" id="editarUltimaModificacion" style=" height: 12px;   border-radius: 0px; width: 210px; text-transform: uppercase; height:12px;"  > 
+                                            <p:inputText  autocomplete="false"  value="#{info.ultimaModificacion}" id="editarUltimaModificacion" style=" height: 12px;   border-radius: 0px; width: 210px; text-transform: uppercase; height:12px;"  > 
                                                 <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(indice, 15)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlEmplAcumulados.revisarCambios()}" update="editarUltimaModificacion"/>
                                                 <f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss" />                                            
@@ -424,7 +424,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.observacionesMovedad}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  value="#{info.observacionesMovedad}" id="editarObservaciones" style=" height: 12px;   border-radius: 0px; width: 210px; text-transform: uppercase; height:12px;"  > 
+                                            <p:inputText  autocomplete="false"   value="#{info.observacionesMovedad}" id="editarObservaciones" style=" height: 12px;   border-radius: 0px; width: 210px; text-transform: uppercase; height:12px;"  > 
                                                 <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(indice, 16)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlEmplAcumulados.revisarCambios()}" update="editarObservaciones"/>
                                             </p:inputText>
@@ -443,7 +443,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.motivoNovedad}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText value="#{info.motivoNovedad}" id="editarMotivoNovedad" style=" height: 12px;   border-radius: 0px; width: 210px; text-transform: uppercase; height:12px;"  > 
+                                            <p:inputText  autocomplete="false"  value="#{info.motivoNovedad}" id="editarMotivoNovedad" style=" height: 12px;   border-radius: 0px; width: 210px; text-transform: uppercase; height:12px;"  > 
                                                 <p:ajax event="select" listener="#{controlEmplAcumulados.cambiarIndice(indice, 17)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlEmplAcumulados.revisarCambios()}"  update="editarMotivoNovedad"/>
                                             </p:inputText>
@@ -498,13 +498,13 @@
                     </p:dialog>
 
                     <p:dialog id="editFechaDesde" header="#{msg['editFechaDesde']}" widgetVar="editFechaDesde" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputText readonly="true"  style="overflow: auto; width: 360px; height: 60px;"  value="#{controlEmplAcumulados.editarVWAcumuladosPorEmpleado.fechaDesde}" styleClass="ui-datepicker, myClass">
+                        <p:inputText  autocomplete="false"  readonly="true"  style="overflow: auto; width: 360px; height: 60px;"  value="#{controlEmplAcumulados.editarVWAcumuladosPorEmpleado.fechaDesde}" styleClass="ui-datepicker, myClass">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </p:inputText>
                     </p:dialog>
 
                     <p:dialog id="editFechaPago" header="#{msg['editFechaPago']}" widgetVar="editFechaPago" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputText readonly="true"  style="overflow: auto; width: 360px; height: 60px;"  value="#{controlEmplAcumulados.editarVWAcumuladosPorEmpleado.fechaPago}" styleClass="ui-datepicker, myClass">
+                        <p:inputText  autocomplete="false"  readonly="true"  style="overflow: auto; width: 360px; height: 60px;"  value="#{controlEmplAcumulados.editarVWAcumuladosPorEmpleado.fechaPago}" styleClass="ui-datepicker, myClass">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </p:inputText>
                     </p:dialog>
@@ -554,7 +554,7 @@
                     </p:dialog>
 
                     <p:dialog id="editFechaModificacion" header="#{msg['editFechaModificacion']}" widgetVar="editFechaModificacion" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputText readonly="true"  style="overflow: auto; width: 360px; height: 60px;"  value="#{controlEmplAcumulados.editarVWAcumuladosPorEmpleado.ultimaModificacion}" styleClass="ui-datepicker, myClass">
+                        <p:inputText  autocomplete="false"  readonly="true"  style="overflow: auto; width: 360px; height: 60px;"  value="#{controlEmplAcumulados.editarVWAcumuladosPorEmpleado.ultimaModificacion}" styleClass="ui-datepicker, myClass">
                             <f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss" />
                         </p:inputText>
                     </p:dialog>

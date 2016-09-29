@@ -83,14 +83,14 @@
                                 <p:commandButton  value=" " style="position: absolute; top: 20px; left: 10px;text-align: left; width: 45px; height: 45px;"  actionListener="#{controlInterfaseContableDynamicsPL.actionBtnRecontabilizar()}" process="@this"/>
 
                                 <h:outputText value="#{msg['empresa']}" style="position: absolute; top: 20px; left: 60px"/>
-                                <p:inputText id="parametroEmpresa" onclick="select();" value="#{controlInterfaseContableDynamicsPL.parametroContableActual.empresaRegistro.nombre}" style="position: absolute; top: 15px;width: 100px; left: 130px;text-transform: uppercase">
+                                <p:inputText  autocomplete="false"  id="parametroEmpresa" onclick="select();" value="#{controlInterfaseContableDynamicsPL.parametroContableActual.empresaRegistro.nombre}" style="position: absolute; top: 15px;width: 100px; left: 130px;text-transform: uppercase">
                                     <p:ajax event="change" listener="#{controlInterfaseContableDynamicsPL.modificarParametroContable(controlInterfaseContableDynamicsPL.parametroContableActual.empresaRegistro.nombre, 'EMPRESA')}" update="@this"/>
                                     <p:ajax event="click" listener="#{controlInterfaseContableDynamicsPL.cambiarIndiceParametro(0)}" process="@this"/>
                                     <p:ajax event="dblclick" listener="#{controlInterfaseContableDynamicsPL.asignarIndex(0, 0, 0)}" process="@this"/>
                                 </p:inputText>
 
                                 <h:outputText value="#{msg['proceso']}" style="position: absolute; top: 50px; left: 60px"/>
-                                <p:inputText id="parametroProceso" onclick="select();" value="#{controlInterfaseContableDynamicsPL.parametroContableActual.proceso.descripcion}" style="position: absolute; top: 45px; left: 130px;width: 100px; text-transform: uppercase; height: 12px">
+                                <p:inputText  autocomplete="false"  id="parametroProceso" onclick="select();" value="#{controlInterfaseContableDynamicsPL.parametroContableActual.proceso.descripcion}" style="position: absolute; top: 45px; left: 130px;width: 100px; text-transform: uppercase; height: 12px">
                                     <p:ajax event="change" listener="#{controlInterfaseContableDynamicsPL.modificarParametroContable(controlInterfaseContableDynamicsPL.parametroContableActual.proceso.descripcion, 'PROCESO')}"  update="@this"/>
                                     <p:ajax event="click" listener="#{controlInterfaseContableDynamicsPL.cambiarIndiceParametro(1)}" process="@this"/>
                                     <p:ajax event="dblclick" listener="#{controlInterfaseContableDynamicsPL.asignarIndex(1, 1, 0)}" process="@this"/>
@@ -100,7 +100,7 @@
 
                                 <h:outputText value="#{msg['fechaInicial']}" style="position: absolute; top: 12px; left: 250px"/>
                                 <div id="posicionFechaIni" style="position: absolute; top: 8px; left: 350px; width: 110px">
-                                    <p:calendar mask="true" pattern="dd/MM/yyyy" id="parametroFechaInicial"  value="#{controlInterfaseContableDynamicsPL.parametroContableActual.fechainicialcontabilizacion}">
+                                    <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="parametroFechaInicial"  value="#{controlInterfaseContableDynamicsPL.parametroContableActual.fechainicialcontabilizacion}">
                                         <p:ajax event="dateSelect" listener="#{controlInterfaseContableDynamicsPL.modificarFechasParametro(2)}" update="@this"/>
                                         <p:ajax event="change" listener="#{controlInterfaseContableDynamicsPL.modificarFechasParametro(2)}" process="@this" update="@this"/>
                                         <p:ajax event="click" listener="#{controlInterfaseContableDynamicsPL.cambiarIndiceParametro(2)}" process="@this"/>
@@ -109,7 +109,7 @@
 
                                 <h:outputText value="#{msg['fechaFinal']}" style="position: absolute; top: 34px; left: 250px"/>
                                 <div id="posicionFechaFin" style="position: absolute; top: 30px; left: 350px; width: 110px">
-                                    <p:calendar mask="true" pattern="dd/MM/yyyy" id="parametroFechaFinal" value="#{controlInterfaseContableDynamicsPL.parametroContableActual.fechafinalcontabilizacion}" >
+                                    <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="parametroFechaFinal" value="#{controlInterfaseContableDynamicsPL.parametroContableActual.fechafinalcontabilizacion}" >
                                         <p:ajax event="dateSelect" listener="#{controlInterfaseContableDynamicsPL.modificarFechasParametro(3)}" update="@this"/>
                                         <p:ajax event="change" listener="#{controlInterfaseContableDynamicsPL.modificarFechasParametro(3)}" process="@this" update="@this"/>
                                         <p:ajax event="click" listener="#{controlInterfaseContableDynamicsPL.cambiarIndiceParametro(3)}" process="@this"/>
@@ -117,28 +117,28 @@
                                 </div>
                                 
                                 <h:outputText value="#{msg['docContable']}" style="position: absolute; top: 56px; left: 250px;"/>
-                                <p:inputText id="parametroDocContable" maxlength="4" onclick="select();" value="#{controlInterfaseContableDynamicsPL.parametroContableActual.documentoContable}" style="position: absolute; top: 52px; left: 350px;width: 66px;text-transform: uppercase;height: 11px">
+                                <p:inputText  autocomplete="false"  id="parametroDocContable" maxlength="4" onclick="select();" value="#{controlInterfaseContableDynamicsPL.parametroContableActual.documentoContable}" style="position: absolute; top: 52px; left: 350px;width: 66px;text-transform: uppercase;height: 11px">
                                     <p:ajax event="change" listener="#{controlInterfaseContableDynamicsPL.modificarParametroContable()}" update="@this"/>
                                     <p:ajax event="click" listener="#{controlInterfaseContableDynamicsPL.cambiarIndiceParametro(4)}" process="@this"/>
                                 </p:inputText>
                                 <!-- -->
                                 
                                 <h:outputText value="#{msg['desde']}" style="position: absolute; top: 12px; left: 440px"/>
-                                <p:inputText id="parametroEmplDesde" onclick="select();" value="#{controlInterfaseContableDynamicsPL.parametroContableActual.strCodigoEmpleadoDesde}" style="position: absolute; top: 8px;width: 80px; left: 510px;text-transform: uppercase; height: 11px">
+                                <p:inputText  autocomplete="false"  id="parametroEmplDesde" onclick="select();" value="#{controlInterfaseContableDynamicsPL.parametroContableActual.strCodigoEmpleadoDesde}" style="position: absolute; top: 8px;width: 80px; left: 510px;text-transform: uppercase; height: 11px">
                                     <p:ajax event="change" listener="#{controlInterfaseContableDynamicsPL.modificarParametroContable(controlInterfaseContableDynamicsPL.parametroContableActual.strCodigoEmpleadoDesde, 'EMPLDESDE')}" update="@this"/>
                                     <p:ajax event="click" listener="#{controlInterfaseContableDynamicsPL.cambiarIndiceParametro(5)}" process="@this"/>
                                     <p:ajax event="dblclick" listener="#{controlInterfaseContableDynamicsPL.asignarIndex(5, 2, 0)}" process="@this"/>
                                 </p:inputText>
 
                                 <h:outputText value="#{msg['hasta']}" style="position: absolute; top: 34px; left: 440px"/>
-                                <p:inputText id="parametroEmplHasta" onclick="select();" value="#{controlInterfaseContableDynamicsPL.parametroContableActual.strCodigoEmpleadoHasta}" style="position: absolute; top: 30px; left: 510px;text-transform: uppercase;width: 80px; height: 11px">
+                                <p:inputText  autocomplete="false"  id="parametroEmplHasta" onclick="select();" value="#{controlInterfaseContableDynamicsPL.parametroContableActual.strCodigoEmpleadoHasta}" style="position: absolute; top: 30px; left: 510px;text-transform: uppercase;width: 80px; height: 11px">
                                     <p:ajax event="change" listener="#{controlInterfaseContableDynamicsPL.modificarParametroContable(controlInterfaseContableDynamicsPL.parametroContableActual.strCodigoEmpleadoHasta, 'EMPLHASTA')}" update="@this"/>
                                     <p:ajax event="click" listener="#{controlInterfaseContableDynamicsPL.cambiarIndiceParametro(6)}" process="@this"/>
                                     <p:ajax event="dblclick" listener="#{controlInterfaseContableDynamicsPL.asignarIndex(6, 3, 0)}" process="@this"/>
                                 </p:inputText>
 
                                 <h:outputText value="#{msg['chequera']}" style="position: absolute; top: 56px; left: 440px"/>
-                                <p:inputText id="parametroChequera" onclick="select();" value="#{controlInterfaseContableDynamicsPL.parametroContableActual.chequera}" style="position: absolute; top: 52px; left: 510px;width: 80px; text-transform: uppercase; height: 11px">
+                                <p:inputText  autocomplete="false"  id="parametroChequera" onclick="select();" value="#{controlInterfaseContableDynamicsPL.parametroContableActual.chequera}" style="position: absolute; top: 52px; left: 510px;width: 80px; text-transform: uppercase; height: 11px">
                                     <p:ajax event="change" listener="#{controlInterfaseContableDynamicsPL.modificarParametroContable()}" process="@this" update="@this"/>
                                     <p:ajax event="click" listener="#{controlInterfaseContableDynamicsPL.cambiarIndiceParametro(7)}" process="@this"/>
                                 </p:inputText>
@@ -177,7 +177,7 @@
                                             <h:outputText value="#{infoG.proceso.descripcion}" />
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText id="generadoProceso" readonly="true" value="#{infoG.proceso.descripcion}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
+                                            <p:inputText  autocomplete="false"  id="generadoProceso" readonly="true" value="#{infoG.proceso.descripcion}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
                                                          onselect="posicionGenerado([{name: 'n', value: '0'}, {name: 't', value: '#{indiceG}'}]);"/> 
                                         </f:facet>   
                                     </p:cellEditor>
@@ -193,7 +193,7 @@
                                             <h:outputText value="#{infoG.empleado.persona.nombreCompleto}" />
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText id="generadoEmpleado" readonly="true" value="#{infoG.empleado.persona.nombreCompleto}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;"
+                                            <p:inputText  autocomplete="false"  id="generadoEmpleado" readonly="true" value="#{infoG.empleado.persona.nombreCompleto}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;"
                                                          onselect="posicionGenerado([{name: 'n', value: '1'}, {name: 't', value: '#{indiceG}'}]);"/> 
                                         </f:facet>  
                                     </p:cellEditor>
@@ -209,7 +209,7 @@
                                             <h:outputText value="#{infoG.cuentac.codigo}" />
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText id="generadoCntCredito" readonly="true" value="#{infoG.cuentac.codigo}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
+                                            <p:inputText  autocomplete="false"  id="generadoCntCredito" readonly="true" value="#{infoG.cuentac.codigo}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
                                                          onselect="posicionGenerado([{name: 'n', value: '2'}, {name: 't', value: '#{indiceG}'}]);"/> 
                                         </f:facet>  
                                     </p:cellEditor>
@@ -225,7 +225,7 @@
                                             <h:outputText value="#{infoG.cuentad.codigo}" />
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText id="generadoCntDebito" readonly="true" value="#{infoG.cuentad.codigo}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
+                                            <p:inputText  autocomplete="false"  id="generadoCntDebito" readonly="true" value="#{infoG.cuentad.codigo}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
                                                          onselect="posicionGenerado([{name: 'n', value: '3'}, {name: 't', value: '#{indiceG}'}]);"/> 
                                         </f:facet>  
                                     </p:cellEditor>
@@ -241,7 +241,7 @@
                                             <h:outputText value="#{infoG.nit.nit}" />
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText id="generadoTercero" readonly="true" value="#{infoG.nit.nit}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
+                                            <p:inputText  autocomplete="false"  id="generadoTercero" readonly="true" value="#{infoG.nit.nit}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
                                                          onselect="posicionGenerado([{name: 'n', value: '4'}, {name: 't', value: '#{indiceG}'}]);"/> 
                                         </f:facet>  
                                     </p:cellEditor>
@@ -259,7 +259,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText id="generadoValor" readonly="true" value="#{infoG.valor}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
+                                            <p:inputText  autocomplete="false"  id="generadoValor" readonly="true" value="#{infoG.valor}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
                                                          onselect="posicionGenerado([{name: 'n', value: '5'}, {name: 't', value: '#{indiceG}'}]);">
                                                 <f:convertNumber currencySymbol="$" type="currency" />
                                             </p:inputText> 
@@ -278,7 +278,7 @@
                                             <h:outputText value="#{infoG.concepto.descripcion}" />
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText id="generadoConcepto" readonly="true" value="#{infoG.concepto.descripcion}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;"
+                                            <p:inputText  autocomplete="false"  id="generadoConcepto" readonly="true" value="#{infoG.concepto.descripcion}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;"
                                                          onselect="posicionGenerado([{name: 'n', value: '6'}, {name: 't', value: '#{indiceG}'}]);"/> 
                                         </f:facet>  
                                     </p:cellEditor>
@@ -294,12 +294,12 @@
                             <p:commandButton value="#{msg['reportecontrol']}"  style="position: absolute; top: 135px; left: 200px"/>
 
                             <strong><h:outputText value="#{msg['totalC']}" style="position: absolute; top: 145px; left: 465px"/></strong>
-                            <p:inputText id="totalCGenerado" value="#{controlInterfaseContableDynamicsPL.totalCGenerado}" readonly="true" style="position: absolute; top: 140px; left: 550px;width: 90px">
+                            <p:inputText  autocomplete="false"  id="totalCGenerado" value="#{controlInterfaseContableDynamicsPL.totalCGenerado}" readonly="true" style="position: absolute; top: 140px; left: 550px;width: 90px">
                                 <f:convertNumber currencySymbol="$" type="currency" />
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['totalD']}" style="position: absolute; top: 145px; left: 655px"/></strong>
-                            <p:inputText id="totalDGenerado" value="#{controlInterfaseContableDynamicsPL.totalDGenerado}" readonly="true" style="position: absolute; top: 140px; left: 740px;width: 90px">
+                            <p:inputText  autocomplete="false"  id="totalDGenerado" value="#{controlInterfaseContableDynamicsPL.totalDGenerado}" readonly="true" style="position: absolute; top: 140px; left: 740px;width: 90px">
                                 <f:convertNumber currencySymbol="$" type="currency" />
                             </p:inputText>
 
@@ -326,7 +326,7 @@
                                             <h:outputText value="#{infoI.empleado.persona.nombreCompleto}" />
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText id="interconEmpleado" readonly="true" value="#{infoI.empleado.persona.nombreCompleto}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
+                                            <p:inputText  autocomplete="false"  id="interconEmpleado" readonly="true" value="#{infoI.empleado.persona.nombreCompleto}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
                                                          onselect="posicionIntercon([{name: 'n', value: '0'}, {name: 't', value: '#{indiceI}'}]);"/> 
                                         </f:facet>   
                                     </p:cellEditor>
@@ -342,7 +342,7 @@
                                             <h:outputText value="#{infoI.codigotercero}" />
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText id="interconTercero" readonly="true" value="#{infoI.codigotercero}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;"
+                                            <p:inputText  autocomplete="false"  id="interconTercero" readonly="true" value="#{infoI.codigotercero}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;"
                                                          onselect="posicionIntercon([{name: 'n', value: '1'}, {name: 't', value: '#{indiceI}'}]);"/> 
                                         </f:facet>  
                                     </p:cellEditor>
@@ -358,7 +358,7 @@
                                             <h:outputText value="#{infoI.codigocuentacontable}" />
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText id="interconCuenta" readonly="true" value="#{infoI.codigocuentacontable}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
+                                            <p:inputText  autocomplete="false"  id="interconCuenta" readonly="true" value="#{infoI.codigocuentacontable}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
                                                          onselect="posicionIntercon([{name: 'n', value: '2'}, {name: 't', value: '#{indiceI}'}]);"/> 
                                         </f:facet>  
                                     </p:cellEditor>
@@ -376,7 +376,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText id="interconDebito" readonly="true" value="#{infoI.valord}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
+                                            <p:inputText  autocomplete="false"  id="interconDebito" readonly="true" value="#{infoI.valord}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
                                                          onselect="posicionIntercon([{name: 'n', value: '3'}, {name: 't', value: '#{indiceI}'}]);">
                                                 <f:convertNumber currencySymbol="$" type="currency" />
                                             </p:inputText> 
@@ -396,7 +396,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText id="interconCredito" readonly="true" value="#{infoI.valorc}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
+                                            <p:inputText  autocomplete="false"  id="interconCredito" readonly="true" value="#{infoI.valorc}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
                                                          onselect="posicionIntercon([{name: 'n', value: '4'}, {name: 't', value: '#{indiceI}'}]);">
                                                 <f:convertNumber currencySymbol="$" type="currency" />
                                             </p:inputText> 
@@ -414,7 +414,7 @@
                                             <h:outputText value="#{infoI.concepto.descripcion}" />
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText id="interconConcepto" readonly="true" value="#{infoI.concepto.descripcion}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
+                                            <p:inputText  autocomplete="false"  id="interconConcepto" readonly="true" value="#{infoI.concepto.descripcion}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
                                                          onselect="posicionIntercon([{name: 'n', value: '5'}, {name: 't', value: '#{indiceI}'}]);"/> 
                                         </f:facet>  
                                     </p:cellEditor>
@@ -430,7 +430,7 @@
                                             <h:outputText value="#{infoI.centrocosto.nombre}" />
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText id="interconCentroCosto" readonly="true" value="#{infoI.centrocosto.nombre}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;"
+                                            <p:inputText  autocomplete="false"  id="interconCentroCosto" readonly="true" value="#{infoI.centrocosto.nombre}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;"
                                                          onselect="posicionIntercon([{name: 'n', value: '6'}, {name: 't', value: '#{indiceI}'}]);"/> 
                                         </f:facet>  
                                     </p:cellEditor>
@@ -449,7 +449,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText id="interconProyecto" readonly="true" value="#{infoI.proyecto.nombreproyecto}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;"
+                                            <p:inputText  autocomplete="false"  id="interconProyecto" readonly="true" value="#{infoI.proyecto.nombreproyecto}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;"
                                                          onselect="posicionIntercon([{name: 'n', value: '7'}, {name: 't', value: '#{indiceI}'}]);">
                                             </p:inputText> 
                                         </f:facet>  
@@ -470,7 +470,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText id="interconProceso" readonly="true" value="#{infoI.proceso.descripcion}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;"
+                                            <p:inputText  autocomplete="false"  id="interconProceso" readonly="true" value="#{infoI.proceso.descripcion}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;"
                                                          onselect="posicionIntercon([{name: 'n', value: '8'}, {name: 't', value: '#{indiceI}'}]);">
                                             </p:inputText> 
                                         </f:facet>  
@@ -493,7 +493,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText id="interconFechaContabilizacion" readonly="true" value="#{infoI.fechacontabilizacion}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;"
+                                            <p:inputText  autocomplete="false"  id="interconFechaContabilizacion" readonly="true" value="#{infoI.fechacontabilizacion}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;"
                                                          onselect="posicionIntercon([{name: 'n', value: '9'}, {name: 't', value: '#{indiceI}'}]);">
                                                 <f:convertDateTime pattern="dd/MM/yyyy" />
                                             </p:inputText> 
@@ -514,7 +514,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText id="interconRadicacion" readonly="true" value="#{infoI.radicacion}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;"
+                                            <p:inputText  autocomplete="false"  id="interconRadicacion" readonly="true" value="#{infoI.radicacion}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;"
                                                          onselect="posicionIntercon([{name: 'n', value: '10'}, {name: 't', value: '#{indiceI}'}]);">
                                             </p:inputText>  
                                         </f:facet>  
@@ -533,7 +533,7 @@
                                             <h:outputText value="#{infoI.centrocosto.codigoalternativo}" />
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText id="interconCodigoAlt" readonly="true" value="#{infoI.centrocosto.codigoalternativo}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;"
+                                            <p:inputText  autocomplete="false"  id="interconCodigoAlt" readonly="true" value="#{infoI.centrocosto.codigoalternativo}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;"
                                                          onselect="posicionIntercon([{name: 'n', value: '11'}, {name: 't', value: '#{indiceI}'}]);"/> 
                                         </f:facet>  
                                     </p:cellEditor>
@@ -554,7 +554,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText id="interconValorOriginalDebito" readonly="true" value="#{infoI.valororiginald}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;"
+                                            <p:inputText  autocomplete="false"  id="interconValorOriginalDebito" readonly="true" value="#{infoI.valororiginald}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;"
                                                          onselect="posicionIntercon([{name: 'n', value: '12'}, {name: 't', value: '#{indiceI}'}]);">
                                                 <f:convertNumber currencySymbol="$" type="currency" />
                                             </p:inputText> 
@@ -576,7 +576,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText id="interconValorOriginalCredito" readonly="true" value="#{infoI.valororiginalc}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;"
+                                            <p:inputText  autocomplete="false"  id="interconValorOriginalCredito" readonly="true" value="#{infoI.valororiginalc}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;"
                                                          onselect="posicionIntercon([{name: 'n', value: '13'}, {name: 't', value: '#{indiceI}'}]);">
                                                 <f:convertNumber currencySymbol="$" type="currency" />
                                             </p:inputText>  
@@ -598,7 +598,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText id="interconFechaVencimiento" readonly="true" value="#{infoI.fechavencimiento}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;"
+                                            <p:inputText  autocomplete="false"  id="interconFechaVencimiento" readonly="true" value="#{infoI.fechavencimiento}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;"
                                                          onselect="posicionIntercon([{name: 'n', value: '14'}, {name: 't', value: '#{indiceI}'}]);">
                                                 <f:convertDateTime pattern="dd/MM/yyyy" />
                                             </p:inputText> 
@@ -613,12 +613,12 @@
                             </p:dataTable> 
 
                             <strong><h:outputText value="#{msg['totalD']}" style="position: absolute; top: 140px; left: 470px"/></strong>
-                            <p:inputText id="totalDInter" readonly="true" value="#{controlInterfaseContableDynamicsPL.totalDInter}" style="position: absolute; top: 135px; left: 555px;width: 90px;height: 10px">
+                            <p:inputText  autocomplete="false"  id="totalDInter" readonly="true" value="#{controlInterfaseContableDynamicsPL.totalDInter}" style="position: absolute; top: 135px; left: 555px;width: 90px;height: 10px">
                                 <f:convertNumber currencySymbol="$" type="currency" />
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['totalC']}" style="position: absolute; top: 140px; left: 660px"/></strong>
-                            <p:inputText id="totalCInter" readonly="true" value="#{controlInterfaseContableDynamicsPL.totalCInter}" style="position: absolute; top: 135px; left: 745px;width: 90px;height: 10px">
+                            <p:inputText  autocomplete="false"  id="totalCInter" readonly="true" value="#{controlInterfaseContableDynamicsPL.totalCInter}" style="position: absolute; top: 135px; left: 745px;width: 90px;height: 10px">
                                 <f:convertNumber currencySymbol="$" type="currency" />
                             </p:inputText>
 
@@ -636,7 +636,7 @@
 
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarP']}" style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovProceso').filter();" style="width:150px; position: relative; left: -10px;" />  
+                                    <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovProceso').filter();" style="width:150px; position: relative; left: -10px;" />  
                                 </f:facet>
                                 <p:column filterBy="#{proceso.descripcion}" width="200"  filterMatchMode="contains">
                                     <f:facet name="header">
@@ -670,7 +670,7 @@
 
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarE']}" style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovEmpresa').filter();" style="width:150px; position: relative; left: -10px;" />  
+                                    <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovEmpresa').filter();" style="width:150px; position: relative; left: -10px;" />  
                                 </f:facet>
                                 <p:column filterBy="#{empresa.nombre}" width="200"  filterMatchMode="contains">
                                     <f:facet name="header">
@@ -885,7 +885,7 @@
 
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarED']}" style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovEmpleadoDesde').filter();" style="width:150px; position: relative; left: -10px;" />  
+                                    <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovEmpleadoDesde').filter();" style="width:150px; position: relative; left: -10px;" />  
                                 </f:facet>
                                 <p:column filterBy="#{empleadoD.codigoempleado}" width="40" filterMatchMode="contains" filterStyle="width: 30px">
                                     <f:facet name="header">
@@ -921,7 +921,7 @@
 
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarEH']}" style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText id="globalFilter" onkeyup="PF('lovEmpleadoHasta').filter();" style="width:150px; position: relative; left: -10px;" />  
+                                    <p:inputText  autocomplete="false"  id="globalFilter" onkeyup="PF('lovEmpleadoHasta').filter();" style="width:150px; position: relative; left: -10px;" />  
                                 </f:facet>
                                 <p:column filterBy="#{empleadoH.codigoempleado}" width="40" filterMatchMode="contains" filterStyle="width: 30px">
                                     <f:facet name="header">
@@ -955,7 +955,7 @@
                         <p:panel id="nuevaParametroContable" style="border: none;">
 
                             <strong><h:outputText value="*#{msg['empresaN']}" style=" position: absolute; top: 75px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaEmpresaParametro" value="#{controlInterfaseContableDynamicsPL.nuevoParametroContable.empresaRegistro.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 70px;text-transform: uppercase">
+                            <p:inputText  autocomplete="false"  id="nuevaEmpresaParametro" value="#{controlInterfaseContableDynamicsPL.nuevoParametroContable.empresaRegistro.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 70px;text-transform: uppercase">
                                 <p:ajax event="dblclick" listener="#{controlInterfaseContableDynamicsPL.asignarIndex(-1,0,1)}"/>
                                 <p:ajax event="click" listener="#{controlInterfaseContableDynamicsPL.autocompletarNuevo('EMPRESA',controlInterfaseContableDynamicsPL.nuevoParametroContable.empresaRegistro.nombre)}" />
                                 <p:ajax event="change" listener="#{controlInterfaseContableDynamicsPL.valoresBackupAutocompletar()}" />
@@ -964,7 +964,7 @@
                             <p:watermark for="nuevaEmpresaParametro" value="#{msg['empresa']}" />
 
                             <strong><h:outputText value="#{msg['procesoN']}" style=" position: absolute; top: 105px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaProcesoParametro" value="#{controlInterfaseContableDynamicsPL.nuevoParametroContable.proceso.descripcion}" style=" width: 122px; position: absolute; left: 200px; top: 100px;text-transform: uppercase">
+                            <p:inputText  autocomplete="false"  id="nuevaProcesoParametro" value="#{controlInterfaseContableDynamicsPL.nuevoParametroContable.proceso.descripcion}" style=" width: 122px; position: absolute; left: 200px; top: 100px;text-transform: uppercase">
                                 <p:ajax event="dblclick" listener="#{controlInterfaseContableDynamicsPL.asignarIndex(-1,1,1)}"/>
                                 <p:ajax event="click" listener="#{controlInterfaseContableDynamicsPL.autocompletarNuevo('PROCESO', controlInterfaseContableDynamicsPL.nuevoParametroContable.proceso.descripcion)}" />
                                 <p:ajax event="change" listener="#{controlInterfaseContableDynamicsPL.valoresBackupAutocompletar()}" />
@@ -974,7 +974,7 @@
 
                             <strong><h:outputText value="*#{msg['fechaInicialN']}" style=" position: absolute; top: 135px; left: 50px;" /></strong>
                             <div id="posicionNuevaFechaInicial" style=" position: absolute; top: 130px; left: 200px">
-                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicialParametro" value="#{controlInterfaseContableDynamicsPL.nuevoParametroContable.fechainicialcontabilizacion}" >
+                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicialParametro" value="#{controlInterfaseContableDynamicsPL.nuevoParametroContable.fechainicialcontabilizacion}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaInicialParametro" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaInicialParametro" process="@this"/>
                                 </p:calendar>
@@ -982,20 +982,20 @@
 
                             <strong><h:outputText value="*#{msg['fechaFinalN']}" style=" position: absolute; top: 165px; left: 50px;" /></strong>
                             <div id="posicionNuevaFechaFinal" style=" position: absolute; top: 160px; left: 200px">
-                                <p:calendar mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinalParametro" value="#{controlInterfaseContableDynamicsPL.nuevoParametroContable.fechafinalcontabilizacion}" >
+                                <p:calendar  autocomplete="false"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinalParametro" value="#{controlInterfaseContableDynamicsPL.nuevoParametroContable.fechafinalcontabilizacion}" >
                                     <p:ajax event="dateSelect" update="nuevaFechaFinalParametro" process="@this"/>
                                     <p:ajax event="change" update="nuevaFechaFinalParametro" process="@this"/>
                                 </p:calendar>
                             </div>
                             
                             <strong><h:outputText value="#{msg['docContableN']}" style=" position: absolute; top: 195px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaDocContableParametro" value="#{controlInterfaseContableDynamicsPL.nuevoParametroContable.documentoContable}" style=" width: 122px; position: absolute; top: 190px; left: 200px; text-transform: uppercase">
+                            <p:inputText  autocomplete="false"  id="nuevaDocContableParametro" value="#{controlInterfaseContableDynamicsPL.nuevoParametroContable.documentoContable}" style=" width: 122px; position: absolute; top: 190px; left: 200px; text-transform: uppercase">
                                 <p:ajax event="change" update="nuevaDocContableParametro" process="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevaDocContableParametro" value="#{msg['docContable']}" />
                             
                             <strong><h:outputText value="#{msg['emplDesdeN']}" style=" position: absolute; top: 225px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaEmplDesdeParametro" value="#{controlInterfaseContableDynamicsPL.nuevoParametroContable.empresaRegistro.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 220px;">
+                            <p:inputText  autocomplete="false"  id="nuevaEmplDesdeParametro" value="#{controlInterfaseContableDynamicsPL.nuevoParametroContable.empresaRegistro.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 220px;">
                                 <p:ajax event="dblclick" listener="#{controlInterfaseContableDynamicsPL.asignarIndex(-1,2,1)}"/>
                                 <p:ajax event="click" listener="#{controlInterfaseContableDynamicsPL.autocompletarNuevo('EMPLDESDE',controlInterfaseContableDynamicsPL.nuevoParametroContable.empresaRegistro.nombre)}" />
                                 <p:ajax event="change" listener="#{controlInterfaseContableDynamicsPL.valoresBackupAutocompletar()}" />
@@ -1004,7 +1004,7 @@
                             <p:watermark for="nuevaEmplDesdeParametro" value="#{msg['desde']}" />
 
                             <strong><h:outputText value="#{msg['emplHastaN']}" style=" position: absolute; top: 255px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaEmplHastaParametro" value="#{controlInterfaseContableDynamicsPL.nuevoParametroContable.proceso.descripcion}" style=" width: 122px; position: absolute; left: 200px; top: 250px;">
+                            <p:inputText  autocomplete="false"  id="nuevaEmplHastaParametro" value="#{controlInterfaseContableDynamicsPL.nuevoParametroContable.proceso.descripcion}" style=" width: 122px; position: absolute; left: 200px; top: 250px;">
                                 <p:ajax event="dblclick" listener="#{controlInterfaseContableDynamicsPL.asignarIndex(-1,3,1)}"/>
                                 <p:ajax event="click" listener="#{controlInterfaseContableDynamicsPL.autocompletarNuevo('EMPLHASTA', controlInterfaseContableDynamicsPL.nuevoParametroContable.proceso.descripcion)}" />
                                 <p:ajax event="change" listener="#{controlInterfaseContableDynamicsPL.valoresBackupAutocompletar()}" />
@@ -1013,7 +1013,7 @@
                             <p:watermark for="nuevaEmplHastaParametro" value="#{msg['hasta']}" />
                             
                             <strong><h:outputText value="#{msg['chequeraN']}" style=" position: absolute; top: 285px; left: 50px;" /></strong>
-                            <p:inputText id="nuevaChequeraParametro" value="#{controlInterfaseContableDynamicsPL.nuevoParametroContable.chequera}" style=" width: 122px; position: absolute; left: 200px; top: 280px;text-transform: uppercase">
+                            <p:inputText  autocomplete="false"  id="nuevaChequeraParametro" value="#{controlInterfaseContableDynamicsPL.nuevoParametroContable.chequera}" style=" width: 122px; position: absolute; left: 200px; top: 280px;text-transform: uppercase">
                                 <p:ajax event="change" update="nuevaChequeraParametro" process="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevaChequeraParametro" value="#{msg['chequera']}" />
