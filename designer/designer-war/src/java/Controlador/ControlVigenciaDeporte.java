@@ -82,6 +82,7 @@ public class ControlVigenciaDeporte implements Serializable {
         guardado = true;
         nuevaVigenciaDeporte = new VigenciasDeportes();
         nuevaVigenciaDeporte.setDeporte(new Deportes());
+        nuevaVigenciaDeporte.setFechainicial(new Date());
         permitirIndex = true;
         backUpSecRegistro = null;
         empleado = new Empleados();

@@ -2557,20 +2557,12 @@ public class ControlPersonaEducacion implements Serializable {
         }
     }
 
-    public void chiste() {
+    public void elegirTabla() {
         RequestContext context = RequestContext.getCurrentInstance();
         System.out.println("Cual Tabla= " + CualTabla);
 
-        if ((listaVigenciasFormales.isEmpty() || listaVigenciasNoFormales.isEmpty())) {
-            RequestContext.getCurrentInstance().update("formularioDialogos:elegirTabla");
-            RequestContext.getCurrentInstance().execute("PF('elegirTabla').show()");
-        } else if (CualTabla == 0) {
-            RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroVigenciaFormal");
-            RequestContext.getCurrentInstance().execute("PF('NuevoRegistroVigenciaFormal').show()");
-        } else if (CualTabla == 1) {
-            RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroVigenciaNoFormal");
-            RequestContext.getCurrentInstance().execute("PF('NuevoRegistroVigenciaNoFormal').show()");
-        }
+        RequestContext.getCurrentInstance().update("formularioDialogos:elegirTabla");
+        RequestContext.getCurrentInstance().execute("PF('elegirTabla').show()");
     }
 
     public void confirmarDuplicarNF() {
@@ -2616,15 +2608,16 @@ public class ControlPersonaEducacion implements Serializable {
 
     public void dialogoVigenciasFormales() {
         RequestContext context = RequestContext.getCurrentInstance();
-        RequestContext.getCurrentInstance().update("form:NuevoRegistroVigenciaFormal");
+        RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroVigenciaFormal");
         RequestContext.getCurrentInstance().execute("PF('NuevoRegistroVigenciaFormal').show()");
     }
 
     public void dialogoVigenciasNoFormales() {
         RequestContext context = RequestContext.getCurrentInstance();
-        RequestContext.getCurrentInstance().update("form:NuevoRegistroVigenciaNoFormal");
+        RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroVigenciaNoFormal");
         RequestContext.getCurrentInstance().execute("PF('NuevoRegistroVigenciaNoFormal').show()");
 
+        
     }
 
     //EVENTO FILTRAR

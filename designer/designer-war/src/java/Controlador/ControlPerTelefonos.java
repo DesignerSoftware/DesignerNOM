@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -104,6 +105,7 @@ public class ControlPerTelefonos implements Serializable {
         nuevoTelefono = new Telefonos();
         nuevoTelefono.setTipotelefono(new TiposTelefonos());
         nuevoTelefono.setCiudad(new Ciudades());
+        nuevoTelefono.setFechavigencia(new Date());
         permitirIndex = true;
         k = 0;
         altoTabla = "270";
@@ -1031,6 +1033,7 @@ public class ControlPerTelefonos implements Serializable {
             RequestContext.getCurrentInstance().update("formularioDialogos:tiposTelefonosDialogo");
             RequestContext.getCurrentInstance().execute("PF('tiposTelefonosDialogo').show()");
         } else if (dlg == 1) {
+            getListaCiudades();
             contarRegistroCiudad();
             RequestContext.getCurrentInstance().update("formularioDialogos:ciudadesDialogo");
             RequestContext.getCurrentInstance().execute("PF('ciudadesDialogo').show()");
@@ -1273,14 +1276,14 @@ public class ControlPerTelefonos implements Serializable {
 
     public String getInfoRegistroTT() {
         FacesContext c = FacesContext.getCurrentInstance();
-        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosTelefonosPersona");
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVTiposTelefonos");
         infoRegistroTT = String.valueOf(tabla.getRowCount());
         return infoRegistroTT;
     }
 
     public String getInfoRegistroCiudad() {
         FacesContext c = FacesContext.getCurrentInstance();
-        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVTiposTelefonos");
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVCiudades");
         infoRegistroCiudad = String.valueOf(tabla.getRowCount());
         return infoRegistroCiudad;
     }

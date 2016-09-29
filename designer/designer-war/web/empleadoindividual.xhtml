@@ -22,7 +22,7 @@
                                 <p:tooltip style="font-size: 12px;" for="guardarRapido" value="#{msg['guardar']}" />
 
                                 <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png); border:none;" 
-                                                 actionListener="#{controlVigenciasCargos.editarCelda()}" process="@this"/>
+                                                 actionListener="#{controlEmpleadoIndividual.editarCelda()}" process="@this"/>
                                 <p:tooltip style="font-size: 12px;" for="editar" value="#{msg['editar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
@@ -268,12 +268,13 @@
                                 <br/>
                                 <h:outputText value="#{msg['ciudaddocumento']}" 
                                               style="position: absolute; left: 370px; top: 77px; font-weight: bold; color: #14388B; width: 135px; text-align: right;"/>
-                                <p:inputText  autocomplete="off"  id="lugarExpedicion" value="#{controlEmpleadoIndividual.persona.ciudaddocumento.nombre}"
+                                <p:inputText  autocomplete="off"  id="lugarExpedicion" value="#{controlEmpleadoIndividual.persona.ciudaddocumento}"
                                              style="position: absolute; left: 510px; top: 72px; width: 120px; text-transform: uppercase; height: 12px;" 
                                              onclick="select();">
                                     <p:ajax event="dblclick" listener="#{controlEmpleadoIndividual.dialogoCiudad(0)}"/>
-                                    <p:ajax event="select" listener="#{controlEmpleadoIndividual.valoresBackupAutocompletar('CIUDADDOCUMENTO')}"/>
-                                    <p:ajax event="change" listener="#{controlEmpleadoIndividual.autocompletar('CIUDAD', controlEmpleadoIndividual.persona.ciudaddocumento.nombre)}"/>
+                                    <!--<p:ajax event="select" listener="#{controlEmpleadoIndividual.valoresBackupAutocompletar('CIUDADDOCUMENTO')}"/>-->
+                                <!--<p:ajax event="change" listener="#{controlEmpleadoIndividual.autocompletar('CIUDAD', controlEmpleadoIndividual.persona.ciudaddocumento.nombre)}"/>-->
+                                    <!--<p:ajax event="change" update="@this" />-->
                                 </p:inputText>
                                 <p:watermark for="lugarExpedicion" value="#{msg['lugarexpedicionwm']}" />
                                 <br/>

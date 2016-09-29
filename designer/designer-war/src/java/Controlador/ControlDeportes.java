@@ -103,7 +103,11 @@ public class ControlDeportes implements Serializable {
         paginaanterior = pagina;
         listDeportes = null;
         getListDeportes();
-        deporteSeleccionado = listDeportes.get(0);
+        if (listDeportes != null) {
+            if (!listDeportes.isEmpty()) {
+                deporteSeleccionado = listDeportes.get(0);
+            }
+        }
     }
 
     public String retornarPagina() {

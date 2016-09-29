@@ -147,12 +147,14 @@ public class ControlEmpleadoIndividual implements Serializable {
         formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
         aceptar = true;
         empleado = null;
-        persona = null;
         modificacionPersona = false;
         modificacionEmpleado = false;
         modificacionHV = false;
         guardado = true;
         existenHV = true;
+        persona = new Personas();
+        persona.setCiudaddocumento(new Ciudades());
+        persona.setCiudaddocumento(new Ciudades());
     }
 
     @PostConstruct
@@ -171,7 +173,7 @@ public class ControlEmpleadoIndividual implements Serializable {
     public void recibirEmpleado(BigInteger sec) {
         secuencia = sec;
         empleado = null;
-        persona = null;
+        persona = administrarEmpleadoIndividual.encontrarPersona(sec);
         getEmpleado();
         datosEmpleado();
 //        getFotoEmpleado();

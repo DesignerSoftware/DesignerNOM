@@ -554,6 +554,9 @@ public class ControlRemoto implements Serializable {
         if (tipoPersonal.equals("activos")) {
             result = administrarCarpetaPersonal.borrarActivo(secuencia);
             System.out.println("result : " + result);
+            if(result == null){
+                result = BigDecimal.valueOf(0);
+            }
             if (result.equals(x)) {
                 RequestContext.getCurrentInstance().update("formulariodialogos:activoeliminarpaso1");
                 RequestContext.getCurrentInstance().execute("PF('activoeliminarpaso1').show()");

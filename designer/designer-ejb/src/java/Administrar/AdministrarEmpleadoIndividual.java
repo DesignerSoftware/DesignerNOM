@@ -462,4 +462,9 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
             return null;
         }
     }
+
+   @Override
+    public Personas encontrarPersona(BigInteger secPersona){
+        return persistenciaPersonas.buscarPersonaSecuencia(em, secPersona);
+    } 
 }

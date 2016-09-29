@@ -100,4 +100,6 @@ public interface AdministrarEmpleadoIndividualInterface {
     public Generales obtenerRutaFoto();
 
     public String fotoEmpleado(Empleados empleado);
+    
+    public Personas encontrarPersona(BigInteger secPersona);
 }

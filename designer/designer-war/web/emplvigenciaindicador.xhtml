@@ -151,7 +151,7 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 120%;" action="tipoindicador" value=" "/>
+                                        <p:commandButton style="width: 120%;" action="tipoindicador" value=" " actionListener="#{controlTiposIndicadores.recibirPagina('emplvigenciaindicador')}"/>
                                     </f:facet>
                                 </p:column>
 
@@ -169,7 +169,7 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 120%;"  value=" "/>
+                                        <p:commandButton style="width: 120%;"  value=" " action="indicador"  actionListener="#{controlIndicadores.recibirPagina('emplvigenciaindicador')}"/>
                                     </f:facet>
                                 </p:column>
 

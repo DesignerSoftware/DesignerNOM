@@ -337,7 +337,7 @@ public class ControlTiposCursos implements Serializable {
                 getListTiposCursos();
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 k = 0;
-                FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
+                FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
                 RequestContext.getCurrentInstance().update("form:growl");
                 contarRegistros();
@@ -444,7 +444,6 @@ public class ControlTiposCursos implements Serializable {
         nuevoTiposCursos = new TiposCursos();
     }
 
-    //------------------------------------------------------------------------------
     public void duplicandoTiposCursos() {
         if (tipoCursoSeleccionado != null) {
             duplicarTiposCursos = new TiposCursos();
