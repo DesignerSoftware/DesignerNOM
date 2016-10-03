@@ -170,50 +170,54 @@ public interface AdministrarPersonaIndividualInterface {
     
     public void modificarVigenciaCargo(VigenciasCargos vigencia);
 
-    public void crearVigenciaLocalizacion(VigenciasLocalizaciones vigencia);
+    public boolean crearVigenciaLocalizacion(VigenciasLocalizaciones vigencia);
 
-    public void crearVigenciaTipoTrabajador(VigenciasTiposTrabajadores vigencia);
+    public boolean crearVigenciaTipoTrabajador(VigenciasTiposTrabajadores vigencia);
 
-    public void crearVigenciaReformaLaboral(VigenciasReformasLaborales vigencia);
+    public boolean crearVigenciaReformaLaboral(VigenciasReformasLaborales vigencia);
 
-    public void crearVigenciaSueldo(VigenciasSueldos vigencia);
+    public boolean crearVigenciaSueldo(VigenciasSueldos vigencia);
 
-    public void crearVigenciaTipoContrato(VigenciasTiposContratos vigencia);
+    public boolean crearVigenciaTipoContrato(VigenciasTiposContratos vigencia);
 
-    public void crearVigenciaNormaEmpleado(VigenciasNormasEmpleados vigencia);
+    public boolean crearVigenciaNormaEmpleado(VigenciasNormasEmpleados vigencia);
 
-    public void crearVigenciaContrato(VigenciasContratos vigencia);
+    public boolean crearVigenciaContrato(VigenciasContratos vigencia);
 
-    public void crearVigenciaUbicacion(VigenciasUbicaciones vigencia);
+    public boolean crearVigenciaUbicacion(VigenciasUbicaciones vigencia);
 
-    public void crearVigenciaJornada(VigenciasJornadas vigencia);
+    public boolean crearVigenciaJornada(VigenciasJornadas vigencia);
 
-    public void crearVigenciaFormaPago(VigenciasFormasPagos vigencia);
+    public boolean crearVigenciaFormaPago(VigenciasFormasPagos vigencia);
 
-    public void crearVigenciaAfiliacion(VigenciasAfiliaciones vigencia);
+    public boolean crearVigenciaAfiliacion(VigenciasAfiliaciones vigencia);
 
-    public void crearEstadoCivil(VigenciasEstadosCiviles estado);
+    public boolean crearEstadoCivil(VigenciasEstadosCiviles estado);
 
-    public void crearDireccion(Direcciones direccion);
+    public boolean crearDireccion(Direcciones direccion);
 
-    public void crearTelefono(Telefonos telefono);
+    public boolean crearTelefono(Telefonos telefono);
 
-    public void crearSets(Sets set);
+    public boolean crearSets(Sets set);
 
     public Procesos buscarProcesoPorCodigo(short codigo);
 
     public BigDecimal obtenerNumeroMaximoComprobante();
 
-    public void crearComprobante(Comprobantes comprobante);
+    public boolean crearComprobante(Comprobantes comprobante);
 
     public Comprobantes buscarComprobanteParaPrimerRegistroEmpleado(BigInteger secEmpleado);
     
-    public void crearCortesProcesos(CortesProcesos corte);
+    public boolean crearCortesProcesos(CortesProcesos corte);
     
     public TiposTrabajadores buscarTipoTrabajadorPorCodigo(short codigo);
 
     public List<Cargos> lovCargosXEmpresa(BigInteger empresa);
     
     public TercerosSucursales consultarARL(BigInteger secEmpresa);
+    
+    public Date consultarFechaHastaCausado();
+    
+    public void eliminarEmpleadoCompleto(BigInteger secEmpleado, BigInteger secPersona);
    
 }

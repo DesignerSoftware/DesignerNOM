@@ -20,7 +20,7 @@ public interface PersistenciaVigenciasFormasPagosInterface {
      * Método encargado de insertar una VigenciaFormaPago en la base de datos.
      * @param vigenciasFormasPagos VigenciaFormaPago que se quiere crear.
      */
-    public void crear(EntityManager em, VigenciasFormasPagos vigenciasFormasPagos);
+    public boolean crear(EntityManager em, VigenciasFormasPagos vigenciasFormasPagos);
     /**
      * Método encargado de modificar una VigenciaFormaPago de la base de datos.
      * Este método recibe la información del parámetro para hacer un 'merge' con la 

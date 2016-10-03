@@ -104,7 +104,8 @@
                                             <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editFecha" value="#{info.fechavigencia}">
                                                 <p:ajax event="dateSelect" listener="#{controlVigenciasUbicaciones.modificarVU(info, 'N', info.fechavigencia)}" update="editFecha"/>
                                                 <p:ajax event="change" listener="#{controlVigenciasUbicaciones.modificarVU(info, 'N', info.fechavigencia)}" />
-                                                <p:ajax event="select" listener="#{controlVigenciasUbicaciones.cambiarIndice(info, 0)}" />
+                                                <p:ajax event="select" listener="#{controlVigenciasUbicaciones.cambiarIndice(info, 0)}"
+                                                        onstart="PF('datosVUEmpleado').unselectAllRows();PF('datosVUEmpleado').selectRow(#{indice});"/>
                                             </p:calendar>
                                         </f:facet>   
                                     </p:cellEditor>
@@ -120,7 +121,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.ubicacion.descripcion}" id="editarUbicacion" style=" border-radius: 0px; width: 98%; text-transform: uppercase; height: 12px;" > 
                                                 <p:ajax event="change" listener="#{controlVigenciasUbicaciones.modificarVU(info, 'UBICACION', info.ubicacion.descripcion)}"/>
-                                                <p:ajax event="select" listener="#{controlVigenciasUbicaciones.cambiarIndice(info, 1)}" />
+                                                <p:ajax event="select" listener="#{controlVigenciasUbicaciones.cambiarIndice(info, 1)}"
+                                                        onstart="PF('datosVUEmpleado').unselectAllRows();PF('datosVUEmpleado').selectRow(#{indice});"/>
                                                 <p:ajax event="dblclick" listener="#{controlVigenciasUbicaciones.asignarIndex(info, 0)}"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -136,7 +138,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.ubicacion.ciudad.nombre}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  id="editarCiudad" value="#{info.ubicacion.ciudad.nombre}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" onselect="cambioIndice([{name: 'INDEX', value: '#{indice}'}]);" readonly="true"/>
+                                           <p:inputText  autocomplete="off" onclick="PF('datosVUEmpleado').unselectAllRows();PF('datosVUEmpleado').selectRow(#{indice});" id="editarCiudad" value="#{info.ubicacion.ciudad.nombre}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" onselect="cambioIndice([{name: 'INDEX', value: '#{indice}'}]);" readonly="true"/>
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">

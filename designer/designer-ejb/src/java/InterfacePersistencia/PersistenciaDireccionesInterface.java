@@ -18,7 +18,7 @@ public interface PersistenciaDireccionesInterface {
      * Método encargado de insertar una Dirección en la base de datos.
      * @param telefonos Dirección que se quiere crear.
      */
-    public void crear(EntityManager em,Direcciones telefonos);
+    public boolean crear(EntityManager em,Direcciones telefonos);
     /**
      * Método encargado de modificar una Dirección de la base de datos.
      * Este método recibe la información del parámetro para hacer un 'merge' con la 

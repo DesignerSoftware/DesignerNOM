@@ -20,7 +20,7 @@ public interface PersistenciaVigenciasNormasEmpleadosInterface {
      * Método encargado de insertar una VigenciaNormaEmpleado en la base de datos.
      * @param vigenciasNormasEmpleados VigenciaNormaEmpleado que se quiere crear.
      */
-    public void crear(EntityManager em, VigenciasNormasEmpleados vigenciasNormasEmpleados);
+    public boolean crear(EntityManager em, VigenciasNormasEmpleados vigenciasNormasEmpleados);
     /**
      * Método encargado de modificar una VigenciaNormaEmpleado de la base de datos.
      * Este método recibe la información del parámetro para hacer un 'merge' con la 

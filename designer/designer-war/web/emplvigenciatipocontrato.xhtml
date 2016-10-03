@@ -86,7 +86,7 @@
                      <legend style="font-size: 14px; color: blue"><strong>#{msg['contratos']}</strong></legend>
                      <!-- TABLA EMPLVIGENCIACARGO -->
 
-                     <p:dataTable id="datosVTCEmpleado" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" 
+                     <p:dataTable id="datosVTCEmpleado" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" widgetVar="datosVTCEmpleado"
                                   value="#{controlVigenciasTiposContratos.vigenciasTiposContratoEmpleado}" filteredValue="#{controlVigenciasTiposContratos.filtrarVTC}"
                                   emptyMessage="#{msg['vacio']}" editable="true" editMode="cell" scrollable="true" editingRow="false"
                                   scrollWidth="830" scrollHeight="#{controlVigenciasTiposContratos.altoTabla}" style=" border: 1px; width: 830px;"
@@ -109,7 +109,8 @@
                                  <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editFecha" value="#{info.fechavigencia}">
                                     <p:ajax event="dateSelect" listener="#{controlVigenciasTiposContratos.modificarVTC(info, 'N', info.fechavigencia)}" update="@this"/>
                                     <p:ajax event="change" listener="#{controlVigenciasTiposContratos.modificarVTC(info, 'N', info.fechavigencia)}" update="@this" process="@this"/>
-                                    <p:ajax event="select" listener="#{controlVigenciasTiposContratos.cambiarIndice(info, 0)}" process="@this"/> 
+                                    <p:ajax event="select" listener="#{controlVigenciasTiposContratos.cambiarIndice(info, 0)}" process="@this"
+                                            onstart="PF('datosVTCEmpleado').unselectAllRows();PF('datosVTCEmpleado').selectRow(#{indice});"/> 
                                  </p:calendar>
                               </f:facet>   
                            </p:cellEditor>
@@ -122,7 +123,8 @@
                               <f:facet name="input">
                                  <p:inputText  autocomplete="off"  value="#{info.motivocontrato.nombre}" id="editarContrato" style=" border-radius: 0px; width: 93.5%; height: 12px; text-transform: uppercase;"> 
                                     <p:ajax event="change" listener="#{controlVigenciasTiposContratos.modificarVTC(info, 'MOTIVOC', info.motivocontrato.nombre)}"/>
-                                    <p:ajax event="select" listener="#{controlVigenciasTiposContratos.cambiarIndice(info, 1)}" />
+                                    <p:ajax event="select" listener="#{controlVigenciasTiposContratos.cambiarIndice(info, 1)}"
+                                            onstart="PF('datosVTCEmpleado').unselectAllRows();PF('datosVTCEmpleado').selectRow(#{indice});"/>
                                     <p:ajax event="dblclick" listener="#{controlVigenciasTiposContratos.asignarIndex(info, 0)}"/>
                                  </p:inputText> 
                               </f:facet>  
@@ -138,9 +140,10 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.tipocontrato.nombre}" /></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  id="editarTipoContrato" value="#{info.tipocontrato.nombre}" style=" border-radius: 0px; width: 93.5%; height: 12px; text-transform: uppercase">
+                                 <p:inputText autocomplete="off" id="editarTipoContrato" value="#{info.tipocontrato.nombre}" style="border-radius: 0px; width: 93.5%; height: 12px; text-transform: uppercase;">
                                     <p:ajax event="change" listener="#{controlVigenciasTiposContratos.modificarVTC(info, 'TIPOC', info.tipocontrato.nombre)}"/>
-                                    <p:ajax event="select" listener="#{controlVigenciasTiposContratos.cambiarIndice(info, 2)}" />
+                                    <p:ajax event="select" listener="#{controlVigenciasTiposContratos.cambiarIndice(info, 2)}"
+                                            onstart="PF('datosVTCEmpleado').unselectAllRows();PF('datosVTCEmpleado').selectRow(#{indice});"/>
                                     <p:ajax event="dblclick" listener="#{controlVigenciasTiposContratos.asignarIndex(info, 1)}"/>
                                  </p:inputText>
                               </f:facet>  
@@ -157,7 +160,8 @@
                               <f:facet name="input">
                                  <p:inputText  autocomplete="off"  value="#{info.ciudad.nombre}" widgetVar="editCiudad" id="editCiudad" style=" border-radius: 0px; width: 93.5%; height: 12px; text-transform: uppercase"  >
                                     <p:ajax event="change" listener="#{controlVigenciasTiposContratos.modificarVTC(info, 'CIUDAD', info.ciudad.nombre)}" />
-                                    <p:ajax event="select" listener="#{controlVigenciasTiposContratos.cambiarIndice(info, 3)}" />
+                                    <p:ajax event="select" listener="#{controlVigenciasTiposContratos.cambiarIndice(info, 3)}"
+                                            onstart="PF('datosVTCEmpleado').unselectAllRows();PF('datosVTCEmpleado').selectRow(#{indice});"/>
                                     <p:ajax event="dblclick" listener="#{controlVigenciasTiposContratos.asignarIndex(info, 2)}" />
                                  </p:inputText>
                               </f:facet>  
@@ -181,7 +185,8 @@
                                  <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editarFechaInicialSP" value="#{info.iniciosustitucion}">
                                     <p:ajax event="dateSelect" listener="#{controlVigenciasTiposContratos.modificarFechasNoObligatorias(info)}" update="@this" process="@this" />
                                     <p:ajax event="change" listener="#{controlVigenciasTiposContratos.modificarFechasNoObligatorias(info)}" update="@this" process="@this" />
-                                    <p:ajax event="select" listener="#{controlVigenciasTiposContratos.cambiarIndice(info, 4)}"/>
+                                    <p:ajax event="select" listener="#{controlVigenciasTiposContratos.cambiarIndice(info, 4)}"
+                                            onstart="PF('datosVTCEmpleado').unselectAllRows();PF('datosVTCEmpleado').selectRow(#{indice});"/>
                                  </p:calendar>
                               </f:facet> 
                            </p:cellEditor>
@@ -201,7 +206,8 @@
                                  <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editarFechaInicialFlexi" value="#{info.inicioflexibiliza}">
                                     <p:ajax event="dateSelect" listener="#{controlVigenciasTiposContratos.modificarVTC(info, 'N', info.inicioflexibiliza)}" update="@this" process="@this"/>
                                     <p:ajax event="change" listener="#{controlVigenciasTiposContratos.modificarVTC(info, 'N', info.inicioflexibiliza)}" update="@this" process="@this" />
-                                    <p:ajax event="select" listener="#{controlVigenciasTiposContratos.cambiarIndice(info, 5)}" />
+                                    <p:ajax event="select" listener="#{controlVigenciasTiposContratos.cambiarIndice(info, 5)}"
+                                            onstart="PF('datosVTCEmpleado').unselectAllRows();PF('datosVTCEmpleado').selectRow(#{indice});"/>
                                  </p:calendar>
                               </f:facet> 
                            </p:cellEditor>
@@ -214,7 +220,8 @@
                               <f:facet name="input">
                                  <p:inputText  autocomplete="off"  value="#{info.observaciones}" id="editarObservacion" style=" border-radius: 0px; width: 93.5%; height: 12px; text-transform: uppercase" >
                                     <p:ajax event="change" listener="#{controlVigenciasTiposContratos.modificarVTC(info, 'N', info.inicioflexibiliza)}"/>
-                                    <p:ajax event="select" listener="#{controlVigenciasTiposContratos.cambiarIndice(info, 6)}" />
+                                    <p:ajax event="select" listener="#{controlVigenciasTiposContratos.cambiarIndice(info, 6)}"
+                                            onstart="PF('datosVTCEmpleado').unselectAllRows();PF('datosVTCEmpleado').selectRow(#{indice});"/>
                                  </p:inputText> 
                               </f:facet>  
                            </p:cellEditor>
@@ -227,7 +234,8 @@
                            </f:facet>
                            <!--<p:commandButton value="" style="background-image: url(Imagenes/Iconos/lupa.png); width: 21px; height: 21px; background-repeat: no-repeat; border: none; background-size: 100% 100%;"/>-->
                            <p:selectBooleanCheckbox value="#{info.boolReconocePrimaVac}" style="border-radius: 4px; width: 17px; font-weight: bold;">  
-                              <p:ajax listener="#{controlVigenciasTiposContratos.modificarFechasNoObligatorias(info)}"/>  
+                              <p:ajax listener="#{controlVigenciasTiposContratos.modificarFechasNoObligatorias(info)}"
+                                      onstart="PF('datosVTCEmpleado').unselectAllRows();PF('datosVTCEmpleado').selectRow(#{indice});"/>  
                            </p:selectBooleanCheckbox>
                         </p:column>
 
@@ -238,7 +246,8 @@
                            </f:facet>
                            <!--<p:commandButton value="" style="width: 21px; height: 21px;" id="selectButton" />-->
                            <p:selectBooleanCheckbox value="#{info.boolSolucionContinuidad}" style="border-radius: 4px; width: 17px; font-weight: bold;">  
-                              <p:ajax listener="#{controlVigenciasTiposContratos.modificarFechasNoObligatorias(info)}"/>  
+                              <p:ajax listener="#{controlVigenciasTiposContratos.modificarFechasNoObligatorias(info)}"
+                                      onstart="PF('datosVTCEmpleado').unselectAllRows();PF('datosVTCEmpleado').selectRow(#{indice});"/>  
                            </p:selectBooleanCheckbox>
                         </p:column>   
 
@@ -257,12 +266,13 @@
                                  <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editFechaSc" value="#{info.fechaSolucioncontinuidad}">
                                     <p:ajax event="dateSelect" listener="#{controlVigenciasTiposContratos.modificarVTC(info, 'N', info.fechavigencia)}" update="@this"/>
                                     <p:ajax event="change" listener="#{controlVigenciasTiposContratos.modificarVTC(info, 'N', info.fechavigencia)}" update="@this" process="@this"/>
-                                    <p:ajax event="select" listener="#{controlVigenciasTiposContratos.cambiarIndice(info, 9)}" process="@this"/> 
+                                    <p:ajax event="select" listener="#{controlVigenciasTiposContratos.cambiarIndice(info, 9)}" process="@this"
+                                            onstart="PF('datosVTCEmpleado').unselectAllRows();PF('datosVTCEmpleado').selectRow(#{indice});"/> 
                                  </p:calendar>
                               </f:facet>   
                            </p:cellEditor>
                         </p:column>
-                        
+
                      </p:dataTable> 
                      <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlVigenciasTiposContratos.infoRegistro}" style="position: relative; left: 15px; top: 3px; font-weight: bold"/>
                   </fieldset>
@@ -360,7 +370,7 @@
                   <p:hotkey bind="ctrl+f11" actionListener="#{controlVigenciasTiposContratos.activarCtrlF11()}"/> 
                </p:panel>
             </h:form>
-            
+
             <h:form id="formularioDialogos" >
 
                <!-- DIALOGO L.O.V ESTATICO DE CIUDADES -->
@@ -379,7 +389,7 @@
                         <h:outputText value="#{msg['buscarC']}" />  
                         <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovCiudades').filter();" value="#{filtrado}" class="cssFiltroLOV" />  
                      </f:facet>
-                     
+
                      <p:column filterBy="#{ItemCiudad.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 85% !important">
                         <f:facet name="header">
                            <h:outputText style="text-align: center" value="#{msg['codigoC']}"/>
@@ -419,7 +429,7 @@
                         <h:outputText value="#{msg['buscarT']}" />  
                         <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovTiposContrato').filter();" class="cssFiltroLOV" />  
                      </f:facet>
-                     
+
                      <p:column filterBy="#{TiposC.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 85% !important">
                         <f:facet name="header">
                            <h:outputText value="#{msg['codigoT']}" />
@@ -459,7 +469,7 @@
                         <h:outputText value="#{msg['buscarM']}" />  
                         <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovMotivosContrato').filter();" value="#{filtrado}" class="cssFiltroLOV" />  
                      </f:facet>
-                     
+
                      <p:column filterBy="#{MotivosC.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 85% !important">
                         <f:facet name="header">
                            <h:outputText value="#{msg['codigoM']}" />

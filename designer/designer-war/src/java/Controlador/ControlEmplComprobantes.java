@@ -383,7 +383,7 @@ public class ControlEmplComprobantes implements Serializable {
                tipoTabla = 0;
                //Para los rastros
                nombreTabla = "Comprobantes";
-               secRegistro = comprobanteSeleccionado.getSecuencia();//
+               secRegistro = comprobanteSeleccionado.getSecuencia();
                auxFechaEntregadoComprobante = comprobanteSeleccionado.getFechaentregado();
                cargarListasConComprobante();
 
@@ -620,7 +620,7 @@ public class ControlEmplComprobantes implements Serializable {
             listaComprobantesModificar.add(comprobanteSeleccionado);
          }
       }
-
+      cargarListasConComprobante();
       if (guardado == true) {
          guardado = false;
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -628,7 +628,6 @@ public class ControlEmplComprobantes implements Serializable {
       secRegistro = null;
       tipoTabla = -1;
       modificacionesComprobantes = true;
-      RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("form:datosComprobantes");
    }
 
@@ -636,7 +635,6 @@ public class ControlEmplComprobantes implements Serializable {
       cortesProcesosSeleccionado = corteProceso;
       int coincidencias = 0;
       int indiceUnicoElemento = 0;
-      RequestContext context = RequestContext.getCurrentInstance();
       if (confirmarCambio.equals("N")) {
          if (!listaCortesProcesosCrear.contains(cortesProcesosSeleccionado)) {
             if (listaCortesProcesosModificar.isEmpty()) {

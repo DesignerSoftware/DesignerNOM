@@ -88,7 +88,7 @@
                             <!-- TABLA EMPLVIGENCIAREFORMALABORAL -->
 
                             <p:dataTable id="datosSetsEmpleado" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" 
-                                         style=" border: 1px; text-align: left;"                           
+                                         style=" border: 1px; text-align: left;" widgetVar="datosSetsEmpleado"                         
                                          value="#{controlSets.setsEmpleado}" scrollable="true" scrollHeight="#{controlSets.altoTabla}" 
                                          filteredValue="#{controlSets.filtrarSets}" emptyMessage="#{msg['vacio']}"
                                          editable="true" editMode="cell"
@@ -109,7 +109,8 @@
                                             <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.fechainicial}" > 
                                                 <p:ajax event="dateSelect" listener="#{controlSets.modificarFechas(info,0)}" update="dateFechaInicial" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlSets.modificarFechas(info,0)}" update="dateFechaInicial" process="@this"/>
-                                                <p:ajax event="select" listener="#{controlSets.cambiarIndice(info,0)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlSets.cambiarIndice(info,0)}" process="@this"
+                                                        onstart="PF('datosSetsEmpleado').unselectAllRows();PF('datosSetsEmpleado').selectRow(#{indice});"/> 
                                             </p:calendar>
                                         </f:facet>   
                                     </p:cellEditor>
@@ -131,7 +132,8 @@
                                             <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaFinal" value="#{info.fechafinal}" > 
                                                 <p:ajax event="dateSelect" listener="#{controlSets.modificarFechas(info,1)}" update="dateFechaFinal" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlSets.modificarFechas(info,1)}" update="dateFechaFinal" process="@this"/>
-                                                <p:ajax event="select" listener="#{controlSets.cambiarIndice(info,1)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlSets.cambiarIndice(info,1)}" process="@this"
+                                                        onstart="PF('datosSetsEmpleado').unselectAllRows();PF('datosSetsEmpleado').selectRow(#{indice});"/> 
                                             </p:calendar>
                                         </f:facet>   
                                     </p:cellEditor>
@@ -149,7 +151,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.porcentaje}" id="editarPorcentaje" style="border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px"> 
                                                 <p:ajax event="change" listener="#{controlSets.modificarSets(info)}"/>
-                                                <p:ajax event="select" listener="#{controlSets.cambiarIndice(info, 2)}" />
+                                                <p:ajax event="select" listener="#{controlSets.cambiarIndice(info, 2)}"
+                                                        onstart="PF('datosSetsEmpleado').unselectAllRows();PF('datosSetsEmpleado').selectRow(#{indice});"/>
                                                 <f:convertNumber type="percent" />
                                             </p:inputText>
                                         </f:facet>  
@@ -166,7 +169,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.promedio}" id="editarPromedio" style="border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px"> 
                                                 <p:ajax event="change" listener="#{controlSets.modificarSets(info)}"/>
-                                                <p:ajax event="select" listener="#{controlSets.cambiarIndice(info, 3)}" />
+                                                <p:ajax event="select" listener="#{controlSets.cambiarIndice(info, 3)}"
+                                                        onstart="PF('datosSetsEmpleado').unselectAllRows();PF('datosSetsEmpleado').selectRow(#{indice});"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -182,7 +186,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.tiposet}" id="editarTipoSet" style="border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px"> 
                                                 <p:ajax event="change" listener="#{controlSets.modificarSets(info)}"/>
-                                                <p:ajax event="select" listener="#{controlSets.cambiarIndice(info, 4)}" />
+                                                <p:ajax event="select" listener="#{controlSets.cambiarIndice(info, 4)}"
+                                                        onstart="PF('datosSetsEmpleado').unselectAllRows();PF('datosSetsEmpleado').selectRow(#{indice});"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -200,7 +205,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.totalingresos}" id="editarTotal" style="border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px;" > 
                                                 <p:ajax event="change" listener="#{controlSets.modificarSets(info)}"/>
-                                                <p:ajax event="select" listener="#{controlSets.cambiarIndice(info, 5)}" />
+                                                <p:ajax event="select" listener="#{controlSets.cambiarIndice(info, 5)}"
+                                                        onstart="PF('datosSetsEmpleado').unselectAllRows();PF('datosSetsEmpleado').selectRow(#{indice});"/>
                                                 <f:convertNumber currencySymbol="$" type="currency" />
                                             </p:inputText>
                                         </f:facet>  

@@ -33,18 +33,20 @@ public class PersistenciaCortesProcesos implements PersistenciaCortesProcesosInt
     /* @PersistenceContext(unitName = "DesignerRHN-ejbPU")
      private EntityManager em;*/
     @Override
-    public void crear(EntityManager em, CortesProcesos corteProceso) {
+    public boolean crear(EntityManager em, CortesProcesos corteProceso) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
             em.persist(corteProceso);
             tx.commit();
+            return true;
         } catch (Exception e) {
             System.out.println("Error PersistenciaCortesProcesos.crear: " + e);
             if (tx.isActive()) {
                 tx.rollback();
             }
+            return false;
         }
     }
 

@@ -24,7 +24,7 @@ public interface PersistenciaVigenciasTiposTrabajadoresInterface {
      * @param vigenciasTiposTrabajadores VigenciaTipoTrabajador que se quiere
      * crear.
      */
-    public void crear(EntityManager em, VigenciasTiposTrabajadores vigenciasTiposTrabajadores);
+    public boolean crear(EntityManager em, VigenciasTiposTrabajadores vigenciasTiposTrabajadores);
 
     /**
      * Método encargado de modificar una VigenciaTipoTrabajador de la base de

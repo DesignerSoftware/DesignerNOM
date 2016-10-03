@@ -21,7 +21,7 @@ public interface PersistenciaVigenciasEstadosCivilesInterface {
      *
      * @param vigenciasEstadosCiviles VigenciaEstadoCivil que se quiere crear.
      */
-    public void crear(EntityManager em, VigenciasEstadosCiviles vigenciasEstadosCiviles);
+    public boolean crear(EntityManager em, VigenciasEstadosCiviles vigenciasEstadosCiviles);
 
     /**
      * Método encargado de modificar una VigenciaEstadoCivil de la base de

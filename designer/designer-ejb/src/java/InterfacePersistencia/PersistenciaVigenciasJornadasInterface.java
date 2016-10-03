@@ -18,7 +18,7 @@ public interface PersistenciaVigenciasJornadasInterface {
      * Método encargado de insertar una VigenciaJornada en la base de datos.
      * @param vigenciasJornadas VigenciaJornada que se quiere crear.
      */
-    public void crear(EntityManager em, VigenciasJornadas vigenciasJornadas);
+    public boolean crear(EntityManager em, VigenciasJornadas vigenciasJornadas);
     /**
      * Método encargado de modificar una VigenciaJornada de la base de datos.
      * Este método recibe la información del parámetro para hacer un 'merge' con la 

@@ -24,6 +24,7 @@ public class PersistenciaPersonas implements PersistenciaPersonasInterface {
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
+    * @param em
      */
 //    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
 //    private EntityManager em;
@@ -157,7 +158,7 @@ public class PersistenciaPersonas implements PersistenciaPersonasInterface {
         try {
             em.clear();
             System.out.println("documento : " + documento);
-            Query query = em.createQuery("SELECT p FROM Personas p WHERE p.numerodocumento=:documento");
+            Query query = em.createQuery("SELECT p FROM Personas p WHERE p.numerodocumento = :documento");
             query.setParameter("documento", documento);
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             Personas persona = (Personas) query.getSingleResult();

@@ -29,12 +29,13 @@ public class PersistenciaVigenciasTiposTrabajadores implements PersistenciaVigen
     * Atributo EntityManager. Representa la comunicación con la base de datos.
     *
     * @param em
+    * @return 
     */
    /*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
      private EntityManager em;
     */
    @Override
-   public void crear(EntityManager em, VigenciasTiposTrabajadores vigenciasTiposTrabajadores) {
+   public boolean crear(EntityManager em, VigenciasTiposTrabajadores vigenciasTiposTrabajadores) {
       em.clear();
       EntityTransaction tx = em.getTransaction();
       try {
@@ -42,11 +43,14 @@ public class PersistenciaVigenciasTiposTrabajadores implements PersistenciaVigen
          tx.begin();
          em.persist(vigenciasTiposTrabajadores);
          tx.commit();
+         System.out.println("Ya creo V tipoTrabajador");
+         return true;
       } catch (Exception e) {
-         System.out.println("PersistenciaVigenciasTiposTrabajadores La vigencia no exite o esta reservada por lo cual no puede ser modificada: " + e.getCause().toString());
+         System.out.println("PersistenciaVigenciasTiposTrabajadores La vigencia no exite o esta reservada por lo cual no puede ser modificada: " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
+         return false;
       }
    }
 

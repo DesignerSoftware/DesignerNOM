@@ -18,7 +18,7 @@ public interface PersistenciaVigenciasReformasLaboralesInterface {
      * Método encargado de insertar una VigenciaReformaLaboral en la base de datos.
      * @param vigenciasReformasLaborales VigenciaReformaLaboral que se quiere crear.
      */
-    public void crear(EntityManager em, VigenciasReformasLaborales vigenciasReformasLaborales);
+    public boolean crear(EntityManager em, VigenciasReformasLaborales vigenciasReformasLaborales);
     /**
      * Método encargado de modificar una VigenciaReformaLaboral de la base de datos.
      * Este método recibe la información del parámetro para hacer un 'merge' con la 

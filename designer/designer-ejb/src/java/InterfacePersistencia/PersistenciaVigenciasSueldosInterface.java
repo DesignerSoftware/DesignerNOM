@@ -17,7 +17,7 @@ public interface PersistenciaVigenciasSueldosInterface {
      * Método encargado de insertar una VigenciaSueldo en la base de datos.
      * @param vigenciasSueldos VigenciaSueldo que se quiere crear.
      */
-    public void crear(EntityManager em, VigenciasSueldos vigenciasSueldos);
+    public boolean crear(EntityManager em, VigenciasSueldos vigenciasSueldos);
     /**
      * Método encargado de modificar una VigenciaSueldo de la base de datos.
      * Este método recibe la información del parámetro para hacer un 'merge' con la 

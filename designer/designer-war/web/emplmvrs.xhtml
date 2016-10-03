@@ -13,7 +13,7 @@
       <ui:composition template="/template.xhtml">
          <ui:define name="body">                  
             <h:form id="form"> 
-               <f:loadBundle basename="Recursos.emplmvrs" var="msg" />
+               <f:loadBundle basename="Recursos.emplmvrs" var="msg"/>
                <p:growl id="growl" showDetail="true"/>
                <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">    
 
@@ -123,10 +123,11 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaInicialMvrs" value="#{infoMvr.fechainicial}"> 
+                                 <p:calendar  autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="dateFechaInicialMvrs" value="#{infoMvr.fechainicial}"> 
                                     <p:ajax event="dateSelect" listener="#{controlEmplMvr.modificarFechasMvrs(infoMvr,0)}" update="dateFechaInicialMvrs" process="@this"/>
                                     <p:ajax event="change" listener="#{controlEmplMvr.modificarFechasMvrs(infoMvr,0)}" update="dateFechaInicialMvrs" process="@this"/>
-                                    <p:ajax event="select" listener="#{controlEmplMvr.cambiarIndiceMvr(infoMvr,0)}" process="@this"/> 
+                                    <p:ajax event="select" listener="#{controlEmplMvr.cambiarIndiceMvr(infoMvr,0)}" process="@this"
+                                            onstart="PF('datosMvrEmpleado').unselectAllRows();PF('datosMvrEmpleado').selectRow(#{indice});"/> 
                                  </p:calendar>
                               </f:facet>   
                            </p:cellEditor>
@@ -148,7 +149,8 @@
                                  <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaFinalMvrs" value="#{infoMvr.fechafinal}"> 
                                     <p:ajax event="dateSelect" listener="#{controlEmplMvr.modificarFechasMvrs(infoMvr,1)}" update="dateFechaFinalMvrs" process="@this"/>
                                     <p:ajax event="change" listener="#{controlEmplMvr.modificarFechasMvrs(infoMvr,1)}" update="dateFechaFinalMvrs" process="@this"/>
-                                    <p:ajax event="select" listener="#{controlEmplMvr.cambiarIndiceMvr(infoMvr,1)}" process="@this"/> 
+                                    <p:ajax event="select" listener="#{controlEmplMvr.cambiarIndiceMvr(infoMvr,1)}" process="@this"
+                                            onstart="PF('datosMvrEmpleado').unselectAllRows();PF('datosMvrEmpleado').selectRow(#{indice});"/> 
                                  </p:calendar>
                               </f:facet>   
                            </p:cellEditor>
@@ -169,7 +171,8 @@
                               <f:facet name="input">
                                  <p:inputText  autocomplete="off"  value="#{infoMvr.valor}" id="editarValorMvr" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px;"> 
                                     <p:ajax event="change" listener="#{controlEmplMvr.modificarMvrs(infoMvr)}" update="editarValorMvr" process="@this"/>
-                                    <p:ajax event="select" listener="#{controlEmplMvr.cambiarIndiceMvr(infoMvr,2)}"/>
+                                    <p:ajax event="select" listener="#{controlEmplMvr.cambiarIndiceMvr(infoMvr,2)}"
+                                            onstart="PF('datosMvrEmpleado').unselectAllRows();PF('datosMvrEmpleado').selectRow(#{indice});"/>
                                  </p:inputText>
                               </f:facet>  
                            </p:cellEditor>
@@ -186,7 +189,8 @@
                                  <p:inputText  autocomplete="off"  value="#{infoMvr.motivo.nombre}"  id="editarMotivoMvr" style=" border-radius: 0px; width: 98%;text-transform: uppercase; height: 12px;"> 
                                     <p:ajax event="change" listener="#{controlEmplMvr.modificarMvrs(infoMvr, 'MOTIVO', infoMvr.motivo.nombre)}" process="@this" update="editarMotivoMvr"/>
                                     <p:ajax event="dblclick" listener="#{controlEmplMvr.asignarIndexMVR(infoMvr,0,0)}" process="@this"/>
-                                    <p:ajax event="select" listener="#{controlEmplMvr.cambiarIndiceMvr(infoMvr,3)}" process="@this"/>
+                                    <p:ajax event="select" listener="#{controlEmplMvr.cambiarIndiceMvr(infoMvr,3)}" process="@this"
+                                            onstart="PF('datosMvrEmpleado').unselectAllRows();PF('datosMvrEmpleado').selectRow(#{indice});"/>
                                  </p:inputText>
                               </f:facet>  
                            </p:cellEditor>
@@ -206,7 +210,8 @@
                               <f:facet name="input">
                                  <p:inputText  autocomplete="off"  value="#{infoMvr.valoranualoriginal}" id="editarValorAnualMvr" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px;"> 
                                     <p:ajax event="change" listener="#{controlEmplMvr.modificarMvrs(infoMvr)}" update="editarValorAnualMvr" process="@this"/>
-                                    <p:ajax event="select" listener="#{controlEmplMvr.cambiarIndiceMvr(infoMvr,4)}"/>
+                                    <p:ajax event="select" listener="#{controlEmplMvr.cambiarIndiceMvr(infoMvr,4)}"
+                                            onstart="PF('datosMvrEmpleado').unselectAllRows();PF('datosMvrEmpleado').selectRow(#{indice});"/>
                                  </p:inputText>
                               </f:facet>  
                            </p:cellEditor>
@@ -242,7 +247,8 @@
                                  <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaInicialOC" value="#{info.fechainicial}"> 
                                     <p:ajax event="dateSelect" listener="#{controlEmplMvr.modificarFechasOtros(info,0)}" update="dateFechaInicialOC" process="@this"/>
                                     <p:ajax event="change" listener="#{controlEmplMvr.modificarFechasOtros(info,0)}" update="dateFechaInicialOC" process="@this"/>
-                                    <p:ajax event="select" listener="#{controlEmplMvr.cambiarIndiceOtrosCertificados(info,0)}" process="@this"/> 
+                                    <p:ajax event="select" listener="#{controlEmplMvr.cambiarIndiceOtrosCertificados(info,0)}" process="@this"
+                                            onstart="PF('datosOCEmpleado').unselectAllRows();PF('datosOCEmpleado').selectRow(#{indiceOC});"/> 
                                  </p:calendar>
                               </f:facet>  
                            </p:cellEditor>
@@ -263,7 +269,8 @@
                                  <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaFinalOC" value="#{info.fechafinal}"> 
                                     <p:ajax event="dateSelect" listener="#{controlEmplMvr.modificarFechasOtros(info,1)}" update="dateFechaFinalOC" process="@this"/>
                                     <p:ajax event="change" listener="#{controlEmplMvr.modificarFechasOtros(info,1)}" update="dateFechaFinalOC" process="@this"/>
-                                    <p:ajax event="select" listener="#{controlEmplMvr.cambiarIndiceOtrosCertificados(info,1)}" process="@this"/> 
+                                    <p:ajax event="select" listener="#{controlEmplMvr.cambiarIndiceOtrosCertificados(info,1)}" process="@this"
+                                            onstart="PF('datosOCEmpleado').unselectAllRows();PF('datosOCEmpleado').selectRow(#{indiceOC});"/> 
                                  </p:calendar>
                               </f:facet>  
                            </p:cellEditor>
@@ -285,7 +292,8 @@
                               </f:facet>  
                               <f:facet name="input">
                                  <p:inputText  autocomplete="off"  value="#{info.valor}" id="editarValorOC" style="text-align: right; border-radius: 0px; width: 93.5%; text-transform: uppercase; height: 12px; width: 100%;"> 
-                                    <p:ajax event="select" listener="#{controlEmplMvr.cambiarIndiceOtrosCertificados(info,2)}" process="@this"/> 
+                                    <p:ajax event="select" listener="#{controlEmplMvr.cambiarIndiceOtrosCertificados(info,2)}" process="@this"
+                                            onstart="PF('datosOCEmpleado').unselectAllRows();PF('datosOCEmpleado').selectRow(#{indiceOC});"/> 
                                     <p:ajax event="change" listener="#{controlEmplMvr.modificarOtrosCertificados(info)}" process="@this" update="editarValorOC"/>
                                  </p:inputText>
                               </f:facet>  
@@ -302,7 +310,8 @@
                               <f:facet name="input">
                                  <p:inputText  autocomplete="off"  value="#{info.estado}" id="editarEstadoOC" style=" border-radius: 0px; width: 95%;text-transform: uppercase; height: 12px;" onselect="">
                                     <!--  onselect="posicionOtro([{name: 'n', value: '3'}, {name: 't', value: '#/{indiceOC}'}]);" -->
-                                    <p:ajax event="select" listener="#{controlEmplMvr.cambiarIndiceOtrosCertificados(info,3)}" oncomplete="PF('datosMvrEmpleado').unselectAllRows()" /> 
+                                    <p:ajax event="select" listener="#{controlEmplMvr.cambiarIndiceOtrosCertificados(info,3)}" oncomplete="PF('datosMvrEmpleado').unselectAllRows()"
+                                            onstart="PF('datosOCEmpleado').unselectAllRows();PF('datosOCEmpleado').selectRow(#{indiceOC});"/> 
                                     <p:ajax event="change" listener="#{controlEmplMvr.modificarEstado()}" process="@this"/>
                                  </p:inputText>
                               </f:facet>  
@@ -320,7 +329,8 @@
                                  <p:inputText  autocomplete="off"  value="#{info.tipocertificado.descripcion}" id="editarCertificadoOC" style=" border-radius: 0px; width: 97%;text-transform: uppercase; height: 12px;">
                                     <!--onselect="posicionOtro([{name: 'n', value: '4'}, {name: 't', value: '#/{indiceOC}'}]);"-->
 
-                                    <p:ajax event="select" listener="#{controlEmplMvr.cambiarIndiceOtrosCertificados(info,4)}" process="@this"/> 
+                                    <p:ajax event="select" listener="#{controlEmplMvr.cambiarIndiceOtrosCertificados(info,4)}" process="@this"
+                                            onstart="PF('datosOCEmpleado').unselectAllRows();PF('datosOCEmpleado').selectRow(#{indiceOC});"/> 
                                     <p:ajax event="dblclick" listener="#{controlEmplMvr.asignarIndexOC(info,0,0)}" process="@this" update="editarCertificadoOC"/>
                                     <p:ajax event="change" listener="#{controlEmplMvr.modificarOtrosCertificados(info, 'CERTIFICADO', info.tipocertificado.descripcion)}" process="@this" update="editarCertificadoOC"/>                                                
                                  </p:inputText>
@@ -338,7 +348,8 @@
                               <f:facet name="output"><h:outputText value="#{info.diascontratados}"/></f:facet>  
                               <f:facet name="input">
                                  <p:inputText  autocomplete="off"  value="#{info.diascontratados}" id="editarDiasOC" style=" border-radius: 0px; width: 94%; text-transform: uppercase; height: 12px;"> 
-                                    <p:ajax event="select" listener="#{controlEmplMvr.cambiarIndiceOtrosCertificados(info,5)}" process="@this"/> 
+                                    <p:ajax event="select" listener="#{controlEmplMvr.cambiarIndiceOtrosCertificados(info,5)}" process="@this"
+                                            onstart="PF('datosOCEmpleado').unselectAllRows();PF('datosOCEmpleado').selectRow(#{indiceOC});"/> 
                                     <p:ajax event="change" listener="#{controlEmplMvr.modificarOtrosCertificados(info)}" process="@this" update="editarDiasOC"/>
                                  </p:inputText>
                               </f:facet>  

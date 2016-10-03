@@ -82,7 +82,7 @@
                         <fieldset style="position: absolute; top: 110px; left: 10px; height: 365px; width: 830px; border-radius: 10px; text-align: left;">
                             <legend style="font-size: 14px; color: blue;"><strong>#{msg['formaPagoEmpleado']}</strong></legend>
 
-                            <p:dataTable id="datosVigenciasFormasPagos" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="width: 830px; border: 1px;"                           
+                            <p:dataTable id="datosVigenciasFormasPagos" widgetVar="datosVigenciasFormasPagos" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="width: 830px; border: 1px;"                           
                                          value="#{controlVigenciasFormasPagos.listVigenciasFormasPagosPorEmpleado}" scrollable="true" scrollWidth="835" scrollHeight="#{controlVigenciasFormasPagos.altoTabla}" 
                                          filteredValue="#{controlVigenciasFormasPagos.filtrarVigenciasFormasPagosPorEmpleado}" emptyMessage="#{msg['vacio']}"
                                          editable="true" editMode="cell" rows="20" selection="#{controlVigenciasFormasPagos.vigenciaSeleccionada}" selectionMode="single"> 
@@ -99,7 +99,8 @@
                                         </f:facet>  
                                         <f:facet name="input">
                                             <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editFechaVigencia" value="#{info.fechavigencia}">
-                                                <p:ajax event="select" listener="#{controlVigenciasFormasPagos.cambiarIndice(info, 0)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlVigenciasFormasPagos.cambiarIndice(info, 0)}" process="@this"
+                                                        onstart="PF('datosVigenciasFormasPagos').unselectAllRows();PF('datosVigenciasFormasPagos').selectRow(#{indice});"/> 
                                                 <p:ajax event="dateSelect" listener="#{controlVigenciasFormasPagos.modificarVigenciasFormasPagos(info, 'N', info.fechavigencia)}" update="editFechaVigencia"/>
                                             </p:calendar>
                                         </f:facet>
@@ -111,7 +112,8 @@
                                         <f:facet name="output"><h:outputText value="#{info.cuenta}" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.cuenta}" maxlength="25" id="editarCuenta" style="  border-radius: 0px; width: 210px;; height: 12px; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlVigenciasFormasPagos.cambiarIndice(info, 1)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlVigenciasFormasPagos.cambiarIndice(info, 1)}" process="@this"
+                                                        onstart="PF('datosVigenciasFormasPagos').unselectAllRows();PF('datosVigenciasFormasPagos').selectRow(#{indice});"/> 
                                                 <p:ajax event="change" listener="#{controlVigenciasFormasPagos.modificarVigenciasFormasPagos(info, 'N', info.cuenta)}" update="cuenta"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -131,7 +133,8 @@
                                         </f:facet>  
                                         <f:facet name="input">
                                             <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editFechaCuenta" value="#{info.fechacuenta}">
-                                                <p:ajax event="select" listener="#{controlVigenciasFormasPagos.cambiarIndice(info,2)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlVigenciasFormasPagos.cambiarIndice(info,2)}" process="@this"
+                                                        onstart="PF('datosVigenciasFormasPagos').unselectAllRows();PF('datosVigenciasFormasPagos').selectRow(#{indice});"/> 
                                                 <p:ajax event="dateSelect" listener="#{controlVigenciasFormasPagos.modificarVigenciasFormasPagos(info, 'N', info.fechacuenta)}" update="editFechaCuenta" process="@this"/>
                                             </p:calendar>
                                         </f:facet>
@@ -144,7 +147,8 @@
                                         <f:facet name="output"><h:outputText value="#{info.sucursal.nombre}" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.sucursal.nombre}" id="editarSucursal" style="  border-radius: 0px; width: 210px; height: 12px; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlVigenciasFormasPagos.cambiarIndice(info, 3)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlVigenciasFormasPagos.cambiarIndice(info, 3)}" process="@this"
+                                                        onstart="PF('datosVigenciasFormasPagos').unselectAllRows();PF('datosVigenciasFormasPagos').selectRow(#{indice});"/> 
                                                 <p:ajax event="dblclick" listener="#{controlVigenciasFormasPagos.asignarIndex(info, 0,3)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlVigenciasFormasPagos.modificarVigenciasFormasPagos(info, 'SUCURSAL', info.sucursal.nombre)}" update="sucursal" process="@this"/>
                                             </p:inputText>
@@ -161,7 +165,8 @@
                                         <f:facet name="output"><h:outputText value="#{info.formapago.nombre}" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.formapago.nombre}" id="editarFormaPago" style="  border-radius: 0px; height: 12px; width: 96%; text-transform: uppercase;"> 
-                                                <p:ajax event="select" listener="#{controlVigenciasFormasPagos.cambiarIndice(info, 4)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlVigenciasFormasPagos.cambiarIndice(info, 4)}" process="@this"
+                                                        onstart="PF('datosVigenciasFormasPagos').unselectAllRows();PF('datosVigenciasFormasPagos').selectRow(#{indice});"/> 
                                                 <p:ajax event="dblclick" listener="#{controlVigenciasFormasPagos.asignarIndex(info, 0,4)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlVigenciasFormasPagos.modificarVigenciasFormasPagos(info, 'FORMAPAGO', info.formapago.nombre)}"  update="formaPago" process="@this"/>
                                             </p:inputText>
@@ -181,7 +186,8 @@
                                         <f:facet name="output"><h:outputText value="#{info.tipocuenta}" style="text-transform: uppercase;" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.tipocuenta}" maxlength="1" id="editarTC" style="border-radius: 0px; text-transform: uppercase;"> 
-                                                <p:ajax event="select" listener="#{controlVigenciasFormasPagos.cambiarIndice(info, 5)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlVigenciasFormasPagos.cambiarIndice(info, 5)}" process="@this"
+                                                        onstart="PF('datosVigenciasFormasPagos').unselectAllRows();PF('datosVigenciasFormasPagos').selectRow(#{indice});"/> 
                                                 <p:ajax event="change" listener="#{controlVigenciasFormasPagos.modificarVigenciasFormasPagos(info, 'N', info.tipocuenta)}" update="tc" process="@this"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -193,7 +199,8 @@
                                         <f:facet name="output"><h:outputText value="#{info.metodopago.descripcion}"/></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.metodopago.descripcion}" id="editarMetodoPago" style="height: 12px; border-radius: 0px; width: 210px; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlVigenciasFormasPagos.cambiarIndice(info, 6)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlVigenciasFormasPagos.cambiarIndice(info, 6)}" process="@this"
+                                                        onstart="PF('datosVigenciasFormasPagos').unselectAllRows();PF('datosVigenciasFormasPagos').selectRow(#{indice});"/> 
                                                 <p:ajax event="dblclick" listener="#{controlVigenciasFormasPagos.asignarIndex(info, 0,6)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlVigenciasFormasPagos.modificarVigenciasFormasPagos(info, 'METODOPAGO', info.metodopago.descripcion)}"/>
                                             </p:inputText>

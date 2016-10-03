@@ -1,7 +1,6 @@
 package Entidades;
 
 import java.io.Serializable;
-import java.math.BigInteger;
 import java.util.Date;
 import javax.persistence.*;
 
@@ -15,22 +14,14 @@ public class VWActualesFechas implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private BigInteger secuencia;
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+//    private BigInteger secuencia;
     @Column(name = "FECHADESDECAUSADO")
     @Temporal(TemporalType.DATE)
     private Date fechaDesdeCausado;
     @Column(name = "FECHAHASTACAUSADO")
     @Temporal(TemporalType.DATE)
     private Date fechaHastaCausado;
-
-    public BigInteger getSecuencia() {
-        return secuencia;
-    }
-
-    public void setSecuencia(BigInteger id) {
-        this.secuencia = id;
-    }
 
     public Date getFechaDesdeCausado() {
         return fechaDesdeCausado;
@@ -51,7 +42,7 @@ public class VWActualesFechas implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (secuencia != null ? secuencia.hashCode() : 0);
+        hash += (fechaDesdeCausado != null ? fechaDesdeCausado.hashCode() : 0);
         return hash;
     }
 
@@ -62,7 +53,7 @@ public class VWActualesFechas implements Serializable {
             return false;
         }
         VWActualesFechas other = (VWActualesFechas) object;
-        if ((this.secuencia == null && other.secuencia != null) || (this.secuencia != null && !this.secuencia.equals(other.secuencia))) {
+        if ((this.fechaDesdeCausado == null && other.fechaDesdeCausado != null) || (this.fechaDesdeCausado != null && !this.fechaDesdeCausado.equals(other.fechaDesdeCausado))) {
             return false;
         }
         return true;
@@ -70,7 +61,7 @@ public class VWActualesFechas implements Serializable {
 
     @Override
     public String toString() {
-        return "Entidades.VWActualesFechas[ secuencia=" + secuencia + " ]";
+        return "Entidades.VWActualesFechas[ fechaDesdeCausado = " + fechaDesdeCausado + " ]";
     }
 
 }

@@ -90,7 +90,7 @@
                             <legend style=" color: blue; text-align: left;"><strong>#{msg['reformas']}</strong></legend>
                             <!-- TABLA EMPLVIGENCIAREFORMALABORAL -->
 
-                            <p:dataTable id="datosVRLEmpleado" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style=" border: 1px; text-align: left;"                           
+                            <p:dataTable id="datosVRLEmpleado" widgetVar="datosVRLEmpleado" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style=" border: 1px; text-align: left;"                           
                                          value="#{controlVigenciasReformasLaborales.vigenciasReformasLaboralesEmpleado}" scrollable="true" scrollHeight="#{controlVigenciasReformasLaborales.altoTabla}" 
                                          filteredValue="#{controlVigenciasReformasLaborales.filtrarVRL}" emptyMessage="#{msg['vacio']}" 
                                          editable="true" editMode="cell" selection="#{controlVigenciasReformasLaborales.vigenciaSeleccionada}" selectionMode="single">
@@ -110,7 +110,8 @@
                                             <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editFecha" value="#{info.fechavigencia}"> 
                                                 <p:ajax event="dateSelect" listener="#{controlVigenciasReformasLaborales.modificarFechas(info,0)}" update="editFecha" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlVigenciasReformasLaborales.modificarFechas(info,0)}" update="editFecha" process="@this"/>
-                                                <p:ajax event="select" listener="#{controlVigenciasReformasLaborales.cambiarIndice(info,0)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlVigenciasReformasLaborales.cambiarIndice(info,0)}" process="@this"
+                                                        onstart="PF('datosVRLEmpleado').unselectAllRows();PF('datosVRLEmpleado').selectRow(#{indice});"/> 
                                             </p:calendar>
                                         </f:facet>   
                                     </p:cellEditor>
@@ -125,7 +126,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.reformalaboral.nombre}" id="editarUbicacion" style=" border-radius: 0px; width: 96%;text-transform: uppercase; height: 12px;"> 
                                                 <p:ajax event="change" listener="#{controlVigenciasReformasLaborales.modificarVRL(info, 'REFORMALABORAL', info.reformalaboral.nombre)}"/>
-                                                <p:ajax event="select" listener="#{controlVigenciasReformasLaborales.cambiarIndice(info, 1)}" />
+                                                <p:ajax event="select" listener="#{controlVigenciasReformasLaborales.cambiarIndice(info, 1)}"
+                                                        onstart="PF('datosVRLEmpleado').unselectAllRows();PF('datosVRLEmpleado').selectRow(#{indice});"/>
                                                 <p:ajax event="dblclick" listener="#{controlVigenciasReformasLaborales.asignarIndexT(info)}"/>
                                             </p:inputText>
                                         </f:facet>  

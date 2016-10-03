@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+//import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
@@ -92,8 +92,13 @@ public class Empleados implements Serializable {
      private Empresas empresa;*/
 
     public Empleados() {
-        persona = new Personas();
+//        persona = new Personas();
     }
+
+   public Empleados(Personas persona) {
+      this.persona = persona;
+   }
+    
 
     public BigInteger getSecuencia() {
         return secuencia;

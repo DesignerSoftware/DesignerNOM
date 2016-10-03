@@ -19,8 +19,9 @@ public interface PersistenciaCortesProcesosInterface {
      * Método encargado de insertar un CorteProceso en la base de datos.
      * @param em
      * @param corteProceso CorteProceso que se quiere crear.
+    * @return 
      */
-    public void crear(EntityManager em,CortesProcesos corteProceso);
+    public boolean crear(EntityManager em,CortesProcesos corteProceso);
     /**
      * Método encargado de modificar un CorteProceso de la base de datos.
      * Este método recibe la información del parámetro para hacer un 'merge' con la 

@@ -16,11 +16,13 @@ import Entidades.Terceros;
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
+import javax.ejb.Local;
 
 /**
  *
  * @author Administrator
  */
+@Local
 public interface AdministrarEmplComprobantesInterface {
 
     /**

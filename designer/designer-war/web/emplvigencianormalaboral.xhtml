@@ -91,7 +91,7 @@
                         <fieldset style="position: absolute; top: 110px; left: 10px; height: 365px; width: 830px; border-radius: 10px; text-align: left">
                             <legend style="font-size: 14px; color: blue"><strong>#{msg['normaLaboralT']}</strong></legend>
 
-                            <p:dataTable id="datosVNL" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 830px ;border: 1px;"                           
+                            <p:dataTable id="datosVNL" widgetVar="datosVNL" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 830px ;border: 1px;"                           
                                          value="#{controlBetaEmplVigenciaNormaLaboral.listEmplVigenciaNormaLaboralPorEmpleado}" scrollable="true" scrollHeight="#{controlBetaEmplVigenciaNormaLaboral.altoTabla}"  scrollWidth="830"
                                          filteredValue="#{controlBetaEmplVigenciaNormaLaboral.filtrarEmplVigenciaNormaLaboralPorEmplado}" emptyMessage="#{msg['vacio']}"
                                          editable="true" editMode="cell" selection="#{controlBetaEmplVigenciaNormaLaboral.vigenciaSeleccionada}" selectionMode="single" >
@@ -110,7 +110,8 @@
                                         </f:facet>  
                                         <f:facet name="input">
                                             <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.fechavigencia}"> 
-                                                <p:ajax event="select" listener="#{controlBetaEmplVigenciaNormaLaboral.cambiarIndice(info, 0)}" process="@this"/>  
+                                                <p:ajax event="select" listener="#{controlBetaEmplVigenciaNormaLaboral.cambiarIndice(info, 0)}" process="@this"
+                                                        onstart="PF('datosVNL').unselectAllRows();PF('datosVNL').selectRow(#{indice});"/>  
                                                 <p:ajax event="change" listener="#{controlBetaEmplVigenciaNormaLaboral.mostrarInfo(info,0)}" process="@this"/> 
                                                 <p:ajax event="dateSelect" listener="#{controlBetaEmplVigenciaNormaLaboral.mostrarInfo(info,0)}" process="@this" update=":formularioDialogos:editarFecha"/>
                                             </p:calendar>
@@ -124,7 +125,8 @@
                                         <f:facet name="output"><h:outputText value="#{info.normalaboral.nombre}" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  maxlength="40" value="#{info.normalaboral.nombre}" id="editarparentesco" style=" border-radius: 0px; width: 97%; height: 12px; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlBetaEmplVigenciaNormaLaboral.cambiarIndice(info, 1)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlBetaEmplVigenciaNormaLaboral.cambiarIndice(info, 1)}" process="@this"
+                                                        onstart="PF('datosVNL').unselectAllRows();PF('datosVNL').selectRow(#{indice});"/> 
                                                 <p:ajax event="dblclick" listener="#{controlBetaEmplVigenciaNormaLaboral.asignarIndex(info, 0,1)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlBetaEmplVigenciaNormaLaboral.modificandoEmplVigenciaNormaLaboral(info, 'NORMASLABORALES',info.normalaboral.nombre)}"/>
                                             </p:inputText>

@@ -88,7 +88,7 @@
                             <legend style="font-size: 14px; color: blue"><strong>#{msg['consultaIBCS']}</strong></legend>
 
 
-                            <p:dataTable id="datosIbcs" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 830px ; border: 1px;"                           
+                            <p:dataTable id="datosIbcs" widgetVar="datosIbcs" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="width: 830px ; border: 1px;"                           
                                          value="#{controlEmplIbcs.listIbcsPorEmpleado}"  scrollable="true" scrollHeight="#{controlEmplIbcs.altoTabla}"  scrollWidth="830"
                                          filteredValue="#{controlEmplIbcs.filtrarIbcsPorEmpleado}" emptyMessage="No se encontrarón resultados para la búsqueda"
                                          editable="true" editMode="cell" selectionMode="single" selection="#{controlEmplIbcs.ibcSeleccionado}">
@@ -105,9 +105,10 @@
                                                 <f:convertDateTime pattern="dd/MM/yyyy" />
                                             </h:outputText>
                                         </f:facet>  
-                                        <f:facet  name="input">
+                                        <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.fechainicial}" id="editarFechaInicial" style="  border-radius: 0px; width: 275px; text-transform: uppercase; height: 12px;" > 
-                                                <p:ajax event="select" listener="#{controlEmplIbcs.cambiarIndice(info, 0)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlEmplIbcs.cambiarIndice(info, 0)}" process="@this"
+                                                        onstart="PF('datosIbcs').unselectAllRows();PF('datosIbcs').selectRow(#{indice});"/> 
                                                 <p:ajax event="change" listener="#{controlEmplIbcs.revisarCambios()}"   update="editarFechaInicial"/>
                                                 <f:convertDateTime pattern="dd/MM/yyyy" />
                                             </p:inputText>
@@ -127,7 +128,8 @@
                                         </f:facet>  
                                         <f:facet  name="input">
                                             <p:inputText  autocomplete="off"    value="#{info.fechafinal}" id="editarfechaFinal" style="  border-radius: 0px; width: 260px; text-transform: uppercase; height: 12px"> 
-                                                <p:ajax event="select" listener="#{controlEmplIbcs.cambiarIndice(info, 1)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlEmplIbcs.cambiarIndice(info, 1)}" process="@this"
+                                                        onstart="PF('datosIbcs').unselectAllRows();PF('datosIbcs').selectRow(#{indice});"/> 
                                                 <p:ajax event="change" listener="#{controlEmplIbcs.revisarCambios()}"  update="editarfechaFinal"/>
                                                 <f:convertDateTime pattern="dd/MM/yyyy" />
                                             </p:inputText>
@@ -146,10 +148,10 @@
                                             </h:outputText>
                                         </f:facet>
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   value="#{info.valor}" id="editarUnidades" style="  border-radius: 0px; width: 300px; text-transform: uppercase; height: 12px;"  > 
-                                                <p:ajax event="select" listener="#{controlEmplIbcs.cambiarIndice(info, 2)}" process="@this"/> 
+                                            <p:inputText  autocomplete="off" value="#{info.valor}" id="editarUnidades" style="border-radius: 0px; width: 300px; text-transform: uppercase; height: 12px;"  > 
+                                                <p:ajax event="select" listener="#{controlEmplIbcs.cambiarIndice(info, 2)}" process="@this"
+                                                        onstart="PF('datosIbcs').unselectAllRows();PF('datosIbcs').selectRow(#{indice});"/> 
                                                 <p:ajax event="change" listener="#{controlEmplIbcs.revisarCambios()}"  update="editarUnidades"/>
-
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>

@@ -18,7 +18,7 @@ public interface PersistenciaVigenciasContratosInterface {
      * Método encargado de insertar una VigenciaContrato en la base de datos.
      * @param vigenciasContratos VigenciaContrato que se quiere crear.
      */
-    public void crear(EntityManager em, VigenciasContratos vigenciasContratos);
+    public boolean crear(EntityManager em, VigenciasContratos vigenciasContratos);
     /**
      * Método encargado de modificar una VigenciaContrato de la base de datos.
      * Este método recibe la información del parámetro para hacer un 'merge' con la 

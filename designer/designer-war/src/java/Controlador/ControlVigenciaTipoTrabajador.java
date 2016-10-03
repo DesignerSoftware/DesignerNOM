@@ -469,6 +469,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
       int indice = Integer.parseInt(type);
       int columna = Integer.parseInt(name);
       vigenciaSeleccionada = vigenciasTiposTrabajadores.get(indice);
+      RequestContext.getCurrentInstance().execute("PF('datosVTTEmpleado').unselectAllRows(); PF('datosVTTEmpleado').selectRow(" + indice + ");");
       cambiarIndice(vigenciaSeleccionada, columna);
    }
 
@@ -1162,7 +1163,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
          }
       }
    }
-   
+
    public void asignarIndex(int campo, int tipoAct, int tt) {
       RequestContext context = RequestContext.getCurrentInstance();
       activarLOV = true;
@@ -1571,7 +1572,6 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
          operacionRetiro = false;
 
          //  cargarRetiro();
-
          FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos de Retirados con éxito");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");

@@ -88,6 +88,7 @@ import InterfacePersistencia.PersistenciaTiposTelefonosInterface;
 import InterfacePersistencia.PersistenciaTiposTrabajadoresInterface;
 import InterfacePersistencia.PersistenciaUbicacionesGeograficasInterface;
 import InterfacePersistencia.PersistenciaUnidadesInterface;
+import InterfacePersistencia.PersistenciaVWActualesFechasInterface;
 import InterfacePersistencia.PersistenciaVWValidaBancosInterface;
 import InterfacePersistencia.PersistenciaVigenciasAfiliacionesInterface;
 import InterfacePersistencia.PersistenciaVigenciasCargosInterface;
@@ -221,6 +222,8 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    PersistenciaVigenciasAfiliacionesInterface persistenciaVigenciasAfiliaciones;
    @EJB
    PersistenciaDetallesEmpresasInterface persistenciadetallesEmpresas;
+   @EJB
+   PersistenciaVWActualesFechasInterface persistenciaVWActualesFechas;
    @EJB
    AdministrarSesionesInterface administrarSesiones;
    private EntityManager em;
@@ -445,60 +448,6 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
       }
    }
 
-//
-//    @Override
-//    public List<TiposContratos> lovTiposContratos() {
-//        try {
-//            List<TiposContratos> lista = persistenciaTiposContratos.tiposContratos(em);
-//            return lista;
-//        } catch (Exception e) {
-//            System.out.println("Error lovTiposContratos Admi : " + e.toString());
-//            return null;
-//        }
-//    }
-//
-//    @Override
-//    public List<ReformasLaborales> lovReformasLaborales() {
-//        try {
-//            List<ReformasLaborales> lista = persistenciaReformasLaborales.buscarReformasLaborales(em);
-//            return lista;
-//        } catch (Exception e) {
-//            return null;
-//        }
-//    }
-//
-//    @Override
-//    public List<NormasLaborales> lovNormasLaborales() {
-//        try {
-//            List<NormasLaborales> lista = persistenciaNormasLaborales.consultarNormasLaborales(em);
-//            return lista;
-//        } catch (Exception e) {
-//            System.out.println("Error lovNormasLaborales Admi : " + e.toString());
-//            return null;
-//        }
-//    }
-//
-//    @Override
-//    public List<Contratos> lovContratos() {
-//        try {
-//            List<Contratos> lista = persistenciaContratos.buscarContratosPorUsuario(em);
-//            return lista;
-//        } catch (Exception e) {
-//            System.out.println("Error lovContratos Admi : " + e.toString());
-//            return null;
-//        }
-//    }
-//
-//    @Override
-//    public List<TiposSueldos> lovTiposSueldos() {
-//        try {
-//            List<TiposSueldos> lista = persistenciaTiposSueldos.buscarTiposSueldosParaUsuarioConectado(em);
-//            return lista;
-//        } catch (Exception e) {
-//            System.out.println("Error lovTiposSueldos Admi : " + e.toString());
-//            return null;
-//        }
-//    }
    @Override
    public List<MotivosCambiosSueldos> lovMotivosCambiosSueldos() {
       try {
@@ -863,7 +812,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
       try {
          BigInteger secEmpleado = persistenciaEmpleado.crearConVCargo(em, codigoEmpleado, secPersona, secEmpresa, vigenciaCargo.getCargo().getSecuencia(),
                  vigenciaCargo.getEstructura().getSecuencia(), vigenciaCargo.getFechavigencia(), vigenciaCargo.getMotivocambiocargo().getSecuencia());
-         Empleados empleado = persistenciaEmpleado.buscarEmpleadoSecuencia(em, secPersona);
+         Empleados empleado = persistenciaEmpleado.buscarEmpleadoSecuencia(em, secEmpleado);
          return empleado;
       } catch (Exception e) {
          System.err.println(this.getClass().getName() + " Error crearConVCargo() : " + e.toString());
@@ -882,15 +831,6 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
          return null;
       }
    }
-//
-//    @Override
-//    public void crearVigenciaCargo(VigenciasCargos vigencia) {
-//        try {
-//            persistenciaVigenciasCargos.crear(em, vigencia);
-//        } catch (Exception e) {
-//            System.out.println("Error crearVigenciaCargo Admi : " + e.toString());
-//        }
-//    }
 
    @Override
    public void modificarVigenciaCargo(VigenciasCargos vigencia) {
@@ -903,152 +843,169 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    }
 
    @Override
-   public void crearVigenciaLocalizacion(VigenciasLocalizaciones vigencia) {
+   public boolean crearVigenciaLocalizacion(VigenciasLocalizaciones vigencia) {
       try {
-         persistenciaVigenciasLocalizaciones.crear(em, vigencia);
+         return persistenciaVigenciasLocalizaciones.crear(em, vigencia);
       } catch (Exception e) {
          System.out.println("Error crearVigenciaLocalizacion Admi : " + e.toString());
+         return false;
       }
    }
 
    @Override
-   public void crearVigenciaTipoTrabajador(VigenciasTiposTrabajadores vigencia) {
+   public boolean crearVigenciaTipoTrabajador(VigenciasTiposTrabajadores vigencia) {
       try {
          System.out.println("crearVigenciaTipoTrabajador vigencia : " + vigencia);
          System.out.println("crearVigenciaTipoTrabajador vigencia.getTipotrabajador() : " + vigencia.getTipotrabajador());
          System.out.println("crearVigenciaTipoTrabajador vigencia.getEmpleado().getPersona().getNombre() : " + vigencia.getEmpleado().getPersona().getNombre());
-         persistenciaVigenciasTiposTrabajadores.crear(em, vigencia);
+         return persistenciaVigenciasTiposTrabajadores.crear(em, vigencia);
       } catch (Exception e) {
          System.out.println("Error crearVigenciaTipoTrabajador Admi : " + e.toString());
+         return false;
       }
    }
 
    @Override
-   public void crearVigenciaReformaLaboral(VigenciasReformasLaborales vigencia) {
+   public boolean crearVigenciaReformaLaboral(VigenciasReformasLaborales vigencia) {
       try {
-         persistenciaVigenciasReformasLaborales.crear(em, vigencia);
+         return persistenciaVigenciasReformasLaborales.crear(em, vigencia);
       } catch (Exception e) {
          System.out.println("Error crearVigenciaReformaLaboral Admi : " + e.toString());
+         return false;
       }
    }
 
    @Override
-   public void crearVigenciaSueldo(VigenciasSueldos vigencia) {
+   public boolean crearVigenciaSueldo(VigenciasSueldos vigencia) {
       try {
-         persistenciaVigenciasSueldos.crear(em, vigencia);
+         return persistenciaVigenciasSueldos.crear(em, vigencia);
       } catch (Exception e) {
          System.out.println("Error crearVigenciaSueldo Admi : " + e.toString());
+         return false;
       }
    }
 
    @Override
-   public void crearVigenciaTipoContrato(VigenciasTiposContratos vigencia) {
+   public boolean crearVigenciaTipoContrato(VigenciasTiposContratos vigencia) {
       try {
-         persistenciaVigenciasTiposContratos.crear(em, vigencia);
+         return persistenciaVigenciasTiposContratos.crear(em, vigencia);
       } catch (Exception e) {
          System.out.println("Error crearVigenciaTipoContrato Admi : " + e.toString());
+         return false;
       }
    }
 
    @Override
-   public void crearVigenciaNormaEmpleado(VigenciasNormasEmpleados vigencia) {
+   public boolean crearVigenciaNormaEmpleado(VigenciasNormasEmpleados vigencia) {
       try {
-         persistenciaVigenciasNormasEmpleados.crear(em, vigencia);
+         return persistenciaVigenciasNormasEmpleados.crear(em, vigencia);
       } catch (Exception e) {
          System.out.println("Error crearVigenciaNormaEmpleado Admi : " + e.toString());
+         return false;
       }
    }
 
    @Override
-   public void crearVigenciaContrato(VigenciasContratos vigencia) {
+   public boolean crearVigenciaContrato(VigenciasContratos vigencia) {
       try {
-         persistenciaVigenciasContratos.crear(em, vigencia);
+         return persistenciaVigenciasContratos.crear(em, vigencia);
       } catch (Exception e) {
          System.out.println("Error crearVigenciaContrato Admi : " + e.toString());
+         return false;
       }
    }
 
    @Override
-   public void crearVigenciaUbicacion(VigenciasUbicaciones vigencia) {
+   public boolean crearVigenciaUbicacion(VigenciasUbicaciones vigencia) {
       try {
-         persistenciaVigenciasUbicaciones.crear(em, vigencia);
+         return persistenciaVigenciasUbicaciones.crear(em, vigencia);
       } catch (Exception e) {
          System.out.println("Error crearVigenciaUbicacion Admi : " + e.toString());
+         return false;
       }
    }
 
    @Override
-   public void crearVigenciaJornada(VigenciasJornadas vigencia) {
+   public boolean crearVigenciaJornada(VigenciasJornadas vigencia) {
       try {
-         persistenciaVigenciasJornadas.crear(em, vigencia);
+         return persistenciaVigenciasJornadas.crear(em, vigencia);
       } catch (Exception e) {
          System.out.println("Error crearVigenciaJornada Admi : " + e.toString());
+         return false;
       }
    }
 
    @Override
-   public void crearVigenciaFormaPago(VigenciasFormasPagos vigencia) {
+   public boolean crearVigenciaFormaPago(VigenciasFormasPagos vigencia) {
       try {
-         persistenciaVigenciasFormasPagos.crear(em, vigencia);
+         return persistenciaVigenciasFormasPagos.crear(em, vigencia);
       } catch (Exception e) {
          System.out.println("Error crearVigenciaFormaPago Admi : " + e.toString());
+         return false;
       }
    }
 
    /**
     *
     * @param vigencia
+    * @return
     */
    @Override
-   public void crearVigenciaAfiliacion(VigenciasAfiliaciones vigencia) {
+   public boolean crearVigenciaAfiliacion(VigenciasAfiliaciones vigencia) {
       try {
          System.out.println("Admi vigencia crear Tipo Entidad: " + vigencia.getTipoentidad().getNombre());
          System.out.println("Admi vigencia crear Secuencia: " + vigencia.getSecuencia());
          System.out.println("Admi vigencia crear Empleado: " + vigencia.getEmpleado().getSecuencia());
          System.out.println("Admi vigencia crear Fecha: " + vigencia.getFechainicial());
-         persistenciaVigenciasAfiliaciones.crear(em, vigencia);
+         return persistenciaVigenciasAfiliaciones.crear(em, vigencia);
       } catch (Exception e) {
          System.out.println("Error crearVigenciaAfiliacion Admi : " + e.toString());
+         return false;
       }
    }
 
    /**
     *
     * @param estado
+    * @return
     */
    @Override
-   public void crearEstadoCivil(VigenciasEstadosCiviles estado) {
+   public boolean crearEstadoCivil(VigenciasEstadosCiviles estado) {
       try {
-         persistenciaVigenciasEstadosCiviles.crear(em, estado);
+         return persistenciaVigenciasEstadosCiviles.crear(em, estado);
       } catch (Exception e) {
          System.out.println("Error crearEstadoCivil Admi : " + e.toString());
+         return false;
       }
    }
 
    @Override
-   public void crearDireccion(Direcciones direccion) {
+   public boolean crearDireccion(Direcciones direccion) {
       try {
-         persistenciaDirecciones.crear(em, direccion);
+         return persistenciaDirecciones.crear(em, direccion);
       } catch (Exception e) {
          System.out.println("Error crearDireccion Admi : " + e.toString());
+         return false;
       }
    }
 
    @Override
-   public void crearTelefono(Telefonos telefono) {
+   public boolean crearTelefono(Telefonos telefono) {
       try {
-         persistenciaTelefonos.crear(em, telefono);
+         return persistenciaTelefonos.crear(em, telefono);
       } catch (Exception e) {
          System.out.println("Error crearTelefono Admi : " + e.toString());
+         return false;
       }
    }
 
    @Override
-   public void crearSets(Sets set) {
+   public boolean crearSets(Sets set) {
       try {
-         persistenciaSets.crear(em, set);
+         return persistenciaSets.crear(em, set);
       } catch (Exception e) {
          System.out.println("Error crearSets Admi : " + e.toString());
+         return false;
       }
    }
 
@@ -1075,11 +1032,12 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    }
 
    @Override
-   public void crearComprobante(Comprobantes comprobante) {
+   public boolean crearComprobante(Comprobantes comprobante) {
       try {
-         persistenciaComprobantes.crear(em, comprobante);
+         return persistenciaComprobantes.crear(em, comprobante);
       } catch (Exception e) {
          System.out.println("Error crearComprobante Admi : " + e.toString());
+         return false;
       }
    }
 
@@ -1097,13 +1055,15 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    /**
     *
     * @param corte
+    * @return 
     */
    @Override
-   public void crearCortesProcesos(CortesProcesos corte) {
+   public boolean crearCortesProcesos(CortesProcesos corte) {
       try {
-         persistenciaCortesProcesos.crear(em, corte);
+         return persistenciaCortesProcesos.crear(em, corte);
       } catch (Exception e) {
          System.out.println("Error crearCortesProcesos Admi : " + e.toString());
+         return false;
       }
    }
 
@@ -1129,4 +1089,25 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
          return null;
       }
    }
+
+   @Override
+   public Date consultarFechaHastaCausado() {
+      try {
+         return persistenciaVWActualesFechas.actualFechaHasta(em);
+      } catch (Exception e) {
+         System.out.println("Error consultando fecha en : " + this.getClass().getName());
+         return null;
+      }
+   }
+   
+   @Override
+   public void eliminarEmpleadoCompleto(BigInteger secEmpleado, BigInteger secPersona){
+      try {
+         persistenciaEmpleado.eliminarEmpleadoNominaF(em, secEmpleado, secPersona);
+      }
+      catch(Exception e){
+         System.out.println("ERROR eliminarEmpleadoCompleto() : " + e);
+      }
+   }
+   
 }

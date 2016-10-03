@@ -90,7 +90,7 @@
                         <fieldset style="position: absolute; top: 110px; left: 10px; height: 365px; width: 830px; border-radius: 10px; text-align: left">
                             <legend style=" font-size: 14px; color: blue;"><strong>#{msg['afiliaciones']}</strong></legend>
 
-                            <p:dataTable id="datosVAVigencia" var="info" rowKey="#{info.secuencia}" rowIndexVar="indiceVA" value="#{controlEmplVigenciaAfiliacion3.listVigenciasAfiliaciones}" 
+                            <p:dataTable id="datosVAVigencia" widgetVar="datosVAVigencia" var="info" rowKey="#{info.secuencia}" rowIndexVar="indiceVA" value="#{controlEmplVigenciaAfiliacion3.listVigenciasAfiliaciones}" 
                                          filteredValue="#{controlEmplVigenciaAfiliacion3.filtrarVigenciasAfiliaciones}" editable="true" editMode="cell" liveScroll="true" scrollRows="10"
                                          scrollable="true" scrollWidth="830" scrollHeight="#{controlEmplVigenciaAfiliacion3.altoTabla}" emptyMessage="#{msg['vacio']}" 
                                          style=" width: 1100px; position: inherit;"
@@ -111,7 +111,8 @@
                                             <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.fechainicial}"> 
                                                 <p:ajax event="dateSelect" listener="#{controlEmplVigenciaAfiliacion3.modificarFechas(info,0)}" update="dateFechaInicial" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlEmplVigenciaAfiliacion3.modificarFechas(info,0)}" update="dateFechaInicial" process="@this"/>
-                                                <p:ajax event="select" listener="#{controlEmplVigenciaAfiliacion3.cambiarIndiceVA(info,0)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlEmplVigenciaAfiliacion3.cambiarIndiceVA(info,0)}" process="@this"
+                                                        onstart="PF('datosVAVigencia').unselectAllRows();PF('datosVAVigencia').selectRow(#{indiceVA});"/> 
                                             </p:calendar>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -132,7 +133,8 @@
                                             <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaFinal" value="#{info.fechafinal}"> 
                                                 <p:ajax event="dateSelect" listener="#{controlEmplVigenciaAfiliacion3.modificarFechasFinales(info,1)}" update="dateFechaFinal" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlEmplVigenciaAfiliacion3.modificarFechasFinales(info,1)}" update="dateFechaFinal" process="@this"/>
-                                                <p:ajax event="select" listener="#{controlEmplVigenciaAfiliacion3.cambiarIndiceVA(info,1)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlEmplVigenciaAfiliacion3.cambiarIndiceVA(info,1)}" process="@this"
+                                                        onstart="PF('datosVAVigencia').unselectAllRows();PF('datosVAVigencia').selectRow(#{indiceVA});"/> 
                                             </p:calendar>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -147,7 +149,8 @@
                                         <f:facet name="output"><h:outputText value="#{info.tipoentidad.nombre}" style="width: 100px; "/></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.tipoentidad.nombre}" id="editarTipoEntidadVA" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height: 12px;"> 
-                                                <p:ajax event="select" listener="#{controlEmplVigenciaAfiliacion3.cambiarIndiceVA(info,2)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlEmplVigenciaAfiliacion3.cambiarIndiceVA(info,2)}" process="@this"
+                                                        onstart="PF('datosVAVigencia').unselectAllRows();PF('datosVAVigencia').selectRow(#{indiceVA});"/> 
                                                 <p:ajax event="dblclick" listener="#{controlEmplVigenciaAfiliacion3.asignarIndex(info,0,0)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlEmplVigenciaAfiliacion3.modificarVA(info, 'TIPOENTIDAD', info.tipoentidad.nombre)}" process="@this" update="editarTipoEntidadVA"/>
                                             </p:inputText>
@@ -164,7 +167,8 @@
                                         <f:facet name="output"><h:outputText value="#{info.tercerosucursal.tercero.nombre}"/></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  maxlength="30" value="#{info.tercerosucursal.tercero.nombre}" id="editarTerceroVA" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px;"> 
-                                                <p:ajax event="select" listener="#{controlEmplVigenciaAfiliacion3.cambiarIndiceVA(info,3)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlEmplVigenciaAfiliacion3.cambiarIndiceVA(info,3)}" process="@this"
+                                                        onstart="PF('datosVAVigencia').unselectAllRows();PF('datosVAVigencia').selectRow(#{indiceVA});"/> 
                                                 <p:ajax event="dblclick" listener="#{controlEmplVigenciaAfiliacion3.asignarIndex(info,1, 0)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlEmplVigenciaAfiliacion3.modificarVA(info, 'TERCEROS', info.tercerosucursal.tercero.nombre)}" process="@this" update="editarTerceroVA"/>                                                
                                             </p:inputText>
@@ -181,7 +185,7 @@
                                         <f:facet name="output"><h:outputText value="#{info.tercerosucursal.tercero.nit}" style="width: 100px; "/></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  readonly="true"  value="#{info.tercerosucursal.tercero.nit}" id="editarNITTerceroVA" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px;"
-                                                         onclick="select();" onselect="posicionNit([{name: 'n', value: '4'}, {name: 't', value: '#{indiceVA}'}]);"> 
+                                                         onclick="select();" onselect="posicionNit([{name: 'n', value: '4'}, {name: 't', value: '#{indiceVA}'}]); PF('datosVAVigencia').unselectAllRows(); PF('datosVAVigencia').selectRow(#{indiceVA});"> 
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -196,7 +200,8 @@
                                         <f:facet name="output"><h:outputText value="#{info.codigo}" style="width: 100px; "/></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{info.codigo}" id="editarCodigoVA" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px;"> 
-                                                <p:ajax event="select" listener="#{controlEmplVigenciaAfiliacion3.cambiarIndiceVA(info,5)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlEmplVigenciaAfiliacion3.cambiarIndiceVA(info,5)}" process="@this"
+                                                        onstart="PF('datosVAVigencia').unselectAllRows();PF('datosVAVigencia').selectRow(#{indiceVA});"/> 
                                                 <p:ajax event="change" listener="#{controlEmplVigenciaAfiliacion3.modificarVA(info)}" process="@this" update="editarCodigoVA"/>                                   
                                             </p:inputText>
                                         </f:facet>  
@@ -212,7 +217,8 @@
                                         <f:facet name="output"><h:outputText value="#{info.estadoafiliacion.nombre}" style="width: 100px; "/></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  maxlength="30" value="#{info.estadoafiliacion.nombre}" id="editarEstadoAfiliacionVA" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px;"> 
-                                                <p:ajax event="select" listener="#{controlEmplVigenciaAfiliacion3.cambiarIndiceVA(info,6)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlEmplVigenciaAfiliacion3.cambiarIndiceVA(info,6)}" process="@this"
+                                                        onstart="PF('datosVAVigencia').unselectAllRows();PF('datosVAVigencia').selectRow(#{indiceVA});"/> 
                                                 <p:ajax event="dblclick" listener="#{controlEmplVigenciaAfiliacion3.asignarIndex(info,2, 0)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlEmplVigenciaAfiliacion3.modificarVAEstado(info)}" process="@this" update="editarEstadoAfiliacionVA"/>                                                
                                             </p:inputText>
@@ -229,9 +235,9 @@
                                         <f:facet name="output"><h:outputText value="#{info.observaciones}" style="width: 100px; "/></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{info.observaciones}" id="editarObservacionesVA" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px;"> 
-                                                <p:ajax event="select" listener="#{controlEmplVigenciaAfiliacion3.cambiarIndiceVA(info,7)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlEmplVigenciaAfiliacion3.cambiarIndiceVA(info,7)}" process="@this"
+                                                        onstart="PF('datosVAVigencia').unselectAllRows();PF('datosVAVigencia').selectRow(#{indiceVA});"/> 
                                                 <p:ajax event="change" listener="#{controlEmplVigenciaAfiliacion3.modificarVA(info)}" process="@this" update="editarObservacionesVA"/>                                   
-
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>

@@ -26,27 +26,33 @@ public class PersistenciaVigenciasUbicaciones implements PersistenciaVigenciasUb
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
+    * @param em
+    * @param vigenciaUbicacion
+    * @return 
      */
     /*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
      private EntityManager em;
      */
 
     @Override
-    public void crear(EntityManager em, VigenciasUbicaciones vigenciaUbicacion) {
+    public boolean crear(EntityManager em, VigenciasUbicaciones vigenciaUbicacion) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
             em.persist(vigenciaUbicacion);
             tx.commit();
+            return true;
         } catch (Exception e) {
             System.out.println("PersistenciaVigenciasUbicaciones La vigencia no exite o esta reservada por lo cual no puede ser modificada: " + e);
             try {
                 if (tx.isActive()) {
                     tx.rollback();
                 }
+                return false;
             } catch (Exception ex) {
                 System.out.println("No se puede hacer rollback porque no hay una transacción");
+                return false;
             }
         }
     }

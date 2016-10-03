@@ -18,7 +18,7 @@ public interface PersistenciaSetsInterface {
      * Método encargado de insertar un Set en la base de datos.
      * @param sets Set que se quiere crear.
      */
-    public void crear(EntityManager em, Sets sets);
+    public boolean crear(EntityManager em, Sets sets);
     /**
      * Método encargado de modificar un Set de la base de datos.
      * Este método recibe la información del parámetro para hacer un 'merge' con la 

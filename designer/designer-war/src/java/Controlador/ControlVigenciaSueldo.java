@@ -801,7 +801,7 @@ public class ControlVigenciaSueldo implements Serializable {
    /**
     * Metodo que obtiene la posicion dentro de la tabla VigenciasLocalizaciones
     *
-    * @param indice Fila de la tabla
+    * @param vSueldo
     * @param celda Columna de la tabla
     */
    public void cambiarIndice(VigenciasSueldos vSueldo, int celda) {
@@ -851,6 +851,7 @@ public class ControlVigenciaSueldo implements Serializable {
             tipoListaVA = 0;
          }
          RequestContext.getCurrentInstance().update("form:datosVAVigencia");
+         contarRegistrosD();
       }
    }
 

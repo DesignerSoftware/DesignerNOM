@@ -35,7 +35,7 @@
                         <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" oncomplete="PF('operacionEnProceso').hide()"
-                                      actionListener="#{controlPersonaIndividual.botonListaValores()}" onclick="PF('operacionEnProceso').show()" process="@this"/>
+                                         actionListener="#{controlPersonaIndividual.botonListaValores()}" onclick="PF('operacionEnProceso').show()" process="@this"/>
                         <p:tooltip style="font-size: 12px;" for="listaValores" value="#{msg['lista']}"/>
 
                         <p:commandButton id="filtrar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/embudo.png);"  process="@this"/>
@@ -140,7 +140,7 @@
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarInformacionPersonal(5,'TIPODOCUMENTO', controlPersonaIndividual.txt_tipoDoc)}" process="@this" update="@this"/>
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemInformacionPersonal(5)}" process="@this"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresInformacionPersonal(5)}" process="@this"/>
-                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 21px; left: 537px; z-index: 5;"
+                              <p:commandButton value="" id="btntipoDocumentoModPersonal" widgetVar="btntipoDocumentoModPersonal" class="cssBotonLovDialogos" style="position: absolute; top: 21px; left: 537px; z-index: 5;"
                                                actionListener="#{controlPersonaIndividual.listaValoresInformacionPersonal(5)}" process="@this"/>
                            </p:inputText>
 
@@ -158,7 +158,7 @@
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarInformacionPersonal(7,'DOCUMENTO', controlPersonaIndividual.txt_ciudadDoc)}" process="@this" update="@this"/>
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemInformacionPersonal(7)}" process="@this"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresInformacionPersonal(7)}" process="@this"/>
-                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 71px; left: 537px; z-index: 5;"
+                              <p:commandButton value="" id="btnciudadDocumentoModPersonal" widgetVar="btnciudadDocumentoModPersonal" class="cssBotonLovDialogos" style="position: absolute; top: 71px; left: 537px; z-index: 5;"
                                                actionListener="#{controlPersonaIndividual.listaValoresInformacionPersonal(7)}" process="@this"/>
                            </p:inputText>
 
@@ -176,7 +176,7 @@
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemInformacionPersonal(9)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarInformacionPersonal(9,'NACIMIENTO', controlPersonaIndividual.txt_ciudadNac)}" process="@this" update="@this"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresInformacionPersonal(9)}" process="@this"/>
-                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 121px; left: 537px; z-index: 5;"
+                              <p:commandButton value="" id="btnciudadNacimientoModPersonal" widgetVar="btnciudadNacimientoModPersonal" class="cssBotonLovDialogos" style="position: absolute; top: 121px; left: 537px; z-index: 5;"
                                                actionListener="#{controlPersonaIndividual.listaValoresInformacionPersonal(9)}" process="@this"/>
                            </p:inputText>
 
@@ -184,9 +184,9 @@
                            <div id="divFechaIngresoModPersonal" style="position: absolute; top: 20px; left: 695px;">
                               <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="fechaIngresoModPersonal" value="#{controlPersonaIndividual.fechaIngreso}" >
                                  <p:ajax event="dateSelect" listener="#{controlPersonaIndividual.modificarFechaIngresoInformacionPersonal(10)}" 
-                                         update="fechaIngresoModPersonal" process="@this" onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+                                         update="fechaIngresoModPersonal" process="@this" onstart="PF('operacionEnProcesoListas').show()" oncomplete="PF('operacionEnProcesoListas').hide()"/>
                                  <p:ajax event="change" listener="#{controlPersonaIndividual.modificarFechaIngresoInformacionPersonal(10)}"
-                                         update="fechaIngresoModPersonal" process="@this" onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
+                                         update="fechaIngresoModPersonal" process="@this" onstart="PF('operacionEnProcesoListas').show()" oncomplete="PF('operacionEnProcesoListas').hide()"/>
                               </p:calendar>
                            </div>
 
@@ -228,7 +228,7 @@
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemCargoDesempeñado(0)}" immediate="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarCargoDesempeñado(0,'CARGO', controlPersonaIndividual.txt_cargo)}" process="@this" update="cargoModCargoDesempeñado"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresCargoDesempenado(0)}" process="@this"/>
-                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 16px; left: 367px; z-index: 5;"
+                              <p:commandButton value="" id="btncargoModCargoDesempeñado" widgetVar="btncargoModCargoDesempeñado" class="cssBotonLovDialogos" style="position: absolute; top: 16px; left: 367px; z-index: 5;"
                                                actionListener="#{controlPersonaIndividual.listaValoresCargoDesempenado(0)}" process="@this"/>
                            </p:inputText>
 
@@ -238,7 +238,7 @@
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemCargoDesempeñado(1)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarCargoDesempeñado(1,'MOTIVO', controlPersonaIndividual.txt_motivoCargo)}" process="@this" update="motivoModCargoDesempeñado"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresCargoDesempenado(1)}" process="@this"/>
-                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 41px; left: 367px; z-index: 5;"
+                              <p:commandButton value="" id="btnmotivoModCargoDesempeñado" widgetVar="btnmotivoModCargoDesempeñado" class="cssBotonLovDialogos" style="position: absolute; top: 41px; left: 367px; z-index: 5;"
                                                actionListener="#{controlPersonaIndividual.listaValoresCargoDesempenado(1)}" process="@this"/>
                            </p:inputText>
 
@@ -249,7 +249,7 @@
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemCargoDesempeñado(2)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarCargoDesempeñado(2,'ESTRUCTURA', controlPersonaIndividual.nuevaVigenciaCargo.estructura.nombre)}" process="@this" update="estructuraModCargoDesempeñado"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresCargoDesempenado(2)}" process="@this"/>
-                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 66px; left: 367px; z-index: 5;" disabled="#{controlPersonaIndividual.disableNombreEstructuraCargo}"
+                              <p:commandButton value="" id="btnestructuraModCargoDesempeñado" widgetVar="btnestructuraModCargoDesempeñado" class="cssBotonLovDialogos" style="position: absolute; top: 66px; left: 367px; z-index: 5;" disabled="#{controlPersonaIndividual.disableNombreEstructuraCargo}"
                                                actionListener="#{controlPersonaIndividual.listaValoresCargoDesempenado(2)}" process="@this"/>
                            </p:inputText>
                            <p:tooltip style="font-size: 12px;" for="infoEstructuraCargoDesempeñado" value="#{msg['infoEstructuraCargoDesempenado']}"/>
@@ -261,7 +261,7 @@
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarCargoDesempeñado(3,'PAPEL', controlPersonaIndividual.txt_papel)}" 
                                       update="papelModCargoDesempeñado" process="@this"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresCargoDesempenado(3)}" process="@this"/>
-                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 91px; left: 367px; z-index: 5;"
+                              <p:commandButton value="" id="btnpapelModCargoDesempeñado" widgetVar="btnpapelModCargoDesempeñado" class="cssBotonLovDialogos" style="position: absolute; top: 91px; left: 367px; z-index: 5;"
                                                actionListener="#{controlPersonaIndividual.listaValoresCargoDesempenado(3)}" process="@this"/>
                            </p:inputText>
 
@@ -271,7 +271,7 @@
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemCargoDesempeñado(4)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarCargoDesempeñado(4,'JEFE', controlPersonaIndividual.txt_empleado)}" onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" process="@this"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresCargoDesempenado(4)}" process="@this"/>
-                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 116px; left: 367px; z-index: 5;"
+                              <p:commandButton value="" id="btnempleadoJefeModCargoDesempeñado" widgetVar="btnempleadoJefeModCargoDesempeñado" class="cssBotonLovDialogos" style="position: absolute; top: 116px; left: 367px; z-index: 5;"
                                                actionListener="#{controlPersonaIndividual.listaValoresCargoDesempenado(4)}" process="@this"/>
                            </p:inputText>
 
@@ -289,7 +289,7 @@
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemCentroCosto(0)}" onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarCentroCosto(0,'MOTIVO', controlPersonaIndividual.txt_motivoCentroC)}" process="@this" update="motivoModCentroCosto"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresCentroCosto(0)}" process="@this"/>
-                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 16px; left: 382px; z-index: 5;"
+                              <p:commandButton value="" id="btnmotivoModCentroCosto" widgetVar="btnmotivoModCentroCosto" class="cssBotonLovDialogos" style="position: absolute; top: 16px; left: 382px; z-index: 5;"
                                                actionListener="#{controlPersonaIndividual.listaValoresCentroCosto(0)}" process="@this"/>
                            </p:inputText>
 
@@ -299,7 +299,7 @@
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemCentroCosto(1)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarCentroCosto(1,'ESTRUCTURA', controlPersonaIndividual.nuevaVigenciaLocalizacion.localizacion.centrocosto.nombre)}" process="@this" update="estructuraModCentroCosto"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresCentroCosto(1)}" process="@this"/>
-                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 41px; left: 382px; z-index: 5;" disabled="#{controlPersonaIndividual.disableDescripcionEstructura}"
+                              <p:commandButton value="" id="btnestructuraModCentroCosto" widgetVar="btnestructuraModCentroCosto" class="cssBotonLovDialogos" style="position: absolute; top: 41px; left: 382px; z-index: 5;" disabled="#{controlPersonaIndividual.disableDescripcionEstructura}"
                                                actionListener="#{controlPersonaIndividual.listaValoresCargoDesempenado(1)}" process="@this"/>
                            </p:inputText>
                            <p:tooltip style="font-size: 12px;" for="infoEstructuraCentroCosto" value="#{msg['infoEstructuraCentroCosto']}"/>
@@ -319,7 +319,7 @@
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarTipoTrabajador(0,'TIPOTRABAJADOR', controlPersonaIndividual.nuevaVigenciaTipoTrabajador.tipotrabajador.nombre)}"
                                       process="@this" update="tipoTrabajadorModTipoTrabajador" immediate="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresTipoTrabajador()}" process="@this"/>
-                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 26px; left: 367px; z-index: 5;"
+                              <p:commandButton value="" id="btntipoTrabajadorModTipoTrabajador" widgetVar="btntipoTrabajadorModTipoTrabajador" class="cssBotonLovDialogos" style="position: absolute; top: 26px; left: 367px; z-index: 5;"
                                                actionListener="#{controlPersonaIndividual.listaValoresTipoTrabajador()}" process="@this"/>
                            </p:inputText>
                         </fieldset>
@@ -339,7 +339,7 @@
                                       process="@this" update="tipoSalarioModTipoSalario, :formLovs:formDTipoSalario:lovReformaLaboralTipoSalario"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresTipoSalario()}"
                                       update=":formLovs:formDTipoSalario:lovReformaLaboralTipoSalario" process="@this"/>
-                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 26px; left: 382px; z-index: 5;" disabled="#{controlPersonaIndividual.disableCamposDependientesTipoT}"
+                              <p:commandButton value="" id="btntipoSalarioModTipoSalario" widgetVar="btntipoSalarioModTipoSalario" class="cssBotonLovDialogos" style="position: absolute; top: 26px; left: 382px; z-index: 5;" disabled="#{controlPersonaIndividual.disableCamposDependientesTipoT}"
                                                actionListener="#{controlPersonaIndividual.listaValoresTipoSalario()}" process="@this"/>
                            </p:inputText>
                            <p:tooltip style="font-size: 12px;" for="infoSalarioTipoSalario" value="#{msg['infoSalarioTipoSalario']}"/>
@@ -355,7 +355,7 @@
                               <f:convertNumber currencyCode="COP"/>
                            </h:outputText>
                            <p:inputText autocomplete="off"  id="valorSueldoModSueldo" onclick="select();" value="#{controlPersonaIndividual.valorSueldo}"
-                                         style="position: absolute; top: 17px; left: 230px;width: 150px;text-transform: uppercase;">
+                                        style="position: absolute; top: 17px; left: 230px;width: 150px;text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemSueldo(0)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificacionValorSueldo(controlPersonaIndividual.valorSueldo)}" process="@this" update="valorSueldoModSueldo"/>
                               <p:keyFilter for="valorSueldoModSueldo" mask="num"/>
@@ -368,7 +368,7 @@
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemSueldo(1)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarSueldo(1,'MOTIVO', controlPersonaIndividual.txt_motivoSu)}" process="@this" update="motivoSueldoModSueldo"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresSueldo(1)}" process="@this"/>
-                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 43px; left: 367px; z-index: 5;"
+                              <p:commandButton value="" id="btnmotivoSueldoModSueldo" widgetVar="btnmotivoSueldoModSueldo" class="cssBotonLovDialogos" style="position: absolute; top: 43px; left: 367px; z-index: 5;"
                                                actionListener="#{controlPersonaIndividual.listaValoresSueldo(1) }" process="@this"/>
                            </p:inputText>
 
@@ -380,7 +380,7 @@
                                       process="@this" update="tipoSueldoModSueldo, :formLovs:formDSueldo:formTipoSueldo:lovTipoSueldoSueldo"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresSueldo(2)}" 
                                       update=":formLovs:formDSueldo:formTipoSueldo:lovTipoSueldoSueldo" process="@this"/>
-                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 68px; left: 367px; z-index: 5;" disabled="#{controlPersonaIndividual.disableCamposDependientesTipoT}"
+                              <p:commandButton value="" id="btntipoSueldoModSueldo" widgetVar="btntipoSueldoModSueldo" class="cssBotonLovDialogos" style="position: absolute; top: 68px; left: 367px; z-index: 5;" disabled="#{controlPersonaIndividual.disableCamposDependientesTipoT}"
                                                actionListener="#{controlPersonaIndividual.listaValoresSueldo(2)}" process="@this"/>
                            </p:inputText>
                            <p:tooltip style="font-size: 12px;" for="infoSueldoSuelo" value="#{msg['infoSueldoSuelo']}"/>
@@ -403,7 +403,7 @@
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemTipoContrato(0)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarTipoContrato(0,'MOTIVO', controlPersonaIndividual.nuevaVigenciaTipoContrato.motivocontrato.nombre)}" process="@this" update="motivoContratoModTipoContrato"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresTipoContrato(0)}" process="@this"/>
-                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 18px; left: 382px; z-index: 5;"
+                              <p:commandButton value="" id="btnmotivoContratoModTipoContrato" widgetVar="btnmotivoContratoModTipoContrato" class="cssBotonLovDialogos" style="position: absolute; top: 18px; left: 382px; z-index: 5;"
                                                actionListener="#{controlPersonaIndividual.listaValoresTipoContrato(0) }" process="@this"/>
                            </p:inputText>
 
@@ -416,7 +416,7 @@
                                       process="@this" update="tipoContratoModTipoContrato, :formLovs:formDTipoContrato:formTipoContrat:lovMotivoContratoTipoContrato"/>
                               <p:ajax  event="dblclick" listener="#{controlPersonaIndividual.listaValoresTipoContrato(1)}" 
                                        update=":formLovs:formDTipoContrato:formTipoContrat:lovMotivoContratoTipoContrato" process="@this"/>
-                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 43px; left: 382px; z-index: 5;" disabled="#{controlPersonaIndividual.disableCamposDependientesTipoT}"
+                              <p:commandButton value="" id="btntipoContratoModTipoContrato" widgetVar="btntipoContratoModTipoContrato" class="cssBotonLovDialogos" style="position: absolute; top: 43px; left: 382px; z-index: 5;" disabled="#{controlPersonaIndividual.disableCamposDependientesTipoT}"
                                                actionListener="#{controlPersonaIndividual.listaValoresTipoContrato(1)}" process="@this"/>
                            </p:inputText>
                            <p:tooltip style="font-size: 12px;" for="infoContratoTipoContrato" value="#{msg['infoContratoTipoContrato']}"/>
@@ -444,7 +444,7 @@
                                       process="@this" update="normaLaboralModNormaLaboral, :formLovs:formDNormaLaboral:lovNormaLaboralNormaLaboral"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresNormaLaboral(0)}" 
                                       update=":formLovs:formDNormaLaboral:lovNormaLaboralNormaLaboral" process="@this"/>
-                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 31px; left: 367px; z-index: 5;" disabled="#{controlPersonaIndividual.disableCamposDependientesTipoT}"
+                              <p:commandButton value="" id="btnnormaLaboralModNormaLaboral" widgetVar="btnnormaLaboralModNormaLaboral" class="cssBotonLovDialogos" style="position: absolute; top: 31px; left: 367px; z-index: 5;" disabled="#{controlPersonaIndividual.disableCamposDependientesTipoT}"
                                                actionListener="#{controlPersonaIndividual.listaValoresNormaLaboral(0)}" process="@this"/>
                            </p:inputText>
                            <p:tooltip style="font-size: 12px;" for="infoNormaNormaLaboral" value="#{msg['infoNormaNormaLaboral']}"/>
@@ -465,7 +465,7 @@
                                       process="@this" update="legislacionLaboralModLegislacionLaboral, :formLovs:formDLegislacionLaboral:lovContratoLegislacionLaboral"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresLegislacionLaboral(0)}"
                                       process="@this" update=":formLovs:formDLegislacionLaboral:lovContratoLegislacionLaboral"/>
-                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 31px; left: 382px; z-index: 5;" disabled="#{controlPersonaIndividual.disableCamposDependientesTipoT}"
+                              <p:commandButton value="" id="btnlegislacionLaboralModLegislacionLaboral" widgetVar="btnlegislacionLaboralModLegislacionLaboral" class="cssBotonLovDialogos" style="position: absolute; top: 31px; left: 382px; z-index: 5;" disabled="#{controlPersonaIndividual.disableCamposDependientesTipoT}"
                                                actionListener="#{controlPersonaIndividual.listaValoresLegislacionLaboral(0)}" process="@this"/>
                            </p:inputText>
                            <p:tooltip style="font-size: 12px;" for="infoLegislacionLegislacionLaboral" value="#{msg['infoLegislacionLegislacionLaboral']}"/>
@@ -483,7 +483,7 @@
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemUbicacionGeografica(0)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarUbicacionGeografica(0,'UBICACION', controlPersonaIndividual.txt_ubicacionG)}" process="@this" update="ubicacionGeograficaModUbicacionGeografica"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresUbicacion(0)}" process="@this"/>
-                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 31px; left: 367px; z-index: 5;" disabled="#{controlPersonaIndividual.disableUbicacionGeografica}"
+                              <p:commandButton value="" id="btnubicacionGeograficaModUbicacionGeografica" widgetVar="btnubicacionGeograficaModUbicacionGeografica" class="cssBotonLovDialogos" style="position: absolute; top: 31px; left: 367px; z-index: 5;" disabled="#{controlPersonaIndividual.disableUbicacionGeografica}"
                                                actionListener="#{controlPersonaIndividual.listaValoresUbicacion(0)}" process="@this"/>
                            </p:inputText>
                            <p:tooltip style="font-size: 12px;" for="infoUbicacionUbicacion" value="#{msg['infoUbicacionUbicacion']}"/>
@@ -497,12 +497,12 @@
                                          background-repeat: no-repeat; border: none; background-size: 100% 100%; border: outset; border-width: 2px; border-width: 2px;"/>
 
                            <h:outputText  value="*#{msg['jornadaLaboral']}:" style="position: absolute; top: 35px; left: 65px;font-weight: bold;"/>
-                           <p:inputText autocomplete="off" id="jornadaLaboralModJornadaLaboral" onclick="select();" value="#{controlPersonaIndividual.txt_jornada}"
+                           <p:inputText autocomplete="off" id="jornadaLaboralModJornadaLaboral" widgetVar="jornadaLaboralModJornadaLaboral" onclick="select();" value="#{controlPersonaIndividual.txt_jornada}"
                                         style="position: absolute; top: 30px; left: 240px; width: 155px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemJornadaLaboral(0)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarJornadaLaboral(0,'JORNADA', controlPersonaIndividual.txt_jornada)}" process="@this" update="jornadaLaboralModJornadaLaboral"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresJornadaLaboral(0)}" process="@this"/>
-                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 31px; left: 382px; z-index: 5;"
+                              <p:commandButton value="" id="btnjornadaLaboralModJornadaLaboral" widgetVar="btnjornadaLaboralModJornadaLaboral" class="cssBotonLovDialogos" style="position: absolute; top: 31px; left: 382px; z-index: 5;"
                                                actionListener="#{controlPersonaIndividual.listaValoresJornadaLaboral()}" process="@this"/>
                            </p:inputText>
                         </fieldset>
@@ -519,7 +519,7 @@
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemFormaPago(0)}" immediate="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarFormaPago(0,'FORMA', controlPersonaIndividual.txt_formaP)}" process="@this" update="formaPagoModFormaPago"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresFormaPago(0)}" process="@this"/>
-                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 16px; left: 417px; z-index: 5;"
+                              <p:commandButton value="" id="btnformaPagoModFormaPago" widgetVar="btnformaPagoModFormaPago" class="cssBotonLovDialogos" style="position: absolute; top: 16px; left: 417px; z-index: 5;"
                                                actionListener="#{controlPersonaIndividual.listaValoresFormaPago(0)}" process="@this"/>
                            </p:inputText>
 
@@ -543,9 +543,9 @@
                            <p:inputText autocomplete="off" id="sucursalPagoModFormaPago" onclick="select();" value="#{controlPersonaIndividual.nuevaVigenciaFormaPago.sucursal.nombre}"
                                         style="position: absolute; top: 15px; left: 595px; width: 210px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemFormaPago(3)}" process="@this"/>
-                              <p:ajax event="change" listener="#{controlPersonaIndividual.modificarFormaPago(3,'SUCURSAL', controlPersonaIndividual.nuevaVigenciaFormaPago.sucursal.nombre)}" process="@this" update="sucursalPagoModFormaPago"/>
+                              <p:ajax event="change" listener="#{controlPersonaIndividual.modificarFormaPago(3, 'SUCURSAL', controlPersonaIndividual.nuevaVigenciaFormaPago.sucursal.nombre)}" process="@this" update="sucursalPagoModFormaPago"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresFormaPago(3)}" process="@this"/>
-                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 16px; left: 792px; z-index: 5;"
+                              <p:commandButton value="" id="btnsucursalPagoModFormaPago" widgetVar="btnsucursalPagoModFormaPago" class="cssBotonLovDialogos" style="position: absolute; top: 16px; left: 792px; z-index: 5;"
                                                actionListener="#{controlPersonaIndividual.listaValoresFormaPago(3)}" process="@this"/>
                            </p:inputText>
 
@@ -553,9 +553,9 @@
                            <p:inputText autocomplete="off" id="metodoPagoModFormaPago" onclick="select();" value="#{controlPersonaIndividual.txt_metodoP}"
                                         style="position: absolute; top: 40px; left: 595px; width: 210px; text-transform: uppercase;">
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemFormaPago(4)}" immediate="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" process="@this"/>
-                              <p:ajax event="change" listener="#{controlPersonaIndividual.modificarFormaPago(4,'METODO', controlPersonaIndividual.txt_metodoP)}" process="@this" update="metodoPagoModFormaPago"/>
+                              <p:ajax event="change" listener="#{controlPersonaIndividual.modificarFormaPago(4, 'METODO', controlPersonaIndividual.txt_metodoP)}" process="@this" update="metodoPagoModFormaPago"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresFormaPago(4)}" process="@this"/>
-                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 41px; left: 792px; z-index: 5;"
+                              <p:commandButton value="" id="btnmetodoPagoModFormaPago" widgetVar="btnmetodoPagoModFormaPago" class="cssBotonLovDialogos" style="position: absolute; top: 41px; left: 792px; z-index: 5;"
                                                actionListener="#{controlPersonaIndividual.listaValoresFormaPago(4)}" process="@this"/>
                            </p:inputText>
                         </fieldset>
@@ -572,19 +572,19 @@
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemAfiliacionEPS(0)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarAfiliacionEPS(0,'EPS', controlPersonaIndividual.txt_terceroEPS)}" process="@this" update="epsModAfiliaciones"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresAfiliacionEPS()}" process="@this"/>
-                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 13px; left: 762px; z-index: 5;" disabled="#{controlPersonaIndividual.disableAfiliaciones}"
-                                               actionListener="#{controlPersonaIndividual.listaValoresAfiliacionEPS() }" process="@this"/>
+                              <p:commandButton value="" id="btnepsModAfiliaciones" widgetVar="btnepsModAfiliaciones" class="cssBotonLovDialogos" style="position: absolute; top: 13px; left: 762px; z-index: 5;" disabled="#{controlPersonaIndividual.disableAfiliaciones}"
+                                               actionListener="#{controlPersonaIndividual.listaValoresAfiliacionEPS()}" process="@this"/>
                            </p:inputText>
                            <p:tooltip style="font-size: 12px;" for="infoAfiliacionEPS" value="#{msg['infoAfiliacion']}"/>
 
                            <h:outputText id="infoAfiliacionARP" value="*#{msg['arp']}:" style="position: absolute; top: 42px; left: 65px;font-weight: bold;"/>
                            <p:inputText autocomplete="off" id="arpModAfiliaciones" readonly="true" onclick="select();" value="#{controlPersonaIndividual.txt_terceroARL}" 
                                         style="position: absolute; top: 37px; left: 400px; width: 375px; text-transform: uppercase;">
-<!--                              <p:ajax event="focus" listener="#/{controlPersonaIndividual.cambiarItemAfiliacionARP(0)}" process="@this"/>
-                              <p:ajax event="change" listener="#/{controlPersonaIndividual.modificarAfiliacionARP(0,'ARP', controlPersonaIndividual.txt_terceroARL)}" process="@this" update="arpModAfiliaciones"/>
-                              <p:ajax event="dblclick" listener="#/{controlPersonaIndividual.listaValoresAfiliacionARP()}" process="@this"/>-->
-<!--                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 38px; left: 762px; z-index: 5;" disabled="#{controlPersonaIndividual.disableAfiliaciones}"
-                                               actionListener="#/{controlPersonaIndividual.listaValoresAfiliacionARP()}" process="@this"/>-->
+                              <!--                              <p:ajax event="focus" listener="#/{controlPersonaIndividual.cambiarItemAfiliacionARP(0)}" process="@this"/>
+                                                            <p:ajax event="change" listener="#/{controlPersonaIndividual.modificarAfiliacionARP(0,'ARP', controlPersonaIndividual.txt_terceroARL)}" process="@this" update="arpModAfiliaciones"/>
+                                                            <p:ajax event="dblclick" listener="#/{controlPersonaIndividual.listaValoresAfiliacionARP()}" process="@this"/>-->
+                              <!--                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 38px; left: 762px; z-index: 5;" disabled="#{controlPersonaIndividual.disableAfiliaciones}"
+                                                                             actionListener="#/{controlPersonaIndividual.listaValoresAfiliacionARP()}" process="@this"/>-->
                            </p:inputText>
                            <p:tooltip style="font-size: 12px;" for="infoAfiliacionARP" value="#{msg['infoAfiliacion']}"/>
 
@@ -594,7 +594,7 @@
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemAfiliacionFondo(0)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarAfiliacionFondo(0,'FONDO', controlPersonaIndividual.txt_terceroCes)}" process="@this" update="fondoCensantiasModAfiliaciones"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresAfiliacionFondo()}" process="@this"/>
-                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 63px; left: 762px; z-index: 5;" disabled="#{controlPersonaIndividual.disableAfiliaciones}"
+                              <p:commandButton value="" id="btnfondoCensantiasModAfiliaciones" widgetVar="btnfondoCensantiasModAfiliaciones" class="cssBotonLovDialogos" style="position: absolute; top: 63px; left: 762px; z-index: 5;" disabled="#{controlPersonaIndividual.disableAfiliaciones}"
                                                actionListener="#{controlPersonaIndividual.listaValoresAfiliacionFondo()}" process="@this"/>
                            </p:inputText>
                            <p:tooltip style="font-size: 12px;" for="infoAfiliacionFondo" value="#{msg['infoAfiliacion']}"/>
@@ -605,7 +605,7 @@
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemAfiliacionAFP(0)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarAfiliacionAFP(0,'AFP', controlPersonaIndividual.txt_terceroAFP)}" process="@this" update="afpModAfiliaciones"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresAfiliacionAFP()}" process="@this"/>
-                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 88px; left: 762px; z-index: 5;" disabled="#{controlPersonaIndividual.disableAfiliaciones}"
+                              <p:commandButton value="" id="btnafpModAfiliaciones" widgetVar="btnafpModAfiliaciones" class="cssBotonLovDialogos" style="position: absolute; top: 88px; left: 762px; z-index: 5;" disabled="#{controlPersonaIndividual.disableAfiliaciones}"
                                                actionListener="#{controlPersonaIndividual.listaValoresAfiliacionAFP()}" process="@this"/>
                            </p:inputText>
                            <p:tooltip style="font-size: 12px;" for="infoAfiliacionAFP" value="#{msg['infoAfiliacion']}"/>
@@ -616,7 +616,7 @@
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemAfiliacionCaja(0)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarAfiliacionCaja(0,'CAJA', controlPersonaIndividual.txt_terceroCC)}" process="@this" update="cajaCompensacionModAfiliaciones"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresAfiliacionCaja()}" process="@this"/>
-                              <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 113px; left: 762px; z-index: 5;" disabled="#{controlPersonaIndividual.disableAfiliaciones}"
+                              <p:commandButton value="" id="btncajaCompensacionModAfiliaciones" widgetVar="btncajaCompensacionModAfiliaciones" class="cssBotonLovDialogos" style="position: absolute; top: 113px; left: 762px; z-index: 5;" disabled="#{controlPersonaIndividual.disableAfiliaciones}"
                                                actionListener="#{controlPersonaIndividual.listaValoresAfiliacionCaja()}" process="@this"/>
                            </p:inputText>
                            <p:tooltip style="font-size: 12px;" for="infoAfiliacionCaja" value="#{msg['infoAfiliacion']}"/>
@@ -664,7 +664,7 @@
                                  <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemEstadoCivil(0)}" process="@this"/>
                                  <p:ajax event="change" listener="#{controlPersonaIndividual.modificarEstadoCivil(0,'ESTADO', controlPersonaIndividual.nuevoEstadoCivil.estadocivil.descripcion)}" process="@this" update="estadoCivilModEstadoCivil"/>
                                  <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresEstadoCivil()}" process="@this"/>
-                                 <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 21px; left: 347px; z-index: 5;"
+                                 <p:commandButton value="" id="btnestadoCivilModEstadoCivil" widgetVar="btnestadoCivilModEstadoCivil" class="cssBotonLovDialogos" style="position: absolute; top: 21px; left: 347px; z-index: 5;"
                                                   actionListener="#{controlPersonaIndividual.listaValoresEstadoCivil()}" process="@this"/>
                               </p:inputText>
                            </fieldset>
@@ -689,7 +689,7 @@
                                  <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemDireccion(1)}" process="@this"/>
                                  <p:ajax event="change" listener="#{controlPersonaIndividual.modificarDireccion(1,'CIUDAD', controlPersonaIndividual.nuevaDireccion.ciudad.nombre)}" process="@this" update="ciudadModDireccion"/>
                                  <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresDireccion()}" process="@this"/>
-                                 <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 41px; left: 347px; z-index: 5;"
+                                 <p:commandButton value="" id="btnciudadModDireccion" widgetVar="btnciudadModDireccion" class="cssBotonLovDialogos" style="position: absolute; top: 41px; left: 347px; z-index: 5;"
                                                   actionListener="#{controlPersonaIndividual.listaValoresDireccion()}" process="@this"/>
                               </p:inputText>
                            </fieldset>
@@ -707,7 +707,7 @@
                                  <p:ajax event="change" listener="#{controlPersonaIndividual.modificarTelefono(0,'TIPO', controlPersonaIndividual.nuevoTelefono.tipotelefono.nombre)}"
                                          process="@this" update="tipoTelefonoModTelefono"/>
                                  <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresTelefono(0)}" process="@this"/>
-                                 <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 16px; left: 347px; z-index: 5;"
+                                 <p:commandButton value="" id="btntipoTelefonoModTelefono" widgetVar="btntipoTelefonoModTelefono" class="cssBotonLovDialogos" style="position: absolute; top: 16px; left: 347px; z-index: 5;"
                                                   actionListener="#{controlPersonaIndividual.listaValoresTelefono(0)}" process="@this"/>
                               </p:inputText>
 
@@ -718,7 +718,7 @@
                                  <p:ajax event="change" listener="#{controlPersonaIndividual.modificarTelefono(1,'CIUDAD', controlPersonaIndividual.nuevoTelefono.ciudad.nombre)}"
                                          process="@this" update="ciudadModTelefono"/>
                                  <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresTelefono(1)}" process="@this"/>
-                                 <p:commandButton value="" class="cssBotonLovDialogos" style="position: absolute; top: 41px; left: 347px; z-index: 5;"
+                                 <p:commandButton value="" id="btnciudadModTelefono" widgetVar="btnciudadModTelefono" class="cssBotonLovDialogos" style="position: absolute; top: 41px; left: 347px; z-index: 5;"
                                                   actionListener="#{controlPersonaIndividual.listaValoresTelefono(1)}" process="@this"/>
                               </p:inputText>
 
@@ -959,7 +959,7 @@
                            <h:outputText id="infoRegistroCargoCargoDesempenado" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroCargoDesempenado}" class="cssinfoRegistroLOV"/>
 
                            <p:commandButton id="aceptarCCD" class="cssAceptarLOV" update="@this" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
-                                            oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:motivoModCargoDesempeñado');});"
+                                            oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:cargoModCargoDesempeñado');});"
                                             actionListener="#{controlPersonaIndividual.actualizarParametroCargoCargoDesempeñado()}" process="@this" icon="ui-icon-check"/>
                            <p:commandButton id="atrasCCD" class="cssAtrasLOV" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
                                             actionListener="#{controlPersonaIndividual.cancelarParametroCargoCargoDesempeñado()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
@@ -993,7 +993,7 @@
                         <div class="cssBotonesLOV">
                            <h:outputText id="infoRegistroMotivoCargoCargoDesempenado" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroMotivoCargoDesempenado}" class="cssinfoRegistroLOV"/>
                            <p:commandButton id="aceptarMCCCD" class="cssAceptarLOV" update="@this" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
-                                            oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:estructuraModCargoDesempeñado');});"
+                                            oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:motivoModCargoDesempeñado');});"
                                             actionListener="#{controlPersonaIndividual.actualizarParametroMotivoCambioCargoCargoDesempeñado()}" process="@this" icon="ui-icon-check"/>
                            <p:commandButton id="atrasMCCCD" class="cssAtrasLOV" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
                                             actionListener="#{controlPersonaIndividual.cancelarParametroMotivoCambioCargoCargoDesempeñado()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
@@ -1010,7 +1010,7 @@
 
                            <p:ajax event="filter" listener="#{controlPersonaIndividual.contarRegistros_EstrCargoD()}" update=":formLovs:formDCargoDesempenado:formEstruCargo:aceptarECD"/>
                            <p:ajax event="rowDblselect" listener="#{controlPersonaIndividual.actualizarParametroEstructuraCargoDesempeñado()}"
-                                   oncomplete="$(function(){PrimeFaces.focus('form:papelModCargoDesempeñado');});" process="@this"/>
+                                   oncomplete="$(function(){PrimeFaces.focus('form:estructuraModCargoDesempeñado');});" process="@this"/>
                            <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDCargoDesempenado:formEstruCargo:aceptarECD"/>
 
                            <f:facet name="header">  
@@ -1028,10 +1028,10 @@
                         <div class="cssBotonesLOV">
                            <h:outputText id="infoRegistroEstructuraCargoDesempenado" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroEstructuraCargoDesempenado}" class="cssinfoRegistroLOV"/>
                            <p:commandButton id="aceptarECD" class="cssAceptarLOV" update="@this" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
-                                            immediate="true" oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:papelModCargoDesempeñado');});"
+                                            immediate="true" oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:estructuraModCargoDesempeñado');});"
                                             actionListener="#{controlPersonaIndividual.actualizarParametroEstructuraCargoDesempeñado()}" process="@this" icon="ui-icon-check"/>
                            <p:commandButton id="atrasECD" class="cssAtrasLOV" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" icon="ui-icon-arrowreturnthick-1-w"
-                                            oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:papelModCargoDesempeñado');});"
+                                            oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:estructuraModCargoDesempeñado');});"
                                             actionListener="#{controlPersonaIndividual.cancelarParametroEstructuraCargoDesempeñado()}" process="@this"/>
                         </div>
                      </p:dialog>
@@ -1046,7 +1046,7 @@
 
                            <p:ajax event="filter" listener="#{controlPersonaIndividual.contarRegistros_PapelCargoD()}" update=":formLovs:formDCargoDesempenado:formPapelD:aceptarPCD"/>
                            <p:ajax event="rowDblselect" listener="#{controlPersonaIndividual.actualizarParametroPapelCargoDesempeñado()}" process="@this"
-                                   oncomplete="$(function(){PrimeFaces.focus('form:empleadoJefeModCargoDesempeñado');});"/>
+                                   oncomplete="$(function(){PrimeFaces.focus('form:papelModCargoDesempeñado');});"/>
                            <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDCargoDesempenado:formPapelD:aceptarPCD"/>
 
                            <f:facet name="header"> 
@@ -1064,9 +1064,9 @@
                         <div class="cssBotonesLOV"> 
                            <h:outputText id="infoRegistroPapelCargoDesempenado" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroPapelCargoDesempenado}" class="cssinfoRegistroLOV"/>
                            <p:commandButton id="aceptarPCD" class="cssAceptarLOV" update="@this" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
-                                            oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:empleadoJefeModCargoDesempeñado');});"
+                                            oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:papelModCargoDesempeñado');});"
                                             actionListener="#{controlPersonaIndividual.actualizarParametroPapelCargoDesempeñado}" process="@this" icon="ui-icon-check"/>
-                           <p:commandButton id="atrasPCD" class="cssAtrasLOV" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:empleadoJefeModCargoDesempeñado');});" 
+                           <p:commandButton id="atrasPCD" class="cssAtrasLOV" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:papelModCargoDesempeñado');});" 
                                             actionListener="#{controlPersonaIndividual.cancelarParametroPapelCargoDesempeñado()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                         </div>    
                      </p:dialog>
@@ -1081,7 +1081,7 @@
 
                            <p:ajax event="filter" listener="#{controlPersonaIndividual.contarRegistros_JefeCargoD()}" update=":formLovs:formDCargoDesempenado:formjefe:aceptarEJCD"/>
                            <p:ajax event="rowDblselect" listener="#{controlPersonaIndividual.actualizarParametroJefeCargoDesempeñado()}" process="@this"
-                                   oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:motivoModCentroCosto');});"/>
+                                   oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:empleadoJefeModCargoDesempeñado');});"/>
                            <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDCargoDesempenado:formjefe:aceptarEJCD"/>
 
                            <f:facet name="header"> 
@@ -1099,9 +1099,9 @@
                         <div class="cssBotonesLOV">
                            <h:outputText id="infoRegistroJefeCargoDesempenado" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroJefeCargoDesempenado}" class="cssinfoRegistroLOV"/>
                            <p:commandButton id="aceptarEJCD" class="cssAceptarLOV" update="@this" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
-                                            oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:motivoModCentroCosto');});"
+                                            oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:empleadoJefeModCargoDesempeñado');});"
                                             actionListener="#{controlPersonaIndividual.actualizarParametroJefeCargoDesempeñado}" process="@this" icon="ui-icon-check"/>
-                           <p:commandButton id="atrasEJCD" class="cssAtrasLOV" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:motivoModCentroCosto');});" 
+                           <p:commandButton id="atrasEJCD" class="cssAtrasLOV" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:empleadoJefeModCargoDesempeñado');});" 
                                             actionListener="#{controlPersonaIndividual.cancelarParametroJefeCargoDesempeñado()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                         </div>
                      </p:dialog>
@@ -1135,7 +1135,7 @@
                         <div class="cssBotonesLOV">
                            <h:outputText id="infoRegistroMotivoCentroCosto" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroMotivoCentroCosto}" class="cssinfoRegistroLOV"/>
                            <p:commandButton id="aceptarMLCC" class="cssAceptarLOV" update="@this" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()"
-                                            oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:estructuraModCentroCosto');});"
+                                            oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:motivoModCentroCosto');});"
                                             actionListener="#{controlPersonaIndividual.actualizarParametroMotivoCentroCosto()}" process="@this" icon="ui-icon-check"/>
                            <p:commandButton id="atrasMLCC" class="cssAtrasLOV" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
                                             actionListener="#{controlPersonaIndividual.cancelarParametroMotivoCentroCosto()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
@@ -1182,7 +1182,7 @@
                         <div class="cssBotonesLOV"> 
                            <h:outputText id="infoRegistroEstructuraCentroCosto" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroEstructuraCentroCosto}" class="cssinfoRegistroLOV"/>
                            <p:commandButton id="aceptarECC" class="cssAceptarLOV" update="@this" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
-                                            oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:tipoTrabajadorModTipoTrabajador');});"
+                                            oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:estructuraModCentroCosto');});"
                                             actionListener="#{controlPersonaIndividual.actualizarParametroEstructuraCentroCosto()}" process="@this" icon="ui-icon-check"/>
                            <p:commandButton id="atrasECC" class="cssAtrasLOV" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
                                             actionListener="#{controlPersonaIndividual.cancelarParametroEstructuraCentroCosto()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
@@ -1220,7 +1220,7 @@
                         <p:commandButton id="aceptarTTTT" class="cssAceptarLOV" update="@this" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}"
                                          actionListener="#{controlPersonaIndividual.actualizarParametroTipoTrabajadorTipoTrabajador()}"
                                          oncomplete="PF('operacionEnProceso').hide()" icon="ui-icon-check" process="@this"/>
-                        <p:commandButton id="atrasTTTT" class="cssAtrasLOV"  value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"
+                        <p:commandButton id="atrasTTTT" class="cssAtrasLOV"  value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:tipoTrabajadorModTipoTrabajador');});"
                                          actionListener="#{controlPersonaIndividual.cancelarParametroTipoTrabajadorTipoTrabajador()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                      </div>
                   </p:dialog>
@@ -1290,7 +1290,7 @@
                         <div class="cssBotonesLOV" >
                            <h:outputText id="infoRegistroMotivoSueldo" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroMotivoSueldo}" class="cssinfoRegistroLOV"/>
                            <p:commandButton id="aceptarMCSS" class="cssAceptarLOV" update="@this" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
-                                            oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:tipoSueldoModSueldo');});"
+                                            oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:motivoSueldoModSueldo');});"
                                             actionListener="#{controlPersonaIndividual.actualizarParametroMotivoCambioSueldoSueldo()}" process="@this" icon="ui-icon-check"/>
                            <p:commandButton id="atrasMCSS" class="cssAtrasLOV" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
                                             actionListener="#{controlPersonaIndividual.cancelarParametroMotivoCambioSueldoSueldo()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
@@ -1324,7 +1324,7 @@
                         <div class="cssBotonesLOV">
                            <h:outputText id="infoRegistroTipoSueldoSueldo" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroTipoSueldoS}" class="cssinfoRegistroLOV"/>
                            <p:commandButton id="aceptarTSS" class="cssAceptarLOV" update="@this" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
-                                            oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:motivoContratoModTipoContrato');});"
+                                            oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:tipoSueldoModSueldo');});"
                                             actionListener="#{controlPersonaIndividual.actualizarParametroTipoSueldoSueldo()}" process="@this" icon="ui-icon-check"/>
                            <p:commandButton id="atrasTSS" class="cssAtrasLOV" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
                                             actionListener="#{controlPersonaIndividual.cancelarParametroTipoSueldoSueldo()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
@@ -1394,7 +1394,7 @@
                         <div class="cssBotonesLOV">
                            <h:outputText id="infoRegistroMotivoTipoContrato" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroMotivoTipoContrato}" class="cssinfoRegistroLOV"/>
                            <p:commandButton id="aceptarMCTC" class="cssAceptarLOV" update="@this" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
-                                            oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:tipoContratoModTipoContrato');});"
+                                            oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:motivoContratoModTipoContrato');});"
                                             actionListener="#{controlPersonaIndividual.actualizarParametroMotivoContratoTipoContrato()}" process="@this" icon="ui-icon-check"/>
                            <p:commandButton id="atrasMCTC" class="cssAtrasLOV" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"
                                             actionListener="#{controlPersonaIndividual.cancelarParametroMotivoContratoTipoContrato()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
@@ -1445,7 +1445,7 @@
 
                         <p:ajax event="filter" listener="#{controlPersonaIndividual.contarRegistros_NormaL()}" update=":formLovs:formDNormaLaboral:aceptarNLNL"/>
                         <p:ajax event="rowDblselect" listener="#{controlPersonaIndividual.actualizarParametroNormaNormaLaboral()}" process="@this"
-                                oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:legislacionLaboralModLegislacionLaboral');});"/>
+                                oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:normaLaboralModNormaLaboral');});"/>
                         <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDNormaLaboral:aceptarNLNL"/>
 
                         <f:facet name="header">  
@@ -1463,7 +1463,7 @@
                      <div class="cssBotonesLOV">
                         <h:outputText id="infoRegistroNormaNormaLaboral" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroNormaLaboral}" class="cssinfoRegistroLOV"/>
                         <p:commandButton id="aceptarNLNL" class="cssAceptarLOV" update="@this" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
-                                         oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:legislacionLaboralModLegislacionLaboral');});"  actionListener="#{controlPersonaIndividual.actualizarParametroNormaNormaLaboral()}" 
+                                         oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:normaLaboralModNormaLaboral');});"  actionListener="#{controlPersonaIndividual.actualizarParametroNormaNormaLaboral()}" 
                                          process="@this" icon="ui-icon-check"/>
                         <p:commandButton id="atrasNLNL" class="cssAtrasLOV" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"
                                          actionListener="#{controlPersonaIndividual.cancelarParametroNormaNormaLaboral()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
@@ -1498,7 +1498,7 @@
                      <div class="cssBotonesLOV">
                         <h:outputText id="infoRegistroContratoLegislacionLaboral" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroContratoLegislacionL}" class="cssinfoRegistroLOV"/>
                         <p:commandButton id="aceptarCLL" class="cssAceptarLOV" update="@this" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
-                                         oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:ubicacionGeograficaModUbicacionGeografica');});" actionListener="#{controlPersonaIndividual.actualizarParametroContratoLegislacionLaboral()}" process="@this" icon="ui-icon-check"/>
+                                         oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:legislacionLaboralModLegislacionLaboral');});" actionListener="#{controlPersonaIndividual.actualizarParametroContratoLegislacionLaboral()}" process="@this" icon="ui-icon-check"/>
                         <p:commandButton id="atrasCLL" class="cssAtrasLOV" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
                                          actionListener="#{controlPersonaIndividual.cancelarParametroContratoLegislacionLaboral()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                      </div>
@@ -1515,7 +1515,7 @@
 
                         <p:ajax event="filter" listener="#{controlPersonaIndividual.contarRegistros_UbicacionUb()}" update=":formLovs:formDUbicacion:aceptarUGUGL"/>
                         <p:ajax event="rowDblselect" listener="#{controlPersonaIndividual.actualizarParametroUbicacionUbicacionGeografica()}" process="@this"
-                                onstart="PF('lovUbicacionUbicacionGeografica').clearFilters()" oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:jornadaLaboralModJornadaLaboral');});"/>
+                                onstart="PF('lovUbicacionUbicacionGeografica').clearFilters()" oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:ubicacionGeograficaModUbicacionGeografica');});"/>
                         <p:ajax event="rowSelect" process="@this" immediate="true" listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDUbicacion:aceptarUGUGL"/>
 
                         <f:facet name="header">  
@@ -1563,7 +1563,7 @@
                      <div class="cssBotonesLOV">
                         <h:outputText id="infoRegistroUbicacionUbicacion" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroUbicacionUb}" class="cssinfoRegistroLOV"/>
                         <p:commandButton id="aceptarUGUGL" class="cssAceptarLOV" update="@this" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
-                                         oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:jornadaLaboralModJornadaLaboral');});" actionListener="#{controlPersonaIndividual.actualizarParametroUbicacionUbicacionGeografica()}" process="@this" icon="ui-icon-check"/>
+                                         oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:ubicacionGeograficaModUbicacionGeografica');});" actionListener="#{controlPersonaIndividual.actualizarParametroUbicacionUbicacionGeografica()}" process="@this" icon="ui-icon-check"/>
                         <p:commandButton id="atrasUGUGL" class="cssAtrasLOV" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" 
                                          oncomplete="PF('operacionEnProceso').hide()"
                                          actionListener="#{controlPersonaIndividual.cancelarParametroUbicacionUbicacionGeografica()}"  process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
@@ -1599,7 +1599,7 @@
                      <div class="cssBotonesLOV">
                         <h:outputText id="infoRegistroJornadaJornadaLaboral" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroJornadaLaboral}" class="cssinfoRegistroLOV"/>
                         <p:commandButton id="aceptarJLJL" class="cssAceptarLOV" update="@this" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
-                                         oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:formaPagoModFormaPago');});" actionListener="#{controlPersonaIndividual.actualizarParametroJornadaJornadaLaboral()}" process="@this" icon="ui-icon-check"/>
+                                         oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:jornadaLaboralModJornadaLaboral');});" actionListener="#{controlPersonaIndividual.actualizarParametroJornadaJornadaLaboral()}" process="@this" icon="ui-icon-check"/>
                         <p:commandButton id="atrasJLJL" class="cssAtrasLOV" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
                                          actionListener="#{controlPersonaIndividual.cancelarParametroJornadaJornadaLaboral()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                      </div>
@@ -1666,7 +1666,7 @@
                         <div class="cssBotonesLOV">
                            <h:outputText id="infoRegistroSucursalFormaPago" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroSucursalFormaPago}" class="cssinfoRegistroLOV"/>
                            <p:commandButton id="aceptarSFP" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
-                                            oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:metodoPagoModFormaPago');});" actionListener="#{controlPersonaIndividual.actualizarParametroSucursalFormaPago()}" process="@this" icon="ui-icon-check"/>
+                                            oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:sucursalPagoModFormaPago');});" actionListener="#{controlPersonaIndividual.actualizarParametroSucursalFormaPago()}" process="@this" icon="ui-icon-check"/>
                            <p:commandButton id="atrasSFP" class="cssAtrasLOV" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
                                             actionListener="#{controlPersonaIndividual.cancelarParametroSucursalFormaPago()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                         </div>
@@ -1698,7 +1698,7 @@
                         <div class="cssBotonesLOV">
                            <h:outputText id="infoRegistroMetodoFormaPago" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroMetodoFormaPago}" class="cssinfoRegistroLOV"/>
                            <p:commandButton id="aceptarMPFP" class="cssAceptarLOV" update="@this" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
-                                            oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:epsModAfiliaciones');});" actionListener="#{controlPersonaIndividual.actualizarParametroMetodoFormaPago()}" 
+                                            oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:metodoPagoModFormaPago');});" actionListener="#{controlPersonaIndividual.actualizarParametroMetodoFormaPago()}" 
                                             process="@this" icon="ui-icon-check"/>
                            <p:commandButton id="atrasMPFP" class="cssAtrasLOV" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"
                                             actionListener="#{controlPersonaIndividual.cancelarParametroMetodoFormaPago()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
@@ -1746,7 +1746,8 @@
                      <div class="cssBotonesLOV">
                         <h:outputText id="infoRegistroTerceroAfiliacion" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroTerceroAfiliacion}" class="cssinfoRegistroLOV"/>
                         <p:commandButton id="aceptarTSA" class="cssAceptarLOV" update="@this" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
-                                         oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:#{controlPersonaIndividual.siguienteFocodeTercero}');});" actionListener="#{controlPersonaIndividual.actualizarParametroTerceroAfiliacion()}" process="@this" icon="ui-icon-check"/>
+                                         oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:#{controlPersonaIndividual.siguienteFocodeTercero}');});"
+                                         actionListener="#{controlPersonaIndividual.actualizarParametroTerceroAfiliacion()}" process="@this" icon="ui-icon-check"/>
                         <p:commandButton id="atrasTA" class="cssAtrasLOV" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
                                          actionListener="#{controlPersonaIndividual.cancelarParametroTerceroAfiliacion()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                      </div>
@@ -1781,7 +1782,7 @@
                         <div class="cssBotonesLOV">
                            <h:outputText id="infoRegistroTipoTelefonoTelefono" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroTipoTelTelefono}" class="cssinfoRegistroLOV"/>
                            <p:commandButton id="aceptarTTT" class="cssAceptarLOV" update="@this" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
-                                            oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:ciudadModTelefono');});" actionListener="#{controlPersonaIndividual.actualizarParametroTipoTelefonoTelefono()}" process="@this" icon="ui-icon-check"/>
+                                            oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:tipoTelefonoModTelefono');});" actionListener="#{controlPersonaIndividual.actualizarParametroTipoTelefonoTelefono()}" process="@this" icon="ui-icon-check"/>
                            <p:commandButton id="atrasTTT" class="cssAtrasLOV" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
                                             actionListener="#{controlPersonaIndividual.cancelarParametroTipoTelefonoTelefono()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                         </div>
@@ -1862,7 +1863,7 @@
                      <div class="cssBotonesLOV">
                         <h:outputText id="infoRegistroCiudadDireccion" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroCiudadDireccion}" class="cssinfoRegistroLOV"/>
                         <p:commandButton id="aceptarCD" class="cssAceptarLOV" update="@this" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
-                                         oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:tipoTelefonoModTelefono');});" actionListener="#{controlPersonaIndividual.actualizarParametroCiudadDireccion()}" process="@this" icon="ui-icon-check"/>
+                                         oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:ciudadModDireccion');});" actionListener="#{controlPersonaIndividual.actualizarParametroCiudadDireccion()}" process="@this" icon="ui-icon-check"/>
                         <p:commandButton id="atrasCD" class="cssAtrasLOV" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
                                          actionListener="#{controlPersonaIndividual.cancelarParametroCiudadDireccion()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                      </div>
@@ -1896,7 +1897,7 @@
                      <div class="cssBotonesLOV">
                         <h:outputText id="infoRegistroEstadoCivilEstadoCivil" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistrolEstadoCivil}" class="cssinfoRegistroLOV"/>
                         <p:commandButton id="aceptarECEC" class="cssAceptarLOV" update="@this" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
-                                         oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:direccionModDireccion');});" actionListener="#{controlPersonaIndividual.actualizarParametroEstadoEstadoCivil()}" process="@this" icon="ui-icon-check"/>
+                                         oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:estadoCivilModEstadoCivil');});" actionListener="#{controlPersonaIndividual.actualizarParametroEstadoEstadoCivil()}" process="@this" icon="ui-icon-check"/>
                         <p:commandButton id="atrasECEC" class="cssAtrasLOV" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
                                          actionListener="#{controlPersonaIndividual.cancelarParametroEstadoEstadoCivil()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                      </div>
@@ -1921,6 +1922,24 @@
                <p:dialog id="errorFechas" header="#{msg['error']}" widgetVar="errorFechas"  resizable="false" draggable="true" modal="true" height="88" width="308" style="font-size: 12px;" closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorFechas']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;"/>
+               </p:dialog>
+
+               <p:dialog id="errorFechaIngreso" header="#{msg['error']}" widgetVar="errorFechaIngreso"  resizable="false" draggable="true" modal="true" height="88" width="308" style="font-size: 12px;" closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="#{msg['errorFechaIngreso']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;"/>
+                  <h:outputText value="#{controlPersonaIndividual.fechaHastaCausado}" style="position: absolute; left: 70px; top: 60px; width: 185px; font-weight:bold;">
+                     <f:convertDateTime pattern="dd/MM/yyyy" />
+                  </h:outputText>
+               </p:dialog>
+
+               <p:dialog id="errorAlIngresar" header="#{msg['error']}" widgetVar="errorAlIngresar" resizable="false" draggable="true" modal="true" height="88" width="308" style="font-size: 12px;" closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="70" height="50" style="position: absolute; left: 5px; top: 10px;"/>
+                  <h:outputText value="#{msg['errorAlIngresar']}" style="position: absolute; left: 80px; top: 10px; width: 185px; font-weight:bold;"/>
+                  <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('errorAlIngresar').hide();" style="position: absolute; top: 57px; left: 205px;" process="@this"
+                                   action="nomina">
+                     <f:actionListener binding="#{controlPersonaIndividual.cancelarModificaciones()}"/>
+                     <f:actionListener binding="#{controlRemoto.validarEstadoNominaF()}"/>
+                  </p:commandButton>
                </p:dialog>
 
                <p:dialog id="errorFechaContratoFechaIngreso" header="#{msg['error']}" widgetVar="errorFechaContratoFechaIngreso"  resizable="false" draggable="true" modal="true" height="98" width="358" style="font-size: 12px;" closable="true">  
@@ -2291,6 +2310,11 @@
                <p:dialog id="operacionEnProceso" header="#{msg['informacion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="true" modal="true" height="65" width="350" style="font-size: 12px;" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                   <h:outputText value="#{msg['operacionProceso']}" style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight:bold;"/>
+               </p:dialog>
+
+               <p:dialog id="operacionEnProcesoListas" header="#{msg['informacion']}" widgetVar="operacionEnProcesoListas"  resizable="false" draggable="true" modal="true" height="65" width="350" style="font-size: 12px;" closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:outputText value="#{msg['operacionEnProcesoListas']}" style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight:bold;"/>
                </p:dialog>
 
             </h:form>

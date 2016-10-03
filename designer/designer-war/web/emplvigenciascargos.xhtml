@@ -132,7 +132,8 @@
                                  <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editFecha" value="#{info.fechavigencia}">
                                     <p:ajax event="dateSelect" listener="#{controlVigenciasCargos.modificarVC(info, 'N', info.fechavigencia)}" update="@this"/>
                                     <p:ajax event="change" listener="#{controlVigenciasCargos.modificarVC(info, 'N', info.fechavigencia)}" update="@this" process="@this"/>
-                                    <p:ajax event="select" listener="#{controlVigenciasCargos.cambiarIndice(info, 0)}" process="@this"/> 
+                                    <p:ajax event="select" listener="#{controlVigenciasCargos.cambiarIndice(info, 0)}" process="@this"
+                                            onstart="PF('datosVCEmpleado').unselectAllRows();PF('datosVCEmpleado').selectRow(#{indice});"/> 
                                  </p:calendar>
                               </f:facet>
                            </p:cellEditor>
@@ -149,7 +150,8 @@
                               <f:facet name="input">
                                  <p:inputText  autocomplete="off"  value="#{info.estructura.nombre}" id="editEstructura" style="border-radius: 0px; text-transform: uppercase; height: 12px;  width: 94%;"> 
                                     <p:ajax event="change" listener="#{controlVigenciasCargos.modificarVC(info, 'ESTRUCTURA', info.estructura.nombre)}"/>
-                                    <p:ajax event="select" listener="#{controlVigenciasCargos.cambiarIndice(info, 1)}" />
+                                    <p:ajax event="select" listener="#{controlVigenciasCargos.cambiarIndice(info, 1)}"
+                                            onstart="PF('datosVCEmpleado').unselectAllRows();PF('datosVCEmpleado').selectRow(#{indice});"/>
                                     <p:ajax event="dblclick" listener="#{controlVigenciasCargos.cargarEstructuras(info)}" update=":form:dlgEstructuras"/>
                                  </p:inputText>
                               </f:facet>  
@@ -166,7 +168,8 @@
                               <f:facet name="input">
                                  <p:inputText  autocomplete="off"  id="editMotivoC" value="#{info.motivocambiocargo.nombre}" style="border-radius: 0px; text-transform: uppercase; height: 12px;  width: 250%;">
                                     <p:ajax event="change" listener="#{controlVigenciasCargos.modificarVC(info, 'MOTIVOC', info.motivocambiocargo.nombre)}"/>
-                                    <p:ajax event="select" listener="#{controlVigenciasCargos.cambiarIndice(info, 2)}" />
+                                    <p:ajax event="select" listener="#{controlVigenciasCargos.cambiarIndice(info, 2)}"
+                                            onstart="PF('datosVCEmpleado').unselectAllRows();PF('datosVCEmpleado').selectRow(#{indice});"/>
                                     <p:ajax event="dblclick"  listener="#{controlVigenciasCargos.asignarIndex(info, 0)}"/>
                                  </p:inputText>
                               </f:facet>  
@@ -183,7 +186,8 @@
                               <f:facet name="input">
                                  <p:inputText  autocomplete="off"  value="#{info.cargo.nombre}" id="editNombreCargo" style="border-radius: 0px; text-transform: uppercase; height: 12px; width: 94%;" >
                                     <p:ajax event="change" listener="#{controlVigenciasCargos.modificarVC(info, 'NOMBREC', info.cargo.nombre)}"/>
-                                    <p:ajax event="select" listener="#{controlVigenciasCargos.cambiarIndice(info, 3)}" />
+                                    <p:ajax event="select" listener="#{controlVigenciasCargos.cambiarIndice(info, 3)}"
+                                            onstart="PF('datosVCEmpleado').unselectAllRows();PF('datosVCEmpleado').selectRow(#{indice});"/>
                                     <p:ajax event="dblclick" listener="#{controlVigenciasCargos.asignarIndex(info, 1)}"/>
                                  </p:inputText>
                               </f:facet>  
@@ -200,7 +204,8 @@
                               <f:facet name="input">
                                  <p:inputText  autocomplete="off"  value="#{info.estructura.centrocosto.nombre}" id="editCentroCosto"  style="border-radius: 0px; height: 12px;  width: 94%;">
                                     <p:ajax event="change" listener="#{controlVigenciasCargos.modificarVC(info, 'N', info.estructura.centrocosto.nombre)}"/>
-                                    <p:ajax event="select" listener="#{controlVigenciasCargos.cambiarIndice(info, 4)}" />
+                                    <p:ajax event="select" listener="#{controlVigenciasCargos.cambiarIndice(info, 4)}"
+                                            onstart="PF('datosVCEmpleado').unselectAllRows();PF('datosVCEmpleado').selectRow(#{indice});"/>
                                  </p:inputText>
                               </f:facet>  
                            </p:cellEditor>
@@ -217,7 +222,8 @@
                               <f:facet name="input">
                                  <p:inputText  autocomplete="off"  value="#{info.empleadojefe.persona.nombreCompleto}" id="editNombreJefe" style=" border-radius: 0px; text-transform: uppercase; height: 12px;  width: 94%;" >
                                     <p:ajax event="change" listener="#{controlVigenciasCargos.modificarVC(info, 'EMPLEADOJ', info.empleadojefe.persona.nombreCompleto)}"/>
-                                    <p:ajax event="select" listener="#{controlVigenciasCargos.cambiarIndice(info, 5)}"  />
+                                    <p:ajax event="select" listener="#{controlVigenciasCargos.cambiarIndice(info, 5)}"
+                                            onstart="PF('datosVCEmpleado').unselectAllRows();PF('datosVCEmpleado').selectRow(#{indice});"/>
                                     <p:ajax event="dblclick" listener="#{controlVigenciasCargos.asignarIndex(info, 2)}"/>
                                  </p:inputText>
                               </f:facet>  

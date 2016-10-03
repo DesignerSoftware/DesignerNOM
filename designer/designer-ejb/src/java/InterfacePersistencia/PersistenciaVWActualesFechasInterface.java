@@ -5,14 +5,15 @@
  */
 package InterfacePersistencia;
 
-import Entidades.VWActualesFechas;
 import java.util.Date;
+import javax.ejb.Local;
 import javax.persistence.EntityManager;
 
 /**
  *
  * @author Administrador
  */
+@Local
 public interface PersistenciaVWActualesFechasInterface {
 
     public Date actualFechaHasta(EntityManager em);

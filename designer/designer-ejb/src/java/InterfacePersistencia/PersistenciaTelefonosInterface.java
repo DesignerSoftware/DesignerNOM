@@ -18,7 +18,7 @@ public interface PersistenciaTelefonosInterface {
      * Método encargado de insertar un Teléfono en la base de datos.
      * @param telefonos Teléfono que se quiere crear.
      */
-    public void crear(EntityManager em, Telefonos telefonos);
+    public boolean crear(EntityManager em, Telefonos telefonos);
     /**
      * Método encargado de modificar un Teléfono de la base de datos.
      * Este método recibe la información del parámetro para hacer un 'merge' con la 

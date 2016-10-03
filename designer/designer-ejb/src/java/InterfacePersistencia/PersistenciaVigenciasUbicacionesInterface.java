@@ -18,7 +18,7 @@ public interface PersistenciaVigenciasUbicacionesInterface {
      * Método encargado de insertar una VigenciaUbicacion en la base de datos.
      * @param vigenciasUbicaciones VigenciaUbicacion que se quiere crear.
      */
-    public void crear(EntityManager em, VigenciasUbicaciones vigenciasUbicaciones);
+    public boolean crear(EntityManager em, VigenciasUbicaciones vigenciasUbicaciones);
     /**
      * Método encargado de modificar una VigenciaUbicacion de la base de datos.
      * Este método recibe la información del parámetro para hacer un 'merge' con la 

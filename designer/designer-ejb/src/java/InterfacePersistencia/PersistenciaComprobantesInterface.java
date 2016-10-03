@@ -22,7 +22,7 @@ public interface PersistenciaComprobantesInterface {
      *
      * @param comprobante Comprobante que se quiere crear.
      */
-    public void crear(EntityManager em, Comprobantes comprobante);
+    public boolean crear(EntityManager em, Comprobantes comprobante);
 
     /**
      * Método encargado de modificar un Comprobante de la base de datos. Este
