@@ -92,7 +92,7 @@ public class ControlFamiliares implements Serializable {
     private DataTable tablaC;
     private boolean activarLOV, activardatos;
 //    private Empleados empleado;
-    private Personas personas;
+    private Personas personas, nuevaPersona;
     private List<Personas> crearPersonas;
 
     public ControlFamiliares() {
@@ -113,9 +113,10 @@ public class ControlFamiliares implements Serializable {
         mensajeValidacion = " ";
 //        empleado = new Empleados();
         personas = new Personas();
-        personas.setTipodocumento(new TiposDocumentos());
-        personas.setCiudaddocumento(new Ciudades());
-        personas.setCiudadnacimiento(new Ciudades());
+        nuevaPersona = new Personas();
+        nuevaPersona.setTipodocumento(new TiposDocumentos());
+        nuevaPersona.setCiudaddocumento(new Ciudades());
+        nuevaPersona.setCiudadnacimiento(new Ciudades());
         lovCiudades = null;
         lovPersonas = null;
         lovTiposFamiliares = null;
@@ -950,36 +951,8 @@ public class ControlFamiliares implements Serializable {
 
     public void actualizarCiudad() {
         RequestContext context = RequestContext.getCurrentInstance();
-//        if (tipoActualizacion == 0) {
-//            if (tipoLista == 0) {
-//                familiarSeleccionado.getPersonafamiliar().setCiudaddocumento(ciudadSeleccionada);
-//                if (!listaFamiliaresCrear.contains(familiarSeleccionado)) {
-//                    if (listaFamiliaresEditar.isEmpty()) {
-//                        listaFamiliaresEditar.add(familiarSeleccionado);
-//                    } else if (!listaFamiliaresEditar.contains(familiarSeleccionado)) {
-//                        listaFamiliaresEditar.add(familiarSeleccionado);
-//                    }
-//                }
-//            } else {
-//                familiarSeleccionado.getPersonafamiliar().setCiudaddocumento(ciudadSeleccionada);
-//                if (!listaFamiliaresCrear.contains(familiarSeleccionado)) {
-//                    if (listaFamiliaresEditar.isEmpty()) {
-//                        listaFamiliaresEditar.add(familiarSeleccionado);
-//                    } else if (!listaFamiliaresEditar.contains(familiarSeleccionado)) {
-//                        listaFamiliaresEditar.add(familiarSeleccionado);
-//                    }
-//                }
-//            }
-//            if (guardado == true) {
-//                guardado = false;
-//                RequestContext.getCurrentInstance().update("form:ACEPTAR");
-//            }
-//            permitirIndex = true;
-//            deshabilitarBotonLov();
-//            RequestContext.getCurrentInstance().update("form:datosFamiliares");
-//        } else 
         if (tipoActualizacion == 1) {
-            personas.setCiudaddocumento(ciudadSeleccionada);
+            nuevaPersona.setCiudaddocumento(ciudadSeleccionada);
             RequestContext.getCurrentInstance().update("formularioDialogos:ciudadDocumentoModPersonal");
         }
         filtrarLovCiudades = null;
@@ -1043,7 +1016,7 @@ public class ControlFamiliares implements Serializable {
 //            RequestContext.getCurrentInstance().update("form:datosFamiliares");
 //        } 
         if (tipoActualizacion == 1) {
-            personas.setCiudadnacimiento(ciudadSeleccionada);
+            nuevaPersona.setCiudadnacimiento(ciudadSeleccionada);
             RequestContext.getCurrentInstance().update("formularioDialogos:ciudadNacimientoModPersonal");
         }
 
@@ -1147,36 +1120,8 @@ public class ControlFamiliares implements Serializable {
 
     public void actualizarTipoDocumento() {
         RequestContext context = RequestContext.getCurrentInstance();
-//        if (tipoActualizacion == 0) {
-//            if (tipoLista == 0) {
-//                familiarSeleccionado.getPersonafamiliar().setTipodocumento(tipoDocumentoSeleccionado);
-//                if (!listaFamiliaresCrear.contains(familiarSeleccionado)) {
-//                    if (listaFamiliaresEditar.isEmpty()) {
-//                        listaFamiliaresEditar.add(familiarSeleccionado);
-//                    } else if (!listaFamiliaresEditar.contains(familiarSeleccionado)) {
-//                        listaFamiliaresEditar.add(familiarSeleccionado);
-//                    }
-//                }
-//            } else {
-//                familiarSeleccionado.getPersonafamiliar().setTipodocumento(tipoDocumentoSeleccionado);
-//                if (!listaFamiliaresCrear.contains(familiarSeleccionado)) {
-//                    if (listaFamiliaresEditar.isEmpty()) {
-//                        listaFamiliaresEditar.add(familiarSeleccionado);
-//                    } else if (!listaFamiliaresEditar.contains(familiarSeleccionado)) {
-//                        listaFamiliaresEditar.add(familiarSeleccionado);
-//                    }
-//                }
-//            }
-//            if (guardado == true) {
-//                guardado = false;
-//                RequestContext.getCurrentInstance().update("form:ACEPTAR");
-//            }
-//            permitirIndex = true;
-//            deshabilitarBotonLov();
-//            RequestContext.getCurrentInstance().update("form:datosFamiliares");
-//        } else
         if (tipoActualizacion == 1) {
-            personas.setTipodocumento(tipoDocumentoSeleccionado);
+           nuevaPersona.setTipodocumento(tipoDocumentoSeleccionado);
             RequestContext.getCurrentInstance().update("formularioDialogos:nuevoFamiliarP");
         }
         filtrarLovTiposDocumentos = null;
@@ -1351,17 +1296,26 @@ public class ControlFamiliares implements Serializable {
     public void crearNuevaPersona() {
 //        crearPersonas.add(personas);
         try {
-            administrarFamiliares.crearPersona(personas);
+            k++;
+            l = BigDecimal.valueOf(k);
+            nuevaPersona.setSecuencia(l.toBigInteger());
+            System.out.println("nueva persona : "+ nuevaPersona);
+            administrarFamiliares.crearPersona(nuevaPersona);
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevoFamiliarP");
+            RequestContext.getCurrentInstance().execute("PF('nuevoFamiliarPersona').hide()");
+            RequestContext.getCurrentInstance().execute("PF('confirmarPersona').show()");
+            RequestContext.getCurrentInstance().update("formularioDialogos:lovPersonasFamiliares");
+            lovPersonas = null;
         } catch (Exception e) {
             System.out.println("error crear persona " + e.getMessage());
         }
     }
 
     public void limpiarPersona() {
-        personas = new Personas();
-        personas.setTipodocumento(new TiposDocumentos());
-        personas.setCiudaddocumento(new Ciudades());
-        personas.setCiudadnacimiento(new Ciudades());
+       nuevaPersona = new Personas();
+        nuevaPersona.setTipodocumento(new TiposDocumentos());
+        nuevaPersona.setCiudaddocumento(new Ciudades());
+        nuevaPersona.setCiudadnacimiento(new Ciudades());
     }
 
     public void activarDatos() {
@@ -1658,6 +1612,14 @@ public class ControlFamiliares implements Serializable {
 
     public void setActivardatos(boolean activardatos) {
         this.activardatos = activardatos;
+    }
+
+    public Personas getNuevaPersona() {
+        return nuevaPersona;
+    }
+
+    public void setNuevaPersona(Personas nuevaPersona) {
+        this.nuevaPersona = nuevaPersona;
     }
 
 }
