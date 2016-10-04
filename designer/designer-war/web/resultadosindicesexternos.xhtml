@@ -1,0 +1,451 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template.xhtml">
+            <ui:define name="body">                  
+                <h:form id="form"> 
+                    <f:loadBundle basename="Recursos.resultadosindicesexternos" var="msg" />
+                    <p:growl id="growl" showDetail="true"/> 
+
+                    <p:panel  id="PanelTotal" header="Indicadores" styleClass="panelTotal">    
+                        <p:toolbar styleClass="cssToolbar">  
+                            <p:toolbarGroup align="left"> 
+
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); " actionListener="#{controlResultadosIndicesExternos.guardarResultado()}" process="@this" />
+                                <p:tooltip style="" for="guardarRapido" value="#{msg['guardar']}" />
+
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png) " actionListener="#{controlResultadosIndicesExternos.editarCelda()}"  process="@this"/>
+                                <p:tooltip style="" for="editar" value="#{msg['editar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png) " disabled="#{controlResultadosIndicesExternos.activarLov}" actionListener="#{controlResultadosIndicesExternos.listaValorBoton()}"   process="@this"/>
+                                <p:tooltip style="" for="listaValores" value="#{msg['lista']}" />
+
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png) " actionListener="#{controlResultadosIndicesExternos.activarCtrlF11()}"  process="@this"/>
+                                <p:tooltip style="" for="filtrar" value="#{msg['filtrar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png) " actionListener="#{controlResultadosIndicesExternos.exportXLS()}"  ajax="false"/>
+                                <p:tooltip style="" for="exportarXLS" value="#{msg['xls']}" />
+
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png) " actionListener="#{controlResultadosIndicesExternos.limpiarNuevoResultado()}"  ajax="false">
+                                    <p:dataExporter type="xml"  target=":formExportar:datosResultadosExportar" fileName="ResultadosIndicesExternos" encoding="UTF-8"/> 
+                                </p:commandButton> 
+                                <p:tooltip style="" for="exportarXML" value="#{msg['xml']}" />
+
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png) " actionListener="#{controlResultadosIndicesExternos.exportPDF()}" ajax="false"/>
+                                <p:tooltip style="" for="exportarPDF" value="#{msg['pdf']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png) "  oncomplete="PF('nuevoRegistroResultados').show()" update=":formularioDialogos:nuevoResultadoIE" process="@this"/> 
+                                <p:tooltip style="" for="insertar" value="#{msg['nuevo']}" />
+
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png) "  actionListener="#{controlResultadosIndicesExternos.borrarResultado()}" process="@this"/>  
+                                <p:tooltip style="" for="eliminar" value="#{msg['eliminar']}" />
+
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png) " actionListener="#{controlResultadosIndicesExternos.duplicarResultados()}" process="@this"/>  
+                                <p:tooltip style="" for="duplicar" value="#{msg['duplicar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png) " actionListener="#{controlResultadosIndicesExternos.verificarRastro()}" process="@this"/>  
+                                <p:tooltip style="" for="rastro" value="#{msg['rastro']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png) " actionListener="#{controlResultadosIndicesExternos.cancelarModificacion()}" process="@this"/>  
+                                <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) " action="atrasresultadoindice" actionListener="#{controlResultadosIndicesExternos.salir()}"  process="@this"/>  
+                                <p:tooltip  for="salir" value="#{msg['salir']}"/>
+
+                            </p:toolbarGroup>  
+                        </p:toolbar>
+
+                        <p:commandButton class="cssBotonAceptar"  id="ACEPTAR" value=""  actionListener="#{controlResultadosIndicesExternos.revisarDialogoGuardar()}" disabled="#{controlResultadosIndicesExternos.guardado}"    process="@this"   />
+                        <p:commandButton class="cssBotonCancelar" id="ATRAS" action="atrasresultadoindice"  actionListener="#{controlResultadosIndicesExternos.salir()}"  value=""/>
+
+                        <fieldset style="position: absolute;top: 80px;left: 10px;height: 350px;width: 830px; border-radius: 10px; text-align: left">
+                            <legend style="font-size: 14px; color: blue"><strong>Indicador</strong></legend>
+
+                            <p:dataTable id="datosResultados" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px ; border: 1px;"                           
+                                         value="#{controlResultadosIndicesExternos.listResultados}" scrollable="true" scrollHeight="#{controlResultadosIndicesExternos.tamano}"
+                                         scrollWidth="830" filteredValue="#{controlResultadosIndicesExternos.listResultadosFiltrar}" emptyMessage="No se encontraron resultados para la búsqueda"
+                                         editable="true" editMode="cell" paginator="false" selection="#{controlResultadosIndicesExternos.resultadoSeleccionado}" selectionMode="single" >
+                                <p:ajax event="filter" listener="#{controlResultadosIndicesExternos.eventoFiltrar()}"/>
+
+                                <p:column headerText="#{msg['indice']}" sortBy="#{info.indiceexterno.descripcion}" filterBy="#{info.indiceexterno.descripcion}" filterMatchMode="contains" id="indiceE" width="160" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.indiceexterno.descripcion}"  /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText  autocomplete="off"  value="#{info.indiceexterno.descripcion}" maxlength="50" id="eIndice" style="height: 12px;  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
+                                                <p:ajax event="select" listener="#{controlResultadosIndicesExternos.cambiarIndice(info, 0)}" process="@this"/> 
+                                                <p:ajax event="change"  listener="#{controlResultadosIndicesExternos.modificarResultado(info, 'N', info.indiceexterno.descripcion)}" update="eIndice"/>
+                                                <p:ajax event="dblclick" listener="#{controlResultadosIndicesExternos.asignarIndex(info, 1, 0)}"/>
+                                            </p:inputText>
+                                        </f:facet> 
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=" " />
+                                        <p:commandButton value="" style="width: 178px" action="indiceexterno" actionListener="#{controlIndicesExternos.recibirPaginaEntrante('resultadosindicesexternos')}" />
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="#{msg['ano']}" sortBy="#{info.ano}" filterBy="#{info.ano}" filterMatchMode="contains" id="anio" width="30" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.ano}" /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText  autocomplete="off"  value="#{info.ano}" maxlength="4" id="eAnio" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"  > 
+                                                <p:ajax event="select" listener="#{controlResultadosIndicesExternos.cambiarIndice(info, 1)}" process="@this"/> 
+                                                <p:ajax event="change" listener="#{controlResultadosIndicesExternos.modificarResultado(info)}"  update="eAnio"/>
+                                            </p:inputText>
+                                        </f:facet> 
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="#{msg['mes']}" sortBy="#{info.estadoMes}" filterBy="#{info.estadoMes}" filterMatchMode="contains" id="mes" width="30" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.estadoMes}" style="text-transform: uppercase" /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:selectOneMenu  id="eMes" value="#{info.estadoMes}" style="width: 98.5%; height: 100%">  
+                                                <f:selectItem itemLabel="#{msg['enero']}" itemValue="1" />  
+                                                <f:selectItem itemLabel="#{msg['febrero']}" itemValue="2" />  
+                                                <f:selectItem itemLabel="#{msg['marzo']}" itemValue="3" />  
+                                                <f:selectItem itemLabel="#{msg['abril']}" itemValue="4" />  
+                                                <f:selectItem itemLabel="#{msg['mayo']}" itemValue="5" />    
+                                                <f:selectItem itemLabel="#{msg['junio']}" itemValue="6" />
+                                                <f:selectItem itemLabel="#{msg['julio']}" itemValue="7" />
+                                                <f:selectItem itemLabel="#{msg['agosto']}" itemValue="8" />
+                                                <f:selectItem itemLabel="#{msg['septiembre']}" itemValue="9" />
+                                                <f:selectItem itemLabel="#{msg['octubre']}" itemValue="10" />
+                                                <f:selectItem itemLabel="#{msg['noviembre']}" itemValue="11" />
+                                                <f:selectItem itemLabel="#{msg['diciembre']}" itemValue="12" />
+<!--                                                <p:ajax event="change" listener="#{controlProverbio.seleccionarMes(m.estadoMes, m, celda)}" update="eMes"/>-->
+                                                <p:ajax event="change" listener="#{controlResultadosIndicesExternos.modificarResultado(info)}"  update="eMes"/>
+                                                <p:ajax event="select" listener="#{controlResultadosIndicesExternos.cambiarIndice(info, 2)}" process="@this"/> 
+                                            </p:selectOneMenu>
+                                        </f:facet>
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="#{msg['valor']}" sortBy="#{info.valor}" filterBy="#{info.valor}" filterMatchMode="contains" id="valor" width="30" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.valor}" /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText  autocomplete="off"  value="#{info.valor}" id="eValor" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"  > 
+                                                <p:ajax event="select" listener="#{controlResultadosIndicesExternos.cambiarIndice(info, 3)}" process="@this"/> 
+                                                <p:ajax event="change" listener="#{controlResultadosIndicesExternos.modificarResultado(info)}"  update="eValor"/>
+                                            </p:inputText>
+                                        </f:facet> 
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                </p:column>
+
+
+                                <p:column headerText="#{msg['ref']}" sortBy="#{info.referencia}" filterBy="#{info.referencia}" filterMatchMode="contains" id="referencia" width="160" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.referencia}"  /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText  autocomplete="off"  value="#{info.referencia}" maxlength="100" id="eRef" style="height: 12px;  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
+                                                <p:ajax event="select" listener="#{controlResultadosIndicesExternos.cambiarIndice(info, 4)}" process="@this"/> 
+                                                <p:ajax event="change" listener="#{controlResultadosIndicesExternos.modificarResultado(info)}"  update="eRef"/>
+                                            </p:inputText>
+                                        </f:facet> 
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=" " />
+                                    </f:facet>
+                                </p:column>
+
+                            </p:dataTable>
+                            <h:outputText id="infoRegistro" value="#{msg['infoRegistros']} #{controlResultadosIndicesExternos.infoRegistro}" style="position: absolute; left: 15px; top: 330px; font-weight: bold"/>
+                        </fieldset>
+                        <p:hotkey bind="ctrl+f11" actionListener="#{controlResultadosIndicesExternos.activarCtrlF11()}"/> 
+                    </p:panel>
+                </h:form>
+
+                <h:form id="formularioDialogos">
+                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
+                        <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlResultadosIndicesExternos.guardarResultado()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlResultadosIndicesExternos.cancelarModificacion()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                    </p:dialog>
+
+                    <p:dialog id="mostrarBorrados" header="#{msg['atencion']}" widgetVar="mostrarBorrados"  resizable="false" draggable="true" modal="true" height="87" width="280" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="Se han borrado #{controlResultadosIndicesExternos.registroBorrados}  Registros" style="position: absolute; left: 90px; top: 15px; width: 180px; font-weight:bold" />
+                        <p:commandButton value="Aceptar" onclick="PF('mostrarBorrados').hide();" style="position: absolute; top: 50px; left: 180px;" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="validacionNuevoIndicador" header="#{msg['atencion']}" widgetVar="validacionNuevoIndicador"  resizable="false" draggable="true" modal="true" height="95" width="400" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 15px;"  />
+                        <h:outputText value="Para agregar es necesario adicionar: #{controlResultadosIndicesExternos.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight:bold" />
+                        <p:commandButton value="Aceptar" onclick="PF('validacionNuevoIndicador').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlResultadosIndicesExternos.resultadoSeleccionado.secuencia, 'ResutladosIndicesExternos', 'ResutladosIndicesExternos')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('ResutladosIndicesExternos', 'ResutladosIndicesExternos')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlResultadosIndicesExternos.resultadoSeleccionado.secuencia, 'ResutladosIndicesExternos', 'ResutladosIndicesExternos')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285" style="" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                    </p:dialog>
+
+                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                    </p:dialog>
+
+                    <p:dialog id="editIndiceD" header="Código" widgetVar="editIndiceD" resizable="false" draggable="true" modal="true" height="80" width="400" style="text-transform: uppercase">  
+                        <p:inputTextarea value="#{controlResultadosIndicesExternos.editarResultado.indiceexterno.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editAnioD" header="Descripcion" widgetVar="editAnioD" resizable="false" draggable="true" modal="true" height="80" width="400" style="text-transform: uppercase">  
+                        <p:inputTextarea value="#{controlResultadosIndicesExternos.editarResultado.ano}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editMesD" header="Descripcion" widgetVar="editMesD" resizable="false" draggable="true" modal="true" height="80" width="400" style="text-transform: uppercase">  
+                        <p:inputTextarea value="#{controlResultadosIndicesExternos.editarResultado.mes}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editValorD" header="Descripcion" widgetVar="editValorD" resizable="false" draggable="true" modal="true" height="80" width="400" style="text-transform: uppercase">  
+                        <p:inputTextarea value="#{controlResultadosIndicesExternos.editarResultado.valor}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editReferenciaD" header="Descripcion" widgetVar="editReferenciaD" resizable="false" draggable="true" modal="true" height="80" width="400" style="text-transform: uppercase">  
+                        <p:inputTextarea value="#{controlResultadosIndicesExternos.editarResultado.referencia}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    </p:dialog>
+
+
+
+                    <p:dialog id="nuevoRegistroResultados" header="Nuevo Registro" widgetVar="nuevoRegistroResultados" closable="false" resizable="false"  draggable="true" modal="true" height="280" width="320" style=" padding: 0px">  
+                        <center><strong><h:outputText value="#{msg['nuevor']}" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
+                        <p:panel id="nuevoResultadoIE" style="border: none;">
+
+                            <strong><h:outputText value="*#{msg['indice']}: "  style="position: absolute; top: 60px;" /></strong>
+                            <p:inputText autocomplete="off"  id="nuevoIndice" maxlength="50" value="#{controlResultadosIndicesExternos.nuevoResultado.indiceexterno.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 55px; text-transform: uppercase">
+                                <p:ajax event="change" update="@this"/>
+                                <p:ajax event="dblclick" listener="#{controlResultadosIndicesExternos.asignarIndex(info, 1, 1)}" />
+                            </p:inputText>
+                            <p:watermark for="nuevoIndice" value="#{msg['indice']}" />
+                            <p:commandButton style="position: absolute; left: 331px; top: 55px;" class="cssBotonLovDialogos"  id="btnAgregarIndiceE" value="" process="@this"  actionListener="#{controlResultadosIndicesExternos.asignarIndex(info, 1, 1)}"/>
+
+                            <strong><h:outputText value="*#{msg['ano']}:"  style="position: absolute; top: 90px;" /></strong>
+                            <p:inputText  autocomplete="off"  id="nuevoAnio" maxlength="4" value="#{controlResultadosIndicesExternos.nuevoResultado.ano}" style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+                            <p:watermark for="nuevoAnio" value="#{msg['ano']}" />
+
+                            <strong><h:outputText value="*#{msg['mes']}" style=" position: absolute; top: 120px;" /></strong>
+                            <p:selectOneMenu id="nuevoMes" value="#{controlResultadosIndicesExternos.nuevoResultado.mes}"  style=" width: 122px; position: absolute; left: 150px; top: 115px; text-transform: uppercase">
+                                <f:selectItem itemLabel="#{msg['enero']}" itemValue="1" />  
+                                <f:selectItem itemLabel="#{msg['febrero']}" itemValue="2" />  
+                                <f:selectItem itemLabel="#{msg['marzo']}" itemValue="3" />  
+                                <f:selectItem itemLabel="#{msg['abril']}" itemValue="4" />  
+                                <f:selectItem itemLabel="#{msg['mayo']}" itemValue="5" />    
+                                <f:selectItem itemLabel="#{msg['junio']}" itemValue="6" />
+                                <f:selectItem itemLabel="#{msg['julio']}" itemValue="7" />
+                                <f:selectItem itemLabel="#{msg['agosto']}" itemValue="8" />
+                                <f:selectItem itemLabel="#{msg['septiembre']}" itemValue="9" />
+                                <f:selectItem itemLabel="#{msg['octubre']}" itemValue="10" />
+                                <f:selectItem itemLabel="#{msg['noviembre']}" itemValue="11" />
+                                <f:selectItem itemLabel="#{msg['diciembre']}" itemValue="12" />
+                                <p:ajax event="change" update="nuevoMes" process="@this"/>
+                            </p:selectOneMenu>
+
+                            <strong><h:outputText value="*#{msg['valor']}: "  style="position: absolute; top: 150px;" /></strong>
+                            <p:inputText  autocomplete="off"   id="nuevoValor" maxlength="50" value="#{controlResultadosIndicesExternos.nuevoResultado.mes}" style=" width: 140px; position: absolute; left: 150px; top: 145px;text-transform: uppercase">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+                            <p:watermark for="nuevoValor" value="#{msg['valor']}" />
+
+                            <strong><h:outputText value="#{msg['ref']}: "  style="position: absolute; top: 180px;" /></strong>
+                            <p:inputText  autocomplete="off"   id="nuevaRef" maxlength="50" value="#{controlResultadosIndicesExternos.nuevoResultado.referencia}" style=" width: 140px; position: absolute; left: 150px; top: 175px;text-transform: uppercase">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+                            <p:watermark for="nuevaRef" value="#{msg['ref']}" />
+
+                            <p:commandButton id="limpiarDI" icon="ui-icon-trash" value="Limpiar" style=" position: absolute; left: 10px; top: 230px;"  actionListener="#{controlResultadosIndicesExternos.limpiarNuevoResultado()}" update="nuevoResultadoIE" process="@this"/>
+                            <p:commandButton id="agregarDI" icon="ui-icon-circle-check" value="Agregar" style=" position: absolute; left: 110px; top: 230px;" actionListener="#{controlResultadosIndicesExternos.agregarNuevoResultado()}" process="@this" />
+                            <p:commandButton id="cancelarDI" icon="ui-icon-circle-close" value="Cancelar" style=" position: absolute; left: 210px; top: 230px;"  update="nuevoResultadoIE" onclick="PF('nuevoRegistroResultados').hide();"  actionListener="#{controlResultadosIndicesExternos.limpiarNuevoResultado()}"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+                    <p:dialog id="duplicarRegistroResultados" header="Nuevo Registro" widgetVar="duplicarRegistroResultados" closable="false" resizable="false"  draggable="true" modal="true" height="280" width="320" style=" padding: 0px">  
+                        <center><strong><h:outputText value="Nuevo Tipo Curso" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
+
+                        <p:panel id="duplicarResultado" style="border: none;">
+                            <strong><h:outputText value="*#{msg['indice']}: "  style="position: absolute; top: 60px;" /></strong>
+                            <p:inputText autocomplete="off"  id="duplicarIndice" maxlength="50" value="#{controlResultadosIndicesExternos.duplicarResultado.indiceexterno.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 55px; text-transform: uppercase">
+                                <p:ajax event="change" update="@this"/>
+                                <p:ajax event="dblclick" listener="#{controlResultadosIndicesExternos.asignarIndex(info, 1, 2)}" />
+                            </p:inputText>
+                            <p:watermark for="duplicarIndice" value="#{msg['indice']}" />
+                            <p:commandButton style="position: absolute; left: 331px; top: 55px;" class="cssBotonLovDialogos"  id="btnDuplicarIndiceE" value="" process="@this"  actionListener="#{btnAgregarIndiceEcontrolResultadosIndicesExternos.asignarIndex(info, 1, 1)}"/>
+
+                            <strong><h:outputText value="*#{msg['ano']}:"  style="position: absolute; top: 90px;" /></strong>
+                            <p:inputText  autocomplete="off"  id="duplicarAnio" maxlength="4" value="#{controlResultadosIndicesExternos.duplicarResultado.ano}" style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+                            <p:watermark for="duplicarAnio" value="#{msg['ano']}" />
+
+                            <strong><h:outputText value="*#{msg['mes']}" style=" position: absolute; top: 120px;" /></strong>
+                            <p:selectOneMenu id="duplicarMes" value="#{controlResultadosIndicesExternos.duplicarResultado.mes}"  style=" width: 122px; position: absolute; left: 150px; top: 115px; text-transform: uppercase">
+                                <f:selectItem itemLabel="#{msg['enero']}" itemValue="1" />  
+                                <f:selectItem itemLabel="#{msg['febrero']}" itemValue="2" />  
+                                <f:selectItem itemLabel="#{msg['marzo']}" itemValue="3" />  
+                                <f:selectItem itemLabel="#{msg['abril']}" itemValue="4" />  
+                                <f:selectItem itemLabel="#{msg['mayo']}" itemValue="5" />    
+                                <f:selectItem itemLabel="#{msg['junio']}" itemValue="6" />
+                                <f:selectItem itemLabel="#{msg['julio']}" itemValue="7" />
+                                <f:selectItem itemLabel="#{msg['agosto']}" itemValue="8" />
+                                <f:selectItem itemLabel="#{msg['septiembre']}" itemValue="9" />
+                                <f:selectItem itemLabel="#{msg['octubre']}" itemValue="10" />
+                                <f:selectItem itemLabel="#{msg['noviembre']}" itemValue="11" />
+                                <f:selectItem itemLabel="#{msg['diciembre']}" itemValue="12" />
+                                <p:ajax event="change" update="duplicarMes" process="@this"/>
+                            </p:selectOneMenu>
+
+                            <strong><h:outputText value="*#{msg['valor']}: "  style="position: absolute; top: 150px;" /></strong>
+                            <p:inputText  autocomplete="off"   id="duplicarValor" maxlength="50" value="#{controlResultadosIndicesExternos.duplicarResultado.mes}" style=" width: 140px; position: absolute; left: 150px; top: 145px;text-transform: uppercase">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+                            <p:watermark for="duplicarValor" value="#{msg['valor']}" />
+
+                            <strong><h:outputText value="#{msg['ref']}: "  style="position: absolute; top: 180px;" /></strong>
+                            <p:inputText  autocomplete="off"   id="duplicarRef" maxlength="50" value="#{controlResultadosIndicesExternos.duplicarResultado.referencia}" style=" width: 140px; position: absolute; left: 150px; top: 175px;text-transform: uppercase">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+                            <p:watermark for="duplicarRef" value="#{msg['ref']}" />
+
+                            <p:commandButton id="limpiar" icon="ui-icon-trash" value="Limpiar" style=" position: absolute; left: 10px; top: 230px;"  actionListener="#{controlResultadosIndicesExternos.limpiarDuplicar()}" update="duplicarResultado" process="@this"/>
+                            <p:commandButton id="agregarTE" icon="ui-icon-circle-check" value="Agregar" style=" position: absolute; left: 110px; top: 230px;" actionListener="#{controlResultadosIndicesExternos.confirmarDuplicar()}" process="@this" />
+                            <p:commandButton id="cancelarTE" icon="ui-icon-circle-close" value="Cancelar" style=" position: absolute; left: 210px; top: 230px;"  update="duplicarResultado" onclick="PF('nuevoRegistroIndicadores').hide();"  actionListener="#{controlResultadosIndicesExternos.limpiarDuplicar()}"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+                    <p:dialog header="#{msg['tipo']}" widgetVar="indicesExternosDialogo" draggable="true" resizable="false" closable="false" id="indicesExternosDialogo"  
+                              showEffect="fade" hideEffect="fade" width="431" modal="true">
+                        <p:dataTable id="lovIndicesExternos"  var="indiceex" value="#{controlResultadosIndicesExternos.lovIndicesExternos}" rowKey="#{indicador.secuencia}"
+                                     selection="#{controlResultadosIndicesExternos.indiceExternoSeleccionado}" selectionMode="single" widgetVar="lovIndicesExternos" scrollable="true" scrollWidth="415" scrollHeight="250"
+                                     filteredValue="#{controlResultadosIndicesExternos.filtrarLovIndicesExternos}" emptyMessage="#{msg['lovvacio']}">   
+                            <p:ajax event="filter" listener="#{controlResultadosIndicesExternos.contarRegistrosIndicesExternos()}"/>
+                            <p:ajax event="rowSelect" listener="#{controlResultadosIndicesExternos.activarAceptar()}" update=":formularioDialogos:aceptarTI"/>
+                            <p:ajax event="rowDblselect" listener="#{controlResultadosIndicesExternos.actualizarIndiceExterno()}" process="@this" />
+                            <f:facet name="header">  
+                                <h:outputText value="Buscar Índice Externo" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovIndicesExternos').filter();" class="cssFiltroLOV" />  
+                            </f:facet>
+
+                            <p:column filterBy="#{indiceex.codigo}" filterMatchMode="contains" filterStyle="width:80%">
+                                <f:facet name="header">
+                                    <h:outputText style="text-align: center" value="#{msg['codigo']}" />
+                                </f:facet>
+                                <h:outputText  value="#{indiceex.codigo}" />
+                            </p:column>
+
+                            <p:column filterBy="#{indiceex.descripcion}" filterMatchMode="contains" filterStyle="width:80%">
+                                <f:facet name="header">
+                                    <h:outputText style="text-align: center" value="#{msg['desc']}" />
+                                </f:facet>
+                                <h:outputText  value="#{indiceex.descripcion}" />
+                            </p:column>
+                        </p:dataTable>
+
+                        <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroIndiceExterno" value="#{msg['infoRegistros']} #{controlResultadosIndicesExternos.infoRegistroIndice}" class="cssinfoRegistroLOV" />
+                            <p:commandButton id="aceptarTI" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlResultadosIndicesExternos.aceptar}" 
+                                             actionListener="#{controlResultadosIndicesExternos.actualizarIndiceExterno()}"  process="@this"/>
+                            <p:commandButton id="atrasTI" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" 
+                                             actionListener="#{controlResultadosIndicesExternos.cancelarCambioIndiceExterno()}"   process="@this"/>
+                        </div>
+                    </p:dialog>   
+                </h:form> 
+                
+                 <h:form id="formExportar">
+                    <p:dataTable id="datosResultadosExportar" var="info2" style="visibility: hidden; display: none;"                           
+                                 value="#{controlResultadosIndicesExternos.listResultados}">
+                        <p:column>                                  
+                            <f:facet name="header"><h:outputText value="#{msg['indicex']}"/></f:facet> 
+                            <h:outputText value="#{info2.indiceexterno.descripcion}" />
+                        </p:column>  
+
+                        <p:column>  
+                            <f:facet name="header"><h:outputText value="#{msg['ano']}" /></f:facet>
+                            <h:outputText value="#{info2.ano}"/>
+                        </p:column>
+
+                        <p:column>  
+                            <f:facet name="header"><h:outputText value="#{msg['mes']}" /></f:facet>
+                            <h:outputText value="#{info2.estadoMes}"/>
+                        </p:column>
+                       
+                        <p:column>  
+                            <f:facet name="header"><h:outputText value="#{msg['valor']}" /></f:facet>
+                            <h:outputText value="#{info2.valor}"/>
+                        </p:column>
+                        
+                        <p:column>  
+                            <f:facet name="header"><h:outputText value="#{msg['ref']}" /></f:facet>
+                            <h:outputText value="#{info2.referencia}"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+
+
+            </ui:define>
+        </ui:composition>    
+    </h:body>
+</html>
+

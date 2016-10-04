@@ -8,7 +8,7 @@
       xmlns:lnk="http://java.sun.com/jsf/composite/linkare">
     <h:head>
     </h:head>
-    <h:body>
+    <h:body onload="iniciarcomponentes()" >
         <ui:composition template="/template.xhtml">
             <ui:define name="body">                  
                 <h:form id="form"> 
@@ -64,7 +64,7 @@
 
                                 <p:separator style="position: relative; top: -9px"/>
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); border:none; "
-                                                 actionListener="#{controlEmpleadoIndividual.refrescar()}" process="@this"/>  
+                                                 actionListener="#{controlEmpleadoIndividual.refrescar()}" process="@this" oncomplete="window.location.reload()"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
@@ -268,7 +268,7 @@
                                 <br/>
                                 <h:outputText value="#{msg['ciudaddocumento']}" 
                                               style="position: absolute; left: 370px; top: 77px; font-weight: bold; color: #14388B; width: 135px; text-align: right;"/>
-                                <p:inputText  autocomplete="off"  id="lugarExpedicion" value="#{controlEmpleadoIndividual.persona.ciudaddocumento}"
+                                <p:inputText  autocomplete="off"  id="lugarExpedicion" value="#{controlEmpleadoIndividual.persona.ciudaddocumento.nombre}"
                                              style="position: absolute; left: 510px; top: 72px; width: 120px; text-transform: uppercase; height: 12px;" 
                                              onclick="select();">
                                     <p:ajax event="dblclick" listener="#{controlEmpleadoIndividual.dialogoCiudad(0)}"/>
@@ -456,7 +456,7 @@
                                                  process="@this" action ="proyecto" actionListener="#{controlVigenciasProyectos.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
                                 <h:commandLink value="#{msg['proyectos']}" style="position: absolute; left: 47px; top: 82px; font-weight: bold; color: #14388B; "
                                                action ="proyecto" actionListener="#{controlVigenciasProyectos.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
-                                <p:inputText  autocomplete="off"  id="proyectos" value="#{controlEmpleadoIndividual.proyectosP}" readonly="true" style="position: absolute; left: 45px; top: 97px; width: 140px; box-shadow: none; border: none;"/>
+                                <p:inputText  autocomplete="off"  id="proyectos" value="#{controlEmpleadoIndividual.proyectosP}" readonly="true" style="position: absolute; left: 45px; top: 97px; width: 140px; box-shadow: none; border: none; text-transform: uppercase;"/>
                             </fieldset>
 
                             <fieldset style="position: absolute; left: 418px; top: 2px; width: 197px; height: 120px; border-radius: 7px; padding: 0px; border: none;">
@@ -572,6 +572,7 @@
                             <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: relative; top: 0px; left: 97px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                         </div>
                     </p:dialog>
+                    <p:remoteCommand name="iniciarcomponentes" update="#{controlEmpleadoIndividual.iniciarComponentes()}" />
                 </h:form>
                 <!-- ********************************************************************** -->
                 <h:form id="formDialogos">

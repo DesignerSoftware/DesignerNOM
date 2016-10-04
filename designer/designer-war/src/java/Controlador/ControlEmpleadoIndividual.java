@@ -598,6 +598,29 @@ public class ControlEmpleadoIndividual implements Serializable {
         }
     }
 
+    public void iniciarComponentes(){
+     RequestContext.getCurrentInstance().update("form:telefonos");   
+     RequestContext.getCurrentInstance().update("form:direcciones");   
+     RequestContext.getCurrentInstance().update("form:estadoCivil");   
+     RequestContext.getCurrentInstance().update("form:informacionAdicional");   
+     RequestContext.getCurrentInstance().update("form:reemplazos");   
+     RequestContext.getCurrentInstance().update("form:educacion");   
+     RequestContext.getCurrentInstance().update("form:idiomas");   
+     RequestContext.getCurrentInstance().update("form:proyectos");   
+     RequestContext.getCurrentInstance().update("form:referenciaLaboral");   
+     RequestContext.getCurrentInstance().update("form:referenciaFamiliar");   
+     RequestContext.getCurrentInstance().update("form:experienciaLaboral");   
+     RequestContext.getCurrentInstance().update("form:pruebasAplicadas");   
+     RequestContext.getCurrentInstance().update("form:entrevistas");   
+     RequestContext.getCurrentInstance().update("form:censos");   
+     RequestContext.getCurrentInstance().update("form:demandas");   
+     RequestContext.getCurrentInstance().update("form:visitasDomiciliarias");   
+     RequestContext.getCurrentInstance().update("form:eventos");   
+     RequestContext.getCurrentInstance().update("form:deporte");   
+     RequestContext.getCurrentInstance().update("form:aficiones");   
+     RequestContext.getCurrentInstance().update("form:familiares");   
+    }
+    
     public void refrescar() {
         getEmpleado();
         datosEmpleado();

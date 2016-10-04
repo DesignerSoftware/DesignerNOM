@@ -250,7 +250,7 @@
                             <p:dataTable id="lovGrupo" var="grupo" value="#{controlEmplInformacionAdicional.listGruposInfAdicional}" rowKey="#{grupo.secuencia}"
                                          selection="#{controlEmplInformacionAdicional.grupoSelecionado}" selectionMode="single" widgetVar="lovGrupo" scrollable="true" scrollWidth="400" scrollHeight="250"
                                          filteredValue="#{controlEmplInformacionAdicional.filtrarListGruposInfAdicional}" emptyMessage="#{msg['lovvacio']}">              
-                                <p:ajax event="filter" listener="#{controlEmplInformacionAdicional.eventoFiltrarGrupo()}"/>
+                                <p:ajax event="filter" listener="#{controlEmplInformacionAdicional.contarRegistroGrupo()}"/>
                                 <p:ajax event="rowSelect" listener="#{controlEmplInformacionAdicional.activarAceptar()}" update=":form:aceptarG"/>
                                 <p:ajax event="rowDblselect" listener="#{controlEmplInformacionAdicional.actualizarGrupo()}" process="@this" onstart="PF('lovGrupo').clearFilters()"/>
                                 <f:facet name="header">  
@@ -380,7 +380,8 @@
                                 <p:ajax event="click" listener="#{controlEmplInformacionAdicional.valoresBackupAutocompletar(1, 'GRUPO')}" />
                                 <p:ajax event="change" listener="#{controlEmplInformacionAdicional.autocompletarNuevoyDuplicado('GRUPO', controlEmplInformacionAdicional.nuevaInfoAdicional.grupo.descripcion, 1)}" />
                             </p:inputText>
-                            <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border:none; width: 23px; height: 23px; position: absolute; left: 330px; top: 130px;  " id="btnNuevoGrupo" value=""  actionListener="#{controlEmplInformacionAdicional.asignarIndex(info,0,1)}"/>   
+                            <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border:none; width: 23px; height: 23px; position: absolute; left: 330px; top: 130px;"
+                                             id="btnNuevoGrupo" value=""  actionListener="#{controlEmplInformacionAdicional.asignarIndex(info,0,1)}"/>   
                             <p:watermark for="nuevaGrupo" value="#{msg['grupo']}" />
 
                             <strong><h:outputText value="*#{msg['tipodatoN']}" style="position: absolute; top: 165px; left: 50px;" /></strong>

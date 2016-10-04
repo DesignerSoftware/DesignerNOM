@@ -82,24 +82,19 @@ public class ControlEmplInformacionAdicional implements Serializable {
         listInformacionAdicional = null;
         listGruposInfAdicional = null;
         empleado = new Empleados();
-        //Otros
         aceptar = true;
-        //borrar aficiones
         listInfoAdicionalBorrar = new ArrayList<InformacionesAdicionales>();
-        //crear aficiones
         listInfoAdicionalCrear = new ArrayList<InformacionesAdicionales>();
         k = 0;
-        //modificar aficiones
         listInfoAdicionalModificar = new ArrayList<InformacionesAdicionales>();
-        //editar
         editarInfoAdicional = new InformacionesAdicionales();
         cualCelda = -1;
         tipoLista = 0;
-        //guardar 
         guardado = true;
-        //Crear VC
         nuevaInfoAdicional = new InformacionesAdicionales();
         nuevaInfoAdicional.setGrupo(new GruposInfAdicionales());
+        duplicarInfoAdicional = new InformacionesAdicionales();
+        duplicarInfoAdicional.setGrupo(new GruposInfAdicionales());
         permitirIndex = true;
         activarLov = true;
     }

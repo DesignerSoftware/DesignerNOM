@@ -476,7 +476,7 @@ public class ControlIndicadores implements Serializable {
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarI");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarIndicador");
             RequestContext.getCurrentInstance().execute("PF('duplicarRegistroIndicadores').show()");
         } else {
             RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");

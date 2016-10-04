@@ -63,7 +63,7 @@
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) " action="#{controlIndicadores.retornarPagina()}" actionListener="#{controlIndicadores.salir()}"  process="@this"/>  
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) " action="atrasindicador" actionListener="#{controlIndicadores.salir()}"  process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
                             </p:toolbarGroup>  
@@ -132,8 +132,12 @@
                         </fieldset>
                 <p:hotkey bind="ctrl+f11" actionListener="#{controlIndicadores.activarCtrlF11()}"/> 
                     </p:panel>
-                </h:form>
 
+                <p:commandButton id="btnResultadoEx" style="position: absolute; left: 13px; top: 465px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; color: white; text-align: right;" value=" Res.Índice Ex. "
+                                 actionListener="#{controlResultadosIndicesExternos.recibirPagina('indicadores')}" action="resultadoindice" process="@this"/>
+                <p:tooltip  for="btnResultadoEx" value="#{msg['resultadoIn']}"/>
+                </h:form>
+                
                 <h:form id="formularioDialogos">
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
@@ -251,7 +255,7 @@
                     <p:dialog id="duplicarRegistroIndicadores" header="Nuevo Registro" widgetVar="duplicarRegistroIndicadores" closable="false" resizable="false"  draggable="true" modal="true" height="200" width="320" style=" padding: 0px">  
                         <center><strong><h:outputText value="Nuevo Tipo Curso" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
 
-                        <p:panel id="duplicarTipoIndicador" style="border: none;">
+                        <p:panel id="duplicarIndicador" style="border: none;">
 
                             <strong><h:outputText value="*#{msg['codigo']}: "  style="position: absolute; top: 60px;" /></strong>
                             <p:inputText  autocomplete="off"  id="duplicarCodigo" maxlength="4" value="#{controlIndicadores.duplicarIndicador.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
@@ -268,14 +272,14 @@
                             <strong><h:outputText value="*#{msg['tipo']}: "  style="position: absolute; top: 120px;" /></strong>
                             <p:inputText  autocomplete="off"   id="duplicarTipo" maxlength="50" value="#{controlIndicadores.duplicarIndicador.tipoindicador.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 115px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
-                                <p:ajax event="dblclick" listener="#{controlIndicadores.asignarIndex(info, 1, 1)}" />
+                                <p:ajax event="dblclick" listener="#{controlIndicadores.asignarIndex(info, 1, 2)}" />
                             </p:inputText>
                             <p:watermark for="duplicarTipo" value="#{msg['tipo']}" />
                             <p:commandButton style="position: absolute; left: 331px; top: 115px;" class="cssBotonLovDialogos"  id="btnDuplicarAdiestramientoF" value="" process="@this"  actionListener="#{controlIndicadores.asignarIndex(info, 1, 2)}"/>
 
-                            <p:commandButton id="limpiar" icon="ui-icon-trash" value="Limpiar" style=" position: absolute; left: 10px; top: 150px;"  actionListener="#{controlIndicadores.limpiarDuplicar()}" update="duplicarTipoIndicador" process="@this"/>
+                            <p:commandButton id="limpiar" icon="ui-icon-trash" value="Limpiar" style=" position: absolute; left: 10px; top: 150px;"  actionListener="#{controlIndicadores.limpiarDuplicar()}" update="duplicarIndicador" process="@this"/>
                             <p:commandButton id="agregarTE" icon="ui-icon-circle-check" value="Agregar" style=" position: absolute; left: 110px; top: 150px;" actionListener="#{controlIndicadores.confirmarDuplicar()}" process="@this" />
-                            <p:commandButton id="cancelarTE" icon="ui-icon-circle-close" value="Cancelar" style=" position: absolute; left: 210px; top: 150px;"  update="duplicarTipoIndicador" onclick="PF('nuevoRegistroIndicadores').hide();"  actionListener="#{controlIndicadores.limpiarDuplicar()}"  process="@this"/>
+                            <p:commandButton id="cancelarTE" icon="ui-icon-circle-close" value="Cancelar" style=" position: absolute; left: 210px; top: 150px;"  update="duplicarIndicador" onclick="PF('nuevoRegistroIndicadores').hide();"  actionListener="#{controlIndicadores.limpiarDuplicar()}"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 
@@ -338,7 +342,6 @@
                         </p:column>
                     </p:dataTable>
                 </h:form>
-
             </ui:define>
         </ui:composition>
     </h:body>

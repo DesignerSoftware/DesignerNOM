@@ -160,32 +160,32 @@ public class ControlProyecto implements Serializable {
         boolean retorno = false;
         if (i == 0) {
             if (tipoListaP == 0) {
-                if (proyectoLOVSeleccionado.getFechainicial() != null && proyectoLOVSeleccionado.getFechafinal() != null) {
-                    if (proyectoLOVSeleccionado.getFechainicial().before(proyectoLOVSeleccionado.getFechafinal())) {
+                if (proyectoTablaSeleccionado.getFechainicial() != null && proyectoTablaSeleccionado.getFechafinal() != null) {
+                    if (proyectoTablaSeleccionado.getFechainicial().before(proyectoTablaSeleccionado.getFechafinal())) {
                         retorno = true;
                     } else {
                         retorno = false;
                     }
                 }
-                if (proyectoLOVSeleccionado.getFechainicial() != null && proyectoLOVSeleccionado.getFechafinal() == null) {
+                if (proyectoTablaSeleccionado.getFechainicial() != null && proyectoTablaSeleccionado.getFechafinal() == null) {
                     retorno = true;
                 }
-                if (proyectoLOVSeleccionado.getFechainicial() == null && proyectoLOVSeleccionado.getFechafinal() != null) {
+                if (proyectoTablaSeleccionado.getFechainicial() == null && proyectoTablaSeleccionado.getFechafinal() != null) {
                     retorno = false;
                 }
             }
             if (tipoListaP == 1) {
-                if (proyectoLOVSeleccionado.getFechainicial() != null && proyectoLOVSeleccionado.getFechafinal() != null) {
-                    if (proyectoLOVSeleccionado.getFechainicial().before(proyectoLOVSeleccionado.getFechafinal())) {
+                if (proyectoTablaSeleccionado.getFechainicial() != null && proyectoTablaSeleccionado.getFechafinal() != null) {
+                    if (proyectoTablaSeleccionado.getFechainicial().before(proyectoTablaSeleccionado.getFechafinal())) {
                         retorno = true;
                     } else {
                         retorno = false;
                     }
                 }
-                if (proyectoLOVSeleccionado.getFechainicial() != null && proyectoLOVSeleccionado.getFechafinal() == null) {
+                if (proyectoTablaSeleccionado.getFechainicial() != null && proyectoTablaSeleccionado.getFechafinal() == null) {
                     retorno = true;
                 }
-                if (proyectoLOVSeleccionado.getFechainicial() == null && proyectoLOVSeleccionado.getFechafinal() != null) {
+                if (proyectoTablaSeleccionado.getFechainicial() == null && proyectoTablaSeleccionado.getFechafinal() != null) {
                     retorno = false;
                 }
             }
@@ -246,16 +246,16 @@ public class ControlProyecto implements Serializable {
             fechaInic = null;
         }
         if (retorno == true) {
-            cambiarIndiceP(proyectoLOVSeleccionado, c);
+            cambiarIndiceP(proyectoTablaSeleccionado, c);
             modificarProyecto(proyecto);
         } else {
             if (tipoListaP == 0) {
-                proyectoLOVSeleccionado.setFechafinal(fechaFin);
-                proyectoLOVSeleccionado.setFechainicial(fechaInic);
+                proyectoTablaSeleccionado.setFechafinal(fechaFin);
+                proyectoTablaSeleccionado.setFechainicial(fechaInic);
             }
             if (tipoListaP == 1) {
-                proyectoLOVSeleccionado.setFechafinal(fechaFin);
-                proyectoLOVSeleccionado.setFechainicial(fechaInic);
+                proyectoTablaSeleccionado.setFechafinal(fechaFin);
+                proyectoTablaSeleccionado.setFechainicial(fechaInic);
             }
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:datosProyectos");
@@ -268,9 +268,9 @@ public class ControlProyecto implements Serializable {
         if (i == 0) {
             Proyectos aux = null;
             if (tipoListaP == 0) {
-                aux = proyectoLOVSeleccionado;
+                aux = proyectoTablaSeleccionado;
             } else {
-                aux = proyectoLOVSeleccionado;
+                aux = proyectoTablaSeleccionado;
             }
             if (aux.getCodigo() == null) {
                 retorno = false;
@@ -315,11 +315,11 @@ public class ControlProyecto implements Serializable {
 
         if (validarDatosNull(0) == true) {
             if (tipoListaP == 0) {
-                if (!listProyectoCrear.contains(proyectoLOVSeleccionado)) {
+                if (!listProyectoCrear.contains(proyectoTablaSeleccionado)) {
                     if (listProyectoModificar.isEmpty()) {
-                        listProyectoModificar.add(proyectoLOVSeleccionado);
-                    } else if (!listProyectoModificar.contains(proyectoLOVSeleccionado)) {
-                        listProyectoModificar.add(proyectoLOVSeleccionado);
+                        listProyectoModificar.add(proyectoTablaSeleccionado);
+                    } else if (!listProyectoModificar.contains(proyectoTablaSeleccionado)) {
+                        listProyectoModificar.add(proyectoTablaSeleccionado);
                     }
                     if (guardado == true) {
                         guardado = false;
@@ -327,11 +327,11 @@ public class ControlProyecto implements Serializable {
                     }
                 }
 
-            } else if (!listProyectoCrear.contains(proyectoLOVSeleccionado)) {
+            } else if (!listProyectoCrear.contains(proyectoTablaSeleccionado)) {
                 if (listProyectoModificar.isEmpty()) {
-                    listProyectoModificar.add(proyectoLOVSeleccionado);
-                } else if (!listProyectoModificar.contains(proyectoLOVSeleccionado)) {
-                    listProyectoModificar.add(proyectoLOVSeleccionado);
+                    listProyectoModificar.add(proyectoTablaSeleccionado);
+                } else if (!listProyectoModificar.contains(proyectoTablaSeleccionado)) {
+                    listProyectoModificar.add(proyectoTablaSeleccionado);
                 }
                 if (guardado == true) {
                     guardado = false;
@@ -343,16 +343,16 @@ public class ControlProyecto implements Serializable {
     }
 
     public void modificarProyecto(Proyectos proyecto, String confirmarCambio, String valorConfirmar) {
-        proyectoLOVSeleccionado = proyecto;
+        proyectoTablaSeleccionado = proyecto;
         int coincidencias = 0;
         int indiceUnicoElemento = 0;
         RequestContext context = RequestContext.getCurrentInstance();
         if (confirmarCambio.equalsIgnoreCase("EMPRESAS")) {
             if (!valorConfirmar.isEmpty()) {
                 if (tipoListaP == 0) {
-                    proyectoLOVSeleccionado.getEmpresa().setNombre(empresas);
+                    proyectoTablaSeleccionado.getEmpresa().setNombre(empresas);
                 } else {
-                    proyectoLOVSeleccionado.getEmpresa().setNombre(empresas);
+                    proyectoTablaSeleccionado.getEmpresa().setNombre(empresas);
                 }
                 for (int i = 0; i < listEmpresas.size(); i++) {
                     if (listEmpresas.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
@@ -362,9 +362,9 @@ public class ControlProyecto implements Serializable {
                 }
                 if (coincidencias == 1) {
                     if (tipoListaP == 0) {
-                        proyectoLOVSeleccionado.setEmpresa(listEmpresas.get(indiceUnicoElemento));
+                        proyectoTablaSeleccionado.setEmpresa(listEmpresas.get(indiceUnicoElemento));
                     } else {
-                        proyectoLOVSeleccionado.setEmpresa(listEmpresas.get(indiceUnicoElemento));
+                        proyectoTablaSeleccionado.setEmpresa(listEmpresas.get(indiceUnicoElemento));
                     }
                     listEmpresas = null;
                     getListEmpresas();
@@ -380,18 +380,18 @@ public class ControlProyecto implements Serializable {
                 listEmpresas = null;
                 getListEmpresas();
                 if (tipoListaP == 0) {
-                    proyectoLOVSeleccionado.setEmpresa(new Empresas());
+                    proyectoTablaSeleccionado.setEmpresa(new Empresas());
                 } else {
-                    proyectoLOVSeleccionado.setEmpresa(new Empresas());
+                    proyectoTablaSeleccionado.setEmpresa(new Empresas());
                 }
             }
             deshabilitarLov();
         } else if (confirmarCambio.equalsIgnoreCase("CLIENTES")) {
             if (!valorConfirmar.isEmpty()) {
                 if (tipoListaP == 0) {
-                    proyectoLOVSeleccionado.getPryCliente().setNombre(clientes);
+                    proyectoTablaSeleccionado.getPryCliente().setNombre(clientes);
                 } else {
-                    proyectoLOVSeleccionado.getPryCliente().setNombre(clientes);
+                    proyectoTablaSeleccionado.getPryCliente().setNombre(clientes);
                 }
                 for (int i = 0; i < listPryClientes.size(); i++) {
                     if (listPryClientes.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
@@ -401,9 +401,9 @@ public class ControlProyecto implements Serializable {
                 }
                 if (coincidencias == 1) {
                     if (tipoListaP == 0) {
-                        proyectoLOVSeleccionado.setPryCliente(listPryClientes.get(indiceUnicoElemento));
+                        proyectoTablaSeleccionado.setPryCliente(listPryClientes.get(indiceUnicoElemento));
                     } else {
-                        proyectoLOVSeleccionado.setPryCliente(listPryClientes.get(indiceUnicoElemento));
+                        proyectoTablaSeleccionado.setPryCliente(listPryClientes.get(indiceUnicoElemento));
                     }
                     listPryClientes = null;
                     getListPryClientes();
@@ -419,18 +419,18 @@ public class ControlProyecto implements Serializable {
                 listPryClientes = null;
                 getListPryClientes();
                 if (tipoListaP == 0) {
-                    proyectoLOVSeleccionado.setPryCliente(new PryClientes());
+                    proyectoTablaSeleccionado.setPryCliente(new PryClientes());
                 } else {
-                    proyectoLOVSeleccionado.setPryCliente(new PryClientes());
+                    proyectoTablaSeleccionado.setPryCliente(new PryClientes());
                 }
             }
             deshabilitarLov();
         } else if (confirmarCambio.equalsIgnoreCase("PLATAFORMAS")) {
             if (!valorConfirmar.isEmpty()) {
                 if (tipoListaP == 0) {
-                    proyectoLOVSeleccionado.getPryPlataforma().setDescripcion(plataformas);
+                    proyectoTablaSeleccionado.getPryPlataforma().setDescripcion(plataformas);
                 } else {
-                    proyectoLOVSeleccionado.getPryPlataforma().setDescripcion(plataformas);
+                    proyectoTablaSeleccionado.getPryPlataforma().setDescripcion(plataformas);
                 }
                 for (int i = 0; i < listPryPlataformas.size(); i++) {
                     if (listPryPlataformas.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
@@ -440,9 +440,9 @@ public class ControlProyecto implements Serializable {
                 }
                 if (coincidencias == 1) {
                     if (tipoListaP == 0) {
-                        proyectoLOVSeleccionado.setPryPlataforma(listPryPlataformas.get(indiceUnicoElemento));
+                        proyectoTablaSeleccionado.setPryPlataforma(listPryPlataformas.get(indiceUnicoElemento));
                     } else {
-                        proyectoLOVSeleccionado.setPryPlataforma(listPryPlataformas.get(indiceUnicoElemento));
+                        proyectoTablaSeleccionado.setPryPlataforma(listPryPlataformas.get(indiceUnicoElemento));
                     }
                     listPryPlataformas = null;
                     getListPryPlataformas();
@@ -457,18 +457,18 @@ public class ControlProyecto implements Serializable {
                 listPryPlataformas = null;
                 getListPryPlataformas();
                 if (tipoListaP == 0) {
-                    proyectoLOVSeleccionado.setPryPlataforma(new PryPlataformas());
+                    proyectoTablaSeleccionado.setPryPlataforma(new PryPlataformas());
                 } else {
-                    proyectoLOVSeleccionado.setPryPlataforma(new PryPlataformas());
+                    proyectoTablaSeleccionado.setPryPlataforma(new PryPlataformas());
                 }
             }
             deshabilitarLov();
         } else if (confirmarCambio.equalsIgnoreCase("MONEDAS")) {
             if (!valorConfirmar.isEmpty()) {
                 if (tipoListaP == 0) {
-                    proyectoLOVSeleccionado.getTipomoneda().setNombre(monedas);
+                    proyectoTablaSeleccionado.getTipomoneda().setNombre(monedas);
                 } else {
-                    proyectoLOVSeleccionado.getTipomoneda().setNombre(monedas);
+                    proyectoTablaSeleccionado.getTipomoneda().setNombre(monedas);
                 }
                 for (int i = 0; i < listMonedas.size(); i++) {
                     if (listMonedas.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
@@ -478,9 +478,9 @@ public class ControlProyecto implements Serializable {
                 }
                 if (coincidencias == 1) {
                     if (tipoListaP == 0) {
-                        proyectoLOVSeleccionado.setTipomoneda(listMonedas.get(indiceUnicoElemento));
+                        proyectoTablaSeleccionado.setTipomoneda(listMonedas.get(indiceUnicoElemento));
                     } else {
-                        proyectoLOVSeleccionado.setTipomoneda(listMonedas.get(indiceUnicoElemento));
+                        proyectoTablaSeleccionado.setTipomoneda(listMonedas.get(indiceUnicoElemento));
                     }
 
                     listMonedas = null;
@@ -496,21 +496,21 @@ public class ControlProyecto implements Serializable {
                 listMonedas = null;
                 getListMonedas();
                 if (tipoListaP == 0) {
-                    proyectoLOVSeleccionado.setTipomoneda(new Monedas());
+                    proyectoTablaSeleccionado.setTipomoneda(new Monedas());
                 } else {
-                    proyectoLOVSeleccionado.setTipomoneda(new Monedas());
+                    proyectoTablaSeleccionado.setTipomoneda(new Monedas());
                 }
             }
             deshabilitarLov();
         }
         if (coincidencias == 1) {
             if (tipoListaP == 0) {
-                if (!listProyectoCrear.contains(proyectoLOVSeleccionado)) {
+                if (!listProyectoCrear.contains(proyectoTablaSeleccionado)) {
 
                     if (listProyectoModificar.isEmpty()) {
-                        listProyectoModificar.add(proyectoLOVSeleccionado);
-                    } else if (!listProyectoModificar.contains(proyectoLOVSeleccionado)) {
-                        listProyectoModificar.add(proyectoLOVSeleccionado);
+                        listProyectoModificar.add(proyectoTablaSeleccionado);
+                    } else if (!listProyectoModificar.contains(proyectoTablaSeleccionado)) {
+                        listProyectoModificar.add(proyectoTablaSeleccionado);
                     }
                     if (guardado == true) {
                         guardado = false;
@@ -518,12 +518,12 @@ public class ControlProyecto implements Serializable {
                     }
                 }
 
-            } else if (!listProyectoCrear.contains(proyectoLOVSeleccionado)) {
+            } else if (!listProyectoCrear.contains(proyectoTablaSeleccionado)) {
 
                 if (listProyectoModificar.isEmpty()) {
-                    listProyectoModificar.add(proyectoLOVSeleccionado);
-                } else if (!listProyectoModificar.contains(proyectoLOVSeleccionado)) {
-                    listProyectoModificar.add(proyectoLOVSeleccionado);
+                    listProyectoModificar.add(proyectoTablaSeleccionado);
+                } else if (!listProyectoModificar.contains(proyectoTablaSeleccionado)) {
+                    listProyectoModificar.add(proyectoTablaSeleccionado);
                 }
                 if (guardado == true) {
                     guardado = false;
@@ -750,18 +750,18 @@ public class ControlProyecto implements Serializable {
 
     public void cambiarIndiceP(Proyectos proyecto, int celda) {
         if (permitirIndexP == true) {
-            proyectoLOVSeleccionado = proyecto;
+            proyectoTablaSeleccionado = proyecto;
             cualCeldaP = celda;
             if (tipoListaP == 0) {
-                auxCodigo = proyectoLOVSeleccionado.getCodigo();
-                auxNombre = proyectoLOVSeleccionado.getNombreproyecto();
-                fechaFin = proyectoLOVSeleccionado.getFechafinal();
-                fechaInic = proyectoLOVSeleccionado.getFechainicial();
-                proyectoLOVSeleccionado.getSecuencia();
-                empresas = proyectoLOVSeleccionado.getEmpresa().getNombre();
-                clientes = proyectoLOVSeleccionado.getPryCliente().getNombre();
-                plataformas = proyectoLOVSeleccionado.getPryPlataforma().getDescripcion();
-                monedas = proyectoLOVSeleccionado.getTipomoneda().getNombre();
+                auxCodigo = proyectoTablaSeleccionado.getCodigo();
+                auxNombre = proyectoTablaSeleccionado.getNombreproyecto();
+                fechaFin = proyectoTablaSeleccionado.getFechafinal();
+                fechaInic = proyectoTablaSeleccionado.getFechainicial();
+                proyectoTablaSeleccionado.getSecuencia();
+                empresas = proyectoTablaSeleccionado.getEmpresa().getNombre();
+                clientes = proyectoTablaSeleccionado.getPryCliente().getNombre();
+                plataformas = proyectoTablaSeleccionado.getPryPlataforma().getDescripcion();
+                monedas = proyectoTablaSeleccionado.getTipomoneda().getNombre();
                 deshabilitarLov();
                 if (cualCeldaP == 0) {
                     contarRegistros();
@@ -782,15 +782,15 @@ public class ControlProyecto implements Serializable {
                 }
             }
             if (tipoListaP == 1) {
-                auxCodigo = proyectoLOVSeleccionado.getCodigo();
-                auxNombre = proyectoLOVSeleccionado.getNombreproyecto();
-                fechaFin = proyectoLOVSeleccionado.getFechafinal();
-                fechaInic = proyectoLOVSeleccionado.getFechainicial();
-                proyectoLOVSeleccionado.getSecuencia();
-                empresas = proyectoLOVSeleccionado.getEmpresa().getNombre();
-                clientes = proyectoLOVSeleccionado.getPryCliente().getNombre();
-                plataformas = proyectoLOVSeleccionado.getPryPlataforma().getDescripcion();
-                monedas = proyectoLOVSeleccionado.getTipomoneda().getNombre();
+                auxCodigo = proyectoTablaSeleccionado.getCodigo();
+                auxNombre = proyectoTablaSeleccionado.getNombreproyecto();
+                fechaFin = proyectoTablaSeleccionado.getFechafinal();
+                fechaInic = proyectoTablaSeleccionado.getFechainicial();
+                proyectoTablaSeleccionado.getSecuencia();
+                empresas = proyectoTablaSeleccionado.getEmpresa().getNombre();
+                clientes = proyectoTablaSeleccionado.getPryCliente().getNombre();
+                plataformas = proyectoTablaSeleccionado.getPryPlataforma().getDescripcion();
+                monedas = proyectoTablaSeleccionado.getTipomoneda().getNombre();
                 deshabilitarLov();
                 if (cualCeldaP == 0) {
                     contarRegistros();
@@ -916,12 +916,12 @@ public class ControlProyecto implements Serializable {
     }
 
     public void editarCelda() {
-        if (proyectoLOVSeleccionado != null) {
+        if (proyectoTablaSeleccionado != null) {
             if (tipoListaP == 0) {
-                editarProyecto = proyectoLOVSeleccionado;
+                editarProyecto = proyectoTablaSeleccionado;
             }
             if (tipoListaP == 1) {
-                editarProyecto = proyectoLOVSeleccionado;
+                editarProyecto = proyectoTablaSeleccionado;
             }
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCeldaP == 0) {
@@ -1073,39 +1073,41 @@ public class ControlProyecto implements Serializable {
     }
 
     public void verificarDuplicarProyecto() {
-        if (proyectoLOVSeleccionado != null) {
+        if (proyectoTablaSeleccionado != null) {
             duplicarProyectoM();
         }
     }
 
     public void duplicarProyectoM() {
         RequestContext context = RequestContext.getCurrentInstance();
-        if (proyectoLOVSeleccionado != null) {
+        if (proyectoTablaSeleccionado != null) {
             duplicarProyecto = new Proyectos();
             if (tipoListaP == 0) {
-                duplicarProyecto.setFechafinal(proyectoLOVSeleccionado.getFechafinal());
-                duplicarProyecto.setFechainicial(proyectoLOVSeleccionado.getFechainicial());
-                duplicarProyecto.setEmpresa(proyectoLOVSeleccionado.getEmpresa());
-                duplicarProyecto.setNombreproyecto(proyectoLOVSeleccionado.getNombreproyecto());
-                duplicarProyecto.setCodigo(proyectoLOVSeleccionado.getCodigo());
-                duplicarProyecto.setPryCliente(proyectoLOVSeleccionado.getPryCliente());
-                duplicarProyecto.setPryPlataforma(proyectoLOVSeleccionado.getPryPlataforma());
-                duplicarProyecto.setMonto(proyectoLOVSeleccionado.getMonto());
-                duplicarProyecto.setTipomoneda(proyectoLOVSeleccionado.getTipomoneda());
-                duplicarProyecto.setDescripcionproyecto(proyectoLOVSeleccionado.getDescripcionproyecto());
+                duplicarProyecto.setFechafinal(proyectoTablaSeleccionado.getFechafinal());
+                duplicarProyecto.setFechainicial(proyectoTablaSeleccionado.getFechainicial());
+                duplicarProyecto.setEmpresa(proyectoTablaSeleccionado.getEmpresa());
+                duplicarProyecto.setNombreproyecto(proyectoTablaSeleccionado.getNombreproyecto());
+                duplicarProyecto.setCodigo(proyectoTablaSeleccionado.getCodigo());
+                duplicarProyecto.setPryCliente(proyectoTablaSeleccionado.getPryCliente());
+                duplicarProyecto.setPryPlataforma(proyectoTablaSeleccionado.getPryPlataforma());
+                duplicarProyecto.setMonto(proyectoTablaSeleccionado.getMonto());
+                duplicarProyecto.setTipomoneda(proyectoTablaSeleccionado.getTipomoneda());
+                duplicarProyecto.setDescripcionproyecto(proyectoTablaSeleccionado.getDescripcionproyecto());
+                duplicarProyecto.setCantidadpersonas(proyectoTablaSeleccionado.getCantidadpersonas());
                 deshabilitarLov();
             }
             if (tipoListaP == 1) {
-                duplicarProyecto.setFechafinal(proyectoLOVSeleccionado.getFechafinal());
-                duplicarProyecto.setFechainicial(proyectoLOVSeleccionado.getFechainicial());
-                duplicarProyecto.setEmpresa(proyectoLOVSeleccionado.getEmpresa());
-                duplicarProyecto.setNombreproyecto(proyectoLOVSeleccionado.getNombreproyecto());
-                duplicarProyecto.setCodigo(proyectoLOVSeleccionado.getCodigo());
-                duplicarProyecto.setPryCliente(proyectoLOVSeleccionado.getPryCliente());
-                duplicarProyecto.setPryPlataforma(proyectoLOVSeleccionado.getPryPlataforma());
-                duplicarProyecto.setMonto(proyectoLOVSeleccionado.getMonto());
-                duplicarProyecto.setTipomoneda(proyectoLOVSeleccionado.getTipomoneda());
-                duplicarProyecto.setDescripcionproyecto(proyectoLOVSeleccionado.getDescripcionproyecto());
+                duplicarProyecto.setFechafinal(proyectoTablaSeleccionado.getFechafinal());
+                duplicarProyecto.setFechainicial(proyectoTablaSeleccionado.getFechainicial());
+                duplicarProyecto.setEmpresa(proyectoTablaSeleccionado.getEmpresa());
+                duplicarProyecto.setNombreproyecto(proyectoTablaSeleccionado.getNombreproyecto());
+                duplicarProyecto.setCodigo(proyectoTablaSeleccionado.getCodigo());
+                duplicarProyecto.setPryCliente(proyectoTablaSeleccionado.getPryCliente());
+                duplicarProyecto.setPryPlataforma(proyectoTablaSeleccionado.getPryPlataforma());
+                duplicarProyecto.setMonto(proyectoTablaSeleccionado.getMonto());
+                duplicarProyecto.setTipomoneda(proyectoTablaSeleccionado.getTipomoneda());
+                duplicarProyecto.setDescripcionproyecto(proyectoTablaSeleccionado.getDescripcionproyecto());
+                duplicarProyecto.setCantidadpersonas(proyectoTablaSeleccionado.getCantidadpersonas());
                 deshabilitarLov();
             }
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarP");
@@ -1197,7 +1199,7 @@ public class ControlProyecto implements Serializable {
     }
 
     public void validarBorradoProyecto() {
-        if (proyectoLOVSeleccionado != null) {
+        if (proyectoTablaSeleccionado != null) {
             borrarP();
         }
     }
@@ -1349,7 +1351,7 @@ public class ControlProyecto implements Serializable {
     public void asignarIndex(Proyectos proyecto, int dlg, int LND) {
         RequestContext context = RequestContext.getCurrentInstance();
         if (LND == 0) {
-            proyectoLOVSeleccionado = proyecto;
+            proyectoTablaSeleccionado = proyecto;
             tipoActualizacion = 0;
             habilitarLov();
         } else if (LND == 1) {
@@ -1383,12 +1385,12 @@ public class ControlProyecto implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (tipoActualizacion == 0) {
             if (tipoListaP == 0) {
-                proyectoLOVSeleccionado.setEmpresa(empresaSeleccionada);
-                if (!listProyectoCrear.contains(proyectoLOVSeleccionado)) {
+                proyectoTablaSeleccionado.setEmpresa(empresaSeleccionada);
+                if (!listProyectoCrear.contains(proyectoTablaSeleccionado)) {
                     if (listProyectoModificar.isEmpty()) {
-                        listProyectoModificar.add(proyectoLOVSeleccionado);
-                    } else if (!listProyectoModificar.contains(proyectoLOVSeleccionado)) {
-                        listProyectoModificar.add(proyectoLOVSeleccionado);
+                        listProyectoModificar.add(proyectoTablaSeleccionado);
+                    } else if (!listProyectoModificar.contains(proyectoTablaSeleccionado)) {
+                        listProyectoModificar.add(proyectoTablaSeleccionado);
                     }
                 }
                 if (guardado == true) {
@@ -1399,12 +1401,12 @@ public class ControlProyecto implements Serializable {
                 permitirIndexP = true;
 
             } else {
-                proyectoLOVSeleccionado.setEmpresa(empresaSeleccionada);
-                if (!listProyectoCrear.contains(proyectoLOVSeleccionado)) {
+                proyectoTablaSeleccionado.setEmpresa(empresaSeleccionada);
+                if (!listProyectoCrear.contains(proyectoTablaSeleccionado)) {
                     if (listProyectoModificar.isEmpty()) {
-                        listProyectoModificar.add(proyectoLOVSeleccionado);
-                    } else if (!listProyectoModificar.contains(proyectoLOVSeleccionado)) {
-                        listProyectoModificar.add(proyectoLOVSeleccionado);
+                        listProyectoModificar.add(proyectoTablaSeleccionado);
+                    } else if (!listProyectoModificar.contains(proyectoTablaSeleccionado)) {
+                        listProyectoModificar.add(proyectoTablaSeleccionado);
                     }
                 }
                 if (guardado == true) {
@@ -1444,6 +1446,9 @@ public class ControlProyecto implements Serializable {
         tipoActualizacion = -1;
         permitirIndexP = true;
         RequestContext context = RequestContext.getCurrentInstance();
+        RequestContext.getCurrentInstance().update("form:EmpresasDialogo");
+        RequestContext.getCurrentInstance().update("form:lovEmpresas");
+        RequestContext.getCurrentInstance().update("form:aceptarE");
         context.reset("form:lovEmpresas:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('lovEmpresas').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('EmpresasDialogo').hide()");
@@ -1453,21 +1458,21 @@ public class ControlProyecto implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (tipoActualizacion == 0) {
             if (tipoListaP == 0) {
-                proyectoLOVSeleccionado.setPryCliente(clienteSeleccionado);
-                if (!listProyectoCrear.contains(proyectoLOVSeleccionado)) {
+                proyectoTablaSeleccionado.setPryCliente(clienteSeleccionado);
+                if (!listProyectoCrear.contains(proyectoTablaSeleccionado)) {
                     if (listProyectoModificar.isEmpty()) {
-                        listProyectoModificar.add(proyectoLOVSeleccionado);
-                    } else if (!listProyectoModificar.contains(proyectoLOVSeleccionado)) {
-                        listProyectoModificar.add(proyectoLOVSeleccionado);
+                        listProyectoModificar.add(proyectoTablaSeleccionado);
+                    } else if (!listProyectoModificar.contains(proyectoTablaSeleccionado)) {
+                        listProyectoModificar.add(proyectoTablaSeleccionado);
                     }
                 }
             } else {
-                proyectoLOVSeleccionado.setPryCliente(clienteSeleccionado);
-                if (!listProyectoCrear.contains(proyectoLOVSeleccionado)) {
+                proyectoTablaSeleccionado.setPryCliente(clienteSeleccionado);
+                if (!listProyectoCrear.contains(proyectoTablaSeleccionado)) {
                     if (listProyectoModificar.isEmpty()) {
-                        listProyectoModificar.add(proyectoLOVSeleccionado);
-                    } else if (!listProyectoModificar.contains(proyectoLOVSeleccionado)) {
-                        listProyectoModificar.add(proyectoLOVSeleccionado);
+                        listProyectoModificar.add(proyectoTablaSeleccionado);
+                    } else if (!listProyectoModificar.contains(proyectoTablaSeleccionado)) {
+                        listProyectoModificar.add(proyectoTablaSeleccionado);
                     }
                 }
             }
@@ -1518,21 +1523,21 @@ public class ControlProyecto implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (tipoActualizacion == 0) {
             if (tipoListaP == 0) {
-                proyectoLOVSeleccionado.setPryPlataforma(plataformaSeleccionada);
-                if (!listProyectoCrear.contains(proyectoLOVSeleccionado)) {
+                proyectoTablaSeleccionado.setPryPlataforma(plataformaSeleccionada);
+                if (!listProyectoCrear.contains(proyectoTablaSeleccionado)) {
                     if (listProyectoModificar.isEmpty()) {
-                        listProyectoModificar.add(proyectoLOVSeleccionado);
-                    } else if (!listProyectoModificar.contains(proyectoLOVSeleccionado)) {
-                        listProyectoModificar.add(proyectoLOVSeleccionado);
+                        listProyectoModificar.add(proyectoTablaSeleccionado);
+                    } else if (!listProyectoModificar.contains(proyectoTablaSeleccionado)) {
+                        listProyectoModificar.add(proyectoTablaSeleccionado);
                     }
                 }
             } else {
-                proyectoLOVSeleccionado.setPryPlataforma(plataformaSeleccionada);
-                if (!listProyectoCrear.contains(proyectoLOVSeleccionado)) {
+                proyectoTablaSeleccionado.setPryPlataforma(plataformaSeleccionada);
+                if (!listProyectoCrear.contains(proyectoTablaSeleccionado)) {
                     if (listProyectoModificar.isEmpty()) {
-                        listProyectoModificar.add(proyectoLOVSeleccionado);
-                    } else if (!listProyectoModificar.contains(proyectoLOVSeleccionado)) {
-                        listProyectoModificar.add(proyectoLOVSeleccionado);
+                        listProyectoModificar.add(proyectoTablaSeleccionado);
+                    } else if (!listProyectoModificar.contains(proyectoTablaSeleccionado)) {
+                        listProyectoModificar.add(proyectoTablaSeleccionado);
                     }
                 }
             }
@@ -1555,12 +1560,11 @@ public class ControlProyecto implements Serializable {
         tipoActualizacion = -1;
 
         RequestContext.getCurrentInstance().update("form:PlataformasDialogo");
-        RequestContext.getCurrentInstance().update("form:lovPlataforma");
         RequestContext.getCurrentInstance().update("form:aceptarP");
-
+       RequestContext.getCurrentInstance().update("form:lovPlataforma");
         context.reset("form:lovPlataforma:globalFilter");
-        RequestContext.getCurrentInstance().execute("PF('lovClientes').clearFilters()");
-        RequestContext.getCurrentInstance().execute("PF('form:PlataformasDialogo");
+        RequestContext.getCurrentInstance().execute("PF('lovPlataforma').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('PlataformasDialogo').hide()");
     }
 
     public void cancelarCambioPlataforma() {
@@ -1570,30 +1574,33 @@ public class ControlProyecto implements Serializable {
         tipoActualizacion = -1;
         permitirIndexP = true;
         RequestContext context = RequestContext.getCurrentInstance();
+        RequestContext.getCurrentInstance().update("form:PlataformasDialogo");
+        RequestContext.getCurrentInstance().update("form:lovPlataforma");
+        RequestContext.getCurrentInstance().update("form:aceptarP");
         context.reset("form:lovPlataforma:globalFilter");
-        RequestContext.getCurrentInstance().execute("PF('lovClientes').clearFilters()");
-        RequestContext.getCurrentInstance().execute("PF('PlataformasDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('lovPlataforma').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('form:PlataformasDialogo");
     }
 
     public void actualizarMoneda() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (tipoActualizacion == 0) {
             if (tipoListaP == 0) {
-                proyectoLOVSeleccionado.setTipomoneda(monedaSeleccionada);
-                if (!listProyectoCrear.contains(proyectoLOVSeleccionado)) {
+                proyectoTablaSeleccionado.setTipomoneda(monedaSeleccionada);
+                if (!listProyectoCrear.contains(proyectoTablaSeleccionado)) {
                     if (listProyectoModificar.isEmpty()) {
-                        listProyectoModificar.add(proyectoLOVSeleccionado);
-                    } else if (!listProyectoModificar.contains(proyectoLOVSeleccionado)) {
-                        listProyectoModificar.add(proyectoLOVSeleccionado);
+                        listProyectoModificar.add(proyectoTablaSeleccionado);
+                    } else if (!listProyectoModificar.contains(proyectoTablaSeleccionado)) {
+                        listProyectoModificar.add(proyectoTablaSeleccionado);
                     }
                 }
             } else {
-                proyectoLOVSeleccionado.setTipomoneda(monedaSeleccionada);
-                if (!listProyectoCrear.contains(proyectoLOVSeleccionado)) {
+                proyectoTablaSeleccionado.setTipomoneda(monedaSeleccionada);
+                if (!listProyectoCrear.contains(proyectoTablaSeleccionado)) {
                     if (listProyectoModificar.isEmpty()) {
-                        listProyectoModificar.add(proyectoLOVSeleccionado);
-                    } else if (!listProyectoModificar.contains(proyectoLOVSeleccionado)) {
-                        listProyectoModificar.add(proyectoLOVSeleccionado);
+                        listProyectoModificar.add(proyectoTablaSeleccionado);
+                    } else if (!listProyectoModificar.contains(proyectoTablaSeleccionado)) {
+                        listProyectoModificar.add(proyectoTablaSeleccionado);
                     }
                 }
             }
@@ -1615,12 +1622,12 @@ public class ControlProyecto implements Serializable {
         monedaSeleccionada = null;
         aceptar = true;
         tipoActualizacion = -1;
-        /*
-         RequestContext.getCurrentInstance().update("form:MonedasDialogo");
-         RequestContext.getCurrentInstance().update("form:lovMoneda");
-         RequestContext.getCurrentInstance().update("form:aceptarM");*/
+
+        RequestContext.getCurrentInstance().update("form:MonedasDialogo");
+        RequestContext.getCurrentInstance().update("form:lovMoneda");
+        RequestContext.getCurrentInstance().update("form:aceptarM");
         context.reset("form:lovMoneda:globalFilter");
-        RequestContext.getCurrentInstance().execute("PF('lovClientes').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('lovMoneda').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('MonedasDialogo').hide()");
     }
 
@@ -1630,15 +1637,17 @@ public class ControlProyecto implements Serializable {
         aceptar = true;
         tipoActualizacion = -1;
         permitirIndexP = true;
-        RequestContext context = RequestContext.getCurrentInstance();
-        context.reset("form:lovMoneda:globalFilter");
-        RequestContext.getCurrentInstance().execute("PF('lovClientes').clearFilters()");
+        RequestContext.getCurrentInstance().update("form:MonedasDialogo");
+        RequestContext.getCurrentInstance().update("form:lovMoneda");
+        RequestContext.getCurrentInstance().update("form:aceptarM");
+        RequestContext.getCurrentInstance().reset("form:lovMoneda:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('lovMoneda').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('MonedasDialogo').hide()");
     }
 
     public void listaValoresBoton() {
         RequestContext context = RequestContext.getCurrentInstance();
-        if (proyectoLOVSeleccionado != null) {
+        if (proyectoTablaSeleccionado != null) {
             if (cualCeldaP == 0) {
                 contarRegistroEmpresa();
                 habilitarLov();
@@ -1773,7 +1782,7 @@ public class ControlProyecto implements Serializable {
 
     public void dialogoProyecto() {
         filtrarListProyectos = null;
-        proyectoLOVSeleccionado = null;
+        proyectoTablaSeleccionado = null;
         if (listProyectos != null) {
             if (listProyectosLOV == null) {
                 listProyectosLOV = new ArrayList<Proyectos>();
@@ -1792,9 +1801,9 @@ public class ControlProyecto implements Serializable {
         listProyectos = null;
         filtrarListProyectos = null;
         listProyectos = new ArrayList<Proyectos>();
-        listProyectos.add(proyectoLOVSeleccionado);
+        listProyectos.add(proyectoTablaSeleccionado);
         RequestContext context = RequestContext.getCurrentInstance();
-        proyectoLOVSeleccionado = null;
+        proyectoTablaSeleccionado = null;
         contarRegistros();
         RequestContext.getCurrentInstance().update("form:infoRegistro");
         RequestContext.getCurrentInstance().update("form:datosProyectos");
@@ -1807,7 +1816,7 @@ public class ControlProyecto implements Serializable {
 
     public void cancelarActualizarProyecto() {
         RequestContext context = RequestContext.getCurrentInstance();
-        proyectoLOVSeleccionado = null;
+        proyectoTablaSeleccionado = null;
         aceptar = true;
         filtrarListProyectos = null;
         RequestContext.getCurrentInstance().update("form:infoRegistro");
@@ -1838,8 +1847,8 @@ public class ControlProyecto implements Serializable {
 
     public void verificarRastro() {
         RequestContext context = RequestContext.getCurrentInstance();
-        if (proyectoLOVSeleccionado != null) {
-            int resultado = administrarRastros.obtenerTabla(proyectoLOVSeleccionado.getSecuencia(), "PROYECTOS");
+        if (proyectoTablaSeleccionado != null) {
+            int resultado = administrarRastros.obtenerTabla(proyectoTablaSeleccionado.getSecuencia(), "PROYECTOS");
             if (resultado == 1) {
                 RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {
@@ -2141,7 +2150,7 @@ public class ControlProyecto implements Serializable {
     public void setInfoRegistroCliente(String infoRegistroCliente) {
         this.infoRegistroCliente = infoRegistroCliente;
     }
-    
+
     public String getInfoRegistroEmpresa() {
         FacesContext c = FacesContext.getCurrentInstance();
         DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lovEmpresas");
@@ -2152,7 +2161,7 @@ public class ControlProyecto implements Serializable {
     public void setInfoRegistroEmpresa(String infoRegistroEmpresa) {
         this.infoRegistroEmpresa = infoRegistroEmpresa;
     }
-    
+
     public List<Proyectos> getListProyectosLOV() {
         return listProyectosLOV;
     }

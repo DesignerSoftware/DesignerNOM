@@ -283,8 +283,9 @@
                                 <p:ajax event="click" listener="#{controlIdiomaPersona.valoresBackupAutocompletar(1, 'IDIOMAS')}" />
                                 <p:ajax event="change" listener="#{controlIdiomaPersona.autocompletarNuevoyDuplicado('IDIOMAS', controlIdiomaPersona.nuevaIdiomaPersona.idioma.nombre, 1)}" />
                             </p:inputText>
-                            <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); border: none; position: absolute; left: 320px; top: 70px;  " id="btnNuevaIdioma" value=" " process="@this"  actionListener="#{controlIdiomaPersona.asignarIndex(info,1)}"/>   
+                            <p:commandButton style=" position: absolute; left: 320px; top: 70px;" class="cssBotonLovDialogos" id="btnNuevaIdioma" value=" " process="@this"  actionListener="#{controlIdiomaPersona.asignarIndex(info,1)}"/>   
                             <p:watermark for="nuevaIdioma" value="#{msg['idioma']}" />
+                            
 
                             <strong><h:outputText value="#{msg['conversacionN']}" style="position: absolute; top: 105px; left: 40px;" /></strong>
                             <p:inputText  autocomplete="off"  id="nuevaConversacion"  maxlength="3" value="#{controlIdiomaPersona.nuevaIdiomaPersona.habla}" style="width: 122px; position: absolute; left: 180px; top: 100px;">

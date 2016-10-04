@@ -347,7 +347,7 @@
                                 <p:ajax event="click" listener="#{controlEmplVigenciaIndicador.valoresBackupAutocompletarVigencia(1, 'INDICADORES')}" />
                                 <p:ajax event="change" listener="#{controlEmplVigenciaIndicador.autocompletarNuevoyDuplicadoVigencia('INDICADORES', controlEmplVigenciaIndicador.nuevaVigencia.indicador.descripcion,1)}" process="@this" update="nuevaIndicadorV"/>
                             </p:inputText>
-                            <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); border: none ; position: absolute; left: 330px; top: 160px;  " id="btnNuevaIndicador" value=" " process="@this"  actionListener="#{controlEmplVigenciaIndicador.asignarIndex(info,1,1)}" update="nuevaIndicadorV"/>   
+                            <p:commandButton style="position: absolute; left: 330px; top: 160px;" class="cssBotonLovDialogos" id="btnNuevaIndicador" value=" " process="@this"  actionListener="#{controlEmplVigenciaIndicador.asignarIndex(info,1,1)}" update="nuevaIndicadorV"/>   
                             <p:watermark for="nuevaIndicadorV" value="#{msg['descripcion']}" />
 
                             <p:commandButton icon="ui-icon-trash" id="limpiarNV" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 195px;" actionListener="#{controlEmplVigenciaIndicador.limpiarNuevaV()}" update="nuevaV" process="@this"/>

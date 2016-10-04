@@ -136,7 +136,7 @@
 
                                 <p:column headerText="#{msg['nombredelproyecto']}" sortBy="#{vigenciasProyectos.proyecto.nombreproyecto}" filterBy="#{vigenciasProyectos.proyecto.nombreproyecto}" filterMatchMode="contains" id="vPProyectos" width="133" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{vigenciasProyectos.proyecto.nombreproyecto}" /></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{vigenciasProyectos.proyecto.nombreproyecto}" style="text-transform: uppercase;" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{vigenciasProyectos.proyecto.nombreproyecto}" id="editarProyecto" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
                                                 <p:ajax event="change" listener="#{controlVigenciasProyectos.modificarVigenciasProyectos(vigenciasProyectos, 'PROYECTO', vigenciasProyectos.proyecto.nombreproyecto)}"/>
@@ -216,8 +216,8 @@
                     <fieldset style="position: absolute;top: 305px;left: 10px;height: 180px;width: 830px; border-radius: 10px; text-align: left">
                         <legend style="font-size: 14px; color: #14388B"><strong>#{msg['detalle']}</strong></legend>
 
-                        <h:outputText value="#{msg['nombredelproyecto']}" style=" position: absolute; left:15px; top: 25px"/>
-                        <h:inputText id="nomProyecto" value="#{controlVigenciasProyectos.proyectoParametro.nombreproyecto}" style="left:150px;width:360px;position:absolute" readonly="true"/>
+                        <h:outputText value="#{msg['nombredelproyecto']}" style=" position: absolute; left:15px; top: 25px; text-transform: uppercase;"/>
+                        <h:inputText id="nomProyecto" value="#{controlVigenciasProyectos.proyectoParametro.nombreproyecto}" style="left: 150px; width: 360px; position: absolute; text-transform: uppercase;" readonly="true"/>
                         <h:outputText value="#{msg['cod']}" style=" position: absolute; left:540px; top: 25px"/>
                         <h:inputText id="codigoProyecto" value="#{controlVigenciasProyectos.proyectoParametro.codigo}" style="left:580px;width:50px;position:absolute" readonly="true"/>
                         <h:outputText value="#{msg['monto']}" style="position:absolute;left:645px; top: 25px"/>

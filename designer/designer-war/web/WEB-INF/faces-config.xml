@@ -6011,5 +6011,47 @@
             <redirect />
         </navigation-case>
     </navigation-rule>
+     <navigation-rule>
+        <from-view-id>/indicadores.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>atrasindicador</from-outcome>
+            <to-view-id>/emplvigenciaindicador.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/indicadores.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>resultadoindice</from-outcome>
+            <to-view-id>/resultadosindicesexternos.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+     <navigation-rule>
+        <from-view-id>/resultadosindicesexternos.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>atrasresultadoindice</from-outcome>
+            <to-view-id>/indicadores.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/resultadosindicesexternos.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>indiceexterno</from-outcome>
+            <to-view-id>/indicesexternos.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/indicesexternos.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>atrasindiceexterno</from-outcome>
+            <to-view-id>/resultadosindicesexternos.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
     
 </faces-config>

@@ -634,11 +634,11 @@ public class ControlVigenciasProyectos implements Serializable {
             mensajeValidacion = " * Fecha Inicial \n";
             pasa++;
         }
-        if (nuevaVigenciaProyectos.getProyecto().getNombreproyecto().equals(" ")) {
-            System.out.println("Entro a Proyecto");
-            mensajeValidacion = mensajeValidacion + " * Proyecto\n";
-            pasa++;
-        }
+//        if (nuevaVigenciaProyectos.getProyecto().getNombreproyecto().equals(" ")) {
+//            System.out.println("Entro a Proyecto");
+//            mensajeValidacion = mensajeValidacion + " * Proyecto\n";
+//            pasa++;
+//        }
         if (nuevaVigenciaProyectos.getPryRol().getDescripcion().equals(" ")) {
             System.out.println("Entro a Rol");
             mensajeValidacion = mensajeValidacion + " * Rol\n";

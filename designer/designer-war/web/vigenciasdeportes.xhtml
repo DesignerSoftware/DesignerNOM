@@ -269,7 +269,7 @@
                                          filteredValue="#{controlVigenciaDeporte.filtrarListDeportes}" emptyMessage="#{msg['lovvacio']}">   
                                 <p:ajax event="filter" listener="#{controlVigenciaDeporte.contarRegistroDeporte()}"/>
                                 <p:ajax event="rowSelect" listener="#{controlVigenciaDeporte.activarAceptar()}" update=":form:aceptarD"/>
-                                <p:ajax event="rowDblselect" listener="#{controlVigenciaDeporte.actualizarDeasiporte()}" process="@this" />
+                                <p:ajax event="rowDblselect" listener="#{controlVigenciaDeporte.actualizarDeporte()}" process="@this" />
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarM']}" />  
                                     <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovDeportes').filter();" class="cssFiltroLOV" />  

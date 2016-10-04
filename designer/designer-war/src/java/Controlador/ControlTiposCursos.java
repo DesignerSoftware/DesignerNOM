@@ -276,34 +276,6 @@ public class ControlTiposCursos implements Serializable {
         }
     }
 
-//    public void verificarBorrado() {
-//        System.out.println("Estoy en verificarBorrado");
-//        BigInteger contarCursosTipoCurso;
-//
-//        try {
-//            System.err.println("Control Secuencia de ControlTiposCursos ");
-//            if (tipoLista == 0) {
-//                contarCursosTipoCurso = administrarTiposCursos.contarCursosTipoCurso(tipoCursoSeleccionado.getSecuencia());
-//            } else {
-//                contarCursosTipoCurso = administrarTiposCursos.contarCursosTipoCurso(tipoCursoSeleccionado.getSecuencia());
-//            }
-//            if (contarCursosTipoCurso.equals(new BigInteger("0"))) {
-//                System.out.println("Borrado==0");
-//                borrandoTiposCursos();
-//            } else {
-//                System.out.println("Borrado>0");
-//
-//                RequestContext context = RequestContext.getCurrentInstance();
-//                RequestContext.getCurrentInstance().update("form:validacionBorrar");
-//                RequestContext.getCurrentInstance().execute("PF('validacionBorrar').show()");
-//                tipoCursoSeleccionado = null;
-//                contarCursosTipoCurso = new BigInteger("-1");
-//
-//            }
-//        } catch (Exception e) {
-//            System.err.println("ERROR ControlTiposCursos verificarBorrado ERROR " + e);
-//        }
-//    }
     public void revisarDialogoGuardar() {
 
         if (!borrarTiposCursos.isEmpty() || !crearTiposCursos.isEmpty() || !modificarTiposCursos.isEmpty()) {

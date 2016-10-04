@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -87,6 +88,7 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
         editarVigenciaEstadoCivil = new VigenciasEstadosCiviles();
         nuevoVigenciaEstadoCivil = new VigenciasEstadosCiviles();
         nuevoVigenciaEstadoCivil.setEstadocivil(new EstadosCiviles());
+        nuevoVigenciaEstadoCivil.setFechavigencia(new Date());
         duplicarVigenciaEstadoCivil = new VigenciasEstadosCiviles();
         empleadoSeleccionado = null;
         secuenciaEmpleado = null;
@@ -947,10 +949,10 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
 
     public void limpiarNuevoVigenciaEstadoCivil() {
         System.out.println("limpiarNuevoVigenciaEstadoCivil");
+        
         nuevoVigenciaEstadoCivil = new VigenciasEstadosCiviles();
         nuevoVigenciaEstadoCivil.setEstadocivil(new EstadosCiviles());
-        vigenciaSeleccionada = null;
-        vigenciaSeleccionada = null;
+         nuevoVigenciaEstadoCivil.setFechavigencia(new Date());
 
     }
 

@@ -398,8 +398,8 @@
                                   showEffect="fade" hideEffect="fade" width="431" modal="true" >
                             <p:dataTable id="lovMoneda"  var="moneda" value="#{controlProyecto.listMonedas}" rowKey="#{moneda.secuencia}"
                                          selection="#{controlProyecto.monedaSeleccionada}" selectionMode="single" widgetVar="lovMoneda" scrollable="true" scrollWidth="416" scrollHeight="250"
-                                         filteredValue="#{controlProyecto.contarRegistroTipoMoneda()}" emptyMessage="#{msg['lovvacio']}"> 
-                                <p:ajax event="filter" listener="#{controlProyecto.eventoFiltrarTipoMoneda()}"/>
+                                         filteredValue="#{controlProyecto.filtrarListMonedas}" emptyMessage="#{msg['lovvacio']}"> 
+                                <p:ajax event="filter" listener="#{controlProyecto.contarRegistroTipoMoneda()}"/>
                                 <p:ajax event="rowSelect" listener="#{controlProyecto.activarAceptar()}" update=":form:aceptarM"/>
                                 <p:ajax event="rowDblselect" listener="#{controlProyecto.actualizarMoneda()}" process="@this" />
                                 <f:facet name="header">  
@@ -547,7 +547,7 @@
                 </h:form>
                 <h:form id="formularioDialogos" >
 
-                    <p:dialog id="NuevoRegistroP" header="#{msg['nuevoregistro']}" widgetVar="NuevoRegistroP" closable="false" resizable="false"  draggable="true" modal="true" height="430" width="400" style="padding: 0px">  
+                    <p:dialog id="NuevoRegistroP" header="#{msg['nuevoregistro']}" widgetVar="NuevoRegistroP" closable="false" resizable="false"  draggable="true" modal="true" height="450" width="400" style="padding: 0px">  
 
                         <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
 
@@ -604,38 +604,44 @@
                                 <p:ajax event="click" listener="#{controlProyecto.valoresBackupAutocompletarProyecto(1, 'MONEDAS')}" />
                                 <p:ajax event="change" listener="#{controlProyecto.autocompletarNuevoyDuplicadoProyecto('MONEDAS', controlProyecto.nuevaProyectos.tipomoneda.nombre,1)}" process="@this" update="nuevaMonedaP"/>
                             </p:inputText>
-                            <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 335px; top: 250px;  " id="btnNuevaMoneda" value=" " process="@this" actionListener="#{controlProyecto.asignarIndex(info,3,1)}" update="nuevaMonedaP"/>   
+                            <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 335px; top: 250px;  " id="btnNuevaMoneda" 
+                                             value=" " process="@this" actionListener="#{controlProyecto.asignarIndex(info,3,1)}" update="nuevaMonedaP"/>   
                             <p:watermark for="nuevaMonedaP" value="#{msg['tipomoneda']}" />
+                            
+                            <strong><h:outputText value="#{msg['cantidadpersonas']}" style="position: absolute; top: 285px; left: 50px;" /></strong>
+                            <p:inputText  autocomplete="off"  id="nuevaCantidadP" value="#{controlProyecto.nuevaProyectos.cantidadpersonas}"  style="width: 122px; position: absolute; left: 200px; top: 280px; text-transform: uppercase" onclick="select();" >
+                                <p:ajax event="change" update="nuevaCantidadP"/>
+                            </p:inputText>
+                            <p:watermark for="nuevaCantidadP" value="#{msg['cantidadpersonas']}" />
 
-
-                            <strong><h:outputText value="#{msg['fechainicioN']}" style="position: absolute; top: 285px; left: 50px;" /></strong>
-                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy"  id="nuevaFechaInicialP" value="#{controlProyecto.nuevaProyectos.fechainicial}" style="position: absolute;  top: 280px; left: 200px;" styleClass="ui-datepicker, myClass2"  
+                            <strong><h:outputText value="#{msg['fechainicioN']}" style="position: absolute; top: 315px; left: 50px;" /></strong>
+                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy"  id="nuevaFechaInicialP" value="#{controlProyecto.nuevaProyectos.fechainicial}" style="position: absolute;  top: 310px; left: 200px;" styleClass="ui-datepicker, myClass2"  
                                         navigator="true" showButtonPanel="true" locale="es" >
                                 <p:ajax event="dateSelect" update="nuevaFechaInicialP"/>
                                 <p:ajax event="change" update="nuevaFechaInicialP"/>
                             </p:calendar>
 
-                            <strong><h:outputText value="#{msg['fechafinalizacionN']}" style="position: absolute; top: 315px; left: 50px;" /></strong>
-                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy"  id="nuevaFechaFinalP" value="#{controlProyecto.nuevaProyectos.fechafinal}" style="position: absolute;  top: 310px; left: 200px;" styleClass="ui-datepicker, myClass2"  
+                            <strong><h:outputText value="#{msg['fechafinalizacionN']}" style="position: absolute; top: 345px; left: 50px;" /></strong>
+                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy"  id="nuevaFechaFinalP" value="#{controlProyecto.nuevaProyectos.fechafinal}" style="position: absolute;  top: 340px; left: 200px;" styleClass="ui-datepicker, myClass2"  
                                         navigator="true" showButtonPanel="true" locale="es" >
                                 <p:ajax event="dateSelect" update="nuevaFechaFinalP"/>
                                 <p:ajax event="change" update="nuevaFechaFinalP"/>
                             </p:calendar>
 
 
-                            <strong><h:outputText value="#{msg['descripcionN']}" style="position: absolute; top: 345px ; left: 50px;" /></strong>
-                            <p:inputTextarea id="nuevaDescripcionP" maxlength="200" value="#{controlProyecto.nuevaProyectos.descripcionproyecto}"  style="width: 122px; position: absolute; left: 200px; top: 340px; text-transform: uppercase" onclick="select();" >
+                            <strong><h:outputText value="#{msg['descripcionN']}" style="position: absolute; top: 375px ; left: 50px;" /></strong>
+                            <p:inputTextarea id="nuevaDescripcionP" maxlength="200" value="#{controlProyecto.nuevaProyectos.descripcionproyecto}"  style="width: 122px; position: absolute; left: 200px; top: 370px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" update="nuevaDescripcionP"/>
                             </p:inputTextarea>
                             <p:watermark for="nuevaDescripcionP" value="#{msg['descripciondelproyecto']}" />
 
-                            <p:commandButton id="limpiarNP" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 400px;" actionListener="#{controlProyecto.limpiarNuevaP()}" update="nuevaP" process="@this"/>
-                            <p:commandButton id="agregarNP" icon="ui-icon-circle-check" value="#{msg['agregar']}" style=" position: absolute; left: 165px; top: 400px;" actionListener="#{controlProyecto.agregarNuevaP()}" process="@this"/>
-                            <p:commandButton id="cancelarNP" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style=" position: absolute; left: 270px; top: 400px;" actionListener="#{controlProyecto.limpiarNuevaP()}" update="nuevaP" onclick="PF('NuevoRegistroP').hide();"  process="@this"/>
+                            <p:commandButton id="limpiarNP" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 430px;" actionListener="#{controlProyecto.limpiarNuevaP()}" update="nuevaP" process="@this"/>
+                            <p:commandButton id="agregarNP" icon="ui-icon-circle-check" value="#{msg['agregar']}" style=" position: absolute; left: 165px; top: 430px;" actionListener="#{controlProyecto.agregarNuevaP()}" process="@this"/>
+                            <p:commandButton id="cancelarNP" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style=" position: absolute; left: 270px; top: 430px;" actionListener="#{controlProyecto.limpiarNuevaP()}" update="nuevaP" onclick="PF('NuevoRegistroP').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 
-                    <p:dialog id="DuplicarRegistroP" header="#{msg['duplicarregistro']}" widgetVar="DuplicarRegistroP" closable="false" resizable="false"  draggable="true" modal="true" height="430" width="400" style="padding: 0px">  
+                    <p:dialog id="DuplicarRegistroP" header="#{msg['duplicarregistro']}" widgetVar="DuplicarRegistroP" closable="false" resizable="false"  draggable="true" modal="true" height="450" width="400" style="padding: 0px">  
 
                         <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
 
@@ -694,30 +700,36 @@
                             </p:inputText>
                             <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 335px; top: 250px;  " id="btnDuplicaMoneda" value=" " process="@this" actionListener="#{controlProyecto.asignarIndex(info,3,2)}" update="duplicarMonedaP"/>   
                             <p:watermark for="duplicarMonedaP" value="#{msg['tipomoneda']}" />
-
-                            <strong><h:outputText value="#{msg['fechainicioN']}" style="position: absolute; top: 285px; left: 50px;" /></strong>
-                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy"  id="duplicarFechaInicialP" value="#{controlProyecto.duplicarProyecto.fechainicial}" style="position: absolute;  top: 280px; left: 200px;" styleClass="ui-datepicker, myClass2"  
+                            
+                            <strong><h:outputText value="#{msg['cantidadpersonas']}" style="position: absolute; top: 285px; left: 50px;" /></strong>
+                            <p:inputText  autocomplete="off"  id="duplicarCantidadP" value="#{controlProyecto.duplicarProyecto.cantidadpersonas}"  style="width: 122px; position: absolute; left: 200px; top: 280px; text-transform: uppercase" onclick="select();" >
+                                <p:ajax event="change" update="duplicarCantidadP"/>
+                            </p:inputText>
+                            <p:watermark for="duplicarCantidadP" value="#{msg['cantidadpersonas']}" />
+                            
+                            <strong><h:outputText value="#{msg['fechainicioN']}" style="position: absolute; top: 315px; left: 50px;" /></strong>
+                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy"  id="duplicarFechaInicialP" value="#{controlProyecto.duplicarProyecto.fechainicial}" style="position: absolute;  top: 310px; left: 200px;" styleClass="ui-datepicker, myClass2"  
                                         navigator="true" showButtonPanel="true" locale="es" >
                                 <p:ajax event="dateSelect" update="duplicarFechaInicialP"/>
                                 <p:ajax event="change" update="duplicarFechaInicialP"/>
                             </p:calendar>
 
-                            <strong><h:outputText value="#{msg['fechafinalizacionN']}" style="position: absolute; top: 315px; left: 50px;" /></strong>
-                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy"  id="duplicarFechaFinalP" value="#{controlProyecto.duplicarProyecto.fechafinal}" style="position: absolute;  top: 310px; left: 200px;" styleClass="ui-datepicker, myClass2"  
+                            <strong><h:outputText value="#{msg['fechafinalizacionN']}" style="position: absolute; top: 345px; left: 50px;" /></strong>
+                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy"  id="duplicarFechaFinalP" value="#{controlProyecto.duplicarProyecto.fechafinal}" style="position: absolute;  top: 340px; left: 200px;" styleClass="ui-datepicker, myClass2"  
                                         navigator="true" showButtonPanel="true" locale="es" >
                                 <p:ajax event="dateSelect" update="duplicarFechaFinalP"/>
                                 <p:ajax event="change" update="duplicarFechaFinalP"/>
                             </p:calendar>
 
-                            <strong><h:outputText value="#{msg['descripcionN']}" style="position: absolute; top: 345px ; left: 50px;" /></strong>
-                            <p:inputTextarea id="duplicarDescripcionP" maxlength="200" value="#{controlProyecto.duplicarProyecto.descripcionproyecto}"  style=" width: 122px; position: absolute; left: 200px; top: 340px; text-transform: uppercase" onclick="select();" >
+                            <strong><h:outputText value="#{msg['descripcionN']}" style="position: absolute; top: 375px ; left: 50px;" /></strong>
+                            <p:inputTextarea id="duplicarDescripcionP" maxlength="200" value="#{controlProyecto.duplicarProyecto.descripcionproyecto}"  style=" width: 122px; position: absolute; left: 200px; top: 370px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" update="duplicarDescripcionP"/>
                             </p:inputTextarea>
                             <p:watermark for="duplicarDescripcionP" value="#{msg['descripciondelproyecto']}" />
 
                             <p:commandButton id="limpiarDP" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 400px;" actionListener="#{controlProyecto.limpiarduplicarP()}" update="duplicarP" process="@this"/>
-                            <p:commandButton id="agregarDP" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 165px; top: 400px;" actionListener="#{controlProyecto.confirmarDuplicarP()}" process="@this"/>
-                            <p:commandButton id="cancelarDP" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 270px; top: 400px;" actionListener="#{controlProyecto.limpiarduplicarP()}" update="duplicarP" onclick="PF('DuplicarRegistroP').hide();"  process="@this"/>
+                            <p:commandButton id="agregarDP" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 165px; top: 430px;" actionListener="#{controlProyecto.confirmarDuplicarP()}" process="@this"/>
+                            <p:commandButton id="cancelarDP" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 270px; top: 430px;" actionListener="#{controlProyecto.limpiarduplicarP()}" update="duplicarP" onclick="PF('DuplicarRegistroP').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 

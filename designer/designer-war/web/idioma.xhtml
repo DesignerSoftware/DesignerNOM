@@ -96,6 +96,9 @@
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
                                 </p:column>
                                 <p:column headerText="Idioma" sortBy="#{info.nombre}" filterBy="#{info.nombre}" filterMatchMode="contains" id="descripcion" width="155" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
@@ -107,6 +110,9 @@
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
+                                     <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
                                 </p:column>
                             </p:dataTable>
                             <h:outputText id="informacionRegistro" value="#{msg['infoRegistros']} #{controlIdiomas.infoRegistro}" style="position: relative; left: 15px; top: 5px; font-weight: bold"/>
