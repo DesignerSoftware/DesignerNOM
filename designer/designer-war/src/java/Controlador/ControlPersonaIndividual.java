@@ -3206,12 +3206,12 @@ public class ControlPersonaIndividual implements Serializable {
    public void modificarFechaIngresoInformacionPersonal(int i) {
       System.out.println("fechaIngreso : " + fechaIngreso);
       int n = 0;
-      if (i == 10) {
-         if (fechaIngreso.after(getFechaHastaCausado())) {
-            n++;
-            RequestContext.getCurrentInstance().execute("PF('errorFechaIngreso').show()");
-         }
-      }
+//      if (i == 10) {
+//         if (fechaIngreso.after(getFechaHastaCausado())) {
+//            n++;
+//            RequestContext.getCurrentInstance().execute("PF('errorFechaIngreso').show()");
+//         }
+//      }
       if (n == 0) {
          boolean retorno = validarFechasInformacionPersonal(i);
          if (retorno == true) {
