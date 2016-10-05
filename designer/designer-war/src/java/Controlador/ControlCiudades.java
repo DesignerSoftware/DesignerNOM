@@ -103,7 +103,7 @@ public class ControlCiudades implements Serializable {
         nuevaCiudad.setDepartamento(new Departamentos());
         nuevaCiudad.getDepartamento().setNombre(" ");
         k = 0;
-        altoTabla = "310";
+        altoTabla = "330";
         guardado = true;
         ciudadSeleccionada = null;
         activarLOV = true;
@@ -199,7 +199,7 @@ public class ControlCiudades implements Serializable {
             contarRegistrosCiudad();
             ciudadSeleccionada = listaCiudades.get(listaCiudades.indexOf(duplicarCiudad));
             if (tipoLista == 1) {
-                altoTabla = "310";
+                altoTabla = "330";
             }
             RequestContext.getCurrentInstance().update("form:datosCiudades");
             if (guardado == true) {
@@ -358,7 +358,7 @@ public class ControlCiudades implements Serializable {
             nombresDepartamentos.setFilterStyle("width: 85% !important");
             ciudadesCodigosAlternativos = (Column) c.getViewRoot().findComponent("form:datosCiudades:ciudadesCodigosAlternativos");
             ciudadesCodigosAlternativos.setFilterStyle("width: 85% !important");
-            altoTabla = "290";
+            altoTabla = "310";
             RequestContext.getCurrentInstance().update("form:datosCiudades");
             bandera = 1;
             anularBotonLOV();
@@ -414,7 +414,7 @@ public class ControlCiudades implements Serializable {
             contarRegistrosCiudad();
             ciudadSeleccionada = listaCiudades.get(listaCiudades.indexOf(nuevaCiudad));
             if (tipoLista == 1) {
-                altoTabla = "310";
+                altoTabla = "330";
             }
             nuevaCiudad = new Ciudades();
             //  nuevaCiudad.setNombre(Departamento);
@@ -708,7 +708,7 @@ public class ControlCiudades implements Serializable {
     public void restablecerTabla() {
         //CERRAR FILTRADO
         FacesContext c = FacesContext.getCurrentInstance();
-        altoTabla = "310";
+        altoTabla = "330";
         ciudadesCodigos = (Column) c.getViewRoot().findComponent("form:datosCiudades:ciudadesCodigos");
         ciudadesCodigos.setFilterStyle("display: none; visibility: hidden;");
         ciudadesNombres = (Column) c.getViewRoot().findComponent("form:datosCiudades:ciudadesNombres");
@@ -755,7 +755,7 @@ public class ControlCiudades implements Serializable {
         RequestContext.getCurrentInstance().update("form:informacionRegistro");
     }
 
-    private void contarRegistroDep() {
+    public void contarRegistroDep() {
         RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroDepartamentos");
     }
 

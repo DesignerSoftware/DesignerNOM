@@ -17,79 +17,96 @@
                         <p:toolbar styleClass="cssToolbar">  
                             <p:toolbarGroup align="left"> 
 
-                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlNormasLaborales.guardarNormasLaborales()}" process="@this" />
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);"
+                                                 actionListener="#{controlNormasLaborales.guardarNormasLaborales()}" process="@this" />
                                 <p:tooltip style="" for="guardarRapido" value="Guardar" />
 
-                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlNormasLaborales.editarCelda()}"  process="@this"/>
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);"
+                                                 actionListener="#{controlNormasLaborales.editarCelda()}"  process="@this"/>
                                 <p:tooltip style="" for="editar" value="Editar" />
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="listaValores" disabled="true" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlNormasLaborales.listaValoresBoton()}"   process="@this"/>
+                                <p:commandButton id="listaValores" disabled="true" value="" style="background-image: url(Imagenes/Iconos/lupa.png);"
+                                                 actionListener="#{controlNormasLaborales.listaValoresBoton()}"   process="@this"/>
                                 <p:tooltip style="" for="listaValores" value="Lista de Valores" />
 
-                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlNormasLaborales.activarCtrlF11()}"  process="@this"/>
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);"
+                                                 actionListener="#{controlNormasLaborales.activarCtrlF11()}"  process="@this"/>
                                 <p:tooltip style="" for="filtrar" value="Activar filtrado" />
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" actionListener="#{controlNormasLaborales.exportXLS()}"  ajax="false"/>
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);"
+                                                 actionListener="#{controlNormasLaborales.exportXLS()}"  ajax="false"/>
                                 <p:tooltip style="" for="exportarXLS" value="Exportar a XLS" />
 
-                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" actionListener="#{controlNormasLaborales.limpiarNuevoNormaLaboral()}"  ajax="false">
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);"
+                                                 actionListener="#{controlNormasLaborales.limpiarNuevoNormaLaboral()}"  ajax="false">
                                     <p:dataExporter type="xml"  target=":formExportar:datosNormaLaboralExportar" fileName="NormaLaboral" encoding="UTF-8"/> 
                                 </p:commandButton> 
                                 <p:tooltip style="" for="exportarXML" value="Exportar a XML" />
 
-                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlNormasLaborales.exportPDF()}" ajax="false"/>
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);"
+                                                 actionListener="#{controlNormasLaborales.exportPDF()}" ajax="false"/>
                                 <p:tooltip style="" for="exportarPDF" value="Exportar a PDF" />
 
                                 <p:separator style="position: relative; top: -9px"/> 
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);  background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px "  oncomplete="PF('nuevoRegistroNormaLaboral').show()" update=":formularioDialogos:nuevaNormaLaboral" process="@this"/> 
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"
+                                                 oncomplete="PF('nuevoRegistroNormaLaboral').show()" update=":formularioDialogos:nuevaNormaLaboral" process="@this"/> 
                                 <p:tooltip style="" for="insertar" value="Nuevo Registro" />
 
-                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);"  actionListener="#{controlNormasLaborales.verificarBorrado()}" process="@this"/>  
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);"
+                                                 actionListener="#{controlNormasLaborales.verificarBorrado()}" process="@this"/>  
                                 <p:tooltip style="" for="eliminar" value="Eliminar Registro" />
 
-                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlNormasLaborales.duplicarNormaLaborales()}" process="@this"/>  
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);"
+                                                 actionListener="#{controlNormasLaborales.duplicarNormaLaborales()}" process="@this"/>  
                                 <p:tooltip style="" for="duplicar" value="Duplicar Registro" />
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlNormasLaborales.verificarRastro()}" process="@this"/>  
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);"
+                                                 actionListener="#{controlNormasLaborales.verificarRastro()}" process="@this"/>  
                                 <p:tooltip style="" for="rastro" value="Rastro"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlNormasLaborales.cancelarModificacion()}" oncomplete="PF('window.location.reload()" process="@this"/>  
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);"
+                                                 actionListener="#{controlNormasLaborales.cancelarModificacion()}" oncomplete="PF('window.location.reload()" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="Deshacer Cambios no guardados"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlNormasLaborales.salir()}" action="emplvigencianormalaboral" process="@this"/>  
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"
+                                                 actionListener="#{controlNormasLaborales.salir()}" action="emplvigencianormalaboral" process="@this"/>  
                                 <p:tooltip  for="salir" value="Salir"/>
 
                             </p:toolbarGroup>  
                         </p:toolbar>
 
-                        <fieldset style="position: absolute;top: 80px;left: 10px;height: 350px;width: 830px; border-radius: 10px; text-align: left">
+                        <fieldset style="position: absolute; top: 80px; left: 10px; height: 400px; width: 830px; border-radius: 10px; text-align: left;">
                             <legend style="font-size: 14px; color: blue"><strong>Norma Laboral</strong></legend>
 
-                            <p:dataTable id="datosNormaLaboral" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 830px ; border: 1px;"                           
+                            <p:dataTable id="datosNormaLaboral" widgetVar="datosNormaLaboral" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="width: 830px ; border: 1px;"                           
                                          value="#{controlNormasLaborales.listNormasLaborales}" scrollable="true" scrollHeight="#{controlNormasLaborales.tamano}"  scrollWidth="830"
                                          filteredValue="#{controlNormasLaborales.filtrarNormasLaborales}" emptyMessage="No se encontrarón resultados para la búsqueda"
                                          editable="true" editMode="cell"   liveScroll="true" scrollRows="50"  
                                          selection="#{controlNormasLaborales.normaLaboralSeleccionada}"
                                          selectionMode="single">
-                                <p:ajax event="filter" listener="#{controlNormasLaborales.eventoFiltrar()}"/>
+                                
+                               <p:ajax event="filter" listener="#{controlNormasLaborales.eventoFiltrar()}"/>
                                 <f:event type="preRenderView" listener="#{controlNormasLaborales.recordarSeleccion()}"/>
 
-                                <p:column headerText="Código" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" width="200" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="Código" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains"
+                                          id="codigo" width="200" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{info.codigo}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.codigo}" maxlength="4" id="editarCodigo" style="height: 12px;   border-radius: 0px; width: 400px; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlNormasLaborales.cambiarIndice(info, 0)}" process="@this"/> 
+                                            <p:inputText  autocomplete="off" value="#{info.codigo}" maxlength="4" id="editarCodigo"
+                                                          style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase"  > 
+                                                <p:ajax event="select" listener="#{controlNormasLaborales.cambiarIndice(info, 0)}" process="@this"
+                                                        onstart="PF('datosNormaLaboral').unselectAllRows();PF('datosNormaLaboral').selectRow(#{indice});"/> 
                                                 <p:ajax event="change" listener="#{controlNormasLaborales.modificarNormaLaboral(info, 'N', info.codigo)}"  update="codigo"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -99,13 +116,16 @@
                                     </f:facet>
                                 </p:column>
 
-                                <p:column headerText="Descripción" sortBy="#{info.nombre}" filterBy="#{info.nombre}" filterMatchMode="contains" id="descripcion" width="275" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="Descripción" sortBy="#{info.nombre}" filterBy="#{info.nombre}" filterMatchMode="contains"
+                                          id="descripcion" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.nombre}"  /></f:facet>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.nombre}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.nombre}" maxlength="40"  id="editarNombre" style="height: 12px;  border-radius: 0px; width: 420px; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlNormasLaborales.cambiarIndice(info, 1)}" process="@this"/> 
-                                                <p:ajax event="change"  listener="#{controlNormasLaborales.modificarNormaLaboral(info, 'N', info.nombre)}" update="descripcion"/>
+                                            <p:inputText  autocomplete="off"  value="#{info.nombre}" maxlength="40"  id="editarNombre"
+                                                          style="height: 12px;  border-radius: 0px; width: 420px; text-transform: uppercase"  > 
+                                                <p:ajax event="select" listener="#{controlNormasLaborales.cambiarIndice(info, 1)}" process="@this"
+                                                        onstart="PF('datosNormaLaboral').unselectAllRows();PF('datosNormaLaboral').selectRow(#{indice});"/> 
+                                                <p:ajax event="change" listener="#{controlNormasLaborales.modificarNormaLaboral(info, 'N', info.nombre)}" update="descripcion"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -114,13 +134,11 @@
                                     </f:facet>
                                 </p:column>
                             </p:dataTable>
-
                         </fieldset>
 
-
-                        <h:outputText id="informacionRegistro" value="Registros #{controlNormasLaborales.infoRegistro}" style="position: absolute; left: 20px; top: 420px; font-weight: bold"/>
-                        <p:commandButton style=" position: absolute; left: 683px; top: 470px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ACEPTAR" value=""  onclick="PF('confirmarGuardar').show();" disabled="#{controlNormasLaborales.guardado}"  update="datosNormaLaboral"  process="@this"   />
-                        <p:commandButton style=" position: absolute; left: 775px; top: 470px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" value="" action="#{controlNormasLaborales.redirigir()}"   />
+                        <h:outputText id="informacionRegistro" value="Registros #{controlNormasLaborales.infoRegistro}" style="position: absolute; left: 20px; top: 470px; font-weight: bold"/>
+                        <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" onclick="PF('confirmarGuardar').show();" disabled="#{controlNormasLaborales.guardado}" update="datosNormaLaboral" process="@this"/>
+                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" action="#{controlNormasLaborales.redirigir()}"   />
 
 
                         <p:dialog id="confirmarGuardar" header="¡PRECAUCION!" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  

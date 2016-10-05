@@ -96,7 +96,7 @@
                             <legend style="font-size: 14px; color: blue"><strong>#{msg['centroscosto']}</strong></legend>
                             <!-- TABLA EMPLVIGENCIACARGO -->
 
-                            <p:dataTable id="datosCentrosCostos" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="top: -3px; width: 810px ; border: 1px;"                      
+                            <p:dataTable id="datosCentrosCostos" widgetVar="datosCentrosCostos" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="top: -3px; width: 810px ; border: 1px;"                      
                                          value="#{controlBetaCentrosCostos.listCentrosCostosPorEmpresa}"
                                          scrollHeight="#{controlBetaCentrosCostos.altoTabla}"
                                          filteredValue="#{controlBetaCentrosCostos.filtrarCentrosCostos}"
@@ -122,7 +122,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{info.codigo}" maxlength="15" id="editarCodigoCC" style=" border-radius: 0px; width: 99%; height: 12px; text-transform: uppercase" > 
                                                 <p:ajax  event="change" listener="#{controlBetaCentrosCostos.modificandoCentroCosto(info, 'N', info.codigo)}" update="@this"/>
-                                                <p:ajax event="select" listener="#{controlBetaCentrosCostos.cambiarIndice(info,0)}" /> 
+                                                <p:ajax event="select" listener="#{controlBetaCentrosCostos.cambiarIndice(info,0)}"
+                                                        onstart="PF('datosCentrosCostos').unselectAllRows();PF('datosCentrosCostos').selectRow(#{indice});"/> 
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -139,7 +140,8 @@
                                             <p:inputText  autocomplete="off"   id="editarNombreCentroCoso" maxlength="30" value="#{info.nombre}" 
                                                          style=" border-radius: 0px; width: 93.5%;height: 12px; text-transform: uppercase">
                                                 <p:ajax event="change" listener="#{controlBetaCentrosCostos.modificandoCentroCosto(info, 'N', info.nombre)}" update="@this" />
-                                                <p:ajax event="select" listener="#{controlBetaCentrosCostos.cambiarIndice(info, 1)}" />
+                                                <p:ajax event="select" listener="#{controlBetaCentrosCostos.cambiarIndice(info, 1)}"
+                                                        onstart="PF('datosCentrosCostos').unselectAllRows();PF('datosCentrosCostos').selectRow(#{indice});"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -154,9 +156,10 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.tipocentrocosto.nombre}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   value="#{info.tipocentrocosto.nombre}" id="editarTipoCentroCosto" style="height: 12px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
+                                            <p:inputText  autocomplete="off" value="#{info.tipocentrocosto.nombre}" id="editarTipoCentroCosto" style="height: 12px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
                                                 <p:ajax event="change" listener="#{controlBetaCentrosCostos.modificandoCentroCosto(info, 'TIPOCENTROCOSTO', info.tipocentrocosto.nombre)}" update="@this" />
-                                                <p:ajax event="select" listener="#{controlBetaCentrosCostos.cambiarIndice(info, 2)}" />
+                                                <p:ajax event="select" listener="#{controlBetaCentrosCostos.cambiarIndice(info, 2)}"
+                                                        onstart="PF('datosCentrosCostos').unselectAllRows();PF('datosCentrosCostos').selectRow(#{indice});"/>
                                                 <p:ajax event="dblclick" listener="#{controlBetaCentrosCostos.asignarIndex(info, 0, 2)}"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -171,13 +174,15 @@
                                     <p:cellEditor>
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.variableManoObra}" /></f:facet> 
                                         <f:facet name="input" >
-                                            <p:selectOneMenu effect="fold" immediate="#{controlBetaCentrosCostos.cambiarIndice(info, 3)}" value="#{info.variableManoObra}" style="height: 20px; width: 110px;" >  
-                                                <f:selectItem  itemLabel="" itemValue=" "/>  
-                                                <f:selectItem  itemLabel="#{msg['directa']}" itemValue="DIRECTA" />  
-                                                <f:selectItem  itemLabel="#{msg['indirecta']}" itemValue="INDIRECTA" />   
-                                                <h:outputText value="#{info.variableManoObra}" />
+                                           <p:selectOneMenu onfocus="PF('datosCentrosCostos').unselectAllRows();PF('datosCentrosCostos').selectRow(#{indice});"
+                                                            immediate="#{controlBetaCentrosCostos.cambiarIndice(info, 3)}"
+                                                            value="#{info.variableManoObra}" style="height: 20px; width: 90px;">
+                                                <f:selectItem itemLabel="" itemValue=" "/>
+                                                <f:selectItem itemLabel="#{msg['directa']}" itemValue="DIRECTA"/>
+                                                <f:selectItem itemLabel="#{msg['indirecta']}" itemValue="INDIRECTA"/>
+                                                <h:outputText value="#{info.variableManoObra}"/>
                                                 <p:ajax event="change" listener="#{controlBetaCentrosCostos.mostrarInfo(info, 3)}" update="manoDeObra"/>
-                                            </p:selectOneMenu>   
+                                            </p:selectOneMenu>
                                         </f:facet>
                                     </p:cellEditor>
                                     <f:facet name="footer">
@@ -187,14 +192,15 @@
 
                                 <p:column headerText="#{msg['codigoat']}" sortBy="#{info.codigoalternativo}" filterBy="#{info.codigoalternativo}" filterMatchMode="contains" 
                                           id="codigoAT" width="74" filterStyle="display: none; visibility: hidden;" style="text-align: center; padding: 0px !important;">                                  
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.codigoalternativo}" /></f:facet>  
+                                    <p:cellEditor>
+                                        <f:facet name="output"><h:outputText value="#{info.codigoalternativo}"/></f:facet>
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   value="#{info.codigoalternativo}" maxlength="30" id="editarCodigoAT" style="height: 12px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
+                                            <p:inputText autocomplete="off" value="#{info.codigoalternativo}" maxlength="30" id="editarCodigoAT" style="height: 12px; border-radius: 0px; width: 93.5%; text-transform: uppercase;">
                                                 <p:ajax event="change" listener="#{controlBetaCentrosCostos.modificandoCentroCosto(info, 'N', info.codigoalternativo )}" update="@this" />
-                                                <p:ajax event="select" listener="#{controlBetaCentrosCostos.cambiarIndice(info, 4)}" />
+                                                <p:ajax event="select" listener="#{controlBetaCentrosCostos.cambiarIndice(info, 4)}"
+                                                        onstart="PF('datosCentrosCostos').unselectAllRows();PF('datosCentrosCostos').selectRow(#{indice});"/>
                                             </p:inputText>
-                                        </f:facet>  
+                                        </f:facet>
                                     </p:cellEditor>
                                     <f:facet name="footer">
                                         <h:outputText value=""/>
@@ -206,10 +212,11 @@
                                     <f:facet name="header"><h:outputText id="obsoletoH" value="Obto"/>
                                         <p:tooltip for="obsoletoH" value="#{msg['obsoleto']}"/>
                                     </f:facet>
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.variableObsoleto}" /></f:facet>  
+                                    <p:cellEditor>
+                                        <f:facet name="output"><h:outputText value="#{info.variableObsoleto}"/></f:facet>
                                         <f:facet name="input">
-                                            <p:selectOneMenu effect="fold" value="#{info.variableObsoleto}" style="text-align: left; padding: 0px; height: 20px; width:45px;" >  
+                                           <p:selectOneMenu effect="fold" value="#{info.variableObsoleto}" style="text-align: left; padding: 0px; height: 20px; width:45px;"
+                                                            onfocus="PF('datosCentrosCostos').unselectAllRows();PF('datosCentrosCostos').selectRow(#{indice});" >  
                                                 <f:selectItem itemLabel="" itemValue=" "/>  
                                                 <f:selectItem itemLabel="#{msg['SI']}" itemValue="SI" />  
                                                 <f:selectItem itemLabel="#{msg['NO']}" itemValue="NO" />  
@@ -229,7 +236,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{info.codigoctt}" maxlength="20" id="editarCodigoCTT" style="height: 20px; border-radius: 0px; width: 94%; text-transform: uppercase; padding: 0px;" > 
                                                 <p:ajax event="change" listener="#{controlBetaCentrosCostos.modificandoCentroCosto(info, 'N', info.codigoctt )}" update="@this" />
-                                                <p:ajax event="select" listener="#{controlBetaCentrosCostos.cambiarIndice(info, 6)}" />
+                                                <p:ajax event="select" listener="#{controlBetaCentrosCostos.cambiarIndice(info, 6)}"
+                                                        onstart="PF('datosCentrosCostos').unselectAllRows();PF('datosCentrosCostos').selectRow(#{indice});"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -246,7 +254,8 @@
                                         </f:facet>  
                                         <f:facet name="input" >
 
-                                            <p:selectOneMenu effect="fold"  immediate="#{controlBetaCentrosCostos.cambiarIndice(info, 7)}" value="#{info.dimensiones}" style="text-align: left; padding: 0px; height: 20px; width:45px">  
+                                           <p:selectOneMenu effect="fold" onfocus="PF('datosCentrosCostos').unselectAllRows(); PF('datosCentrosCostos').selectRow(#{indice});" 
+                                                             immediate="#{controlBetaCentrosCostos.cambiarIndice(info, 7)}" value="#{info.dimensiones}" style="text-align: left; padding: 0px; height: 20px; width:45px">  
                                                 <f:selectItem itemLabel=" " itemValue="" />                
                                                 <f:selectItem itemLabel="1" itemValue="1"/>  
                                                 <f:selectItem itemLabel="2" itemValue="2" />  

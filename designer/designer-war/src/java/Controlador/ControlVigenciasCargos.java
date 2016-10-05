@@ -1,6 +1,5 @@
 package Controlador;
 
-
 import Convertidores.MotivosCambiosCargosConverter;
 import Entidades.*;
 import Exportar.ExportarPDF;
@@ -1056,7 +1055,6 @@ public class ControlVigenciasCargos implements Serializable {
    }
 
    public void cambiarIndice(VigenciasCargos vCargos, int celda) {
-      RequestContext context = RequestContext.getCurrentInstance();
       if (permitirIndex == true) {
          vigenciaSeleccionada = vCargos;
          cualCelda = celda;
@@ -1081,10 +1079,17 @@ public class ControlVigenciasCargos implements Serializable {
 
          } else if (cualCelda == 5) {
             activarLOV = false;
-            nombreCompleto = vigenciaSeleccionada.getEmpleadojefe().getPersona().getNombreCompleto();
+            nombreCompleto = "";
+            if (vigenciaSeleccionada.getEmpleadojefe() != null) {
+               if (vigenciaSeleccionada.getEmpleadojefe().getPersona() != null) {
+                  if (vigenciaSeleccionada.getEmpleadojefe().getPersona().getNombreCompleto() != null) {
+                     nombreCompleto = vigenciaSeleccionada.getEmpleadojefe().getPersona().getNombreCompleto();
+                  }
+               }
+            }
          }
-      } else {
-         RequestContext.getCurrentInstance().execute("PF('datosVCEmpleado.selectRow(" + vCargos + ", false); datosVCEmpleado').unselectAllRows()");
+//      } else {
+//         RequestContext.getCurrentInstance().execute("PF('datosVCEmpleado').unselectAllRows(); PF('datosVCEmpleado').selectRow(" + vCargos + ", false);");
       }
       RequestContext.getCurrentInstance().update("form:listaValores");
    }

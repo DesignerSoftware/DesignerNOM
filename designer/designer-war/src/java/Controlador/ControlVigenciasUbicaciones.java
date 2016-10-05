@@ -247,6 +247,7 @@ public class ControlVigenciasUbicaciones implements Serializable {
          Map<String, String> map = contexto.getExternalContext().getRequestParameterMap();
          String campo = map.get("INDEX");
          int poss = Integer.parseInt(campo);
+         RequestContext.getCurrentInstance().execute("PF('datosVUEmpleado').unselectAllRows();PF('datosVUEmpleado').selectRow(" + poss + ");");
          vigenciaSeleccionada = vigenciasUbicaciones.get(poss);
          cualCelda = 2;
       }

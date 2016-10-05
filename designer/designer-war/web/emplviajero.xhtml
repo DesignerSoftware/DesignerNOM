@@ -73,7 +73,7 @@
                             </p:toolbarGroup>  
                         </p:toolbar>
 
-                        <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px">
+                        <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px;">
 
                             <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;" />
                             <h:outputText id="nombreEmpleado" value="#{controlVigenciasViajeros.empleadoSeleccionado.persona.nombreCompleto}" 
@@ -88,7 +88,7 @@
                             <legend style="font-size: 14px; color: blue"><strong>#{msg['vigenciaViajeroT']}</strong></legend>
 
                             <p:dataTable id="datosViajeros" widgetVar="datosViajeros" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="width: 830px ; border: 1px;"                           
-                                         value="#{controlVigenciasViajeros.listVigenciasViajerosPorEmpleado}" scrollable="true" scrollHeight="#{controlVigenciasViajeros.altoTabla}"  scrollWidth="830"
+                                         value="#{controlVigenciasViajeros.listVigenciasViajerosPorEmpleado}" scrollable="true" scrollHeight="#{controlVigenciasViajeros.altoTabla}" scrollWidth="830"
                                          filteredValue="#{controlVigenciasViajeros.filtrarVigenciasViajerosPorEmpleado}" emptyMessage="#{msg['vacio']}"
                                          editable="true" editMode="cell" selectionMode="single" selection="#{controlVigenciasViajeros.vigenciaSeleccionada}">
 
@@ -104,7 +104,7 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.fechavigencia}"> 
+                                            <p:calendar  autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.fechavigencia}"> 
                                                 <p:ajax event="select" listener="#{controlVigenciasViajeros.cambiarIndice(info, 0)}" process="@this"
                                                         onstart="PF('datosViajeros').unselectAllRows();PF('datosViajeros').selectRow(#{indice});"/>  
                                                 <p:ajax event="change" listener="#{controlVigenciasViajeros.mostrarInfo(info,0)}" process="@this"/> 
@@ -112,7 +112,6 @@
                                             </p:calendar>
                                         </f:facet>  
                                     </p:cellEditor>
-
                                     <f:facet name="footer">
                                         <h:outputText value="" />
                                     </f:facet>
@@ -122,7 +121,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.tipoViajero.nombre}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.tipoViajero.nombre}" id="editarparentesco" style="  border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;"  > 
+                                            <p:inputText  autocomplete="off" value="#{info.tipoViajero.nombre}" id="editarparentesco" style="border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;"  > 
                                                 <p:ajax event="select" listener="#{controlVigenciasViajeros.cambiarIndice(info, 1)}" process="@this"
                                                         onstart="PF('datosViajeros').unselectAllRows();PF('datosViajeros').selectRow(#{indice});"/> 
                                                 <p:ajax event="dblclick" listener="#{controlVigenciasViajeros.asignarIndex(info, 0,1)}" process="@this"/>
@@ -130,7 +129,6 @@
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
-
                                     <f:facet name="footer" >
                                         <p:commandButton value="" style="width: 120%;" action="tipoviajero" onclick="#{controlTiposViajeros.inicializarLista()}" id="fooViajero" />
                                     </f:facet>
@@ -155,6 +153,7 @@
                                <p:ajax event="filter" listener="#{controlVigenciasViajeros.contarRegistrosTV()}"/>                                
                                 <p:ajax event="rowSelect" listener="#{controlVigenciasViajeros.activarAceptar()}" update=":form:aceptarS"/>
                                 <p:ajax event="rowDblselect" listener="#{controlVigenciasViajeros.actualizarViajero}" immediate="true" update=":form:sucursalesDialogo" process="@this" />
+                               
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarTV']}" />  
                                     <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovTiposViajeros').filter();" value="#{filtrado}" class="cssFiltroLOV" />  

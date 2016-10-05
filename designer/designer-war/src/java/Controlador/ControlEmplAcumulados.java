@@ -78,8 +78,6 @@ public class ControlEmplAcumulados implements Serializable {
     }
 
     public void recibirEmpleado(BigInteger sec) {
-        RequestContext context = RequestContext.getCurrentInstance();
-
         if (sec == null) {
             System.out.println("ControlVigenciasFormasPagos.recibirEmpleado");
             System.out.println("La secuencia pasada como parametro es null: " + sec.toString());
@@ -108,15 +106,12 @@ public class ControlEmplAcumulados implements Serializable {
             //infoRegistro = "Cantidad de registros: 0";
             modificarInfoRegistro(0);
         }
-        RequestContext.getCurrentInstance().update("form:informacionRegistro");
     }
 
     public void eventoFiltrar() {
         if (tipoLista == 0) {
             tipoLista = 1;
         }
-        RequestContext context = RequestContext.getCurrentInstance();
-       // infoRegistro = "Cantidad de Registros: " + filtrarVWAcumuladosPorEmpleado.size();
         modificarInfoRegistro(filtrarVWAcumuladosPorEmpleado.size());
         RequestContext.getCurrentInstance().update("form:informacionRegistro");
     }

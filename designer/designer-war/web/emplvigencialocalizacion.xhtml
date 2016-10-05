@@ -109,7 +109,7 @@
                         <p:ajax event="filter" listener="#{controlVigenciaLocalizacion.eventoFiltrarVL()}"/>
                         <f:event type="preRenderView" listener="#{controlVigenciaLocalizacion.recordarSeleccionVL()}"/>
 
-                        <p:column style=""  sortBy="#{infoDVL.fechavigencia}" filterBy="#{infoDVL.fechavigencia}" filterMatchMode="contains" width="60" id="vlFechaVigencia" filterStyle="display: none; visibility: hidden;">  
+                        <p:column style=""  sortBy="#{infoDVL.fechavigencia}" filterBy="#{infoDVL.fechavigencia}" filterMatchMode="contains" width="70" id="vlFechaVigencia" filterStyle="display: none; visibility: hidden;">  
                            <f:facet name="header">
                               <h:outputText id="headerFechaVL" value="#{msg['fecha']}"/>
                               <p:tooltip  for="vlFechaVigencia" value="Ingrese la fecha de vigencia." />

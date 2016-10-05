@@ -472,14 +472,13 @@ public class ControlBetaCentrosCostos implements Serializable {
         centroCostoSeleccionado = centroCosto;
         try {
             tipoActualizacion = LND;
-
             if (dig == 2) {
                 activarLOV = false;
                 contarRegistrosTCC();
                 RequestContext.getCurrentInstance().update("form:listaValores");
                 RequestContext.getCurrentInstance().update("form:infoRegistroTcc");
                 RequestContext.getCurrentInstance().update("form:tiposCentrosCostosDialogo");
-                RequestContext.getCurrentInstance().execute("tiposCentrosCostosDialogo').show()");
+                RequestContext.getCurrentInstance().execute("PF('tiposCentrosCostosDialogo').show()");
                 dig = -1;
             }
             activarLOV = true;
@@ -873,7 +872,7 @@ public class ControlBetaCentrosCostos implements Serializable {
                 }
                 mensajeValidacion = " ";
                 RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
-                RequestContext.getCurrentInstance().execute("NuevoRegistroCentroCostos').hide()");
+                RequestContext.getCurrentInstance().execute("PF('NuevoRegistroCentroCostos').hide()");
                 activarLOV = true;
                 RequestContext.getCurrentInstance().update("form:listaValores");
             } else {
@@ -1081,7 +1080,7 @@ public class ControlBetaCentrosCostos implements Serializable {
             RequestContext.getCurrentInstance().update("form:informacionRegistro");
             activarLOV = true;
             RequestContext.getCurrentInstance().update("form:listaValores");
-            RequestContext.getCurrentInstance().execute("DuplicarRegistroCentroCostos').hide()");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroCentroCostos').hide()");
             mensajeValidacion = " ";
             banderaModificacionEmpresa = 1;
 
@@ -1507,7 +1506,7 @@ public class ControlBetaCentrosCostos implements Serializable {
         RequestContext.getCurrentInstance().update("form:listaValores");
         contarRegistrosEmp();
         RequestContext.getCurrentInstance().update("form:infoRegistroEmp");
-        RequestContext.getCurrentInstance().execute("EmpresasDialogo').show()");
+        RequestContext.getCurrentInstance().execute("PF('EmpresasDialogo').show()");
     }
 
     public void cambiarEmpresa() {

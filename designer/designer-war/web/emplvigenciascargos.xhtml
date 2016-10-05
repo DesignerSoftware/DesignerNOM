@@ -184,7 +184,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.cargo.nombre}" /></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.cargo.nombre}" id="editNombreCargo" style="border-radius: 0px; text-transform: uppercase; height: 12px; width: 94%;" >
+                                 <p:inputText  autocomplete="off" value="#{info.cargo.nombre}" id="editNombreCargo" style="border-radius: 0px; text-transform: uppercase; height: 12px; width: 94%;" >
                                     <p:ajax event="change" listener="#{controlVigenciasCargos.modificarVC(info, 'NOMBREC', info.cargo.nombre)}"/>
                                     <p:ajax event="select" listener="#{controlVigenciasCargos.cambiarIndice(info, 3)}"
                                             onstart="PF('datosVCEmpleado').unselectAllRows();PF('datosVCEmpleado').selectRow(#{indice});"/>
@@ -197,12 +197,13 @@
                            </f:facet>
                         </p:column>  
 
-                        <p:column headerText="Centro_Costo" sortBy="#{info.estructura.centrocosto.nombre}" filterBy="#{info.estructura.centrocosto.nombre}" filterMatchMode="contains" id="vcCentrosC" width="180" filterStyle="display: none; visibility: hidden;" >                                                                                              
+                        <p:column headerText="Centro_Costo" sortBy="#{info.estructura.centrocosto.nombre}" filterBy="#{info.estructura.centrocosto.nombre}"
+                                  filterMatchMode="contains" id="vcCentrosC" width="180" filterStyle="display: none; visibility: hidden;" >                                                                                              
                            <f:facet name="header"><h:outputText value="#{msg['centrocosto']}"/></f:facet>
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.estructura.centrocosto.nombre}" /></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.estructura.centrocosto.nombre}" id="editCentroCosto"  style="border-radius: 0px; height: 12px;  width: 94%;">
+                                 <p:inputText autocomplete="off" value="#{info.estructura.centrocosto.nombre}" id="editCentroCosto" style="border-radius: 0px; height: 12px; width: 94%;">
                                     <p:ajax event="change" listener="#{controlVigenciasCargos.modificarVC(info, 'N', info.estructura.centrocosto.nombre)}"/>
                                     <p:ajax event="select" listener="#{controlVigenciasCargos.cambiarIndice(info, 4)}"
                                             onstart="PF('datosVCEmpleado').unselectAllRows();PF('datosVCEmpleado').selectRow(#{indice});"/>
@@ -210,7 +211,8 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer" >
-                              <p:commandButton value="" style="width: 200px;" action="centrocostoemplvigenciacargo" actionListener="#{controlBetaCentrosCostos.recibirPagina('atrascentrocostoemplvigenciacargo')}" id="fooCentrosCostos" />
+                              <p:commandButton value="" style="width: 200px;" action="centrocostoemplvigenciacargo" id="fooCentrosCostos"
+                                               actionListener="#{controlBetaCentrosCostos.recibirPagina('atrascentrocostoemplvigenciacargo')}"/>
                            </f:facet>
                         </p:column>
 
@@ -220,7 +222,8 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.empleadojefe.persona.nombreCompleto}" /></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{info.empleadojefe.persona.nombreCompleto}" id="editNombreJefe" style=" border-radius: 0px; text-transform: uppercase; height: 12px;  width: 94%;" >
+                                 <p:inputText autocomplete="off" value="#{info.empleadojefe.persona.nombreCompleto}" id="editNombreJefe"
+                                              style="border-radius: 0px; text-transform: uppercase; height: 12px; width: 94%;">
                                     <p:ajax event="change" listener="#{controlVigenciasCargos.modificarVC(info, 'EMPLEADOJ', info.empleadojefe.persona.nombreCompleto)}"/>
                                     <p:ajax event="select" listener="#{controlVigenciasCargos.cambiarIndice(info, 5)}"
                                             onstart="PF('datosVCEmpleado').unselectAllRows();PF('datosVCEmpleado').selectRow(#{indice});"/>

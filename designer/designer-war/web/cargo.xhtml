@@ -104,7 +104,7 @@
                         <fieldset style="position: absolute; left: 7px; top: 105px; width: 840px; height: 167px; border-radius: 10px; padding-top: 0px;">
                             <legend style="color: blue"><strong>#{msg['cargos']}</strong></legend>
 
-                            <p:dataTable id="datosCargo" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="border: 1px; text-align: left; width: 820px; position: relative; margin-bottom: 0px;"                           
+                            <p:dataTable id="datosCargo" widgetVar="datosCargo" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="border: 1px; text-align: left; width: 1000px; position: absolute; margin-bottom: 0px;"                           
                                          value="#{controlCargo.listaCargos}" scrollable="true" scrollHeight="#{controlCargo.altoTablaCargo}" scrollWidth="835"
                                          filteredValue="#{controlCargo.filtrarListaCargos}" emptyMessage="#{msg['vacio']}" selection="#{controlCargo.cargoTablaSeleccionado}" selectionMode="single"
                                          editable="true" editMode="cell" liveScroll="true" scrollRows="10">
@@ -112,17 +112,18 @@
                                 <p:ajax event="filter" listener="#{controlCargo.eventoFiltrar()}"/>
 
                                 <p:column headerText="#{msg['codigo']}" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" 
-                                          id="cargoCodigo" width="27" style="text-align: center;" filterStyle="display: none; visibility: hidden;" >                                  
+                                          id="cargoCodigo" width="40" style="text-align: center;" filterStyle="display: none; visibility: hidden;" >                                  
                                     <f:facet name="header">
-                                        <h:outputText id="headerCd" value="Cod" />
+                                        <h:outputText id="headerCd" value="Cod"/>
                                         <p:tooltip  for="headerCd" value="#{msg['codigo']}" />
                                     </f:facet>
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   value="#{info.codigo}" onclick="select();" id="editarCodigoCargo" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off" value="#{info.codigo}" onclick="select();" id="editarCodigoCargo" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlCargo.procesoModificacionCargo(info)}" update="editarCodigoCargo" process="@this"/>
-                                                <p:ajax event="select" listener="#{controlCargo.cambiarIndice(info, 0)}"  process="@this"/>
+                                                <p:ajax event="select" listener="#{controlCargo.cambiarIndice(info, 0)}"  process="@this"
+                                                        onstart="PF('datosCargo').unselectAllRows();PF('datosCargo').selectRow(#{indice});"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -132,7 +133,7 @@
                                 </p:column>
 
                                 <p:column headerText="#{msg['nombre']}" sortBy="#{info.nombre}" filterBy="#{info.nombre}" filterMatchMode="contains"
-                                          id="cargoNombre" width="180" filterStyle="display: none; visibility: hidden;" >                                  
+                                          id="cargoNombre" filterStyle="display: none; visibility: hidden;" >                                  
                                     <f:facet name="header">
                                         <h:outputText id="headerNom" value="Nombre" />
                                         <p:tooltip  for="headerNom" value="#{msg['nombre']}" />
@@ -140,9 +141,10 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.nombre}" style="text-transform: uppercase"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   value="#{info.nombre}" maxlength="50" onclick="select();" id="editarNombreCargo" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off" value="#{info.nombre}" maxlength="50" onclick="select();" id="editarNombreCargo" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlCargo.procesoModificacionCargo(info)}" update="editarNombreCargo" process="@this"/>
-                                                <p:ajax event="select" listener="#{controlCargo.cambiarIndice(info, 1)}" process="@this"/>
+                                                <p:ajax event="select" listener="#{controlCargo.cambiarIndice(info, 1)}" process="@this"
+                                                        onstart="PF('datosCargo').unselectAllRows();PF('datosCargo').selectRow(#{indice});"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -152,7 +154,7 @@
                                 </p:column>
 
                                 <p:column headerText="#{msg['grupoSalarial']}" sortBy="#{info.gruposalarial.descripcion}" filterBy="#{info.gruposalarial.descripcion}" filterMatchMode="contains" 
-                                          width="100" id="cargoGrupoSalarial" filterStyle="display: none; visibility: hidden;">  
+                                          width="130" id="cargoGrupoSalarial" filterStyle="display: none; visibility: hidden;">  
                                     <f:facet name="header">
                                         <h:outputText id="headerGSalarial" value="#{msg['grupoSalarial']}" />
                                         <p:tooltip  for="headerGSalarial" value="#{msg['grupoSalarial']}" />
@@ -163,9 +165,10 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   value="#{info.gruposalarial.descripcion}" onclick="select();"  id="editarGrupoSalarialCargo" style=" border-radius: 4px; width: 99.5%; text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off" value="#{info.gruposalarial.descripcion}" onclick="select();"  id="editarGrupoSalarialCargo" style=" border-radius: 4px; width: 99.5%; text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlCargo.modificarCargo(info, 'GRUPOSALARIAL',info.gruposalarial.descripcion)}" process="@this" update="editarGrupoSalarialCargo"/>
-                                                <p:ajax event="select" listener="#{controlCargo.cambiarIndice(info,2)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlCargo.cambiarIndice(info,2)}" process="@this"
+                                                        onstart="PF('datosCargo').unselectAllRows();PF('datosCargo').selectRow(#{indice});"/> 
                                                 <p:ajax event="dblclick" listener="#{controlCargo.asignarIndexCargos(info,0,0)}" process="@this"/>
                                             </p:inputText>
                                         </f:facet>   
@@ -176,19 +179,19 @@
                                 </p:column>
 
                                 <p:column headerText="#{msg['salario']}" sortBy="#{info.gruposalarial.salario}" filterBy="#{info.gruposalarial.salario}" filterMatchMode="contains"
-                                          id="cargoSalario" width="70" filterStyle="display: none; visibility: hidden;" >                                  
+                                          id="cargoSalario" width="90" filterStyle="display: none; visibility: hidden;" >                                  
                                     <f:facet name="header">
-                                        <h:outputText id="headerSalario" value="#{msg['salario']}" />
-                                        <p:tooltip  for="headerSalario" value="#{msg['salario']}" />
+                                        <h:outputText id="headerSalario" value="#{msg['salario']}"/>
+                                        <p:tooltip  for="headerSalario" value="#{msg['salario']}"/>
                                     </f:facet>
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText id="outSalario" value="#{info.gruposalarial.salario}" >
                                                 <f:convertNumber currencySymbol="$" for="outSalario" type="currency" />
                                             </h:outputText></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   value="#{info.gruposalarial.salario}" readonly="true" onclick="select();" onselect="posicionCargo([{name: 'n', value: '3'}, {name: 't', value: '#{indice}'}]);" 
+                                            <p:inputText  autocomplete="off" value="#{info.gruposalarial.salario}" readonly="true" onclick="select();" onselect="posicionCargo([{name: 'n', value: '3'}, {name: 't', value: '#{indice}'}]);" 
                                                          id="editarSalarioCargo" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
-                                                <f:convertNumber currencySymbol="$" for="editarSalarioCargo" type="currency" />
+                                                <f:convertNumber currencySymbol="$" for="editarSalarioCargo" type="currency"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -208,9 +211,10 @@
                                                 <f:convertNumber currencySymbol="$" for="outSueldoMin" type="currency"/>
                                             </h:outputText></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   value="#{info.sueldominimo}" onclick="select();" id="editarSueldoMinimoCargo" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off" value="#{info.sueldominimo}" onclick="select();" id="editarSueldoMinimoCargo" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlCargo.modificarCargo(info)}" update="editarSueldoMinimoCargo" process="@this"/>
-                                                <p:ajax event="select" listener="#{controlCargo.cambiarIndice(info, 4)}" process="@this"/>
+                                                <p:ajax event="select" listener="#{controlCargo.cambiarIndice(info, 4)}" process="@this"
+                                                        onstart="PF('datosCargo').unselectAllRows();PF('datosCargo').selectRow(#{indice});"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -230,9 +234,10 @@
                                                 <f:convertNumber currencySymbol="$" for="outSueldoMax" type="currency" />
                                             </h:outputText></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   value="#{info.sueldomaximo}" onclick="select();" id="editarSueldoMaximoCargo" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off" value="#{info.sueldomaximo}" onclick="select();" id="editarSueldoMaximoCargo" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlCargo.modificarCargo(info)}" update="editarSueldoMaximoCargo" process="@this"/>
-                                                <p:ajax event="select" listener="#{controlCargo.cambiarIndice(info, 5)}" process="@this"/>
+                                                <p:ajax event="select" listener="#{controlCargo.cambiarIndice(info, 5)}" process="@this"
+                                                        onstart="PF('datosCargo').unselectAllRows();PF('datosCargo').selectRow(#{indice});"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -255,7 +260,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{info.grupoviatico.descripcion}" onclick="select();"  id="editarGrupoViaticoCargo" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlCargo.modificarCargo(info, 'GRUPOVIATICO',info.grupoviatico.descripcion)}" process="@this" update="editarGrupoViaticoCargo"/>
-                                                <p:ajax event="select" listener="#{controlCargo.cambiarIndice(info,6)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlCargo.cambiarIndice(info,6)}" process="@this"
+                                                        onstart="PF('datosCargo').unselectAllRows();PF('datosCargo').selectRow(#{indice});"/> 
                                                 <p:ajax event="dblclick" listener="#{controlCargo.asignarIndexCargos(info,1,0)}" process="@this" update="editarGrupoViaticoCargo"/>
                                             </p:inputText>
                                         </f:facet>   
@@ -272,21 +278,23 @@
                                         <p:tooltip  for="headerTR" value="#{msg['headerTR']}" />
                                     </f:facet>
                                     <p:selectBooleanCheckbox id="checkCargoRotativoCargo" value="#{info.checkCargoRotativo}" style="alignment-adjust: central;">  
-                                        <p:ajax event="change" listener="#{controlCargo.modificarCargo(info)}" process="@this"/>
+                                        <p:ajax event="change" listener="#{controlCargo.modificarCargo(info)}" process="@this"
+                                                oncomplete="PF('datosCargo').unselectAllRows();PF('datosCargo').selectRow(#{indice});"/>
                                     </p:selectBooleanCheckbox>  
                                     <f:facet name="footer">
                                         <h:outputText value="" style=" width: 40px;" />
                                     </f:facet>
                                 </p:column>
 
-                                <p:column  style="padding: 0px !important; width: 20px; alignment-adjust: central;" headerText="..." sortBy="#{info.strCargoRotativo}" filterBy="#{info.strCargoRotativo}" filterMatchMode="contains" 
-                                           id="cargoJefe" filterStyle="display: none; visibility: hidden;" >     
+                                <p:column  style="padding: 0px !important; width: 20px; alignment-adjust: central;" headerText="..." sortBy="#{info.strCargoRotativo}" filterBy="#{info.strCargoRotativo}"
+                                           filterMatchMode="contains" id="cargoJefe" filterStyle="display: none; visibility: hidden;" >     
                                     <f:facet name="header">
                                         <h:outputText id="headerJefe" value="..." />
                                         <p:tooltip  for="headerJefe" value="#{msg['headerJefe']}" />
                                     </f:facet>
                                     <p:selectBooleanCheckbox id="checkJefeCargo" value="#{info.chechJefe}" style="alignment-adjust: central;">  
-                                        <p:ajax event="change" listener="#{controlCargo.modificarCargo(info)}" process="@this"/>
+                                        <p:ajax event="change" listener="#{controlCargo.modificarCargo(info)}" process="@this"
+                                                oncomplete="PF('datosCargo').unselectAllRows();PF('datosCargo').selectRow(#{indice});"/>
                                     </p:selectBooleanCheckbox>  
                                     <f:facet name="footer">
                                         <h:outputText value="" style=" width: 40px;"/>
@@ -307,7 +315,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{info.procesoproductivo.descripcion}" onclick="select();"  id="editarProcesoProductivoCargo" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlCargo.modificarCargo(info, 'PROCESOPRODUCTIVO', info.procesoproductivo.descripcion)}" process="@this" update="editarProcesoProductivoCargo"/>
-                                                <p:ajax event="select" listener="#{controlCargo.cambiarIndice(info,9)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlCargo.cambiarIndice(info,9)}" process="@this"
+                                                        onstart="PF('datosCargo').unselectAllRows();PF('datosCargo').selectRow(#{indice});"/> 
                                                 <p:ajax event="dblclick" listener="#{controlCargo.asignarIndexCargos(info,2,0)}" process="@this" update="editarProcesoProductivoCargo"/>
                                             </p:inputText>
                                         </f:facet>   
@@ -318,17 +327,18 @@
                                 </p:column>
 
                                 <p:column headerText="#{msg['codigoAlternativo']}" sortBy="#{info.codigoalternativo}" filterBy="#{info.codigoalternativo}" filterMatchMode="contains"
-                                          id="cargoCodigoAlternativo" width="115" filterStyle="display: none; visibility: hidden;" >                                  
+                                          id="cargoCodigoAlternativo" width="40" filterStyle="display: none; visibility: hidden;" >                                  
                                     <f:facet name="header">
-                                        <h:outputText id="headerCodA" value="#{msg['codigoAlternativo']}" />
+                                        <h:outputText id="headerCodA" value="C A" />
                                         <p:tooltip  for="headerCodA" value="#{msg['codigoAlternativo']}" />
                                     </f:facet>
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.codigoalternativo}" style="text-transform: uppercase" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   value="#{info.codigoalternativo}"  maxlength="20" onclick="select();" id="editarCodigoAlternativoCargo" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off" value="#{info.codigoalternativo}" maxlength="20" onclick="select();" id="editarCodigoAlternativoCargo" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlCargo.modificarCargo(info)}" update="editarCodigoAlternativoCargo" process="@this"/>
-                                                <p:ajax event="select" listener="#{controlCargo.cambiarIndice(info, 10)}" process="@this"/>
+                                                <p:ajax event="select" listener="#{controlCargo.cambiarIndice(info, 10)}" process="@this"
+                                                        onstart="PF('datosCargo').unselectAllRows();PF('datosCargo').selectRow(#{indice});"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor> 
@@ -338,12 +348,12 @@
                                 </p:column>
 
                             </p:dataTable>  
-                            <h:outputText id="informacionRegistroCargo" value="#{msg['infoRegistro']} #{controlCargo.infoRegistroC}" style="display: table; left: 15px; top: 0px; font-weight: bold; margin: 0px;"/>
+                            <h:outputText id="informacionRegistroCargo" value="#{msg['infoRegistro']} #{controlCargo.infoRegistroC}" style="display: table; position: relative; left: 15px; top: 140px; font-weight: bold; margin: 0px;"/>
 
-                            <p:commandButton style="position: relative; left: 655px; top: -13px; width: 90px; height: 28px; background-image: url(Imagenes/Iconos/buscardb.png); background-size: 100% 100%; 
+                            <p:commandButton style="position: relative; left: 655px; top: 118px; width: 90px; height: 28px; background-image: url(Imagenes/Iconos/buscardb.png); background-size: 100% 100%; 
                                              background-repeat: no-repeat; border: none;" id="BUSCARCARGO" value=""  actionListener="#{controlCargo.dispararDialogoBuscarCargo()}"  process="@this" />
                             <p:tooltip for="BUSCARCARGO" value="#{msg['buscarCargo']}" />
-                            <p:commandButton style="position: relative; left: 655px; top: -13px; width: 90px; height: 28px; background-image: url(Imagenes/Iconos/todosdb.png); background-size: 100% 100%; 
+                            <p:commandButton style="position: relative; left: 655px; top: 118px; width: 90px; height: 28px; background-image: url(Imagenes/Iconos/todosdb.png); background-size: 100% 100%; 
                                              background-repeat: no-repeat; border: none;" id="MOSTRARTODOS" value=""  actionListener="#{controlCargo.mostrarTodos()}"  process="@this" />
                             <p:tooltip for="MOSTRARTODOS" value="#{msg['mostrarTodos']}" />
 
@@ -355,7 +365,7 @@
                                 <fieldset style="position: relative; left: 10px; top: -10px; width: 400px; height: 132px; border-radius: 10px; padding-top: 10px; padding-left: 10px; padding-right: 0px; margin: 0px; display: block;">
                                     <legend style="color: blue"><strong>#{msg['sueldosMercados']}</strong></legend>
 
-                                    <p:dataTable id="datosSueldoMercado" var="infoSM" rowKey="#{infoSM.secuencia}" rowIndexVar="indiceSM" style="border: 1px; text-align: left;width: 380px"
+                                    <p:dataTable id="datosSueldoMercado" widgetVar="datosSueldoMercado" var="infoSM" rowKey="#{infoSM.secuencia}" rowIndexVar="indiceSM" style="border: 1px; text-align: left;width: 380px"
                                                  value="#{controlCargo.listaSueldosMercados}" scrollable="true" scrollHeight="#{controlCargo.altoTablaSueldoMercado}" scrollWidth="380"
                                                  filteredValue="#{controlCargo.filtrarListaSueldosMercados}" emptyMessage="#{msg['vacio']}" liveScroll="true" scrollRows="5" selection="#{controlCargo.sueldoMercadoSeleccionado}" selectionMode="single"
                                                  editable="true" editMode="cell">
@@ -372,7 +382,8 @@
                                                 <f:facet name="input">
                                                     <p:inputText  autocomplete="off"   value="#{infoSM.tipoempresa.descripcion}" onclick="select();"  id="editarTipoEmpresaSueldoMercado" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                         <p:ajax event="change" listener="#{controlCargo.modificarSueldoMercado(infoSM, 'TIPOEMPRESA', infoSM.tipoempresa.descripcion)}" process="@this" update="editarTipoEmpresaSueldoMercado"/>
-                                                        <p:ajax event="select" listener="#{controlCargo.cambiarIndiceSueldoMercado(infoSM,0)}" process="@this"/> 
+                                                        <p:ajax event="select" listener="#{controlCargo.cambiarIndiceSueldoMercado(infoSM,0)}" process="@this"
+                                                                onstart="PF('datosSueldoMercado').unselectAllRows();PF('datosSueldoMercado').selectRow(#{indiceSM});"/> 
                                                         <p:ajax event="dblclick" listener="#{controlCargo.asignarIndexSueldoM(infoSM,0,0)}" process="@this" update="editarTipoEmpresaSueldoMercado"/>
                                                     </p:inputText>
                                                 </f:facet>   
@@ -393,7 +404,8 @@
                                                 <f:facet name="input">
                                                     <p:inputText  autocomplete="off"   value="#{infoSM.sueldomin}" onclick="select();"  id="editarSueldoMinimoSueldoMercado" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                         <p:ajax event="change" listener="#{controlCargo.modificarSueldoMercado(infoSM)}" process="@this" update="editarSueldoMinimoSueldoMercado"/>
-                                                        <p:ajax event="select" listener="#{controlCargo.cambiarIndiceSueldoMercado(infoSM,1)}" process="@this"/> 
+                                                        <p:ajax event="select" listener="#{controlCargo.cambiarIndiceSueldoMercado(infoSM,1)}" process="@this"
+                                                                onstart="PF('datosSueldoMercado').unselectAllRows();PF('datosSueldoMercado').selectRow(#{indiceSM});"/> 
                                                     </p:inputText>
                                                 </f:facet>   
                                             </p:cellEditor>
@@ -413,7 +425,8 @@
                                                 <f:facet name="input">
                                                     <p:inputText  autocomplete="off"   value="#{infoSM.sueldomax}" onclick="select();"  id="editarSueldoMaximoSueldoMercado" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                         <p:ajax event="change" listener="#{controlCargo.modificarSueldoMercado(infoSM)}" process="@this" update="editarSueldoMaximoSueldoMercado"/>
-                                                        <p:ajax event="select" listener="#{controlCargo.cambiarIndiceSueldoMercado(infoSM,2)}" process="@this"/> 
+                                                        <p:ajax event="select" listener="#{controlCargo.cambiarIndiceSueldoMercado(infoSM,2)}" process="@this"
+                                                                onstart="PF('datosSueldoMercado').unselectAllRows();PF('datosSueldoMercado').selectRow(#{indiceSM});"/> 
                                                     </p:inputText>
                                                 </f:facet>   
                                             </p:cellEditor>
@@ -429,7 +442,7 @@
                                 <fieldset style="position: relative; left: 10px; top: -5px; width: 400px; height: 132px; border-radius: 10px; padding-top: 10px; padding-left: 10px; padding-right: 0px; margin: 0px; display: block;">
                                     <legend style="color: blue"><strong>#{msg['competenciasCargos']}</strong></legend>
 
-                                    <p:dataTable id="datosCompetenciaCargo" var="infoCC" rowKey="#{infoCC.secuencia}" rowIndexVar="indiceCC" style="border: 1px; text-align: left;width: 380px"
+                                    <p:dataTable id="datosCompetenciaCargo" widgetVar="datosCompetenciaCargo" var="infoCC" rowKey="#{infoCC.secuencia}" rowIndexVar="indiceCC" style="border: 1px; text-align: left;width: 380px"
                                                  value="#{controlCargo.listaCompetenciasCargos}" scrollable="true" scrollHeight="#{controlCargo.altoTablaCompetencia}" scrollWidth="380"
                                                  filteredValue="#{controlCargo.filtrarListaCompetenciasCargos}" emptyMessage="#{msg['vacio']}" selection="#{controlCargo.competenciaCargoSeleccionado}" selectionMode="single"
                                                  editable="true" editMode="cell"  liveScroll="true" scrollRows="5" >
@@ -446,7 +459,8 @@
                                                 <f:facet name="input">
                                                     <p:inputText  autocomplete="off"   value="#{infoCC.evalcompetencia.descripcion}" onclick="select();"  id="editarDescripcionCompetenciaCargo" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                         <p:ajax event="change" listener="#{controlCargo.modificarCompetenciaCargo(infoCC, 'EVALCOMPETENCIA', indiceCC.evalcompetencia.descripcion)}" process="@this" update="editarDescripcionCompetenciaCargo"/>
-                                                        <p:ajax event="select" listener="#{controlCargo.cambiarIndiceCompetenciaCargo(infoCC,0)}" process="@this"/> 
+                                                        <p:ajax event="select" listener="#{controlCargo.cambiarIndiceCompetenciaCargo(infoCC,0)}" process="@this"
+                                                                onstart="PF('datosCompetenciaCargo').unselectAllRows();PF('datosCompetenciaCargo').selectRow(#{indiceCC});"/> 
                                                         <p:ajax event="dblclick" listener="#{controlCargo.asignarIndexCompetenciaC(infoCC,0,0)}" process="@this" update="editarDescripcionCompetenciaCargo"/>
                                                     </p:inputText>
                                                 </f:facet>   
@@ -462,7 +476,7 @@
                                 <fieldset style="position: absolute; left: 432px; top: 0px; width: 384px; height: 290px; border-radius: 10px; padding-top: 10px; padding-left: 10px; padding-right: 0px; margin: 0px;">
                                     <legend style="color: blue"><strong>#{msg['tiposDetalles']}</strong></legend>
 
-                                    <p:dataTable id="datosTipoDetalle" var="infoTD" rowKey="#{infoTD.secuencia}" rowIndexVar="indiceTD" style="border: 1px; text-align: left;width: 370px;"
+                                    <p:dataTable id="datosTipoDetalle" widgetVar="datosTipoDetalle" var="infoTD" rowKey="#{infoTD.secuencia}" rowIndexVar="indiceTD" style="border: 1px; text-align: left;width: 370px;"
                                                  value="#{controlCargo.listaTiposDetalles}" scrollable="true" scrollHeight="#{controlCargo.altoTablaTipoDetalle}" scrollWidth="370"
                                                  filteredValue="#{controlCargo.filtrarListaTiposDetalles}" emptyMessage="#{msg['vacio']}" selection="#{controlCargo.tipoDetalleSeleccionado}" selectionMode="single"
                                                  editable="true" editMode="cell" liveScroll="true" scrollRows="5" >
@@ -483,7 +497,8 @@
                                                 <f:facet name="input">
                                                     <p:inputText  autocomplete="off"   value="#{infoTD.codigo}" onclick="select();"  id="editarCodigoTipoDetalle" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                         <p:ajax event="change" listener="#{controlCargo.procesoModificacionTipoDetalle(infoTD)}" process="@this" update="editarCodigoTipoDetalle"/>
-                                                        <p:ajax event="select" listener="#{controlCargo.cambiarIndiceTipoDetalle(infoTD,0)}" process="@this"/> 
+                                                        <p:ajax event="select" listener="#{controlCargo.cambiarIndiceTipoDetalle(infoTD,0)}" process="@this"
+                                                                onstart="PF('datosTipoDetalle').unselectAllRows();PF('datosTipoDetalle').selectRow(#{indiceTD});"/> 
                                                     </p:inputText>
                                                 </f:facet>   
                                             </p:cellEditor>
@@ -502,7 +517,8 @@
                                                 <f:facet name="input">
                                                     <p:inputText  autocomplete="off"   value="#{infoTD.descripcion}" maxlength="40" onclick="select();"  id="editarDescripcionTipoDetalle" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                         <p:ajax event="change" listener="#{controlCargo.procesoModificacionTipoDetalle(infoTD)}" process="@this" update="editarDescripcionTipoDetalle"/>
-                                                        <p:ajax event="select" listener="#{controlCargo.cambiarIndiceTipoDetalle(infoTD,1)}" process="@this"/> 
+                                                        <p:ajax event="select" listener="#{controlCargo.cambiarIndiceTipoDetalle(infoTD,1)}" process="@this"
+                                                                onstart="PF('datosTipoDetalle').unselectAllRows();PF('datosTipoDetalle').selectRow(#{indiceTD});"/> 
                                                     </p:inputText>
                                                 </f:facet>   
                                             </p:cellEditor>
@@ -521,7 +537,8 @@
                                                 <f:facet name="input">
                                                     <p:inputText  autocomplete="off"   value="#{infoTD.enfoque.descripcion}" onclick="select();"  id="editarEnfoqueTipoDetalle" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                         <p:ajax event="change" listener="#{controlCargo.modificarTipoDetalle(infoTD, 'ENFOQUE', infoTD.enfoque.descripcion)}" process="@this" update="editarEnfoqueTipoDetalle"/>
-                                                        <p:ajax event="select" listener="#{controlCargo.cambiarIndiceTipoDetalle(infoTD,2)}" process="@this"/> 
+                                                        <p:ajax event="select" listener="#{controlCargo.cambiarIndiceTipoDetalle(infoTD,2)}" process="@this"
+                                                                onstart="PF('datosTipoDetalle').unselectAllRows();PF('datosTipoDetalle').selectRow(#{indiceTD});"/> 
                                                         <p:ajax event="dblclick" listener="#{controlCargo.asignarIndexTipoDetalle(infoTD,0,0)}" process="@this" update="editarEnfoqueTipoDetalle"/>
                                                     </p:inputText>
                                                 </f:facet>   

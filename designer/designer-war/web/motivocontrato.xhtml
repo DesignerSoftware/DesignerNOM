@@ -68,46 +68,49 @@
                             </p:toolbarGroup>  
                         </p:toolbar>
                         
-                        <fieldset style="position: absolute;top: 80px;left: 10px;height: 365px;width: 830px; border-radius: 10px; text-align: left">
+                        <fieldset style="position: absolute; top: 80px; left: 10px; height: 400px; width: 830px; border-radius: 10px; text-align: left;">
                             <legend style="font-size: 14px; color: blue"><strong>Motivos de los Contratos</strong></legend>
 
                             <p:dataTable id="datosMotivoContrato" var="info" rowKey="#{info.secuencia}" widgetVar="datosMotivoContrato" rowIndexVar="indice" style="width: 810px ; border: 1px;"                           
-                                         value="#{controlMotivosContratos.listMotivosContratos}" scrollable="true" scrollHeight="#{controlMotivosContratos.tamano}"  scrollWidth="830"
+                                         value="#{controlMotivosContratos.listMotivosContratos}" scrollable="true" scrollHeight="#{controlMotivosContratos.tamano}" scrollWidth="830"
                                          filteredValue="#{controlMotivosContratos.filtrarMotivosContratos}" emptyMessage="No se encontrarón resultados para la búsqueda"
                                          editable="true" editMode="cell" liveScroll="true" scrollRows="50" selection="#{controlMotivosContratos.motivoContratoSeleccionado}" selectionMode="single">
-                                <p:ajax event="filter" listener="#{controlMotivosContratos.eventoFiltrar()}"/>
+                                
+                               <p:ajax event="filter" listener="#{controlMotivosContratos.eventoFiltrar()}"/>
 
-                                <p:column headerText="Código" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" width="200" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="Código" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" width="150" filterStyle="display: none; visibility: hidden;">                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{info.codigo}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.codigo}" maxlength="4" id="editarCodigo" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlMotivosContratos.cambiarIndice(indice, 0)}" process="@this"/> 
+                                            <p:inputText  autocomplete="off" value="#{info.codigo}" maxlength="4" id="editarCodigo" style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase;"> 
+                                                <p:ajax event="select" listener="#{controlMotivosContratos.cambiarIndice(indice, 0)}" process="@this"
+                                                        onstart="PF('datosMotivoContrato').unselectAllRows();PF('datosMotivoContrato').selectRow(#{indice});"/> 
                                                 <p:ajax event="change" listener="#{controlMotivosContratos.modificarMotivosContrato(indice, 'N', info.codigo)}"  update="codigo"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
                                 </p:column>
-                                <p:column headerText="Descripción" sortBy="#{info.nombre}" filterBy="#{info.nombre}" filterMatchMode="contains" id="descripcion" width="275" filterStyle="display: none; visibility: hidden;" >                                  
+                                
+                                <p:column headerText="Descripción" sortBy="#{info.nombre}" filterBy="#{info.nombre}" filterMatchMode="contains" id="descripcion" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.nombre}"  /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.nombre}" maxlength="30" id="editarNombre" style="height: 12px;  border-radius: 0px; width: 420px; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlMotivosContratos.cambiarIndice(indice, 1)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlMotivosContratos.cambiarIndice(indice, 1)}" process="@this"
+                                                        onstart="PF('datosMotivoContrato').unselectAllRows();PF('datosMotivoContrato').selectRow(#{indice});"/> 
                                                 <p:ajax event="change"  listener="#{controlMotivosContratos.modificarMotivosContrato(indice, 'N', info.nombre)}" update="descripcion"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
                                 </p:column>
                             </p:dataTable>
-
                         </fieldset>
 
-                        <h:outputText id="informacionRegistro" value="Registros:  #{controlMotivosContratos.infoRegistro}" style="position: absolute; left: 17px; top: 430px; font-weight: bold"/>
-                        <p:commandButton style=" position: absolute; left: 683px; top: 470px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ACEPTAR" value=""  onclick="PF('confirmarGuardar').show();"  disabled="#{controlMotivosContratos.guardado}" update="datosMotivoContrato"  process="@this"   />
-                        <p:commandButton style=" position: absolute; left: 775px; top: 470px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" value="" actionListener="#{controlMotivosContratos.redirigir()}" action="atrasmotivocontrato"/>
+                        <h:outputText id="informacionRegistro" value="Registros: #{controlMotivosContratos.infoRegistro}" style="position: absolute; left: 17px; top: 460px; font-weight: bold"/>
+                        <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" onclick="PF('confirmarGuardar').show();" disabled="#{controlMotivosContratos.guardado}" update="datosMotivoContrato" process="@this"/>
+                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlMotivosContratos.redirigir()}" action="atrasmotivocontrato"/>
 
-                        <p:dialog id="confirmarGuardar" header="ATENCION...!" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
+                        <p:dialog id="confirmarGuardar" header="ATENCION...!" widgetVar="confirmarGuardar" resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                             <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                             <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
                             <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" action="atrasmotivocontrato" actionListener="#{controlMotivosContratos.guardarMotivosContratos()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />

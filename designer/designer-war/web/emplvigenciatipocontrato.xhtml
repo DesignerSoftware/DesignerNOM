@@ -95,7 +95,7 @@
                         <p:ajax event="filter" listener="#{controlVigenciasTiposContratos.eventoFiltrar()}"/>
                         <f:event type="preRenderView" listener="#{controlVigenciasTiposContratos.recordarSeleccion()}"/>
 
-                        <p:column headerText="#{msg['fecha']}" sortBy="#{info.fechavigencia}" filterBy="#{info.fechavigencia}" filterMatchMode="contains"  width="68" id="vtcFecha" filterStyle="display: none; visibility: hidden;"  >  
+                        <p:column headerText="#{msg['fecha']}" sortBy="#{info.fechavigencia}" filterBy="#{info.fechavigencia}" filterMatchMode="contains"  width="70" id="vtcFecha" filterStyle="display: none; visibility: hidden;"  >  
                            <f:facet name="header">
                               <h:outputText value="#{msg['fecha']}" />
                            </f:facet>
@@ -227,7 +227,7 @@
                            </p:cellEditor>
                         </p:column> 
 
-                        <p:column headerText="P" width="25" style="padding: 0px !important; width: 20px; alignment-adjust: central;" exportable="false">  
+                        <p:column headerText="P" width="25" style="padding: 0px !important; width: 20px; text-align: center;" exportable="false">  
                            <f:facet name="header">
                               <h:outputText id="headP" value="#{msg['p']}"/>
                               <p:tooltip for="headP" value="#{msg['pvH']}"/>
@@ -239,7 +239,7 @@
                            </p:selectBooleanCheckbox>
                         </p:column>
 
-                        <p:column headerText="S" width="25" style="padding: 0px !important; width: 20px; alignment-adjust: central;" exportable="false">  
+                        <p:column headerText="S" width="25" style="padding: 0px !important; width: 20px; text-align: center;" exportable="false">  
                            <f:facet name="header">
                               <h:outputText id="headS" value="#{msg['s']}"/>
                               <p:tooltip for="headS" value="#{msg['scH']}"/>

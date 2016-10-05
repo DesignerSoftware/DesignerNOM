@@ -4,8 +4,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:pe="http://primefaces.org/ui/extensions">
+      xmlns:p="http://primefaces.org/ui">
    <h:head>
    </h:head>
    <h:body>
@@ -71,57 +70,58 @@
 
                      </p:toolbarGroup>  
                   </p:toolbar>
-                  <p:commandButton style=" position: absolute; left: 680px; top: 480px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ACEPTAR" value=""  onclick="PF('confirmarGuardar').show();"  disabled="#{controlMotivosLocalizaciones.guardado}" update="datosMotivoContrato"  process="@this"   />
-                  <p:commandButton style=" position: absolute; left: 770px; top: 480px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" action="atrasmotivolocalizacion" id="ATRAS" value=""    />
 
-                  <fieldset style="position: absolute;top: 80px;left: 10px;height: 350px;width: 830px; border-radius: 10px; text-align: left">
-                     <legend style="font-size: 14px; color: blue"><strong>Motivo de la Localización</strong></legend>
+                  <fieldset style="position: absolute; top: 80px; left: 10px; height: 400px; width: 830px; border-radius: 10px; text-align: left;">
+                     <legend style="font-size: 14px; color: blue;"><strong>Motivo de la Localización</strong></legend>
 
-                     <p:dataTable id="datosMotivoContrato" var="info" widgetVar="datosMotivoContrato" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 830px ; border: 1px;"                           
-                                  value="#{controlMotivosLocalizaciones.listMotivosLocalizaciones}" scrollable="true" scrollHeight="#{controlMotivosLocalizaciones.tamano}"  scrollWidth="830"
-                                  filteredValue="#{controlMotivosLocalizaciones.filtrarMotivosLocalizaciones}" emptyMessage="No se encontrarón resultados para la búsqueda"
-                                  editable="true" editMode="cell"   liveScroll="true" scrollRows="50"  
-                                  selection="#{controlMotivosLocalizaciones.motivoLocalizacionSeleccionado}"
-                                  selectionMode="single"
-                                  >
+                     <p:dataTable id="datosMotivoContrato" var="info" widgetVar="datosMotivoContrato" rowKey="#{info.secuencia}" rowIndexVar="indice" style="width: 830px ; border: 1px;"                           
+                                  value="#{controlMotivosLocalizaciones.listMotivosLocalizaciones}" scrollable="true" scrollHeight="#{controlMotivosLocalizaciones.tamano}" scrollWidth="830"
+                                  filteredValue="#{controlMotivosLocalizaciones.filtrarMotivosLocalizaciones}" emptyMessage="No se encontrarón resultados para la búsqueda" editable="true" editMode="cell"
+                                  liveScroll="true" scrollRows="50" selection="#{controlMotivosLocalizaciones.motivoLocalizacionSeleccionado}" selectionMode="single">
+
                         <p:ajax event="filter" listener="#{controlMotivosLocalizaciones.eventoFiltrar()}"/>
                         <f:event type="preRenderView" listener="#{controlMotivosLocalizaciones.recordarSeleccionMotivoLocalizacion()}"/>
 
-                        <p:column headerText="Código" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo"  filterStyle="display: none; visibility: hidden;" >                                  
+                        <p:column headerText="Código" sortBy="#{info.codigo}" width="150" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" filterStyle="display: none; visibility: hidden;" >                                  
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
                               <f:facet name="input">
                                  <p:inputText  autocomplete="off"  value="#{info.codigo}"  maxlength="4" id="editarCodigo" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"  > 
-                                     <p:keyFilter for="editarCodigo" mask="num"/>
-                                    <p:ajax event="select" listener="#{controlMotivosLocalizaciones.cambiarIndice(info, 0)}" process="@this"/> 
+                                    <p:keyFilter for="editarCodigo" mask="num"/>
+                                    <p:ajax event="select" listener="#{controlMotivosLocalizaciones.cambiarIndice(info, 0)}" process="@this"
+                                            onstart="PF('datosMotivoContrato').unselectAllRows();PF('datosMotivoContrato').selectRow(#{indice});"/> 
                                     <p:ajax event="change" listener="#{controlMotivosLocalizaciones.modificarMotivosContrato(info, 'N', info.codigo)}"  update="codigo"/>
                                  </p:inputText>
                               </f:facet>  
                            </p:cellEditor>
                         </p:column>
+
                         <p:column headerText="Descripción" sortBy="#{info.descripcion}" filterBy="#{info.descripcion}" filterMatchMode="contains" id="descripcion" filterStyle="display: none; visibility: hidden;" >                                  
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.descripcion}"  /></f:facet>  
                               <f:facet name="input">
                                  <p:inputText  autocomplete="off"  value="#{info.descripcion}" maxlength="30" id="editarNombre" style="height: 12px;  border-radius: 0px; width: 420px; text-transform: uppercase"  > 
-                                    <p:ajax event="select" listener="#{controlMotivosLocalizaciones.cambiarIndice(info, 1)}" process="@this"/> 
-                                    <p:ajax event="change"  listener="#{controlMotivosLocalizaciones.modificarMotivosContrato(info, 'N', info.descripcion)}" update="descripcion"/>
+                                    <p:ajax event="select" listener="#{controlMotivosLocalizaciones.cambiarIndice(info, 1)}" process="@this"
+                                            onstart="PF('datosMotivoContrato').unselectAllRows();PF('datosMotivoContrato').selectRow(#{indice});"/>
+                                    <p:ajax event="change" listener="#{controlMotivosLocalizaciones.modificarMotivosContrato(info, 'N', info.descripcion)}" update="descripcion"/>
                                  </p:inputText>
                               </f:facet>  
                            </p:cellEditor>
                         </p:column>
                      </p:dataTable>
-                     <h:outputText id="infoRegistro" value="#{msg['infoRegistros']} #{controlMotivosLocalizaciones.infoRegistro}" style="position: relative; left: 10px; top: 25px; font-weight: bold"/>
+                     <h:outputText id="infoRegistro" value="#{msg['infoRegistros']} #{controlMotivosLocalizaciones.infoRegistro}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
                   </fieldset>
-
-                  <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
-                     <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
-                     <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                     <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" action="atrasmotivolocalizacion" actionListener="#{controlMotivosLocalizaciones.guardarMotivosLocalizaciones()}" style="position: absolute; top: 50px; left: 125px;" process="@this" icon="ui-icon-check" />
-                     <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" action="atrasmotivolocalizacion"  actionListener="#{controlMotivosLocalizaciones.cancelarModificacion()}" style="position: absolute; top: 50px; left: 195px;" process="@this" icon="ui-icon-close" />
-                     <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 270px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
-                  </p:dialog>
+                  <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" onclick="PF('confirmarGuardar').show();" disabled="#{controlMotivosLocalizaciones.guardado}" update="datosMotivoContrato" process="@this"/>
+                  <p:commandButton class="cssBotonCancelar" action="atrasmotivolocalizacion" id="ATRAS" value=""/>
                </p:panel>
+
+               <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
+                  <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" action="atrasmotivolocalizacion" actionListener="#{controlMotivosLocalizaciones.guardarMotivosLocalizaciones()}" style="position: absolute; top: 50px; left: 125px;" process="@this" icon="ui-icon-check" />
+                  <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" action="atrasmotivolocalizacion"  actionListener="#{controlMotivosLocalizaciones.cancelarModificacion()}" style="position: absolute; top: 50px; left: 195px;" process="@this" icon="ui-icon-close" />
+                  <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 270px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+               </p:dialog>
 
                <p:dialog id="validacionDuplicarMotivoLocalizacion" header="#{msg['atencion']}" widgetVar="validacionDuplicarMotivoLocalizacion"  resizable="false" draggable="true" modal="true" height="95" width="400" style="" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 15px;"  />
@@ -222,7 +222,7 @@
 
                      <strong><h:outputText value="*Codigo: "  style="left: 10px; position: absolute; top: 60px;" /></strong>
                      <p:inputText  autocomplete="off"  id="nuevoCodigo" maxlength="4" value="#{controlMotivosLocalizaciones.nuevoMotivoContrato.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
-                         <p:keyFilter for="nuevoCodigo" mask="num"/> 
+                        <p:keyFilter for="nuevoCodigo" mask="num"/> 
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
                      <p:watermark for="nuevoCodigo" value="Codigo" />
@@ -246,7 +246,7 @@
                   <p:panel id="duplicarMotivosCambiosCargos" style="border: none;">
                      <strong><h:outputText value="*Código:"  style=" position: absolute; top: 60px;" /></strong>
                      <p:inputText  autocomplete="off"  id="duplicarCodigo" maxlength="4" value="#{controlMotivosLocalizaciones.duplicarMotivoContrato.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
-                         <p:keyFilter for="duplicarCodigo" mask="num"/>
+                        <p:keyFilter for="duplicarCodigo" mask="num"/>
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
                      <p:watermark for="duplicarCodigo" value="Código" />
