@@ -18,13 +18,10 @@
 
                     <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal" >  
 
-                        <h:outputText style="position: absolute; top: 50px; height: 12px;position: absolute;color: red;font-weight: bold;text-align: right;width: 240px;left: 600px;" id="nombreEmpleado" value="#{controlEmplDemanda.empleado.persona.primerapellido} #{controlEmplDemanda.empleado.persona.segundoapellido} #{controlEmplDemanda.empleado.persona.nombre}">
-                        </h:outputText>
-
-                        <p:toolbar style="position: absolute; top: 37px; left: 12px; height: 23px">  
+                        <p:toolbar styleClass="cssToolbar">  
                             <p:toolbarGroup align="left"> 
 
-                                <p:commandButton id="guardarRapido" value="" style="background-size: 100% 100%;background-image: url(Imagenes/Iconos/guardar.png) ;background-repeat: no-repeat; width: 25px; height: 25px;" actionListener="#{controlEmplDemanda.guardadoGeneral()}" process="@this" />
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png)" actionListener="#{controlEmplDemanda.guardadoGeneral()}" process="@this" />
                                 <p:tooltip for="guardarRapido" value="#{msg['guardar']}" />
 
                                 <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png) " actionListener="#{controlEmplDemanda.editarCelda()}" process="@this"/>
@@ -32,7 +29,7 @@
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png) " actionListener="#{controlEmplDemanda.listaValoresBoton()}" process="@this"/>
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png) " actionListener="#{controlEmplDemanda.listaValoresBoton()}" disabled="#{controlEmplDemanda.activarLov}" process="@this"/>
                                 <p:tooltip for="listaValores" value="#{msg['lista']}" />
 
                                 <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png) " actionListener="#{controlEmplDemanda.activarCtrlF11()}" process="@this"/>
@@ -40,7 +37,7 @@
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png) " ajax="false" actionListener="#{controlEmplDemanda.verificarExportXLS()}" />
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png) " ajax="false" actionListener="#{controlEmplDemanda.exportXLS_D()}" />
                                 <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
 
                                 <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png) " actionListener="#{controlEmplDemanda.limpiarNuevaD()}" ajax="false">
@@ -48,17 +45,17 @@
                                 </p:commandButton> 
                                 <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
 
-                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png) " actionListener="#{controlEmplDemanda.validarExportPDF()}" ajax="false"/>
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png) " actionListener="#{controlEmplDemanda.exportPDF_D()}" ajax="false"/>
                                 <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
                                 <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png) " oncomplete="PF('NuevoRegistroD').show()" update=":formularioDialogos:nuevaD"  process="@this"/> 
                                 <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
 
-                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png) " actionListener="#{controlEmplDemanda.validarBorradoDemanda()}" process="@this"/>  
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png) " actionListener="#{controlEmplDemanda.borrarD()}" process="@this"/>  
                                 <p:tooltip  for="eliminar" value="#{msg['eliminar']}" />
 
-                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png) " actionListener="#{controlEmplDemanda.verificarDuplicarDemanda()}"  process="@this"/>  
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png) " actionListener="#{controlEmplDemanda.duplicarDemandaM()}"  process="@this"/>  
                                 <p:tooltip for="duplicar" value="#{msg['duplicar']}" />
                                 <p:separator style="position: relative; top: -9px"/>
                                 <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png) " actionListener="#{controlEmplDemanda.verificarRastro()}" process="@this"/>  
@@ -69,20 +66,28 @@
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png) " actionListener="#{controlEmplDemanda.cancelarModificacionD()}" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
+                                <p:separator style="position: relative; top: -9px"/>
                                 <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) " actionListener="#{controlEmplDemanda.salir()}" action="infoEmplIndividual" process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
                             </p:toolbarGroup>  
                         </p:toolbar> 
 
+                        <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 830px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px">
+                            <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;" />
+                            <h:outputText id="nombreEmpleado" value="#{controlEmplDemanda.empleado.persona.nombreCompleto}" 
+                                          style="font-weight: bold; color: #BF1A1A; position: relative; left: 10px; top: 5px"/>
+                        </fieldset>
 
-                        <fieldset style="position: absolute;top: 80px;left: 10px;height: 375px;width: 830px; border-radius: 10px; text-align: left">
+
+                        <fieldset style="position: absolute;top: 108px;left: 10px;height: 355px;width: 830px; border-radius: 10px; text-align: left">
                             <legend style="color: blue"><strong>#{msg['demandas']}</strong></legend>
                             <p:dataTable id="datosDemanda" var="info" rowKey="#{info.secuencia}" rowIndexVar="indiceD" value="#{controlEmplDemanda.listDemandasEmpleado}" 
                                          filteredValue="#{controlEmplDemanda.filtrarListDemandasEmpleado}" editable="true" editMode="cell" 
                                          scrollable="true" scrollWidth="835" scrollHeight="#{controlEmplDemanda.altoTabla}" emptyMessage="#{msg['vacio']}" style="border: 1px;width: 820px"
-                                         liveScroll="true" scrollRows="15" selection="#{controlEmplDemanda.demantaTablaSeleccionada}" selectionMode="single">
-
+                                         liveScroll="true" scrollRows="15" selection="#{controlEmplDemanda.demandaTablaSeleccionada}" selectionMode="single">
+                                <p:ajax event="filter" listener="#{controlEmplDemanda.eventoFiltrar()}"/>
+                                <f:event type="preRenderView" listener="#{controlEmplDemanda.recordarSeleccionVD()}"/>
 
                                 <p:column headerText="#{msg['fecha']}" sortBy="#{info.strFecha}" filterBy="#{info.strFecha}" filterMatchMode="contains" id="dFecha" width="20"
                                           filterStyle="display: none; visibility: hidden;"   >                                 
@@ -94,9 +99,9 @@
                                         </f:facet>  
                                         <f:facet name="input">
                                             <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.fecha}" > 
-                                                <p:ajax event="dateSelect" listener="#{controlEmplDemanda.modificacionesFechas(indiceD,0)}" process="@this"/>
-                                                <p:ajax event="change" listener="#{controlEmplDemanda.modificacionesFechas(indiceD,0)}" process="@this"/>
-                                                <p:ajax event="select" listener="#{controlEmplDemanda.cambiarIndiceD(indiceD,0)}" process="@this"/> 
+                                                <p:ajax event="dateSelect" listener="#{controlEmplDemanda.modificacionesFechas(info,0)}" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlEmplDemanda.modificacionesFechas(info,0)}" process="@this"/>
+                                                <p:ajax event="select" listener="#{controlEmplDemanda.cambiarIndiceD(info,0)}" process="@this"/> 
                                             </p:calendar>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -111,8 +116,8 @@
                                         <f:facet name="output"><h:outputText value="#{info.seguimiento}" style="width: 100px;text-transform: uppercase"/></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.seguimiento}" maxlength="500" id="editarSeguimiento" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
-                                                <p:ajax event="select" listener="#{controlEmplDemanda.cambiarIndiceD(indiceD,1)}" process="@this"/> 
-                                                <p:ajax event="change" listener="#{controlEmplDemanda.modificarDemanda(indiceD)}" process="@this" update="editarSeguimiento"/>
+                                                <p:ajax event="select" listener="#{controlEmplDemanda.cambiarIndiceD(info,1)}" process="@this"/> 
+                                                <p:ajax event="change" listener="#{controlEmplDemanda.modificarDemanda(info)}" process="@this" update="editarSeguimiento"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -124,22 +129,24 @@
                                 <p:column headerText="#{msg['motivo']}" sortBy="#{info.motivo.descripcion}" filterBy="#{info.motivo.descripcion}" filterMatchMode="contains" width="133"
                                           id="dMotivo" filterStyle="display: none; visibility: hidden;"  style="width: 70px">                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.motivo.descripcion}" style="width: 100px;text-transform: uppercase"/></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{info.motivo.descripcion}" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.motivo.descripcion}" id="editarMotivo" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
-                                                <p:ajax event="select" listener="#{controlEmplDemanda.cambiarIndiceD(indiceD,2)}" process="@this"/> 
-                                                <p:ajax event="dblclick" listener="#{controlEmplDemanda.asignarIndex(indiceD,0,0)}" process="@this"/>
-                                                <p:ajax event="change" listener="#{controlEmplDemanda.modificarDemanda(indiceD, 'MOTIVOS', info.motivo.descripcion)}" process="@this" update="editarMotivo"/>
+                                                <p:ajax event="select" listener="#{controlEmplDemanda.cambiarIndiceD(info,2)}" process="@this"/> 
+                                                <p:ajax event="dblclick" listener="#{controlEmplDemanda.asignarIndex(info,0,0)}" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlEmplDemanda.modificarDemanda(info, 'MOTIVOS', info.motivo.descripcion)}" process="@this" update="editarMotivo"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">   
-                                        <p:commandButton style="width: 400px; margin: -14px; height: 26px; border: none; color: blue" action="motivodemanda" value=" "/>
+                                        <p:commandButton style="width: 400px; margin: -1px; height: 26px; border: none; color: blue" action="motivodemanda" value=" "/>
                                     </f:facet>
                                 </p:column>                               
-
                             </p:dataTable>
+                            <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlEmplDemanda.infoRegistro}" style="position: absolute; left: 15px; top: 340px; font-weight: bold"/>
                         </fieldset>
+                        <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" onclick="PF('confirmarGuardar').show();" disabled="#{controlEmplDemanda.guardado}" update=":form:datosDemanda" process="@this" />
+                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value=""  actionListener="#{controlEmplDemanda.salir()}" action="infoEmplIndividual" process="@this" />
 
                         <p:dialog header="#{msg['motivoDemandaM']}" widgetVar="DemandaDialogo" draggable="true" resizable="false" closable="false" id="DemandaDialogo"  
                                   showEffect="fade" hideEffect="fade" width="431" modal="true" >
@@ -148,9 +155,10 @@
                                          filteredValue="#{controlEmplDemanda.filtrarListMotivosDemandas}" emptyMessage="#{msg['lovvacio']}">              
                                 <p:ajax event="rowSelect" listener="#{controlEmplDemanda.activarAceptar()}" update=":form:aceptarD"/>
                                 <p:ajax event="rowDblselect" listener="#{controlEmplDemanda.actualizarMotivo()}" process="@this" />
+                                <p:ajax event="filter" listener="#{controlEmplDemanda.contarRegistrosMotivos()}"/>
                                 <f:facet name="header">  
-                                    <h:outputText value="#{msg['buscarMD']}"  style="position: absolute; left: 17px; top: 14px"/>  
-                                    <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovDemanda').filter();" style="width:150px; position: relative; left: 60px;" />  
+                                    <h:outputText value="#{msg['buscarMD']}"  />  
+                                    <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovDemanda').filter();" class="cssFiltroLOV" />  
                                 </f:facet>
                                 <p:column filterBy="#{demanda.descripcion}" width="140"  filterMatchMode="contains">
                                     <f:facet name="header">
@@ -160,16 +168,15 @@
                                 </p:column>
                             </p:dataTable>
 
-                            <h:outputText id="infoRegistroMotivo" value="#{controlEmplDemanda.infoRegistroMotivo}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
+                            <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroMotivo" value="#{msg['infoRegistro']} #{controlEmplDemanda.infoRegistroMotivo}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarD" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlEmplDemanda.aceptar}" actionListener="#{controlEmplDemanda.actualizarMotivo()}" process="@this"/>
+                            <p:commandButton id="atrasD" icon="ui-icon-arrowreturnthick-1-w" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlEmplDemanda.cancelarCambioMotivo()}" process="@this"/>
+                            </div>
 
-                            <p:commandButton id="aceptarD" icon="ui-icon-check" style="position: relative; left: 230px;" value="#{msg['aceptar']}" disabled="#{controlEmplDemanda.aceptar}" actionListener="#{controlEmplDemanda.actualizarMotivo()}" process="@this"/>
-                            
-                            <p:commandButton id="atrasD" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 230px;" value="#{msg['atras']}" actionListener="#{controlEmplDemanda.cancelarCambioMotivo()}" process="@this"/>
+
                         </p:dialog>
 
-                        <p:commandButton style="position: absolute; left: 683px; top: 475px;" id="ACEPTAR" value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('confirmarGuardar').show();" disabled="#{controlEmplDemanda.guardado}" update=":form:datosDemanda" process="@this" />
-                        <p:commandButton style="position: absolute; left: 775px; top: 475px;" id="ATRAS" value="#{msg['cancelar']}" icon="ui-icon-closethick" actionListener="#{controlEmplDemanda.salir()}" action="infoEmplIndividual" process="@this" />
-                        <h:outputText id="informacionRegistro" value="#{controlEmplDemanda.infoRegistro}" style="position: absolute; left: 15px; top: 480px; font-weight: bold"/>
                     </p:panel>
 
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
@@ -179,7 +186,7 @@
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" action="infoEmplIndividual" actionListener="#{controlEmplDemanda.cancelarSalir()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
                         <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
-                    
+
                     <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />

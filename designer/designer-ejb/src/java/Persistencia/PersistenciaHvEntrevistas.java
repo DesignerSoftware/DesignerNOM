@@ -110,13 +110,12 @@ public class PersistenciaHvEntrevistas implements PersistenciaHvEntrevistasInter
         }
     }
 
-    public List<HVHojasDeVida> buscarHvHojaDeVidaPorEmpleado(EntityManager em, BigInteger secEmpleado) {
+    public List<HVHojasDeVida> buscarHvHojaDeVidaPorPersona(EntityManager em, BigInteger secPersona) {
         try {
             em.clear();
-            System.err.println("secuencia empleado hoja de vida " + secEmpleado);
-            Query query = em.createQuery("SELECT hv FROM HVHojasDeVida hv , HvEntrevistas he , Empleados e WHERE e.persona.secuencia= hv.persona.secuencia AND e.secuencia = :secuenciaEmpl");
-            query.setParameter("secuenciaEmpl", secEmpleado);
-            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            String sql= "SELECT * FROM HVHOJASDEVIDA hv , PERSONAS p WHERE p.secuencia= hv.persona AND p.secuencia = ?";
+            Query query = em.createNativeQuery(sql, HVHojasDeVida.class);
+            query.setParameter(1, secPersona);
             List<HVHojasDeVida> hvHojasDeVIda = query.getResultList();
             return hvHojasDeVIda;
         } catch (Exception e) {

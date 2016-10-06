@@ -12,22 +12,25 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+
 /**
  * Clase Stateless. <br>
- * Clase encargada de realizar operaciones sobre la tabla 'Demandas'
- * de la base de datos
+ * Clase encargada de realizar operaciones sobre la tabla 'Demandas' de la base
+ * de datos
+ *
  * @author betelgeuse
  */
 @Stateless
-public class PersistenciaDemandas implements PersistenciaDemandasInterface{
+public class PersistenciaDemandas implements PersistenciaDemandasInterface {
+
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos
      */
-   /* @PersistenceContext(unitName = "DesignerRHN-ejbPU")
+    /* @PersistenceContext(unitName = "DesignerRHN-ejbPU")
     private EntityManager em;*/
 
     @Override
-    public void crear(EntityManager em,Demandas demandas) {
+    public void crear(EntityManager em, Demandas demandas) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
@@ -43,7 +46,7 @@ public class PersistenciaDemandas implements PersistenciaDemandasInterface{
     }
 
     @Override
-    public void editar(EntityManager em,Demandas demandas) {
+    public void editar(EntityManager em, Demandas demandas) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
@@ -59,7 +62,7 @@ public class PersistenciaDemandas implements PersistenciaDemandasInterface{
     }
 
     @Override
-    public void borrar(EntityManager em,Demandas demandas) {
+    public void borrar(EntityManager em, Demandas demandas) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
@@ -79,21 +82,20 @@ public class PersistenciaDemandas implements PersistenciaDemandasInterface{
     }
 
     @Override
-    public List<Demandas> demandasPersona(EntityManager em,BigInteger secuenciaEmpl) {
+    public List<Demandas> demandasPersona(EntityManager em, BigInteger secuenciaEmpl) {
         try {
             em.clear();
-            Query query = em.createQuery("SELECT COUNT(d) FROM Demandas d WHERE d.empleado.secuencia = :secuenciaEmpl");
-            query.setParameter("secuenciaEmpl", secuenciaEmpl);
-            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
-            Long resultado = (Long) query.getSingleResult();
-            if (resultado > 0) {
-                Query queryFinal = em.createQuery("SELECT d FROM Demandas d WHERE d.empleado.secuencia = :secuenciaEmpl");
-                queryFinal.setParameter("secuenciaEmpl", secuenciaEmpl);
-                query.setHint("javax.persistence.cache.storeMode", "REFRESH");
-                List<Demandas> listaDemandas = queryFinal.getResultList();
-                return listaDemandas;
-            }
-            return null;
+//            Query query = em.createQuery("SELECT COUNT(d) FROM Demandas d WHERE d.empleado.secuencia = :secuenciaEmpl");
+//            query.setParameter("secuenciaEmpl", secuenciaEmpl);
+//            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+//            Long resultado = (Long) query.getSingleResult();
+//            if (resultado > 0) {
+            String sql = "SELECT * FROM DEMANDAS WHERE EMPLEADO = ?";
+            Query queryFinal = em.createNativeQuery(sql, Demandas.class);
+            queryFinal.setParameter(1, secuenciaEmpl);
+            List<Demandas> listaDemandas = queryFinal.getResultList();
+            return listaDemandas;
+//            }
         } catch (Exception e) {
             System.out.println("Error PersistenciaDemandas.demandasPersona" + e);
             return null;

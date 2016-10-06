@@ -54,9 +54,10 @@ public class PersistenciaHVHojasDeVida implements PersistenciaHVHojasDeVidaInter
         HVHojasDeVida hVHojasDeVida=null;
         try {
             em.clear();
-            Query query = em.createQuery("SELECT hv from HVHojasDeVida hv where hv.persona.secuencia = :secuenciaPersona");
-            query.setParameter("secuenciaPersona", secuenciaPersona);
-            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            String sql ="SELECT * FROM HVHOJASDEVIDA WHERE PERSONA = ?";
+            Query query = em.createNativeQuery(sql, HVHojasDeVida.class);
+            query.setParameter(1, secuenciaPersona);
+//            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             hVHojasDeVida = (HVHojasDeVida) query.getSingleResult();
             return hVHojasDeVida;
         } catch (Exception e) {

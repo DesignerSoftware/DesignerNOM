@@ -668,7 +668,6 @@ public class ControlVigenciaDeporte implements Serializable {
                     RequestContext.getCurrentInstance().update("form:infoRegistro");
                     RequestContext.getCurrentInstance().update("form:datosVigenciasDeportes");
                     RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroVigencias').hide()");
-                    vigenciaTablaSeleccionada = duplicarVigenciaDeporte;
                     if (guardado == true) {
                         guardado = false;
                         RequestContext.getCurrentInstance().update("form:ACEPTAR");

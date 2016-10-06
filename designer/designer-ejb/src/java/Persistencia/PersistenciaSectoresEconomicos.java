@@ -104,4 +104,19 @@ public class PersistenciaSectoresEconomicos implements PersistenciaSectoresEcono
             return sectoresEconomicos;
         }
     }
+
+    @Override
+    public List<SectoresEconomicos> buscarSectoresEconomicosPorEmpresa(EntityManager em, BigInteger secEmpresa) {
+        try {
+            em.clear();
+            String sql = "SELECT * FROM SECTORESECONOMICOS WHERE EMPRESA = ?";
+            Query query = em.createNativeQuery(sql, SectoresEconomicos.class);
+            query.setParameter(1, secEmpresa);
+            List<SectoresEconomicos> sectoresEconomicos = (List<SectoresEconomicos>) query.getResultList();
+            return sectoresEconomicos;
+        } catch (Exception e) {
+            System.out.println("Error buscarSectoresEconomicosPorEmpresa PersistenciaSectoresEconomicos : "+e.toString());
+            return null;
+        }
+    }
 }

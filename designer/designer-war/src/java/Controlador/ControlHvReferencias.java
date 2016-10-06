@@ -83,6 +83,7 @@ public class ControlHvReferencias implements Serializable {
         permitirIndex = true;
         editarHvReferencia = new HvReferencias();
         nuevoHvReferencia = new HvReferencias();
+        nuevoHvReferencia.setTipo("PERSONALES");
         duplicarHvReferencia = new HvReferencias();
         empleado = new Empleados();
         secuenciaPersona = null;
@@ -146,23 +147,23 @@ public class ControlHvReferencias implements Serializable {
         }
     }
 
-    public void asignarIndex(HvReferencias hvReferencia, int LND, int dig) {
-        try {
-            System.out.println("\n ENTRE A ControlHvReferencias.asignarIndex \n");
-            hvReferenciaSeleccionada = hvReferencia;
-            if (LND == 0) {
-                tipoActualizacion = 0;
-            } else if (LND == 1) {
-                tipoActualizacion = 1;
-                System.out.println("Tipo Actualizacion: " + tipoActualizacion);
-            } else if (LND == 2) {
-                tipoActualizacion = 2;
-            }
-
-        } catch (Exception e) {
-            System.out.println("ERROR ControlHvReferencias.asignarIndex ERROR======" + e.getMessage());
-        }
-    }
+//    public void asignarIndex(HvReferencias hvReferencia, int LND, int dig) {
+//        try {
+//            System.out.println("\n ENTRE A ControlHvReferencias.asignarIndex \n");
+//            hvReferenciaSeleccionada = hvReferencia;
+//            if (LND == 0) {
+//                tipoActualizacion = 0;
+//            } else if (LND == 1) {
+//                tipoActualizacion = 1;
+//                System.out.println("Tipo Actualizacion: " + tipoActualizacion);
+//            } else if (LND == 2) {
+//                tipoActualizacion = 2;
+//            }
+//
+//        } catch (Exception e) {
+//            System.out.println("ERROR ControlHvReferencias.asignarIndex ERROR======" + e.getMessage());
+//        }
+//    }
 
     public void activarAceptar() {
         aceptar = false;
@@ -534,7 +535,7 @@ public class ControlHvReferencias implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
 
         if (nuevoHvReferencia.getNombrepersona() == (null)) {
-            mensajeValidacion = mensajeValidacion + "El campo Nombre no puede estar vacÃ­o \n";
+            mensajeValidacion = mensajeValidacion + "El campo Nombre no puede estar vacío \n";
             System.out.println("Mensaje validacion : " + mensajeValidacion);
         } else {
             System.out.println("bandera");
@@ -546,14 +547,10 @@ public class ControlHvReferencias implements Serializable {
         if (listHVHojasDeVida == null) {
             System.err.println("ERROR NULO HVHOJASDEVIDA PARA LA SECUENCIA DE PERSONA :" + empleado.getPersona().getSecuencia());
         } else {
-//            if (!listHvReferencias.isEmpty()) {
-//                System.out.println("La lista estÃ¡ vacÃ­a ");
-//            } else {
-                System.err.println("tamaÃ±o listHojasDeVida " + listHVHojasDeVida.size());
+                System.err.println("tamaño listHojasDeVida " + listHVHojasDeVida.size());
                 hvHojasDeVida = listHVHojasDeVida.get(0);
                 System.err.println("Agregar nuevo HVHojasDeVida " + hvHojasDeVida.getSecuencia());
                 nuevoHvReferencia.setHojadevida(hvHojasDeVida);
-            //}
 
         }
 

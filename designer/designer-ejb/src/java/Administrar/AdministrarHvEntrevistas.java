@@ -8,9 +8,11 @@ package Administrar;
 import Entidades.Empleados;
 import Entidades.HVHojasDeVida;
 import Entidades.HvEntrevistas;
+import Entidades.Personas;
 import InterfaceAdministrar.AdministrarHvEntrevistasInterface;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import InterfacePersistencia.PersistenciaEmpleadoInterface;
+import InterfacePersistencia.PersistenciaHVHojasDeVidaInterface;
 import InterfacePersistencia.PersistenciaHvEntrevistasInterface;
 import java.math.BigInteger;
 import java.util.List;
@@ -29,6 +31,8 @@ public class AdministrarHvEntrevistas implements AdministrarHvEntrevistasInterfa
     PersistenciaHvEntrevistasInterface persistenciaHvEntrevistas;
     @EJB
     PersistenciaEmpleadoInterface persistenciaEmpleados;
+    @EJB
+    PersistenciaHVHojasDeVidaInterface persistenciaHVHojasDeVida;
     /**
      * Enterprise JavaBean.<br>
      * Atributo que representa todo lo referente a la conexión del usuario que
@@ -43,7 +47,7 @@ public class AdministrarHvEntrevistas implements AdministrarHvEntrevistasInterfa
     public void obtenerConexion(String idSesion) {
         em = administrarSesiones.obtenerConexionSesion(idSesion);
     }
-    
+
     @Override
     public void modificarHvEntrevistas(List<HvEntrevistas> listHvEntrevistas) {
         for (int i = 0; i < listHvEntrevistas.size(); i++) {
@@ -63,16 +67,18 @@ public class AdministrarHvEntrevistas implements AdministrarHvEntrevistasInterfa
     @Override
     public void crearHvEntrevistas(List<HvEntrevistas> listHvEntrevistas) {
         for (int i = 0; i < listHvEntrevistas.size(); i++) {
-            System.out.println("Creando...");
+            if (listHvEntrevistas.get(i).getHojadevida() == null) {
+                listHvEntrevistas.get(i).setHojadevida(new HVHojasDeVida());
+            }
             persistenciaHvEntrevistas.crear(em, listHvEntrevistas.get(i));
         }
     }
 
     @Override
-    public List<HvEntrevistas> consultarHvEntrevistasPorEmpleado(BigInteger secEmpleado) {
+    public List<HvEntrevistas> consultarHvEntrevistasPorEmpleado(BigInteger secPersona) {
         List<HvEntrevistas> listHvEntrevistas;
         try {
-            listHvEntrevistas = persistenciaHvEntrevistas.buscarHvEntrevistasPorEmpleado(em, secEmpleado);
+            listHvEntrevistas = persistenciaHvEntrevistas.buscarHvEntrevistasPorEmpleado(em, secPersona);
         } catch (Exception e) {
             System.out.println("Error en AdministrarHvEntrevistas hvEntrevistasPorEmplado");
             listHvEntrevistas = null;
@@ -104,12 +110,22 @@ public class AdministrarHvEntrevistas implements AdministrarHvEntrevistasInterfa
     public List<HVHojasDeVida> buscarHVHojasDeVida(BigInteger secuencia) {
         List<HVHojasDeVida> hvHojasDeVida;
         try {
-            hvHojasDeVida = persistenciaHvEntrevistas.buscarHvHojaDeVidaPorEmpleado(em, secuencia);
+            hvHojasDeVida = persistenciaHvEntrevistas.buscarHvHojaDeVidaPorPersona(em, secuencia);
             return hvHojasDeVida;
         } catch (Exception e) {
-            hvHojasDeVida = null;
             System.out.println("ERROR AdministrarHvEntrevistas  buscarHVHojasDeVida ERROR =====" + e);
-            return hvHojasDeVida;
+            return null;
+        }
+    }
+
+    @Override
+    public HVHojasDeVida obtenerHojaVidaPersona(BigInteger secuencia) {
+        try {
+            HVHojasDeVida hojaVida = persistenciaHVHojasDeVida.hvHojaDeVidaPersona(em, secuencia);
+            return hojaVida;
+        } catch (Exception e) {
+            System.out.println("Error obtenerHojaVidaPersona Admi : " + e.toString());
+            return null;
         }
     }
 }

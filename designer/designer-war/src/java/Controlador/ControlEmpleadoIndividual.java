@@ -1,6 +1,5 @@
 package Controlador;
 
-
 import ClasesAyuda.EmpleadoIndividualExportar;
 import Entidades.Cargos;
 import Entidades.Ciudades;
@@ -155,6 +154,8 @@ public class ControlEmpleadoIndividual implements Serializable {
         persona = new Personas();
         persona.setCiudaddocumento(new Ciudades());
         persona.setCiudaddocumento(new Ciudades());
+        hojaDeVidaPersona = new HVHojasDeVida();
+//        hojaDeVidaPersona.setPerfilprofesional(" ");
     }
 
     @PostConstruct
@@ -221,6 +222,7 @@ public class ControlEmpleadoIndividual implements Serializable {
             existenHV = false;
         } else {
             hojaDeVidaPersona = new HVHojasDeVida();
+//            hojaDeVidaPersona.setPerfilprofesional(" ");
             referenciasPersonalesP = "";
             referenciasFamiliaresP = "";
             experienciaLaboralP = "";
@@ -295,7 +297,7 @@ public class ControlEmpleadoIndividual implements Serializable {
         }
         familiares = administrarEmpleadoIndividual.familiaresPersona(secPersona);
         if (familiares != null) {
-            familiaresP = familiares.getTipofamiliar().getTipo() + "  " + familiares.getPersona().getPrimerapellido() + "  " + familiares.getPersona().getNombre();
+            familiaresP = familiares.getTipofamiliar().getTipo() + "  " + familiares.getPersonafamiliar().getPrimerapellido() + "  " + familiares.getPersonafamiliar().getNombre();
         } else {
             familiaresP = "";
         }
@@ -598,29 +600,29 @@ public class ControlEmpleadoIndividual implements Serializable {
         }
     }
 
-    public void iniciarComponentes(){
-     RequestContext.getCurrentInstance().update("form:telefonos");   
-     RequestContext.getCurrentInstance().update("form:direcciones");   
-     RequestContext.getCurrentInstance().update("form:estadoCivil");   
-     RequestContext.getCurrentInstance().update("form:informacionAdicional");   
-     RequestContext.getCurrentInstance().update("form:reemplazos");   
-     RequestContext.getCurrentInstance().update("form:educacion");   
-     RequestContext.getCurrentInstance().update("form:idiomas");   
-     RequestContext.getCurrentInstance().update("form:proyectos");   
-     RequestContext.getCurrentInstance().update("form:referenciaLaboral");   
-     RequestContext.getCurrentInstance().update("form:referenciaFamiliar");   
-     RequestContext.getCurrentInstance().update("form:experienciaLaboral");   
-     RequestContext.getCurrentInstance().update("form:pruebasAplicadas");   
-     RequestContext.getCurrentInstance().update("form:entrevistas");   
-     RequestContext.getCurrentInstance().update("form:censos");   
-     RequestContext.getCurrentInstance().update("form:demandas");   
-     RequestContext.getCurrentInstance().update("form:visitasDomiciliarias");   
-     RequestContext.getCurrentInstance().update("form:eventos");   
-     RequestContext.getCurrentInstance().update("form:deporte");   
-     RequestContext.getCurrentInstance().update("form:aficiones");   
-     RequestContext.getCurrentInstance().update("form:familiares");   
+    public void iniciarComponentes() {
+        RequestContext.getCurrentInstance().update("form:telefonos");
+        RequestContext.getCurrentInstance().update("form:direcciones");
+        RequestContext.getCurrentInstance().update("form:estadoCivil");
+        RequestContext.getCurrentInstance().update("form:informacionAdicional");
+        RequestContext.getCurrentInstance().update("form:reemplazos");
+        RequestContext.getCurrentInstance().update("form:educacion");
+        RequestContext.getCurrentInstance().update("form:idiomas");
+        RequestContext.getCurrentInstance().update("form:proyectos");
+        RequestContext.getCurrentInstance().update("form:referenciaLaboral");
+        RequestContext.getCurrentInstance().update("form:referenciaFamiliar");
+        RequestContext.getCurrentInstance().update("form:experienciaLaboral");
+        RequestContext.getCurrentInstance().update("form:pruebasAplicadas");
+        RequestContext.getCurrentInstance().update("form:entrevistas");
+        RequestContext.getCurrentInstance().update("form:censos");
+        RequestContext.getCurrentInstance().update("form:demandas");
+        RequestContext.getCurrentInstance().update("form:visitasDomiciliarias");
+        RequestContext.getCurrentInstance().update("form:eventos");
+        RequestContext.getCurrentInstance().update("form:deporte");
+        RequestContext.getCurrentInstance().update("form:aficiones");
+        RequestContext.getCurrentInstance().update("form:familiares");
     }
-    
+
     public void refrescar() {
         getEmpleado();
         datosEmpleado();
@@ -910,11 +912,11 @@ public class ControlEmpleadoIndividual implements Serializable {
     public void validarRedirigirReferencias(String pagina) {
 
         if (hojaDeVidaPersona != null) {
-            if (hojaDeVidaPersona.getPerfilprofesional() != null) {
+            if (hojaDeVidaPersona.getPerfilprofesional() == null || hojaDeVidaPersona.getPerfilprofesional().isEmpty()) {
+                RequestContext.getCurrentInstance().execute("PF('validarPerfilProfesional').show()");
+            } else {
                 FacesContext fc = FacesContext.getCurrentInstance();
                 fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pagina);
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('formDialogos:validarPerfilProfesional').show()");
             }
         }
     }

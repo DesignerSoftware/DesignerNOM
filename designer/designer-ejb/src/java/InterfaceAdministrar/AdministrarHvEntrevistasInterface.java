@@ -79,4 +79,6 @@ public interface AdministrarHvEntrevistasInterface {
      * @return lista HVHojasDeVida
      */
     public List<HVHojasDeVida> buscarHVHojasDeVida(BigInteger secuencia);
+    
+     public HVHojasDeVida obtenerHojaVidaPersona(BigInteger secuencia);
 }

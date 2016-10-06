@@ -59,7 +59,8 @@
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); border: none; " actionListener="#{controlHvReferencias1.cancelarModificacion()}" process="@this"/>  
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); border: none; " actionListener="#{controlHvReferencias1.cancelarModificacion()}" process="@this"
+                                                 oncomplete="window.location.reload()" />  
                                 <p:tooltip  for="refrescar" value="refrescar"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
@@ -76,10 +77,6 @@
                             <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;" />
                             <h:outputText id="nombreEmpleado" value="#{controlHvReferencias1.empleado.persona.nombreCompleto}" 
                                           style="font-weight: bold; color: #BF1A1A; position: relative; left: 10px; top: 5px"/>
-
-                            <h:outputText value="#{msg['codigo']}" style="font-weight: bold; color: #14388B; position: relative; left: 120px; top: 5px;" />
-                            <h:outputText id="docEmpleado" value="#{controlHvReferencias1.empleado.codigoempleado}" 
-                                          style="font-weight: bold; color: #BF1A1A; position: relative; left: 130px; top: 5px;" />
                         </fieldset>
                         
                         <fieldset style="position: absolute;top: 110px;left: 10px;height: 350px;width: 830px; border-radius: 10px; text-align: left">
@@ -179,7 +176,7 @@
                         </fieldset>
 
 
-                        <p:dialog header="Parentesco" widgetVar="sucursalesDialogo" draggable="true" resizable="false" closable="false" id="sucursalesDialogo"  
+                        <p:dialog header="Parentesco" widgetVar="tipoFamiliarDialogo" draggable="true" resizable="false" closable="false" id="tipoFamiliarDialogo"  
                                   showEffect="fade" hideEffect="fade" width="470" modal="true" style="">
                             <p:dataTable id="lovTiposFamiliares" style=" width: 430px;" var="tipofamiliar" value="#{controlHvReferencias1.listaTiposFamiliares}" rowKey="#{tipofamiliar.secuencia}"
                                          selection="#{controlHvReferencias1.tipoFamiliarSeleccionado}" selectionMode="single" widgetVar="lovTiposFamiliares" scrollable="true" scrollWidth="450" scrollHeight="250"

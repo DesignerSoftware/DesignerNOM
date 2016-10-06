@@ -4,7 +4,6 @@
  */
 package Controlador;
 
-
 import Entidades.Demandas;
 import Entidades.Empleados;
 import Entidades.MotivosDemandas;
@@ -45,50 +44,40 @@ public class ControlEmplDemanda implements Serializable {
     AdministrarRastrosInterface administrarRastros;
     private List<Demandas> listDemandasEmpleado;
     private List<Demandas> filtrarListDemandasEmpleado;
+    private List<Demandas> listDemandaEmpleadoBorrar;
+    private List<Demandas> listDemandaEmpleadoModificar;
+    private List<Demandas> listDemandaEmpleadoCrear;
+    private Demandas demandaTablaSeleccionada;
+    public Demandas nuevaDemandaEmpleado;
+    private Demandas editarDemandaEmpleado;
+    private Demandas duplicarDemandaEmpleado;
+    //LOV MOTIVOS DEMANDAS
     private List<MotivosDemandas> listMotivosDemandas;
     private MotivosDemandas motivoDemandaSeleccionado;
     private List<MotivosDemandas> filtrarListMotivosDemandas;
-    //Tipo Actualizacion
     private int tipoActualizacion;
-    //Activo/Desactivo VP Crtl + F11
     private int banderaD;
     private Column dMotivo, dSeguimiento, dFecha;
-    //Otros
     private boolean aceptar;
-    //modificar
-    private List<Demandas> listDemandaEmpleadoModificar;
     private boolean guardado;
-    public Demandas nuevaDemandaEmpleado;
     private BigInteger l;
     private int k;
-    private List<Demandas> listDemandaEmpleadoBorrar;
-    //editar celda
-    private Demandas editarDemandaEmpleado;
-    //duplicar
-    //Autocompletar
     private boolean permitirIndexD;
-    //Variables Autompletar
     private String motivo;
-    private int index;
     private int cualCelda, tipoLista;
-    private Demandas duplicarDemandaEmpleado;
-    private List<Demandas> listDemandaEmpleadoCrear;
-    private boolean cambioDemanda;
-    private BigInteger secRegistro;
-    private BigInteger backUpSecRegistro;
     private Date fechaInic;
     private Empleados empleado;
     private Date fechaParametro;
     //
     private String infoRegistro;
     private String infoRegistroMotivo;
-    private Demandas demantaTablaSeleccionada;
     private String altoTabla;
+    private DataTable tablaC;
+    private boolean activarLov;
 
     public ControlEmplDemanda() {
-        altoTabla = "310";
+        altoTabla = "280";
         empleado = new Empleados();
-        backUpSecRegistro = null;
         tipoLista = 0;
         //Otros
         aceptar = true;
@@ -101,14 +90,14 @@ public class ControlEmplDemanda implements Serializable {
 
         banderaD = 0;
         permitirIndexD = true;
-        index = -1;
-        secRegistro = null;
+        demandaTablaSeleccionada = null;
         cualCelda = -1;
         listMotivosDemandas = null;
         nuevaDemandaEmpleado = new Demandas();
         nuevaDemandaEmpleado.setMotivo(new MotivosDemandas());
+        nuevaDemandaEmpleado.setFecha(new Date());
         listDemandaEmpleadoCrear = new ArrayList<Demandas>();
-        cambioDemanda = false;
+        activarLov = true;
     }
 
     @PostConstruct
@@ -129,11 +118,6 @@ public class ControlEmplDemanda implements Serializable {
         empleado = administrarEmplDemanda.actualEmpleado(secuencia);
         listDemandasEmpleado = null;
         getListDemandasEmpleado();
-        if (listDemandasEmpleado != null) {
-            infoRegistroMotivo = "Cantidad de registros : " + listDemandasEmpleado.size();
-        } else {
-            infoRegistroMotivo = "Cantidad de registros : 0";
-        }
     }
 
     public boolean validarFechasRegistro(int i) {
@@ -145,10 +129,10 @@ public class ControlEmplDemanda implements Serializable {
         if (i == 0) {
             Demandas auxiliar = new Demandas();
             if (tipoLista == 0) {
-                auxiliar = listDemandasEmpleado.get(index);
+                auxiliar = demandaTablaSeleccionada;
             }
             if (tipoLista == 1) {
-                auxiliar = filtrarListDemandasEmpleado.get(index);
+                auxiliar = demandaTablaSeleccionada;
             }
             if (auxiliar.getFecha() != null) {
                 if (auxiliar.getFecha().after(fechaParametro)) {
@@ -187,19 +171,19 @@ public class ControlEmplDemanda implements Serializable {
         return retorno;
     }
 
-    public void modificacionesFechas(int i, int c) {
-        index = i;
+    public void modificacionesFechas(Demandas demanda, int c) {
+        demandaTablaSeleccionada = demanda;
         if (validarDatosNull(0) == true) {
             if (validarFechasRegistro(0) == true) {
-                cambiarIndiceD(i, c);
-                modificarDemanda(i);
+                cambiarIndiceD(demandaTablaSeleccionada, c);
+                modificarDemanda(demandaTablaSeleccionada);
 
             } else {
                 if (tipoLista == 0) {
-                    listDemandasEmpleado.get(index).setFecha(fechaInic);
+                    demandaTablaSeleccionada.setFecha(fechaInic);
                 }
                 if (tipoLista == 1) {
-                    filtrarListDemandasEmpleado.get(index).setFecha(fechaInic);
+                    demandaTablaSeleccionada.setFecha(fechaInic);
                 }
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("form:datosDemanda");
@@ -207,10 +191,10 @@ public class ControlEmplDemanda implements Serializable {
             }
         } else {
             if (tipoLista == 0) {
-                listDemandasEmpleado.get(index).setFecha(fechaInic);
+                demandaTablaSeleccionada.setFecha(fechaInic);
             }
             if (tipoLista == 1) {
-                filtrarListDemandasEmpleado.get(index).setFecha(fechaInic);
+                demandaTablaSeleccionada.setFecha(fechaInic);
             }
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:datosDemanda");
@@ -218,69 +202,44 @@ public class ControlEmplDemanda implements Serializable {
         }
     }
 
-    public void modificarDemanda(int indice) {
-        if (validarDatosNull(0) == true) {
-            if (tipoLista == 0) {
-                index = indice;
-                if (!listDemandaEmpleadoCrear.contains(listDemandasEmpleado.get(indice))) {
-                    if (listDemandaEmpleadoModificar.isEmpty()) {
-                        listDemandaEmpleadoModificar.add(listDemandasEmpleado.get(indice));
-                    } else if (!listDemandaEmpleadoModificar.contains(listDemandasEmpleado.get(indice))) {
-                        listDemandaEmpleadoModificar.add(listDemandasEmpleado.get(indice));
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                    }
+    public void modificarDemanda(Demandas demanda) {
+        demandaTablaSeleccionada = demanda;
+        if (tipoLista == 0) {
+            if (!listDemandaEmpleadoCrear.contains(demandaTablaSeleccionada)) {
+                if (listDemandaEmpleadoModificar.isEmpty()) {
+                    listDemandaEmpleadoModificar.add(demandaTablaSeleccionada);
+                } else if (!listDemandaEmpleadoModificar.contains(demandaTablaSeleccionada)) {
+                    listDemandaEmpleadoModificar.add(demandaTablaSeleccionada);
                 }
-                cambioDemanda = true;
-                index = -1;
-                secRegistro = null;
-            } else {
-                int ind = listDemandasEmpleado.indexOf(filtrarListDemandasEmpleado.get(indice));
-                index = ind;
-
-                if (!listDemandaEmpleadoCrear.contains(filtrarListDemandasEmpleado.get(indice))) {
-                    if (listDemandaEmpleadoModificar.isEmpty()) {
-                        listDemandaEmpleadoModificar.add(filtrarListDemandasEmpleado.get(indice));
-                    } else if (!listDemandaEmpleadoModificar.contains(filtrarListDemandasEmpleado.get(indice))) {
-                        listDemandaEmpleadoModificar.add(filtrarListDemandasEmpleado.get(indice));
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                    }
+                if (guardado == true) {
+                    guardado = false;
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
-                cambioDemanda = true;
-                index = -1;
-                secRegistro = null;
-
             }
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().update("form:datosDemanda");
-        } else {
-            if (tipoLista == 0) {
-                listDemandasEmpleado.get(index).getMotivo().setDescripcion(motivo);
+        } else if (!listDemandaEmpleadoCrear.contains(demandaTablaSeleccionada)) {
+            if (listDemandaEmpleadoModificar.isEmpty()) {
+                listDemandaEmpleadoModificar.add(demandaTablaSeleccionada);
+            } else if (!listDemandaEmpleadoModificar.contains(demandaTablaSeleccionada)) {
+                listDemandaEmpleadoModificar.add(demandaTablaSeleccionada);
             }
-            if (tipoLista == 1) {
-                filtrarListDemandasEmpleado.get(index).getMotivo().setDescripcion(motivo);
+            if (guardado == true) {
+                guardado = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().update("form:datosDemanda");
-            RequestContext.getCurrentInstance().execute("PF('errorRegNull').show()");
         }
+        RequestContext.getCurrentInstance().update("form:datosDemanda");
     }
 
-    public void modificarDemanda(int indice, String confirmarCambio, String valorConfirmar) {
-        index = indice;
+    public void modificarDemanda(Demandas demanda, String confirmarCambio, String valorConfirmar) {
+        demandaTablaSeleccionada = demanda;
         int coincidencias = 0;
         int indiceUnicoElemento = 0;
         RequestContext context = RequestContext.getCurrentInstance();
         if (confirmarCambio.equalsIgnoreCase("MOTIVOS")) {
             if (tipoLista == 0) {
-                listDemandasEmpleado.get(indice).getMotivo().setDescripcion(motivo);
+                demandaTablaSeleccionada.getMotivo().setDescripcion(motivo);
             } else {
-                filtrarListDemandasEmpleado.get(indice).getMotivo().setDescripcion(motivo);
+                demandaTablaSeleccionada.getMotivo().setDescripcion(motivo);
             }
             for (int i = 0; i < listMotivosDemandas.size(); i++) {
                 if (listMotivosDemandas.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
@@ -290,13 +249,12 @@ public class ControlEmplDemanda implements Serializable {
             }
             if (coincidencias == 1) {
                 if (tipoLista == 0) {
-                    listDemandasEmpleado.get(indice).setMotivo(listMotivosDemandas.get(indiceUnicoElemento));
+                    demandaTablaSeleccionada.setMotivo(listMotivosDemandas.get(indiceUnicoElemento));
                 } else {
-                    filtrarListDemandasEmpleado.get(indice).setMotivo(listMotivosDemandas.get(indiceUnicoElemento));
+                    demandaTablaSeleccionada.setMotivo(listMotivosDemandas.get(indiceUnicoElemento));
                 }
                 listMotivosDemandas = null;
                 getListMotivosDemandas();
-                cambioDemanda = true;
             } else {
                 permitirIndexD = false;
                 RequestContext.getCurrentInstance().update("form:DemandaDialogo");
@@ -306,39 +264,30 @@ public class ControlEmplDemanda implements Serializable {
         }
         if (coincidencias == 1) {
             if (tipoLista == 0) {
-                if (!listDemandaEmpleadoCrear.contains(listDemandasEmpleado.get(indice))) {
+                if (!listDemandaEmpleadoCrear.contains(demandaTablaSeleccionada)) {
 
                     if (listDemandaEmpleadoModificar.isEmpty()) {
-                        listDemandaEmpleadoModificar.add(listDemandasEmpleado.get(indice));
-                    } else if (!listDemandaEmpleadoModificar.contains(listDemandasEmpleado.get(indice))) {
-                        listDemandaEmpleadoModificar.add(listDemandasEmpleado.get(indice));
+                        listDemandaEmpleadoModificar.add(demandaTablaSeleccionada);
+                    } else if (!listDemandaEmpleadoModificar.contains(demandaTablaSeleccionada)) {
+                        listDemandaEmpleadoModificar.add(demandaTablaSeleccionada);
                     }
                     if (guardado == true) {
                         guardado = false;
                         RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
                 }
-                cambioDemanda = true;
-                index = -1;
-                secRegistro = null;
-            } else {
-                if (!listDemandaEmpleadoCrear.contains(filtrarListDemandasEmpleado.get(indice))) {
+            } else if (!listDemandaEmpleadoCrear.contains(demandaTablaSeleccionada)) {
 
-                    if (listDemandaEmpleadoModificar.isEmpty()) {
-                        listDemandaEmpleadoModificar.add(filtrarListDemandasEmpleado.get(indice));
-                    } else if (!listDemandaEmpleadoModificar.contains(filtrarListDemandasEmpleado.get(indice))) {
-                        listDemandaEmpleadoModificar.add(filtrarListDemandasEmpleado.get(indice));
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                    }
+                if (listDemandaEmpleadoModificar.isEmpty()) {
+                    listDemandaEmpleadoModificar.add(demandaTablaSeleccionada);
+                } else if (!listDemandaEmpleadoModificar.contains(demandaTablaSeleccionada)) {
+                    listDemandaEmpleadoModificar.add(demandaTablaSeleccionada);
                 }
-                cambioDemanda = true;
-                index = -1;
-                secRegistro = null;
+                if (guardado == true) {
+                    guardado = false;
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                }
             }
-            cambioDemanda = true;
         }
         RequestContext.getCurrentInstance().update("form:datosDemanda");
     }
@@ -393,24 +342,22 @@ public class ControlEmplDemanda implements Serializable {
         }
     }
 
-    public void cambiarIndiceD(int indice, int celda) {
+    public void cambiarIndiceD(Demandas demanda, int celda) {
         if (permitirIndexD == true) {
-            index = indice;
+            demandaTablaSeleccionada = demanda;
             cualCelda = celda;
-            if (tipoLista == 0) {
-                fechaInic = listDemandasEmpleado.get(index).getFecha();
-                secRegistro = listDemandasEmpleado.get(index).getSecuencia();
-                if (cualCelda == 2) {
-                    motivo = listDemandasEmpleado.get(index).getMotivo().getDescripcion();
-                }
+            deshabilitarBotonLov();
+            if (cualCelda == 0) {
+                deshabilitarBotonLov();
+                fechaInic = demandaTablaSeleccionada.getFecha();
+            } else if (cualCelda == 1) {
+                deshabilitarBotonLov();
+                demandaTablaSeleccionada.getSeguimiento();
+            } else if (cualCelda == 2) {
+                habilitarBotonLov();
+                motivo = demandaTablaSeleccionada.getMotivo().getDescripcion();
             }
-            if (tipoLista == 1) {
-                fechaInic = filtrarListDemandasEmpleado.get(index).getFecha();
-                secRegistro = filtrarListDemandasEmpleado.get(index).getSecuencia();
-                if (cualCelda == 2) {
-                    motivo = filtrarListDemandasEmpleado.get(index).getMotivo().getDescripcion();
-                }
-            }
+            demandaTablaSeleccionada.getSecuencia();
         }
 
     }
@@ -448,23 +395,17 @@ public class ControlEmplDemanda implements Serializable {
                     listDemandaEmpleadoModificar.clear();
                 }
                 listDemandasEmpleado = null;
-                RequestContext.getCurrentInstance().update("form:datosDemanda");
-                k = 0;
-
-                cambioDemanda = false;
-                index = -1;
-                secRegistro = null;
                 getListDemandasEmpleado();
-                if (listDemandasEmpleado != null) {
-                    infoRegistroMotivo = "Cantidad de registros : " + listDemandasEmpleado.size();
-                } else {
-                    infoRegistroMotivo = "Cantidad de registros : 0";
-                }
-                RequestContext.getCurrentInstance().update("form:informacionRegistro");
-                FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con Éxito");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                k = 0;
+                FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con Éxito");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
                 RequestContext.getCurrentInstance().update("form:growl");
+                contarRegistros();
+                demandaTablaSeleccionada = null;
             }
+            RequestContext.getCurrentInstance().update("form:datosDemanda");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         } catch (Exception e) {
             System.out.println("Error guardarCambios : " + e.toString());
             FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
@@ -475,57 +416,40 @@ public class ControlEmplDemanda implements Serializable {
 
     public void cancelarModificacionD() {
         if (banderaD == 1) {
-            altoTabla = "310";
+            altoTabla = "280";
             dMotivo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDemanda:dMotivo");
             dMotivo.setFilterStyle("display: none; visibility: hidden;");
-
             dSeguimiento = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDemanda:dSeguimiento");
             dSeguimiento.setFilterStyle("display: none; visibility: hidden;");
-
             dFecha = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDemanda:dFecha");
             dFecha.setFilterStyle("display: none; visibility: hidden;");
-
             RequestContext.getCurrentInstance().update("form:datosDemanda");
             banderaD = 0;
             filtrarListDemandasEmpleado = null;
             tipoLista = 0;
         }
-        listMotivosDemandas = null;
         listDemandaEmpleadoBorrar.clear();
         listDemandaEmpleadoCrear.clear();
         listDemandaEmpleadoModificar.clear();
-        index = -1;
-        secRegistro = null;
         k = 0;
+        listMotivosDemandas = null;
+        demandaTablaSeleccionada = null;
         listDemandasEmpleado = null;
         guardado = true;
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-        RequestContext context = RequestContext.getCurrentInstance();
+        permitirIndexD = true;
         getListDemandasEmpleado();
-        if (listDemandasEmpleado != null) {
-            infoRegistroMotivo = "Cantidad de registros : " + listDemandasEmpleado.size();
-        } else {
-            infoRegistroMotivo = "Cantidad de registros : 0";
-        }
-        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        contarRegistros();
         RequestContext.getCurrentInstance().update("form:datosDemanda");
-        cambioDemanda = false;
-        nuevaDemandaEmpleado = new Demandas();
-        nuevaDemandaEmpleado.setMotivo(new MotivosDemandas());
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
-    //MOSTRAR DATOS CELDA
-    /**
-     * Metodo que muestra los dialogos de editar con respecto a la lista real o
-     * la lista filtrada y a la columna
-     */
     public void editarCelda() {
-        if (index >= 0) {
+        if (demandaTablaSeleccionada != null) {
             if (tipoLista == 0) {
-                editarDemandaEmpleado = listDemandasEmpleado.get(index);
+                editarDemandaEmpleado = demandaTablaSeleccionada;
             }
             if (tipoLista == 1) {
-                editarDemandaEmpleado = filtrarListDemandasEmpleado.get(index);
+                editarDemandaEmpleado = demandaTablaSeleccionada;
             }
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 0) {
@@ -541,9 +465,10 @@ public class ControlEmplDemanda implements Serializable {
                 RequestContext.getCurrentInstance().execute("PF('editarMotivoD').show()");
                 cualCelda = -1;
             }
+        } else {
+            RequestContext context = RequestContext.getCurrentInstance();
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
-        index = -1;
-        secRegistro = null;
     }
 
     public boolean validarDatosNull(int i) {
@@ -551,9 +476,9 @@ public class ControlEmplDemanda implements Serializable {
         if (i == 0) {
             Demandas demanda = null;
             if (tipoLista == 0) {
-                demanda = listDemandasEmpleado.get(index);
+                demanda = demandaTablaSeleccionada;
             } else {
-                demanda = listDemandasEmpleado.get(index);
+                demanda = demandaTablaSeleccionada;
             }
             if (demanda.getFecha() == null || demanda.getMotivo().getSecuencia() == null) {
                 retorno = false;
@@ -575,10 +500,9 @@ public class ControlEmplDemanda implements Serializable {
     public void agregarNuevaD() {
         if (validarDatosNull(1) == true) {
             if (validarFechasRegistro(1) == true) {
-                cambioDemanda = true;
                 //CERRAR FILTRADO
                 if (banderaD == 1) {
-                    altoTabla = "310";
+                    altoTabla = "280";
                     dMotivo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDemanda:dMotivo");
                     dMotivo.setFilterStyle("display: none; visibility: hidden;");
 
@@ -597,34 +521,32 @@ public class ControlEmplDemanda implements Serializable {
                 k++;
                 l = BigInteger.valueOf(k);
                 nuevaDemandaEmpleado.setSecuencia(l);
-                if (nuevaDemandaEmpleado.getSeguimiento() != null) {
-                    String aux = nuevaDemandaEmpleado.getSeguimiento().toUpperCase();
-                    nuevaDemandaEmpleado.setSeguimiento(aux);
-                }
                 nuevaDemandaEmpleado.setEmpleado(empleado);
-                if (listDemandasEmpleado == null) {
+//                if (nuevaDemandaEmpleado.getSeguimiento() != null) {
+//                    String aux = nuevaDemandaEmpleado.getSeguimiento().toUpperCase();
+//                    nuevaDemandaEmpleado.setSeguimiento(aux);
+//                }
+//                if (listDemandasEmpleado == null) {
+//                    listDemandasEmpleado = new ArrayList<Demandas>();
+//                }
+                listDemandaEmpleadoCrear.add(nuevaDemandaEmpleado);
+                if(listDemandasEmpleado == null){
                     listDemandasEmpleado = new ArrayList<Demandas>();
                 }
                 listDemandasEmpleado.add(nuevaDemandaEmpleado);
-                listDemandaEmpleadoCrear.add(nuevaDemandaEmpleado);
-                //
-                nuevaDemandaEmpleado = new Demandas();
-                nuevaDemandaEmpleado.setMotivo(new MotivosDemandas());
+                demandaTablaSeleccionada = nuevaDemandaEmpleado;
                 limpiarNuevaD();
+                getListDemandasEmpleado();
+                contarRegistros();
+                deshabilitarBotonLov();
+                RequestContext.getCurrentInstance().update("form:informacionRegistro");
+                RequestContext.getCurrentInstance().update("form:datosDemanda");
+                RequestContext.getCurrentInstance().execute("PF('NuevoRegistroD').hide()");
                 //
                 if (guardado == true) {
                     guardado = false;
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
-                index = -1;
-                secRegistro = null;
-                RequestContext context = RequestContext.getCurrentInstance();
-
-                infoRegistroMotivo = "Cantidad de registros : " + listDemandasEmpleado.size();
-
-                RequestContext.getCurrentInstance().update("form:informacionRegistro");
-                RequestContext.getCurrentInstance().update("form:datosDemanda");
-                RequestContext.getCurrentInstance().execute("PF('NuevoRegistroD').hide()");
             } else {
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().execute("PF('errorFechas').show()");
@@ -641,114 +563,67 @@ public class ControlEmplDemanda implements Serializable {
     public void limpiarNuevaD() {
         nuevaDemandaEmpleado = new Demandas();
         nuevaDemandaEmpleado.setMotivo(new MotivosDemandas());
-        index = -1;
-        secRegistro = null;
 
     }
 
-    public void cancelarNuevaD() {
-        nuevaDemandaEmpleado = new Demandas();
-        nuevaDemandaEmpleado.setMotivo(new MotivosDemandas());
-        index = -1;
-        secRegistro = null;
-        cambioDemanda = false;
-    }
-
-    //DUPLICAR VL
-    /**
-     * Metodo que verifica que proceso de duplicar se genera con respecto a la
-     * posicion en la pagina que se tiene
-     */
-    public void verificarDuplicarDemanda() {
-        if (index >= 0) {
-            duplicarDemandaM();
-        }
-    }
-
-    ///////////////////////////////////////////////////////////////
-    /**
-     * Duplica una registro de VigenciaProrrateos
-     */
     public void duplicarDemandaM() {
-        if (index >= 0) {
+        if (demandaTablaSeleccionada != null) {
             duplicarDemandaEmpleado = new Demandas();
-            k++;
-            BigDecimal var = BigDecimal.valueOf(k);
-            l = BigInteger.valueOf(k);
 
             if (tipoLista == 0) {
-
-                duplicarDemandaEmpleado.setSecuencia(l);
                 duplicarDemandaEmpleado.setEmpleado(empleado);
-                duplicarDemandaEmpleado.setMotivo(listDemandasEmpleado.get(index).getMotivo());
-                duplicarDemandaEmpleado.setFecha(listDemandasEmpleado.get(index).getFecha());
-                duplicarDemandaEmpleado.setSeguimiento(listDemandasEmpleado.get(index).getSeguimiento());
+                duplicarDemandaEmpleado.setMotivo(demandaTablaSeleccionada.getMotivo());
+                duplicarDemandaEmpleado.setFecha(demandaTablaSeleccionada.getFecha());
+                duplicarDemandaEmpleado.setSeguimiento(demandaTablaSeleccionada.getSeguimiento());
             }
             if (tipoLista == 1) {
-
-                duplicarDemandaEmpleado.setSecuencia(l);
                 duplicarDemandaEmpleado.setEmpleado(empleado);
-                duplicarDemandaEmpleado.setMotivo(filtrarListDemandasEmpleado.get(index).getMotivo());
-                duplicarDemandaEmpleado.setFecha(filtrarListDemandasEmpleado.get(index).getFecha());
-                duplicarDemandaEmpleado.setSeguimiento(filtrarListDemandasEmpleado.get(index).getSeguimiento());
-
+                duplicarDemandaEmpleado.setMotivo(demandaTablaSeleccionada.getMotivo());
+                duplicarDemandaEmpleado.setFecha(demandaTablaSeleccionada.getFecha());
+                duplicarDemandaEmpleado.setSeguimiento(demandaTablaSeleccionada.getSeguimiento());
             }
-            cambioDemanda = true;
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarD");
             RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroD').show()");
-            index = -1;
-            secRegistro = null;
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
     public void confirmarDuplicarD() {
         if (validarDatosNull(2) == true) {
             if (validarFechasRegistro(2) == true) {
-                cambioDemanda = true;
-                k++;
-                l = BigInteger.valueOf(k);
-                if (duplicarDemandaEmpleado.getSeguimiento() != null) {
-                    String aux = duplicarDemandaEmpleado.getSeguimiento().toUpperCase();
-                    duplicarDemandaEmpleado.setSeguimiento(aux);
-                }
-                duplicarDemandaEmpleado.setEmpleado(empleado);
-                duplicarDemandaEmpleado.setSecuencia(l);
-                if (listDemandasEmpleado == null) {
-                    listDemandasEmpleado = new ArrayList<Demandas>();
-                }
-                listDemandasEmpleado.add(duplicarDemandaEmpleado);
-                listDemandaEmpleadoCrear.add(duplicarDemandaEmpleado);
-                index = -1;
-                secRegistro = null;
-                if (guardado == true) {
-                    guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                }
                 if (banderaD == 1) {
-                    altoTabla = "310";
+                    altoTabla = "280";
                     //CERRAR FILTRADO
                     dMotivo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDemanda:dMotivo");
                     dMotivo.setFilterStyle("display: none; visibility: hidden;");
-
                     dSeguimiento = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDemanda:dSeguimiento");
                     dSeguimiento.setFilterStyle("display: none; visibility: hidden;");
-
                     dFecha = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDemanda:dFecha");
                     dFecha.setFilterStyle("display: none; visibility: hidden;");
-
                     RequestContext.getCurrentInstance().update("form:datosDemanda");
                     banderaD = 0;
                     filtrarListDemandasEmpleado = null;
                     tipoLista = 0;
                 }
-                duplicarDemandaEmpleado = new Demandas();
-                limpiarduplicarD();
-                RequestContext context = RequestContext.getCurrentInstance();
-                infoRegistroMotivo = "Cantidad de registros : " + listDemandasEmpleado.size();
-                RequestContext.getCurrentInstance().update("form:informacionRegistro");
+                k++;
+                l = BigInteger.valueOf(k);
+                duplicarDemandaEmpleado.setSecuencia(l);
+                duplicarDemandaEmpleado.setEmpleado(empleado);
+                listDemandasEmpleado.add(duplicarDemandaEmpleado);
+                listDemandaEmpleadoCrear.add(duplicarDemandaEmpleado);
+                demandaTablaSeleccionada = duplicarDemandaEmpleado;
+                getListDemandasEmpleado();
+                contarRegistros();
                 RequestContext.getCurrentInstance().update("form:datosDemanda");
                 RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroD').hide()");
+
+                if (guardado == true) {
+                    guardado = false;
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                }
+                limpiarduplicarD();
             } else {
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().execute("PF('errorFechas').show()");
@@ -764,106 +639,54 @@ public class ControlEmplDemanda implements Serializable {
         duplicarDemandaEmpleado.setMotivo(new MotivosDemandas());
     }
 
-    public void cancelarDuplicadoD() {
-        cambioDemanda = false;
-        duplicarDemandaEmpleado = new Demandas();
-        duplicarDemandaEmpleado.setMotivo(new MotivosDemandas());
-        index = -1;
-        secRegistro = null;
-    }
-
-    /**
-     * Valida que registro se elimina de que tabla con respecto a la posicion en
-     * la pagina
-     */
-    public void validarBorradoDemanda() {
-        if (index >= 0) {
-            borrarD();
-        }
-    }
-
-    /**
-     * Metodo que borra una vigencia prorrateo
-     */
     public void borrarD() {
-        cambioDemanda = true;
         if (tipoLista == 0) {
-            if (!listDemandaEmpleadoModificar.isEmpty() && listDemandaEmpleadoModificar.contains(listDemandasEmpleado.get(index))) {
-                int modIndex = listDemandaEmpleadoModificar.indexOf(listDemandasEmpleado.get(index));
+            if (!listDemandaEmpleadoModificar.isEmpty() && listDemandaEmpleadoModificar.contains(demandaTablaSeleccionada)) {
+                int modIndex = listDemandaEmpleadoModificar.indexOf(demandaTablaSeleccionada);
                 listDemandaEmpleadoModificar.remove(modIndex);
-                listDemandaEmpleadoBorrar.add(listDemandasEmpleado.get(index));
-            } else if (!listDemandaEmpleadoCrear.isEmpty() && listDemandaEmpleadoCrear.contains(listDemandasEmpleado.get(index))) {
-                int crearIndex = listDemandaEmpleadoCrear.indexOf(listDemandasEmpleado.get(index));
+                listDemandaEmpleadoBorrar.add(demandaTablaSeleccionada);
+            } else if (!listDemandaEmpleadoCrear.isEmpty() && listDemandaEmpleadoCrear.contains(demandaTablaSeleccionada)) {
+                int crearIndex = listDemandaEmpleadoCrear.indexOf(demandaTablaSeleccionada);
                 listDemandaEmpleadoCrear.remove(crearIndex);
             } else {
-                listDemandaEmpleadoBorrar.add(listDemandasEmpleado.get(index));
+                listDemandaEmpleadoBorrar.add(demandaTablaSeleccionada);
             }
-            listDemandasEmpleado.remove(index);
+            listDemandasEmpleado.remove(demandaTablaSeleccionada);
         }
         if (tipoLista == 1) {
-            if (!listDemandaEmpleadoModificar.isEmpty() && listDemandaEmpleadoModificar.contains(filtrarListDemandasEmpleado.get(index))) {
-                int modIndex = listDemandaEmpleadoModificar.indexOf(filtrarListDemandasEmpleado.get(index));
-                listDemandaEmpleadoModificar.remove(modIndex);
-                listDemandaEmpleadoBorrar.add(filtrarListDemandasEmpleado.get(index));
-            } else if (!listDemandaEmpleadoCrear.isEmpty() && listDemandaEmpleadoCrear.contains(filtrarListDemandasEmpleado.get(index))) {
-                int crearIndex = listDemandaEmpleadoCrear.indexOf(filtrarListDemandasEmpleado.get(index));
-                listDemandaEmpleadoCrear.remove(crearIndex);
-            } else {
-                listDemandaEmpleadoBorrar.add(filtrarListDemandasEmpleado.get(index));
-            }
-            int VPIndex = listDemandasEmpleado.indexOf(filtrarListDemandasEmpleado.get(index));
-            listDemandasEmpleado.remove(VPIndex);
-            filtrarListDemandasEmpleado.remove(index);
+            filtrarListDemandasEmpleado.remove(demandaTablaSeleccionada);
         }
-        RequestContext context = RequestContext.getCurrentInstance();
-        infoRegistroMotivo = "Cantidad de registros : " + listDemandasEmpleado.size();
+        contarRegistros();
         RequestContext.getCurrentInstance().update("form:informacionRegistro");
         RequestContext.getCurrentInstance().update("form:datosDemanda");
-        index = -1;
-        secRegistro = null;
+        demandaTablaSeleccionada = null;
         if (guardado == true) {
             guardado = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
-
     }
 
-    //CTRL + F11 ACTIVAR/DESACTIVAR
-    /**
-     * Metodo que activa el filtrado por medio de la opcion en el toolbar o por
-     * medio de la tecla Crtl+F11
-     */
     public void activarCtrlF11() {
-        filtradoDemanda();
-    }
 
-    /**
-     * Metodo que acciona el filtrado de la tabla vigencia prorrateo
-     */
-    public void filtradoDemanda() {
         if (banderaD == 0) {
-            altoTabla = "290";
+            altoTabla = "260";
             dMotivo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDemanda:dMotivo");
             dMotivo.setFilterStyle("width: 85% !important");
             dSeguimiento = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDemanda:dSeguimiento");
             dSeguimiento.setFilterStyle("width: 85% !important");
             dFecha = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDemanda:dFecha");
             dFecha.setFilterStyle("width: 85% !important");
-            ///
             RequestContext.getCurrentInstance().update("form:datosDemanda");
             tipoLista = 1;
             banderaD = 1;
         } else {
-            altoTabla = "310";
+            altoTabla = "280";
             dMotivo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDemanda:dMotivo");
             dMotivo.setFilterStyle("display: none; visibility: hidden;");
-
             dSeguimiento = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDemanda:dSeguimiento");
             dSeguimiento.setFilterStyle("display: none; visibility: hidden;");
-
             dFecha = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDemanda:dFecha");
             dFecha.setFilterStyle("display: none; visibility: hidden;");
-
             RequestContext.getCurrentInstance().update("form:datosDemanda");
             banderaD = 0;
             filtrarListDemandasEmpleado = null;
@@ -872,19 +695,13 @@ public class ControlEmplDemanda implements Serializable {
 
     }
 
-    //SALIR
-    /**
-     * Metodo que cierra la sesion y limpia los datos en la pagina
-     */
     public void salir() {
         if (banderaD == 1) {
-            altoTabla = "310";
+            altoTabla = "280";
             dMotivo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDemanda:dMotivo");
             dMotivo.setFilterStyle("display: none; visibility: hidden;");
-
             dSeguimiento = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDemanda:dSeguimiento");
             dSeguimiento.setFilterStyle("display: none; visibility: hidden;");
-
             dFecha = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDemanda:dFecha");
             dFecha.setFilterStyle("display: none; visibility: hidden;");
 
@@ -896,27 +713,19 @@ public class ControlEmplDemanda implements Serializable {
         listDemandaEmpleadoBorrar.clear();
         listDemandaEmpleadoCrear.clear();
         listDemandaEmpleadoModificar.clear();
-        index = -1;
-        secRegistro = null;
+        demandaTablaSeleccionada = null;
         k = 0;
         listDemandasEmpleado = null;
         guardado = true;
-        cambioDemanda = false;
         tipoActualizacion = -1;
     }
     //ASIGNAR INDEX PARA DIALOGOS COMUNES (LDN = LISTA - NUEVO - DUPLICADO) (list = ESTRUCTURAS - MOTIVOSLOCALIZACIONES - PROYECTOS)
 
-    public void asignarIndex(Integer indice, int dlg, int LND) {
+    public void asignarIndex(Demandas demanda, int dlg, int LND) {
         RequestContext context = RequestContext.getCurrentInstance();
-        if (LND == 0) {
-            index = indice;
-            tipoActualizacion = 0;
-        } else if (LND == 1) {
-            tipoActualizacion = 1;
-        } else if (LND == 2) {
-            tipoActualizacion = 2;
-        }
+        tipoActualizacion = LND;
         if (dlg == 0) {
+            contarRegistrosMotivos();
             RequestContext.getCurrentInstance().update("form:DemandaDialogo");
             RequestContext.getCurrentInstance().execute("PF('DemandaDialogo').show()");
         }
@@ -931,35 +740,33 @@ public class ControlEmplDemanda implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (tipoActualizacion == 0) {
             if (tipoLista == 0) {
-                listDemandasEmpleado.get(index).setMotivo(motivoDemandaSeleccionado);
-                if (!listDemandaEmpleadoCrear.contains(listDemandasEmpleado.get(index))) {
+                demandaTablaSeleccionada.setMotivo(motivoDemandaSeleccionado);
+                if (!listDemandaEmpleadoCrear.contains(demandaTablaSeleccionada)) {
                     if (listDemandaEmpleadoModificar.isEmpty()) {
-                        listDemandaEmpleadoModificar.add(listDemandasEmpleado.get(index));
-                    } else if (!listDemandaEmpleadoModificar.contains(listDemandasEmpleado.get(index))) {
-                        listDemandaEmpleadoModificar.add(listDemandasEmpleado.get(index));
+                        listDemandaEmpleadoModificar.add(demandaTablaSeleccionada);
+                    } else if (!listDemandaEmpleadoModificar.contains(demandaTablaSeleccionada)) {
+                        listDemandaEmpleadoModificar.add(demandaTablaSeleccionada);
                     }
                 }
                 if (guardado == true) {
                     guardado = false;
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
-                cambioDemanda = true;
                 permitirIndexD = true;
 
             } else {
-                filtrarListDemandasEmpleado.get(index).setMotivo(motivoDemandaSeleccionado);
-                if (!listDemandaEmpleadoCrear.contains(filtrarListDemandasEmpleado.get(index))) {
+                demandaTablaSeleccionada.setMotivo(motivoDemandaSeleccionado);
+                if (!listDemandaEmpleadoCrear.contains(demandaTablaSeleccionada)) {
                     if (listDemandaEmpleadoModificar.isEmpty()) {
-                        listDemandaEmpleadoModificar.add(filtrarListDemandasEmpleado.get(index));
-                    } else if (!listDemandaEmpleadoModificar.contains(filtrarListDemandasEmpleado.get(index))) {
-                        listDemandaEmpleadoModificar.add(filtrarListDemandasEmpleado.get(index));
+                        listDemandaEmpleadoModificar.add(demandaTablaSeleccionada);
+                    } else if (!listDemandaEmpleadoModificar.contains(demandaTablaSeleccionada)) {
+                        listDemandaEmpleadoModificar.add(demandaTablaSeleccionada);
                     }
                 }
                 if (guardado == true) {
                     guardado = false;
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
-                cambioDemanda = true;
                 permitirIndexD = true;
 
             }
@@ -974,13 +781,12 @@ public class ControlEmplDemanda implements Serializable {
         filtrarListMotivosDemandas = null;
         motivoDemandaSeleccionado = null;
         aceptar = true;
-        index = -1;
-        secRegistro = null;
+        demandaTablaSeleccionada = null;
         tipoActualizacion = -1;
-        /*
-         RequestContext.getCurrentInstance().update("form:DemandaDialogo");
-         RequestContext.getCurrentInstance().update("form:lovDemanda");
-         RequestContext.getCurrentInstance().update("form:aceptarD");*/
+
+        RequestContext.getCurrentInstance().update("form:DemandaDialogo");
+        RequestContext.getCurrentInstance().update("form:lovDemanda");
+        RequestContext.getCurrentInstance().update("form:aceptarD");
         context.reset("form:lovDemanda:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('lovDemanda').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('DemandaDialogo').hide()");
@@ -994,11 +800,14 @@ public class ControlEmplDemanda implements Serializable {
         filtrarListMotivosDemandas = null;
         motivoDemandaSeleccionado = null;
         aceptar = true;
-        index = -1;
-        secRegistro = null;
+        demandaTablaSeleccionada = null;
+        demandaTablaSeleccionada = null;
         tipoActualizacion = -1;
         permitirIndexD = true;
         RequestContext context = RequestContext.getCurrentInstance();
+        RequestContext.getCurrentInstance().update("form:DemandaDialogo");
+        RequestContext.getCurrentInstance().update("form:lovDemanda");
+        RequestContext.getCurrentInstance().update("form:aceptarD");
         context.reset("form:lovDemanda:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('lovDemanda').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('DemandaDialogo').hide()");
@@ -1006,7 +815,7 @@ public class ControlEmplDemanda implements Serializable {
 
     public void listaValoresBoton() {
         RequestContext context = RequestContext.getCurrentInstance();
-        if (index >= 0) {
+        if (demandaTablaSeleccionada != null) {
             if (cualCelda == 2) {
                 RequestContext.getCurrentInstance().update("form:DemandaDialogo");
                 RequestContext.getCurrentInstance().execute("PF('DemandaDialogo').show()");
@@ -1015,125 +824,97 @@ public class ControlEmplDemanda implements Serializable {
         }
     }
 
-    /**
-     * Metodo que activa el boton aceptar de la pagina y los dialogos
-     */
     public void activarAceptar() {
         aceptar = false;
     }
-    //EXPORTAR
 
-    /**
-     * Valida la tabla a exportar en PDF con respecto al index activo
-     *
-     * @throws IOException Excepcion de In-Out de datos
-     */
-    public void validarExportPDF() throws IOException {
-        exportPDF_D();
-    }
-
-    /**
-     * Metodo que exporta datos a PDF Vigencia Prorrateo
-     *
-     * @throws IOException Excepcion de In-Out de datos
-     */
     public void exportPDF_D() throws IOException {
         DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportarD:datosDemandaExportar");
         FacesContext context = FacesContext.getCurrentInstance();
         Exporter exporter = new ExportarPDF();
         exporter.export(context, tabla, "DemandasPDF", false, false, "UTF-8", null, null);
         context.responseComplete();
-        index = -1;
-        secRegistro = null;
     }
 
-    /**
-     * Verifica que tabla exportar XLS con respecto al index activo
-     *
-     * @throws IOException
-     */
-    public void verificarExportXLS() throws IOException {
-        exportXLS_D();
-    }
-
-    /**
-     * Metodo que exporta datos a XLS Vigencia Afiliaciones
-     *
-     * @throws IOException Excepcion de In-Out de datos
-     */
     public void exportXLS_D() throws IOException {
         DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportarD:datosDemandaExportar");
         FacesContext context = FacesContext.getCurrentInstance();
         Exporter exporter = new ExportarXLS();
         exporter.export(context, tabla, "DemandasXLS", false, false, "UTF-8", null, null);
         context.responseComplete();
-        index = -1;
-        secRegistro = null;
     }
 
-    //EVENTO FILTRAR
-    /**
-     * Evento que cambia la lista real a la filtrada
-     */
     public void eventoFiltrar() {
-        if (index >= 0) {
-            if (tipoLista == 0) {
-                tipoLista = 1;
-            }
-            RequestContext context = RequestContext.getCurrentInstance();
-            infoRegistroMotivo = "Cantidad de registros : " + filtrarListDemandasEmpleado.size();
-            RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        if (tipoLista == 0) {
+            tipoLista = 1;
         }
+        contarRegistros();
     }
 
+    public void contarRegistros() {
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+    }
+
+    public void contarRegistrosMotivos(){
+        RequestContext.getCurrentInstance().update("form:infoRegistroMotivo");
+    }
     //RASTRO - COMPROBAR SI LA TABLA TIENE RASTRO ACTIVO
     public void verificarRastro() {
         RequestContext context = RequestContext.getCurrentInstance();
-        if (listDemandasEmpleado != null) {
-            if (secRegistro != null) {
-                int resultado = administrarRastros.obtenerTabla(secRegistro, "DEMANDAS");
-                backUpSecRegistro = secRegistro;
-                secRegistro = null;
-                if (resultado == 1) {
-                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
-                } else if (resultado == 2) {
-                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
-                } else if (resultado == 3) {
-                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
-                } else if (resultado == 4) {
-                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
-                } else if (resultado == 5) {
-                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
-                }
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+        if (demandaTablaSeleccionada != null) {
+            int resultado = administrarRastros.obtenerTabla(demandaTablaSeleccionada.getSecuencia(), "DEMANDAS");
+            if (resultado == 1) {
+                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
+            } else if (resultado == 2) {
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
+            } else if (resultado == 3) {
+                RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
+            } else if (resultado == 4) {
+                RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
+            } else if (resultado == 5) {
+                RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
+        } else if (administrarRastros.verificarHistoricosTabla("DEMANDAS")) {
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            if (administrarRastros.verificarHistoricosTabla("DEMANDAS")) {
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-            }
-
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
-        index = -1;
     }
 
+    public void recordarSeleccionVD() {
+        if (demandaTablaSeleccionada != null) {
+            FacesContext c = FacesContext.getCurrentInstance();
+            tablaC = (DataTable) c.getViewRoot().findComponent("form:datosDemanda");
+            tablaC.setSelection(demandaTablaSeleccionada);
+        }
+    }
+    
+    
+    public void habilitarBotonLov() {
+        activarLov = false;
+        RequestContext.getCurrentInstance().update("form:listaValores");
+    }
+
+    public void deshabilitarBotonLov() {
+        activarLov = true;
+        RequestContext.getCurrentInstance().update("form:listaValores");
+    }
+    
     //GET - SET 
     public List<Demandas> getListDemandasEmpleado() {
         try {
             if (listDemandasEmpleado == null) {
                 if (empleado.getSecuencia() != null) {
                     listDemandasEmpleado = administrarEmplDemanda.listDemandasEmpleadoSecuencia(empleado.getSecuencia());
-                    if (listDemandasEmpleado != null) {
-                        for (int i = 0; i < listDemandasEmpleado.size(); i++) {
-                            if (listDemandasEmpleado.get(i).getMotivo() == null) {
-                                listDemandasEmpleado.get(i).setMotivo(new MotivosDemandas());
-                            }
-                            String aux = listDemandasEmpleado.get(i).getSeguimiento().toUpperCase();
-                            listDemandasEmpleado.get(i).setSeguimiento(aux);
-                        }
-                    }
+//                    if (listDemandasEmpleado != null) {
+//                        for (int i = 0; i < listDemandasEmpleado.size(); i++) {
+//                            if (listDemandasEmpleado.get(i).getMotivo() == null) {
+//                                listDemandasEmpleado.get(i).setMotivo(new MotivosDemandas());
+//                            }
+//                            String aux = listDemandasEmpleado.get(i).getSeguimiento().toUpperCase();
+//                            listDemandasEmpleado.get(i).setSeguimiento(aux);
+//                        }
+//                    }
                 }
             }
             return listDemandasEmpleado;
@@ -1241,22 +1022,6 @@ public class ControlEmplDemanda implements Serializable {
         this.aceptar = aceptar;
     }
 
-    public BigInteger getSecRegistro() {
-        return secRegistro;
-    }
-
-    public void setSecRegistro(BigInteger secRegistro) {
-        this.secRegistro = secRegistro;
-    }
-
-    public BigInteger getBackUpSecRegistro() {
-        return backUpSecRegistro;
-    }
-
-    public void setBackUpSecRegistro(BigInteger backUpSecRegistro) {
-        this.backUpSecRegistro = backUpSecRegistro;
-    }
-
     public Empleados getEmpleado() {
         return empleado;
     }
@@ -1270,12 +1035,9 @@ public class ControlEmplDemanda implements Serializable {
     }
 
     public String getInfoRegistro() {
-        getListDemandasEmpleado();
-        if (listDemandasEmpleado != null) {
-            infoRegistro = "Cantidad de registros : " + listDemandasEmpleado.size();
-        } else {
-            infoRegistro = "Cantidad de registros : 0";
-        }
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosDemanda");
+        infoRegistro = String.valueOf(tabla.getRowCount());
         return infoRegistro;
     }
 
@@ -1284,12 +1046,9 @@ public class ControlEmplDemanda implements Serializable {
     }
 
     public String getInfoRegistroMotivo() {
-        getListMotivosDemandas();
-        if (listMotivosDemandas != null) {
-            infoRegistroMotivo = "Cantidad de registros : " + listMotivosDemandas.size();
-        } else {
-            infoRegistroMotivo = "Cantidad de registros : 0";
-        }
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lovDemanda");
+        infoRegistroMotivo = String.valueOf(tabla.getRowCount());
         return infoRegistroMotivo;
     }
 
@@ -1297,19 +1056,19 @@ public class ControlEmplDemanda implements Serializable {
         this.infoRegistroMotivo = infoRegistroMotivo;
     }
 
-    public Demandas getDemantaTablaSeleccionada() {
+    public Demandas getDemandaTablaSeleccionada() {
         getListDemandasEmpleado();
         if (listDemandasEmpleado != null) {
             int tam = listDemandasEmpleado.size();
             if (tam > 0) {
-                demantaTablaSeleccionada = listDemandasEmpleado.get(0);
+                demandaTablaSeleccionada = listDemandasEmpleado.get(0);
             }
         }
-        return demantaTablaSeleccionada;
+        return demandaTablaSeleccionada;
     }
 
-    public void setDemantaTablaSeleccionada(Demandas demantaTablaSeleccionada) {
-        this.demantaTablaSeleccionada = demantaTablaSeleccionada;
+    public void setDemandaTablaSeleccionada(Demandas demandaTablaSeleccionada) {
+        this.demandaTablaSeleccionada = demandaTablaSeleccionada;
     }
 
     public String getAltoTabla() {
@@ -1320,4 +1079,13 @@ public class ControlEmplDemanda implements Serializable {
         this.altoTabla = altoTabla;
     }
 
+    public boolean isActivarLov() {
+        return activarLov;
+    }
+
+    public void setActivarLov(boolean activarLov) {
+        this.activarLov = activarLov;
+    }
+
+    
 }

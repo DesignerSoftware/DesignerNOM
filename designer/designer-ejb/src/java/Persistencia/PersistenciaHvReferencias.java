@@ -38,7 +38,7 @@ public class PersistenciaHvReferencias implements PersistenciaHvReferenciasInter
         try {
             System.out.println("pass");
             tx.begin();
-            em.persist(hvReferencias);
+            em.merge(hvReferencias);
             tx.commit();
         } catch (Exception e) {
             System.out.println("Error PersistenciaHvReferencias.crear: " + e);
@@ -87,7 +87,7 @@ public class PersistenciaHvReferencias implements PersistenciaHvReferenciasInter
     @Override
     public List<HvReferencias> buscarHvReferencias(EntityManager em) {
         em.clear();
-        Query query = em.createQuery("SELECT te FROM HvEntrevistas te ORDER BY te.fecha ASC ");
+        Query query = em.createQuery("SELECT te FROM HvReferencias te ");
         query.setHint("javax.persistence.cache.storeMode", "REFRESH");
         List<HvReferencias> listHvReferencias = query.getResultList();
         return listHvReferencias;
@@ -138,10 +138,10 @@ public class PersistenciaHvReferencias implements PersistenciaHvReferenciasInter
     public List<HVHojasDeVida> consultarHvHojaDeVidaPorPersona(EntityManager em, BigInteger secPersona) {
         try {
             em.clear();
+            String sql ="SELECT * FROM HVHOJASDEVIDA hv , PERSONAS p WHERE p.secuencia= hv.persona AND p.secuencia = ?";
             System.out.println("PersistenciaHvReferencias secuencia empleado hoja de vida " + secPersona);
-            Query query = em.createQuery("SELECT hv FROM HVHojasDeVida hv , Personas p WHERE p.secuencia= hv.persona.secuencia AND p.secuencia = :secuenciaEmpl");
-            query.setParameter("secuenciaEmpl", secPersona);
-            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            Query query = em.createNativeQuery(sql, HVHojasDeVida.class);
+            query.setParameter(1, secPersona);
             List<HVHojasDeVida> hvHojasDeVIda = query.getResultList();
             return hvHojasDeVIda;
         } catch (Exception e) {

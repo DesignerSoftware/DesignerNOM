@@ -77,7 +77,7 @@ public interface PersistenciaHvEntrevistasInterface {
      * @param secEmpleado Secuencia del empleado.
      * @return Una lista de hojas de vida.
      */
-    public List<HVHojasDeVida> buscarHvHojaDeVidaPorEmpleado(EntityManager em,BigInteger secEmpleado);
+    public List<HVHojasDeVida> buscarHvHojaDeVidaPorPersona(EntityManager em,BigInteger secEmpleado);
 
     /**
      * Método encargado de recuperar las ultimas HvEntrevistas realizadas para
@@ -88,4 +88,6 @@ public interface PersistenciaHvEntrevistasInterface {
      * realizadas el mismo día.
      */
     public List<HvEntrevistas> entrevistasPersona(EntityManager em,BigInteger secuenciaHV);
+    
+    
 }

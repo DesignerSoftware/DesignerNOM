@@ -146,15 +146,16 @@ public class ControlPerExperienciaLaboral implements Serializable {
         }
         if (hojaVida != null) {
             getListExperienciaLaboralEmpl();
+//            if (listExperienciaLaboralEmpl != null) {
+//                logrosAlcanzados = listExperienciaLaboralEmpl.get(0).getAlcance();
+//            }
             if (listExperienciaLaboralEmpl != null) {
-                logrosAlcanzados = listExperienciaLaboralEmpl.get(0).getAlcance();
+                if (!listExperienciaLaboralEmpl.isEmpty()) {
+                    experienciaTablaSeleccionada = listExperienciaLaboralEmpl.get(0);
+                }
             }
         }
         
-        if(listExperienciaLaboralEmpl != null){
-            if(!listExperienciaLaboralEmpl.isEmpty())
-                experienciaTablaSeleccionada = listExperienciaLaboralEmpl.get(0);
-        }
     }
 
     /*
@@ -1635,6 +1636,10 @@ public class ControlPerExperienciaLaboral implements Serializable {
     }
 
     public String getLogrosAlcanzados() {
+       if(experienciaTablaSeleccionada != null){
+           logrosAlcanzados = experienciaTablaSeleccionada.getAlcance();
+           RequestContext.getCurrentInstance().update("form:editarLogrosEP");
+       }
         return logrosAlcanzados;
     }
 

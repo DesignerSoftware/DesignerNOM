@@ -37,6 +37,8 @@ public interface PersistenciaSectoresEconomicosInterface {
      * @return Retorna una lista de SectoresEconomicos.
      */
     public List<SectoresEconomicos> buscarSectoresEconomicos(EntityManager em);
+    
+    public List<SectoresEconomicos> buscarSectoresEconomicosPorEmpresa(EntityManager em,BigInteger secEmpresa);
     /**
      * Método encargado de buscar el SectorEconomico con la secuencia dada por parámetro.
      * @param secuencia Secuencia del SectorEconomico que se quiere encontrar.

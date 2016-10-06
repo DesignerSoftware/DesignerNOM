@@ -52,7 +52,7 @@ public class ControlMotivosRetiros implements Serializable {
     private BigInteger l;
     private boolean aceptar, guardado;
     //AutoCompletar
-    private boolean permitirIndex;
+    private boolean permitirIndex,activarLov;
     //RASTRO
     private Column codigo, descripcion;
     //borrado
@@ -62,8 +62,6 @@ public class ControlMotivosRetiros implements Serializable {
     private int tamano;
 
     private String infoRegistro, paginaanterior;
-    private String backUpDescripcion;
-    private Integer backUpCodigo;
 
     public ControlMotivosRetiros() {
         listMotivosRetiros = null;
@@ -76,6 +74,7 @@ public class ControlMotivosRetiros implements Serializable {
         duplicarMotivosRetiros = new MotivosRetiros();
         guardado = true;
         tamano = 270;
+        activarLov = true;
     }
 
     @PostConstruct
@@ -109,22 +108,13 @@ public class ControlMotivosRetiros implements Serializable {
         if (permitirIndex == true) {
             motivoRetiroSeleccionado = motivo;
             cualCelda = celda;
-            if (tipoLista == 0) {
-                if (cualCelda == 0) {
-                    backUpCodigo = motivoRetiroSeleccionado.getCodigo();
-                } else if (cualCelda == 1) {
-                    backUpDescripcion = motivoRetiroSeleccionado.getNombre();
-                }
-                motivoRetiroSeleccionado.getSecuencia();
-            } else {
-                if (cualCelda == 0) {
-                    backUpCodigo = motivoRetiroSeleccionado.getCodigo();
-                } else if (cualCelda == 1) {
-                    backUpDescripcion = motivoRetiroSeleccionado.getNombre();
-                }
-                motivoRetiroSeleccionado.getSecuencia();
+            if (cualCelda == 0) {
+               motivoRetiroSeleccionado.getCodigo();
+            } else if (cualCelda == 1) {
+                motivoRetiroSeleccionado.getNombre();
             }
         }
+        motivoRetiroSeleccionado.getSecuencia();
     }
 
     public void activarAceptar() {
@@ -230,7 +220,7 @@ public class ControlMotivosRetiros implements Serializable {
                     if (motivoRetiroSeleccionado.getCodigo() == a) {
                         mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
                         banderita = false;
-                        motivoRetiroSeleccionado.setCodigo(backUpCodigo);
+                        motivoRetiroSeleccionado.setCodigo(motivoRetiroSeleccionado.getCodigo());
                     } else {
                         for (int j = 0; j < listMotivosRetiros.size(); j++) {
                             if (motivoRetiroSeleccionado.getCodigo().equals(listMotivosRetiros.get(j).getCodigo())) {
@@ -239,7 +229,7 @@ public class ControlMotivosRetiros implements Serializable {
                         }
                         if (contador > 0) {
                             mensajeValidacion = "CODIGOS REPETIDOS";
-                            motivoRetiroSeleccionado.setCodigo(backUpCodigo);
+                            motivoRetiroSeleccionado.setCodigo(motivoRetiroSeleccionado.getCodigo());
                             banderita = false;
                         } else {
                             banderita = true;
@@ -248,13 +238,13 @@ public class ControlMotivosRetiros implements Serializable {
                     }
                     if (motivoRetiroSeleccionado.getNombre() == null) {
                         mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        motivoRetiroSeleccionado.setNombre(backUpDescripcion);
+                        motivoRetiroSeleccionado.setNombre(motivoRetiroSeleccionado.getNombre());
                         banderita = false;
                     }
                     if (motivoRetiroSeleccionado.getNombre().isEmpty()) {
                         mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
                         banderita = false;
-                        motivoRetiroSeleccionado.setNombre(backUpDescripcion);
+                        motivoRetiroSeleccionado.setNombre(motivoRetiroSeleccionado.getNombre());
                     }
 
                     if (banderita == true) {
@@ -275,7 +265,7 @@ public class ControlMotivosRetiros implements Serializable {
                     if (motivoRetiroSeleccionado.getCodigo() == a) {
                         mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
                         banderita = false;
-                        motivoRetiroSeleccionado.setCodigo(backUpCodigo);
+                        motivoRetiroSeleccionado.setCodigo(motivoRetiroSeleccionado.getCodigo());
                     } else {
                         for (int j = 0; j < listMotivosRetiros.size(); j++) {
                             if (motivoRetiroSeleccionado.getCodigo().equals(listMotivosRetiros.get(j).getCodigo())) {
@@ -284,7 +274,7 @@ public class ControlMotivosRetiros implements Serializable {
                         }
                         if (contador > 0) {
                             mensajeValidacion = "CODIGOS REPETIDOS";
-                            motivoRetiroSeleccionado.setCodigo(backUpCodigo);
+                            motivoRetiroSeleccionado.setCodigo(motivoRetiroSeleccionado.getCodigo());
                             banderita = false;
                         } else {
                             banderita = true;
@@ -293,13 +283,13 @@ public class ControlMotivosRetiros implements Serializable {
                     }
                     if (motivoRetiroSeleccionado.getNombre() == null) {
                         mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        motivoRetiroSeleccionado.setNombre(backUpDescripcion);
+                        motivoRetiroSeleccionado.setNombre(motivoRetiroSeleccionado.getNombre());
                         banderita = false;
                     }
                     if (motivoRetiroSeleccionado.getNombre().isEmpty()) {
                         mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
                         banderita = false;
-                        motivoRetiroSeleccionado.setNombre(backUpDescripcion);
+                        motivoRetiroSeleccionado.setNombre(motivoRetiroSeleccionado.getNombre());
                     }
 
                     if (banderita == true) {
@@ -320,7 +310,7 @@ public class ControlMotivosRetiros implements Serializable {
             } else if (!crearMotivosRetiros.contains(motivoRetiroSeleccionado)) {
                 if (motivoRetiroSeleccionado.getCodigo() == a) {
                     mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                    motivoRetiroSeleccionado.setCodigo(backUpCodigo);
+                    motivoRetiroSeleccionado.setCodigo(motivoRetiroSeleccionado.getCodigo());
                     banderita = false;
                 } else {
                     for (int j = 0; j < filtrarMotivosRetiros.size(); j++) {
@@ -331,7 +321,7 @@ public class ControlMotivosRetiros implements Serializable {
 
                     if (contador > 0) {
                         mensajeValidacion = "CODIGOS REPETIDOS";
-                        motivoRetiroSeleccionado.setCodigo(backUpCodigo);
+                        motivoRetiroSeleccionado.setCodigo(motivoRetiroSeleccionado.getCodigo());
                         banderita = false;
                     } else {
                         banderita = true;
@@ -342,12 +332,12 @@ public class ControlMotivosRetiros implements Serializable {
                 if (motivoRetiroSeleccionado.getNombre() == null) {
                     mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
                     banderita = false;
-                    motivoRetiroSeleccionado.setNombre(backUpDescripcion);
+                    motivoRetiroSeleccionado.setNombre(motivoRetiroSeleccionado.getNombre());
                 }
                 if (motivoRetiroSeleccionado.getNombre().isEmpty()) {
                     mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
                     banderita = false;
-                    motivoRetiroSeleccionado.setNombre(backUpDescripcion);
+                    motivoRetiroSeleccionado.setNombre(motivoRetiroSeleccionado.getNombre());
                 }
 
                 if (banderita == true) {
@@ -367,7 +357,7 @@ public class ControlMotivosRetiros implements Serializable {
             } else {
                 if (motivoRetiroSeleccionado.getCodigo() == a) {
                     mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                    motivoRetiroSeleccionado.setCodigo(backUpCodigo);
+                    motivoRetiroSeleccionado.setCodigo(motivoRetiroSeleccionado.getCodigo());
                     banderita = false;
                 } else {
                     for (int j = 0; j < filtrarMotivosRetiros.size(); j++) {
@@ -377,7 +367,7 @@ public class ControlMotivosRetiros implements Serializable {
                     }
                     if (contador > 0) {
                         mensajeValidacion = "CODIGOS REPETIDOS";
-                        motivoRetiroSeleccionado.setCodigo(backUpCodigo);
+                        motivoRetiroSeleccionado.setCodigo(motivoRetiroSeleccionado.getCodigo());
                         banderita = false;
                     } else {
                         banderita = true;
@@ -387,13 +377,13 @@ public class ControlMotivosRetiros implements Serializable {
                 if (motivoRetiroSeleccionado.getNombre() == null) {
                     mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
                     banderita = false;
-                    motivoRetiroSeleccionado.setNombre(backUpDescripcion);
+                    motivoRetiroSeleccionado.setNombre(motivoRetiroSeleccionado.getNombre());
                 }
 
                 if (motivoRetiroSeleccionado.getNombre().isEmpty()) {
                     mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
                     banderita = false;
-                    motivoRetiroSeleccionado.setNombre(backUpDescripcion);
+                    motivoRetiroSeleccionado.setNombre(motivoRetiroSeleccionado.getNombre());
                 }
 
                 if (banderita == true) {
@@ -858,4 +848,12 @@ public class ControlMotivosRetiros implements Serializable {
         this.infoRegistro = infoRegistro;
     }
 
+    public boolean isActivarLov() {
+        return activarLov;
+    }
+
+    public void setActivarLov(boolean activarLov) {
+        this.activarLov = activarLov;
+    }
+    
 }
