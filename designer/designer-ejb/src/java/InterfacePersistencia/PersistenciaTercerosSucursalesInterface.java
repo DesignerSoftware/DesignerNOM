@@ -45,6 +45,7 @@ public interface PersistenciaTercerosSucursalesInterface {
     public TercerosSucursales buscarTercerosSucursalesSecuencia(EntityManager em, BigInteger secuencia);
     /**
      * Método encargado de buscar los TercerosSucursales relacionados con un tercero específico.
+    * @param em
      * @param secuencia Secuencia del Tercero.
      * @return Retorna una lista de TercerosSucursales, 
      * los cuales están asociados con el tercero de la secuencia pasada por parámetro.

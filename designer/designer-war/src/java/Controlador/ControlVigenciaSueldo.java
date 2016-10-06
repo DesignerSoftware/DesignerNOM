@@ -183,6 +183,7 @@ public class ControlVigenciaSueldo implements Serializable {
       nuevaVigenciaA = new VigenciasAfiliaciones();
       nuevaVigenciaA.setTipoentidad(new TiposEntidades());
       nuevaVigenciaA.setTercerosucursal(new TercerosSucursales());
+      nuevaVigenciaA.getTercerosucursal().setTercero(new Terceros());
       listVACrear = new ArrayList<VigenciasAfiliaciones>();
 
       nombreTabla = ":formExportarVS:datosVSEmpleadoExportar";
@@ -709,9 +710,13 @@ public class ControlVigenciaSueldo implements Serializable {
          }
       } else if (Campo.equals("TERCERO")) {
          if (tipoNuevo == 1) {
-            terceros = nuevaVigenciaA.getTercerosucursal().getTercero().getNombre();
+            if (nuevaVigenciaA.getTercerosucursal().getTercero() != null) {
+               terceros = nuevaVigenciaA.getTercerosucursal().getTercero().getNombre();
+            }
          } else if (tipoNuevo == 2) {
-            terceros = duplicarVA.getTercerosucursal().getTercero().getNombre();
+            if (duplicarVA.getTercerosucursal().getTercero() != null) {
+               terceros = duplicarVA.getTercerosucursal().getTercero().getNombre();
+            }
          }
       }
    }
@@ -1286,6 +1291,7 @@ public class ControlVigenciaSueldo implements Serializable {
             nuevaVigenciaA = new VigenciasAfiliaciones();
             nuevaVigenciaA.setTipoentidad(new TiposEntidades());
             nuevaVigenciaA.setTercerosucursal(new TercerosSucursales());
+            nuevaVigenciaA.getTercerosucursal().setTercero(new Terceros());
             RequestContext.getCurrentInstance().update("form:datosVAVigencia");
             RequestContext.getCurrentInstance().execute("PF('NuevoRegistroVA').hide()");
             if (guardado) {
@@ -1993,21 +1999,36 @@ public class ControlVigenciaSueldo implements Serializable {
     * Metodo que actualiza el proyecto seleccionado (vigencia localizacion)
     */
    public void actualizarTerceros() {
+      System.out.println("terceroSeleccionado : " + terceroSeleccionado);
       RequestContext context = RequestContext.getCurrentInstance();
       if (tipoActualizacion == 0) {//No se crea ni se duplica ningun registro
          vigenciaAfiliacioneSeleccionada.setTercerosucursal(new TercerosSucursales());
-         vigenciaAfiliacioneSeleccionada.getTercerosucursal().setTercero(new Terceros());
          vigenciaAfiliacioneSeleccionada.getTercerosucursal().setTercero(terceroSeleccionado);
          int posicion = -1;
          List<TercerosSucursales> listTercerosSucursales = administrarVigenciasSueldos.listTercerosSucursales();
+         if (listTercerosSucursales != null) {
+            System.out.println("listTercerosSucursales.size() : " + listTercerosSucursales.size());
+         } else {
+            System.out.println("listTercerosSucursales = null");
+         }
          //Se recorre la lista de tercerosSucursales para buscar los datos del tercero seleccionado
+         System.out.println("terceroSeleccionado.getNombre() : " + terceroSeleccionado.getNombre());
          for (int i = 0; i < listTercerosSucursales.size(); i++) {
-            if (listTercerosSucursales.get(i).getTercero().getNombre().equalsIgnoreCase(terceroSeleccionado.getNombre())) {
-               posicion = i;
+            if (listTercerosSucursales.get(i).getTercero() != null) {
+               if (listTercerosSucursales.get(i).getTercero().getSecuencia() != null) {
+                  if (listTercerosSucursales.get(i).getTercero().getSecuencia().equals(terceroSeleccionado.getSecuencia())) {
+                     posicion = i;
+                     System.out.println("Entro en el i : " + i);
+                  }
+               } else {
+                  System.out.println("listTercerosSucursales.get(" + i + ").getTercero() == null");
+               }
+            } else {
+               System.out.println("listTercerosSucursales.get(" + i + ").getTercero() == null");
             }
          }
+         System.out.println("posicion : " + posicion);
          if (posicion != -1) {
-            // Se Asignan los datos de tercerosSucursales a la vigencia Afiliacion
             vigenciaAfiliacioneSeleccionada.setTercerosucursal(listTercerosSucursales.get(posicion));
          }
 
@@ -2018,7 +2039,6 @@ public class ControlVigenciaSueldo implements Serializable {
                listVAModificar.add(vigenciaAfiliacioneSeleccionada);
             }
          }
-
          if (guardado) {
             guardado = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -2026,6 +2046,7 @@ public class ControlVigenciaSueldo implements Serializable {
          cambioVigenciaA = true;
          permitirIndexVA = true;
          RequestContext.getCurrentInstance().update("form:datosVAVigencia");
+         System.out.println("llego al  final de la funcion");
       } else if (tipoActualizacion == 1) {//Para crear un registro
          boolean banderaEncuentra = false;
          int posicion = -1;
@@ -2679,6 +2700,7 @@ public class ControlVigenciaSueldo implements Serializable {
    }
 
    public void setTerceroSeleccionado(Terceros terceroSeleccionado) {
+      System.out.println("Entro en setTerceroSeleccionado terceroSeleccionado : " + terceroSeleccionado);
       this.terceroSeleccionado = terceroSeleccionado;
    }
 

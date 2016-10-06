@@ -10,7 +10,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -83,9 +82,9 @@ public class PersistenciaTercerosSucursales implements PersistenciaTercerosSucur
    public List<TercerosSucursales> buscarTercerosSucursales(EntityManager em) {
       try {
          em.clear();
-         Query query = em.createQuery("SELECT t FROM TercerosSucursales t");
-         query.setHint("javax.persistence.cache.storeMode", "REFRESH");
-         List<TercerosSucursales> tercerosSucursales = (List<TercerosSucursales>) query.getResultList();
+         Query query = em.createNativeQuery("SELECT TS.* FROM TERCEROSSUCURSALES TS, TERCEROS T, EMPRESAS E"
+                 + " WHERE TS.TERCERO = T.SECUENCIA AND T.EMPRESA = E.SECUENCIA", TercerosSucursales.class);
+         List<TercerosSucursales> tercerosSucursales = query.getResultList();
          return tercerosSucursales;
       } catch (Exception e) {
          System.out.println("Error buscarTercerosSucursales");
@@ -95,7 +94,6 @@ public class PersistenciaTercerosSucursales implements PersistenciaTercerosSucur
 
    @Override
    public TercerosSucursales buscarTercerosSucursalesSecuencia(EntityManager em, BigInteger secuencia) {
-
       try {
          em.clear();
          Query query = em.createQuery("SELECT ts FROM TercerosSucursales ts WHERE ts.secuencia = :secuencia");

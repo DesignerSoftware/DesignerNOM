@@ -155,6 +155,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
       pensionVigencia = new Pensionados();
       pensionVigencia.setClase(new ClasesPensiones());
       pensionVigencia.setCausabiente(new Empleados());
+      pensionVigencia.getCausabiente().setPersona(new Personas());
       pensionVigencia.setTipopensionado(new TiposPensionados());
       pensionVigencia.setTutor(new Personas());
       //
@@ -547,6 +548,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
          pensionVigencia = new Pensionados();
          pensionVigencia.setClase(new ClasesPensiones());
          pensionVigencia.setCausabiente(new Empleados());
+         pensionVigencia.getCausabiente().setPersona(new Personas());
          pensionVigencia.setTipopensionado(new TiposPensionados());
          pensionVigencia.setTutor(new Personas());
          FacesContext c = FacesContext.getCurrentInstance();
@@ -1491,6 +1493,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
          pensionVigencia = new Pensionados();
          pensionVigencia.setClase(new ClasesPensiones());
          pensionVigencia.setCausabiente(new Empleados());
+         pensionVigencia.getCausabiente().setPersona(new Personas());
          pensionVigencia.setTipopensionado(new TiposPensionados());
          pensionVigencia.setTutor(new Personas());
          pensionVigencia.setSecuencia(l);
@@ -1692,6 +1695,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
          pensionVigencia = new Pensionados();
          pensionVigencia.setClase(new ClasesPensiones());
          pensionVigencia.setCausabiente(new Empleados());
+         pensionVigencia.getCausabiente().setPersona(new Personas());
          pensionVigencia.setTipopensionado(new TiposPensionados());
          pensionVigencia.setTutor(new Personas());
          banderaLimpiarPension = false;
@@ -1729,6 +1733,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
       pensionVigencia = new Pensionados();
       pensionVigencia.setClase(new ClasesPensiones());
       pensionVigencia.setCausabiente(new Empleados());
+      pensionVigencia.getCausabiente().setPersona(new Personas());
       pensionVigencia.setTipopensionado(new TiposPensionados());
       pensionVigencia.setTutor(new Personas());
       FacesContext c = FacesContext.getCurrentInstance();
@@ -2044,6 +2049,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
       pensionCopia = pensionVigencia;
       pensionVigencia = new Pensionados();
       pensionVigencia.setCausabiente(new Empleados());
+      pensionVigencia.getCausabiente().setPersona(new Personas());
       pensionVigencia.setClase(new ClasesPensiones());
       pensionVigencia.setTipopensionado(new TiposPensionados());
       pensionVigencia.setTutor(new Personas());

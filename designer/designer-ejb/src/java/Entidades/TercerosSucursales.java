@@ -81,10 +81,7 @@ public class TercerosSucursales implements Serializable {
     }
 
     public Terceros getTercero() {
-        if (tercero == null) {
-            tercero = new Terceros();
-        }
-        return tercero;
+         return tercero;
     }
 
     public void setTercero(Terceros tercero) {

@@ -550,6 +550,7 @@ button .ui-widget-header{
    text-align: center;
    padding-left: 0px;
    padding-right: 0px;
+   height: 11px;
 }
 
 .ui-datatable thead th,

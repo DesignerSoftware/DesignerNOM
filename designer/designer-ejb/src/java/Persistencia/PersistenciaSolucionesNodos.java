@@ -8,6 +8,8 @@ import Entidades.SolucionesNodosAux;
 import InterfacePersistencia.PersistenciaSolucionesNodosInterface;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -235,9 +237,9 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
                           + " cc.NOMBRE NOMBRECENTROCOSTOD, cc1.NOMBRE NOMBRECENTROCOSTOC \n"
                           + "FROM SOLUCIONESNODOS sn, TERCEROS t, CONCEPTOS c, CUENTAS cu, CUENTAS cu1, EMPLEADOS e, PERSONAS p, CENTROSCOSTOS cc, CENTROSCOSTOS cc1, CORTESPROCESOS cpr \n"
                           + "WHERE "
-//                          + "sn.ESTADO = 'CERRADO' \n"
-//                          + "AND sn.TIPO IN  ('PASIVO','GASTO','NETO')\n"
-//                          + "AND sn.VALOR <> 0 \n"
+                          //                          + "sn.ESTADO = 'CERRADO' \n"
+                          //                          + "AND sn.TIPO IN  ('PASIVO','GASTO','NETO')\n"
+                          //                          + "AND sn.VALOR <> 0 \n"
                           + "sn.EMPLEADO =E.SECUENCIA\n"
                           + "AND sn.NIT = t.SECUENCIA\n"
                           + "AND sn.CONCEPTO = c.SECUENCIA\n"
@@ -303,29 +305,36 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
    }
 
    @Override
-   public Long validacionTercerosVigenciaAfiliacion(EntityManager em, BigInteger secuencia, Date fechaInicial, BigDecimal secuenciaTE, BigInteger secuenciaTer) {
+   public Long validacionTercerosVigenciaAfiliacion(EntityManager em, BigInteger secuencia, Date fechaInicial, BigInteger secuenciaTE, BigInteger secuenciaTer) {
+      DateFormat formatoF = new SimpleDateFormat("ddMMyyy");
+      String fecha = formatoF.format(fechaInicial);
       try {
          em.clear();
-         Query query = em.createQuery("SELECT count(v)  "
-                 + "FROM SolucionesNodos v "
-                 + "where v.fechapago > :fechaInicial "
-                 + "AND v.empleado.secuencia = :secuencia "
-                 + "AND v.estado ='CERRADO' "
-                 + "AND v.nit.secuencia != :secuenciaTer "
-                 + "AND exists (SELECT cs "
-                 + "FROM ConceptosSoportes cs "
-                 + "WHERE cs.concepto.secuencia = v.concepto.secuencia "
-                 + "AND cs.tipoentidad.secuencia = :secuenciaT "
-                 + "and cs.tipo='AUTOLIQUIDACION' "
-                 + "AND cs.subgrupo='COTIZACION')");
-         query.setParameter("secuencia", secuencia);
-         query.setParameter("fechaInicial", fechaInicial);
-         query.setParameter("secuenciaT", secuenciaTE);
-         query.setParameter("secuenciaTer", secuenciaTer);
-         query.setHint("javax.persistence.cache.storeMode", "REFRESH");
-         Long r = (Long) query.getSingleResult();
-         System.out.println("Resultado : " + r);
-         return r;
+         String strQuery = "SELECT count(*)\n"
+                 + "FROM SolucionesNodos v, TERCEROS T\n"
+                 + "where \n"
+                 + "v.fechapago > TO_DATE('" + fecha + "','ddMMyyy') \n"
+                 + "AND V.EMPLEADO = " + secuencia + "\n"
+                 + "AND V.NIT = T.SECUENCIA\n"
+                 + "AND v.estado ='CERRADO'\n"
+                 + "AND T.secuencia != " + secuenciaTer + "\n"
+                 + "AND exists (\n"
+                 + "  SELECT cs.SECUENCIA \n"
+                 + "  FROM ConceptosSoportes cs\n"
+                 + "  WHERE CS.CONCEPTO = v.concepto\n"
+                 + "  AND CS.TIPOENTIDAD = " + secuenciaTE + "\n"
+                 + "  and cs.tipo='AUTOLIQUIDACION' \n"
+                 + "  AND cs.subgrupo='COTIZACION')";
+         Query query = em.createNativeQuery(strQuery);
+//         query.setParameter(1, secuencia);
+//         query.setParameter("fechaInicial", fechaInicial);
+//         query.setParameter("secuenciaT", secuenciaTE);
+//         query.setParameter("secuenciaTer", secuenciaTer);
+//         query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+         BigDecimal count = (BigDecimal) query.getSingleResult();
+         Long conteo = count.longValue();
+         System.out.println("validacionTercerosVigenciaAfiliacion Resultado conteo : " + conteo);
+         return conteo;
       } catch (Exception e) {
          System.out.println("Error validacionTercerosVigenciaAfiliacion Persistencia : " + e.toString());
          return null;
@@ -387,9 +396,9 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
                           + " cc.NOMBRE NOMBRECENTROCOSTOD, cc1.NOMBRE NOMBRECENTROCOSTOC \n"
                           + "FROM SOLUCIONESNODOS sn, TERCEROS t ,CONCEPTOS c,CUENTAS cu,CUENTAS cu1, EMPLEADOS e, PERSONAS p ,CENTROSCOSTOS cc, CENTROSCOSTOS cc1\n"
                           + "WHERE "
-//                          + "sn.ESTADO = 'LIQUIDADO' \n"
-//                          + "AND sn.TIPO IN  ('PAGO','DESCUENTO')\n"
-//                          + "AND sn.VALOR <> 0 \n"
+                          //                          + "sn.ESTADO = 'LIQUIDADO' \n"
+                          //                          + "AND sn.TIPO IN  ('PAGO','DESCUENTO')\n"
+                          //                          + "AND sn.VALOR <> 0 \n"
                           + "sn.EMPLEADO =E.SECUENCIA\n"
                           + "AND sn.NIT = t.SECUENCIA(+) \n"
                           + "AND sn.CONCEPTO = c.SECUENCIA\n"
@@ -454,9 +463,9 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
                           + " cc.NOMBRE NOMBRECENTROCOSTOD, cc1.NOMBRE NOMBRECENTROCOSTOC \n"
                           + "FROM SOLUCIONESNODOS sn, TERCEROS t ,CONCEPTOS c,CUENTAS cu,CUENTAS cu1, EMPLEADOS e, PERSONAS p ,CENTROSCOSTOS cc, CENTROSCOSTOS cc1\n"
                           + "WHERE "
-//                          + "sn.ESTADO = 'LIQUIDADO' \n"
-//                          + "AND sn.TIPO IN  ('PASIVO','GASTO','NETO')\n"
-//                          + "AND sn.VALOR <> 0 \n"
+                          //                          + "sn.ESTADO = 'LIQUIDADO' \n"
+                          //                          + "AND sn.TIPO IN  ('PASIVO','GASTO','NETO')\n"
+                          //                          + "AND sn.VALOR <> 0 \n"
                           + "sn.EMPLEADO =E.SECUENCIA\n"
                           + "AND sn.NIT = t.SECUENCIA(+) \n"
                           + "AND sn.CONCEPTO = c.SECUENCIA\n"
@@ -672,7 +681,7 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
          query.setParameter(1, fechaInicial);
          query.setParameter(2, fechaFinal);
          List<SolucionesNodos> listSolucionesNodos = query.getResultList();
-         
+
          if (listSolucionesNodos != null) {
             if (!listSolucionesNodos.isEmpty()) {
                System.out.println("resultado.size() : " + listSolucionesNodos.size());

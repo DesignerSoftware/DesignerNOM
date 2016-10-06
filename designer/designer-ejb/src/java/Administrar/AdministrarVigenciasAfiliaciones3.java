@@ -178,7 +178,7 @@ public class AdministrarVigenciasAfiliaciones3 implements AdministrarVigenciasAf
     }
 
     @Override
-    public Long validacionTercerosSurcursalesNuevaVigencia(BigInteger secuencia, Date fechaInicial, BigDecimal secuenciaTE, BigInteger secuenciaTer) {
+    public Long validacionTercerosSurcursalesNuevaVigencia(BigInteger secuencia, Date fechaInicial, BigInteger secuenciaTE, BigInteger secuenciaTer) {
         try {
             Long result = persistenciaSolucionesNodos.validacionTercerosVigenciaAfiliacion(em, secuencia, fechaInicial, secuenciaTE, secuenciaTer);
             return result;

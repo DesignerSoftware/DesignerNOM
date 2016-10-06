@@ -110,7 +110,7 @@ public interface PersistenciaSolucionesNodosInterface {
      * @return Retorna un Long con la cantidad de liquidaciones que cumplen con
      * las condiciones.
      */
-    public Long validacionTercerosVigenciaAfiliacion(EntityManager em, BigInteger secuencia, Date fechaInicial, BigDecimal secuenciaTE, BigInteger secuenciaTer);
+    public Long validacionTercerosVigenciaAfiliacion(EntityManager em, BigInteger secuencia, Date fechaInicial, BigInteger secuenciaTE, BigInteger secuenciaTer);
 
     /**
      * Método encargado de buscar las SolucionesNodos de un empleado específico
