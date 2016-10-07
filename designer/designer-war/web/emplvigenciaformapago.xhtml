@@ -503,8 +503,8 @@
                                 <p:ajax event="change" listener="#{controlVigenciasFormasPagos.autocompletarNuevoyDuplicado('SUCURSAL', controlVigenciasFormasPagos.nuevaVigenciaFormasPago.sucursal.nombre,1)}" />
                                 <p:ajax event="dblclick" listener="#{controlVigenciasFormasPagos.asignarVariableSucursalNueva(0)}" />
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 300px; top: 200px; background-image: url(Imagenes/Iconos/lupa.png);" 
-                                             value="" id="btnnuevoNombreSucursal" icon="ui-icon-search" process="@this"  actionListener="#{controlVigenciasFormasPagos.cargarSucursalesNuevoRegistro(0)}"/>   
+                            <p:commandButton style="position: absolute; left: 300px; top: 200px;" class="cssBotonLovDialogos"
+                                             value="" id="btnnuevoNombreSucursal" process="@this"  actionListener="#{controlVigenciasFormasPagos.cargarSucursalesNuevoRegistro(0)}"/>   
                             <p:watermark for="nuevoNombreSucursal" value="#{msg['sucursal']}" />
 
                             <strong><h:outputText value="*#{msg['formaPagoN']}" style=" position: absolute; top: 245px;" /></strong>
@@ -513,8 +513,8 @@
                                 <p:ajax event="change" listener="#{controlVigenciasFormasPagos.autocompletarNuevoyDuplicado('FORMAPAGO', controlVigenciasFormasPagos.nuevaVigenciaFormasPago.formapago.nombre, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlVigenciasFormasPagos.asignarVariablePeriodicidadNueva(0)}" />
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 300px; top: 240px; background-image: url(Imagenes/Iconos/lupa.png);" 
-                                             value="" id="btnnuevaFormaPago" icon="ui-icon-search" process="@this"  actionListener="#{controlVigenciasFormasPagos.cargarPeriodicidadNuevoRegistro(0)}"/>   
+                            <p:commandButton style="position: absolute; left: 300px; top: 240px;" class="cssBotonLovDialogos" 
+                                             value="" id="btnnuevaFormaPago" process="@this"  actionListener="#{controlVigenciasFormasPagos.cargarPeriodicidadNuevoRegistro(0)}"/>   
                             <p:watermark for="nuevaFormaPago" value="#{msg['formaPago']}" />
 
                             <strong><h:outputText value="#{msg['tipoCuentaN']}"  style=" position: absolute; top: 285px ; " /></strong>
@@ -529,8 +529,8 @@
                                 <p:ajax event="change" listener="#{controlVigenciasFormasPagos.autocompletarNuevoyDuplicado('METODOPAGO', controlVigenciasFormasPagos.nuevaVigenciaFormasPago.metodopago.descripcion ,1)}" />
                                 <p:ajax event="dblclick" listener="#{controlVigenciasFormasPagos.asignarVariableMetodosPagosNueva(0)}" />
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 300px; top:320px; background-image: url(Imagenes/Iconos/lupa.png);" 
-                                             value="" id="btnnuevaMetodoPago" icon="ui-icon-search" process="@this"  actionListener="#{controlVigenciasFormasPagos.cargarMetodosPagosNuevoRegistro(0)}"/>   
+                            <p:commandButton style="position: absolute; left: 300px; top:320px;" class="cssBotonLovDialogos" 
+                                             value="" id="btnnuevaMetodoPago" process="@this" actionListener="#{controlVigenciasFormasPagos.cargarMetodosPagosNuevoRegistro(0)}"/>   
                             <p:watermark for="nuevaMetodoPago" value="#{msg['metodoPago']}" />
 
 
@@ -568,13 +568,13 @@
                             </div>
 
                             <strong><h:outputText value="#{msg['sucursalM']}"  style=" position: absolute; top: 205px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarNombreSucursal" value="#{controlVigenciasFormasPagos.duplicarVigenciaFormasPago.sucursal.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 200px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off" id="duplicarNombreSucursal" value="#{controlVigenciasFormasPagos.duplicarVigenciaFormasPago.sucursal.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 200px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlVigenciasFormasPagos.valoresBackupAutocompletar(2, 'SUCURSAL')}" />
                                 <p:ajax event="change" listener="#{controlVigenciasFormasPagos.autocompletarNuevoyDuplicado('SUCURSAL', controlVigenciasFormasPagos.duplicarVigenciaFormasPago.sucursal.nombre,2)}" />
                                 <p:ajax event="dblclick" listener="#{controlVigenciasFormasPagos.asignarVariableSucursalNueva(1)}" />
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 300px; top: 200px; background-image: url(Imagenes/Iconos/lupa.png);" 
-                                             value="" id="btnduplicarNombreSucursal" icon="ui-icon-search" process="@this"  actionListener="#{controlVigenciasFormasPagos.cargarSucursalesNuevoRegistro(1)}"/>   
+                            <p:commandButton style="position: absolute; left: 300px; top: 200px;" class="cssBotonLovDialogos"
+                                             value="" id="btnduplicarNombreSucursal" process="@this" actionListener="#{controlVigenciasFormasPagos.cargarSucursalesNuevoRegistro(1)}"/>   
                             <p:watermark for="duplicarNombreSucursal" value="#{msg['sucursal']}" />
 
                             <strong><h:outputText value="*#{msg['formaPagoN']}" style=" position: absolute; top: 245px;" /></strong>
@@ -583,11 +583,11 @@
                                 <p:ajax event="change" listener="#{controlVigenciasFormasPagos.autocompletarNuevoyDuplicado('FORMAPAGO', controlVigenciasFormasPagos.duplicarVigenciaFormasPago.formapago.nombre, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlVigenciasFormasPagos.asignarVariablePeriodicidadNueva(1)}" />
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 300px; top: 240px; background-image: url(Imagenes/Iconos/lupa.png);" 
-                                             value="" id="btnduplicarFormaPago" icon="ui-icon-search" process="@this"  actionListener="#{controlVigenciasFormasPagos.cargarPeriodicidadNuevoRegistro(1)}"/>   
+                            <p:commandButton style="position: absolute; left: 300px; top: 240px;" class="cssBotonLovDialogos"
+                                             value="" id="btnduplicarFormaPago" process="@this" actionListener="#{controlVigenciasFormasPagos.cargarPeriodicidadNuevoRegistro(1)}"/>   
                             <p:watermark for="duplicarFormaPago" value="#{msg['formaPago']}" />
 
-                            <strong><h:outputText value="#{msg['tipoCuentaN']}"  style=" position: absolute; top: 285px;text-transform: uppercase" /></strong>
+                            <strong><h:outputText value="#{msg['tipoCuentaN']}"  style=" position: absolute; top: 285px; text-transform: uppercase" /></strong>
                             <p:inputText  autocomplete="off"  id="duplicarTC" value="#{controlVigenciasFormasPagos.duplicarVigenciaFormasPago.tipocuenta}"  style=" width: 102px; position: absolute; left: 150px; top: 280px;" >
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
@@ -599,8 +599,8 @@
                                 <p:ajax event="change" listener="#{controlVigenciasFormasPagos.autocompletarNuevoyDuplicado('METODOPAGO', controlVigenciasFormasPagos.duplicarVigenciaFormasPago.metodopago.descripcion ,2)}" />
                                 <p:ajax event="dblclick" listener="#{controlVigenciasFormasPagos.asignarVariableMetodosPagosNueva(1)}" />
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 300px; top: 320px; background-image: url(Imagenes/Iconos/lupa.png);" 
-                                             value="" id="btnduplicarMetodoPago" process="@this"  actionListener="#{controlVigenciasFormasPagos.cargarMetodosPagosNuevoRegistro(1)}"/>   
+                            <p:commandButton style="position: absolute; left: 300px; top: 320px;" class="cssBotonLovDialogos" 
+                                             value="" id="btnduplicarMetodoPago" process="@this" actionListener="#{controlVigenciasFormasPagos.cargarMetodosPagosNuevoRegistro(1)}"/>   
                             <p:watermark for="duplicarMetodoPago" value="#{msg['metodoPago']}" />
 
 

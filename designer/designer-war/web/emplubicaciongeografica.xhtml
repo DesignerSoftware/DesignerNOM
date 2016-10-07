@@ -318,7 +318,7 @@
                                 <p:ajax event="change" listener="#{controlVigenciasUbicaciones.autocompletarNuevoyDuplicado('UBICACION', controlVigenciasUbicaciones.nuevaVigencia.ubicacion.descripcion, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlVigenciasUbicaciones.asignarIndex(info, 1)}" />
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 261px; top: 115px;  " id="btnNuevaUbicacion" icon="ui-icon-search" process="@this"  actionListener="#{controlVigenciasUbicaciones.asignarIndex(info, 1)}"/>   
+                            <p:commandButton style="position: absolute; left: 261px; top: 115px;" class="cssBotonLovDialogos" id="btnNuevaUbicacion" process="@this" value="" actionListener="#{controlVigenciasUbicaciones.asignarIndex(info, 1)}"/>   
                             <p:watermark for="nuevaDescripcion" value="#{msg['descripcion']}" />
 
                             <strong><h:outputText value="#{msg['ciudadN']}" style=" position: absolute; top: 153px;" /></strong>
@@ -350,7 +350,7 @@
                                 <p:ajax event="change" listener="#{controlVigenciasUbicaciones.autocompletarNuevoyDuplicado('UBICACION', controlVigenciasUbicaciones.duplicarVU.ubicacion.descripcion, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlVigenciasUbicaciones.asignarIndex(info, 2)}" />
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 261px; top: 115px;  " id="btnDuplicarUbiacion" icon="ui-icon-search" process="@this"  actionListener="#{controlVigenciasUbicaciones.asignarIndex(info, 2)}"/>   
+                            <p:commandButton style="position: absolute; left: 261px; top: 115px;" id="btnDuplicarUbiacion" class="cssBotonLovDialogos" process="@this" value="" actionListener="#{controlVigenciasUbicaciones.asignarIndex(info, 2)}"/>   
                             <p:watermark for="duplicarDescripcion" value="#{msg['descripcion']}" />
 
                             <strong><h:outputText value="#{msg['ciudadN']}" style=" position: absolute; top: 153px;" /></strong>

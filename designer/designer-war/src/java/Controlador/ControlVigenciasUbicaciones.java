@@ -491,7 +491,7 @@ public class ControlVigenciasUbicaciones implements Serializable {
          contador = 0;
          pasa = 0;
       }
-      RequestContext.getCurrentInstance().update("form:NuevoRegistroVU");
+      RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroVU");
    }
 
 //LIMPIAR NUEVO REGISTRO}
@@ -528,7 +528,7 @@ public class ControlVigenciasUbicaciones implements Serializable {
       }
       if (contador > 0) {
          mensajeValidacion = "Fechas NO Repetidas";
-         RequestContext.getCurrentInstance().update("form:validacionFechaDuplicada");
+         RequestContext.getCurrentInstance().update("formularioDialogos:validacionFechaDuplicada");
          RequestContext.getCurrentInstance().execute("PF('validacionFechaDuplicada').show()");
       } else {
          vigenciasUbicaciones.add(duplicarVU);

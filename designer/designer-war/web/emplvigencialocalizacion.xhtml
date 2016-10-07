@@ -780,8 +780,8 @@
 
             <h:form id="formularioDialogos">
 
-               <p:dialog id="NuevoRegistroPagina" widgetVar="NuevoRegistroPagina" header="#{msg['nuevoregistroparaingreso']}" resizable="false" draggable="true" modal="true" height="170" width="350px;"  >
-                  <h:outputText value="#{msg['seleccione']}" style="position: absolute; left: 20px; top: 20px;color: blue;font-weight: bold"/>
+               <p:dialog id="NuevoRegistroPagina" widgetVar="NuevoRegistroPagina" header="#{msg['nuevoregistroparaingreso']}" resizable="false" draggable="true" modal="true" height="170" width="350"  >
+                  <h:outputText value="#{msg['seleccione']}" style="position: absolute; left: 20px; top: 20px; color: blue; font-weight: bold"/>
 
                   <p:commandButton value="#{msg['vl']}" style="position: absolute; left: 75px; top: 60px; width: 200px; height: 27px;"  
                                    actionListener="#{controlVigenciaLocalizacion.validarCualTabla(1)}" onclick="PF('NuevoRegistroPagina').hide();" process="@this" />

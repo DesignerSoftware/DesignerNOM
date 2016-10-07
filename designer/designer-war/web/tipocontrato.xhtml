@@ -501,7 +501,7 @@
                   <h:outputText value="#{msg['errorBorrarRegistro']}" style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight:bold;" />
                </p:dialog>
 
-               <p:dialog id="verificarNuevoRegistro" widgetVar="verificarNuevoRegistro" header="#{msg['nuevoregistropagina']}" resizable="false" draggable="true" modal="true" height="130" width="380px;"  >
+               <p:dialog id="verificarNuevoRegistro" widgetVar="verificarNuevoRegistro" header="#{msg['nuevoregistropagina']}" resizable="false" draggable="true" modal="true" height="130" width="380">
                   <h:outputText value="#{msg['verificarNuevoRegistro']}" style="position: absolute; left: 20px; top: 20px; color: blue; font-weight: bold; width: 340px; text-align: center;"/>
                   <p:commandButton value="#{msg['tipoContrato']}" onclick="PF('verificarNuevoRegistro').hide();" style="position: absolute; left: 90px; top: 50px; width: 200px; height: 30px;" 
                                    oncomplete="PF('NuevoRegistroTipoContrato').show()" update=":formularioDialogos:nuevoTipoContrato"  process="@this" />
@@ -514,14 +514,14 @@
                   <p:panel id="nuevoTipoContrato" style="border: none;">
 
                      <strong><h:outputText value="*#{msg['codigoNTC']}" style="position: absolute; top: 60px; left: 50px;" /></strong>
-                     <p:inputText  autocomplete="off"  id="nuevoTipoContratoCodigo" onclick="select();" maxlength="30" value="#{controlTipoContrato.nuevoTipoContrato.codigo}" 
+                     <p:inputText  autocomplete="off" id="nuevoTipoContratoCodigo" onclick="select();" maxlength="30" value="#{controlTipoContrato.nuevoTipoContrato.codigo}" 
                                    style="width: 122px; position: absolute; left: 200px; top: 55px;">
                         <p:ajax event="change" update="nuevoTipoContratoCodigo"/>
                      </p:inputText>
                      <p:watermark value="#{msg['codigo']}" for="nuevoTipoContratoCodigo"/>
 
                      <strong><h:outputText value="*#{msg['nombreNTC']}" style="position: absolute; top: 90px; left: 50px;" /></strong>
-                     <p:inputText  autocomplete="off"  id="nuevoTipoContratoNombre" maxlength="30" onclick="select();" value="#{controlTipoContrato.nuevoTipoContrato.nombre}"
+                     <p:inputText  autocomplete="off" id="nuevoTipoContratoNombre" maxlength="30" onclick="select();" value="#{controlTipoContrato.nuevoTipoContrato.nombre}"
                                    style="width: 122px; position: absolute; left: 200px; top: 85px;">
                         <p:ajax event="change" update="nuevoTipoContratoNombre"/>
                      </p:inputText>

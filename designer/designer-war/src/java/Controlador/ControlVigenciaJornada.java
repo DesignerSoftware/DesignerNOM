@@ -1149,13 +1149,13 @@ public class ControlVigenciaJornada implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       if (tabla == 1) {
          //Dialogo de nuevo registro vigencias localizaciones
-         RequestContext.getCurrentInstance().update("form:NuevoRegistroVJ");
+         RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroVJ");
          RequestContext.getCurrentInstance().execute("PF('NuevoRegistroVJ').show()");
       }
       if (tabla == 2) {
          if (vigenciaJornadaSeleccionada != null) {
             nuevaVigenciaCT = new VigenciasCompensaciones();
-            RequestContext.getCurrentInstance().update("form:NuevoRegistroVCT");
+            RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroVCT");
             RequestContext.getCurrentInstance().execute("PF('NuevoRegistroVCT').show()");
          } else {
             RequestContext.getCurrentInstance().execute("PF('seleccionarRegistroJT').show()");
@@ -1164,7 +1164,7 @@ public class ControlVigenciaJornada implements Serializable {
       if (tabla == 3) {
          if (vigenciaJornadaSeleccionada != null) {
             nuevaVigenciaCD = new VigenciasCompensaciones();
-            RequestContext.getCurrentInstance().update("form:NuevoRegistroVCD");
+            RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroVCD");
             RequestContext.getCurrentInstance().execute("PF('NuevoRegistroVCD').show()");
          } else {
             RequestContext.getCurrentInstance().execute("PF('seleccionarRegistroJT').show()");
@@ -2181,17 +2181,17 @@ public class ControlVigenciaJornada implements Serializable {
                RequestContext.getCurrentInstance().execute("PF('NuevoRegistroPagina').show()");
             } else {
                if (vigenciaJornadaSeleccionada != null) {
-                  RequestContext.getCurrentInstance().update("form:NuevoRegistroVJ");
+                  RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroVJ");
                   RequestContext.getCurrentInstance().execute("PF('NuevoRegistroVJ').show()");
                }
                if (vigenciaTiempoSeleccionada != null) {
                   nuevaVigenciaCT = new VigenciasCompensaciones();
-                  RequestContext.getCurrentInstance().update("form:NuevoRegistroVCT");
+                  RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroVCT");
                   RequestContext.getCurrentInstance().execute("PF('NuevoRegistroVCT').show()");
                }
                if (vigenciaDineroSeleccionada != null) {
                   nuevaVigenciaCD = new VigenciasCompensaciones();
-                  RequestContext.getCurrentInstance().update("form:NuevoRegistroVCD");
+                  RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroVCD");
                   RequestContext.getCurrentInstance().execute("PF('NuevoRegistroVCD').show()");
                }
             }

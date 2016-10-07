@@ -260,8 +260,8 @@ public class ControlVigenciaLocalizacion implements Serializable {
     * @param sec Secuencia del Empleado
     */
    public void recibirEmpleado(Empleados empl) {
-      getVigenciaLocalizaciones();
       empleado = empl;
+      getVigenciaLocalizaciones();
       if (vigenciaLocalizaciones != null) {
          if (!vigenciaLocalizaciones.isEmpty()) {
             vigenciaLocalizacionSeleccionada = vigenciaLocalizaciones.get(0);

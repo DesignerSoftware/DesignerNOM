@@ -923,7 +923,7 @@ public class ControlVigenciasFormasPagos implements Serializable {
       nuevaVigenciaFormasPago.getSucursal().setNombre(" ");
       nuevaVigenciaFormasPago.setMetodopago(new MetodosPagos());
       nuevaVigenciaFormasPago.getMetodopago().setDescripcion(" ");
-      RequestContext.getCurrentInstance().update("form:nuevoTipoEntidad");
+      RequestContext.getCurrentInstance().update("formularioDialogos:nuevoTipoEntidad");
    }
    private String nuevoNombreSucursal, nuevoNombrePeriodicidad, nuevoNombreMetodoPago;
 

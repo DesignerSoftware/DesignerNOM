@@ -717,14 +717,13 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
             panelRetiradosMensaje = (Panel) c.getViewRoot().findComponent("form:panelRetiradosMensaje");
             panelRetiradosMensaje.setStyle("position: absolute; left: 440px; top: 310px; font-size: 12px; width: 415px; height: 185px; border-radius: 10px; text-align: left; visibility: visible");
 
-            RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:panelRetiradosInput");
             RequestContext.getCurrentInstance().update("form:panelRetiradosMensaje");
             RequestContext.getCurrentInstance().update("form:panelPensionadosInput");
             RequestContext.getCurrentInstance().update("form:panelPensionadosMensaje");
 
             RequestContext.getCurrentInstance().update("form:datosVTTEmpleado");
-            RequestContext.getCurrentInstance().execute("PF('NuevoRegistroVTT.hide();");
+            RequestContext.getCurrentInstance().execute("PF('NuevoRegistroVTT').hide();");
             if (cambiosPagina) {
                cambiosPagina = false;
                RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -856,7 +855,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
                   cerrarFiltrado();
                }
                duplicarVTT = new VigenciasTiposTrabajadores();
-               RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroVTT.hide();");
+               RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroVTT').hide();");
             } else {
                RequestContext.getCurrentInstance().execute("PF('errorFechaVTT').show()");
             }
