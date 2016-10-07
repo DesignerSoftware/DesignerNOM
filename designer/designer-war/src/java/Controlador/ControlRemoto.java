@@ -219,7 +219,6 @@ public class ControlRemoto implements Serializable {
    }
 
    public void valorInputText() throws ParseException {
-      System.out.println("Entro en valorInputText()");
       trabajador = vwActualesTiposTrabajadoresPosicion;
       if (trabajador.getEmpleado() != null) {
          secuencia = trabajador.getEmpleado().getSecuencia();
@@ -347,7 +346,7 @@ public class ControlRemoto implements Serializable {
       } catch (Exception e) {
          actualComprobante = null;
       }
-      RequestContext.getCurrentInstance().update("form:tabmenu:contenedor");
+      //RequestContext.getCurrentInstance().update("formulario:info:VCargoDesempeñado");
       //FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("formulario:VCargoDesempeñado");
    }
 
@@ -597,6 +596,7 @@ public class ControlRemoto implements Serializable {
 
    public void busquedaRapida() {
       System.out.println("Entro en busqueda Rapida()");
+      RequestContext context = RequestContext.getCurrentInstance();
       filterBusquedaRapida = null;
       VWActualesTiposTrabajadores empleadoSeleccionado = administrarCarpetaPersonal.consultarActualTipoTrabajadorEmpleado(emplSeleccionado.getRfEmpleado());
       if (empleadoSeleccionado.getTipoTrabajador().getTipo().equalsIgnoreCase("activo")) {
@@ -664,7 +664,7 @@ public class ControlRemoto implements Serializable {
          tipo = "DISPONIBLE";
       }
 
-      RequestContext.getCurrentInstance().reset("form:lvbusquedarapida:globalFilter");
+      context.reset("form:lvbusquedarapida:globalFilter");
       RequestContext.getCurrentInstance().execute("PF('lvbusquedarapida').clearFilters()");
       RequestContext.getCurrentInstance().execute("PF('lvbr').hide()");
       RequestContext.getCurrentInstance().update("form:lvbusquedarapida");
@@ -1011,12 +1011,13 @@ public class ControlRemoto implements Serializable {
    public void actualizarInformacionTipoTrabajador() {
       System.out.println("actualizarInformacionTipoTrabajador() 1");
       informacionTiposTrabajadores = "Reg. " + (posicion + 1) + " de " + totalRegistros;
-      RequestContext.getCurrentInstance().update("form:tabmenu:contenedor");
+//        RequestContext.getCurrentInstance().update("form:tabmenu:informaciontt");
       System.out.println("actualizarInformacionTipoTrabajador() 2");
    }
 
    public void actualizarNavegacion() {
       System.out.println("actualizarNavegacion() 1");
+      RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("form:tabmenu:btnprimero");
       RequestContext.getCurrentInstance().update("form:tabmenu:btnatras");
       RequestContext.getCurrentInstance().update("form:tabmenu:btnsiguiente");
@@ -1178,7 +1179,7 @@ public class ControlRemoto implements Serializable {
       this.nombreTabla = nombreTabla;
    }
 
-    public VWActualesTiposTrabajadores getVwActualesTiposTrabajadoresesPosicion() {
+   public VWActualesTiposTrabajadores getVwActualesTiposTrabajadoresesPosicion() {
       return vwActualesTiposTrabajadoresPosicion;
    }
 
@@ -1331,7 +1332,7 @@ public class ControlRemoto implements Serializable {
       return buscarEmp;
    }
 
-    public boolean isMostrarT() {
+   public boolean isMostrarT() {
       return mostrarT;
    }
 
@@ -1730,6 +1731,13 @@ public class ControlRemoto implements Serializable {
    }
 
    public String getInformacionTiposTrabajadores() {
+      try{
+         valorInputText();
+         RequestContext.getCurrentInstance().update("formulario:info:VCargoDesempeñado");
+      }
+      catch(Exception e){
+         System.out.println("ERROR getInformacionTiposTrabajadores() : " + e.getCause());
+      }
       return informacionTiposTrabajadores;
    }
 
