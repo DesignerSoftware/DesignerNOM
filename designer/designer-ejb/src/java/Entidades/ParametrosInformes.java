@@ -252,6 +252,9 @@ public class ParametrosInformes implements Serializable {
     }
 
     public void setTipoparatrabajador(String tipoparatrabajador) {
+        if (tipoparatrabajador.isEmpty()) {
+            tipoparatrabajador = null;
+        }
         this.tipoparatrabajador = tipoparatrabajador;
     }
 
@@ -304,11 +307,13 @@ public class ParametrosInformes implements Serializable {
     }
 
     public String getEstadosolucionnodo() {
-        
         return estadosolucionnodo;
     }
 
     public void setEstadosolucionnodo(String estadosolucionnodo) {
+        if (estadosolucionnodo.isEmpty()) {
+            estadosolucionnodo = null;
+        }
         this.estadosolucionnodo = estadosolucionnodo;
     }
 

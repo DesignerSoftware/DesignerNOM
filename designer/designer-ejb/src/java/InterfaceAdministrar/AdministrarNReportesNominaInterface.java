@@ -11,7 +11,7 @@ import Entidades.Empresas;
 import Entidades.Estructuras;
 import Entidades.GruposConceptos;
 import Entidades.Inforeportes;
-import Entidades.ParametrosInformes;
+import Entidades.ParametrosReportes;
 import Entidades.Procesos;
 import Entidades.Terceros;
 import Entidades.TiposAsociaciones;
@@ -35,7 +35,7 @@ public interface AdministrarNReportesNominaInterface {
      *
      * @return
      */
-    public ParametrosInformes parametrosDeReporte();
+    public ParametrosReportes parametrosDeReporte();
 
     /**
      *
@@ -59,7 +59,7 @@ public interface AdministrarNReportesNominaInterface {
      *
      * @param parametroInforme
      */
-    public void modificarParametrosInformes(ParametrosInformes parametroInforme);
+    public void modificarParametrosReportes(ParametrosReportes parametroInforme);
 
     public List<Asociaciones> listAsociaciones();
 
