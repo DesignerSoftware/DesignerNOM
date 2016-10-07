@@ -126,7 +126,6 @@ public class ControlHvReferencias1 implements Serializable {
         listHvReferencias1 = null;
         empleado = administrarHvReferencias1.empleadoActual(sec);
         getListHvReferencias1();
-        contarRegistros();
         deshabilitarBotonLov();
         if (!listHvReferencias1.isEmpty()) {
             hvReferencia1Seleccionada = listHvReferencias1.get(0);
@@ -554,8 +553,6 @@ public class ControlHvReferencias1 implements Serializable {
         filtradoTiposFamiliares = null;
         tipoFamiliarSeleccionado = null;
         aceptar = true;
-        hvReferencia1Seleccionada = null;
-        hvReferencia1Seleccionada = null;
         tipoActualizacion = -1;
         cualCelda = -1;
         context.reset("form:lovTiposFamiliares:globalFilter");
@@ -566,12 +563,9 @@ public class ControlHvReferencias1 implements Serializable {
     }
 
     public void cancelarCambioTiposFamiliares() {
-        hvReferencia1Seleccionada.setParentesco(tipoFamiliarSeleccionado);
         filtradoTiposFamiliares = null;
         tipoFamiliarSeleccionado = null;
         aceptar = true;
-        hvReferencia1Seleccionada = null;
-        hvReferencia1Seleccionada = null;
         tipoActualizacion = -1;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
@@ -860,7 +854,7 @@ public class ControlHvReferencias1 implements Serializable {
 
         listHvHojasDeVida = administrarHvReferencias1.consultarHvHojasDeVida(empleado.getPersona().getSecuencia());
         if (listHvHojasDeVida == null) {
-             System.err.println("ERROR NULO HVHOJASDEVIDA PARA LA SECUENCIA DE PERSONA :" + empleado.getPersona().getSecuencia());
+            System.err.println("ERROR NULO HVHOJASDEVIDA PARA LA SECUENCIA DE PERSONA :" + empleado.getPersona().getSecuencia());
         } else {
             System.err.println("tamaño listHojasDeVida " + listHvHojasDeVida.size());
             hvHojasDeVida = listHvHojasDeVida.get(0);
@@ -921,8 +915,8 @@ public class ControlHvReferencias1 implements Serializable {
             RequestContext.getCurrentInstance().execute("PF('nuevoRegistroHvReferencias').hide()");
 
         } else {
-            RequestContext.getCurrentInstance().update("form:validacionNuevaCentroCosto");
-            RequestContext.getCurrentInstance().execute("PF('validacionNuevaCentroCosto').show()");
+            RequestContext.getCurrentInstance().update("form:validacionNuevaRefPersonal");
+            RequestContext.getCurrentInstance().execute("PF('validacionNuevaRefPersonal').show()");
             contador = 0;
         }
     }
@@ -1289,6 +1283,9 @@ public class ControlHvReferencias1 implements Serializable {
     }
 
     public String getInfoRegistro() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosHvReferencia");
+        infoRegistro = String.valueOf(tabla.getRowCount());
         return infoRegistro;
     }
 

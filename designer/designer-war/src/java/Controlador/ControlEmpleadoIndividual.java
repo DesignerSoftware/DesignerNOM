@@ -104,9 +104,9 @@ public class ControlEmpleadoIndividual implements Serializable {
     private List<TiposDocumentos> listaTiposDocumentos;
     private List<TiposDocumentos> filtradoListaTiposDocumentos;
     private TiposDocumentos seleccionTipoDocumento;
-    private List<Ciudades> listaCiudades;
-    private List<Ciudades> filtradoListaCiudades;
-    private Ciudades seleccionCiudad;
+    private List<Ciudades> listaCiudades, listaCiudadesDocumento;
+    private List<Ciudades> filtradoListaCiudades, filtradoCiudadesDocumento;
+    private Ciudades seleccionCiudad, seleccionCiudadDocumento;
     private List<Cargos> listaCargos;
     private List<Cargos> filtradoListaCargos;
     private Cargos seleccionCargo;
@@ -115,7 +115,7 @@ public class ControlEmpleadoIndividual implements Serializable {
     private String cabezeraDialogoCiudad;
     private int dialogo;
     //AUTOCOMPLETAR
-    private String tipoDocumento, ciudad, cargoPostulado;
+    private String tipoDocumento, ciudad, ciudaddocumento, cargoPostulado;
     //EXPORTAR DATOS 
     private List<EmpleadoIndividualExportar> empleadoIndividualExportar;
     //RASTRO
@@ -140,7 +140,7 @@ public class ControlEmpleadoIndividual implements Serializable {
     private FileInputStream fis;
     private boolean existenHV;
     //
-    private String infoRegistroTipoDocumento, infoRegistroCiudad, infoRegistroCargo;
+    private String infoRegistroTipoDocumento, infoRegistroCiudad, infoRegistroCargo, infoRegistroCiudadDocumento;
 
     public ControlEmpleadoIndividual() {
         formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
@@ -153,7 +153,7 @@ public class ControlEmpleadoIndividual implements Serializable {
         existenHV = true;
         persona = new Personas();
         persona.setCiudaddocumento(new Ciudades());
-        persona.setCiudaddocumento(new Ciudades());
+        persona.setCiudadnacimiento(new Ciudades());
         hojaDeVidaPersona = new HVHojasDeVida();
 //        hojaDeVidaPersona.setPerfilprofesional(" ");
     }
@@ -180,6 +180,7 @@ public class ControlEmpleadoIndividual implements Serializable {
 //        getFotoEmpleado();
         listaTiposDocumentos = null;
         listaCiudades = null;
+        listaCiudadesDocumento = null;
         listaCargos = null;
         guardado = true;
     }
@@ -379,20 +380,19 @@ public class ControlEmpleadoIndividual implements Serializable {
         modificacionCiudad = modificacion;
         if (modificacionCiudad == 0) {
             cabezeraDialogoCiudad = "Ciudad documento";
+        RequestContext.getCurrentInstance().update("formDialogos:CiudadesDocumentoDialogo");
+        RequestContext.getCurrentInstance().execute("PF('CiudadesDocumentoDialogo').show()");
         } else if (modificacionCiudad == 1) {
             cabezeraDialogoCiudad = "Ciudad nacimiento";
-        }
         RequestContext.getCurrentInstance().update("formDialogos:CiudadesDialogo");
         RequestContext.getCurrentInstance().execute("PF('CiudadesDialogo').show()");
+        }
     }
 
     public void seleccionarCiudad() {
         if (seleccionCiudad != null && persona != null) {
             RequestContext context = RequestContext.getCurrentInstance();
-            if (modificacionCiudad == 0) {
-                persona.setCiudaddocumento(seleccionCiudad);
-                RequestContext.getCurrentInstance().update("form:lugarExpedicion");
-            } else if (modificacionCiudad == 1) {
+            if (modificacionCiudad == 1) {
                 persona.setCiudadnacimiento(seleccionCiudad);
                 RequestContext.getCurrentInstance().update("form:lugarNacimiento");
             }
@@ -403,7 +403,6 @@ public class ControlEmpleadoIndividual implements Serializable {
                 guardado = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
-            seleccionCiudad = null;
             filtradoListaCiudades = null;
             aceptar = true;
             context.reset("formDialogos:lovCiudades:globalFilter");
@@ -416,7 +415,6 @@ public class ControlEmpleadoIndividual implements Serializable {
     }
 
     public void cancelarSeleccionCiudad() {
-        seleccionCiudad = null;
         filtradoListaCiudades = null;
         aceptar = true;
         modificacionCiudad = -1;
@@ -425,6 +423,42 @@ public class ControlEmpleadoIndividual implements Serializable {
         context.reset("formDialogos:lovCiudades:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('lovCiudades').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('CiudadesDialogo').hide()");
+    }
+
+    public void seleccionarCiudadDocumento() {
+        if (seleccionCiudadDocumento != null && persona != null) {
+            RequestContext context = RequestContext.getCurrentInstance();
+            if (modificacionCiudad == 0) {
+                persona.setCiudaddocumento(seleccionCiudadDocumento);
+                RequestContext.getCurrentInstance().update("form:lugarExpedicion");
+            }
+            if (!modificacionPersona) {
+                modificacionPersona = true;
+            }
+            if (guardado) {
+                guardado = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            }
+            filtradoCiudadesDocumento = null;
+            aceptar = true;
+            context.reset("formDialogos:lovCiudades:globalFilter");
+            RequestContext.getCurrentInstance().execute("PF('lovCiudadesDocumento').clearFilters()");
+            RequestContext.getCurrentInstance().execute("PF('CiudadesDocumentoDialogo').hide()");
+            //RequestContext.getCurrentInstance().update("formDialogos:lovCiudades");
+            modificacionCiudad = -1;
+            dialogo = -1;
+        }
+    }
+
+    public void cancelarSeleccionCiudadDocumento() {
+        filtradoCiudadesDocumento = null;
+        aceptar = true;
+        modificacionCiudad = -1;
+        dialogo = -1;
+        RequestContext context = RequestContext.getCurrentInstance();
+        context.reset("formDialogos:lovCiudades:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('lovCiudadesDocumento').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('CiudadesDocumentoDialogo').hide()");
     }
 
     public void seleccionarCargo() {
@@ -469,7 +503,7 @@ public class ControlEmpleadoIndividual implements Serializable {
             nombreTabla = "Personas";
         } else if (Campo.equals("CIUDADDOCUMENTO")) {
             modificacionCiudad = 0;
-            ciudad = persona.getCiudaddocumento().getNombre();
+            ciudaddocumento = persona.getCiudaddocumento().getNombre();
             dialogo = 1;
             nombreTabla = "Personas";
         } else if (Campo.equals("CIUDADNACIMIENTO")) {
@@ -515,7 +549,7 @@ public class ControlEmpleadoIndividual implements Serializable {
             }
         } else if (confirmarCambio.equalsIgnoreCase("CIUDAD")) {
             if (modificacionCiudad == 0) {
-                persona.getCiudaddocumento().setNombre(ciudad);
+                persona.getCiudaddocumento().setNombre(ciudaddocumento);
             } else if (modificacionCiudad == 1) {
                 persona.getCiudadnacimiento().setNombre(ciudad);
             }
@@ -526,10 +560,7 @@ public class ControlEmpleadoIndividual implements Serializable {
                 }
             }
             if (coincidencias == 1) {
-                if (modificacionCiudad == 0) {
-                    persona.setCiudaddocumento(listaCiudades.get(indiceUnicoElemento));
-                    RequestContext.getCurrentInstance().update("form:lugarExpedicion");
-                } else if (modificacionCiudad == 1) {
+                if (modificacionCiudad == 1) {
                     persona.setCiudadnacimiento(listaCiudades.get(indiceUnicoElemento));
                     RequestContext.getCurrentInstance().update("form:lugarNacimiento");
                 }
@@ -544,15 +575,45 @@ public class ControlEmpleadoIndividual implements Serializable {
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
             } else {
-                if (modificacionCiudad == 0) {
-                    cabezeraDialogoCiudad = "Ciudad documento";
-                    RequestContext.getCurrentInstance().update("form:lugarExpedicion");
-                } else if (modificacionCiudad == 1) {
+                if (modificacionCiudad == 1) {
                     cabezeraDialogoCiudad = "Ciudad nacimiento";
                     RequestContext.getCurrentInstance().update("formularioDialogos:lugarNacimiento");
                 }
                 RequestContext.getCurrentInstance().update("formDialogos:CiudadesDialogo");
                 RequestContext.getCurrentInstance().execute("PF('CiudadesDialogo').show()");
+            }
+        } else if (confirmarCambio.equalsIgnoreCase("CIUDADDOCUMENTO")) {
+            if (modificacionCiudad == 0) {
+                persona.getCiudaddocumento().setNombre(ciudaddocumento);
+            }
+            for (int i = 0; i < listaCiudadesDocumento.size(); i++) {
+                if (listaCiudadesDocumento.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+                    indiceUnicoElemento = i;
+                    coincidencias++;
+                }
+            }
+            if (coincidencias == 1) {
+                if (modificacionCiudad == 0) {
+                    persona.setCiudaddocumento(listaCiudadesDocumento.get(indiceUnicoElemento));
+                    RequestContext.getCurrentInstance().update("form:lugarExpedicion");
+                }
+                listaCiudadesDocumento = null;
+                getListaCiudadesDocumento();
+
+                if (!modificacionPersona) {
+                    modificacionPersona = true;
+                }
+                if (guardado) {
+                    guardado = false;
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                }
+            } else {
+                if (modificacionCiudad == 0) {
+                    cabezeraDialogoCiudad = "Ciudad documento";
+                    RequestContext.getCurrentInstance().update("form:lugarExpedicion");
+                }
+                RequestContext.getCurrentInstance().update("formDialogos:CiudadesDocumentoDialogo");
+                RequestContext.getCurrentInstance().execute("PF('CiudadesDocumentoDialogo').show()");
             }
         } else if (confirmarCambio.equalsIgnoreCase("CARGOPOSTULADO")) {
             hojaDeVidaPersona.getCargo().setNombre(cargoPostulado);
@@ -1163,6 +1224,14 @@ public class ControlEmpleadoIndividual implements Serializable {
         this.seleccionCiudad = seleccionCiudades;
     }
 
+    public Ciudades getSeleccionCiudadDocumento() {
+        return seleccionCiudadDocumento;
+    }
+
+    public void setSeleccionCiudadDocumento(Ciudades seleccionCiudadDocumento) {
+        this.seleccionCiudadDocumento = seleccionCiudadDocumento;
+    }
+
     public List<Cargos> getListaCargos() {
         if (listaCargos == null) {
             listaCargos = administrarEmpleadoIndividual.cargos();
@@ -1316,6 +1385,33 @@ public class ControlEmpleadoIndividual implements Serializable {
 
     public void setInfoRegistroCargo(String infoRegistroCargo) {
         this.infoRegistroCargo = infoRegistroCargo;
+    }
+
+    public List<Ciudades> getListaCiudadesDocumento() {
+        if (listaCiudadesDocumento == null) {
+            listaCiudadesDocumento = administrarEmpleadoIndividual.ciudades();
+        }
+        return listaCiudadesDocumento;
+    }
+
+    public void setListaCiudadesDocumento(List<Ciudades> listaCiudadesDocumento) {
+        this.listaCiudadesDocumento = listaCiudadesDocumento;
+    }
+
+    public List<Ciudades> getFiltradoCiudadesDocumento() {
+        return filtradoCiudadesDocumento;
+    }
+
+    public void setFiltradoCiudadesDocumento(List<Ciudades> filtradoCiudadesDocumento) {
+        this.filtradoCiudadesDocumento = filtradoCiudadesDocumento;
+    }
+
+    public String getInfoRegistroCiudadDocumento() {
+        return infoRegistroCiudadDocumento;
+    }
+
+    public void setInfoRegistroCiudadDocumento(String infoRegistroCiudadDocumento) {
+        this.infoRegistroCiudadDocumento = infoRegistroCiudadDocumento;
     }
 
 }

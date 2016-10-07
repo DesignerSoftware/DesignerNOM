@@ -113,7 +113,6 @@ public class ControlHvReferencias implements Serializable {
             listHvReferencias = null;
             empleado = administrarHvReferencias.empleadoActual(secuencia);
             getListHvReferencias();
-            contarRegistros();
             deshabilitarBotonLov();
             if(!listHvReferencias.isEmpty()){
                 hvReferenciaSeleccionada = listHvReferencias.get(0);

@@ -77,10 +77,6 @@
                             <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;" />
                             <h:outputText id="nombreEmpleado" value="#{controlHvReferencias.empleado.persona.nombreCompleto}" 
                                           style="font-weight: bold; color: #BF1A1A; position: relative; left: 10px; top: 5px"/>
-
-                            <h:outputText value="#{msg['codigo']}" style="font-weight: bold; color: #14388B; position: relative; left: 120px; top: 5px;" />
-                            <h:outputText id="docEmpleado" value="#{controlHvReferencias.empleado.codigoempleado}" 
-                                          style="font-weight: bold; color: #BF1A1A; position: relative; left: 130px; top: 5px;" />
                         </fieldset>
                         
                         <fieldset style="position: absolute;top: 110px;left: 10px;height: 350px;width: 830px; border-radius: 10px; text-align: left">
@@ -100,7 +96,7 @@
                                 <p:ajax event="filter" listener="#{controlHvReferencias.eventoFiltrar()}"/>
                                 <f:event type="preRenderView" listener="#{controlHvReferencias.recordarSeleccion()}"/>
 
-                                <p:column headerText="Nombre"  sortBy="#{info.nombrepersona}" filterBy="#{info.nombrepersona}" filterMatchMode="contains" id="nombre" width="275" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="#{msg['nombre']}"  sortBy="#{info.nombrepersona}" filterBy="#{info.nombrepersona}" filterMatchMode="contains" id="nombre" width="275" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.nombrepersona}"  /></f:facet>  
                                         <f:facet name="input">
@@ -114,7 +110,7 @@
                                 </p:column>
 
 
-                                <p:column headerText="Cargo" sortBy="#{info.cargo}" filterBy="#{info.cargo}" filterMatchMode="contains" id="cargo" width="150" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="#{msg['cargo']}" sortBy="#{info.cargo}" filterBy="#{info.cargo}" filterMatchMode="contains" id="cargo" width="150" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.cargo}"  /></f:facet>  
                                         <f:facet name="input">
@@ -127,7 +123,7 @@
 
                                 </p:column>
 
-                                <p:column headerText="Número de Telefono" sortBy="#{info.telefono}" filterBy="#{info.telefono}" filterMatchMode="contains" id="numTelefono" width="150" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="#{msg['telefono']}" sortBy="#{info.telefono}" filterBy="#{info.telefono}" filterMatchMode="contains" id="numTelefono" width="150" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.telefono}"  /></f:facet>  
                                         <f:facet name="input">
@@ -139,7 +135,7 @@
                                     </p:cellEditor>
 
                                 </p:column>
-                                <p:column headerText="Número de Celular" sortBy="#{info.celular}" filterBy="#{info.celular}" filterMatchMode="contains" id="numCelular" width="150" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="#{msg['celular']}" sortBy="#{info.celular}" filterBy="#{info.celular}" filterMatchMode="contains" id="numCelular" width="150" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.celular}"  /></f:facet>  
                                         <f:facet name="input">
@@ -256,13 +252,13 @@
                     <p:dialog id="editNombre" header="Nombre" widgetVar="editNombre" resizable="false" draggable="true" modal="true" height="80" width="400" style="text-transform: uppercase">  
                         <p:inputTextarea value="#{controlHvReferencias.editarHvReferencia.nombrepersona}" style="overflow: auto; width: 60px; height: 360px;" readonly="true"/>
                     </p:dialog>
-                    <p:dialog id="editCargo" header="Cargo" widgetVar="editCargo" resizable="false" draggable="true" modal="true" height="55" width="260" style="text-transform: uppercase">  
+                    <p:dialog id="editCargo" header="Cargo" widgetVar="editCargo" resizable="false" draggable="true" modal="true" height="80" width="400" style="text-transform: uppercase">  
                         <p:inputTextarea value="#{controlHvReferencias.editarHvReferencia.cargo}" style="overflow: auto; width: 60px; height: 360px;" readonly="true"/>
                     </p:dialog>
-                    <p:dialog id="editTelefono" header="Telefono" widgetVar="editTelefono" resizable="false" draggable="true" modal="true" height="55" width="260" style="text-transform: uppercase">  
+                    <p:dialog id="editTelefono" header="Telefono" widgetVar="editTelefono" resizable="false" draggable="true" modal="true" height="80" width="400" style="text-transform: uppercase">  
                         <p:inputTextarea value="#{controlHvReferencias.editarHvReferencia.telefono}" style="overflow: auto; width: 60px; height: 360px;" readonly="true"/>
                     </p:dialog>
-                    <p:dialog id="editCelular" header="Celular" widgetVar="editCelular" resizable="false" draggable="true" modal="true" height="55" width="260" style="text-transform: uppercase">  
+                    <p:dialog id="editCelular" header="Celular" widgetVar="editCelular" resizable="false" draggable="true" modal="true" height="80" width="400" style="text-transform: uppercase">  
                         <p:inputTextarea value="#{controlHvReferencias.editarHvReferencia.celular}" style="overflow: auto; width: 60px; height: 360px;" readonly="true"/>
                     </p:dialog>
 
@@ -274,28 +270,28 @@
                         <p:panel id="nuevooHvReferenciaLab" style="border: none;">
 
 
-                            <strong><h:outputText value="*Nombre :"  style=" position: absolute; top: 60px;" /></strong>
+                            <strong><h:outputText value="*#{msg['nombre']} :"  style=" position: absolute; top: 60px;" /></strong>
                             <p:inputText  autocomplete="off"   id="nuevoNombre" maxlength="100" value="#{controlHvReferencias.nuevoHvReferencia.nombrepersona}" style=" width: 140px; position: absolute; left: 175px; top: 55px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
-                            <p:watermark for="nuevoNombre" value="Nombre" />
-                            <strong><h:outputText value="Cargo :"  style=" position: absolute; top: 90px;" /></strong>
+                            <p:watermark for="nuevoNombre" value="#{msg['nombre']}" />
+                            <strong><h:outputText value="#{msg['cargo']} :"  style=" position: absolute; top: 90px;" /></strong>
                             <p:inputText  autocomplete="off"   id="nuevoCargo" maxlength="50" value="#{controlHvReferencias.nuevoHvReferencia.cargo}" style=" width: 140px; position: absolute; left: 175px; top: 85px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
-                            <p:watermark for="nuevoCargo" value="Cargo" />
-                            <strong><h:outputText value="Número de Telefono :" style=" position: absolute; top: 120px;" /></strong>
+                            <p:watermark for="nuevoCargo" value="#{msg['cargo']}" />
+                            <strong><h:outputText value="#{msg['telefono']} :" style=" position: absolute; top: 120px;" /></strong>
                             <p:inputText  autocomplete="off"   id="newTelefono" maxlength="12" value="#{controlHvReferencias.nuevoHvReferencia.telefono}" style=" width: 140px; position: absolute; left: 175px; top: 115px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
-                            <p:watermark for="newTelefono" value="Telefono" />
+                            <p:watermark for="newTelefono" value="#{msg['telefono']}" />
 
 
-                            <strong><h:outputText value="Número de Celular :"  style=" position: absolute; top: 150px;" /></strong>
+                            <strong><h:outputText value="#{msg['celular']} :"  style=" position: absolute; top: 150px;" /></strong>
                             <p:inputText  autocomplete="off"   id="newCelular" maxlength="12" value="#{controlHvReferencias.nuevoHvReferencia.celular}" style="width: 140px;position: absolute; left: 175px; top: 145px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
-                            <p:watermark for="newCelular" value="Celular" />
+                            <p:watermark for="newCelular" value="#{msg['celular']}" />
                             <p:commandButton id="limpiar" icon="ui-icon-trash" value="Limpiar" style=" position: absolute; left: 20px; top: 180px;"  actionListener="#{controlHvReferencias.limpiarNuevoHvReferencias()}" update="nuevooHvReferenciaLab" process="@this"/>
                             <p:commandButton id="agregarTE" icon="ui-icon-circle-check" value="Agregar" style=" position: absolute; left: 120px; top: 180px;" actionListener="#{controlHvReferencias.agregarNuevoHvRefencias()}" process="@this" />
                             <p:commandButton id="cancelarTE" icon="ui-icon-circle-close" value="Cancelar" style=" position: absolute; left: 220px; top: 180px;"  update="nuevooHvReferenciaLab" onclick="PF('nuevoRegistroHvReferencias').hide();"  actionListener="#{controlHvReferencias.limpiarNuevoHvReferencias()}"  process="@this"/>
@@ -310,28 +306,29 @@
                         <p:panel id="duplicarRRL" style="border: none;">
 
 
-                            <strong><h:outputText value="*Nombre:"  style=" position: absolute; top: 60px;" /></strong>
+                            <strong><h:outputText value="*#{msg['nombre']}:"  style=" position: absolute; top: 60px;" /></strong>
                             <p:inputText  autocomplete="off"   id="duplicarNombre" maxlength="100" value="#{controlHvReferencias.duplicarHvReferencia.nombrepersona}" style=" width: 140px; position: absolute; left: 175px; top: 55px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
-                            <p:watermark for="duplicarNombre" value="Nombre" />
-                            <strong><h:outputText value="Cargo:"  style=" position: absolute; top: 90px;" /></strong>
+                            <p:watermark for="duplicarNombre" value="#{msg['nombre']}" />
+                            <strong><h:outputText value="#{msg['cargo']}:"  style=" position: absolute; top: 90px;" /></strong>
                             <p:inputText  autocomplete="off"   id="duplicarCargo" maxlength="50" value="#{controlHvReferencias.duplicarHvReferencia.cargo}" style=" width: 140px; position: absolute; left: 175px; top: 85px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
-                            <p:watermark for="duplicarCargo" value="Cargo" />
-                            <strong><h:outputText value="Número de Telefono:"  style=" position: absolute; top: 120px;" /></strong>
+                            <p:watermark for="duplicarCargo" value="#{msg['cargo']}" />
+                            
+                            <strong><h:outputText value="#{msg['telefono']}:"  style=" position: absolute; top: 120px;" /></strong>
                             <p:inputText  autocomplete="off"   id="duplicarTelefono" maxlength="12" value="#{controlHvReferencias.duplicarHvReferencia.telefono}" style=" width: 140px; position: absolute; left: 175px; top: 115px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
-                            <p:watermark for="duplicarTelefono" value="Telefono" />
+                            <p:watermark for="duplicarTelefono" value="#{msg['telefono']}" />
 
 
-                            <strong><h:outputText value="Número de Celular:"  style=" position: absolute; top: 150px;" /></strong>
+                            <strong><h:outputText value="#{msg['celular']}:"  style=" position: absolute; top: 150px;" /></strong>
                             <p:inputText  autocomplete="off"   id="duplicarCelular" maxlength="12" value="#{controlHvReferencias.duplicarHvReferencia.celular}" style="width: 140px;position: absolute; left: 175px; top: 145px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
-                            <p:watermark for="duplicarCelular" value="Celular" />
+                            <p:watermark for="duplicarCelular" value="#{msg['celular']}" />
 
                             <p:commandButton id="limpiarD" icon="ui-icon-trash" value="Limpiar" style=" position: absolute; left: 20px; top: 180px;"  actionListener="#{controlHvReferencias.limpiarDuplicarHvReferencias()}" update="duplicarRRL"  process="@this"/>
                             <p:commandButton id="duplicarVFP" icon="ui-icon-circle-check" value="Agregar" style=" position: absolute; left: 120px; top: 180px;" actionListener="#{controlHvReferencias.confirmarDuplicar()}"  process="@this" />

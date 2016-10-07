@@ -87,6 +87,7 @@ public class ControlHvEntrevistas implements Serializable {
         tamano = 270;
         activarLov = true;
         hojavida = new HVHojasDeVida();
+        empleadoSeleccionado = new Empleados();
     }
 
     @PostConstruct
@@ -104,20 +105,19 @@ public class ControlHvEntrevistas implements Serializable {
 
     public void recibirEmpleado(BigInteger sec) {
         secuenciaEmpleado = sec;
-        empleadoSeleccionado = new Empleados();
         empleadoSeleccionado = administrarHvEntrevistas.consultarEmpleado(secuenciaEmpleado);
 
-        if (empleadoSeleccionado.getPersona().getSecuencia() != null) {
-            hojavida = administrarHvEntrevistas.obtenerHojaVidaPersona(empleadoSeleccionado.getPersona().getSecuencia());
-        }
-        if (hojavida != null) {
+//        if (empleadoSeleccionado.getPersona().getSecuencia() != null) {
+//            hojavida = administrarHvEntrevistas.obtenerHojaVidaPersona(empleadoSeleccionado.getPersona().getSecuencia());
+//        }
+//        if (hojavida != null) {
             getListHvEntrevistas();
-            if (listHvEntrevistas != null) {
+//            if (listHvEntrevistas != null) {
                 if (!listHvEntrevistas.isEmpty()) {
                     hvEntrevistaSeleccionada = listHvEntrevistas.get(0);
                 }
-            }
-        }
+//            }
+//        }
 
     }
 
