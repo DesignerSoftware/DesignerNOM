@@ -8,7 +8,7 @@
       xmlns:lnk="http://java.sun.com/jsf/composite/linkare">
     <h:head>
     </h:head>
-    <h:body onload="iniciarcomponentes()" >
+    <h:body  >
         <ui:composition template="/template.xhtml">
             <ui:define name="body">                  
                 <h:form id="form"> 
@@ -269,10 +269,9 @@
                                 <h:outputText value="#{msg['ciudaddocumento']}" 
                                               style="position: absolute; left: 370px; top: 77px; font-weight: bold; color: #14388B; width: 135px; text-align: right;"/>
                                 <p:inputText  autocomplete="off"  id="lugarExpedicion" value="#{controlEmpleadoIndividual.persona.ciudaddocumento.nombre}"
-                                              style="position: absolute; left: 510px; top: 72px; width: 120px; text-transform: uppercase; height: 12px;" 
-                                              onclick="select();">
+                                              style="position: absolute; left: 510px; top: 72px; width: 120px; text-transform: uppercase; height: 12px;" >
                                     <p:ajax event="dblclick" listener="#{controlEmpleadoIndividual.dialogoCiudad(0)}"/>
-                                    <p:ajax event="select" listener="#{controlEmpleadoIndividual.valoresBackupAutocompletar('CIUDADDOCUMENTO')}"/>
+<!--                                    <p:ajax event="select" listener="#{controlEmpleadoIndividual.valoresBackupAutocompletar('CIUDADDOCUMENTO')}"/>-->
                                     <p:ajax event="change" listener="#{controlEmpleadoIndividual.autocompletar('CIUDADDOCUMENTO', controlEmpleadoIndividual.persona.ciudaddocumento.nombre)}"/>
                                     <!--<p:ajax event="change" update="@this" />-->
                                 </p:inputText>
@@ -572,7 +571,7 @@
                             <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: relative; top: 0px; left: 97px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                         </div>
                     </p:dialog>
-                    <p:remoteCommand name="iniciarcomponentes" update="#{controlEmpleadoIndividual.iniciarComponentes()}" />
+<!--                    <p:remoteCommand name="iniciarcomponentes" update="#{controlEmpleadoIndividual.iniciarComponentes()}" />-->
                 </h:form>
                 <!-- ********************************************************************** -->
                 <h:form id="formDialogos">
@@ -584,8 +583,8 @@
                             <p:ajax event="rowSelect" listener="#{controlEmpleadoIndividual.activarAceptar()}" update=":formDialogos:aceptarTD"/>
                             <p:ajax event="rowDblselect" process="@this" listener="#{controlEmpleadoIndividual.seleccionarTipoDocumento()}" />
                             <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarTD']}"  style="position: relative; left: 0px; top: 0px"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovTiposDocumentos').filter();" style="width:150px; position: relative; left: 15px;" />  
+                                <h:outputText value="#{msg['buscarTD']}" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovTiposDocumentos').filter();" class="cssFiltroLOV" />  
                             </f:facet>
                             <p:column filterBy="#{tipoDocumento.nombrecorto}" width="200"  filterMatchMode="contains">
                                 <f:facet name="header">
@@ -601,11 +600,13 @@
                             </p:column> 
                         </p:dataTable>
 
-                        <h:outputText id="infoRegistroTipoDocumento" value="#{controlEmpleadoIndividual.infoRegistroTipoDocumento}" style="position: relative; left: 0px; top: 0px; font-weight: bold"/>
-
-                        <p:commandButton id="aceptarTD" icon="ui-icon-check" style="position: relative; left: 49px; width: 98px;" value="#{msg['aceptar']}" disabled="#{controlEmpleadoIndividual.aceptar}" actionListener="#{controlEmpleadoIndividual.seleccionarTipoDocumento()}" process="@this"/>
-
-                        <p:commandButton id="atrasTD" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 52px; width: 98px;" value="#{msg['atras']}"  actionListener="#{controlEmpleadoIndividual.cancelarSeleccionTipoDocumento()}" process="@this"/>
+                        <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroTipoDocumento" value="#{controlEmpleadoIndividual.infoRegistroTipoDocumento}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarTD" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlEmpleadoIndividual.aceptar}"
+                                             actionListener="#{controlEmpleadoIndividual.seleccionarTipoDocumento()}" process="@this"/>
+                            <p:commandButton id="atrasTD" icon="ui-icon-arrowreturnthick-1-w" class="cssAtrasLOV" value="#{msg['atras']}" 
+                                             actionListener="#{controlEmpleadoIndividual.cancelarSeleccionTipoDocumento()}" process="@this"/>
+                        </div>
                     </p:dialog>
                     <!-- ********************************************************************** -->
                     <p:dialog id="CiudadesDialogo" header="#{controlEmpleadoIndividual.cabezeraDialogoCiudad}" widgetVar="CiudadesDialogo" draggable="true" resizable="false" closable="false" 
@@ -617,8 +618,8 @@
                             <p:ajax event="rowSelect" listener="#{controlEmpleadoIndividual.activarAceptar()}" update=":formDialogos:aceptarC" />
                             <p:ajax event="rowDblselect" process="@this" listener="#{controlEmpleadoIndividual.seleccionarCiudad()}" />
                             <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarC']}"  style="position: relative; left: 0px; top: 0px;"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovCiudades').filter();" style="width:150px; position: relative; left: 15px;" />  
+                                <h:outputText value="#{msg['buscarC']}" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovCiudades').filter();" class="cssFiltroLOV" />  
                             </f:facet>
                             <p:column filterBy="#{ciudad.nombre}"  filterMatchMode="contains">
                                 <f:facet name="header">
@@ -640,13 +641,16 @@
                             </p:column> 
                         </p:dataTable>
 
-                        <h:outputText id="infoRegistroCiudad" value="#{controlEmpleadoIndividual.infoRegistroCiudad}" style="position: relative; left: 0px; top: 0px; font-weight: bold"/>
-
-                        <p:commandButton id="aceptarC" icon="ui-icon-check" style="position: relative; left: 45px; width: 98px;" value="#{msg['aceptar']}" disabled="#{controlEmpleadoIndividual.aceptar}" actionListener="#{controlEmpleadoIndividual.seleccionarCiudad()}"  process="@this"/>
-                        <p:commandButton id="atrasC" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 47px; width: 98px;" value="#{msg['atras']}" actionListener="#{controlEmpleadoIndividual.cancelarSeleccionCiudad()}" process="@this"/>
+                        <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroCiudad" value="#{controlEmpleadoIndividual.infoRegistroCiudad}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarC" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlEmpleadoIndividual.aceptar}"
+                                             actionListener="#{controlEmpleadoIndividual.seleccionarCiudad()}"  process="@this"/>
+                            <p:commandButton id="atrasC" icon="ui-icon-arrowreturnthick-1-w" class="cssAtrasLOV" value="#{msg['atras']}" 
+                                             actionListener="#{controlEmpleadoIndividual.cancelarSeleccionCiudad()}" process="@this"/>
+                        </div>
 
                     </p:dialog> 
-                    
+
                     <!-- ********************************************************************** -->
                     <p:dialog id="CiudadesDocumentoDialogo" header="#{controlEmpleadoIndividual.cabezeraDialogoCiudad}" widgetVar="CiudadesDocumentoDialogo" draggable="true" resizable="false" closable="false" 
                               showEffect="fade" hideEffect="fade" width="440" modal="true">
@@ -654,11 +658,11 @@
                                      selection="#{controlEmpleadoIndividual.seleccionCiudadDocumento}" selectionMode="single" widgetVar="lovCiudadesDocumento" scrollable="true" scrollWidth="418" scrollHeight="250"
                                      filteredValue="#{controlEmpleadoIndividual.filtradoCiudadesDocumento}" emptyMessage="#{msg['lovvacio']}" liveScroll="true"
                                      scrollRows="15">              
-                            <p:ajax event="rowSelect" listener="#{controlEmpleadoIndividual.activarAceptar()}" update=":formDialogos:aceptarC" />
+                            <p:ajax event="rowSelect" listener="#{controlEmpleadoIndividual.activarAceptar()}" update=":formDialogos:aceptarCD" />
                             <p:ajax event="rowDblselect" process="@this" listener="#{controlEmpleadoIndividual.seleccionarCiudadDocumento()}" />
                             <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarC']}"  style="position: relative; left: 0px; top: 0px;"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovCiudades').filter();" style="width:150px; position: relative; left: 15px;" />  
+                                <h:outputText value="#{msg['buscarC']}" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovCiudades').filter();" class="cssFiltroLOV" />  
                             </f:facet>
                             <p:column filterBy="#{ciudad.nombre}"  filterMatchMode="contains">
                                 <f:facet name="header">
@@ -680,13 +684,15 @@
                             </p:column> 
                         </p:dataTable>
 
-                        <h:outputText id="infoRegistroCiudadDocumento" value="#{controlEmpleadoIndividual.infoRegistroCiudadDocumento}" style="position: relative; left: 0px; top: 0px; font-weight: bold"/>
-
-                        <p:commandButton id="aceptarC" icon="ui-icon-check" style="position: relative; left: 45px; width: 98px;" value="#{msg['aceptar']}" disabled="#{controlEmpleadoIndividual.aceptar}" actionListener="#{controlEmpleadoIndividual.seleccionarCiudadDocumento()}"  process="@this"/>
-                        <p:commandButton id="atrasC" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 47px; width: 98px;" value="#{msg['atras']}" actionListener="#{controlEmpleadoIndividual.cancelarSeleccionCiudadDocumento()}" process="@this"/>
-
+                        <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroCiudadDocumento" value="#{controlEmpleadoIndividual.infoRegistroCiudadDocumento}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarCD" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlEmpleadoIndividual.aceptar}"
+                                             actionListener="#{controlEmpleadoIndividual.seleccionarCiudadDocumento()}"  process="@this"/>
+                            <p:commandButton id="atrasCD" icon="ui-icon-arrowreturnthick-1-w" class="cssAtrasLOV" value="#{msg['atras']}" 
+                                             actionListener="#{controlEmpleadoIndividual.cancelarSeleccionCiudadDocumento()}" process="@this"/>
+                        </div>
                     </p:dialog> 
-                    
+
                     <!-- ********************************************************************** -->
                     <p:dialog id="CargosDialogo" header="#{msg['cargopostuladoCP']}" widgetVar="CargosDialogo" draggable="true" resizable="false" closable="false"   
                               showEffect="fade" hideEffect="fade" width="487" modal="true" >
@@ -696,8 +702,8 @@
                             <p:ajax event="rowSelect" listener="#{controlEmpleadoIndividual.activarAceptar()}" update=":formDialogos:aceptarCA"/>
                             <p:ajax event="rowDblselect" process="@this" listener="#{controlEmpleadoIndividual.seleccionarCargo()}" />
                             <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarCP']}"  style="position: relative; left: 0px; top: 0px;"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovCargos').filter();" style="width:150px; position: relative; left: 0px;" />  
+                                <h:outputText value="#{msg['buscarCP']}" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovCargos').filter();" class="cssFiltroLOV" />  
                             </f:facet>
                             <p:column filterBy="#{cargo.nombre}" width="200"  filterMatchMode="contains">
                                 <f:facet name="header">
@@ -712,10 +718,14 @@
                                 <h:outputText value="#{cargo.empresa.nombre}" />
                             </p:column>
                         </p:dataTable>
-                        <h:outputText id="infoRegistroCargo" value="#{controlEmpleadoIndividual.infoRegistroCargo}" style="position: relative; left: 0px; top: 0px; font-weight: bold"/>
 
-                        <p:commandButton id="aceptarCA" icon="ui-icon-check"  style="position: relative; left: 99px; width: 98px;" value="#{msg['aceptar']}" disabled="#{controlEmpleadoIndividual.aceptar}" actionListener="#{controlEmpleadoIndividual.seleccionarCargo()}" process="@this"/>
-                        <p:commandButton id="atrasCA" icon="ui-icon-arrowreturnthick-1-w"  style="position: relative; left: 101px; width: 98px;" value="#{msg['atras']}"  actionListener="#{controlEmpleadoIndividual.cancelarSeleccionCargo()}"  process="@this"/>
+                        <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroCargo" value="#{controlEmpleadoIndividual.infoRegistroCargo}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarCA" icon="ui-icon-check"  class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlEmpleadoIndividual.aceptar}"
+                                             actionListener="#{controlEmpleadoIndividual.seleccionarCargo()}" process="@this"/>
+                            <p:commandButton id="atrasCA" icon="ui-icon-arrowreturnthick-1-w"  class="cssAtrasLOV" value="#{msg['atras']}" 
+                                             actionListener="#{controlEmpleadoIndividual.cancelarSeleccionCargo()}"  process="@this"/>
+                        </div>
                     </p:dialog> 
                     <!-- ********************************************************************** -->
                     <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro" resizable="false" draggable="true" modal="true" height="95" width="350" closable="false" 

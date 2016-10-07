@@ -106,8 +106,9 @@
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
-
-
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
                                 </p:column>
 
 
@@ -121,8 +122,9 @@
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
-
-
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
                                 </p:column>
 
                                 <p:column headerText="#{msg['telefono']}" sortBy="#{info.telefono}" filterBy="#{info.telefono}" filterMatchMode="contains" id="numTelefono" width="135" filterStyle="display: none; visibility: hidden;" >                                  
@@ -135,8 +137,9 @@
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
-
-
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
                                 </p:column>
                                 <p:column headerText="#{msg['celular']}" sortBy="#{info.celular}" filterBy="#{info.celular}" filterMatchMode="contains" id="numCelular" width="135" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
@@ -148,10 +151,10 @@
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
-
-
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
                                 </p:column>
-
 
                                 <p:column headerText="#{msg['parentesco']}" sortBy="#{info.parentesco.tipo}" filterBy="#{info.parentesco.tipo}" filterMatchMode="contains" id="parentesco" width="90" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
@@ -165,7 +168,7 @@
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
-
+                                    
                                     <f:facet name="footer" >
                                         <p:commandButton style="width: 170px;" action="tiposfamiliaresperreferencialaboral1" actionListener="#{controlTiposFamiliares.recibirPagina('atrastiposfamiliaresperreferencialaboral1')}" id="fooparentesco" value=""/>
                                     </f:facet>
@@ -201,11 +204,11 @@
 
                             </p:dataTable>
                             <div class="cssBotonesLOV"> 
-                            <h:outputText id="infoRegistroParentesco" value="#{controlHvReferencias1.infoRegistroParentesco}" class="cssinfoRegistroLOV"/>
-                            <p:commandButton id="aceptarS" icon="ui-icon-check" class="cssAceptarLOV" value="Aceptar" disabled="#{controlHvReferencias1.aceptar}" 
-                                             actionListener="#{controlHvReferencias1.actualizarTipoFamiliar()}" process="@this"/>
-                            <p:commandButton id="atrasS" icon="ui-icon-arrowreturnthick-1-w" class="cssAtrasLOV" value="Atras"  
-                                             actionListener="#{controlHvReferencias1.cancelarCambioTiposFamiliares()}"  process="@this"/>
+                                <h:outputText id="infoRegistroParentesco" value="#{controlHvReferencias1.infoRegistroParentesco}" class="cssinfoRegistroLOV"/>
+                                <p:commandButton id="aceptarS" icon="ui-icon-check" class="cssAceptarLOV" value="Aceptar" disabled="#{controlHvReferencias1.aceptar}" 
+                                                 actionListener="#{controlHvReferencias1.actualizarTipoFamiliar()}" process="@this"/>
+                                <p:commandButton id="atrasS" icon="ui-icon-arrowreturnthick-1-w" class="cssAtrasLOV" value="Atras"  
+                                                 actionListener="#{controlHvReferencias1.cancelarCambioTiposFamiliares()}"  process="@this"/>
                             </div>
                         </p:dialog>
 

@@ -420,6 +420,12 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
             if (personas.getViviendapropia().equals("")) {
                 personas.setViviendapropia(null);
             }
+            if (personas.getCiudaddocumento() != null) {
+                if (personas.getCiudaddocumento().getSecuencia() == null) {
+                    personas.setCiudaddocumento(null);
+                }
+            }
+
             persistenciaPersonas.editar(em, personas);
         } catch (Exception e) {
             System.out.println("Error modificando. AdministrarEmpleadoIndividual.modificarPersona");
@@ -463,8 +469,8 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
         }
     }
 
-   @Override
-    public Personas encontrarPersona(BigInteger secPersona){
+    @Override
+    public Personas encontrarPersona(BigInteger secPersona) {
         return persistenciaPersonas.buscarPersonaSecuencia(em, secPersona);
-    } 
+    }
 }
