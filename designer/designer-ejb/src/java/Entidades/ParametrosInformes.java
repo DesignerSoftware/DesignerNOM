@@ -304,6 +304,7 @@ public class ParametrosInformes implements Serializable {
     }
 
     public String getEstadosolucionnodo() {
+        
         return estadosolucionnodo;
     }
 
