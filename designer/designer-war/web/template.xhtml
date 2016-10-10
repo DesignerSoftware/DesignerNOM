@@ -5,7 +5,6 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui">
-
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <link href="./resources/css/default.css" rel="stylesheet" type="text/css" />
@@ -13,15 +12,31 @@
         <link href="./resources/css/Tema.css" rel="stylesheet" type="text/css" />
         <link rel="shortcut icon" href="Imagenes/Iconos/favicon.ico" />
         <script type="text/javascript" src="./resources/js/calendarioIdioma.js"></script>
+        <script type="text/javascript">
+            $(window).load(function () {
+                $(".loader").fadeOut("slow");
+            });
+        </script>
+        <style>
+            .loader {
+                position: fixed;
+                left: 240px;
+                top: 45px;
+                width: 90%; 
+                height: 90%;
+                z-index: 9999;
+                background: url('Imagenes/Iconos/cargando.gif') 50% 50% no-repeat rgb(255,255,255);
+            }
+        </style>
         <title>..::Designer.NOM::..</title>
     </h:head>
-
     <h:body>
+        <div class="loader"></div>
         <div id="left" style="position: absolute; left: 0px; top:0px; width: 220px; height: 600px; padding-left: 5px; padding-right: 5px; background-image: url(Imagenes/Iconos/fondoizq.png); background-size: 100% 100%; background-repeat: repeat;">
             <ui:insert name="left">
                 <h:form>
                     <a href="https://www.nomina.com.co" target="_blank">
-                        <p:graphicImage value="Imagenes/Iconos/Designer.png" alt="Logo Designer" style="width: 217px; position: relative; left: 3px; top: 7px;"/>
+                        <p:graphicImage value="Imagenes/Iconos/Designer.png" alt="Logo Designer" stream="false" style="width: 217px; position: relative; left: 3px; top: 7px;"/>
                     </a>
                     <br/>
                     <br/>
@@ -35,12 +50,11 @@
                             <h:outputText id="fcorte" style="font-weight: bold;" value="#{controlTemplate.fechaCorte}"/>
                         </h:panelGrid>
                     </p:panel>
-                    <br/>
                     <p:panel id="licencia" header="LICENCIA DE USO A:" style="width: 213px; box-shadow: 5px 5px 5px 0px rgba(0,12,92,1); padding: 0px; ">
                         <h:panelGrid columns="1" cellpadding="0" style="font-size: 10px; width: 100%; left: 0px; padding: 0px;">
                             <h:column>
                                 <center>
-                                    <p:graphicImage  value="#{controlTemplate.logoEmpresa}" alt="Logo Empresa" style="width: 100%;"/>
+                                    <p:graphicImage  value="#{controlTemplate.logoEmpresa}" alt="Logo Empresa" stream="false" style="width: 100%;"/>
                                     <br/>
                                     <br/>
                                     <h:outputText id="empresa"  style="font-weight: bold;" value="#{controlTemplate.detalleEmpresa.empresa.nombre}"/>
@@ -52,10 +66,9 @@
                             </h:column>
                         </h:panelGrid>
                     </p:panel>
-                    <br/>
                     <p:panel id="pnUsuario" header="USUARIO CONECTADO" style="width: 213px; box-shadow: 5px 5px 5px 0px rgba(0,12,92,1); padding: 0px;">
                         <h:panelGrid columns="2" cellpadding="0" style="font-size: 10px;">
-                            <p:graphicImage value="#{controlTemplate.fotoUsuario}"  height="100" alt="Foto Usuario" />
+                            <p:graphicImage value="#{controlTemplate.fotoUsuario}" stream="false" height="100" alt="Foto Usuario" />
                             <h:column>
                                 <center>
                                     <h:outputText value="#{controlTemplate.nombreUsuario}" style="font-weight: bold;"/>
@@ -66,14 +79,6 @@
                                     <h:outputText value="#{controlTemplate.nombrePerfil}" style="font-weight: bold;"/>
                                 </center>
                             </h:column>
-                        </h:panelGrid>
-                    </p:panel>
-                    <br/>
-                    <p:panel id="periodo" header="ALERTAS" style="width: 213px; box-shadow: 5px 5px 5px 0px rgba(0,12,92,1); padding: 0px;">
-                        <h:panelGrid columns="1" cellpadding="0" style="font-size: 10px;">
-                            <center>
-                                <h:outputText id="msjalertas"  style="font-weight: bold;" value=""/>
-                            </center>
                         </h:panelGrid>
                     </p:panel>
                 </h:form>
@@ -128,7 +133,17 @@
         <ui:insert name="status">
             <p:ajaxStatus style="width:50px;height:50px;position:fixed;right:50px;bottom:50px">
                 <f:facet name="start">
-                    <p:graphicImage value="Imagenes/Iconos/cargando.gif" style="width: 50px; height: 50px; "/>
+                    <p:graphicImage value="Imagenes/Iconos/cargando.gif" stream="false" style="width: 50px; height: 50px; "/>
+                </f:facet>
+                <f:facet name="complete">
+                    <h:outputText value="" />
+                </f:facet>
+            </p:ajaxStatus>
+        </ui:insert>
+        <ui:insert name="status">
+            <p:ajaxStatus style="width:50px;height:50px;position:fixed;right:50px;bottom:50px">
+                <f:facet name="start">
+                    <p:graphicImage value="Imagenes/Iconos/cargando.gif" stream="false" style="width: 50px; height: 50px; "/>
                 </f:facet>
                 <f:facet name="complete">
                     <h:outputText value="" />
