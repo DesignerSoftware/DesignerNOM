@@ -720,7 +720,8 @@
                                         <p:inputText id="empleadoDesdeParametro" autocomplete="off" widgetVar="empleadoDesdeParametro" style="position: absolute; width: 100px; left: 110px; top: 25px;"
                                                      value="#{controlNReporteNomina.parametroDeInforme.codigoempleadodesde}" onclick="select();">
                                             <p:ajax event="click" listener="#{controlNReporteNomina.posicionCelda(2)}" process="@this"/> 
-                                            <p:ajax event="change" listener="#{controlNReporteNomina.autocompletarGeneral('DESDE', controlNReporteNomina.parametroDeInforme.codigoempleadodesde)}" 
+                                            <!--<p:ajax event="change" listener="#/{controlNReporteNomina.autocompletarGeneral('DESDE', controlNReporteNomina.parametroDeInforme.codigoempleadodesde)}"--> 
+                                            <p:ajax event="change" listener="#{controlNReporteNomina.modificarParametroEmpleadoDesde(controlNReporteNomina.parametroDeInforme.codigoempleadodesde)}"  
                                                     update="empleadoDesdeParametro" process="@this"/>
                                             <p:ajax event="dblclick" listener="#{controlNReporteNomina.dialogosParametros(2)}" process="@this"/>
                                         </p:inputText>
@@ -728,12 +729,12 @@
 
                                     <div style="display: block;">
                                         <h:outputText value="#{msg['estado']}:" style="top: 18px; position: relative;"/>
-                                        <p:selectOneMenu id="estadoParametro" value="#{controlNReporteNomina.parametroDeInforme.estadosolucionnodo}"  
+                                        <p:selectOneMenu id="estadoParametro" value="#{controlNReporteNomina.parametroDeInforme.estadoSN}"  
                                                          style="position: absolute; width: 70px; left: 110px; top: 48px; text-transform: uppercase;" >  
                                             <f:selectItem itemLabel="#{msg['cerrado']}" itemValue="CERRADO" />  
                                             <f:selectItem itemLabel="#{msg['liquidado']}" itemValue="LIQUIDADO" />  
                                             <f:selectItem itemLabel=" " itemValue=" " /> 
-                                            <p:ajax event="change" listener="#{controlNReporteNomina.modificarParametroInforme()}" update="estadoParametro" process="@this"/>
+                                            <p:ajax event="change" listener="${controlNReporteNomina.modificarParametroInforme()}" update="estadoParametro"/>
                                         </p:selectOneMenu>
                                     </div>
 
@@ -787,21 +788,23 @@
                                         <p:inputText id="empleadoHastaParametro" autocomplete="off" widgetVar="empleadoHastaParametro" style="position: absolute; left: 85px; width: 100px; top: 25px;"
                                                      value="#{controlNReporteNomina.parametroDeInforme.codigoempleadohasta}" onclick="select();">
                                             <p:ajax event="click" listener="#{controlNReporteNomina.posicionCelda(8)}" process="@this"/> 
-                                            <p:ajax listener="#{controlNReporteNomina.autocompletarGeneral('HASTA',controlNReporteNomina.parametroDeInforme.codigoempleadohasta)}"
-                                                    event="change" update="empleadoHastaParametro" />
+<!--                                            <p:ajax listener="#/{controlNReporteNomina.autocompletarGeneral('HASTA',controlNReporteNomina.parametroDeInforme.codigoempleadohasta)}"
+                                                    event="change" update="empleadoHastaParametro" />-->
+                                            <p:ajax event="change" listener="#{controlNReporteNomina.modificarParametroEmpleadoHasta(controlNReporteNomina.parametroDeInforme.codigoempleadohasta)}"  
+                                                    update="empleadoHastaParametro" process="@this"/>
                                             <p:ajax event="dblclick" listener="#{controlNReporteNomina.dialogosParametros(8)}" process="@this"/>
                                         </p:inputText>
                                     </div>
 
                                     <div style="display: block;">
                                         <h:outputText value="#{msg['personal']}:" style="top: 18px; position: relative; left: 20px;"/>
-                                        <p:selectOneMenu id="tipoPersonalParametro" value="#{controlNReporteNomina.parametroDeInforme.tipoparatrabajador}"  
+                                        <p:selectOneMenu id="tipoPersonalParametro" value="#{controlNReporteNomina.parametroDeInforme.estadoPersonal}"  
                                                          style="position: absolute; left: 85px; width: 70px; top: 48px; text-transform: uppercase;">  
                                             <f:selectItem itemLabel="#{msg['activo']}" itemValue="ACTIVO" />  
                                             <f:selectItem itemLabel="#{msg['pensionado']}" itemValue="PENSIONADO" />  
                                             <f:selectItem itemLabel="#{msg['retirado']}" itemValue="RETIRADO" />
-                                            <f:selectItem itemLabel=" " itemValue="" />
-                                            <p:ajax event="change" listener="#{controlNReporteNomina.modificarParametroInforme()}" update="tipoPersonalParametro" process="@this"/>
+                                            <f:selectItem itemLabel=" " itemValue=" " />
+                                            <p:ajax event="change" listener="${controlNReporteNomina.modificarParametroInforme()}" update="tipoPersonalParametro" process="@this"/>
                                         </p:selectOneMenu>
                                     </div>
 
@@ -889,7 +892,7 @@
                     </fieldset>
                     <style>
                         .ui-inputfield { 
-                            height: 13px !important;
+                            height: 14px !important;
                             padding-bottom: 1px !important;
                             padding-top: 1px !important;
                         }
@@ -1002,8 +1005,8 @@
                         <p:inputTextarea value="#{controlNReporteNomina.pathReporteGenerado}" style="position: absolute; left: 10px; top: 20px; width: 300px; height: 70px; overflow: auto;" readonly="true" />
                     </p:dialog>
 
-                    <p:dialog id="verReportePDF" widgetVar="verReportePDF" header="#{controlNReporteNomina.cabezeraVisor}" width="1800px;" height="530px;" resizable="false" draggable="true" modal="true" onHide="reiniciarStreamedContent();">
-                        <p:media value="#{controlNReporteNomina.reporte}" width="200%" height="500px;" player="pdf" rendered="#{controlNReporteNomina.reporte != null}"/>
+                    <p:dialog id="verReportePDF" widgetVar="verReportePDF" header="#{controlNReporteNomina.cabezeraVisor}" style="width: 1024px; height: 610px;" resizable="false" draggable="true" modal="true" onHide="reiniciarStreamedContent();">
+                        <p:media value="#{controlNReporteNomina.reporte}" style="width: 1004px; height: 630px;" player="pdf" rendered="#{controlNReporteNomina.reporte != null}"/>
                     </p:dialog>
 
                     <p:remoteCommand name="reiniciarStreamedContent" actionListener="#{controlNReporteNomina.reiniciarStreamedContent()}"/>

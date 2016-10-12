@@ -219,7 +219,6 @@ public class ControlNReporteNomina implements Serializable {
         activoMostrarTodos = true;
         activoBuscarReporte = false;
         getListaIR();
-        // listValEmpleados = new ArrayList<Empleados>();
     }
 
 //TOOLTIP
@@ -231,6 +230,7 @@ public class ControlNReporteNomina implements Serializable {
             if (!cambiosReporte) {
                 System.out.println("Entre a if (cambiosReporte == false)");
                 if (parametroDeReporte.getUsuario() != null) {
+
                     if (parametroDeReporte.getCodigoempleadodesde() == null) {
                         parametroDeReporte.setCodigoempleadodesde(null);
                     }
@@ -271,6 +271,11 @@ public class ControlNReporteNomina implements Serializable {
                 FacesContext.getCurrentInstance().addMessage(null, msg);
                 RequestContext.getCurrentInstance().update("form:growl");
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            } else {
+                parametroDeReporte.setFechadesde(fechaDesde);
+                parametroDeReporte.setFechahasta(fechaHasta);
+                RequestContext.getCurrentInstance().update("formParametros");
+                RequestContext.getCurrentInstance().execute("PF('errorFechas').show()");
             }
         } catch (Exception e) {
             System.out.println("Error en guardar Cambios Controlador : " + e.toString());
@@ -687,9 +692,7 @@ public class ControlNReporteNomina implements Serializable {
 
     public void generarReporte(Inforeportes reporte) {
         System.out.println(this.getClass().getName() + ".generarReporte()");
-//        RequestContext context = RequestContext.getCurrentInstance();
         seleccionRegistro();
-//        //guardarCambios();
         RequestContext.getCurrentInstance().execute("PF('generandoReporte').show()");
         generarDocumentoReporte();
     }
@@ -821,11 +824,13 @@ public class ControlNReporteNomina implements Serializable {
                 System.out.println("validar descarga reporte - ingreso al if 2 else");
                 FileInputStream fis;
                 try {
+                    System.out.println("pathReporteGenerado : " + pathReporteGenerado);
                     fis = new FileInputStream(new File(pathReporteGenerado));
+                    System.out.println("fis : " + fis);
                     reporte = new DefaultStreamedContent(fis, "application/pdf");
                 } catch (FileNotFoundException ex) {
                     System.out.println("validar descarga reporte - ingreso al catch 1");
-                    System.out.println(ex.getCause());
+                    System.out.println(ex);
                     reporte = null;
                 }
                 if (reporte != null) {
@@ -905,7 +910,7 @@ public class ControlNReporteNomina implements Serializable {
         System.out.println(this.getClass().getName() + ".mostrarDialogoBuscarReporte()");
         try {
             if (cambiosReporte == true) {
-               contarRegistrosLovReportes();
+                contarRegistrosLovReportes();
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("form:ReportesDialogo");
                 RequestContext.getCurrentInstance().execute("PF('ReportesDialogo').show()");
@@ -1605,82 +1610,94 @@ public class ControlNReporteNomina implements Serializable {
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         }
-        if (campoConfirmar.equalsIgnoreCase("DESDE")) {
-            System.out.println("valorConfirmar " + valorConfirmar);
-            if (!valorConfirmar.isEmpty() || !"0".equals(valorConfirmar)) {
-                parametroDeReporte.getCodigoempleadodesde();
-                for (int i = 0; i < listValEmpleados.size(); i++) {
-                    if (listValEmpleados.get(i).getCodigoempleadoSTR().startsWith(valorConfirmar.toUpperCase())) {
-                        indiceUnicoElemento = i;
-                        coincidencias++;
-                    }
-                }
-                System.out.println("Coincidencias: " + coincidencias);
-                System.out.println("Entre a if (coincidencias == 1 && 0.equals(valorConfirmar))");
-                if (coincidencias == 1 && "0".equals(valorConfirmar)) {
-                    System.out.println("Entre a if (coincidencias == 1 && 0.equals(valorConfirmar))");
-                    parametroDeReporte.setCodigoempleadodesde(listValEmpleados.get(indiceUnicoElemento).getCodigoempleado());
-                    parametroModificacion = parametroDeReporte;
-                    listValEmpleados.clear();
-                    getListValEmpleados();
-                    cambiosReporte = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                } else {
-                    System.out.println("Entre al else");
-                    permitirIndex = false;
-                    RequestContext.getCurrentInstance().update("form:EmpleadoDesdeDialogo");
-                    RequestContext.getCurrentInstance().execute("PF('EmpleadoDesdeDialogo').show()");
-                }
-            } else {
-                parametroDeReporte.setCodigoempleadodesde(new BigDecimal("0"));
-                parametroModificacion = parametroDeReporte;
-                listValEmpleados.clear();
-                getListValEmpleados();
-                cambiosReporte = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            }
-        }
-        if (campoConfirmar.equalsIgnoreCase("HASTA")) {
-            System.out.println("ControlNReporteNomina.autocompletarGeneral");
-            System.out.println("campoConfirmar.equalsIgnoreCase(HASTA)");
-            System.out.println("Codigoempleadohasta: " + parametroDeReporte.getCodigoempleadohasta());
-            if (campoConfirmar.equalsIgnoreCase("HASTA")) {
-                if (!valorConfirmar.isEmpty()) {
-                    parametroDeReporte.setCodigoempleadohasta(emplHasta);
-                    parametroDeReporte.getCodigoempleadohasta();
-                    for (int i = 0; i < listValEmpleados.size(); i++) {
-                        if (listValEmpleados.get(i).getCodigoempleadoSTR().startsWith(valorConfirmar.toUpperCase())) {
-                            indiceUnicoElemento = i;
-                            coincidencias++;
-                        }
-                    }
-                    if (coincidencias == 1) {
-                        parametroDeReporte.setCodigoempleadohasta(listValEmpleados.get(indiceUnicoElemento).getCodigoempleado());
-                        parametroModificacion = parametroDeReporte;
-                        listValEmpleados.clear();
-                        getListValEmpleados();
-                        cambiosReporte = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                    } else {
-                        permitirIndex = false;
-                        if ((listValEmpleados == null) || listValEmpleados.isEmpty()) {
-                            listValEmpleados = null;
-                        }
-                        RequestContext.getCurrentInstance().update("form:EmpleadoHastaDialogo");
-                        RequestContext.getCurrentInstance().execute("PF('EmpleadoHastaDialogo').show()");
-                    }
-                } else {
-                    System.out.println("Entre al else en  ControlNReporteNomina.autocompletarGeneral");
-                    parametroDeReporte.setCodigoempleadohasta(new BigDecimal("9999999999999999999999"));
-                    parametroModificacion = parametroDeReporte;
-                    listValEmpleados.clear();
-                    getListValEmpleados();
-                    cambiosReporte = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                }
-            }
-        }
+//        if (campoConfirmar.equalsIgnoreCase("DESDE")) {
+//            System.out.println("valorConfirmar " + valorConfirmar);
+//            if (!valorConfirmar.isEmpty() || !valorConfirmar.equals(0)) {
+//                System.out.println("Entre a if (!valorConfirmar.isEmpty() || !\"0\".equals(valorConfirmar))");
+//                parametroDeReporte.getCodigoempleadodesde();
+//                for (int i = 0; i < listValEmpleados.size(); i++) {
+//                    if (listValEmpleados.get(i).getCodigoempleadoSTR().startsWith(valorConfirmar.toUpperCase())) {
+//                        indiceUnicoElemento = i;
+//                        coincidencias++;
+//                    }
+//                }
+//                System.out.println("Coincidencias: " + coincidencias);
+//                if (coincidencias == 1) {
+//                    System.out.println("Entre a if (coincidencias == 1)");
+//                    parametroDeReporte.setCodigoempleadodesde(listValEmpleados.get(indiceUnicoElemento).getCodigoempleado());
+//                    parametroModificacion = parametroDeReporte;
+//                    listValEmpleados.clear();
+//                    getListValEmpleados();
+//                    cambiosReporte = false;
+//                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+//                } else {
+//                    System.out.println("Entre al else");
+//                    permitirIndex = false;
+//                    RequestContext.getCurrentInstance().update("form:EmpleadoDesdeDialogo");
+//                    RequestContext.getCurrentInstance().execute("PF('EmpleadoDesdeDialogo').show()");
+//                }
+//            } else if (valorConfirmar.equals(0)) {
+//                parametroDeReporte.setCodigoempleadodesde(new BigDecimal(0));
+//                parametroModificacion = parametroDeReporte;
+//                //         listValEmpleados.clear();
+////          getListValEmpleados();
+//                cambiosReporte = false;
+//                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+//            }
+//        }
+//        if (campoConfirmar.equalsIgnoreCase("HASTA")) {
+//            System.out.println("valorConfirmar " + valorConfirmar);
+//            if (!valorConfirmar.isEmpty() && !valorConfirmar.equals("999999999999999999999999999999999")) {
+//                System.out.println("Entre a if (!valorConfirmar.isEmpty() || !\"999999999999999999999999999999999\".equals(valorConfirmar))");
+//                parametroDeReporte.getCodigoempleadohasta();
+//                for (int i = 0; i < listValEmpleados.size(); i++) {
+//                    if (listValEmpleados.get(i).getCodigoempleadoSTR().startsWith(valorConfirmar.toUpperCase())) {
+//                        indiceUnicoElemento = i;
+//                        coincidencias++;
+//                    }
+//                }
+//                System.out.println("Coincidencias: " + coincidencias);
+//                if (coincidencias == 1) {
+//                    System.out.println("Entre a if (coincidencias == 1 && 0.equals(valorConfirmar))");
+//                    parametroDeReporte.setCodigoempleadohasta(listValEmpleados.get(indiceUnicoElemento).getCodigoempleado());
+//                    parametroModificacion = parametroDeReporte;
+//                    listValEmpleados.clear();
+//                    getListValEmpleados();
+//                    cambiosReporte = false;
+//                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+//                } else {
+//                    permitirIndex = false;
+//                    RequestContext.getCurrentInstance().update("form:EmpleadoHastaDialogo");
+//                    RequestContext.getCurrentInstance().execute("PF('EmpleadoHastaDialogo').show()");
+//                }
+//            } else if (valorConfirmar.equals("999999999999999999999999999999999")) {
+//                System.out.println("Entre al else en  ControlNReporteNomina.autocompletarGeneral");
+//                parametroDeReporte.setCodigoempleadohasta(new BigDecimal("999999999999999999999999999999999"));
+//                parametroModificacion = parametroDeReporte;
+//                cambiosReporte = false;
+//                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+//            }
+//
+//        }
 
+    }
+
+    public void modificarParametroEmpleadoDesde(BigDecimal empldesde) {
+        if (empldesde.equals(BigDecimal.valueOf(0))) {
+            parametroDeReporte.setCodigoempleadodesde(BigDecimal.valueOf(0));
+        }
+        cambiosReporte = false;
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+    }
+
+    public void modificarParametroEmpleadoHasta(BigDecimal emphasta) {
+        String h = "99999999999999999999999999";
+        BigDecimal b = new BigDecimal(h);
+        if (emphasta.equals(b)) {
+            parametroDeReporte.setCodigoempleadodesde(b);
+        }
+        cambiosReporte = false;
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     //POSICION CELDA
@@ -1726,7 +1743,7 @@ public class ControlNReporteNomina implements Serializable {
         if (pos == 5) {
             RequestContext.getCurrentInstance().update("form:UbiGeograficaDialogo");
             RequestContext.getCurrentInstance().execute("PF('UbiGeograficaDialogo').show()");
-           contarRegistrosUbicacion();
+            contarRegistrosUbicacion();
         }
         if (pos == 6) {
             RequestContext.getCurrentInstance().update("form:TipoAsociacionDialogo");
@@ -1761,7 +1778,7 @@ public class ControlNReporteNomina implements Serializable {
         if (pos == 14) {
             RequestContext.getCurrentInstance().update("form:ProcesoDialogo");
             RequestContext.getCurrentInstance().execute("PF('ProcesoDialogo').show()");
-           contarRegistrosProceso();
+            contarRegistrosProceso();
         }
         if (pos == 16) {
             RequestContext.getCurrentInstance().update("form:AsociacionDialogo");
@@ -1776,7 +1793,6 @@ public class ControlNReporteNomina implements Serializable {
         //        if (parametroDeReporte.getFechadesde() != null && parametroDeReporte.getFechahasta() != null
 //                && parametroDeReporte.getCodigoempleadodesde() != null && parametroDeReporte.getCodigoempleadohasta() != null) {
         if (parametroDeReporte.getFechadesde() != null && parametroDeReporte.getFechahasta() != null) {
-
             if (parametroDeReporte.getFechadesde().before(parametroDeReporte.getFechahasta())) {
                 System.out.println("Entre al segundo if");
                 parametroModificacion = parametroDeReporte;
@@ -1788,11 +1804,12 @@ public class ControlNReporteNomina implements Serializable {
 //                RequestContext.getCurrentInstance().update("formParametros:fechaDesdeParametro");
             } else {
                 System.out.println("entre a else del segundo if");
-                parametroDeReporte.setFechadesde(fechaDesde);
-                parametroDeReporte.setFechahasta(fechaHasta);
-                RequestContext context = RequestContext.getCurrentInstance();
-                RequestContext.getCurrentInstance().update("formParametros");
-                RequestContext.getCurrentInstance().execute("PF('errorFechas').show()");
+//                parametroDeReporte.setFechadesde(fechaDesde);
+//                parametroDeReporte.setFechahasta(fechaHasta);
+//                RequestContext context = RequestContext.getCurrentInstance();
+//                RequestContext.getCurrentInstance().update("formParametros");
+//                RequestContext.getCurrentInstance().execute("PF('errorFechas').show()");
+                cambiosReporte = true;
             }
         }
 //        else {
@@ -1809,9 +1826,7 @@ public class ControlNReporteNomina implements Serializable {
 //            parametroDeReporte.setEstadosolucionnodo(estado);
 //            RequestContext context = RequestContext.getCurrentInstance();
 //            RequestContext.getCurrentInstance().update("formParametros");
-//            RequestContext.getCurrentInstance().execute("PF('errorRegNew').show()");
-//
-//        }
+
         // guardarCambios();
     }
 
@@ -1915,6 +1930,7 @@ public class ControlNReporteNomina implements Serializable {
             if (parametroDeReporte.getEmpresa() == null) {
                 parametroDeReporte.setEmpresa(new Empresas());
             }
+
             return parametroDeReporte;
         } catch (Exception e) {
             System.out.println("Error getParametroDeInforme : " + e);
@@ -2008,6 +2024,8 @@ public class ControlNReporteNomina implements Serializable {
     }
 
     public List<Empleados> getListValEmpleados() {
+        System.out.println("Controlador.ControlNReporteNomina.getListValEmpleados()");
+        System.out.println("listValEmpleados: " + listValEmpleados);
         if (listValEmpleados == null || listValEmpleados.isEmpty()) {
             listValEmpleados = administrarNReportesNomina.listEmpleados();
         }
@@ -2391,54 +2409,93 @@ public class ControlNReporteNomina implements Serializable {
     }
 
     public String getInfoRegistro() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        tabla = (DataTable) c.getViewRoot().findComponent("form:reportesNomina");
+        infoRegistro = String.valueOf(tabla.getRowCount());
         return infoRegistro;
     }
 
     public String getInfoRegistroEmpleadoDesde() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        tabla = (DataTable) c.getViewRoot().findComponent("form:lovEmpleadoDesde");
+        infoRegistroEmpleadoDesde = String.valueOf(tabla.getRowCount());
         return infoRegistroEmpleadoDesde;
     }
 
     public String getInfoRegistroEmpleadoHasta() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        tabla = (DataTable) c.getViewRoot().findComponent("form:lovEmpleadoHasta");
+        infoRegistroEmpleadoHasta = String.valueOf(tabla.getRowCount());
         return infoRegistroEmpleadoHasta;
     }
 
     public String getInfoRegistroGrupoConcepto() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        tabla = (DataTable) c.getViewRoot().findComponent("form:lovGruposConceptos");
+        infoRegistroGrupoConcepto = String.valueOf(tabla.getRowCount());
         return infoRegistroGrupoConcepto;
     }
 
     public String getInfoRegistroUbicacion() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lovUbicacionGeografica");
+        infoRegistroUbicacion = String.valueOf(tabla.getRowCount());
         return infoRegistroUbicacion;
     }
 
     public String getInfoRegistroTipoAsociacion() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        tabla = (DataTable) c.getViewRoot().findComponent("form:lovTipoAsociacion");
+        infoRegistroTipoAsociacion = String.valueOf(tabla.getRowCount());
         return infoRegistroTipoAsociacion;
     }
 
     public String getInfoRegistroEmpresa() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        tabla = (DataTable) c.getViewRoot().findComponent("form:lovEmpresa");
+        infoRegistroEmpresa = String.valueOf(tabla.getRowCount());
         return infoRegistroEmpresa;
     }
 
     public String getInfoRegistroAsociacion() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        tabla = (DataTable) c.getViewRoot().findComponent("form:lovAsociacion");
+        infoRegistroAsociacion = String.valueOf(tabla.getRowCount());
         return infoRegistroAsociacion;
     }
 
     public String getInfoRegistroTercero() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        tabla = (DataTable) c.getViewRoot().findComponent("form:lovTercero");
+        infoRegistroTercero = String.valueOf(tabla.getRowCount());
         return infoRegistroTercero;
     }
 
     public String getInfoRegistroProceso() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        tabla = (DataTable) c.getViewRoot().findComponent("form:lovProceso");
+        infoRegistroProceso = String.valueOf(tabla.getRowCount());
         return infoRegistroProceso;
     }
 
     public String getInfoRegistroTipoTrabajador() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        tabla = (DataTable) c.getViewRoot().findComponent("form:lovTipoTrabajador");
+        infoRegistroTipoTrabajador = String.valueOf(tabla.getRowCount());
         return infoRegistroTipoTrabajador;
     }
 
     public String getInfoRegistroEstructura() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        tabla = (DataTable) c.getViewRoot().findComponent("form:lovEstructura");
+        infoRegistroEstructura = String.valueOf(tabla.getRowCount());
         return infoRegistroEstructura;
     }
 
     public String getInfoRegistroReportes() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        tabla = (DataTable) c.getViewRoot().findComponent("form:lovReportesDialogo");
+        infoRegistroLovReportes = String.valueOf(tabla.getRowCount());
         return infoRegistroLovReportes;
     }
 

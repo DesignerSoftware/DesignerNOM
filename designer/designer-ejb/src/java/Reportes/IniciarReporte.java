@@ -248,6 +248,7 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
         return null;
     }
 
+    @Override
     public void cancelarReporte() {
         try {
             System.out.println("CANCELAR REPORTE");

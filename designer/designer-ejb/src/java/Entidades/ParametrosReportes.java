@@ -20,7 +20,8 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "PARAMETROSREPORTES")
 public class ParametrosReportes implements Serializable {
- private static final long serialVersionUID = 1L;
+
+    private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
@@ -45,9 +46,6 @@ public class ParametrosReportes implements Serializable {
     @Size(max = 1)
     @Column(name = "GENERAPLANO")
     private String generaplano;
-    @Size(max = 20)
-    @Column(name = "TIPOPARATRABAJADOR")
-    private String tipoparatrabajador;
     @Column(name = "NUMERODOCUMENTO")
     private Long numerodocumento;
     @Column(name = "CONSECUTIVOELEMENTO")
@@ -63,9 +61,6 @@ public class ParametrosReportes implements Serializable {
     private String observaciones;
     @Column(name = "CIUDADNOM")
     private BigInteger ciudadnom;
-    @Size(max = 10)
-    @Column(name = "ESTADOSOLUCIONNODO")
-    private String estadosolucionnodo;
     @Column(name = "EVALEMPLEADO")
     private BigInteger evalempleado;
     @Column(name = "EVALINDAGACION")
@@ -179,6 +174,16 @@ public class ParametrosReportes implements Serializable {
     @JoinColumn(name = "EVALPLANILLA", referencedColumnName = "SECUENCIA")
     @ManyToOne
     private Evalplanillas evalplanilla;
+    @Size(max = 20)
+    @Column(name = "TIPOPARATRABAJADOR")
+    private String tipoparatrabajador;
+    @Size(max = 10)
+    @Column(name = "ESTADOSOLUCIONNODO")
+    private String estadosolucionnodo;
+    @Transient
+    private String estadoPersonal;
+    @Transient
+    private String estadoSN;
 
     public ParametrosReportes() {
     }
@@ -256,9 +261,6 @@ public class ParametrosReportes implements Serializable {
     }
 
     public void setTipoparatrabajador(String tipoparatrabajador) {
-        if (tipoparatrabajador.isEmpty()) {
-            tipoparatrabajador = null;
-        }
         this.tipoparatrabajador = tipoparatrabajador;
     }
 
@@ -315,9 +317,6 @@ public class ParametrosReportes implements Serializable {
     }
 
     public void setEstadosolucionnodo(String estadosolucionnodo) {
-        if (estadosolucionnodo.isEmpty()) {
-            estadosolucionnodo = null;
-        }
         this.estadosolucionnodo = estadosolucionnodo;
     }
 
@@ -634,6 +633,42 @@ public class ParametrosReportes implements Serializable {
 
     public void setEvalplanilla(Evalplanillas evalplanilla) {
         this.evalplanilla = evalplanilla;
+    }
+
+    public String getEstadoPersonal() {
+        if(tipoparatrabajador == null){
+            this.estadoPersonal = " ";
+        } else {
+            estadoPersonal = tipoparatrabajador;
+        }
+        return estadoPersonal;
+    }
+
+    public void setEstadoPersonal(String estadoPersonal) {
+        this.estadoPersonal = estadoPersonal;
+        if(estadoPersonal.trim().isEmpty()){
+            this.tipoparatrabajador = null;
+        } else {
+            this.tipoparatrabajador = estadoPersonal;
+        }
+    }
+
+    public String getEstadoSN() {
+        if(estadosolucionnodo == null){
+            this.estadoSN = " ";
+        } else {
+            estadoSN = estadosolucionnodo;
+        }
+        return estadoSN;
+    }
+
+    public void setEstadoSN(String estadoSN) {
+        this.estadoSN = estadoSN;
+        if(estadoSN.trim().isEmpty()){
+            this.estadosolucionnodo = null;
+        } else {
+            this.estadosolucionnodo = estadoSN;
+        }
     }
 
     @Override
