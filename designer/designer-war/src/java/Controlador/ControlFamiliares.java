@@ -110,6 +110,10 @@ public class ControlFamiliares implements Serializable {
         nuevoFamiliar.setPersona(new Personas());
         nuevoFamiliar.setTipofamiliar(new TiposFamiliares());
         nuevoFamiliar.setPersonafamiliar(new Personas());
+        duplicarFamiliares = new Familiares();
+        duplicarFamiliares.setPersona(new Personas());
+        duplicarFamiliares.setTipofamiliar(new TiposFamiliares());
+        duplicarFamiliares.setPersonafamiliar(new Personas());
         mensajeValidacion = " ";
 //        empleado = new Empleados();
         personas = new Personas();
@@ -1121,7 +1125,7 @@ public class ControlFamiliares implements Serializable {
     public void actualizarTipoDocumento() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (tipoActualizacion == 1) {
-           nuevaPersona.setTipodocumento(tipoDocumentoSeleccionado);
+            nuevaPersona.setTipodocumento(tipoDocumentoSeleccionado);
             RequestContext.getCurrentInstance().update("formularioDialogos:nuevoFamiliarP");
         }
         filtrarLovTiposDocumentos = null;
@@ -1299,7 +1303,7 @@ public class ControlFamiliares implements Serializable {
             k++;
             l = BigDecimal.valueOf(k);
             nuevaPersona.setSecuencia(l.toBigInteger());
-            System.out.println("nueva persona : "+ nuevaPersona);
+            System.out.println("nueva persona : " + nuevaPersona);
             administrarFamiliares.crearPersona(nuevaPersona);
             RequestContext.getCurrentInstance().update("formularioDialogos:nuevoFamiliarP");
             RequestContext.getCurrentInstance().execute("PF('nuevoFamiliarPersona').hide()");
@@ -1312,7 +1316,7 @@ public class ControlFamiliares implements Serializable {
     }
 
     public void limpiarPersona() {
-       nuevaPersona = new Personas();
+        nuevaPersona = new Personas();
         nuevaPersona.setTipodocumento(new TiposDocumentos());
         nuevaPersona.setCiudaddocumento(new Ciudades());
         nuevaPersona.setCiudadnacimiento(new Ciudades());

@@ -4,7 +4,6 @@
  */
 package Controlador;
 
-
 import Entidades.Empleados;
 import Entidades.GruposInfAdicionales;
 import Entidades.InformacionesAdicionales;
@@ -117,14 +116,14 @@ public class ControlEmplInformacionAdicional implements Serializable {
         empleado = administrarEmplInformacionAdicional.empleadoActual(empl);
         getListInformacionAdicional();
         deshabilitarBotonLov();
-        if(!listInformacionAdicional.isEmpty()){
-            informacionTablaSeleccionada=listInformacionAdicional.get(0);
+        if (!listInformacionAdicional.isEmpty()) {
+            informacionTablaSeleccionada = listInformacionAdicional.get(0);
         }
     }
 
     public void modificarInfoAd(InformacionesAdicionales informacionAdicional) {
         informacionTablaSeleccionada = informacionAdicional;
-        System.out.println("informacionTablaSeleccionada.getTipodato() : "+informacionTablaSeleccionada.getTipodato());
+        System.out.println("informacionTablaSeleccionada.getTipodato() : " + informacionTablaSeleccionada.getTipodato());
         if (tipoLista == 0) {
             if (!listInfoAdicionalCrear.contains(informacionTablaSeleccionada)) {
 
@@ -158,7 +157,7 @@ public class ControlEmplInformacionAdicional implements Serializable {
     public void modificarInfoAd(InformacionesAdicionales informacionAdicional, String confirmarCambio, String valorConfirmar) {
         informacionTablaSeleccionada = informacionAdicional;
         int coincidencias = 0;
-       // int indiceUnicoElemento = 0;
+        // int indiceUnicoElemento = 0;
         RequestContext context = RequestContext.getCurrentInstance();
         if (confirmarCambio.equalsIgnoreCase("GRUPO")) {
             if (!valorConfirmar.isEmpty()) {
@@ -167,11 +166,11 @@ public class ControlEmplInformacionAdicional implements Serializable {
                 } else {
                     informacionTablaSeleccionada.getGrupo().setDescripcion(grupo);
                 }
-             //   for (int i = 0; i < listGruposInfAdicional.size(); i++) {
-                    if (informacionTablaSeleccionada.getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
-                     //   indiceUnicoElemento = i;
-                        coincidencias++;
-                    }
+                //   for (int i = 0; i < listGruposInfAdicional.size(); i++) {
+                if (informacionTablaSeleccionada.getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+                    //   indiceUnicoElemento = i;
+                    coincidencias++;
+                }
                 //}
                 if (coincidencias == 1) {
                     if (tipoLista == 0) {
@@ -210,18 +209,16 @@ public class ControlEmplInformacionAdicional implements Serializable {
                         RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
                 }
-            } else {
-                if (!listInfoAdicionalCrear.contains(informacionTablaSeleccionada)) {
+            } else if (!listInfoAdicionalCrear.contains(informacionTablaSeleccionada)) {
 
-                    if (listInfoAdicionalModificar.isEmpty()) {
-                        listInfoAdicionalModificar.add(informacionTablaSeleccionada);
-                    } else if (!listInfoAdicionalModificar.contains(informacionTablaSeleccionada)) {
-                        listInfoAdicionalModificar.add(informacionTablaSeleccionada);
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                    }
+                if (listInfoAdicionalModificar.isEmpty()) {
+                    listInfoAdicionalModificar.add(informacionTablaSeleccionada);
+                } else if (!listInfoAdicionalModificar.contains(informacionTablaSeleccionada)) {
+                    listInfoAdicionalModificar.add(informacionTablaSeleccionada);
+                }
+                if (guardado == true) {
+                    guardado = false;
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
             }
         }
@@ -359,14 +356,12 @@ public class ControlEmplInformacionAdicional implements Serializable {
                         RequestContext.getCurrentInstance().update("formularioDialogos:duplicarGrupo");
                     }
                 }
-            } else {
-                if (tipoNuevo == 1) {
-                    nuevaInfoAdicional.setGrupo(new GruposInfAdicionales());
-                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevaGrupo");
-                } else if (tipoNuevo == 2) {
-                    duplicarInfoAdicional.setGrupo(new GruposInfAdicionales());
-                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarGrupo");
-                }
+            } else if (tipoNuevo == 1) {
+                nuevaInfoAdicional.setGrupo(new GruposInfAdicionales());
+                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaGrupo");
+            } else if (tipoNuevo == 2) {
+                duplicarInfoAdicional.setGrupo(new GruposInfAdicionales());
+                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarGrupo");
             }
         }
     }
@@ -527,7 +522,7 @@ public class ControlEmplInformacionAdicional implements Serializable {
                 cualCelda = -1;
             }
 
-        } else{
+        } else {
             RequestContext.getCurrentInstance().execute("PF('formularioDialogos:seleccionarRegistro').show()");
         }
     }
@@ -626,8 +621,8 @@ public class ControlEmplInformacionAdicional implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarInfoAd");
             RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroInfoAd').show()");
-        }else{
-            RequestContext.getCurrentInstance().execute("PF('formularioDialogos:seleccionarRegistro').show()");
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
@@ -717,7 +712,7 @@ public class ControlEmplInformacionAdicional implements Serializable {
                 guardado = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
-        }else{
+        } else {
             RequestContext.getCurrentInstance().execute("PF('formularioDialogos:seleccionarRegistro').show()");
         }
     }
@@ -725,7 +720,7 @@ public class ControlEmplInformacionAdicional implements Serializable {
     public void activarCtrlF11() {
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
-            altoTabla ="285";
+            altoTabla = "285";
             infoAdFechaInicial = (Column) c.getViewRoot().findComponent("form:datosInfoAdEmpleado:infoAdFechaInicial");
             infoAdFechaInicial.setFilterStyle("width: 85% !important");
             infoAdFechaFinal = (Column) c.getViewRoot().findComponent("form:datosInfoAdEmpleado:infoAdFechaFinal");
@@ -764,7 +759,7 @@ public class ControlEmplInformacionAdicional implements Serializable {
             filtrarListInformacionAdicional = null;
             tipoLista = 0;
             altoTabla = "305";
-            
+
         }
     }
 
@@ -807,19 +802,11 @@ public class ControlEmplInformacionAdicional implements Serializable {
     public void asignarIndex(InformacionesAdicionales informacionAdicional, int list, int LND) {
         informacionTablaSeleccionada = informacionAdicional;
         RequestContext context = RequestContext.getCurrentInstance();
-        if (LND == 0) {
-            tipoActualizacion = 0;
-        } else if (LND == 1) {
-            tipoActualizacion = 1;
-        } else if (LND == 2) {
-            tipoActualizacion = 2;
-        }
-        if (list == 0) {
-            habilitarBotonLov();
-            contarRegistroGrupo();
-            RequestContext.getCurrentInstance().update("form:GrupoDialogo");
-            RequestContext.getCurrentInstance().execute("PF('GrupoDialogo').show()");
-        }
+        tipoActualizacion = LND;
+        habilitarBotonLov();
+        contarRegistroGrupo();
+        RequestContext.getCurrentInstance().update("form:GrupoDialogo");
+        RequestContext.getCurrentInstance().execute("PF('GrupoDialogo').show()");
     }
 
     public void actualizarGrupo() {
@@ -938,14 +925,11 @@ public class ControlEmplInformacionAdicional implements Serializable {
                 } else if (resultado == 5) {
                     RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
                 }
-            } 
-        } else {
-            if (administrarRastros.verificarHistoricosTabla("INFORMACIONESADICIONALES")) {
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
             }
-
+        } else if (administrarRastros.verificarHistoricosTabla("INFORMACIONESADICIONALES")) {
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
         informacionTablaSeleccionada = null;
     }
@@ -955,9 +939,9 @@ public class ControlEmplInformacionAdicional implements Serializable {
             tipoLista = 1;
         }
         RequestContext context = RequestContext.getCurrentInstance();
-       contarRegistros();
+        contarRegistros();
     }
-    
+
     public void recordarSeleccion() {
         if (informacionTablaSeleccionada != null) {
             FacesContext c = FacesContext.getCurrentInstance();
@@ -974,15 +958,16 @@ public class ControlEmplInformacionAdicional implements Serializable {
         RequestContext.getCurrentInstance().update("form:infoRegistro");
     }
 
-    public void habilitarBotonLov(){
+    public void habilitarBotonLov() {
         activarLov = false;
         RequestContext.getCurrentInstance().update("form:listaValores");
     }
 
-    public void deshabilitarBotonLov(){
+    public void deshabilitarBotonLov() {
         activarLov = true;
         RequestContext.getCurrentInstance().update("form:listaValores");
     }
+
     ////////////////////////////////GETS Y SETS////////////////////////////////////
     public List<InformacionesAdicionales> getListInformacionAdicional() {
         try {
@@ -1149,5 +1134,4 @@ public class ControlEmplInformacionAdicional implements Serializable {
         this.activarLov = activarLov;
     }
 
-    
 }

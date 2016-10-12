@@ -112,6 +112,10 @@ public class ControlVigenciasProyectos implements Serializable {
         nuevaVigenciaProyectos.setProyecto(new Proyectos());
         nuevaVigenciaProyectos.setPryRol(new PryRoles());
         nuevaVigenciaProyectos.setPryCargoproyecto(new Cargos());
+        duplicarVigenciaProyectos = new VigenciasProyectos();
+        duplicarVigenciaProyectos.setProyecto(new Proyectos());
+        duplicarVigenciaProyectos.setPryRol(new PryRoles());
+        duplicarVigenciaProyectos.setPryCargoproyecto(new Cargos());
         proyectoParametro = new Proyectos();
         altoTabla = "115";
         plataformaParametroProyecto = null;
@@ -447,12 +451,10 @@ public class ControlVigenciasProyectos implements Serializable {
                     RequestContext.getCurrentInstance().execute("PF('errorFechas').show()");
                     retorno = false;
                 }
+            } else if (nuevaVigenciaProyectos.getFechainicial().after(fechaParametro)) {
+                retorno = true;
             } else {
-                if (nuevaVigenciaProyectos.getFechainicial().after(fechaParametro)) {
-                    retorno = true;
-                } else {
-                    retorno = false;
-                }
+                retorno = false;
             }
         }
         if (i == 2) {
@@ -463,17 +465,15 @@ public class ControlVigenciasProyectos implements Serializable {
                     retorno = false;
                     RequestContext.getCurrentInstance().execute("PF('errorFechas').show()");
                 }
+            } else if (duplicarVigenciaProyectos.getFechainicial().after(fechaParametro)) {
+                retorno = true;
             } else {
-                if (duplicarVigenciaProyectos.getFechainicial().after(fechaParametro)) {
-                    retorno = true;
-                } else {
-                    retorno = false;
-                }
+                retorno = false;
             }
         }
         return retorno;
     }
-    
+
     public void modificarVigenciaDeporte(VigenciasProyectos vigenciaproyecto) {
         vigenciaProyectoSeleccionado = vigenciaproyecto;
         if (tipoLista == 0) {
@@ -489,22 +489,20 @@ public class ControlVigenciasProyectos implements Serializable {
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
             }
-        } else {
-            if (!listaVigenciasProyectosCrear.contains(vigenciaProyectoSeleccionado)) {
-                if (listaVigenciasProyectosModificar.isEmpty()) {
-                    listaVigenciasProyectosModificar.add(vigenciaProyectoSeleccionado);
-                } else if (!listaVigenciasProyectosModificar.contains(vigenciaProyectoSeleccionado)) {
-                    listaVigenciasProyectosModificar.add(vigenciaProyectoSeleccionado);
-                }
-                if (guardado == true) {
-                    guardado = false;
-                    RequestContext context = RequestContext.getCurrentInstance();
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                }
+        } else if (!listaVigenciasProyectosCrear.contains(vigenciaProyectoSeleccionado)) {
+            if (listaVigenciasProyectosModificar.isEmpty()) {
+                listaVigenciasProyectosModificar.add(vigenciaProyectoSeleccionado);
+            } else if (!listaVigenciasProyectosModificar.contains(vigenciaProyectoSeleccionado)) {
+                listaVigenciasProyectosModificar.add(vigenciaProyectoSeleccionado);
+            }
+            if (guardado == true) {
+                guardado = false;
+                RequestContext context = RequestContext.getCurrentInstance();
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         }
     }
-    
+
     public void modificarFechas(VigenciasProyectos vigenciaproyecto, int c) {
         VigenciasProyectos auxiliar = null;
         if (tipoLista == 0) {
@@ -552,7 +550,7 @@ public class ControlVigenciasProyectos implements Serializable {
             RequestContext.getCurrentInstance().execute("PF('errorRegNew').show()");
         }
     }
-    
+
     //LISTA DE VALORES DINAMICA
     public void listaValoresBoton() {
         if (vigenciaProyectoSeleccionado != null) {
@@ -888,6 +886,9 @@ public class ControlVigenciasProyectos implements Serializable {
         vigenciaProyectoSeleccionado = null;
 //        k = 0;
         listaVigenciasProyectos = null;
+        listaProyectos = null;
+        listaCargos = null;
+        listaPryRoles = null;
         guardado = true;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
@@ -924,6 +925,9 @@ public class ControlVigenciasProyectos implements Serializable {
         listaVigenciasProyectosCrear.clear();
         listaVigenciasProyectosModificar.clear();
         vigenciaProyectoSeleccionado = null;
+             listaProyectos = null;
+        listaCargos = null;
+        listaPryRoles = null;
         //  k = 0;
         listaVigenciasProyectos = null;
         guardado = true;
@@ -1352,6 +1356,7 @@ public class ControlVigenciasProyectos implements Serializable {
     public void activarAceptar() {
         aceptar = false;
     }
+
     public void eventoFiltrar() {
         if (tipoLista == 0) {
             tipoLista = 1;
@@ -1364,7 +1369,7 @@ public class ControlVigenciasProyectos implements Serializable {
     }
 
     public void contarRegistroRol() {
-    RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroRol");
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroRol");
     }
 
     public void contarRegistroCargo() {

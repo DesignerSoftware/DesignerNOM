@@ -310,7 +310,7 @@
 
                             <p:commandButton id="limpiarI" value="#{msg['limpiar']}" style="position: absolute; left: 35px; top: 195px;" icon="ui-icon-trash"  actionListener="#{controlIdiomaPersona.limpiarNuevaIdiomaPersona()}" update="nuevaIdiomas" process="@this"/>
                             <p:commandButton id="agregarI" value="#{msg['agregar']}" style="position: absolute; left: 135px; top: 195px;" icon="ui-icon-circle-check" process="@this" actionListener="#{controlIdiomaPersona.agregarNuevaIdiomaPersona()}"  />
-                            <p:commandButton id="cancelarI" value="#{msg['cancelar']}" style="position: absolute; left: 235px; top: 195px;" icon="ui-icon-circle-close" actionListener="#{controlIdiomaPersona.limpiarNuevaIdiomaPersona()}" update="nuevaIdiomas" onclick="PF('NuevoRegistroIdiomas').hide();"  process="@this"/>
+                            <p:commandButton id="cancelarI" value="#{msg['cancelar']}" style="position: absolute; left: 235px; top: 195px;" icon="ui-icon-circle-close" actionListener="#{controlIdiomaPersona.limpiarNuevaIdiomaPersona()}" update="nuevaIdiomas" onclick="PF('NuevoRegistroIdiomas').hide()"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 

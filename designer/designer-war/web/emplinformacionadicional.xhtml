@@ -146,7 +146,7 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 400px; margin: -14px; height: 26px; border: none; color: blue" id="fooGrupos" action="grupoinfadicional"  onclick="#{controlGruposInfAdicionales.recibirPag('grupoinfadicional')}" value=" "/>
+                                        <p:commandButton style="width: 400px; margin: -14px; height: 26px; border: none; color: blue" id="fooGrupos" action="grupoinfadicional" onclick="#{controlGruposInfAdicionales.recibirPag('grupoinfadicional')}" value=" "/>
                                     </f:facet>
                                 </p:column>
 
@@ -381,7 +381,7 @@
                                 <p:ajax event="change" listener="#{controlEmplInformacionAdicional.autocompletarNuevoyDuplicado('GRUPO', controlEmplInformacionAdicional.nuevaInfoAdicional.grupo.descripcion, 1)}" />
                             </p:inputText>
                             <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border:none; width: 23px; height: 23px; position: absolute; left: 330px; top: 130px;"
-                                             id="btnNuevoGrupo" value=""  actionListener="#{controlEmplInformacionAdicional.asignarIndex(info,0,1)}"/>   
+                                             id="btnNuevoGrupo" value="" actionListener="#{controlEmplInformacionAdicional.asignarIndex(info,0,1)}" process="@this"/>   
                             <p:watermark for="nuevaGrupo" value="#{msg['grupo']}" />
 
                             <strong><h:outputText value="*#{msg['tipodatoN']}" style="position: absolute; top: 165px; left: 50px;" /></strong>

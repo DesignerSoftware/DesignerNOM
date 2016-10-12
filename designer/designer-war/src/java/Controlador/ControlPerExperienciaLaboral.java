@@ -895,7 +895,7 @@ public class ControlPerExperienciaLaboral implements Serializable {
                     limpiarNuevaE();
                     getListExperienciaLaboralEmpl();
                     contarRegistros();
-                    RequestContext.getCurrentInstance().update("form:informacionRegistro");
+//                    RequestContext.getCurrentInstance().update("form:informacionRegistro");
                     RequestContext.getCurrentInstance().update("form:datosExperiencia");
                     RequestContext.getCurrentInstance().execute("PF('NuevoRegistro').hide()");
                     RequestContext.getCurrentInstance().update("form:editarLogrosEP");

@@ -675,7 +675,7 @@ public class ControlEmpleadoIndividual implements Serializable {
         datosEmpleado();
         RequestContext context = RequestContext.getCurrentInstance();
         guardado = true;
-        persona = null;
+//        persona = null;
         empleado = null;
         RequestContext.getCurrentInstance().update("form");
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -1276,6 +1276,7 @@ public class ControlEmpleadoIndividual implements Serializable {
     }
 
     public boolean isGuardado() {
+//        refrescar();
         return guardado;
     }
 

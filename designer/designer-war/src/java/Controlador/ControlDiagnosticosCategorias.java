@@ -1294,7 +1294,7 @@ public class ControlDiagnosticosCategorias implements Serializable {
             exporter.export(context, tabla, "DIAGNOSTICOSCATEGORIAS", false, false, "UTF-8", null, null);
             context.responseComplete();
         } else{
-            RequestContext.getCurrentInstance().execute("PF('formularioDialogos:seleccionarRegistro').show()"); 
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()"); 
         }
 
     }

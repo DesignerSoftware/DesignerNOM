@@ -124,6 +124,11 @@ public class ControlProyecto implements Serializable {
         nuevaProyectos.setEmpresa(new Empresas());
         nuevaProyectos.setPryCliente(new PryClientes());
         nuevaProyectos.setPryPlataforma(new PryPlataformas());
+        duplicarProyecto = new Proyectos();
+        duplicarProyecto.setTipomoneda(new Monedas());
+        duplicarProyecto.setEmpresa(new Empresas());
+        duplicarProyecto.setPryCliente(new PryClientes());
+        duplicarProyecto.setPryPlataforma(new PryPlataformas());
         listProyectoCrear = new ArrayList<Proyectos>();
         activarLov = true;
     }
@@ -1081,7 +1086,6 @@ public class ControlProyecto implements Serializable {
     public void duplicarProyectoM() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (proyectoTablaSeleccionado != null) {
-            duplicarProyecto = new Proyectos();
             if (tipoListaP == 0) {
                 duplicarProyecto.setFechafinal(proyectoTablaSeleccionado.getFechafinal());
                 duplicarProyecto.setFechainicial(proyectoTablaSeleccionado.getFechainicial());
@@ -1164,7 +1168,6 @@ public class ControlProyecto implements Serializable {
                     filtrarListProyectos = null;
                     tipoListaP = 0;
                 }
-                duplicarProyecto = new Proyectos();
                 limpiarduplicarP();
                 RequestContext context = RequestContext.getCurrentInstance();
                 contarRegistros();
@@ -1190,13 +1193,13 @@ public class ControlProyecto implements Serializable {
         duplicarProyecto.setPryPlataforma(new PryPlataformas());
     }
 
-    public void cancelarDuplicadoP() {
-        duplicarProyecto = new Proyectos();
-        duplicarProyecto.setTipomoneda(new Monedas());
-        duplicarProyecto.setEmpresa(new Empresas());
-        duplicarProyecto.setPryCliente(new PryClientes());
-        duplicarProyecto.setPryPlataforma(new PryPlataformas());
-    }
+//    public void cancelarDuplicadoP() {
+//        duplicarProyecto = new Proyectos();
+//        duplicarProyecto.setTipomoneda(new Monedas());
+//        duplicarProyecto.setEmpresa(new Empresas());
+//        duplicarProyecto.setPryCliente(new PryClientes());
+//        duplicarProyecto.setPryPlataforma(new PryPlataformas());
+//    }
 
     public void validarBorradoProyecto() {
         if (proyectoTablaSeleccionado != null) {
@@ -1561,7 +1564,7 @@ public class ControlProyecto implements Serializable {
 
         RequestContext.getCurrentInstance().update("form:PlataformasDialogo");
         RequestContext.getCurrentInstance().update("form:aceptarP");
-       RequestContext.getCurrentInstance().update("form:lovPlataforma");
+        RequestContext.getCurrentInstance().update("form:lovPlataforma");
         context.reset("form:lovPlataforma:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('lovPlataforma').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('PlataformasDialogo').hide()");

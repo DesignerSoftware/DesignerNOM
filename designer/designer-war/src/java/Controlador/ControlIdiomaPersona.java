@@ -4,7 +4,6 @@
  */
 package Controlador;
 
-
 import Entidades.Empleados;
 import Entidades.Idiomas;
 import Entidades.IdiomasPersonas;
@@ -434,7 +433,6 @@ public class ControlIdiomaPersona implements Serializable {
                 filtrarListIdiomasPersonas = null;
                 tipoLista = 0;
             }
-            //AGREGAR REGISTRO A LA LISTA VIGENCIAS CARGOS EMPLEADO.
 
             boolean continuar = validarIdioma();
             if (continuar) {
@@ -506,48 +504,47 @@ public class ControlIdiomaPersona implements Serializable {
 
     public void confirmarDuplicar() {
         if (duplicarIdiomaPersona.getIdioma().getSecuencia() != null) {
-       FacesContext c = FacesContext.getCurrentInstance();
-        if (bandera == 1) {
-            altoTabla = "304";
-            //CERRAR FILTRADO
-            idIdioma = (Column) c.getViewRoot().findComponent("form:datosIdiomas:idIdioma");
-            idIdioma.setFilterStyle("display: none; visibility: hidden;");
-            idConversacion = (Column) c.getViewRoot().findComponent("form:datosIdiomas:idConversacion");
-            idConversacion.setFilterStyle("display: none; visibility: hidden;");
-            idLectura = (Column) c.getViewRoot().findComponent("form:datosIdiomas:idLectura");
-            idLectura.setFilterStyle("display: none; visibility: hidden;");
-            idEscritura = (Column) c.getViewRoot().findComponent("form:datosIdiomas:idEscritura");
-            idEscritura.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosIdiomas");
-            bandera = 0;
-            filtrarListIdiomasPersonas = null;
-            tipoLista = 0;
-        }
+            FacesContext c = FacesContext.getCurrentInstance();
+            if (bandera == 1) {
+                altoTabla = "304";
+                //CERRAR FILTRADO
+                idIdioma = (Column) c.getViewRoot().findComponent("form:datosIdiomas:idIdioma");
+                idIdioma.setFilterStyle("display: none; visibility: hidden;");
+                idConversacion = (Column) c.getViewRoot().findComponent("form:datosIdiomas:idConversacion");
+                idConversacion.setFilterStyle("display: none; visibility: hidden;");
+                idLectura = (Column) c.getViewRoot().findComponent("form:datosIdiomas:idLectura");
+                idLectura.setFilterStyle("display: none; visibility: hidden;");
+                idEscritura = (Column) c.getViewRoot().findComponent("form:datosIdiomas:idEscritura");
+                idEscritura.setFilterStyle("display: none; visibility: hidden;");
+                RequestContext.getCurrentInstance().update("form:datosIdiomas");
+                bandera = 0;
+                filtrarListIdiomasPersonas = null;
+                tipoLista = 0;
+            }
 
             boolean continuar = validarIdioma();
             if (continuar) {
-
-                k++;
-                l = BigInteger.valueOf(k);
-                duplicarIdiomaPersona.setSecuencia(l);
-                duplicarIdiomaPersona.setPersona(empleadoActual.getPersona());
-                listIdiomasPersonas.add(duplicarIdiomaPersona);
-                listIdiomaPersonaCrear.add(duplicarIdiomaPersona);
-                if (listIdiomasPersonas == null) {
-                    listIdiomasPersonas = new ArrayList<IdiomasPersonas>();
-                }
-                idiomaTablaSeleccionado = duplicarIdiomaPersona;
-                RequestContext context = RequestContext.getCurrentInstance();
-                getListIdiomasPersonas();
-                contarRegistros();
-                RequestContext.getCurrentInstance().update("form:informacionRegistro");
-                RequestContext.getCurrentInstance().update("form:datosIdiomas");
-                RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroIdiomas').hide()");
-                if (guardado == true) {
-                    guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                }
-                duplicarIdiomaPersona = new IdiomasPersonas();
+            k++;
+            l = BigInteger.valueOf(k);
+            duplicarIdiomaPersona.setSecuencia(l);
+            duplicarIdiomaPersona.setPersona(empleadoActual.getPersona());
+            listIdiomasPersonas.add(duplicarIdiomaPersona);
+            listIdiomaPersonaCrear.add(duplicarIdiomaPersona);
+            if (listIdiomasPersonas == null) {
+                listIdiomasPersonas = new ArrayList<IdiomasPersonas>();
+            }
+            idiomaTablaSeleccionado = duplicarIdiomaPersona;
+            RequestContext context = RequestContext.getCurrentInstance();
+            getListIdiomasPersonas();
+            contarRegistros();
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
+            RequestContext.getCurrentInstance().update("form:datosIdiomas");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroIdiomas').hide()");
+            if (guardado == true) {
+                guardado = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            }
+            duplicarIdiomaPersona = new IdiomasPersonas();
             } else {
                 RequestContext.getCurrentInstance().update("form:existeIdioma");
                 RequestContext.getCurrentInstance().execute("PF('existeIdioma').show()");
@@ -711,7 +708,6 @@ public class ControlIdiomaPersona implements Serializable {
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarIdioma");
         }
         filtrarListIdiomas = null;
-        idiomaSeleccionado = null;
         aceptar = true;
         idiomaTablaSeleccionado = null;
         tipoActualizacion = -1;
@@ -726,7 +722,6 @@ public class ControlIdiomaPersona implements Serializable {
 
     public void cancelarCambioIdioma() {
         filtrarListIdiomas = null;
-        idiomaSeleccionado = null;
         aceptar = true;
         tipoActualizacion = -1;
         permitirIndex = true;
@@ -737,33 +732,19 @@ public class ControlIdiomaPersona implements Serializable {
         RequestContext.getCurrentInstance().execute("PF('IdiomasDialogo').hide()");
         RequestContext.getCurrentInstance().update("form:IdiomasDialogo");
         RequestContext.getCurrentInstance().update("form:lovIdiomas");
-        RequestContext.getCurrentInstance().update("form:cancelarI");
+        RequestContext.getCurrentInstance().update("form:atrasI");
     }
 
-//    public void eliminarRegistrosIdiomaLov() {
-//        if (listIdiomasPersonas != null) {
-//            getListIdiomas();
-//            for (int i = 0; i < listIdiomasPersonas.size(); i++) {
-//                for (int j = 0; j < listIdiomas.size(); j++) {
-//                    if (listIdiomas.get(j).getSecuencia().equals(listIdiomasPersonas.get(i).getIdioma().getSecuencia())) {
-//                        listIdiomas.remove(j);
-//                    }
-//                }
-//            }
-//        }
-//    }
     public boolean validarIdioma() {
         boolean retorno = true;
-        if (tipoActualizacion == 1) {
-            secuencia = nuevaIdiomaPersona;
-        } else {
-            secuencia = duplicarIdiomaPersona;
-        }
         if (listIdiomasPersonas != null) {
-            for (int i = 0; i < listIdiomasPersonas.size(); i++) {
-                if (secuencia.getIdioma().getSecuencia().equals(listIdiomasPersonas.get(i).getIdioma().getSecuencia())) {
-                    retorno = false;
-                    break;
+            if (!listIdiomasPersonas.isEmpty()) {
+                for (int i = 0; i < listIdiomasPersonas.size(); i++) {
+                    if (nuevaIdiomaPersona.getIdioma().getSecuencia().equals(listIdiomasPersonas.get(i).getIdioma().getSecuencia())) {
+                        System.out.println("idioma repetido");
+                        retorno = false;
+                        break;
+                    }
                 }
             }
         }
@@ -825,13 +806,10 @@ public class ControlIdiomaPersona implements Serializable {
             } else if (resultado == 5) {
                 RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
+        } else if (administrarRastros.verificarHistoricosTabla("IDIOMASPERSONAS")) {
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            if (administrarRastros.verificarHistoricosTabla("IDIOMASPERSONAS")) {
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-            }
-
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
         idiomaTablaSeleccionado = null;
     }

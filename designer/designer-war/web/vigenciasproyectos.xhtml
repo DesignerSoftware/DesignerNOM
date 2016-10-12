@@ -147,7 +147,7 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 170px; margin: -14px; height: 26px;  border: none; color: blue" id="fooProyecto" value="" action="pageProyectos" actionListener="#{controlProyecto.recibirPaginaEntrante('vigenciasproyectos')}"/>
+                                        <p:commandButton style="width: 170px; margin: -1px; height: 26px;  border: none; color: blue" id="fooProyecto" value="" action="pageProyectos" actionListener="#{controlProyecto.recibirPaginaEntrante('vigenciasproyectos')}"/>
                                     </f:facet>
                                 </p:column>
 
@@ -164,7 +164,7 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 170px; margin: -14px; height: 26px;  border: none; color: blue" id="fooPryRol" value="" action="pryrol" actionListener="#{controlPryRoles.recibirPaginaEntrante('vigenciasproyectos')}"/>
+                                        <p:commandButton style="width: 170px; margin: -1px; height: 26px;  border: none; color: blue" id="fooPryRol" value="" action="pryrol" actionListener="#{controlPryRoles.recibirPaginaEntrante('vigenciasproyectos')}"/>
                                     </f:facet>
                                 </p:column>
 
@@ -181,11 +181,16 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 170px; margin: -14px; height: 26px; border: none; color: blue" id="fooCargo" action="cargos" actionListener="#{controlCargo.recibirPaginaEntrante('vigenciasproyectos')}" value=""/>
+                                        <p:commandButton style="width: 170px; margin: -1px; height: 26px; border: none; color: blue" id="fooCargo" action="cargos" actionListener="#{controlCargo.recibirPaginaEntrante('vigenciasproyectos')}" value=""/>
                                     </f:facet>
                                 </p:column> 
 
-                                <p:column headerText="#{msg['pc']}" sortBy="#{vigenciasProyectos.cantidadpersonaacargo}" filterBy="#{vigenciasProyectos.cantidadpersonaacargo}" filterMatchMode="contains" id="vPCantidadPersonas" width="133" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column  sortBy="#{vigenciasProyectos.cantidadpersonaacargo}" filterBy="#{vigenciasProyectos.cantidadpersonaacargo}" filterMatchMode="contains" id="vPCantidadPersonas" width="133" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <f:facet name="header">
+                                        <h:outputText id="headerpc" value="#{msg['pc']}" />    
+                                    <p:tooltip  for="headerpc" value="Personas a Cargo"/>
+                                    </f:facet>
+                                    
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{vigenciasProyectos.cantidadpersonaacargo}" /></f:facet>  
                                         <f:facet name="input">
@@ -195,7 +200,7 @@
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
-
+                                    
                                     <f:facet name="footer">
                                         <h:outputText value="" />
                                     </f:facet>

@@ -1,7 +1,7 @@
 package Entidades;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.math.BigInteger;
 import java.util.Date;
 import javax.persistence.*;
@@ -20,7 +20,7 @@ public class Evalvigconvocatorias implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "SECUENCIA")
-    private BigDecimal secuencia;
+    private BigInteger secuencia;
     @Basic(optional = false)
     @NotNull
     @Column(name = "CODIGO")
@@ -34,21 +34,21 @@ public class Evalvigconvocatorias implements Serializable {
     public Evalvigconvocatorias() {
     }
 
-    public Evalvigconvocatorias(BigDecimal secuencia) {
+    public Evalvigconvocatorias(BigInteger secuencia) {
         this.secuencia = secuencia;
     }
 
-    public Evalvigconvocatorias(BigDecimal secuencia, BigInteger codigo, Date fechavigencia) {
+    public Evalvigconvocatorias(BigInteger secuencia, BigInteger codigo, Date fechavigencia) {
         this.secuencia = secuencia;
         this.codigo = codigo;
         this.fechavigencia = fechavigencia;
     }
 
-    public BigDecimal getSecuencia() {
+    public BigInteger getSecuencia() {
         return secuencia;
     }
 
-    public void setSecuencia(BigDecimal secuencia) {
+    public void setSecuencia(BigInteger secuencia) {
         this.secuencia = secuencia;
     }
 

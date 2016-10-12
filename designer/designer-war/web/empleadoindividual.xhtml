@@ -484,9 +484,10 @@
                             <fieldset style="position: absolute; left: 630px; top: 2px; width: 197px; height: 205px; border-radius: 7px; padding: 0px; border: none;">
                                 <!-- <legend style="font-weight: bold; color: blue">#{msg['datos']}</legend> -->
 
-                                <p:commandButton id="btnPruebasAplicadas" value="" style="background-image: url(Imagenes/Iconos/g_evaldesempeno.png); background-size: 100% 100%;
-                                                 background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; border:none; " process="@this"/>
-                                <h:commandLink value="#{msg['pruebasaplicadas']}" style="position: absolute; left: 47px; font-weight: bold; color: #14388B;" />
+                                <p:commandButton id="btnPruebasAplicadas" value="" style="background-image: url(Imagenes/Iconos/g_evaldesempeno.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; border:none; "
+                                                 process="@this" actionListener="#{controlEmplVigConvocatorias.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}" action="pruebasaplicadas"/>
+                                <h:commandLink value="#{msg['pruebasaplicadas']}" style="position: absolute; left: 47px; font-weight: bold; color: #14388B;" actionListener="#{controlEmplVigConvocatorias.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"
+                                               action="pruebasaplicadas" />
 
                                 <p:inputText  autocomplete="off"  id="pruebasAplicadas" value="#{controlEmpleadoIndividual.pruebasAplicadasP}" style="position: absolute; left: 45px; top: 15px; width: 140px; box-shadow: none; border: none;"/>
 

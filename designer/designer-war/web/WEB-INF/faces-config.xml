@@ -6071,4 +6071,21 @@
         </navigation-case>
     </navigation-rule>
     
+            <navigation-rule>
+        <from-view-id>/empleadoindividual.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>pruebasaplicadas</from-outcome>
+            <to-view-id>/emplvigconvocatoria.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/emplvigconvocatoria.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>atraspruebasaplicadas</from-outcome>
+            <to-view-id>/empleadoindividual.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
 </faces-config>
