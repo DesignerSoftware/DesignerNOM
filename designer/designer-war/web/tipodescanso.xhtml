@@ -21,25 +21,25 @@
                         <p:tooltip style="" for="guardarRapido" value="Guardar" />
 
                         <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);"
-                                         actionListener="#{controlTiposDescansos.editarCelda()}"  process="@this"/>
+                                         actionListener="#{controlTiposDescansos.editarCelda()}" process="@this"/>
                         <p:tooltip style="" for="editar" value="Editar" />
 
                         <p:separator />
-                        <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);"
-                                         actionListener="#{controlTiposDescansos.listaValoresBoton()}"   process="@this"/>
+                        <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" disabled="true"
+                                         actionListener="#{controlTiposDescansos.listaValoresBoton()}" process="@this"/>
                         <p:tooltip style="" for="listaValores" value="Lista de Valores" />
 
                         <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);"
-                                         actionListener="#{controlTiposDescansos.activarCtrlF11()}"  process="@this"/>
+                                         actionListener="#{controlTiposDescansos.activarCtrlF11()}" process="@this"/>
                         <p:tooltip style="" for="filtrar" value="Activar filtrado" />
 
                         <p:separator />
                         <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);"
-                                         actionListener="#{controlTiposDescansos.exportXLS()}"  ajax="false"/>
+                                         actionListener="#{controlTiposDescansos.exportXLS()}" ajax="false"/>
                         <p:tooltip style="" for="exportarXLS" value="Exportar a XLS" />
 
                         <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);"
-                                         actionListener="#{controlTiposDescansos.limpiarNuevoTiposDescansos()}"  ajax="false">
+                                         actionListener="#{controlTiposDescansos.limpiarNuevoTiposDescansos()}" ajax="false">
                            <p:dataExporter type="xml"  target=":formExportar:datosTiposDescansosExportar" fileName="TIPOSDESCANSOS" encoding="UTF-8"/> 
                         </p:commandButton> 
                         <p:tooltip style="" for="exportarXML" value="Exportar a XML" />
@@ -94,9 +94,9 @@
                               <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
                               <f:facet name="input">
                                  <p:inputText  autocomplete="off" value="#{info.codigo}" maxlength="3" id="editarCodigo" style="height: 12px; border-radius: 0px; width: 400px; text-transform: uppercase"  > 
-                                    <p:ajax event="select" listener="#{controlTiposDescansos.cambiarIndice(indice, 0)}" process="@this"
+                                    <p:ajax event="select" listener="#{controlTiposDescansos.cambiarIndice(info, 0)}" process="@this"
                                             onstart="PF('datosTiposDescansos').unselectAllRows();PF('datosTiposDescansos').selectRow(#{indice});"/> 
-                                    <p:ajax event="change" listener="#{controlTiposDescansos.modificarTiposDescansos(indice, 'N', info.codigo)}" update="codigo"/>
+                                    <p:ajax event="change" listener="#{controlTiposDescansos.modificarTiposDescansos(info, 'N', info.codigo)}" update="codigo"/>
                                     <p:keyFilter for="editarCodigo" mask="num"/>
                                  </p:inputText>
                               </f:facet>  
@@ -108,9 +108,9 @@
                               <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.descripcion}"  /></f:facet>  
                               <f:facet name="input">
                                  <p:inputText  autocomplete="off" value="#{info.descripcion}" maxlength="50" id="editarNombre" style="height: 12px; border-radius: 0px; width: 550px; text-transform: uppercase"  > 
-                                    <p:ajax event="select" listener="#{controlTiposDescansos.cambiarIndice(indice, 1)}" process="@this"
+                                    <p:ajax event="select" listener="#{controlTiposDescansos.cambiarIndice(info, 1)}" process="@this"
                                             onstart="PF('datosTiposDescansos').unselectAllRows();PF('datosTiposDescansos').selectRow(#{indice});"/> 
-                                    <p:ajax event="change" listener="#{controlTiposDescansos.modificarTiposDescansos(indice, 'N', info.descripcion)}" update="descripcion"/>
+                                    <p:ajax event="change" listener="#{controlTiposDescansos.modificarTiposDescansos(info, 'N', info.descripcion)}" update="descripcion"/>
                                     <!--<p:keyFilter for="editarNombre" mask="num"/>-->
                                  </p:inputText>
                               </f:facet>  
@@ -122,9 +122,9 @@
                               <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.diastrabajados}"  /></f:facet>  
                               <f:facet name="input">
                                  <p:inputText  autocomplete="off" value="#{info.diastrabajados}" id="editardiasTrabajados" style="height: 12px; border-radius: 0px; width: 550px; text-transform: uppercase"  > 
-                                    <p:ajax event="select" listener="#{controlTiposDescansos.cambiarIndice(indice, 2)}" process="@this"
+                                    <p:ajax event="select" listener="#{controlTiposDescansos.cambiarIndice(info, 2)}" process="@this"
                                             onstart="PF('datosTiposDescansos').unselectAllRows();PF('datosTiposDescansos').selectRow(#{indice});"/> 
-                                    <p:ajax event="change" listener="#{controlTiposDescansos.modificarTiposDescansos(indice, 'N', info.diastrabajados)}" update="descripcion"/>
+                                    <p:ajax event="change" listener="#{controlTiposDescansos.modificarTiposDescansos(info, 'N', info.diastrabajados)}" update="descripcion"/>
                                     <p:keyFilter for="editardiasTrabajados" mask="num"/>
                                  </p:inputText>
                               </f:facet>  
@@ -136,9 +136,9 @@
                               <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.diasdescansados}"/></f:facet>  
                               <f:facet name="input">
                                  <p:inputText  autocomplete="off"  value="#{info.diasdescansados}" id="editardiasDescansados" style="height: 12px; border-radius: 0px; width: 550px; text-transform: uppercase"  > 
-                                    <p:ajax event="select" listener="#{controlTiposDescansos.cambiarIndice(indice, 3)}" process="@this"
+                                    <p:ajax event="select" listener="#{controlTiposDescansos.cambiarIndice(info, 3)}" process="@this"
                                             onstart="PF('datosTiposDescansos').unselectAllRows();PF('datosTiposDescansos').selectRow(#{indice});"/>
-                                    <p:ajax event="change" listener="#{controlTiposDescansos.modificarTiposDescansos(indice, 'N', info.diasdescansados)}" update="descripcion"/>
+                                    <p:ajax event="change" listener="#{controlTiposDescansos.modificarTiposDescansos(info, 'N', info.diasdescansados)}" update="descripcion"/>
                                     <p:keyFilter for="editardiasDescansados" mask="num"/>
                                  </p:inputText>
                               </f:facet>  
@@ -146,101 +146,101 @@
                         </p:column>
 
                      </p:dataTable>
-                     <h:outputText id="informacionRegistro" value="#{controlTiposDescansos.infoRegistro}" style="position: relative; left: 10px; top: 5px; font-weight: bold;"/>
+                     <h:outputText id="informacionRegistro" value="Registros: #{controlTiposDescansos.infoRegistro}" style="position: relative; left: 10px; top: 5px; font-weight: bold;"/>
 
                   </fieldset>
 
                   <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" actionListener="#{controlTiposDescansos.revisarDialogoGuardar()}" disabled="#{controlTiposDescansos.guardado}" process="@this"/>
                   <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" action="#{controlTiposDescansos.redirigirPaginaAnterior()}"/>
 
-                  <p:dialog id="confirmarGuardar" header="ATENCION...!" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
+                  <p:dialog id="confirmarGuardar" header="¡Precaución!" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                      <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                      <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                     <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();"  action="#{controlTiposDescansos.redirigirPaginaAnterior()}" actionListener="#{controlTiposDescansos.guardarTiposDescansos()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
-                     <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();"  action="#{controlTiposDescansos.redirigirPaginaAnterior()}" actionListener="#{controlTiposDescansos.cancelarModificacion()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
-                     <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                     <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" action="#{controlTiposDescansos.redirigirPaginaAnterior()}" actionListener="#{controlTiposDescansos.guardarTiposDescansos()}" style="position: absolute; top: 50px; left: 157px;" process="@this" icon="ui-icon-check" />
+                     <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" action="#{controlTiposDescansos.redirigirPaginaAnterior()}" actionListener="#{controlTiposDescansos.cancelarModificacion()}" style="position: absolute; top: 50px; left: 218px;" process="@this" icon="ui-icon-close" />
+                     <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 260px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                   </p:dialog>
 
                </p:panel>
 
-               <p:dialog id="validacionDuplicarVigencia" header="ATENCIÓN...!" widgetVar="validacionDuplicarVigencia"  resizable="false" draggable="true" modal="true" height="95" width="400" style="" closable="false">  
+               <p:dialog id="validacionDuplicarVigencia" header="¡Precaución!" widgetVar="validacionDuplicarVigencia"  resizable="false" draggable="true" modal="true" height="95" width="400" style="" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 15px;"  />
                   <h:outputText value="Necesita : #{controlTiposDescansos.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight:bold" />
-                  <p:commandButton value="Aceptar" onclick="PF('validacionDuplicarVigencia').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this" />
+                  <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('validacionDuplicarVigencia').hide();" style="position: absolute; top: 70px; left: 300px;" process="@this" />
                </p:dialog>
 
-               <p:dialog id="validacionModificar" header="ATENCIÓN...!" widgetVar="validacionModificar"  resizable="false" draggable="true" modal="true" height="77" width="330" style="" closable="false">  
+               <p:dialog id="validacionModificar" header="¡Error!" widgetVar="validacionModificar"  resizable="false" draggable="true" modal="true" height="77" width="330" style="" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value=" #{controlTiposDescansos.mensajeValidacion}" style="position: absolute; left: 80px; top: 15px; width: 250px; font-weight:bold" />
-                  <p:commandButton value="Aceptar" onclick="PF('validacionModificar').hide();" style="position: absolute; top: 40px; left: 230px;" process="@this" />
+                  <p:commandButton value="Aceptar" onclick="PF('validacionModificar').hide();" icon="ui-icon-check" style="position: absolute; top: 50px; left: 220px;" process="@this" />
                </p:dialog>
 
-               <p:dialog id="validacionBorrar" header="ATENCIÓN...!" widgetVar="validacionBorrar"  resizable="false" draggable="true" modal="true" height="77" width="400" style="" closable="false">  
+               <p:dialog id="validacionBorrar" header="¡Error!" widgetVar="validacionBorrar"  resizable="false" draggable="true" modal="true" height="77" width="400" style="" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="No se puede borrar este elemento porque esta relacionado con otra tabla" style="position: absolute; left: 80px; top: 15px; width: 300px; font-weight:bold" />
-                  <p:commandButton value="Aceptar" onclick="PF('validacionBorrar').hide();" style="position: absolute; top: 40px; left: 300px;" process="@this" />
+                  <p:commandButton value="Aceptar" onclick="PF('validacionBorrar').hide();" icon="ui-icon-check" style="position: absolute; top: 50px; left: 290px;" process="@this" />
                </p:dialog>
 
-               <p:dialog id="mostrarBorrados" header="ATENCIÓN...!" widgetVar="mostrarBorrados"  resizable="false" draggable="true" modal="true" height="87" width="280" style="" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="Se han borrado #{controlTiposDescansos.registrosBorrados}  Registros" style="position: absolute; left: 90px; top: 15px; width: 180px; font-weight:bold" />
-                  <p:commandButton value="Aceptar" onclick="PF('mostrarBorrados').hide();" style="position: absolute; top: 50px; left: 180px;" process="@this" />
-               </p:dialog>
-
-               <p:dialog id="validacionNuevaCentroCosto" header="ATENCIÓN...!" widgetVar="validacionNuevaCentroCosto"  resizable="false" draggable="true" modal="true" height="95" width="400" style="" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 15px;"  />
+               <p:dialog id="validacionNuevaCentroCosto" header="¡Precaución!" widgetVar="validacionNuevaCentroCosto"  resizable="false" draggable="true" modal="true" height="95" width="400" style="" closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 10px; top: 15px;"  />
                   <h:outputText value="Para agregar es necesario adicionar: #{controlTiposDescansos.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight:bold" />
-                  <p:commandButton value="Aceptar" onclick="PF('validacionNuevaCentroCosto').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this" />
+                  <p:commandButton value="Aceptar" onclick="PF('validacionNuevaCentroCosto').hide();" icon="ui-icon-check" style="position: absolute; top: 60px; left: 290px;" process="@this"/>
                </p:dialog>
                <p:hotkey bind="ctrl+f11" actionListener="#{controlTiposDescansos.activarCtrlF11()}"/> 
             </h:form>
 
             <h:form id="formularioDialogos">
 
-               <p:dialog id="confirmarRastro" header="ATENCIÓN" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="La tabla 'TIPOSDESCANSOS' tiene rastros para el registro seleccionado, ¿desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                  <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTiposDescansos.secRegistro, 'TiposDescansos', 'tipodescanso')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
-                  <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
+               <p:dialog id="confirmarRastro" header="Información" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="La tabla 'TIPOSDESCANSOS' tiene rastros para el registro seleccionado, ¿desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                  <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" action="rastro" process="@this"
+                                   actionListener="#{controlRastro.recibirDatosTabla(controlTiposDescansos.secRegistro, 'TiposDescansos', 'tipodescanso')}"
+                                   style="position: absolute; top: 63px; left: 208px;" icon="ui-icon-check"/>
+                  <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
-               <p:dialog id="confirmarRastroHistorico" header="ATENCIÓN" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="La tabla TIPOSDESCANSOS tiene rastros historicos, ¿Desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                  <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('TiposDescansos', 'tipodescanso')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                  <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+               <p:dialog id="confirmarRastroHistorico" header="Información" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="La tabla TIPOSDESCANSOS tiene rastros historicos, ¿Desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;" />
+                  <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" action="rastro" process="@this"
+                                   actionListener="#{controlRastro.historicosTabla('TiposDescansos', 'tipodescanso')}"
+                                   style="position: absolute; top: 63px; left: 208px;" icon="ui-icon-check"/>
+                  <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
-               <p:dialog id="errorRastroHistorico" header="ATENCIÓN" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
+               <p:dialog id="errorRastroHistorico" header="¡Error!" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="La tabla no tiene rastros historicos." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                </p:dialog>
 
-               <p:dialog id="errorRegistroRastro" header="ATENCIÓN" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
+               <p:dialog id="errorRegistroRastro" header="¡Error!" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="El registro seleccionado no tiene rastros." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                </p:dialog>
 
-               <p:dialog id="errorTablaConRastro" header="ATENCIÓN" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
+               <p:dialog id="errorTablaConRastro" header="Información" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                  <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTiposDescansos.secRegistro, 'TiposDescansos', 'tipodescanso')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                  <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                  <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight:bold; text-align: center" />
+                  <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" action="rastro" process="@this"
+                                   actionListener="#{controlRastro.recibirDatosTabla(controlTiposDescansos.secRegistro, 'TiposDescansos', 'tipodescanso')}"
+                                   style="position: absolute; top: 63px; left: 208px;" icon="ui-icon-check"/>
+                  <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
-               <p:dialog id="errorTablaSinRastro" header="ATENCIÓN" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285" style="" closable="true">  
+               <p:dialog id="errorTablaSinRastro" header="¡Error!" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285" style="" closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="La tabla no existe en RASTROSTABLAS, y no tiene registros asociados." style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
                </p:dialog>
 
-               <p:dialog id="seleccionarRegistro" header="ATENCIÓN" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
+               <p:dialog id="seleccionarRegistro" header="¡Error!" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="Por favor seleccione un registro." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                  <h:outputText value="Por favor seleccione un registro." style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight:bold;" />
                </p:dialog>
 
-               <p:dialog id="errorObjetosDB" header="ATENCIÓN" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
+               <p:dialog id="errorObjetosDB" header="¡Error!" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="65" width="275" style="" closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="La tabla 'TIPOSDESCANSOS' no se encuentra en ObjetosDB. Porfavor comunicarse con soporte." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                  <h:outputText value="La tabla 'TIPOSDESCANSOS' no se encuentra en ObjetosDB. Porfavor comunicarse con soporte." style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                </p:dialog>
 
                <p:dialog id="editCodigo" header="Código" widgetVar="editCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" style="text-transform: uppercase">  

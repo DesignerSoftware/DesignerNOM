@@ -167,7 +167,6 @@ public class ControlJornadasLaborales implements Serializable {
       tablaImprimir = ":formExportar:datosJornadasLaboralesExportar";
       nombreArchivo = "JornadasLaboralesXML";
       buscador = false;
-
    }
 
    @PostConstruct
@@ -222,6 +221,13 @@ public class ControlJornadasLaborales implements Serializable {
       if (guardado == false) {
          System.out.println("Realizando Operaciones JornadasLaborales");
          if (!listaJornadasLaboralesBorrar.isEmpty()) {
+            for (int i = 0; i < listaJornadasLaboralesBorrar.size(); i++) {
+               if (listaJornadasLaboralesBorrar.get(i).getJornada() != null) {
+                  if (listaJornadasLaboralesBorrar.get(i).getJornada().getCodigo() == null) {
+                     listaJornadasLaboralesBorrar.get(i).setJornada(null);
+                  }
+               }
+            }
             administrarJornadasLaborales.borrarJornadasLaborales(listaJornadasLaboralesBorrar);
             listaJornadasLaboralesBorrar.clear();
          }
@@ -249,6 +255,13 @@ public class ControlJornadasLaborales implements Serializable {
             listaJornadasSemanalesCrear.clear();
          }
          if (!listaJornadasLaboralesModificar.isEmpty()) {
+            for (int i = 0; i < listaJornadasLaboralesModificar.size(); i++) {
+               if (listaJornadasLaboralesModificar.get(i).getJornada() != null) {
+                  if (listaJornadasLaboralesModificar.get(i).getJornada().getCodigo() == null) {
+                     listaJornadasLaboralesModificar.get(i).setJornada(null);
+                  }
+               }
+            }
             administrarJornadasLaborales.modificarJornadasLaborales(listaJornadasLaboralesModificar);
             listaJornadasLaboralesModificar.clear();
          }
@@ -256,7 +269,6 @@ public class ControlJornadasLaborales implements Serializable {
             administrarJornadasLaborales.modificarJornadasSemanales(listaJornadasSemanalesModificar);
             listaJornadasSemanalesModificar.clear();
          }
-
          System.out.println("Se guardaron los datos con exito");
          getListaJornadasLaborales();
          contarRegistrosJL();
@@ -283,7 +295,6 @@ public class ControlJornadasLaborales implements Serializable {
       if (listaJornadasSemanalesCrear.isEmpty() && listaJornadasSemanalesBorrar.isEmpty() && listaJornadasSemanalesModificar.isEmpty()) {
          secuenciaJornada = jornadaLaboralSeleccionada.getSecuencia();
          listaJornadasSemanales = null;
-         RequestContext context = RequestContext.getCurrentInstance();
          getListaJornadasSemanales();
          if (listaJornadasSemanales != null) {
             if (!listaJornadasSemanales.isEmpty()) {
@@ -304,7 +315,6 @@ public class ControlJornadasLaborales implements Serializable {
       listaJornadasSemanalesModificar.clear();
       secuenciaJornada = jornadaLaboralSeleccionada.getSecuencia();
       listaJornadasSemanales = null;
-      RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("form:datosSemanasLaborales");
    }
 
@@ -778,13 +788,11 @@ public class ControlJornadasLaborales implements Serializable {
       if (jornadaLaboralSeleccionada != null && CualTabla == 0) {
          editarJornadaLaboral = jornadaLaboralSeleccionada;
 
-         RequestContext context = RequestContext.getCurrentInstance();
          System.out.println("Entro a editar... valor celda: " + cualCelda);
          if (cualCelda == 0) {
             System.out.println("Codigo: " + editarJornadaLaboral.getCodigo());
             RequestContext.getCurrentInstance().update("formEditar:editarCodigo");
             RequestContext.getCurrentInstance().execute("PF('editarCodigo').show()");
-            System.out.println("sh0w");
             cualCelda = -1;
          } else if (cualCelda == 1) {
             RequestContext.getCurrentInstance().update("formEditar:editarDescripcion");
@@ -842,6 +850,8 @@ public class ControlJornadasLaborales implements Serializable {
             RequestContext.getCurrentInstance().execute("PF('editarMinutoFinalJS').show()");
             cualCelda = -1;
          }
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
       }
    }
 
@@ -1311,7 +1321,6 @@ public class ControlJornadasLaborales implements Serializable {
             }
             listaJornadasLaborales.remove(jornadaLaboralSeleccionada);
             contarRegistrosJL();
-
             if (tipoLista == 1) {
                filtradoListaJornadasLaborales.remove(jornadaLaboralSeleccionada);
             }
@@ -1349,6 +1358,8 @@ public class ControlJornadasLaborales implements Serializable {
             guardado = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
          }
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
       }
    }
 
@@ -1409,6 +1420,8 @@ public class ControlJornadasLaborales implements Serializable {
 
          RequestContext.getCurrentInstance().update("formularioDialogos:duplicarSemanaLaboral");
          RequestContext.getCurrentInstance().execute("PF('duplicarRegistroSemanaLaboral').show()");
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
       }
    }
 

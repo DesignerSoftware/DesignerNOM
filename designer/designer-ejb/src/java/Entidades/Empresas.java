@@ -306,13 +306,13 @@ public class Empresas implements Serializable {
     public Empresas(BigInteger secuencia) {
         this.secuencia = secuencia;
     }
-
-    public Empresas(BigInteger secuencia, short codigo, long nit, String nombre) {
-        this.secuencia = secuencia;
-        this.codigo = codigo;
-        this.nit = nit;
-        this.nombre = nombre;
-    }
+//
+//    public Empresas(BigInteger secuencia, short codigo, long nit, String nombre) {
+//        this.secuencia = secuencia;
+//        this.codigo = codigo;
+//        this.nit = nit;
+//        this.nombre = nombre;
+//    }
 
     public BigInteger getSecuencia() {
         return secuencia;

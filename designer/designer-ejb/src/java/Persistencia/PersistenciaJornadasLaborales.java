@@ -53,8 +53,10 @@ public class PersistenciaJornadasLaborales implements PersistenciaJornadasLabora
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
+            System.out.println("Va a Modificar JornadasLaborales");
             em.merge(jornadasLaborales);
             tx.commit();
+            System.out.println("Ya Modifico JornadasLaborales");
         } catch (Exception e) {
             System.out.println("Error PersistenciaJornadasLaborales.crear: " + e);
             if (tx.isActive()) {
@@ -69,9 +71,10 @@ public class PersistenciaJornadasLaborales implements PersistenciaJornadasLabora
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
+            System.out.println("Va a Borrar JornadasLaborales");
             em.remove(em.merge(jornadasLaborales));
             tx.commit();
-
+            System.out.println("Ya Borro JornadasLaborales");
         } catch (Exception e) {
             try {
                 if (tx.isActive()) {

@@ -44,12 +44,18 @@ public class AdministrarJornadasLaborales implements AdministrarJornadasLaborale
       em = administrarSesiones.obtenerConexionSesion(idSesion);
    }
 
+   /**
+    *
+    * @return
+    */
+   @Override
    public List<JornadasLaborales> consultarJornadasLaborales() {
       List<JornadasLaborales> listaJornadasLaborales;
       listaJornadasLaborales = persistenciaJornadasLaborales.buscarJornadasLaborales(em);
       return listaJornadasLaborales;
    }
 
+   @Override
    public List<Jornadas> consultarJornadas() {
       List<Jornadas> listaJornadas;
       listaJornadas = persistenciaJornadas.consultarJornadas(em);
@@ -59,14 +65,13 @@ public class AdministrarJornadasLaborales implements AdministrarJornadasLaborale
    @Override
    public void modificarJornadasLaborales(List<JornadasLaborales> listaJornadasLaborales) {
       for (int i = 0; i < listaJornadasLaborales.size(); i++) {
-         if (listaJornadasLaborales.get(i).getCodigo().equals(null)) {
-            listaJornadasLaborales.get(i).setCodigo(null);
-            persistenciaJornadasLaborales.editar(em, listaJornadasLaborales.get(i));
-         } else if (listaJornadasLaborales.get(i).getJornada().getSecuencia() == null) {
-            listaJornadasLaborales.get(i).setJornada(null);
-         } else {
-            persistenciaJornadasLaborales.editar(em, listaJornadasLaborales.get(i));
-         }
+//         if (listaJornadasLaborales.get(i).getCodigo().equals(null)) {
+//            listaJornadasLaborales.get(i).setCodigo(null);
+//            persistenciaJornadasLaborales.editar(em, listaJornadasLaborales.get(i));
+//         } else if (listaJornadasLaborales.get(i).getJornada().getSecuencia() == null) {
+//            listaJornadasLaborales.get(i).setJornada(null);
+//         } else {
+         persistenciaJornadasLaborales.editar(em, listaJornadasLaborales.get(i));
       }
    }
 
@@ -74,14 +79,13 @@ public class AdministrarJornadasLaborales implements AdministrarJornadasLaborale
    public void borrarJornadasLaborales(List<JornadasLaborales> listaJornadasLaborales) {
       for (int i = 0; i < listaJornadasLaborales.size(); i++) {
          System.out.println("Borrando..JornadasLaborales.");
-         if (listaJornadasLaborales.get(i).getCodigo().equals(null)) {
-            listaJornadasLaborales.get(i).setCodigo(null);
-            persistenciaJornadasLaborales.borrar(em, listaJornadasLaborales.get(i));
-         } else if (listaJornadasLaborales.get(i).getJornada().getSecuencia() == null) {
-            listaJornadasLaborales.get(i).setJornada(null);
-         } else {
-            persistenciaJornadasLaborales.borrar(em, listaJornadasLaborales.get(i));
-         }
+//         if (listaJornadasLaborales.get(i).getCodigo().equals(null)) {
+//            listaJornadasLaborales.get(i).setCodigo(null);
+//            persistenciaJornadasLaborales.borrar(em, listaJornadasLaborales.get(i));
+//         } else if (listaJornadasLaborales.get(i).getJornada().getSecuencia() == null) {
+//            listaJornadasLaborales.get(i).setJornada(null);
+//         } else {
+         persistenciaJornadasLaborales.borrar(em, listaJornadasLaborales.get(i));
       }
    }
 

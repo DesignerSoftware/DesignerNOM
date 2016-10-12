@@ -19,9 +19,7 @@
                      <p:ajax event="tabChange" listener="#{controlRemoto.pestanhaActual}"/> 
 
                      <p:tab id="personal" title="#{msg['personal']}">
-
                         <!-- Panel Izquierdo - Superior -->
-
                         <fieldset style="height: 92px; width: 148px; display: block; position: absolute; border-radius: 10px; top: 40px; left: 15px; padding-right: 8px; padding-bottom: 0px; padding-top: 0px;">
 
                            <p:commandButton id="tipopersonal" style="background-image: url(Imagenes/Iconos/#{controlRemoto.imagen}); width: 41px; height: 80px; position: absolute; top: 7px; left: 5px; background-repeat: no-repeat; background-size: 100% 100%; border: none;" 
@@ -76,7 +74,7 @@
                               <br/>
                               <!-- Botones Con Imagen (3) -->
                               <p:commandButton id="buscarlaboral" style="left: 9px; top: 60px; width: 30px; height: 30px; background-image: url(Imagenes/Iconos/buscarlaboral1.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" 
-                                                         value="" action="busquedaAvanzada" actionListener="#{controlBusquedaAvanzada2.recibirTipoBusqueda(0)}" 
+                                               value="" action="busquedaAvanzada" actionListener="#{controlBusquedaAvanzada2.recibirTipoBusqueda(0)}" 
                                                styleClass="cssBotonesEmpleado"/>
                               <p:tooltip  for="buscarlaboral" value="#{msg['bad2']}"  />
 
@@ -183,9 +181,7 @@
 
                               <p:commandButton id="tipoviajero" value="" style="position: absolute; background-image: url(Imagenes/Iconos/tipoViajero.png); width: 40px; height: 40px; top: 230px; left: 5px; background-repeat: no-repeat; background-size: 100% 100%; border: none;" disabled="#{controlRemoto.acumulado}"  actionListener="#{controlVigenciasViajeros.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresesPosicion.empleado.secuencia)}" action="vigenciaviajero"
                                                styleClass="bticon"/>
-                              <p:tooltip  for="tipoviajero">
-                                 <!--#/{msg['TipoViajero1']}<br/>#/{msg['TipoViajero2']}-->
-                              </p:tooltip>
+                              <p:tooltip  for="tipoviajero"/>
 
                               <p:commandButton id="centrodecosto" value="" style="position: absolute; background-image: url(Imagenes/Iconos/centroCosto.png); width: 40px; height: 40px; top: 5px; background-repeat: no-repeat; background-size: 100% 100%; left: 280px; border: none;" action="VigenciaLocalizacion" actionListener="#{controlVigenciaLocalizacion.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresesPosicion.empleado)}" disabled="#{controlRemoto.acumulado}"
                                                styleClass="bticon"/>
@@ -260,7 +256,6 @@
                               </p:tooltip>
 
                               <!-- Cajas de Texto -->
-
                               <p:inputText autocomplete="off" id="vcargodesempenhado" style="position: absolute; left: 50px; top: 20px; width: 210px; height: 12px; box-shadow: none; border: none; font-size:0.9em;"
                                            readonly="true" value="#{controlRemoto.actualCargo}"  /> 
                               <p:inputText autocomplete="off" id="vfechacontratacion" style="position: absolute; left: 50px; top: 65px; width: 210px; height: 12px; box-shadow: none; border: none; font-size:0.9em;"
@@ -360,7 +355,7 @@
                               <p:spacer styleClass="separador"/>
                               <!-- Panel Ingresos Act. Pen. y Asp.--> 
                               <p:commandButton id="ingresopersonal" widgetVar="ingresopersonal" value="" disabled="#{controlRemoto.activo}" actionListener="#{controlRemoto.asignarUnicaEmpresa()}"
-                                               styleClass="bticon" process="@this"
+                                               styleClass="bticon" update=":formulariodialogos:LovEmpresasTabla, :formulariodialogos:LovEmpresasDialogo, :formulariodialogos:infoRegistroEmpresas"
                                                style="background-image: url(Imagenes/Iconos/ingreso.png); width: 40px; height: 40px; background-repeat: no-repeat; background-size: 100% 100%; border: none;"/>                            
                               <p:tooltip  for="ingresopersonal">
                                  #{msg['ingresodepersonal1']}<br/>#{msg['ingresodepersonal2']}
@@ -408,18 +403,17 @@
                               </p:imageSwitch>
                            </fieldset>
                         </p:panel>
-
                      </p:tab>  
 
-                     <p:tab id="nomina" title="#{msg['nomina']}" >  
+                     <p:tab id="nomina" title="#{msg['nomina']}">  
 
                         <fieldset style="position: absolute; border-radius: 10px; width: 800px; height: 110px; top: 54px;">
                            <h:outputText value="#{msg['propiedadesdenomina']}" styleClass="outputTextFielset" />
 
                            <h:outputText  id="lblnovedadesnomina" style="position: absolute; left: 22px; top: 104px; color: #14388B; font-weight: bold; text-align: center; width: 150px;" value="#{msg['novedadesdenomina']}"/>
-                           <h:outputText  id="lblconceptosnomina" style="position: absolute; left: 228px; top: 104px; color: #14388B; font-weight: bold; text-align: center; width: 150px;"  value="#{msg['conceptosdenomina']}"/>
-                           <h:outputText id="lblformulasliquidacion" style="position: absolute; left: 439px; top: 104px; color: #14388B; font-weight: bold; text-align: center; width: 150px;"  value="#{msg['formulasdeliquidacion']}"/>
-                           <h:outputText id="lbllegislacionlaboral" style="position: absolute; left: 642px; top: 104px; color: #14388B; font-weight: bold; text-align: center; width: 150px;"  value="#{msg['legislacionlaboral']}"/>
+                           <h:outputText  id="lblconceptosnomina" style="position: absolute; left: 228px; top: 104px; color: #14388B; font-weight: bold; text-align: center; width: 150px;" value="#{msg['conceptosdenomina']}"/>
+                           <h:outputText id="lblformulasliquidacion" style="position: absolute; left: 439px; top: 104px; color: #14388B; font-weight: bold; text-align: center; width: 150px;" value="#{msg['formulasdeliquidacion']}"/>
+                           <h:outputText id="lbllegislacionlaboral" style="position: absolute; left: 642px; top: 104px; color: #14388B; font-weight: bold; text-align: center; width: 150px;" value="#{msg['legislacionlaboral']}"/>
 
                            <p:commandButton id="novedadesnomina" value="" style="position: absolute; left: 50px; top: 7px; width: 95px; height: 95px; background-image: url(Imagenes/Iconos/nom_novedad.png);  background-repeat: no-repeat; background-size: 100% 100%; border: none;" action="novedad"
                                             styleClass="bticon"/>
@@ -445,7 +439,7 @@
 
                            <hr style="float: left; height: 120px; position: absolute; left: 615px; top: -3px;"/>
 
-                           <p:commandButton id="legislacionlaboral2"  value="" style="position: absolute; left: 670px; top: 7px; width: 95px; height: 95px; background-image: url(Imagenes/Iconos/nom_legislacion.png);  background-repeat: no-repeat; background-size: 100% 100%; border: none;" actionListener="#{controlLegislacion.recibirPaginaEntrante('nomina')}" action="contrato"
+                           <p:commandButton id="legislacionlaboral2" value="" style="position: absolute; left: 670px; top: 7px; width: 95px; height: 95px; background-image: url(Imagenes/Iconos/nom_legislacion.png);  background-repeat: no-repeat; background-size: 100% 100%; border: none;" actionListener="#{controlLegislacion.recibirPaginaEntrante('nomina')}" action="contrato"
                                             styleClass="bticon"/>
                            <p:tooltip for="legislacionlaboral2">
                               #{msg['toolTipLegislacion1']}<br/>#{msg['toolTipLegislacion2']}
@@ -525,8 +519,9 @@
                               <p:commandButton id="btncerrarliquidacion" value=" " style="position: absolute; left: 275px; top: 90px; width: 80px; height: 80px; background-image: url(Imagenes/Iconos/nom_cerrar.png);  background-repeat: no-repeat; background-size: 100% 100%; border: none;" actionListener="#{controlCerrarLiquidacion.tipoLiquidacion(controlRemoto.pago)}" action="cerrarliq"
                                                styleClass="bticon"/>
 
-                              <p:commandButton id="btnreportesnomina" value=" " style="position: absolute; left: 275px; top: 175px; width: 80px; height: 80px; background-image: url(Imagenes/Iconos/reportesboton.png); background-repeat: no-repeat; background-size: 100% 100%; border: none;" actionListener="#{controlNReporteNomina.iniciarPagina()}" action="ReporteNomina"
-                                               styleClass="bticon"/>
+                              <p:commandButton style="position: absolute; left: 275px; top: 175px; width: 80px; height: 80px; background-image: url(Imagenes/Iconos/reportesboton.png); background-repeat: no-repeat; background-size: 100% 100%; border: none;"
+                                               id="btnreportesnomina" value=" " actionListener="#{controlNReporteNomina.iniciarPagina()}" action="ReporteNomina" styleClass="bticon"/>
+
                            </fieldset>
                         </fieldset>
 
@@ -692,8 +687,8 @@
 
                                  <p:ajax event="rowSelect" listener="#{controlRemoto.exportarTabla}" />
 
-                                 <p:column exportable="false"  width="16">
-                                    <p:commandButton id="desplegar"  value="" actionListener="#{controlRemoto.redireccion(indice)}" update="tablas, :form:ventanatab"
+                                 <p:column exportable="false" width="16">
+                                    <p:commandButton id="desplegar" value="" actionListener="#{controlRemoto.redireccion(indice)}" update="tablas, :form:ventanatab"
                                                      style=" width: 16px; height:16px ;background-image: url(Imagenes/Iconos/revertir.png); background-repeat: no-repeat; background-size: 100% 100%;" styleClass="bticon"/>
                                     <p:tooltip for="desplegar" value="#{msg['despliegaesteregistro']}"/>
 
@@ -786,10 +781,10 @@
                </p:dialog>
 
                <p:dialog id="lvbe" widgetVar="lvbe" header="#{msg['empleadosE']}" resizable="false" draggable="true" modal="true" width="750" closable="false">  
-                  <p:dataTable  id="lvbuscarempleado" widgetVar="lvbuscarempleado"  var="item" value="#{controlRemoto.buscarEmplTipo}"
-                                scrollable="true" scrollHeight="162" scrollWidth="717" 
-                                filteredValue="#{controlRemoto.filterBuscarEmpleado}" emptyMessage="#{msg['lovvacio']}"
-                                rowKey="#{item.rfEmpleado}" selection="#{controlRemoto.emplSeleccionadoBE}" selectionMode="single" >
+                  <p:dataTable id="lvbuscarempleado" widgetVar="lvbuscarempleado" var="item" value="#{controlRemoto.buscarEmplTipo}"
+                               scrollable="true" scrollHeight="162" scrollWidth="717" 
+                               filteredValue="#{controlRemoto.filterBuscarEmpleado}" emptyMessage="#{msg['lovvacio']}"
+                               rowKey="#{item.rfEmpleado}" selection="#{controlRemoto.emplSeleccionadoBE}" selectionMode="single">
 
                      <p:ajax event="rowSelect" listener="#{controlRemoto.activarBuscar()}" update=":form:buscarempl"/>
                      <p:ajax event="rowDblselect" listener="#{controlRemoto.buscarEmpleado()}"
@@ -861,30 +856,37 @@
                   </div>
                </p:dialog>
 
-               <p:dialog id="LovEmpresasDialogo" widgetVar="LovEmpresasDialogo" header="#{msg['empresaM']}" draggable="true" resizable="false" closable="false"
-                         showEffect="fade" hideEffect="fade" width="464" >
-                  <p:dataTable id="LovEmpresasTabla" widgetVar="LovEmpresasTabla" var="empresaIPV" value="#{controlRemoto.lovEmpresas}" rowKey="#{empresaIPV.secuencia}"
-                               selection="#{controlRemoto.empresaSeleccionada}" scrollWidth="440" selectionMode="single" scrollable="true" scrollHeight="120"
-                               emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlRemoto.filtradoLOVEmpresas}">
+               <p:hotkey bind="ctrl+f11" actionListener="#{controlRemoto.lab()}"/> 
+               <p:hotkey bind="ctrl+f12" actionListener="#{controlRemoto.lab2()}"/>
+            </h:form>
 
+            <h:form id="formulariodialogos">
+
+               <p:dialog id="LovEmpresasDialogo" widgetVar="LovEmpresasDialogo" header="#{msg['empresaM']}" draggable="true" resizable="false" modal="true" width="470" closable="false">
+
+                  <p:dataTable id="LovEmpresasTabla" widgetVar="LovEmpresasTabla" var="empresaIPV" value="#{controlRemoto.lovEmpresas}"
+                               scrollable="true" scrollHeight="122" scrollWidth="446" 
+                               filteredValue="#{controlRemoto.filtradoLOVEmpresas}" emptyMessage="#{msg['lovvacio']}"
+                               rowKey="#{empresaIPV.secuencia}" selection="#{controlRemoto.empresaSeleccionada}" selectionMode="single">
+                               
                      <p:ajax event="filter" listener="#{controlRemoto.contarRegistrosEmpresas()}"/>
-                     <p:ajax event="rowSelect" process="@this" immediate="true" listener="#{controlRemoto.activarAceptarEmp()}" update=":form:aceptaremp"/>
+                     <p:ajax event="rowSelect" listener="#{controlRemoto.activarAceptarEmp()}" update=":formulariodialogos:aceptaremp"/>
                      <p:ajax event="rowDblselect" listener="#{controlRemoto.redireccionPersonaIndividual()}"
                              immediate="#{controlPersonaIndividual.actualizarParametroEmpresaInformacionPersonalVisible(controlRemoto.empresaSeleccionada)}" process="@this"/>
 
-                     <f:facet name="header">  
-                        <h:outputText value="#{msg['buscarEIP']} :"/>  
-                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LovEmpresasTabla').filter();" class="cssFiltroLOV"/>  
+                     <f:facet name="header">
+                        <h:outputText value="#{msg['buscarEIP']} :"/>
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('LovEmpresasTabla').filter();" class="cssFiltroLOV"/>
                      </f:facet>
 
-                     <p:column filterBy="#{empresaIPV.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important; height: 12px; text-transform: uppercase;">
+                     <p:column filterBy="#{empresaIPV.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important;">
                         <f:facet name="header">
                            <h:outputText style="text-align: center" value="#{msg['nombreEmpresa']}" />
                         </f:facet>
                         <h:outputText  value="#{empresaIPV.nombre}" />
                      </p:column>
 
-                     <p:column style="text-align: center" filterBy="#{empresaIPV.nit}" width="80" filterMatchMode="contains" filterStyle="width: 85% !important; height: 12px; text-transform: uppercase;">
+                     <p:column filterBy="#{empresaIPV.nit}" filterMatchMode="contains" filterStyle="width: 85% !important;" width="80" style="text-align: center;">
                         <f:facet name="header">
                            <h:outputText value="#{msg['nitEmpresa']}" />
                         </f:facet>
@@ -893,52 +895,44 @@
                   </p:dataTable>
 
                   <div class="cssBotonesLOV">
-                     <h:outputText id="infoRegistroEmpresas" value="#{msg['infoRegistro']} #{controlRemoto.infoRegistroEmpresas}" 
-                                   class="cssinfoRegistroLOV"/>
-
-                     <p:commandButton id="aceptaremp" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlRemoto.activarAceptarEmpresas}" 
-                                      process="@this" immediate="#{controlPersonaIndividual.actualizarParametroEmpresaInformacionPersonalVisible(controlRemoto.empresaSeleccionada)}" icon="ui-icon-check"
-                                      actionListener="#{controlRemoto.redireccionPersonaIndividual()}" widgetVar="aceptaremp"/>
-
+                     <h:outputText id="infoRegistroEmpresas" value="#{msg['infoRegistro']} #{controlRemoto.infoRegistroEmpresas}" class="cssinfoRegistroLOV"/>
+                     <p:commandButton id="aceptaremp" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlRemoto.activarAceptarEmpresas}" process="@this"
+                                      immediate="#{controlPersonaIndividual.actualizarParametroEmpresaInformacionPersonalVisible(controlRemoto.empresaSeleccionada)}"
+                                      icon="ui-icon-check" actionListener="#{controlRemoto.redireccionPersonaIndividual()}" widgetVar="aceptaremp"/>
                      <p:commandButton id="atrasEmp" class="cssAtrasLOV" value="#{msg['atras']}" oncomplete="PF('LovEmpresasDialogo').hide()"
                                       process="@this" icon="ui-icon-arrowreturnthick-1-w" actionListener="#{controlRemoto.anularBotonEmpresas()}"/>
                   </div>
                </p:dialog>
-               <p:hotkey bind="ctrl+f11" actionListener="#{controlRemoto.lab()}"/> 
-               <p:hotkey bind="ctrl+f12" actionListener="#{controlRemoto.lab2()}"/>
-            </h:form>
 
-            <h:form id="formulariodialogos">
-
-               <p:dialog id="operacionEnProceso" header="#{msg['informacion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="true" modal="true" height="65" width="350" style="font-size: 12px;" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"  />
-                  <h:outputText value="#{msg['operacionProceso']}" style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight:bold;" />
+               <p:dialog id="operacionEnProceso" header="#{msg['informacion']}" widgetVar="operacionEnProceso" resizable="false" draggable="true" modal="true" height="65" width="350" style="font-size: 12px;" closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"/>
+                  <h:outputText value="#{msg['operacionProceso']}" style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight: bold;" />
                </p:dialog>
 
-               <p:dialog id="activonoeliminar" widgetVar="activonoeliminar" header="#{msg['atencion']}" resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+               <p:dialog id="activonoeliminar" widgetVar="activonoeliminar" header="#{msg['atencion']}" resizable="false" draggable="true" modal="true" height="95" width="400" closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"/>
                   <h:outputText value="#{msg['noeliminar']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
                   <p:commandButton value="#{msg['aceptar']}" onclick="PF('activoNoEliminar').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this" />
                </p:dialog>
-               <p:dialog id="activoeliminarpaso1" widgetVar="activoeliminarpaso1" header="#{msg['titulopaso1']}" resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
+               <p:dialog id="activoeliminarpaso1" widgetVar="activoeliminarpaso1" header="#{msg['titulopaso1']}" resizable="false" draggable="true" modal="true" height="95" width="400" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                   <h:outputText value="#{msg['paso1']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
                   <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" actionListener="#{controlRemoto.paso2()}" onclick="PF('activoEliminarPaso1').hide();" style="position: absolute; top: 50px; left: 210px;" process="@this" />
                   <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-circle-close" onclick="PF('activoEliminarPaso1').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this" />
                </p:dialog>
-               <p:dialog id="activoeliminarpaso2" widgetVar="activoeliminarpaso2" header="#{msg['titulopaso2']}" resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
+               <p:dialog id="activoeliminarpaso2" widgetVar="activoeliminarpaso2" header="#{msg['titulopaso2']}" resizable="false" draggable="true" modal="true" height="95" width="400" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                   <h:outputText value="#{msg['paso2']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
                   <p:commandButton value="#{msg['si']}" icon="ui-icon-check" actionListener="#{controlRemoto.paso3()}" onclick="PF('activoEliminarPaso2').hide();" style="position: absolute; top: 50px; left: 210px;" process="@this" />
                   <p:commandButton value="#{msg['no']}" icon="ui-icon-circle-close" onclick="PF('activoEliminarPaso2').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this" />
                </p:dialog>
-               <p:dialog id="activoeliminarpaso3" widgetVar="activoeliminarpaso3" header="#{msg['titulopaso3']}" resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
+               <p:dialog id="activoeliminarpaso3" widgetVar="activoeliminarpaso3" header="#{msg['titulopaso3']}" resizable="false" draggable="true" modal="true" height="95" width="400" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                   <h:outputText value="#{msg['paso3']}  #{controlRemoto.trabajador.empleado.persona.nombreCompleto}" style="position: absolute; left: 100px; top: 20px; width: 210px;" />
                   <p:commandButton value="#{msg['aceptar']}" actionListener="#{controlRemoto.paso4()}" onclick="PF('activoEliminarPaso3').hide();" icon="ui-icon-check" style="position: absolute; top: 50px; left: 210px;" process="@this" />
                   <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-circle-close" onclick="PF('activoEliminarPaso3').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this" />
                </p:dialog>
-               <p:dialog id="activoeliminarpaso4" widgetVar="activoeliminarpaso4" header="#{msg['titulopaso4']}" resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
+               <p:dialog id="activoeliminarpaso4" widgetVar="activoeliminarpaso4" header="#{msg['titulopaso4']}" resizable="false" draggable="true" modal="true" height="95" width="400" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                   <h:outputText value="#{msg['paso4']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
                   <p:commandButton value="#{msg['aceptar']}" actionListener="#{controlRemoto.activos()}" icon="ui-icon-check" onclick="PF('activoEliminarPaso4').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this" />
