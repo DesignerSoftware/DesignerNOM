@@ -9,7 +9,7 @@ import InterfaceAdministrar.AdministarReportesInterface;
 import InterfaceAdministrar.AdministrarNReportesNominaInterface;
 import java.io.*;
 import java.math.BigDecimal;
-import java.math.BigInteger;
+//import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -167,7 +167,8 @@ public class ControlNReporteNomina implements Serializable {
         posicionReporte = -1;
         listValInforeportes = null;
         listValAsociaciones = null;
-        listValEmpleados = null;
+//        listValEmpleados = null;
+        listValEmpleados = new ArrayList<>();
         listValEmpresas = null;
         listValEstructuras = null;
         listValGruposConceptos = null;
@@ -210,7 +211,7 @@ public class ControlNReporteNomina implements Serializable {
             System.out.println(this.getClass().getName() + " fin de iniciarAdministradores()");
         } catch (Exception e) {
             System.out.println("Error postconstruct controlNReporteNomina" + e);
-            System.out.println("Causa: " + e.getCause());
+            System.out.println("Causa: " + e.getMessage()) ;
         }
     }
 
@@ -2025,8 +2026,9 @@ public class ControlNReporteNomina implements Serializable {
 
     public List<Empleados> getListValEmpleados() {
         System.out.println("Controlador.ControlNReporteNomina.getListValEmpleados()");
-        System.out.println("listValEmpleados: " + listValEmpleados);
-        if (listValEmpleados == null || listValEmpleados.isEmpty()) {
+//        System.out.println("listValEmpleados: " + listValEmpleados);
+//        if (listValEmpleados == null || listValEmpleados.isEmpty()) {
+        if (listValEmpleados == null ) {
             listValEmpleados = administrarNReportesNomina.listEmpleados();
         }
         return listValEmpleados;

@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      >
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <h:form>
+                <a href="https://www.nomina.com.co" target="_blank">
+                    <p:graphicImage value="Imagenes/Iconos/Designer.png" alt="Logo Designer" stream="false" style="width: 217px; position: relative; left: 3px; top: 7px;"/>
+                </a>
+                <br/>
+                <br/>
+                <p:panel id="izperiodo" header="PERIODO EN EL TIEMPO" style="width: 213px; box-shadow: 5px 5px 5px 0px rgba(0,12,92,1); padding: 0px; ">
+                    <h:panelGrid columns="2" cellpadding="0" style="font-size: 10px;">
+                        <h:outputText id="lfdesde" style="font-weight: bold; color: #14388B;" value="Fecha desde: "/>
+                        <h:outputText id="fdesde" style="font-weight: bold;" value="#{controlTemplate.fechaDesde}"/>
+                        <h:outputText id="lfhasta" style="font-weight: bold; color: #14388B;" value="Fecha hasta: "/>
+                        <h:outputText id="fhasta" style="font-weight: bold;" value="#{controlTemplate.fechaHasta}"/>
+                        <h:outputText id="lfcorte" style="font-weight: bold; color: #14388B;" value="Fecha corte: "/>
+                        <h:outputText id="fcorte" style="font-weight: bold;" value="#{controlTemplate.fechaCorte}"/>
+                    </h:panelGrid>
+                </p:panel>
+                <p:panel id="licencia" header="LICENCIA DE USO A:" style="width: 213px; box-shadow: 5px 5px 5px 0px rgba(0,12,92,1); padding: 0px; ">
+                    <h:panelGrid columns="1" cellpadding="0" style="font-size: 10px; width: 100%; left: 0px; padding: 0px;">
+                        <h:column>
+                            <center>
+                                <p:graphicImage  value="#{controlTemplate.logoEmpresa}" alt="Logo Empresa" stream="false" style="width: 100%;"/>
+                                <br/>
+                                <br/>
+                                <h:outputText id="empresa"  style="font-weight: bold;" value="#{controlTemplate.detalleEmpresa.empresa.nombre}"/>
+                                <br/>
+                                <h:outputText id="nit"  style="font-weight: bold;" value="NIT: #{controlTemplate.detalleEmpresa.empresa.nit}"/>
+                                <br/>
+                                <h:outputText id="tel"  style="font-weight: bold;" value="TEL: #{controlTemplate.detalleEmpresa.telefono}"/>
+                            </center>
+                        </h:column>
+                    </h:panelGrid>
+                </p:panel>
+                <p:panel id="pnUsuario" header="USUARIO CONECTADO" style="width: 213px; box-shadow: 5px 5px 5px 0px rgba(0,12,92,1); padding: 0px;">
+                    <h:panelGrid columns="2" cellpadding="0" style="font-size: 10px;">
+                        <p:graphicImage value="#{controlTemplate.fotoUsuario}" stream="false" height="100" alt="Foto Usuario" />
+                        <h:column>
+                            <center>
+                                <h:outputText value="#{controlTemplate.nombreUsuario}" style="font-weight: bold;"/>
+                                <br/>
+                                <br/>
+                                <h:outputText value="Perfil" style="font-weight: bold;"/>
+                                <br/>
+                                <h:outputText value="#{controlTemplate.nombrePerfil}" style="font-weight: bold;"/>
+                            </center>
+                        </h:column>
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+        </ui:composition>
+    </h:body>
+</html>
+
