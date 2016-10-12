@@ -25,6 +25,7 @@ public class PersistenciaJornadasLaborales implements PersistenciaJornadasLabora
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
+    * @param em
      */
 //    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
 //    private EntityManager em;
@@ -34,6 +35,7 @@ public class PersistenciaJornadasLaborales implements PersistenciaJornadasLabora
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
+           System.out.println("Entro a crear en la persistencia");
             tx.begin();
             em.merge(jornadasLaborales);
             tx.commit();

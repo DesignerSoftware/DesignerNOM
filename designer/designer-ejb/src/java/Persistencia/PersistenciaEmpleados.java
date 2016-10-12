@@ -590,12 +590,14 @@ public class PersistenciaEmpleados implements PersistenciaEmpleadoInterface {
             query.setParameter(2, secuenciaPersona);
             query.executeUpdate();
             tx.commit();
+            System.out.println(this.getClass().getName() + " eliminarEmpleadoNominaF Ya Elimino");
         } catch (Exception e) {
             //PropertyConfigurator.configure("log4j.properties");
             //logger.error("Metodo: eliminarEmpleadoNominaF - PersistenciaEmpleados - Fecha : " + format.format(fechaDia) + " - Error : " + e.toString());
             if (tx.isActive()) {
                 tx.rollback();
             }
+            System.out.println(this.getClass().getName() + " eliminarEmpleadoNominaF Entro en el Catch con error : " + e);
         }
     }
 

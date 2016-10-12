@@ -371,14 +371,14 @@
                               <p:tooltip  for="informacionjubilados" >
                                  #{msg['informacionjubilados1']}<br/>#{msg['informacionjubilados2']}
                               </p:tooltip>
-                              <p:commandButton id="ingresoaspirantes" value="" disabled="#{controlRemoto.aspirante}"  style="background-image: url(Imagenes/Iconos/aspirantes.png); width: 40px; height: 40px; background-repeat: no-repeat; background-size: 100% 100%; border: none;" 
+                              <p:commandButton id="ingresoaspirantes" value="" disabled="#{controlRemoto.aspirante}" style="background-image: url(Imagenes/Iconos/aspirantes.png); width: 40px; height: 40px; background-repeat: no-repeat; background-size: 100% 100%; border: none;" 
                                                styleClass="bticon"/>
                               <p:tooltip  for="ingresoaspirantes">
                                  #{msg['ingresoaspirantes1']}<br/>#{msg['ingresoaspirantes2']}
                               </p:tooltip>
                               <p:spacer styleClass="separador"/>
                               <!-- Panel Hoja de Vida -->
-                              <p:commandButton id="informacionadicional" value="" disabled="#{controlRemoto.hv1}"  style="background-image: url(Imagenes/Iconos/informacionAdicional.png); width: 40px; height: 40px; background-repeat: no-repeat; background-size: 100% 100%; border: none;" 
+                              <p:commandButton id="informacionadicional" value="" disabled="#{controlRemoto.hv1}" style="background-image: url(Imagenes/Iconos/informacionAdicional.png); width: 40px; height: 40px; background-repeat: no-repeat; background-size: 100% 100%; border: none;" 
                                                styleClass="bticon"/>
                               <p:tooltip  for="informacionadicional">
                                  #{msg['informacionadicionalaspirantes1']}<br/>#{msg['informacionadicionalaspirantes2']}
@@ -399,7 +399,7 @@
                               </p:tooltip>
                               <p:spacer styleClass="separador"/>
 
-                              <p:imageSwitch id="bannerpub" widgetVar="bannerpub" effect="fade" slideshowSpeed="5000"  style="height: 40px; position: absolute; top: 5px; width: 200px; left: 610px;">
+                              <p:imageSwitch id="bannerpub" widgetVar="bannerpub" effect="fade" slideshowSpeed="5000" style="height: 40px; position: absolute; top: 5px; width: 200px; left: 610px;">
                                  <ui:repeat value="#{controlRemoto.banner}" var="banner">
                                     <a href="#{banner.urlImagen}" target="_blank">
                                        <p:graphicImage value="#{banner.imagen}" style="width: 200px; height: 40px;"/>
@@ -873,7 +873,7 @@
                              immediate="#{controlPersonaIndividual.actualizarParametroEmpresaInformacionPersonalVisible(controlRemoto.empresaSeleccionada)}" process="@this"/>
 
                      <f:facet name="header">  
-                        <h:outputText value="#{msg['buscarEIP']} :" />  
+                        <h:outputText value="#{msg['buscarEIP']} :"/>  
                         <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LovEmpresasTabla').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
 

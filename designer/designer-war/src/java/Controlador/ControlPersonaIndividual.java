@@ -295,6 +295,8 @@ public class ControlPersonaIndividual implements Serializable {
    private boolean permitirDesplegarLista;
    private Date fechaHastaCausado;
 
+   private String error;
+
    public ControlPersonaIndividual() {
       nuevoEmpleado = new Empleados();
       nuevaPersona = new Personas();
@@ -476,6 +478,8 @@ public class ControlPersonaIndividual implements Serializable {
       permitirDesplegarLista = true;
       siguienteFocodeTercero = "epsModAfiliaciones";
       fechaHastaCausado = null;
+
+      error = "";
    }
 
    @PostConstruct
@@ -1597,6 +1601,8 @@ public class ControlPersonaIndividual implements Serializable {
       txt_ciudadTel = "";
       txt_tipoTel = "";
 
+      error = "";
+      
       setTxt_genero(null);
       setTxt_tipoCuenta(null);
       setTxt_grupoS(null);
@@ -1962,7 +1968,7 @@ public class ControlPersonaIndividual implements Serializable {
          if (validarCamposObligatoriosEmpleado()) {
             if (validarFechasEmpleado()) {
                if (validarCamposAlternativosEmpleado()) {
-                  int error = 0;
+                  error = " ";
                   k++;
                   l = BigInteger.valueOf(k);
                   String checkIntegral = administrarPersonaIndividual.obtenerCheckIntegralReformaLaboral(nuevaVigenciaReformaLaboral.getReformalaboral().getSecuencia());
@@ -2014,8 +2020,7 @@ public class ControlPersonaIndividual implements Serializable {
                         nuevaVigenciaLocalizacion.setEmpleado(nuevoEmpleado);
                         nuevaVigenciaLocalizacion.setFechavigencia(fechaIngreso);
                         if (!administrarPersonaIndividual.crearVigenciaLocalizacion(nuevaVigenciaLocalizacion)) {
-                           error++;
-                           System.out.println("ERROR creando N° 1");
+                           error = error + "Vigencia Localización, ";
                         }
                         //
                         k++;
@@ -2024,8 +2029,7 @@ public class ControlPersonaIndividual implements Serializable {
                         nuevaVigenciaTipoTrabajador.setEmpleado(nuevoEmpleado);
                         nuevaVigenciaTipoTrabajador.setFechavigencia(fechaIngreso);
                         if (!administrarPersonaIndividual.crearVigenciaTipoTrabajador(nuevaVigenciaTipoTrabajador)) {
-                           error++;
-                           System.out.println("ERROR creando N° 2");
+                           error = error + "Vigencia Tipo Trabajador, ";
                         }
                         //
                         k++;
@@ -2034,8 +2038,7 @@ public class ControlPersonaIndividual implements Serializable {
                         nuevaVigenciaReformaLaboral.setEmpleado(nuevoEmpleado);
                         nuevaVigenciaReformaLaboral.setFechavigencia(fechaIngreso);
                         if (!administrarPersonaIndividual.crearVigenciaReformaLaboral(nuevaVigenciaReformaLaboral)) {
-                           error++;
-                           System.out.println("ERROR creando N° 3");
+                           error = error + "Vigencia Reforma Laboral, ";
                         }
                         //
                         k++;
@@ -2051,8 +2054,7 @@ public class ControlPersonaIndividual implements Serializable {
                            nuevaVigenciaSueldo.setTiposueldo(null);
                         }
                         if (!administrarPersonaIndividual.crearVigenciaSueldo(nuevaVigenciaSueldo)) {
-                           error++;
-                           System.out.println("ERROR creando N° 4");
+                           error = error + "Vigencia Sueldo, ";
                         }
                         //
                         k++;
@@ -2061,8 +2063,7 @@ public class ControlPersonaIndividual implements Serializable {
                         nuevaVigenciaTipoContrato.setEmpleado(nuevoEmpleado);
                         nuevaVigenciaTipoContrato.setFechavigencia(fechaIngreso);
                         if (!administrarPersonaIndividual.crearVigenciaTipoContrato(nuevaVigenciaTipoContrato)) {
-                           error++;
-                           System.out.println("ERROR creando N° 5");
+                           error = error + "Vigencia Tipo Contrato, ";
                         }
                         //
                         k++;
@@ -2071,8 +2072,7 @@ public class ControlPersonaIndividual implements Serializable {
                         nuevaVigenciaNormaEmpleado.setEmpleado(nuevoEmpleado);
                         nuevaVigenciaNormaEmpleado.setFechavigencia(fechaIngreso);
                         if (!administrarPersonaIndividual.crearVigenciaNormaEmpleado(nuevaVigenciaNormaEmpleado)) {
-                           error++;
-                           System.out.println("ERROR creando N° 6");
+                           error = error + "Vigencia Norma Laboral, ";
                         }
                         //
                         k++;
@@ -2081,8 +2081,7 @@ public class ControlPersonaIndividual implements Serializable {
                         nuevaVigenciaContrato.setEmpleado(nuevoEmpleado);
                         nuevaVigenciaContrato.setFechainicial(fechaIngreso);
                         if (!administrarPersonaIndividual.crearVigenciaContrato(nuevaVigenciaContrato)) {
-                           error++;
-                           System.out.println("ERROR creando N° 7");
+                           error = error + "Vigencia Contrato, ";
                         }
                         //
                         k++;
@@ -2091,8 +2090,7 @@ public class ControlPersonaIndividual implements Serializable {
                         nuevaVigenciaUbicacion.setEmpleado(nuevoEmpleado);
                         nuevaVigenciaUbicacion.setFechavigencia(fechaIngreso);
                         if (!administrarPersonaIndividual.crearVigenciaUbicacion(nuevaVigenciaUbicacion)) {
-                           error++;
-                           System.out.println("ERROR creando N° 8");
+                           error = error + "Vigencia Ubicación, ";
                         }
                         //
                         k++;
@@ -2101,8 +2099,7 @@ public class ControlPersonaIndividual implements Serializable {
                         nuevaVigenciaJornada.setEmpleado(nuevoEmpleado);
                         nuevaVigenciaJornada.setFechavigencia(fechaIngreso);
                         if (!administrarPersonaIndividual.crearVigenciaJornada(nuevaVigenciaJornada)) {
-                           error++;
-                           System.out.println("ERROR creando N° 9");
+                           error = error + "Vigencia Jornada, ";
                         }
                         //
                         k++;
@@ -2114,8 +2111,7 @@ public class ControlPersonaIndividual implements Serializable {
                            nuevaVigenciaFormaPago.setSucursal(null);
                         }
                         if (!administrarPersonaIndividual.crearVigenciaFormaPago(nuevaVigenciaFormaPago)) {
-                           error++;
-                           System.out.println("ERROR creando N° 10");
+                           error = error + "Vigencia Forma de Pago, ";
                         }
                         //
                         k++;
@@ -2124,8 +2120,7 @@ public class ControlPersonaIndividual implements Serializable {
                         nuevaVigenciaAfiliacionEPS.setEmpleado(nuevoEmpleado);
                         nuevaVigenciaAfiliacionEPS.setFechainicial(fechaIngreso);
                         if (!administrarPersonaIndividual.crearVigenciaAfiliacion(nuevaVigenciaAfiliacionEPS)) {
-                           error++;
-                           System.out.println("ERROR creando N° 11");
+                           error = error + "Vigencia Afiliación EPS, ";
                         }
                         //
                         k++;
@@ -2134,8 +2129,7 @@ public class ControlPersonaIndividual implements Serializable {
                         nuevaVigenciaAfiliacionARP.setEmpleado(nuevoEmpleado);
                         nuevaVigenciaAfiliacionARP.setFechainicial(fechaIngreso);
                         if (!administrarPersonaIndividual.crearVigenciaAfiliacion(nuevaVigenciaAfiliacionARP)) {
-                           error++;
-                           System.out.println("ERROR creando N° 12");
+                           error = error + "Vigencia Afiliación ARP, ";
                         }
                         //
                         if (nuevaVigenciaAfiliacionAFP.getTercerosucursal().getSecuencia() != null) {
@@ -2146,8 +2140,7 @@ public class ControlPersonaIndividual implements Serializable {
                               nuevaVigenciaAfiliacionAFP.setEmpleado(nuevoEmpleado);
                               nuevaVigenciaAfiliacionAFP.setFechainicial(fechaIngreso);
                               if (!administrarPersonaIndividual.crearVigenciaAfiliacion(nuevaVigenciaAfiliacionAFP)) {
-                                 error++;
-                                 System.out.println("ERROR creando N° 13");
+                                 error = error + "Vigencia Afiliación Fondo de Pensión, ";
                               }
                            }
                         }
@@ -2160,8 +2153,7 @@ public class ControlPersonaIndividual implements Serializable {
                               nuevaVigenciaAfiliacionCaja.setEmpleado(nuevoEmpleado);
                               nuevaVigenciaAfiliacionCaja.setFechainicial(fechaIngreso);
                               if (!administrarPersonaIndividual.crearVigenciaAfiliacion(nuevaVigenciaAfiliacionCaja)) {
-                                 error++;
-                                 System.out.println("ERROR creando N° 14");
+                                 error = error + "Vigencia Afiliación Caja Compensación, ";
                               }
                            }
                         }
@@ -2175,8 +2167,7 @@ public class ControlPersonaIndividual implements Serializable {
                               nuevaVigenciaAfiliacionFondo.setEmpleado(nuevoEmpleado);
                               nuevaVigenciaAfiliacionFondo.setFechainicial(fechaIngreso);
                               if (!administrarPersonaIndividual.crearVigenciaAfiliacion(nuevaVigenciaAfiliacionFondo)) {
-                                 error++;
-                                 System.out.println("ERROR creando N° 15");
+                                 error = error + "Vigencia Afiliación Fondo Cesantias, ";
                               }
                            }
                         }
@@ -2188,8 +2179,7 @@ public class ControlPersonaIndividual implements Serializable {
                            nuevoEstadoCivil.setPersona(nuevoEmpleado.getPersona());
                            nuevoEstadoCivil.setFechavigencia(fechaIngreso);
                            if (!administrarPersonaIndividual.crearEstadoCivil(nuevoEstadoCivil)) {
-                              error++;
-                              System.out.println("ERROR creando N° 16");
+                              error = error + "Estado civil, ";
                            }
                         }
 
@@ -2203,8 +2193,7 @@ public class ControlPersonaIndividual implements Serializable {
                            nuevaDireccion.setFechavigencia(fechaIngreso);
                            //nuevaDireccion.setPpal(".");
                            if (!administrarPersonaIndividual.crearDireccion(nuevaDireccion)) {
-                              error++;
-                              System.out.println("ERROR creando N° 17");
+                              error = error + "Dirección, ";
                            }
                         }
 
@@ -2215,8 +2204,7 @@ public class ControlPersonaIndividual implements Serializable {
                            nuevoTelefono.setPersona(nuevoEmpleado.getPersona());
                            nuevoTelefono.setFechavigencia(fechaIngreso);
                            if (!administrarPersonaIndividual.crearTelefono(nuevoTelefono)) {
-                              error++;
-                              System.out.println("ERROR creando N° 18");
+                              error = error + "Telefono, ";
                            }
                         }
 
@@ -2230,8 +2218,7 @@ public class ControlPersonaIndividual implements Serializable {
                         l = BigInteger.valueOf(k);
                         nuevoSet.setSecuencia(l);
                         if (!administrarPersonaIndividual.crearSets(nuevoSet)) {
-                           error++;
-                           System.out.println("ERROR creando N° 19");
+                           error = error + "Porcentajes de retención, ";
                         }
 
                         BigDecimal numeroComprobante = administrarPersonaIndividual.obtenerNumeroMaximoComprobante();
@@ -2258,8 +2245,7 @@ public class ControlPersonaIndividual implements Serializable {
                         comprobante.setSecuencia(l);
 
                         if (!administrarPersonaIndividual.crearComprobante(comprobante)) {
-                           error++;
-                           System.out.println("ERROR creando N° 20");
+                           error = error + "Comprobante, ";
                         }
 
                         Comprobantes comprobanteEmpleado = administrarPersonaIndividual.buscarComprobanteParaPrimerRegistroEmpleado(nuevoEmpleado.getSecuencia());
@@ -2284,8 +2270,7 @@ public class ControlPersonaIndividual implements Serializable {
                         l = BigInteger.valueOf(k);
                         corte.setSecuencia(l);
                         if (!administrarPersonaIndividual.crearCortesProcesos(corte)) {
-                           error++;
-                           System.out.println("ERROR creando N° 21");
+                           error = error + "Corte Proceso, ";
                         }
 
                         if (procesoCodigo80 != null) {
@@ -2302,8 +2287,7 @@ public class ControlPersonaIndividual implements Serializable {
                            l = BigInteger.valueOf(k);
                            corte2.setSecuencia(l);
                            if (!administrarPersonaIndividual.crearCortesProcesos(corte2)) {
-                              error++;
-                              System.out.println("ERROR creando N° 22");
+                              error = error + "Corte Proceso 2, ";
                            }
                         }
 
@@ -2318,15 +2302,13 @@ public class ControlPersonaIndividual implements Serializable {
                         l = BigInteger.valueOf(k);
                         nuevaVigenciaTT.setSecuencia(l);
                         if (!administrarPersonaIndividual.crearVigenciaTipoTrabajador(nuevaVigenciaTT)) {
-                           error++;
-                           System.out.println("ERROR creando N° 23");
+                           error = error + "Vigencia Tipo Trabajador para contratación.";
                         }
 
-                        if (error > 0) {
-                           administrarPersonaIndividual.eliminarEmpleadoCompleto(nuevoEmpleado.getSecuencia(), nuevoEmpleado.getPersona().getSecuencia());
-                           RequestContext.getCurrentInstance().execute("PF('errorAlIngresar').show()");
-                        } else {
+                        if (error.trim().isEmpty()) {
                            RequestContext.getCurrentInstance().execute("PF('procesoGuardadoOK').show()");
+                        } else {
+                           RequestContext.getCurrentInstance().execute("PF('errorAlIngresar').show()");
                         }
                         cancelarModificaciones();
                      } else {
@@ -2349,6 +2331,10 @@ public class ControlPersonaIndividual implements Serializable {
       }
    }
 
+   public void eliminarDatosCreados(){
+      administrarPersonaIndividual.eliminarEmpleadoCompleto(nuevoEmpleado.getSecuencia(), nuevoEmpleado.getPersona().getSecuencia());
+      cancelarModificaciones();
+   }
    public void cambiarItemInformacionPersonal(int iiii) {
       System.out.println("cambiarItemInformacionPersonal : " + iiii);
       if (permitirIndexInformacionPersonal == true) {
@@ -8668,4 +8654,13 @@ public class ControlPersonaIndividual implements Serializable {
    public void setFechaHastaCausado(Date fechaHastaCausado) {
       this.fechaHastaCausado = fechaHastaCausado;
    }
+
+   public String getError() {
+      return error;
+   }
+
+   public void setError(String error) {
+      this.error = error;
+   }
+   
 }

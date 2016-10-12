@@ -206,8 +206,6 @@ public class ControlRemoto implements Serializable {
          actualizarInformacionTipoTrabajador();
          llenarBannerDefault();
          lovEmpresas = administrarCarpetaPersonal.consultarEmpresas();
-         RequestContext.getCurrentInstance().update("form:LovEmpresasDialogo");
-         RequestContext.getCurrentInstance().update("form:LovEmpresasTabla");
       } catch (Exception e) {
          System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
          System.out.println("Causa: " + e.getCause());
@@ -1648,13 +1646,13 @@ public class ControlRemoto implements Serializable {
 
    public void asignarUnicaEmpresa() {
       System.out.println("Entro en asignarUnicaEmpresa() 1");
-      RequestContext context = RequestContext.getCurrentInstance();
       getLovEmpresas();
       if (lovEmpresas != null) {
          if (lovEmpresas.size() == 1) {
             unicaEmpresa = lovEmpresas.get(0);
             redireccionPersonaIndividual();
          } else {
+            System.out.println("Va a abrir la lista de empresas");
             infoRegistroEmpresas = String.valueOf(lovEmpresas.size());
             RequestContext.getCurrentInstance().update("form:LovEmpresasDialogo");
             RequestContext.getCurrentInstance().update("form:LovEmpresasTabla");
@@ -1667,7 +1665,6 @@ public class ControlRemoto implements Serializable {
 
    public void actualizarLOVEmpresas() {
       System.out.println("Entro en actualizarLOVEmpresas()");
-      RequestContext context = RequestContext.getCurrentInstance();
       getLovEmpresas();
       if (lovEmpresas != null) {
          if (lovEmpresas.size() == 1) {

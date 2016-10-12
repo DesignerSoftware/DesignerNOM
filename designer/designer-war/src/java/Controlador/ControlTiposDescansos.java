@@ -71,7 +71,7 @@ public class ControlTiposDescansos implements Serializable {
         nuevoTiposDescansos = new TiposDescansos();
         duplicarTiposDescansos = new TiposDescansos();
         guardado = true;
-        tamano = 270;
+        tamano = 330;
     }
 
     @PostConstruct
@@ -240,7 +240,7 @@ public class ControlTiposDescansos implements Serializable {
     public void activarCtrlF11() {
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
-            tamano = 250;
+            tamano = 310;
             codigo = (Column) c.getViewRoot().findComponent("form:datosTiposDescansos:codigo");
             codigo.setFilterStyle("width: 85% !important;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposDescansos:descripcion");
@@ -254,7 +254,7 @@ public class ControlTiposDescansos implements Serializable {
             bandera = 1;
         } else if (bandera == 1) {
             System.out.println("Desactivar");
-            tamano = 270;
+            tamano = 330;
             codigo = (Column) c.getViewRoot().findComponent("form:datosTiposDescansos:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposDescansos:descripcion");

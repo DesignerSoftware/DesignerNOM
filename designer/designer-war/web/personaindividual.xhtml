@@ -201,7 +201,6 @@
                            <h:outputText  value="#{msg['correoElectronico']}:" style="position: absolute; top: 75px; left: 580px; font-weight: bold;"/>
                            <p:inputText autocomplete="off" maxlength="100" onclick="select();" value="#{controlPersonaIndividual.nuevaPersona.email}" id="correoModPersonal"
                                         style="position: absolute; top: 70px; left: 695px; width: 110px;">
-                              <!--<p:keyFilter mask="/[a-z0-9_\.\-@]/i" for="correoModPersonal" />-->
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemInformacionPersonal(12)}" process="@this"/>
                               <p:ajax event="change" process="@this" listener="#{controlPersonaIndividual.validarEmailPersona(controlPersonaIndividual.nuevaPersona.email)}" update="correoModPersonal"/>
                            </p:inputText>
@@ -369,7 +368,7 @@
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarSueldo(1,'MOTIVO', controlPersonaIndividual.txt_motivoSu)}" process="@this" update="motivoSueldoModSueldo"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresSueldo(1)}" process="@this"/>
                               <p:commandButton value="" id="btnmotivoSueldoModSueldo" widgetVar="btnmotivoSueldoModSueldo" class="cssBotonLovDialogos" style="position: absolute; top: 43px; left: 367px; z-index: 5;"
-                                               actionListener="#{controlPersonaIndividual.listaValoresSueldo(1) }" process="@this"/>
+                                               actionListener="#{controlPersonaIndividual.listaValoresSueldo(1)}" process="@this"/>
                            </p:inputText>
 
                            <h:outputText id="infoSueldoSuelo" value="*#{msg['tipoCompensacion']}:" style="position: absolute; top: 72px; left: 65px;font-weight: bold;"/>
@@ -404,7 +403,7 @@
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarTipoContrato(0,'MOTIVO', controlPersonaIndividual.nuevaVigenciaTipoContrato.motivocontrato.nombre)}" process="@this" update="motivoContratoModTipoContrato"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresTipoContrato(0)}" process="@this"/>
                               <p:commandButton value="" id="btnmotivoContratoModTipoContrato" widgetVar="btnmotivoContratoModTipoContrato" class="cssBotonLovDialogos" style="position: absolute; top: 18px; left: 382px; z-index: 5;"
-                                               actionListener="#{controlPersonaIndividual.listaValoresTipoContrato(0) }" process="@this"/>
+                                               actionListener="#{controlPersonaIndividual.listaValoresTipoContrato(0)}" process="@this"/>
                            </p:inputText>
 
                            <h:outputText id="infoContratoTipoContrato" value="*#{msg['tipoContrato']}:" style="position: absolute; top: 47px; left: 65px;font-weight: bold;"/>
@@ -578,7 +577,7 @@
                            <p:tooltip style="font-size: 12px;" for="infoAfiliacionEPS" value="#{msg['infoAfiliacion']}"/>
 
                            <h:outputText id="infoAfiliacionARP" value="*#{msg['arp']}:" style="position: absolute; top: 42px; left: 65px;font-weight: bold;"/>
-                           <p:inputText autocomplete="off" id="arpModAfiliaciones" readonly="true" onclick="select();" value="#{controlPersonaIndividual.txt_terceroARL}" 
+                           <p:inputText autocomplete="off" id="arpModAfiliaciones" disabled="true" onclick="select();" value="#{controlPersonaIndividual.txt_terceroARL}" 
                                         style="position: absolute; top: 37px; left: 400px; width: 375px; text-transform: uppercase;">
                               <!--                              <p:ajax event="focus" listener="#/{controlPersonaIndividual.cambiarItemAfiliacionARP(0)}" process="@this"/>
                                                             <p:ajax event="change" listener="#/{controlPersonaIndividual.modificarAfiliacionARP(0,'ARP', controlPersonaIndividual.txt_terceroARL)}" process="@this" update="arpModAfiliaciones"/>
@@ -1031,8 +1030,7 @@
                                             immediate="true" oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:estructuraModCargoDesempeñado');});"
                                             actionListener="#{controlPersonaIndividual.actualizarParametroEstructuraCargoDesempeñado()}" process="@this" icon="ui-icon-check"/>
                            <p:commandButton id="atrasECD" class="cssAtrasLOV" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" icon="ui-icon-arrowreturnthick-1-w"
-                                            oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:estructuraModCargoDesempeñado');});"
-                                            actionListener="#{controlPersonaIndividual.cancelarParametroEstructuraCargoDesempeñado()}" process="@this"/>
+                                            oncomplete="PF('operacionEnProceso').hide()" actionListener="#{controlPersonaIndividual.cancelarParametroEstructuraCargoDesempeñado()}" process="@this"/>
                         </div>
                      </p:dialog>
                   </h:form>
@@ -1908,34 +1906,39 @@
 
             <h:form id="formDialogos">
 
-               <p:dialog id="advertenciaFechaIngreso" header="#{msg['atencion']}" widgetVar="advertenciaFechaIngreso"  resizable="false" draggable="true" modal="true" height="98" width="433" style="font-size: 12px;" closable="true">  
+               <p:dialog id="advertenciaFechaIngreso" header="#{msg['atencion']}" widgetVar="advertenciaFechaIngreso" resizable="false" draggable="true" modal="true" height="98" width="433" style="font-size: 12px;" closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 5px; top: 10px;"  />
                   <h:outputText value="#{msg['advertenciaFechaIngreso']}" style="position: absolute; left: 80px; top: 10px; width: 285px; font-weight:bold;"/>
                   <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('advertenciaFechaIngreso').hide();" style="position: absolute; top: 65px; left: 325px;" process="@this"/>
                </p:dialog>
 
-               <p:dialog id="errorEmailPersona" header="#{msg['error']}" widgetVar="errorEmailPersona"  resizable="false" draggable="true" modal="true" height="60" width="308" style="font-size: 12px;" closable="true">  
+               <p:dialog id="errorEmailPersona" header="#{msg['error']}" widgetVar="errorEmailPersona" resizable="false" draggable="true" modal="true" height="60" width="308" style="font-size: 12px;" closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorEmailPersona']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;"/>
                </p:dialog>
 
-               <p:dialog id="errorFechas" header="#{msg['error']}" widgetVar="errorFechas"  resizable="false" draggable="true" modal="true" height="88" width="308" style="font-size: 12px;" closable="true">  
+               <p:dialog id="errorFechas" header="#{msg['error']}" widgetVar="errorFechas" resizable="false" draggable="true" modal="true" height="88" width="308" style="font-size: 12px;" closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorFechas']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;"/>
                </p:dialog>
 
-               <p:dialog id="errorFechaIngreso" header="#{msg['error']}" widgetVar="errorFechaIngreso"  resizable="false" draggable="true" modal="true" height="88" width="308" style="font-size: 12px;" closable="true">  
+               <p:dialog id="errorFechaIngreso" header="#{msg['error']}" widgetVar="errorFechaIngreso" resizable="false" draggable="true" modal="true" height="88" width="308" style="font-size: 12px;" closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorFechaIngreso']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;"/>
                   <h:outputText value="#{controlPersonaIndividual.fechaHastaCausado}" style="position: absolute; left: 70px; top: 60px; width: 185px; font-weight:bold;">
-                     <f:convertDateTime pattern="dd/MM/yyyy" />
+                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                   </h:outputText>
                </p:dialog>
 
-               <p:dialog id="errorAlIngresar" header="#{msg['error']}" widgetVar="errorAlIngresar" resizable="false" draggable="true" modal="true" height="88" width="308" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="70" height="50" style="position: absolute; left: 5px; top: 10px;"/>
-                  <h:outputText value="#{msg['errorAlIngresar']}" style="position: absolute; left: 80px; top: 10px; width: 185px; font-weight:bold;"/>
-                  <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('errorAlIngresar').hide();" style="position: absolute; top: 57px; left: 205px;" process="@this"
+               <p:dialog id="errorAlIngresar" header="#{msg['error']}" widgetVar="errorAlIngresar" resizable="false" draggable="true" modal="true" height="150" width="400" style="font-size: 12px;" closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"/>
+                  <h:outputText value="#{msg['errorAlIngresar']}" style="position: absolute; left: 80px; top: 10px; width: 285px; font-weight:bold;"/>
+                  <h:outputText value="#{controlPersonaIndividual.error}" style="position: absolute; left: 80px; top: 40px; width: 285px; font-weight:bold;"/>
+                  <p:commandButton icon="ui-icon-close" value="#{msg['eliminarDatos']}" onclick="PF('errorAlIngresar').hide();" style="position: absolute; top: 130px; left: 60px;" process="@this">
+                     <f:actionListener binding="#{controlPersonaIndividual.eliminarDatosCreados()}"/>
+                     <f:actionListener binding="#{controlRemoto.validarEstadoNominaF()}"/>
+                  </p:commandButton>
+                  <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('errorAlIngresar').hide();" style="position: absolute; top: 130px; left: 250px;" process="@this"
                                    action="nomina">
                      <f:actionListener binding="#{controlPersonaIndividual.cancelarModificaciones()}"/>
                      <f:actionListener binding="#{controlRemoto.validarEstadoNominaF()}"/>
