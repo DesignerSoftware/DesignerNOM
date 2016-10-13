@@ -915,26 +915,33 @@
                   <p:commandButton value="#{msg['aceptar']}" onclick="PF('activoNoEliminar').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this" />
                </p:dialog>
                <p:dialog id="activoeliminarpaso1" widgetVar="activoeliminarpaso1" header="#{msg['titulopaso1']}" resizable="false" draggable="true" modal="true" height="95" width="400" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="60" style="position: absolute; left: 15px; top: 10px;"  />
                   <h:outputText value="#{msg['paso1']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                  <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" actionListener="#{controlRemoto.paso2()}" onclick="PF('activoEliminarPaso1').hide();" style="position: absolute; top: 50px; left: 210px;" process="@this" />
-                  <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-circle-close" onclick="PF('activoEliminarPaso1').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this" />
+                  <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" actionListener="#{controlRemoto.paso2()}"
+                                   onclick="PF('activoEliminarPaso1').hide();" style="position: absolute; top: 50px; left: 155px;" process="@this" />
+                  <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-circle-close" onclick="PF('activoEliminarPaso1').hide();"
+                                   style="position: absolute; top: 50px; left: 250px;" process="@this" />
                </p:dialog>
                <p:dialog id="activoeliminarpaso2" widgetVar="activoeliminarpaso2" header="#{msg['titulopaso2']}" resizable="false" draggable="true" modal="true" height="95" width="400" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="60" style="position: absolute; left: 15px; top: 10px;"  />
                   <h:outputText value="#{msg['paso2']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                  <p:commandButton value="#{msg['si']}" icon="ui-icon-check" actionListener="#{controlRemoto.paso3()}" onclick="PF('activoEliminarPaso2').hide();" style="position: absolute; top: 50px; left: 210px;" process="@this" />
-                  <p:commandButton value="#{msg['no']}" icon="ui-icon-circle-close" onclick="PF('activoEliminarPaso2').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this" />
+                  <p:commandButton value="#{msg['si']}" icon="ui-icon-check" actionListener="#{controlRemoto.paso3()}" onclick="PF('activoEliminarPaso2').hide();"
+                                   style="position: absolute; top: 50px; left: 180px;" process="@this" />
+                  <p:commandButton value="#{msg['no']}" icon="ui-icon-circle-close" onclick="PF('activoEliminarPaso2').hide();"
+                                   style="position: absolute; top: 50px; left: 245px;" process="@this" />
                </p:dialog>
+               
                <p:dialog id="activoeliminarpaso3" widgetVar="activoeliminarpaso3" header="#{msg['titulopaso3']}" resizable="false" draggable="true" modal="true" height="95" width="400" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="60" style="position: absolute; left: 15px; top: 10px;"  />
                   <h:outputText value="#{msg['paso3']}  #{controlRemoto.trabajador.empleado.persona.nombreCompleto}" style="position: absolute; left: 100px; top: 20px; width: 210px;" />
-                  <p:commandButton value="#{msg['aceptar']}" actionListener="#{controlRemoto.paso4()}" onclick="PF('activoEliminarPaso3').hide();" icon="ui-icon-check" style="position: absolute; top: 50px; left: 210px;" process="@this" />
-                  <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-circle-close" onclick="PF('activoEliminarPaso3').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this" />
+                  <p:commandButton value="#{msg['aceptar']}" actionListener="#{controlRemoto.paso4()}" onclick="PF('activoEliminarPaso3').hide();"
+                                   icon="ui-icon-check" style="position: absolute; top: 60px; left: 155px;" process="@this" />
+                  <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-circle-close" onclick="PF('activoEliminarPaso3').hide();"
+                                   style="position: absolute; top: 60px; left: 250px;" process="@this" />
                </p:dialog>
                <p:dialog id="activoeliminarpaso4" widgetVar="activoeliminarpaso4" header="#{msg['titulopaso4']}" resizable="false" draggable="true" modal="true" height="95" width="400" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
-                  <h:outputText value="#{msg['paso4']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="60" style="position: absolute; left: 15px; top: 10px;"  />
+                  <h:outputText value="#{msg['paso4']}" style="position: absolute; left: 90px; top: 40px; width: 300px;" />
                   <p:commandButton value="#{msg['aceptar']}" actionListener="#{controlRemoto.activos()}" icon="ui-icon-check" onclick="PF('activoEliminarPaso4').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this" />
                </p:dialog>
 

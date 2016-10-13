@@ -33,7 +33,7 @@ import org.primefaces.util.Constants;
  *
  * @author Administrator
  */
-@ManagedBean
+@ManagedBean(name = "exportarXLS")
 @RequestScoped
 public class ExportarXLS extends ExcelExporter {
 
@@ -184,7 +184,6 @@ public class ExportarXLS extends ExcelExporter {
         cell.setCellValue(new HSSFRichTextString(value));
     }
 
-//    @Override
     protected void addColumnValue(Row row, List<UIComponent> components) {
         int cellIndex = row.getLastCellNum() == -1 ? 0 : row.getLastCellNum();
         Cell cell = row.createCell(cellIndex);

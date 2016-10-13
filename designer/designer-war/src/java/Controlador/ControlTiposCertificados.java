@@ -76,7 +76,7 @@ public class ControlTiposCertificados implements Serializable {
         nuevoTiposCertificados = new TiposCertificados();
         duplicarTiposCertificados = new TiposCertificados();
         guardado = true;
-        tamano = 270;
+        tamano = 330;
         System.out.println("controlTiposCertificados Constructor");
     }
 
@@ -180,7 +180,7 @@ public String redirigirPaginaAnterior(){return paginaAnterior;}
             bandera = 0;
             filtrarTiposCertificados = null;
             tipoLista = 0;
-            tamano = 270;
+            tamano = 330;
         }
 
         borrarTiposCertificados.clear();
@@ -216,7 +216,7 @@ public String redirigirPaginaAnterior(){return paginaAnterior;}
             bandera = 0;
             filtrarTiposCertificados = null;
             tipoLista = 0;
-            tamano = 270;
+            tamano = 330;
         }
 
         borrarTiposCertificados.clear();
@@ -236,7 +236,7 @@ public String redirigirPaginaAnterior(){return paginaAnterior;}
     public void activarCtrlF11() {
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
-            tamano = 250;
+            tamano = 310;
             codigo = (Column) c.getViewRoot().findComponent("form:datosTiposCertificados:codigo");
             codigo.setFilterStyle("width: 85% !important;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposCertificados:descripcion");
@@ -246,7 +246,7 @@ public String redirigirPaginaAnterior(){return paginaAnterior;}
             bandera = 1;
         } else if (bandera == 1) {
             System.out.println("Desactivar");
-            tamano = 270;
+            tamano = 330;
             codigo = (Column) c.getViewRoot().findComponent("form:datosTiposCertificados:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosTiposCertificados:descripcion");
@@ -259,9 +259,7 @@ public String redirigirPaginaAnterior(){return paginaAnterior;}
     }
 
     public void modificarTiposCertificados(int indice, String confirmarCambio, String valorConfirmar) {
-        System.err.println("ENTRE A MODIFICAR SUB CATEGORIA");
         index = indice;
-
         int contador = 0;
         boolean banderita = false;
         Integer a;

@@ -296,9 +296,13 @@ public class ControlPersonaIndividual implements Serializable {
    private Date fechaHastaCausado;
 
    private String error;
+   private boolean activarAtrasEmpresas;
 
    public ControlPersonaIndividual() {
       nuevoEmpleado = new Empleados();
+      nuevoEmpleado.setEmpresa(new Empresas());
+      nuevoEmpleado.getEmpresa().setNombre("");
+
       nuevaPersona = new Personas();
       nuevaPersona.setCiudaddocumento(new Ciudades());
       nuevaPersona.setCiudadnacimiento(new Ciudades());
@@ -341,6 +345,7 @@ public class ControlPersonaIndividual implements Serializable {
       nuevaVigenciaAfiliacionAFP.setTercerosucursal(new TercerosSucursales());
       nuevaVigenciaAfiliacionARP = new VigenciasAfiliaciones();
       nuevaVigenciaAfiliacionARP.setTercerosucursal(new TercerosSucursales());
+      nuevaVigenciaAfiliacionARP.getTercerosucursal().setTercero(new Terceros());
       nuevaVigenciaAfiliacionCaja = new VigenciasAfiliaciones();
       nuevaVigenciaAfiliacionCaja.setTercerosucursal(new TercerosSucursales());
       nuevaVigenciaAfiliacionEPS = new VigenciasAfiliaciones();
@@ -480,6 +485,7 @@ public class ControlPersonaIndividual implements Serializable {
       fechaHastaCausado = null;
 
       error = "";
+      activarAtrasEmpresas = true;
    }
 
    @PostConstruct
@@ -516,6 +522,7 @@ public class ControlPersonaIndividual implements Serializable {
          cargarLovEmpresas();
          contarRegistros_EmpresaInfoP();
          context.update("formLovs:formDInformacionPersonal:formEmpresa:EmpresaInformacionPersonalDialogo");
+         context.update("formLovs:formDInformacionPersonal:formEmpresa:atrasEIP");
          context.execute("PF('EmpresaInformacionPersonalDialogo').show()");
          idInformacionPersonal = -1;
       }
@@ -1434,6 +1441,8 @@ public class ControlPersonaIndividual implements Serializable {
    public void cancelarModificaciones() {
       fechaHastaCausado = null;
       nuevoEmpleado = new Empleados();
+      nuevoEmpleado.setEmpresa(new Empresas());
+      nuevoEmpleado.getEmpresa().setNombre("");
       nuevaPersona = new Personas();
       nuevaPersona.setCiudaddocumento(new Ciudades());
       nuevaPersona.setCiudadnacimiento(new Ciudades());
@@ -1476,6 +1485,7 @@ public class ControlPersonaIndividual implements Serializable {
       nuevaVigenciaAfiliacionAFP.setTercerosucursal(new TercerosSucursales());
       nuevaVigenciaAfiliacionARP = new VigenciasAfiliaciones();
       nuevaVigenciaAfiliacionARP.setTercerosucursal(new TercerosSucursales());
+      nuevaVigenciaAfiliacionARP.getTercerosucursal().setTercero(new Terceros());
       nuevaVigenciaAfiliacionCaja = new VigenciasAfiliaciones();
       nuevaVigenciaAfiliacionCaja.setTercerosucursal(new TercerosSucursales());
       nuevaVigenciaAfiliacionEPS = new VigenciasAfiliaciones();
@@ -1602,7 +1612,7 @@ public class ControlPersonaIndividual implements Serializable {
       txt_tipoTel = "";
 
       error = "";
-      
+
       setTxt_genero(null);
       setTxt_tipoCuenta(null);
       setTxt_grupoS(null);
@@ -2191,7 +2201,7 @@ public class ControlPersonaIndividual implements Serializable {
                            nuevaDireccion.setTiposecundario("O");
                            nuevaDireccion.setPersona(nuevoEmpleado.getPersona());
                            nuevaDireccion.setFechavigencia(fechaIngreso);
-                           //nuevaDireccion.setPpal(".");
+                           nuevaDireccion.setPpal(".");
                            if (!administrarPersonaIndividual.crearDireccion(nuevaDireccion)) {
                               error = error + "Dirección, ";
                            }
@@ -2305,9 +2315,11 @@ public class ControlPersonaIndividual implements Serializable {
                            error = error + "Vigencia Tipo Trabajador para contratación.";
                         }
 
-                        if (error.trim().isEmpty()) {
+                        System.out.println("Error fallaron : " + error);
+                        if (error.equals(" ")) {
                            RequestContext.getCurrentInstance().execute("PF('procesoGuardadoOK').show()");
                         } else {
+                           RequestContext.getCurrentInstance().update("formDialogos:errorAlIngresar");
                            RequestContext.getCurrentInstance().execute("PF('errorAlIngresar').show()");
                         }
                         cancelarModificaciones();
@@ -2331,10 +2343,11 @@ public class ControlPersonaIndividual implements Serializable {
       }
    }
 
-   public void eliminarDatosCreados(){
+   public void eliminarDatosCreados() {
       administrarPersonaIndividual.eliminarEmpleadoCompleto(nuevoEmpleado.getSecuencia(), nuevoEmpleado.getPersona().getSecuencia());
       cancelarModificaciones();
    }
+
    public void cambiarItemInformacionPersonal(int iiii) {
       System.out.println("cambiarItemInformacionPersonal : " + iiii);
       if (permitirIndexInformacionPersonal == true) {
@@ -3079,7 +3092,7 @@ public class ControlPersonaIndividual implements Serializable {
       //empleado = administrarPersonaIndividual.buscarEmpleadoPorCodigoyEmpresa(nuevaPersona.getNumerodocumento(), nuevoEmpleado.getEmpresa().getSecuencia());
       //if (nuevoEmpleado.getEmpresa() != null) {
       //empleado = administrarPersonaIndividual.buscarEmpleadoPorCodigoyEmpresa(nuevaPersona.getNumerodocumento(), nuevoEmpleado.getEmpresa());
-      if (nuevoEmpleado.getEmpresa() != null) {
+      if (nuevoEmpleado.getEmpresa().getSecuencia() != null) {
          empleado = administrarPersonaIndividual.buscarEmpleadoPorCodigoyEmpresa(new BigDecimal(nuevaPersona.getNumerodocumento()), nuevoEmpleado.getEmpresa().getSecuencia());
       } else {
          empleado = administrarPersonaIndividual.buscarEmpleadoPorCodigoyEmpresa(new BigDecimal(nuevaPersona.getNumerodocumento()), null);
@@ -3247,7 +3260,13 @@ public class ControlPersonaIndividual implements Serializable {
    public void cargarTerseroSucursalARL(BigInteger secEmpresa) {
       System.out.println("cargarTerseroSucursalARL() secEmpresa : " + secEmpresa);
       nuevaVigenciaAfiliacionARP.setTercerosucursal(administrarPersonaIndividual.consultarARL(secEmpresa));
-      txt_terceroARL = nuevaVigenciaAfiliacionARP.getTercerosucursal().getTercero().getNombre();
+      if (nuevaVigenciaAfiliacionARP.getTercerosucursal() == null) {
+         txt_terceroARL = "";
+      } else if (nuevaVigenciaAfiliacionARP.getTercerosucursal().getTercero() == null) {
+         txt_terceroARL = "";
+      } else {
+         txt_terceroARL = nuevaVigenciaAfiliacionARP.getTercerosucursal().getTercero().getNombre();
+      }
       TiposEntidades arp = administrarPersonaIndividual.buscarTipoEntidadPorCodigo(new Short("2"));
       nuevaVigenciaAfiliacionARP.setTipoentidad(arp);
       RequestContext.getCurrentInstance().update("form:arpModAfiliaciones");
@@ -5421,6 +5440,7 @@ public class ControlPersonaIndividual implements Serializable {
       modificacionesEmpresaFechaIngresoInformacionPersonal();
       cargarLovCiudades();
       cargarLovTiposDocumentos();
+      System.out.println("Ya termino la Función q recibe la empresa");
    }
 
    public void cancelarParametroEmpresaInformacionPersonalVisible() {
@@ -5437,11 +5457,8 @@ public class ControlPersonaIndividual implements Serializable {
          permitirIndexInformacionPersonal = true;
          aceptar = true;
          context.reset("primerForm:formEmpresa:lovEmpresaInformacionPersonalVisible:globalFilter");
-
          RequestContext.getCurrentInstance().execute("PF('lovEmpresaInformacionPersonalVisible').clearFilters()");
-
          RequestContext.getCurrentInstance().execute("PF('lovEmpresaInformacionPersonalVisible').unselectAllRows()");
-
          RequestContext.getCurrentInstance().execute("PF('EmpresaInformacionPersonalDialogoVisible').hide()");
       }
    }
@@ -5459,13 +5476,11 @@ public class ControlPersonaIndividual implements Serializable {
       modificacionesEmpresaFechaIngresoInformacionPersonal();
       RequestContext.getCurrentInstance().update("form:empresaModPersonal");
       context.reset("formLovs:formDInformacionPersonal:formEmpresa:lovEmpresaInformacionPersonal:globalFilter");
-
       RequestContext.getCurrentInstance().execute("PF('lovEmpresaInformacionPersonal').clearFilters()");
       RequestContext.getCurrentInstance().update("formLovs:formDInformacionPersonal:formEmpresa:aceptarEIP");
       RequestContext.getCurrentInstance().execute("PF('lovEmpresaInformacionPersonal').unselectAllRows()");
       RequestContext.getCurrentInstance().update("formLovs:formDInformacionPersonal:formEmpresa:EmpresaInformacionPersonalDialogo");
       RequestContext.getCurrentInstance().update("formLovs:formDInformacionPersonal:formEmpresa:lovEmpresaInformacionPersonal");
-
       RequestContext.getCurrentInstance().execute("PF('EmpresaInformacionPersonalDialogo').hide()");
    }
 
@@ -5596,7 +5611,7 @@ public class ControlPersonaIndividual implements Serializable {
    public void modificacionesEmpresaFechaIngresoInformacionPersonal() {
       if (nuevoEmpleado.getEmpresa().getSecuencia() != null) {
          //if (nuevoEmpleado.getEmpresa() != null) {
-         System.out.println("modificacionesEmpresaFechaIngresoInformacionPersonal() nuevoEmpleado.getEmpresa(): " + nuevoEmpleado.getEmpresa().getSecuencia());
+         System.out.println("modificacionesEmpresaFechaIngresoInformacionPersonal() nuevoEmpleado.getEmpresa().getSecuencia(): " + nuevoEmpleado.getEmpresa().getSecuencia());
          //System.out.println("paso el if()  nuevoEmpleado.getEmpresa(): " + nuevoEmpleado.getEmpresa());
          disableDescripcionEstructura = false;
          disableUbicacionGeografica = false;
@@ -5628,7 +5643,6 @@ public class ControlPersonaIndividual implements Serializable {
       System.out.println("desdeNominaFEmpresa : " + desdeNominaFEmpresa);
       if (desdeNominaFEmpresa == 0) {
          System.out.println("modificacionesEmpresaFechaIngresoInformacionPersonal() : desdeNominaFEmpresa == 0");
-         RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().update("form:epsModAfiliaciones");
          RequestContext.getCurrentInstance().update("form:arpModAfiliaciones");
          RequestContext.getCurrentInstance().update("form:fondoCensantiasModAfiliaciones");
@@ -6324,7 +6338,7 @@ public class ControlPersonaIndividual implements Serializable {
    }
 
    public void cargarLovCiudades() {
-      if (lovCiudades == null && nuevoEmpleado.getEmpresa().getSecuencia() != null) {
+      if (lovCiudades == null) {
          //if (lovCiudades == null && nuevoEmpleado.getEmpresa() != null) {
          lovCiudades = administrarPersonaIndividual.lovCiudades();
       }
@@ -8662,5 +8676,18 @@ public class ControlPersonaIndividual implements Serializable {
    public void setError(String error) {
       this.error = error;
    }
-   
+
+   public boolean isActivarAtrasEmpresas() {
+      if (nuevoEmpleado.getEmpresa().getSecuencia() == null) {
+         activarAtrasEmpresas = true;
+      } else {
+         activarAtrasEmpresas = false;
+      }
+      return activarAtrasEmpresas;
+   }
+
+   public void setActivarAtrasEmpresas(boolean activarAtrasEmpresas) {
+      this.activarAtrasEmpresas = activarAtrasEmpresas;
+   }
+
 }

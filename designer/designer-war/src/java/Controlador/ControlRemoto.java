@@ -1553,8 +1553,9 @@ public class ControlRemoto implements Serializable {
    }
 
    public void redireccionPersonaIndividual() {
+      System.out.println("Va a Redireccionar la pagina");
       FacesContext fc = FacesContext.getCurrentInstance();
-      anularBotonEmpresas();
+//      anularBotonEmpresas();
       fc.getApplication().getNavigationHandler().handleNavigation(fc, null, "personaIndividual");
    }
 
@@ -1595,20 +1596,21 @@ public class ControlRemoto implements Serializable {
       RequestContext.getCurrentInstance().update("formulariodialogos:LovEmpresasTabla");
       System.out.println("Despues de getLovEmpresas lovEmpresas : " + lovEmpresas);
       if (lovEmpresas != null) {
-         if (lovEmpresas.size() == 1) {
+         if (lovEmpresas.size() >= 1) {
             unicaEmpresa = lovEmpresas.get(0);
-            redireccionPersonaIndividual();
-         } else {
-            System.out.println("Va a abrir la lista de empresas");
-//            RequestContext.getCurrentInstance().reset("formulariodialogos:LovEmpresasDialogo");
-//            RequestContext.getCurrentInstance().reset("formulariodialogos:LovEmpresasTabla");
-            RequestContext.getCurrentInstance().execute("PF('LovEmpresasDialogo').show()");
-            contarRegistrosEmpresas();
-            FacesContext c = FacesContext.getCurrentInstance();
-            DataTable tabla = (DataTable) c.getViewRoot().findComponent("formulariodialogos:LovEmpresasTabla");
-            tabla.updateValue(lovEmpresas);
          }
+//         } else {
+//            System.out.println("Va a abrir la lista de empresas");
+////            RequestContext.getCurrentInstance().reset("formulariodialogos:LovEmpresasDialogo");
+////            RequestContext.getCurrentInstance().reset("formulariodialogos:LovEmpresasTabla");
+//            RequestContext.getCurrentInstance().execute("PF('LovEmpresasDialogo').show()");
+//            contarRegistrosEmpresas();
+//            FacesContext c = FacesContext.getCurrentInstance();
+//            DataTable tabla = (DataTable) c.getViewRoot().findComponent("formulariodialogos:LovEmpresasTabla");
+//            tabla.updateValue(lovEmpresas);
+//         }
       }
+      redireccionPersonaIndividual();
       System.out.println("Unica Empresa : " + unicaEmpresa);
    }
 

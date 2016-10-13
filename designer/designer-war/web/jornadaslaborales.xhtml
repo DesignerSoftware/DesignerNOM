@@ -127,9 +127,9 @@
                                  </p:inputText>
                               </f:facet>  
                            </p:cellEditor>
-
                            <f:facet name="footer"/>
                         </p:column>
+                        
                         <p:column headerText="#{msg['horasdiarias']}" sortBy="#{JornadasLaborales.horasdiarias}" filterBy="#{JornadasLaborales.horasdiarias}"
                                   filterMatchMode="contains" id="jornadasLaboralesHorasDiarias" width="30" filterStyle="display: none; visibility: hidden;" >                                  
                            <f:facet name="header">
@@ -149,9 +149,9 @@
                                  <p:keyFilter for="editarJornadaLaboralHorasDiarias" mask="num"/>
                               </f:facet>  
                            </p:cellEditor>
-
                            <f:facet name="footer"/>
                         </p:column>
+                        
                         <p:column headerText="#{msg['horasmensuales']}" sortBy="#{JornadasLaborales.horasmensuales}" filterBy="#{JornadasLaborales.horasmensuales}"
                                   filterMatchMode="contains" id="jornadasLaboralesHorasMensuales" width="30" filterStyle="display: none; visibility: hidden;" >                                  
                            <f:facet name="header">
@@ -171,10 +171,9 @@
                                  <p:keyFilter for="editarJornadaLaboralHorasMensuales" mask="num"/>
                               </f:facet>  
                            </p:cellEditor>
-
                            <f:facet name="footer"/>
                         </p:column>
-                        <!-- -->                               
+
                         <p:column headerText="#{msg['rotativo']}" style="text-align: center;" sortBy="#{JornadasLaborales.rotativo}" filterBy="#{JornadasLaborales.rotativo}"
                                   filterMatchMode="exact" id="jornadasLaboralesRotativo" width="24" filterStyle="display: none; visibility: hidden;" >                                  
                            <f:facet name="header">

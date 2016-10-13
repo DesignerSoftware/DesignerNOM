@@ -16,9 +16,15 @@
    <h:body>
 
       <ui:composition template="/template.xhtml">
-         <ui:define name="body">  
+         <ui:define name="body">
 
             <h:form id="form"> 
+               <script>
+                  window.addEventListener('load', function () {
+                     PF('EmpresaInformacionPersonalDialogo').show()
+                  }, false);
+               </script>
+
                <f:loadBundle basename="Recursos.personaindividual" var="msg"/>
                <p:growl id="growl" showDetail="true"/>
                <p:panel id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
@@ -89,7 +95,7 @@
                      <legend style="font-size: 12px; color: blue"><strong>#{msg['informacionPersona']}</strong></legend>
 
                      <p:scrollPanel id="scrollPrincipal" style="position: relative; left: 3px; top: 0px; width: 850px; height: 380px; border: none;" mode="native">  
-                        <h:outputText value="#{msg['infoBasica']}" style="position: absolute;left: 10px; top: 2px;color: #14388B; font-weight: bold; font-size: 11px; width: 800px; text-align: center; margin-bottom: 10px;"/>
+                        <h:outputText value="#{msg['infoBasica']}" style="position: absolute;left: 10px; top: 2px; color: #14388B; font-weight: bold; font-size: 11px; width: 800px; text-align: center; margin-bottom: 10px;"/>
 
                         <fieldset style="position: absolute; font-size: 12px; top: 40px; width: 810px; height: 155px; border-radius: 10px; text-align: left;">
                            <legend style="font-size: 12px; color: blue"><strong>#{msg['modPersonal']}</strong></legend>
@@ -100,6 +106,9 @@
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarInformacionPersonal(0,'EMPRESA', controlPersonaIndividual.nuevoEmpleado.empresa.nombre)}" process="@this" update="@this"/>
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemInformacionPersonal(0)}" process="@this"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresInformacionPersonal(0)}" process="@this"/>
+                              <p:commandButton value="" id="btnempresaModPersonal" widgetVar="btnempresaModPersonal" class="cssBotonLovDialogos"
+                                               style="position: absolute; top: 21px; left: 242px; z-index: 5;"
+                                               actionListener="#{controlPersonaIndividual.listaValoresInformacionPersonal(0)}" process="@this"/>
                            </p:inputText>
 
                            <h:outputText  value="*#{msg['primerApellido']}:" style="position: absolute; top: 50px; left: 15px; font-weight: bold;"/>
@@ -176,7 +185,8 @@
                               <p:ajax event="focus" listener="#{controlPersonaIndividual.cambiarItemInformacionPersonal(9)}" process="@this"/>
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarInformacionPersonal(9,'NACIMIENTO', controlPersonaIndividual.txt_ciudadNac)}" process="@this" update="@this"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresInformacionPersonal(9)}" process="@this"/>
-                              <p:commandButton value="" id="btnciudadNacimientoModPersonal" widgetVar="btnciudadNacimientoModPersonal" class="cssBotonLovDialogos" style="position: absolute; top: 121px; left: 537px; z-index: 5;"
+                              <p:commandButton value="" id="btnciudadNacimientoModPersonal" widgetVar="btnciudadNacimientoModPersonal" class="cssBotonLovDialogos"
+                                               style="position: absolute; top: 121px; left: 537px; z-index: 5;"
                                                actionListener="#{controlPersonaIndividual.listaValoresInformacionPersonal(9)}" process="@this"/>
                            </p:inputText>
 
@@ -299,7 +309,7 @@
                               <p:ajax event="change" listener="#{controlPersonaIndividual.modificarCentroCosto(1,'ESTRUCTURA', controlPersonaIndividual.nuevaVigenciaLocalizacion.localizacion.centrocosto.nombre)}" process="@this" update="estructuraModCentroCosto"/>
                               <p:ajax event="dblclick" listener="#{controlPersonaIndividual.listaValoresCentroCosto(1)}" process="@this"/>
                               <p:commandButton value="" id="btnestructuraModCentroCosto" widgetVar="btnestructuraModCentroCosto" class="cssBotonLovDialogos" style="position: absolute; top: 41px; left: 382px; z-index: 5;" disabled="#{controlPersonaIndividual.disableDescripcionEstructura}"
-                                               actionListener="#{controlPersonaIndividual.listaValoresCargoDesempenado(1)}" process="@this"/>
+                                               actionListener="#{controlPersonaIndividual.listaValoresCentroCosto(1)}" process="@this"/>
                            </p:inputText>
                            <p:tooltip style="font-size: 12px;" for="infoEstructuraCentroCosto" value="#{msg['infoEstructuraCentroCosto']}"/>
 
@@ -758,7 +768,7 @@
             <h:form id="formLovs">
                <h:form id="formDInformacionPersonal">
                   <h:form id="formEmpresa">
-                     <p:dialog header="#{msg['empresaM']}" widgetVar="EmpresaInformacionPersonalDialogo" draggable="true" resizable="false" closable="false" id="EmpresaInformacionPersonalDialogo"  
+                     <p:dialog header="#{msg['empresaM']}" widgetVar="EmpresaInformacionPersonalDialogo" modal="true" draggable="true" resizable="false" closable="false" id="EmpresaInformacionPersonalDialogo"  
                                showEffect="fade" hideEffect="fade" width="414" >
                         <p:dataTable id="lovEmpresaInformacionPersonal" var="empresaIP" value="#{controlPersonaIndividual.lovEmpresas}" rowKey="#{empresaIP.secuencia}"
                                      selection="#{controlPersonaIndividual.empresaSeleccionada}" scrollWidth="390" selectionMode="single" widgetVar="lovEmpresaInformacionPersonal" scrollable="true" scrollHeight="200"
@@ -793,7 +803,7 @@
                                             oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:primerApellidoModPersonal');});" 
                                             actionListener="#{controlPersonaIndividual.actualizarParametroEmpresaInformacionPersonal()}" process="@this" icon="ui-icon-check"/>
 
-                           <p:commandButton id="atrasEIP" class="cssAtrasLOV" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
+                           <p:commandButton id="atrasEIP" disabled="#{controlPersonaIndividual.activarAtrasEmpresas}" class="cssAtrasLOV" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
                                             actionListener="#{controlPersonaIndividual.cancelarParametroEmpresaInformacionPersonal()}"  process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                         </div>
                      </p:dialog>
@@ -1408,7 +1418,7 @@
                                      emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlPersonaIndividual.filtrarLovTiposContratos}">
 
                            <p:ajax event="filter" listener="#{controlPersonaIndividual.contarRegistros_TipoContrato()}" update=":formLovs:formDTipoContrato:formTipoContrato:aceptarTCTC"/>
-                           <p:ajax event="rowDblselect" listener="#{controlPersonaIndividual.actualizarParametroTipoContratoTipoContrato()}"  process="@this"/>
+                           <p:ajax event="rowDblselect" listener="#{controlPersonaIndividual.actualizarParametroTipoContratoTipoContrato()}" process="@this"/>
                            <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDTipoContrato:formTipoContrato:aceptarTCTC"/>
 
                            <f:facet name="header">  
@@ -1426,7 +1436,8 @@
                         <div class="cssBotonesLOV">
                            <h:outputText id="infoRegistroTipoTipoContrato" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroTipoContrato}" class="cssinfoRegistroLOV"/>
                            <p:commandButton id="aceptarTCTC" class="cssAceptarLOV" update="@this" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
-                                            oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:fechaFinalContratoModTipoContrato');});" actionListener="#{controlPersonaIndividual.actualizarParametroTipoContratoTipoContrato()}" process="@this" icon="ui-icon-check"/>
+                                            oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:fechaFinalContratoModTipoContrato');});"
+                                            actionListener="#{controlPersonaIndividual.actualizarParametroTipoContratoTipoContrato()}" process="@this" icon="ui-icon-check"/>
                            <p:commandButton id="atrasTCTC" class="cssAtrasLOV" value="#{msg['atras']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" 
                                             actionListener="#{controlPersonaIndividual.cancelarParametroTipoContratoTipoContrato()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                         </div>
