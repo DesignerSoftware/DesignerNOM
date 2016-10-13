@@ -87,13 +87,12 @@
                                          filteredValue="#{controlNReporteNomina.filtrarListIRU}" selectionMode="single" emptyMessage="#{msg['vacio']}"
                                          editable="true" editMode="cell" selection="#{controlNReporteNomina.reporteSeleccionado}"  liveScroll="true" scrollRows="8">
 
-                                <f:event type="preRenderView" listener="#{controlNReporteNomina.recordarSeleccion()}"/>
                                 <p:ajax event="filter" listener="#{controlNReporteNomina.eventoFiltrar()}"/>
 
                                 <p:ajax event="rowSelect" listener="#{controlNReporteNomina.seleccionRegistro()}" process="@this" />
                                 <p:ajax event="rowDblselect" listener="#{controlNReporteNomina.requisitosParaReporte()}" process="@this" />
 
-                                <p:column id="codigoIR" style="text-align: center"  headerText="#{msg['codigo']}" width="50" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains"  filterStyle="display: none; visibility: hidden;"  >  
+                                <p:column id="codigoIR" style="text-align: center" headerText="#{msg['codigo']}" width="50" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains"  filterStyle="display: none; visibility: hidden;"  >  
                                     <h:outputText value="#{info.codigo}"/>
                                 </p:column>
 
@@ -111,7 +110,7 @@
                                                 <f:selectItem itemLabel="#{msg['xls']}" itemValue="XLS" />  
                                                 <f:selectItem itemLabel="#{msg['xlsx']}" itemValue="XLSX" />  
                                                 <f:selectItem itemLabel="#{msg['csv']}" itemValue="CSV" />
-                                                <p:ajax listener="#{controlNReporteNomina.modificacionTipoReporte(info)}" update=":form:reportesNomina" event="change" />
+                                                <p:ajax event="change" listener="#{controlNReporteNomina.modificacionTipoReporte(info)}" update=":form:reportesNomina" />
                                             </p:selectOneMenu>
                                         </f:facet>
                                     </p:cellEditor>
@@ -126,8 +125,8 @@
                                         <f:facet id="hacerReporte" name="output"><img src="Imagenes/Iconos/generarReporte.png" width="18" height="18" /></f:facet>  
                                         <p:tooltip for="hacerReporte" value="#{msg['generarReporte']}"/>
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="G" maxlength="1" style="background-color: blue; width: 6px; height: 6px;" id="EdGenerarR">
-                                                <p:ajax event="select" process="@this" listener="#{controlNReporteNomina.generarReporte(info)}"/>
+                                            <p:inputText id="EdGenerarR" autocomplete="off" value="G" maxlength="1" style="background-color: blue; width: 6px; height: 6px;" >
+                                                <p:ajax event="select" listener="#{controlNReporteNomina.generarReporte(info)}" process="@this"/>
                                             </p:inputText>
                                         </f:facet>
                                     </p:cellEditor>
@@ -179,8 +178,8 @@
                         <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                             <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                             <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                            <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlNReporteNomina.guardarYSalir()}" action="nomina" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
-                            <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlNReporteNomina.cancelarYSalir()}" action="nomina" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
+                            <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlNReporteNomina.guardarYSalir()}" action="nomina" style="position: absolute; top: 50px; left: 184px;" process="@this" icon="ui-icon-check" />
+                            <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlNReporteNomina.cancelarYSalir()}" action="nomina" style="position: absolute; top: 50px; left: 248px;" process="@this" icon="ui-icon-close" />
                             <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                         </p:dialog>
 
@@ -199,7 +198,7 @@
                               showEffect="fade" hideEffect="fade" width="470" modal="true" >
                         <p:dataTable id="lovReportesDialogo" var="reportes" value="#{controlNReporteNomina.listValInforeportes}" rowKey="#{reportes.secuencia}"
                                      selection="#{controlNReporteNomina.reporteSeleccionadoLOV}" selectionMode="single" widgetVar="lovReportesDialogo" scrollable="true" scrollWidth="445" scrollHeight="240"
-                                     filteredValue="#{controlNReporteNomina.filtrarLovInforeportes}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
+                                     filteredValue="#{controlNReporteNomina.filtrarLovInforeportes}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25" >              
 
                             <p:ajax event="filter" listener="#{controlNReporteNomina.contarRegistrosLovReportes()}"/>                            
                             <p:ajax event="rowSelect" listener="#{controlNReporteNomina.activarAceptar()}" update=":form:aceptarR"/>
@@ -208,14 +207,14 @@
                                 <h:outputText value="#{msg['buscarR']}"/>   
                                 <p:inputText  autocomplete="off" class="cssFiltroLOV" id="globalFilter" onkeyup="PF('lovReportesDialogo').filter();" value="#{filtrado}" />  
                             </f:facet>
-                            <p:column style="text-align: center" filterBy="#{reportes.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 94%">
-                                <f:facet name="header">
+                            <p:column style="text-align: center" filterBy="#{reportes.codigo}" filterMatchMode="contains" filterStyle="width: 94%" width="50px;" sortBy="#{reportes.codigo}">
+                                <f:facet name="header" >
                                     <h:outputText  value="#{msg['codigoR']}" />
                                 </f:facet>
                                 <h:outputText style="text-align: center" value="#{reportes.codigo}" />
                             </p:column>
 
-                            <p:column filterBy="#{reportes.nombre}" filterMatchMode="contains" filterStyle="width: 94%">
+                            <p:column filterBy="#{reportes.nombre}" filterMatchMode="contains" filterStyle="width: 94%" sortBy="#{reportes.nombre}">
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['nombreR']}" />
                                 </f:facet>
@@ -298,7 +297,7 @@
                         </div>
                     </p:dialog>
 
-                    <p:dialog header="#{msg['codigoEMPH']}" widgetVar="EmpleadoHastaDialogo" draggable="true" resizable="false" closable="false" id="EmpleadoHastaDialogo"  
+                    <p:dialog id="EmpleadoHastaDialogo" header="#{msg['codigoEMPH']}" widgetVar="EmpleadoHastaDialogo" draggable="true" resizable="false" closable="false"  
                               showEffect="fade" hideEffect="fade" width="440" modal="true" >
                         <p:dataTable id="lovEmpleadoHasta" var="empleadoHasta" value="#{controlNReporteNomina.listValEmpleados}" rowKey="#{empleadoHasta.secuencia}"
                                      selection="#{controlNReporteNomina.empleadoSeleccionado}" selectionMode="single" widgetVar="lovEmpleadoHasta" scrollable="true" scrollWidth="425" scrollHeight="250"
@@ -1005,8 +1004,8 @@
                         <p:inputTextarea value="#{controlNReporteNomina.pathReporteGenerado}" style="position: absolute; left: 10px; top: 20px; width: 300px; height: 70px; overflow: auto;" readonly="true" />
                     </p:dialog>
 
-                    <p:dialog id="verReportePDF" widgetVar="verReportePDF" header="#{controlNReporteNomina.cabezeraVisor}" style="width: 1024px; height: 610px;" resizable="false" draggable="true" modal="true" onHide="reiniciarStreamedContent();">
-                        <p:media value="#{controlNReporteNomina.reporte}" style="width: 1004px; height: 630px;" player="pdf" rendered="#{controlNReporteNomina.reporte != null}"/>
+                    <p:dialog id="verReportePDF" widgetVar="verReportePDF" header="#{controlNReporteNomina.cabezeraVisor}" style="width: 802px; height: 490px;" resizable="false" draggable="true" modal="true" onHide="reiniciarStreamedContent();">
+                        <p:media value="#{controlNReporteNomina.reporte}" style="width: 800px; height: 500px;" player="pdf" rendered="#{controlNReporteNomina.reporte != null}"/>
                     </p:dialog>
 
                     <p:remoteCommand name="reiniciarStreamedContent" actionListener="#{controlNReporteNomina.reiniciarStreamedContent()}"/>

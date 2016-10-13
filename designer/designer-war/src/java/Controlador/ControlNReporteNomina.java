@@ -211,7 +211,7 @@ public class ControlNReporteNomina implements Serializable {
             System.out.println(this.getClass().getName() + " fin de iniciarAdministradores()");
         } catch (Exception e) {
             System.out.println("Error postconstruct controlNReporteNomina" + e);
-            System.out.println("Causa: " + e.getMessage()) ;
+            System.out.println("Causa: " + e.getMessage());
         }
     }
 
@@ -243,6 +243,9 @@ public class ControlNReporteNomina implements Serializable {
                     }
                     if (parametroDeReporte.getUbicaciongeografica().getSecuencia() == null) {
                         parametroDeReporte.setUbicaciongeografica(null);
+                    }
+                    if (parametroDeReporte.getEmpresa().getSecuencia() == null) {
+                        parametroDeReporte.setEmpresa(null);
                     }
                     if (parametroDeReporte.getLocalizacion().getSecuencia() == null) {
                         parametroDeReporte.setLocalizacion(null);
@@ -525,16 +528,6 @@ public class ControlNReporteNomina implements Serializable {
         salir();
     }
 
-    //TABLA REPORTES
-    public void recordarSeleccion() {
-        System.out.println(this.getClass().getName() + ".recordarSeleccion()");
-        if (reporteSeleccionado != null) {
-            FacesContext c = FacesContext.getCurrentInstance();
-            tabla = (DataTable) c.getViewRoot().findComponent("form:reportesNomina");
-            tabla.setSelection(reporteSeleccionado);
-        }
-    }
-
     //EVENTO FILTRAR
     public void eventoFiltrar() {
         System.out.println("Estoy Controlador.ControlNReporteNomina.eventoFiltrar()");
@@ -617,61 +610,43 @@ public class ControlNReporteNomina implements Serializable {
             RequestContext.getCurrentInstance().update("formParametros:estadoParametro");
         }
         RequestContext.getCurrentInstance().update("formParametros");
-        RequestContext.getCurrentInstance().update("form:reportesNomina");
+       // RequestContext.getCurrentInstance().update("form:reportesNomina");
     }
 
     public void requisitosParaReporte() {
-        System.out.println("Estoy Controlador.ControlNReporteNomina.guardarCambios()");
-        System.out.println("cambiosReporte " + cambiosReporte);
-        try {
-            if (!cambiosReporte) {
-                System.out.println("Entre a if (cambiosReporte == false)");
-//                if (parametroDeReporte.getUsuario() != null) {
-                if (parametroDeReporte.getGrupo().getSecuencia() == null) {
-                    parametroDeReporte.setGrupo(null);
-                }
-                if (parametroDeReporte.getUbicaciongeografica().getSecuencia() == null) {
-                    parametroDeReporte.setUbicaciongeografica(null);
-                }
-                if (parametroDeReporte.getLocalizacion().getSecuencia() == null) {
-                    parametroDeReporte.setLocalizacion(null);
-                }
-                if (parametroDeReporte.getTipotrabajador().getSecuencia() == null) {
-                    parametroDeReporte.setTipotrabajador(null);
-                }
-                if (parametroDeReporte.getTercero().getSecuencia() == null) {
-                    parametroDeReporte.setTercero(null);
-                }
-                if (parametroDeReporte.getProceso().getSecuencia() == null) {
-                    parametroDeReporte.setProceso(null);
-                }
-                if (parametroDeReporte.getAsociacion().getSecuencia() == null) {
-                    parametroDeReporte.setAsociacion(null);
-                }
-                if (parametroDeReporte.getTipoasociacion().getSecuencia() == null) {
-                    parametroDeReporte.setTipoasociacion(null);
-                }
-                administrarNReportesNomina.modificarParametrosReportes(parametroDeReporte);
-//                }
-
-            }
-            System.out.println("listaInfoReportesModificados: " + listaInfoReportesModificados);
-            System.out.println("cambiosReporte: " + cambiosReporte);
-            if (!listaInfoReportesModificados.isEmpty()) {
-                administrarNReportesNomina.guardarCambiosInfoReportes(listaInfoReportesModificados);
-            }
-            cambiosReporte = true;
-            FacesMessage msg = new FacesMessage("Información", "Los datos se guardaron con Éxito.");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-            RequestContext.getCurrentInstance().update("form:growl");
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-        } catch (Exception e) {
-            System.out.println("Entre al catch");
-            System.out.println("Error en guardar Cambios Controlador : " + e.toString());
-            FacesMessage msg = new FacesMessage("Información", "ha ocurrido un error al guardar, intente nuevamente");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-            RequestContext.getCurrentInstance().update("form:growl");
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        System.out.println(this.getClass().getName() + ".requisitosParaReporte()");
+        RequestContext context = RequestContext.getCurrentInstance();
+        requisitosReporte = "";
+        if (reporteSeleccionado.getFecdesde().equals("SI")) {
+            requisitosReporte = requisitosReporte + "- Fecha Desde -";
+        }
+        if (reporteSeleccionado.getFechasta().equals("SI")) {
+            requisitosReporte = requisitosReporte + "- Fecha Hasta -";
+        }
+        if (reporteSeleccionado.getEmdesde().equals("SI")) {
+            requisitosReporte = requisitosReporte + "- Empleado Desde -";
+        }
+        if (reporteSeleccionado.getEmhasta().equals("SI")) {
+            requisitosReporte = requisitosReporte + "- Empleado Hasta -";
+        }
+        if (reporteSeleccionado.getGrupo().equals("SI")) {
+            requisitosReporte = requisitosReporte + "- Grupo -";
+        }
+        if (reporteSeleccionado.getLocalizacion().equals("SI")) {
+            requisitosReporte = requisitosReporte + "- Estructura -";
+        }
+        if (reporteSeleccionado.getTipotrabajador().equals("SI")) {
+            requisitosReporte = requisitosReporte + "- Tipo Trabajador -";
+        }
+        if (reporteSeleccionado.getTercero().equals("SI")) {
+            requisitosReporte = requisitosReporte + "- Tercero -";
+        }
+        if (reporteSeleccionado.getEstado().equals("SI")) {
+            requisitosReporte = requisitosReporte + "- Estado -";
+        }
+        if (!requisitosReporte.isEmpty()) {
+            RequestContext.getCurrentInstance().update("formDialogos:requisitosReporte");
+            RequestContext.getCurrentInstance().execute("PF('requisitosReporte').show()");
         }
     }
 
@@ -693,6 +668,7 @@ public class ControlNReporteNomina implements Serializable {
 
     public void generarReporte(Inforeportes reporte) {
         System.out.println(this.getClass().getName() + ".generarReporte()");
+        reporteSeleccionado = reporte;
         seleccionRegistro();
         RequestContext.getCurrentInstance().execute("PF('generandoReporte').show()");
         generarDocumentoReporte();
@@ -1333,6 +1309,7 @@ public class ControlNReporteNomina implements Serializable {
         RequestContext.getCurrentInstance().execute("PF('lovReportesDialogo').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('ReportesDialogo').hide()");
         RequestContext.getCurrentInstance().update("form:reportesNomina");
+        contarRegistros();
     }
 
     //AUTOCOMPLETAR
@@ -2028,7 +2005,7 @@ public class ControlNReporteNomina implements Serializable {
         System.out.println("Controlador.ControlNReporteNomina.getListValEmpleados()");
 //        System.out.println("listValEmpleados: " + listValEmpleados);
 //        if (listValEmpleados == null || listValEmpleados.isEmpty()) {
-        if (listValEmpleados == null ) {
+        if (listValEmpleados == null) {
             listValEmpleados = administrarNReportesNomina.listEmpleados();
         }
         return listValEmpleados;
