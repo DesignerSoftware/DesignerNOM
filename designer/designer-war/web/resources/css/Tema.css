@@ -517,19 +517,14 @@ button .ui-widget-header{
    right: 10px; width: 100px;
 }
 
+.cssTextAreaEdit {
+   height: 60px !important;
+}
+
 .ui-datatable .cssFiltroLOV {
    width: 45% !important;
    display: inline-block; margin-left: 15px;
 } 
-
-/*.ui-datatable td{
-   padding: 3px 3px !important;
-}*/
-
-/*.ui-datatable thead th {
-   position: rela;
-   padding: 3px 10px !important;
-}*/
 
 .ui-datatable-scrollable .ui-datatable-scrollable-footer {
    /*position: rela;*/

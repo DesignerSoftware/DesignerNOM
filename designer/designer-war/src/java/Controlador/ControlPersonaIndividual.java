@@ -2022,7 +2022,6 @@ public class ControlPersonaIndividual implements Serializable {
 //                              System.out.println("ERROR nuevaVigenciaCargo consultada para agregar campos opcionales = null");
 //                           }
 //                        }
-
                         //
                         k++;
                         l = BigInteger.valueOf(k);
@@ -2168,7 +2167,6 @@ public class ControlPersonaIndividual implements Serializable {
                            }
                         }
                         //
-
                         if (nuevaVigenciaAfiliacionFondo.getTercerosucursal().getSecuencia() != null) {
                            if (checkIntegral.equalsIgnoreCase("N") && !nuevaVigenciaTipoTrabajador.getTipotrabajador().getNombre().contains("SENA")) {
                               k++;
@@ -2181,7 +2179,6 @@ public class ControlPersonaIndividual implements Serializable {
                               }
                            }
                         }
-
                         if (nuevoEstadoCivil.getSecuencia() != null) {
                            k++;
                            l = BigInteger.valueOf(k);
@@ -2192,7 +2189,6 @@ public class ControlPersonaIndividual implements Serializable {
                               error = error + "Estado civil, ";
                            }
                         }
-
                         if ((nuevaDireccion.getDireccionalternativa() != null && !nuevaDireccion.getDireccionalternativa().isEmpty()) && nuevaDireccion.getCiudad().getSecuencia() != null) {
                            k++;
                            l = BigInteger.valueOf(k);
@@ -2206,7 +2202,6 @@ public class ControlPersonaIndividual implements Serializable {
                               error = error + "Dirección, ";
                            }
                         }
-
                         if (nuevoTelefono.getCiudad().getSecuencia() != null && nuevoTelefono.getTipotelefono().getSecuencia() != null && nuevoTelefono.getNumerotelefono() > 0) {
                            k++;
                            l = BigInteger.valueOf(k);
@@ -2217,7 +2212,6 @@ public class ControlPersonaIndividual implements Serializable {
                               error = error + "Telefono, ";
                            }
                         }
-
                         Sets nuevoSet = new Sets();
                         nuevoSet.setEmpleado(nuevoEmpleado);
                         nuevoSet.setFechainicial(fechaIngreso);
@@ -2230,9 +2224,7 @@ public class ControlPersonaIndividual implements Serializable {
                         if (!administrarPersonaIndividual.crearSets(nuevoSet)) {
                            error = error + "Porcentajes de retención, ";
                         }
-
                         BigDecimal numeroComprobante = administrarPersonaIndividual.obtenerNumeroMaximoComprobante();
-
                         Comprobantes comprobante = new Comprobantes();
                         comprobante.setEmpleado(nuevoEmpleado);
 
@@ -2257,7 +2249,6 @@ public class ControlPersonaIndividual implements Serializable {
                         if (!administrarPersonaIndividual.crearComprobante(comprobante)) {
                            error = error + "Comprobante, ";
                         }
-
                         Comprobantes comprobanteEmpleado = administrarPersonaIndividual.buscarComprobanteParaPrimerRegistroEmpleado(nuevoEmpleado.getSecuencia());
 
                         Procesos procesoCodigo1 = null;
@@ -2300,7 +2291,6 @@ public class ControlPersonaIndividual implements Serializable {
                               error = error + "Corte Proceso 2, ";
                            }
                         }
-
                         short cod12 = 12;
                         TiposTrabajadores codigo12 = administrarPersonaIndividual.buscarTipoTrabajadorPorCodigo(cod12);
                         VigenciasTiposTrabajadores nuevaVigenciaTT = new VigenciasTiposTrabajadores();
@@ -2314,7 +2304,6 @@ public class ControlPersonaIndividual implements Serializable {
                         if (!administrarPersonaIndividual.crearVigenciaTipoTrabajador(nuevaVigenciaTT)) {
                            error = error + "Vigencia Tipo Trabajador para contratación.";
                         }
-
                         System.out.println("Error fallaron : " + error);
                         if (error.equals(" ")) {
                            RequestContext.getCurrentInstance().execute("PF('procesoGuardadoOK').show()");

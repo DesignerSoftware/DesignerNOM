@@ -17,6 +17,7 @@ import javax.persistence.EntityManager;
 public interface PersistenciaNovedadesSistemaInterface {
     /**
      * Método encargado de insertar una NovedadSistema en la base de datos.
+    * @param em
      * @param novedades NovedadSistema que se quiere crear.
      */
     public void crear(EntityManager em, NovedadesSistema novedades);
@@ -24,11 +25,13 @@ public interface PersistenciaNovedadesSistemaInterface {
      * Método encargado de modificar una NovedadSistema de la base de datos.
      * Este método recibe la información del parámetro para hacer un 'merge' con la 
      * información de la base de datos.
+    * @param em
      * @param novedades NovedadSistema con los cambios que se van a realizar.
      */
     public void editar(EntityManager em, NovedadesSistema novedades);
     /**
      * Método encargado de eliminar de la base de datos la NovedadSistema que entra por parámetro.
+    * @param em
      * @param novedades NovedadSistema que se quiere eliminar.
      */
     public void borrar(EntityManager em, NovedadesSistema novedades);
@@ -60,4 +63,7 @@ public interface PersistenciaNovedadesSistemaInterface {
 //    
 //    public List<NovedadesSistema> novedadesCesantiasNoLiquidadas(EntityManager em, BigInteger secuenciaEmpleado);
     
-    }
+    public List<NovedadesSistema> novedadsistemaPorEmpleadoYVacacion(EntityManager em, BigInteger secEmpleado, BigInteger secVacacion);
+
+    public BigDecimal consultarValorTotalDetalleVacacion(EntityManager em, BigInteger secNovedadSistema);
+}
