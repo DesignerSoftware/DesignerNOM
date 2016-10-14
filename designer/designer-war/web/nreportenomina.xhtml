@@ -233,7 +233,7 @@
                     </p:dialog>
 
                     <p:dialog header="#{msg['envioporcorreo']}" widgetVar="EnvioCorreoDialogo" draggable="true" resizable="false" closable="false" id="EnvioCorreoDialogo"  
-                              showEffect="fade" hideEffect="fade" width="460" height="320" modal="true" >
+                              showEffect="fade" hideEffect="fade" width="460" height="350" modal="true" >
 
                         <h:outputText style="position: absolute;top: 10px; left: 10px; text-align: left" value="#{msg['enviarcorreo']}" />
                         <h:outputText style="position: absolute; top: 70px; left: 10px;font-weight: bold;color: darkblue" value="#{msg['reporte']}"/>
@@ -249,13 +249,18 @@
                             <p:inputText  autocomplete="off"  style="position: absolute; left: 80px; top: 90px;width: 300px"/>
                             <strong><h:outputText value="#{msg['asunto']}" style="position: absolute; left: 10px; top: 130px;font-size: 12px"/></strong>
                             <p:inputText  autocomplete="off"  style="position: absolute; left: 80px; top: 125px;width: 300px"/>
-
                         </fieldset>
-                        <p:commandButton icon="ui-icon-extlink" id="registroEnvio" style="position: absolute; left: 15px; top: 288px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); 
+                        
+                        <p:commandButton icon="ui-icon-extlink" id="registroEnvio" style="position: absolute; left: 155px; top: 288px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); 
                                          background-size: 100% 100%; background-repeat: no-repeat; border: none; color: white" value="Registros E" onclick="PF('EnvioCorreoDialogo').hide()"  process="@this"/>
                         <p:tooltip for="registroEnvio" value="#{msg['registrodeenvios']}" />
+                        
+                        <p:commandButton id="envioCorreo"  icon="ui-icon-extlink"  style="position: absolute; left: 300px; top: 288px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); 
+                                         background-size: 100% 100%; background-repeat: no-repeat; border: none; color: white" value="Enviar"/>
+                        <p:tooltip for="envioCorreo" value="#{msg['envio']}"/>
 
-                        <p:commandButton id="atras" style="position: absolute; left: 360px; top: 290px;" value="" onclick="PF('EnvioCorreoDialogo').hide()"  process="@this"/>
+                        <p:commandButton id="atras" style="position: absolute; left: 300px; top: 325px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); 
+                                         background-size: 100% 100%; background-repeat: no-repeat; border: none; color: white" icon="ui-icon-arrowreturnthick-1-w" value="Atras" onclick="PF('EnvioCorreoDialogo').hide()"  process="@this"/>
 
                     </p:dialog>
 
@@ -545,17 +550,17 @@
                                 </f:facet>
                                 <h:outputText  value="#{tercero.nombre}" />
                             </p:column>
-                            <p:column filterBy="#{tercero.empresa.nombre}" width="120" filterMatchMode="contains" filterStyle="width: 80% !important">
-                                <f:facet name="header">
-                                    <h:outputText style="text-align: center" value="#{msg['empresaT']}" />
-                                </f:facet>
-                                <h:outputText  value="#{tercero.empresa.nombre}" />
-                            </p:column>
                             <p:column filterBy="#{tercero.nit}" width="60" filterMatchMode="contains" filterStyle="width: 80% !important">
                                 <f:facet name="header">
                                     <h:outputText style="text-align: center" value="#{msg['nitT']}" />
                                 </f:facet>
                                 <h:outputText  value="#{tercero.nit}" />
+                            </p:column>
+                            <p:column filterBy="#{tercero.empresa.nombre}" width="120" filterMatchMode="contains" filterStyle="width: 80% !important">
+                                <f:facet name="header">
+                                    <h:outputText style="text-align: center" value="#{msg['empresaT']}" />
+                                </f:facet>
+                                <h:outputText  value="#{tercero.empresa.nombre}" />
                             </p:column>
                         </p:dataTable>
                         <div class="cssBotonesLOV">
@@ -916,6 +921,7 @@
                 </h:form>
 
                 <h:form id="formDialogos">
+                    
 
                     <p:dialog id="editarFechaDesde" header="#{msg['editarFechaDesde']}" widgetVar="editarFechaDesde" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlNReporteNomina.parametroDeInforme.fechadesde}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
