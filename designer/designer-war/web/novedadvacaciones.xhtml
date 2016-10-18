@@ -623,20 +623,20 @@
 
                     </p:dialog>
 
-
                     <!-- L.O.V Periodo-->
-                    <p:dialog header="Periodos" widgetVar="periodosDialogo" draggable="true" resizable="false" id="periodosDialogo" closable="false"  
-                              showEffect="fade" hideEffect="fade" modal="true" width="450" height="350" >
+                    <p:dialog header="Periodos" widgetVar="periodosDialogo" draggable="true" resizable="false" id="periodosDialogo" closable="false"
+                              showEffect="fade" hideEffect="fade" modal="true" width="450" height="350">
 
-                        <p:dataTable  id="LOVPeriodos" style=" width: 410px;" var="per" value="#{controlNovedadesVacaciones.listaPeriodos}"
+                              <p:dataTable  id="LOVPeriodos" style=" width: 410px;" var="per" value="#{controlNovedadesVacaciones.listaPeriodos}"
                                       scrollable="true" scrollHeight="200" scrollWidth="420" widgetVar="LOVPeriodos" rowKey="#{per.secuencia}"
                                       filteredValue="#{controlNovedadesVacaciones.filtradoslistaPeriodos}" emptyMessage="No se encontraron resultados con el criterio de busqueda."
                                       selection="#{controlNovedadesVacaciones.periodoSeleccionado}" selectionMode="single">
 
                             <p:ajax event="rowSelect" listener="#{controlNovedadesVacaciones.activarAceptar()}" update=":formularioDialogos:aceptarP"/>
-                            <p:ajax event="rowDblselect" listener="#{controlNovedadesVacaciones.actualizarPeriodos()}" process="@this" />
+                            <p:ajax event="rowDblselect" listener="#{controlNovedadesVacaciones.actualizarPeriodos()}" process="@this"/>
+                           
                             <f:facet name="header">  
-                                <h:outputText value="Buscar Periodo: "  style="position: absolute; left: 27px; top: 15px;"/>  
+                                <h:outputText value="Buscar Periodo: " style="position: absolute; left: 27px; top: 15px;"/>  
                                 <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVPeriodos').filter();" style="width: 230px; position: relative; left: 60px;" />  
                             </f:facet>
 

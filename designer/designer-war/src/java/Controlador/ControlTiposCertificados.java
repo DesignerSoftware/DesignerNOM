@@ -57,7 +57,6 @@ public class ControlTiposCertificados implements Serializable {
    //RASTRO
    private Column codigo, descripcion;
    //borrado
-   private int registrosBorrados;
    private String mensajeValidacion;
    //filtrado table
    private int tamano;
@@ -351,7 +350,6 @@ public class ControlTiposCertificados implements Serializable {
          if (!borrarTiposCertificados.isEmpty()) {
             administrarTiposCertificados.borrarTiposCertificados(borrarTiposCertificados);
             //mostrarBorrados
-            registrosBorrados = borrarTiposCertificados.size();
             borrarTiposCertificados.clear();
          }
          if (!modificarTiposCertificados.isEmpty()) {
@@ -640,14 +638,6 @@ public class ControlTiposCertificados implements Serializable {
 
    public void setEditarTiposCertificados(TiposCertificados editarTiposCertificados) {
       this.editarTiposCertificados = editarTiposCertificados;
-   }
-
-   public int getRegistrosBorrados() {
-      return registrosBorrados;
-   }
-
-   public void setRegistrosBorrados(int registrosBorrados) {
-      this.registrosBorrados = registrosBorrados;
    }
 
    public String getMensajeValidacion() {

@@ -68,7 +68,7 @@
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"   action="#{controlPerTelefonos.redirigir()}" actionListener="#{controlPerTelefonos.salir()}" process="@this" />  
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" action="#{controlPerTelefonos.redirigir()}" actionListener="#{controlPerTelefonos.salir()}" process="@this" />  
                                 <p:tooltip  for="salir" value="Salir"/>
 
                                 <p:commandButton style=" position: absolute; left: 670px; top: 455px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ACEPTAR" value=" " onclick="PF('confirmarGuardar').show();" update=":form:datosTelefonosPersona" disabled="#{controlPerTelefonos.guardado}" process="@this" />
