@@ -4,7 +4,6 @@
  */
 package Controlador;
 
-
 import Entidades.Conceptos;
 import Entidades.Empleados;
 import Entidades.Formulas;
@@ -194,11 +193,6 @@ public class ControlNovedadesEmpleados implements Serializable {
             if (!listaEmpleadosNovedad.isEmpty()) {
                empleadoSeleccionado = listaEmpleadosNovedad.get(0);
             }
-            if (cargarTodos) {
-               modificarInfoRegistroEmpleados(cantidadEmpleadosNov);
-            } else {
-               modificarInfoRegistroEmpleados(listaEmpleadosNovedad.size());
-            }
          }
          listaNovedades = null;
          getListaNovedades();
@@ -292,21 +286,17 @@ public class ControlNovedadesEmpleados implements Serializable {
 
    //Ubicacion Celda Arriba 
    public void cambiarEmpleado() {
+      listaNovedades = null;
       //Si ninguna de las 3 listas (crear,modificar,borrar) tiene algo, hace esto
-      //{
       if (listaNovedadesCrear.isEmpty() && listaNovedadesBorrar.isEmpty() && listaNovedadesModificar.isEmpty()) {
-         //secuenciaEmpleado = empleadoSeleccionado.getId();
-         listaNovedades = null;
-         getListaNovedades();
-         contarRegistros();
-         // novedadSeleccionada = null;
-         RequestContext context = RequestContext.getCurrentInstance();
+         System.out.println("empleadoSeleccionado : " + empleadoSeleccionado);
+         novedadSeleccionada = null;
          activoBtnAcumulado = true;
+         getListaNovedades();
          RequestContext.getCurrentInstance().update("form:ACUMULADOS");
          RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
-         //}
+         contarRegistros();
       } else {
-         RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().update("formularioDialogos:cambiar");
          RequestContext.getCurrentInstance().execute("PF('cambiar').show()");
       }
@@ -548,7 +538,7 @@ public class ControlNovedadesEmpleados implements Serializable {
             System.out.println("Empleado enviado: " + emp.getPersona().getNombreCompleto());
             listaNovedadesCrear.add(nuevaNovedad);
             listaNovedades.add(nuevaNovedad);
-            modificarInfoRegistro(listaNovedades.size());
+            contarRegistros();
             novedadSeleccionada = listaNovedades.get(listaNovedades.indexOf(nuevaNovedad));
             nuevaNovedad = new Novedades();
             nuevaNovedad.setPeriodicidad(new Periodicidades());
@@ -624,7 +614,7 @@ public class ControlNovedadesEmpleados implements Serializable {
          if (pasa2 == 0) {
             listaNovedades.add(duplicarNovedad);
             listaNovedadesCrear.add(duplicarNovedad);
-            modificarInfoRegistro(listaNovedades.size());
+            contarRegistros();
             novedadSeleccionada = listaNovedades.get(listaNovedades.indexOf(duplicarNovedad));
 
             RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
@@ -677,27 +667,27 @@ public class ControlNovedadesEmpleados implements Serializable {
             cargarTodosEmpleados();
             cargarTodos = false;
          }
-         modificarInfoRegistroLovEmpleados(lovEmpleados.size());
+         contarRegistrosLovEmpleados();
          RequestContext.getCurrentInstance().update("formularioDialogos:empleadosDialogo");
          RequestContext.getCurrentInstance().execute("PF('empleadosDialogo').show()");
       } else if (cualLista == 1) {
          cargarLOVConceptos();
-         modificarInfoRegistroConceptos(listaConceptos.size());
+         contarRegistrosConceptos();
          RequestContext.getCurrentInstance().update("formularioDialogos:conceptosDialogo");
          RequestContext.getCurrentInstance().execute("PF('conceptosDialogo').show()");
       } else if (cualLista == 2) {
          cargarLOVFormulas();
-         modificarInfoRegistroFormulas(listaFormulas.size());
+         contarRegistrosFormulas();
          RequestContext.getCurrentInstance().update("formularioDialogos:formulasDialogo");
          RequestContext.getCurrentInstance().execute("PF('formulasDialogo').show()");
       } else if (cualLista == 3) {
          cargarLOVPeriodicidades();
-         modificarInfoRegistroPeriodicidad(listaPeriodicidades.size());
+         contarRegistrosPeriodicidad();
          RequestContext.getCurrentInstance().update("formularioDialogos:periodicidadesDialogo");
          RequestContext.getCurrentInstance().execute("PF('periodicidadesDialogo').show()");
       } else if (cualLista == 4) {
          cargarLOVTerceros();
-         modificarInfoRegistroTerceros(listaTerceros.size());
+         contarRegistrosTerceros();
          RequestContext.getCurrentInstance().update("formularioDialogos:tercerosDialogo");
          RequestContext.getCurrentInstance().execute("PF('tercerosDialogo').show()");
       }
@@ -716,25 +706,25 @@ public class ControlNovedadesEmpleados implements Serializable {
       if (cualLista == 1) {
          activarBotonLOV();
          cargarLOVConceptos();
-         modificarInfoRegistroConceptos(listaConceptos.size());
+         contarRegistrosConceptos();
          RequestContext.getCurrentInstance().update("formularioDialogos:conceptosDialogo");
          RequestContext.getCurrentInstance().execute("PF('conceptosDialogo').show()");
       } else if (cualLista == 2) {
          activarBotonLOV();
          cargarLOVFormulas();
-         modificarInfoRegistroFormulas(listaFormulas.size());
+         contarRegistrosFormulas();
          RequestContext.getCurrentInstance().update("formularioDialogos:formulasDialogo");
          RequestContext.getCurrentInstance().execute("PF('formulasDialogo').show()");
       } else if (cualLista == 3) {
          activarBotonLOV();
          cargarLOVPeriodicidades();
-         modificarInfoRegistroPeriodicidad(listaPeriodicidades.size());
+         contarRegistrosPeriodicidad();
          RequestContext.getCurrentInstance().update("formularioDialogos:periodicidadesDialogo");
          RequestContext.getCurrentInstance().execute("PF('periodicidadesDialogo').show()");
       } else if (cualLista == 4) {
          activarBotonLOV();
          cargarLOVTerceros();
-         modificarInfoRegistroTerceros(listaTerceros.size());
+         contarRegistrosTerceros();
          RequestContext.getCurrentInstance().update("formularioDialogos:tercerosDialogo");
          RequestContext.getCurrentInstance().execute("PF('tercerosDialogo').show()");
       } else {
@@ -1236,11 +1226,11 @@ public class ControlNovedadesEmpleados implements Serializable {
       listaEmpleadosNovedad.clear();
       listaEmpleadosNovedad.add(empleadoSeleccionadoLov);
       empleadoSeleccionado = listaEmpleadosNovedad.get(0);
-      modificarInfoRegistroEmpleados(listaEmpleadosNovedad.size());
+      contarRegistrosLovEmpleados();
 //            secuenciaEmpleado = empleadoSeleccionadoLov.getId();
       listaNovedades = null;
       getListaNovedades();
-      modificarInfoRegistro(listaNovedades.size());
+      contarRegistros();
 
       context.reset("formularioDialogos:LOVEmpleados:globalFilter");
       RequestContext.getCurrentInstance().execute("PF('LOVEmpleados').clearFilters()");
@@ -1406,12 +1396,12 @@ public class ControlNovedadesEmpleados implements Serializable {
    }
 
    public void actualizarTerceros() {
+      listaNovedadesModificar.add(novedadSeleccionada);
       RequestContext context = RequestContext.getCurrentInstance();
       if (tipoActualizacion == 0) {
          novedadSeleccionada.setTercero(seleccionTerceros);
          if (!listaNovedadesCrear.contains(novedadSeleccionada)) {
             if (listaNovedadesModificar.isEmpty()) {
-               listaNovedadesModificar.add(novedadSeleccionada);
             } else if (!listaNovedadesModificar.contains(novedadSeleccionada)) {
                listaNovedadesModificar.add(novedadSeleccionada);
             }
@@ -1459,12 +1449,12 @@ public class ControlNovedadesEmpleados implements Serializable {
       }
       listaNovedades = null;
       empleadoSeleccionado = null;
-      modificarInfoRegistroEmpleados(listaEmpleadosNovedad.size());
       getListaNovedades();
-      modificarInfoRegistro(0);
       RequestContext.getCurrentInstance().update("form:ACUMULADOS");
       RequestContext.getCurrentInstance().update("form:datosEmpleados");
       RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
+      contarRegistrosLovEmpleados();
+      contarRegistros();
       activoBtnAcumulado = true;
       filtrarListaEmpleadosNovedad = null;
       aceptar = true;
@@ -1581,9 +1571,8 @@ public class ControlNovedadesEmpleados implements Serializable {
       System.out.println("Ingrese a todasNovedades()");
       listaNovedades.clear();
       listaNovedades = administrarNovedadesEmpleados.todasNovedades(empleadoSeleccionado.getId());
-      RequestContext context = RequestContext.getCurrentInstance();
       activoBtnAcumulado = true;
-      modificarInfoRegistro(listaNovedades.size());
+      contarRegistros();
       RequestContext.getCurrentInstance().update("form:ACUMULADOS");
       todas = true;
       actuales = false;
@@ -1597,9 +1586,8 @@ public class ControlNovedadesEmpleados implements Serializable {
    public void actualesNovedades() {
       listaNovedades.clear();
       listaNovedades = administrarNovedadesEmpleados.novedadesEmpleado(empleadoSeleccionado.getId());
-      RequestContext context = RequestContext.getCurrentInstance();
       activoBtnAcumulado = true;
-      modificarInfoRegistro(listaNovedades.size());
+      contarRegistros();
       RequestContext.getCurrentInstance().update("form:ACUMULADOS");
       todas = false;
       actuales = true;
@@ -1704,7 +1692,6 @@ public class ControlNovedadesEmpleados implements Serializable {
    public void borrarNovedades() {
 
       if (novedadSeleccionada != null) {
-         RequestContext context = RequestContext.getCurrentInstance();
          activoBtnAcumulado = true;
          RequestContext.getCurrentInstance().update("form:ACUMULADOS");
 
@@ -1720,7 +1707,7 @@ public class ControlNovedadesEmpleados implements Serializable {
          if (tipoLista == 1) {
             filtradosListaNovedades.remove(novedadSeleccionada);
          }
-         modificarInfoRegistro(listaNovedades.size());
+         contarRegistrosLovEmpleados();
          RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
          novedadSeleccionada = null;
          if (guardado) {
@@ -1783,70 +1770,35 @@ public class ControlNovedadesEmpleados implements Serializable {
       }
       novedadSeleccionada = null;
       anularBotonLOV();
-      modificarInfoRegistro(filtradosListaNovedades.size());
+      contarRegistros();
    }
 
    public void contarRegistros() {
-      if (listaNovedades != null) {
-         modificarInfoRegistro(listaNovedades.size());
-      } else {
-         modificarInfoRegistro(0);
-      }
-   }
-
-   public void modificarInfoRegistro(int valor) {
-      infoRegistro = String.valueOf(valor);
       RequestContext.getCurrentInstance().update("form:infoRegistro");
    }
 
-   public void modificarInfoRegistroEmpleados(int valor) {
-      infoRegistrosEmpleadosNovedades = String.valueOf(valor);
+   public void contarRegistrosEmpleados() {
       RequestContext.getCurrentInstance().update("form:infoRegistroEmpleados");
    }
 
-   public void modificarInfoRegistroLovEmpleados(int valor) {
-      infoRegistroEmpleadosLOV = String.valueOf(valor);
+   public void contarRegistrosLovEmpleados() {
       RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroEmpleadosLOV");
    }
 
-   public void modificarInfoRegistroConceptos(int valor) {
-      infoRegistroConceptos = String.valueOf(valor);
+   public void contarRegistrosConceptos() {
       RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroConceptos");
    }
 
-   public void modificarInfoRegistroTerceros(int valor) {
-      infoRegistroTerceros = String.valueOf(valor);
+   public void contarRegistrosTerceros() {
       RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroTerceros");
    }
 
-   public void modificarInfoRegistroFormulas(int valor) {
-      infoRegistroFormulas = String.valueOf(valor);
+   public void contarRegistrosFormulas() {
       RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroFormulas");
    }
 
-   public void modificarInfoRegistroPeriodicidad(int valor) {
-      infoRegistroPeriodicidad = String.valueOf(valor);
+   public void contarRegistrosPeriodicidad() {
       RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroPeriodicidad");
-   }
-
-   public void eventoFiltrarFormulas() {
-      modificarInfoRegistroFormulas(filtradoslistaFormulas.size());
-   }
-
-   public void eventoFiltrarPeriodicidades() {
-      modificarInfoRegistroPeriodicidad(filtradoslistaPeriodicidades.size());
-   }
-
-   public void eventoFiltrarTerceros() {
-      modificarInfoRegistroTerceros(filtradoslistaTerceros.size());
-   }
-
-   public void eventoFiltrarConceptos() {
-      modificarInfoRegistroConceptos(filtradoslistaConceptos.size());
-   }
-
-   public void eventoFiltrarEmpleadosLOV() {
-      modificarInfoRegistroLovEmpleados(filtrarLovEmpleados.size());
    }
 
    //------------------------INICIO GET's & SET's-----------------------------
@@ -2142,6 +2094,9 @@ public class ControlNovedadesEmpleados implements Serializable {
    }
 
    public String getInfoRegistro() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosNovedadesEmpleado");
+      infoRegistro = String.valueOf(tabla.getRowCount());
       return infoRegistro;
    }
 
@@ -2150,6 +2105,9 @@ public class ControlNovedadesEmpleados implements Serializable {
    }
 
    public String getInfoRegistroConceptos() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVConceptos");
+      infoRegistroConceptos = String.valueOf(tabla.getRowCount());
       return infoRegistroConceptos;
    }
 
@@ -2158,6 +2116,9 @@ public class ControlNovedadesEmpleados implements Serializable {
    }
 
    public String getInfoRegistroPeriodicidad() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVPeriodicidades");
+      infoRegistroPeriodicidad = String.valueOf(tabla.getRowCount());
       return infoRegistroPeriodicidad;
    }
 
@@ -2166,6 +2127,9 @@ public class ControlNovedadesEmpleados implements Serializable {
    }
 
    public String getInfoRegistroFormulas() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVFormulas");
+      infoRegistroFormulas = String.valueOf(tabla.getRowCount());
       return infoRegistroFormulas;
    }
 
@@ -2174,6 +2138,9 @@ public class ControlNovedadesEmpleados implements Serializable {
    }
 
    public String getInfoRegistroTerceros() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVTerceros");
+      infoRegistroTerceros = String.valueOf(tabla.getRowCount());
       return infoRegistroTerceros;
    }
 
@@ -2182,6 +2149,9 @@ public class ControlNovedadesEmpleados implements Serializable {
    }
 
    public String getInfoRegistrosEmpleadosNovedades() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosEmpleados");
+      infoRegistrosEmpleadosNovedades = String.valueOf(tabla.getRowCount());
       return infoRegistrosEmpleadosNovedades;
    }
 
@@ -2190,6 +2160,9 @@ public class ControlNovedadesEmpleados implements Serializable {
    }
 
    public String getInfoRegistroEmpleadosLOV() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVEmpleados");
+      infoRegistroEmpleadosLOV = String.valueOf(tabla.getRowCount());
       return infoRegistroEmpleadosLOV;
    }
 

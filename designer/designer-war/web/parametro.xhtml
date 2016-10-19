@@ -465,7 +465,7 @@
                   <p:dataTable  id="lovEmpleados" var="empleado" value="#{controlParametro.lovEmpleados}"
                                 scrollable="true" scrollHeight="225" scrollWidth="670" widgetVar="lovEmpleados" 
                                 filteredValue="#{controlParametro.filtradoLovEmpleados}" emptyMessage="#{msg['lovvacio']}"
-                                rowKey="#{empleado.secuencia}" selection="#{controlParametro.seleccionEmpleado}" selectionMode="single" >
+                                rowKey="#{empleado.secuencia}" selection="#{controlParametro.empleadosSeleccionados}" selectionMode="multiple" >
 
                      <p:ajax event="filter" listener="#{controlParametro.contarRegistrosLovEmpl()}"/>
                      <p:ajax event="rowSelect" listener="#{controlParametro.activarAceptar()}" update=":formularioDialogos:aceptarEm"/>
