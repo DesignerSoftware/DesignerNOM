@@ -114,7 +114,13 @@ public class AdministrarParametros implements AdministrarParametrosInterface {
 
     @Override
     public void adicionarEmpleados(BigInteger secParametroEstructura) {
-        persistenciaParametrosEstructuras.adicionarEmpleados(em, secParametroEstructura);
+       try{
+          persistenciaParametrosEstructuras.adicionarEmpleados(em, secParametroEstructura);
+       }
+       catch(Exception e){
+          System.out.println(this.getClass().getName() + " adicionarEmpleados() Entro al Catch");
+          System.out.println("Error : " + e);
+       }
     }
 
     public void borrarParametros(BigInteger secParametroEstructura) {

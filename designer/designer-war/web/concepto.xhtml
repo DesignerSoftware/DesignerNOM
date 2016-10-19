@@ -29,6 +29,7 @@
                         <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png);" 
                                          id="listaValores" value="" actionListener="#{controlConcepto.listaValoresBoton()}" disabled="#{controlConcepto.activarLov}" process="@this"/>
                         <p:tooltip  for="listaValores" value="#{msg['lista']}"/>
+                        
                         <p:commandButton style="background-image: url(Imagenes/Iconos/embudo.png);" 
                                          id="filtrar" value="" actionListener="#{controlConcepto.activarCtrlF11()}" process="@this"/>
                         <p:tooltip for="filtrar" value="#{msg['filtrar']}"/>
@@ -43,6 +44,7 @@
                            <p:dataExporter type="xml"  target=":formExportar:datosConceptosExportar" fileName="ConceptosXML" encoding="UTF-8"/> 
                         </p:commandButton> 
                         <p:tooltip  for="exportarXML" value="#{msg['xml']}"/>
+
                         <p:commandButton style="background-image: url(Imagenes/Iconos/pdf.png);" 
                                          id="exportarPDF" value="" actionListener="#{controlConcepto.exportPDF()}" ajax="false"/>
                         <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
@@ -89,6 +91,7 @@
                      </p:toolbarGroup>  
                   </p:toolbar> 
 
+
                   <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 830px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px;">
                      <h:outputText value="#{msg['empresa']}: " style="font-weight: bold; color: #14388B; position: relative; top: 1px; left: 10px;"/>
                      <h:outputText id="nombreEmpresa" value="#{controlConcepto.empresaActual.nombre}" style="font-weight: bold; color: #BF1A1A; position: relative; left: 20px; top: 1px;"/>
@@ -99,7 +102,7 @@
                   <fieldset style="position: absolute; left: 5px; top: 108px; width: 835px; height: 270px; border-radius: 10px;">
                      <legend style="color: blue"><strong>#{msg['titulo']}</strong></legend>
 
-                     <p:dataTable id="datosConceptos" var="concepto" rowKey="#{concepto.secuencia}" rowIndexVar="indice"                            
+                     <p:dataTable id="datosConceptos" var="concepto" rowKey="#{concepto.secuencia}" rowIndexVar="indice" style="width: 1300px; position: absolute;"                            
                                   value="#{controlConcepto.listaConceptosEmpresa}" scrollable="true" scrollWidth="835" scrollHeight="#{controlConcepto.altoTabla}" 
                                   liveScroll="true" scrollRows="40" filteredValue="#{controlConcepto.filtradoConceptosEmpresa}" emptyMessage="#{msg['vacio']}"
                                   widgetVar="datosConceptos" editable="true" editMode="cell" selection="#{controlConcepto.conceptoSeleccionado}" selectionMode="single">
@@ -116,7 +119,8 @@
                               <f:facet name="output"><img src="Imagenes/Iconos/editar.png" width="18" height="18"/></f:facet>  
                               <f:facet name="input">
                                  <p:inputText  autocomplete="off"   value="D" maxlength="1" style="background-color: blue; width: 6px; height: 6px;" id="editarD">
-                                    <p:ajax event="select" listener="#{controlDetalleConcepto.obtenerConcepto(concepto.secuencia, 'retornoConcepto')}"/>
+                                    <p:ajax event="select" listener="#{controlDetalleConcepto.obtenerConcepto(concepto.secuencia, 'retornoConcepto')}"
+                                            onstart="PF('datosConceptos').unselectAllRows();PF('datosConceptos').selectRow(#{indice});"/>
                                  </p:inputText>
                               </f:facet>
                            </p:cellEditor>
@@ -126,7 +130,7 @@
                         </p:column>
 
                         <p:column id="columnaCodigo" sortBy="#{concepto.codigo}" filterBy="#{concepto.codigo}" filterMatchMode="contains" 
-                                  width="35" filterStyle="display: none; visibility: hidden;">                                  
+                                  width="60" filterStyle="display: none; visibility: hidden;">                                  
                            <f:facet name="header">
                               <h:outputText id="headerC" value="#{msg['codigo']}" />
                               <p:tooltip  for="headerC" value="#{msg['codigoTtip']}"/> 
@@ -137,7 +141,8 @@
                                  <!--<p:inputText  autocomplete="off"   value="#/{concepto.codigo}" id="editarCodigo" maxlength="8" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;">--> 
                                  <p:inputMask id="editarCodigo" value="#{concepto.codigo}" mask="99999999" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;">
                                     <p:ajax event="change" listener="#{controlConcepto.modificarConcepto(concepto, 'COD', concepto.codigo)}"/>
-                                    <p:ajax event="select" listener="#{controlConcepto.cambiarIndice(concepto, 0)}" process="@this"/>
+                                    <p:ajax event="select" listener="#{controlConcepto.cambiarIndice(concepto, 0)}" process="@this"
+                                            onstart="PF('datosConceptos').unselectAllRows();PF('datosConceptos').selectRow(#{indice});"/>
                                  </p:inputMask>
                               </f:facet>  
                            </p:cellEditor>
@@ -147,13 +152,14 @@
                         </p:column>  
 
                         <p:column headerText="#{msg['descripcion']}" sortBy="#{concepto.descripcion}" filterBy="#{concepto.descripcion}" 
-                                  filterMatchMode="contains" width="225" id="columnaDescripción" filterStyle="display: none; visibility: hidden;">      
+                                  filterMatchMode="contains" id="columnaDescripción" filterStyle="display: none; visibility: hidden;">      
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{concepto.descripcion}" style="text-transform: uppercase;"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"   id="editarDescripcion" value="#{concepto.descripcion}" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;">
+                                 <p:inputText  autocomplete="off" id="editarDescripcion" value="#{concepto.descripcion}" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;">
                                     <p:ajax event="change" listener="#{controlConcepto.modificarConcepto(concepto, 'N', concepto.descripcion)}"/>
-                                    <p:ajax event="select" listener="#{controlConcepto.cambiarIndice(concepto, 1)}" process="@this" />
+                                    <p:ajax event="select" listener="#{controlConcepto.cambiarIndice(concepto, 1)}" process="@this"
+                                            onstart="PF('datosConceptos').unselectAllRows();PF('datosConceptos').selectRow(#{indice});"/>
                                  </p:inputText>
                               </f:facet>  
                            </p:cellEditor>
@@ -163,11 +169,13 @@
                         </p:column>
 
                         <p:column style="text-align: center" sortBy="#{concepto.naturalezaConcepto}" filterBy="#{concepto.naturalezaConcepto}" 
-                                  filterMatchMode="contains" id="columnaNaturaleza" width="75" headerText="#{msg['naturaleza']}" filterStyle="display: none; visibility: hidden;">                                                              
+                                  filterMatchMode="contains" id="columnaNaturaleza" width="100" headerText="#{msg['naturaleza']}" filterStyle="display: none; visibility: hidden;">                                                              
                            <p:cellEditor>   
-                              <f:facet name="output"><h:outputText value="#{concepto.naturalezaConcepto}"/></f:facet>  
+                              <f:facet name="output"><h:outputText value="#{concepto.naturalezaConcepto}"/></f:facet>
                               <f:facet name="input">
-                                 <p:selectOneMenu id="editarNaturaleza" value="#{concepto.naturalezaConcepto}" style="text-align: left; width: 85px;">  
+                                 <p:selectOneMenu id="editarNaturaleza" value="#{concepto.naturalezaConcepto}" style="text-align: left; width: 72px;"
+                                                  onfocus="PF('datosConceptos').unselectAllRows();PF('datosConceptos').selectRow(#{indice});"
+                                                  onblur="PF('datosConceptos').unselectAllRows();PF('datosConceptos').selectRow(#{indice});">
                                     <f:selectItem itemLabel="#{msg['neto']}" itemValue="NETO"/>  
                                     <f:selectItem itemLabel="#{msg['gasto']}" itemValue="GASTO"/>
                                     <f:selectItem itemLabel="#{msg['descuento']}" itemValue="DESCUENTO"/>  
@@ -183,17 +191,18 @@
                         </p:column>  
 
                         <p:column headerText="#{msg['cu']}" sortBy="#{concepto.unidad.codigo}" filterBy="#{concepto.unidad.codigo}" filterMatchMode="contains" 
-                                  id="columnaCodigoUnidad" width="20" style="padding: 0px !important; width: 20px; alignment-adjust: central; text-align: center;" filterStyle="display: none; visibility: hidden;">                                                              
+                                  id="columnaCodigoUnidad" width="20" style="padding: 0px !important; width: 20px; text-align: center;" filterStyle="display: none; visibility: hidden;">                                                              
                            <f:facet name="header">
                               <h:outputText id="headerCu" value="#{msg['cu']}"/>
-                              <p:tooltip  for="headerCu" value="#{msg['cuTtip']}"/> 
+                              <p:tooltip for="headerCu" value="#{msg['cuTtip']}"/> 
                            </f:facet>
                            <p:cellEditor>   
                               <f:facet name="output"><h:outputText value="#{concepto.unidad.codigo}" style="text-transform: uppercase;"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"   maxlength="1" value="#{concepto.unidad.codigo}" id="editarCodigoUnidad" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;" >
+                                 <p:inputText  autocomplete="off" maxlength="1" value="#{concepto.unidad.codigo}" id="editarCodigoUnidad" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;" >
                                     <p:ajax event="change" listener="#{controlConcepto.modificarConcepto(concepto, 'UNIDADESCODIGO', concepto.unidad.codigo)}"/>
-                                    <p:ajax event="select" listener="#{controlConcepto.cambiarIndice(concepto, 3)}"/>
+                                    <p:ajax event="select" listener="#{controlConcepto.cambiarIndice(concepto, 3)}"
+                                            onstart="PF('datosConceptos').unselectAllRows();PF('datosConceptos').selectRow(#{indice});"/>
                                     <p:ajax event="dblclick" listener="#{controlConcepto.llamarDialogosLista(concepto, 0)}"/>
                                  </p:inputText> 
                               </f:facet>  
@@ -203,14 +212,15 @@
                            </f:facet>
                         </p:column> 
 
-                        <p:column headerText="#{msg['unidad']}" sortBy="#{concepto.unidad.nombre}" filterBy="#{concepto.unidad.nombre}" filterMatchMode="contains" 
-                                  id="columnaNombreUnidad" width="70" style="text-align: center" filterStyle="display: none; visibility: hidden;" >                                                              
+                        <p:column headerText="#{msg['unidad']}" sortBy="#{concepto.unidad.nombre}" filterBy="#{concepto.unidad.nombre}" filterMatchMode="contains"
+                                  id="columnaNombreUnidad" width="70" style="text-align: center;" filterStyle="display: none; visibility: hidden;">                                                              
                            <p:cellEditor>   
                               <f:facet name="output"><h:outputText value="#{concepto.unidad.nombre}" style="text-transform: uppercase;" /></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"   value="#{concepto.unidad.nombre}" id="editarNombreUnidad" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;" >
+                                 <p:inputText  autocomplete="off" value="#{concepto.unidad.nombre}" id="editarNombreUnidad" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;">
                                     <p:ajax event="change" listener="#{controlConcepto.modificarConcepto(concepto, 'UNIDADESNOMBRE', concepto.unidad.nombre)}"/>
-                                    <p:ajax event="select" listener="#{controlConcepto.cambiarIndice(concepto, 4)}" process="@this"/>
+                                    <p:ajax event="select" listener="#{controlConcepto.cambiarIndice(concepto, 4)}" process="@this"
+                                            onstart="PF('datosConceptos').unselectAllRows();PF('datosConceptos').selectRow(#{indice});"/>
                                     <p:ajax event="dblclick" listener="#{controlConcepto.llamarDialogosLista(concepto, 0)}"/>
                                  </p:inputText> 
                               </f:facet>  
@@ -221,18 +231,19 @@
                         </p:column> 
 
                         <p:column headerText="#{msg['codigo']}" sortBy="#{concepto.codigodesprendible}" filterBy="#{concepto.codigodesprendible}" filterMatchMode="contains" 
-                                  id="columnaCodigoDesprendible" filterStyle="display: none; visibility: hidden;" width="50" style="text-align: center;">                                                              
+                                  id="columnaCodigoDesprendible" filterStyle="display: none; visibility: hidden;" width="60" style="text-align: center;">                                                              
                            <f:facet name="header">
-                              <h:outputText id="headerCo" value="#{msg['codigo']}" />
+                              <h:outputText id="headerCo" value="#{msg['codigo']}"/>
                               <p:tooltip  for="headerCo" value="#{msg['codigodTtip']}"/> 
                            </f:facet>
                            <p:cellEditor>   
                               <f:facet name="output"><h:outputText value="#{concepto.codigodesprendible}" style="text-transform: uppercase;" /></f:facet>  
                               <f:facet name="input">
-                                 <!--<p:inputText  autocomplete="off"   value="#{concepto.codigodesprendible}" id="editarCodigoDesprendible" style="border-radius: 0px; width: 98%; text-transform: uppercase;" >-->
+                                 <!--<p:inputText autocomplete="off" value="#{concepto.codigodesprendible}" id="editarCodigoDesprendible" style="border-radius: 0px; width: 98%; text-transform: uppercase;" >-->
                                  <p:inputMask id="editarCodigoDesprendible" value="#{concepto.codigodesprendible}" mask="99999999" style="border-radius: 0px; width: 98%; text-transform: uppercase;">
                                     <p:ajax event="change" listener="#{controlConcepto.modificarConcepto(concepto, 'N', concepto.codigodesprendible)}"/>
-                                    <p:ajax event="select" listener="#{controlConcepto.cambiarIndice(concepto, 5)}" process="@this"/>
+                                    <p:ajax event="select" listener="#{controlConcepto.cambiarIndice(concepto, 5)}" process="@this"
+                                            onstart="PF('datosConceptos').unselectAllRows();PF('datosConceptos').selectRow(#{indice});"/>
                                  </p:inputMask> 
                               </f:facet>  
                            </p:cellEditor>
@@ -242,14 +253,15 @@
                         </p:column>
 
                         <p:column headerText="#{msg['descripcion']}" sortBy="#{concepto.descripciondesprendible}" filterBy="#{concepto.descripciondesprendible}" 
-                                  filterMatchMode="contains" id="columnaDescripcionDesplendible" width="130" filterStyle="display: none; visibility: hidden;" >                                                              
+                                  filterMatchMode="contains" id="columnaDescripcionDesplendible" width="130" filterStyle="display: none; visibility: hidden;">                                                              
                            <p:cellEditor>   
                               <f:facet name="output"><h:outputText value="#{concepto.descripciondesprendible}" style="text-transform: uppercase;" /></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"   value="#{concepto.descripciondesprendible}" maxlength="100" id="editarDescripcionDesprendible" 
-                                              style="border-radius: 0px; width: 93.5%; text-transform: uppercase" >
+                                 <p:inputText  autocomplete="off" value="#{concepto.descripciondesprendible}" maxlength="100" id="editarDescripcionDesprendible" 
+                                               style="border-radius: 0px; width: 93.5%; text-transform: uppercase">
                                     <p:ajax event="change" listener="#{controlConcepto.modificarConcepto(concepto, 'N', concepto.descripciondesprendible)}"/>
-                                    <p:ajax event="select" listener="#{controlConcepto.cambiarIndice(concepto, 6)}" process="@this"/>
+                                    <p:ajax event="select" listener="#{controlConcepto.cambiarIndice(concepto, 6)}" process="@this"
+                                            onstart="PF('datosConceptos').unselectAllRows();PF('datosConceptos').selectRow(#{indice});"/>
                                  </p:inputText> 
                               </f:facet>  
                            </p:cellEditor>
@@ -259,13 +271,14 @@
                         </p:column>
 
                         <p:column headerText="#{msg['i']}" sortBy="#{concepto.independienteConcepto}"
-                                  id="columnaIndependienteConcepto" width="19" style="padding: 0px !important; width: 20px; alignment-adjust: central;">                                                              
+                                  id="columnaIndependienteConcepto" width="22" style="padding: 0px !important; width: 20px; text-align: center;">                                                              
                            <f:facet name="header">
                               <h:outputText id="textI" value="#{msg['i']}"/>
                               <p:tooltip for="textI" value="#{msg['textI']}"/>
                            </f:facet>
-
-                           <p:selectBooleanCheckbox value="#{concepto.independienteConcepto}" style="border-radius: 4px; width: 17px; font-weight: bold;">  
+                           <p:selectBooleanCheckbox value="#{concepto.independienteConcepto}" style="border-radius: 4px; width: 17px; font-weight: bold;"
+                                                    onfocus="PF('datosConceptos').unselectAllRows();PF('datosConceptos').selectRow(#{indice});"
+                                                    onblur="PF('datosConceptos').unselectAllRows();PF('datosConceptos').selectRow(#{indice});">
                               <p:ajax listener="#{controlConcepto.modificarConcepto(concepto, 'N', concepto.independienteConcepto)}" update=":form:datosConceptos"/>  
                            </p:selectBooleanCheckbox>    
                            <f:facet name="footer">
@@ -274,15 +287,17 @@
                         </p:column>
 
                         <p:column sortBy="#{concepto.conjunto}" filterBy="#{concepto.conjunto}" filterMatchMode="contains"
-                                  id="columnaConjunto" width="35" style="text-align: center;" filterStyle="display: none; visibility: hidden;" >                                                              
+                                  id="columnaConjunto" width="48" style="text-align: center;" filterStyle="display: none; visibility: hidden;" >                                                              
                            <f:facet name="header">
-                              <h:outputText id="headerConj" value="#{msg['conjunto']}" />
-                              <p:tooltip  for="headerConj" value="#{msg['conjuntoTtip']}"/> 
+                              <h:outputText id="headerConj" value="#{msg['conjunto']}"/>
+                              <p:tooltip for="headerConj" value="#{msg['conjuntoTtip']}"/> 
                            </f:facet>
                            <p:cellEditor>   
                               <f:facet name="output"><h:outputText value="#{concepto.conjunto}" /></f:facet>  
                               <f:facet name="input">
-                                 <p:selectOneMenu id="editarConjunto"  value="#{concepto.conjunto}"  style="width: 45px; position: relative; text-align: left;" panelStyle="width: 45px;">  
+                                 <p:selectOneMenu id="editarConjunto"  value="#{concepto.conjunto}"  style="width: 20px; position: relative; text-align: left;" panelStyle="width: 45px;"
+                                                  onblur="PF('datosConceptos').unselectAllRows();PF('datosConceptos').selectRow(#{indice});"
+                                                  onfocus="PF('datosConceptos').unselectAllRows();PF('datosConceptos').selectRow(#{indice});">
                                     <!--<p:inputMask id="key" value="#/{maskView.productKey}" mask="a*-999-a999">--> 
                                     <p:keyFilter for="editarConjunto" mask="num"/>
                                     <f:selectItems value="#{controlConcepto.conjuntoC}"/> 
@@ -295,17 +310,19 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column style="text-align: center;" sortBy="#{concepto.contenidofechahasta}" width="75"
+                        <p:column style="text-align: center;" sortBy="#{concepto.contenidofechahasta}" width="100"
                                   filterBy="#{concepto.contenidofechahasta}" filterMatchMode="contains" id="columnaFechaAcumulado" 
-                                  filterStyle="display: none; visibility: hidden;" >                                                              
+                                  filterStyle="display: none; visibility: hidden;">                                                              
                            <f:facet name="header">
-                              <h:outputText id="headerConf" value="#{msg['fecha']}" />
-                              <p:tooltip  for="headerConf" value="#{msg['fechaTtip']}"/> 
+                              <h:outputText id="headerConf" value="#{msg['fecha']}"/>
+                              <p:tooltip for="headerConf" value="#{msg['fechaTtip']}"/> 
                            </f:facet>
                            <p:cellEditor>
-                              <f:facet name="output"><h:outputText value="#{concepto.contenidofechahasta}" style="text-transform: uppercase;"/></f:facet>  
+                              <f:facet name="output"><h:outputText value="#{concepto.contenidofechahasta}" style="text-transform: uppercase; text-align: center;"/></f:facet>  
                               <f:facet name="input">
-                                 <p:selectOneMenu id="editarFechaAcumulado" value="#{concepto.contenidofechahasta}" style="text-align: left; width: 90px; font-weight: bold;" >  
+                                 <p:selectOneMenu id="editarFechaAcumulado" value="#{concepto.contenidofechahasta}" style="text-align: left; width: 72px; font-weight: bold;"
+                                                  onfocus="PF('datosConceptos').unselectAllRows();PF('datosConceptos').selectRow(#{indice});"
+                                                  onblur="PF('datosConceptos').unselectAllRows();PF('datosConceptos').selectRow(#{indice});">
                                     <f:selectItem itemLabel="#{msg['fechap']}" itemValue="FECHAPAGO"/>  
                                     <f:selectItem itemLabel="#{msg['fechah']}" itemValue="FECHAHASTA"/>
                                     <p:ajax event="change" listener="#{controlConcepto.seleccionarItem(concepto.contenidofechahasta, concepto, 9)}" update=":form:datosConceptos"/>
@@ -318,29 +335,32 @@
                         </p:column>
 
                         <p:column headerText="#{msg['tercero']}" sortBy="#{concepto.tercero.nombre}" filterBy="#{concepto.tercero.nombre}" 
-                                  filterMatchMode="contains" id="columnaNombreTercero" width="150" filterStyle="display: none; visibility: hidden;">
+                                  filterMatchMode="contains" id="columnaNombreTercero" width="170" filterStyle="display: none; visibility: hidden;">
                            <p:cellEditor>   
                               <f:facet name="output"><h:outputText value="#{concepto.tercero.nombre}" style="text-transform: uppercase;" /></f:facet>  
                               <f:facet name="input">
                                  <p:inputText  autocomplete="off"   value="#{concepto.tercero.nombre}" id="editarNombreTercero" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase" >
                                     <p:ajax event="change" listener="#{controlConcepto.modificarConcepto(concepto, 'TERCERO', concepto.tercero.nombre)}"/>
-                                    <p:ajax event="select" listener="#{controlConcepto.cambiarIndice(concepto, 10)}" process="@this"/>
+                                    <p:ajax event="select" listener="#{controlConcepto.cambiarIndice(concepto, 10)}" process="@this"
+                                            onstart="PF('datosConceptos').unselectAllRows();PF('datosConceptos').selectRow(#{indice});"/>
                                     <p:ajax event="dblclick" listener="#{controlConcepto.llamarDialogosLista(concepto, 1)}"/>
                                  </p:inputText> 
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 170px;" value="" id="footTercero" 
+                              <p:commandButton style="width: 190px;" value="" id="footTercero"
                                                action="terceroPag" actionListener="#{controlTercero.recibirPaginaEntrante('atrasTerceroConcepto')}" process="@this"/>
                            </f:facet>
                         </p:column>
 
                         <p:column style="text-align: center" headerText="#{msg['estado']}" sortBy="#{concepto.estadoConcepto}" filterBy="#{concepto.estadoConcepto}" 
-                                  filterMatchMode="contains" id="columnaEstado" filterStyle="display: none; visibility: hidden;" width="75" >
+                                  filterMatchMode="contains" id="columnaEstado" filterStyle="display: none; visibility: hidden;" width="90" >
                            <p:cellEditor>
                               <f:facet name="output"><h:outputText value="#{concepto.estadoConcepto}" style="text-transform: uppercase;"/></f:facet>  
                               <f:facet name="input">
-                                 <p:selectOneMenu id="editarEstado" value="#{concepto.estadoConcepto}" style="text-align: left; width: 99%; font-weight: bold;" >  
+                                 <p:selectOneMenu id="editarEstado" value="#{concepto.estadoConcepto}" style="text-align: left; width: 62px; font-weight: bold;"
+                                                  onfocus="PF('datosConceptos').unselectAllRows();PF('datosConceptos').selectRow(#{indice});"
+                                                  onblur="PF('datosConceptos').unselectAllRows();PF('datosConceptos').selectRow(#{indice});">
                                     <f:selectItem itemLabel="#{msg['aactivo']}" itemValue="ACTIVO" />  
                                     <f:selectItem itemLabel="#{msg['iinactivo']}" itemValue="INACTIVO" />
                                     <p:ajax event="change" listener="#{controlConcepto.seleccionarItem(concepto.estadoConcepto, concepto, 11)}" update=":form:datosConceptos" />
@@ -352,8 +372,8 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column style="text-align: center" sortBy="#{concepto.enviarConcepto}" filterBy="#{concepto.enviarConcepto}" filterMatchMode="contains" 
-                                  id="columnaEnvio" filterStyle="display: none; visibility: hidden;" width="40">
+                        <p:column style="text-align: center;" sortBy="#{concepto.enviarConcepto}" filterBy="#{concepto.enviarConcepto}" filterMatchMode="contains" 
+                                  id="columnaEnvio" filterStyle="display: none; visibility: hidden;" width="45">
                            <f:facet name="header">
                               <h:outputText id="headerConEt" value="#{msg['et']}"/>
                               <p:tooltip  for="headerConEt" value="#{msg['etTtip']}"/> 
@@ -361,7 +381,9 @@
                            <p:cellEditor>
                               <f:facet name="output"><h:outputText value="#{concepto.enviarConcepto}" style="text-transform: uppercase;"/></f:facet>  
                               <f:facet name="input">
-                                 <p:selectOneMenu id="editarEnvio" value="#{concepto.enviarConcepto}" style="text-align: left; font-weight: bold;">  
+                                 <p:selectOneMenu id="editarEnvio" value="#{concepto.enviarConcepto}" style="text-align: left; font-weight: bold;"
+                                                  onfocus="PF('datosConceptos').unselectAllRows();PF('datosConceptos').selectRow(#{indice});"
+                                                  onblur="PF('datosConceptos').unselectAllRows();PF('datosConceptos').selectRow(#{indice});">
                                     <f:selectItem itemLabel="#{msg['sii']}" itemValue="SI"/>  
                                     <f:selectItem itemLabel="#{msg['noo']}" itemValue="NO"/>
                                     <p:ajax event="change" listener="#{controlConcepto.seleccionarItem(concepto.enviarConcepto, concepto, 12)}" update=":form:datosConceptos"/>
@@ -374,7 +396,7 @@
                         </p:column>
 
                         <p:column sortBy="#{concepto.codigoalternativo}" filterBy="#{concepto.codigoalternativo}" filterMatchMode="contains" 
-                                  id="columnaCodigoAlternativo" width="50" filterStyle="display: none; visibility: hidden;">
+                                  id="columnaCodigoAlternativo" width="60" filterStyle="display: none; visibility: hidden;">
                            <f:facet name="header">
                               <h:outputText id="headerConCa" value="#{msg['codigoalternativo']}"/>
                               <p:tooltip  for="headerConCa" value="#{msg['codigoalternativoTtip']}"/> 
@@ -382,11 +404,10 @@
                            <p:cellEditor>   
                               <f:facet name="output"><h:outputText value="#{concepto.codigoalternativo}" style="text-transform: uppercase;"/></f:facet>  
                               <f:facet name="input">
-                                 <!--                                 <p:inputText  autocomplete="off"   value="#/{concepto.codigoalternativo}"  maxlength="15" id="editarCodigoAlternativo" 
-                                                                               style="border-radius: 0px; width: 93.5%; text-transform: uppercase;" >-->
                                  <p:inputMask id="editarCodigoAlternativo" value="#{concepto.codigoalternativo}" mask="99999999" style="border-radius: 0px; width: 93.5%; text-transform: uppercase;">
                                     <p:ajax event="change" listener="#{controlConcepto.modificarConcepto(concepto, 'N', concepto.codigoalternativo)}"/>
-                                    <p:ajax event="select" listener="#{controlConcepto.cambiarIndice(concepto, 13)}" process="@this"/>
+                                    <p:ajax event="select" listener="#{controlConcepto.cambiarIndice(concepto, 13)}" process="@this"
+                                            onstart="PF('datosConceptos').unselectAllRows();PF('datosConceptos').selectRow(#{indice});"/>
                                  </p:inputMask>
                               </f:facet>  
                            </p:cellEditor>
@@ -396,7 +417,7 @@
                         </p:column>
 
                      </p:dataTable> 
-                     <h:outputText id="informacionRegistro" value="#{msg['infoRegistros']} #{controlConcepto.infoRegistro}" style="position: relative; left: 15px; top: 1px; font-weight: bold;"/>
+                     <h:outputText id="informacionRegistro" value="#{msg['infoRegistros']} #{controlConcepto.infoRegistro}" style="position: relative; left: 15px; top: 240px; font-weight: bold;"/>
 
                   </fieldset>
                   <br/><br/><br/><br/><br/>
@@ -433,11 +454,11 @@
                            <p:ajax event="change" update="@this"/>
                         </p:inputMask>
                         <p:inputText  autocomplete="off"   id="descripcioConceptoClon" value="#{controlConcepto.conceptoClon.descripcion}" 
-                                     style="position: absolute; height: 14px; margin-top: 0px; left: 80px; margin: 1px; width: 280px;">
+                                      style="position: absolute; height: 14px; margin-top: 0px; left: 80px; margin: 1px; width: 280px;">
                            <p:ajax event="change" update="@this"/>
                         </p:inputText>
                         <p:inputText  autocomplete="off"   id="descripcionClon" widgetVar="descripcionClon" value="#{controlConcepto.conceptoOriginal.informacionConcepto}" 
-                                     style="position: absolute; height: 14px; margin-top: 0px; left: 390px; margin: 1px; width: 350px;">
+                                      style="position: absolute; height: 14px; margin-top: 0px; left: 390px; margin: 1px; width: 350px;">
                            <p:ajax event="change" listener="#{controlConcepto.lovConcepto(1)}" update="@this"/>
                         </p:inputText>
                         <p:commandButton value="" actionListener="#{controlConcepto.lovConcepto(1)}" style=" background-image: url(Imagenes/Iconos/lupa.png); position: relative; 
@@ -477,12 +498,12 @@
                   <p:panel id="nuevoConcepto" style="border: none;">
                      <strong><h:outputText value="*#{msg['codigoN']}" style="position: absolute; top: 75px;"/></strong>
                      <!--<p:inputText  autocomplete="off"   id="codNu" value="#{controlConcepto.nuevoConcepto.codigo}" style="position: absolute; top: 70px; left: 180px;">-->
-                     <p:inputMask id="codNu" value="#{controlConcepto.nuevoConcepto.codigo}" mask="99999999" style="position: absolute; top: 70px; left: 180px;">
+                     <p:inputMask id="codNu" value="#{controlConcepto.nuevoConcepto.codigo}" mask="99999999" style="position: absolute; top: 70px; left: 180px; width: 122px;">
                         <p:ajax event="change" update="@this" />
                      </p:inputMask>
 
                      <strong><h:outputText value="*#{msg['descripcionN']}" style="position: absolute; top: 105px;" /></strong>
-                     <p:inputText  autocomplete="off"   value="#{controlConcepto.nuevoConcepto.descripcion}" onclick="select();" style="width: 122px; position: absolute; left: 180px; top: 100px; text-transform: uppercase;" >
+                     <p:inputText  autocomplete="off" value="#{controlConcepto.nuevoConcepto.descripcion}" onclick="select();" style="width: 122px; position: absolute; left: 180px; top: 100px; text-transform: uppercase;" >
                         <p:ajax event="change" update="@this" />
                      </p:inputText>
 
@@ -497,7 +518,7 @@
                      </p:selectOneMenu>
 
                      <strong><h:outputText value="*#{msg['codigounidad']}" style="position: absolute; top: 165px;" /></strong>
-                     <p:inputText  autocomplete="off"   id="nuevoCodigoUnidad" value="#{controlConcepto.nuevoConcepto.unidad.codigo}" style=" width: 122px; position: absolute; left: 180px; top: 160px; text-transform: uppercase;" onclick="select();">
+                     <p:inputText  autocomplete="off" id="nuevoCodigoUnidad" value="#{controlConcepto.nuevoConcepto.unidad.codigo}" style=" width: 122px; position: absolute; left: 180px; top: 160px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="click" listener="#{controlConcepto.valoresBackupAutocompletar(1, 'CODIGOUNIDAD')}" />
                         <p:ajax event="change" listener="#{controlConcepto.autocompletarNuevoyDuplicado('CODIGOUNIDAD', controlConcepto.nuevoConcepto.unidad.codigo, 1)}" />
                         <p:ajax event="dblclick" listener="#{controlConcepto.llamarLOVSNuevo_Duplicado(0, 1)}"/>
@@ -573,8 +594,8 @@
 
                      <strong><h:outputText value="#{msg['codigoalternativo']}" style="position: absolute; top: 255px; left: 360px;" /></strong>
                      <!--<p:inputText  autocomplete="off"   id="codAltNu" value="#{controlConcepto.nuevoConcepto.codigoalternativo}" maxlength="15" style="width: 122px; position: absolute; left: 520px; top: 250px; text-transform: uppercase;" onclick="select();">-->
-                        <p:inputMask id="codAltNu" value="#{controlConcepto.nuevoConcepto.codigoalternativo}" mask="999999999999999"
-                                     style="width: 122px; position: absolute; left: 520px; top: 250px; text-transform: uppercase;" onclick="select();">
+                     <p:inputMask id="codAltNu" value="#{controlConcepto.nuevoConcepto.codigoalternativo}" mask="999999999999999"
+                                  style="width: 122px; position: absolute; left: 520px; top: 250px; text-transform: uppercase;" onclick="select();">
                         <p:ajax event="change" update="@this"/>
                      </p:inputMask>
 
@@ -594,7 +615,7 @@
 
                   <p:panel id="duplicarConcepto" style="border: none;">
                      <strong><h:outputText value="*#{msg['codigoN']}" style="position: absolute; top: 75px;" /></strong>
-                     <p:inputText  autocomplete="off"   value="#{controlConcepto.duplicarConcepto.codigo}" style="position: absolute; top: 70px; left: 180px;">
+                     <p:inputText  autocomplete="off" value="#{controlConcepto.duplicarConcepto.codigo}" style="position: absolute; top: 70px; left: 180px; width: 122px; width: 122px;">
                         <p:ajax event="change" update="@this" />
                      </p:inputText>
 
@@ -616,7 +637,7 @@
 
                      <strong><h:outputText value="*#{msg['codigounidad']}" style="position: absolute; top: 165px"/></strong>
                      <p:inputText  autocomplete="off"   id="duplicarCodigoUnidad" value="#{controlConcepto.duplicarConcepto.unidad.codigo}" 
-                                  style="width: 122px; position: absolute; left: 180px; top: 160px; text-transform: uppercase" onclick="select();">
+                                   style="width: 122px; position: absolute; left: 180px; top: 160px; text-transform: uppercase" onclick="select();">
                         <p:ajax event="click" listener="#{controlConcepto.valoresBackupAutocompletar(2, 'CODIGOUNIDAD')}"/>
                         <p:ajax event="change" listener="#{controlConcepto.autocompletarNuevoyDuplicado('CODIGOUNIDAD', controlConcepto.duplicarConcepto.unidad.codigo, 2)}"/>
                         <p:ajax event="dblclick" listener="#{controlConcepto.llamarLOVSNuevo_Duplicado(0, 2)}"/>
@@ -626,7 +647,7 @@
 
                      <strong><h:outputText value="*#{msg['nombreunidad']}" style="position: absolute; top: 195px"/></strong>
                      <p:inputText  autocomplete="off"   id="duplicarNombreUnidad" value="#{controlConcepto.duplicarConcepto.unidad.nombre}" onclick="select();"
-                                  style="width: 122px; position: absolute; left: 180px; top: 190px; text-transform: uppercase">
+                                   style="width: 122px; position: absolute; left: 180px; top: 190px; text-transform: uppercase">
                         <p:ajax event="click" listener="#{controlConcepto.valoresBackupAutocompletar(2, 'NOMBREUNIDAD')}"/>
                         <p:ajax event="change" listener="#{controlConcepto.autocompletarNuevoyDuplicado('NOMBREUNIDAD', controlConcepto.duplicarConcepto.unidad.nombre, 2)}"/>
                         <p:ajax event="dblclick" listener="#{controlConcepto.llamarLOVSNuevo_Duplicado(0, 2)}"/>
@@ -636,13 +657,13 @@
 
                      <strong><h:outputText value="#{msg['codigodesprendible']}" style="position: absolute; top: 225px"/></strong>
                      <p:inputText  autocomplete="off"   value="#{controlConcepto.duplicarConcepto.codigodesprendible}" onclick="select();"
-                                  style="width: 122px; position: absolute; left: 180px; top: 220px; text-transform: uppercase" >
+                                   style="width: 122px; position: absolute; left: 180px; top: 220px; text-transform: uppercase" >
                         <p:ajax event="change" update="@this" />
                      </p:inputText>
 
                      <strong><h:outputText value="#{msg['descripciondesprendible']}" style="position: absolute; top: 255px;" /></strong>
                      <p:inputText  autocomplete="off"   value="#{controlConcepto.duplicarConcepto.descripciondesprendible}" maxlength="100" onclick="select();"
-                                  style="width: 122px; position: absolute; left: 180px; top: 250px; text-transform: uppercase" >
+                                   style="width: 122px; position: absolute; left: 180px; top: 250px; text-transform: uppercase" >
                         <p:ajax event="change" update="@this" />
                      </p:inputText>
 
@@ -668,7 +689,7 @@
 
                      <strong><h:outputText value="#{msg['nombretercero']}" style="position: absolute; top: 165px; left: 360px;" /></strong>
                      <p:inputText  autocomplete="off"   id="duplicarTercero" value="#{controlConcepto.duplicarConcepto.tercero.nombre}" onclick="select();"
-                                  style="width: 122px; position: absolute; left: 520px; top: 160px; text-transform: uppercase" >
+                                   style="width: 122px; position: absolute; left: 520px; top: 160px; text-transform: uppercase" >
                         <p:ajax event="click" listener="#{controlConcepto.valoresBackupAutocompletar(2, 'TERCERO')}" />
                         <p:ajax event="change" listener="#{controlConcepto.autocompletarNuevoyDuplicado('TERCERO', controlConcepto.duplicarConcepto.tercero.nombre, 2)}" />
                         <p:ajax event="dblclick" listener="#{controlConcepto.llamarLOVSNuevo_Duplicado(1, 2)}"/>
@@ -676,18 +697,18 @@
                      <p:commandButton style="width: 23px; height: 23px; position: absolute; left: 651px; top: 160px; background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=""
                                       actionListener="#{controlConcepto.llamarLOVSNuevo_Duplicado(1, 2)}"  process="@this" />
 
-                     <strong><h:outputText value="#{msg['estadoo']}" style="position: absolute; top: 195px; left: 360px;" /></strong>
-                     <p:selectOneMenu  value="#{controlConcepto.duplicarConcepto.estadoConcepto}" style="width: 122px; position: absolute; left: 520px; top: 190px; font-weight: bold;" panelStyle="width: 78px;" >  
-                        <f:selectItem itemLabel="#{msg['aactivo']}" itemValue="ACTIVO" />  
-                        <f:selectItem itemLabel="#{msg['iinactivo']}" itemValue="INACTIVO" />
-                        <p:ajax update="@this" />
+                     <strong><h:outputText value="#{msg['estadoo']}" style="position: absolute; top: 195px; left: 360px;"/></strong>
+                     <p:selectOneMenu value="#{controlConcepto.duplicarConcepto.estadoConcepto}" style="width: 122px; position: absolute; left: 520px; top: 190px; font-weight: bold;" panelStyle="width: 78px;">  
+                        <f:selectItem itemLabel="#{msg['aactivo']}" itemValue="ACTIVO"/>
+                        <f:selectItem itemLabel="#{msg['iinactivo']}" itemValue="INACTIVO"/>
+                        <p:ajax update="@this"/>
                      </p:selectOneMenu>
 
-                     <strong><h:outputText value="#{msg['enviara']}" style="position: absolute; top: 225px; left: 360px;" /></strong>
-                     <p:selectOneMenu value="#{controlConcepto.duplicarConcepto.enviarConcepto}" style="width: 122px; position: absolute; left: 520px; top: 220px; font-weight: bold;" panelStyle="width: 44px;" >  
-                        <f:selectItem itemLabel="#{msg['sii']}" itemValue="SI" />  
-                        <f:selectItem itemLabel="#{msg['noo']}" itemValue="NO" />
-                        <p:ajax update="@this" />
+                     <strong><h:outputText value="#{msg['enviara']}" style="position: absolute; top: 225px; left: 360px;"/></strong>
+                     <p:selectOneMenu value="#{controlConcepto.duplicarConcepto.enviarConcepto}" style="width: 122px; position: absolute; left: 520px; top: 220px; font-weight: bold;" panelStyle="width: 44px;">  
+                        <f:selectItem itemLabel="#{msg['sii']}" itemValue="SI"/>  
+                        <f:selectItem itemLabel="#{msg['noo']}" itemValue="NO"/>
+                        <p:ajax update="@this"/>
                      </p:selectOneMenu>
 
                      <strong><h:outputText value="#{msg['codigoalternativo']}" style="position: absolute; top: 255px; left: 360px;" /></strong>
@@ -706,18 +727,18 @@
 
                <!-- LOV UNIDADES -->
                <p:dialog header="#{msg['unidades']}" widgetVar="unidadesDialogo" draggable="true" resizable="false" closable="false" id="unidadesDialogo"  
-                         showEffect="fade" hideEffect="fade" width="440" height="310" modal="true">
-                  <p:dataTable id="lovUnidades" style="width: 400px;" var="unidad" value="#{controlConcepto.lovUnidades}" rowKey="#{unidad.secuencia}"
+                         showEffect="fade" hideEffect="fade" width="440" modal="true">
+                  <p:dataTable id="lovUnidades" var="unidad" value="#{controlConcepto.lovUnidades}" rowKey="#{unidad.secuencia}"
                                selection="#{controlConcepto.unidadSeleccionada}" selectionMode="single" widgetVar="lovUnidades" scrollable="true" scrollWidth="400" scrollHeight="160"
                                filteredValue="#{controlConcepto.filtradoUnidades}" emptyMessage="#{msg['lovvacio']}">
 
                      <p:ajax event="rowSelect" listener="#{controlConcepto.activarAceptar()}" update=":formularioDialogos:aceptarU"/>
                      <p:ajax event="rowDblselect" listener="#{controlConcepto.actualizarUnidad()}" process="@this"/>
-                     <p:ajax event="filter" listener="#{controlConcepto.eventoFiltrarUnidades()}"/>
+                     <p:ajax event="filter" listener="#{controlConcepto.contarRegistrosUnidades()}"/>
 
                      <f:facet name="header">  
-                        <h:outputText value="#{msg['buscarunidad']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                        <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('lovUnidades').filter();" style="width: 200px; position: relative; left: 50px;" />  
+                        <h:outputText value="#{msg['buscarunidad']}"/>
+                        <p:inputText  autocomplete="off" id="globalFilter" onkeyup="PF('lovUnidades').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
                      <p:column filterBy="#{unidad.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 85% !important">
                         <f:facet name="header">
@@ -732,28 +753,29 @@
                         <h:outputText  value="#{unidad.nombre}" />
                      </p:column>
                   </p:dataTable>
-
-                  <h:outputText id="infoRegistroUnidad" value="#{msg['infoRegistros']} #{controlConcepto.infoRegistroUnidad}" style="position: relative; left: 10px; top: 5px; font-weight: bold;"/>
-                  <p:commandButton id="aceptarU" style="position: relative; top: 15px; left: 150px; width: 90px;" disabled="#{controlConcepto.aceptar}" value="#{msg['aceptar']}" 
-                                   icon="ui-icon-check" actionListener="#{controlConcepto.actualizarUnidad()}" process="@this"/>
-                  <p:commandButton id="atrasU" style="position: relative; top: 15px; left: 150px; width: 90px;" value="#{msg['cancelar']}"  
-                                   icon="ui-icon-close" actionListener="#{controlConcepto.cancelarUnidades()}" process="@this"/>
+                  <div class="cssBotonesLOV">
+                     <h:outputText id="infoRegistroUnidad" value="#{msg['infoRegistros']} #{controlConcepto.infoRegistroUnidad}" class="cssinfoRegistroLOV"/>
+                     <p:commandButton id="aceptarU" class="cssAceptarLOV" disabled="#{controlConcepto.aceptar}" value="#{msg['aceptar']}" 
+                                      icon="ui-icon-check" actionListener="#{controlConcepto.actualizarUnidad()}" process="@this"/>
+                     <p:commandButton id="atrasU" class="cssAtrasLOV" value="#{msg['cancelar']}"  
+                                      icon="ui-icon-close" actionListener="#{controlConcepto.cancelarUnidades()}" process="@this"/>
+                  </div>
                </p:dialog>
 
                <!-- LOV TERCEROS -->
                <p:dialog header="#{msg['terceros']}" widgetVar="TercerosDialogo" draggable="true" resizable="false" closable="false" id="TercerosDialogo"  
-                         showEffect="fade" hideEffect="fade" width="434" height="350" modal="true">
-                  <p:dataTable id="lovTerceros" style="width: 390px;" var="tercero" value="#{controlConcepto.lovTerceros}" rowKey="#{tercero.secuencia}"
+                         showEffect="fade" hideEffect="fade" width="434" modal="true">
+                  <p:dataTable id="lovTerceros" var="tercero" value="#{controlConcepto.lovTerceros}" rowKey="#{tercero.secuencia}"
                                selection="#{controlConcepto.terceroSeleccionado}" selectionMode="single" widgetVar="lovTerceros" scrollable="true" scrollWidth="415"
                                scrollHeight="200" filteredValue="#{controlConcepto.filtradoTerceros}" emptyMessage="#{msg['lovvacio']}">              
 
                      <p:ajax event="rowSelect" listener="#{controlConcepto.activarAceptar()}" update=":formularioDialogos:aceptarT"/>
                      <p:ajax event="rowDblselect" listener="#{controlConcepto.actualizarTercero()}" process="@this"/>
-                     <p:ajax event="filter" listener="#{controlConcepto.eventoFiltrarTercero()}"/>
+                     <p:ajax event="filter" listener="#{controlConcepto.contarRegistrosTercero()}"/>
 
-                     <f:facet name="header">  
-                        <h:outputText value="#{msg['buscartercero']}" style="position: absolute; left: 27px; top: 14px;"/>  
-                        <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('lovTerceros').filter();" style="width: 200px; position: relative; left: 40px;"/>  
+                     <f:facet name="header">
+                        <h:outputText value="#{msg['buscartercero']}"/>
+                        <p:inputText  autocomplete="off" id="globalFilter" onkeyup="PF('lovTerceros').filter();" class="cssFiltroLOV"/>
                      </f:facet>
                      <p:column filterBy="#{tercero.nit}" width="80" filterMatchMode="contains" filterStyle="width: 85% !important">
                         <f:facet name="header">
@@ -768,30 +790,31 @@
                         <h:outputText  value="#{tercero.nombre}"/>
                      </p:column>
                   </p:dataTable>
-
-                  <h:outputText id="infoRegistroTercero" value="#{msg['infoRegistros']} #{controlConcepto.infoRegistroTercero}" style="position: relative; left: 10px; top: 5px; font-weight: bold;"/>
-
-                  <p:commandButton id="aceptarT" style="position: relative; top: 15px; left: 130px; width: 90px;" value="#{msg['aceptar']}" disabled="#{controlConcepto.aceptar}" 
-                                   icon="ui-icon-check" actionListener="#{controlConcepto.actualizarTercero()}" process="@this"/>
-                  <p:commandButton id="atrasT" style="position: relative; top: 15px; left: 130px; width: 90px;" value="#{msg['cancelar']}" 
-                                   icon="ui-icon-close" actionListener="#{controlConcepto.cancelarTercero()}" process="@this"/>
+                  <div class="cssBotonesLOV">
+                     <h:outputText id="infoRegistroTercero" value="#{msg['infoRegistros']} #{controlConcepto.infoRegistroTercero}" class="cssinfoRegistroLOV"/>
+                     <p:commandButton id="aceptarT" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlConcepto.aceptar}" 
+                                      icon="ui-icon-check" actionListener="#{controlConcepto.actualizarTercero()}" process="@this"/>
+                     <p:commandButton id="atrasT" class="cssAtrasLOV" value="#{msg['cancelar']}" 
+                                      icon="ui-icon-close" actionListener="#{controlConcepto.cancelarTercero()}" process="@this"/>
+                  </div>
                </p:dialog>
 
                <!-- LOV EMPRESAS -->
                <p:dialog header="#{msg['empresas']}" widgetVar="EmpresasDialogo" draggable="true" resizable="false" closable="false" id="EmpresasDialogo"  
-                         showEffect="fade" hideEffect="fade" width="440" height="340" modal="true" >
-                  <p:dataTable id="lovEmpresas" style="width: 400px;" var="empresa" value="#{controlConcepto.lovEmpresas}" rowKey="#{empresa.secuencia}"
+                         showEffect="fade" hideEffect="fade" width="440" modal="true" >
+                  <p:dataTable id="lovEmpresas" var="empresa" value="#{controlConcepto.lovEmpresas}" rowKey="#{empresa.secuencia}"
                                selection="#{controlConcepto.empresaActual}" selectionMode="single" widgetVar="lovEmpresas" scrollable="true" scrollWidth="415" scrollHeight="200"
                                filteredValue="#{controlConcepto.filtradoListaEmpresas}" emptyMessage="#{msg['lovvacion']}">              
 
                      <p:ajax event="rowSelect" listener="#{controlConcepto.activarAceptar()}" update=":formularioDialogos:aceptarE"/>
                      <p:ajax event="rowDblselect" listener="#{controlConcepto.cambiarEmpresa()}" update="@this" process="@this"/>
-                     <p:ajax event="filter" listener="#{controlConcepto.eventoFiltrarEmpresa()}"/>
+                     <p:ajax event="filter" listener="#{controlConcepto.contarRegistrosEmpresa()}"/>
 
-                     <f:facet name="header">  
-                        <h:outputText value="#{msg['buscarempresa']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                        <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('lovEmpresas').filter();" style="width: 200px; position: relative; left: 40px;" />  
+                     <f:facet name="header">
+                        <h:outputText value="#{msg['buscarempresa']}"/>
+                        <p:inputText  autocomplete="off" id="globalFilter" onkeyup="PF('lovEmpresas').filter();" class="cssFiltroLOV"/>
                      </f:facet>
+
                      <p:column filterBy="#{empresa.nit}" width="70" filterMatchMode="contains" filterStyle="width: 85% !important">
                         <f:facet name="header">
                            <h:outputText value="#{msg['nit']}"/>
@@ -805,29 +828,29 @@
                         <h:outputText value="#{empresa.nombre}"/>
                      </p:column>
                   </p:dataTable>
-
-                  <h:outputText id="infoRegistroEmpresa" value="#{msg['infoRegistros']} #{controlConcepto.infoRegistroEmpresa}" style="position: relative; left: 10px; top: 5px; font-weight: bold;"/>
-
-                  <p:commandButton id="aceptarE" style="position: relative; left: 150px; top: 10px; width: 90px;" value="#{msg['aceptar']}" disabled="#{controlConcepto.aceptar}" 
-                                   icon="ui-icon-check" actionListener="#{controlConcepto.cambiarEmpresa()}" process="@this"/>
-                  <p:commandButton id="atrasE" style="position: relative; left: 150px; top: 10px; width: 90px;" value="#{msg['cancelar']}" 
-                                   icon="ui-icon-close" actionListener="#{controlConcepto.cancelarCambioEmpresa()}" process="@this"/>
+                  <div class="cssBotonesLOV">
+                     <h:outputText id="infoRegistroEmpresa" value="#{msg['infoRegistros']} #{controlConcepto.infoRegistroEmpresa}" class="cssinfoRegistroLOV"/>
+                     <p:commandButton id="aceptarE" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlConcepto.aceptar}" 
+                                      icon="ui-icon-check" actionListener="#{controlConcepto.cambiarEmpresa()}" process="@this"/>
+                     <p:commandButton id="atrasE" class="cssAtrasLOV" value="#{msg['cancelar']}" 
+                                      icon="ui-icon-close" actionListener="#{controlConcepto.cancelarCambioEmpresa()}" process="@this"/>
+                  </div>
                </p:dialog>
 
                <!-- LOV CONCEPTOS -->
                <p:dialog header="#{msg['conceptos']}" widgetVar="ConceptosDialogo" draggable="true" resizable="false" closable="false" id="ConceptosDialogo"  
-                         showEffect="fade" hideEffect="fade" width="520" modal="true" height="370" >
-                  <p:dataTable id="lovConceptos" liveScroll="true" scrollRows="30" style="width: 475px;" var="conceptoEstado" value="#{controlConcepto.lovConceptosEmpresa}" 
+                         showEffect="fade" hideEffect="fade" width="520" modal="true">
+                  <p:dataTable id="lovConceptos" liveScroll="true" scrollRows="30" var="conceptoEstado" value="#{controlConcepto.lovConceptosEmpresa}" 
                                rowKey="#{conceptoEstado.secuencia}" selection="#{controlConcepto.conceptoSeleccionadoLOV}" selectionMode="single" widgetVar="lovConceptos" scrollable="true" 
                                scrollWidth="490" scrollHeight="220" filteredValue="#{controlConcepto.filtradoConceptosEmpresaLOV}" emptyMessage="#{msg['lovvacio']}">              
 
                      <p:ajax event="rowSelect" listener="#{controlConcepto.activarAceptar()}" update=":formularioDialogos:aceptarC"/>
                      <p:ajax event="rowDblselect" listener="#{controlConcepto.seleccionConcepto()}" process="@this"/>
-                     <p:ajax event="filter" listener="#{controlConcepto.eventoFiltrarConcepto()}"/>
+                     <p:ajax event="filter" listener="#{controlConcepto.contarRegistrosLovConceptos()}"/>
 
                      <f:facet name="header">  
-                        <h:outputText value="#{msg['buscarconcepto']}" style="position: absolute; left: 20px;"/>  
-                        <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('lovConceptos').filter();" style="width: 60%; position: relative; left: 40px;"/>  
+                        <h:outputText value="#{msg['buscarconcepto']}"/>  
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovConceptos').filter();" class="cssFiltroLOV"/>
                      </f:facet>
                      <p:column filterBy="#{conceptoEstado.codigo}" width="70" filterMatchMode="contains" filterStyle="position: relative; width: 85% !important">
                         <f:facet name="header">
@@ -843,12 +866,13 @@
                      </p:column>
                   </p:dataTable>
                   <br/>
-                  <h:outputText id="infoRegistroConcepto" value="#{msg['infoRegistros']} #{controlConcepto.infoRegistroConcepto}" style="position: relative; left: 10px; top: -17px; font-weight: bold;"/>
-
-                  <p:commandButton id="aceptarC" style="position: relative; left: 210px; top: 0px; width: 90px;" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlConcepto.aceptar}" 
-                                   actionListener="#{controlConcepto.seleccionConcepto()}" update=":formularioDialogos:lovConceptos" process="@this"/>
-                  <p:commandButton id="atrasC" style="position: relative; left: 210px; top: 0px; width: 90px;" value="#{msg['cancelar']}" icon="ui-icon-close"
-                                   actionListener="#{controlConcepto.cancelarSeleccionConcepto()}" update=":formularioDialogos:lovConceptos :form:descripcionClon" process="@this"/>
+                  <div class="cssBotonesLOV">
+                     <h:outputText id="infoRegistroConcepto" value="#{msg['infoRegistros']} #{controlConcepto.infoRegistroConcepto}" class="cssinfoRegistroLOV"/>
+                     <p:commandButton id="aceptarC" class="cssAceptarLOV" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlConcepto.aceptar}" 
+                                      actionListener="#{controlConcepto.seleccionConcepto()}" update=":formularioDialogos:lovConceptos" process="@this"/>
+                     <p:commandButton id="atrasC" class="cssAtrasLOV" value="#{msg['cancelar']}" icon="ui-icon-close"
+                                      actionListener="#{controlConcepto.cancelarSeleccionConcepto()}" update=":formularioDialogos:lovConceptos, :form:descripcionClon" process="@this"/>
+                  </div>
                </p:dialog>
 
                <p:dialog id="validacioNuevoConcepto" header="#{msg['atencion']}" widgetVar="validacioNuevoConcepto" resizable="false" draggable="true" modal="true" height="95" width="430"  closable="true">  

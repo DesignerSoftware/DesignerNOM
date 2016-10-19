@@ -14,7 +14,7 @@
             <h:form id="form">
                <f:loadBundle basename="Recursos.parametro" var="msg"/>
                <p:growl id="growl" showDetail="true"/>
-               <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
+               <p:panel id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
 
                   <p:toolbar styleClass="cssToolbar">
                      <p:toolbarGroup align="left"> 
@@ -76,84 +76,93 @@
                      </p:toolbarGroup>  
                   </p:toolbar> 
 
-                  <fieldset style="position: absolute; left: 5px; top: 75px; width: 840px; height: 95px; border-radius: 10px;">
-                     <legend style=" color: blue;"><strong>#{msg['departamento']}</strong></legend>
+                  <fieldset style="position: absolute; left: 5px; top: 75px; width: 840px; height: 95px; border-radius: 10px; padding-left: 0;">
+                     <legend style=" color: blue; margin-left: 5px;"><strong>#{msg['departamento']}</strong></legend>
+
                      <p:panel id="panelParametro" style="border: none; height: 80px;">
 
                         <div>
-                           <h:outputText value="#{msg['fechadesde']}" style="font-weight: bold; color: #14388B; position: relative; top: -10px; left: 0px; display: inline-block;"/>
-                           <h:outputText value="#{msg['fechahasta']}" style="font-weight: bold; color: #14388B; position: relative; top: -10px; left: 15px; display: inline-block;"/>
-                           <h:outputText value="#{msg['fechacorte']}" style="font-weight: bold; color: #14388B; position: relative; top: -10px; left: 30px; display: inline-block;"/>
-                           <h:outputText value="#{msg['estructura']}" style="font-weight: bold; color: #14388B; position: relative; top: -10px; left: 75px; display: inline-block;"/>
-                           <h:outputText value="#{msg['codigocc']}" style="font-weight: bold; color: #14388B; position: relative; top: -10px; left: 202px; display: inline-block;"/>
-                           <h:outputText value="#{msg['nombrecentrocosto']}" style="font-weight: bold; color: #14388B; position: relative; top: -10px; left: 222px; display: inline-block;"/>
-
-                           <div style="position: relative; top: -6px; left: -7px; display: block;">
-                              <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="fechaDesde" value="#{controlParametro.parametroLiquidacion.fechadesdecausado}" 
-                                          onclick="PF('ubicacionC(([{name: 'CAMPO', value: 'FECHA DESDE'}]));">
-                                 <p:ajax event="dateSelect" listener="#{controlParametro.cambiosCampos()}" update="@this"/>
-                                 <p:ajax event="change" listener="#{controlParametro.cambiosCampos()}" update="@this"/>
-                              </p:calendar>
+                           <div style="top: 0px; position: relative;">
+                              <h:outputText value="#{msg['fechadesde']}" style="font-weight: bold; color: #14388B; position: relative; top: -10px; left: -5px; display: inline-block;"/>
+                              <h:outputText value="#{msg['fechahasta']}" style="font-weight: bold; color: #14388B; position: relative; top: -10px; left: 8px; display: inline-block;"/>
+                              <h:outputText value="#{msg['fechacorte']}" style="font-weight: bold; color: #14388B; position: relative; top: -10px; left: 21px; display: inline-block;"/>
+                              <h:outputText value="#{msg['estructura']}" style="font-weight: bold; color: #14388B; position: relative; top: -10px; left: 70px; display: inline-block;"/>
+                              <h:outputText value="#{msg['codigocc']}" style="font-weight: bold; color: #14388B; position: relative; top: -10px; left: 200px; display: inline-block;"/>
+                              <h:outputText value="#{msg['nombrecentrocosto']}" style="font-weight: bold; color: #14388B; position: relative; top: -10px; left: 215px; display: inline-block;"/>
                            </div>
 
-                           <div style="position: relative; top: -24px; left: 86px; display: inline-block;">
-                              <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="fechaHasta" value="#{controlParametro.parametroLiquidacion.fechahastacausado}"
-                                          onclick="PF('ubicacionC(([{name: 'CAMPO', value: 'FECHA HASTA'}]));">
-                                 <p:ajax event="dateSelect" listener="#{controlParametro.cambiosCampos()}" update="@this"/>
-                                 <p:ajax event="change" listener="#{controlParametro.cambiosCampos()}" update="@this"/>
-                              </p:calendar>
+                           <div style="top: -10px; position: relative;">
+                              <div style="position: relative; top: 0px; left: -5px; display: inline-block;">
+                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="fechaDesde" value="#{controlParametro.parametroLiquidacion.fechadesdecausado}" 
+                                             onclick="PF('ubicacionC(([{name: 'CAMPO', value: 'FECHA DESDE'}]));">
+                                    <p:ajax event="dateSelect" listener="#{controlParametro.cambiosCampos()}" update="@this"/>
+                                    <p:ajax event="change" listener="#{controlParametro.cambiosCampos()}" update="@this"/>
+                                 </p:calendar>
+                              </div>
+
+                              <div style="position: relative; top: 0px; left: 0px; display: inline-block;">
+                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="fechaHasta" value="#{controlParametro.parametroLiquidacion.fechahastacausado}"
+                                             onclick="PF('ubicacionC(([{name: 'CAMPO', value: 'FECHA HASTA'}]));">
+                                    <p:ajax event="dateSelect" listener="#{controlParametro.cambiosCampos()}" update="@this"/>
+                                    <p:ajax event="change" listener="#{controlParametro.cambiosCampos()}" update="@this"/>
+                                 </p:calendar>
+                              </div>
+
+                              <div style="position: relative; top: 0px; left: 5px; display: inline-block;">
+                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="fechaCorte" value="#{controlParametro.parametroLiquidacion.fechasistema}"
+                                             onclick="PF('ubicacionC(([{name: 'CAMPO', value: 'FECHA CORTE'}]));">
+                                    <p:ajax event="dateSelect" listener="#{controlParametro.cambiosCampos()}" update="@this"/>
+                                    <p:ajax event="change" listener="#{controlParametro.cambiosCampos()}" update="@this"/>
+                                 </p:calendar>
+                              </div>
+
+                              <div style="position: absolute; top: 0px; left: 265px; display: inline-block; padding: 0px;">
+                                 <p:commandButton value="" id="botonPeriodoAct" style="width: 25px; height: 25px;
+                                                  background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" 
+                                                  actionListener="#{controlPeriodosActivos.recibirEmpresa(controlParametro.parametroLiquidacion.estructura.centrocosto.empresa.secuencia)}" process="@this" action="controlperiodoactivo"/>
+                                 <p:tooltip for="botonPeriodoAct" value="#{msg['config']}"/>
+                              </div>
+
+                              <p:inputText autocomplete="off" id="Estructura" value="#{controlParametro.parametroLiquidacion.estructura.nombre}" 
+                                           style="position: relative; top: 0px; left: 50px; width: 180px; font-weight: bold; text-transform: uppercase; height: 12px; display: inline-block;" 
+                                           ondblclick="llamarLov(([{name: 'LOV', value: 'ESTRUCTURA'}]));" onclick="select();">
+                                 <p:ajax event="click" listener="#{controlParametro.valoresBackupAutocompletar('ESTRUCTURA')}"/>
+                                 <p:ajax event="change" listener="#{controlParametro.autocompletar('ESTRUCTURA', controlParametro.parametroLiquidacion.estructura.nombre)}"/>
+                              </p:inputText>
+
+                              <p:inputText autocomplete="off" id="codigoCC" value="#{controlParametro.parametroLiquidacion.estructura.centrocosto.codigo}" 
+                                           style="position: relative; top: 0px; left: 60px; width: 70px; height: 12px; display: inline-block;" readonly="true"
+                                           onclick="PF('ubicacionC(([{name: 'CAMPO', value: 'CODIGO CC'}]));"/>
+
+                              <p:inputText autocomplete="off" id="nombreCC" value="#{controlParametro.parametroLiquidacion.estructura.centrocosto.nombre}" 
+                                           style="position: relative; top: 0px; left: 60px; width: 230px; height: 12px; display: inline-block;" readonly="true"
+                                           onclick="PF('ubicacionC(([{name: 'CAMPO', value: 'NOMBRE CC'}]));"/>
                            </div>
-
-                           <div style="position: relative; top: -24px; left: 86px; display: inline-block;">
-                              <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="fechaCorte" value="#{controlParametro.parametroLiquidacion.fechasistema}"
-                                          onclick="PF('ubicacionC(([{name: 'CAMPO', value: 'FECHA CORTE'}]));">
-                                 <p:ajax event="dateSelect" listener="#{controlParametro.cambiosCampos()}" update="@this"/>
-                                 <p:ajax event="change" listener="#{controlParametro.cambiosCampos()}" update="@this"/>
-                              </p:calendar>
-                           </div>
-
-                           <p:inputText  autocomplete="off"  id="Estructura" value="#{controlParametro.parametroLiquidacion.estructura.nombre}" 
-                                        style="position: relative; top: -24px; left: 118px; width: 180px; font-weight: bold; text-transform: uppercase; height: 12px; display: inline-block;" 
-                                        ondblclick="llamarLov(([{name: 'LOV', value: 'ESTRUCTURA'}]));" onclick="select();">
-                              <p:ajax event="click" listener="#{controlParametro.valoresBackupAutocompletar('ESTRUCTURA')}"/>
-                              <p:ajax event="change" listener="#{controlParametro.autocompletar('ESTRUCTURA', controlParametro.parametroLiquidacion.estructura.nombre)}"/>
-                           </p:inputText>
-
-                           <p:inputText  autocomplete="off"  id="codigoCC" value="#{controlParametro.parametroLiquidacion.estructura.centrocosto.codigo}" 
-                                        style="position: relative; top: -24px; left: 125px; width: 70px; height: 12px; display: inline-block;" readonly="true"
-                                        onclick="PF('ubicacionC(([{name: 'CAMPO', value: 'CODIGO CC'}]));"/>
-
-                           <p:inputText  autocomplete="off"  id="nombreCC" value="#{controlParametro.parametroLiquidacion.estructura.centrocosto.nombre}" 
-                                        style="position: relative; top: -24px; left: 128px; width: 230px; height: 12px; display: inline-block;" readonly="true"
-                                        onclick="PF('ubicacionC(([{name: 'CAMPO', value: 'NOMBRE CC'}]));"/>
-
                         </div>
 
-                        <p:commandButton value="" id="botonPeriodoAct" style="width: 25px; height: 25px; position: relative; top: -47px; left: 274px; 
-                                         background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" 
-                                         actionListener="#{controlPeriodosActivos.recibirEmpresa(controlParametro.parametroLiquidacion.estructura.centrocosto.empresa.secuencia)}" process="@this" action="controlperiodoactivo"/>
-                        <p:tooltip  for="botonPeriodoAct" value="#{msg['config']}"/>
+                        <div style="margin-top: 38px;">
+                           <h:outputText value="#{msg['tipotrabajador']}" style="font-weight: bold; color: #14388B; position: relative; top: -41px; left: 0px; display: inline-block;"/>
+                           <h:outputText value="#{msg['proceso']}" style="font-weight: bold; color: #14388B; position: relative; top: -41px; left: 207px; display: inline-block;"/>
 
-                        <div>
-                           <h:outputText value="#{msg['tipotrabajador']}" style="font-weight: bold; color: #14388B; position: relative; top: -43px; left: 0px; display: inline-block;"/>
-                           <h:outputText value="#{msg['proceso']}" style="font-weight: bold; color: #14388B; position: relative; top: -43px; left: 207px; display: inline-block;"/>
-
-                           <p:inputText  autocomplete="off"  id="tipoTrabajador" value="#{controlParametro.parametroLiquidacion.tipotrabajador.nombre}" 
-                                        style="position: relative; top: -41px; width: 263px; left: -5px; text-transform: uppercase; height: 12px; display: block;" 
-                                        ondblclick="llamarLov(([{name: 'LOV', value: 'TIPO TRABAJADOR'}]));" onclick="select();">
-                              <p:ajax event="click" listener="#{controlParametro.valoresBackupAutocompletar('TIPO TRABAJADOR')}"/>
-                              <p:ajax event="change" listener="#{controlParametro.autocompletar('TIPO TRABAJADOR', controlParametro.parametroLiquidacion.tipotrabajador.nombre)}"/>
-                           </p:inputText>
-                           <p:inputText  autocomplete="off"  id="proceso" value="#{controlParametro.parametroLiquidacion.proceso.descripcion}" 
-                                        style="position: relative; top: -59px; left: 277px; width: 205px; text-transform: uppercase; height: 12px; display: inline-block;" 
-                                        ondblclick="llamarLov(([{name: 'LOV', value: 'PROCESO'}]));" onclick="select();">
-                              <p:ajax event="click" listener="#{controlParametro.valoresBackupAutocompletar('PROCESO')}"/>
-                              <p:ajax event="change" listener="#{controlParametro.autocompletar('PROCESO', controlParametro.parametroLiquidacion.proceso.descripcion)}"/>
-                           </p:inputText>
+                           <div style="margin-top: -40px; position: relative;">
+                              <p:inputText autocomplete="off" id="tipoTrabajador" value="#{controlParametro.parametroLiquidacion.tipotrabajador.nombre}" 
+                                           style="position: relative; width: 263px; left: -5px; text-transform: uppercase; height: 12px; display: inline-block;" 
+                                           ondblclick="llamarLov(([{name: 'LOV', value: 'TIPO TRABAJADOR'}]));" onclick="select();">
+                                 <p:ajax event="click" listener="#{controlParametro.valoresBackupAutocompletar('TIPO TRABAJADOR')}"/>
+                                 <p:ajax event="change" listener="#{controlParametro.autocompletar('TIPO TRABAJADOR', controlParametro.parametroLiquidacion.tipotrabajador.nombre)}"/>
+                              </p:inputText>
+                              <p:inputText autocomplete="off" id="proceso" value="#{controlParametro.parametroLiquidacion.proceso.descripcion}" 
+                                           style="position: relative; left: 28px; width: 180px; text-transform: uppercase; height: 12px; display: inline-block;" 
+                                           ondblclick="llamarLov(([{name: 'LOV', value: 'PROCESO'}]));" onclick="select();">
+                                 <p:ajax event="click" listener="#{controlParametro.valoresBackupAutocompletar('PROCESO')}"/>
+                                 <p:ajax event="change" listener="#{controlParametro.autocompletar('PROCESO', controlParametro.parametroLiquidacion.proceso.descripcion)}"/>
+                              </p:inputText>
+                           </div>
 
                         </div>
                      </p:panel>
-                     <p:commandButton style="font-weight: bold; position: relative; top: -38px; left: 513px; width: 320px; height: 30px;" 
+
+                     <p:commandButton style="font-weight: bold; position: relative; top: -35px; left: 513px; width: 320px; height: 30px;" 
                                       value="#{msg['adicionarempleados']}" actionListener="#{controlParametro.validarGuardado('ADICIONAR EMPLEADOS')}" process="@this"/>
                   </fieldset>
 
@@ -174,46 +183,48 @@
                            </p:column>  
 
                            <p:column headerText="#{msg['desde']}" sortBy="#{empleadoParametro.parametroestructura.fechadesdecausado}" filterBy="#{empleadoParametro.parametroestructura.fechadesdecausado}" 
-                                     filterMatchMode="contains" width="70" id="FechaDesde" filterStyle="display: none; visibility: hidden;"  >  
+                                     filterMatchMode="contains" width="70" id="FechaDesde" filterStyle="display: none; visibility: hidden;">  
                               <f:facet name="header"> 
-                                 <h:outputText value="#{msg['desde']}" />
+                                 <h:outputText value="#{msg['desde']}"/>
                               </f:facet>
-                              <!--                           <p:cellEditor>  
-                                                            <f:facet name="output">
-                                                               <h:outputText value="#/{empleadoParametro.parametroestructura.fechadesdecausado}" >
-                                                                  <f:convertDateTime pattern="dd/MM/yyyy" />
-                                                               </h:outputText>
-                                                            </f:facet>  
-                                                            <f:facet name="input">-->
-                              <p:inputText  autocomplete="off"  value="#{empleadoParametro.parametroestructura.fechadesdecausado}" readonly="true"
-                                           onfocus="ubicacionTabla(([{name: 'CAMPO', value: 'DESDE'}, {name: 'INDICE', value: '#{indice}'}]));">
-                                 <f:convertDateTime pattern="dd/MM/yyyy" />
-                              </p:inputText><!--
-                           </f:facet>
-                        </p:cellEditor>-->
+                              <p:cellEditor>  
+                                 <f:facet name="output">
+                                    <h:outputText value="#{empleadoParametro.parametroestructura.fechadesdecausado}" >
+                                       <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    </h:outputText>
+                                 </f:facet>  
+                                 <f:facet name="input">
+                                    <p:inputText autocomplete="off" value="#{empleadoParametro.parametroestructura.fechadesdecausado}" readonly="true"
+                                                 onfocus="ubicacionTabla(([{name: 'CAMPO', value: 'DESDE'}, {name: 'INDICE', value: '#{indice}'}])); "
+                                                 onselect="PF('empleadosParametros').unselectAllRows(); PF('empleadosParametros').selectRow(#{indice});">
+                                       <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    </p:inputText>
+                                 </f:facet>
+                              </p:cellEditor>
                               <f:facet name="footer">
                                  <h:outputText value="" />
                               </f:facet>
                            </p:column>
 
                            <p:column headerText="#{msg['hasta']}" sortBy="#{empleadoParametro.parametroestructura.fechahastacausado}" filterBy="#{empleadoParametro.parametroestructura.fechahastacausado}"
-                                     filterMatchMode="contains"  width="70" id="FechaHasta" filterStyle="display: none; visibility: hidden;"  >  
+                                     filterMatchMode="contains" width="70" id="FechaHasta" filterStyle="display: none; visibility: hidden;">  
                               <f:facet name="header">
                                  <h:outputText value="#{msg['hasta']}" />
                               </f:facet>
-                              <!--                           <p:cellEditor>  
-                                                            <f:facet name="output">
-                                                               <h:outputText value="#/{empleadoParametro.parametroestructura.fechahastacausado}" >
-                                                                  <f:convertDateTime pattern="dd/MM/yyyy" />
-                                                               </h:outputText>
-                                                            </f:facet>  
-                                                            <f:facet name="input">-->
-                              <p:inputText  autocomplete="off"  value="#{empleadoParametro.parametroestructura.fechahastacausado}" readonly="true" id="editFD" widgetVar="editFD"
-                                           onfocus="ubicacionTabla(([{name: 'CAMPO', value: 'HASTA'}, {name: 'INDICE', value: '#{indice}'}]));">
-                                 <f:convertDateTime pattern="dd/MM/yyyy" />
-                              </p:inputText>
-                              <!--                              </f:facet>
-                                                         </p:cellEditor>-->
+                              <p:cellEditor>  
+                                 <f:facet name="output">
+                                    <h:outputText value="#{empleadoParametro.parametroestructura.fechahastacausado}" >
+                                       <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    </h:outputText>
+                                 </f:facet>  
+                                 <f:facet name="input">
+                                    <p:inputText  autocomplete="off"  value="#{empleadoParametro.parametroestructura.fechahastacausado}" readonly="true" id="editFD" widgetVar="editFD"
+                                                  onfocus="ubicacionTabla(([{name: 'CAMPO', value: 'HASTA'}, {name: 'INDICE', value: '#{indice}'}]));"
+                                                  onselect="PF('empleadosParametros').unselectAllRows(); PF('empleadosParametros').selectRow(#{indice});">
+                                       <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    </p:inputText>
+                                 </f:facet>
+                              </p:cellEditor>
                               <f:facet name="footer">
                                  <h:outputText value="" />
                               </f:facet>
@@ -222,44 +233,47 @@
                            <p:column headerText="#{msg['codigo']}" sortBy="#{empleadoParametro.empleado.codigoempleado}" filterBy="#{empleadoParametro.empleado.codigoempleado}" 
                                      filterMatchMode="contains" id="Codigo" width="80" filterStyle="display: none; visibility: hidden;" style="text-align: center;">                                  
                               <f:facet name="header"><h:outputText value="#{msg['codigo']}"/> </f:facet> 
-                              <!--                           <p:cellEditor>  
-                                                            <f:facet name="output"><h:outputText value="#{empleadoParametro.empleado.codigoempleado}" /></f:facet>  
-                                                            <f:facet name="input">-->
-                              <p:inputText  autocomplete="off"  value="#{empleadoParametro.empleado.codigoempleado}" readonly="true" id="inpCodigo" widgetVar="inpCodigo"
-                                           style=" border-radius: 0px; width: 93.5%; text-transform: uppercase;"
-                                           onfocus="ubicacionTabla(([{name: 'CAMPO', value: 'CODIGO'}, {name: 'INDICE', value: '#{indice}'}]));"/> 
-                              <!--                              </f:facet>  
-                                                         </p:cellEditor>-->
+                              <p:cellEditor>  
+                                 <f:facet name="output"><h:outputText value="#{empleadoParametro.empleado.codigoempleado}" /></f:facet>  
+                                 <f:facet name="input">
+                                    <p:inputText  autocomplete="off"  value="#{empleadoParametro.empleado.codigoempleado}" readonly="true" id="inpCodigo" widgetVar="inpCodigo"
+                                                  style=" border-radius: 0px; width: 93.5%; text-transform: uppercase;"
+                                                  onfocus="ubicacionTabla(([{name: 'CAMPO', value: 'CODIGO'}, {name: 'INDICE', value: '#{indice}'}]));"
+                                                  onselect="PF('empleadosParametros').unselectAllRows(); PF('empleadosParametros').selectRow(#{indice});"/> 
+                                 </f:facet>  
+                              </p:cellEditor>
                               <f:facet name="footer">
-                                 <h:outputText value="" />
+                                 <h:outputText value=""/>
                               </f:facet>
                            </p:column>  
 
                            <p:column headerText="#{msg['primerapellido']}" sortBy="#{empleadoParametro.empleado.persona.primerapellido}" filterBy="#{empleadoParametro.empleado.persona.primerapellido}" filterMatchMode="contains" id="pApellido" width="100" filterStyle="display: none; visibility: hidden;" >                                  
                               <f:facet name="header"><h:outputText value="#{msg['primerapellido']}"/> </f:facet> 
-                              <!--                           <p:cellEditor>  
-                                                            <f:facet name="output"><h:outputText value="#{empleadoParametro.empleado.persona.primerapellido}" /></f:facet>  
-                                                            <f:facet name="input">-->
-                              <p:inputText  autocomplete="off"  value="#{empleadoParametro.empleado.persona.primerapellido}" readonly="true"
-                                           onfocus="ubicacionTabla(([{name: 'CAMPO', value: 'PAPELLIDO'}, {name: 'INDICE', value: '#{indice}'}]));"
-                                           style=" border-radius: 0px; width: 93.5%; text-transform: uppercase;"/> 
-                              <!--                              </f:facet>  
-                                                         </p:cellEditor>-->
+                              <p:cellEditor>  
+                                 <f:facet name="output"><h:outputText value="#{empleadoParametro.empleado.persona.primerapellido}" /></f:facet>  
+                                 <f:facet name="input">
+                                    <p:inputText  autocomplete="off"  value="#{empleadoParametro.empleado.persona.primerapellido}" readonly="true"
+                                                  onfocus="ubicacionTabla(([{name: 'CAMPO', value: 'PAPELLIDO'}, {name: 'INDICE', value: '#{indice}'}]));"
+                                                  onselect="PF('empleadosParametros').unselectAllRows(); PF('empleadosParametros').selectRow(#{indice});"
+                                                  style =" border-radius: 0px; width: 93.5%; text-transform: uppercase;"/> 
+                                 </f:facet>  
+                              </p:cellEditor>
                               <f:facet name="footer">
-                                 <h:outputText value="" />
+                                 <h:outputText value=""/>
                               </f:facet>
                            </p:column>  
 
                            <p:column headerText="#{msg['segundoapellido']}" sortBy="#{empleadoParametro.empleado.persona.segundoapellido}" filterBy="#{empleadoParametro.empleado.persona.segundoapellido}" filterMatchMode="contains" id="sApellido" width="100" filterStyle="display: none; visibility: hidden;" >                                  
                               <f:facet name="header"><h:outputText value="#{msg['segundoapellido']}"/> </f:facet> 
-                              <!--                           <p:cellEditor>  
-                                                            <f:facet name="output"><h:outputText value="#{empleadoParametro.empleado.persona.segundoapellido}" /></f:facet>  
-                                                            <f:facet name="input">-->
-                              <p:inputText  autocomplete="off"  value="#{empleadoParametro.empleado.persona.segundoapellido}" readonly="true" 
-                                           onfocus="ubicacionTabla(([{name: 'CAMPO', value: 'SAPELLIDO'}, {name: 'INDICE', value: '#{indice}'}]));"
-                                           style=" border-radius: 0px; width: 93.5%; text-transform: uppercase;"/> 
-                              <!--                              </f:facet>  
-                                                         </p:cellEditor>-->
+                              <p:cellEditor>  
+                                 <f:facet name="output"><h:outputText value="#{empleadoParametro.empleado.persona.segundoapellido}" /></f:facet>  
+                                 <f:facet name="input">
+                                    <p:inputText  autocomplete="off"  value="#{empleadoParametro.empleado.persona.segundoapellido}" readonly="true" 
+                                                  onfocus="ubicacionTabla(([{name: 'CAMPO', value: 'SAPELLIDO'}, {name: 'INDICE', value: '#{indice}'}]));"
+                                                  onselect="PF('empleadosParametros').unselectAllRows(); PF('empleadosParametros').selectRow(#{indice});"
+                                                  style=" border-radius: 0px; width: 93.5%; text-transform: uppercase;"/> 
+                                 </f:facet>  
+                              </p:cellEditor>
                               <f:facet name="footer">
                                  <h:outputText value="" />
                               </f:facet>
@@ -267,14 +281,15 @@
 
                            <p:column headerText="#{msg['nombre']}" sortBy="#{empleadoParametro.empleado.persona.nombre}" filterBy="#{empleadoParametro.empleado.persona.nombre}" filterMatchMode="contains" id="nombre" filterStyle="display: none; visibility: hidden;" >                                  
                               <f:facet name="header"><h:outputText value="#{msg['nombre']}"/> </f:facet> 
-                              <!--                           <p:cellEditor>  
-                                                            <f:facet name="output"><h:outputText value="#{empleadoParametro.empleado.persona.nombre}" /></f:facet>  
-                                                            <f:facet name="input">-->
-                              <p:inputText  autocomplete="off"  value="#{empleadoParametro.empleado.persona.nombre}" readonly="true" 
-                                           onfocus="ubicacionTabla(([{name: 'CAMPO', value: 'NOMBRE'}, {name: 'INDICE', value: '#{indice}'}]));"
-                                           style=" border-radius: 0px; width: 93.5%; text-transform: uppercase;"/> 
-                              <!--                              </f:facet>  
-                                                         </p:cellEditor>-->
+                              <p:cellEditor>  
+                                 <f:facet name="output"><h:outputText value="#{empleadoParametro.empleado.persona.nombre}" /></f:facet>  
+                                 <f:facet name="input">
+                                    <p:inputText  autocomplete="off"  value="#{empleadoParametro.empleado.persona.nombre}" readonly="true" 
+                                                  onfocus="ubicacionTabla(([{name: 'CAMPO', value: 'NOMBRE'}, {name: 'INDICE', value: '#{indice}'}]));"
+                                                  onselect="PF('empleadosParametros').unselectAllRows(); PF('empleadosParametros').selectRow(#{indice});"
+                                                  style=" border-radius: 0px; width: 93.5%; text-transform: uppercase;"/> 
+                                 </f:facet>  
+                              </p:cellEditor>
                               <f:facet name="footer">
                                  <h:outputText value="" />
                               </f:facet>
@@ -283,16 +298,17 @@
                            <p:column headerText="#{msg['estado']}" style="text-align: center;" width="75" sortBy="#{empleadoParametro.estadoParametro}" filterBy="#{empleadoParametro.estadoParametro}" 
                                      filterMatchMode="contains" id="estadoParametro" filterStyle="display: none; visibility: hidden;" >                                  
                               <f:facet name="header"><h:outputText value="#{msg['estado']}"/> </f:facet> 
-                              <!--                           <p:cellEditor>  
-                                                            <f:facet name="output"><h:outputText value="#{empleadoParametro.estadoParametro}" /></f:facet>  
-                                                            <f:facet name="input">-->
-                              <p:inputText  autocomplete="off"  value="#{empleadoParametro.estadoParametro}" readonly="true"  
-                                           onfocus="ubicacionTabla(([{name: 'CAMPO', value: 'ESTADO'}, {name: 'INDICE', value: '#{indice}'}]));"
-                                           style=" border-radius: 0px; width: 93.5%; text-transform: uppercase;"/> 
-                              <!--                              </f:facet>  
-                                                         </p:cellEditor>-->
+                              <p:cellEditor>  
+                                 <f:facet name="output"><h:outputText value="#{empleadoParametro.estadoParametro}" /></f:facet>  
+                                 <f:facet name="input">
+                                    <p:inputText  autocomplete="off"  value="#{empleadoParametro.estadoParametro}" readonly="true"  
+                                                  onfocus="ubicacionTabla(([{name: 'CAMPO', value: 'ESTADO'}, {name: 'INDICE', value: '#{indice}'}]));"
+                                                  onselect="PF('empleadosParametros').unselectAllRows(); PF('empleadosParametros').selectRow(#{indice});"
+                                                  style=" border-radius: 0px; width: 93.5%; text-transform: uppercase;"/> 
+                                 </f:facet>
+                              </p:cellEditor>
                               <f:facet name="footer">
-                                 <h:outputText value="" />
+                                 <h:outputText value=""/>
                               </f:facet>
                            </p:column>  
                         </p:dataTable>
@@ -315,7 +331,7 @@
 
                      <p:commandButton icon="ui-icon-extlink" style="display: inline-block; position: relative; left: 300px; top: 10px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
                                       background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="adicionarEmpleado" value="Adicionar" actionListener="#{controlParametro.cargarLovEmpleados()}" 
-                                      onclick="PF('operacionEnProceso').show()" oncomplete="PF('buscarEmpleadoDialogo').show(); operacionEnProceso').hide()" process="@this"/>
+                                      onclick="PF('operacionEnProceso').show()" oncomplete="PF('buscarEmpleadoDialogo').show(); PF('operacionEnProceso').hide()" process="@this"/>
                      <p:tooltip  for="adicionarEmpleado" value="#{msg['adicionarempleado']}" />
                   </fieldset>
 
@@ -334,82 +350,27 @@
                <p:remoteCommand name="ubicacionTabla" actionListener="#{controlParametro.ubicacionCampoTabla()}" process="@this"/>
                <p:remoteCommand name="salirGuardado" action="nomina" process="@this"/>
 
-               <script>
-                  $("#table_div").keydown(function(event) {
-                  if (event.which === 38) {
-                  event.preventDefault();
-                  up();
-                  }
-
-                  if (event.which === 40) {
-                  event.preventDefault();
-                  down();
-                  }
-                  });
-                  and add functions for this events:
-                          var down = function() {
-                          //If no rows selected, select first row
-                          if (PF('empleadosParametros').selection.length === 0){
-                          PF('empleadosParametros').selectRow(0);
-                          return;
-                          }
-                          //get index of selected row, if no row is selected return 0
-                          var index = PF('empleadosParametros').originRowIndex;
-                          //get amount of rows in the table
-                          var rows = PF('empleadosParametros').tbody[0].childElementCount;
-                          //increase row index
-                          index++;
-                          //if new index equals number of rows, set index to first row
-                          if (index === rows) {
-                          index = 0;
-                          }
-                          //deselect all selected rows
-                          PF('empleadosParametros').unselectAllRows();
-                          //select new row 
-                          PF('empleadosParametros').selectRow(index);
-                          //change originRowIndex value
-                          PF('empleadosParametros').originRowIndex = index;
-                          };
-                  var up = function() {
-                  //get amount of rows in the table
-                  var rows = PF('empleadosParametros').tbody[0].childElementCount;
-                  //get index of selected row, if no row is selected return 0
-                  var index = PF('empleadosParametros').originRowIndex;
-                  //if this is first row, set index to last row
-                  if (index === 0) {
-                  index = rows - 1;
-                  } else {
-                  index--;
-                  }
-                  //unselect all rows
-                  PF('empleadosParametros').unselectAllRows();
-                  //select previous row 
-                  PF('empleadosParametros').selectRow(index);
-                  //set index to current selected row
-                  PF('empleadosParametros').originRowIndex = index;
-                  }
-
-               </script>
             </h:form>
 
             <h:form id="formularioDialogos">
                <p:dialog header="#{msg['estructurasE']}" widgetVar="estructurasDialogo" draggable="true" resizable="false" id="estructurasDialogo"  
-                         showEffect="fade" hideEffect="fade" modal="true" width="640" height="380"  closable="false">
+                         showEffect="fade" hideEffect="fade" modal="true" width="640" closable="false">
 
-                  <p:dataTable  id="lOVEstructuras" style=" width: 600px;" var="estructura" value="#{controlParametro.lovEstructuras}"
+                  <p:dataTable  id="lOVEstructuras" var="estructura" value="#{controlParametro.lovEstructuras}"
                                 scrollable="true" scrollHeight="250" scrollWidth="620" widgetVar="lOVEstructuras" 
                                 filteredValue="#{controlParametro.filtradoLovEstructuras}" emptyMessage="#{msg['lovvacio']}"
                                 rowKey="#{estructura.secuencia}" selection="#{controlParametro.seleccionEstructura}" selectionMode="single">
 
-                     <p:ajax event="filter" listener="#{controlParametro.eventoFiltrarEstr()}"/>
+                     <p:ajax event="filter" listener="#{controlParametro.contarRegistrosLovEstr()}"/>
                      <p:ajax event="rowSelect" listener="#{controlParametro.activarAceptar()}" update=":formularioDialogos:aceptarE"/> 
                      <p:ajax event="rowDblselect" listener="#{controlParametro.actualizarEstructura()}" process="@this" />
 
                      <f:facet name="header">  
-                        <h:outputText value="#{msg['buscarE']}"  style="position: absolute; left: 27px; top: 15px"/>  
-                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lOVEstructuras').filter();" style="width: 200px; position: relative; left: -50px;" />  
-                     </f:facet>                       
-                     <p:column headerText="#{msg['nombreE']}" width="200" filterBy="#{estructura.nombre}" filterMatchMode="contains" filterStyle="width: 80% !important" >  
+                        <h:outputText value="#{msg['buscarE']}"/>
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lOVEstructuras').filter();" class="cssFiltroLOV"/>
+                     </f:facet>              
+
+                     <p:column headerText="#{msg['nombreE']}" width="200" filterBy="#{estructura.nombre}" filterMatchMode="contains" filterStyle="width: 80% !important">  
                         <h:outputText value="#{estructura.nombre}" />  
                      </p:column>  
                      <p:column headerText="#{msg['codigoE']}" width="70" filterBy="#{estructura.centrocosto.codigo}" filterMatchMode="contains" filterStyle="width: 80% !important">  
@@ -420,28 +381,28 @@
                      </p:column>
                   </p:dataTable>   
 
-                  <h:outputText id="infoRegistroEstructura" value="#{msg['infoRegistro']} #{controlParametro.infoRegistroEstructura}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
-
-                  <p:commandButton id="aceptarE" icon="ui-icon-check" value="#{msg['aceptar']}" disabled="#{controlParametro.aceptar}" style="position: absolute; top: 355px; left: 425px;" actionListener="#{controlParametro.actualizarEstructura()}" process="@this"/>
-
-                  <p:commandButton id="atrasE" icon="ui-icon-close" value="#{msg['cancelar']}" style="position: absolute; top: 355px; left: 524px; " actionListener="#{controlParametro.cancelarCambioEstructura()}" process="@this"/>
-
+                  <div class="cssBotonesLOV">
+                     <h:outputText id="infoRegistroEstructura" value="#{msg['infoRegistro']} #{controlParametro.infoRegistroEstructura}" class="cssinfoRegistroLOV"/>
+                     <p:commandButton id="aceptarE" icon="ui-icon-check" value="#{msg['aceptar']}" disabled="#{controlParametro.aceptar}" class="cssAceptarLOV" actionListener="#{controlParametro.actualizarEstructura()}" process="@this"/>
+                     <p:commandButton id="atrasE" icon="ui-icon-close" value="#{msg['cancelar']}" class="cssAtrasLOV" actionListener="#{controlParametro.cancelarCambioEstructura()}" process="@this"/>
+                  </div>
                </p:dialog>
 
                <p:dialog header="#{msg['tipostrabajadoresTT']}" widgetVar="TipoTrabajadorDialogo" draggable="true" resizable="false" closable="false" id="TipoTrabajadorDialogo"  
-                         showEffect="fade" hideEffect="fade" width="445" height="380" modal="true" >
-                  <p:dataTable id="lovTipoTrabajador" style=" width: 405px;" var="tipoTrabajador" value="#{controlParametro.lovTiposTrabajadores}" rowKey="#{tipoTrabajador.secuencia}"
+                         showEffect="fade" hideEffect="fade" width="445" modal="true">
+                  <p:dataTable id="lovTipoTrabajador" var="tipoTrabajador" value="#{controlParametro.lovTiposTrabajadores}" rowKey="#{tipoTrabajador.secuencia}"
                                selection="#{controlParametro.seleccionTipoTrabajador}" selectionMode="single" widgetVar="lovTipoTrabajador" scrollable="true" scrollHeight="250" scrollWidth="425"
                                filteredValue="#{controlParametro.filtradoLovTiposTrabajadores}" emptyMessage="#{msg['lovvacio']}">              
 
-                     <p:ajax event="filter" listener="#{controlParametro.eventoFiltrarTT()}"/>
+                     <p:ajax event="filter" listener="#{controlParametro.contarRegistrosLovTT()}"/>
                      <p:ajax event="rowSelect" listener="#{controlParametro.activarAceptar()}" update=":formularioDialogos:aceptarTT"/>
                      <p:ajax event="rowDblselect" listener="#{controlParametro.actualizarTipoTrabajador()}" process="@this" />
 
                      <f:facet name="header">  
-                        <h:outputText value="#{msg['buscarTT']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovTipoTrabajador').filter();" style="width: 180px; position: relative; left: 70px;" />  
+                        <h:outputText value="#{msg['buscarTT']}"/>
+                        <p:inputText  autocomplete="off" id="globalFilter" onkeyup="PF('lovTipoTrabajador').filter();" class="cssFiltroLOV"/>
                      </f:facet>
+
                      <p:column filterBy="#{tipoTrabajador.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 80% !important">
                         <f:facet name="header">
                            <h:outputText style="text-align: center" value="#{msg['codigoTT']}" />
@@ -456,25 +417,26 @@
                      </p:column>
                   </p:dataTable>
 
-                  <h:outputText id="infoRegistroTipoTrabajador" value="#{msg['infoRegistro']} #{controlParametro.infoRegistroTipoTrabajador}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
-
-                  <p:commandButton id="aceptarTT" style="position: relative; left: 140px; top: 10px;" icon="ui-icon-check" value="#{msg['aceptar']}" disabled="#{controlParametro.aceptar}" actionListener="#{controlParametro.actualizarTipoTrabajador()}" process="@this"/>
-
-                  <p:commandButton id="atrasTT" style="position: relative; left: 140px; top: 10px;" icon="ui-icon-close" value="#{msg['cancelar']}" actionListener="#{controlParametro.cancelarCambioTipoTrabajador()}" process="@this"/>
+                  <div class="cssBotonesLOV">
+                     <h:outputText id="infoRegistroTipoTrabajador" value="#{msg['infoRegistro']} #{controlParametro.infoRegistroTipoTrabajador}" class="cssinfoRegistroLOV"/>
+                     <p:commandButton id="aceptarTT" class="cssAceptarLOV" icon="ui-icon-check" value="#{msg['aceptar']}" disabled="#{controlParametro.aceptar}" actionListener="#{controlParametro.actualizarTipoTrabajador()}" process="@this"/>
+                     <p:commandButton id="atrasTT" class="cssAtrasLOV" icon="ui-icon-close" value="#{msg['cancelar']}" actionListener="#{controlParametro.cancelarCambioTipoTrabajador()}" process="@this"/>
+                  </div>
                </p:dialog> 
 
                <p:dialog header="#{msg['procesosP']}" widgetVar="ProcesosDialogo" draggable="true" resizable="false" closable="false" id="ProcesosDialogo"  
-                         showEffect="fade" hideEffect="fade" width="431" modal="true" height="380" >
-                  <p:dataTable id="lovProcesos" style=" width: 390px;" var="proceso" value="#{controlParametro.lovProcesos}" rowKey="#{proceso.secuencia}"
+                         showEffect="fade" hideEffect="fade" width="431" modal="true">
+                  <p:dataTable id="lovProcesos" var="proceso" value="#{controlParametro.lovProcesos}" rowKey="#{proceso.secuencia}"
                                selection="#{controlParametro.seleccionProcesos}" selectionMode="single" widgetVar="lovProcesos" scrollable="true" scrollWidth="415" scrollHeight="255"
                                filteredValue="#{controlParametro.filtradoLovProcesos}" emptyMessage="#{msg['lovvacio']}">              
 
-                     <p:ajax event="filter" listener="#{controlParametro.eventoFiltrarProc()}"/>
+                     <p:ajax event="filter" listener="#{controlParametro.contarRegistrosLovProc()}"/>
                      <p:ajax event="rowSelect" listener="#{controlParametro.activarAceptar()}" update=":formularioDialogos:aceptarP"/>
                      <p:ajax event="rowDblselect" listener="#{controlParametro.actualizarProceso()}" process="@this" />
+
                      <f:facet name="header">  
-                        <h:outputText value="#{msg['buscarP']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovProcesos').filter();" style="width: 200px; position: relative; left: 30px;" />  
+                        <h:outputText value="#{msg['buscarP']}"/>
+                        <p:inputText  autocomplete="off" id="globalFilter" onkeyup="PF('lovProcesos').filter();" class="cssFiltroLOV"/>
                      </f:facet>
                      <p:column filterBy="#{proceso.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 80% !important">
                         <f:facet name="header">
@@ -490,29 +452,29 @@
                      </p:column>
                   </p:dataTable>
 
-                  <h:outputText id="infoRegistroProceso" value="#{msg['infoRegistro']} #{controlParametro.infoRegistroProceso}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
-
-                  <p:commandButton id="aceptarP" style="position: relative; left: 120px; top: 10px;" icon="ui-icon-check" value="#{msg['aceptar']}" disabled="#{controlParametro.aceptar}" actionListener="#{controlParametro.actualizarProceso()}" process="@this"/>
-
-                  <p:commandButton id="atrasP" style="position: relative; left: 120px;  top: 10px;" icon="ui-icon-close" value="#{msg['cancelar']}" actionListener="#{controlParametro.cancelarCambioProceso()}" process="@this"/>
-
+                  <div class="cssBotonesLOV">
+                     <h:outputText id="infoRegistroProceso" value="#{msg['infoRegistro']} #{controlParametro.infoRegistroProceso}" class="cssinfoRegistroLOV"/>
+                     <p:commandButton id="aceptarP" class="cssAceptarLOV" icon="ui-icon-check" value="#{msg['aceptar']}" disabled="#{controlParametro.aceptar}" actionListener="#{controlParametro.actualizarProceso()}" process="@this"/>
+                     <p:commandButton id="atrasP" class="cssAtrasLOV" icon="ui-icon-close" value="#{msg['cancelar']}" actionListener="#{controlParametro.cancelarCambioProceso()}" process="@this"/>
+                  </div>
                </p:dialog>
 
                <p:dialog id="buscarEmpleadoDialogo" header="#{msg['empleadosEM']}" widgetVar="buscarEmpleadoDialogo" resizable="false" draggable="true" 
-                         modal="true"  width="695" height="365" closable="false">  
-                  <p:dataTable  id="lovEmpleados" style=" width: 650px;" var="empleado" value="#{controlParametro.lovEmpleados}"
+                         modal="true" width="695" closable="false">  
+
+                  <p:dataTable  id="lovEmpleados" var="empleado" value="#{controlParametro.lovEmpleados}"
                                 scrollable="true" scrollHeight="225" scrollWidth="670" widgetVar="lovEmpleados" 
                                 filteredValue="#{controlParametro.filtradoLovEmpleados}" emptyMessage="#{msg['lovvacio']}"
                                 rowKey="#{empleado.secuencia}" selection="#{controlParametro.seleccionEmpleado}" selectionMode="single" >
 
-                     <p:ajax event="filter" listener="#{controlParametro.eventoFiltrarEmpl()}"/>
+                     <p:ajax event="filter" listener="#{controlParametro.contarRegistrosLovEmpl()}"/>
                      <p:ajax event="rowSelect" listener="#{controlParametro.activarAceptar()}" update=":formularioDialogos:aceptarEm"/>
-                     <p:ajax event="rowDblselect" listener="#{controlParametro.seleccionarEmpleado()}" process="@this" onstart="PF('operacionEnProceso').show()" oncomplete="PF(' operacionEnProceso').hide()" />
+                     <p:ajax event="rowDblselect" listener="#{controlParametro.seleccionarEmpleado()}" process="@this" onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" />
 
                      <f:facet name="header" >  
-                        <h:outputText value="#{msg['buscarEM']}"  style="position: absolute; left: 22px; top: 18px;"/>  
-                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovEmpleados').filter();" style="width: 200px; position: relative; left: -75px;"/>
-                        <p:watermark for="globalFilter" value="#{msg['ingresarvalorabuscar']}" />
+                        <h:outputText value="#{msg['buscarEM']}"/>
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovEmpleados').filter();" class="cssFiltroLOV"/>
+                        <p:watermark for="globalFilter" value="#{msg['ingresarvalorabuscar']}"/>
                      </f:facet>
 
                      <p:column  headerText="#{msg['codigo']}" width="90" filterBy="#{empleado.codigoempleado}" filterMatchMode="contains" filterStyle="width: 80% !important">  
@@ -528,16 +490,16 @@
                      </p:column>  
 
                      <p:column headerText="#{msg['nombreEM']}" width="200" filterBy="#{empleado.persona.nombre}" filterMatchMode="contains" filterStyle="width: 80% !important">  
-                        <h:outputText value="#{empleado.persona.nombre}" />  
+                        <h:outputText value="#{empleado.persona.nombre}"/>  
                      </p:column> 
                   </p:dataTable> 
 
-                  <h:outputText id="infoRegistroEmpleado" value="#{msg['infoRegistro']} #{controlParametro.infoRegistroEmpleado}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
-
-                  <p:commandButton id="aceptarEm" style="position: relative; left: 370px; top: 13px;" onclick="PF('operacionEnProceso').show()" oncomplete="PF(' operacionEnProceso').hide()"
-                                   icon="ui-icon-check" value="#{msg['aceptar']}" disabled="#{controlParametro.aceptar}" actionListener="#{controlParametro.seleccionarEmpleado()}" process="@this" />
-
-                  <p:commandButton id="atras" style="position: relative; left: 370px; top: 13px;" icon="ui-icon-close" value="#{msg['cancelar']}" actionListener="#{controlParametro.cancelarSeleccionEmpleado()}" process="@this"/>
+                  <div class="cssBotonesLOV">
+                     <h:outputText id="infoRegistroEmpleado" value="#{msg['infoRegistro']} #{controlParametro.infoRegistroEmpleado}" class="cssinfoRegistroLOV"/>
+                     <p:commandButton id="aceptarEm" class="cssAceptarLOV" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"
+                                      icon="ui-icon-check" value="#{msg['aceptar']}" disabled="#{controlParametro.aceptar}" actionListener="#{controlParametro.seleccionarEmpleado()}" process="@this" />
+                     <p:commandButton id="atras" class="cssAtrasLOV" icon="ui-icon-close" value="#{msg['cancelar']}" actionListener="#{controlParametro.cancelarSeleccionEmpleado()}" process="@this"/>
+                  </div>
                </p:dialog>
 
                <p:dialog id="editarFechaDesde" header="#{msg['editarFechaDesde']}" widgetVar="editarFechaDesde" resizable="false" closable="true" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
@@ -548,13 +510,13 @@
 
                <p:dialog id="editarFechaHasta" header="#{msg['editarFechaHasta']}" widgetVar="editarFechaHasta" resizable="false" closable="true" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                   <p:inputTextarea value="#{controlParametro.parametroLiquidacion.fechahastacausado}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
-                     <f:convertDateTime pattern="dd/MM/yyyy" />
+                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                   </p:inputTextarea>
                </p:dialog>
 
                <p:dialog id="editarFechaCorte" header="#{msg['editarFechaCorte']}" widgetVar="editarFechaCorte" resizable="false" closable="true" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                   <p:inputTextarea value="#{controlParametro.parametroLiquidacion.fechasistema}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
-                     <f:convertDateTime pattern="dd/MM/yyyy" />
+                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                   </p:inputTextarea>
                </p:dialog>
 
@@ -622,7 +584,7 @@
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="100" height="80" style="position: absolute; left: 20px; top: 20px;"  />
                   <h:outputText value="#{msg['confirmarAdicionarEmpleados1']} #{controlParametro.empleadosParametrizados} #{msg['confirmarAdicionarEmpleados2']}" style="position: absolute; left: 135px; top: 20px; width: 270px; font-weight:bold; text-align: justify" />
                   <h:outputText value="#{msg['deseacontinuar']}" style="position: absolute; left: 100px; top: 95px; width: 300px; font-weight:bold; text-align: center" />
-                  <p:commandButton value="#{msg['aceptar']}" onclick="PF('confirmarAdicionarEmpleados').hide(); operacionEnProceso').show()" oncomplete="PF(' operacionEnProceso').hide()"
+                  <p:commandButton value="#{msg['aceptar']}" onclick="PF('confirmarAdicionarEmpleados').hide(); PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"
                                    actionListener="#{controlParametro.adicionarEmpleados()}" 
                                    style="position: absolute; top: 120px; left: 210px; " process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarAdicionarEmpleados').hide();" style="position: absolute; top: 120px; left: 310px;" process="@this" icon="ui-icon-close"/>

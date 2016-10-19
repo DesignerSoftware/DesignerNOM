@@ -681,7 +681,7 @@ public class ControlLegislacion implements Serializable {
          columnaTipoCotizante = (Column) c.getViewRoot().findComponent("form:datosContratos:columnaTipoCotizante");
          columnaTipoCotizante.setFilterStyle("width: 85% !important;");
          columnaEstado = (Column) c.getViewRoot().findComponent("form:datosContratos:columnaEstado");
-         columnaEstado.setFilterStyle("width: 80%;");
+         columnaEstado.setFilterStyle("width: 80% !important;");
          RequestContext.getCurrentInstance().update("form:datosContratos");
          bandera = 1;
       } else if (bandera == 1) {

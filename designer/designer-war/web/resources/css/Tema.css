@@ -636,3 +636,9 @@ button .ui-widget-header{
    height: 12px !important;
    top: -1px !important;
 }
+
+.ui-selectonemenu {
+    display: block;
+    height: 19px;
+    padding-right: 27px;
+}
