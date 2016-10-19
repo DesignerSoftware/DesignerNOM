@@ -145,4 +145,18 @@ public class PersistenciaCargos implements PersistenciaCargosInterface {
             return null;
         }
     }
+
+    @Override
+    public List<Cargos> lovCargos(EntityManager em) {
+        try {
+            em.clear();
+            String sql = "SELECT ALL CARGOS.NOMBRE, CARGOS.SECUENCIA FROM CARGOS";
+            Query query = em.createNativeQuery(sql, Cargos.class);
+            List<Cargos> cargos = query.getResultList();
+            return cargos;
+        } catch (Exception e) {
+            System.out.println("Error PersistenciaCargos.lovCargos: " + e);
+            return null;
+        }
+    }
 }

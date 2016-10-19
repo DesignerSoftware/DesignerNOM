@@ -54,4 +54,6 @@ public interface PersistenciaDireccionesInterface {
      * @return Retorna una lista de Direcciones
      */
     public List<Direcciones> direccionesPersona(EntityManager em,BigInteger secuenciaPersona);
+    
+    public Direcciones direccionActualPersona(EntityManager em,BigInteger secuenciaPersona);
 }

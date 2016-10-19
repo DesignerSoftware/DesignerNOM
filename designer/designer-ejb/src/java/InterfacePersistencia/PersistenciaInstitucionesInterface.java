@@ -43,5 +43,7 @@ public interface PersistenciaInstitucionesInterface {
      * @return Retorna una lista de Instituciones.
      */
     public List<Instituciones> instituciones(EntityManager em);
+    
+    public List<Instituciones> lovInstituciones(EntityManager em);
 
 }

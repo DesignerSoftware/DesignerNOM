@@ -39,7 +39,7 @@
                                 <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
 
                                 <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" actionListener="#{controlVigenciasEstadosCiviles.limpiarNuevoVigenciaEstadoCivil()}"  ajax="false">
-                                    <p:dataExporter type="xml"  target=":formExportar:datosHvEntrevistaExportar" fileName="VIGENCASNORMASLABORALES" encoding="UTF-8"/> 
+                                    <p:dataExporter type="xml"  target=":formExportar:datosHvEntrevistaExportar" fileName="VIGENCASVIGESTADOSCIVILES" encoding="UTF-8"/> 
                                 </p:commandButton> 
                                 <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
 
@@ -50,7 +50,7 @@
                                 <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);  background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px "  oncomplete="PF('nuevoRegistroEstadoCivil').show()" update=":formularioDialogos:nuevoEstadoCivil" process="@this"/> 
                                 <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
 
-                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" actionListener="#{controlVigenciasEstadosCiviles.borrandoHvEntrevistas()}" process="@this"/>  
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);"  actionListener="#{controlVigenciasEstadosCiviles.borrandoHvEntrevistas()}" process="@this"/>  
                                 <p:tooltip  for="eliminar" value="#{msg['eliminar']}" />
 
                                 <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlVigenciasEstadosCiviles.duplicandoVigenciaEstadoCivil()}" process="@this"/>  
@@ -63,7 +63,6 @@
                                 <p:separator style="position: relative; top: -9px"/>
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlVigenciasEstadosCiviles.cancelarModificacion()}" process="@this" oncomplete="PF('window.location.reload()"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
-                               
                                 <p:separator style="position: relative; top: -9px"/>
                                 <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlVigenciasEstadosCiviles.salir()}" action="atrasPerEstadoCivil" process="@this"/>  
                                 <p:tooltip  for="salir" value="Salir"/>
@@ -116,7 +115,7 @@
                                             <p:inputText  autocomplete="off"  value="#{info.estadocivil.descripcion}" id="editarparentesco" style=" border-radius: 0px; width: 99%; height: 12px; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlVigenciasEstadosCiviles.cambiarIndice(info, 1)}" process="@this"/> 
                                                 <p:ajax event="dblclick" listener="#{controlVigenciasEstadosCiviles.asignarIndex(info, 0,1)}" process="@this"/>
-                                                <p:ajax event="change" listener="#{controlVigenciasEstadosCiviles.modificandoVigenciaEstadoCivil(info, 'NORMASLABORALES',info.estadocivil.descripcion)}"/>
+                                                <p:ajax event="change" listener="#{controlVigenciasEstadosCiviles.modificandoVigenciaEstadoCivil(info, 'VIGESTADOSCIVILES',info.estadocivil.descripcion)}"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -285,7 +284,7 @@
                             <strong><h:outputText value="*Estado Civil: " style=" position: absolute; top: 85px;" /></strong>
                             <p:inputText  autocomplete="off"  id="nuevoNombreSucursal" value="#{controlVigenciasEstadosCiviles.nuevoVigenciaEstadoCivil.estadocivil.descripcion}" style=" width: 127px; position: absolute; left: 135px; top: 80px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlVigenciasEstadosCiviles.valoresBackupAutocompletar(1)}" />
-                                <p:ajax event="change" listener="#{controlVigenciasEstadosCiviles.autocompletarNuevo('NORMASLABORALES',controlVigenciasEstadosCiviles.nuevoVigenciaEstadoCivil.estadocivil.descripcion, 1)}" />
+                                <p:ajax event="change" listener="#{controlVigenciasEstadosCiviles.autocompletarNuevo('VIGESTADOSCIVILES',controlVigenciasEstadosCiviles.nuevoVigenciaEstadoCivil.estadocivil.descripcion, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlVigenciasEstadosCiviles.asignarVariableEstadosCiviles(0)}" />
                             </p:inputText>
 
@@ -316,7 +315,7 @@
                             <p:inputText  autocomplete="off"  id="duplicarEstadoCivil" value="#{controlVigenciasEstadosCiviles.duplicarVigenciaEstadoCivil.estadocivil.descripcion}" style=" width: 127px; position: absolute; left: 135px; top: 80px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="select" listener="#{controlVigenciasEstadosCiviles.valoresBackupAutocompletar(2)}" />
                                 <p:ajax event="click" listener="#{controlVigenciasEstadosCiviles.valoresBackupAutocompletar(2)}" />
-                                <p:ajax event="change" listener="#{controlVigenciasEstadosCiviles.autocompletarDuplicado('NORMASLABORALES',controlVigenciasEstadosCiviles.duplicarVigenciaEstadoCivil.estadocivil.descripcion, 2)}" />
+                                <p:ajax event="change" listener="#{controlVigenciasEstadosCiviles.autocompletarDuplicado('VIGESTADOSCIVILES',controlVigenciasEstadosCiviles.duplicarVigenciaEstadoCivil.estadocivil.descripcion, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlVigenciasEstadosCiviles.asignarVariableEstadosCiviles(1)}" />
                             </p:inputText>
                             <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 272px; top: 80px;  " id="btnduplicarNombreSucursal" value=" " process="@this"  actionListener="#{controlVigenciasEstadosCiviles.asignarVariableEstadosCiviles(1)}"/>   

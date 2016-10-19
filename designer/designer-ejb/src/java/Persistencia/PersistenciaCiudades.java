@@ -30,7 +30,6 @@ public class PersistenciaCiudades implements PersistenciaCiudadesInterface {
      */
     /*@PersistenceContext(unitName = "DesignerRHN-ejbPU")
      private EntityManager em;*/
-
     @Override
     public void crear(EntityManager em, Ciudades ciudades) {
         em.clear();
@@ -89,6 +88,19 @@ public class PersistenciaCiudades implements PersistenciaCiudadesInterface {
             em.clear();
             Query query = em.createQuery("SELECT c FROM Ciudades c ORDER BY c.nombre");
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            List<Ciudades> ciudades = query.getResultList();
+            return ciudades;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    @Override
+    public List<Ciudades> lovCiudades(EntityManager em) {
+        try {
+            em.clear();
+            String sql = "SELECT  SECUENCIA,  NOMBRE FROM  CIUDADES ORDER BY NOMBRE";
+            Query query = em.createNativeQuery(sql, Ciudades.class);
             List<Ciudades> ciudades = query.getResultList();
             return ciudades;
         } catch (Exception e) {

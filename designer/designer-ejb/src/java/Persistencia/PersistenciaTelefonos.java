@@ -138,4 +138,19 @@ public class PersistenciaTelefonos implements PersistenciaTelefonosInterface {
          return null;
       }
    }
+
+    @Override
+    public Telefonos telefonoActual(EntityManager em, BigInteger secuenciaPersona) {
+       try {
+         em.clear();
+         String sql="SELECT * FROM TELEFONOS WHERE FECHAVIGENCIA =(SELECT MAX(FECHAVIGENCIA) FROM TELEFONOS WHERE PERSONA = ? )"  ;
+         Query query = em.createNativeQuery(sql, Telefonos.class);
+         query.setParameter(1, secuenciaPersona);
+         Telefonos telefono =(Telefonos) query.getSingleResult();
+         return telefono;
+      } catch (Exception e) {
+             System.out.println("Error en direccionActualPersona : " + e.toString());
+         return null;
+      }
+    }
 }

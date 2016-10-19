@@ -81,7 +81,7 @@
                                          editable="true" editMode="cell" paginator="false"   selection="#{controlDiagnosticosCategorias.diagnosticoCapituloSeleccionado}" selectionMode="single" >
                                 <p:ajax event="filter" listener="#{controlDiagnosticosCategorias.eventoFiltrarCapitulo()}"/>
 
-                                <p:column headerText="Código" sortBy="#{capitulo.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigoCapitulo" width="30" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="Código" sortBy="#{capitulo.codigo}" filterBy="#{capitulo.codigo}" filterMatchMode="contains" id="codigoCapitulo" width="30" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{capitulo.codigo}" style="text-transform: uppercase" /></f:facet>  
                                         <f:facet name="input">

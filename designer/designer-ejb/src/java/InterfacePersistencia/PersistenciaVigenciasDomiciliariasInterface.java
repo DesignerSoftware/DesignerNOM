@@ -19,5 +19,9 @@ public interface PersistenciaVigenciasDomiciliariasInterface {
      * @param secuencia Secuencia de la Persona.
      * @return Retorna una lista de las VigenciasDomiciliarias asociadas a una Persona.
      */
+    
+    public void crear(EntityManager em,VigenciasDomiciliarias visita);
+    public void borrar(EntityManager em,VigenciasDomiciliarias visita);
+    public void editar(EntityManager em,VigenciasDomiciliarias visita);
     public List<VigenciasDomiciliarias> visitasDomiciliariasPersona(EntityManager em, BigInteger secuencia) ;
 }

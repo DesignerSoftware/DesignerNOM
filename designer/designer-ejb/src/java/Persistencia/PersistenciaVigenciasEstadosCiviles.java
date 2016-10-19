@@ -178,4 +178,19 @@ public class PersistenciaVigenciasEstadosCiviles implements PersistenciaVigencia
          return null;
       }
    }
+
+    @Override
+    public VigenciasEstadosCiviles estadoCivilActual(EntityManager em, BigInteger secuenciaPersona) {
+        try {
+         em.clear();
+         String sql="SELECT * FROM VIGENCIASESTADOSCIVILES WHERE FECHAVIGENCIA =(SELECT MAX(FECHAVIGENCIA) FROM VIGENCIASESTADOSCIVILES WHERE PERSONA = ? )"  ;
+         Query query = em.createNativeQuery(sql, VigenciasEstadosCiviles.class);
+         query.setParameter(1, secuenciaPersona);
+         VigenciasEstadosCiviles estadoc =(VigenciasEstadosCiviles) query.getSingleResult();
+         return estadoc;
+      } catch (Exception e) {
+             System.out.println("Error en estadoCivilActual : " + e.toString());
+         return null;
+      }
+    }
 }

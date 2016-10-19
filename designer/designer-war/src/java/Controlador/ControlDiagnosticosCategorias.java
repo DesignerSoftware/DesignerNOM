@@ -123,7 +123,6 @@ public class ControlDiagnosticosCategorias implements Serializable {
             HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
             administrarDiagnosticosCategorias.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
-            contarRegistros();
         } catch (Exception e) {
             System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
             System.out.println("Causa: " + e.getCause());
@@ -142,7 +141,6 @@ public class ControlDiagnosticosCategorias implements Serializable {
 
         listaDiagnosticosSecciones = null;
         getListaDiagnosticosSecciones();
-        contarRegistrosSecciones();
         if (listaDiagnosticosSecciones != null) {
             if (!listaDiagnosticosSecciones.isEmpty()) {
                 diagnosticoSeccionSeleccionado = listaDiagnosticosSecciones.get(0);
@@ -150,7 +148,6 @@ public class ControlDiagnosticosCategorias implements Serializable {
         }
         listaDiagnosticosCategorias = null;
         getListaDiagnosticosCategorias();
-        contarRegistros();
 
 //        if (listaDiagnosticosCategorias != null) {
 //            if (!listaDiagnosticosCategorias.isEmpty()) {

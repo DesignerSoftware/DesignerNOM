@@ -469,8 +469,8 @@ public class ControlPersonaEducacion implements Serializable {
                 } else {
                     vigenciaFormalSeleccionada.setAdiestramientof(listaAdiestramientosFormales.get(indiceUnicoElemento));
                 }
-                listaProfesiones.clear();
-                getListaProfesiones();
+                listaAdiestramientosFormales.clear();
+                getListaAdiestramientosFormales();
             } else {
                 permitirIndex = false;
                 RequestContext.getCurrentInstance().update("formularioDialogos:profesionesDialogo");

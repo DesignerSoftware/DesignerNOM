@@ -186,4 +186,19 @@ public class PersistenciaDirecciones implements PersistenciaDireccionesInterface
          return null;
       }
    }
+
+    @Override
+    public Direcciones direccionActualPersona(EntityManager em, BigInteger secuenciaPersona) {
+         try {
+         em.clear();
+         String sql="SELECT * FROM DIRECCIONES WHERE FECHAVIGENCIA =(SELECT MAX(FECHAVIGENCIA) FROM DIRECCIONES WHERE PERSONA = ? )"  ;
+         Query query = em.createNativeQuery(sql, Direcciones.class);
+         query.setParameter(1, secuenciaPersona);
+         Direcciones direccion =(Direcciones) query.getSingleResult();
+         return direccion;
+      } catch (Exception e) {
+             System.out.println("Error en direccionActualPersona : " + e.toString());
+         return null;
+      }
+    }
 }

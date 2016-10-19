@@ -74,6 +74,8 @@ public interface PersistenciaCargosInterface {
      * @return Retorna una lista de Cargos
      */
     public List<Cargos> buscarCargosPorSecuenciaEmpresa(EntityManager em,BigInteger secEmpresa);
+    
+    public List<Cargos> lovCargos(EntityManager em);
 
    // public List<Cargos> consultarCargosXEmpresa(EntityManager em, BigInteger secEmpresa);
 }

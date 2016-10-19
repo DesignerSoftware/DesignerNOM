@@ -48,5 +48,7 @@ public interface PersistenciaTelefonosInterface {
      * @return Retorna una lista de Teléfonos asociados a una persona específica.
      */
     public List<Telefonos> telefonosPersona(EntityManager em, BigInteger secuenciaPersona);
+    
+    public Telefonos telefonoActual(EntityManager em, BigInteger secuenciaPersona);
 
 }

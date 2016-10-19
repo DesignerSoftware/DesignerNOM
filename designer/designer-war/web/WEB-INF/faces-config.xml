@@ -6071,7 +6071,7 @@
         </navigation-case>
     </navigation-rule>
     
-            <navigation-rule>
+    <navigation-rule>
         <from-view-id>/empleadoindividual.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>pruebasaplicadas</from-outcome>
@@ -6088,4 +6088,20 @@
         </navigation-case>
     </navigation-rule>
     
+    <navigation-rule>
+        <from-view-id>/empleadoindividual.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>visitadomiciliaria</from-outcome>
+            <to-view-id>/pervigenciadomiciliaria.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/pervigenciadomiciliaria.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>atrasvisitadomiciliaria</from-outcome>
+            <to-view-id>/empleadoindividual.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
 </faces-config>

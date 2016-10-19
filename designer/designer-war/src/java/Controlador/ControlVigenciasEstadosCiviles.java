@@ -451,7 +451,7 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
             }
             RequestContext.getCurrentInstance().update("form:datosHvEntrevista");
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
-        } else if (confirmarCambio.equalsIgnoreCase("NORMASLABORALES")) {
+        } else if (confirmarCambio.equalsIgnoreCase("VIGESTADOSCIVILES")) {
             System.out.println("MODIFICANDO ESTADO CIVIL : " + vigenciaSeleccionada.getEstadocivil().getDescripcion());
             if (!vigenciaSeleccionada.getEstadocivil().getDescripcion().equals("")) {
                 if (tipoLista == 0) {
@@ -608,7 +608,7 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
         int coincidencias = 0;
         int indiceUnicoElemento = 0;
         RequestContext context = RequestContext.getCurrentInstance();
-        if (confirmarCambio.equalsIgnoreCase("NORMASLABORALES")) {
+        if (confirmarCambio.equalsIgnoreCase("VIGESTADOSCIVILES")) {
             System.out.println(" nueva Ciudad    Entro al if 'Centro costo'");
             System.out.println("NOMBRE CENTRO COSTO: " + nuevoVigenciaEstadoCivil.getEstadocivil().getDescripcion());
 
@@ -689,7 +689,7 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
         int coincidencias = 0;
         int indiceUnicoElemento = 0;
         RequestContext context = RequestContext.getCurrentInstance();
-        if (confirmarCambio.equalsIgnoreCase("NORMASLABORALES")) {
+        if (confirmarCambio.equalsIgnoreCase("VIGESTADOSCIVILES")) {
             System.out.println("DUPLICAR valorConfirmar : " + valorConfirmar);
             System.out.println("DUPLICAR CIUDAD bkp : " + nuevoYduplicarCompletarEstadoCivil);
 
@@ -1078,7 +1078,7 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
         DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosHvEntrevistaExportar");
         FacesContext context = FacesContext.getCurrentInstance();
         Exporter exporter = new ExportarPDF();
-        exporter.export(context, tabla, "VIGENCIASNORMASLABORALES", false, false, "UTF-8", null, null);
+        exporter.export(context, tabla, "VIGENCIASVIGESTADOSCIVILES", false, false, "UTF-8", null, null);
         context.responseComplete();
         vigenciaSeleccionada = null;
         vigenciaSeleccionada = null;
@@ -1088,7 +1088,7 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
         DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosHvEntrevistaExportar");
         FacesContext context = FacesContext.getCurrentInstance();
         Exporter exporter = new ExportarXLS();
-        exporter.export(context, tabla, "VIGENCIASNORMASLABORALES", false, false, "UTF-8", null, null);
+        exporter.export(context, tabla, "VIGENCIASVIGESTADOSCIVILES", false, false, "UTF-8", null, null);
         context.responseComplete();
         vigenciaSeleccionada = null;
         vigenciaSeleccionada = null;

@@ -28,7 +28,6 @@ public class PersistenciaInstituciones implements PersistenciaInstitucionesInter
      */
 //   @PersistenceContext(unitName = "DesignerRHN-ejbPU")
 //    private EntityManager em;
-
     @Override
     public void crear(EntityManager em, Instituciones instituciones) {
         em.clear();
@@ -96,12 +95,26 @@ public class PersistenciaInstituciones implements PersistenciaInstitucionesInter
     public List<Instituciones> instituciones(EntityManager em) {
         try {
             em.clear();
-            String sql="SELECT * FROM INSTITUCIONES ORDER by CODIGO";
+            String sql = "SELECT * FROM INSTITUCIONES ORDER by CODIGO";
             Query query = em.createNativeQuery(sql, Instituciones.class);
             List<Instituciones> listaInstituciones = query.getResultList();
             return listaInstituciones;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposTelefonos.tiposTelefonos" + e);
+            return null;
+        }
+    }
+
+    @Override
+    public List<Instituciones> lovInstituciones(EntityManager em) {
+        try {
+            em.clear();
+            String sql = "SELECT ALL INSTITUCIONES.SECUENCIA, \n"
+                    + "INSTITUCIONES.CODIGO, INSTITUCIONES.DESCRIPCION\n"
+                    + "FROM INSTITUCIONES  ORDER BY INSTITUCIONES.CODIGO ASC";
+            Query query = em.createNativeQuery(sql, Instituciones.class);
+            List<Instituciones> listaInstituciones = query.getResultList();
+            return listaInstituciones;
+        } catch (Exception e) {
             return null;
         }
     }

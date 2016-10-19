@@ -14,7 +14,7 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "VIGENCIASDOMICILIARIAS")
 public class VigenciasDomiciliarias implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -170,6 +170,44 @@ public class VigenciasDomiciliarias implements Serializable {
     @JoinColumn(name = "PERSONA", referencedColumnName = "SECUENCIA")
     @ManyToOne(optional = false)
     private Personas persona;
+    @Transient
+    private boolean recagua;
+    @Transient
+    private boolean recluz;
+    @Transient
+    private boolean rectelefono;
+    @Transient
+    private boolean recparabolica;
+    @Transient
+    private boolean rectransporte;
+    @Transient
+    private boolean recalcantarillado;
+    @Transient
+    private boolean recaseo;
+    @Transient
+    private boolean recotro;
+    @Transient
+    private boolean ingindependiente;
+    @Transient
+    private boolean ingpension;
+    @Transient
+    private boolean ingsalario;
+    @Transient
+    private boolean ingcdt;
+    @Transient
+    private boolean ingauxilios;
+    @Transient
+    private boolean aportepadre;
+    @Transient
+    private boolean aportemadre;
+    @Transient
+    private boolean aportehermano;
+    @Transient
+    private boolean aporteabuelo;
+    @Transient
+    private boolean aportetio;
+    @Transient
+    private boolean aporteotro;
 
     public VigenciasDomiciliarias() {
     }
@@ -583,6 +621,246 @@ public class VigenciasDomiciliarias implements Serializable {
         this.persona = persona;
     }
 
+    public boolean isRecagua() {
+        if ("S".equals(servicioagua)) {
+            recagua = true;
+        } else {
+            recagua = false;
+        }
+        return recagua;
+    }
+
+    public void setRecagua(boolean recagua) {
+        this.recagua = recagua;
+        if (recagua) {
+            this.servicioagua = "S";
+        } else {
+            this.servicioagua = "N";
+        }
+        System.out.println("servicio agua: " + recagua + "" + servicioagua);
+    }
+
+    public boolean isRecluz() {
+        if ("S".equals(servicioluz)) {
+            recluz = true;
+        } else {
+            recluz = false;
+        }
+        return recluz;
+    }
+
+    public void setRecluz(boolean recluz) {
+        this.recluz = recluz;
+        if (recluz) {
+            this.servicioluz = "S";
+        } else {
+            this.servicioluz = "N";
+        }
+        System.out.println("servicio luz: " + recluz + "" + servicioluz);
+    }
+
+    public boolean isRectelefono() {
+         if ("S".equals(serviciotelefono)) {
+            rectelefono = true;
+        } else {
+            rectelefono = false;
+        }
+        return rectelefono;
+    }
+
+    public void setRectelefono(boolean rectelefono) {
+        this.rectelefono = rectelefono;
+        if (rectelefono) {
+            this.serviciotelefono = "S";
+        } else {
+            this.serviciotelefono = "N";
+        }
+        System.out.println("servicio Telefono: " + this.rectelefono + "" + serviciotelefono);
+    }
+
+    public boolean isRecparabolica() {
+         if ("S".equals(servicioparabolica)) {
+            recparabolica = true;
+        } else {
+            recparabolica = false;
+        }
+        return recparabolica;
+    }
+
+    public void setRecparabolica(boolean recparabolica) {
+        this.recparabolica = recparabolica;
+        if (recparabolica) {
+            this.servicioparabolica = "S";
+        } else {
+            this.servicioparabolica = "N";
+        }
+        System.out.println("servicio Parabolica: " + this.recparabolica + "" + servicioparabolica);
+    }
+
+    public boolean isRectransporte() {
+       if ("S".equals(serviciotransporte)) {
+            rectransporte = true;
+        } else {
+            rectransporte = false;
+        }
+        return rectransporte;
+    }
+
+    public void setRectransporte(boolean rectransporte) {
+        this.rectransporte = rectransporte;
+        if (rectransporte) {
+            this.serviciotransporte = "S";
+        } else {
+            this.serviciotransporte = "N";
+        }
+        System.out.println("servicio Transporte: " + this.rectransporte + "" + serviciotransporte);
+    }
+
+    public boolean isRecalcantarillado() {
+         if ("S".equals(servicioalcantarillado)) {
+            recalcantarillado = true;
+        } else {
+            recalcantarillado = false;
+        }
+        return recalcantarillado;
+    }
+
+    public void setRecalcantarillado(boolean recalcantarillado) {
+        this.recalcantarillado = recalcantarillado;
+        if (recalcantarillado) {
+            this.servicioalcantarillado = "S";
+        } else {
+            this.servicioalcantarillado = "N";
+        }
+        System.out.println("servicio Alcantarillado: " + this.recalcantarillado + "" + servicioalcantarillado);
+    }
+
+    public boolean isRecaseo() {
+         if ("S".equals(servicioaseo)) {
+            recaseo = true;
+        } else {
+            recaseo = false;
+        }
+        return recaseo;
+    }
+
+    public void setRecaseo(boolean recaseo) {
+        this.recaseo = recaseo;
+        if (recaseo) {
+            this.servicioaseo = "S";
+        } else {
+            this.servicioaseo = "N";
+        }
+        System.out.println("servicio Aseo: " + this.recaseo + "" + servicioaseo);
+    }
+
+    public boolean isRecotro() {
+        if ("S".equals(serviciootros)) {
+            recotro = true;
+        } else {
+            recotro = false;
+        }
+        return recotro;
+    }
+
+    public void setRecotro(boolean recotro) {
+        this.recotro = recotro;
+        if (recotro) {
+            this.serviciootros = "S";
+        } else {
+            this.serviciootros = "N";
+        }
+        System.out.println("servicio Otro: " + this.recotro + "" + serviciootros);
+    }
+
+    public boolean isIngindependiente() {
+        return ingindependiente;
+    }
+
+    public void setIngindependiente(boolean ingindependiente) {
+        this.ingindependiente = ingindependiente;
+    }
+
+    public boolean isIngpension() {
+        return ingpension;
+    }
+
+    public void setIngpension(boolean ingpension) {
+        this.ingpension = ingpension;
+    }
+
+    public boolean isIngsalario() {
+        return ingsalario;
+    }
+
+    public void setIngsalario(boolean ingsalario) {
+        this.ingsalario = ingsalario;
+    }
+
+    public boolean isIngcdt() {
+        return ingcdt;
+    }
+
+    public void setIngcdt(boolean ingcdt) {
+        this.ingcdt = ingcdt;
+    }
+
+    public boolean isIngauxilios() {
+        return ingauxilios;
+    }
+
+    public void setIngauxilios(boolean ingauxilios) {
+        this.ingauxilios = ingauxilios;
+    }
+
+    public boolean isAportepadre() {
+        return aportepadre;
+    }
+
+    public void setAportepadre(boolean aportepadre) {
+        this.aportepadre = aportepadre;
+    }
+
+    public boolean isAportemadre() {
+        return aportemadre;
+    }
+
+    public void setAportemadre(boolean aportemadre) {
+        this.aportemadre = aportemadre;
+    }
+
+    public boolean isAportehermano() {
+        return aportehermano;
+    }
+
+    public void setAportehermano(boolean aportehermano) {
+        this.aportehermano = aportehermano;
+    }
+
+    public boolean isAporteabuelo() {
+        return aporteabuelo;
+    }
+
+    public void setAporteabuelo(boolean aporteabuelo) {
+        this.aporteabuelo = aporteabuelo;
+    }
+
+    public boolean isAportetio() {
+        return aportetio;
+    }
+
+    public void setAportetio(boolean aportetio) {
+        this.aportetio = aportetio;
+    }
+
+    public boolean isAporteotro() {
+        return aporteotro;
+    }
+
+    public void setAporteotro(boolean aporteotro) {
+        this.aporteotro = aporteotro;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -607,5 +885,5 @@ public class VigenciasDomiciliarias implements Serializable {
     public String toString() {
         return "Entidades.VigenciasDomiciliarias[ secuencia=" + secuencia + " ]";
     }
-    
+
 }

@@ -41,7 +41,7 @@ public class ControlPerDirecciones implements Serializable {
     AdministrarCiudadesInterface administrarCiudades;
     @EJB
     AdministrarRastrosInterface administrarRastros;
-    //LISTA TELEFONOS
+    //LISTA DIRECCIONES
     private List<Direcciones> listaDirecciones;
     private List<Direcciones> filtradosListaDirecciones;
     private Direcciones direccionSeleccionada;

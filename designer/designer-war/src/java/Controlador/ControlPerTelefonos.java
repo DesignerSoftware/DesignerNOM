@@ -1077,7 +1077,7 @@ public class ControlPerTelefonos implements Serializable {
         if (tipoLista == 0) {
             tipoLista = 1;
         }
-        contarRegistroCiudad();
+        contarRegistros();
     }
 
 //    public void eventoFiltrarTT() {

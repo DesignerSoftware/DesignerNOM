@@ -72,4 +72,7 @@ public interface PersistenciaVigenciasEstadosCivilesInterface {
     public List<VigenciasEstadosCiviles> consultarVigenciasEstadosCivilesPersona(EntityManager em, BigInteger secuencia);
 
     public List<VigenciasEstadosCiviles> consultarVigenciasEstadosCivilesPorPersona(EntityManager em, BigInteger secuenciaPersona);
+    
+    public VigenciasEstadosCiviles estadoCivilActual(EntityManager em, BigInteger secuenciaPersona);
+    
 }

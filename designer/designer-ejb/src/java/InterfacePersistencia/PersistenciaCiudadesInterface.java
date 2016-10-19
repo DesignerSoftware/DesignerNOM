@@ -35,4 +35,6 @@ public interface PersistenciaCiudadesInterface {
      * @return Retorna una lista de Ciudades.
      */
     public List<Ciudades> consultarCiudades(EntityManager em);
+    
+    public List<Ciudades> lovCiudades(EntityManager em);
 }
