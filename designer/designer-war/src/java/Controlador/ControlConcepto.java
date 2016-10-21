@@ -285,7 +285,6 @@ public class ControlConcepto implements Serializable {
       cargarLovs();
       int coincidencias = 0;
       int indiceUnicoElemento = 0;
-      RequestContext context = RequestContext.getCurrentInstance();
       if (confirmarCambio.equalsIgnoreCase("CODIGOUNIDAD")) {
          if (tipoNuevo == 1) {
             nuevoConcepto.getUnidad().setCodigo(codigoUnidad);
@@ -713,24 +712,6 @@ public class ControlConcepto implements Serializable {
                habilitarBotonLov();
             }
          }
-
-         if (tipoLista == 1) {
-            codigoUnidad = conceptoSeleccionado.getUnidad().getCodigo();
-            nombreUnidad = conceptoSeleccionado.getUnidad().getNombre();
-            tercero = conceptoSeleccionado.getTercero().getNombre();
-            deshabilitarBotonLov();
-            activoDetalle = false;
-            //unaVez = false;
-            if (cualCelda == 3) {
-               habilitarBotonLov();
-            } else if (cualCelda == 4) {
-               habilitarBotonLov();
-
-            } else if (cualCelda == 10) {
-               habilitarBotonLov();
-            }
-         }
-
          //deshabilitarBotonLov();
       }
 

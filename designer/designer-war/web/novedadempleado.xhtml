@@ -76,7 +76,7 @@
                         <p:separator style="position: relative; top: -9px"/> 
 
                         <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" 
-                                         actionListener="#{controlNovedadesEmpleados.cancelarModificacion()}" oncomplete="PF('window.location.reload()" process="@this"/>  
+                                         actionListener="#{controlNovedadesEmpleados.cancelarModificacion()}" oncomplete="window.location.reload()" process="@this"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                         <p:separator style="position: relative; top: -9px"/>
@@ -133,11 +133,11 @@
                   <p:commandButton id="btnMostrarTodos" style="position: absolute; left: 630px; top: 160px; height: 30px; width: 180px; background-image: url(Imagenes/Iconos/todosdbL.png); background-size: 100% 100%; background-repeat: no-repeat; 
                                    border: none;" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" value=" " actionListener="#{controlNovedadesEmpleados.mostrarTodos()}" process="@this"/>
 
-                  <fieldset style="position: absolute; left: 10px; top: 232px; width: 830px; height: 225px; border-radius: 10px;">
+                  <fieldset style="position: absolute; left: 10px; top: 232px; width: 830px; height: 225px; border-radius: 10px; padding-top: 5px;">
                      <legend style="font-size: 13px; color: #14388B"><strong>#{msg['cpd']}</strong></legend>
 
                      <p:dataTable id="datosNovedadesEmpleado" var="novedades" value="#{controlNovedadesEmpleados.listaNovedades}"
-                                  rowKey="#{novedades.secuencia}" rowIndexVar="indice" style="border: 1px; width: 1500px; position: inherit;"                             
+                                  rowKey="#{novedades.secuencia}" rowIndexVar="indice" style="width: 1500px; position: absolute; font-size: 11px;"                             
                                   scrollable="true" scrollHeight="#{controlNovedadesEmpleados.altoTabla}" scrollWidth="825"
                                   emptyMessage="#{msg['vacio']}" editable="true" editMode="cell" widgetVar="datosNovedadesEmpleado"
                                   selection="#{controlNovedadesEmpleados.novedadSeleccionada}" selectionMode="single">
@@ -152,7 +152,8 @@
                                  <p:inputText  autocomplete="off" value="#{novedades.concepto.codigoSTR}" id="editarConceptoCodigo" style=" border-radius: 0px; text-transform: uppercase;"> 
                                     <p:keyFilter for="editarConceptoCodigo" mask="num"/>
                                     <p:ajax event="change" listener="#{controlNovedadesEmpleados.modificarNovedades(novedades, 'CONCEPTO', novedades.concepto.codigoSTR)}"/>
-                                    <p:ajax event="select" listener="#{controlNovedadesEmpleados.cambiarIndice(novedades, 0)}" process="@this"/>
+                                    <p:ajax event="select" listener="#{controlNovedadesEmpleados.cambiarIndice(novedades, 0)}" process="@this"
+                                            onstart="PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});"/>
                                     <p:ajax event="dblclick" listener="#{controlNovedadesEmpleados.asignarIndex(novedades, 1, 0)}"/>
                                  </p:inputText>
                               </f:facet>
@@ -169,7 +170,8 @@
                               <f:facet name="output"><h:outputText value="#{novedades.concepto.descripcion}"/></f:facet>  
                               <f:facet name="input">
                                  <p:inputText  autocomplete="off" value="#{novedades.concepto.descripcion}" id="editarDescripcionConcepto" style=" border-radius: 0px; text-transform: uppercase;"> 
-                                    <p:ajax event="select" listener="#{controlNovedadesEmpleados.cambiarIndice(novedades, 1)}" process="@this"/>
+                                    <p:ajax event="select" listener="#{controlNovedadesEmpleados.cambiarIndice(novedades, 1)}" process="@this"
+                                            onstart="PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});"/>
                                     <p:ajax event="dblclick" listener="#{controlNovedadesEmpleados.asignarIndex(novedades, 1, 0)}"/>
                                  </p:inputText>
                               </f:facet>  
@@ -189,7 +191,8 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:calendar  autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="editFechaInicial" value="#{novedades.fechainicial}"> 
+                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="editFechaInicial" value="#{novedades.fechainicial}"
+                                             onselect="PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});"> 
                                     <p:ajax event="dateSelect" update="editFechaInicial"/>
                                     <p:ajax event="change" listener="#{controlNovedadesEmpleados.modificarNovedades(novedades, 'N', novedades.fechainicial)}"/>
                                     <p:ajax event="select" listener="#{controlNovedadesEmpleados.cambiarIndice(novedades, 2)}" process="@this"/>
@@ -210,7 +213,8 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:calendar  autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="editFechaFinal" value="#{novedades.fechafinal}"> 
+                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="editFechaFinal" value="#{novedades.fechafinal}"
+                                             onselect="PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});"> 
                                     <p:ajax event="dateSelect" update="editFechaFinal"/>
                                     <p:ajax event="change" listener="#{controlNovedadesEmpleados.modificarNovedades(novedades, 'N', novedades.fechafinal)}"/>
                                     <p:ajax event="select" listener="#{controlNovedadesEmpleados.cambiarIndice(novedades, 3)}" process="@this" />
@@ -230,7 +234,8 @@
                                  <p:inputText  autocomplete="off" value="#{novedades.valortotal}" id="editarValor" style=" border-radius: 0px; text-transform: uppercase;"> 
                                     <p:keyFilter for="editarValor" mask="num"/>
                                     <p:ajax event="change" listener="#{controlNovedadesEmpleados.modificarNovedades(novedades, 'N', novedades.valortotal)}"/>
-                                    <p:ajax event="select" listener="#{controlNovedadesEmpleados.cambiarIndice(novedades, 4)}" process="@this"/>
+                                    <p:ajax event="select" listener="#{controlNovedadesEmpleados.cambiarIndice(novedades, 4)}" process="@this"
+                                            onstart="PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});"/>
                                  </p:inputText>
                               </f:facet>  
                            </p:cellEditor>
@@ -247,7 +252,8 @@
                                  <p:inputText  autocomplete="off" value="#{novedades.saldo}" id="editarSaldo" style=" border-radius: 0px; text-transform: uppercase;"> 
                                     <p:keyFilter for="editarSaldo" mask="num"/>
                                     <p:ajax event="change" listener="#{controlNovedadesEmpleados.modificarNovedades(novedades, 'N', novedades.saldo)}"/>
-                                    <p:ajax event="select" listener="#{controlNovedadesEmpleados.cambiarIndice(novedades, 5)}" process="@this"/>
+                                    <p:ajax event="select" listener="#{controlNovedadesEmpleados.cambiarIndice(novedades, 5)}" process="@this"
+                                            onstart="PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});"/>
                                  </p:inputText>
                               </f:facet>  
                            </p:cellEditor>
@@ -256,21 +262,22 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column headerText="#{msg['coodigo']}" sortBy= "#{novedades.periodicidad.codigoStr}" style=" text-align: center;" filterBy="#{novedades.periodicidad.codigoStr}" 
-                                  filterMatchMode="contains" id="nEPeriodicidadCodigo" width="60" filterStyle="display: none; visibility: hidden;" >                                  
+                        <p:column headerText="Cod" sortBy= "#{novedades.periodicidad.codigoStr}" style=" text-align: center;" filterBy="#{novedades.periodicidad.codigoStr}" 
+                                  filterMatchMode="contains" id="nEPeriodicidadCodigo" width="40" filterStyle="display: none; visibility: hidden;" >                                  
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{novedades.periodicidad.codigoStr}"/></f:facet>  
                               <f:facet name="input">
                                  <p:inputText  autocomplete="off" value="#{novedades.periodicidad.codigoStr}" id="editarPeriodicidadCodigo" style=" border-radius: 0px; text-transform: uppercase;"> 
                                     <p:keyFilter for="editarPeriodicidadCodigo" mask="num"/>
                                     <p:ajax event="change" listener="#{controlNovedadesEmpleados.modificarNovedades(novedades, 'CODIGOPERIODICIDAD', novedades.periodicidad.codigoStr)}"/>
-                                    <p:ajax event="select" listener="#{controlNovedadesEmpleados.cambiarIndice(novedades, 6)}" process="@this"/>
+                                    <p:ajax event="select" listener="#{controlNovedadesEmpleados.cambiarIndice(novedades, 6)}" process="@this"
+                                            onstart="PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});"/>
                                     <p:ajax event="dblclick" listener="#{controlNovedadesEmpleados.asignarIndex(novedades, 3, 0)}"/>
                                  </p:inputText>
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 80px;" id="fooPeriodicidad" actionListener="#{controlPeriodicidades.recibirPaginaEntrante('novedadempleado')}" action="periodicidades" value=" "/>
+                              <p:commandButton style="width: 60px;" id="fooPeriodicidad" actionListener="#{controlPeriodicidades.recibirPaginaEntrante('novedadempleado')}" action="periodicidades" value=" "/>
                            </f:facet>
                         </p:column>
 
@@ -280,7 +287,8 @@
                               <f:facet name="output"><h:outputText value="#{novedades.periodicidad.nombre}"/></f:facet>  
                               <f:facet name="input">
                                  <p:inputText  autocomplete="off" value="#{novedades.periodicidad.nombre}" id="editarDescripcionPeriodicidad" style=" border-radius: 0px; text-transform: uppercase;"> 
-                                    <p:ajax event="select" listener="#{controlNovedadesEmpleados.cambiarIndice(novedades, 7)}" process="@this"/>
+                                    <p:ajax event="select" listener="#{controlNovedadesEmpleados.cambiarIndice(novedades, 7)}" process="@this"
+                                            onstart="PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});"/>
                                     <p:ajax event="dblclick" listener="#{controlNovedadesEmpleados.asignarIndex(novedades, 3, 0)}"/>
                                  </p:inputText>
                               </f:facet>  
@@ -299,7 +307,8 @@
                                  <p:inputText  autocomplete="off" value="#{novedades.tercero.nitalternativo}" id="editarTerceroNit" style=" border-radius: 0px; text-transform: uppercase;"> 
                                     <p:keyFilter for="editarTerceroNit" mask="num"/>
                                     <p:ajax event="change" listener="#{controlNovedadesEmpleados.modificarNovedades(novedades, 'NIT', novedades.tercero.nitalternativo)}"/>
-                                    <p:ajax event="select" listener="#{controlNovedadesEmpleados.cambiarIndice(novedades, 8)}" process="@this"/>
+                                    <p:ajax event="select" listener="#{controlNovedadesEmpleados.cambiarIndice(novedades, 8)}" process="@this"
+                                            onstart="PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});"/>
                                     <p:ajax event="dblclick" listener="#{controlNovedadesEmpleados.asignarIndex(novedades, 4, 0)}"/>
                                  </p:inputText>
                               </f:facet>  
@@ -311,12 +320,13 @@
                         </p:column>
 
                         <p:column headerText="#{msg['tercero']}" sortBy= "#{novedades.tercero.nombre}" filterBy="#{novedades.tercero.nombre}" 
-                                  filterMatchMode="contains" id="nETercerosNombre" width="150" filterStyle="display: none; visibility: hidden;" >                                  
+                                  filterMatchMode="contains" id="nETercerosNombre" width="180" filterStyle="display: none; visibility: hidden;" >                                  
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{novedades.tercero.nombre}"/></f:facet>  
                               <f:facet name="input">
                                  <p:inputText  autocomplete="off" value="#{novedades.tercero.nombre}" id="editarDescripcionTercero" style=" border-radius: 0px; text-transform: uppercase;"> 
-                                    <p:ajax event="select" listener="#{controlNovedadesEmpleados.cambiarIndice(novedades, 9)}" process="@this"/>
+                                    <p:ajax event="select" listener="#{controlNovedadesEmpleados.cambiarIndice(novedades, 9)}" process="@this"
+                                            onstart="PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});"/>
                                     <p:ajax event="dblclick" listener="#{controlNovedadesEmpleados.asignarIndex(novedades, 4, 0)}"/>
                                  </p:inputText>
                               </f:facet>  
@@ -328,20 +338,21 @@
                         </p:column>
 
                         <p:column headerText="#{msg['formula']}" sortBy= "#{novedades.formula.nombrelargo}" filterBy="#{novedades.formula.nombrelargo}" 
-                                  filterMatchMode="contains" id="nEFormulas" width="150" filterStyle="display: none; visibility: hidden;" >                                  
+                                  filterMatchMode="contains" id="nEFormulas" width="180" filterStyle="display: none; visibility: hidden;" >                                  
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{novedades.formula.nombrelargo}"/></f:facet>  
                               <f:facet name="input">
                                  <p:inputText  autocomplete="off" value="#{novedades.formula.nombrelargo}" id="editarFormula" style=" border-radius: 0px; text-transform: uppercase;"> 
                                     <p:ajax event="change" listener="#{controlNovedadesEmpleados.modificarNovedades(novedades, 'FORMULA', novedades.formula.nombrelargo)}"/>
-                                    <p:ajax event="select" listener="#{controlNovedadesEmpleados.cambiarIndice(novedades, 10)}" process="@this"/>
+                                    <p:ajax event="select" listener="#{controlNovedadesEmpleados.cambiarIndice(novedades, 10)}" process="@this"
+                                            onstart="PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});"/>
                                     <p:ajax event="dblclick" listener="#{controlNovedadesEmpleados.asignarIndex(novedades, 2, 0)}"/>
                                  </p:inputText>
                               </f:facet>  
                            </p:cellEditor>
 
                            <f:facet name="footer">
-                              <p:commandButton style="width: 170px;" id="fooFormulas" action="formulas" actionListener="#{controlFormula.recibirPaginaEntrante('novedadempleado')}" value=" "/>
+                              <p:commandButton style="width: 200px;" id="fooFormulas" action="formulas" actionListener="#{controlFormula.recibirPaginaEntrante('novedadempleado')}" value=" "/>
                            </f:facet>
                         </p:column>
 
@@ -357,7 +368,8 @@
                                  <p:inputText  autocomplete="off" value="#{novedades.unidadesparteentera}" id="editarDiasHoras" style=" border-radius: 0px; text-transform: uppercase;"> 
                                     <p:keyFilter for="editarDiasHoras" mask="num"/>
                                     <p:ajax event="change" listener="#{controlNovedadesEmpleados.modificarNovedades(novedades, 'N', novedades.unidadesparteentera)}"/>
-                                    <p:ajax event="select" listener="#{controlNovedadesEmpleados.cambiarIndice(novedades, 11)}" process="@this"/>
+                                    <p:ajax event="select" listener="#{controlNovedadesEmpleados.cambiarIndice(novedades, 11)}" process="@this"
+                                            onstart="PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});"/>
                                  </p:inputText>
                               </f:facet>  
                            </p:cellEditor>
@@ -378,7 +390,8 @@
                                  <p:inputText  autocomplete="off" value="#{novedades.unidadespartefraccion}" id="editarMinutosHoras" style=" border-radius: 0px; text-transform: uppercase;"> 
                                     <p:keyFilter for="editarMinutosHoras" mask="num"/>
                                     <p:ajax event="change" listener="#{controlNovedadesEmpleados.modificarNovedades(novedades, 'N', novedades.unidadespartefraccion)}"/>
-                                    <p:ajax event="select" listener="#{controlNovedadesEmpleados.cambiarIndice(novedades, 11)}" process="@this"/>
+                                    <p:ajax event="select" listener="#{controlNovedadesEmpleados.cambiarIndice(novedades, 11)}" process="@this"
+                                            onstart="PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});"/>
                                  </p:inputText>
                               </f:facet>  
                            </p:cellEditor>
@@ -392,7 +405,9 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText id="OutTipo" value="#{novedades.tipo}" style="text-transform: uppercase;"/></f:facet>  
                               <f:facet name="input">
-                                 <p:selectOneMenu id="editarTipo" value="#{novedades.tipo}" style="width: 100%">  
+                                 <p:selectOneMenu id="editarTipo" value="#{novedades.tipo}" style="width: 100%"
+                                                  onfocus="PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});"
+                                                  onblur="PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});">
                                     <f:selectItem itemLabel="FIJA" itemValue="FIJA" />  
                                     <f:selectItem itemLabel="OCASIONAL" itemValue="OCASIONAL" />  
                                     <f:selectItem itemLabel="PAGO POR FUERA" itemValue="PAGO POR FUERA" />  
@@ -427,7 +442,7 @@
                   <p:commandButton id="ATRAS" class="cssBotonCancelar" value=" " actionListener="#{controlNovedadesEmpleados.salir()}" action="novedad" process="@this"/>
                </p:panel>
             </h:form>
-            
+
             <h:form id="formularioDialogos">
                <!-- DIALOGO NUEVO REGISTRO -->
                <p:dialog id="NuevaNovedadEmpleado" header="#{msg['nuevoregistro']}" widgetVar="NuevaNovedadEmpleado" closable="false" resizable="false"  draggable="true" modal="true" height="350" width="800" style=" padding: 0px">  

@@ -24,7 +24,7 @@
                         <p:toolbar styleClass="cssToolbar">  
                             <p:toolbarGroup align="left"> 
 
-                                <p:commandButton id="guardarRapido" value="" actionListener="#{controlVigenciaSueldo.guardadoGeneral()}" process="@this" oncomplete="PF('window.location.reload()"
+                                <p:commandButton id="guardarRapido" value="" actionListener="#{controlVigenciaSueldo.guardadoGeneral()}" process="@this" oncomplete="window.location.reload()"
                                                  style="background-image: url(Imagenes/Iconos/guardar.png);"/>
                                 <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
 
@@ -80,7 +80,7 @@
 
                                 <p:separator style="position: relative; top: -9px;"/>
 
-                                <p:commandButton id="refrescar" value="" actionListener="#{controlVigenciaSueldo.cancelarModificacion()}" process="@this" oncomplete="PF('window.location.reload()"
+                                <p:commandButton id="refrescar" value="" actionListener="#{controlVigenciaSueldo.cancelarModificacion()}" process="@this" oncomplete="window.location.reload()"
                                                  style="background-image: url(Imagenes/Iconos/refrescar.png);" />  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
@@ -933,7 +933,7 @@
                     <p:dialog id="guardarCambiosVigenciasAfiliaciones" header="#{msg['atencion']}" widgetVar="guardarCambiosVigenciasAfiliaciones"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="¿Desea guardar los cambios realizados en Vigencias Afiliaciones?" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton icon="ui-icon-check" value="Si" onclick="PF('guardarCambiosVigenciasAfiliaciones').hide();" style="position: absolute; top: 60px; left: 253px;" actionListener="#{controlVigenciaSueldo.guardarCambiosVA()}" oncomplete="PF('window.location.reload()" update=":form:growl" process="@this" />
+                        <p:commandButton icon="ui-icon-check" value="Si" onclick="PF('guardarCambiosVigenciasAfiliaciones').hide();" style="position: absolute; top: 60px; left: 253px;" actionListener="#{controlVigenciaSueldo.guardarCambiosVA()}" oncomplete="window.location.reload()" update=":form:growl" process="@this" />
                         <p:commandButton icon="ui-icon-close" value="No" onclick="PF('guardarCambiosVigenciasAfiliaciones').hide();"   style="position: absolute; top: 60px; left: 315px;" actionListener="#{controlVigenciaSueldo.cancelarModificacionVA()}" process="@this" />
                     </p:dialog>
 

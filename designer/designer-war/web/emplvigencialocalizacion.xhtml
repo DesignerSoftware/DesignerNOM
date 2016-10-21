@@ -74,7 +74,7 @@
 
                         <p:separator style="position: relative; top: -9px"/>
 
-                        <p:commandButton id="refrescar" value="" actionListener="#{controlVigenciaLocalizacion.cancelarModificacion()}" oncomplete="PF('window.location.reload()" process="@this"
+                        <p:commandButton id="refrescar" value="" actionListener="#{controlVigenciaLocalizacion.cancelarModificacion()}" oncomplete="window.location.reload()" process="@this"
                                          style="background-image: url(Imagenes/Iconos/refrescar.png);"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
@@ -704,7 +704,7 @@
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                   <h:outputText value="#{msg['cambiosRealizados']}" style="font-size: 14px; position: absolute; left: 100px; top: 20px; width: 270px;" />
                   <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarGuardarSinSalir').hide();" actionListener="#{controlVigenciaLocalizacion.guardadoGeneral()}" style="position: absolute; top: 60px; left: 149px;" process="@this"  />
-                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardarSinSalir').hide();" actionListener="#{controlVigenciaLocalizacion.cancelarModificacion()}" style="position: absolute; top: 60px; left: 212px;" process="@this" icon="ui-icon-close" oncomplete="PF('window.location.reload()" />
+                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardarSinSalir').hide();" actionListener="#{controlVigenciaLocalizacion.cancelarModificacion()}" style="position: absolute; top: 60px; left: 212px;" process="@this" icon="ui-icon-close" oncomplete="window.location.reload()" />
                   <p:commandButton  icon="ui-icon-close" value="#{msg['cancelar']}" onclick="PF('confirmarGuardarSinSalir').hide();" style="position: absolute; top: 60px; left: 280px;" process="@this"   />
                </p:dialog>
 

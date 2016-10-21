@@ -81,7 +81,7 @@
 
                         <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" 
                                          actionListener="#{controlVigenciasCargos.cancelarModificacion()}" 
-                                         oncomplete="PF('window.location.reload()" update=":form:datosVCEmpleado" process="@this"/>  
+                                         oncomplete="window.location.reload()" update=":form:datosVCEmpleado" process="@this"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                         <p:separator style="position: relative; top: -9px"/> 

@@ -1096,7 +1096,7 @@ public class ControlNovedadesConceptos implements Serializable {
          nCEmpleadoCodigo = (Column) c.getViewRoot().findComponent("form:datosNovedadesConcepto:nCEmpleadoCodigo");
          nCEmpleadoCodigo.setFilterStyle("width: 85% !important;");
          nCEmpleadoNombre = (Column) c.getViewRoot().findComponent("form:datosNovedadesConcepto:nCEmpleadoNombre");
-         nCEmpleadoNombre.setFilterStyle("85% !important");
+         nCEmpleadoNombre.setFilterStyle("width: 85% !important");
          nCFechasInicial = (Column) c.getViewRoot().findComponent("form:datosNovedadesConcepto:nCFechasInicial");
          nCFechasInicial.setFilterStyle("width: 85% !important;");
          nCFechasFinal = (Column) c.getViewRoot().findComponent("form:datosNovedadesConcepto:nCFechasFinal");
@@ -1554,7 +1554,6 @@ public class ControlNovedadesConceptos implements Serializable {
       guardado = true;
       permitirIndex = true;
       resultado = 0;
-      RequestContext context = RequestContext.getCurrentInstance();
       contarRegistrosNovedades();
       RequestContext.getCurrentInstance().update("form:datosNovedadesConcepto");
       RequestContext.getCurrentInstance().update("form:datosConceptos");
@@ -1625,27 +1624,26 @@ public class ControlNovedadesConceptos implements Serializable {
    public void todasNovedades() {
       listaNovedades.clear();
       listaNovedades = administrarNovedadesConceptos.todasNovedadesConcepto(conceptoSeleccionado.getSecuencia());
-      RequestContext context = RequestContext.getCurrentInstance();
       todas = true;
       actuales = false;
       RequestContext.getCurrentInstance().update("form:datosNovedadesConcepto");
       RequestContext.getCurrentInstance().update("form:TODAS");
       RequestContext.getCurrentInstance().update("form:ACTUALES");
+      contarRegistrosNovedades();
    }
 
    public void actualesNovedades() {
       listaNovedades.clear();
       listaNovedades = administrarNovedadesConceptos.novedadesConcepto(conceptoSeleccionado.getSecuencia());
-      RequestContext context = RequestContext.getCurrentInstance();
       todas = false;
       actuales = true;
       RequestContext.getCurrentInstance().update("form:datosNovedadesConcepto");
       RequestContext.getCurrentInstance().update("form:TODAS");
       RequestContext.getCurrentInstance().update("form:ACTUALES");
+      contarRegistrosNovedades();
    }
 
    public void abrirDialogo() {
-      RequestContext context = RequestContext.getCurrentInstance();
       Formulas formula;
       formula = verificarFormulaConcepto(conceptoSeleccionado.getSecuencia());
       nuevaNovedad.setFormula(formula);

@@ -21,7 +21,7 @@
                      <p:toolbarGroup align="left"> 
 
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" 
-                                         actionListener="#{controlEmplMvr.guardadoGeneral()}" process="@this" oncomplete="PF('window.location.reload()"/>
+                                         actionListener="#{controlEmplMvr.guardadoGeneral()}" process="@this" oncomplete="window.location.reload()"/>
                         <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
 
                         <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" 
@@ -77,7 +77,7 @@
                         <p:separator style="position: relative; top: -9px"/> 
 
                         <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png)" 
-                                         actionListener="#{controlEmplMvr.cancelarModificacion()}" process="@this" oncomplete="PF('window.location.reload()"/>  
+                                         actionListener="#{controlEmplMvr.cancelarModificacion()}" process="@this" oncomplete="window.location.reload()"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                         <p:separator style="position: relative; top: -9px"/> 
