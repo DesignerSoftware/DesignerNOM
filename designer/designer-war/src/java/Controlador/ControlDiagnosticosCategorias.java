@@ -5,7 +5,6 @@
  */
 package Controlador;
 
-
 import Entidades.Diagnosticoscapitulos;
 import Entidades.Diagnosticoscategorias;
 import Entidades.Diagnosticossecciones;
@@ -141,11 +140,11 @@ public class ControlDiagnosticosCategorias implements Serializable {
 
         listaDiagnosticosSecciones = null;
         getListaDiagnosticosSecciones();
-        if (listaDiagnosticosSecciones != null) {
-            if (!listaDiagnosticosSecciones.isEmpty()) {
-                diagnosticoSeccionSeleccionado = listaDiagnosticosSecciones.get(0);
-            }
-        }
+//        if (listaDiagnosticosSecciones != null) {
+//            if (!listaDiagnosticosSecciones.isEmpty()) {
+//                diagnosticoSeccionSeleccionado = listaDiagnosticosSecciones.get(0);
+//            }
+//        }
         listaDiagnosticosCategorias = null;
         getListaDiagnosticosCategorias();
 
@@ -189,7 +188,7 @@ public class ControlDiagnosticosCategorias implements Serializable {
             listaDiagnosticosCategorias = null;
             listaDiagnosticosCategorias = administrarDiagnosticosCategorias.consultarDiagnosticoCategoria(diagnosticoSeccionSeleccionado.getSecuencia());
             RequestContext.getCurrentInstance().update("form:datosCategorias");
-            contarRegistros();
+            contarRegistroCategorias();
             if (cualCeldaSeccion == 0) {
                 diagnosticoSeccionSeleccionado.getCodigo();
             } else if (cualCeldaSeccion == 1) {
@@ -272,7 +271,7 @@ public class ControlDiagnosticosCategorias implements Serializable {
         getListaDiagnosticosCategorias();
 //            listaDiagnosticosCategorias = new ArrayList<Diagnosticoscategorias>();
 //        }
-        contarRegistros();
+        contarRegistroCategorias();
         k = 0;
         guardado = true;
         permitirIndex = true;
@@ -608,7 +607,7 @@ public class ControlDiagnosticosCategorias implements Serializable {
                 listaFiltrarDiagnosticosCategorias.remove(diagnosticoCategoriaSeleccionado);
             }
             RequestContext.getCurrentInstance().update("form:datosCategorias");
-            modificarInfoRegistroCategorias(listaDiagnosticosCategorias.size());
+            contarRegistroCategorias();
             diagnosticoCategoriaSeleccionado = null;
 
             if (guardado == true) {
@@ -632,7 +631,7 @@ public class ControlDiagnosticosCategorias implements Serializable {
                 listaFiltrarDiagnosticosCapitulos.remove(diagnosticoCapituloSeleccionado);
             }
             RequestContext.getCurrentInstance().update("form:datosCapitulos");
-            modificarInfoRegistroCapitulos(listaDiagnosticosCapitulos.size());
+            contarRegistrosCapitulos();
             diagnosticoCapituloSeleccionado = null;
 
             if (guardado == true) {
@@ -655,7 +654,7 @@ public class ControlDiagnosticosCategorias implements Serializable {
                 listaFiltrarDiagnosticosSecciones.remove(diagnosticoSeccionSeleccionado);
             }
             RequestContext.getCurrentInstance().update("form:datosSecciones");
-            modificarInfoRegistroSecciones(listaDiagnosticosSecciones.size());
+            contarRegistrosSecciones();
             diagnosticoSeccionSeleccionado = null;
 
             if (guardado == true) {
@@ -706,7 +705,7 @@ public class ControlDiagnosticosCategorias implements Serializable {
             listaDiagnosticosCategorias = null;
             getListaDiagnosticosCategorias();
             RequestContext.getCurrentInstance().update("form:datosCategorias");
-            contarRegistros();
+            contarRegistroCategorias();
             k = 0;
             guardado = true;
             FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
@@ -880,7 +879,7 @@ public class ControlDiagnosticosCategorias implements Serializable {
             diagnosticoCategoriaSeleccionado = nuevoDiagnosticoCategoria;
             nuevoDiagnosticoCategoria = new Diagnosticoscategorias();
             RequestContext.getCurrentInstance().update("form:datosCategorias");
-            modificarInfoRegistroCategorias(listaDiagnosticosCategorias.size());
+            contarRegistroCategorias();
 
             if (guardado == true) {
                 guardado = false;
@@ -943,7 +942,7 @@ public class ControlDiagnosticosCategorias implements Serializable {
             diagnosticoCapituloSeleccionado = nuevoDiagnosticoCapitulo;
             nuevoDiagnosticoCapitulo = new Diagnosticoscapitulos();
             RequestContext.getCurrentInstance().update("form:datosCapitulos");
-            modificarInfoRegistroCapitulos(listaDiagnosticosCapitulos.size());
+            contarRegistrosCapitulos();
 
             if (guardado == true) {
                 guardado = false;
@@ -1006,7 +1005,7 @@ public class ControlDiagnosticosCategorias implements Serializable {
             diagnosticoSeccionSeleccionado = nuevoDiagnosticoSeccion;
             nuevoDiagnosticoSeccion = new Diagnosticossecciones();
             RequestContext.getCurrentInstance().update("form:datosSecciones");
-            modificarInfoRegistroCapitulos(listaDiagnosticosSecciones.size());
+            contarRegistrosCapitulos();
 
             if (guardado == true) {
                 guardado = false;
@@ -1044,18 +1043,18 @@ public class ControlDiagnosticosCategorias implements Serializable {
         duplicarDiagnosticoSeccion = new Diagnosticossecciones();
     }
 
-    public void limpiarExportar(){
-        if(cualTabla == 1){
+    public void limpiarExportar() {
+        if (cualTabla == 1) {
             limpiarNuevoDiagnosticoCapitulo();
-        } else if(cualTabla == 2){
+        } else if (cualTabla == 2) {
             limpiarDuplicarDiagnosticoSeccion();
-        } else if( cualTabla==3){
+        } else if (cualTabla == 3) {
             limpiarDuplicarDiagnosticoCategoria();
-        } else{
-           RequestContext.getCurrentInstance().execute("PF('formularioDialogos:seleccionarRegistro').show()"); 
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('formularioDialogos:seleccionarRegistro').show()");
         }
     }
-    
+
     public void duplicarDiagnosticoCategoria() {
         if (diagnosticoCategoriaSeleccionado != null) {
             duplicarDiagnosticoCategoria = new Diagnosticoscategorias();
@@ -1129,7 +1128,7 @@ public class ControlDiagnosticosCategorias implements Serializable {
                 guardado = false;
             }
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            modificarInfoRegistroCategorias(listaDiagnosticosCategorias.size());
+            contarRegistroCategorias();
 
             if (bandera == 1) {
                 FacesContext c = FacesContext.getCurrentInstance();
@@ -1189,7 +1188,7 @@ public class ControlDiagnosticosCategorias implements Serializable {
                 guardado = false;
             }
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            modificarInfoRegistroCapitulos(listaDiagnosticosCapitulos.size());
+            contarRegistrosCapitulos();
 
             if (bandera == 1) {
                 FacesContext c = FacesContext.getCurrentInstance();
@@ -1248,7 +1247,7 @@ public class ControlDiagnosticosCategorias implements Serializable {
                 guardado = false;
             }
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            modificarInfoRegistroSecciones(listaDiagnosticosSecciones.size());
+            contarRegistrosSecciones();
 
             if (bandera == 1) {
                 FacesContext c = FacesContext.getCurrentInstance();
@@ -1290,8 +1289,8 @@ public class ControlDiagnosticosCategorias implements Serializable {
             Exporter exporter = new ExportarPDF();
             exporter.export(context, tabla, "DIAGNOSTICOSCATEGORIAS", false, false, "UTF-8", null, null);
             context.responseComplete();
-        } else{
-            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()"); 
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
 
     }
@@ -1315,8 +1314,8 @@ public class ControlDiagnosticosCategorias implements Serializable {
             Exporter exporter = new ExportarXLS();
             exporter.export(context, tabla, "DIAGNOSTICOSCATEGORIAS", false, false, "UTF-8", null, null);
             context.responseComplete();
-        } else{
-            RequestContext.getCurrentInstance().execute("PF('formularioDialogos:seleccionarRegistro').show()"); 
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('formularioDialogos:seleccionarRegistro').show()");
         }
     }
 
@@ -1336,13 +1335,10 @@ public class ControlDiagnosticosCategorias implements Serializable {
             } else if (resultado == 5) {
                 RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
+        } else if (administrarRastros.verificarHistoricosTabla("DIAGNOSTICOSCATEGORIAS")) { // igual acá
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            if (administrarRastros.verificarHistoricosTabla("DIAGNOSTICOSCATEGORIAS")) { // igual acá
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-            }
-
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
     }
 
@@ -1364,59 +1360,16 @@ public class ControlDiagnosticosCategorias implements Serializable {
         guardarSeccion();
     }
 
-    public void eventoFiltrar() {
-        try {
-            modificarInfoRegistroCategorias(listaFiltrarDiagnosticosCategorias.size());
-        } catch (Exception e) {
-            System.out.println("Error ControlDiagnosticosCategorias eventoFiltrar : " + e.getMessage());
-        }
-    }
-
-    public void eventoFiltrarCapitulo() {
-        modificarInfoRegistroCapitulos(listaFiltrarDiagnosticosCapitulos.size());
-    }
-
-    public void eventoFiltrarSeccion() {
-        modificarInfoRegistroSecciones(listaFiltrarDiagnosticosSecciones.size());
-    }
-
-    public void modificarInfoRegistroCategorias(int valor) {
-        infoRegistroCategorias = String.valueOf(valor);
+    public void contarRegistroCategorias() {
         RequestContext.getCurrentInstance().update("form:infoRegistroCategoria");
     }
 
-    public void modificarInfoRegistroCapitulos(int valor) {
-        infoRegistroCapitulos = String.valueOf(valor);
+    public void contarRegistrosCapitulos() {
         RequestContext.getCurrentInstance().update("form:infoRegistroCapitulo");
     }
 
-    public void modificarInfoRegistroSecciones(int valor) {
-        infoRegistroSecciones = String.valueOf(valor);
-        RequestContext.getCurrentInstance().update("form:infoRegistroSeccion");
-    }
-
-    public void contarRegistros() {
-        if (listaDiagnosticosCategorias != null) {
-            modificarInfoRegistroCategorias(listaDiagnosticosCategorias.size());
-        } else {
-            modificarInfoRegistroCategorias(0);
-        }
-    }
-
-    public void contarRegistrosCapitulos() {
-        if (listaDiagnosticosCapitulos != null) {
-            modificarInfoRegistroCapitulos(listaDiagnosticosCapitulos.size());
-        } else {
-            modificarInfoRegistroCapitulos(0);
-        }
-    }
-
     public void contarRegistrosSecciones() {
-        if (listaDiagnosticosSecciones != null) {
-            modificarInfoRegistroSecciones(listaDiagnosticosSecciones.size());
-        } else {
-            modificarInfoRegistroSecciones(0);
-        }
+        RequestContext.getCurrentInstance().update("form:infoRegistroSeccion");
     }
 
     public void mostrarDialogoInsertarCapitulo() {
@@ -1496,6 +1449,9 @@ public class ControlDiagnosticosCategorias implements Serializable {
     }
 
     public String getInfoRegistroCategorias() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosCategorias");
+        infoRegistroCategorias = String.valueOf(tabla.getRowCount());
         return infoRegistroCategorias;
     }
 
@@ -1595,6 +1551,9 @@ public class ControlDiagnosticosCategorias implements Serializable {
     }
 
     public String getInfoRegistroCapitulos() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosCapitulos");
+        infoRegistroCapitulos = String.valueOf(tabla.getRowCount());
         return infoRegistroCapitulos;
     }
 
@@ -1603,6 +1562,9 @@ public class ControlDiagnosticosCategorias implements Serializable {
     }
 
     public String getInfoRegistroSecciones() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosSecciones");
+        infoRegistroSecciones = String.valueOf(tabla.getRowCount());
         return infoRegistroSecciones;
     }
 

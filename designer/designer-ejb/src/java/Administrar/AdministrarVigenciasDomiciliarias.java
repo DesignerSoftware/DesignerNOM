@@ -18,10 +18,12 @@ import Entidades.Instituciones;
 import Entidades.MotivosRetiros;
 import Entidades.Personas;
 import Entidades.Profesiones;
+import Entidades.SectoresEconomicos;
 import Entidades.SoAntecedentes;
 import Entidades.SoAntecedentesMedicos;
 import Entidades.SoTiposAntecedentes;
 import Entidades.Telefonos;
+import Entidades.TiposDocumentos;
 import Entidades.TiposEducaciones;
 import Entidades.TiposFamiliares;
 import Entidades.TiposTelefonos;
@@ -43,10 +45,12 @@ import InterfacePersistencia.PersistenciaInstitucionesInterface;
 import InterfacePersistencia.PersistenciaMotivosRetirosInterface;
 import InterfacePersistencia.PersistenciaPersonasInterface;
 import InterfacePersistencia.PersistenciaProfesionesInterface;
+import InterfacePersistencia.PersistenciaSectoresEconomicosInterface;
 import InterfacePersistencia.PersistenciaSoAntecedentesInterface;
 import InterfacePersistencia.PersistenciaSoAntecedentesMedicosInterface;
 import InterfacePersistencia.PersistenciaSoTiposAntecedentesInterface;
 import InterfacePersistencia.PersistenciaTelefonosInterface;
+import InterfacePersistencia.PersistenciaTiposDocumentosInterface;
 import InterfacePersistencia.PersistenciaTiposEducacionesInterface;
 import InterfacePersistencia.PersistenciaTiposFamiliaresInterface;
 import InterfacePersistencia.PersistenciaTiposTelefonosInterface;
@@ -116,6 +120,10 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
     PersistenciaHVHojasDeVidaInterface persistenciahv;
     @EJB
     PersistenciaHvExperienciasLaboralesInterface persistenciaHvExp;
+    @EJB
+    PersistenciaSectoresEconomicosInterface persistenciaSectoresE;
+    @EJB
+    PersistenciaTiposDocumentosInterface persistenciaTipoDocumento;
 
     private EntityManager em;
 
@@ -152,6 +160,252 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
     }
 
     @Override
+    public List<MotivosRetiros> lovMotivosRetiros() {
+        List<MotivosRetiros> lovMotivosRetiros = persistenciaMotivosRetiros.consultarMotivosRetiros(em);
+        return lovMotivosRetiros;
+    }
+
+    @Override
+    public List<EstadosCiviles> lovVigenciasEstadosCiviles() {
+        List<EstadosCiviles> lovEstadosCiviles = persistenciaEstadosCiviles.consultarEstadosCiviles(em);
+        return lovEstadosCiviles;
+    }
+
+    @Override
+    public List<TiposTelefonos> lovTiposTelefonos() {
+        List<TiposTelefonos> lovTiposTelefonos = persistenciaTiposTelefonos.tiposTelefonos(em);
+        return lovTiposTelefonos;
+    }
+
+    @Override
+    public List<Ciudades> lovCiudades() {
+        List<Ciudades> lovCiudades = persistenciaCiudades.lovCiudades(em);
+        return lovCiudades;
+    }
+
+    @Override
+    public List<Cargos> lovCargos() {
+        List<Cargos> lovCargos = persistenciaCargos.lovCargos(em);
+        return lovCargos;
+    }
+
+    @Override
+    public List<Direcciones> direccionesPersona(BigInteger secPersona) {
+        List<Direcciones> direccion = persistenciaDirecciones.listaDireccionPersona(em, secPersona);
+        return direccion;
+    }
+
+    @Override
+    public Telefonos telefonoActualPersona(BigInteger secPersona) {
+        Telefonos telefono = persistenciaTelefonos.telefonoActual(em, secPersona);
+        return telefono;
+    }
+
+    @Override
+    public VigenciasEstadosCiviles estadoCivilActualPersona(BigInteger secPersona) {
+        VigenciasEstadosCiviles vigestadoC = persistenciaVigEstadosCiviles.estadoCivilActual(em, secPersona);
+        return vigestadoC;
+    }
+
+    @Override
+    public Empleados buscarEmpleado(BigInteger secPersona) {
+        Empleados empleado = persistenciaEmpleados.buscarEmpleadoSecuenciaPersona(em, secPersona);
+        return empleado;
+    }
+
+   
+
+
+    ////metodos direcciones
+    @Override
+    public List<Direcciones> consultarDireccionesPersona(BigInteger secPersona) {
+        List<Direcciones> listDirecciones = persistenciaDirecciones.listaDireccionPersona(em, secPersona);
+        return listDirecciones;
+    }
+
+    @Override
+    public void crearDirecciones(List<Direcciones> listaCrear) {
+        for (int i = 0; i < listaCrear.size(); i++) {
+            persistenciaDirecciones.crear(em, listaCrear.get(i));
+        }
+    }
+
+    @Override
+    public void borrarDirecciones(List<Direcciones> listaBorrar) {
+        for (int i = 0; i < listaBorrar.size(); i++) {
+            persistenciaDirecciones.borrar(em, listaBorrar.get(i));
+        }
+    }
+
+    @Override
+    public void modificarDirecciones(List<Direcciones> listaModificar) {
+        for (int i = 0; i < listaModificar.size(); i++) {
+            persistenciaDirecciones.editar(em, listaModificar.get(i));
+        }
+    }
+
+    ///métodos teléfonos
+    @Override
+    public List<Telefonos> telefonosPersona(BigInteger secPersona) {
+        List<Telefonos> listTelefonos = persistenciaTelefonos.telefonosPersona(em, secPersona);
+        return listTelefonos;
+    }
+
+    @Override
+    public void crearTelefonos(Telefonos telefono) {
+        persistenciaTelefonos.crear(em, telefono);
+    }
+
+    @Override
+    public void borrarTelefonos(Telefonos telefono) {
+        persistenciaTelefonos.borrar(em, telefono);
+    }
+
+    @Override
+    public void modificarTelefonos(List<Telefonos> listModificar) {
+        for (int i = 0; i < listModificar.size(); i++) {
+            persistenciaTelefonos.editar(em, listModificar.get(i));
+        }
+    }
+
+    ///métodos estados civiles
+    @Override
+    public List<VigenciasEstadosCiviles> estadosCivilesPersona(BigInteger secPersona) {
+        List<VigenciasEstadosCiviles> listVigEstadosCiviles = persistenciaVigEstadosCiviles.consultarVigenciasEstadosCivilesPorPersona(em, secPersona);
+        return listVigEstadosCiviles;
+    }
+
+    @Override
+    public void modificarVigenciasEstadosCiviles(List<VigenciasEstadosCiviles> listaVigenciasEstadosCiviles) {
+        for (int i = 0; i < listaVigenciasEstadosCiviles.size(); i++) {
+            persistenciaVigEstadosCiviles.editar(em, listaVigenciasEstadosCiviles.get(i));
+        }
+    }
+
+    @Override
+    public void borrarVigenciasEstadosCiviles(List<VigenciasEstadosCiviles> listaVigenciasEstadosCiviles) {
+        for (int i = 0; i < listaVigenciasEstadosCiviles.size(); i++) {
+            persistenciaVigEstadosCiviles.borrar(em, listaVigenciasEstadosCiviles.get(i));
+        }
+    }
+
+    @Override
+    public void crearVigenciasEstadosCiviles(List<VigenciasEstadosCiviles> listaVigenciasEstadosCiviles) {
+        for (int i = 0; i < listaVigenciasEstadosCiviles.size(); i++) {
+            persistenciaVigEstadosCiviles.crear(em, listaVigenciasEstadosCiviles.get(i));
+        }
+    }
+
+/// métodos antecedentes médicos
+    @Override
+    public List<SoAntecedentes> lovAntecedentes(BigInteger secTipoAntecedente) {
+        List<SoAntecedentes> lovAntecedentes = persistenciaAntecedentes.lovAntecedentes(em, secTipoAntecedente);
+        return lovAntecedentes;
+    }
+
+    @Override
+    public List<SoTiposAntecedentes> lovTiposAntecedentes() {
+        List<SoTiposAntecedentes> lovTiposAntecedentes = persistenciaTiposAntecedentes.lovTiposAntecedentes(em);
+        return lovTiposAntecedentes;
+    }
+
+    @Override
+    public List<SoAntecedentesMedicos> buscarAntecedentesMedicos(BigInteger secPersona) {
+        List<SoAntecedentesMedicos> listAntecedentesM = persistenciaAntecdentesM.listaAntecedentesMedicos(em, secPersona);
+        return listAntecedentesM;
+    }
+
+    @Override
+    public void crearAntecedenteM(List<SoAntecedentesMedicos> listaCrear) {
+        for (int i = 0; i < listaCrear.size(); i++) {
+            persistenciaAntecdentesM.crear(em, listaCrear.get(i));
+        }
+    }
+
+    @Override
+    public void borrarAntecedenteM(List<SoAntecedentesMedicos> listaBorrar) {
+        for (int i = 0; i < listaBorrar.size(); i++) {
+            persistenciaAntecdentesM.borrar(em, listaBorrar.get(i));
+        }
+    }
+
+    @Override
+    public void modificarAntecedenteM(List<SoAntecedentesMedicos> listaModificar) {
+        for (int i = 0; i < listaModificar.size(); i++) {
+            persistenciaAntecdentesM.editar(em, listaModificar.get(i));
+        }
+    }
+
+    // métodos vigencias formales
+    @Override
+    public void modificarVigenciaFormal(List<VigenciasFormales> listaVigenciasFormalesModificar) {
+        for (int i = 0; i < listaVigenciasFormalesModificar.size(); i++) {
+            System.out.println("Modificando...");
+            if (listaVigenciasFormalesModificar.get(i).getTipoeducacion().getSecuencia() == null) {
+                listaVigenciasFormalesModificar.get(i).setTipoeducacion(null);
+            }
+            if (listaVigenciasFormalesModificar.get(i).getProfesion().getSecuencia() == null) {
+                listaVigenciasFormalesModificar.get(i).setProfesion(null);
+            }
+            if (listaVigenciasFormalesModificar.get(i).getInstitucion().getSecuencia() == null) {
+                listaVigenciasFormalesModificar.get(i).setInstitucion(null);
+            }
+            if (listaVigenciasFormalesModificar.get(i).getAdiestramientof().getSecuencia() == null) {
+                listaVigenciasFormalesModificar.get(i).setAdiestramientof(null);
+            }
+            persistenciaVigenciasFormales.editar(em, listaVigenciasFormalesModificar.get(i));
+        }
+    }
+
+    @Override
+    public void borrarVigenciaFormal(List<VigenciasFormales> listaVigenciasFormalesBorrar) {
+        for (int i = 0; i < listaVigenciasFormalesBorrar.size(); i++) {
+            System.out.println("Borrando...");
+            if (listaVigenciasFormalesBorrar.get(i).getTipoeducacion().getSecuencia() == null) {
+                listaVigenciasFormalesBorrar.get(i).setTipoeducacion(null);
+            }
+            if (listaVigenciasFormalesBorrar.get(i).getProfesion().getSecuencia() == null) {
+                listaVigenciasFormalesBorrar.get(i).setProfesion(null);
+            }
+            if (listaVigenciasFormalesBorrar.get(i).getInstitucion().getSecuencia() == null) {
+                listaVigenciasFormalesBorrar.get(i).setInstitucion(null);
+            }
+            persistenciaVigenciasFormales.borrar(em, listaVigenciasFormalesBorrar.get(i));
+        }
+    }
+
+    @Override
+    public void crearVigenciaFormal(List<VigenciasFormales> listaVigenciasFormalesCrear) {
+        for (int i = 0; i < listaVigenciasFormalesCrear.size(); i++) {
+            System.out.println("Modificando...");
+            if (listaVigenciasFormalesCrear.get(i).getTipoeducacion().getSecuencia() == null) {
+                listaVigenciasFormalesCrear.get(i).setTipoeducacion(null);
+            }
+            if (listaVigenciasFormalesCrear.get(i).getProfesion().getSecuencia() == null) {
+                listaVigenciasFormalesCrear.get(i).setProfesion(null);
+            }
+            if (listaVigenciasFormalesCrear.get(i).getInstitucion().getSecuencia() == null) {
+                listaVigenciasFormalesCrear.get(i).setInstitucion(null);
+            }
+            if (listaVigenciasFormalesCrear.get(i).getAdiestramientof().getSecuencia() == null) {
+                listaVigenciasFormalesCrear.get(i).setAdiestramientof(null);
+            }
+            if (listaVigenciasFormalesCrear.get(i).getNumerotarjeta() != null) {
+                listaVigenciasFormalesCrear.get(i).setTarjetaprofesional("S");
+            } else {
+                listaVigenciasFormalesCrear.get(i).setTarjetaprofesional("N");
+            }
+
+            if (listaVigenciasFormalesCrear.get(i).getAdiestramientof().getDescripcion() != null) {
+                listaVigenciasFormalesCrear.get(i).setAcargo("S");
+            } else {
+                listaVigenciasFormalesCrear.get(i).setAcargo("N");
+            }
+            persistenciaVigenciasFormales.crear(em, listaVigenciasFormalesCrear.get(i));
+        }
+    }
+
+    @Override
     public List<TiposEducaciones> lovTiposEducaciones() {
         List<TiposEducaciones> lovTiposEducaciones = persistenciaTiposEducaciones.tiposEducaciones(em);
         return lovTiposEducaciones;
@@ -176,11 +430,93 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
     }
 
     @Override
-    public List<MotivosRetiros> lovMotivosRetiros() {
-        List<MotivosRetiros> lovMotivosRetiros = persistenciaMotivosRetiros.consultarMotivosRetiros(em);
-        return lovMotivosRetiros;
+    public List<VigenciasFormales> vigenciasFormalesPersona(BigInteger secPersona) {
+        List<VigenciasFormales> listEducacion = persistenciaVigenciasFormales.vigenciasFormalesPersona(em, secPersona);
+        return listEducacion;
+    }
+//////métodos exp laboral
+    @Override
+    public void crearExperienciaLaboral(List<HvExperienciasLaborales> listHEL) {
+        try {
+            for (int i = 0; i < listHEL.size(); i++) {
+                if (listHEL.get(i).getMotivoretiro().getSecuencia() == null) {
+                    listHEL.get(i).setMotivoretiro(null);
+                }
+                if (listHEL.get(i).getSectoreconomico().getSecuencia() == null) {
+                    listHEL.get(i).setSectoreconomico(null);
+                }
+
+                if (listHEL.get(i).getHojadevida() == null) {
+                    listHEL.get(i).setHojadevida(new HVHojasDeVida());
+                }
+
+                persistenciaHvExp.crear(em, listHEL.get(i));
+            }
+        } catch (Exception e) {
+            System.out.println("Error crearExperienciaLaboral Admi : " + e.toString());
+        }
     }
 
+    @Override
+    public void editarExperienciaLaboral(List<HvExperienciasLaborales> listHEL) {
+        try {
+            for (int i = 0; i < listHEL.size(); i++) {
+                if (listHEL.get(i).getMotivoretiro().getSecuencia() == null) {
+                    listHEL.get(i).setMotivoretiro(null);
+                }
+                if (listHEL.get(i).getSectoreconomico().getSecuencia() == null) {
+                    listHEL.get(i).setSectoreconomico(null);
+                }
+
+                if (listHEL.get(i).getHojadevida() == null) {
+                    listHEL.get(i).setHojadevida(new HVHojasDeVida());
+                }
+
+                persistenciaHvExp.editar(em, listHEL.get(i));
+            }
+        } catch (Exception e) {
+            System.out.println("Error editarExperienciaLaboral Admi : " + e.toString());
+        }
+    }
+
+    @Override
+    public void borrarExperienciaLaboral(List<HvExperienciasLaborales> listHEL) {
+                try {
+            for (int i = 0; i < listHEL.size(); i++) {
+//                if (listHEL.get(i).getMotivoretiro().getSecuencia() == null) {
+//                    listHEL.get(i).setMotivoretiro(null);
+//                }
+                if (listHEL.get(i).getSectoreconomico().getSecuencia() == null) {
+                    listHEL.get(i).setSectoreconomico(null);
+                }
+                persistenciaHvExp.borrar(em, listHEL.get(i));
+            }
+        } catch (Exception e) {
+            System.out.println("Error borrarExperienciaLaboral Admi : " + e.toString());
+        }
+    }
+    
+    @Override
+    public HVHojasDeVida obtenerHojaVidaPersona(BigInteger secuencia) {
+        HVHojasDeVida hojaVida = persistenciahv.hvHojaDeVidaPersona(em, secuencia);
+        return hojaVida;
+    }
+
+    @Override
+    public List<HvExperienciasLaborales> experienciasLaboralesEmpleado(BigInteger secuencia) {
+        List<HvExperienciasLaborales> listExp = persistenciaHvExp.experienciasLaboralesSecuenciaEmpleado(em, secuencia);
+        return listExp;
+    }
+
+    @Override
+    public List<SectoresEconomicos> lovSectoresEconomicos() {
+        List<SectoresEconomicos> listSectoresEconomicos = persistenciaSectoresE.buscarSectoresEconomicos(em);
+        return listSectoresEconomicos;
+    }
+
+    ///métodos familiares
+    
+    
     @Override
     public List<TiposFamiliares> lovTiposFamiliares() {
         List<TiposFamiliares> lovTiposFamiliares = persistenciaTiposFamiliares.buscarTiposFamiliares(em);
@@ -194,78 +530,12 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
     }
 
     @Override
-    public List<SoAntecedentes> lovAntecedentes(BigInteger secTipoAntecedente) {
-        List<SoAntecedentes> lovAntecedentes = persistenciaAntecedentes.lovAntecedentes(em, secTipoAntecedente);
-        return lovAntecedentes;
-    }
-
-    @Override
-    public List<SoTiposAntecedentes> lovTiposAntecedentes() {
-        List<SoTiposAntecedentes> lovTiposAntecedentes = persistenciaTiposAntecedentes.lovTiposAntecedentes(em);
-        return lovTiposAntecedentes;
-    }
-
-    @Override
-    public List<EstadosCiviles> lovVigenciasEstadosCiviles() {
-        List<EstadosCiviles> lovEstadosCiviles = persistenciaEstadosCiviles.consultarEstadosCiviles(em);
-        return lovEstadosCiviles;
-    }
-
-    @Override
-    public List<TiposTelefonos> lovTiposTelefonos() {
-        List<TiposTelefonos> lovTiposTelefonos = persistenciaTiposTelefonos.tiposTelefonos(em);
-        return lovTiposTelefonos;
-    }
-
-    @Override
-    public List<Ciudades> lovCiduades() {
-        List<Ciudades> lovCiudades = persistenciaCiudades.lovCiudades(em);
-        return lovCiudades;
-    }
-
-    @Override
-    public List<Cargos> lovCargos() {
-        List<Cargos> lovCargos = persistenciaCargos.lovCargos(em);
-        return lovCargos;
-    }
-
-    @Override
     public Personas encontrarPersona(BigInteger secpersona) {
         Personas persona = persistenciaPersonas.buscarPersona(em, secpersona);
         return persona;
     }
-
-    @Override
-    public Direcciones direccionesPersona(BigInteger secPersona) {
-        Direcciones direccion = persistenciaDirecciones.direccionActualPersona(em, secPersona);
-        return direccion;
-    }
-
-    @Override
-    public Telefonos telefonoActualPersona(BigInteger secPersona) {
-        Telefonos telefono = persistenciaTelefonos.telefonoActual(em, secPersona);
-        return telefono;
-    }
-
-    @Override
-    public VigenciasEstadosCiviles estadoCivilActualPersona(BigInteger secPersona) {
-        VigenciasEstadosCiviles vigestadoC = persistenciaVigEstadosCiviles.estadoCivilActual(em, secPersona);
-        return vigestadoC;
-    }
-
-    @Override
-    public Empleados buscarEmpleado(BigInteger secPersona) {
-        Empleados empleado = persistenciaEmpleados.buscarEmpleadoSecuenciaPersona(em, secPersona);
-        return empleado;
-    }
-
-    @Override
-    public List<SoAntecedentesMedicos> buscarAntecedentesMedicos(BigInteger secPersona) {
-        List<SoAntecedentesMedicos> listAntecedentesM = persistenciaAntecdentesM.listaAntecedentesMedicos(em, secPersona);
-        return listAntecedentesM;
-    }
-
-    @Override
+    
+     @Override
     public List<Familiares> buscarFamiliares(BigInteger secPersona) {
         List<Familiares> listFamiliares = persistenciaFamiliares.familiaresPersona(em, secPersona);
         return listFamiliares;
@@ -277,39 +547,43 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
     }
 
     @Override
-    public List<Telefonos> telefonosPersona(BigInteger secPersona) {
-        List<Telefonos> listTelefonos = persistenciaTelefonos.telefonosPersona(em, secPersona);
-        return listTelefonos;
+    public List<TiposDocumentos> consultarTiposDocumentos() {
+         List<TiposDocumentos> listTiposDocumentos;
+        listTiposDocumentos = persistenciaTipoDocumento.consultarTiposDocumentos(em);
+        return listTiposDocumentos;
+    }
+    
+    @Override
+    public void modificarFamiliares(List<Familiares> listaModificar) {
+        for (int i = 0; i < listaModificar.size(); i++) {
+            if (listaModificar.get(i).getPersona() == null) {
+                listaModificar.get(i).setPersona(new Personas());
+            }
+            System.out.println("Administrar Modificando...");
+            persistenciaFamiliares.editar(em, listaModificar.get(i));
+        }
     }
 
     @Override
-    public List<Direcciones> consultarDireccionesPersona(BigInteger secPersona) {
-        List<Direcciones> listDirecciones = persistenciaDirecciones.direccionPersona(em, secPersona);
-        return listDirecciones;
+    public void borrarFamiliares(List<Familiares> listaBorrar) {
+         for (int i = 0; i < listaBorrar.size(); i++) {
+            if (listaBorrar.get(i).getPersona() == null) {
+                listaBorrar.get(i).setPersona(new Personas());
+            }
+            System.out.println("Administrar Borrando...");
+            persistenciaFamiliares.borrar(em, listaBorrar.get(i));
+        }
     }
 
     @Override
-    public List<VigenciasEstadosCiviles> estadosCivilesPersona(BigInteger secPersona) {
-        List<VigenciasEstadosCiviles> listVigEstadosCiviles = persistenciaVigEstadosCiviles.consultarVigenciasEstadosCivilesPorPersona(em, secPersona);
-        return listVigEstadosCiviles;
+    public void crearFamilares(List<Familiares> listaCrear) {
+       for (int i = 0; i < listaCrear.size(); i++) {
+            System.out.println("Administrar Creando...");
+            if (listaCrear.get(i).getPersona() == null) {
+                listaCrear.get(i).setPersona(new Personas());
+            }
+            persistenciaFamiliares.crear(em, listaCrear.get(i));
+        }
     }
-
-    @Override
-    public List<VigenciasFormales> vigenciasFormalesPersona(BigInteger secPersona) {
-        List<VigenciasFormales> listEducacion = persistenciaVigenciasFormales.vigenciasFormalesPersona(em, secPersona);
-        return listEducacion;
-    }
-
-    @Override
-    public HVHojasDeVida obtenerHojaVidaPersona(BigInteger secuencia) {
-        HVHojasDeVida hojaVida = persistenciahv.hvHojaDeVidaPersona(em, secuencia);
-        return hojaVida;
-    }
-
-    @Override
-    public List<HvExperienciasLaborales> experienciasLaboralesEmpleado(BigInteger secuencia) {
-        List<HvExperienciasLaborales> listExp = persistenciaHvExp.experienciasLaboralesSecuenciaEmpleado(em, secuencia);
-        return listExp;
-    }
-
+    
 }

@@ -60,7 +60,7 @@
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png) ; border: none;" actionListener="#{controlDiagnosticosCategorias.cancelarModificacion()}" oncomplete="window.location.reload()" process="@this"/>  
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png) ; border: none;" actionListener="#{controlDiagnosticosCategorias.cancelarModificacion()}" oncomplete="PF('window.location.reload()" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
@@ -79,7 +79,7 @@
                                          value="#{controlDiagnosticosCategorias.listaDiagnosticosCapitulos}" scrollable="true" scrollHeight="#{controlDiagnosticosCategorias.altoTabla}" scrollRows="40"
                                          scrollWidth="830"  filteredValue="#{controlDiagnosticosCategorias.listaFiltrarDiagnosticosCapitulos}"  emptyMessage="No se encontraron resultados para la búsqueda"
                                          editable="true" editMode="cell" paginator="false"   selection="#{controlDiagnosticosCategorias.diagnosticoCapituloSeleccionado}" selectionMode="single" >
-                                <p:ajax event="filter" listener="#{controlDiagnosticosCategorias.eventoFiltrarCapitulo()}"/>
+                                <p:ajax event="filter" listener="#{controlDiagnosticosCategorias.contarRegistrosCapitulos()}"/>
 
                                 <p:column headerText="Código" sortBy="#{capitulo.codigo}" filterBy="#{capitulo.codigo}" filterMatchMode="contains" id="codigoCapitulo" width="30" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
@@ -119,7 +119,7 @@
                                          value="#{controlDiagnosticosCategorias.listaDiagnosticosSecciones}" scrollable="true"  scrollHeight="#{controlDiagnosticosCategorias.altoTabla}" scrollRows="40"
                                          scrollWidth="830"  filteredValue="#{controlDiagnosticosCategorias.listaFiltrarDiagnosticosSecciones}"  emptyMessage="No se encontraron resultados para la búsqueda"
                                          editable="true" editMode="cell" paginator="false"   selection="#{controlDiagnosticosCategorias.diagnosticoSeccionSeleccionado}" selectionMode="single" >
-                                <p:ajax event="filter" listener="#{controlDiagnosticosCategorias.eventoFiltrarSeccion()}"/>
+                                <p:ajax event="filter" listener="#{controlDiagnosticosCategorias.contarRegistrosSecciones()}"/>
 
                                 <p:column headerText="Código" sortBy="#{seccion.codigo}" filterBy="#{seccion.codigo}" filterMatchMode="contains" id="codigoSeccion" width="30" filterStyle="display: none; visibility: hidden; " >                                  
                                     <p:cellEditor>  
@@ -160,7 +160,7 @@
                                          value="#{controlDiagnosticosCategorias.listaDiagnosticosCategorias}" scrollable="true"  scrollHeight="#{controlDiagnosticosCategorias.altoTabla}" scrollRows="40"
                                          scrollWidth="830"  filteredValue="#{controlDiagnosticosCategorias.listaFiltrarDiagnosticosCategorias}"  emptyMessage="No se encontraron resultados para la búsqueda"
                                          editable="true" editMode="cell" paginator="false"   selection="#{controlDiagnosticosCategorias.diagnosticoCategoriaSeleccionado}" selectionMode="single" >
-                                <p:ajax event="filter" listener="#{controlDiagnosticosCategorias.eventoFiltrar()}"/>
+                                <p:ajax event="filter" listener="#{controlDiagnosticosCategorias.contarRegistroCategorias()}"/>
 
                                 <p:column headerText="Código" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" width="30" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  

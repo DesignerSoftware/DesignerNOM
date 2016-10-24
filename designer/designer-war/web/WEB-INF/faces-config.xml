@@ -4908,7 +4908,7 @@
     <navigation-rule>
         <from-view-id>/atausentismos.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>novedad</from-outcome>
+            <from-outcome>atrasatausentismos</from-outcome>
             <to-view-id>/novedad.xhtml</to-view-id>
             <redirect />
         </navigation-case>
@@ -5255,7 +5255,7 @@
     <navigation-rule>
         <from-view-id>/novedadvacaciones.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>novedad</from-outcome>
+            <from-outcome>atrasvacaciones</from-outcome>
             <to-view-id>/novedad.xhtml</to-view-id>
             <redirect />
         </navigation-case>

@@ -65,7 +65,7 @@ and open the template in the editor.
                                 <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); background-size: 100% 100%; background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border:none; " actionListener="#{controlCausasAusentismos.cancelarModificacion()}" oncomplete="window.location.reload()" process="@this"/>  
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); background-size: 100% 100%; background-size: 100% 100%; background-repeat: no-repeat; width: 25px; height: 25px; border:none; " actionListener="#{controlCausasAusentismos.cancelarModificacion()}" oncomplete="PF('window.location.reload()" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
@@ -147,7 +147,7 @@ and open the template in the editor.
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 315px; margin: -14px; height: 26px; border: none; color: blue" value=" " id="fooClaseAusentismo" action="claseausentismos" actionListener="#{controlClasesAusentismos.recibirPagina('causaausentismo')}"/>
+                                        <p:commandButton style="width: 315px; margin: -1px; height: 26px; border: none; color: blue" value=" " id="fooClaseAusentismo" action="claseausentismos" actionListener="#{controlClasesAusentismos.recibirPagina('causaausentismo')}"/>
                                     </f:facet>
                                 </p:column>
 
@@ -553,10 +553,10 @@ and open the template in the editor.
                                      filteredValue="#{controlCausasAusentismos.lovFiltradoClasesAusentismos}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlCausasAusentismos.activarAceptar()}" update=":formularioDialogos:aceptarCLA"/>
                             <p:ajax event="rowDblselect" listener="#{controlCausasAusentismos.actualizarClases()}" process="@this" />
-                            <p:ajax event="filter" listener="#{controlCausasAusentismos.eventoFiltrarLovClases()}"/>
+                            <p:ajax event="filter" listener="#{controlCausasAusentismos.contarRegistroLovClases()}"/>
                             <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarCLA']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('LOVClasesAusentismos').filter();" style="width:120px; position: relative; left: 80px;" />  
+                                <h:outputText value="#{msg['buscarCLA']}" />  
+                                <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('LOVClasesAusentismos').filter();" class="cssFiltroLOV" />  
                             </f:facet>
                             <p:column filterBy="#{clasesAusentismos.codigo}" width="10" filterStyle="width:30px;" filterMatchMode="contains">
                                 <f:facet name="header">
@@ -572,11 +572,11 @@ and open the template in the editor.
                             </p:column>
                         </p:dataTable>
 
-                        <h:outputText id="infoRegistroClasesausentismos" value="#{msg['infoRegistros']} #{controlCausasAusentismos.infoRegistroCausasausentismos}" style="position: absolute; left: 15px; top: 315px; font-weight: bold"/>
-
-                        <p:commandButton id="aceptarCLA" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlCausasAusentismos.aceptar}" style="position: absolute; top: 305px; left: 175px;" actionListener="#{controlCausasAusentismos.actualizarClases()}"  process="@this"/>
-
-                        <p:commandButton id="cancelarCLA" style="position: absolute; top: 305px; left: 275px; " icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlCausasAusentismos.cancelarCambioClase()}" process="@this"/>
+                        <div class="cssBotonesLOV"> 
+                        <h:outputText id="infoRegistroClasesausentismos" value="#{msg['infoRegistros']} #{controlCausasAusentismos.infoRegistroCausasausentismos}" class="cssinfoRegistroLOV"/>
+                        <p:commandButton id="aceptarCLA" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlCausasAusentismos.aceptar}" class="cssAceptarLOV" actionListener="#{controlCausasAusentismos.actualizarClases()}"  process="@this"/>
+                        <p:commandButton id="cancelarCLA" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlCausasAusentismos.cancelarCambioClase()}" process="@this"/>
+                        </div>
                     </p:dialog>                    
 
                     <!-- DIALOGOS EDITAR -->

@@ -55,5 +55,5 @@ public interface PersistenciaDireccionesInterface {
      */
     public List<Direcciones> direccionesPersona(EntityManager em,BigInteger secuenciaPersona);
     
-    public Direcciones direccionActualPersona(EntityManager em,BigInteger secuenciaPersona);
+   public List<Direcciones> listaDireccionPersona(EntityManager em, BigInteger secuenciaPersona);
 }

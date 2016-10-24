@@ -5,7 +5,6 @@
  */
 package Controlador;
 
-
 import Administrar.AdministrarCausasAusentismos;
 import Entidades.Causasausentismos;
 import Entidades.Clasesausentismos;
@@ -124,7 +123,6 @@ public class ControlCausasAusentismos implements Serializable {
         paginaAnterior = pagina;
         getListaCausasAusentismos();
         lovClasesAusentismos = null;
-        getLovClasesAusentismos();
         if (listaCausasAusentismos != null) {
             if (!listaCausasAusentismos.isEmpty()) {
                 causasAusentismoSeleccionado = listaCausasAusentismos.get(0);
@@ -189,15 +187,6 @@ public class ControlCausasAusentismos implements Serializable {
             System.out.println("TipoLista= " + tipoLista);
 
         }
-    }
-
-    //EVENTO FILTRAR
-    public void eventofiltrar() {
-        if (tipoLista == 0) {
-            tipoLista = 1;
-        }
-        RequestContext context = RequestContext.getCurrentInstance();
-        modificarInfoRegistro(filtrarCausasAusentismos.size());
     }
 
     //UBICACION CELDA
@@ -554,32 +543,30 @@ public class ControlCausasAusentismos implements Serializable {
                         RequestContext.getCurrentInstance().execute("PF('validacionCodigo').show()");
                     }
                 }
-            } else {
-                if (!listaCausasAusentismosCrear.contains(causasAusentismoSeleccionado)) {
-                    for (int i = 0; i < filtrarCausasAusentismos.size(); i++) {
-                        if (causasAusentismoSeleccionado.getCodigo().compareTo(filtrarCausasAusentismos.get(i).getCodigo()) == 0) {
-                            pasaf++;
-                        }
-                    }
-                    if (causasAusentismoSeleccionado.getCodigo() == null || causasAusentismoSeleccionado.getCodigo().equals("")) {
+            } else if (!listaCausasAusentismosCrear.contains(causasAusentismoSeleccionado)) {
+                for (int i = 0; i < filtrarCausasAusentismos.size(); i++) {
+                    if (causasAusentismoSeleccionado.getCodigo().compareTo(filtrarCausasAusentismos.get(i).getCodigo()) == 0) {
                         pasaf++;
                     }
-                    if (pasaf == 1) {
-                        if (listaCausasAusentismosCrear.isEmpty()) {
-                            listaCausasAusentismosCrear.add(causasAusentismoSeleccionado);
-                        } else if (!listaCausasAusentismosCrear.contains(causasAusentismoSeleccionado)) {
-                            listaCausasAusentismosCrear.add(causasAusentismoSeleccionado);
-                        }
-                        if (guardado == true) {
-                            guardado = false;
-                            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                        }
-
-                    } else {
-                        causasAusentismoSeleccionado.setCodigo(codiguin);
-                        RequestContext.getCurrentInstance().update("formularioDialogos:validacionCodigo");
-                        RequestContext.getCurrentInstance().execute("PF('validacionCodigo').show()");
+                }
+                if (causasAusentismoSeleccionado.getCodigo() == null || causasAusentismoSeleccionado.getCodigo().equals("")) {
+                    pasaf++;
+                }
+                if (pasaf == 1) {
+                    if (listaCausasAusentismosCrear.isEmpty()) {
+                        listaCausasAusentismosCrear.add(causasAusentismoSeleccionado);
+                    } else if (!listaCausasAusentismosCrear.contains(causasAusentismoSeleccionado)) {
+                        listaCausasAusentismosCrear.add(causasAusentismoSeleccionado);
                     }
+                    if (guardado == true) {
+                        guardado = false;
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                    }
+
+                } else {
+                    causasAusentismoSeleccionado.setCodigo(codiguin);
+                    RequestContext.getCurrentInstance().update("formularioDialogos:validacionCodigo");
+                    RequestContext.getCurrentInstance().execute("PF('validacionCodigo').show()");
                 }
             }
             RequestContext.getCurrentInstance().update("form:datosCausasAusentismos");
@@ -603,20 +590,18 @@ public class ControlCausasAusentismos implements Serializable {
                     }
 
                 }
-            } else {
-                if (!listaCausasAusentismosCrear.contains(causasAusentismoSeleccionado)) {
+            } else if (!listaCausasAusentismosCrear.contains(causasAusentismoSeleccionado)) {
 
-                    if (listaCausasAusentismosCrear.isEmpty()) {
-                        listaCausasAusentismosCrear.add(causasAusentismoSeleccionado);
-                    } else if (!listaCausasAusentismosCrear.contains(causasAusentismoSeleccionado)) {
-                        listaCausasAusentismosCrear.add(causasAusentismoSeleccionado);
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                    }
-
+                if (listaCausasAusentismosCrear.isEmpty()) {
+                    listaCausasAusentismosCrear.add(causasAusentismoSeleccionado);
+                } else if (!listaCausasAusentismosCrear.contains(causasAusentismoSeleccionado)) {
+                    listaCausasAusentismosCrear.add(causasAusentismoSeleccionado);
                 }
+                if (guardado == true) {
+                    guardado = false;
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                }
+
             }
             RequestContext.getCurrentInstance().update("form:datosCausasAusentismos");
 
@@ -661,19 +646,17 @@ public class ControlCausasAusentismos implements Serializable {
 
                     }
                 }
-            } else {
-                if (!listaCausasAusentismosCrear.contains(causasAusentismoSeleccionado)) {
+            } else if (!listaCausasAusentismosCrear.contains(causasAusentismoSeleccionado)) {
 
-                    if (listaCausasAusentismosModificar.isEmpty()) {
-                        listaCausasAusentismosModificar.add(causasAusentismoSeleccionado);
-                    } else if (!listaCausasAusentismosModificar.contains(causasAusentismoSeleccionado)) {
-                        listaCausasAusentismosModificar.add(causasAusentismoSeleccionado);
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                if (listaCausasAusentismosModificar.isEmpty()) {
+                    listaCausasAusentismosModificar.add(causasAusentismoSeleccionado);
+                } else if (!listaCausasAusentismosModificar.contains(causasAusentismoSeleccionado)) {
+                    listaCausasAusentismosModificar.add(causasAusentismoSeleccionado);
+                }
+                if (guardado == true) {
+                    guardado = false;
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
-                    }
                 }
             }
         }
@@ -686,8 +669,9 @@ public class ControlCausasAusentismos implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         tipoActualizacion = LND;
         if (dlg == 0) {
-            modificarInfoRegistroLovClases(lovClasesAusentismos.size());
-            RequestContext.getCurrentInstance().update("form:clasesAusentismosDialogo");
+            getLovClasesAusentismos();
+            contarRegistroLovClases();
+            RequestContext.getCurrentInstance().update("formularioDialogos:clasesAusentismosDialogo");
             RequestContext.getCurrentInstance().execute("PF('clasesAusentismosDialogo').show()");
         }
     }
@@ -826,7 +810,7 @@ public class ControlCausasAusentismos implements Serializable {
                 filtrarCausasAusentismos.remove(causasAusentismoSeleccionado);
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            modificarInfoRegistro(listaCausasAusentismos.size());
+            contarRegistros();
             RequestContext.getCurrentInstance().update("form:datosCausasAusentismos");
             RequestContext.getCurrentInstance().update("form:informacionRegistro");
             causasAusentismoSeleccionado = null;
@@ -988,7 +972,7 @@ public class ControlCausasAusentismos implements Serializable {
             listaCausasAusentismosCrear.add(nuevaCausasAusentismos);
             listaCausasAusentismos.add(nuevaCausasAusentismos);
             causasAusentismoSeleccionado = nuevaCausasAusentismos;
-            modificarInfoRegistro(listaCausasAusentismos.size());
+            contarRegistros();
             RequestContext.getCurrentInstance().update("form:infoRegistro");
             nuevaCausasAusentismos = new Causasausentismos();
             RequestContext.getCurrentInstance().update("form:datosCausasAusentismos");
@@ -1114,7 +1098,7 @@ public class ControlCausasAusentismos implements Serializable {
             causasAusentismoSeleccionado = duplicarCausasAusentismos;
             RequestContext.getCurrentInstance().update("form:datosCausasAusentismos");
             duplicarCausasAusentismos = new Causasausentismos();
-            modificarInfoRegistro(listaCausasAusentismos.size());
+            contarRegistros();
             RequestContext.getCurrentInstance().update("form:informacionRegistro");
 
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCausaAusentismo");
@@ -1144,13 +1128,10 @@ public class ControlCausasAusentismos implements Serializable {
             } else if (resultado == 5) {
                 RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
+        } else if (administrarRastros.verificarHistoricosTabla("CAUSASAUSENTISMOS")) {
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            if (administrarRastros.verificarHistoricosTabla("CAUSASAUSENTISMOS")) {
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-            }
-
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
         causasAusentismoSeleccionado = null;
     }
@@ -1304,26 +1285,21 @@ public class ControlCausasAusentismos implements Serializable {
         }
     }
 
-    public void modificarInfoRegistro(int valor) {
-        infoRegistro = String.valueOf(valor);
-        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+    //EVENTO FILTRAR
+    public void eventofiltrar() {
+        if (tipoLista == 0) {
+            tipoLista = 1;
+        }
+        RequestContext context = RequestContext.getCurrentInstance();
+        contarRegistros();
     }
 
-    public void modificarInfoRegistroLovClases(int valor) {
-        infoRegistroClasesausentismos = String.valueOf(valor);
+    public void contarRegistroLovClases() {
         RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroClasesAusentismos");
     }
 
-    public void eventoFiltrarLovClases() {
-        modificarInfoRegistroLovClases(lovFiltradoClasesAusentismos.size());
-    }
-
     public void contarRegistros() {
-        if (listaCausasAusentismos != null) {
-            modificarInfoRegistro(listaCausasAusentismos.size());
-        } else {
-            modificarInfoRegistro(0);
-        }
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
     }
 
     public void habilitarBotonLov() {
@@ -1401,6 +1377,9 @@ public class ControlCausasAusentismos implements Serializable {
     }
 
     public String getInfoRegistroCausasausentismos() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVClasesAusentismos");
+        infoRegistroClasesausentismos = String.valueOf(tabla.getRowCount());
         return infoRegistroClasesausentismos;
     }
 
@@ -1417,6 +1396,9 @@ public class ControlCausasAusentismos implements Serializable {
     }
 
     public String getInfoRegistro() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosCausasAusentismos");
+        infoRegistro = String.valueOf(tabla.getRowCount());
         return infoRegistro;
     }
 

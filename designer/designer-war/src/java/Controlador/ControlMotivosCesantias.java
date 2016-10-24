@@ -5,7 +5,6 @@
  */
 package Controlador;
 
-
 import Entidades.MotivosCesantias;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
@@ -58,7 +57,7 @@ public class ControlMotivosCesantias implements Serializable {
     private Column codigo, descripcion;
     //borrado
     private int registrosBorrados;
-    private String mensajeValidacion, paginaAnterior, infoRegistro,altoTabla;
+    private String mensajeValidacion, paginaAnterior, infoRegistro, altoTabla;
     private boolean activarLov;
 
     public ControlMotivosCesantias() {
@@ -90,7 +89,6 @@ public class ControlMotivosCesantias implements Serializable {
     public void recibirPag(String pag) {
         paginaAnterior = pag;
         getListMotivosCesantias();
-        contarRegistros();
         if (!listMotivosCesantias.isEmpty()) {
             motivoCesantiaSeleccionado = listMotivosCesantias.get(0);
         }
@@ -174,7 +172,7 @@ public class ControlMotivosCesantias implements Serializable {
             RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
             System.out.println("Activar");
             bandera = 1;
-            altoTabla ="226";
+            altoTabla = "226";
         } else if (bandera == 1) {
             System.out.println("Desactivar");
             codigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoReemplazo:codigo");
@@ -185,7 +183,7 @@ public class ControlMotivosCesantias implements Serializable {
             bandera = 0;
             filtrarMotivosCesantias = null;
             tipoLista = 0;
-            altoTabla ="246";
+            altoTabla = "246";
         }
     }
 
@@ -287,7 +285,7 @@ public class ControlMotivosCesantias implements Serializable {
             RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
             motivoCesantiaSeleccionado = null;
-            modificarInfoRegistro(listMotivosCesantias.size());
+            contarRegistros();
 
             if (guardado == true) {
                 guardado = false;
@@ -430,7 +428,7 @@ public class ControlMotivosCesantias implements Serializable {
             crearMotivosCesantias.add(nuevoMotivoCesantia);
             listMotivosCesantias.add(nuevoMotivoCesantia);
             motivoCesantiaSeleccionado = nuevoMotivoCesantia;
-            modificarInfoRegistro(listMotivosCesantias.size());
+            contarRegistros();
             nuevoMotivoCesantia = new MotivosCesantias();
             RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
             if (guardado == true) {
@@ -523,7 +521,7 @@ public class ControlMotivosCesantias implements Serializable {
             listMotivosCesantias.add(duplicarMotivoCesantia);
             crearMotivosCesantias.add(duplicarMotivoCesantia);
             motivoCesantiaSeleccionado = duplicarMotivoCesantia;
-            modificarInfoRegistro(listMotivosCesantias.size());
+            contarRegistros();
             RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
             if (guardado == true) {
                 guardado = false;
@@ -539,7 +537,7 @@ public class ControlMotivosCesantias implements Serializable {
                 bandera = 0;
                 filtrarMotivosCesantias = null;
                 tipoLista = 0;
-                
+
             }
             duplicarMotivoCesantia = new MotivosCesantias();
             RequestContext.getCurrentInstance().execute("PF('duplicarRegistroTiposReemplazos').hide()");
@@ -589,13 +587,10 @@ public class ControlMotivosCesantias implements Serializable {
             } else if (resultado == 5) {
                 RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
+        } else if (administrarRastros.verificarHistoricosTabla("MOTIVOSCENSANTIAS")) { // igual acá
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            if (administrarRastros.verificarHistoricosTabla("MOTIVOSCENSANTIAS")) { // igual acá
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-            }
-
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
     }
 
@@ -605,23 +600,14 @@ public class ControlMotivosCesantias implements Serializable {
             if (tipoLista == 0) {
                 tipoLista = 1;
             }
-            modificarInfoRegistro(filtrarMotivosCesantias.size());
+            contarRegistros();
         } catch (Exception e) {
             System.err.println("ERROR CONTROLMOTIVOSCESANTIAS EVENTOFILTRAR  ERROR =" + e.getMessage());
         }
     }
 
-    public void modificarInfoRegistro(int valor) {
-        infoRegistro = String.valueOf(valor);
-        RequestContext.getCurrentInstance().update("form:infoRegistro");
-    }
-
     public void contarRegistros() {
-        if (listMotivosCesantias != null) {
-            modificarInfoRegistro(listMotivosCesantias.size());
-        } else {
-            modificarInfoRegistro(0);
-        }
+        RequestContext.getCurrentInstance().update("form:infoRegistro");
     }
 
     //--------///////////////////////---------------------*****//*/*/*/*/*/-****----
@@ -709,6 +695,10 @@ public class ControlMotivosCesantias implements Serializable {
     }
 
     public String getInfoRegistro() {
+
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosTipoReemplazo");
+        infoRegistro = String.valueOf(tabla.getRowCount());
         return infoRegistro;
     }
 
@@ -732,5 +722,4 @@ public class ControlMotivosCesantias implements Serializable {
         this.altoTabla = altoTabla;
     }
 
-    
 }

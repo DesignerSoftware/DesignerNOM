@@ -187,15 +187,17 @@ public class VigenciasDomiciliarias implements Serializable {
     @Transient
     private boolean recotro;
     @Transient
-    private boolean ingindependiente;
+    private boolean origenind;
     @Transient
-    private boolean ingpension;
+    private boolean origenarriendo;
     @Transient
-    private boolean ingsalario;
+    private boolean origenpen;
     @Transient
-    private boolean ingcdt;
+    private boolean origensal;
     @Transient
-    private boolean ingauxilios;
+    private boolean origenncdt;
+    @Transient
+    private boolean origenaux;
     @Transient
     private boolean aportepadre;
     @Transient
@@ -208,6 +210,22 @@ public class VigenciasDomiciliarias implements Serializable {
     private boolean aportetio;
     @Transient
     private boolean aporteotro;
+    @Transient
+    private boolean egresoEducacion;
+    @Transient
+    private boolean egresoRecreacion;
+    @Transient
+    private boolean egresoAlimentacion;
+    @Transient
+    private boolean egresoMedico;
+    @Transient
+    private boolean egresoArriendo;
+    @Transient
+    private boolean egresoServicios;
+    @Transient
+    private boolean egresoOtros;
+    
+      
 
     public VigenciasDomiciliarias() {
     }
@@ -267,6 +285,7 @@ public class VigenciasDomiciliarias implements Serializable {
 
     public void setConstruccion(String construccion) {
         this.construccion = construccion;
+        System.out.println("construcción seleccionada : " + construccion );
     }
 
     public String getServicioagua() {
@@ -773,92 +792,365 @@ public class VigenciasDomiciliarias implements Serializable {
         System.out.println("servicio Otro: " + this.recotro + "" + serviciootros);
     }
 
-    public boolean isIngindependiente() {
-        return ingindependiente;
+    public boolean isOrigenind() {
+        if ("S".equals(origenindependiente)) {
+            origenind = true;
+        } else {
+            origenind = false;
+        }
+        return origenind;
     }
 
-    public void setIngindependiente(boolean ingindependiente) {
-        this.ingindependiente = ingindependiente;
+    public void setOrigenind(boolean origenind) {
+        this.origenind = origenind;
+        if (origenind) {
+            this.origenindependiente = "S";
+        } else {
+            this.origenindependiente = "N";
+        }
+        System.out.println("Origen comercio Independiente: " + this.origenind + "" + origenindependiente);
     }
 
-    public boolean isIngpension() {
-        return ingpension;
+    public boolean isOrigenarriendo() {
+        if ("S".equals(origenarrendamiento)) {
+            origenarriendo = true;
+        } else {
+            origenarriendo = false;
+        }
+        return origenarriendo;
     }
 
-    public void setIngpension(boolean ingpension) {
-        this.ingpension = ingpension;
+    public void setOrigenarriendo(boolean origenarriendo) {
+        this.origenarriendo = origenarriendo;
+        if (origenarriendo) {
+            this.origenarrendamiento = "S";
+        } else {
+            this.origenarrendamiento = "N";
+        }
+        System.out.println("Origen Arrendamiento: " + this.origenarriendo + "" + origenarrendamiento);
     }
 
-    public boolean isIngsalario() {
-        return ingsalario;
+    public boolean isOrigenpen() {
+        if ("S".equals(origenpension)) {
+            origenpen = true;
+        } else {
+            origenpen = false;
+        }
+        return origenpen;
     }
 
-    public void setIngsalario(boolean ingsalario) {
-        this.ingsalario = ingsalario;
+    public void setOrigenpen(boolean origenpen) {
+        this.origenpen = origenpen;
+        if (origenpen) {
+            this.origenpension = "S";
+        } else {
+            this.origenpension = "N";
+        }
+        System.out.println("Origen Pensión: " + this.origenpen + "" + origenpension);
     }
 
-    public boolean isIngcdt() {
-        return ingcdt;
+    public boolean isOrigensal() {
+        if ("S".equals(origensalario)) {
+            origensal = true;
+        } else {
+            origensal = false;
+        }
+        return origensal;
     }
 
-    public void setIngcdt(boolean ingcdt) {
-        this.ingcdt = ingcdt;
+    public void setOrigensal(boolean origensal) {
+        this.origensal = origensal;
+        if (origensal) {
+            this.origensalario = "S";
+        } else {
+            this.origensalario = "N";
+        }
+        System.out.println("Origen Salario: " + this.origensal + "" + origensalario);
     }
 
-    public boolean isIngauxilios() {
-        return ingauxilios;
+    public boolean isOrigenncdt() {
+        if ("S".equals(origencdt)) {
+            origenncdt = true;
+        } else {
+            origenncdt = false;
+        }
+        return origenncdt;
     }
 
-    public void setIngauxilios(boolean ingauxilios) {
-        this.ingauxilios = ingauxilios;
+    public void setOrigenncdt(boolean origenncdt) {
+        this.origenncdt = origenncdt;
+        if (origenncdt) {
+            this.origencdt = "S";
+        } else {
+            this.origencdt = "N";
+        }
+        System.out.println("Origen CDT: " + this.origenncdt + "" + origencdt);
+    }
+
+    public boolean isOrigenaux() {
+        if ("S".equals(origenauxilios)) {
+            origenaux = true;
+        } else {
+            origenaux = false;
+        }
+        return origenaux;
+    }
+
+    public void setOrigenaux(boolean origenaux) {
+        this.origenaux = origenaux;
+        if (origenaux) {
+            this.origenauxilios = "S";
+        } else {
+            this.origenauxilios = "N";
+        }
+        System.out.println("Origen Auxilios: " + this.origenaux + "" + origenauxilios);
     }
 
     public boolean isAportepadre() {
+        if ("S".equals(ingresopapa)) {
+            aportepadre = true;
+        } else {
+            aportepadre = false;
+        }
         return aportepadre;
     }
 
     public void setAportepadre(boolean aportepadre) {
         this.aportepadre = aportepadre;
+        if (aportepadre) {
+            this.ingresopapa = "S";
+        } else {
+            this.ingresopapa = "N";
+        }
+        System.out.println("Ingreso padre: " + this.aportepadre + "" + ingresopapa);
     }
 
     public boolean isAportemadre() {
+        if ("S".equals(ingresomama)) {
+            aportemadre = true;
+        } else {
+            aportemadre = false;
+        }
         return aportemadre;
     }
 
     public void setAportemadre(boolean aportemadre) {
         this.aportemadre = aportemadre;
+        if (aportemadre) {
+            this.ingresomama = "S";
+        } else {
+            this.ingresomama = "N";
+        }
+        System.out.println("Ingreso madre: " + this.aportemadre + "" + ingresomama);
     }
 
     public boolean isAportehermano() {
+        if ("S".equals(ingresohermano)) {
+            aportehermano = true;
+        } else {
+            aportehermano = false;
+        }
         return aportehermano;
     }
 
     public void setAportehermano(boolean aportehermano) {
         this.aportehermano = aportehermano;
+        if (aportehermano) {
+            this.ingresohermano = "S";
+        } else {
+            this.ingresohermano = "N";
+        }
+        System.out.println("Ingreso Hermano: " + this.aportehermano + "" + ingresohermano);
     }
 
     public boolean isAporteabuelo() {
+        if ("S".equals(ingresoabuelo)) {
+            aporteabuelo = true;
+        } else {
+            aporteabuelo = false;
+        }
         return aporteabuelo;
     }
 
     public void setAporteabuelo(boolean aporteabuelo) {
         this.aporteabuelo = aporteabuelo;
+        if (aporteabuelo) {
+            this.ingresoabuelo = "S";
+        } else {
+            this.ingresoabuelo = "N";
+        }
+        System.out.println("Ingreso Abuelo: " + this.aporteabuelo + "" + ingresoabuelo);
     }
 
     public boolean isAportetio() {
+        if ("S".equals(ingresotio)) {
+            aportetio = true;
+        } else {
+            aportetio = false;
+        }
         return aportetio;
     }
 
     public void setAportetio(boolean aportetio) {
         this.aportetio = aportetio;
+        if (aportetio) {
+            this.ingresotio = "S";
+        } else {
+            this.ingresotio = "N";
+        }
+        System.out.println("Ingreso Tío: " + this.aportetio + "" + ingresotio);
     }
 
     public boolean isAporteotro() {
+        if ("S".equals(ingresootro)) {
+            aporteotro = true;
+        } else {
+            aporteotro = false;
+        }
         return aporteotro;
     }
 
     public void setAporteotro(boolean aporteotro) {
         this.aporteotro = aporteotro;
+        if (aporteotro) {
+            this.ingresootro = "S";
+        } else {
+            this.ingresootro = "N";
+        }
+        System.out.println("Ingreso Otro: " + this.aporteotro + "" + ingresootro);
+    }
+
+    public boolean isEgresoEducacion() {
+        if ("S".equals(inversioneducacion)) {
+            egresoEducacion = true;
+        } else {
+            egresoEducacion = false;
+        }
+        return egresoEducacion;
+    }
+
+    public void setEgresoEducacion(boolean egresoEducacion) {
+        this.egresoEducacion = egresoEducacion;
+        if (egresoEducacion) {
+            this.inversioneducacion = "S";
+        } else {
+            this.inversioneducacion = "N";
+        }
+        System.out.println("Egreso Educación: " + this.egresoEducacion + "" + inversioneducacion);
+    }
+
+    public boolean isEgresoRecreacion() {
+         if ("S".equals(inversionrecreacion)) {
+            egresoRecreacion = true;
+        } else {
+            egresoRecreacion = false;
+        }
+        return egresoRecreacion;
+    }
+
+    public void setEgresoRecreacion(boolean egresoRecreacion) {
+        this.egresoRecreacion = egresoRecreacion;
+        if (egresoRecreacion) {
+            this.inversionrecreacion = "S";
+        } else {
+            this.inversionrecreacion = "N";
+        }
+        System.out.println("Egreso Recreación: " + this.egresoRecreacion + "" + inversionrecreacion);
+    }
+
+    public boolean isEgresoAlimentacion() {
+         if ("S".equals(inversionalimentacion)) {
+            egresoAlimentacion = true;
+        } else {
+            egresoAlimentacion = false;
+        }
+        return egresoAlimentacion;
+    }
+
+    public void setEgresoAlimentacion(boolean egresoAlimentacion) {
+        this.egresoAlimentacion = egresoAlimentacion;
+        if (egresoAlimentacion) {
+            this.inversionalimentacion = "S";
+        } else {
+            this.inversionalimentacion = "N";
+        }
+        System.out.println("Egreso Alimentación: " + this.egresoAlimentacion + "" + inversionalimentacion);
+    }
+
+    public boolean isEgresoMedico() {
+         if ("S".equals(inversionmedica)) {
+            egresoMedico = true;
+        } else {
+            egresoMedico = false;
+        }
+        return egresoMedico;
+    }
+
+    public void setEgresoMedico(boolean egresoMedico) {
+        this.egresoMedico = egresoMedico;
+        if (egresoMedico) {
+            this.inversionmedica = "S";
+        } else {
+            this.inversionmedica = "N";
+        }
+        System.out.println("Egreso Médico: " + this.egresoMedico + "" + inversionmedica);
+    }
+
+    public boolean isEgresoArriendo() {
+         if ("S".equals(inversionarriendo)) {
+            egresoArriendo = true;
+        } else {
+            egresoArriendo = false;
+        }
+        return egresoArriendo;
+    }
+
+    public void setEgresoArriendo(boolean egresoArriendo) {
+        this.egresoArriendo = egresoArriendo;
+        if (egresoArriendo) {
+            this.inversionarriendo = "S";
+        } else {
+            this.inversionarriendo = "N";
+        }
+        System.out.println("Egreso Arriendo: " + this.egresoArriendo + "" + inversionarriendo);
+    }
+
+    public boolean isEgresoServicios() {
+        if ("S".equals(inversionservicios)) {
+            egresoServicios = true;
+        } else {
+            egresoServicios = false;
+        }
+        return egresoServicios;
+    }
+
+    public void setEgresoServicios(boolean egresoServicios) {
+        this.egresoServicios = egresoServicios;
+        if (egresoServicios) {
+            this.inversionservicios = "S";
+        } else {
+            this.inversionservicios = "N";
+        }
+        System.out.println("Egreso Servicios: " + this.egresoServicios + "" + inversionservicios);
+    }
+
+    public boolean isEgresoOtros() {
+        if ("S".equals(inversionotros)) {
+            egresoOtros = true;
+        } else {
+            egresoOtros = false;
+        }
+        return egresoOtros;
+    }
+
+    public void setEgresoOtros(boolean egresoOtros) {
+        this.egresoOtros = egresoOtros;
+        if (egresoOtros) {
+            this.inversionotros = "S";
+        } else {
+            this.inversionotros = "N";
+        }
+        System.out.println("Egreso Otros: " + this.egresoOtros + "" + inversionotros);
     }
 
     @Override

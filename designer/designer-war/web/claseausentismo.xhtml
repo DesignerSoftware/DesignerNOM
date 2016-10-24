@@ -60,7 +60,7 @@
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); border:none; " actionListener="#{controlClasesAusentismos.cancelarModificacion()}" oncomplete="window.location.reload()" process="@this"/>  
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); border:none; " actionListener="#{controlClasesAusentismos.cancelarModificacion()}" oncomplete="PF('window.location.reload()" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
@@ -70,7 +70,6 @@
                             </p:toolbarGroup>  
                         </p:toolbar>
 
-                        <h:outputText id="informacionRegistro" value="#{msg['infoRegistros']} #{controlClasesAusentismos.infoRegistro}" style="position: absolute; left: 15px; top: 475px; font-weight: bold"/>
                         <p:commandButton style=" position: absolute; left: 675px; top: 470px;width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; " id="ACEPTAR" value=""  actionListener="#{controlClasesAusentismos.revisarDialogoGuardar()}" disabled="#{controlClasesAusentismos.guardado}"    process="@this"   />
                         <p:commandButton style=" position: absolute; left: 765px; top: 470px;width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; "  id="ATRAS" value=""  actionListener="#{controlClasesAusentismos.salir()}" action="#{controlClasesAusentismos.redirigir()}"  />
 
@@ -125,10 +124,11 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer" >
-                                        <p:commandButton value="" style="width: 275px; margin: -14px; height: 20px; border: none; color: blue" id="fooTipoAusentismo" action="tiposausentismos" actionListener="#{controlTiposAusentismos.recibirPagina('claseausentismo')}"/>
+                                        <p:commandButton value="" style="width: 275px; margin: -1px; height: 20px; border: none; color: blue" id="fooTipoAusentismo" action="tiposausentismos" actionListener="#{controlTiposAusentismos.recibirPagina('claseausentismo')}"/>
                                     </f:facet>
                                 </p:column>
                             </p:dataTable>
+                            <h:outputText id="informacionRegistro" value="#{msg['infoRegistros']} #{controlClasesAusentismos.infoRegistro}" style="position: relative; left: 15px; top: 5px; font-weight: bold"/>
 
                         </fieldset>
 
@@ -139,10 +139,10 @@
                                          filteredValue="#{controlClasesAusentismos.filtradoTiposausentismos}" emptyMessage="No se encontraron resultados con el criterio de busqueda.">              
                                 <p:ajax event="rowSelect" listener="#{controlClasesAusentismos.activarAceptar()}" update=":form:aceptarPer"/>
                                 <p:ajax event="rowDblselect" listener="#{controlClasesAusentismos.actualizarTiposausentismos()}" process="@this" />
-                                <p:ajax event="filter" listener="#{controlClasesAusentismos.eventoFiltrarLovTiposAusentismos()}"/>
+                                <p:ajax event="filter" listener="#{controlClasesAusentismos.contarRegistroTiposAusentismos()}"/>
                                 <f:facet name="header">  
-                                    <h:outputText value="Buscar Tipos Ausentismos:"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('lovTiposausentismos').filter();" style="width:150px; position: relative; left: 50px;" />  
+                                    <h:outputText value="Buscar Tipos Ausentismos:"/>  
+                                    <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('lovTiposausentismos').filter();" class="cssFiltroLOV" />  
                                 </f:facet>
 
                                 <p:column filterBy="#{personaFirmas.codigo}" width="50" filterStyle="width:30px;" filterMatchMode="contains">
@@ -158,12 +158,12 @@
                                     <h:outputText value="#{personaFirmas.descripcion}" />
                                 </p:column>
                             </p:dataTable>
-
-                            <h:outputText id="infoRegistroTiposAusentismos" value="#{msg['infoRegistros']} #{controlClasesAusentismos.infoRegistroTiposAusentismos}" style="position: absolute; left: 10px; top: 380px; font-weight: bold"/>
-
-                            <p:commandButton id="aceptarPer" icon="ui-icon-check"   style="position: relative; left: 275px;" value="#{msg['aceptar']}" disabled="#{controlClasesAusentismos.aceptar}" actionListener="#{controlClasesAusentismos.actualizarTiposausentismos()}" process="@this"/>
                             
-                            <p:commandButton id="atrasPer" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 275px;" value="#{msg['atras']}"  actionListener="#{controlClasesAusentismos.cancelarCambioTiposausentismos()}" process="@this"/>
+                            <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroTiposAusentismos" value="#{msg['infoRegistros']} #{controlClasesAusentismos.infoRegistroTiposAusentismos}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarPer" icon="ui-icon-check"   class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlClasesAusentismos.aceptar}" actionListener="#{controlClasesAusentismos.actualizarTiposausentismos()}" process="@this"/>
+                            <p:commandButton id="atrasPer" icon="ui-icon-arrowreturnthick-1-w" class="cssAtrasLOV" value="#{msg['atras']}"  actionListener="#{controlClasesAusentismos.cancelarCambioTiposausentismos()}" process="@this"/>
+                            </div>
                         </p:dialog>
 
                         <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  

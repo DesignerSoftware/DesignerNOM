@@ -93,8 +93,8 @@ public class PersistenciaEstadosCiviles implements PersistenciaEstadosCivilesInt
     @Override
     public List<EstadosCiviles> consultarEstadosCiviles(EntityManager em) {
         em.clear();
-        Query query = em.createQuery("SELECT e FROM EstadosCiviles e ORDER BY e.codigo ");
-        query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+        String sql ="SELECT * FROM ESTADOSCIVILES ORDER BY CODIGO";
+        Query query = em.createNativeQuery(sql, EstadosCiviles.class);
         List<EstadosCiviles> listEstadosCiviles = query.getResultList();
         return listEstadosCiviles;
 

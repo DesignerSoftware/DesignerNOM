@@ -59,7 +59,7 @@
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png) ; border: none;" actionListener="#{controlTiposAusentismos.cancelarModificacion()}" oncomplete="window.location.reload()" process="@this"/>  
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png) ; border: none;" actionListener="#{controlTiposAusentismos.cancelarModificacion()}" oncomplete="PF('window.location.reload()" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
@@ -69,8 +69,8 @@
                             </p:toolbarGroup>  
                         </p:toolbar>
 
-                        <p:commandButton style=" position: absolute; left: 688px; top: 470px;width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; " id="ACEPTAR" value=""  actionListener="#{controlTiposAusentismos.revisarDialogoGuardar()}" disabled="#{controlTiposAusentismos.guardado}"    process="@this"   />
-                        <p:commandButton style=" position: absolute; left: 785px; top: 470px;width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; "  id="ATRAS" value=""  actionListener="#{controlTiposAusentismos.salir()}" action="#{controlTiposAusentismos.redirigir()}"   />
+                        <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value=""  actionListener="#{controlTiposAusentismos.revisarDialogoGuardar()}" disabled="#{controlTiposAusentismos.guardado}"    process="@this"   />
+                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value=""  actionListener="#{controlTiposAusentismos.salir()}" action="#{controlTiposAusentismos.redirigir()}"   />
                         <fieldset style="position: absolute;top: 80px;left: 10px;height: 350px; width: 830px; border-radius: 10px; text-align: left">
                             <legend style="font-size: 14px; color: blue"><strong>Tipo de Ausentismo</strong></legend>
 
@@ -97,7 +97,9 @@
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
-
+                                     <f:facet name="footer">
+                                        <h:outputText value=" "/>
+                                    </f:facet>
                                 </p:column>
                                 <p:column headerText="Descripción" sortBy="#{info.descripcion}" filterBy="#{info.descripcion}" filterMatchMode="contains" id="descripcion" width="160" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
@@ -109,6 +111,9 @@
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=" "/>
+                                    </f:facet>
 
                                 </p:column>
                             </p:dataTable>

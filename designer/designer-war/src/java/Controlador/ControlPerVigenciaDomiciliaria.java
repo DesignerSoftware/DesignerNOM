@@ -44,8 +44,10 @@ import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.context.RequestContext;
 
@@ -205,15 +207,31 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
 
     private List<TiposTelefonos> lovTiposTelefonos;
     private List<TiposTelefonos> lovTiposTelefonosFiltrar;
-    private List<TiposTelefonos> tipoTelefonoSeleccionado;
+    private TiposTelefonos tipoTelefonoSeleccionado;
 
     private List<Ciudades> lovCiudades;
     private List<Ciudades> lovCiudadesFiltrar;
     private Ciudades ciudadSeleccionada;
 
+    private List<Ciudades> lovCiudadDocumento;
+    private List<Ciudades> lovCiudadDocumentoFiltrar;
+    private Ciudades ciudadDocumentoSeleccionada;
+
+    private List<Ciudades> lovCiudadDireccion;
+    private List<Ciudades> lovCiudadDireccionFiltrar;
+    private Ciudades ciudadDireccionSeleccionada;
+
+    private List<Ciudades> lovCiudadTelefono;
+    private List<Ciudades> lovCiudadTelefonoFiltrar;
+    private Ciudades ciudadTelefonoSeleccionada;
+
     private List<Cargos> lovCargos;
     private List<Cargos> lovCargosFiltrar;
     private Cargos cargoSeleccionada;
+
+    private List<TiposDocumentos> lovTiposDocumentos;
+    private List<TiposDocumentos> lovTiposDocumentosFiltrar;
+    private TiposDocumentos tipoDocumentoSeleccionado;
 
     //SectoresEconomicos
     private List<SectoresEconomicos> lovSectoresEconomicos;
@@ -228,24 +246,55 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
     private String altoTabla;
     private Personas persona;
     private Empleados empleado;
-    private Direcciones direccionActual;
     private Telefonos telefonoActual;
-    private VigenciasEstadosCiviles estadoCivilActual;
     private HVHojasDeVida hvactual;
     private boolean guardado;
     private BigInteger l;
+    private BigDecimal x;
     private int k;
     private int cualCelda, tipoLista;
     private DataTable tablaC;
     private boolean activarLov;
-    private String infoRegistroFamiliar, infoRegistroPersonas, infoRegistroTipoFamiliar, infoRegistroTipoDocumento, infoRegistroCiudades, infoRegistroCiudadNacimiento;
-    private String infoRegistroAntecedenteM, infoRegistroEstadoCivil, infoRegistroDireccion, infoRegistroEducacion, infoRegistroExp, infoRegistroTelefono;
+    private String infoRegistroFamiliar, infoRegistroPersonas, infoRegistroTipoFamiliar, infoRegistroTipoDocumento, infoRegistroCiudadDocumento, infoRegistroCiudadNacimiento;
+    private String infoRegistroAntecedenteM, infoRegistroEstadoCivil, infoRegistroDireccion, infoRegistroEducacion, infoRegistroExp, infoRegistroTelefono, infoRegistroEstadoCivilLov;
+    private String infoRegistroCiudadesDirecciones, infoRegistroTT, infoRegistroCiudadesTelefonos;
+    private String infoRegistroMotivo, infoRegistroSector;
     private String fechaDesdeText, fechaHastaText;
     private Date fechaIni, fechaFin;
     private final SimpleDateFormat formatoFecha;
     private Date fechaParametro;
     private HVHojasDeVida hojaVida;
     private String distribucion, condiciones, descGeneral;
+    private String observaciones, conceptofinal, conceptosocial, personasAtencion, profesional;
+    private String mensajeValidacion, infoRegistroAntecedentes, infoRegistroTipoAntecedente;
+    private String infoRegistroAdiestramiento, infoRegistroInstitucion, infoRegistroProfesion, infoRegistroTipoEducacion;
+    private String infoRegistroCargo;
+    private Date dateVisita;
+    //Columnas Tabla Direcciones
+    private Column dFecha, dUbicacionPrincipal, dDescripcionUbicacionPrincipal, dUbicacionSecundaria;
+    private Column dDescripcionUbicacionSecundaria, dInterior, dCiudad, dTipoVivienda, dHipoteca, dDireccionAlternativa;
+    ///columnas tabla telefono
+    private Column tFecha, tTipoTelefono, tNumero, tCiudad;
+    //columnas tabla estados civiles
+    private Column fecha, parentesco;
+    //columnas tabla antecedentes
+    private Column fechaAntecedenteM, tipoAntecedenteM, antecedenteMedico, descAntecedenteM;
+    //Columnas Tabla Vigencias Formales
+    private Column pEFechas, pETiposEducaciones, pEProfesiones, pEInstituciones, pEAdiestramientosF, pECalificaciones;
+    private Column pENumerosTarjetas, pEFechasExpediciones, pEFechasVencimientos, pEObservaciones;
+    //columnas tabla exp laborales
+    private Column expEmpresa, expCargoDes, expJefe, expTelefono, expSectorEco, expMotivos, expFechaInicio, expFechaRetiro;
+    ///columnas tabla familiares 
+    private Column nombre, ocupacion, columnaTipo, smedico, sfamiliar, beneficiario, upcadicional, valorupc;
+    //columnas tablas vigencias domiciliarias
+    private Column editarcalf, obsFamiliar, editarconstruccion, servicioAgua, servicioLuz, servicioTel, servicioPar, servicioTrasn;
+    private Column servicioAlcan, servicioOtros, otrosServicios, ingresos, origenInd, origenArriendos, origenPension, origenSalario;
+    private Column origenCDT, origenAuxilios, aportePadre, aporteMadre, aporteHermano, aporteAbuelo, aporteTio, aporteOtro, otrosIngresos;
+    private Column egresoEdu, egresoRec, egresoAlimentacion, egresoMedico, egresoArriendo, egresoServicios, egresoOtro, otrosEgresos;
+    private Column condicionesF, condicionesS, situacionE, nivelAc, motivacionC;
+    private String infoRegistroRelaciones, infoRegistroServicios, infoRegistroIngresos, infoRegistroAportesH, infoRegistrosEgresos, infoRegistrosIndicadores, nombreDialogo;
+    private int cualtabla;
+    private boolean activarotroservicio,activarotroegreso,activarotroaporte;
 
     /**
      * Creates a new instance of ControlPerVigenciaDomiciliaria
@@ -254,10 +303,8 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         altoTabla = "70";
         nuevaVigenciaDomiciliaria = new VigenciasDomiciliarias();
         hojaVida = new HVHojasDeVida();
-        nuevaHV = new HVHojasDeVida();
         nuevaPersona = new Personas();
         nuevahvexp = new HvExperienciasLaborales();
-        nuevaDireccion = new Direcciones();
         nuevoTelefono = new Telefonos();
         nuevaVigenciaEstadoCivil = new VigenciasEstadosCiviles();
         nuevoFamiliar = new Familiares();
@@ -267,10 +314,8 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         activarLov = true;
         cualCelda = -1;
         tipoLista = 0;
-        direccionActual = new Direcciones();
         persona = new Personas();
         telefonoActual = new Telefonos();
-        estadoCivilActual = new VigenciasEstadosCiviles();
         hvactual = new HVHojasDeVida();
         antecedentemSeleccionado = new SoAntecedentesMedicos();
         antecedentemSeleccionado.setAntecedente(new SoAntecedentes());
@@ -288,7 +333,72 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         distribucion = "";
         descGeneral = "";
         condiciones = "";
-
+        observaciones = "";
+        conceptofinal = "";
+        conceptosocial = "";
+        personasAtencion = "";
+        profesional = "";
+        dateVisita = new Date();
+        nuevaDireccion = new Direcciones();
+        nuevaDireccion.setCiudad(new Ciudades());
+        nuevaDireccion.setFechavigencia(new Date());
+        nuevaDireccion.setTipoppal("C");
+        nuevaDireccion.setTiposecundario("K");
+        nuevaDireccion.setTipovivienda("CASA");
+        nuevaDireccion.setHipoteca("N");
+        listDireccionesBorrar = new ArrayList<Direcciones>();
+        listDireccionesCrear = new ArrayList<Direcciones>();
+        listDireccionesModificar = new ArrayList<Direcciones>();
+        lovCiudadDireccion = null;
+        direccionSeleccionada = null;
+        listTelefonosBorrar = new ArrayList<Telefonos>();
+        listTelefonosCrear = new ArrayList<Telefonos>();
+        listTelefonosModificar = new ArrayList<Telefonos>();
+        lovTiposTelefonos = null;
+        telefonoSeleccionado = null;
+        lovCiudadTelefono = null;
+        lovEstadosCiviles = null;
+        listVigenciaEstadoCivilCrear = new ArrayList<VigenciasEstadosCiviles>();
+        listVigenciaEstadoCivilBorrar = new ArrayList<VigenciasEstadosCiviles>();
+        listVigenciaEstadoCivilModificar = new ArrayList<VigenciasEstadosCiviles>();
+        lovAntecedentes = null;
+        lovTiposAntecedentes = null;
+        listAntecedentesMBorrar = new ArrayList<SoAntecedentesMedicos>();
+        listAntecedentesMCrear = new ArrayList<SoAntecedentesMedicos>();
+        listAntecedentesModificar = new ArrayList<SoAntecedentesMedicos>();
+        lovTiposEducaciones = null;
+        lovInstituciones = null;
+        lovAdiestramientos = null;
+        lovProfesiones = null;
+        listVigenciasFormalesBorrar = new ArrayList<VigenciasFormales>();
+        listVigenciasFormalesCrear = new ArrayList<VigenciasFormales>();
+        listVigenciasFormalesModificar = new ArrayList<VigenciasFormales>();
+        lovSectoresEconomicos = null;
+        lovMotivos = null;
+        listhvExpLaboralesBorrar = new ArrayList<HvExperienciasLaborales>();
+        listhvExpLaboralesCrear = new ArrayList<HvExperienciasLaborales>();
+        listhvExpLaboralesModificar = new ArrayList<HvExperienciasLaborales>();
+        lovPersonas = null;
+        lovTiposFamiliares = null;
+        lovTiposDocumentos = null;
+        listaFamiliaresCrear = new ArrayList<Familiares>();
+        listaFamiliaresBorrar = new ArrayList<Familiares>();
+        listaFamiliaresModificar = new ArrayList<Familiares>();
+        nuevaVigenciaDomiciliaria = new VigenciasDomiciliarias();
+        nuevaVigenciaDomiciliaria.setFecha(new Date());
+        lovCargos = null;
+        listHojasdeVidaCrear = new ArrayList<HVHojasDeVida>();
+        listHojasdeVidaBorrar = new ArrayList<HVHojasDeVida>();
+        listHojasdeVidaModificar = new ArrayList<HVHojasDeVida>();
+        nuevaHV = new HVHojasDeVida();
+        nuevaHV.setCargo(new Cargos());
+        cualtabla = -1;
+        listVigenciasDomiciliariasCrear = new ArrayList<VigenciasDomiciliarias>();
+        listVigenciasDomiciliariasBorrar = new ArrayList<VigenciasDomiciliarias>();
+        listVigenciasDomiciliariasModificar = new ArrayList<VigenciasDomiciliarias>();
+        activarotroservicio = true;
+        activarotroegreso = true;
+        activarotroaporte = true;
     }
 
     @PostConstruct
@@ -316,14 +426,17 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         listAntecedentesM = null;
         persona = administrarVigDomiciliarias.encontrarPersona(secuencia);
         empleado = administrarVigDomiciliarias.buscarEmpleado(persona.getSecuencia());
-//        fecha = direccionActual.getFechavigencia();
-//        getListaTelefonos();
-
         if (persona != null) {
             hojaVida = administrarVigDomiciliarias.obtenerHojaVidaPersona(persona.getSecuencia());
         }
         if (hojaVida != null) {
             getListhvExpLaborales();
+        }
+
+        if (listDirecciones != null) {
+            if (!listDirecciones.isEmpty()) {
+                direccionSeleccionada = listDirecciones.get(0);
+            }
         }
 
     }
@@ -453,6 +566,305 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         }
     }
 
+    public void guardarCambiosFamiliares() {
+        RequestContext context = RequestContext.getCurrentInstance();
+        try {
+            if (guardado == false) {
+                if (!listaFamiliaresBorrar.isEmpty()) {
+                    administrarVigDomiciliarias.borrarFamiliares(listaFamiliaresBorrar);
+                    listaFamiliaresBorrar.clear();
+                }
+                if (!listaFamiliaresCrear.isEmpty()) {
+                    administrarVigDomiciliarias.crearFamilares(listaFamiliaresCrear);
+                    listaFamiliaresCrear.clear();
+                }
+                if (!listaFamiliaresModificar.isEmpty()) {
+                    administrarVigDomiciliarias.modificarFamiliares(listaFamiliaresModificar);
+                    listaFamiliaresModificar.clear();
+                }
+                listaFamiliares = null;
+                getListaFamiliares();
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                k = 0;
+                FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+                RequestContext.getCurrentInstance().update("form:growl");
+                contarRegistrosFamiliares();
+                familiarSeleccionado = null;
+            }
+
+            guardado = true;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:datosFamiliares");
+        } catch (Exception e) {
+            System.out.println("Error guardarCambios : " + e.toString());
+            FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            RequestContext.getCurrentInstance().update("form:growl");
+        }
+    }
+
+    public void cancelarModificacionFamiliares() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        if (bandera == 1) {
+
+            nombre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFamiliares:nombreFamiliar");
+            nombre.setFilterStyle("display: none; visibility: hidden;");
+            ocupacion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFamiliares:ocupacionFamiliar");
+            ocupacion.setFilterStyle("display: none; visibility: hidden;");
+            columnaTipo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFamiliares:ctipoFamiliar");
+            columnaTipo.setFilterStyle("display: none; visibility: hidden;");
+            smedico = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFamiliares:servicioMedico");
+            smedico.setFilterStyle("display: none; visibility: hidden;");
+            sfamiliar = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFamiliares:sFamiliar");
+            sfamiliar.setFilterStyle("display: none; visibility: hidden;");
+            beneficiario = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFamiliares:beneficiario");
+            beneficiario.setFilterStyle("display: none; visibility: hidden;");
+            upcadicional = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFamiliares:upcAd");
+            upcadicional.setFilterStyle("display: none; visibility: hidden;");
+            valorupc = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFamiliares:valorUpc");
+            valorupc.setFilterStyle("display: none; visibility: hidden;");
+            RequestContext.getCurrentInstance().update("form:datosFamiliares");
+            bandera = 0;
+            listaFamiliaresFiltrar = null;
+            tipoLista = 0;
+            altoTabla = "285";
+        }
+
+        listaFamiliaresBorrar.clear();
+        listaFamiliaresCrear.clear();
+        listaFamiliaresModificar.clear();
+        k = 0;
+        listaFamiliares = null;
+        familiarSeleccionado = null;
+        guardado = true;
+        permitirIndex = true;
+        getListaFamiliares();
+        contarRegistrosFamiliares();
+        RequestContext context = RequestContext.getCurrentInstance();
+        RequestContext.getCurrentInstance().update("form:datosFamiliares");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+    }
+
+    public void agregarNuevoFamilar() {
+        if (bandera == 1) {
+            nombre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFamiliares:nombreFamiliar");
+            nombre.setFilterStyle("display: none; visibility: hidden;");
+            ocupacion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFamiliares:ocupacionFamiliar");
+            ocupacion.setFilterStyle("display: none; visibility: hidden;");
+            columnaTipo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFamiliares:ctipoFamiliar");
+            columnaTipo.setFilterStyle("display: none; visibility: hidden;");
+            smedico = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFamiliares:servicioMedico");
+            smedico.setFilterStyle("display: none; visibility: hidden;");
+            sfamiliar = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFamiliares:sFamiliar");
+            sfamiliar.setFilterStyle("display: none; visibility: hidden;");
+            beneficiario = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFamiliares:beneficiario");
+            beneficiario.setFilterStyle("display: none; visibility: hidden;");
+            upcadicional = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFamiliares:upcAd");
+            upcadicional.setFilterStyle("display: none; visibility: hidden;");
+            valorupc = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFamiliares:valorUpc");
+            valorupc.setFilterStyle("display: none; visibility: hidden;");
+            bandera = 0;
+            listaFamiliaresFiltrar = null;
+            tipoLista = 0;
+        }
+        k++;
+        x = BigDecimal.valueOf(k);
+        nuevoFamiliar.setSecuencia(x);
+        listaFamiliaresCrear.add(nuevoFamiliar);
+        System.out.println("el familiar nuevo es : " + nuevoFamiliar.getPersonafamiliar().getNombreCompleto());
+        if (listaFamiliares == null) {
+            listaFamiliares = new ArrayList<Familiares>();
+        }
+        listaFamiliares.add(nuevoFamiliar);
+        familiarSeleccionado = nuevoFamiliar;
+        System.out.println("Persona  :" + nuevoFamiliar.getPersona().getNombreCompleto());
+        System.out.println("nuevo FAMILIAR :" + nuevoFamiliar.getPersonafamiliar().getNombreCompleto());
+        getListaFamiliares();
+        contarRegistrosFamiliares();
+        RequestContext context = RequestContext.getCurrentInstance();
+        RequestContext.getCurrentInstance().update("form:datosFamiliares");
+        RequestContext.getCurrentInstance().execute("PF('NuevoRegistroFamiliarPersona').hide()");
+        if (guardado == true) {
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        }
+        nuevoFamiliar = new Familiares();
+        nuevoFamiliar.setPersona(persona);
+        nuevoFamiliar.setPersonafamiliar(new Personas());
+        nuevoFamiliar.setTipofamiliar(new TiposFamiliares());
+    }
+
+    public void limpiarNuevoFamiliar() {
+        nuevoFamiliar = new Familiares();
+        nuevoFamiliar.setPersona(persona);
+        nuevoFamiliar.setPersonafamiliar(new Personas());
+        nuevoFamiliar.setTipofamiliar(new TiposFamiliares());
+    }
+
+    public void limpiarDuplicarFamiliar() {
+        duplicarFamiliar = new Familiares();
+        duplicarFamiliar.setPersona(persona);
+        duplicarFamiliar.setPersonafamiliar(new Personas());
+        duplicarFamiliar.setTipofamiliar(new TiposFamiliares());
+
+    }
+
+    public void duplicarFamiliar() {
+        RequestContext context = RequestContext.getCurrentInstance();
+        if (familiarSeleccionado != null) {
+            duplicarFamiliar = new Familiares();
+
+            if (tipoLista == 0) {
+
+                duplicarFamiliar.setPersonafamiliar(familiarSeleccionado.getPersonafamiliar());
+                duplicarFamiliar.setOcupacion(familiarSeleccionado.getOcupacion());
+                duplicarFamiliar.setTipofamiliar(familiarSeleccionado.getTipofamiliar());
+                duplicarFamiliar.setServiciomedico(familiarSeleccionado.getServiciomedico());
+                duplicarFamiliar.setSubsidiofamiliar(familiarSeleccionado.getSubsidiofamiliar());
+                duplicarFamiliar.setBeneficiario(familiarSeleccionado.getBeneficiario());
+                duplicarFamiliar.setUpcadicional(familiarSeleccionado.getUpcadicional());
+                duplicarFamiliar.setValorupcadicional(familiarSeleccionado.getValorupcadicional());
+            }
+            if (tipoLista == 1) {
+
+                duplicarFamiliar.setPersonafamiliar(familiarSeleccionado.getPersonafamiliar());
+                duplicarFamiliar.setOcupacion(familiarSeleccionado.getOcupacion());
+                duplicarFamiliar.setTipofamiliar(familiarSeleccionado.getTipofamiliar());
+                duplicarFamiliar.setServiciomedico(familiarSeleccionado.getServiciomedico());
+                duplicarFamiliar.setSubsidiofamiliar(familiarSeleccionado.getSubsidiofamiliar());
+                duplicarFamiliar.setBeneficiario(familiarSeleccionado.getBeneficiario());
+                duplicarFamiliar.setUpcadicional(familiarSeleccionado.getUpcadicional());
+                duplicarFamiliar.setValorupcadicional(familiarSeleccionado.getValorupcadicional());
+            }
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarPersonaFamiliar");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroFamiliarPersona').show()");
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+        }
+    }
+
+    public void confirmarDuplicar() {
+        int pasa = 0;
+        RequestContext context = RequestContext.getCurrentInstance();
+        if (duplicarFamiliar.getPersonafamiliar().getNombreCompleto() == null || duplicarFamiliar.getTipofamiliar().getTipo() == null) {
+            mensajeValidacion = mensajeValidacion + " Los campos nombre y Tipo Familiar son Obligatorios\n";
+            pasa++;
+        }
+
+        if (pasa != 0) {
+            RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoFamiliar");
+            RequestContext.getCurrentInstance().execute("PF('validacionNuevoFamiliar').show()");
+        }
+
+        if (pasa == 0) {
+            k++;
+            x = BigDecimal.valueOf(k);
+            duplicarFamiliar.setSecuencia(x);
+            duplicarFamiliar.setPersona(persona);
+            listaFamiliares.add(duplicarFamiliar);
+            listaFamiliaresCrear.add(duplicarFamiliar);
+            familiarSeleccionado = duplicarFamiliar;
+            getListaFamiliares();
+            contarRegistrosFamiliares();
+            RequestContext.getCurrentInstance().update("form:datosFamiliares");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroFamiliarPersona').hide()");
+            if (guardado == true) {
+                guardado = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            }
+            if (bandera == 1) {
+                //CERRAR FILTRADO
+                nombre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFamiliares:nombreFamiliar");
+                nombre.setFilterStyle("display: none; visibility: hidden;");
+                ocupacion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFamiliares:ocupacionFamiliar");
+                ocupacion.setFilterStyle("display: none; visibility: hidden;");
+                columnaTipo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFamiliares:ctipoFamiliar");
+                columnaTipo.setFilterStyle("display: none; visibility: hidden;");
+                smedico = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFamiliares:servicioMedico");
+                smedico.setFilterStyle("display: none; visibility: hidden;");
+                sfamiliar = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFamiliares:sFamiliar");
+                sfamiliar.setFilterStyle("display: none; visibility: hidden;");
+                beneficiario = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFamiliares:beneficiario");
+                beneficiario.setFilterStyle("display: none; visibility: hidden;");
+                upcadicional = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFamiliares:upcAd");
+                upcadicional.setFilterStyle("display: none; visibility: hidden;");
+                valorupc = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFamiliares:valorUpc");
+                valorupc.setFilterStyle("display: none; visibility: hidden;");
+                bandera = 0;
+                listaFamiliaresFiltrar = null;
+                tipoLista = 0;
+            }
+            duplicarFamiliar = new Familiares();
+        }
+    }
+
+    public void borrarFamiliar() {
+
+        if (familiarSeleccionado != null) {
+            if (!listaFamiliaresModificar.isEmpty() && listaFamiliaresModificar.contains(familiarSeleccionado)) {
+                int modIndex = listaFamiliaresModificar.indexOf(familiarSeleccionado);
+                listaFamiliaresModificar.remove(modIndex);
+                listaFamiliaresBorrar.add(familiarSeleccionado);
+            } else if (!listaFamiliaresCrear.isEmpty() && listaFamiliaresCrear.contains(familiarSeleccionado)) {
+                int crearIndex = listaFamiliaresCrear.indexOf(familiarSeleccionado);
+                listaFamiliaresCrear.remove(crearIndex);
+            } else {
+                listaFamiliaresBorrar.add(familiarSeleccionado);
+            }
+            listaFamiliares.remove(familiarSeleccionado);
+            if (tipoLista == 1) {
+                listaFamiliaresFiltrar.remove(familiarSeleccionado);
+            }
+            contarRegistrosFamiliares();
+            RequestContext context = RequestContext.getCurrentInstance();
+            RequestContext.getCurrentInstance().update("form:datosFamiliares");
+            familiarSeleccionado = null;
+
+            if (guardado == true) {
+                guardado = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            }
+        } else {
+            RequestContext context = RequestContext.getCurrentInstance();
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+        }
+    }
+
+    public void salirFamiliares() {
+        if (bandera == 1) {
+            nombre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFamiliares:nombreFamiliar");
+            nombre.setFilterStyle("display: none; visibility: hidden;");
+            ocupacion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFamiliares:ocupacionFamiliar");
+            ocupacion.setFilterStyle("display: none; visibility: hidden;");
+            columnaTipo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFamiliares:ctipoFamiliar");
+            columnaTipo.setFilterStyle("display: none; visibility: hidden;");
+            smedico = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFamiliares:servicioMedico");
+            smedico.setFilterStyle("display: none; visibility: hidden;");
+            sfamiliar = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFamiliares:sFamiliar");
+            sfamiliar.setFilterStyle("display: none; visibility: hidden;");
+            beneficiario = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFamiliares:beneficiario");
+            beneficiario.setFilterStyle("display: none; visibility: hidden;");
+            upcadicional = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFamiliares:upcAd");
+            upcadicional.setFilterStyle("display: none; visibility: hidden;");
+            valorupc = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFamiliares:valorUpc");
+            valorupc.setFilterStyle("display: none; visibility: hidden;");
+            contarRegistrosFamiliares();
+            RequestContext.getCurrentInstance().update("form:datosFamiliares");
+            bandera = 0;
+            listaFamiliaresFiltrar = null;
+            tipoLista = 0;
+        }
+
+        listaFamiliaresBorrar.clear();
+        listaFamiliaresCrear.clear();
+        listaFamiliaresModificar.clear();
+        familiarSeleccionado = null;
+        k = 0;
+        listaFamiliares = null;
+        guardado = true;
+    }
+
     public void crearNuevaPersona() {
 //        crearPersonas.add(personas);
         try {
@@ -502,6 +914,422 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
             contarRegistroCiudadNacimiento();
             RequestContext.getCurrentInstance().update("formularioDialogos:ciudadNacimientoDialogo");
             RequestContext.getCurrentInstance().execute("PF('ciudadNacimientoDialogo').show()");
+        }
+    }
+
+    public void dispararDialogoNuevoFamiliarPersona() {
+        RequestContext.getCurrentInstance().update("formularioDialogos:nuevoFamiliarPersona");
+        RequestContext.getCurrentInstance().execute("PF('nuevoFamiliarPersona').show()");
+    }
+
+    public void dispararDialogoNuevoFamiliar() {
+        RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroFamiliarPersona");
+        RequestContext.getCurrentInstance().execute("PF('NuevoRegistroFamiliarPersona').show()");
+    }
+
+    public void actualizarTipoFamiliar() {
+        RequestContext context = RequestContext.getCurrentInstance();
+        if (tipoActualizacion == 0) {
+            if (tipoLista == 0) {
+                familiarSeleccionado.setTipofamiliar(tipoFamiliarSeleccionado);
+                if (!listaFamiliaresCrear.contains(familiarSeleccionado)) {
+                    if (listaFamiliaresModificar.isEmpty()) {
+                        listaFamiliaresModificar.add(familiarSeleccionado);
+                    } else if (!listaFamiliaresModificar.contains(familiarSeleccionado)) {
+                        listaFamiliaresModificar.add(familiarSeleccionado);
+                    }
+                }
+            } else {
+                familiarSeleccionado.setTipofamiliar(tipoFamiliarSeleccionado);
+                if (!listaFamiliaresCrear.contains(familiarSeleccionado)) {
+                    if (listaFamiliaresModificar.isEmpty()) {
+                        listaFamiliaresModificar.add(familiarSeleccionado);
+                    } else if (!listaFamiliaresModificar.contains(familiarSeleccionado)) {
+                        listaFamiliaresModificar.add(familiarSeleccionado);
+                    }
+                }
+            }
+            if (guardado == true) {
+                guardado = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            }
+            permitirIndex = true;
+            RequestContext.getCurrentInstance().update("form:datosFamiliares");
+        } else if (tipoActualizacion == 1) {
+            nuevoFamiliar.setTipofamiliar(tipoFamiliarSeleccionado);
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevoPersonaFamiliar");
+        } else if (tipoActualizacion == 2) {
+            duplicarFamiliar.setTipofamiliar(tipoFamiliarSeleccionado);
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarPersonaFamiliar");
+        }
+
+        lovTiposFamiliaresFiltrar = null;
+        tipoFamiliarSeleccionado = null;
+        aceptar = true;
+        tipoActualizacion = -1;
+
+        RequestContext.getCurrentInstance().update("formularioDialogos:tipoFamiliarDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:lovFamiliares");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarT");
+
+        context.reset("formularioDialogos:lovFamiliares:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('lovFamiliares').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('tipoFamiliarDialogo').hide()");
+    }
+
+    public void cancelarCambioTipoFamiliar() {
+        lovTiposFamiliaresFiltrar = null;
+        aceptar = true;
+        tipoActualizacion = -1;
+        permitirIndex = true;
+        tipoFamiliarSeleccionado = null;
+        RequestContext context = RequestContext.getCurrentInstance();
+        RequestContext.getCurrentInstance().update("formularioDialogos:tipoFamiliarDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:lovFamiliares");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarT");
+
+        context.reset("formularioDialogos:lovFamiliares:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('lovFamiliares').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('tipoFamiliarDialogo').hide()");
+    }
+
+    public void actualizarCiudadDocumento() {
+        RequestContext context = RequestContext.getCurrentInstance();
+        if (tipoActualizacion == 1) {
+            nuevaPersona.setCiudaddocumento(ciudadDocumentoSeleccionada);
+            RequestContext.getCurrentInstance().update("formularioDialogos:ciudadDocumentoModPersonal");
+        }
+        lovCiudadDocumentoFiltrar = null;
+        ciudadDocumentoSeleccionada = null;
+        aceptar = true;
+        tipoActualizacion = -1;
+
+        RequestContext.getCurrentInstance().update("formularioDialogos:ciudadDocumentoDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:lovCiudadDocumento");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarCD");
+
+        context.reset("formularioDialogos:lovCiudadDocumento:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('lovCiudadDocumento').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('ciudadDocumentoDialogo').hide()");
+    }
+
+    public void cancelarCambioCiudadDocumento() {
+        lovCiudadDocumentoFiltrar = null;
+        aceptar = true;
+        tipoActualizacion = -1;
+        permitirIndex = true;
+        ciudadDocumentoSeleccionada = null;
+        RequestContext context = RequestContext.getCurrentInstance();
+        RequestContext.getCurrentInstance().update("formularioDialogos:ciudadDocumentoDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:lovCiudadDocumento");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarCD");
+
+        context.reset("formularioDialogos:lovCiudadDocumento:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('lovCiudadDocumento').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('ciudadDocumentoDialogo').hide()");
+    }
+
+    public void actualizarCiudadNacimiento() {
+        RequestContext context = RequestContext.getCurrentInstance();
+        if (tipoActualizacion == 1) {
+            nuevaPersona.setCiudadnacimiento(ciudadSeleccionada);
+            RequestContext.getCurrentInstance().update("formularioDialogos:ciudadNacimientoModPersonal");
+        }
+
+        lovCiudadesFiltrar = null;
+        ciudadSeleccionada = null;
+        aceptar = true;
+        tipoActualizacion = -1;
+
+        RequestContext.getCurrentInstance().update("formularioDialogos:ciudadNacimientoDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:lovCiudadNacimiento");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarCN");
+
+        context.reset("formularioDialogos:lovCiudadDocumento:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('lovCiudadNacimiento').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('ciudadNacimientoDialogo').hide()");
+    }
+
+    public void cancelarCambioCiudadNacimiento() {
+        lovCiudadesFiltrar = null;
+        aceptar = true;
+        tipoActualizacion = -1;
+        permitirIndex = true;
+        ciudadSeleccionada = null;
+        RequestContext context = RequestContext.getCurrentInstance();
+        RequestContext.getCurrentInstance().update("formularioDialogos:ciudadNacimientoDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:lovCiudadNacimiento");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarCN");
+
+        context.reset("formularioDialogos:lovCiudadDocumento:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('lovCiudadNacimiento').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('ciudadNacimientoDialogo').hide()");
+    }
+
+    public void actualizarPersonaFamiliar() {
+        RequestContext context = RequestContext.getCurrentInstance();
+        if (tipoActualizacion == 0) {
+            if (tipoLista == 0) {
+                familiarSeleccionado.setPersonafamiliar(personaSeleccionada);
+                if (!listaFamiliaresCrear.contains(familiarSeleccionado)) {
+                    if (listaFamiliaresModificar.isEmpty()) {
+                        listaFamiliaresModificar.add(familiarSeleccionado);
+                    } else if (!listaFamiliaresModificar.contains(familiarSeleccionado)) {
+                        listaFamiliaresModificar.add(familiarSeleccionado);
+                    }
+                }
+            } else {
+                familiarSeleccionado.setPersonafamiliar(personaSeleccionada);
+                if (!listaFamiliaresCrear.contains(familiarSeleccionado)) {
+                    if (listaFamiliaresModificar.isEmpty()) {
+                        listaFamiliaresModificar.add(familiarSeleccionado);
+                    } else if (!listaFamiliaresModificar.contains(familiarSeleccionado)) {
+                        listaFamiliaresModificar.add(familiarSeleccionado);
+                    }
+                }
+            }
+            if (guardado == true) {
+                guardado = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            }
+            permitirIndex = true;
+            RequestContext.getCurrentInstance().update("form:datosFamiliares");
+        } else if (tipoActualizacion == 1) {
+            nuevoFamiliar.setPersonafamiliar(personaSeleccionada);
+            nuevoFamiliar.setPersona(persona);
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevoPersonaFamiliar");
+        } else if (tipoActualizacion == 2) {
+            duplicarFamiliar.setPersona(persona);
+            duplicarFamiliar.setPersonafamiliar(personaSeleccionada);
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarPersonaFamiliar");
+        }
+        lovTiposFamiliaresFiltrar = null;
+        personaSeleccionada = null;
+        aceptar = true;
+        tipoActualizacion = -1;
+
+        RequestContext.getCurrentInstance().update("formularioDialogos:personaFamiliarDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:lovPersonasFamiliares");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarD");
+
+        context.reset("formularioDialogos:lovPersonasFamiliares:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('lovPersonasFamiliares').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('personaFamiliarDialogo').hide()");
+    }
+
+    public void cancelarCambioPersonaFamiliar() {
+        lovTiposFamiliaresFiltrar = null;
+        aceptar = true;
+        tipoActualizacion = -1;
+        permitirIndex = true;
+        personaSeleccionada = null;
+        RequestContext context = RequestContext.getCurrentInstance();
+        RequestContext.getCurrentInstance().update("formularioDialogos:personaFamiliarDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:lovPersonasFamiliares");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarT");
+
+        context.reset("formularioDialogos:lovPersonasFamiliares:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('lovPersonasFamiliares').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('personaFamiliarDialogo').hide()");
+    }
+
+    public void actualizarTipoDocumento() {
+        RequestContext context = RequestContext.getCurrentInstance();
+        if (tipoActualizacion == 1) {
+            nuevaPersona.setTipodocumento(tipoDocumentoSeleccionado);
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevoFamiliarP");
+        }
+        lovTiposDocumentosFiltrar = null;
+        tipoDocumentoSeleccionado = null;
+        aceptar = true;
+        tipoActualizacion = -1;
+
+        RequestContext.getCurrentInstance().update("formularioDialogos:tipoDocumentoDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:lovTipoDocumento");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarTD");
+
+        context.reset("formularioDialogos:lovFamiliares:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('lovTipoDocumento').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('tipoDocumentoDialogo').hide()");
+    }
+
+    public void cancelarCambioTipoDocumento() {
+        lovTiposDocumentosFiltrar = null;
+        aceptar = true;
+        tipoActualizacion = -1;
+        permitirIndex = true;
+        tipoDocumentoSeleccionado = null;
+        RequestContext context = RequestContext.getCurrentInstance();
+        RequestContext.getCurrentInstance().update("formularioDialogos:tipoDocumentoDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:lovTipoDocumento");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarTD");
+
+        context.reset("formularioDialogos:lovFamiliares:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('lovTipoDocumento').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('tipoDocumentoDialogo').hide()");
+    }
+
+    public void valoresBackupAutocompletarFamiliares(int tipoNuevo, String Campo) {
+        if (Campo.equals("TIPODOCUMENTO")) {
+            if (tipoNuevo == 1) {
+                nuevoFamiliar.getPersonafamiliar().getTipodocumento().getNombrelargo();
+            } else if (tipoNuevo == 2) {
+                duplicarFamiliar.getPersonafamiliar().getTipodocumento().getNombrelargo();
+            }
+        } else if (Campo.equals("CIUDAD")) {
+            if (tipoNuevo == 1) {
+                nuevoFamiliar.getPersonafamiliar().getCiudaddocumento().getNombre();
+            } else if (tipoNuevo == 2) {
+                duplicarFamiliar.getPersonafamiliar().getCiudaddocumento().getNombre();
+            }
+        } else if (Campo.equals("CIUDADNACIMIENTO")) {
+            if (tipoNuevo == 1) {
+                nuevoFamiliar.getPersonafamiliar().getCiudadnacimiento().getNombre();
+            } else if (tipoNuevo == 2) {
+                duplicarFamiliar.getPersonafamiliar().getCiudadnacimiento().getNombre();
+            }
+        } else if (Campo.equals("TIPOFAMILIAR")) {
+            if (tipoNuevo == 1) {
+                nuevoFamiliar.getTipofamiliar().getTipo();
+            } else if (tipoNuevo == 2) {
+                duplicarFamiliar.getTipofamiliar().getTipo();
+            }
+        }
+    }
+
+    public void autocompletarNuevoyDuplicadoFamiliares(String confirmarCambio, String valorConfirmar, int tipoNuevo) {
+        int coincidencias = 0;
+        int indiceUnicoElemento = 0;
+        RequestContext context = RequestContext.getCurrentInstance();
+        if (confirmarCambio.equalsIgnoreCase("TIPO")) {
+            if (tipoNuevo == 1) {
+                nuevoFamiliar.getTipofamiliar().setTipo(nuevoFamiliar.getTipofamiliar().getTipo());
+            } else if (tipoNuevo == 2) {
+                duplicarFamiliar.getTipofamiliar().setTipo(nuevoFamiliar.getTipofamiliar().getTipo());
+            }
+            for (int i = 0; i < lovTiposFamiliares.size(); i++) {
+                if (lovTiposFamiliares.get(i).getTipo().startsWith(valorConfirmar.toUpperCase())) {
+                    indiceUnicoElemento = i;
+                    coincidencias++;
+                }
+            }
+            if (coincidencias == 1) {
+                if (tipoNuevo == 1) {
+                    nuevoFamiliar.setTipofamiliar(lovTiposFamiliares.get(indiceUnicoElemento));
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoTipoFamiliar");
+                } else if (tipoNuevo == 2) {
+                    duplicarFamiliar.setTipofamiliar(lovTiposFamiliares.get(indiceUnicoElemento));
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoFamiliar");
+                }
+                lovTiposFamiliares.clear();
+                getLovTiposFamiliares();
+            } else {
+                RequestContext.getCurrentInstance().update("formularioDialogos:tipoFamiliarDialogo");
+                RequestContext.getCurrentInstance().execute("PF('tipoFamiliarDialogo').show()");
+                tipoActualizacion = tipoNuevo;
+                if (tipoNuevo == 1) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoTipoFamiliar");
+                } else if (tipoNuevo == 2) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoFamiliar");
+                }
+            }
+        } else if (confirmarCambio.equalsIgnoreCase("CIUDAD")) {
+            if (tipoNuevo == 1) {
+                nuevoFamiliar.getPersonafamiliar().getCiudaddocumento().setNombre(nuevoFamiliar.getPersonafamiliar().getCiudaddocumento().getNombre());
+            } else if (tipoNuevo == 2) {
+                duplicarFamiliar.getPersonafamiliar().getCiudaddocumento().setNombre(duplicarFamiliar.getPersonafamiliar().getCiudaddocumento().getNombre());
+            }
+            for (int i = 0; i < lovCiudades.size(); i++) {
+                if (lovCiudades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+                    indiceUnicoElemento = i;
+                    coincidencias++;
+                }
+            }
+            if (coincidencias == 1) {
+                if (tipoNuevo == 1) {
+                    nuevoFamiliar.getPersonafamiliar().setCiudaddocumento(lovCiudades.get(indiceUnicoElemento));
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevaCiudadDocumento");
+                } else if (tipoNuevo == 2) {
+                    duplicarFamiliar.getPersonafamiliar().setCiudaddocumento(lovCiudades.get(indiceUnicoElemento));
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCiudadDocumento");
+                }
+                lovCiudades.clear();
+                getLovTiposFamiliares();
+            } else {
+                RequestContext.getCurrentInstance().update("formularioDialogos:ciudadDocumentoDialogo");
+                RequestContext.getCurrentInstance().execute("PF('ciudadDocumentoDialogo').show()");
+                tipoActualizacion = tipoNuevo;
+                if (tipoNuevo == 1) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevaCiudadDocumento");
+                } else if (tipoNuevo == 2) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCiudadDocumento");
+                }
+            }
+
+        } else if (confirmarCambio.equalsIgnoreCase("CIUDADNACIMIENTO")) {
+            if (tipoNuevo == 1) {
+                nuevoFamiliar.getPersonafamiliar().getCiudadnacimiento().setNombre(nuevoFamiliar.getPersonafamiliar().getCiudadnacimiento().getNombre());
+            } else if (tipoNuevo == 2) {
+                duplicarFamiliar.getPersonafamiliar().getCiudadnacimiento().setNombre(duplicarFamiliar.getPersonafamiliar().getCiudadnacimiento().getNombre());
+            }
+            for (int i = 0; i < lovCiudades.size(); i++) {
+                if (lovCiudades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+                    indiceUnicoElemento = i;
+                    coincidencias++;
+                }
+            }
+            if (coincidencias == 1) {
+                if (tipoNuevo == 1) {
+                    nuevoFamiliar.getPersonafamiliar().setCiudadnacimiento(lovCiudades.get(indiceUnicoElemento));
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevaCiudadNacimiento");
+                } else if (tipoNuevo == 2) {
+                    duplicarFamiliar.getPersonafamiliar().setCiudadnacimiento(lovCiudades.get(indiceUnicoElemento));
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCiudadNacimiento");
+                }
+                lovCiudades.clear();
+                getLovTiposFamiliares();
+            } else {
+                RequestContext.getCurrentInstance().update("formularioDialogos:ciudadNacimientoDialogo");
+                RequestContext.getCurrentInstance().execute("PF('ciudadNacimientoDialogo').show()");
+                tipoActualizacion = tipoNuevo;
+                if (tipoNuevo == 1) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevaCiudadNacimiento");
+                } else if (tipoNuevo == 2) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCiudadNacimiento");
+                }
+            }
+        } else if (confirmarCambio.equalsIgnoreCase("TIPODOCUMENTO")) {
+            if (tipoNuevo == 1) {
+                nuevoFamiliar.getPersonafamiliar().getTipodocumento().setNombrelargo(nuevoFamiliar.getPersonafamiliar().getTipodocumento().getNombrelargo());
+            } else if (tipoNuevo == 2) {
+                duplicarFamiliar.getPersonafamiliar().getTipodocumento().setNombrelargo(nuevoFamiliar.getPersonafamiliar().getTipodocumento().getNombrelargo());
+            }
+            for (int i = 0; i < lovTiposDocumentos.size(); i++) {
+                if (lovTiposDocumentos.get(i).getNombrelargo().startsWith(valorConfirmar.toUpperCase())) {
+                    indiceUnicoElemento = i;
+                    coincidencias++;
+                }
+            }
+            if (coincidencias == 1) {
+                if (tipoNuevo == 1) {
+                    nuevoFamiliar.getPersonafamiliar().setTipodocumento(lovTiposDocumentos.get(indiceUnicoElemento));
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoTipoDocumento");
+                } else if (tipoNuevo == 2) {
+                    duplicarFamiliar.getPersonafamiliar().setTipodocumento(lovTiposDocumentos.get(indiceUnicoElemento));
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoDocumento");
+                }
+                lovTiposDocumentos.clear();
+                getLovTiposFamiliares();
+            } else {
+                RequestContext.getCurrentInstance().update("formularioDialogos:tipoDocumentoDialogo");
+                RequestContext.getCurrentInstance().execute("PF('tipoDocumentoDialogo').show()");
+                tipoActualizacion = tipoNuevo;
+                if (tipoNuevo == 1) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoTipoDocumento");
+                } else if (tipoNuevo == 2) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoDocumento");
+                }
+            }
         }
     }
 
@@ -651,6 +1479,379 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         }
     }
 
+    public void agregarAntecedenteMedico() {
+        if (bandera == 1) {
+            //CERRAR FILTRADO
+            FacesContext c = FacesContext.getCurrentInstance();
+            System.out.println("Desactivar");
+            fechaAntecedenteM = (Column) c.getViewRoot().findComponent("form:datosAntecedentes:fechaAntecedenteM");
+            fechaAntecedenteM.setFilterStyle("display: none; visibility: hidden;");
+            tipoAntecedenteM = (Column) c.getViewRoot().findComponent("form:datosAntecedentes:tipoAntecedenteM");
+            tipoAntecedenteM.setFilterStyle("display: none; visibility: hidden;");
+            antecedenteMedico = (Column) c.getViewRoot().findComponent("form:datosAntecedentes:antecedenteMedico");
+            antecedenteMedico.setFilterStyle("display: none; visibility: hidden;");
+            descAntecedenteM = (Column) c.getViewRoot().findComponent("form:datosAntecedentes:descAntecedenteM");
+            descAntecedenteM.setFilterStyle("display: none; visibility: hidden;");
+            RequestContext.getCurrentInstance().update("form:datosAntecedentes");
+            bandera = 0;
+            listAntecedentesMFiltrar = null;
+            tipoLista = 0;
+        }
+        System.out.println("Despues de la bandera");
+
+        k++;
+        l = BigInteger.valueOf(k);
+        nuevoAntecedentem.setSecuencia(l);
+        listAntecedentesMCrear.add(nuevoAntecedentem);
+        listAntecedentesM.add(nuevoAntecedentem);
+        contarRegistrosAntecedentesM();
+        antecedentemSeleccionado = nuevoAntecedentem;
+        nuevoAntecedentem = new SoAntecedentesMedicos();
+        nuevoAntecedentem.setTipoantecedente(new SoTiposAntecedentes());
+        nuevoAntecedentem.setAntecedente(new SoAntecedentes());
+        RequestContext.getCurrentInstance().update("form:datosAntecedentes");
+        if (guardado == true) {
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        }
+
+        RequestContext.getCurrentInstance().execute("PF('nuevoRegistroAntecedentesM').hide()");
+
+    }
+
+    public void borrarAntecedenteMedico() {
+        if (antecedentemSeleccionado != null) {
+            System.out.println("Entro a borrandoEvalCompetencias");
+            if (!listAntecedentesModificar.isEmpty() && listAntecedentesModificar.contains(antecedentemSeleccionado)) {
+                int modIndex = listAntecedentesModificar.indexOf(antecedentemSeleccionado);
+                listAntecedentesModificar.remove(modIndex);
+                listAntecedentesMBorrar.add(antecedentemSeleccionado);
+            } else if (!listAntecedentesMCrear.isEmpty() && listAntecedentesMCrear.contains(antecedentemSeleccionado)) {
+                int crearIndex = listAntecedentesMCrear.indexOf(antecedentemSeleccionado);
+                listAntecedentesMCrear.remove(crearIndex);
+            } else {
+                listAntecedentesMBorrar.add(antecedentemSeleccionado);
+            }
+            listAntecedentesM.remove(antecedentemSeleccionado);
+            if (tipoLista == 1) {
+                listAntecedentesMFiltrar.remove(antecedentemSeleccionado);
+            }
+            RequestContext context = RequestContext.getCurrentInstance();
+            if (guardado == true) {
+                guardado = false;
+            }
+            RequestContext.getCurrentInstance().update("form:datosAntecedentes");
+            contarRegistrosAntecedentesM();
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            antecedentemSeleccionado = null;
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+        }
+
+    }
+
+    public void confirmarDuplicarAntecedenteMedico() {
+        k++;
+        l = BigInteger.valueOf(k);
+        duplicarAntecedenteM.setSecuencia(l);
+        listAntecedentesM.add(duplicarAntecedenteM);
+        listAntecedentesMCrear.add(duplicarAntecedenteM);
+        RequestContext.getCurrentInstance().update("form:datosAntecedentes");
+        antecedentemSeleccionado = duplicarAntecedenteM;
+        if (guardado == true) {
+            guardado = false;
+        }
+        contarRegistrosAntecedentesM();
+        if (bandera == 1) {
+            //CERRAR FILTRADO
+            FacesContext c = FacesContext.getCurrentInstance();
+            fechaAntecedenteM = (Column) c.getViewRoot().findComponent("form:datosAntecedentes:fechaAntecedenteM");
+            fechaAntecedenteM.setFilterStyle("display: none; visibility: hidden;");
+            tipoAntecedenteM = (Column) c.getViewRoot().findComponent("form:datosAntecedentes:tipoAntecedenteM");
+            tipoAntecedenteM.setFilterStyle("display: none; visibility: hidden;");
+            antecedenteMedico = (Column) c.getViewRoot().findComponent("form:datosAntecedentes:antecedenteMedico");
+            antecedenteMedico.setFilterStyle("display: none; visibility: hidden;");
+            descAntecedenteM = (Column) c.getViewRoot().findComponent("form:datosAntecedentes:descAntecedenteM");
+            descAntecedenteM.setFilterStyle("display: none; visibility: hidden;");
+            RequestContext.getCurrentInstance().update("form:datosAntecedentes");
+            bandera = 0;
+            listAntecedentesMFiltrar = null;
+            tipoLista = 0;
+        }
+        duplicarAntecedenteM = new SoAntecedentesMedicos();
+        RequestContext.getCurrentInstance().execute("PF('duplicarRegistroAntecedentesM').hide()");
+    }
+
+    public void duplicarAntecedenteMedico() {
+        if (antecedentemSeleccionado != null) {
+            duplicarAntecedenteM = new SoAntecedentesMedicos();
+            duplicarAntecedenteM.setEmpleado(new Empleados());
+            duplicarAntecedenteM.setAntecedente(new SoAntecedentes());
+            duplicarAntecedenteM.setTipoantecedente(new SoTiposAntecedentes());
+            k++;
+            l = BigInteger.valueOf(k);
+
+            if (tipoLista == 0) {
+                duplicarAntecedenteM.setSecuencia(l);
+                duplicarAntecedenteM.setEmpleado(antecedentemSeleccionado.getEmpleado());
+                duplicarAntecedenteM.setFecha(antecedentemSeleccionado.getFecha());
+                duplicarAntecedenteM.setTipoantecedente(antecedentemSeleccionado.getTipoantecedente());
+                duplicarAntecedenteM.setAntecedente(antecedentemSeleccionado.getAntecedente());
+                duplicarAntecedenteM.setDescripcion(antecedentemSeleccionado.getDescripcion());
+            }
+            if (tipoLista == 1) {
+                duplicarAntecedenteM.setSecuencia(l);
+                duplicarAntecedenteM.setEmpleado(antecedentemSeleccionado.getEmpleado());
+                duplicarAntecedenteM.setFecha(antecedentemSeleccionado.getFecha());
+                duplicarAntecedenteM.setTipoantecedente(antecedentemSeleccionado.getTipoantecedente());
+                duplicarAntecedenteM.setAntecedente(antecedentemSeleccionado.getAntecedente());
+                duplicarAntecedenteM.setDescripcion(antecedentemSeleccionado.getDescripcion());
+            }
+
+            RequestContext context = RequestContext.getCurrentInstance();
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarAntecedenteM");
+            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroAntecedentesM').show()");
+
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+        }
+    }
+
+    public void limpiarDuplicarAntecedenteM() {
+        duplicarAntecedenteM = new SoAntecedentesMedicos();
+        duplicarAntecedenteM.setEmpleado(new Empleados());
+        duplicarAntecedenteM.setAntecedente(new SoAntecedentes());
+        duplicarAntecedenteM.setTipoantecedente(new SoTiposAntecedentes());
+    }
+
+    public void cancelarModificacionAntecedenteM() {
+        if (bandera == 1) {
+            FacesContext c = FacesContext.getCurrentInstance();
+            //CERRAR FILTRADO
+            fechaAntecedenteM = (Column) c.getViewRoot().findComponent("form:datosAntecedentes:fechaAntecedenteM");
+            fechaAntecedenteM.setFilterStyle("display: none; visibility: hidden;");
+            tipoAntecedenteM = (Column) c.getViewRoot().findComponent("form:datosAntecedentes:tipoAntecedenteM");
+            tipoAntecedenteM.setFilterStyle("display: none; visibility: hidden;");
+            antecedenteMedico = (Column) c.getViewRoot().findComponent("form:datosAntecedentes:antecedenteMedico");
+            antecedenteMedico.setFilterStyle("display: none; visibility: hidden;");
+            descAntecedenteM = (Column) c.getViewRoot().findComponent("form:datosAntecedentes:descAntecedenteM");
+            descAntecedenteM.setFilterStyle("display: none; visibility: hidden;");
+            RequestContext.getCurrentInstance().update("form:datosAntecedentes");
+            bandera = 0;
+            listAntecedentesMFiltrar = null;
+            tipoLista = 0;
+        }
+
+        listAntecedentesMBorrar.clear();
+        listAntecedentesMCrear.clear();
+        listAntecedentesModificar.clear();
+        antecedentemSeleccionado = null;
+        k = 0;
+        listAntecedentesM = null;
+        guardado = true;
+        permitirIndex = true;
+        getListAntecedentesM();
+        RequestContext context = RequestContext.getCurrentInstance();
+        contarRegistrosAntecedentesM();
+        RequestContext.getCurrentInstance().update("form:datosAntecedentes");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+    }
+
+    public void salirAntecedenteM() {
+        if (bandera == 1) {
+            FacesContext c = FacesContext.getCurrentInstance();
+            //CERRAR FILTRADO
+            fechaAntecedenteM = (Column) c.getViewRoot().findComponent("form:datosAntecedentes:fechaAntecedenteM");
+            fechaAntecedenteM.setFilterStyle("display: none; visibility: hidden;");
+            tipoAntecedenteM = (Column) c.getViewRoot().findComponent("form:datosAntecedentes:tipoAntecedenteM");
+            tipoAntecedenteM.setFilterStyle("display: none; visibility: hidden;");
+            antecedenteMedico = (Column) c.getViewRoot().findComponent("form:datosAntecedentes:antecedenteMedico");
+            antecedenteMedico.setFilterStyle("display: none; visibility: hidden;");
+            descAntecedenteM = (Column) c.getViewRoot().findComponent("form:datosAntecedentes:descAntecedenteM");
+            descAntecedenteM.setFilterStyle("display: none; visibility: hidden;");
+            RequestContext.getCurrentInstance().update("form:datosAntecedentes");
+            bandera = 0;
+            listAntecedentesMFiltrar = null;
+            tipoLista = 0;
+        }
+
+        listAntecedentesMBorrar.clear();
+        listAntecedentesMCrear.clear();
+        listAntecedentesModificar.clear();
+        antecedentemSeleccionado = null;
+        k = 0;
+        listAntecedentesM = null;
+        guardado = true;
+        permitirIndex = true;
+        getListAntecedentesM();
+        RequestContext context = RequestContext.getCurrentInstance();
+        contarRegistrosAntecedentesM();
+        RequestContext.getCurrentInstance().update("form:datosAntecedentes");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+    }
+
+    public void guardarAntecedenteM() {
+        RequestContext context = RequestContext.getCurrentInstance();
+
+        if (guardado == false) {
+            if (!listAntecedentesMBorrar.isEmpty()) {
+//                for (int i = 0; i < borrarVigenciaEstadoCivilPorEmplado.size(); i++) {
+//                    System.out.println("Borrando...");
+//                }
+                administrarVigDomiciliarias.borrarAntecedenteM(listAntecedentesMBorrar);
+                listAntecedentesMBorrar.clear();
+            }
+            if (!listAntecedentesMCrear.isEmpty()) {
+                administrarVigDomiciliarias.crearAntecedenteM(listAntecedentesMCrear);
+                listAntecedentesMCrear.clear();
+            }
+            if (!listAntecedentesModificar.isEmpty()) {
+                System.out.println("Modificando...");
+                administrarVigDomiciliarias.modificarAntecedenteM(listAntecedentesModificar);
+                listAntecedentesModificar.clear();
+            }
+            listAntecedentesM = null;
+            getListAntecedentesM();
+            contarRegistrosAntecedentesM();
+            RequestContext.getCurrentInstance().update("form:datosAntecedentes");
+            k = 0;
+            guardado = true;
+            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            RequestContext.getCurrentInstance().update("form:growl");
+        }
+        antecedentemSeleccionado = null;
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+    }
+
+    public void actualizarTipoAntecedente() {
+        RequestContext context = RequestContext.getCurrentInstance();
+        if (tipoActualizacion == 0) {
+            if (tipoLista == 0) {
+                antecedentemSeleccionado.setTipoantecedente(tipoAntecedenteSeleccionado);
+
+                if (!listAntecedentesMCrear.contains(antecedentemSeleccionado)) {
+                    if (listAntecedentesModificar.isEmpty()) {
+                        listAntecedentesModificar.add(antecedentemSeleccionado);
+                    } else if (!listAntecedentesModificar.contains(antecedentemSeleccionado)) {
+                        listAntecedentesModificar.add(antecedentemSeleccionado);
+                    }
+                }
+            } else {
+                antecedentemSeleccionado.setTipoantecedente(tipoAntecedenteSeleccionado);
+
+                if (!listAntecedentesMCrear.contains(antecedentemSeleccionado)) {
+                    if (listAntecedentesModificar.isEmpty()) {
+                        listAntecedentesModificar.add(antecedentemSeleccionado);
+                    } else if (!listAntecedentesModificar.contains(antecedentemSeleccionado)) {
+                        listAntecedentesModificar.add(antecedentemSeleccionado);
+                    }
+                }
+            }
+            if (guardado == true) {
+                guardado = false;
+            }
+            permitirIndex = true;
+            RequestContext.getCurrentInstance().update("form:datosAntecedentes");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        } else if (tipoActualizacion == 1) {
+            nuevoAntecedentem.setTipoantecedente(tipoAntecedenteSeleccionado);
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevoTipoAntecedente");
+        } else if (tipoActualizacion == 2) {
+            duplicarAntecedenteM.setTipoantecedente(tipoAntecedenteSeleccionado);
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoAntecedente");
+        }
+        lovTiposAntecedentesFiltrar = null;
+        aceptar = true;
+        tipoActualizacion = -1;
+        cualCelda = -1;
+        context.reset("formularioDialogos:lovTiposAntecedentes:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('lovTiposAntecedentes').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('tiposAntecedentesDialogo').hide()");
+        RequestContext.getCurrentInstance().update("formularioDialogos:tiposAntecedentesDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:lovTiposAntecedentes");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarTipoAnt");
+    }
+
+    public void cancelarCambioTipoAntecedente() {
+        lovTiposAntecedentesFiltrar = null;
+        tipoAntecedenteSeleccionado = null;
+        aceptar = true;
+        tipoActualizacion = -1;
+        permitirIndex = true;
+        RequestContext context = RequestContext.getCurrentInstance();
+        context.reset("formularioDialogos:lovTiposAntecedentes:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('lovTiposAntecedentes').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('tiposAntecedentesDialogo').hide()");
+        RequestContext.getCurrentInstance().update("formularioDialogos:tiposAntecedentesDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:lovTiposAntecedentes");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarTipoAnt");
+    }
+
+    public void actualizarAntecedente() {
+        RequestContext context = RequestContext.getCurrentInstance();
+        if (tipoActualizacion == 0) {
+            if (tipoLista == 0) {
+                antecedentemSeleccionado.setAntecedente(antecedenteSeleccionado);
+
+                if (!listAntecedentesMCrear.contains(antecedentemSeleccionado)) {
+                    if (listAntecedentesModificar.isEmpty()) {
+                        listAntecedentesModificar.add(antecedentemSeleccionado);
+                    } else if (!listAntecedentesModificar.contains(antecedentemSeleccionado)) {
+                        listAntecedentesModificar.add(antecedentemSeleccionado);
+                    }
+                }
+            } else {
+                antecedentemSeleccionado.setAntecedente(antecedenteSeleccionado);
+
+                if (!listAntecedentesMCrear.contains(antecedentemSeleccionado)) {
+                    if (listAntecedentesModificar.isEmpty()) {
+                        listAntecedentesModificar.add(antecedentemSeleccionado);
+                    } else if (!listAntecedentesModificar.contains(antecedentemSeleccionado)) {
+                        listAntecedentesModificar.add(antecedentemSeleccionado);
+                    }
+                }
+            }
+            if (guardado == true) {
+                guardado = false;
+            }
+            permitirIndex = true;
+            RequestContext.getCurrentInstance().update("form:datosAntecedentes");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        } else if (tipoActualizacion == 1) {
+            nuevoAntecedentem.setAntecedente(antecedenteSeleccionado);
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevoAntecedente");
+        } else if (tipoActualizacion == 2) {
+            duplicarAntecedenteM.setAntecedente(antecedenteSeleccionado);
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarAntecedente");
+        }
+        lovAntecedentesFiltrar = null;
+        aceptar = true;
+        tipoActualizacion = -1;
+        cualCelda = -1;
+        context.reset("formularioDialogos:lovAntecedentes:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('lovAntecedentes').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('antecedentesDialogo').hide()");
+        RequestContext.getCurrentInstance().update("formularioDialogos:antecedentesDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:lovAntecedentes");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarAnt");
+    }
+
+    public void cancelarCambioAntecedente() {
+        lovAntecedentesFiltrar = null;
+        antecedenteSeleccionado = null;
+        aceptar = true;
+        tipoActualizacion = -1;
+        permitirIndex = true;
+        RequestContext context = RequestContext.getCurrentInstance();
+        context.reset("formularioDialogos:lovAntecedentes:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('lovAntecedentes').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('antecedentesDialogo').hide()");
+        RequestContext.getCurrentInstance().update("formularioDialogos:antecedentesDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:lovAntecedentes");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarAnt");
+    }
+
     public void limpiarAntecedenteM() {
         nuevoAntecedentem = new SoAntecedentesMedicos();
         nuevoAntecedentem.setAntecedente(new SoAntecedentes());
@@ -662,13 +1863,13 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         tipoActualizacion = LND;
         if (dlg == 1) {
-            contarRegistroPersonas();
-            RequestContext.getCurrentInstance().update("formularioDialogos:personaFamiliarDialogo");
-            RequestContext.getCurrentInstance().execute("PF('personaFamiliarDialogo').show()");
+            contarRegistroAntecedentes();
+            RequestContext.getCurrentInstance().update("formularioDialogos:antecedentesDialogo");
+            RequestContext.getCurrentInstance().execute("PF('antecedentesDialogo').show()");
         } else if (dlg == 2) {
-            contarRegistroTipoFamiliar();
-            RequestContext.getCurrentInstance().update("formularioDialogos:tipoFamiliarDialogo");
-            RequestContext.getCurrentInstance().execute("PF('tipoFamiliarDialogo').show()");
+            contarRegistroTipoAntecedentes();
+            RequestContext.getCurrentInstance().update("formularioDialogos:tiposAntecedentesDialogo");
+            RequestContext.getCurrentInstance().execute("PF('tiposAntecedentesDialogo').show()");
         }
     }
 
@@ -1112,9 +2313,9 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
     public void asignarIndexDirecciones(Direcciones direccion) {
         direccionSeleccionada = direccion;
         RequestContext context = RequestContext.getCurrentInstance();
-        contarRegistroCiudades();
-        RequestContext.getCurrentInstance().update("formularioDialogos:ciudadesDialogo");
-        RequestContext.getCurrentInstance().execute("PF('ciudadesDialogo').show()");
+        contarRegistrosCiudadesDirecciones();
+        RequestContext.getCurrentInstance().update("formularioDialogos:ciudadesDireccionesDialogo");
+        RequestContext.getCurrentInstance().execute("PF('ciudadesDireccionesDialogo').show()");
         tipoActualizacion = 0;
     }
 
@@ -1122,11 +2323,496 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         RequestContext.getCurrentInstance().update("form:infoRegistroDireccion");
     }
 
+    public void contarRegistrosCiudadesDirecciones() {
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroCiudadesDireccion");
+    }
+
     public void eventoFiltrarDirecciones() {
         contarRegistrosDirecciones();
     }
 
-////// telefonos
+    public void llamarLovCiudad(int tipoN) {
+        if (tipoN == 1) {
+            tipoActualizacion = 1;
+        } else if (tipoN == 2) {
+            tipoActualizacion = 2;
+        }
+        contarRegistrosCiudadesDirecciones();
+        RequestContext context = RequestContext.getCurrentInstance();
+        RequestContext.getCurrentInstance().update("formularioDialogos:ciudadesDireccionesDialogo");
+        RequestContext.getCurrentInstance().execute("PF('ciudadesDireccionesDialogo').show()");
+    }
+
+    public void borrarDirecciones() {
+
+        if (direccionSeleccionada != null) {
+            if (!listDireccionesModificar.isEmpty() && listDireccionesModificar.contains(direccionSeleccionada)) {
+                int modIndex = listDireccionesModificar.indexOf(direccionSeleccionada);
+                listDireccionesModificar.remove(modIndex);
+                listDireccionesBorrar.add(direccionSeleccionada);
+            } else if (!listDireccionesCrear.isEmpty() && listDireccionesCrear.contains(direccionSeleccionada)) {
+                int crearIndex = listDireccionesCrear.indexOf(direccionSeleccionada);
+                listDireccionesCrear.remove(crearIndex);
+            } else {
+                listDireccionesBorrar.add(direccionSeleccionada);
+            }
+            listDirecciones.remove(direccionSeleccionada);
+
+            if (tipoLista == 1) {
+
+                listDireccionesFiltrar.remove(direccionSeleccionada);
+            }
+            RequestContext context = RequestContext.getCurrentInstance();
+            RequestContext.getCurrentInstance().update("form:datosDireccionesPersona");
+            direccionSeleccionada = null;
+
+            if (guardado == true) {
+                guardado = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            }
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+        }
+    }
+
+    public void actualizarCiudadDireccion() {
+        RequestContext context = RequestContext.getCurrentInstance();
+        if (tipoActualizacion == 0) {
+            if (tipoLista == 0) {
+                direccionSeleccionada.setCiudad(ciudadDireccionSeleccionada);
+                if (!listDireccionesCrear.contains(direccionSeleccionada)) {
+                    if (listDireccionesModificar.isEmpty()) {
+                        listDireccionesModificar.add(direccionSeleccionada);
+                    } else if (!listDireccionesModificar.contains(direccionSeleccionada)) {
+                        listDireccionesModificar.add(direccionSeleccionada);
+                    }
+                }
+            } else {
+                direccionSeleccionada.setCiudad(ciudadDireccionSeleccionada);
+                if (!listDireccionesCrear.contains(direccionSeleccionada)) {
+                    if (listDireccionesModificar.isEmpty()) {
+                        listDireccionesModificar.add(direccionSeleccionada);
+                    } else if (!listDireccionesModificar.contains(direccionSeleccionada)) {
+                        listDireccionesModificar.add(direccionSeleccionada);
+                    }
+                }
+            }
+            if (guardado == true) {
+                guardado = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            }
+            permitirIndex = true;
+            RequestContext.getCurrentInstance().update("form:datosDireccionesPersona");
+        } else if (tipoActualizacion == 1) {
+            nuevaDireccion.setCiudad(ciudadDireccionSeleccionada);
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaDireccion");
+        } else if (tipoActualizacion == 2) {
+            System.out.println(ciudadDireccionSeleccionada.getNombre());
+            duplicarDireccion.setCiudad(ciudadDireccionSeleccionada);
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDireccion");
+        }
+        lovCiudadDireccionFiltrar = null;
+        ciudadDireccionSeleccionada = null;
+        aceptar = true;
+        tipoActualizacion = -1;
+        cualCelda = -1;
+        context.reset("formularioDialogos:LOVDireccionesCiudades:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('LOVDireccionesCiudades').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('ciudadesDireccionesDialogo').hide()");
+        RequestContext.getCurrentInstance().update("formularioDialogos:ciudadesDireccionesDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:LOVDireccionesCiudades");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarDC");
+    }
+
+    public void cancelarCambioCiudadDireccion() {
+        lovCiudadDireccionFiltrar = null;
+        aceptar = true;
+        tipoActualizacion = -1;
+        cualCelda = -1;
+        permitirIndex = true;
+        RequestContext context = RequestContext.getCurrentInstance();
+        context.reset("formularioDialogos:LOVDireccionesCiudades:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('LOVDireccionesCiudades').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('ciudadesDireccionesDialogo').hide()");
+        RequestContext.getCurrentInstance().update("formularioDialogos:ciudadesDireccionesDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:LOVDireccionesCiudades");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarDC");
+
+    }
+
+    public void pregunta(int tipoNuevo) {
+        if (tipoNuevo == 1) {
+            if (nuevaDireccion.getTipoppal() != null && nuevaDireccion.getPpal() != null && nuevaDireccion.getSecundario() != null && nuevaDireccion.getTiposecundario() != null) {
+                RequestContext context = RequestContext.getCurrentInstance();
+                RequestContext.getCurrentInstance().update("formularioDialogos:pregunta");
+                RequestContext.getCurrentInstance().execute("PF('pregunta').show()");
+            }
+        } else if (tipoNuevo == 2) {
+            if (duplicarDireccion.getTipoppal() != null && duplicarDireccion.getPpal() != null && duplicarDireccion.getSecundario() != null && duplicarDireccion.getTiposecundario() != null) {
+                RequestContext context = RequestContext.getCurrentInstance();
+                RequestContext.getCurrentInstance().update("formularioDialogos:pregunta");
+                RequestContext.getCurrentInstance().execute("PF('pregunta').show()");
+            }
+        }
+    }
+
+    public void copiarDireccion(int tipoNuevo) {
+        if (tipoNuevo == 1) {
+            nuevaDireccion.setDireccionalternativa(nuevaDireccion.getEstadoTipoPpal() + (" ") + nuevaDireccion.getPpal() + (" ") + nuevaDireccion.getEstadoTipoSecundario() + (" ") + nuevaDireccion.getSecundario());
+            RequestContext context = RequestContext.getCurrentInstance();
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaDireccion");
+        } else {
+            duplicarDireccion.setDireccionalternativa(nuevaDireccion.getTipoppal() + (" ") + duplicarDireccion.getPpal() + (" ") + duplicarDireccion.getTiposecundario() + (" ") + duplicarDireccion.getSecundario());
+            RequestContext context = RequestContext.getCurrentInstance();
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDireccion");
+        }
+
+    }
+
+    public void agregarNuevaDireccion() {
+        int pasa = 0;
+        mensajeValidacion = " ";
+        RequestContext context = RequestContext.getCurrentInstance();
+        FacesContext c = FacesContext.getCurrentInstance();
+        if (nuevaDireccion.getFechavigencia() == null) {
+            mensajeValidacion = " * Fecha Vigencia\n";
+            pasa++;
+        }
+        if (nuevaDireccion.getTipoppal() == null) {
+            mensajeValidacion = " * Ubicacion Principal\n";
+            pasa++;
+        }
+        if (nuevaDireccion.getPpal() == null) {
+            mensajeValidacion = " * Descripcion U. Principal\n";
+            pasa++;
+        }
+        if (nuevaDireccion.getTiposecundario() == null) {
+            mensajeValidacion = " * Ubicacion Secundaria\n";
+            pasa++;
+        }
+        if (nuevaDireccion.getCiudad().getNombre().equals(" ")) {
+            mensajeValidacion = " * Ciudad \n";
+            pasa++;
+        }
+
+        if (nuevaDireccion.getInterior() == null) {
+            mensajeValidacion = "* Barrio \n";
+            pasa++;
+        }
+
+        if (pasa == 0) {
+            if (bandera == 1) {
+                dFecha = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dFecha");
+                dFecha.setFilterStyle("display: none; visibility: hidden;");
+                dUbicacionPrincipal = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dUbicacionPrincipal");
+                dUbicacionPrincipal.setFilterStyle("display: none; visibility: hidden;");
+                dDescripcionUbicacionPrincipal = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dDescripcionUbicacionPrincipal");
+                dDescripcionUbicacionPrincipal.setFilterStyle("display: none; visibility: hidden;");
+                dUbicacionSecundaria = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dUbicacionSecundaria");
+                dUbicacionSecundaria.setFilterStyle("display: none; visibility: hidden;");
+                dDescripcionUbicacionSecundaria = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dDescripcionUbicacionSecundaria");
+                dDescripcionUbicacionSecundaria.setFilterStyle("display: none; visibility: hidden;");
+                dInterior = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dInterior");
+                dInterior.setFilterStyle("display: none; visibility: hidden;");
+                dCiudad = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dCiudad");
+                dCiudad.setFilterStyle("display: none; visibility: hidden;");
+                dTipoVivienda = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dTipoVivienda");
+                dTipoVivienda.setFilterStyle("display: none; visibility: hidden;");
+                dHipoteca = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dHipoteca");
+                dHipoteca.setFilterStyle("display: none; visibility: hidden;");
+                dDireccionAlternativa = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dDireccionAlternativa");
+                dDireccionAlternativa.setFilterStyle("display: none; visibility: hidden;");
+                RequestContext.getCurrentInstance().update("form:datosDireccionesPersona");
+                bandera = 0;
+                listDireccionesFiltrar = null;
+                tipoLista = 0;
+                altoTabla = "270";
+            }
+            k++;
+            l = BigInteger.valueOf(k);
+            nuevaDireccion.setSecuencia(l);
+            nuevaDireccion.setPersona(persona);
+            listDireccionesCrear.add(nuevaDireccion);
+            if (listDirecciones == null) {
+                listDirecciones = new ArrayList<Direcciones>();
+            }
+            listDirecciones.add(nuevaDireccion);
+            System.out.print("Lista direcciones");
+            System.out.println(listDirecciones.size());
+
+            direccionSeleccionada = nuevaDireccion;
+            getListDirecciones();
+            contarRegistrosDirecciones();
+            RequestContext.getCurrentInstance().update("form:infoRegistro");
+            RequestContext.getCurrentInstance().update("form:datosDireccionesPersona");
+            nuevaDireccion = new Direcciones();
+            nuevaDireccion.setCiudad(new Ciudades());
+            nuevaDireccion.setFechavigencia(new Date());
+            nuevaDireccion.setTipoppal("C");
+            nuevaDireccion.setTiposecundario("K");
+            nuevaDireccion.setTipovivienda("CASA");
+            nuevaDireccion.setHipoteca("N");
+            if (guardado == true) {
+                guardado = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            }
+            RequestContext.getCurrentInstance().execute("PF('NuevoRegistroDireccion').hide()");
+        } else {
+            RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevaDireccion");
+            RequestContext.getCurrentInstance().execute("PF('validacionNuevaDireccion').show()");
+        }
+    }
+
+    public void activarAceptar() {
+        aceptar = false;
+    }
+
+    public void limpiarNuevaDireccion() {
+        nuevaDireccion = new Direcciones();
+        nuevaDireccion.setCiudad(new Ciudades());
+        nuevaDireccion.setFechavigencia(new Date());
+        nuevaDireccion.setTipoppal("C");
+        nuevaDireccion.setTiposecundario("K");
+        nuevaDireccion.setTipovivienda("CASA");
+        nuevaDireccion.setHipoteca("N");
+    }
+
+    public void duplicarDireccion() {
+        if (direccionSeleccionada != null) {
+            duplicarDireccion = new Direcciones();
+            k++;
+            l = BigInteger.valueOf(k);
+
+            if (tipoLista == 0) {
+                duplicarDireccion.setSecuencia(l);
+                duplicarDireccion.setFechavigencia(direccionSeleccionada.getFechavigencia());
+                duplicarDireccion.setTipoppal(direccionSeleccionada.getTipoppal());
+                duplicarDireccion.setPpal(direccionSeleccionada.getPpal());
+                duplicarDireccion.setTiposecundario(direccionSeleccionada.getTiposecundario());
+                duplicarDireccion.setSecundario(direccionSeleccionada.getSecundario());
+                duplicarDireccion.setInterior(direccionSeleccionada.getInterior());
+                duplicarDireccion.setCiudad(direccionSeleccionada.getCiudad());
+                duplicarDireccion.setHipoteca(direccionSeleccionada.getHipoteca());
+                duplicarDireccion.setDireccionalternativa(direccionSeleccionada.getDireccionalternativa());
+            }
+            if (tipoLista == 1) {
+                duplicarDireccion.setSecuencia(l);
+                duplicarDireccion.setFechavigencia(direccionSeleccionada.getFechavigencia());
+                duplicarDireccion.setTipoppal(direccionSeleccionada.getTipoppal());
+                duplicarDireccion.setPpal(direccionSeleccionada.getPpal());
+                duplicarDireccion.setTiposecundario(direccionSeleccionada.getTiposecundario());
+                duplicarDireccion.setSecundario(direccionSeleccionada.getSecundario());
+                duplicarDireccion.setInterior(direccionSeleccionada.getInterior());
+                duplicarDireccion.setCiudad(direccionSeleccionada.getCiudad());
+                duplicarDireccion.setTipovivienda(direccionSeleccionada.getTipovivienda());
+                duplicarDireccion.setHipoteca(direccionSeleccionada.getHipoteca());
+                duplicarDireccion.setDireccionalternativa(direccionSeleccionada.getDireccionalternativa());
+                altoTabla = "270";
+            }
+            RequestContext context = RequestContext.getCurrentInstance();
+            duplicarDireccion.setPersona(persona);
+            listDireccionesCrear.add(duplicarDireccion);
+            listDirecciones.add(duplicarDireccion);
+            direccionSeleccionada = duplicarDireccion;
+
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDireccion");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroDireccion').show()");
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+        }
+    }
+
+    public void confirmarDuplicarDireccion() {
+        int pasa = 0;
+        int pasaA = 0;
+        mensajeValidacion = " ";
+        RequestContext context = RequestContext.getCurrentInstance();
+        FacesContext c = FacesContext.getCurrentInstance();
+        if (duplicarDireccion.getFechavigencia() == null) {
+            mensajeValidacion = " Campo fecha vacío \n";
+            pasa++;
+
+        }
+
+        System.out.println("fecha direccion " + duplicarDireccion.getFechavigencia() + "\n");
+        System.out.println("secuencia direccion " + duplicarDireccion.getSecuencia() + "\n");
+        for (int i = 0; i < listDirecciones.size(); i++) {
+            if ((listDirecciones.get(i).getSecuencia().equals(duplicarDireccion.getSecuencia())) && ((listDirecciones.get(i).getFechavigencia().equals(duplicarDireccion.getFechavigencia())))) {// && !(duplicarTelefono.getFechavigencia().before(listaTelefonos.get(i).getFechavigencia())))) {
+                RequestContext.getCurrentInstance().update("formularioDialogos:existeDireccion");
+                RequestContext.getCurrentInstance().execute("PF('existeDireccion').show()");
+                pasaA++;
+            }
+            if (pasa != 0) {
+                RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevaDireccion");
+                RequestContext.getCurrentInstance().execute("PF('validacionNuevaDireccion').show()");
+            }
+        }
+//
+        if (pasa == 0 && pasaA == 0) {
+
+            listDirecciones.add(duplicarDireccion);
+            listDireccionesCrear.add(duplicarDireccion);
+            direccionSeleccionada = duplicarDireccion;
+            getListDirecciones();
+            contarRegistrosDirecciones();
+            RequestContext.getCurrentInstance().update("form:datosDireccionesPersona");
+            if (guardado == true) {
+                guardado = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            }
+            if (bandera == 1) {
+                System.out.println("Desactivar");
+                System.out.println("TipoLista= " + tipoLista);
+                dFecha = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dFecha");
+                dFecha.setFilterStyle("display: none; visibility: hidden;");
+                dUbicacionPrincipal = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dUbicacionPrincipal");
+                dUbicacionPrincipal.setFilterStyle("display: none; visibility: hidden;");
+                dDescripcionUbicacionPrincipal = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dDescripcionUbicacionPrincipal");
+                dDescripcionUbicacionPrincipal.setFilterStyle("display: none; visibility: hidden;");
+                dUbicacionSecundaria = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dUbicacionSecundaria");
+                dUbicacionSecundaria.setFilterStyle("display: none; visibility: hidden;");
+                dDescripcionUbicacionSecundaria = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dDescripcionUbicacionSecundaria");
+                dDescripcionUbicacionSecundaria.setFilterStyle("display: none; visibility: hidden;");
+                dInterior = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dInterior");
+                dInterior.setFilterStyle("display: none; visibility: hidden;");
+                dCiudad = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dCiudad");
+                dCiudad.setFilterStyle("display: none; visibility: hidden;");
+                dTipoVivienda = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dTipoVivienda");
+                dTipoVivienda.setFilterStyle("display: none; visibility: hidden;");
+                dHipoteca = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dHipoteca");
+                dHipoteca.setFilterStyle("display: none; visibility: hidden;");
+                dDireccionAlternativa = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dDireccionAlternativa");
+                dDireccionAlternativa.setFilterStyle("display: none; visibility: hidden;");
+                altoTabla = "270";
+                RequestContext.getCurrentInstance().update("form:datosDireccionesPersona");
+                bandera = 0;
+                listDireccionesFiltrar = null;
+                tipoLista = 0;
+            }
+            duplicarDireccion = new Direcciones();
+            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroDireccion').hide()");
+        }
+    }
+
+    public void guardarCambiosDireccion() {
+        if (guardado == false) {
+            if (!listDireccionesBorrar.isEmpty()) {
+                administrarVigDomiciliarias.borrarDirecciones(listDireccionesBorrar);
+                listDireccionesBorrar.clear();
+            }
+            if (!listDireccionesCrear.isEmpty()) {
+                administrarVigDomiciliarias.crearDirecciones(listDireccionesCrear);
+                listDireccionesCrear.clear();
+            }
+            if (!listDireccionesModificar.isEmpty()) {
+                administrarVigDomiciliarias.modificarDirecciones(listDireccionesModificar);
+                listDireccionesModificar.clear();
+            }
+            System.out.println("Se guardaron los datos con exito");
+            listDirecciones = null;
+            getListDirecciones();
+            contarRegistrosDirecciones();
+            RequestContext context = RequestContext.getCurrentInstance();
+            RequestContext.getCurrentInstance().update("form:datosDireccionesPersona");
+            guardado = true;
+            permitirIndex = true;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            RequestContext.getCurrentInstance().update("form:growl");
+        }
+        direccionSeleccionada = null;
+    }
+
+    public void salirDirecciones() {
+        if (bandera == 1) {
+            FacesContext c = FacesContext.getCurrentInstance();
+            dFecha = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dFecha");
+            dFecha.setFilterStyle("display: none; visibility: hidden;");
+            dUbicacionPrincipal = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dUbicacionPrincipal");
+            dUbicacionPrincipal.setFilterStyle("display: none; visibility: hidden;");
+            dDescripcionUbicacionPrincipal = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dDescripcionUbicacionPrincipal");
+            dDescripcionUbicacionPrincipal.setFilterStyle("display: none; visibility: hidden;");
+            dUbicacionSecundaria = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dUbicacionSecundaria");
+            dUbicacionSecundaria.setFilterStyle("display: none; visibility: hidden;");
+            dDescripcionUbicacionSecundaria = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dDescripcionUbicacionSecundaria");
+            dDescripcionUbicacionSecundaria.setFilterStyle("display: none; visibility: hidden;");
+            dInterior = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dInterior");
+            dInterior.setFilterStyle("display: none; visibility: hidden;");
+            dCiudad = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dCiudad");
+            dCiudad.setFilterStyle("display: none; visibility: hidden;");
+            dTipoVivienda = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dTipoVivienda");
+            dTipoVivienda.setFilterStyle("display: none; visibility: hidden;");
+            dHipoteca = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dHipoteca");
+            dHipoteca.setFilterStyle("display: none; visibility: hidden;");
+            dDireccionAlternativa = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dDireccionAlternativa");
+            dDireccionAlternativa.setFilterStyle("display: none; visibility: hidden;");
+            altoTabla = "270";
+            RequestContext.getCurrentInstance().update("form:datosDireccionesPersona");
+            bandera = 0;
+            listDireccionesFiltrar = null;
+            tipoLista = 0;
+        }
+        listDireccionesBorrar.clear();
+        listDireccionesCrear.clear();
+        listDireccionesModificar.clear();
+        direccionSeleccionada = null;
+        //    k = 0;
+        listDirecciones = null;
+        guardado = true;
+        contarRegistrosDirecciones();
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        permitirIndex = true;
+    }
+
+    public void cancelarModificacionDireccion() {
+        if (bandera == 1) {
+            FacesContext c = FacesContext.getCurrentInstance();
+            //CERRAR FILTRADO
+            dFecha = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dFecha");
+            dFecha.setFilterStyle("display: none; visibility: hidden;");
+            dUbicacionPrincipal = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dUbicacionPrincipal");
+            dUbicacionPrincipal.setFilterStyle("display: none; visibility: hidden;");
+            dDescripcionUbicacionPrincipal = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dDescripcionUbicacionPrincipal");
+            dDescripcionUbicacionPrincipal.setFilterStyle("display: none; visibility: hidden;");
+            dUbicacionSecundaria = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dUbicacionSecundaria");
+            dUbicacionSecundaria.setFilterStyle("display: none; visibility: hidden;");
+            dDescripcionUbicacionSecundaria = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dDescripcionUbicacionSecundaria");
+            dDescripcionUbicacionSecundaria.setFilterStyle("display: none; visibility: hidden;");
+            dInterior = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dInterior");
+            dInterior.setFilterStyle("display: none; visibility: hidden;");
+            dCiudad = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dCiudad");
+            dCiudad.setFilterStyle("display: none; visibility: hidden;");
+            dTipoVivienda = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dTipoVivienda");
+            dTipoVivienda.setFilterStyle("display: none; visibility: hidden;");
+            dHipoteca = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dHipoteca");
+            dHipoteca.setFilterStyle("display: none; visibility: hidden;");
+            dDireccionAlternativa = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dDireccionAlternativa");
+            dDireccionAlternativa.setFilterStyle("display: none; visibility: hidden;");
+            altoTabla = "270";
+            RequestContext.getCurrentInstance().update("form:datosDireccionesPersona");
+            bandera = 0;
+            listDireccionesFiltrar = null;
+            tipoLista = 0;
+
+        }
+
+        listDireccionesBorrar.clear();
+        listDireccionesCrear.clear();
+        listDireccionesModificar.clear();
+        k = 0;
+        listDirecciones = null;
+        direccionSeleccionada = null;
+        contarRegistrosDirecciones();
+        guardado = true;
+        permitirIndex = true;
+        RequestContext context = RequestContext.getCurrentInstance();
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:datosDireccionesPersona");
+
+    }
+
+//// telefonos
     public void cambiarIndiceTelefonos(Telefonos telefono, int celda) {
         if (permitirIndex == true) {
             telefonoSeleccionado = telefono;
@@ -1162,8 +2848,8 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         } else if (dlg == 1) {
             getLovCiudades();
 //            contarRegistroCiudad();
-            RequestContext.getCurrentInstance().update("formularioDialogos:ciudadesDialogo");
-            RequestContext.getCurrentInstance().execute("PF('ciudadesDialogo').show()");
+            RequestContext.getCurrentInstance().update("formularioDialogos:ciudadesTelefonoDialogo");
+            RequestContext.getCurrentInstance().execute("PF('ciudadesTelefonoDialogo').show()");
         }
 
     }
@@ -1291,7 +2977,476 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         RequestContext.getCurrentInstance().update("form:datosTelefonosPersona");
     }
 
-    //// estados civiles
+    public void cancelarModificacionTelefono() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        if (bandera == 1) {
+            tFecha = (Column) c.getViewRoot().findComponent("form:datosTelefonosPersona:tFecha");
+            tFecha.setFilterStyle("display: none; visibility: hidden;");
+            tTipoTelefono = (Column) c.getViewRoot().findComponent("form:datosTelefonosPersona:tTipoTelefono");
+            tTipoTelefono.setFilterStyle("display: none; visibility: hidden;");
+            tNumero = (Column) c.getViewRoot().findComponent("form:datosTelefonosPersona:tNumero");
+            tNumero.setFilterStyle("display: none; visibility: hidden;");
+            tCiudad = (Column) c.getViewRoot().findComponent("form:datosTelefonosPersona:tCiudad");
+            tCiudad.setFilterStyle("display: none; visibility: hidden;");
+            RequestContext.getCurrentInstance().update("form:datosTelefonosPersona");
+            bandera = 0;
+            listTelefonosFiltrar = null;
+            tipoLista = 0;
+            altoTabla = "270";
+        }
+
+        listTelefonosBorrar.clear();
+        listTelefonosCrear.clear();
+        listTelefonosModificar.clear();
+        k = 0;
+        contarRegistrosTelefono();
+        telefonoSeleccionado = null;
+        listTelefonos = null;
+        guardado = true;
+        permitirIndex = true;
+        getListTelefonos();
+        contarRegistrosTelefono();
+        RequestContext context = RequestContext.getCurrentInstance();
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:datosTelefonosPersona");
+    }
+
+    public void actualizarTiposTelefonos() {
+        RequestContext context = RequestContext.getCurrentInstance();
+        if (tipoActualizacion == 0) {
+            if (tipoLista == 0) {
+                telefonoSeleccionado.setTipotelefono(tipoTelefonoSeleccionado);
+                if (!listTelefonosCrear.contains(telefonoSeleccionado)) {
+                    if (listTelefonosModificar.isEmpty()) {
+                        listTelefonosModificar.add(telefonoSeleccionado);
+                    } else if (!listTelefonosModificar.contains(telefonoSeleccionado)) {
+                        listTelefonosModificar.add(telefonoSeleccionado);
+                    }
+                }
+            } else {
+                telefonoSeleccionado.setTipotelefono(tipoTelefonoSeleccionado);
+                if (!listTelefonosCrear.contains(telefonoSeleccionado)) {
+                    if (listTelefonosModificar.isEmpty()) {
+                        listTelefonosModificar.add(telefonoSeleccionado);
+                    } else if (!listTelefonosModificar.contains(telefonoSeleccionado)) {
+                        listTelefonosModificar.add(telefonoSeleccionado);
+                    }
+                }
+            }
+            if (guardado == true) {
+                guardado = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            }
+            permitirIndex = true;
+            RequestContext.getCurrentInstance().update("form:datosTelefonosPersona");
+        } else if (tipoActualizacion == 1) {
+            nuevoTelefono.setTipotelefono(tipoTelefonoSeleccionado);
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevoTelefono");
+        } else if (tipoActualizacion == 2) {
+            duplicarTelefono.setTipotelefono(tipoTelefonoSeleccionado);
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTelefono");
+        }
+        lovTiposTelefonosFiltrar = null;
+        aceptar = true;
+        tipoActualizacion = -1;
+        //cualCelda = -1;
+        RequestContext.getCurrentInstance().update("formularioDialogos:tiposTelefonosDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:LOVTiposTelefonos");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarTT");
+        context.reset("formularioDialogos:LOVTiposTelefonos:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('LOVTiposTelefonos').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('tiposTelefonosDialogo').hide()");
+    }
+
+    public void cancelarCambioTiposTelefonos() {
+        lovTiposTelefonosFiltrar = null;
+        aceptar = true;
+        tipoActualizacion = -1;
+        cualCelda = -1;
+        permitirIndex = true;
+        RequestContext context = RequestContext.getCurrentInstance();
+        RequestContext.getCurrentInstance().update("formularioDialogos:tiposTelefonosDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:LOVTiposTelefonos");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarTT");
+        context.reset("formularioDialogos:LOVTiposTelefonos:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('LOVTiposTelefonos').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('tiposTelefonosDialogo').hide()");
+    }
+
+    public void borrarTelefonos() {
+
+        if (telefonoSeleccionado != null) {
+            if (!listTelefonosModificar.isEmpty() && listTelefonosModificar.contains(telefonoSeleccionado)) {
+                listTelefonosModificar.remove(listTelefonosModificar.indexOf(telefonoSeleccionado));
+                listTelefonosBorrar.add(telefonoSeleccionado);
+            } else if (!listTelefonosCrear.isEmpty() && listTelefonosCrear.contains(telefonoSeleccionado)) {
+                listTelefonosCrear.remove(listTelefonosCrear.indexOf(telefonoSeleccionado));
+            } else {
+                listTelefonosBorrar.add(telefonoSeleccionado);
+            }
+            listTelefonos.remove(telefonoSeleccionado);
+            if (tipoLista == 1) {
+                listTelefonosFiltrar.remove(telefonoSeleccionado);
+            }
+            contarRegistrosTelefono();
+            RequestContext context = RequestContext.getCurrentInstance();
+            RequestContext.getCurrentInstance().update("form:datosTelefonosPersona");
+            telefonoSeleccionado = null;
+
+            if (guardado == true) {
+                guardado = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            }
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+        }
+    }
+
+    public void duplicarTelefono() {
+        if (telefonoSeleccionado != null) {
+            duplicarTelefono = new Telefonos();
+            k++;
+            l = BigInteger.valueOf(k);
+            if (tipoLista == 0) {
+                duplicarTelefono.setSecuencia(l);
+                duplicarTelefono.setFechavigencia(telefonoSeleccionado.getFechavigencia());
+                duplicarTelefono.setTipotelefono(telefonoSeleccionado.getTipotelefono());
+                duplicarTelefono.setNumerotelefono(telefonoSeleccionado.getNumerotelefono());
+                duplicarTelefono.setCiudad(telefonoSeleccionado.getCiudad());
+                duplicarTelefono.setPersona(telefonoSeleccionado.getPersona());
+            }
+            if (tipoLista == 1) {
+                duplicarTelefono.setSecuencia(l);
+                duplicarTelefono.setFechavigencia(telefonoSeleccionado.getFechavigencia());
+                duplicarTelefono.setTipotelefono(telefonoSeleccionado.getTipotelefono());
+                duplicarTelefono.setNumerotelefono(telefonoSeleccionado.getNumerotelefono());
+                duplicarTelefono.setCiudad(telefonoSeleccionado.getCiudad());
+                duplicarTelefono.setPersona(telefonoSeleccionado.getPersona());
+                altoTabla = "270";
+            }
+            RequestContext context = RequestContext.getCurrentInstance();
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTelefono");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroTelefono').show()");
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+        }
+    }
+
+    public void confirmarDuplicarTelefono() {
+        int pasa = 0;
+        int pasaA = 0;
+        mensajeValidacion = " ";
+        RequestContext context = RequestContext.getCurrentInstance();
+        if (duplicarTelefono.getFechavigencia() == null) {
+            System.out.println("Entro a Fecha");
+            mensajeValidacion = " Campo fecha vacío \n";
+            pasa++;
+
+        }
+        if (duplicarTelefono.getTipotelefono().getSecuencia() == null) {
+            System.out.println("Entro a TipoTelefono");
+            mensajeValidacion = mensajeValidacion + " Campo Tipo Teléfono vacío \n";
+            pasa++;
+        }
+        if (duplicarTelefono.getNumerotelefono() == 0) {
+            System.out.println("Entro a Numero");
+            mensajeValidacion = mensajeValidacion + " * Campo Número Teléfono vacío \n";
+            pasa++;
+        }
+        for (int i = 0; i < listTelefonos.size(); i++) {
+            if ((listTelefonos.get(i).getTipotelefono().getNombre().equals(duplicarTelefono.getTipotelefono().getNombre())) && (!(listTelefonos.get(i).getFechavigencia().before(duplicarTelefono.getFechavigencia())) && !(duplicarTelefono.getFechavigencia().before(listTelefonos.get(i).getFechavigencia())))) {
+                RequestContext.getCurrentInstance().update("formularioDialogos:existeTipoTelefono");
+                RequestContext.getCurrentInstance().execute("PF('existeTipoTelefono').show()");
+                pasaA++;
+            }
+            if (pasa != 0) {
+                RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoTelefono");
+                RequestContext.getCurrentInstance().execute("PF('validacionNuevoTelefono').show()");
+            }
+        }
+
+        if (pasa == 0 && pasaA == 0) {
+            listTelefonos.add(duplicarTelefono);
+            listTelefonosCrear.add(duplicarTelefono);
+            telefonoSeleccionado = duplicarTelefono;
+            getListTelefonos();
+            contarRegistrosTelefono();
+            RequestContext.getCurrentInstance().update("form:datosTelefonosPersona");
+            if (guardado == true) {
+                guardado = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            }
+            if (bandera == 1) {
+                FacesContext c = FacesContext.getCurrentInstance();
+                System.out.println("Desactivar");
+                System.out.println("TipoLista= " + tipoLista);
+                tFecha = (Column) c.getViewRoot().findComponent("form:datosTelefonosPersona:tFecha");
+                tFecha.setFilterStyle("display: none; visibility: hidden;");
+                tTipoTelefono = (Column) c.getViewRoot().findComponent("form:datosTelefonosPersona:tTipoTelefono");
+                tTipoTelefono.setFilterStyle("display: none; visibility: hidden;");
+                tNumero = (Column) c.getViewRoot().findComponent("form:datosTelefonosPersona:tNumero");
+                tNumero.setFilterStyle("display: none; visibility: hidden;");
+                tCiudad = (Column) c.getViewRoot().findComponent("form:datosTelefonosPersona:tCiudad");
+                tCiudad.setFilterStyle("display: none; visibility: hidden;");
+                altoTabla = "270";
+                RequestContext.getCurrentInstance().update("form:datosTelefonosPersona");
+                bandera = 0;
+                listTelefonosFiltrar = null;
+                tipoLista = 0;
+            }
+            duplicarTelefono = new Telefonos();
+            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroTelefono').hide()");
+        }
+
+    }
+
+    public void limpiarduplicarTelefono() {
+        duplicarTelefono = new Telefonos();
+        duplicarTelefono.setTipotelefono(new TiposTelefonos());
+        duplicarTelefono.setCiudad(new Ciudades());
+    }
+
+    public void limpiarNuevoTelefono() {
+        nuevoTelefono = new Telefonos();
+        nuevoTelefono.setTipotelefono(new TiposTelefonos());
+        nuevoTelefono.setCiudad(new Ciudades());
+    }
+
+    public void agregarNuevoTelefono() {
+        Long a = null;
+        int pasa = 0;
+        int pasaA = 0;
+        mensajeValidacion = " ";
+        FacesContext c = FacesContext.getCurrentInstance();
+        RequestContext context = RequestContext.getCurrentInstance();
+
+        if (nuevoTelefono.getFechavigencia() == null && nuevoTelefono.getTipotelefono().getSecuencia() == null && nuevoTelefono.getNumerotelefono() == 0) {
+            System.out.println("Entro a Fecha");
+            mensajeValidacion = " Existen campos vacíos \n";
+            pasa++;
+        }
+
+        if (nuevoTelefono.getFechavigencia() == null) {
+            System.out.println("Entro a Fecha");
+            mensajeValidacion = " Campo fecha vacío \n";
+            pasa++;
+        }
+        if (nuevoTelefono.getTipotelefono().getSecuencia() == null) {
+            System.out.println("Entro a TipoTelefono");
+            mensajeValidacion = " Campo Tipo Teléfono vacío\n";
+            pasa++;
+        }
+        if (nuevoTelefono.getNumerotelefono() == 0) {
+            System.out.println("Entro a Numero");
+            mensajeValidacion = " Campo Número de Teléfono vacío\n";
+            pasa++;
+        }
+        for (int i = 0; i < listTelefonos.size(); i++) {
+            if ((listTelefonos.get(i).getTipotelefono().getNombre().equals(nuevoTelefono.getTipotelefono().getNombre())) && (!(listTelefonos.get(i).getFechavigencia().before(nuevoTelefono.getFechavigencia())) && !(nuevoTelefono.getFechavigencia().before(listTelefonos.get(i).getFechavigencia())))) {
+                RequestContext.getCurrentInstance().update("formularioDialogos:existeTipoTelefono");
+                RequestContext.getCurrentInstance().execute("PF('existeTipoTelefono').show()");
+                pasaA++;
+            }
+        }
+
+        if (pasa == 0 && pasaA == 0) {
+            if (bandera == 1) {
+                tFecha = (Column) c.getViewRoot().findComponent("form:datosTelefonosPersona:tFecha");
+                tFecha.setFilterStyle("display: none; visibility: hidden;");
+                tTipoTelefono = (Column) c.getViewRoot().findComponent("form:datosTelefonosPersona:tTipoTelefono");
+                tTipoTelefono.setFilterStyle("display: none; visibility: hidden;");
+                tNumero = (Column) c.getViewRoot().findComponent("form:datosTelefonosPersona:tNumero");
+                tNumero.setFilterStyle("display: none; visibility: hidden;");
+                tCiudad = (Column) c.getViewRoot().findComponent("form:datosTelefonosPersona:tCiudad");
+                tCiudad.setFilterStyle("display: none; visibility: hidden;");
+                RequestContext.getCurrentInstance().update("form:datosTelefonosPersona");
+                bandera = 0;
+                listTelefonosFiltrar = null;
+                tipoLista = 0;
+                altoTabla = "270";
+            }
+            k++;
+            l = BigInteger.valueOf(k);
+            nuevoTelefono.setSecuencia(l);
+            nuevoTelefono.setPersona(persona);
+            if (nuevoTelefono.getCiudad().getSecuencia() == null) {
+                nuevoTelefono.setCiudad(null);
+            }
+            listTelefonosCrear.add(nuevoTelefono);
+            listTelefonos.add(nuevoTelefono);
+            telefonoSeleccionado = nuevoTelefono;
+            nuevoTelefono = new Telefonos();
+            nuevoTelefono.setTipotelefono(new TiposTelefonos());
+            nuevoTelefono.setCiudad(new Ciudades());
+            getListTelefonos();
+            contarRegistrosTelefono();
+            RequestContext.getCurrentInstance().update("form:datosTelefonosPersona");
+            if (guardado == true) {
+                guardado = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            }
+            RequestContext.getCurrentInstance().execute("PF('NuevoRegistroTelefono').hide()");
+        } else {
+            RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoTelefono");
+            RequestContext.getCurrentInstance().execute("PF('validacionNuevoTelefono').show()");
+        }
+    }
+
+    public void actualizarCiudadTelefono() {
+        RequestContext context = RequestContext.getCurrentInstance();
+        if (tipoActualizacion == 0) {
+            if (tipoLista == 0) {
+                telefonoSeleccionado.setCiudad(ciudadTelefonoSeleccionada);
+                if (!listTelefonosCrear.contains(telefonoSeleccionado)) {
+                    if (listTelefonosModificar.isEmpty()) {
+                        listTelefonosModificar.add(telefonoSeleccionado);
+                    } else if (!listTelefonosModificar.contains(telefonoSeleccionado)) {
+                        listTelefonosModificar.add(telefonoSeleccionado);
+                    }
+                }
+            } else {
+                telefonoSeleccionado.setCiudad(ciudadTelefonoSeleccionada);
+                if (!listTelefonosCrear.contains(telefonoSeleccionado)) {
+                    if (listTelefonosModificar.isEmpty()) {
+                        listTelefonosModificar.add(telefonoSeleccionado);
+                    } else if (!listTelefonosModificar.contains(telefonoSeleccionado)) {
+                        listTelefonosModificar.add(telefonoSeleccionado);
+                    }
+                }
+            }
+            if (guardado == true) {
+                guardado = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            }
+            permitirIndex = true;
+            RequestContext.getCurrentInstance().update("form:datosTelefonosPersona");
+        } else if (tipoActualizacion == 1) {
+            nuevoTelefono.setCiudad(ciudadTelefonoSeleccionada);
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevoTelefono");
+        } else if (tipoActualizacion == 2) {
+            duplicarTelefono.setCiudad(ciudadTelefonoSeleccionada);
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTelefono");
+        }
+        lovCiudadesFiltrar = null;
+        aceptar = true;
+        tipoActualizacion = -1;
+        cualCelda = -1;
+        context.reset("formularioDialogos:LOVCiudadesTelefono:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('LOVCiudadesTelefono').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('ciudadesTelefonoDialogo').hide()");
+        RequestContext.getCurrentInstance().update("formularioDialogos:ciudadesTelefonoDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:LOVCiudadesTelefono");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarCT");
+    }
+
+    public void cancelarCambioCiudadTelefono() {
+        lovCiudadTelefonoFiltrar = null;
+        aceptar = true;
+        tipoActualizacion = -1;
+        cualCelda = -1;
+        permitirIndex = true;
+        RequestContext context = RequestContext.getCurrentInstance();
+        context.reset("formularioDialogos:LOVCiudadesTelefono:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('LOVCiudadesTelefono').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('ciudadesTelefonoDialogo').hide()");
+        RequestContext.getCurrentInstance().update("formularioDialogos:ciudadesTelefonoDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:LOVCiudadesTelefono");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarCT");
+    }
+
+    public void guardarCambiosTelefono() {
+        if (guardado == false) {
+            if (!listTelefonosBorrar.isEmpty()) {
+                for (int i = 0; i < listTelefonosBorrar.size(); i++) {
+                    if (listTelefonosBorrar.get(i).getTipotelefono().getSecuencia() == null) {
+                        listTelefonosBorrar.get(i).setTipotelefono(null);
+                        administrarVigDomiciliarias.borrarTelefonos(listTelefonosBorrar.get(i));
+                    } else if (listTelefonosBorrar.get(i).getCiudad().getSecuencia() == null) {
+                        listTelefonosBorrar.get(i).setCiudad(null);
+                        administrarVigDomiciliarias.borrarTelefonos(listTelefonosBorrar.get(i));
+                    } else {
+                        administrarVigDomiciliarias.borrarTelefonos(listTelefonosBorrar.get(i));
+                    }
+                }
+                listTelefonosBorrar.clear();
+            }
+
+            if (!listTelefonosCrear.isEmpty()) {
+                for (int i = 0; i < listTelefonosCrear.size(); i++) {
+                    System.out.println("Creando...");
+                    if (listTelefonosCrear.get(i).getTipotelefono().getSecuencia() == null) {
+                        listTelefonosCrear.get(i).setTipotelefono(null);
+                        administrarVigDomiciliarias.crearTelefonos(listTelefonosCrear.get(i));
+                    } else if (listTelefonosCrear.get(i).getCiudad().getSecuencia() == null) {
+                        listTelefonosCrear.get(i).setCiudad(null);
+                        administrarVigDomiciliarias.crearTelefonos(listTelefonosCrear.get(i));
+                    } else {
+                        administrarVigDomiciliarias.crearTelefonos(listTelefonosCrear.get(i));
+                    }
+                }
+                listTelefonosCrear.clear();
+            }
+            if (!listTelefonosModificar.isEmpty()) {
+                administrarVigDomiciliarias.modificarTelefonos(listTelefonosModificar);
+                listTelefonosModificar.clear();
+            }
+            listTelefonos = null;
+            getListTelefonos();
+            contarRegistrosCiudadesTelefonos();
+            RequestContext context = RequestContext.getCurrentInstance();
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            k = 0;
+            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            RequestContext.getCurrentInstance().update("form:growl");
+        }
+        guardado = true;
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:datosTelefonosPersona");
+        permitirIndex = true;
+        telefonoSeleccionado = null;
+    }
+
+    public void salirTelefonos() {
+        FacesContext c = FacesContext.getCurrentInstance();
+
+        if (bandera == 1) {
+
+            tFecha = (Column) c.getViewRoot().findComponent("form:datosTelefonosPersona:tFecha");
+            tFecha.setFilterStyle("display: none; visibility: hidden;");
+            tTipoTelefono = (Column) c.getViewRoot().findComponent("form:datosTelefonosPersona:tTipoTelefono");
+            tTipoTelefono.setFilterStyle("display: none; visibility: hidden;");
+            tNumero = (Column) c.getViewRoot().findComponent("form:datosTelefonosPersona:tNumero");
+            tNumero.setFilterStyle("display: none; visibility: hidden;");
+            tCiudad = (Column) c.getViewRoot().findComponent("form:datosTelefonosPersona:tCiudad");
+            tCiudad.setFilterStyle("display: none; visibility: hidden;");
+            altoTabla = "270";
+            RequestContext.getCurrentInstance().update("form:datosTelefonosPersona");
+            bandera = 0;
+            listTelefonosFiltrar = null;
+            tipoLista = 0;
+        }
+
+        listTelefonosBorrar.clear();
+        listTelefonosCrear.clear();
+        listTelefonosModificar.clear();
+        contarRegistrosTelefono();
+        telefonoSeleccionado = null;
+        k = 0;
+        listTelefonos = null;
+        guardado = true;
+        permitirIndex = true;
+    }
+
+    public void contarRegistroTT() {
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroTT");
+    }
+
+    public void contarRegistrosCiudadesTelefonos() {
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroCiudadesTelefono");
+    }
+
+//// estados civiles
     public void cambiarIndiceEstadosCiviles(VigenciasEstadosCiviles vigenciaEstadoCivil, int celda) {
 
         if (permitirIndex == true) {
@@ -1315,17 +3470,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
     public void asignarIndexEstadosCiviles(VigenciasEstadosCiviles vigenciaEstadoCivil, int LND, int dig) {
         RequestContext context = RequestContext.getCurrentInstance();
         vigenciaEstadoCivilSeleccionado = vigenciaEstadoCivil;
-        if (LND == 0) {
-//                deshabilitarBotonLov();
-            tipoActualizacion = 0;
-        } else if (LND == 1) {
-//                deshabilitarBotonLov();
-            tipoActualizacion = 1;
-            System.out.println("Tipo Actualizacion: " + tipoActualizacion);
-        } else if (LND == 2) {
-//                deshabilitarBotonLov();
-            tipoActualizacion = 2;
-        }
+        tipoActualizacion = LND;
         if (dig == 1) {
 //                habilitarBotonLov();
 //                contarRegistroEC();
@@ -1425,17 +3570,421 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         RequestContext.getCurrentInstance().update("form:infoRegistroEstadoCivil");
     }
 
-    //////nivel academico
+    public void contarRegistroLovEstadosCiviles() {
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroEstadoCivilLov");
+    }
+
+    public void cancelarModificacionEstadosCiviles() {
+        if (bandera == 1) {
+            FacesContext c = FacesContext.getCurrentInstance();
+            //CERRAR FILTRADO
+            fecha = (Column) c.getViewRoot().findComponent("form:datosEstadoCivil:fecha");
+            fecha.setFilterStyle("display: none; visibility: hidden;");
+            parentesco = (Column) c.getViewRoot().findComponent("form:datosEstadoCivil:parentesco");
+            parentesco.setFilterStyle("display: none; visibility: hidden;");
+            altoTabla = "270";
+            RequestContext.getCurrentInstance().update("form:datosEstadoCivil");
+            bandera = 0;
+            listVigenciaEstadoCivilFiltrar = null;
+            tipoLista = 0;
+        }
+
+        listVigenciaEstadoCivilBorrar.clear();
+        listVigenciaEstadoCivilCrear.clear();
+        listVigenciaEstadoCivilModificar.clear();
+        vigenciaEstadoCivilSeleccionado = null;
+        k = 0;
+        listVigenciaEstadoCivil = null;
+        guardado = true;
+        permitirIndex = true;
+        getListVigenciaEstadoCivil();
+        RequestContext context = RequestContext.getCurrentInstance();
+        contarRegistrosEstadoCivil();
+        RequestContext.getCurrentInstance().update("form:datosEstadoCivil");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+    }
+
+    public void salirEstadosCiviles() {
+        if (bandera == 1) {
+            FacesContext c = FacesContext.getCurrentInstance();
+            //CERRAR FILTRADO
+            fecha = (Column) c.getViewRoot().findComponent("form:datosEstadoCivil:fecha");
+            fecha.setFilterStyle("display: none; visibility: hidden;");
+            parentesco = (Column) c.getViewRoot().findComponent("form:datosEstadoCivil:parentesco");
+            parentesco.setFilterStyle("display: none; visibility: hidden;");
+            altoTabla = "270";
+            RequestContext.getCurrentInstance().update("form:datosEstadoCivil");
+            bandera = 0;
+            listVigenciaEstadoCivilFiltrar = null;
+            tipoLista = 0;
+        }
+
+        listVigenciaEstadoCivilBorrar.clear();
+        listVigenciaEstadoCivilCrear.clear();
+        listVigenciaEstadoCivilModificar.clear();
+        vigenciaEstadoCivilSeleccionado = null;
+        k = 0;
+        listVigenciaEstadoCivil = null;
+        guardado = true;
+        permitirIndex = true;
+        getListVigenciaEstadoCivil();
+        RequestContext context = RequestContext.getCurrentInstance();
+        contarRegistrosEstadoCivil();
+        RequestContext.getCurrentInstance().update("form:datosEstadoCivil");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+    }
+
+    public void actualizarEstadoCivil() {
+        RequestContext context = RequestContext.getCurrentInstance();
+        if (tipoActualizacion == 0) {
+            if (tipoLista == 0) {
+                vigenciaEstadoCivilSeleccionado.setEstadocivil(estadoCivilSeleccionado);
+
+                if (!listVigenciaEstadoCivilCrear.contains(vigenciaEstadoCivilSeleccionado)) {
+                    if (listVigenciaEstadoCivilModificar.isEmpty()) {
+                        listVigenciaEstadoCivilModificar.add(vigenciaEstadoCivilSeleccionado);
+                    } else if (!listVigenciaEstadoCivilModificar.contains(vigenciaEstadoCivilSeleccionado)) {
+                        listVigenciaEstadoCivilModificar.add(vigenciaEstadoCivilSeleccionado);
+                    }
+                }
+            } else {
+                vigenciaEstadoCivilSeleccionado.setEstadocivil(estadoCivilSeleccionado);
+
+                if (!listVigenciaEstadoCivilCrear.contains(vigenciaEstadoCivilSeleccionado)) {
+                    if (listVigenciaEstadoCivilModificar.isEmpty()) {
+                        listVigenciaEstadoCivilModificar.add(vigenciaEstadoCivilSeleccionado);
+                    } else if (!listVigenciaEstadoCivilModificar.contains(vigenciaEstadoCivilSeleccionado)) {
+                        listVigenciaEstadoCivilModificar.add(vigenciaEstadoCivilSeleccionado);
+                    }
+                }
+            }
+            if (guardado == true) {
+                guardado = false;
+            }
+            permitirIndex = true;
+            RequestContext.getCurrentInstance().update("form:datosEstadoCivil");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        } else if (tipoActualizacion == 1) {
+            nuevaVigenciaEstadoCivil.setEstadocivil(estadoCivilSeleccionado);
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevoNombreEstadoCivil");
+        } else if (tipoActualizacion == 2) {
+            duplicarVigenciaEstadoCivil.setEstadocivil(estadoCivilSeleccionado);
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarEstadoCivil");
+        }
+        listVigenciaEstadoCivilFiltrar = null;
+        aceptar = true;
+        tipoActualizacion = -1;
+        cualCelda = -1;
+        context.reset("formularioDialogos:lovEstadosCiviles:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('lovEstadosCiviles').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('EstadoCivilDialogo').hide()");
+        RequestContext.getCurrentInstance().update("formularioDialogos:EstadoCivilDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:lovEstadosCiviles");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarS");
+    }
+
+    public void cancelarCambioEstadoCivil() {
+        listVigenciaEstadoCivilFiltrar = null;
+        aceptar = true;
+        tipoActualizacion = -1;
+        permitirIndex = true;
+        RequestContext context = RequestContext.getCurrentInstance();
+        context.reset("formularioDialogos:lovEstadosCiviles:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('lovEstadosCiviles').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('EstadoCivilDialogo').hide()");
+        RequestContext.getCurrentInstance().update("formularioDialogos:EstadoCivilDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:lovEstadosCiviles");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarS");
+
+    }
+
+    public void mostrarDialogoEstadosCiviles(int tipoNuevo) {
+        if (tipoNuevo == 0) {
+            tipoActualizacion = 1;
+        }
+        if (tipoNuevo == 1) {
+            tipoActualizacion = 2;
+        }
+        RequestContext context = RequestContext.getCurrentInstance();
+        RequestContext.getCurrentInstance().update("formularioDialogos:EstadoCivilDialogo");
+        RequestContext.getCurrentInstance().execute("PF('EstadoCivilDialogo').show()");
+    }
+
+    public void limpiarNuevoEstadoCivil() {
+        System.out.println("\n ENTRE A LIMPIAR NUEVO ESTADO CIVIL  \n");
+        nuevaVigenciaEstadoCivil = new VigenciasEstadosCiviles();
+        nuevaVigenciaEstadoCivil.setEstadocivil(new EstadosCiviles());
+        vigenciaEstadoCivilSeleccionado = null;
+    }
+
+    public void borrandoVigenciasEstadosCiviles() {
+
+        if (vigenciaEstadoCivilSeleccionado != null) {
+            System.out.println("Entro a borrandoEvalCompetencias");
+            if (!listVigenciaEstadoCivilModificar.isEmpty() && listVigenciaEstadoCivilModificar.contains(vigenciaEstadoCivilSeleccionado)) {
+                int modIndex = listVigenciaEstadoCivilModificar.indexOf(vigenciaEstadoCivilSeleccionado);
+                listVigenciaEstadoCivilModificar.remove(modIndex);
+                listVigenciaEstadoCivilBorrar.add(vigenciaEstadoCivilSeleccionado);
+            } else if (!listVigenciaEstadoCivilCrear.isEmpty() && listVigenciaEstadoCivilCrear.contains(vigenciaEstadoCivilSeleccionado)) {
+                int crearIndex = listVigenciaEstadoCivilCrear.indexOf(vigenciaEstadoCivilSeleccionado);
+                listVigenciaEstadoCivilCrear.remove(crearIndex);
+            } else {
+                listVigenciaEstadoCivilBorrar.add(vigenciaEstadoCivilSeleccionado);
+            }
+            listVigenciaEstadoCivil.remove(vigenciaEstadoCivilSeleccionado);
+            if (tipoLista == 1) {
+                listVigenciaEstadoCivilFiltrar.remove(vigenciaEstadoCivilSeleccionado);
+            }
+            RequestContext context = RequestContext.getCurrentInstance();
+            if (guardado == true) {
+                guardado = false;
+            }
+            RequestContext.getCurrentInstance().update("form:datosEstadoCivil");
+            contarRegistrosEstadoCivil();
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            vigenciaEstadoCivilSeleccionado = null;
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+        }
+
+    }
+
+    public void guardarVigenciaEstadoCivil() {
+        RequestContext context = RequestContext.getCurrentInstance();
+
+        if (guardado == false) {
+            System.out.println("Realizando guardarEvalCompetencias");
+            if (!listVigenciaEstadoCivilBorrar.isEmpty()) {
+                for (int i = 0; i < listVigenciaEstadoCivilBorrar.size(); i++) {
+                    System.out.println("Borrando...");
+                }
+                administrarVigDomiciliarias.borrarVigenciasEstadosCiviles(listVigenciaEstadoCivilBorrar);
+                //mostrarBorrados
+                listVigenciaEstadoCivilBorrar.clear();
+            }
+            if (!listVigenciaEstadoCivilCrear.isEmpty()) {
+                administrarVigDomiciliarias.crearVigenciasEstadosCiviles(listVigenciaEstadoCivilCrear);
+                listVigenciaEstadoCivilCrear.clear();
+            }
+            if (!listVigenciaEstadoCivilModificar.isEmpty()) {
+                System.out.println("Modificando...");
+                administrarVigDomiciliarias.modificarVigenciasEstadosCiviles(listVigenciaEstadoCivilModificar);
+                listVigenciaEstadoCivilModificar.clear();
+            }
+            listVigenciaEstadoCivil = null;
+            getListVigenciaEstadoCivil();
+            contarRegistrosEstadoCivil();
+            RequestContext.getCurrentInstance().update("form:datosEstadoCivil");
+            k = 0;
+            guardado = true;
+            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            RequestContext.getCurrentInstance().update("form:growl");
+        }
+        vigenciaEstadoCivilSeleccionado = null;
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+
+    }
+
+    public void agregarNuevoVigenciaEstadoCivil() {
+        System.out.println("agregarNuevoVigenciaEstadoCivil");
+        int contador = 0;
+        //nuevaVigenciaEstadoCivil.setEstadocivil(new EstadosCiviles());
+        Short a = 0;
+        a = null;
+        int fechas = 0;
+        mensajeValidacion = " ";
+        nuevaVigenciaEstadoCivil.setPersona(persona);
+        RequestContext context = RequestContext.getCurrentInstance();
+        if (nuevaVigenciaEstadoCivil.getFechavigencia() == null || nuevaVigenciaEstadoCivil.getFechavigencia().equals("")) {
+            mensajeValidacion = "Campo Fecha vacío \n";
+        } else {
+            for (int i = 0; i < listVigenciaEstadoCivil.size(); i++) {
+                if (nuevaVigenciaEstadoCivil.getFechavigencia().equals(listVigenciaEstadoCivil.get(i).getFechavigencia())) {
+                    fechas++;
+                }
+            }
+            if (fechas > 0) {
+                mensajeValidacion = "Fechas repetidas ";
+            } else {
+                contador++;
+            }
+        }
+        if (nuevaVigenciaEstadoCivil.getEstadocivil().getSecuencia() == null || nuevaVigenciaEstadoCivil.getEstadocivil().getDescripcion().isEmpty()) {
+            mensajeValidacion = "Campo Estado Civil vacío\n";
+        } else {
+            System.out.println("Bandera : ");
+            contador++;
+        }
+
+        System.out.println("contador " + contador);
+
+        if (contador == 2) {
+            if (bandera == 1) {
+                //CERRAR FILTRADO
+                FacesContext c = FacesContext.getCurrentInstance();
+                System.out.println("Desactivar");
+                fecha = (Column) c.getViewRoot().findComponent("form:datosEstadoCivil:fecha");
+                fecha.setFilterStyle("display: none; visibility: hidden;");
+                parentesco = (Column) c.getViewRoot().findComponent("form:datosEstadoCivil:parentesco");
+                parentesco.setFilterStyle("display: none; visibility: hidden;");
+                altoTabla = "270";
+                RequestContext.getCurrentInstance().update("form:datosEstadoCivil");
+                bandera = 0;
+                listVigenciaEstadoCivilFiltrar = null;
+                tipoLista = 0;
+            }
+
+            k++;
+            l = BigInteger.valueOf(k);
+            nuevaVigenciaEstadoCivil.setSecuencia(l);
+            listVigenciaEstadoCivilCrear.add(nuevaVigenciaEstadoCivil);
+            listVigenciaEstadoCivil.add(nuevaVigenciaEstadoCivil);
+            contarRegistrosEstadoCivil();
+            vigenciaEstadoCivilSeleccionado = nuevaVigenciaEstadoCivil;
+            nuevaVigenciaEstadoCivil = new VigenciasEstadosCiviles();
+            nuevaVigenciaEstadoCivil.setEstadocivil(new EstadosCiviles());
+            RequestContext.getCurrentInstance().update("form:datosEstadoCivil");
+            if (guardado == true) {
+                guardado = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            }
+
+            RequestContext.getCurrentInstance().execute("PF('nuevoRegistroEstadoCivil').hide()");
+
+        } else {
+            RequestContext.getCurrentInstance().update("form:validacionNuevoEstadoCivil");
+            RequestContext.getCurrentInstance().execute("PF('validacionNuevoEstadoCivil').show()");
+            contador = 0;
+        }
+    }
+
+    public void limpiarNuevoVigenciaEstadoCivil() {
+        nuevaVigenciaEstadoCivil = new VigenciasEstadosCiviles();
+        nuevaVigenciaEstadoCivil.setEstadocivil(new EstadosCiviles());
+        nuevaVigenciaEstadoCivil.setFechavigencia(new Date());
+    }
+
+    public void duplicandoVigenciaEstadoCivil() {
+        if (vigenciaEstadoCivilSeleccionado != null) {
+            duplicarVigenciaEstadoCivil = new VigenciasEstadosCiviles();
+            duplicarVigenciaEstadoCivil.setPersona(new Personas());
+            duplicarVigenciaEstadoCivil.setEstadocivil(new EstadosCiviles());
+            k++;
+            l = BigInteger.valueOf(k);
+
+            if (tipoLista == 0) {
+                duplicarVigenciaEstadoCivil.setSecuencia(l);
+                duplicarVigenciaEstadoCivil.setPersona(vigenciaEstadoCivilSeleccionado.getPersona());
+                duplicarVigenciaEstadoCivil.setFechavigencia(vigenciaEstadoCivilSeleccionado.getFechavigencia());
+                duplicarVigenciaEstadoCivil.setEstadocivil(vigenciaEstadoCivilSeleccionado.getEstadocivil());
+            }
+            if (tipoLista == 1) {
+                duplicarVigenciaEstadoCivil.setSecuencia(l);
+                duplicarVigenciaEstadoCivil.setPersona(vigenciaEstadoCivilSeleccionado.getPersona());
+                duplicarVigenciaEstadoCivil.setFechavigencia(vigenciaEstadoCivilSeleccionado.getFechavigencia());
+                duplicarVigenciaEstadoCivil.setEstadocivil(vigenciaEstadoCivilSeleccionado.getEstadocivil());
+//                altoTabla = "270";
+            }
+
+            RequestContext context = RequestContext.getCurrentInstance();
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarEvC");
+            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroEstadoCivil').show()");
+
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('formularioDialogos:seleccionarRegistro').show()");
+        }
+    }
+
+    public void confirmarDuplicarVigenciaEstadoCivil() {
+        int contador = 0;
+        mensajeValidacion = " ";
+        RequestContext context = RequestContext.getCurrentInstance();
+        Short a = 0;
+        int fechas = 0;
+        a = null;
+        if (duplicarVigenciaEstadoCivil.getFechavigencia() == null) {
+            mensajeValidacion = mensajeValidacion + "   * Fecha \n";
+            System.out.println("Mensaje validacion : " + mensajeValidacion);
+        } else {
+
+            for (int j = 0; j < listVigenciaEstadoCivil.size(); j++) {
+                if (duplicarVigenciaEstadoCivil.getFechavigencia().equals(listVigenciaEstadoCivil.get(j).getFechavigencia())) {
+                    System.out.println("Se repiten");
+                    fechas++;
+                }
+            }
+            if (fechas > 0) {
+                mensajeValidacion = "FECHAS REPETIDAS";
+            } else {
+                System.out.println("bandera");
+                contador++;
+            }
+
+        }
+        if (duplicarVigenciaEstadoCivil.getEstadocivil().getDescripcion() == null || duplicarVigenciaEstadoCivil.getEstadocivil().getDescripcion().isEmpty() || duplicarVigenciaEstadoCivil.getEstadocivil().getDescripcion().equals(" ") || duplicarVigenciaEstadoCivil.getEstadocivil().getDescripcion().isEmpty()) {
+            mensajeValidacion = mensajeValidacion + "   * Estado Civil \n";
+            System.out.println("Mensaje validacion : " + mensajeValidacion);
+        } else {
+            System.out.println("bandera");
+            contador++;
+
+        }
+        if (duplicarVigenciaEstadoCivil.getPersona().getSecuencia() == null) {
+            duplicarVigenciaEstadoCivil.setPersona(persona);
+        }
+        if (contador == 2) {
+            k++;
+            l = BigInteger.valueOf(k);
+            duplicarVigenciaEstadoCivil.setSecuencia(l);
+            if (listVigenciaEstadoCivilCrear.contains(duplicarVigenciaEstadoCivil)) {
+                System.out.println("Ya lo contengo.");
+            }
+            listVigenciaEstadoCivil.add(duplicarVigenciaEstadoCivil);
+            listVigenciaEstadoCivilCrear.add(duplicarVigenciaEstadoCivil);
+            RequestContext.getCurrentInstance().update("form:datosEstadoCivil");
+            vigenciaEstadoCivilSeleccionado = duplicarVigenciaEstadoCivil;
+            if (guardado == true) {
+                guardado = false;
+            }
+            contarRegistrosEstadoCivil();
+            if (bandera == 1) {
+                //CERRAR FILTRADO
+                FacesContext c = FacesContext.getCurrentInstance();
+                fecha = (Column) c.getViewRoot().findComponent("form:datosEstadoCivil:fecha");
+                fecha.setFilterStyle("display: none; visibility: hidden;");
+                parentesco = (Column) c.getViewRoot().findComponent("form:datosEstadoCivil:parentesco");
+                parentesco.setFilterStyle("display: none; visibility: hidden;");
+                altoTabla = "270";
+                RequestContext.getCurrentInstance().update("form:datosEstadoCivil");
+                bandera = 0;
+                listVigenciaEstadoCivilFiltrar = null;
+                tipoLista = 0;
+            }
+            duplicarVigenciaEstadoCivil = new VigenciasEstadosCiviles();
+            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroEstadoCivil').hide()");
+
+        } else {
+            contador = 0;
+            fechas = 0;
+            RequestContext.getCurrentInstance().update("form:validacionDuplicarVigencia");
+            RequestContext.getCurrentInstance().execute("PF('validacionDuplicarVigencia').show()");
+        }
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+    }
+
+    public void limpiarDuplicarVigenciaEstadoCivil() {
+        duplicarVigenciaEstadoCivil = new VigenciasEstadosCiviles();
+        duplicarVigenciaEstadoCivil.setPersona(new Personas());
+        duplicarVigenciaEstadoCivil.setEstadocivil(new EstadosCiviles());
+    }
+
+//////nivel academico
     public void cambiarIndiceEducacion(VigenciasFormales vigenciaformal, int celda) {
         if (permitirIndex == true) {
             vigenciaFormalSeleccionada = vigenciaformal;
             cualCelda = celda;
-//            CualTabla = 0;
-//            deshabilitarBotonLov();
-//            tablaImprimir = ":formExportar:datosVigenciasFormalesExportar";
-//            nombreArchivo = "VigenciasFormalesXML";
-//            RequestContext context = RequestContext.getCurrentInstance();
-//            RequestContext.getCurrentInstance().update("form:exportarXML");
+
             vigenciaFormalSeleccionada.getSecuencia();
             if (cualCelda == 1) {
 //                habilitarBotonLov();
@@ -1468,25 +4017,50 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         tipoActualizacion = LND;
         if (dlg == 0) {
-//            contarRegistroEducacion();
-//            RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroEducacion");
+            contarRegistrosTipoEducacion();
             RequestContext.getCurrentInstance().update("formularioDialogos:tiposEducacionesDialogo");
             RequestContext.getCurrentInstance().execute("PF('tiposEducacionesDialogo').show()");
         } else if (dlg == 1) {
-//            contarRegistroProfesion();
-//            RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistrosProfesion");
+            contarRegistrosProfesion();
             RequestContext.getCurrentInstance().update("formularioDialogos:profesionesDialogo");
             RequestContext.getCurrentInstance().execute("PF('profesionesDialogo').show()");
         } else if (dlg == 2) {
-//            contarRegistroInstitucionesF();
-//            RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroInstitucionesF");
+            contarRegistrosInstituciones();
             RequestContext.getCurrentInstance().update("formularioDialogos:institucionesDialogo");
             RequestContext.getCurrentInstance().execute("PF('institucionesDialogo').show()");
         } else if (dlg == 3) {
-//            contarRegistroAdiestramientoF();
-//            RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroAdiestramientosF");
+            contarRegistrosAdiestramiento();
             RequestContext.getCurrentInstance().update("formularioDialogos:adiestramientosFDialogo");
             RequestContext.getCurrentInstance().execute("PF('adiestramientosFDialogo').show()");
+        }
+    }
+
+    public void modificarEducacion(VigenciasFormales vigenciaformal) {
+        vigenciaFormalSeleccionada = vigenciaformal;
+        if (tipoLista == 0) {
+            if (!listVigenciasFormalesCrear.contains(vigenciaFormalSeleccionada)) {
+                if (listVigenciasFormalesModificar.isEmpty()) {
+                    listVigenciasFormalesModificar.add(vigenciaFormalSeleccionada);
+                } else if (!listVigenciasFormalesModificar.contains(vigenciaFormalSeleccionada)) {
+                    listVigenciasFormalesModificar.add(vigenciaFormalSeleccionada);
+                }
+                if (guardado == true) {
+                    guardado = false;
+                    RequestContext context = RequestContext.getCurrentInstance();
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                }
+            }
+        } else if (!listVigenciasFormalesCrear.contains(vigenciaFormalSeleccionada)) {
+            if (listVigenciasFormalesModificar.isEmpty()) {
+                listVigenciasFormalesModificar.add(vigenciaFormalSeleccionada);
+            } else if (!listVigenciasFormalesModificar.contains(vigenciaFormalSeleccionada)) {
+                listVigenciasFormalesModificar.add(vigenciaFormalSeleccionada);
+            }
+            if (guardado == true) {
+                guardado = false;
+                RequestContext context = RequestContext.getCurrentInstance();
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            }
         }
     }
 
@@ -1661,12 +4235,801 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         RequestContext.getCurrentInstance().update("form:datosVigenciasFormalesPersona");
     }
 
+    public void actualizarTiposEducaciones() {
+        RequestContext context = RequestContext.getCurrentInstance();
+        if (tipoActualizacion == 0) {
+            if (tipoLista == 0) {
+                vigenciaFormalSeleccionada.setTipoeducacion(tipoEducacionSeleccionado);
+                if (!listVigenciasFormalesCrear.contains(vigenciaFormalSeleccionada)) {
+                    if (listVigenciasFormalesModificar.isEmpty()) {
+                        listVigenciasFormalesModificar.add(vigenciaFormalSeleccionada);
+                    } else if (!listVigenciasFormalesModificar.contains(vigenciaFormalSeleccionada)) {
+                        listVigenciasFormalesModificar.add(vigenciaFormalSeleccionada);
+                    }
+                }
+            } else {
+                vigenciaFormalSeleccionada.setTipoeducacion(tipoEducacionSeleccionado);
+                if (!listVigenciasFormalesCrear.contains(vigenciaFormalSeleccionada)) {
+                    if (listVigenciasFormalesModificar.isEmpty()) {
+                        listVigenciasFormalesModificar.add(vigenciaFormalSeleccionada);
+                    } else if (!listVigenciasFormalesModificar.contains(vigenciaFormalSeleccionada)) {
+                        listVigenciasFormalesModificar.add(vigenciaFormalSeleccionada);
+                    }
+                }
+            }
+            if (guardado == true) {
+                guardado = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+
+            }
+            permitirIndex = true;
+            RequestContext.getCurrentInstance().update("form:datosVigenciasFormalesPersona");
+        } else if (tipoActualizacion == 1) {
+            nuevaVigenciaFormal.setTipoeducacion(tipoEducacionSeleccionado);
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaVigenciaFormal");
+        } else if (tipoActualizacion == 2) {
+            duplicarVigenciaFormal.setTipoeducacion(tipoEducacionSeleccionado);
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarVigenciaFormal");
+        }
+        lovTiposEducacionesFiltrar = null;
+        tipoEducacionSeleccionado = null;
+        aceptar = true;
+        tipoActualizacion = -1;
+        cualCelda = -1;
+        context.reset("formularioDialogos:LOVTiposEducaciones:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('LOVTiposEducaciones').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('tiposEducacionesDialogo').hide()");
+        RequestContext.getCurrentInstance().update("formularioDialogos:tiposEducacionesDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:LOVTiposEducaciones");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarTE");
+    }
+
+    public void cancelarCambioTiposEducaciones() {
+        lovTiposEducacionesFiltrar = null;
+        tipoEducacionSeleccionado = null;
+        aceptar = true;
+        tipoActualizacion = -1;
+        cualCelda = -1;
+        permitirIndex = true;
+        RequestContext context = RequestContext.getCurrentInstance();
+        context.reset("formularioDialogos:LOVTiposEducaciones:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('LOVTiposEducaciones').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('tiposEducacionesDialogo').hide()");
+        RequestContext.getCurrentInstance().update("formularioDialogos:tiposEducacionesDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:LOVTiposEducaciones");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarTE");
+    }
+
+    public void actualizarProfesiones() {
+        RequestContext context = RequestContext.getCurrentInstance();
+        if (tipoActualizacion == 0) {
+            if (tipoLista == 0) {
+                vigenciaFormalSeleccionada.setProfesion(profesionSeleccionada);
+                if (!listVigenciasFormalesCrear.contains(vigenciaFormalSeleccionada)) {
+                    if (listVigenciasFormalesModificar.isEmpty()) {
+                        listVigenciasFormalesModificar.add(vigenciaFormalSeleccionada);
+                    } else if (!listVigenciasFormalesModificar.contains(vigenciaFormalSeleccionada)) {
+                        listVigenciasFormalesModificar.add(vigenciaFormalSeleccionada);
+                    }
+                }
+            } else {
+                vigenciaFormalSeleccionada.setProfesion(profesionSeleccionada);
+                if (!listVigenciasFormalesCrear.contains(vigenciaFormalSeleccionada)) {
+                    if (listVigenciasFormalesModificar.isEmpty()) {
+                        listVigenciasFormalesModificar.add(vigenciaFormalSeleccionada);
+                    } else if (!listVigenciasFormalesModificar.contains(vigenciaFormalSeleccionada)) {
+                        listVigenciasFormalesModificar.add(vigenciaFormalSeleccionada);
+                    }
+                }
+            }
+            if (guardado == true) {
+                guardado = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+
+            }
+            permitirIndex = true;
+            RequestContext.getCurrentInstance().update("form:datosVigenciasFormalesPersona");
+        } else if (tipoActualizacion == 1) {
+            nuevaVigenciaFormal.setProfesion(profesionSeleccionada);
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaVigenciaFormal");
+        } else if (tipoActualizacion == 2) {
+            duplicarVigenciaFormal.setProfesion(profesionSeleccionada);
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarVigenciaFormal");
+        }
+        lovProfesionesFiltrar = null;
+        profesionSeleccionada = null;
+        aceptar = true;
+        tipoActualizacion = -1;
+        cualCelda = -1;
+        context.reset("formularioDialogos:LOVProfesiones:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('LOVProfesiones').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('profesionesDialogo').hide()");
+        RequestContext.getCurrentInstance().update("formularioDialogos:profesionesDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:LOVProfesiones");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarP");
+    }
+
+    public void cancelarCambioProfesiones() {
+        lovProfesionesFiltrar = null;
+        profesionSeleccionada = null;
+        aceptar = true;
+        tipoActualizacion = -1;
+        cualCelda = -1;
+        permitirIndex = true;
+        RequestContext context = RequestContext.getCurrentInstance();
+        context.reset("formularioDialogos:LOVProfesiones:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('LOVProfesiones').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('profesionesDialogo').hide()");
+        RequestContext.getCurrentInstance().update("formularioDialogos:profesionesDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:LOVProfesiones");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarP");
+    }
+
+    public void actualizarInstituciones() {
+        RequestContext context = RequestContext.getCurrentInstance();
+        if (tipoActualizacion == 0) {
+            if (tipoLista == 0) {
+                vigenciaFormalSeleccionada.setInstitucion(institucionSeleccionada);
+                if (!listVigenciasFormalesCrear.contains(vigenciaFormalSeleccionada)) {
+                    if (listVigenciasFormalesModificar.isEmpty()) {
+                        listVigenciasFormalesModificar.add(vigenciaFormalSeleccionada);
+                    } else if (!listVigenciasFormalesModificar.contains(vigenciaFormalSeleccionada)) {
+                        listVigenciasFormalesModificar.add(vigenciaFormalSeleccionada);
+                    }
+                }
+            } else {
+                vigenciaFormalSeleccionada.setInstitucion(institucionSeleccionada);
+                if (!listVigenciasFormalesCrear.contains(vigenciaFormalSeleccionada)) {
+                    if (listVigenciasFormalesModificar.isEmpty()) {
+                        listVigenciasFormalesModificar.add(vigenciaFormalSeleccionada);
+                    } else if (!listVigenciasFormalesModificar.contains(vigenciaFormalSeleccionada)) {
+                        listVigenciasFormalesModificar.add(vigenciaFormalSeleccionada);
+                    }
+                }
+            }
+            if (guardado == true) {
+                guardado = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+
+            }
+            permitirIndex = true;
+            RequestContext.getCurrentInstance().update("form:datosVigenciasFormalesPersona");
+        } else if (tipoActualizacion == 1) {
+            nuevaVigenciaFormal.setInstitucion(institucionSeleccionada);
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaVigenciaFormal");
+        } else if (tipoActualizacion == 2) {
+            duplicarVigenciaFormal.setInstitucion(institucionSeleccionada);
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarVigenciaFormal");
+        }
+        lovInstitucionesFiltrar = null;
+        institucionSeleccionada = null;
+        aceptar = true;
+        tipoActualizacion = -1;
+        cualCelda = -1;
+        context.reset("formularioDialogos:LOVInstituciones:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('LOVInstituciones').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('institucionesDialogo').hide()");
+        RequestContext.getCurrentInstance().update("formularioDialogos:institucionesDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:LOVInstituciones");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarI");
+    }
+
+    public void cancelarCambioInstituciones() {
+        lovInstitucionesFiltrar = null;
+        institucionSeleccionada = null;
+        aceptar = true;
+        tipoActualizacion = -1;
+        cualCelda = -1;
+        permitirIndex = true;
+        RequestContext context = RequestContext.getCurrentInstance();
+        context.reset("formularioDialogos:LOVInstituciones:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('LOVInstituciones').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('institucionesDialogo').hide()");
+        RequestContext.getCurrentInstance().update("formularioDialogos:institucionesDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:LOVInstituciones");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarI");
+    }
+
+    public void cancelarCambioAdiestramientoF() {
+        lovAdiestramientosFiltrar = null;
+        adiestramientoSeleccionado = null;
+        aceptar = true;
+        tipoActualizacion = -1;
+        cualCelda = -1;
+        permitirIndex = true;
+        RequestContext context = RequestContext.getCurrentInstance();
+        context.reset("formularioDialogos:LOVAdiestramientosF:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('LOVAdiestramientosF').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('adiestramientosFDialogo').hide()");
+        RequestContext.getCurrentInstance().update("formularioDialogos:adiestramientosFDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:LOVAdiestramientosF");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarAF");
+    }
+
+    public void actualizarAdiestramientoF() {
+        RequestContext context = RequestContext.getCurrentInstance();
+        if (tipoActualizacion == 0) {
+            if (tipoLista == 0) {
+                vigenciaFormalSeleccionada.setAdiestramientof(adiestramientoSeleccionado);
+                if (!listVigenciasFormalesCrear.contains(vigenciaFormalSeleccionada)) {
+                    if (listVigenciasFormalesModificar.isEmpty()) {
+                        listVigenciasFormalesModificar.add(vigenciaFormalSeleccionada);
+                    } else if (!listVigenciasFormalesModificar.contains(vigenciaFormalSeleccionada)) {
+                        listVigenciasFormalesModificar.add(vigenciaFormalSeleccionada);
+                    }
+                }
+            } else {
+                vigenciaFormalSeleccionada.setAdiestramientof(adiestramientoSeleccionado);
+                if (!listVigenciasFormalesCrear.contains(vigenciaFormalSeleccionada)) {
+                    if (listVigenciasFormalesModificar.isEmpty()) {
+                        listVigenciasFormalesModificar.add(vigenciaFormalSeleccionada);
+                    } else if (!listVigenciasFormalesModificar.contains(vigenciaFormalSeleccionada)) {
+                        listVigenciasFormalesModificar.add(vigenciaFormalSeleccionada);
+                    }
+                }
+            }
+            if (guardado == true) {
+                guardado = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+
+            }
+            permitirIndex = true;
+            RequestContext.getCurrentInstance().update("form:datosVigenciasFormalesPersona");
+        } else if (tipoActualizacion == 1) {
+            nuevaVigenciaFormal.setAdiestramientof(adiestramientoSeleccionado);
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaVigenciaFormal");
+        } else if (tipoActualizacion == 2) {
+            duplicarVigenciaFormal.setAdiestramientof(adiestramientoSeleccionado);
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarVigenciaFormal");
+        }
+        lovAdiestramientosFiltrar = null;
+        adiestramientoSeleccionado = null;
+        aceptar = true;
+        tipoActualizacion = -1;
+        cualCelda = -1;
+        context.reset("formularioDialogos:LOVAdiestramientosF:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('LOVAdiestramientosF').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('adiestramientosFDialogo').hide()");
+        RequestContext.getCurrentInstance().update("formularioDialogos:adiestramientosFDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:LOVAdiestramientosF");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarAF");
+    }
+
+    public void agregarNuevaVigenciaFormal() {
+        int pasa = 0;
+        mensajeValidacion = " ";
+        RequestContext context = RequestContext.getCurrentInstance();
+        if (nuevaVigenciaFormal.getFechavigencia() == null) {
+            mensajeValidacion = " * Fecha \n";
+            pasa++;
+        }
+        if (nuevaVigenciaFormal.getTipoeducacion().getSecuencia() == null) {
+            System.out.println("Entro a TipoEducacion");
+            mensajeValidacion = mensajeValidacion + " * Tipo de Educacion\n";
+            pasa++;
+        }
+        if (nuevaVigenciaFormal.getProfesion().getSecuencia() == null) {
+            System.out.println("Entro a Profesion");
+            mensajeValidacion = mensajeValidacion + " * Profesion\n";
+            pasa++;
+        }
+        if (nuevaVigenciaFormal.getInstitucion().getSecuencia() == null) {
+            System.out.println("Entro a Institucion");
+            mensajeValidacion = mensajeValidacion + " * Institucion \n";
+            pasa++;
+        }
+        if (nuevaVigenciaFormal.getAdiestramientof().getSecuencia() == null) {
+            System.out.println("Entro a AdiestramientoF");
+            mensajeValidacion = mensajeValidacion + " * Adiestramiento\n";
+            pasa++;
+        }
+
+        if (pasa == 0) {
+            if (bandera == 1) {
+                FacesContext c = FacesContext.getCurrentInstance();
+
+                System.out.println("Desactivar");
+                System.out.println("TipoLista= " + tipoLista);
+                pEFechas = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEFechas");
+                pEFechas.setFilterStyle("display: none; visibility: hidden;");
+                pETiposEducaciones = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pETiposEducaciones");
+                pETiposEducaciones.setFilterStyle("display: none; visibility: hidden;");
+                pEProfesiones = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEProfesiones");
+                pEProfesiones.setFilterStyle("display: none; visibility: hidden;");
+                pEInstituciones = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEInstituciones");
+                pEInstituciones.setFilterStyle("display: none; visibility: hidden;");
+                pEAdiestramientosF = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEAdiestramientosF");
+                pEAdiestramientosF.setFilterStyle("display: none; visibility: hidden;");
+                pECalificaciones = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pECalificaciones");
+                pECalificaciones.setFilterStyle("display: none; visibility: hidden;");
+                pENumerosTarjetas = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pENumerosTarjetas");
+                pENumerosTarjetas.setFilterStyle("display: none; visibility: hidden;");
+                pEFechasExpediciones = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEFechasExpediciones");
+                pEFechasExpediciones.setFilterStyle("display: none; visibility: hidden;");
+                pEFechasVencimientos = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEFechasVencimientos");
+                pEFechasVencimientos.setFilterStyle("display: none; visibility: hidden;");
+                pEObservaciones = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEObservaciones");
+                pEObservaciones.setFilterStyle("display: none; visibility: hidden;");
+                RequestContext.getCurrentInstance().update("form:datosVigenciasFormalesPersona");
+                bandera = 0;
+                listVigenciasFormalesFiltrar = null;
+                tipoLista = 0;
+
+            }
+            k++;
+            l = BigInteger.valueOf(k);
+            nuevaVigenciaFormal.setSecuencia(l);
+            nuevaVigenciaFormal.setPersona(persona);
+            listVigenciasFormalesCrear.add(nuevaVigenciaFormal);
+            listVigenciasFormales.add(nuevaVigenciaFormal);
+            contarRegistrosEducacion();
+            vigenciaFormalSeleccionada = nuevaVigenciaFormal;
+            nuevaVigenciaFormal = new VigenciasFormales();
+            nuevaVigenciaFormal.setTipoeducacion(new TiposEducaciones());
+            nuevaVigenciaFormal.setProfesion(new Profesiones());
+            nuevaVigenciaFormal.setInstitucion(new Instituciones());
+            nuevaVigenciaFormal.setAdiestramientof(new AdiestramientosF());
+            nuevaVigenciaFormal.setFechavigencia(new Date());
+            nuevaVigenciaFormal.setFechavencimientotarjeta(new Date());
+            nuevaVigenciaFormal.setFechaexpediciontarjeta(new Date());
+            RequestContext.getCurrentInstance().update("form:datosVigenciasFormalesPersona");
+            if (guardado == true) {
+                guardado = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            }
+            RequestContext.getCurrentInstance().execute("PF('NuevoRegistroVigenciaFormal').hide()");
+        } else {
+            RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevaVigenciaFormal");
+            RequestContext.getCurrentInstance().execute("PF('validacionNuevaVigenciaFormal').show()");
+        }
+    }
+
+    public void borrarVigenciaFormal() {
+
+        if (vigenciaFormalSeleccionada != null) {
+            if (!listVigenciasFormalesModificar.isEmpty() && listVigenciasFormalesModificar.contains(vigenciaFormalSeleccionada)) {
+                int modIndex = listVigenciasFormalesModificar.indexOf(vigenciaFormalSeleccionada);
+                listVigenciasFormalesModificar.remove(modIndex);
+                listVigenciasFormalesBorrar.add(vigenciaFormalSeleccionada);
+            } else if (!listVigenciasFormalesCrear.isEmpty() && listVigenciasFormalesCrear.contains(vigenciaFormalSeleccionada)) {
+                int crearIndex = listVigenciasFormalesCrear.indexOf(vigenciaFormalSeleccionada);
+                listVigenciasFormalesCrear.remove(crearIndex);
+            } else {
+                listVigenciasFormalesBorrar.add(vigenciaFormalSeleccionada);
+            }
+            listVigenciasFormales.remove(vigenciaFormalSeleccionada);
+            if (tipoLista == 1) {
+                listVigenciasFormalesFiltrar.remove(vigenciaFormalSeleccionada);
+            }
+
+            RequestContext context = RequestContext.getCurrentInstance();
+            contarRegistrosEducacion();
+            RequestContext.getCurrentInstance().update("form:datosVigenciasFormalesPersona");
+            vigenciaFormalSeleccionada = null;
+
+            if (guardado == true) {
+                guardado = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            }
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+        }
+
+    }
+
+    public void duplicarVF() {
+        if (vigenciaFormalSeleccionada != null) {
+            duplicarVigenciaFormal = new VigenciasFormales();
+            k++;
+            l = BigInteger.valueOf(k);
+
+            if (tipoLista == 0) {
+                duplicarVigenciaFormal.setSecuencia(l);
+                duplicarVigenciaFormal.setFechavigencia(vigenciaFormalSeleccionada.getFechavigencia());
+                duplicarVigenciaFormal.setTipoeducacion(vigenciaFormalSeleccionada.getTipoeducacion());
+                duplicarVigenciaFormal.setProfesion(vigenciaFormalSeleccionada.getProfesion());
+                duplicarVigenciaFormal.setInstitucion(vigenciaFormalSeleccionada.getInstitucion());
+                duplicarVigenciaFormal.setAdiestramientof(vigenciaFormalSeleccionada.getAdiestramientof());
+                duplicarVigenciaFormal.setCalificacionobtenida(vigenciaFormalSeleccionada.getCalificacionobtenida());
+                duplicarVigenciaFormal.setNumerotarjeta(vigenciaFormalSeleccionada.getNumerotarjeta());
+                duplicarVigenciaFormal.setFechaexpediciontarjeta(vigenciaFormalSeleccionada.getFechaexpediciontarjeta());
+                duplicarVigenciaFormal.setFechavencimientotarjeta(vigenciaFormalSeleccionada.getFechavencimientotarjeta());
+                duplicarVigenciaFormal.setObservacion(vigenciaFormalSeleccionada.getObservacion());
+            }
+            if (tipoLista == 1) {
+                duplicarVigenciaFormal.setSecuencia(l);
+                duplicarVigenciaFormal.setFechavigencia(vigenciaFormalSeleccionada.getFechavigencia());
+                duplicarVigenciaFormal.setTipoeducacion(vigenciaFormalSeleccionada.getTipoeducacion());
+                duplicarVigenciaFormal.setProfesion(vigenciaFormalSeleccionada.getProfesion());
+                duplicarVigenciaFormal.setInstitucion(vigenciaFormalSeleccionada.getInstitucion());
+                duplicarVigenciaFormal.setAdiestramientof(vigenciaFormalSeleccionada.getAdiestramientof());
+                duplicarVigenciaFormal.setCalificacionobtenida(vigenciaFormalSeleccionada.getCalificacionobtenida());
+                duplicarVigenciaFormal.setNumerotarjeta(vigenciaFormalSeleccionada.getNumerotarjeta());
+                duplicarVigenciaFormal.setFechaexpediciontarjeta(vigenciaFormalSeleccionada.getFechaexpediciontarjeta());
+                duplicarVigenciaFormal.setFechavencimientotarjeta(vigenciaFormalSeleccionada.getFechavencimientotarjeta());
+                duplicarVigenciaFormal.setObservacion(vigenciaFormalSeleccionada.getObservacion());
+            }
+            RequestContext context = RequestContext.getCurrentInstance();
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarVigenciaFormal");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroVigenciaFormal').show()");
+
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+        }
+    }
+
+    public void confirmarDuplicarEducacion() {
+
+        listVigenciasFormales.add(duplicarVigenciaFormal);
+        listVigenciasFormalesCrear.add(duplicarVigenciaFormal);
+        RequestContext context = RequestContext.getCurrentInstance();
+        contarRegistrosEducacion();
+        RequestContext.getCurrentInstance().update("form:datosVigenciasFormalesPersona");
+        vigenciaFormalSeleccionada = null;
+        vigenciaFormalSeleccionada = null;
+        if (guardado == true) {
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        }
+        if (bandera == 1) {
+            FacesContext c = FacesContext.getCurrentInstance();
+
+            System.out.println("Desactivar");
+            System.out.println("TipoLista= " + tipoLista);
+            pEFechas = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEFechas");
+            pEFechas.setFilterStyle("display: none; visibility: hidden;");
+            pETiposEducaciones = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pETiposEducaciones");
+            pETiposEducaciones.setFilterStyle("display: none; visibility: hidden;");
+            pEProfesiones = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEProfesiones");
+            pEProfesiones.setFilterStyle("display: none; visibility: hidden;");
+            pEInstituciones = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEInstituciones");
+            pEInstituciones.setFilterStyle("display: none; visibility: hidden;");
+            pEAdiestramientosF = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEAdiestramientosF");
+            pEAdiestramientosF.setFilterStyle("display: none; visibility: hidden;");
+            pECalificaciones = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pECalificaciones");
+            pECalificaciones.setFilterStyle("display: none; visibility: hidden;");
+            pENumerosTarjetas = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pENumerosTarjetas");
+            pENumerosTarjetas.setFilterStyle("display: none; visibility: hidden;");
+            pEFechasExpediciones = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEFechasExpediciones");
+            pEFechasExpediciones.setFilterStyle("display: none; visibility: hidden;");
+            pEFechasVencimientos = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEFechasVencimientos");
+            pEFechasVencimientos.setFilterStyle("display: none; visibility: hidden;");
+            pEObservaciones = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEObservaciones");
+            pEObservaciones.setFilterStyle("display: none; visibility: hidden;");
+            RequestContext.getCurrentInstance().update("form:datosVigenciasFormalesPersona");
+            bandera = 0;
+            listVigenciasFormalesFiltrar = null;
+            tipoLista = 0;
+
+        }
+        duplicarVigenciaFormal = new VigenciasFormales();
+    }
+
+    public void limpiarduplicarVigenciaFormal() {
+        duplicarVigenciaFormal = new VigenciasFormales();
+    }
+
+    public void salirEducacion() {
+
+        if (bandera == 1) {
+            FacesContext c = FacesContext.getCurrentInstance();
+
+            pEFechas = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEFechas");
+            pEFechas.setFilterStyle("display: none; visibility: hidden;");
+            pETiposEducaciones = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pETiposEducaciones");
+            pETiposEducaciones.setFilterStyle("display: none; visibility: hidden;");
+            pEProfesiones = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEProfesiones");
+            pEProfesiones.setFilterStyle("display: none; visibility: hidden;");
+            pEInstituciones = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEInstituciones");
+            pEInstituciones.setFilterStyle("display: none; visibility: hidden;");
+            pEAdiestramientosF = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEAdiestramientosF");
+            pEAdiestramientosF.setFilterStyle("display: none; visibility: hidden;");
+            pECalificaciones = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pECalificaciones");
+            pECalificaciones.setFilterStyle("display: none; visibility: hidden;");
+            pENumerosTarjetas = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pENumerosTarjetas");
+            pENumerosTarjetas.setFilterStyle("display: none; visibility: hidden;");
+            pEFechasExpediciones = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEFechasExpediciones");
+            pEFechasExpediciones.setFilterStyle("display: none; visibility: hidden;");
+            pEFechasVencimientos = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEFechasVencimientos");
+            pEFechasVencimientos.setFilterStyle("display: none; visibility: hidden;");
+            pEObservaciones = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEObservaciones");
+            pEObservaciones.setFilterStyle("display: none; visibility: hidden;");
+            RequestContext.getCurrentInstance().update("form:datosVigenciasFormalesPersona");
+            bandera = 0;
+            listVigenciasFormalesFiltrar = null;
+            tipoLista = 0;
+        }
+
+        listVigenciasFormalesBorrar.clear();
+        listVigenciasFormalesCrear.clear();
+        listVigenciasFormalesModificar.clear();
+        vigenciaFormalSeleccionada = null;
+        listVigenciasFormales = null;
+        getListVigenciasFormales();
+        contarRegistrosEducacion();
+        //  k = 0;
+        guardado = true;
+        permitirIndex = true;
+    }
+
+    public void cancelarModificacionEducacion() {
+
+        if (bandera == 1) {
+            FacesContext c = FacesContext.getCurrentInstance();
+
+            pEFechas = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEFechas");
+            pEFechas.setFilterStyle("display: none; visibility: hidden;");
+            pETiposEducaciones = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pETiposEducaciones");
+            pETiposEducaciones.setFilterStyle("display: none; visibility: hidden;");
+            pEProfesiones = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEProfesiones");
+            pEProfesiones.setFilterStyle("display: none; visibility: hidden;");
+            pEInstituciones = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEInstituciones");
+            pEInstituciones.setFilterStyle("display: none; visibility: hidden;");
+            pEAdiestramientosF = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEAdiestramientosF");
+            pEAdiestramientosF.setFilterStyle("display: none; visibility: hidden;");
+            pECalificaciones = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pECalificaciones");
+            pECalificaciones.setFilterStyle("display: none; visibility: hidden;");
+            pENumerosTarjetas = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pENumerosTarjetas");
+            pENumerosTarjetas.setFilterStyle("display: none; visibility: hidden;");
+            pEFechasExpediciones = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEFechasExpediciones");
+            pEFechasExpediciones.setFilterStyle("display: none; visibility: hidden;");
+            pEFechasVencimientos = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEFechasVencimientos");
+            pEFechasVencimientos.setFilterStyle("display: none; visibility: hidden;");
+            pEObservaciones = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEObservaciones");
+            pEObservaciones.setFilterStyle("display: none; visibility: hidden;");
+            RequestContext.getCurrentInstance().update("form:datosVigenciasFormalesPersona");
+            bandera = 0;
+            listVigenciasFormalesFiltrar = null;
+            tipoLista = 0;
+        }
+
+        listVigenciasFormalesBorrar.clear();
+        listVigenciasFormalesCrear.clear();
+        listVigenciasFormalesModificar.clear();
+        vigenciaFormalSeleccionada = null;
+        listVigenciasFormales = null;
+        getListVigenciasFormales();
+        contarRegistrosEducacion();
+        guardado = true;
+        permitirIndex = true;
+        RequestContext context = RequestContext.getCurrentInstance();
+        RequestContext.getCurrentInstance().update("form:datosVigenciasFormalesPersona");
+    }
+
+    public void guardarVigenciasFormales() {
+        try {
+            RequestContext context = RequestContext.getCurrentInstance();
+            if (!listVigenciasFormalesBorrar.isEmpty()) {
+                administrarVigDomiciliarias.borrarVigenciaFormal(listVigenciasFormalesBorrar);
+                listVigenciasFormalesBorrar.clear();
+            }
+            if (!listVigenciasFormalesCrear.isEmpty()) {
+                administrarVigDomiciliarias.crearVigenciaFormal(listVigenciasFormalesCrear);
+                listVigenciasFormalesCrear.clear();
+            }
+            if (!listVigenciasFormalesModificar.isEmpty()) {
+                administrarVigDomiciliarias.modificarVigenciaFormal(listVigenciasFormalesModificar);
+                listVigenciasFormalesModificar.clear();
+            }
+            listVigenciasFormales = null;
+            getListVigenciasFormales();
+            contarRegistrosEducacion();
+            vigenciaFormalSeleccionada = null;
+            RequestContext.getCurrentInstance().update("form:datosVigenciasFormalesPersona");
+            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            RequestContext.getCurrentInstance().update("form:growl");
+            guardado = true;
+            permitirIndex = true;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        } catch (Exception e) {
+            System.out.println("Error guardarVigenciasNoFormales  Controlador : " + e.toString());
+            FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado de Educación Formal, Por favor intente nuevamente.");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            RequestContext.getCurrentInstance().update("form:growl");
+        }
+    }
+
+    public void limpiarNuevaVigenciaFormal() {
+        nuevaVigenciaFormal = new VigenciasFormales();
+        nuevaVigenciaFormal.setTipoeducacion(new TiposEducaciones());
+        nuevaVigenciaFormal.setProfesion(new Profesiones());
+        nuevaVigenciaFormal.setInstitucion(new Instituciones());
+        nuevaVigenciaFormal.setAdiestramientof(new AdiestramientosF());
+        nuevaVigenciaFormal.setFechavigencia(new Date());
+        nuevaVigenciaFormal.setFechavencimientotarjeta(new Date());
+        nuevaVigenciaFormal.setFechaexpediciontarjeta(new Date());
+    }
+
+    public void valoresBackupAutocompletarEducacion(int tipoNuevo, String Campo) {
+        if (Campo.equals("TIPOEDUCACION")) {
+            if (tipoNuevo == 1) {
+                nuevaVigenciaFormal.getTipoeducacion().getNombre();
+            } else if (tipoNuevo == 2) {
+                duplicarVigenciaFormal.getTipoeducacion().getNombre();
+            } else if (Campo.equals("PROFESION")) {
+                if (tipoNuevo == 1) {
+                    nuevaVigenciaFormal.getProfesion().getDescripcion();
+                } else if (tipoNuevo == 2) {
+                    duplicarVigenciaFormal.getProfesion().getDescripcion();
+                }
+            } else if (Campo.equals("INSTITUCION")) {
+                if (tipoNuevo == 1) {
+                    nuevaVigenciaFormal.getInstitucion().getDescripcion();
+                } else if (tipoNuevo == 2) {
+                    duplicarVigenciaFormal.getInstitucion().getDescripcion();
+                }
+            } else if (Campo.equals("ADIESTRAMIENTOF")) {
+                if (tipoNuevo == 1) {
+                    nuevaVigenciaFormal.getAdiestramientof().getDescripcion();
+                } else if (tipoNuevo == 2) {
+                    duplicarVigenciaFormal.getAdiestramientof().getDescripcion();
+                }
+            }
+        }
+    }
+
+    public void autocompletarNuevoyDuplicadoEducacion(String confirmarCambio, String valorConfirmar, int tipoNuevo) {
+        int coincidencias = 0;
+        int indiceUnicoElemento = 0;
+        RequestContext context = RequestContext.getCurrentInstance();
+        if (confirmarCambio.equalsIgnoreCase("TIPOEDUCACION")) {
+            if (tipoNuevo == 1) {
+                nuevaVigenciaFormal.getTipoeducacion().setNombre(nuevaVigenciaFormal.getTipoeducacion().getNombre());
+            } else if (tipoNuevo == 2) {
+                duplicarVigenciaFormal.getTipoeducacion().setNombre(duplicarVigenciaFormal.getTipoeducacion().getNombre());
+            }
+            for (int i = 0; i < lovTiposEducaciones.size(); i++) {
+                if (lovTiposEducaciones.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+                    indiceUnicoElemento = i;
+                    coincidencias++;
+                }
+            }
+            if (coincidencias == 1) {
+                if (tipoNuevo == 1) {
+                    nuevaVigenciaFormal.setTipoeducacion(lovTiposEducaciones.get(indiceUnicoElemento));
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoTipoEducacion");
+                } else if (tipoNuevo == 2) {
+                    duplicarVigenciaFormal.setTipoeducacion(lovTiposEducaciones.get(indiceUnicoElemento));
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoEducacion");
+                }
+                lovTiposEducaciones.clear();
+                getLovTiposEducaciones();
+            } else {
+                RequestContext.getCurrentInstance().update("formularioDialogos:tiposEducacionesDialogo");
+                RequestContext.getCurrentInstance().execute("PF('tiposEducacionesDialogo').show()");
+                tipoActualizacion = tipoNuevo;
+                if (tipoNuevo == 1) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoTipoEducacion");
+                } else if (tipoNuevo == 2) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoEducacion");
+                }
+            }
+        } else if (confirmarCambio.equalsIgnoreCase("PROFESION")) {
+            if (tipoNuevo == 1) {
+                nuevaVigenciaFormal.getProfesion().setDescripcion(nuevaVigenciaFormal.getProfesion().getDescripcion());
+            } else if (tipoNuevo == 2) {
+                duplicarVigenciaFormal.getProfesion().setDescripcion(duplicarVigenciaFormal.getProfesion().getDescripcion());
+            }
+            for (int i = 0; i < lovProfesiones.size(); i++) {
+                if (lovProfesiones.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+                    indiceUnicoElemento = i;
+                    coincidencias++;
+                }
+            }
+            if (coincidencias == 1) {
+                if (tipoNuevo == 1) {
+                    nuevaVigenciaFormal.setProfesion(lovProfesiones.get(indiceUnicoElemento));
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevaProfesion");
+                } else if (tipoNuevo == 2) {
+                    duplicarVigenciaFormal.setProfesion(lovProfesiones.get(indiceUnicoElemento));
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarProfesion");
+                }
+                lovProfesiones.clear();
+                getLovProfesiones();
+            } else {
+                RequestContext.getCurrentInstance().update("formularioDialogos:profesionesDialogo");
+                RequestContext.getCurrentInstance().execute("PF('profesionesDialogo').show()");
+                tipoActualizacion = tipoNuevo;
+                if (tipoNuevo == 1) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevaProfesion");
+                } else if (tipoNuevo == 2) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarProfesion");
+                }
+            }
+        } else if (confirmarCambio.equalsIgnoreCase("INSTITUCION")) {
+            if (tipoNuevo == 1) {
+                nuevaVigenciaFormal.getInstitucion().setDescripcion(nuevaVigenciaFormal.getInstitucion().getDescripcion());
+            } else if (tipoNuevo == 2) {
+                duplicarVigenciaFormal.getInstitucion().setDescripcion(duplicarVigenciaFormal.getInstitucion().getDescripcion());
+            }
+            for (int i = 0; i < lovInstituciones.size(); i++) {
+                if (lovInstituciones.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+                    indiceUnicoElemento = i;
+                    coincidencias++;
+                }
+            }
+            if (coincidencias == 1) {
+                if (tipoNuevo == 1) {
+                    nuevaVigenciaFormal.setInstitucion(lovInstituciones.get(indiceUnicoElemento));
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevaInstitucion");
+                } else if (tipoNuevo == 2) {
+                    duplicarVigenciaFormal.setInstitucion(lovInstituciones.get(indiceUnicoElemento));
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarInstitucion");
+                }
+                lovInstituciones.clear();
+                getLovInstituciones();
+            } else {
+                RequestContext.getCurrentInstance().update("formularioDialogos:institucionesDialogo");
+                RequestContext.getCurrentInstance().execute("PF('institucionesDialogo').show()");
+                tipoActualizacion = tipoNuevo;
+                if (tipoNuevo == 1) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevaInstitucion");
+                } else if (tipoNuevo == 2) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarInstitucion");
+                }
+            }
+        } else if (confirmarCambio.equalsIgnoreCase("ADIESTRAMIENTOF")) {
+            if (tipoNuevo == 1) {
+                nuevaVigenciaFormal.getAdiestramientof().setDescripcion(nuevaVigenciaFormal.getAdiestramientof().getDescripcion());
+            } else if (tipoNuevo == 2) {
+                duplicarVigenciaFormal.getAdiestramientof().setDescripcion(duplicarVigenciaFormal.getAdiestramientof().getDescripcion());
+            }
+            for (int i = 0; i < lovAdiestramientos.size(); i++) {
+                if (lovAdiestramientos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+                    indiceUnicoElemento = i;
+                    coincidencias++;
+                }
+            }
+            if (coincidencias == 1) {
+                if (tipoNuevo == 1) {
+                    nuevaVigenciaFormal.setAdiestramientof(lovAdiestramientos.get(indiceUnicoElemento));
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoAdiestramientoF");
+                } else if (tipoNuevo == 2) {
+                    duplicarVigenciaFormal.setAdiestramientof(lovAdiestramientos.get(indiceUnicoElemento));
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarAdiestramientoF");
+                }
+                lovAdiestramientos.clear();
+                getLovAdiestramientos();
+            } else {
+                RequestContext.getCurrentInstance().update("formularioDialogos:adiestramientosFDialogo");
+                RequestContext.getCurrentInstance().execute("PF('adiestramientosFDialogo').show()");
+                tipoActualizacion = tipoNuevo;
+                if (tipoNuevo == 1) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoAdiestramientoF");
+                } else if (tipoNuevo == 2) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarAdiestramientoF");
+                }
+            }
+        }
+    }
+
     public void eventoFiltrarEducacion() {
         contarRegistrosEducacion();
     }
 
     public void contarRegistrosEducacion() {
         RequestContext.getCurrentInstance().update("form:infoRegistroEducacion");
+    }
+
+    public void contarRegistrosAdiestramiento() {
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroAdiestramiento");
+
+    }
+
+    public void contarRegistrosInstituciones() {
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroInstitucion");
+
+    }
+
+    public void contarRegistrosProfesion() {
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroProfesion");
+
+    }
+
+    public void contarRegistrosTipoEducacion() {
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroTipoEducacion");
+
     }
 
     //////////experiencia Laboral//////
@@ -1706,11 +5069,11 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
             tipoActualizacion = 2;
         }
         if (dlg == 1) {
-//            contarRegistroSector();
+            contarRegistroSector();
             RequestContext.getCurrentInstance().update("formularioDialogos:SectorDialogo");
             RequestContext.getCurrentInstance().execute("PF('SectorDialogo').show()");
         } else if (dlg == 2) {
-//            contarRegistroMotivo();
+            contarRegistroMotivo();
             RequestContext.getCurrentInstance().update("formularioDialogos:MotivosDialogo");
             RequestContext.getCurrentInstance().execute("PF('MotivosDialogo').show()");
         }
@@ -2006,12 +5369,670 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         RequestContext.getCurrentInstance().update("form:datosExperiencia");
     }
 
+    public void valoresBackupAutocompletarExperiencia(int tipoNuevo, String Campo) {
+
+        if (Campo.equals("SECTORES")) {
+            if (tipoNuevo == 1) {
+                nuevahvexp.getSectoreconomico().getDescripcion();
+            } else if (tipoNuevo == 2) {
+                duplicarhvexp.getSectoreconomico().getDescripcion();
+            }
+        } else if (Campo.equals("MOTIVOS")) {
+            if (tipoNuevo == 1) {
+                nuevahvexp.getMotivoretiro().getNombre();
+            } else if (tipoNuevo == 2) {
+                duplicarhvexp.getMotivoretiro().getNombre();
+            }
+        }
+    }
+
+    public void autocompletarNuevoyDuplicadoExperiencia(String confirmarCambio, String valorConfirmar, int tipoNuevo) {
+        int coincidencias = 0;
+        int indiceUnicoElemento = 0;
+        RequestContext context = RequestContext.getCurrentInstance();
+        if (confirmarCambio.equalsIgnoreCase("SECTORES")) {
+            if (tipoNuevo == 1) {
+                nuevahvexp.getSectoreconomico().setDescripcion(nuevahvexp.getSectoreconomico().getDescripcion());
+            } else if (tipoNuevo == 2) {
+                duplicarhvexp.getSectoreconomico().setDescripcion(duplicarhvexp.getSectoreconomico().getDescripcion());
+            }
+            for (int i = 0; i < lovSectoresEconomicos.size(); i++) {
+                if (lovSectoresEconomicos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+                    indiceUnicoElemento = i;
+                    coincidencias++;
+                }
+            }
+            if (coincidencias == 1) {
+                if (tipoNuevo == 1) {
+                    nuevahvexp.setSectoreconomico(lovSectoresEconomicos.get(indiceUnicoElemento));
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevaSectorEP");
+                } else if (tipoNuevo == 2) {
+                    duplicarhvexp.setSectoreconomico(lovSectoresEconomicos.get(indiceUnicoElemento));
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarSectorEP");
+                }
+                lovSectoresEconomicos = null;
+                getLovSectoresEconomicos();
+            } else {
+                RequestContext.getCurrentInstance().update("formularioDialogos:SectorDialogo");
+                RequestContext.getCurrentInstance().execute("PF('SectorDialogo').show()");
+                tipoActualizacion = tipoNuevo;
+                if (tipoNuevo == 1) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevaSectorEP");
+                } else if (tipoNuevo == 2) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarSectorEP");
+                }
+            }
+        } else if (confirmarCambio.equalsIgnoreCase("MOTIVOS")) {
+            if (!valorConfirmar.isEmpty()) {
+                if (tipoNuevo == 1) {
+                    nuevahvexp.getMotivoretiro().setNombre(nuevahvexp.getMotivoretiro().getNombre());
+                } else if (tipoNuevo == 2) {
+                    duplicarhvexp.getMotivoretiro().setNombre(duplicarhvexp.getMotivoretiro().getNombre());
+                }
+                for (int i = 0; i < lovMotivos.size(); i++) {
+                    if (lovMotivos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+                        indiceUnicoElemento = i;
+                        coincidencias++;
+                    }
+                }
+
+                if (coincidencias == 1) {
+                    if (tipoNuevo == 1) {
+                        nuevahvexp.setMotivoretiro(lovMotivos.get(indiceUnicoElemento));
+                        RequestContext.getCurrentInstance().update("formularioDialogos:nuevaMotivoEP");
+                    } else if (tipoNuevo == 2) {
+                        duplicarhvexp.setMotivoretiro(lovMotivos.get(indiceUnicoElemento));
+                        RequestContext.getCurrentInstance().update("formularioDialogos:duplicarMotivoEP");
+                    }
+                    lovMotivos = null;
+                    getLovMotivos();
+                } else {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:MotivosDialogo");
+                    RequestContext.getCurrentInstance().execute("PF('MotivosDialogo').show()");
+                    tipoActualizacion = tipoNuevo;
+                    if (tipoNuevo == 1) {
+                        RequestContext.getCurrentInstance().update("formularioDialogos:nuevaMotivoEP");
+                    } else if (tipoNuevo == 2) {
+                        RequestContext.getCurrentInstance().update("formularioDialogos:duplicarMotivoEP");
+                    }
+                }
+            } else {
+                lovMotivos = null;
+                getLovMotivos();
+                if (tipoNuevo == 1) {
+                    nuevahvexp.setMotivoretiro(new MotivosRetiros());
+                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevaMotivoEP");
+                } else if (tipoNuevo == 2) {
+                    duplicarhvexp.setMotivoretiro(new MotivosRetiros());
+                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarMotivoEP");
+                }
+            }
+        }
+    }
+
+    public void guardarCambiosExpLaboral() {
+        RequestContext context = RequestContext.getCurrentInstance();
+        try {
+            if (guardado == false) {
+                if (!listhvExpLaboralesBorrar.isEmpty()) {
+                    administrarVigDomiciliarias.borrarExperienciaLaboral(listhvExpLaboralesBorrar);
+                    listhvExpLaboralesBorrar.clear();
+                }
+                if (!listhvExpLaboralesCrear.isEmpty()) {
+                    administrarVigDomiciliarias.crearExperienciaLaboral(listhvExpLaboralesCrear);
+                    listhvExpLaboralesCrear.clear();
+                }
+                if (!listhvExpLaboralesModificar.isEmpty()) {
+                    administrarVigDomiciliarias.editarExperienciaLaboral(listhvExpLaboralesModificar);
+                    listhvExpLaboralesModificar.clear();
+                }
+                listhvExpLaborales = null;
+                getListhvExpLaborales();
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                k = 0;
+                FacesMessage msg = new FacesMessage("Información", "Se gurdaron los datos con éxito");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+                RequestContext.getCurrentInstance().update("form:growl");
+                contarRegistrosExp();
+                hvexpSeleccionada = null;
+            }
+            guardado = true;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:datosExperiencia");
+        } catch (Exception e) {
+            System.out.println("Error guardarCambios : " + e.toString());
+            FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            RequestContext.getCurrentInstance().update("form:growl");
+        }
+    }
+
+    public void cancelarModificacionExpLaboral() {
+        if (bandera == 1) {
+            FacesContext c = FacesContext.getCurrentInstance();
+            altoTabla = "190";
+            expEmpresa = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expEmpresa");
+            expEmpresa.setFilterStyle("display: none; visibility: hidden;");
+            expCargoDes = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expCargoDes");
+            expCargoDes.setFilterStyle("display: none; visibility: hidden;");
+            expJefe = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expJefe");
+            expJefe.setFilterStyle("display: none; visibility: hidden;");
+            expTelefono = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expTelefono");
+            expTelefono.setFilterStyle("display: none; visibility: hidden;");
+            expSectorEco = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expSectorEco");
+            expSectorEco.setFilterStyle("display: none; visibility: hidden;");
+            expMotivos = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expMotivos");
+            expMotivos.setFilterStyle("display: none; visibility: hidden;");
+            expFechaInicio = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expFechaInicio");
+            expFechaInicio.setFilterStyle("display: none; visibility: hidden;");
+            expFechaRetiro = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expFechaRetiro");
+            expFechaRetiro.setFilterStyle("display: none; visibility: hidden;");
+            RequestContext.getCurrentInstance().update("form:datosExperiencia");
+            bandera = 0;
+            listhvExpLaboralesFiltrar = null;
+            tipoLista = 0;
+        }
+        lovMotivos = null;
+        lovSectoresEconomicos = null;
+        listhvExpLaboralesBorrar.clear();
+        listhvExpLaboralesCrear.clear();
+        listhvExpLaboralesModificar.clear();
+        hvexpSeleccionada = null;
+        k = 0;
+        listhvExpLaborales = null;
+        guardado = true;
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        getListhvExpLaborales();
+        contarRegistrosExp();
+        RequestContext.getCurrentInstance().update("form:datosExperiencia");
+
+        nuevahvexp = new HvExperienciasLaborales();
+        nuevahvexp.setSectoreconomico(new SectoresEconomicos());
+        nuevahvexp.setMotivoretiro(new MotivosRetiros());
+        fechaFin = null;
+        fechaIni = null;
+    }
+
+    public void agregarNuevaE() {
+        if (nuevahvexp.getFechadesde() != null && nuevahvexp.getMotivoretiro() != null) {
+            if (validarFechasRegistro(1) == true) {
+                if (bandera == 1) {
+                    FacesContext c = FacesContext.getCurrentInstance();
+                    expEmpresa = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expEmpresa");
+                    expEmpresa.setFilterStyle("display: none; visibility: hidden;");
+                    expCargoDes = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expCargoDes");
+                    expCargoDes.setFilterStyle("display: none; visibility: hidden;");
+                    expJefe = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expJefe");
+                    expJefe.setFilterStyle("display: none; visibility: hidden;");
+                    expTelefono = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expTelefono");
+                    expTelefono.setFilterStyle("display: none; visibility: hidden;");
+                    expSectorEco = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expSectorEco");
+                    expSectorEco.setFilterStyle("display: none; visibility: hidden;");
+                    expMotivos = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expMotivos");
+                    expMotivos.setFilterStyle("display: none; visibility: hidden;");
+                    expFechaInicio = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expFechaInicio");
+                    expFechaInicio.setFilterStyle("display: none; visibility: hidden;");
+                    expFechaRetiro = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expFechaRetiro");
+                    expFechaRetiro.setFilterStyle("display: none; visibility: hidden;");
+                    RequestContext.getCurrentInstance().update("form:datosExperiencia");
+                    bandera = 0;
+                    listhvExpLaboralesFiltrar = null;
+                    tipoLista = 0;
+                }
+                k++;
+                l = BigInteger.valueOf(k);
+                nuevahvexp.setSecuencia(l);
+                nuevahvexp.setHojadevida(hojaVida);
+                listhvExpLaborales.add(nuevahvexp);
+                listhvExpLaboralesCrear.add(nuevahvexp);
+                hvexpSeleccionada = nuevahvexp;
+                limpiarNuevaExpL();
+                getListhvExpLaborales();
+                contarRegistrosExp();
+//                    RequestContext.getCurrentInstance().update("form:informacionRegistro");
+                RequestContext.getCurrentInstance().update("form:datosExperiencia");
+                RequestContext.getCurrentInstance().execute("PF('NuevoRegistroExpLaborales').hide()");
+
+                if (guardado == true) {
+                    guardado = false;
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                }
+            }
+        } else {
+            RequestContext context = RequestContext.getCurrentInstance();
+            RequestContext.getCurrentInstance().execute("PF('errorFechasIngresoReg').show()");
+        }
+    }
+
+    public void limpiarNuevaExpL() {
+        nuevahvexp = new HvExperienciasLaborales();
+        nuevahvexp.setSectoreconomico(new SectoresEconomicos());
+        nuevahvexp.setMotivoretiro(new MotivosRetiros());
+        nuevahvexp.setFechadesde(new Date());
+    }
+
+    public void duplicarExpLaboral() {
+        if (hvexpSeleccionada != null) {
+            duplicarhvexp = new HvExperienciasLaborales();
+            if (tipoLista == 0) {
+                duplicarhvexp.setCargo(hvexpSeleccionada.getCargo());
+                duplicarhvexp.setEmpresa(hvexpSeleccionada.getEmpresa());
+                duplicarhvexp.setFechadesde(hvexpSeleccionada.getFechadesde());
+                duplicarhvexp.setFechahasta(hvexpSeleccionada.getFechahasta());
+                duplicarhvexp.setHojadevida(hvexpSeleccionada.getHojadevida());
+                duplicarhvexp.setJefeinmediato(hvexpSeleccionada.getJefeinmediato());
+                duplicarhvexp.setMotivoretiro(hvexpSeleccionada.getMotivoretiro());
+                duplicarhvexp.setSectoreconomico(hvexpSeleccionada.getSectoreconomico());
+                duplicarhvexp.setTelefono(hvexpSeleccionada.getTelefono());
+            }
+            if (tipoLista == 1) {
+                duplicarhvexp.setCargo(hvexpSeleccionada.getCargo());
+                duplicarhvexp.setEmpresa(hvexpSeleccionada.getEmpresa());
+                duplicarhvexp.setFechadesde(hvexpSeleccionada.getFechadesde());
+                duplicarhvexp.setFechahasta(hvexpSeleccionada.getFechahasta());
+                duplicarhvexp.setHojadevida(hvexpSeleccionada.getHojadevida());
+                duplicarhvexp.setJefeinmediato(hvexpSeleccionada.getJefeinmediato());
+                duplicarhvexp.setMotivoretiro(hvexpSeleccionada.getMotivoretiro());
+                duplicarhvexp.setSectoreconomico(hvexpSeleccionada.getSectoreconomico());
+                duplicarhvexp.setTelefono(hvexpSeleccionada.getTelefono());
+            }
+
+            RequestContext context = RequestContext.getCurrentInstance();
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarEP");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroExpLaborales').show()");
+        }
+    }
+
+    public void confirmarDuplicarEXpLaboral() {
+        if (duplicarhvexp.getFechadesde() != null) {
+            fechaDesdeText = formatoFecha.format(duplicarhvexp.getFechadesde());
+        } else {
+            fechaDesdeText = "";
+        }
+        boolean respuesta = validarFechasRegistro(2);
+        if (respuesta == true) {
+//            if (validarCamposRegistro(2) == true) {
+            k++;
+            l = BigInteger.valueOf(k);
+            duplicarhvexp.setSecuencia(l);
+            duplicarhvexp.setHojadevida(hojaVida);
+            listhvExpLaborales.add(duplicarhvexp);
+            listhvExpLaboralesCrear.add(duplicarhvexp);
+            hvexpSeleccionada = duplicarhvexp;
+            if (guardado == true) {
+                guardado = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            }
+            if (bandera == 1) {
+                FacesContext c = FacesContext.getCurrentInstance();
+                altoTabla = "190";
+                expEmpresa = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expEmpresa");
+                expEmpresa.setFilterStyle("display: none; visibility: hidden;");
+                expCargoDes = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expCargoDes");
+                expCargoDes.setFilterStyle("display: none; visibility: hidden;");
+                expJefe = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expJefe");
+                expJefe.setFilterStyle("display: none; visibility: hidden;");
+                expTelefono = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expTelefono");
+                expTelefono.setFilterStyle("display: none; visibility: hidden;");
+                expSectorEco = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expSectorEco");
+                expSectorEco.setFilterStyle("display: none; visibility: hidden;");
+                expMotivos = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expMotivos");
+                expMotivos.setFilterStyle("display: none; visibility: hidden;");
+                expFechaInicio = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expFechaInicio");
+                expFechaInicio.setFilterStyle("display: none; visibility: hidden;");
+                expFechaRetiro = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expFechaRetiro");
+                expFechaRetiro.setFilterStyle("display: none; visibility: hidden;");
+                RequestContext.getCurrentInstance().update("form:datosExperiencia");
+                bandera = 0;
+                listhvExpLaboralesFiltrar = null;
+                tipoLista = 0;
+            }
+            duplicarhvexp = new HvExperienciasLaborales();
+            limpiarduplicarExpL();
+            RequestContext context = RequestContext.getCurrentInstance();
+            contarRegistrosExp();
+            RequestContext.getCurrentInstance().update("form:datosExperiencia");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroExpLaborales').hide()");
+        } else {
+            RequestContext context = RequestContext.getCurrentInstance();
+            RequestContext.getCurrentInstance().execute("PF('errorFechasIngresoReg').show()");
+        }
+    }
+
+    public void limpiarduplicarExpL() {
+        duplicarhvexp = new HvExperienciasLaborales();
+        duplicarhvexp.setSectoreconomico(new SectoresEconomicos());
+        duplicarhvexp.setMotivoretiro(new MotivosRetiros());
+    }
+
+    public void borrarExpLaborales() {
+        if (hvexpSeleccionada != null) {
+            if (!listhvExpLaboralesModificar.isEmpty() && listhvExpLaboralesModificar.contains(hvexpSeleccionada)) {
+                int modIndex = listhvExpLaboralesModificar.indexOf(hvexpSeleccionada);
+                listhvExpLaboralesModificar.remove(modIndex);
+                listhvExpLaboralesBorrar.add(hvexpSeleccionada);
+            } else if (!listhvExpLaboralesCrear.isEmpty() && listhvExpLaboralesCrear.contains(hvexpSeleccionada)) {
+                int crearIndex = listhvExpLaboralesCrear.indexOf(hvexpSeleccionada);
+                listhvExpLaboralesCrear.remove(crearIndex);
+            } else {
+                listhvExpLaboralesBorrar.add(hvexpSeleccionada);
+            }
+            listhvExpLaborales.remove(hvexpSeleccionada);
+            if (tipoLista == 1) {
+                listhvExpLaboralesFiltrar.remove(hvexpSeleccionada);
+            }
+            RequestContext context = RequestContext.getCurrentInstance();
+            contarRegistrosExp();
+            RequestContext.getCurrentInstance().update("form:datosExperiencia");
+            hvexpSeleccionada = null;
+            if (guardado == true) {
+                guardado = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            }
+        } else {
+            RequestContext context = RequestContext.getCurrentInstance();
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+        }
+
+    }
+
+    public void salirExpLaborales() {
+        if (bandera == 1) {
+            FacesContext c = FacesContext.getCurrentInstance();
+            expEmpresa = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expEmpresa");
+            expEmpresa.setFilterStyle("display: none; visibility: hidden;");
+            expCargoDes = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expCargoDes");
+            expCargoDes.setFilterStyle("display: none; visibility: hidden;");
+            expJefe = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expJefe");
+            expJefe.setFilterStyle("display: none; visibility: hidden;");
+            expTelefono = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expTelefono");
+            expTelefono.setFilterStyle("display: none; visibility: hidden;");
+            expSectorEco = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expSectorEco");
+            expSectorEco.setFilterStyle("display: none; visibility: hidden;");
+            expMotivos = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expMotivos");
+            expMotivos.setFilterStyle("display: none; visibility: hidden;");
+            expFechaInicio = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expFechaInicio");
+            expFechaInicio.setFilterStyle("display: none; visibility: hidden;");
+            expFechaRetiro = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expFechaRetiro");
+            expFechaRetiro.setFilterStyle("display: none; visibility: hidden;");
+            RequestContext.getCurrentInstance().update("form:datosExperiencia");
+            bandera = 0;
+            listhvExpLaboralesFiltrar = null;
+            tipoLista = 0;
+        }
+        listhvExpLaboralesBorrar.clear();
+        listhvExpLaboralesCrear.clear();
+        listhvExpLaboralesModificar.clear();
+        hvexpSeleccionada = null;
+        k = 0;
+        listhvExpLaborales = null;
+        lovMotivos = null;
+        lovSectoresEconomicos = null;
+        guardado = true;
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        tipoActualizacion = -1;
+        hojaVida = null;
+
+    }
+
+    public void actualizarSector() {
+        RequestContext context = RequestContext.getCurrentInstance();
+        if (tipoActualizacion == 0) {
+            if (tipoLista == 0) {
+                hvexpSeleccionada.setSectoreconomico(sectorSeleccionado);
+                if (!listhvExpLaboralesCrear.contains(hvexpSeleccionada)) {
+                    if (listhvExpLaboralesModificar.isEmpty()) {
+                        listhvExpLaboralesModificar.add(hvexpSeleccionada);
+                    } else if (!listhvExpLaboralesModificar.contains(hvexpSeleccionada)) {
+                        listhvExpLaboralesModificar.add(hvexpSeleccionada);
+                    }
+                }
+                if (guardado == true) {
+                    guardado = false;
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                }
+                permitirIndex = true;
+
+            } else {
+                hvexpSeleccionada.setSectoreconomico(sectorSeleccionado);
+                if (!listhvExpLaboralesCrear.contains(hvexpSeleccionada)) {
+                    if (listhvExpLaboralesModificar.isEmpty()) {
+                        listhvExpLaboralesModificar.add(hvexpSeleccionada);
+                    } else if (!listhvExpLaboralesModificar.contains(hvexpSeleccionada)) {
+                        listhvExpLaboralesModificar.add(hvexpSeleccionada);
+                    }
+                }
+                if (guardado == true) {
+                    guardado = false;
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                }
+
+                permitirIndex = true;
+
+            }
+            RequestContext.getCurrentInstance().update("form:datosExperiencia");
+        } else if (tipoActualizacion == 1) {
+            nuevahvexp.setSectoreconomico(sectorSeleccionado);
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaSectorEP");
+        } else if (tipoActualizacion == 2) {
+            duplicarhvexp.setSectoreconomico(sectorSeleccionado);
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarSectorEP");
+        }
+        listhvExpLaboralesFiltrar = null;
+        sectorSeleccionado = null;
+        aceptar = true;
+        tipoActualizacion = -1;
+
+        context.reset("formularioDialogos:lovSector:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('lovSector').clearFilters()");
+        RequestContext.getCurrentInstance().update("formularioDialogos:SectorDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:lovSector");
+        RequestContext.getCurrentInstance().execute("PF('SectorDialogo').hide()");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarSector");
+    }
+
+    public void cancelarCambioSector() {
+        listhvExpLaboralesFiltrar = null;
+        sectorSeleccionado = null;
+        aceptar = true;
+        tipoActualizacion = -1;
+        permitirIndex = true;
+        RequestContext.getCurrentInstance().reset("formularioDialogos:lovSector:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('lovSector').clearFilters()");
+        RequestContext.getCurrentInstance().update("formularioDialogos:SectorDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:lovSector");
+        RequestContext.getCurrentInstance().execute("PF('SectorDialogo').hide()");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarSector");
+    }
+
+    public void actualizarMotivo() {
+        RequestContext context = RequestContext.getCurrentInstance();
+        if (tipoActualizacion == 0) {
+            if (tipoLista == 0) {
+                hvexpSeleccionada.setMotivoretiro(motivoSeleccionado);
+                if (!listhvExpLaboralesCrear.contains(hvexpSeleccionada)) {
+                    if (listhvExpLaboralesModificar.isEmpty()) {
+                        listhvExpLaboralesModificar.add(hvexpSeleccionada);
+                    } else if (!listhvExpLaboralesModificar.contains(hvexpSeleccionada)) {
+                        listhvExpLaboralesModificar.add(hvexpSeleccionada);
+                    }
+                }
+            } else {
+                hvexpSeleccionada.setMotivoretiro(motivoSeleccionado);
+                if (!listhvExpLaboralesCrear.contains(hvexpSeleccionada)) {
+                    if (listhvExpLaboralesModificar.isEmpty()) {
+                        listhvExpLaboralesModificar.add(hvexpSeleccionada);
+                    } else if (!listhvExpLaboralesModificar.contains(hvexpSeleccionada)) {
+                        listhvExpLaboralesModificar.add(hvexpSeleccionada);
+                    }
+                }
+            }
+            if (guardado == true) {
+                guardado = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            }
+            permitirIndex = true;
+            RequestContext.getCurrentInstance().update("form:datosExperiencia");
+        } else if (tipoActualizacion == 1) {
+            nuevahvexp.setMotivoretiro(motivoSeleccionado);
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaMotivoEP");
+        } else if (tipoActualizacion == 2) {
+            duplicarhvexp.setMotivoretiro(motivoSeleccionado);
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarMotivoEP");
+        }
+        listhvExpLaboralesFiltrar = null;
+        motivoSeleccionado = null;
+        aceptar = true;
+        tipoActualizacion = -1;
+
+        context.reset("formularioDialogos:lovMotivos:globalFilter");
+        RequestContext.getCurrentInstance().update("formularioDialogos:MotivosDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:lovMotivos");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarM");
+        RequestContext.getCurrentInstance().execute("PF('lovMotivos').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('MotivosDialogo').hide()");
+    }
+
+    public void cancelarCambioMotivo() {
+        listhvExpLaboralesFiltrar = null;
+        motivoSeleccionado = null;
+        aceptar = true;
+        tipoActualizacion = -1;
+        permitirIndex = true;
+        RequestContext context = RequestContext.getCurrentInstance();
+        context.reset("formularioDialogos:lovMotivos:globalFilter");
+        RequestContext.getCurrentInstance().update("formularioDialogos:MotivosDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:lovMotivos");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarM");
+        RequestContext.getCurrentInstance().execute("PF('lovMotivos').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('MotivosDialogo').hide()");
+    }
+
     public void contarRegistrosExp() {
         RequestContext.getCurrentInstance().update("form:infoRegistroExp");
     }
 
     public void eventoFiltrarExp() {
         contarRegistrosExp();
+    }
+
+    public void contarRegistroSector() {
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroSector");
+    }
+
+    public void contarRegistroMotivo() {
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroMotivo");
+    }
+
+    public void cambiarIndiceVigenciaDomiciliaris(VigenciasDomiciliarias vigenciaD, int celda) {
+        if (permitirIndex == true) {
+            vigenciasDomiciliariaSeleccionada = vigenciaD;
+            cualCelda = celda;
+            if (cualCelda == 1) {
+                vigenciasDomiciliariaSeleccionada.getCalificacionfamiliar();
+            } else if (cualCelda == 2) {
+                vigenciasDomiciliariaSeleccionada.getObservacionfamiliar();
+            } else if (cualCelda == 3) {
+                condiciones = vigenciasDomiciliariaSeleccionada.getCondicionesgenerales();
+            } else if (cualCelda == 4) {
+                distribucion = vigenciasDomiciliariaSeleccionada.getDistribucionvivienda();
+            } else if (cualCelda == 5) {
+                descGeneral = vigenciasDomiciliariaSeleccionada.getDescripcionvivienda();
+            } else if (cualCelda == 6) {
+                vigenciasDomiciliariaSeleccionada.getConstruccion();
+            } else if (cualCelda == 7) {
+                vigenciasDomiciliariaSeleccionada.getServicioagua();
+            } else if (cualCelda == 8) {
+                vigenciasDomiciliariaSeleccionada.getServicioluz();
+            } else if (cualCelda == 9) {
+                vigenciasDomiciliariaSeleccionada.getServiciotelefono();
+            } else if (cualCelda == 10) {
+                vigenciasDomiciliariaSeleccionada.getServicioparabolica();
+            } else if (cualCelda == 11) {
+                vigenciasDomiciliariaSeleccionada.getServiciotransporte();
+            } else if (cualCelda == 12) {
+                vigenciasDomiciliariaSeleccionada.getServicioalcantarillado();
+            } else if (cualCelda == 13) {
+                vigenciasDomiciliariaSeleccionada.getServiciootros();
+                activarotroservicio = false;
+                RequestContext.getCurrentInstance().update("form:otrosservicios");
+            } else if (cualCelda == 14) {
+                vigenciasDomiciliariaSeleccionada.getDetalleotrosservicios();
+            } else if (cualCelda == 15) {
+                vigenciasDomiciliariaSeleccionada.getIngresos();
+            } else if (cualCelda == 16) {
+                vigenciasDomiciliariaSeleccionada.getOrigenindependiente();
+            } else if (cualCelda == 17) {
+                vigenciasDomiciliariaSeleccionada.getOrigenarrendamiento();
+            } else if (cualCelda == 18) {
+                vigenciasDomiciliariaSeleccionada.getOrigenpension();
+            } else if (cualCelda == 19) {
+                vigenciasDomiciliariaSeleccionada.getOrigensalario();
+            } else if (cualCelda == 20) {
+                vigenciasDomiciliariaSeleccionada.getOrigencdt();
+            } else if (cualCelda == 21) {
+                vigenciasDomiciliariaSeleccionada.getOrigenauxilios();
+            } else if (cualCelda == 22) {
+                vigenciasDomiciliariaSeleccionada.getIngresopapa();
+            } else if (cualCelda == 23) {
+                vigenciasDomiciliariaSeleccionada.getIngresomama();
+            } else if (cualCelda == 24) {
+                vigenciasDomiciliariaSeleccionada.getIngresohermano();
+            } else if (cualCelda == 25) {
+                vigenciasDomiciliariaSeleccionada.getIngresoabuelo();
+            } else if (cualCelda == 26) {
+                vigenciasDomiciliariaSeleccionada.getIngresotio();
+            } else if (cualCelda == 27) {
+                vigenciasDomiciliariaSeleccionada.getIngresootro();
+                activarotroaporte = false;
+                RequestContext.getCurrentInstance().update("form:otrosIngresos");
+            } else if (cualCelda == 28) {
+                vigenciasDomiciliariaSeleccionada.getDetalleotroingreso();
+            } else if (cualCelda == 29) {
+                vigenciasDomiciliariaSeleccionada.getInversioneducacion();
+            } else if (cualCelda == 30) {
+                vigenciasDomiciliariaSeleccionada.getInversionrecreacion();
+            } else if (cualCelda == 31) {
+                vigenciasDomiciliariaSeleccionada.getInversionalimentacion();
+            } else if (cualCelda == 32) {
+                vigenciasDomiciliariaSeleccionada.getInversionmedica();
+            } else if (cualCelda == 33) {
+                vigenciasDomiciliariaSeleccionada.getInversionarriendo();
+            } else if (cualCelda == 34) {
+                vigenciasDomiciliariaSeleccionada.getInversionservicios();
+            } else if (cualCelda == 35) {
+                vigenciasDomiciliariaSeleccionada.getInversionotros();
+            } else if (cualCelda == 36) {
+                activarotroegreso = false;
+                vigenciasDomiciliariaSeleccionada.getDetalleotrasinversiones();
+            } else if (cualCelda == 37) {
+                observaciones = vigenciasDomiciliariaSeleccionada.getObservaciones();
+            } else if (cualCelda == 38) {
+                conceptofinal = vigenciasDomiciliariaSeleccionada.getConceptofinal();
+            } else if (cualCelda == 39) {
+                conceptosocial = vigenciasDomiciliariaSeleccionada.getConceptosocial();
+            } else if (cualCelda == 40) {
+                vigenciasDomiciliariaSeleccionada.getCondicionfamiliar();
+            } else if (cualCelda == 41) {
+                vigenciasDomiciliariaSeleccionada.getCondicionsocial();
+            } else if (cualCelda == 42) {
+                vigenciasDomiciliariaSeleccionada.getSituacioneconomica();
+            } else if (cualCelda == 43) {
+                vigenciasDomiciliariaSeleccionada.getNivelacademico();
+            } else if (cualCelda == 44) {
+                vigenciasDomiciliariaSeleccionada.getMotivacioncargo();
+            } else if (cualCelda == 45) {
+                vigenciasDomiciliariaSeleccionada.getPersonaspresentes();
+            }
+            RequestContext.getCurrentInstance().update("form:editarCondiciones");
+            RequestContext.getCurrentInstance().update("form:editarDistribucion");
+            RequestContext.getCurrentInstance().update("form:editarDescripcionGeneral");
+            RequestContext.getCurrentInstance().update("form:editarObservaciones");
+            RequestContext.getCurrentInstance().update("form:editarConceptoF");
+            RequestContext.getCurrentInstance().update("form:editarConceptoS");
+            RequestContext.getCurrentInstance().update("form:editarPersonas");
+//
+        }
     }
 
     //////
@@ -2042,15 +6063,22 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         }
+        RequestContext.getCurrentInstance().update("form:editarCondiciones");
+        RequestContext.getCurrentInstance().update("form:editarDistribucion");
+        RequestContext.getCurrentInstance().update("form:editarDescripcionGeneral");
+        RequestContext.getCurrentInstance().update("form:editarObservaciones");
+        RequestContext.getCurrentInstance().update("form:editarConceptoF");
+        RequestContext.getCurrentInstance().update("form:editarConceptoS");
+        RequestContext.getCurrentInstance().update("form:editarPersonas");
     }
 
     public void seleccionarCalificacionFamiliar(String calificacion, VigenciasDomiciliarias vigDom) {
         if (calificacion.equals("BUENA")) {
-            direccionSeleccionada.setTipoppal("BUENA");
+            vigenciasDomiciliariaSeleccionada.setCalificacionfamiliar("BUENA");
         } else if (calificacion.equals("REGULAR")) {
-            direccionSeleccionada.setTipoppal("REGULAR");
+            vigenciasDomiciliariaSeleccionada.setCalificacionfamiliar("REGULAR");
         } else if (calificacion.equals("MALA")) {
-            direccionSeleccionada.setTipoppal("MALA");
+            vigenciasDomiciliariaSeleccionada.setCalificacionfamiliar("MALA");
         }
         if (!listVigenciasDomiciliariasCrear.contains(vigenciasDomiciliariaSeleccionada)) {
             if (listVigenciasDomiciliariasModificar.isEmpty()) {
@@ -2067,22 +6095,872 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         RequestContext.getCurrentInstance().update("form:datosRelaciones");
     }
 
-    public void cambiarIndiceCalificacionFamiliar(VigenciasDomiciliarias vigDom, int celda) {
-        cualCelda = celda;
-        if (cualCelda == 2) {
-            vigenciasDomiciliariaSeleccionada.getObservacionfamiliar();
+    public void seleccionarIngreso(String calificacion, VigenciasDomiciliarias vigDom) {
+        if (calificacion.equals("DE 1 A 3 SALARIOS MINIMOS")) {
+            vigenciasDomiciliariaSeleccionada.setIngresos("DE 1 A 3 SALARIOS MINIMOS");
+        } else if (calificacion.equals("DE 4 A 6 SALARIOS MINIMOS")) {
+            vigenciasDomiciliariaSeleccionada.setIngresos("DE 4 A 6 SALARIOS MINIMOS");
+        } else if (calificacion.equals("DE 7 A 10 SALARIOS MINIMOS")) {
+            vigenciasDomiciliariaSeleccionada.setIngresos("DE 7 A 10 SALARIOS MINIMOS");
+        } else if (calificacion.equals("MÁS DE 10 SALARIOS MINIMOS")) {
+            vigenciasDomiciliariaSeleccionada.setIngresos("MÁS DE 10 SALARIOS MINIMOS");
+        }
+        if (!listVigenciasDomiciliariasCrear.contains(vigenciasDomiciliariaSeleccionada)) {
+            if (listVigenciasDomiciliariasModificar.isEmpty()) {
+                listVigenciasDomiciliariasModificar.add(vigenciasDomiciliariaSeleccionada);
+            } else if (!listVigenciasDomiciliariasModificar.contains(vigenciasDomiciliariaSeleccionada)) {
+                listVigenciasDomiciliariasModificar.add(vigenciasDomiciliariaSeleccionada);
+            }
+        }
+
+        if (guardado == true) {
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        }
+        RequestContext.getCurrentInstance().update("form:datosIngresos");
+    }
+
+    public void seleccionarCondicionF(String condicionf, VigenciasDomiciliarias vigDom) {
+        if (condicionf.equals("ADECUADA")) {
+            vigenciasDomiciliariaSeleccionada.setCondicionfamiliar("ADECUADA");
+        } else if (condicionf.equals("INADECUADA")) {
+            vigenciasDomiciliariaSeleccionada.setCondicionfamiliar("INADECUADA");
+        }
+
+        if (!listVigenciasDomiciliariasCrear.contains(vigenciasDomiciliariaSeleccionada)) {
+            if (listVigenciasDomiciliariasModificar.isEmpty()) {
+                listVigenciasDomiciliariasModificar.add(vigenciasDomiciliariaSeleccionada);
+            } else if (!listVigenciasDomiciliariasModificar.contains(vigenciasDomiciliariaSeleccionada)) {
+                listVigenciasDomiciliariasModificar.add(vigenciasDomiciliariaSeleccionada);
+            }
+        }
+
+        if (guardado == true) {
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        }
+        RequestContext.getCurrentInstance().update("form:datosIndicadores");
+    }
+
+    public void seleccionarCondicionS(String condicionsocial, VigenciasDomiciliarias vigDom) {
+        if (condicionsocial.equals("ADECUADA")) {
+            vigenciasDomiciliariaSeleccionada.setCondicionsocial("ADECUADA");
+        } else if (condicionsocial.equals("INADECUADA")) {
+            vigenciasDomiciliariaSeleccionada.setCondicionsocial("INADECUADA");
+        }
+
+        if (!listVigenciasDomiciliariasCrear.contains(vigenciasDomiciliariaSeleccionada)) {
+            if (listVigenciasDomiciliariasModificar.isEmpty()) {
+                listVigenciasDomiciliariasModificar.add(vigenciasDomiciliariaSeleccionada);
+            } else if (!listVigenciasDomiciliariasModificar.contains(vigenciasDomiciliariaSeleccionada)) {
+                listVigenciasDomiciliariasModificar.add(vigenciasDomiciliariaSeleccionada);
+            }
+        }
+
+        if (guardado == true) {
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        }
+        RequestContext.getCurrentInstance().update("form:datosIndicadores");
+    }
+
+    public void seleccionarSituacionEconomica(String situacion, VigenciasDomiciliarias vigDom) {
+        if (situacion.equals("ADECUADA")) {
+            vigenciasDomiciliariaSeleccionada.setSituacioneconomica("ADECUADA");
+        } else if (situacion.equals("INADECUADA")) {
+            vigenciasDomiciliariaSeleccionada.setSituacioneconomica("INADECUADA");
+        }
+
+        if (!listVigenciasDomiciliariasCrear.contains(vigenciasDomiciliariaSeleccionada)) {
+            if (listVigenciasDomiciliariasModificar.isEmpty()) {
+                listVigenciasDomiciliariasModificar.add(vigenciasDomiciliariaSeleccionada);
+            } else if (!listVigenciasDomiciliariasModificar.contains(vigenciasDomiciliariaSeleccionada)) {
+                listVigenciasDomiciliariasModificar.add(vigenciasDomiciliariaSeleccionada);
+            }
+        }
+
+        if (guardado == true) {
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        }
+        RequestContext.getCurrentInstance().update("form:datosIndicadores");
+    }
+
+    public void seleccionarNivelAcademico(String nivel, VigenciasDomiciliarias vigDom) {
+        if (nivel.equals("ADECUADA")) {
+            vigenciasDomiciliariaSeleccionada.setNivelacademico("ADECUADA");
+        } else if (nivel.equals("INADECUADA")) {
+            vigenciasDomiciliariaSeleccionada.setNivelacademico("INADECUADA");
+        }
+
+        if (!listVigenciasDomiciliariasCrear.contains(vigenciasDomiciliariaSeleccionada)) {
+            if (listVigenciasDomiciliariasModificar.isEmpty()) {
+                listVigenciasDomiciliariasModificar.add(vigenciasDomiciliariaSeleccionada);
+            } else if (!listVigenciasDomiciliariasModificar.contains(vigenciasDomiciliariaSeleccionada)) {
+                listVigenciasDomiciliariasModificar.add(vigenciasDomiciliariaSeleccionada);
+            }
+        }
+
+        if (guardado == true) {
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        }
+        RequestContext.getCurrentInstance().update("form:datosIndicadores");
+    }
+
+    public void seleccionarMotivacionCargo(String motivacionCargo, VigenciasDomiciliarias vigDom) {
+        if (motivacionCargo.equals("ADECUADA")) {
+            vigenciasDomiciliariaSeleccionada.setMotivacioncargo("ADECUADA");
+        } else if (motivacionCargo.equals("INADECUADA")) {
+            vigenciasDomiciliariaSeleccionada.setMotivacioncargo("INADECUADA");
+        }
+
+        if (!listVigenciasDomiciliariasCrear.contains(vigenciasDomiciliariaSeleccionada)) {
+            if (listVigenciasDomiciliariasModificar.isEmpty()) {
+                listVigenciasDomiciliariasModificar.add(vigenciasDomiciliariaSeleccionada);
+            } else if (!listVigenciasDomiciliariasModificar.contains(vigenciasDomiciliariaSeleccionada)) {
+                listVigenciasDomiciliariasModificar.add(vigenciasDomiciliariaSeleccionada);
+            }
+        }
+
+        if (guardado == true) {
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        }
+        RequestContext.getCurrentInstance().update("form:datosIndicadores");
+    }
+
+
+    public void activarCtrlF11() {
+        System.out.println("TipoLista= " + tipoLista);
+        FacesContext c = FacesContext.getCurrentInstance();
+
+        if (bandera == 0) {
+
+            System.out.println("Activar");
+            System.out.println("TipoLista= " + tipoLista);
+            dFecha = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dFecha");
+            dFecha.setFilterStyle("width: 85% !important");
+            dUbicacionPrincipal = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dUbicacionPrincipal");
+            dUbicacionPrincipal.setFilterStyle("width: 85% !important");
+            dDescripcionUbicacionPrincipal = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dDescripcionUbicacionPrincipal");
+            dDescripcionUbicacionPrincipal.setFilterStyle("width: 85% !important");
+            dUbicacionSecundaria = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dUbicacionSecundaria");
+            dUbicacionSecundaria.setFilterStyle("width: 85% !important");
+            dDescripcionUbicacionSecundaria = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dDescripcionUbicacionSecundaria");
+            dDescripcionUbicacionSecundaria.setFilterStyle("width: 85% !important");
+            dInterior = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dInterior");
+            dInterior.setFilterStyle("width: 85% !important");
+            dCiudad = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dCiudad");
+            dCiudad.setFilterStyle("width: 85% !important");
+            dTipoVivienda = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dTipoVivienda");
+            dTipoVivienda.setFilterStyle("width: 85% !important");
+            dHipoteca = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dHipoteca");
+            dHipoteca.setFilterStyle("width: 85% !important");
+            dDireccionAlternativa = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dDireccionAlternativa");
+            dDireccionAlternativa.setFilterStyle("width: 85% !important");
+            tFecha = (Column) c.getViewRoot().findComponent("form:datosTelefonosPersona:tFecha");
+            tFecha.setFilterStyle("width: 85%");
+            tTipoTelefono = (Column) c.getViewRoot().findComponent("form:datosTelefonosPersona:tTipoTelefono");
+            tTipoTelefono.setFilterStyle("width: 85%");
+            tNumero = (Column) c.getViewRoot().findComponent("form:datosTelefonosPersona:tNumero");
+            tNumero.setFilterStyle("width: 85%");
+            tCiudad = (Column) c.getViewRoot().findComponent("form:datosTelefonosPersona:tCiudad");
+            tCiudad.setFilterStyle("width: 85%");
+            //
+            fecha = (Column) c.getViewRoot().findComponent("form:datosEstadoCivil:fecha");
+            fecha.setFilterStyle("width: 85% !important;");
+            parentesco = (Column) c.getViewRoot().findComponent("form:datosEstadoCivil:parentesco");
+            parentesco.setFilterStyle("width: 85% !important;");
+            //
+            fechaAntecedenteM = (Column) c.getViewRoot().findComponent("form:datosAntecedentes:fechaAntecedenteM");
+            fechaAntecedenteM.setFilterStyle("width: 85% !important;");
+            tipoAntecedenteM = (Column) c.getViewRoot().findComponent("form:datosAntecedentes:tipoAntecedenteM");
+            tipoAntecedenteM.setFilterStyle("width: 85% !important;");
+            antecedenteMedico = (Column) c.getViewRoot().findComponent("form:datosAntecedentes:antecedenteMedico");
+            antecedenteMedico.setFilterStyle("width: 85% !important;");
+            descAntecedenteM = (Column) c.getViewRoot().findComponent("form:datosAntecedentes:descAntecedenteM");
+            descAntecedenteM.setFilterStyle("width: 85% !important;");
+            //
+            pEFechas = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEFechas");
+            pEFechas.setFilterStyle("width: 85% !important");
+            pETiposEducaciones = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pETiposEducaciones");
+            pETiposEducaciones.setFilterStyle("width: 85% !important");
+            pEProfesiones = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEProfesiones");
+            pEProfesiones.setFilterStyle("width: 85% !important");
+            pEInstituciones = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEInstituciones");
+            pEInstituciones.setFilterStyle("width: 85% !important");
+            pEAdiestramientosF = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEAdiestramientosF");
+            pEAdiestramientosF.setFilterStyle("width: 85% !important");
+            pECalificaciones = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pECalificaciones");
+            pECalificaciones.setFilterStyle("width: 85% !important");
+            pENumerosTarjetas = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pENumerosTarjetas");
+            pENumerosTarjetas.setFilterStyle("width: 85% !important");
+            pEFechasExpediciones = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEFechasExpediciones");
+            pEFechasExpediciones.setFilterStyle("width: 85% !important");
+            pEFechasVencimientos = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEFechasVencimientos");
+            pEFechasVencimientos.setFilterStyle("width: 85% !important");
+            pEObservaciones = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEObservaciones");
+            pEObservaciones.setFilterStyle("width: 85% !important");
+            expEmpresa = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expEmpresa");
+            expEmpresa.setFilterStyle("width: 85% !important;");
+            expCargoDes = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expCargoDes");
+            expCargoDes.setFilterStyle("width: 85% !important;");
+            expJefe = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expJefe");
+            expJefe.setFilterStyle("width: 85% !important;");
+            expTelefono = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expTelefono");
+            expTelefono.setFilterStyle("width: 85% !important;");
+            expSectorEco = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expSectorEco");
+            expSectorEco.setFilterStyle("width: 85% !important;");
+            expMotivos = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expMotivos");
+            expMotivos.setFilterStyle("width: 85% !important;");
+            expFechaInicio = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expFechaInicio");
+            expFechaInicio.setFilterStyle("width: 85% !important;");
+            expFechaRetiro = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expFechaRetiro");
+            expFechaRetiro.setFilterStyle("width: 85% !important;");
+            nombre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFamiliares:nombreFamiliar");
+            nombre.setFilterStyle("width: 85% !important");
+            ocupacion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFamiliares:ocupacionFamiliar");
+            ocupacion.setFilterStyle("width: 85% !important");
+            columnaTipo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFamiliares:ctipoFamiliar");
+            columnaTipo.setFilterStyle("width: 85% !important");
+            smedico = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFamiliares:servicioMedico");
+            smedico.setFilterStyle("width: 85% !important");
+            sfamiliar = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFamiliares:sFamiliar");
+            sfamiliar.setFilterStyle("width: 85% !important");
+            beneficiario = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFamiliares:beneficiario");
+            beneficiario.setFilterStyle("width: 85% !important");
+            upcadicional = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFamiliares:upcAd");
+            upcadicional.setFilterStyle("width: 85% !important");
+            valorupc = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFamiliares:valorUpc");
+            valorupc.setFilterStyle("width: 85% !important");
+
+            editarcalf = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosRelaciones:editarcalf");
+            editarcalf.setFilterStyle("width: 85% !important");
+            obsFamiliar = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosRelaciones:obsFamiliar");
+            obsFamiliar.setFilterStyle("width: 85% !important");
+            editarconstruccion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosServicios:editarconstruccion");
+            editarconstruccion.setFilterStyle("width: 85% !important");
+            servicioAgua = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosServicios:servicioAgua");
+            servicioAgua.setFilterStyle("width: 85% !important");
+            servicioLuz = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosServicios:servicioLuz");
+            servicioLuz.setFilterStyle("width: 85% !important");
+            servicioTel = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosServicios:servicioTel");
+            servicioTel.setFilterStyle("width: 85% !important");
+            servicioPar = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosServicios:servicioPar");
+            servicioPar.setFilterStyle("width: 85% !important");
+            servicioTrasn = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosServicios:servicioTrasn");
+            servicioTrasn.setFilterStyle("width: 85% !important");
+            servicioAlcan = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosServicios:servicioAlcan");
+            servicioAlcan.setFilterStyle("width: 85% !important");
+            servicioOtros = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosServicios:servicioOtros");
+            servicioOtros.setFilterStyle("width: 85% !important");
+            otrosServicios = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosServicios:otrosServicios");
+            otrosServicios.setFilterStyle("width: 85% !important");
+            ingresos = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIngresos:ingresos");
+            ingresos.setFilterStyle("width: 85% !important");
+            origenInd = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIngresos:origenInd");
+            origenInd.setFilterStyle("width: 85% !important");
+            origenArriendos = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIngresos:origenArriendos");
+            origenArriendos.setFilterStyle("width: 85% !important");
+            origenPension = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIngresos:origenPension");
+            origenPension.setFilterStyle("width: 85% !important");
+            origenSalario = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIngresos:origenSalario");
+            origenSalario.setFilterStyle("width: 85% !important");
+            origenCDT = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIngresos:origenCDT");
+            origenCDT.setFilterStyle("width: 85% !important");
+            origenAuxilios = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIngresos:origenAuxilios");
+            origenAuxilios.setFilterStyle("width: 85% !important");
+            aportePadre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosAportesHogar:aportePadre");
+            aportePadre.setFilterStyle("width: 85% !important");
+            aporteMadre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosAportesHogar:aporteMadre");
+            aporteMadre.setFilterStyle("width: 85% !important");
+            aporteHermano = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosAportesHogar:aporteHermano");
+            aporteHermano.setFilterStyle("width: 85% !important");
+            aporteAbuelo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosAportesHogar:aporteAbuelo");
+            aporteAbuelo.setFilterStyle("width: 85% !important");
+            aporteTio = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosAportesHogar:aporteTio");
+            aporteTio.setFilterStyle("width: 85% !important");
+            aporteOtro = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosAportesHogar:aporteOtro");
+            aporteOtro.setFilterStyle("width: 85% !important");
+            otrosIngresos = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosAportesHogar:otrosIngresos");
+            otrosIngresos.setFilterStyle("width: 85% !important");
+            egresoEdu = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEgresos:egresoEdu");
+            egresoEdu.setFilterStyle("width: 85% !important");
+            egresoRec = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEgresos:egresoRec");
+            egresoRec.setFilterStyle("width: 85% !important");
+            egresoAlimentacion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEgresos:egresoAlimentacion");
+            egresoAlimentacion.setFilterStyle("width: 85% !important");
+            egresoMedico = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEgresos:egresoMedico");
+            egresoMedico.setFilterStyle("width: 85% !important");
+            egresoArriendo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEgresos:egresoArriendo");
+            egresoArriendo.setFilterStyle("width: 85% !important");
+            egresoServicios = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEgresos:egresoServicios");
+            egresoServicios.setFilterStyle("width: 85% !important");
+            egresoOtro = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEgresos:egresoOtro");
+            egresoOtro.setFilterStyle("width: 85% !important");
+            otrosEgresos = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEgresos:otrosEgresos");
+            otrosEgresos.setFilterStyle("width: 85% !important");
+            condicionesF = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIndicadores:condicionesF");
+            condicionesF.setFilterStyle("width: 85% !important");
+            condicionesS = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIndicadores:condicionesS");
+            condicionesS.setFilterStyle("width: 85% !important");
+            situacionE = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIndicadores:situacionE");
+            situacionE.setFilterStyle("width: 85% !important");
+            nivelAc = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIndicadores:nivelAc");
+            nivelAc.setFilterStyle("width: 85% !important");
+            motivacionC = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIndicadores:motivacionC");
+            motivacionC.setFilterStyle("width: 85% !important");
+
+            RequestContext.getCurrentInstance().update("form:datosFamiliares");
+            RequestContext.getCurrentInstance().update("form:datosExperiencia");
+            RequestContext.getCurrentInstance().update("form:datosEstadoCivil");
+            RequestContext.getCurrentInstance().update("form:datosTelefonosPersona");
+            RequestContext.getCurrentInstance().update("form:datosDireccionesPersona");
+            RequestContext.getCurrentInstance().update("form:datosAntecedentes");
+            RequestContext.getCurrentInstance().update("form:datosVigenciasFormalesPersona");
+            RequestContext.getCurrentInstance().update("form:datosRelaciones");
+            RequestContext.getCurrentInstance().update("form:datosServicios");
+            RequestContext.getCurrentInstance().update("form:datosIngresos");
+            RequestContext.getCurrentInstance().update("form:datosAportesHogar");
+            RequestContext.getCurrentInstance().update("form:datosEgresos");
+            RequestContext.getCurrentInstance().update("form:datosIndicadores");
+            altoTabla = "250";
+            bandera = 1;
+            tipoLista = 1;
+        } else if (bandera == 1) {
+            System.out.println("Desactivar");
+            System.out.println("TipoLista= " + tipoLista);
+            dFecha = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dFecha");
+            dFecha.setFilterStyle("display: none; visibility: hidden;");
+            dUbicacionPrincipal = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dUbicacionPrincipal");
+            dUbicacionPrincipal.setFilterStyle("display: none; visibility: hidden;");
+            dDescripcionUbicacionPrincipal = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dDescripcionUbicacionPrincipal");
+            dDescripcionUbicacionPrincipal.setFilterStyle("display: none; visibility: hidden;");
+            dUbicacionSecundaria = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dUbicacionSecundaria");
+            dUbicacionSecundaria.setFilterStyle("display: none; visibility: hidden;");
+            dDescripcionUbicacionSecundaria = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dDescripcionUbicacionSecundaria");
+            dDescripcionUbicacionSecundaria.setFilterStyle("display: none; visibility: hidden;");
+            dInterior = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dInterior");
+            dInterior.setFilterStyle("display: none; visibility: hidden;");
+            dCiudad = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dCiudad");
+            dCiudad.setFilterStyle("display: none; visibility: hidden;");
+            dTipoVivienda = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dTipoVivienda");
+            dTipoVivienda.setFilterStyle("display: none; visibility: hidden;");
+            dHipoteca = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dHipoteca");
+            dHipoteca.setFilterStyle("display: none; visibility: hidden;");
+            dDireccionAlternativa = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dDireccionAlternativa");
+            dDireccionAlternativa.setFilterStyle("display: none; visibility: hidden;");
+            tFecha = (Column) c.getViewRoot().findComponent("form:datosTelefonosPersona:tFecha");
+            tFecha.setFilterStyle("display: none; visibility: hidden;");
+            tTipoTelefono = (Column) c.getViewRoot().findComponent("form:datosTelefonosPersona:tTipoTelefono");
+            tTipoTelefono.setFilterStyle("display: none; visibility: hidden;");
+            tNumero = (Column) c.getViewRoot().findComponent("form:datosTelefonosPersona:tNumero");
+            tNumero.setFilterStyle("display: none; visibility: hidden;");
+            tCiudad = (Column) c.getViewRoot().findComponent("form:datosTelefonosPersona:tCiudad");
+            tCiudad.setFilterStyle("display: none; visibility: hidden;");
+            fecha = (Column) c.getViewRoot().findComponent("form:datosEstadoCivil:fecha");
+            fecha.setFilterStyle("display: none; visibility: hidden;");
+            parentesco = (Column) c.getViewRoot().findComponent("form:datosEstadoCivil:parentesco");
+            parentesco.setFilterStyle("display: none; visibility: hidden;");
+            fechaAntecedenteM = (Column) c.getViewRoot().findComponent("form:datosAntecedentes:fechaAntecedenteM");
+            fechaAntecedenteM.setFilterStyle("width: 85% !important;");
+            tipoAntecedenteM = (Column) c.getViewRoot().findComponent("form:datosAntecedentes:tipoAntecedenteM");
+            tipoAntecedenteM.setFilterStyle("width: 85% !important;");
+            antecedenteMedico = (Column) c.getViewRoot().findComponent("form:datosAntecedentes:antecedenteMedico");
+            antecedenteMedico.setFilterStyle("width: 85% !important;");
+            descAntecedenteM = (Column) c.getViewRoot().findComponent("form:datosAntecedentes:descAntecedenteM");
+            descAntecedenteM.setFilterStyle("width: 85% !important;");
+            pEFechas = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEFechas");
+            pEFechas.setFilterStyle("display: none; visibility: hidden;");
+            pETiposEducaciones = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pETiposEducaciones");
+            pETiposEducaciones.setFilterStyle("display: none; visibility: hidden;");
+            pEProfesiones = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEProfesiones");
+            pEProfesiones.setFilterStyle("display: none; visibility: hidden;");
+            pEInstituciones = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEInstituciones");
+            pEInstituciones.setFilterStyle("display: none; visibility: hidden;");
+            pEAdiestramientosF = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEAdiestramientosF");
+            pEAdiestramientosF.setFilterStyle("display: none; visibility: hidden;");
+            pECalificaciones = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pECalificaciones");
+            pECalificaciones.setFilterStyle("display: none; visibility: hidden;");
+            pENumerosTarjetas = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pENumerosTarjetas");
+            pENumerosTarjetas.setFilterStyle("display: none; visibility: hidden;");
+            pEFechasExpediciones = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEFechasExpediciones");
+            pEFechasExpediciones.setFilterStyle("display: none; visibility: hidden;");
+            pEFechasVencimientos = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEFechasVencimientos");
+            pEFechasVencimientos.setFilterStyle("display: none; visibility: hidden;");
+            pEObservaciones = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEObservaciones");
+            pEObservaciones.setFilterStyle("display: none; visibility: hidden;");
+            expEmpresa = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expEmpresa");
+            expEmpresa.setFilterStyle("display: none; visibility: hidden;");
+            expCargoDes = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expCargoDes");
+            expCargoDes.setFilterStyle("display: none; visibility: hidden;");
+            expJefe = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expJefe");
+            expJefe.setFilterStyle("display: none; visibility: hidden;");
+            expTelefono = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expTelefono");
+            expTelefono.setFilterStyle("display: none; visibility: hidden;");
+            expSectorEco = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expSectorEco");
+            expSectorEco.setFilterStyle("display: none; visibility: hidden;");
+            expMotivos = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expMotivos");
+            expMotivos.setFilterStyle("display: none; visibility: hidden;");
+            expFechaInicio = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expFechaInicio");
+            expFechaInicio.setFilterStyle("display: none; visibility: hidden;");
+            expFechaRetiro = (Column) c.getViewRoot().findComponent("form:datosExperiencia:expFechaRetiro");
+            expFechaRetiro.setFilterStyle("display: none; visibility: hidden;");
+            nombre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFamiliares:nombreFamiliar");
+            nombre.setFilterStyle("display: none; visibility: hidden;");
+            ocupacion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFamiliares:ocupacionFamiliar");
+            ocupacion.setFilterStyle("display: none; visibility: hidden;");
+            columnaTipo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFamiliares:ctipoFamiliar");
+            columnaTipo.setFilterStyle("display: none; visibility: hidden;");
+            smedico = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFamiliares:servicioMedico");
+            smedico.setFilterStyle("display: none; visibility: hidden;");
+            sfamiliar = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFamiliares:sFamiliar");
+            sfamiliar.setFilterStyle("display: none; visibility: hidden;");
+            beneficiario = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFamiliares:beneficiario");
+            beneficiario.setFilterStyle("display: none; visibility: hidden;");
+            upcadicional = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFamiliares:upcAd");
+            upcadicional.setFilterStyle("display: none; visibility: hidden;");
+            valorupc = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFamiliares:valorUpc");
+            valorupc.setFilterStyle("display: none; visibility: hidden;");
+
+            editarcalf = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosRelaciones:editarcalf");
+            editarcalf.setFilterStyle("display: none; visibility: hidden;");
+            obsFamiliar = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosRelaciones:obsFamiliar");
+            obsFamiliar.setFilterStyle("display: none; visibility: hidden;");
+            editarconstruccion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosServicios:editarconstruccion");
+            editarconstruccion.setFilterStyle("display: none; visibility: hidden;");
+            servicioAgua = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosServicios:servicioAgua");
+            servicioAgua.setFilterStyle("display: none; visibility: hidden;");
+            servicioLuz = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosServicios:servicioLuz");
+            servicioLuz.setFilterStyle("display: none; visibility: hidden;");
+            servicioTel = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosServicios:servicioTel");
+            servicioTel.setFilterStyle("display: none; visibility: hidden;");
+            servicioPar = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosServicios:servicioPar");
+            servicioPar.setFilterStyle("display: none; visibility: hidden;");
+            servicioTrasn = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosServicios:servicioTrasn");
+            servicioTrasn.setFilterStyle("display: none; visibility: hidden;");
+            servicioAlcan = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosServicios:servicioAlcan");
+            servicioAlcan.setFilterStyle("display: none; visibility: hidden;");
+            servicioOtros = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosServicios:servicioOtros");
+            servicioOtros.setFilterStyle("display: none; visibility: hidden;");
+            otrosServicios = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosServicios:otrosServicios");
+            otrosServicios.setFilterStyle("display: none; visibility: hidden;");
+            ingresos = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIngresos:ingresos");
+            ingresos.setFilterStyle("display: none; visibility: hidden;");
+            origenInd = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIngresos:origenInd");
+            origenInd.setFilterStyle("display: none; visibility: hidden;");
+            origenArriendos = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIngresos:origenArriendos");
+            origenArriendos.setFilterStyle("display: none; visibility: hidden;");
+            origenPension = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIngresos:origenPension");
+            origenPension.setFilterStyle("display: none; visibility: hidden;");
+            origenSalario = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIngresos:origenSalario");
+            origenSalario.setFilterStyle("display: none; visibility: hidden;");
+            origenCDT = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIngresos:origenCDT");
+            origenCDT.setFilterStyle("display: none; visibility: hidden;");
+            origenAuxilios = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIngresos:origenAuxilios");
+            origenAuxilios.setFilterStyle("display: none; visibility: hidden;");
+            aportePadre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosAportesHogar:aportePadre");
+            aportePadre.setFilterStyle("display: none; visibility: hidden;");
+            aporteMadre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosAportesHogar:aporteMadre");
+            aporteMadre.setFilterStyle("display: none; visibility: hidden;");
+            aporteHermano = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosAportesHogar:aporteHermano");
+            aporteHermano.setFilterStyle("display: none; visibility: hidden;");
+            aporteAbuelo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosAportesHogar:aporteAbuelo");
+            aporteAbuelo.setFilterStyle("display: none; visibility: hidden;");
+            aporteTio = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosAportesHogar:aporteTio");
+            aporteTio.setFilterStyle("display: none; visibility: hidden;");
+            aporteOtro = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosAportesHogar:aporteOtro");
+            aporteOtro.setFilterStyle("display: none; visibility: hidden;");
+            otrosIngresos = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosAportesHogar:otrosIngresos");
+            otrosIngresos.setFilterStyle("display: none; visibility: hidden;");
+            egresoEdu = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEgresos:egresoEdu");
+            egresoEdu.setFilterStyle("display: none; visibility: hidden;");
+            egresoRec = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEgresos:egresoRec");
+            egresoRec.setFilterStyle("display: none; visibility: hidden;");
+            egresoAlimentacion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEgresos:egresoAlimentacion");
+            egresoAlimentacion.setFilterStyle("display: none; visibility: hidden;");
+            egresoMedico = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEgresos:egresoMedico");
+            egresoMedico.setFilterStyle("display: none; visibility: hidden;");
+            egresoArriendo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEgresos:egresoArriendo");
+            egresoArriendo.setFilterStyle("display: none; visibility: hidden;");
+            egresoServicios = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEgresos:egresoServicios");
+            egresoServicios.setFilterStyle("display: none; visibility: hidden;");
+            egresoOtro = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEgresos:egresoOtro");
+            egresoOtro.setFilterStyle("display: none; visibility: hidden;");
+            otrosEgresos = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEgresos:otrosEgresos");
+            otrosEgresos.setFilterStyle("display: none; visibility: hidden;");
+            condicionesF = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIndicadores:condicionesF");
+            condicionesF.setFilterStyle("display: none; visibility: hidden;");
+            condicionesS = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIndicadores:condicionesS");
+            condicionesS.setFilterStyle("display: none; visibility: hidden;");
+            situacionE = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIndicadores:situacionE");
+            situacionE.setFilterStyle("display: none; visibility: hidden;");
+            nivelAc = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIndicadores:nivelAc");
+            nivelAc.setFilterStyle("display: none; visibility: hidden;");
+            motivacionC = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIndicadores:motivacionC");
+            motivacionC.setFilterStyle("display: none; visibility: hidden;");
+
+            RequestContext.getCurrentInstance().update("form:datosFamiliares");
+            RequestContext.getCurrentInstance().update("form:datosExperiencia");
+            RequestContext.getCurrentInstance().update("form:datosTelefonosPersona");
+            RequestContext.getCurrentInstance().update("form:datosDireccionesPersona");
+            RequestContext.getCurrentInstance().update("form:datosEstadoCivil");
+            RequestContext.getCurrentInstance().update("form:datosAntecedentes");
+            RequestContext.getCurrentInstance().update("form:datosVigenciasFormalesPersona");
+            RequestContext.getCurrentInstance().update("form:datosRelaciones");
+            RequestContext.getCurrentInstance().update("form:datosServicios");
+            RequestContext.getCurrentInstance().update("form:datosIngresos");
+            RequestContext.getCurrentInstance().update("form:datosAportesHogar");
+            RequestContext.getCurrentInstance().update("form:datosEgresos");
+            RequestContext.getCurrentInstance().update("form:datosIndicadores");
+            altoTabla = "270";
+            bandera = 0;
+            listTelefonosFiltrar = null;
+            listDireccionesFiltrar = null;
+            listVigenciaEstadoCivilFiltrar = null;
+            listAntecedentesMFiltrar = null;
+            listaFamiliaresFiltrar = null;
+            listVigenciasDomiciliariasFiltrar = null;
+            tipoLista = 0;
         }
     }
 
-    public void cambiarIndiceDatosSector(VigenciasDomiciliarias vigDom, int celda) {
-        cualCelda = celda;
-        if (cualCelda == 1) {
-            vigenciasDomiciliariaSeleccionada.getCondicionesgenerales();
-        }
+    public void mostrarDialogoCargos() {
+        RequestContext.getCurrentInstance().update("formularioDialogos:cargoDialogo");
+        RequestContext.getCurrentInstance().execute("PF('cargoDialogo').show()");
     }
 
-    //
-    /////SETS Y GETS///////
+    public void actualizarCargo() {
+        RequestContext context = RequestContext.getCurrentInstance();
+        if (tipoActualizacion == 0) {
+            nuevaHV.setCargo(cargoSeleccionada);
+            if (!listHojasdeVidaCrear.contains(nuevaHV)) {
+                if (listHojasdeVidaModificar.isEmpty()) {
+                    listHojasdeVidaModificar.add(nuevaHV);
+                } else if (!listHojasdeVidaModificar.contains(nuevaHV)) {
+                    listHojasdeVidaModificar.add(nuevaHV);
+                }
+            }
+            if (guardado == true) {
+                guardado = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            }
+            permitirIndex = true;
+            RequestContext.getCurrentInstance().update("form:cargoPostulado");
+        } else if (tipoActualizacion == 1) {
+            hvactual.setCargo(cargoSeleccionada);
+            RequestContext.getCurrentInstance().update("form:cargoPostulado");
+        }
+
+        lovCargosFiltrar = null;
+        cargoSeleccionada = null;
+        aceptar = true;
+        tipoActualizacion = -1;
+
+        RequestContext.getCurrentInstance().update("formularioDialogos:cargoDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:lovCargo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarCargo");
+
+        context.reset("formularioDialogos:lovCargo:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('lovCargo').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('cargoDialogo').hide()");
+    }
+
+    public void cancelarCambioCargo() {
+        lovCargosFiltrar = null;
+        cargoSeleccionada = null;
+        aceptar = true;
+        tipoActualizacion = -1;
+
+        RequestContext.getCurrentInstance().update("formularioDialogos:cargoDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:lovCargo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarCargo");
+
+        RequestContext.getCurrentInstance().reset("formularioDialogos:lovCargo:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('lovCargo').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('cargoDialogo').hide()");
+    }
+
+    public void contarRegistrosCargo() {
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroCargos");
+    }
+
+    public void modificarCargo(Cargos cargo, String confirmarCambio, String valorConfirmar) {
+        cargoSeleccionada = cargo;
+        int coincidencias = 0;
+        int indiceUnicoElemento = 0;
+        RequestContext context = RequestContext.getCurrentInstance();
+        if (confirmarCambio.equalsIgnoreCase("CARGO")) {
+//                nuevaHV.setCargo(cargoSeleccionada);
+
+            for (int i = 0; i < lovCargos.size(); i++) {
+                if (lovCargos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+                    indiceUnicoElemento = i;
+                    coincidencias++;
+                }
+            }
+            if (coincidencias == 1) {
+                nuevaHV.setCargo(cargoSeleccionada);
+                lovCargos.clear();
+                getLovCargos();
+            } else {
+                permitirIndex = false;
+                RequestContext.getCurrentInstance().update("formularioDialogos:cargoDialogo");
+                RequestContext.getCurrentInstance().execute("PF('cargoDialogo').show()");
+                tipoActualizacion = 0;
+            }
+        }
+        if (coincidencias == 1) {
+            if (tipoLista == 0) {
+                if (!listHojasdeVidaCrear.contains(nuevaHV)) {
+                    if (listHojasdeVidaModificar.isEmpty()) {
+                        listHojasdeVidaModificar.add(nuevaHV);
+                    } else if (!listHojasdeVidaModificar.contains(nuevaHV)) {
+                        listHojasdeVidaModificar.add(nuevaHV);
+                    }
+                    if (guardado == true) {
+                        guardado = false;
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                    }
+                }
+            } else if (!listHojasdeVidaCrear.contains(nuevaHV)) {
+
+                if (listHojasdeVidaModificar.isEmpty()) {
+                    listHojasdeVidaModificar.add(nuevaHV);
+                } else if (!listHojasdeVidaModificar.contains(nuevaHV)) {
+                    listHojasdeVidaModificar.add(nuevaHV);
+                }
+                if (guardado == true) {
+                    guardado = false;
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                }
+            }
+        }
+        RequestContext.getCurrentInstance().update("form:cargoPostulado");
+    }
+
+    public void cerrarFiltradoVigenciaDomiciliaria() {
+        editarcalf = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosRelaciones:editarcalf");
+        editarcalf.setFilterStyle("display: none; visibility: hidden;");
+        obsFamiliar = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosRelaciones:obsFamiliar");
+        obsFamiliar.setFilterStyle("display: none; visibility: hidden;");
+        editarconstruccion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosServicios:editarconstruccion");
+        editarconstruccion.setFilterStyle("display: none; visibility: hidden;");
+        servicioAgua = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosServicios:servicioAgua");
+        servicioAgua.setFilterStyle("display: none; visibility: hidden;");
+        servicioLuz = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosServicios:servicioLuz");
+        servicioLuz.setFilterStyle("display: none; visibility: hidden;");
+        servicioTel = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosServicios:servicioTel");
+        servicioTel.setFilterStyle("display: none; visibility: hidden;");
+        servicioPar = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosServicios:servicioPar");
+        servicioPar.setFilterStyle("display: none; visibility: hidden;");
+        servicioTrasn = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosServicios:servicioTrasn");
+        servicioTrasn.setFilterStyle("display: none; visibility: hidden;");
+        servicioAlcan = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosServicios:servicioAlcan");
+        servicioAlcan.setFilterStyle("display: none; visibility: hidden;");
+        servicioOtros = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosServicios:servicioOtros");
+        servicioOtros.setFilterStyle("display: none; visibility: hidden;");
+        otrosServicios = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosServicios:otrosServicios");
+        otrosServicios.setFilterStyle("display: none; visibility: hidden;");
+        ingresos = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIngresos:ingresos");
+        ingresos.setFilterStyle("display: none; visibility: hidden;");
+        origenInd = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIngresos:origenInd");
+        origenInd.setFilterStyle("display: none; visibility: hidden;");
+        origenArriendos = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIngresos:origenArriendos");
+        origenArriendos.setFilterStyle("display: none; visibility: hidden;");
+        origenPension = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIngresos:origenPension");
+        origenPension.setFilterStyle("display: none; visibility: hidden;");
+        origenSalario = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIngresos:origenSalario");
+        origenSalario.setFilterStyle("display: none; visibility: hidden;");
+        origenCDT = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIngresos:origenCDT");
+        origenCDT.setFilterStyle("display: none; visibility: hidden;");
+        origenAuxilios = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIngresos:origenAuxilios");
+        origenAuxilios.setFilterStyle("display: none; visibility: hidden;");
+        aportePadre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosAportesHogar:aportePadre");
+        aportePadre.setFilterStyle("display: none; visibility: hidden;");
+        aporteMadre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosAportesHogar:aporteMadre");
+        aporteMadre.setFilterStyle("display: none; visibility: hidden;");
+        aporteHermano = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosAportesHogar:aporteHermano");
+        aporteHermano.setFilterStyle("display: none; visibility: hidden;");
+        aporteAbuelo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosAportesHogar:aporteAbuelo");
+        aporteAbuelo.setFilterStyle("display: none; visibility: hidden;");
+        aporteTio = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosAportesHogar:aporteTio");
+        aporteTio.setFilterStyle("display: none; visibility: hidden;");
+        aporteOtro = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosAportesHogar:aporteOtro");
+        aporteOtro.setFilterStyle("display: none; visibility: hidden;");
+        otrosIngresos = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosAportesHogar:otrosIngresos");
+        otrosIngresos.setFilterStyle("display: none; visibility: hidden;");
+        egresoEdu = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEgresos:egresoEdu");
+        egresoEdu.setFilterStyle("display: none; visibility: hidden;");
+        egresoRec = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEgresos:egresoRec");
+        egresoRec.setFilterStyle("display: none; visibility: hidden;");
+        egresoAlimentacion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEgresos:egresoAlimentacion");
+        egresoAlimentacion.setFilterStyle("display: none; visibility: hidden;");
+        egresoMedico = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEgresos:egresoMedico");
+        egresoMedico.setFilterStyle("display: none; visibility: hidden;");
+        egresoArriendo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEgresos:egresoArriendo");
+        egresoArriendo.setFilterStyle("display: none; visibility: hidden;");
+        egresoServicios = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEgresos:egresoServicios");
+        egresoServicios.setFilterStyle("display: none; visibility: hidden;");
+        egresoOtro = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEgresos:egresoOtro");
+        egresoOtro.setFilterStyle("display: none; visibility: hidden;");
+        otrosEgresos = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEgresos:otrosEgresos");
+        otrosEgresos.setFilterStyle("display: none; visibility: hidden;");
+        condicionesF = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIndicadores:condicionesF");
+        condicionesF.setFilterStyle("display: none; visibility: hidden;");
+        condicionesS = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIndicadores:condicionesS");
+        condicionesS.setFilterStyle("display: none; visibility: hidden;");
+        situacionE = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIndicadores:situacionE");
+        situacionE.setFilterStyle("display: none; visibility: hidden;");
+        nivelAc = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIndicadores:nivelAc");
+        nivelAc.setFilterStyle("display: none; visibility: hidden;");
+        motivacionC = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIndicadores:motivacionC");
+        motivacionC.setFilterStyle("display: none; visibility: hidden;");
+        bandera = 0;
+        tipoLista = 0;
+        listVigenciasDomiciliariasFiltrar = null;
+        RequestContext.getCurrentInstance().update("form:datosRelaciones");
+        RequestContext.getCurrentInstance().update("form:datosServicios");
+        RequestContext.getCurrentInstance().update("form:datosIngresos");
+        RequestContext.getCurrentInstance().update("form:datosAportesHogar");
+        RequestContext.getCurrentInstance().update("form:datosEgresos");
+        RequestContext.getCurrentInstance().update("form:datosIndicadores");
+    }
+
+    public void agregarVigenciaDomiciliaria() {
+        if (bandera == 1) {
+            cerrarFiltradoVigenciaDomiciliaria();
+        }
+        k++;
+        x = BigDecimal.valueOf(k);
+        nuevaVigenciaDomiciliaria.setSecuencia(x);
+        listVigenciasDomiciliariasCrear.add(nuevaVigenciaDomiciliaria);
+        listVigenciasDomiciliarias.add(nuevaVigenciaDomiciliaria);
+        contarRegistrosRelaciones();
+        contarRegistrosServicios();
+        contarRegistrosIngresos();
+        contarRegistrosAportesHogar();
+        contarRegistrosEgresos();
+        contarRegistrosIndicadores();
+//        antecedentemSeleccionado = nuevoAntecedentem;
+        nuevaVigenciaDomiciliaria = new VigenciasDomiciliarias();
+        nuevaVigenciaDomiciliaria.setFecha(new Date());
+        RequestContext.getCurrentInstance().update("form:datosRelaciones");
+        RequestContext.getCurrentInstance().update("form:datosServicios");
+        RequestContext.getCurrentInstance().update("form:datosIngresos");
+        RequestContext.getCurrentInstance().update("form:datosAportesHogar");
+        RequestContext.getCurrentInstance().update("form:datosEgresos");
+        RequestContext.getCurrentInstance().update("form:datosIndicadores");
+        RequestContext.getCurrentInstance().update("form:editarCondiciones");
+        RequestContext.getCurrentInstance().update("form:editarDistribucion");
+        RequestContext.getCurrentInstance().update("form:editarDescripcionGeneral");
+        RequestContext.getCurrentInstance().update("form:editarProfesional");
+        RequestContext.getCurrentInstance().update("form:editarFechaDomiciliaria");
+        if (guardado == true) {
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        }
+
+        if (cualtabla == 1) {
+            nombreDialogo = "nuevoRegistroRelaciones";
+        } else if (cualtabla == 2) {
+            nombreDialogo = "nuevoRegistroServicios";
+        } else if (cualtabla == 3) {
+            nombreDialogo = "nuevoRegistroIngresos";
+        } else if (cualtabla == 4) {
+            nombreDialogo = "nuevoRegistroAportesH";
+        } else if (cualtabla == 5) {
+            nombreDialogo = "nuevoRegistroEgresos";
+        } else if (cualtabla == 6) {
+            nombreDialogo = "nuevoRegistroIndicadores";
+        }
+
+        RequestContext.getCurrentInstance().execute("PF('" + nombreDialogo + "').hide()");
+
+    }
+
+    public void contarRegistrosRelaciones() {
+        RequestContext.getCurrentInstance().update("form:infoRegistroRelaciones");
+    }
+
+    public void contarRegistrosServicios() {
+        RequestContext.getCurrentInstance().update("form:infoRegistroServicios");
+    }
+
+    public void contarRegistrosIngresos() {
+        RequestContext.getCurrentInstance().update("form:infoRegistroIngresos");
+    }
+
+    public void contarRegistrosAportesHogar() {
+        RequestContext.getCurrentInstance().update("form:infoRegistroAportesH");
+    }
+
+    public void contarRegistrosEgresos() {
+        RequestContext.getCurrentInstance().update("form:infoRegistroEgresos");
+    }
+
+    public void contarRegistrosIndicadores() {
+        RequestContext.getCurrentInstance().update("form:infoRegistroIndicadores");
+    }
+
+    public void modificarCondiciones() {
+        modificarVigenciaDomiciliaria(vigenciasDomiciliariaSeleccionada);
+        RequestContext context = RequestContext.getCurrentInstance();
+        RequestContext.getCurrentInstance().update("form:editarCondiciones");
+        guardado = false;
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+    }
+
+    public void modificarDistribucion() {
+        modificarVigenciaDomiciliaria(vigenciasDomiciliariaSeleccionada);
+        RequestContext context = RequestContext.getCurrentInstance();
+        RequestContext.getCurrentInstance().update("form:editarDistribucion");
+        guardado = false;
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+    }
+
+    public void modificarDescripcion() {
+        modificarVigenciaDomiciliaria(vigenciasDomiciliariaSeleccionada);
+        RequestContext context = RequestContext.getCurrentInstance();
+        RequestContext.getCurrentInstance().update("form:editarDescripcionGeneral");
+        guardado = false;
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+    }
+
+    public void modificarObservaciones() {
+        modificarVigenciaDomiciliaria(vigenciasDomiciliariaSeleccionada);
+        RequestContext context = RequestContext.getCurrentInstance();
+        RequestContext.getCurrentInstance().update("form:editarObservaciones");
+        guardado = false;
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+    }
+
+    public void modificarConceptoF() {
+        modificarVigenciaDomiciliaria(vigenciasDomiciliariaSeleccionada);
+        RequestContext context = RequestContext.getCurrentInstance();
+        RequestContext.getCurrentInstance().update("form:editarConceptoF");
+        guardado = false;
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+    }
+
+    public void modificarConceptoS() {
+        modificarVigenciaDomiciliaria(vigenciasDomiciliariaSeleccionada);
+        RequestContext context = RequestContext.getCurrentInstance();
+        RequestContext.getCurrentInstance().update("form:editarConceptoS");
+        guardado = false;
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+    }
+
+    public void modificarPersonasAsistenes() {
+        modificarVigenciaDomiciliaria(vigenciasDomiciliariaSeleccionada);
+        RequestContext context = RequestContext.getCurrentInstance();
+        RequestContext.getCurrentInstance().update("form:editarPersonas");
+        guardado = false;
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+    }
+
+    /// /////SETS Y GETS///////
     public List<VigenciasDomiciliarias> getListVigenciasDomiciliarias() {
         if (listVigenciasDomiciliarias == null) {
             listVigenciasDomiciliarias = administrarVigDomiciliarias.vigenciasDomiciliariasporPersona(persona.getSecuencia());
@@ -2314,10 +7192,16 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
     }
 
     public List<Ciudades> getLovCiudades() {
+        if (lovCiudades == null) {
+            lovCiudades = administrarVigDomiciliarias.lovCiudades();
+        }
         return lovCiudades;
     }
 
     public List<Cargos> getLovCargos() {
+        if (lovCargos == null) {
+            lovCargos = administrarVigDomiciliarias.lovCargos();
+        }
         return lovCargos;
     }
 
@@ -2329,34 +7213,58 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
     }
 
     public List<TiposEducaciones> getLovTiposEducaciones() {
+        if (lovTiposEducaciones == null) {
+            lovTiposEducaciones = administrarVigDomiciliarias.lovTiposEducaciones();
+        }
         return lovTiposEducaciones;
     }
 
     public List<Profesiones> getLovProfesiones() {
+        if (lovProfesiones == null) {
+            lovProfesiones = administrarVigDomiciliarias.lovProfesiones();
+        }
         return lovProfesiones;
     }
 
     public List<AdiestramientosF> getLovAdiestramientos() {
+        if (lovAdiestramientos == null) {
+            lovAdiestramientos = administrarVigDomiciliarias.lovAdiestramientos();
+        }
         return lovAdiestramientos;
     }
 
     public List<Instituciones> getLovInstituciones() {
+        if (lovInstituciones == null) {
+            lovInstituciones = administrarVigDomiciliarias.lovInstituciones();
+        }
         return lovInstituciones;
     }
 
     public List<MotivosRetiros> getLovMotivos() {
+        if (lovMotivos == null) {
+            lovMotivos = administrarVigDomiciliarias.lovMotivosRetiros();
+        }
         return lovMotivos;
     }
 
     public List<Personas> getLovPersonas() {
+        if (lovPersonas == null) {
+            lovPersonas = administrarVigDomiciliarias.lovPersonas();
+        }
         return lovPersonas;
     }
 
     public List<SoTiposAntecedentes> getLovTiposAntecedentes() {
+        if (lovTiposAntecedentes == null) {
+            lovTiposAntecedentes = administrarVigDomiciliarias.lovTiposAntecedentes();
+        }
         return lovTiposAntecedentes;
     }
 
     public List<EstadosCiviles> getLovEstadosCiviles() {
+        if (lovEstadosCiviles == null) {
+            lovEstadosCiviles = administrarVigDomiciliarias.lovVigenciasEstadosCiviles();
+        }
         return lovEstadosCiviles;
     }
 
@@ -2452,15 +7360,6 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         this.profesionSeleccionada = profesionSeleccionada;
     }
 
-    public Direcciones getDireccionActual() {
-        direccionActual = administrarVigDomiciliarias.direccionesPersona(persona.getSecuencia());
-        return direccionActual;
-    }
-
-    public void setDireccionActual(Direcciones direccionActual) {
-        this.direccionActual = direccionActual;
-    }
-
     public Telefonos getTelefonoActual() {
         telefonoActual = administrarVigDomiciliarias.telefonoActualPersona(persona.getSecuencia());
         return telefonoActual;
@@ -2468,15 +7367,6 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
 
     public void setTelefonoActual(Telefonos telefonoActual) {
         this.telefonoActual = telefonoActual;
-    }
-
-    public VigenciasEstadosCiviles getEstadoCivilActual() {
-        estadoCivilActual = administrarVigDomiciliarias.estadoCivilActualPersona(persona.getSecuencia());
-        return estadoCivilActual;
-    }
-
-    public void setEstadoCivilActual(VigenciasEstadosCiviles estadoCivilActual) {
-        this.estadoCivilActual = estadoCivilActual;
     }
 
     public HVHojasDeVida getHvactual() {
@@ -2496,6 +7386,9 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
     }
 
     public List<TiposFamiliares> getLovTiposFamiliares() {
+        if (lovTiposFamiliares == null) {
+            lovTiposFamiliares = administrarVigDomiciliarias.lovTiposFamiliares();
+        }
         return lovTiposFamiliares;
     }
 
@@ -2515,6 +7408,9 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
     }
 
     public String getInfoRegistroPersonas() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:lovPersonasFamiliares");
+        infoRegistroPersonas = String.valueOf(tabla.getRowCount());
         return infoRegistroPersonas;
     }
 
@@ -2523,6 +7419,9 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
     }
 
     public String getInfoRegistroTipoFamiliar() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:lovFamiliares");
+        infoRegistroTipoFamiliar = String.valueOf(tabla.getRowCount());
         return infoRegistroTipoFamiliar;
     }
 
@@ -2531,6 +7430,9 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
     }
 
     public String getInfoRegistroTipoDocumento() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:lovTipoDocumento");
+        infoRegistroTipoDocumento = String.valueOf(tabla.getRowCount());
         return infoRegistroTipoDocumento;
     }
 
@@ -2538,15 +7440,21 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         this.infoRegistroTipoDocumento = infoRegistroTipoDocumento;
     }
 
-    public String getInfoRegistroCiudades() {
-        return infoRegistroCiudades;
+    public String getInfoRegistroCiudadDocumento() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:lovCiudadDocumento");
+        infoRegistroCiudadDocumento = String.valueOf(tabla.getRowCount());
+        return infoRegistroCiudadDocumento;
     }
 
-    public void setInfoRegistroCiudades(String infoRegistroCiudades) {
-        this.infoRegistroCiudades = infoRegistroCiudades;
+    public void setInfoRegistroCiudadDocumento(String infoRegistroCiudadDocumento) {
+        this.infoRegistroCiudadDocumento = infoRegistroCiudadDocumento;
     }
 
     public String getInfoRegistroCiudadNacimiento() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:lovCiudadNacimiento");
+        infoRegistroCiudadNacimiento = String.valueOf(tabla.getRowCount());
         return infoRegistroCiudadNacimiento;
     }
 
@@ -2799,6 +7707,9 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
     }
 
     public List<SectoresEconomicos> getLovSectoresEconomicos() {
+        if (lovSectoresEconomicos == null) {
+            lovSectoresEconomicos = administrarVigDomiciliarias.lovSectoresEconomicos();
+        }
         return lovSectoresEconomicos;
     }
 
@@ -2915,7 +7826,640 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         this.descGeneral = descGeneral;
     }
 
-    
-    
+    public String getObservaciones() {
+        return observaciones;
+    }
+
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
+    }
+
+    public String getConceptofinal() {
+        return conceptofinal;
+    }
+
+    public void setConceptofinal(String conceptofinal) {
+        this.conceptofinal = conceptofinal;
+    }
+
+    public String getConceptosocial() {
+        return conceptosocial;
+    }
+
+    public void setConceptosocial(String conceptosocial) {
+        this.conceptosocial = conceptosocial;
+    }
+
+    public String getPersonasAtencion() {
+        return personasAtencion;
+    }
+
+    public void setPersonasAtencion(String personasAtencion) {
+        this.personasAtencion = personasAtencion;
+    }
+
+    public String getProfesional() {
+        return profesional;
+    }
+
+    public void setProfesional(String profesional) {
+        this.profesional = profesional;
+    }
+
+    public Date getDateVisita() {
+        return dateVisita;
+    }
+
+    public void setDateVisita(Date dateVisita) {
+        this.dateVisita = dateVisita;
+    }
+
+    public String getMensajeValidacion() {
+        return mensajeValidacion;
+    }
+
+    public void setMensajeValidacion(String mensajeValidacion) {
+        this.mensajeValidacion = mensajeValidacion;
+    }
+
+    public List<Ciudades> getLovCiudadDocumento() {
+        if (lovCiudadDocumento == null) {
+            lovCiudadDocumento = administrarVigDomiciliarias.lovCiudades();
+        }
+        return lovCiudadDocumento;
+    }
+
+    public void setLovCiudadDocumento(List<Ciudades> lovCiudadDocumento) {
+        this.lovCiudadDocumento = lovCiudadDocumento;
+    }
+
+    public List<Ciudades> getLovCiudadDocumentoFiltrar() {
+        return lovCiudadDocumentoFiltrar;
+    }
+
+    public void setLovCiudadDocumentoFiltrar(List<Ciudades> lovCiudadDocumentoFiltrar) {
+        this.lovCiudadDocumentoFiltrar = lovCiudadDocumentoFiltrar;
+    }
+
+    public List<Ciudades> getLovCiudadDireccion() {
+        if (lovCiudadDireccion == null) {
+            lovCiudadDireccion = administrarVigDomiciliarias.lovCiudades();
+        }
+        return lovCiudadDireccion;
+    }
+
+    public void setLovCiudadDireccion(List<Ciudades> lovCiudadDireccion) {
+        this.lovCiudadDireccion = lovCiudadDireccion;
+    }
+
+    public List<Ciudades> getLovCiudadDireccionFiltrar() {
+        return lovCiudadDireccionFiltrar;
+    }
+
+    public void setLovCiudadDireccionFiltrar(List<Ciudades> lovCiudadDireccionFiltrar) {
+        this.lovCiudadDireccionFiltrar = lovCiudadDireccionFiltrar;
+    }
+
+    public List<Ciudades> getLovCiudadTelefono() {
+        if (lovCiudadTelefono == null) {
+            lovCiudadTelefono = administrarVigDomiciliarias.lovCiudades();
+        }
+        return lovCiudadTelefono;
+    }
+
+    public void setLovCiudadTelefono(List<Ciudades> lovCiudadTelefono) {
+        this.lovCiudadTelefono = lovCiudadTelefono;
+    }
+
+    public List<Ciudades> getLovCiudadTelefonoFiltrar() {
+        return lovCiudadTelefonoFiltrar;
+    }
+
+    public void setLovCiudadTelefonoFiltrar(List<Ciudades> lovCiudadTelefonoFiltrar) {
+        this.lovCiudadTelefonoFiltrar = lovCiudadTelefonoFiltrar;
+    }
+
+    public Ciudades getCiudadSeleccionada() {
+        return ciudadSeleccionada;
+    }
+
+    public void setCiudadSeleccionada(Ciudades ciudadSeleccionada) {
+        this.ciudadSeleccionada = ciudadSeleccionada;
+    }
+
+    public Ciudades getCiudadDocumentoSeleccionada() {
+        return ciudadDocumentoSeleccionada;
+    }
+
+    public void setCiudadDocumentoSeleccionada(Ciudades ciudadDocumentoSeleccionada) {
+        this.ciudadDocumentoSeleccionada = ciudadDocumentoSeleccionada;
+    }
+
+    public Ciudades getCiudadDireccionSeleccionada() {
+        return ciudadDireccionSeleccionada;
+    }
+
+    public void setCiudadDireccionSeleccionada(Ciudades ciudadDireccionSeleccionada) {
+        this.ciudadDireccionSeleccionada = ciudadDireccionSeleccionada;
+    }
+
+    public Ciudades getCiudadTelefonoSeleccionada() {
+        return ciudadTelefonoSeleccionada;
+    }
+
+    public void setCiudadTelefonoSeleccionada(Ciudades ciudadTelefonoSeleccionada) {
+        this.ciudadTelefonoSeleccionada = ciudadTelefonoSeleccionada;
+    }
+
+    public String getInfoRegistroCiudadesDirecciones() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVDireccionesCiudades");
+        infoRegistroCiudadesDirecciones = String.valueOf(tabla.getRowCount());
+        return infoRegistroCiudadesDirecciones;
+    }
+
+    public void setInfoRegistroCiudadesDirecciones(String infoRegistroCiudadesDirecciones) {
+        this.infoRegistroCiudadesDirecciones = infoRegistroCiudadesDirecciones;
+    }
+
+    public Direcciones getDuplicarDireccion() {
+        return duplicarDireccion;
+    }
+
+    public void setDuplicarDireccion(Direcciones duplicarDireccion) {
+        this.duplicarDireccion = duplicarDireccion;
+    }
+
+    public String getInfoRegistroTT() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVTiposTelefonos");
+        infoRegistroTT = String.valueOf(tabla.getRowCount());
+        return infoRegistroTT;
+    }
+
+    public void setInfoRegistroTT(String infoRegistroTT) {
+        this.infoRegistroTT = infoRegistroTT;
+    }
+
+    public String getInfoRegistroCiudadesTelefonos() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVCiudadesTelefono");
+        infoRegistroCiudadesTelefonos = String.valueOf(tabla.getRowCount());
+        return infoRegistroCiudadesTelefonos;
+    }
+
+    public void setInfoRegistroCiudadesTelefonos(String infoRegistroCiudadesTelefonos) {
+        this.infoRegistroCiudadesTelefonos = infoRegistroCiudadesTelefonos;
+    }
+
+    public List<TiposTelefonos> getLovTiposTelefonosFiltrar() {
+        return lovTiposTelefonosFiltrar;
+    }
+
+    public void setLovTiposTelefonosFiltrar(List<TiposTelefonos> lovTiposTelefonosFiltrar) {
+        this.lovTiposTelefonosFiltrar = lovTiposTelefonosFiltrar;
+    }
+
+    public TiposTelefonos getTipoTelefonoSeleccionado() {
+        return tipoTelefonoSeleccionado;
+    }
+
+    public void setTipoTelefonoSeleccionado(TiposTelefonos tipoTelefonoSeleccionado) {
+        this.tipoTelefonoSeleccionado = tipoTelefonoSeleccionado;
+    }
+
+    public Telefonos getDuplicarTelefono() {
+        return duplicarTelefono;
+    }
+
+    public void setDuplicarTelefono(Telefonos duplicarTelefono) {
+        this.duplicarTelefono = duplicarTelefono;
+    }
+
+    public List<Profesiones> getLovProfesionesFiltrar() {
+        return lovProfesionesFiltrar;
+    }
+
+    public void setLovProfesionesFiltrar(List<Profesiones> lovProfesionesFiltrar) {
+        this.lovProfesionesFiltrar = lovProfesionesFiltrar;
+    }
+
+    public MotivosRetiros getMotivoSeleccionado() {
+        return motivoSeleccionado;
+    }
+
+    public void setMotivoSeleccionado(MotivosRetiros motivoSeleccionado) {
+        this.motivoSeleccionado = motivoSeleccionado;
+    }
+
+    public Personas getLovPersonaSeleccionado() {
+        return lovPersonaSeleccionado;
+    }
+
+    public void setLovPersonaSeleccionado(Personas lovPersonaSeleccionado) {
+        this.lovPersonaSeleccionado = lovPersonaSeleccionado;
+    }
+
+    public String getInfoRegistroEstadoCivilLov() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:lovEstadosCiviles");
+        infoRegistroEstadoCivilLov = String.valueOf(tabla.getRowCount());
+        return infoRegistroEstadoCivilLov;
+    }
+
+    public void setInfoRegistroEstadoCivilLov(String infoRegistroEstadoCivilLov) {
+        this.infoRegistroEstadoCivilLov = infoRegistroEstadoCivilLov;
+    }
+
+    public EstadosCiviles getEstadoCivilSeleccionado() {
+        return estadoCivilSeleccionado;
+    }
+
+    public void setEstadoCivilSeleccionado(EstadosCiviles estadoCivilSeleccionado) {
+        this.estadoCivilSeleccionado = estadoCivilSeleccionado;
+    }
+
+    public VigenciasEstadosCiviles getNuevaVigenciaEstadoCivil() {
+        return nuevaVigenciaEstadoCivil;
+    }
+
+    public void setNuevaVigenciaEstadoCivil(VigenciasEstadosCiviles nuevaVigenciaEstadoCivil) {
+        this.nuevaVigenciaEstadoCivil = nuevaVigenciaEstadoCivil;
+    }
+
+    public VigenciasEstadosCiviles getDuplicarVigenciaEstadoCivil() {
+        return duplicarVigenciaEstadoCivil;
+    }
+
+    public void setDuplicarVigenciaEstadoCivil(VigenciasEstadosCiviles duplicarVigenciaEstadoCivil) {
+        this.duplicarVigenciaEstadoCivil = duplicarVigenciaEstadoCivil;
+    }
+
+    public List<SoAntecedentes> getLovAntecedentes() {
+//        if (lovAntecedentes == null) {
+//            lovAntecedentes = administrarVigDomiciliarias.lovAntecedentes(nuevoAntecedentem.getTipoantecedente().getSecuencia());
+//        }
+        return lovAntecedentes;
+    }
+
+    public void setLovAntecedentes(List<SoAntecedentes> lovAntecedentes) {
+        this.lovAntecedentes = lovAntecedentes;
+    }
+
+    public SoAntecedentes getAntecedenteSeleccionado() {
+        return antecedenteSeleccionado;
+    }
+
+    public void setAntecedenteSeleccionado(SoAntecedentes antecedenteSeleccionado) {
+        this.antecedenteSeleccionado = antecedenteSeleccionado;
+    }
+
+    public SoTiposAntecedentes getTipoAntecedenteSeleccionado() {
+        return tipoAntecedenteSeleccionado;
+    }
+
+    public void setTipoAntecedenteSeleccionado(SoTiposAntecedentes tipoAntecedenteSeleccionado) {
+        this.tipoAntecedenteSeleccionado = tipoAntecedenteSeleccionado;
+    }
+
+    public String getInfoRegistroAntecedentes() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:lovAntecedentes");
+        infoRegistroAntecedentes = String.valueOf(tabla.getRowCount());
+        return infoRegistroAntecedentes;
+    }
+
+    public void setInfoRegistroAntecedentes(String infoRegistroAntecedentes) {
+        this.infoRegistroAntecedentes = infoRegistroAntecedentes;
+    }
+
+    public String getInfoRegistroTipoAntecedente() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:lovTiposAntecedentes");
+        infoRegistroTipoAntecedente = String.valueOf(tabla.getRowCount());
+        return infoRegistroTipoAntecedente;
+    }
+
+    public void setInfoRegistroTipoAntecedente(String infoRegistroTipoAntecedente) {
+        this.infoRegistroTipoAntecedente = infoRegistroTipoAntecedente;
+    }
+
+    public SoAntecedentesMedicos getDuplicarAntecedenteM() {
+        return duplicarAntecedenteM;
+    }
+
+    public void setDuplicarAntecedenteM(SoAntecedentesMedicos duplicarAntecedenteM) {
+        this.duplicarAntecedenteM = duplicarAntecedenteM;
+    }
+
+    public String getInfoRegistroAdiestramiento() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVAdiestramientosF");
+        infoRegistroAdiestramiento = String.valueOf(tabla.getRowCount());
+        return infoRegistroAdiestramiento;
+    }
+
+    public void setInfoRegistroAdiestramiento(String infoRegistroAdiestramiento) {
+        this.infoRegistroAdiestramiento = infoRegistroAdiestramiento;
+    }
+
+    public String getInfoRegistroInstitucion() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVInstituciones");
+        infoRegistroAdiestramiento = String.valueOf(tabla.getRowCount());
+        return infoRegistroInstitucion;
+    }
+
+    public void setInfoRegistroInstitucion(String infoRegistroInstitucion) {
+        this.infoRegistroInstitucion = infoRegistroInstitucion;
+    }
+
+    public String getInfoRegistroProfesion() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVProfesiones");
+        infoRegistroProfesion = String.valueOf(tabla.getRowCount());
+        return infoRegistroProfesion;
+    }
+
+    public void setInfoRegistroProfesion(String infoRegistroProfesion) {
+        this.infoRegistroProfesion = infoRegistroProfesion;
+    }
+
+    public String getInfoRegistroTipoEducacion() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVTiposEducaciones");
+        infoRegistroProfesion = String.valueOf(tabla.getRowCount());
+        return infoRegistroTipoEducacion;
+    }
+
+    public void setInfoRegistroTipoEducacion(String infoRegistroTipoEducacion) {
+        this.infoRegistroTipoEducacion = infoRegistroTipoEducacion;
+    }
+
+    public VigenciasFormales getDuplicarVigenciaFormal() {
+        return duplicarVigenciaFormal;
+    }
+
+    public void setDuplicarVigenciaFormal(VigenciasFormales duplicarVigenciaFormal) {
+        this.duplicarVigenciaFormal = duplicarVigenciaFormal;
+    }
+
+    public HVHojasDeVida getDuplicarHV() {
+        return duplicarHV;
+    }
+
+    public void setDuplicarHV(HVHojasDeVida duplicarHV) {
+        this.duplicarHV = duplicarHV;
+    }
+
+    public HVHojasDeVida getHvSeleccionada() {
+        return hvSeleccionada;
+    }
+
+    public void setHvSeleccionada(HVHojasDeVida hvSeleccionada) {
+        this.hvSeleccionada = hvSeleccionada;
+    }
+
+    public Personas getDuplicarPersona() {
+        return duplicarPersona;
+    }
+
+    public void setDuplicarPersona(Personas duplicarPersona) {
+        this.duplicarPersona = duplicarPersona;
+    }
+
+    public HvExperienciasLaborales getDuplicarhvexp() {
+        return duplicarhvexp;
+    }
+
+    public void setDuplicarhvexp(HvExperienciasLaborales duplicarhvexp) {
+        this.duplicarhvexp = duplicarhvexp;
+    }
+
+    public Familiares getDuplicarFamiliar() {
+        return duplicarFamiliar;
+    }
+
+    public void setDuplicarFamiliar(Familiares duplicarFamiliar) {
+        this.duplicarFamiliar = duplicarFamiliar;
+    }
+
+    public TiposEducaciones getTipoEducacionSeleccionado() {
+        return tipoEducacionSeleccionado;
+    }
+
+    public void setTipoEducacionSeleccionado(TiposEducaciones tipoEducacionSeleccionado) {
+        this.tipoEducacionSeleccionado = tipoEducacionSeleccionado;
+    }
+
+    public AdiestramientosF getAdiestramientoSeleccionado() {
+        return adiestramientoSeleccionado;
+    }
+
+    public void setAdiestramientoSeleccionado(AdiestramientosF adiestramientoSeleccionado) {
+        this.adiestramientoSeleccionado = adiestramientoSeleccionado;
+    }
+
+    public Instituciones getInstitucionSeleccionada() {
+        return institucionSeleccionada;
+    }
+
+    public void setInstitucionSeleccionada(Instituciones institucionSeleccionada) {
+        this.institucionSeleccionada = institucionSeleccionada;
+    }
+
+    public TiposFamiliares getTipoFamiliarSeleccionado() {
+        return tipoFamiliarSeleccionado;
+    }
+
+    public void setTipoFamiliarSeleccionado(TiposFamiliares tipoFamiliarSeleccionado) {
+        this.tipoFamiliarSeleccionado = tipoFamiliarSeleccionado;
+    }
+
+    public HVHojasDeVida getHojaVida() {
+        return hojaVida;
+    }
+
+    public void setHojaVida(HVHojasDeVida hojaVida) {
+        this.hojaVida = hojaVida;
+    }
+
+    public List<AdiestramientosF> getLovAdiestramientosFiltrar() {
+        return lovAdiestramientosFiltrar;
+    }
+
+    public void setLovAdiestramientosFiltrar(List<AdiestramientosF> lovAdiestramientosFiltrar) {
+        this.lovAdiestramientosFiltrar = lovAdiestramientosFiltrar;
+    }
+
+    public String getInfoRegistroMotivo() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:lovMotivos");
+        infoRegistroMotivo = String.valueOf(tabla.getRowCount());
+        return infoRegistroMotivo;
+    }
+
+    public void setInfoRegistroMotivo(String infoRegistroMotivo) {
+        this.infoRegistroMotivo = infoRegistroMotivo;
+    }
+
+    public String getInfoRegistroSector() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:lovSector");
+        infoRegistroSector = String.valueOf(tabla.getRowCount());
+        return infoRegistroSector;
+    }
+
+    public void setInfoRegistroSector(String infoRegistroSector) {
+        this.infoRegistroSector = infoRegistroSector;
+    }
+
+    public Cargos getCargoSeleccionada() {
+        return cargoSeleccionada;
+    }
+
+    public void setCargoSeleccionada(Cargos cargoSeleccionada) {
+        this.cargoSeleccionada = cargoSeleccionada;
+        System.out.println("cargo seleccionado = " + cargoSeleccionada);
+    }
+
+    public Empleados getEmpleado() {
+        return empleado;
+    }
+
+    public void setEmpleado(Empleados empleado) {
+        this.empleado = empleado;
+    }
+
+    public List<TiposDocumentos> getLovTiposDocumentos() {
+        if (lovTiposDocumentos == null) {
+            lovTiposDocumentos = administrarVigDomiciliarias.consultarTiposDocumentos();
+        }
+        return lovTiposDocumentos;
+    }
+
+    public void setLovTiposDocumentos(List<TiposDocumentos> lovTiposDocumentos) {
+        this.lovTiposDocumentos = lovTiposDocumentos;
+    }
+
+    public List<TiposDocumentos> getLovTiposDocumentosFiltrar() {
+        return lovTiposDocumentosFiltrar;
+    }
+
+    public void setLovTiposDocumentosFiltrar(List<TiposDocumentos> lovTiposDocumentosFiltrar) {
+        this.lovTiposDocumentosFiltrar = lovTiposDocumentosFiltrar;
+    }
+
+    public TiposDocumentos getTipoDocumentoSeleccionado() {
+        return tipoDocumentoSeleccionado;
+    }
+
+    public void setTipoDocumentoSeleccionado(TiposDocumentos tipoDocumentoSeleccionado) {
+        this.tipoDocumentoSeleccionado = tipoDocumentoSeleccionado;
+    }
+
+    public String getInfoRegistroCargo() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:lovCargo");
+        infoRegistroCargo = String.valueOf(tabla.getRowCount());
+        return infoRegistroCargo;
+    }
+
+    public void setInfoRegistroCargo(String infoRegistroCargo) {
+        this.infoRegistroCargo = infoRegistroCargo;
+    }
+
+    public String getInfoRegistroRelaciones() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosRelaciones");
+        infoRegistroRelaciones = String.valueOf(tabla.getRowCount());
+        return infoRegistroRelaciones;
+    }
+
+    public void setInfoRegistroRelaciones(String infoRegistroRelaciones) {
+        this.infoRegistroRelaciones = infoRegistroRelaciones;
+    }
+
+    public String getInfoRegistroServicios() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosServicios");
+        infoRegistroServicios = String.valueOf(tabla.getRowCount());
+        return infoRegistroServicios;
+    }
+
+    public void setInfoRegistroServicios(String infoRegistroServicios) {
+        this.infoRegistroServicios = infoRegistroServicios;
+    }
+
+    public String getInfoRegistroIngresos() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosIngresos");
+        infoRegistroIngresos = String.valueOf(tabla.getRowCount());
+        return infoRegistroIngresos;
+    }
+
+    public void setInfoRegistroIngresos(String infoRegistroIngresos) {
+        this.infoRegistroIngresos = infoRegistroIngresos;
+    }
+
+    public String getInfoRegistroAportesH() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosAportesHogar");
+        infoRegistroAportesH = String.valueOf(tabla.getRowCount());
+        return infoRegistroAportesH;
+    }
+
+    public void setInfoRegistroAportesH(String infoRegistroAportesH) {
+        this.infoRegistroAportesH = infoRegistroAportesH;
+    }
+
+    public String getInfoRegistrosEgresos() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosEgresos");
+        infoRegistrosEgresos = String.valueOf(tabla.getRowCount());
+        return infoRegistrosEgresos;
+    }
+
+    public void setInfoRegistrosEgresos(String infoRegistrosEgresos) {
+        this.infoRegistrosEgresos = infoRegistrosEgresos;
+    }
+
+    public String getInfoRegistrosIndicadores() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosIndicadores");
+        infoRegistrosIndicadores = String.valueOf(tabla.getRowCount());
+        return infoRegistrosIndicadores;
+    }
+
+    public void setInfoRegistrosIndicadores(String infoRegistrosIndicadores) {
+        this.infoRegistrosIndicadores = infoRegistrosIndicadores;
+    }
+
+    public boolean isActivarotroservicio() {
+        System.out.println("activar otro servicio : " + activarotroservicio);
+        return activarotroservicio;
+    }
+
+    public void setActivarotroservicio(boolean activarotroservicio) {
+        this.activarotroservicio = activarotroservicio;
+    }
+
+    public boolean isActivarotroegreso() {
+        System.out.println("activar otro egreso : " + activarotroegreso);
+        return activarotroegreso;
+    }
+
+    public void setActivarotroegreso(boolean activarotroegreso) {
+        this.activarotroegreso = activarotroegreso;
+    }
+
+    public boolean isActivarotroaporte() {
+        System.out.println("activar otro aporte : " + activarotroaporte);
+        return activarotroaporte;
+    }
+
+    public void setActivarotroaporte(boolean activarotroaporte) {
+        this.activarotroaporte = activarotroaporte;
+    }
     
 }

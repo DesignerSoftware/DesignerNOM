@@ -44,8 +44,8 @@
                                         </div>
                                     </div>
                                     <div style="height: 50px;">
-                                        <p:commandButton style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad05.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;" value=""  action="atausentismos" ></p:commandButton>
-                                        <h:commandLink style="font-weight: bold; color: #14388B;" value="Ausentismos..." action="atausentismos"/>
+                                        <p:commandButton style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad05.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;" value="" actionListener="#{controlAusentismos.recibirPagina('novedad')}"  action="atausentismos" > </p:commandButton>
+                                        <h:commandLink style="font-weight: bold; color: #14388B;" value="Ausentismos..." action="atausentismos" actionListener="#{controlAusentismos.recibirPagina('novedad')}"/>
                                         <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
                                             <h:outputText style="color: #000;" value="Registro de ausentismo por empleado"/>
                                         </div>

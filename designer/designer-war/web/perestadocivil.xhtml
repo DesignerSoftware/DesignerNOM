@@ -39,7 +39,7 @@
                                 <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
 
                                 <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" actionListener="#{controlVigenciasEstadosCiviles.limpiarNuevoVigenciaEstadoCivil()}"  ajax="false">
-                                    <p:dataExporter type="xml"  target=":formExportar:datosHvEntrevistaExportar" fileName="VIGENCASVIGESTADOSCIVILES" encoding="UTF-8"/> 
+                                    <p:dataExporter type="xml"  target=":formExportar:datosEstadoCivilExportar" fileName="VIGENCASVIGESTADOSCIVILES" encoding="UTF-8"/> 
                                 </p:commandButton> 
                                 <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
 
@@ -50,7 +50,7 @@
                                 <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);  background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px "  oncomplete="PF('nuevoRegistroEstadoCivil').show()" update=":formularioDialogos:nuevoEstadoCivil" process="@this"/> 
                                 <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
 
-                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);"  actionListener="#{controlVigenciasEstadosCiviles.borrandoHvEntrevistas()}" process="@this"/>  
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);"  actionListener="#{controlVigenciasEstadosCiviles.borrandoVigenciasEstadosCiviles()}" process="@this"/>  
                                 <p:tooltip  for="eliminar" value="#{msg['eliminar']}" />
 
                                 <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlVigenciasEstadosCiviles.duplicandoVigenciaEstadoCivil()}" process="@this"/>  
@@ -61,7 +61,7 @@
                                 <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlVigenciasEstadosCiviles.cancelarModificacion()}" process="@this" oncomplete="window.location.reload()"/>  
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlVigenciasEstadosCiviles.cancelarModificacion()}" process="@this" oncomplete="PF('window.location.reload()"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
                                 <p:separator style="position: relative; top: -9px"/>
                                 <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlVigenciasEstadosCiviles.salir()}" action="atrasPerEstadoCivil" process="@this"/>  
@@ -81,7 +81,7 @@
                         <fieldset style="position: absolute;top: 110px;left: 10px;height: 350px;width: 830px; border-radius: 10px; text-align: left">
                             <legend style="font-size: 14px; color: blue"><strong>Estado Civil</strong></legend>
 
-                            <p:dataTable id="datosHvEntrevista" widgetVar="datosHvEntrevista" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 830px ;border: 1px;"                           
+                            <p:dataTable id="datosEstadoCivil" widgetVar="datosEstadoCivil" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 830px ;border: 1px;"                           
                                          value="#{controlVigenciasEstadosCiviles.listVigenciaEstadoCivilPorEmpleado}" scrollable="true" scrollHeight="#{controlVigenciasEstadosCiviles.altoTabla}"  scrollWidth="830"
                                          filteredValue="#{controlVigenciasEstadosCiviles.filtrarVigenciaEstadoCivilPorEmplado}" emptyMessage="No se encontrarón resultados para la búsqueda"
                                          editable="true" editMode="cell" selection="#{controlVigenciasEstadosCiviles.vigenciaSeleccionada}" selectionMode="single" >
@@ -127,8 +127,6 @@
                             </p:dataTable>
                             <h:outputText id="infoRegistro" value="#{msg['infoRegistros']} #{controlVigenciasEstadosCiviles.infoRegistro}" style="position: relative; left: 15px; top: 4px; font-weight: bold"/>
                         </fieldset>
-
-
 
                         <p:dialog header="Estados Civiles" widgetVar="EstadoCivilDialogo" draggable="true" resizable="false" closable="false" id="EstadoCivilDialogo"  
                                   showEffect="fade" hideEffect="fade" width="470" modal="true">
@@ -285,10 +283,10 @@
                             <p:inputText  autocomplete="off"  id="nuevoNombreSucursal" value="#{controlVigenciasEstadosCiviles.nuevoVigenciaEstadoCivil.estadocivil.descripcion}" style=" width: 127px; position: absolute; left: 135px; top: 80px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlVigenciasEstadosCiviles.valoresBackupAutocompletar(1)}" />
                                 <p:ajax event="change" listener="#{controlVigenciasEstadosCiviles.autocompletarNuevo('VIGESTADOSCIVILES',controlVigenciasEstadosCiviles.nuevoVigenciaEstadoCivil.estadocivil.descripcion, 1)}" />
-                                <p:ajax event="dblclick" listener="#{controlVigenciasEstadosCiviles.asignarVariableEstadosCiviles(0)}" />
+                                <p:ajax event="dblclick" listener="#{controlVigenciasEstadosCiviles.mostrarDialogoEstadosCiviles(0)}" />
                             </p:inputText>
 
-                            <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 272px; top: 80px;  " id="btnnuevoNombreSucursal" process="@this" value=" " actionListener="#{controlVigenciasEstadosCiviles.asignarVariableEstadosCiviles(0)}"/>   
+                            <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 272px; top: 80px;  " id="btnnuevoNombreSucursal" process="@this" value=" " actionListener="#{controlVigenciasEstadosCiviles.mostrarDialogoEstadosCiviles(0)}"/>   
                             <p:watermark for="nuevoNombreSucursal" value="Estado Civil" />
 
                             <p:commandButton id="limpiar" value="Limpiar" style="position: absolute; left: 10px; top: 115px;"  actionListener="#{controlVigenciasEstadosCiviles.limpiarNuevoVigenciaEstadoCivil()}" update="nuevoEstadoCivil" process="@this" icon="ui-icon-trash"/>
@@ -316,9 +314,9 @@
                                 <p:ajax event="select" listener="#{controlVigenciasEstadosCiviles.valoresBackupAutocompletar(2)}" />
                                 <p:ajax event="click" listener="#{controlVigenciasEstadosCiviles.valoresBackupAutocompletar(2)}" />
                                 <p:ajax event="change" listener="#{controlVigenciasEstadosCiviles.autocompletarDuplicado('VIGESTADOSCIVILES',controlVigenciasEstadosCiviles.duplicarVigenciaEstadoCivil.estadocivil.descripcion, 2)}" />
-                                <p:ajax event="dblclick" listener="#{controlVigenciasEstadosCiviles.asignarVariableEstadosCiviles(1)}" />
+                                <p:ajax event="dblclick" listener="#{controlVigenciasEstadosCiviles.mostrarDialogoEstadosCiviles(1)}" />
                             </p:inputText>
-                            <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 272px; top: 80px;  " id="btnduplicarNombreSucursal" value=" " process="@this"  actionListener="#{controlVigenciasEstadosCiviles.asignarVariableEstadosCiviles(1)}"/>   
+                            <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 272px; top: 80px;  " id="btnduplicarNombreSucursal" value=" " process="@this"  actionListener="#{controlVigenciasEstadosCiviles.mostrarDialogoEstadosCiviles(1)}"/>   
                             <p:watermark for="duplicarEstadoCivil" value="Estado Civil" />
 
                             <p:commandButton id="limpiarD" value="Limpiar" style="position: absolute; left: 10px; top: 115px;"  actionListener="#{controlVigenciasEstadosCiviles.limpiarDuplicarVigenciaEstadoCivil()}" update="duplicarEvC" process="@this" icon="ui-icon-trash"/>
@@ -330,7 +328,7 @@
 
 
                 <h:form id="formExportar">
-                    <p:dataTable id="datosHvEntrevistaExportar" var="info" style="visibility: hidden; display: none;"                           
+                    <p:dataTable id="datosEstadoCivilExportar" var="info" style="visibility: hidden; display: none;"                           
                                  value="#{controlVigenciasEstadosCiviles.listVigenciaEstadoCivilPorEmpleado}">
                         <p:column>  
                             <f:facet name="header">

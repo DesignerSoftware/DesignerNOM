@@ -48,8 +48,7 @@ public class AdministrarFamiliares implements AdministrarFamiliaresInterface {
     PersistenciaCiudadesInterface persistenciaCiudades;
     @EJB
     PersistenciaTiposFamiliaresInterface persistenciaTiposFamiliares;
-    
-    
+
     private EntityManager em;
 
     @Override
@@ -60,8 +59,8 @@ public class AdministrarFamiliares implements AdministrarFamiliaresInterface {
     @Override
     public void modificarFamiliares(List<Familiares> listaModificar) {
         for (int i = 0; i < listaModificar.size(); i++) {
-             if(listaModificar.get(i).getPersona() == null){
-             listaModificar.get(i).setPersona(new Personas());
+            if (listaModificar.get(i).getPersona() == null) {
+                listaModificar.get(i).setPersona(new Personas());
             }
             System.out.println("Administrar Modificando...");
             persistenciaFamiliares.editar(em, listaModificar.get(i));
@@ -71,8 +70,8 @@ public class AdministrarFamiliares implements AdministrarFamiliaresInterface {
     @Override
     public void borrarFamiliares(List<Familiares> listaBorrar) {
         for (int i = 0; i < listaBorrar.size(); i++) {
-            if(listaBorrar.get(i).getPersona() == null){
-             listaBorrar.get(i).setPersona(new Personas());
+            if (listaBorrar.get(i).getPersona() == null) {
+                listaBorrar.get(i).setPersona(new Personas());
             }
             System.out.println("Administrar Borrando...");
             persistenciaFamiliares.borrar(em, listaBorrar.get(i));
@@ -83,8 +82,8 @@ public class AdministrarFamiliares implements AdministrarFamiliaresInterface {
     public void crearFamilares(List<Familiares> listaCrear) {
         for (int i = 0; i < listaCrear.size(); i++) {
             System.out.println("Administrar Creando...");
-            if(listaCrear.get(i).getPersona() == null){
-             listaCrear.get(i).setPersona(new Personas());
+            if (listaCrear.get(i).getPersona() == null) {
+                listaCrear.get(i).setPersona(new Personas());
             }
             persistenciaFamiliares.crear(em, listaCrear.get(i));
         }
@@ -122,14 +121,14 @@ public class AdministrarFamiliares implements AdministrarFamiliaresInterface {
 
     @Override
     public List<TiposDocumentos> consultarTiposDocumentos() {
-       List<TiposDocumentos> listTiposDocumentos;
+        List<TiposDocumentos> listTiposDocumentos;
         listTiposDocumentos = persistenciaTipoDocumento.consultarTiposDocumentos(em);
         return listTiposDocumentos;
     }
 
     @Override
     public List<Ciudades> consultarCiudades() {
-        List <Ciudades> listCiudades;
+        List<Ciudades> listCiudades;
         listCiudades = persistenciaCiudades.consultarCiudades(em);
         return listCiudades;
     }
@@ -143,9 +142,7 @@ public class AdministrarFamiliares implements AdministrarFamiliaresInterface {
 
     @Override
     public Personas consultarPersona(BigInteger secPersona) {
-       return persistenciaPersona.buscarPersonaSecuencia(em,secPersona);
+        return persistenciaPersona.buscarPersonaSecuencia(em, secPersona);
     }
-    
-    
-    
+
 }

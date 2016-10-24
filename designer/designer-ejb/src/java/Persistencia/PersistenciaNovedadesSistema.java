@@ -221,8 +221,16 @@ public class PersistenciaNovedadesSistema implements PersistenciaNovedadesSistem
          Query query = em.createNativeQuery(qr);
          query.setParameter(1, secuenciaEmpleado);
          BigDecimal valorcesantias = (BigDecimal) query.getSingleResult();
+          System.out.println("valor cesantias :" + valorcesantias);
+//         BigDecimal cero = new BigDecimal(0);
+//         if(valorcesantias == null){
+//             System.out.println("valor de cesantias es cero");
+//             return cero;
+//         }
+//         else{
          System.out.println("valor retornado por la funcion PersistenciaNovedadesSistema.valorCesantias: " + valorcesantias);
          return valorcesantias;
+//         }
       } catch (Exception e) {
          System.out.println("Error: (valorCesantias)" + e);
          return null;

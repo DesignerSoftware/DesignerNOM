@@ -74,12 +74,12 @@
                                 <p:separator style="position: relative; top: -9px"/> 
 
                                 <p:commandButton style="background-image: url(Imagenes/Iconos/refrescar.png)"
-                                                 id="refrescar" value="" oncomplete="window.location.reload()" actionListener="#{controlNovedadesVacaciones.cancelarModificacion()}" process="@this"/>  
+                                                 id="refrescar" value="" oncomplete="PF('window.location.reload()" actionListener="#{controlNovedadesVacaciones.cancelarModificacion()}" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
                                 <p:commandButton style="background-image: url(Imagenes/Iconos/salir.png)"
-                                                 id="salir" value="" action="#{controlNovedadesVacaciones.volverPagAnterior()}" actionListener="#{controlNovedadesVacaciones.salir()}"/>  
+                                                 id="salir" value="" action="atrasvacaciones" actionListener="#{controlNovedadesVacaciones.salir()}"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
                             </p:toolbarGroup>  
@@ -94,16 +94,7 @@
                                          emptyMessage="No se encontraron resultados para la búsqueda" selection="#{controlNovedadesVacaciones.empleadoSeleccionado}"
                                          editable="true" editMode="cell" selectionMode="single" >
 
-                                <p:ajax event="filter" listener="#{controlNovedadesVacaciones.eventoFiltrar()}"/>
                                 <p:ajax event="rowSelect" listener="#{controlNovedadesVacaciones.cambiarEmpleado()}"/>
-
-                                <p:column style="text-align: center" headerText="Código" sortBy="#{empleados.codigoempleado}" filterBy="#{empleados.codigoempleado}" 
-                                          filterMatchMode="contains" id="nEEmpleadosCodigos" width="70" filterStyle="display: none; visibility: hidden;" >                                  
-                                    <h:outputText value="#{empleados.codigoempleado}" />
-                                    <f:facet name="footer">
-                                        <h:outputText value ="" />  
-                                    </f:facet>  
-                                </p:column>
 
                                 <p:column headerText="Nombre" sortBy="#{empleados.persona.nombreCompleto}" filterBy="#{empleados.persona.nombreCompleto}" 
                                           filterMatchMode="contains" id="nEEmpleadosNombres" filterStyle="display: none; visibility: hidden;" >                                  
@@ -324,10 +315,8 @@
                             <h:outputText value="#{controlNovedadesVacaciones.diasAplazadosTotal}" id="diasAplazados" style=" position: relative; top: 15px ; left:360px; border-radius: 0px; width: 50px;" /> 
                         </fieldset>
 
-                        <p:commandButton style="position: absolute; left: 675px; top: 480px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; 
-                                         background-repeat: no-repeat; border: none;" value="" disabled="#{controlNovedadesVacaciones.guardado}" onclick="PF('confirmarGuardar').show();" update=":form:datosNovedadesEmpleado" process="@this" />
-                        <p:commandButton style="position: absolute; left: 765px; top: 480px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); 
-                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" value="" actionListener="#{controlNovedadesVacaciones.salir()}" action="#{controlNovedadesVacaciones.volverPagAnterior()}"/>
+                        <p:commandButton class="cssBotonAceptar" value="" disabled="#{controlNovedadesVacaciones.guardado}" onclick="PF('confirmarGuardar').show();" update=":form:datosNovedadesEmpleado" process="@this" />
+                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlNovedadesVacaciones.salir()}" action="atrasvacaciones"/>
 
                     </p:panel>
                 </h:form>
@@ -352,9 +341,7 @@
                             <strong><h:outputText value="Período: " style=" position: absolute; top: 105px;" /></strong>
                             <p:inputText  autocomplete="off"  id="nuevoPeriodo" value="#{controlNovedadesVacaciones.nuevaNovedad.vacacion.periodo}" 
                                          style=" width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase" onclick="select();">
-                                <!-- Evento Click, sí es nulo el campo Que aparezca la lista de valores de Periodo -->
                                 <p:ajax event="dblclick" listener="#{controlNovedadesVacaciones.lovPeriodo(controlNovedadesVacaciones.empleadoSeleccionado.secuencia,1)}" />
-                            <!--<p:ajax event="dblclick"  listener="formularioDialogos:periodosDialogo').show()" />-->
                             <p:ajax event="change" listener="#{controlNovedadesVacaciones.lovPeriodo(controlNovedadesVacaciones.empleadoSeleccionado.secuencia,1)}" />
                             </p:inputText>
 
@@ -587,10 +574,10 @@
 
                             <p:ajax event="rowSelect" listener="#{controlNovedadesVacaciones.activarAceptar()}" update=":formularioDialogos:aceptarE"/>
                             <p:ajax event="rowDblselect" listener="#{controlNovedadesVacaciones.actualizarEmpleadosNovedad()}" process="@this" />
-                            <p:ajax event="filter" listener="#{controlNovedadesVacaciones.eventoFiltrarLovEmpleados()}"/>
+                            <p:ajax event="filter" listener="#{controlNovedadesVacaciones.contarRegistroEmpleadosLOV()}"/>
                             <f:facet name="header">  
-                                <h:outputText value="Nombre: " style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVEmpleados').filter();" style="width: 400px; position: relative; left: 60px;" />  
+                                <h:outputText value="Nombre: " />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVEmpleados').filter();" class="cssFiltroLOV" />  
                             </f:facet>
 
                             <p:column style="text-align: center" sortBy="#{emp.codigoempleado}" filterBy="#{emp.codigoempleado}" width="80" filterMatchMode="contains" filterStyle="width: 94%"> 
@@ -617,9 +604,12 @@
                             </p:column>
 
                         </p:dataTable>
-                        <h:outputText id="infoRegistroEmpleadosLOV" value="#{msg['infoRegistros']} #{controlNovedadesVacaciones.infoRegistroEmpleadosLOV} " style="position: relative; left: 10px; top: 17px; font-weight: bold"/>
-                        <p:commandButton id="aceptarE" value="#{msg['aceptar']}" icon="ui-icon-check" style="position: absolute; top: 300px; left: 425px; height: 30px; width: 90px;" actionListener="#{controlNovedadesVacaciones.actualizarEmpleadosNovedad()}" process="@this"  disabled="#{controlNovedadesVacaciones.aceptar}"/>
-                        <p:commandButton id="atrasE" value="#{msg['cancelar']}" icon="ui-icon-close" style="position: absolute; top: 300px; left: 520px; height: 30px; width: 90px;" actionListener="#{controlNovedadesVacaciones.cancelarCambioEmpleados()}" process="@this"/>
+                        
+                        <div class="cssBotonesLOV"> 
+                        <h:outputText id="infoRegistroEmpleadosLOV" value="#{msg['infoRegistros']} #{controlNovedadesVacaciones.infoRegistroEmpleadosLOV} " class="cssinfoRegistroLOV"/>
+                        <p:commandButton id="aceptarE" value="#{msg['aceptar']}" icon="ui-icon-check" class="cssAceptarLOV" actionListener="#{controlNovedadesVacaciones.actualizarEmpleadosNovedad()}" process="@this"  disabled="#{controlNovedadesVacaciones.aceptar}"/>
+                        <p:commandButton id="atrasE" value="#{msg['cancelar']}" icon="ui-icon-close" class="cssAtrasLOV" actionListener="#{controlNovedadesVacaciones.cancelarCambioEmpleados()}" process="@this"/>
+                        </div>
 
                     </p:dialog>
 
@@ -634,10 +624,11 @@
 
                             <p:ajax event="rowSelect" listener="#{controlNovedadesVacaciones.activarAceptar()}" update=":formularioDialogos:aceptarP"/>
                             <p:ajax event="rowDblselect" listener="#{controlNovedadesVacaciones.actualizarPeriodos()}" process="@this"/>
+                            <p:ajax event="filter" listener="#{controlNovedadesVacaciones.contarRegistroPeriodos()}"/>
                            
                             <f:facet name="header">  
-                                <h:outputText value="Buscar Periodo: " style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVPeriodos').filter();" style="width: 230px; position: relative; left: 60px;" />  
+                                <h:outputText value="Buscar Periodo: " />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVPeriodos').filter();" class="cssFiltroLOV"/>  
                             </f:facet>
 
                             <p:column style="text-align: center" sortBy="#{per.diaspendientes}" filterStyle="width: 94%" filterBy="#{per.diaspendientes}" width="70" filterMatchMode="contains" > 
@@ -655,11 +646,12 @@
                             </p:column>
 
                         </p:dataTable>
-
-                        <p:commandButton id="aceptarP" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlNovedadesVacaciones.aceptar}" style="position: absolute; top: 305px; left: 250px; height: 30px; width: 90px;"
-                                         actionListener="#{controlNovedadesVacaciones.actualizarPeriodos()}"  process="@this"/>
-
-                        <p:commandButton id="atrasP" value="#{msg['cancelar']}" icon="ui-icon-close" style="position: absolute; top: 305px; left: 345px; height: 30px; width: 90px;"  actionListener="#{controlNovedadesVacaciones.cancelarCambioPeriodos()}"  process="@this"/>
+                        
+                        <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroPeriodosLOV" value="#{msg['infoRegistros']} #{controlNovedadesVacaciones.infoRegistroPeriodo} " class="cssinfoRegistroLOV"/>
+                        <p:commandButton id="aceptarP" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlNovedadesVacaciones.aceptar}" class="cssAceptarLOV"   actionListener="#{controlNovedadesVacaciones.actualizarPeriodos()}"  process="@this"/>
+                        <p:commandButton id="atrasP" value="#{msg['cancelar']}" icon="ui-icon-close" class="cssAtrasLOV"  actionListener="#{controlNovedadesVacaciones.cancelarCambioPeriodos()}"  process="@this"/>
+                        </div>
 
                     </p:dialog>
 

@@ -74,7 +74,7 @@
                                 <p:separator style="position: relative; top: -9px"/> 
 
                                 <p:commandButton style="background-image: url(Imagenes/Iconos/refrescar.png)"
-                                                 id="refrescar" value="" oncomplete="window.location.reload()" actionListener="#{controlNovedadCesantiasRC.cancelarModificacion()}" process="@this"/>  
+                                                 id="refrescar" value="" oncomplete="PF('window.location.reload()" actionListener="#{controlNovedadCesantiasRC.cancelarModificacion()}" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
@@ -86,7 +86,7 @@
                         </p:toolbar> 
 
                         <p:commandButton style="position: absolute; left: 675px; top: 480px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; 
-                                         background-repeat: no-repeat; border: none;" value="" disabled="#{controlNovedadCesantiasRC.guardado}" onclick="PF('confirmarGuardar').show();" update=":form:datosNovedadesEmpleado" process="@this" />
+                                         background-repeat: no-repeat; border: none;" value="" disabled="#{controlNovedadCesantiasRC.guardado}" id="ACEPTAR" onclick="PF('confirmarGuardar').show();" update=":form:datosNovedadesEmpleado" process="@this" />
                         <p:commandButton style="position: absolute; left: 765px; top: 480px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); 
                                          background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" value="" actionListener="#{controlNovedadCesantiasRC.salir()}" action="novedad"/>
 
@@ -182,8 +182,8 @@
 
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  id="editarfechacorteintcesantia"  value="#{novedades.fechacortecesantia}" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase;height:12px"
-                                                         >
-                                                <!--onselect="posicionOtro([{name: 'celda', value: '1'}, {name: 'registro', value: '#{indice}'}]);" >-->
+                                                          >
+                                                 <!--onselect="posicionOtro([{name: 'celda', value: '1'}, {name: 'registro', value: '#{indice}'}]);" >-->
                                                 <f:convertDateTime pattern="dd/MM/yyyy" />
                                                 <p:ajax event="select" listener="#{controlNovedadCesantiasRC.cambiarIndice(novedades, 1)}" process="@this"/>
                                             </p:inputText>
@@ -209,7 +209,7 @@
                                                 <!--onselect="posicionOtro([{name: 'celda', value: '2'}, {name: 'registro', value: '#{indice}'}]);"-->
                                                 <p:ajax event="select" listener="#{controlNovedadCesantiasRC.cambiarIndice(novedades,2 )}" process="@this"/>
                                             </p:inputText>
-                                             <p:keyFilter for="editarvalorcesantias" mask="num"/>
+                                            <p:keyFilter for="editarvalorcesantias" mask="num"/>
                                         </f:facet>  
                                     </p:cellEditor>
 
@@ -287,7 +287,7 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 250px; margin: -14px; height: 26px;border: none; color: blue" id="fooMotivoCesantia" value=" " action="motivocesantias" actionListener="#{controlMotivosCesantias.recibirPag('novedadcesantiasrc')}"/>
+                                        <p:commandButton style="width: 250px; margin: -1px; height: 26px;border: none; color: blue" id="fooMotivoCesantia" value=" " action="motivocesantias" actionListener="#{controlMotivosCesantias.recibirPag('novedadcesantiasrc')}"/>
                                     </f:facet>
                                 </p:column>
 
@@ -326,7 +326,7 @@
                                             <h:outputText value="#{novedades.beneficiario}" style="text-transform: uppercase" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{novedades.beneficiario}" id="editarbeneficiarios" style=" border-radius: 0px; width: 93.5%;
-                                                         text-transform: uppercase;height:12px;" >
+                                                          text-transform: uppercase;height:12px;" >
                                                 <p:ajax event="select" listener="#{controlNovedadCesantiasRC.cambiarIndice(novedades, 7)}" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlNovedadCesantiasRC.modificarNovedadCesantias(novedades,'M' ,novedades.beneficiario)}" />
                                             </p:inputText>
@@ -375,31 +375,31 @@
 
                             <strong><h:outputText value="#{msg['vlrCesantias']}" style=" position: absolute; top: 145px;" /></strong>
                             <p:inputText  autocomplete="off"  id="vlrcesantias" value="#{controlNovedadCesantiasRC.nuevaNovedad.valorcesantia}" 
-                                         style=" width: 122px; position: absolute; left: 220px; top: 140px; text-transform: uppercase; text-align: right;" onclick="select();" >
+                                          style=" width: 122px; position: absolute; left: 220px; top: 140px; text-transform: uppercase; text-align: right;" onclick="select();" >
                             </p:inputText>
-                             <p:keyFilter for="vlrcesantias" mask="num"/>
+                            <p:keyFilter for="vlrcesantias" mask="num"/>
                             <p:commandButton style="background-image: url(Imagenes/Iconos/generarReporte.png) ;background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; top: 140px; left: 355px; " value="" 
                                              actionListener="#{controlNovedadCesantiasRC.autocompletarVlrCesantias()}" />
 
                             <strong><h:outputText value="#{msg['vlrintcesantias']}" style=" position: absolute; top: 185px;" /></strong>
                             <p:inputText  autocomplete="off"  id="vlrintcesantias" value="#{controlNovedadCesantiasRC.nuevaNovedad.valorinterescesantia}" 
-                                         style=" width: 122px; position: absolute; left: 220px; top: 180px; text-transform: uppercase; text-align: right;" onclick="select();">
+                                          style=" width: 122px; position: absolute; left: 220px; top: 180px; text-transform: uppercase; text-align: right;" onclick="select();">
                             </p:inputText>
-                             <p:keyFilter for="vlrintcesantias" mask="num"/>
+                            <p:keyFilter for="vlrintcesantias" mask="num"/>
                             <p:commandButton style="background-image: url(Imagenes/Iconos/generarReporte.png) ;background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; top: 180px; left: 355px; " value="" 
                                              actionListener="#{controlNovedadCesantiasRC.autocompletarVlrIntCesantias()}" />
 
                             <strong><h:outputText value="#{msg['vlrsolicitado']}" style=" position: absolute; top: 225px;" /></strong>
                             <p:inputText  autocomplete="off"  id="vlrsolicitado" value="#{controlNovedadCesantiasRC.nuevaNovedad.valorsolicitado} " readonly="true" 
-                                         style=" width: 122px; position: absolute; left: 220px; top: 220px; text-transform: uppercase; text-align: right;" onclick="select();">
+                                          style=" width: 122px; position: absolute; left: 220px; top: 220px; text-transform: uppercase; text-align: right;" onclick="select();">
                             </p:inputText>
-                             <p:keyFilter for="vlrsolicitado" mask="num"/>
+                            <p:keyFilter for="vlrsolicitado" mask="num"/>
                             <p:commandButton style="background-image: url(Imagenes/Iconos/generarReporte.png) ;background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; top: 220px; left: 355px; " value="" 
                                              actionListener="#{controlNovedadCesantiasRC.autocompletarVlrSolicitado()}" />
 
                             <strong><h:outputText value="#{msg['motcesantias']}" style=" position: absolute; top: 265px;" /></strong>
                             <p:inputText  autocomplete="off"  id="motivoces" value="#{controlNovedadCesantiasRC.nuevaNovedad.motivocesantia.nombre}"  readonly="true"
-                                         style=" width: 122px; position: absolute; left: 220px; top: 260px; text-align: right; " onclick="select();">
+                                          style=" width: 122px; position: absolute; left: 220px; top: 260px; text-align: right; " onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlNovedadCesantiasRC.asignarIndex(novedades,5, 1)}"/>
 <!--                                <p:ajax event="click" listener="#{controlNovedadCesantiasRC.autocompletar(2,'MOTIVO')}"/>
                                 <p:ajax event="change" listener="#{controlNovedadCesantiasRC.valoresautocompletarnuevo('MOTIVO', controlNovedadCesantiasRC.nuevaNovedad.motivocesantia.nombre, 1)}" />
@@ -410,13 +410,13 @@
 
                             <strong><h:outputText value="#{msg['obs']}" style=" position: absolute; top: 305px;" /></strong>
                             <p:inputText  autocomplete="off"  id="obsv" value="#{controlNovedadCesantiasRC.nuevaNovedad.observaciones}" 
-                                         style=" width: 122px; position: absolute; left: 220px; top: 300px; text-transform: uppercase" onclick="select();">
+                                          style=" width: 122px; position: absolute; left: 220px; top: 300px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="obsv"/>
                             </p:inputText>
 
                             <strong><h:outputText value="#{msg['beneficiarios']}" style=" position: absolute; top: 345px;" /></strong>
                             <p:inputText  autocomplete="off"  id="beneficiario" value="#{controlNovedadCesantiasRC.nuevaNovedad.beneficiario}" 
-                                         style=" width: 122px; position: absolute; left: 220px; top: 340px; text-transform: uppercase" onclick="select();">
+                                          style=" width: 122px; position: absolute; left: 220px; top: 340px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="beneficiario"/>
                             </p:inputText>
 
@@ -433,7 +433,7 @@
 
                         <p:panel id="duplicarNovedad" style="border: none;">
 
-                           <strong><h:outputText value="#{msg['fechacortecesantias']}" style=" position: absolute; top: 65px;" /></strong>
+                            <strong><h:outputText value="#{msg['fechacortecesantias']}" style=" position: absolute; top: 65px;" /></strong>
                             <div id="duplicarposicionFechaCorteCesantia" style=" position: absolute; top: 60px; left: 200px">
                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarnuevaFechaInicial" value="#{controlNovedadCesantiasRC.duplicarNovedad.fechainicialdisfrute}" >
                                     <p:ajax event="dateSelect" update="duplicarnuevaFechaInicial"  process="@this"/>
@@ -450,9 +450,9 @@
 
                             <strong><h:outputText value="#{msg['vlrCesantias']}" style=" position: absolute; top: 145px;" /></strong>
                             <p:inputText  autocomplete="off"  id="duplicarvlrcesantias" value="#{controlNovedadCesantiasRC.duplicarNovedad.valorcesantia}" 
-                                         style=" width: 122px; position: absolute; left: 200px; top: 140px; text-transform: uppercase; text-align: right;" onclick="select();">
+                                          style=" width: 122px; position: absolute; left: 200px; top: 140px; text-transform: uppercase; text-align: right;" onclick="select();">
                             </p:inputText>
-                             <p:keyFilter for="duplicarvlrcesantias" mask="num"/>
+                            <p:keyFilter for="duplicarvlrcesantias" mask="num"/>
                             <p:commandButton style="background-image: url(Imagenes/Iconos/generarReporte.png) ;background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; top: 140px; left: 355px; " value="" 
                                              actionListener="#{controlNovedadCesantiasRC.autocompletarduplicarVlrCesantias()}" />
 
@@ -460,16 +460,16 @@
                             <p:inputText  autocomplete="off"   id="duplicarvlrintcesantias" value="#{controlNovedadCesantiasRC.duplicarNovedad.valorinterescesantia}" 
                                           style=" width: 122px; position: absolute; left: 200px; top: 180px; text-transform: uppercase; text-align: right;" onclick="select();">
                             </p:inputText>
-                             <p:keyFilter for="duplicarvlrintcesantias" mask="num"/>
+                            <p:keyFilter for="duplicarvlrintcesantias" mask="num"/>
                             <p:commandButton style="background-image: url(Imagenes/Iconos/generarReporte.png) ;background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; top: 180px; left: 355px; " value="" 
                                              actionListener="#{controlNovedadCesantiasRC.autocompletarduplicarVlrIntCesantias()}" />
 
 
                             <strong><h:outputText value="#{msg['vlrsolicitado']}" style=" position: absolute; top: 225px;" /></strong>
                             <p:inputText  autocomplete="off"  id="duplicarvlrsolicitado" value="#{controlNovedadCesantiasRC.duplicarNovedad.valorsolicitado}" 
-                                         style=" width: 122px; position: absolute; left: 200px; top: 220px; text-transform: uppercase; text-align: right;" onclick="select();">
+                                          style=" width: 122px; position: absolute; left: 200px; top: 220px; text-transform: uppercase; text-align: right;" onclick="select();">
                             </p:inputText>
-                             <p:keyFilter for="duplicarvlrsolicitado" mask="num"/>
+                            <p:keyFilter for="duplicarvlrsolicitado" mask="num"/>
                             <p:commandButton style="background-image: url(Imagenes/Iconos/generarReporte.png) ;background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; top: 220px; left: 355px; " value="" 
                                              actionListener="#{controlNovedadCesantiasRC.autocompletarduplicarVlrSolicitado()}" />
 
@@ -485,7 +485,7 @@
 
                             <strong><h:outputText value="#{msg['obs']}" style=" position: absolute; top: 305px;" /></strong>
                             <p:inputText  autocomplete="off"  id="duplicarobsv" value="#{controlNovedadCesantiasRC.duplicarNovedad.observaciones}" 
-                                         style=" width: 122px; position: absolute; left: 200px; top: 300px; text-transform: uppercase" onclick="select();">
+                                          style=" width: 122px; position: absolute; left: 200px; top: 300px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="duplicarobsv"/>
                             </p:inputText>
 
@@ -581,24 +581,24 @@
                         <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('validacionNuevaNovedadEmpleado').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                      <p:dialog id="validacionvlrcesantias" header="#{msg['atencion']}" widgetVar="validacionvlrcesantias"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
+                    <p:dialog id="validacionvlrcesantias" header="#{msg['atencion']}" widgetVar="validacionvlrcesantias"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 20px; top: 10px;"  />
                         <h:outputText value="#{msg['validacionvlrcesantias']}" style="position: absolute; left: 90px; top: 20px; width: 300px;" />
                         <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('validacionvlrcesantias').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
-                    
-                     <p:dialog id="validacionvlrintcesantias" header="#{msg['atencion']}" widgetVar="validacionvlrintcesantias"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
+
+                    <p:dialog id="validacionvlrintcesantias" header="#{msg['atencion']}" widgetVar="validacionvlrintcesantias"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 20px; top: 10px;"  />
                         <h:outputText value="#{msg['validacionvlrintcesantias']}" style="position: absolute; left: 90px; top: 20px; width: 300px;" />
                         <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('validacionvlrintcesantias').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
-                    
-                     <p:dialog id="validacionvlrsolicitado" header="#{msg['atencion']}" widgetVar="validacionvlrsolicitado"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
+
+                    <p:dialog id="validacionvlrsolicitado" header="#{msg['atencion']}" widgetVar="validacionvlrsolicitado"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 20px; top: 10px;"  />
                         <h:outputText value="#{msg['validacionvlrsolicitado']}" style="position: absolute; left: 90px; top: 20px; width: 300px;" />
                         <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('validacionvlrsolicitado').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
-                    
+
                     <!-- L.O.V Empleado-->
                     <p:dialog header="Buscar Empleado" widgetVar="empleadosDialogo" draggable="true" resizable="false" id="empleadosDialogo" closable="false"  
                               showEffect="fade" hideEffect="fade" modal="true" width="646" height="330" >
@@ -610,10 +610,10 @@
 
                             <p:ajax event="rowSelect" listener="#{controlNovedadCesantiasRC.activarAceptar()}" update=":formularioDialogos:aceptarE"/>
                             <p:ajax event="rowDblselect" listener="#{controlNovedadCesantiasRC.actualizarEmpleadosNovedad()}" process="@this" />
-                            <p:ajax event="filter" listener="#{controlNovedadCesantiasRC.eventoFiltrarLovEmpleados()}"/>
+                            <p:ajax event="filter" listener="#{controlNovedadCesantiasRC.contarRegistroEmpleadosLov()}"/>
                             <f:facet name="header">  
-                                <h:outputText value="Nombre: " style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVEmpleados').filter();" style="width: 400px; position: relative; left: 60px;" />  
+                                <h:outputText value="Nombre: " />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVEmpleados').filter();" class="cssFiltroLOV" />  
                             </f:facet>
 
                             <p:column style="text-align: center" sortBy="#{emp.codigoempleado}" filterBy="#{emp.codigoempleado}" width="80" filterMatchMode="contains" filterStyle="width: 94%"> 
@@ -630,9 +630,11 @@
                                 <h:outputText value="#{emp.persona.nombreCompleto}" />  
                             </p:column>
                         </p:dataTable>
-                        <h:outputText id="infoRegistroEmpleadosLOV" value="#{msg['infoRegistros']} #{controlNovedadCesantiasRC.infoRegistroEmpleadosLov} " style="position: relative; left: 10px; top: 17px; font-weight: bold"/>
-                        <p:commandButton id="aceptarE" value="#{msg['aceptar']}" icon="ui-icon-check" style="position: absolute; top: 300px; left: 425px; height: 30px; width: 90px;" actionListener="#{controlNovedadCesantiasRC.actualizarEmpleadosNovedad()}" process="@this"  disabled="#{controlNovedadCesantiasRC.aceptar}"/>
-                        <p:commandButton id="atrasE" value="#{msg['cancelar']}" icon="ui-icon-close" style="position: absolute; top: 300px; left: 520px; height: 30px; width: 90px;" actionListener="#{controlNovedadCesantiasRC.cancelarCambioEmpleados()}" process="@this"/>
+                        <div class="cssBotonesLOV"> 
+                        <h:outputText id="infoRegistroEmpleadosLOV" value="#{msg['infoRegistros']} #{controlNovedadCesantiasRC.infoRegistroEmpleadosLov} " class="cssinfoRegistroLOV"/>
+                        <p:commandButton id="aceptarE" value="#{msg['aceptar']}" icon="ui-icon-check" class="cssAceptarLOV" actionListener="#{controlNovedadCesantiasRC.actualizarEmpleadosNovedad()}" process="@this"  disabled="#{controlNovedadCesantiasRC.aceptar}"/>
+                        <p:commandButton id="atrasE" value="#{msg['cancelar']}" icon="ui-icon-close" class="cssAtrasLOV" actionListener="#{controlNovedadCesantiasRC.cancelarCambioEmpleados()}" process="@this"/>
+                        </div>
 
                     </p:dialog>
 
@@ -648,10 +650,10 @@
 
                             <p:ajax event="rowSelect" listener="#{controlNovedadCesantiasRC.activarAceptar()}" update=":formularioDialogos:aceptarP"/>
                             <p:ajax event="rowDblselect" listener="#{controlNovedadCesantiasRC.actualizarMotivosCesantias()}" process="@this" />
-                            <p:ajax event="filter" listener="#{controlNovedadCesantiasRC.eventoFiltrarLovMotivosCesantias()}"/>
+                            <p:ajax event="filter" listener="#{controlNovedadCesantiasRC.contarRegistroMotivosNovedades()}"/>
                             <f:facet name="header">  
-                                <h:outputText value="Buscar Periodo: "  style="position: absolute; left: 27px; top: 15px;"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovmotivoscesantias').filter();" style="width: 230px; position: relative; left: 60px;" />  
+                                <h:outputText value="Buscar Periodo: "  />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovmotivoscesantias').filter();" class="cssFiltroLOV" />  
                             </f:facet>
 
                             <p:column style="text-align: center" sortBy="#{mov.codigo}" filterStyle="width: 94%" filterBy="#{mov.codigo}" width="70" filterMatchMode="contains" > 
@@ -669,10 +671,12 @@
                             </p:column>
 
                         </p:dataTable>
-
-                        <h:outputText id="infoRegistroMotivosNovedades" value="#{msg['infoRegistros']} #{controlNovedadCesantiasRC.infoRegistroMotivosCesantias} " style="position: relative; left: 10px; top: 17px; font-weight: bold"/>
-                        <p:commandButton id="aceptarP" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlNovedadCesantiasRC.aceptar}" style="position: absolute; top: 305px; left: 250px; height: 30px; width: 90px;" actionListener="#{controlNovedadCesantiasRC.actualizarMotivosCesantias()}"  process="@this"/>
-                        <p:commandButton id="atrasP" value="#{msg['cancelar']}" icon="ui-icon-close" style="position: absolute; top: 305px; left: 345px; height: 30px; width: 90px;"  actionListener="#{controlNovedadCesantiasRC.cancelarCambioMotivoCesantias()}"  process="@this"/>
+                        
+                        <div class="cssBotonesLOV"> 
+                        <h:outputText id="infoRegistroMotivosNovedades" value="#{msg['infoRegistros']} #{controlNovedadCesantiasRC.infoRegistroMotivosCesantias} " class="cssinfoRegistroLOV"/>
+                        <p:commandButton id="aceptarP" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlNovedadCesantiasRC.aceptar}" class="cssAceptarLOV" actionListener="#{controlNovedadCesantiasRC.actualizarMotivosCesantias()}"  process="@this"/>
+                        <p:commandButton id="atrasP" value="#{msg['cancelar']}" icon="ui-icon-close" class="cssAtrasLOV"  actionListener="#{controlNovedadCesantiasRC.cancelarCambioMotivoCesantias()}"  process="@this"/>
+                        </div>
 
                     </p:dialog>
 
@@ -723,10 +727,19 @@
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 5px; width: 185px; font-weight:bold;" />
                     </p:dialog>
+                    
+                     <p:dialog id="errorCesantias" header="#{msg['informacion']}" widgetVar="errorCesantias"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorCesantias']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+                   
+                     <p:dialog id="errorIntCesantias" header="#{msg['informacion']}" widgetVar="errorIntCesantias"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorIntCesantias']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                    </p:dialog>
 
                     <!--HotKey-->
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlNovedadCesantiasRC.activarCtrlF11()}" process="@this"/> 
-
 
                 </h:form>
 

@@ -5,7 +5,6 @@
  */
 package Controlador;
 
-
 import Administrar.AdministrarNovedadCesantiasRC;
 import Entidades.Empleados;
 import Entidades.MotivosCesantias;
@@ -162,7 +161,6 @@ public class ControlNovedadCesantiasRC implements Serializable {
 
     public void recibirPag(String pag) {
         paginaAnterior = pag;
-        contarRegistrosNovedades();
         if (!listaEmpleadosNovedad.isEmpty()) {
             empleadoSeleccionado = listaEmpleadosNovedad.get(0);
         }
@@ -249,7 +247,7 @@ public class ControlNovedadCesantiasRC implements Serializable {
             }
         }
 
-        modificarInfoRegistroEmpleados(listaEmpleadosNovedad.size());
+        contarRegistroEmpleados();
         RequestContext context = RequestContext.getCurrentInstance();
         actuales = false;
         RequestContext.getCurrentInstance().update("form:datosEmpleados");
@@ -307,18 +305,16 @@ public class ControlNovedadCesantiasRC implements Serializable {
 
                     }
                 }
-            } else {
-                if (!listaNovedadesCrear.contains(novedadSeleccionada)) {
-                    if (listaNovedadesModificar.isEmpty()) {
-                        listaNovedadesModificar.add(novedadSeleccionada);
-                    } else if (!listaNovedadesModificar.contains(novedadSeleccionada)) {
-                        listaNovedadesModificar.add(novedadSeleccionada);
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            } else if (!listaNovedadesCrear.contains(novedadSeleccionada)) {
+                if (listaNovedadesModificar.isEmpty()) {
+                    listaNovedadesModificar.add(novedadSeleccionada);
+                } else if (!listaNovedadesModificar.contains(novedadSeleccionada)) {
+                    listaNovedadesModificar.add(novedadSeleccionada);
+                }
+                if (guardado == true) {
+                    guardado = false;
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
-                    }
                 }
             }
 
@@ -337,18 +333,16 @@ public class ControlNovedadCesantiasRC implements Serializable {
 
                     }
                 }
-            } else {
-                if (!listaNovedadesCrear.contains(novedadSeleccionada)) {
-                    if (listaNovedadesModificar.isEmpty()) {
-                        listaNovedadesModificar.add(novedadSeleccionada);
-                    } else if (!listaNovedadesModificar.contains(novedadSeleccionada)) {
-                        listaNovedadesModificar.add(novedadSeleccionada);
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            } else if (!listaNovedadesCrear.contains(novedadSeleccionada)) {
+                if (listaNovedadesModificar.isEmpty()) {
+                    listaNovedadesModificar.add(novedadSeleccionada);
+                } else if (!listaNovedadesModificar.contains(novedadSeleccionada)) {
+                    listaNovedadesModificar.add(novedadSeleccionada);
+                }
+                if (guardado == true) {
+                    guardado = false;
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
-                    }
                 }
             }
 
@@ -411,7 +405,7 @@ public class ControlNovedadCesantiasRC implements Serializable {
             System.out.println("agregarNuevaNovedadPagoParcialCesantias.observacion : " + nuevaNovedad.getObservaciones());
             System.out.println("agregarNuevaNovedadPagoParcialCesantias.Beneficiario : " + nuevaNovedad.getBeneficiario());
             novedadSeleccionada = nuevaNovedad;
-            modificarInfoRegistroMotivosNovedades(listaNovedades.size());
+            contarRegistroMotivosNovedades();
             if (guardado == true) {
                 guardado = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -482,7 +476,7 @@ public class ControlNovedadCesantiasRC implements Serializable {
             listaNovedadesCrear.add(duplicarNovedad);
             listaNovedades.add(duplicarNovedad);
             novedadSeleccionada = duplicarNovedad;
-            modificarInfoRegistroMotivosNovedades(listaNovedades.size());
+            contarRegistroMotivosNovedades();
             if (guardado == true) {
                 guardado = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -631,33 +625,32 @@ public class ControlNovedadCesantiasRC implements Serializable {
 
     public void autocompletarVlrCesantias() {
         System.out.println("Entró a autocompletarVlrCesantias");
-        if(retornarprovision() != null){
-        nuevaNovedad.setValorcesantia(retornarprovisioncesantias().toBigInteger());
-        RequestContext.getCurrentInstance().update("formularioDialogos:vlrcesantias");
-        } else {
-        RequestContext.getCurrentInstance().execute("PF('formularioDialogos:validacionvlrcesantias");
+       if(retornarprovision() == null){
+        RequestContext.getCurrentInstance().execute("PF('validacionvlrcesantias");
+       }
+        if (retornarprovision() != null) {
+            nuevaNovedad.setValorcesantia(retornarprovisioncesantias().toBigInteger());
+            RequestContext.getCurrentInstance().update("formularioDialogos:vlrcesantias");
         }
-        
     }
 
     public void autocompletarVlrIntCesantias() {
         System.out.println("Entró a autocompletarVlrIntCesantias");
-        if(retornarprovision() != null){
-        nuevaNovedad.setValorinterescesantia(retornarprovision().toBigInteger());
-        RequestContext.getCurrentInstance().update("formularioDialogos:vlrintcesantias");
+        if (retornarprovision() != null) {
+            nuevaNovedad.setValorinterescesantia(retornarprovision().toBigInteger());
+            RequestContext.getCurrentInstance().update("formularioDialogos:vlrintcesantias");
         } else {
-        RequestContext.getCurrentInstance().execute("PF('formularioDialogos:validacionvlrintcesantias");
+            RequestContext.getCurrentInstance().execute("PF('formularioDialogos:validacionvlrintcesantias");
         }
     }
 
     public void autocompletarVlrSolicitado() {
         System.out.println("Entró a autocompletarVlrSolicitado");
-        if(retornarprovision() != null && retornarprovisioncesantias() != null){
-        nuevaNovedad.setValorsolicitado(sumarvalorsolicitado(nuevaNovedad.getValorcesantia(), nuevaNovedad.getValorinterescesantia()));
-        RequestContext.getCurrentInstance().update("formularioDialogos:vlrsolicitado");
-        }
-        else{
-        RequestContext.getCurrentInstance().execute("PF('formularioDialogos:validacionvlrsolicitado");
+        if (retornarprovision() != null && retornarprovisioncesantias() != null) {
+            nuevaNovedad.setValorsolicitado(sumarvalorsolicitado(nuevaNovedad.getValorcesantia(), nuevaNovedad.getValorinterescesantia()));
+            RequestContext.getCurrentInstance().update("formularioDialogos:vlrsolicitado");
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('formularioDialogos:validacionvlrsolicitado");
         }
     }
 
@@ -704,7 +697,7 @@ public class ControlNovedadCesantiasRC implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (listaV == 0) {
             empleadoSeleccionadoLOV = null;
-            modificarInfoRegistroEmpleadosLov(listaEmpleadosLOV.size());
+            contarRegistroEmpleadosLov();
             contarRegistrosNovedades();
             RequestContext.getCurrentInstance().update("formularioDialogos:empleadosDialogo");
             RequestContext.getCurrentInstance().execute("PF('empleadosDialogo').show()");
@@ -726,7 +719,7 @@ public class ControlNovedadCesantiasRC implements Serializable {
         tipoActualizacion = -1;
         cualCelda = -1;
         activarMTodos = false;
-        modificarInfoRegistroEmpleados(listaEmpleadosLOV.size());
+        contarRegistroEmpleados();
         contarRegistrosNovedades();
         context.reset("formularioDialogos:LOVEmpleados:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVEmpleados').clearFilters()");
@@ -822,7 +815,7 @@ public class ControlNovedadCesantiasRC implements Serializable {
             if (tipoLista == 1) {
                 listaFiltrarNovedades.remove(novedadSeleccionada);
             }
-            modificarInfoRegistroMotivosNovedades(listaNovedades.size());
+            contarRegistroMotivosNovedades();
             RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
             novedadSeleccionada = null;
 
@@ -1002,36 +995,23 @@ public class ControlNovedadCesantiasRC implements Serializable {
         if (tipoLista == 0) {
             tipoLista = 1;
         }
-        novedadSeleccionada = null;
-        modificarInfoRegistroNovedades(listaFiltrarNovedades.size());
+        contarRegistrosNovedades();
     }
 
-    public void modificarInfoRegistroNovedades(int valor) {
-        infoRegistroNovedadCesantias = String.valueOf(valor);
-        RequestContext.getCurrentInstance().update("form:infoRegistroNovedad");
-    }
-
-    public void modificarInfoRegistroEmpleados(int valor) {
-        infoRegistroEmpleados = String.valueOf(valor);
+    public void contarRegistroEmpleados() {
         RequestContext.getCurrentInstance().update("form:infoRegistroEmpleados");
     }
 
-    public void modificarInfoRegistroEmpleadosLov(int valor) {
-        infoRegistroEmpleadosLov = String.valueOf(valor);
+    public void contarRegistroEmpleadosLov() {
         RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroEmpleadosLOV");
     }
 
-    public void modificarInfoRegistroMotivosNovedades(int valor) {
-        infoRegistroMotivosCesantias = String.valueOf(valor);
+    public void contarRegistroMotivosNovedades() {
         RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroMotivosNovedades");
     }
 
     public void contarRegistrosNovedades() {
-        if (listaNovedades != null && empleadoSeleccionado != null) {
-            modificarInfoRegistroNovedades(listaNovedades.size());
-        } else {
-            modificarInfoRegistroNovedades(0);
-        }
+        RequestContext.getCurrentInstance().update("form:infoRegistroNovedad");
     }
 
     public void entrarNuevoRegistro() {
@@ -1045,14 +1025,6 @@ public class ControlNovedadCesantiasRC implements Serializable {
         } else {
             RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
-    }
-
-    public void eventoFiltrarLovEmpleados() {
-        modificarInfoRegistroEmpleadosLov(listaFiltrarEmpleadosLOV.size());
-    }
-
-    public void eventoFiltrarLovMotivosCesantias() {
-        modificarInfoRegistroMotivosNovedades(listaFiltrarMotivosCesantiasLOV.size());
     }
 
     public void verificarRastro() {
@@ -1070,12 +1042,10 @@ public class ControlNovedadCesantiasRC implements Serializable {
             } else if (result == 5) {
                 RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
+        } else if (administrarRastros.verificarHistoricosTabla("NOVEDADESSISTEMA")) {
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            if (administrarRastros.verificarHistoricosTabla("NOVEDADESSISTEMA")) {
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-            }
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
         novedadSeleccionada = null;
     }
@@ -1151,8 +1121,6 @@ public class ControlNovedadCesantiasRC implements Serializable {
             listaEmpleadosNovedad = administrarNovedadesPagoCesantias.empleadosCesantias();
             empleadoSeleccionado = listaEmpleadosNovedad.get(0);
         }
-        modificarInfoRegistroEmpleados(listaEmpleadosNovedad.size());
-        contarRegistrosNovedades();
         return listaEmpleadosNovedad;
     }
 
@@ -1273,7 +1241,6 @@ public class ControlNovedadCesantiasRC implements Serializable {
         if (listaEmpleadosLOV == null) {
             listaEmpleadosLOV = administrarNovedadesPagoCesantias.empleadosCesantias();
         }
-        modificarInfoRegistroEmpleadosLov(listaEmpleadosLOV.size());
         return listaEmpleadosLOV;
     }
 
@@ -1299,7 +1266,6 @@ public class ControlNovedadCesantiasRC implements Serializable {
 
     public List<MotivosCesantias> getListaMotivosCesantiasLOV() {
         listaMotivosCesantiasLOV = administrarNovedadesPagoCesantias.consultarMotivosCesantias();
-        modificarInfoRegistroMotivosNovedades(listaMotivosCesantiasLOV.size());
         return listaMotivosCesantiasLOV;
     }
 
@@ -1348,6 +1314,9 @@ public class ControlNovedadCesantiasRC implements Serializable {
     }
 
     public String getInfoRegistroEmpleados() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosEmpleados");
+        infoRegistroEmpleados = String.valueOf(tabla.getRowCount());
         return infoRegistroEmpleados;
     }
 
@@ -1356,6 +1325,9 @@ public class ControlNovedadCesantiasRC implements Serializable {
     }
 
     public String getInfoRegistroEmpleadosLov() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVEmpleados");
+        infoRegistroEmpleadosLov = String.valueOf(tabla.getRowCount());
         return infoRegistroEmpleadosLov;
     }
 
@@ -1364,6 +1336,9 @@ public class ControlNovedadCesantiasRC implements Serializable {
     }
 
     public String getInfoRegistroMotivosCesantias() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:lovmotivoscesantias");
+        infoRegistroMotivosCesantias = String.valueOf(tabla.getRowCount());
         return infoRegistroMotivosCesantias;
     }
 
@@ -1372,6 +1347,9 @@ public class ControlNovedadCesantiasRC implements Serializable {
     }
 
     public String getInfoRegistroNovedadCesantias() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosNovedadesEmpleado");
+        infoRegistroNovedadCesantias = String.valueOf(tabla.getRowCount());
         return infoRegistroNovedadCesantias;
     }
 

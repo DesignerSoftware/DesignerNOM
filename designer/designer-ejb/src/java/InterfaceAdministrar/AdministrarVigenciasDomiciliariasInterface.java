@@ -18,10 +18,12 @@ import Entidades.Instituciones;
 import Entidades.MotivosRetiros;
 import Entidades.Personas;
 import Entidades.Profesiones;
+import Entidades.SectoresEconomicos;
 import Entidades.SoAntecedentes;
 import Entidades.SoAntecedentesMedicos;
 import Entidades.SoTiposAntecedentes;
 import Entidades.Telefonos;
+import Entidades.TiposDocumentos;
 import Entidades.TiposEducaciones;
 import Entidades.TiposFamiliares;
 import Entidades.TiposTelefonos;
@@ -47,6 +49,84 @@ public interface AdministrarVigenciasDomiciliariasInterface {
 
     public List<VigenciasDomiciliarias> vigenciasDomiciliariasporPersona(BigInteger secPersona);
 
+    public List<EstadosCiviles> lovVigenciasEstadosCiviles();
+
+    public List<TiposTelefonos> lovTiposTelefonos();
+
+    public List<Ciudades> lovCiudades();
+
+    public List<Cargos> lovCargos();
+
+    public Telefonos telefonoActualPersona(BigInteger secPersona);
+
+    public VigenciasEstadosCiviles estadoCivilActualPersona(BigInteger secPersona);
+
+    public Empleados buscarEmpleado(BigInteger secPersona);
+
+//familiares
+    public List<Familiares> buscarFamiliares(BigInteger secPersona);
+
+    public void crearPersona(Personas persona);
+
+    public void modificarFamiliares(List<Familiares> listaModificar);
+
+    public void borrarFamiliares(List<Familiares> listaBorrar);
+
+    public void crearFamilares(List<Familiares> listaCrear);
+
+    public List<TiposFamiliares> lovTiposFamiliares();
+
+    public List<Personas> lovPersonas();
+
+    public Personas encontrarPersona(BigInteger secpersona);
+    
+    public List<TiposDocumentos> consultarTiposDocumentos();
+    
+    ///direcciones
+    public void crearDirecciones(List<Direcciones> listaCrear);
+
+    public void borrarDirecciones(List<Direcciones> listaBorrar);
+
+    public void modificarDirecciones(List<Direcciones> listaModificar);
+
+    public List<Direcciones> direccionesPersona(BigInteger secPersona);
+
+    public List<Direcciones> consultarDireccionesPersona(BigInteger secPersona);
+
+    //telefonos
+    public List<Telefonos> telefonosPersona(BigInteger secPersona);
+
+    public void crearTelefonos(Telefonos telefono);
+
+    public void borrarTelefonos(Telefonos telefono);
+
+    public void modificarTelefonos(List<Telefonos> listModificar);
+
+    // estados civiles
+    public List<VigenciasEstadosCiviles> estadosCivilesPersona(BigInteger secPersona);
+
+    public void modificarVigenciasEstadosCiviles(List<VigenciasEstadosCiviles> listaVigenciasEstadosCiviles);
+
+    public void borrarVigenciasEstadosCiviles(List<VigenciasEstadosCiviles> listaVigenciasEstadosCiviles);
+
+    public void crearVigenciasEstadosCiviles(List<VigenciasEstadosCiviles> listaVigenciasEstadosCiviles);
+
+    // ANTECEDENTES MEDICOS
+    public List<SoAntecedentes> lovAntecedentes(BigInteger secTipoAntecedente);
+
+    public List<SoTiposAntecedentes> lovTiposAntecedentes();
+
+    public List<SoAntecedentesMedicos> buscarAntecedentesMedicos(BigInteger secPersona);
+
+    public void crearAntecedenteM(List<SoAntecedentesMedicos> listaCrear);
+
+    public void borrarAntecedenteM(List<SoAntecedentesMedicos> listaBorrar);
+
+    public void modificarAntecedenteM(List<SoAntecedentesMedicos> listaModificar);
+
+    //educacion formal
+    public List<VigenciasFormales> vigenciasFormalesPersona(BigInteger secPersona);
+
     public List<TiposEducaciones> lovTiposEducaciones();
 
     public List<Profesiones> lovProfesiones();
@@ -55,49 +135,24 @@ public interface AdministrarVigenciasDomiciliariasInterface {
 
     public List<Instituciones> lovInstituciones();
 
+    public void modificarVigenciaFormal(List<VigenciasFormales> listaVigenciasFormalesModificar);
+
+    public void borrarVigenciaFormal(List<VigenciasFormales> listaVigenciasFormalesBorrar);
+
+    public void crearVigenciaFormal(List<VigenciasFormales> listaVigenciasFormalesCrear);
+
+////exp laboral
+    public HVHojasDeVida obtenerHojaVidaPersona(BigInteger secuencia);
+
+    public List<HvExperienciasLaborales> experienciasLaboralesEmpleado(BigInteger secuencia);
+
+    public void crearExperienciaLaboral(List<HvExperienciasLaborales> listHEL);
+
+    public void editarExperienciaLaboral(List<HvExperienciasLaborales> listHEL);
+
+    public void borrarExperienciaLaboral(List<HvExperienciasLaborales> listHEL);
+
     public List<MotivosRetiros> lovMotivosRetiros();
 
-    public List<TiposFamiliares> lovTiposFamiliares();
-
-    public List<Personas> lovPersonas();
-
-    public List<SoAntecedentes> lovAntecedentes(BigInteger secTipoAntecedente);
-
-    public List<SoTiposAntecedentes> lovTiposAntecedentes();
-
-    public List<EstadosCiviles> lovVigenciasEstadosCiviles();
-
-    public List<TiposTelefonos> lovTiposTelefonos();
-
-    public List<Ciudades> lovCiduades();
-
-    public List<Cargos> lovCargos();
-
-    public Personas encontrarPersona(BigInteger secpersona);
-
-    public Direcciones direccionesPersona(BigInteger secPersona);
-
-    public Telefonos telefonoActualPersona(BigInteger secPersona);
-
-    public VigenciasEstadosCiviles estadoCivilActualPersona(BigInteger secPersona);
-
-    public Empleados buscarEmpleado(BigInteger secPersona);
-
-    public List<SoAntecedentesMedicos> buscarAntecedentesMedicos(BigInteger secPersona);
-
-    public List<Familiares> buscarFamiliares(BigInteger secPersona);
-
-    public void crearPersona(Personas persona);
-
-    public List<Telefonos> telefonosPersona(BigInteger secPersona);
-
-    public List<Direcciones> consultarDireccionesPersona(BigInteger secPersona);
-    
-    public List<VigenciasEstadosCiviles> estadosCivilesPersona(BigInteger secPersona);
-    
-     public List<VigenciasFormales> vigenciasFormalesPersona(BigInteger secPersona);
-     public HVHojasDeVida obtenerHojaVidaPersona(BigInteger secuencia);
-      public List<HvExperienciasLaborales> experienciasLaboralesEmpleado(BigInteger secuencia);
-      
-
+    public List<SectoresEconomicos> lovSectoresEconomicos();
 }
