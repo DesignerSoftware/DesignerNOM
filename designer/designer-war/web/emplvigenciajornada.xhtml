@@ -21,67 +21,67 @@
 
                                 <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" 
                                                  actionListener="#{controlVigenciaJornada.guardadoGeneral()}" process="@this" />
-                                <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
+                                <p:tooltip for="guardarRapido" value="#{msg['guardar']}" />
 
                                 <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" 
                                                  actionListener="#{controlVigenciaJornada.editarCelda()}" process="@this"/>
-                                <p:tooltip  for="editar" value="#{msg['editar']}" />
+                                <p:tooltip for="editar" value="#{msg['editar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
 
                                 <p:commandButton id="listaValores" disabled="#{controlVigenciaJornada.activarLOV}" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" 
                                                  actionListener="#{controlVigenciaJornada.listaValoresBoton()}" process="@this"/>
-                                <p:tooltip  for="listaValores" value="#{msg['lista']}" />
+                                <p:tooltip for="listaValores" value="#{msg['lista']}" />
 
                                 <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" 
                                                  actionListener="#{controlVigenciaJornada.activarCtrlF11()}" process="@this"/>
-                                <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
+                                <p:tooltip for="filtrar" value="#{msg['filtrar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
 
                                 <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" 
                                                  ajax="false" actionListener="#{controlVigenciaJornada.verificarExportXLS()}" />
-                                <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
+                                <p:tooltip for="exportarXLS" value="#{msg['xls']}" />
 
                                 <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" 
                                                  actionListener="#{controlVigenciaJornada.limpiarNuevaVJ()}" ajax="false">
                                     <p:dataExporter type="xml"  target="#{controlVigenciaJornada.exportXML()}" fileName="#{controlVigenciaJornada.nombreXML}" encoding="UTF-8"/> 
                                 </p:commandButton> 
-                                <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
+                                <p:tooltip for="exportarXML" value="#{msg['xml']}" />
 
                                 <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" 
                                                  actionListener="#{controlVigenciaJornada.validarExportPDF()}" ajax="false"/>
-                                <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
+                                <p:tooltip for="exportarPDF" value="#{msg['pdf']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
                                 <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" 
                                                  oncomplete="PF('NuevoRegistroPagina').show()" update=":formularioDialogos:NuevoRegistroPanel"  process="@this"/> 
-                                <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
+                                <p:tooltip for="insertar" value="#{msg['nuevo']}" />
 
                                 <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" 
                                                  actionListener="#{controlVigenciaJornada.validarBorradoVigencia()}" process="@this"/>  
-                                <p:tooltip  for="eliminar" value="#{msg['eliminar']}" />
+                                <p:tooltip for="eliminar" value="#{msg['eliminar']}" />
 
                                 <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" 
                                                  actionListener="#{controlVigenciaJornada.verificarDuplicarVigencia()}"  process="@this"/>  
-                                <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
+                                <p:tooltip for="duplicar" value="#{msg['duplicar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
                                 <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" 
                                                  actionListener="#{controlVigenciaJornada.verificarRastroTabla()}" process="@this"/>  
-                                <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
+                                <p:tooltip for="rastro" value="#{msg['rastro']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/> 
 
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" 
                                                  actionListener="#{controlVigenciaJornada.cancelarModificacion()}" oncomplete="window.location.reload()" process="@this"/> 
-                                <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
+                                <p:tooltip for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/> 
 
                                 <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" 
                                                  actionListener="#{controlVigenciaJornada.cancelarModificacion()}" action="nomina" process="@this"/>  
-                                <p:tooltip  for="salir" value="#{msg['salir']}"/>
+                                <p:tooltip for="salir" value="#{msg['salir']}"/>
                             </p:toolbarGroup>
                         </p:toolbar> 
 
@@ -105,7 +105,7 @@
                                          filteredValue="#{controlVigenciaJornada.filtrarVJ}" emptyMessage="#{msg['vacio']}" liveScroll="true" scrollRows="6"
                                          editable="true" editMode="cell" selection="#{controlVigenciaJornada.vigenciaJornadaSeleccionada}" selectionMode="single">
 
-                                <p:ajax event="filter" listener="#{controlVigenciaJornada.eventoFiltrar()}" update=":form:informacionRegistroVJ"/>
+                                <p:ajax event="filter" listener="#{controlVigenciaJornada.eventoFiltrar()}"/>
                                 <f:event type="preRenderView" listener="#{controlVigenciaJornada.recordarSeleccionVJ()}"/>
 
                                 <p:column  headerText="#{msg['fecha']}" sortBy="#{infoVJ.fechavigencia}" filterBy="#{infoVJ.fechavigencia}" filterMatchMode="contains"  width="70" id="vJFechaVigencia" filterStyle="display: none; visibility: hidden;"  >  
@@ -116,11 +116,11 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaVigencia" value="#{infoVJ.fechavigencia}"> 
+                                            <p:calendar  autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="dateFechaVigencia" value="#{infoVJ.fechavigencia}">
                                                 <p:ajax event="dateSelect" listener="#{controlVigenciaJornada.modificarFechasVJ(infoVJ,0)}" update="dateFechaVigencia" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlVigenciaJornada.modificarFechasVJ(infoVJ,0)}" update="dateFechaVigencia" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlVigenciaJornada.cambiarIndice(infoVJ,0)}" process="@this"
-                                                        onstart="PF('datosVJEmpleado').unselectAllRows();PF('datosVJEmpleado').selectRow(#{indice});"/> 
+                                                        onstart="PF('datosVJEmpleado').unselectAllRows();PF('datosVJEmpleado').selectRow(#{indice});"/>
                                             </p:calendar>
                                         </f:facet>   
                                     </p:cellEditor>
@@ -138,7 +138,7 @@
                                                 <p:ajax event="change" listener="#{controlVigenciaJornada.modificarVJ(infoVJ, 'NOMBREJORNADA', infoVJ.jornadatrabajo.descripcion)}" update="editarNombreJornada"/>
                                                 <p:ajax event="dblclick" listener="#{controlVigenciaJornada.asignarIndex(0,0,0)}"/>
                                                 <p:ajax event="select" listener="#{controlVigenciaJornada.cambiarIndice(infoVJ,1)}" process="@this"
-                                                        onstart="PF('datosVJEmpleado').unselectAllRows();PF('datosVJEmpleado').selectRow(#{indice});"/>
+                                                        onstart="PF('datosVJEmpleado').unselectAllRows(); PF('datosVJEmpleado').selectRow(#{indice});"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>

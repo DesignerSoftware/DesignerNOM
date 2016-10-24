@@ -707,6 +707,7 @@ public class ControlVigenciasReformasLaborales implements Serializable {
       activarLOV = false;
       RequestContext.getCurrentInstance().update("form:listaValores");
       RequestContext.getCurrentInstance().update("form:ReformasLaboralesDialogo");
+      RequestContext.getCurrentInstance().execute("PF('lovReformasLaborales').unselectAllRows()");
       RequestContext.getCurrentInstance().execute("PF('ReformasLaboralesDialogo').show()");
    }
 
@@ -720,6 +721,7 @@ public class ControlVigenciasReformasLaborales implements Serializable {
       activarLOV = false;
       RequestContext.getCurrentInstance().update("form:listaValores");
       RequestContext.getCurrentInstance().update("form:ReformasLaboralesDialogo");
+      RequestContext.getCurrentInstance().execute("PF('lovReformasLaborales').unselectAllRows()");
       RequestContext.getCurrentInstance().execute("PF('ReformasLaboralesDialogo').show()");
    }
 
@@ -759,6 +761,11 @@ public class ControlVigenciasReformasLaborales implements Serializable {
       context.reset("form:lovReformasLaborales:globalFilter");
       RequestContext.getCurrentInstance().execute("PF('lovReformasLaborales').clearFilters()");
       RequestContext.getCurrentInstance().execute("PF('ReformasLaboralesDialogo').hide()");
+      RequestContext.getCurrentInstance().execute("PF('lovReformasLaborales').unselectAllRows()");
+      context.reset("form:lovReformasLaborales:globalFilter");
+      RequestContext.getCurrentInstance().update("form:lovReformasLaborales");
+      RequestContext.getCurrentInstance().update("form:ReformasLaboralesDialogo");
+      RequestContext.getCurrentInstance().update("form:aceptarRL");
    }
 
    /**
@@ -770,13 +777,13 @@ public class ControlVigenciasReformasLaborales implements Serializable {
       aceptar = true;
       tipoActualizacion = -1;
       permitirIndex = true;
-      RequestContext context = RequestContext.getCurrentInstance();
-      //RequestContext.getCurrentInstance().update("form:ReformasLaboralesDialogo");
-      //RequestContext.getCurrentInstance().update("form:lovReformasLaborales");
-      //RequestContext.getCurrentInstance().update("form:aceptarRL");
-      context.reset("form:lovReformasLaborales:globalFilter");
+      RequestContext.getCurrentInstance().update("form:ReformasLaboralesDialogo");
+      RequestContext.getCurrentInstance().update("form:lovReformasLaborales");
+      RequestContext.getCurrentInstance().update("form:aceptarRL");
+      RequestContext.getCurrentInstance().reset("form:lovReformasLaborales:globalFilter");
       RequestContext.getCurrentInstance().execute("PF('lovReformasLaborales').clearFilters()");
       RequestContext.getCurrentInstance().execute("PF('ReformasLaboralesDialogo').hide()");
+      RequestContext.getCurrentInstance().execute("PF('lovReformasLaboralesc').unselectAllRows()");
    }
 
    //LISTA DE VALORES DINAMICA
@@ -785,11 +792,9 @@ public class ControlVigenciasReformasLaborales implements Serializable {
     * reformas laborales
     */
    public void listaValoresBoton() {
-      RequestContext context = RequestContext.getCurrentInstance();
       if (vigenciaSeleccionada == null) {
          RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
       } else if (cualCelda == 1) {
-
          contarRegistrosRL();
          RequestContext.getCurrentInstance().update("form:ReformasLaboralesDialogo");
          RequestContext.getCurrentInstance().execute("PF('ReformasLaboralesDialogo').show()");

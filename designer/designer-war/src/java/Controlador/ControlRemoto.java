@@ -198,7 +198,15 @@ public class ControlRemoto implements Serializable {
          administrarCarpetaPersonal.obtenerConexion(ses.getId());
          administrarCarpetaDesigner.obtenerConexion(ses.getId());
          System.out.println("Ya tiene conexion a los EJBs");
-         primerTipoTrabajador();
+         posicion = 0;
+         System.out.println("Esta en primerTipoTrabajador()");
+         requerirTipoTrabajador(posicion);
+         try {
+            valorInputText();
+         } catch (ParseException ex) {
+            System.out.println("error en primerTipoTrabajador");
+         }
+         actualizarInformacionTipoTrabajador();
          System.out.println("Ya tiene primer tipo Trabajador");
          lovEmpresas = administrarCarpetaPersonal.consultarEmpresas();
          System.out.println("Ya tiene LovEmpresas lovEmpresas : " + lovEmpresas);
@@ -905,6 +913,7 @@ public class ControlRemoto implements Serializable {
          System.out.println("error en primerTipoTrabajador");
       }
       actualizarInformacionTipoTrabajador();
+      RequestContext.getCurrentInstance().update("form:tabmenu");
    }
 
    public void atrasTipoTrabajador() {
@@ -919,11 +928,10 @@ public class ControlRemoto implements Serializable {
          actualizarInformacionTipoTrabajador();
          RequestContext.getCurrentInstance().update("form:tabmenu");
       }
-
    }
 
    public void siguienteTipoTrabajador() {
-      if (posicion <= (totalRegistros - 1)) {
+      if (posicion < (totalRegistros - 1)) {
          posicion++;
          requerirTipoTrabajador(posicion);
          try {
@@ -1683,7 +1691,7 @@ public class ControlRemoto implements Serializable {
    public String getInformacionTiposTrabajadores() {
       try {
          valorInputText();
-         RequestContext.getCurrentInstance().update("formulario:info:VCargoDesempeñado");
+//         RequestContext.getCurrentInstance().update("formulario:info:VCargoDesempeñado");
       } catch (Exception e) {
          System.out.println("ERROR getInformacionTiposTrabajadores() : " + e.getCause());
       }

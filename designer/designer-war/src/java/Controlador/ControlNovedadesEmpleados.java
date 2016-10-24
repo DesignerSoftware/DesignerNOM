@@ -1230,7 +1230,6 @@ public class ControlNovedadesEmpleados implements Serializable {
 //            secuenciaEmpleado = empleadoSeleccionadoLov.getId();
       listaNovedades = null;
       getListaNovedades();
-      contarRegistros();
 
       context.reset("formularioDialogos:LOVEmpleados:globalFilter");
       RequestContext.getCurrentInstance().execute("PF('LOVEmpleados').clearFilters()");
@@ -1240,6 +1239,8 @@ public class ControlNovedadesEmpleados implements Serializable {
       RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
       //RequestContext.getCurrentInstance().update("form:datosEmpleados");
       //RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
+      contarRegistros();
+      contarRegistrosEmpleados();
 
       filtrarListaEmpleadosNovedad = null;
       empleadoSeleccionadoLov = null;
@@ -1434,7 +1435,6 @@ public class ControlNovedadesEmpleados implements Serializable {
 
    public void mostrarTodos() {
       System.out.println("controlNovedadesEmpleados.mostrarTodos...");
-      RequestContext context = RequestContext.getCurrentInstance();
       if (cargarTodos) {
          listaEmpleadosNovedad = null;
          cargarTodosEmpleados();
@@ -1453,8 +1453,8 @@ public class ControlNovedadesEmpleados implements Serializable {
       RequestContext.getCurrentInstance().update("form:ACUMULADOS");
       RequestContext.getCurrentInstance().update("form:datosEmpleados");
       RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
-      contarRegistrosLovEmpleados();
       contarRegistros();
+      contarRegistrosEmpleados();
       activoBtnAcumulado = true;
       filtrarListaEmpleadosNovedad = null;
       aceptar = true;
@@ -1976,18 +1976,18 @@ public class ControlNovedadesEmpleados implements Serializable {
 
    public List<PruebaEmpleados> getListaEmpleadosNovedad() {
       if (listaEmpleadosNovedad == null) {
-
-         cantidadEmpleadosNov = administrarNovedadesEmpleados.cuantosEmpleadosNovedad();
-         System.out.println("getListaEmpleadosNovedad() cantidadEmpleadosNov : " + cantidadEmpleadosNov);
-
-         if (cantidadEmpleadosNov > 150) {
-            listaEmpleadosNovedad = administrarNovedadesEmpleados.empleadosNovedadSoloAlgunos();
-            cargarTodos = true;
-         } else if (cantidadEmpleadosNov == -1) {
-            System.err.println("ERROR EN getListaEmpleadosNovedad() NO TRAE EL CONTEO DE LOS EMPLEADOS");
-         } else {
-            cargarTodosEmpleados();
-         }
+//
+//         cantidadEmpleadosNov = administrarNovedadesEmpleados.cuantosEmpleadosNovedad();
+//         System.out.println("getListaEmpleadosNovedad() cantidadEmpleadosNov : " + cantidadEmpleadosNov);
+//
+//         if (cantidadEmpleadosNov > 150) {
+//            listaEmpleadosNovedad = administrarNovedadesEmpleados.empleadosNovedadSoloAlgunos();
+//            cargarTodos = true;
+//         } else if (cantidadEmpleadosNov == -1) {
+//            System.err.println("ERROR EN getListaEmpleadosNovedad() NO TRAE EL CONTEO DE LOS EMPLEADOS");
+//         } else {
+         cargarTodosEmpleados();
+//         }
       }
       return listaEmpleadosNovedad;
    }

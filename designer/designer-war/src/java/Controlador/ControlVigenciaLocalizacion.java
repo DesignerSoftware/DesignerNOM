@@ -1517,7 +1517,6 @@ public class ControlVigenciaLocalizacion implements Serializable {
     * Cancela las modificaciones realizas en la pagina
     */
    public void cancelarModificacion() {
-      RequestContext context = RequestContext.getCurrentInstance();
       FacesContext c = FacesContext.getCurrentInstance();
       if (bandera == 1) {
          restablecerTablaVL();
@@ -1711,7 +1710,6 @@ public class ControlVigenciaLocalizacion implements Serializable {
     * Metodo que se encarga de agregar un nueva VigenciasLocalizaciones
     */
    public void agregarNuevaVL() {
-      RequestContext context = RequestContext.getCurrentInstance();
       if (nuevaVigencia.getFechavigencia() != null && nuevaVigencia.getLocalizacion().getSecuencia() != null && nuevaVigencia.getMotivo().getSecuencia() != null) {
          int cont = 0;
          mensajeValidacion = "";
@@ -1742,6 +1740,7 @@ public class ControlVigenciaLocalizacion implements Serializable {
                vigenciaLocalizaciones.add(nuevaVigencia);
                contarRegistrosVL();
                vigenciaLocalizacionSeleccionada = vigenciaLocalizaciones.get(vigenciaLocalizaciones.indexOf(nuevaVigencia));
+
                activarLOV = true;
                RequestContext.getCurrentInstance().update("form:listaValores");
                nuevaVigencia = new VigenciasLocalizaciones();
@@ -1749,12 +1748,16 @@ public class ControlVigenciaLocalizacion implements Serializable {
                nuevaVigencia.getLocalizacion().setCentrocosto(new CentrosCostos());
                nuevaVigencia.setMotivo(new MotivosLocalizaciones());
                nuevaVigencia.setProyecto(new Proyectos());
+               vigenciasProrrateosCentroC = null;
+               vigenciasProrrateosProyectos = null;
                RequestContext.getCurrentInstance().update("form:datosVLEmpleado");
+               RequestContext.getCurrentInstance().update("form:datosVPVigencia");
+               RequestContext.getCurrentInstance().update("form:datosVPPVigencia");
                if (guardado) {
                   guardado = false;
                   RequestContext.getCurrentInstance().update("form:ACEPTAR");
                }
-               RequestContext.getCurrentInstance().update("form:NuevoRegistroVL");
+               RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroVL");
                RequestContext.getCurrentInstance().execute("PF('NuevoRegistroVL').hide()");
             } else {
                RequestContext.getCurrentInstance().update("errorFechaVL");
@@ -2013,6 +2016,11 @@ public class ControlVigenciaLocalizacion implements Serializable {
             RequestContext.getCurrentInstance().update("form:listaValores");
             RequestContext.getCurrentInstance().update("form:datosVLEmpleado");
             RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroVL.hide();");
+            vigenciasProrrateosCentroC = null;
+            vigenciasProrrateosProyectos = null;
+            RequestContext.getCurrentInstance().update("form:datosVLEmpleado");
+            RequestContext.getCurrentInstance().update("form:datosVPVigencia");
+            RequestContext.getCurrentInstance().update("form:datosVPPVigencia");
             duplicarVL = new VigenciasLocalizaciones();
          } else {
             RequestContext.getCurrentInstance().execute("PF('errorFechaVL').show()");
@@ -2222,7 +2230,7 @@ public class ControlVigenciaLocalizacion implements Serializable {
             if (tam == 0 && tam2 == 0) {
                borrarVL();
             } else {
-               RequestContext.getCurrentInstance().update("form:negacionBorradoVL");
+               RequestContext.getCurrentInstance().update("formularioDialogos:negacionBorradoVL");
                RequestContext.getCurrentInstance().execute("PF('negacionBorradoVL').show()");
             }
          }
@@ -2973,7 +2981,7 @@ public class ControlVigenciaLocalizacion implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       if (tabla == 1) {
          //Dialogo de nuevo registro vigencias localizaciones
-         RequestContext.getCurrentInstance().update("form:NuevoRegistroVL");
+         RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroVL");
          RequestContext.getCurrentInstance().execute("PF('NuevoRegistroVL').show()");
       }
       if (tabla == 2) {
@@ -2982,7 +2990,7 @@ public class ControlVigenciaLocalizacion implements Serializable {
             nuevaVigenciaP.setCentrocosto(new CentrosCostos());
             nuevaVigenciaP.setProyecto(new Proyectos());
             //Dialogo de nuevo registro vigencia prorrateo
-            RequestContext.getCurrentInstance().update("form:NuevoRegistroVP");
+            RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroVP");
             RequestContext.getCurrentInstance().execute("PF('NuevoRegistroVP').show()");
             tipoActualizacion = 1;
          } else {
@@ -2994,7 +3002,7 @@ public class ControlVigenciaLocalizacion implements Serializable {
             nuevaVigenciaPP = new VigenciasProrrateosProyectos();
             nuevaVigenciaPP.setProyecto(new Proyectos());
             //Dialogo de nuevo registro vigencia prorrateo proyecto
-            RequestContext.getCurrentInstance().update("form:NuevoRegistroVPP");
+            RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroVPP");
             RequestContext.getCurrentInstance().execute("PF('NuevoRegistroVPP').show()");
             tipoActualizacion = 1;
          } else {
@@ -3013,11 +3021,9 @@ public class ControlVigenciaLocalizacion implements Serializable {
          tam = vigenciasProrrateosCentroC.size();
       }
       if (tam > 0) {
-         RequestContext context = RequestContext.getCurrentInstance();
-         RequestContext.getCurrentInstance().update("form:NuevoRegistroVPP");
+         RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroVPP");
          RequestContext.getCurrentInstance().execute("PF('NuevoRegistroVPP').show()");
       } else {
-         RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().update("form:negacionNuevoRegistroVPP");
          RequestContext.getCurrentInstance().execute("PF('negacionNuevoRegistroVPP').show()");
       }
@@ -3462,11 +3468,6 @@ public class ControlVigenciaLocalizacion implements Serializable {
                         vigenciaLocalizaciones.get(i).setProyecto(new Proyectos());
                      }
                   }
-                  /*
-                         * if (vigenciaLocalizacionSeleccionada == null) {
-                         * vigenciaLocalizacionSeleccionada =
-                         * vigenciaLocalizaciones.get(0); }
-                   */
                }
             }
          }

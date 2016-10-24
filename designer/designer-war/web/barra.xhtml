@@ -9,8 +9,8 @@
     </h:head>
     <h:body>
         <ui:composition template="/template.xhtml">
-            <ui:define name="body">                  
-                <h:form id="form"> 
+            <ui:define name="body">
+                <h:form id="form">
 
                     <f:loadBundle basename="Recursos.barra" var="msg"/>
                     <p:growl id="growl" showDetail="true" />
@@ -142,12 +142,12 @@
 
                         <fieldset style="position: absolute; left: 510px; top: 75px; width: 340px; height: 407px; border-radius: 10px; padding-left: 10px; z-index: 1; font-size: 11px;">
                         <h:outputText value="#{msg['liquidacionescerradas']}" style="font-weight: bold; color: blue; ; position: absolute; top: 20px; left: 12px"/>
-                            <fieldset style="padding: 0px; position: absolute; top: 35px; border: none">
+                            <fieldset style="padding: 0px; position: absolute; top: 35px; border: none;">
                                 <p:dataTable id="datosLiquidacionesCerradas" var="liquidacionCerrada" style="width: 322px;" value="#{controlBarra.liquidacionesCerradas}"
-                                             scrollable="true" scrollWidth="340" editable="true" editMode="cell"  
+                                             scrollable="true" scrollWidth="340" editable="true" editMode="cell" widgetVar="datosLiquidacionesCerradas"
                                              scrollHeight="#{controlBarra.altoScrollLiquidacionesCerradas}" filteredValue="#{controlBarra.filtradoLiquidacionesCerradas}" emptyMessage="#{msg['sinregistro']}">
 
-                                    <p:ajax event="filter" listener="#{controlBarra.contarRegistrosCerrada(1)}"/>
+                                    <p:ajax event="filter" listener="#{controlBarra.contarRegistrosCerrada()}"/>
 
                                     <p:column id="corte" headerText="#{msg['corte']}" sortBy="#{liquidacionCerrada.corte}" width="60" filterBy="#{liquidacionCerrada.corte}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" style="padding-left: 3px;" > 
                                         <f:facet name="header">
@@ -157,12 +157,12 @@
                                         <p:cellEditor>  
                                             <f:facet name="output">
                                                 <h:outputText value="#{liquidacionCerrada.corte}">
-                                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
                                                 </h:outputText>
                                             </f:facet>  
                                             <f:facet name="input">
                                                 <p:inputText  autocomplete="off"   value="#{liquidacionCerrada.corte}" style="width: 87%; text-transform: uppercase" readonly="true">
-                                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
                                                 </p:inputText>
                                             </f:facet>
                                         </p:cellEditor>
@@ -259,10 +259,10 @@
 
                             <fieldset style="padding: 0px; position: absolute; top: 237px; border: none; margin: 0px;">
                                 <p:dataTable id="datosLiquidacionesAbiertas" var="liquidacionAbierta" style="width: 322px;" value="#{controlBarra.liquidacionesAbiertas}"
-                                             scrollable="true" scrollWidth="340"
+                                             scrollable="true" scrollWidth="340" widgetVar="datosLiquidacionesAbiertas"
                                              editable="true" editMode="cell" scrollHeight="#{controlBarra.altoScrollLiquidacionesAbiertas}" filteredValue="#{controlBarra.filtradoLiquidacionesAbiertas}" emptyMessage="#{msg['sinregistro']}">
 
-                                    <p:ajax event="filter" listener="#{controlBarra.contarRegistrosEnProceso(1)}"/>
+                                    <p:ajax event="filter" listener="#{controlBarra.contarRegistrosEnProceso()}"/>
 
                                     <p:column id="corteLA" headerText="#{msg['corte']}" sortBy="#{liquidacionAbierta.corte}" width="60" filterBy="#{liquidacionAbierta.corte}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" style="padding-left: 3px"> 
                                         <f:facet name="header">

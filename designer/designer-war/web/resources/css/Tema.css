@@ -476,7 +476,7 @@ button .ui-widget-header{
    background-repeat: no-repeat !important;
    color: white !important;
    border: none !important;
-   width: 160px;
+   width: 170px;
    height: 28px; 
 }
 
@@ -641,4 +641,19 @@ button .ui-widget-header{
     display: block;
     height: 19px;
     padding-right: 27px;
+}
+
+.ui-fileupload-content{
+   display: none !important;
+   /*border: none !important;*/
+   background-color: white !important;
+}
+
+.ui-fileupload-buttonbar, .ui-fileupload-buttonbar-.ui-widget-header{
+   padding: 0 0;
+   background-color: white !important;
+}
+
+.ui-selectonemenu label.ui-selectonemenu-label{
+   padding: 2px 3px !important;
 }
