@@ -6,14 +6,14 @@
 package Controlador;
 
 import Entidades.Ciudades;
-import Entidades.Empleados;
+//import Entidades.Empleados;
 import Entidades.Familiares;
 import Entidades.Personas;
 import Entidades.TiposDocumentos;
 import Entidades.TiposFamiliares;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
-import InterfaceAdministrar.AdministrarCiudadesInterface;
+//import InterfaceAdministrar.AdministrarCiudadesInterface;
 import InterfaceAdministrar.AdministrarFamiliaresInterface;
 import InterfaceAdministrar.AdministrarPersonaIndividualInterface;
 import InterfaceAdministrar.AdministrarRastrosInterface;
@@ -143,6 +143,8 @@ public class ControlFamiliares implements Serializable {
     }
 
     public void recibirPagina(String pagina, BigInteger secuencia) {
+        imprimir("recibirPagina", "pagina: "+pagina);
+        imprimir("recibirPagina", "secuencia: "+secuencia);
         paginaanterior = pagina;
         getListaFamiliares();
         personas = administrarFamiliares.consultarPersona(secuencia);
@@ -1625,5 +1627,7 @@ public class ControlFamiliares implements Serializable {
     public void setNuevaPersona(Personas nuevaPersona) {
         this.nuevaPersona = nuevaPersona;
     }
-
+    private void imprimir(String etiqueta, String texto){
+        System.out.println(etiqueta + " " + texto);
+    }
 }

@@ -23,4 +23,5 @@ public interface PersistenciaFamiliaresInterface {
     public void editar(EntityManager em, Familiares familiar);
     public void borrar(EntityManager em, Familiares familiar);
     public List<Familiares> familiaresPersona(EntityManager em,BigInteger secuenciaPersona);
+    public String consultaFamiliar(EntityManager em, BigInteger secuenciaPersona);
 }

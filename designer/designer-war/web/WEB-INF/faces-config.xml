@@ -3755,6 +3755,14 @@
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
+        <from-view-id>/conceptotest.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>salir</from-outcome>
+            <to-view-id>/nominaf.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
         <from-view-id>/pruebasunitariascomponentes.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>adelante</from-outcome>

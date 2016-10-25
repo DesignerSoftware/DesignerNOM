@@ -524,7 +524,8 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
    public boolean solucionesNodosParaConcepto(EntityManager em, BigInteger secuencia) {
       try {
          em.clear();
-         Query query = em.createQuery("SELECT count(sn) FROM SolucionesNodos sn WHERE sn.concepto.secuencia=:secuencia");
+//         Query query = em.createQuery("SELECT count(sn) FROM SolucionesNodos sn WHERE sn.concepto.secuencia=:secuencia");
+         Query query = em.createQuery("SELECT count(sn) FROM SolucionesNodos sn WHERE sn.concepto = :secuencia");
          query.setParameter("secuencia", secuencia);
          query.setHint("javax.persistence.cache.storeMode", "REFRESH");
          Long valor = (Long) query.getSingleResult();

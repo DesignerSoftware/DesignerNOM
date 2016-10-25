@@ -5,10 +5,9 @@ import Entidades.Ciudades;
 import Entidades.Demandas;
 import Entidades.Direcciones;
 import Entidades.Empleados;
-import Entidades.Empresas;
 import Entidades.Encargaturas;
 import Entidades.EvalResultadosConv;
-import Entidades.Familiares;
+//import Entidades.Familiares;
 import Entidades.Generales;
 import Entidades.HVHojasDeVida;
 import Entidades.HvEntrevistas;
@@ -291,7 +290,7 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
         }
     }
 
-    @Override
+    /*@Override
     public Familiares familiaresPersona(BigInteger secPersona) {
         List<Familiares> listaFamiliares;
         listaFamiliares = persistenciaFamiliares.familiaresPersona(em, secPersona);
@@ -300,6 +299,12 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
         } else {
             return null;
         }
+    }*/
+    
+    @Override
+    public String consultaFamiliaresPersona(BigInteger secPersona){
+        String resultado = persistenciaFamiliares.consultaFamiliar(em, secPersona);
+        return resultado;
     }
 
     @Override
@@ -471,6 +476,14 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
 
     @Override
     public Personas encontrarPersona(BigInteger secPersona) {
+        System.out.println(this.getClass().getName()+"encontrarPersona()");
+        System.out.println("secPersona: "+secPersona);
+        return persistenciaPersonas.buscarPersonaSecuencia(em, secPersona);
+    }
+    @Override
+    public Personas obtenerPersonaPorEmpleado(BigInteger secPersona) {
+        System.out.println(this.getClass().getName()+"encontrarPersona()");
+        System.out.println("secPersona: "+secPersona);
         return persistenciaPersonas.buscarPersonaSecuencia(em, secPersona);
     }
 }

@@ -51,10 +51,10 @@ public class PersistenciaHVHojasDeVida implements PersistenciaHVHojasDeVidaInter
     @Override
     public HVHojasDeVida hvHojaDeVidaPersona(EntityManager em, BigInteger secuenciaPersona) {
         System.out.println(this.getClass().getName() + ".hvHojaDeVidaPersona()");
-        HVHojasDeVida hVHojasDeVida=null;
+        HVHojasDeVida hVHojasDeVida = null;
         try {
             em.clear();
-            String sql ="SELECT * FROM HVHOJASDEVIDA WHERE PERSONA = ?";
+            String sql = "SELECT * FROM HVHOJASDEVIDA WHERE PERSONA = ?";
             Query query = em.createNativeQuery(sql, HVHojasDeVida.class);
             query.setParameter(1, secuenciaPersona);
 //            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
@@ -62,7 +62,8 @@ public class PersistenciaHVHojasDeVida implements PersistenciaHVHojasDeVidaInter
             return hVHojasDeVida;
         } catch (Exception e) {
             System.out.println("error en hvHojaDeVidaPersona");
-            e.printStackTrace();
+//            e.printStackTrace();
+            System.out.println("Mensaje de excepcion: "+e.getMessage());
             return hVHojasDeVida;
         }
     }

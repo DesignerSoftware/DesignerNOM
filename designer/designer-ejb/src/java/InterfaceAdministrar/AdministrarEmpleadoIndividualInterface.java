@@ -61,7 +61,8 @@ public interface AdministrarEmpleadoIndividualInterface {
 
     public VigenciasAficiones aficionesPersona(BigInteger secPersona);
 
-    public Familiares familiaresPersona(BigInteger secPersona);
+    //public Familiares familiaresPersona(BigInteger secPersona);
+    public String consultaFamiliaresPersona(BigInteger secPersona);
 
     public HvEntrevistas entrevistasPersona(BigInteger secHv);
 
@@ -102,4 +103,5 @@ public interface AdministrarEmpleadoIndividualInterface {
     public String fotoEmpleado(Empleados empleado);
     
     public Personas encontrarPersona(BigInteger secPersona);
+    public Personas obtenerPersonaPorEmpleado(BigInteger secPersona);
 }

@@ -122,10 +122,12 @@ public class PersistenciaPersonas implements PersistenciaPersonasInterface {
 
     @Override
     public Personas buscarPersonaSecuencia(EntityManager em, BigInteger secuencia) {
+        System.out.println(this.getClass().getName()+"buscarPersonaSecuencia()");
+        System.out.println("secuencia: "+secuencia);
         Personas persona;
         try {
             em.clear();
-            String sql = "SELECT * FROM Personas  WHERE secuencia = ?";
+            String sql = "SELECT p.* FROM Personas p WHERE p.secuencia = ?";
             Query query = em.createNativeQuery(sql, Personas.class);
             query.setParameter(1, secuencia);
             //query.setHint("javax.persistence.cache.storeMode", "REFRESH");
@@ -138,6 +140,26 @@ public class PersistenciaPersonas implements PersistenciaPersonasInterface {
         return persona;
     }
 
+    @Override
+    public Personas buscarPersonaPorEmpleado(EntityManager em, BigInteger secEmpleado) {
+        System.out.println(this.getClass().getName()+"buscarPersonaSecuencia()");
+        System.out.println("secEmpleado: "+secEmpleado);
+        Personas persona;
+        try {
+            em.clear();
+            String sql = "SELECT p.* FROM Personas p, Empleados e WHERE e.persona = p.secuencia and e.secuencia = ?";
+            Query query = em.createNativeQuery(sql, Personas.class);
+            query.setParameter(1, secEmpleado);
+            //query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            persona = (Personas) query.getSingleResult();
+            return persona;
+        } catch (Exception e) {
+            persona = null;
+            System.out.println("Error buscarPersonaSecuencia PersistenciaPersonas");
+        }
+        return persona;
+    }
+    
     @Override
     public Personas buscarPersonaPorNumeroDocumento(EntityManager em, BigInteger numeroDocumento) {
         try {
@@ -168,4 +190,5 @@ public class PersistenciaPersonas implements PersistenciaPersonasInterface {
             return null;
         }
     }
+    
 }

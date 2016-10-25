@@ -1136,7 +1136,7 @@ public class ControlRemoto implements Serializable {
       this.nombreTabla = nombreTabla;
    }
 
-   public VWActualesTiposTrabajadores getVwActualesTiposTrabajadoresesPosicion() {
+   public VWActualesTiposTrabajadores getVwActualesTiposTrabajadoresPosicion() {
       return vwActualesTiposTrabajadoresPosicion;
    }
 

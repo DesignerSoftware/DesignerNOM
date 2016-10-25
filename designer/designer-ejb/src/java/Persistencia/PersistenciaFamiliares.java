@@ -10,24 +10,29 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+
 /**
  * Clase Stateless. <br>
- * Clase encargada de realizar operaciones sobre la tabla 'Familiares'
- * de la base de datos.
+ * Clase encargada de realizar operaciones sobre la tabla 'Familiares' de la
+ * base de datos.
+ *
  * @author betelgeuse
  */
 @Stateless
-public class PersistenciaFamiliares implements PersistenciaFamiliaresInterface{
-    /**
-     * Atributo EntityManager. Representa la comunicación con la base de datos
-     */
+public class PersistenciaFamiliares implements PersistenciaFamiliaresInterface {
+
     /*@PersistenceContext(unitName = "DesignerRHN-ejbPU")
     private EntityManager em;*/
-
+    /**
+     * Atributo EntityManager. Representa la comunicación con la base de datos
+     *
+     * @param em
+     * @param secuenciaPersona
+     * @return
+     */
     @Override
-    public List<Familiares> familiaresPersona(EntityManager em,BigInteger secuenciaPersona) {
+    public List<Familiares> familiaresPersona(EntityManager em, BigInteger secuenciaPersona) {
         try {
             em.clear();
             Query query = em.createQuery("SELECT COUNT(f) FROM Familiares f WHERE f.persona.secuencia = :secuenciaPersona");
@@ -66,7 +71,7 @@ public class PersistenciaFamiliares implements PersistenciaFamiliaresInterface{
 
     @Override
     public void editar(EntityManager em, Familiares familiar) {
-       em.clear();
+        em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
@@ -94,5 +99,24 @@ public class PersistenciaFamiliares implements PersistenciaFamiliaresInterface{
                 tx.rollback();
             }
         }
+    }
+
+    @Override
+    public String consultaFamiliar(EntityManager em, BigInteger secuenciaPersona) {
+        String resultado = null;
+        try {
+            String consulta = "SELECT SUBSTR(B.TIPO ||'  '|| P.PRIMERAPELLIDO ||' '|| P.NOMBRE,1,30)\n"
+                    + "   FROM  FAMILIARES A, TIPOSFAMILIARES B,PERSONAS P\n"
+                    + "   WHERE A.TIPOFAMILIAR = B.SECUENCIA \n"
+                    + "   AND A.PERSONAFAMILIAR = P.SECUENCIA \n"
+                    + "   AND A.SECUENCIA = (SELECT MAX(V.SECUENCIA) FROM FAMILIARES V WHERE V.PERSONA = A.PERSONA)\n"
+                    + "   AND A.PERSONA = "+ secuenciaPersona + " ";
+            Query query = em.createNativeQuery(consulta);
+            resultado = (String) query.getSingleResult();
+        } catch (Exception e) {
+            System.out.println(this.getClass().getName()+".consultaFamiliar()");
+            System.out.println("error: "+e.getMessage());
+        }
+        return resultado;
     }
 }
