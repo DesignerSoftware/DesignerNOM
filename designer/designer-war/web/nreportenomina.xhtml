@@ -15,9 +15,8 @@
                 <h:form id="form">
                     <f:loadBundle basename="Recursos.nreportenomina" var="msg"/>
                     <p:growl id="growl" showDetail="true"/>
-
+                    
                     <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal"> 
-
                         <p:toolbar styleClass="cssToolbar" >  
                             <p:toolbarGroup align="left"> 
                                 <p:commandButton style="background-image: url(Imagenes/Iconos/guardar.png);" 
@@ -147,8 +146,8 @@
                                              background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="MOSTRARTODOS" value=""  process="@this" 
                                              actionListener="#{controlNReporteNomina.mostrarTodos()}" disabled="#{controlNReporteNomina.activoMostrarTodos}" />
                             <p:tooltip  for="MOSTRARTODOS" value="#{msg['mostrarTodos']}" />
-                            <p:remoteCommand name="validarDescargaReporte" actionListener="#{controlNReporteNomina.validarDescargaReporte()}"/>
-                            <p:remoteCommand name="generarDocumentoReporte" actionListener="#{controlNReporteNomina.generarDocumentoReporte()}"/>
+<!--                            <p:remoteCommand name="validarDescargaReporte" actionListener="#{controlNReporteNomina.validarDescargaReporte()}"/>
+                            <p:remoteCommand name="generarDocumentoReporte" actionListener="#{controlNReporteNomina.generarDocumentoReporte()}"/>-->
                         </fieldset>
 
                         <fieldset style="position: absolute; left: 10px; top: 260px; height: 205px;width: 115px; border-radius: 10px;">
@@ -163,8 +162,8 @@
                                          actionListener="#{controlNReporteNomina.cancelarYSalir()}" process="@this" />
 
                         <p:commandButton id="ENVIOCORREO" icon="ui-icon-extlink" style="position: absolute; left: 10px; top: 480px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
-                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;"  value="envio correo" process="@this" 
-                                         oncomplete="PF('EnvioCorreoDialogo').show()" actionListener="#{controlNReporteNomina.defaultPropiedadesParametrosReporte()}"/>
+                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;"  value="envio correo" process="@this" update=":form:EnvioCorreoDialogo:"
+                                         oncomplete="PF('EnvioCorreoDialogo').show()"/>
                         <p:tooltip  for="ENVIOCORREO" value="#{msg['envio']}" />
 
                         <p:commandButton id="ENVIOLOTE" icon="ui-icon-extlink" style="position: absolute; left: 145px; top: 480px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
@@ -237,24 +236,25 @@
 
                         <h:outputText style="position: absolute;top: 10px; left: 10px; text-align: left" value="#{msg['enviarcorreo']}" />
                         <h:outputText style="position: absolute; top: 70px; left: 10px;font-weight: bold;color: darkblue" value="#{msg['reporte']}"/>
-                        <h:outputText style="position: absolute; top: 90px; left: 10px;font-weight: bold;" value="#{msg['seguridadsocial']}"/>
+                        <h:outputText style="position: absolute; top: 90px; left: 10px;font-weight: bold;" value="#{controlNReporteNomina.reporteSeleccionado.nombre}"/>
 
                         <fieldset  style="position: absolute; left: 15px; top: 120px;  width: 400px; height: 150px; border-radius: 10px; text-align: left">
                             <legend style=" color: blue;text-align: left"><strong>#{msg['envio']}</strong></legend>
                             <strong><h:outputText value="#{msg['de']}" style="position: absolute; left: 10px; top: 25px;font-size: 12px"/></strong>
                             <p:inputText  autocomplete="off"  value="nomina@designer.com.co" style="position: absolute; left: 80px; top: 20px;width: 300px"/>
                             <strong><h:outputText value="#{msg['para']}" style="position: absolute; left: 10px; top: 60px;font-size: 12px"/></strong>
-                            <p:inputText  autocomplete="off"  style="position: absolute; left: 80px; top: 55px;width: 300px"/>
+                            <p:inputText  autocomplete="off"  style="position: absolute; left: 80px; top: 55px;width: 300px" disabled="#{controlNReporteNomina.reporteSeleccionado.estadoEnvioMasivo}"/>
                             <strong><h:outputText value="#{msg['cc']}" style="position: absolute; left: 10px; top: 95px;font-size: 12px"/></strong>
-                            <p:inputText  autocomplete="off"  style="position: absolute; left: 80px; top: 90px;width: 300px"/>
+                            <p:inputText  autocomplete="off"  style="position: absolute; left: 80px; top: 90px;width: 300px" disabled="#{controlNReporteNomina.reporteSeleccionado.estadoEnvioMasivo}"/>
                             <strong><h:outputText value="#{msg['asunto']}" style="position: absolute; left: 10px; top: 130px;font-size: 12px"/></strong>
                             <p:inputText  autocomplete="off"  style="position: absolute; left: 80px; top: 125px;width: 300px"/>
                         </fieldset>
-                        
+
                         <p:commandButton icon="ui-icon-extlink" id="registroEnvio" style="position: absolute; left: 155px; top: 288px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); 
-                                         background-size: 100% 100%; background-repeat: no-repeat; border: none; color: white" value="Registros E" onclick="PF('EnvioCorreoDialogo').hide()"  process="@this"/>
-                        <p:tooltip for="registroEnvio" value="#{msg['registrodeenvios']}" />
-                        
+                                         background-size: 100% 100%; background-repeat: no-repeat; border: none; color: white" value="Registros E" onclick="PF('EnvioCorreoDialogo').hide()"
+                                         action="registroEnvios" actionListener="#{controlRegistroEnvios.recibirPagina('atrasregistroenvio', controlNReporteNomina.reporteSeleccionado.secuencia)}" process="@this"/>
+                        <p:tooltip for="registroEnvio" value="#{msg['registrodeenvios']}"/>
+
                         <p:commandButton id="envioCorreo"  icon="ui-icon-extlink"  style="position: absolute; left: 300px; top: 288px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); 
                                          background-size: 100% 100%; background-repeat: no-repeat; border: none; color: white" value="Enviar"/>
                         <p:tooltip for="envioCorreo" value="#{msg['envio']}"/>
@@ -792,8 +792,8 @@
                                         <p:inputText id="empleadoHastaParametro" autocomplete="off" widgetVar="empleadoHastaParametro" style="position: absolute; left: 85px; width: 100px; top: 25px;"
                                                      value="#{controlNReporteNomina.parametroDeInforme.codigoempleadohasta}" onclick="select();">
                                             <p:ajax event="click" listener="#{controlNReporteNomina.posicionCelda(8)}" process="@this"/> 
-<!--                                            <p:ajax listener="#/{controlNReporteNomina.autocompletarGeneral('HASTA',controlNReporteNomina.parametroDeInforme.codigoempleadohasta)}"
-                                                    event="change" update="empleadoHastaParametro" />-->
+                                            <!--                                            <p:ajax listener="#/{controlNReporteNomina.autocompletarGeneral('HASTA',controlNReporteNomina.parametroDeInforme.codigoempleadohasta)}"
+                                                                                                event="change" update="empleadoHastaParametro" />-->
                                             <p:ajax event="change" listener="#{controlNReporteNomina.modificarParametroEmpleadoHasta(controlNReporteNomina.parametroDeInforme.codigoempleadohasta)}"  
                                                     update="empleadoHastaParametro" process="@this"/>
                                             <p:ajax event="dblclick" listener="#{controlNReporteNomina.dialogosParametros(8)}" process="@this"/>
@@ -817,8 +817,8 @@
                                         <p:inputText  autocomplete="off"  id="empresaParametro" value="#{controlNReporteNomina.parametroDeInforme.empresa.nombre}"  
                                                       style="position: absolute; left: 85px; width: 100px; top: 70px;" onclick="select();">
                                             <p:ajax event="click" listener="#{controlNReporteNomina.posicionCelda(10)}" process="@this"/> 
-                                            <p:ajax listener="#{controlNReporteNomina.autocompletarGeneral('EMPRESA', controlNReporteNomina.parametroDeInforme.empresa.nombre)}" 
-                                                    event="change" update="empresaParametro" process="@this"/>
+                                            <p:ajax event="change" listener="#{controlNReporteNomina.autocompletarGeneral('EMPRESA', controlNReporteNomina.parametroDeInforme.empresa.nombre)}" 
+                                                    update="empresaParametro" process="@this"/>
                                             <p:ajax event="dblclick" listener="#{controlNReporteNomina.dialogosParametros(10)}" process="@this"/>
                                         </p:inputText>
                                     </div>
@@ -921,7 +921,7 @@
                 </h:form>
 
                 <h:form id="formDialogos">
-                    
+
 
                     <p:dialog id="editarFechaDesde" header="#{msg['editarFechaDesde']}" widgetVar="editarFechaDesde" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlNReporteNomina.parametroDeInforme.fechadesde}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
@@ -1012,6 +1012,11 @@
 
                     <p:dialog id="verReportePDF" widgetVar="verReportePDF" header="#{controlNReporteNomina.cabezeraVisor}" style="width: 802px; height: 490px;" resizable="false" draggable="true" modal="true" onHide="reiniciarStreamedContent();">
                         <p:media value="#{controlNReporteNomina.reporte}" style="width: 800px; height: 500px;" player="pdf" rendered="#{controlNReporteNomina.reporte != null}"/>
+                    </p:dialog>
+
+                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
                     <p:remoteCommand name="reiniciarStreamedContent" actionListener="#{controlNReporteNomina.reiniciarStreamedContent()}"/>

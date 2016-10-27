@@ -3,14 +3,17 @@
  */
 package Administrar;
 
+import ClasesAyuda.EnvioCorreo;
+import Entidades.ConfiguracionCorreo;
 import Entidades.Generales;
 import InterfaceAdministrar.AdministarReportesInterface;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import InterfacePersistencia.PersistenciaActualUsuarioInterface;
+import InterfacePersistencia.PersistenciaConfiguracionCorreoInterface;
 import InterfacePersistencia.PersistenciaEmpleadoInterface;
 import InterfacePersistencia.PersistenciaGeneralesInterface;
 import Reportes.IniciarReporteInterface;
-import java.io.Serializable;
+import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -63,6 +66,12 @@ public class AdministarReportes implements AdministarReportesInterface {
      */
     @EJB
     IniciarReporteInterface reporte;
+    /**
+     * Enterprise JavaBeans.<br> Atributo que representa la comunicación con la
+     * persistencia 'persistenciaConfiguracionCorreo'.
+     */
+    @EJB
+    PersistenciaConfiguracionCorreoInterface persistenciaConfiguracionCorreo;
     /**
      * Atributo que representa la conexión actual al aplicativo.
      */
@@ -203,4 +212,4 @@ public class AdministarReportes implements AdministarReportesInterface {
     public void cancelarReporte() {
         reporte.cancelarReporte();
     }
-}
+    }

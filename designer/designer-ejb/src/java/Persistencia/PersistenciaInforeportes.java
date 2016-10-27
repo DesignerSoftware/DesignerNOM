@@ -5,13 +5,12 @@ package Persistencia;
 
 import Entidades.Inforeportes;
 import InterfacePersistencia.PersistenciaInforeportesInterface;
+import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaQuery;
 
 /**
  * Clase Stateless.<br>
@@ -23,6 +22,8 @@ import javax.persistence.criteria.CriteriaQuery;
  */
 @Stateless
 public class PersistenciaInforeportes implements PersistenciaInforeportesInterface {
+
+    private EntityManager em;
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.

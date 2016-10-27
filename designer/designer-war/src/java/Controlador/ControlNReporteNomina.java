@@ -6,9 +6,11 @@ package Controlador;
 
 import Entidades.*;
 import InterfaceAdministrar.AdministarReportesInterface;
+import InterfaceAdministrar.AdministrarInforeportesInterface;
 import InterfaceAdministrar.AdministrarNReportesNominaInterface;
 import java.io.*;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 //import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
@@ -44,6 +46,8 @@ public class ControlNReporteNomina implements Serializable {
     AdministrarNReportesNominaInterface administrarNReportesNomina;
     @EJB
     AdministarReportesInterface administarReportes;
+    @EJB
+    AdministrarInforeportesInterface administrarInforeportes;
 //PARAMETROS REPORTES
     private ParametrosReportes parametroDeReporte;
     private ParametrosReportes nuevoParametroInforme;
@@ -155,7 +159,7 @@ public class ControlNReporteNomina implements Serializable {
         reporteSeleccionadoLOV = null;
         reporteSeleccionado = null;
         cambiosReporte = true;
-        listaInfoReportesModificados = new ArrayList<Inforeportes>();
+        listaInfoReportesModificados = new ArrayList<>();
         parametroDeReporte = null;
         listaIR = null;
         bandera = 0;
@@ -178,7 +182,6 @@ public class ControlNReporteNomina implements Serializable {
         listValTiposTrabajadores = null;
         listValUbicacionesGeograficas = null;
         tipoLista = 0;
-
         empleadoSeleccionado = new Empleados();
         empresaSeleccionada = new Empresas();
         grupoCSeleccionado = new GruposConceptos();
@@ -207,7 +210,7 @@ public class ControlNReporteNomina implements Serializable {
             HttpSession ses = (HttpSession) contexto.getExternalContext().getSession(false);
             administarReportes.obtenerConexion(ses.getId());
             administrarNReportesNomina.obtenerConexion(ses.getId());
-
+            administrarInforeportes.obtenerConexion(ses.getId());
             System.out.println(this.getClass().getName() + " fin de iniciarAdministradores()");
         } catch (Exception e) {
             System.out.println("Error postconstruct controlNReporteNomina" + e);
@@ -610,7 +613,7 @@ public class ControlNReporteNomina implements Serializable {
             RequestContext.getCurrentInstance().update("formParametros:estadoParametro");
         }
         RequestContext.getCurrentInstance().update("formParametros");
-       // RequestContext.getCurrentInstance().update("form:reportesNomina");
+        // RequestContext.getCurrentInstance().update("form:reportesNomina");
     }
 
     public void requisitosParaReporte() {
@@ -756,14 +759,13 @@ public class ControlNReporteNomina implements Serializable {
         };
     }
 
-    public void generarArchivoReporte(JasperPrint print) {
-        System.out.println(this.getClass().getName() + ".generarArchivoReporte()");
-        if (print != null && tipoReporte != null) {
-            pathReporteGenerado = administarReportes.crearArchivoReporte(print, tipoReporte);
-            validarDescargaReporte();
-        }
-    }
-
+//    public void generarArchivoReporte(JasperPrint print) {
+//        System.out.println(this.getClass().getName() + ".generarArchivoReporte()");
+//        if (print != null && tipoReporte != null) {
+//            pathReporteGenerado = administarReportes.crearArchivoReporte(print, tipoReporte);
+//            validarDescargaReporte();
+//        }
+//    }
     public void exportarReporte() throws IOException {
         System.out.println(this.getClass().getName() + ".exportarReporte()");
         if (pathReporteGenerado != null) {
@@ -2417,7 +2419,7 @@ public class ControlNReporteNomina implements Serializable {
 
     public String getInfoRegistroUbicacion() {
         FacesContext c = FacesContext.getCurrentInstance();
-        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lovUbicacionGeografica");
+        tabla = (DataTable) c.getViewRoot().findComponent("form:lovUbicacionGeografica");
         infoRegistroUbicacion = String.valueOf(tabla.getRowCount());
         return infoRegistroUbicacion;
     }

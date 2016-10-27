@@ -275,11 +275,11 @@ public class Personas implements Serializable {
     }
 
     public void setEmail(String email) {
-       if(email != null){
-          this.email = email.toLowerCase(Locale.ENGLISH);
-       } else {
-          this.email = email;
-       }
+        if (email != null) {
+            this.email = email.toLowerCase(Locale.ENGLISH);
+        } else {
+            this.email = email;
+        }
     }
 
     public String getPlacavehiculo() {
