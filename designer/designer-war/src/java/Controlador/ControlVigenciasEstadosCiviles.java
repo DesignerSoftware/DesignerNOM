@@ -817,8 +817,8 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
                 cualCelda = -1;
             } else if (cualCelda == 1) {
                 habilitarBotonLov();
-                RequestContext.getCurrentInstance().update("formularioDialogos:editPuntaje");
-                RequestContext.getCurrentInstance().execute("PF('editPuntaje').show()");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editEstadoCivil");
+                RequestContext.getCurrentInstance().execute("PF('editEstadoCivil').show()");
                 cualCelda = -1;
             }
 
@@ -1035,8 +1035,6 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
         Exporter exporter = new ExportarPDF();
         exporter.export(context, tabla, "VIGENCIASVIGESTADOSCIVILES", false, false, "UTF-8", null, null);
         context.responseComplete();
-        vigenciaSeleccionada = null;
-        vigenciaSeleccionada = null;
     }
 
     public void exportXLS() throws IOException {
@@ -1045,14 +1043,11 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
         Exporter exporter = new ExportarXLS();
         exporter.export(context, tabla, "VIGENCIASVIGESTADOSCIVILES", false, false, "UTF-8", null, null);
         context.responseComplete();
-        vigenciaSeleccionada = null;
-        vigenciaSeleccionada = null;
     }
 
     public void verificarRastro() {
         RequestContext context = RequestContext.getCurrentInstance();
         System.out.println("lol");
-        if (!listVigenciaEstadoCivilPorEmpleado.isEmpty()) {
             if (vigenciaSeleccionada != null) {
                 System.out.println("lol 2");
                 int resultado = administrarRastros.obtenerTabla(vigenciaSeleccionada.getSecuencia(), "VIGENCIASESTADOSCIVILES"); //En ENCARGATURAS lo cambia por el nombre de su tabla
@@ -1069,7 +1064,7 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
                     RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
                 }
             }
-        } else {
+         else {
             if (administrarRastros.verificarHistoricosTabla("VIGENCIASESTADOSCIVILES")) { // igual acá
                 RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
             } else {
@@ -1077,7 +1072,6 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
             }
 
         }
-        vigenciaSeleccionada = null;
     }
 
     public void recordarSeleccion() {

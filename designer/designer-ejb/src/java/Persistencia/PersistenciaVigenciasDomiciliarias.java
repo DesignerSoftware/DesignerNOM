@@ -29,23 +29,27 @@ public class PersistenciaVigenciasDomiciliarias implements PersistenciaVigencias
     /*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
     private EntityManager em;
      */
-
     @Override
     public List<VigenciasDomiciliarias> visitasDomiciliariasPersona(EntityManager em, BigInteger secuenciaPersona) {
         try {
             em.clear();
-            Query query = em.createQuery("SELECT COUNT(vd) FROM VigenciasDomiciliarias vd WHERE vd.persona.secuencia = :secuenciaPersona");
-            query.setParameter("secuenciaPersona", secuenciaPersona);
-            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
-            Long resultado = (Long) query.getSingleResult();
-            if (resultado > 0) {
-                Query queryFinal = em.createQuery("SELECT vd FROM VigenciasDomiciliarias vd WHERE vd.persona.secuencia = :secuenciaPersona and vd.fecha = (SELECT MAX(vdo.fecha) FROM VigenciasDomiciliarias vdo WHERE vdo.persona.secuencia = :secuenciaPersona)");
-                queryFinal.setParameter("secuenciaPersona", secuenciaPersona);
-                queryFinal.setHint("javax.persistence.cache.storeMode", "REFRESH");
-                List<VigenciasDomiciliarias> listaVigenciasDomiciliarias = queryFinal.getResultList();
-                return listaVigenciasDomiciliarias;
-            }
-            return null;
+            String sql="SELECT * FROM VIGENCIASDOMICILIARIAS WHERE PERSONA = ?";
+            Query query = em.createNativeQuery(sql, VigenciasDomiciliarias.class);
+            query.setParameter(1, secuenciaPersona);
+            List<VigenciasDomiciliarias> listVisitas = query.getResultList();
+           return listVisitas; 
+//            Query query = em.createQuery("SELECT COUNT(vd) FROM VigenciasDomiciliarias vd WHERE vd.persona.secuencia = :secuenciaPersona");
+//            query.setParameter("secuenciaPersona", secuenciaPersona);
+//            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+//            Long resultado = (Long) query.getSingleResult();
+//            if (resultado > 0) {
+//                Query queryFinal = em.createQuery("SELECT vd FROM VigenciasDomiciliarias vd WHERE vd.persona.secuencia = :secuenciaPersona and vd.fecha = (SELECT MAX(vdo.fecha) FROM VigenciasDomiciliarias vdo WHERE vdo.persona.secuencia = :secuenciaPersona)");
+//                queryFinal.setParameter("secuenciaPersona", secuenciaPersona);
+//                queryFinal.setHint("javax.persistence.cache.storeMode", "REFRESH");
+//                List<VigenciasDomiciliarias> listaVigenciasDomiciliarias = queryFinal.getResultList();
+//                return listaVigenciasDomiciliarias;
+//            }
+//            return null;
         } catch (Exception e) {
             System.out.println("Error PersistenciaVigenciasDomiciliarias.visitasDomiciliariasPersona" + e);
             return null;
@@ -101,6 +105,23 @@ public class PersistenciaVigenciasDomiciliarias implements PersistenciaVigencias
             if (tx.isActive()) {
                 tx.rollback();
             }
+        }
+    }
+
+    @Override
+    public VigenciasDomiciliarias actualVisitaDomiciliariaPersona(EntityManager em, BigInteger secuencia) {
+        try {
+            em.clear();
+            String sql = "SELECT DISTINCT * FROM VIGENCIASDOMICILIARIAS WHERE FECHA= (SELECT MAX(vdo.fecha) FROM VigenciasDomiciliarias vdo WHERE vdo.persona = ?) and persona = ?";
+            Query query = em.createNativeQuery(sql, VigenciasDomiciliarias.class);
+            query.setParameter(1, secuencia);
+            query.setParameter(2, secuencia);
+            VigenciasDomiciliarias vigenciaActual = (VigenciasDomiciliarias) query.getSingleResult();
+            return vigenciaActual;
+
+        } catch (Exception e) {
+            System.out.println("Error PersistenciaVigenciasDomiciliarias.actualVisitaDomiciliariaPersona" + e);
+            return null;
         }
     }
 }

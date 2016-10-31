@@ -49,6 +49,8 @@ public interface AdministrarVigenciasDomiciliariasInterface {
 
     public List<VigenciasDomiciliarias> vigenciasDomiciliariasporPersona(BigInteger secPersona);
 
+    public VigenciasDomiciliarias vigenciaDomiciliariaActual(BigInteger secPersona);
+    
     public List<EstadosCiviles> lovVigenciasEstadosCiviles();
 
     public List<TiposTelefonos> lovTiposTelefonos();
@@ -143,7 +145,11 @@ public interface AdministrarVigenciasDomiciliariasInterface {
 
 ////exp laboral
     public HVHojasDeVida obtenerHojaVidaPersona(BigInteger secuencia);
-
+    
+    public void editarHojadeVida(List<HVHojasDeVida> listaEditar);
+    
+    public void editarPersona(List<Personas> listaEditar);
+    
     public List<HvExperienciasLaborales> experienciasLaboralesEmpleado(BigInteger secuencia);
 
     public void crearExperienciaLaboral(List<HvExperienciasLaborales> listHEL);

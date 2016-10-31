@@ -1098,14 +1098,12 @@ public class ControlPersonaEducacion implements Serializable {
             Exporter exporter = new ExportarPDF();
             exporter.export(context, tabla, "VigenciasFormalesPDF", false, false, "UTF-8", null, null);
             context.responseComplete();
-            vigenciaFormalSeleccionada = null;
         } else {
             DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosVigenciasNoFormalesExportar");
             FacesContext context = FacesContext.getCurrentInstance();
             Exporter exporter = new ExportarPDF();
             exporter.export(context, tabla, "VigenciasNoFormalesPDF", false, false, "UTF-8", null, null);
             context.responseComplete();
-            vigenciaNoFormalSeleccionada = null;
         }
     }
 
@@ -1116,14 +1114,12 @@ public class ControlPersonaEducacion implements Serializable {
             Exporter exporter = new ExportarXLS();
             exporter.export(context, tabla, "VigenciasFormalesXLS", false, false, "UTF-8", null, null);
             context.responseComplete();
-            vigenciaFormalSeleccionada = null;
         } else {
             DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosVigenciasNoFormalesExportar");
             FacesContext context = FacesContext.getCurrentInstance();
             Exporter exporter = new ExportarPDF();
             exporter.export(context, tabla, "VigenciasNoFormalesXLS", false, false, "UTF-8", null, null);
             context.responseComplete();
-            vigenciaNoFormalSeleccionada = null;
         }
     }
 

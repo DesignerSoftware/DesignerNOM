@@ -213,9 +213,6 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
         return empleado;
     }
 
-   
-
-
     ////metodos direcciones
     @Override
     public List<Direcciones> consultarDireccionesPersona(BigInteger secPersona) {
@@ -435,6 +432,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
         return listEducacion;
     }
 //////métodos exp laboral
+
     @Override
     public void crearExperienciaLaboral(List<HvExperienciasLaborales> listHEL) {
         try {
@@ -481,7 +479,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
 
     @Override
     public void borrarExperienciaLaboral(List<HvExperienciasLaborales> listHEL) {
-                try {
+        try {
             for (int i = 0; i < listHEL.size(); i++) {
 //                if (listHEL.get(i).getMotivoretiro().getSecuencia() == null) {
 //                    listHEL.get(i).setMotivoretiro(null);
@@ -495,7 +493,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
             System.out.println("Error borrarExperienciaLaboral Admi : " + e.toString());
         }
     }
-    
+
     @Override
     public HVHojasDeVida obtenerHojaVidaPersona(BigInteger secuencia) {
         HVHojasDeVida hojaVida = persistenciahv.hvHojaDeVidaPersona(em, secuencia);
@@ -515,8 +513,6 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
     }
 
     ///métodos familiares
-    
-    
     @Override
     public List<TiposFamiliares> lovTiposFamiliares() {
         List<TiposFamiliares> lovTiposFamiliares = persistenciaTiposFamiliares.buscarTiposFamiliares(em);
@@ -534,8 +530,8 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
         Personas persona = persistenciaPersonas.buscarPersona(em, secpersona);
         return persona;
     }
-    
-     @Override
+
+    @Override
     public List<Familiares> buscarFamiliares(BigInteger secPersona) {
         List<Familiares> listFamiliares = persistenciaFamiliares.familiaresPersona(em, secPersona);
         return listFamiliares;
@@ -548,11 +544,11 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
 
     @Override
     public List<TiposDocumentos> consultarTiposDocumentos() {
-         List<TiposDocumentos> listTiposDocumentos;
+        List<TiposDocumentos> listTiposDocumentos;
         listTiposDocumentos = persistenciaTipoDocumento.consultarTiposDocumentos(em);
         return listTiposDocumentos;
     }
-    
+
     @Override
     public void modificarFamiliares(List<Familiares> listaModificar) {
         for (int i = 0; i < listaModificar.size(); i++) {
@@ -566,7 +562,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
 
     @Override
     public void borrarFamiliares(List<Familiares> listaBorrar) {
-         for (int i = 0; i < listaBorrar.size(); i++) {
+        for (int i = 0; i < listaBorrar.size(); i++) {
             if (listaBorrar.get(i).getPersona() == null) {
                 listaBorrar.get(i).setPersona(new Personas());
             }
@@ -577,7 +573,7 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
 
     @Override
     public void crearFamilares(List<Familiares> listaCrear) {
-       for (int i = 0; i < listaCrear.size(); i++) {
+        for (int i = 0; i < listaCrear.size(); i++) {
             System.out.println("Administrar Creando...");
             if (listaCrear.get(i).getPersona() == null) {
                 listaCrear.get(i).setPersona(new Personas());
@@ -585,5 +581,25 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
             persistenciaFamiliares.crear(em, listaCrear.get(i));
         }
     }
-    
+
+    @Override
+    public VigenciasDomiciliarias vigenciaDomiciliariaActual(BigInteger secPersona) {
+        VigenciasDomiciliarias vigActual = persistenciaVigenciasDomiciliarias.actualVisitaDomiciliariaPersona(em, secPersona);
+        return vigActual;
+    }
+
+    @Override
+    public void editarHojadeVida(List<HVHojasDeVida> listaEditar) {
+        for (int i = 0; i < listaEditar.size(); i++) {
+            persistenciahv.editar(em, listaEditar.get(i));
+        }
+    }
+
+    @Override
+    public void editarPersona(List<Personas> listaEditar) {
+        for (int i = 0; i < listaEditar.size(); i++) {
+            persistenciaPersonas.editar(em, listaEditar.get(i));
+        }
+    }
+
 }

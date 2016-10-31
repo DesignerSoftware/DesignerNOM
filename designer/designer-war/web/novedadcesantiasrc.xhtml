@@ -105,11 +105,17 @@
                                 <p:column style="text-align: center" headerText="Código" sortBy="#{empleados.codigoempleado}" filterBy="#{empleados.codigoempleado}" 
                                           filterMatchMode="contains" id="nEEmpleadosCodigos" width="70" filterStyle="display: none; visibility: hidden;" >                                  
                                     <h:outputText value="#{empleados.codigoempleado}" />
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
                                 </p:column>
 
                                 <p:column headerText="Nombre" sortBy="#{empleados.persona.nombreCompleto}" filterBy="#{empleados.persona.nombreCompleto}" 
                                           filterMatchMode="contains" id="nEEmpleadosNombres" filterStyle="display: none; visibility: hidden;" >                                  
                                     <h:outputText value="#{empleados.persona.nombreCompleto}" />
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
                                 </p:column>
 
                             </p:dataTable>
@@ -341,11 +347,6 @@
                             </p:dataTable>
                             <h:outputText id="infoRegistroNovedad" value="#{msg['infoRegistros']} #{controlNovedadCesantiasRC.infoRegistroNovedadCesantias}  " style="position: relative; left: 10px; top: 15px; font-weight: bold"/>
                         </fieldset>
-                        <p:commandButton style="position: absolute; left: 15px; top: 480px; text-align: right ; background-image: url(Imagenes/Iconos/boton.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 170px; height: 40px; color: white;" icon="ui-icon-extlink" id="NOVNOLIQUIDADAS" value="Nov. No Liquidadas" actionListener="#{controlNovedadCesantiasRC.novedadesCesantiasNoLiquidadas()}" process="@this" />
-                        <p:tooltip  for="NOVNOLIQUIDADAS" value="#{msg['noliq']}" />
-
-                        <p:commandButton style="position: absolute; left: 190px; top: 480px; background-image: url(Imagenes/Iconos/boton.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 150px; height: 40px; color: white;" icon="ui-icon-extlink" id="TODASNOV" value="Todas" actionListener="#{controlNovedadCesantiasRC.novedadesTodas()}" process="@this" />
-                        <p:tooltip  for="TODASNOV" value="Todas las novedades" />
                     </p:panel>
                 </h:form>
                 <!--//////////////////////-->
@@ -581,19 +582,19 @@
                         <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('validacionNuevaNovedadEmpleado').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="validacionvlrcesantias" header="#{msg['atencion']}" widgetVar="validacionvlrcesantias"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
+                    <p:dialog id="validacionvlrcesantias" header="#{msg['atencion']}" widgetVar="validacionvlrcesantias"  resizable="false" draggable="true" modal="true" height="100" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 20px; top: 10px;"  />
                         <h:outputText value="#{msg['validacionvlrcesantias']}" style="position: absolute; left: 90px; top: 20px; width: 300px;" />
                         <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('validacionvlrcesantias').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="validacionvlrintcesantias" header="#{msg['atencion']}" widgetVar="validacionvlrintcesantias"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
+                    <p:dialog id="validacionvlrintcesantias" header="#{msg['atencion']}" widgetVar="validacionvlrintcesantias"  resizable="false" draggable="true" modal="true" height="100" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 20px; top: 10px;"  />
                         <h:outputText value="#{msg['validacionvlrintcesantias']}" style="position: absolute; left: 90px; top: 20px; width: 300px;" />
                         <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('validacionvlrintcesantias').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="validacionvlrsolicitado" header="#{msg['atencion']}" widgetVar="validacionvlrsolicitado"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
+                    <p:dialog id="validacionvlrsolicitado" header="#{msg['atencion']}" widgetVar="validacionvlrsolicitado"  resizable="false" draggable="true" modal="true" height="100" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 20px; top: 10px;"  />
                         <h:outputText value="#{msg['validacionvlrsolicitado']}" style="position: absolute; left: 90px; top: 20px; width: 300px;" />
                         <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('validacionvlrsolicitado').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
@@ -727,17 +728,15 @@
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 5px; width: 185px; font-weight:bold;" />
                     </p:dialog>
-                    
-                     <p:dialog id="errorCesantias" header="#{msg['informacion']}" widgetVar="errorCesantias"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorCesantias']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
-                    </p:dialog>
-                   
-                     <p:dialog id="errorIntCesantias" header="#{msg['informacion']}" widgetVar="errorIntCesantias"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorIntCesantias']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
-                    </p:dialog>
 
+                    <p:dialog id="errorGuardado" header="#{msg['error']}" widgetVar="errorGuardado"  resizable="false" draggable="true" modal="true" height="100" width="400"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorGuardado']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('errorGuardado').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                    </p:dialog>
+                    
+    
+                    
                     <!--HotKey-->
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlNovedadCesantiasRC.activarCtrlF11()}" process="@this"/> 
 

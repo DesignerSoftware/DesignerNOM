@@ -852,9 +852,9 @@ public class ControlPerExperienciaLaboral implements Serializable {
                 RequestContext.getCurrentInstance().execute("PF('editarLogroD').show()");
                 cualCelda = -1;
             }
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
-        experienciaTablaSeleccionada = null;
-        experienciaTablaSeleccionada = null;
     }
 
     public void agregarNuevaE() {
@@ -1399,8 +1399,6 @@ public class ControlPerExperienciaLaboral implements Serializable {
         Exporter exporter = new ExportarPDF();
         exporter.export(context, tabla, "ExperienciasLaboralesPDF", false, false, "UTF-8", null, null);
         context.responseComplete();
-        experienciaTablaSeleccionada = null;
-        experienciaTablaSeleccionada = null;
     }
 
     public void verificarExportXLS() throws IOException {
@@ -1413,8 +1411,6 @@ public class ControlPerExperienciaLaboral implements Serializable {
         Exporter exporter = new ExportarXLS();
         exporter.export(context, tabla, "ExperienciasLaboralesXLS", false, false, "UTF-8", null, null);
         context.responseComplete();
-        experienciaTablaSeleccionada = null;
-        experienciaTablaSeleccionada = null;
     }
 
     public void eventoFiltrar() {

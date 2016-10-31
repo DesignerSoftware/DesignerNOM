@@ -192,11 +192,11 @@ public class PersistenciaNovedadesSistema implements PersistenciaNovedadesSistem
 
    @Override
    public BigDecimal valorCesantias(EntityManager em, BigInteger secuenciaEmpleado) {
-      try {
-
+       BigDecimal valorcesantias;
+       try {
+          
          em.clear();
-         String qr = "SELECT sn1.SALDO \n"
-                 + //,SN1.FECHAHASTA 
+         String qr = "SELECT sn1.SALDO \n"+
                  "FROM SOLUCIONESNODOS SN1, EMPLEADOS E, vigenciascargos vc, estructuras est, organigramas org\n"
                  + "WHERE sn1.EMPLEADO= E.SECUENCIA\n"
                  + "and e.secuencia=vc.empleado\n"
@@ -220,29 +220,21 @@ public class PersistenciaNovedadesSistema implements PersistenciaNovedadesSistem
                  + "AND E.SECUENCIA= ? \n";
          Query query = em.createNativeQuery(qr);
          query.setParameter(1, secuenciaEmpleado);
-         BigDecimal valorcesantias = (BigDecimal) query.getSingleResult();
-          System.out.println("valor cesantias :" + valorcesantias);
-//         BigDecimal cero = new BigDecimal(0);
-//         if(valorcesantias == null){
-//             System.out.println("valor de cesantias es cero");
-//             return cero;
-//         }
-//         else{
+        valorcesantias = (BigDecimal) query.getSingleResult();
+      } catch (Exception e) {
+         System.out.println("entró al catch Error: (valorCesantias)" + e);
+         valorcesantias = BigDecimal.ZERO;
+      }
          System.out.println("valor retornado por la funcion PersistenciaNovedadesSistema.valorCesantias: " + valorcesantias);
          return valorcesantias;
-//         }
-      } catch (Exception e) {
-         System.out.println("Error: (valorCesantias)" + e);
-         return null;
-      }
    }
 
    @Override
    public BigDecimal valorIntCesantias(EntityManager em, BigInteger secuenciaEmpleado) {
-      try {
+        BigDecimal valorintcesantias;
+       try {
          em.clear();
-         String qr = "SELECT sn1.SALDO  \n"
-                 + //,SN1.FECHAHASTA
+         String qr = "SELECT sn1.SALDO  \n" + 
                  "FROM SOLUCIONESNODOS SN1, EMPLEADOS E, vigenciascargos vc, estructuras est, organigramas org\n"
                  + "WHERE sn1.EMPLEADO= E.SECUENCIA\n"
                  + "and e.secuencia=vc.empleado\n"
@@ -266,13 +258,13 @@ public class PersistenciaNovedadesSistema implements PersistenciaNovedadesSistem
                  + "AND E.SECUENCIA= ? \n";
          Query query = em.createNativeQuery(qr);
          query.setParameter(1, secuenciaEmpleado);
-         BigDecimal valorintcesantias = (BigDecimal) query.getSingleResult();
-         System.out.println("valor retornado por la funcion PersistenciaNovedadesSistema.valorIntCesantias: " + valorintcesantias);
-         return valorintcesantias;
+          valorintcesantias = (BigDecimal) query.getSingleResult();
       } catch (Exception e) {
          System.err.println("Error: (valorIntCesantias)" + e);
-         return null;
+          valorintcesantias = BigDecimal.ZERO;
       }
+         System.out.println("valor retornado por la funcion PersistenciaNovedadesSistema.valorIntCesantias: " + valorintcesantias);
+         return valorintcesantias;
    }
 
    @Override

@@ -949,7 +949,6 @@ public class ControlPerDirecciones implements Serializable {
         Exporter exporter = new ExportarPDF();
         exporter.export(context, tabla, "DireccionesPDF", false, false, "UTF-8", null, null);
         context.responseComplete();
-        direccionSeleccionada = null;
     }
 
     public void exportXLS() throws IOException {
@@ -958,7 +957,6 @@ public class ControlPerDirecciones implements Serializable {
         Exporter exporter = new ExportarXLS();
         exporter.export(context, tabla, "DireccionesXLS", false, false, "UTF-8", null, null);
         context.responseComplete();
-        direccionSeleccionada = null;
     }
 
     public void verificarRastro() {

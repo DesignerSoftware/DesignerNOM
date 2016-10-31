@@ -254,38 +254,7 @@ public class ControlNovedadCesantiasRC implements Serializable {
         RequestContext.getCurrentInstance().update("form:NOLIQUIDADAS");
     }
 
-    public void novedadesCesantiasNoLiquidadas() {
-        if (!listaNovedades.isEmpty()) {
-            listaNovedades.clear();
-        }
-        listaauxnov = administrarNovedadesPagoCesantias.novedadesnoliquidadas(empleadoSeleccionado.getSecuencia());
-        System.out.println("lista aux novedades" + listaauxnov);
-        if (listaauxnov != null) {
-            for (int i = 0; i < listaauxnov.size(); i++) {
-                listaNovedades.add(listaauxnov.get(i));
-            }
-        }
-        contarRegistrosNovedades();
-        RequestContext context = RequestContext.getCurrentInstance();
-        actuales = false;
-        RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
-        RequestContext.getCurrentInstance().update("form:NOVNOLIQUIDADAS");
-    }
-
-    public void novedadesTodas() {
-        if (!listaNovedades.isEmpty()) {
-            listaNovedades.clear();
-        }
-        listaNovedades = administrarNovedadesPagoCesantias.todasnovedadescesantias(empleadoSeleccionado.getSecuencia());
-        contarRegistrosNovedades();
-        RequestContext context = RequestContext.getCurrentInstance();
-        actuales = false;
-        RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
-        RequestContext.getCurrentInstance().update("form:TODASNOV");
-    }
-
     public void modificarNovedadCesantias(NovedadesSistema novedadS, String confirmarCambio, String valorConfirmar) {
-
         novedadSeleccionada = novedadS;
         System.out.println("modificarNovedadPagoParcialCesantias");
         int coincidencias = 0;
@@ -302,7 +271,6 @@ public class ControlNovedadCesantiasRC implements Serializable {
                     if (guardado == true) {
                         guardado = false;
                         RequestContext.getCurrentInstance().update("form:ACEPTAR");
-
                     }
                 }
             } else if (!listaNovedadesCrear.contains(novedadSeleccionada)) {
@@ -314,7 +282,6 @@ public class ControlNovedadCesantiasRC implements Serializable {
                 if (guardado == true) {
                     guardado = false;
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
-
                 }
             }
 
@@ -330,7 +297,6 @@ public class ControlNovedadCesantiasRC implements Serializable {
                     if (guardado == true) {
                         guardado = false;
                         RequestContext.getCurrentInstance().update("form:ACEPTAR");
-
                     }
                 }
             } else if (!listaNovedadesCrear.contains(novedadSeleccionada)) {
@@ -342,7 +308,6 @@ public class ControlNovedadCesantiasRC implements Serializable {
                 if (guardado == true) {
                     guardado = false;
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
-
                 }
             }
 
@@ -398,6 +363,14 @@ public class ControlNovedadCesantiasRC implements Serializable {
             nuevaNovedad.setSecuencia(BigInteger.valueOf(paraNuevaNovedad));
             nuevaNovedad.setEmpleado(empleadoSeleccionado); //Envia empleado
             System.out.println("Empleado enviado: " + empleadoSeleccionado.getPersona().getNombreCompleto());
+            //-------Datos Ingresados    
+            System.out.println("empleado : " + empleadoSeleccionado);
+            System.out.println("fecha cesantias" + nuevaNovedad.getFechacortecesantia());
+            System.out.println("valor cesantias " + nuevaNovedad.getValorcesantia());
+            System.out.println("valor intereses cesantias " + nuevaNovedad.getValorinterescesantia());
+            System.out.println("valor solicitado " + nuevaNovedad.getValorsolicitado());
+            System.out.println("observaciones " + nuevaNovedad.getObservaciones());
+            System.out.println("beneficiario " + nuevaNovedad.getBeneficiario());
             listaNovedadesCrear.add(nuevaNovedad);
             listaNovedades.add(nuevaNovedad);
             nuevaNovedad.setObservaciones(nuevaNovedad.getObservaciones());
@@ -625,10 +598,12 @@ public class ControlNovedadCesantiasRC implements Serializable {
 
     public void autocompletarVlrCesantias() {
         System.out.println("Entró a autocompletarVlrCesantias");
-       if(retornarprovision() == null){
-        RequestContext.getCurrentInstance().execute("PF('validacionvlrcesantias");
-       }
-        if (retornarprovision() != null) {
+        System.out.println("controlador valor cesantias : " + retornarprovisioncesantias());
+        if (retornarprovisioncesantias().toBigInteger().equals(BigInteger.ZERO)) {
+            RequestContext.getCurrentInstance().execute("PF('validacionvlrcesantias').show()");
+            nuevaNovedad.setValorcesantia(BigInteger.ZERO);
+            RequestContext.getCurrentInstance().update("formularioDialogos:vlrcesantias");
+        } else if (retornarprovision() != null) {
             nuevaNovedad.setValorcesantia(retornarprovisioncesantias().toBigInteger());
             RequestContext.getCurrentInstance().update("formularioDialogos:vlrcesantias");
         }
@@ -636,11 +611,14 @@ public class ControlNovedadCesantiasRC implements Serializable {
 
     public void autocompletarVlrIntCesantias() {
         System.out.println("Entró a autocompletarVlrIntCesantias");
-        if (retornarprovision() != null) {
+        System.out.println("VlrIntCesantias del controlador " + retornarprovision());
+        if (retornarprovision().toBigInteger().equals(BigInteger.ZERO)) {
+            RequestContext.getCurrentInstance().execute("PF('validacionvlrintcesantias').show()");
+            nuevaNovedad.setValorinterescesantia(BigInteger.ZERO);
+            RequestContext.getCurrentInstance().update("formularioDialogos:vlrintcesantias");
+        } else if (retornarprovision() != null) {
             nuevaNovedad.setValorinterescesantia(retornarprovision().toBigInteger());
             RequestContext.getCurrentInstance().update("formularioDialogos:vlrintcesantias");
-        } else {
-            RequestContext.getCurrentInstance().execute("PF('formularioDialogos:validacionvlrintcesantias");
         }
     }
 
@@ -760,41 +738,26 @@ public class ControlNovedadCesantiasRC implements Serializable {
         aceptar = true;
         tipoActualizacion = -1;
         cualCelda = -1;
+
+        RequestContext.getCurrentInstance().update("formularioDialogos:motivoscesantiasDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:lovmotivoscesantias");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarP");
+
         context.reset("formularioDialogos:lovmotivoscesantias:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('lovmotivoscesantias').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('motivoscesantiasDialogo').hide()");
-        //RequestContext.getCurrentInstance().update("formularioDialogos:LOVPeriodos");
     }
 
     public BigInteger sumarvalorsolicitado(BigInteger valorcesantia, BigInteger valorintcesantia) {
         BigInteger valorsolicitado;
-
-        valorsolicitado = valorcesantia.add(valorintcesantia);
+        if (valorcesantia.equals(BigInteger.ZERO) && valorintcesantia.equals(BigInteger.ZERO)) {
+            valorsolicitado = BigInteger.ZERO;
+        } else {
+            valorsolicitado = valorcesantia.add(valorintcesantia);
+        }
         System.out.println("El valor solicitado es : " + valorsolicitado);
         return valorsolicitado;
         // RequestContext.getCurrentInstance().update("formularioDialogos:nuevaNovedad");
-    }
-
-    public void cancelarCambioSaldoCesantias() {
-        aceptar = true;
-        tipoActualizacion = -1;
-        cualCelda = -1;
-        permitirIndex = true;
-        RequestContext context = RequestContext.getCurrentInstance();
-        context.reset("formularioDialogos:lovvalorcesantias:globalFilter");
-        RequestContext.getCurrentInstance().execute("PF('lovvalorcesantias').clearFilters()");
-        RequestContext.getCurrentInstance().execute("PF('valorcesantiasDialogo').hide()");
-    }
-
-    public void cancelarCambioSaldoIntCesantias() {
-        aceptar = true;
-        tipoActualizacion = -1;
-        cualCelda = -1;
-        permitirIndex = true;
-        RequestContext context = RequestContext.getCurrentInstance();
-        context.reset("formularioDialogos:lovvalorintcesantias:globalFilter");
-        RequestContext.getCurrentInstance().execute("PF('lovvalorintcesantias').clearFilters()");
-        RequestContext.getCurrentInstance().execute("PF('valorcesantiasIntDialogo').hide()");
     }
 
     public void borrarNovedades() {
@@ -830,63 +793,71 @@ public class ControlNovedadCesantiasRC implements Serializable {
 
     /////GUARDARCAMBIOSNOVEDADES
     public void guardarCambiosNovedades() {
+        try {
+            Empleados emp = new Empleados();
+            if (guardado == false) {
+                System.out.println("Realizando Operaciones Novedades");
 
-        Empleados emp = new Empleados();
-        if (guardado == false) {
-            System.out.println("Realizando Operaciones Novedades");
-
-            if (!listaNovedadesBorrar.isEmpty()) {
-                for (int i = 0; i < listaNovedadesBorrar.size(); i++) {
-                    System.out.println("Borrando..." + listaNovedadesBorrar.size());
-                    if (listaNovedadesBorrar.get(i).getObservaciones() == null) {
-                        listaNovedadesBorrar.get(i).setObservaciones(" ");
+                if (!listaNovedadesBorrar.isEmpty()) {
+                    for (int i = 0; i < listaNovedadesBorrar.size(); i++) {
+                        System.out.println("Borrando..." + listaNovedadesBorrar.size());
+                        if (listaNovedadesBorrar.get(i).getObservaciones() == null) {
+                            listaNovedadesBorrar.get(i).setObservaciones(" ");
+                        }
+                        if (listaNovedadesBorrar.get(i).getBeneficiario() == null) {
+                            listaNovedadesBorrar.get(i).setBeneficiario(null);
+                        }
+                        administrarNovedadesSistema.borrarNovedades(listaNovedadesBorrar.get(i));
                     }
-                    if (listaNovedadesBorrar.get(i).getBeneficiario() == null) {
-                        listaNovedadesBorrar.get(i).setBeneficiario(null);
-                    }
-                    administrarNovedadesSistema.borrarNovedades(listaNovedadesBorrar.get(i));
+                    System.out.println("Entra");
+                    listaNovedadesBorrar.clear();
                 }
-                System.out.println("Entra");
-                listaNovedadesBorrar.clear();
-            }
 
-            if (!listaNovedadesCrear.isEmpty()) {
-                for (int i = 0; i < listaNovedadesCrear.size(); i++) {
-                    System.out.println("Creando...");
-                    if (listaNovedadesCrear.get(i).getObservaciones() == null) {
-                        listaNovedadesCrear.get(i).setObservaciones(" ");
-                    }
-                    if (listaNovedadesCrear.get(i).getBeneficiario() == null) {
-                        listaNovedadesCrear.get(i).setBeneficiario(null);
-                    }
-                    System.out.println(listaNovedadesCrear.get(i).getTipo());
-                    administrarNovedadesSistema.crearNovedades(listaNovedadesCrear.get(i));
+                if (!listaNovedadesCrear.isEmpty()) {
+                        for (int i = 0; i < listaNovedadesCrear.size(); i++) {
+                            System.out.println("Creando...");
+                            if (listaNovedadesCrear.get(i).getObservaciones() == null) {
+                                listaNovedadesCrear.get(i).setObservaciones(" ");
+                            }
+                            if (listaNovedadesCrear.get(i).getBeneficiario() == null) {
+                                listaNovedadesCrear.get(i).setBeneficiario(null);
+                            }
+                            System.out.println(listaNovedadesCrear.get(i).getTipo());
+                            administrarNovedadesSistema.crearNovedades(listaNovedadesCrear.get(i));
+                        }
+                        System.out.println("LimpiaLista");
+                        listaNovedadesCrear.clear();
                 }
-                System.out.println("LimpiaLista");
-                listaNovedadesCrear.clear();
-            }
 
-            if (!listaNovedadesModificar.isEmpty()) {
-                for (int i = 0; i < listaNovedadesModificar.size(); i++) {
-                    System.out.println(" modificando");
-                    administrarNovedadesSistema.modificarNovedades(listaNovedadesModificar.get(i));
+                if (!listaNovedadesModificar.isEmpty()) {
+                    for (int i = 0; i < listaNovedadesModificar.size(); i++) {
+                        System.out.println(" modificando");
+                        administrarNovedadesSistema.modificarNovedades(listaNovedadesModificar.get(i));
+                    }
                 }
+                System.out.println("Se guardaron los datos con exito");
+                listaNovedades = null;
+                getListaNovedades();
+                contarRegistrosNovedades();
+                RequestContext context = RequestContext.getCurrentInstance();
+                RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
+                guardado = true;
+                permitirIndex = true;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+                RequestContext.getCurrentInstance().update("form:growl");
+                k = 0;
             }
-            System.out.println("Se guardaron los datos con exito");
-            listaNovedades = null;
-            getListaNovedades();
-            contarRegistrosNovedades();
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
-            guardado = true;
-            permitirIndex = true;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
+            System.out.println("Valor k: " + k);
+        } catch (Exception e) {
+            System.out.println("Error guardando datos : " + e.getMessage());
+            RequestContext.getCurrentInstance().execute("PF('errorGuardado').show()");
+            FacesMessage msg = new FacesMessage("Información", "Error en el guardado, Intente nuevamente");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
-            k = 0;
+
         }
-        System.out.println("Valor k: " + k);
 
     }
 
@@ -900,11 +871,13 @@ public class ControlNovedadCesantiasRC implements Serializable {
         cualCelda = -1;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
+        RequestContext.getCurrentInstance().update("formularioDialogos:motivoscesantiasDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:lovmotivoscesantias");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarP");
         context.reset("formularioDialogos:lovmotivoscesantias:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('lovmotivoscesantias').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('motivoscesantiasDialogo').hide()");
-        limpiarDuplicarNovedad();
-        limpiarNuevaNovedad();
+
     }
 
     //////SUMAR VALOR CESANTIA E INT CESANTIAS PARA SACAR EL VALOR SOLICITADO

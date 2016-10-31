@@ -75,11 +75,11 @@
                         <p:commandButton style=" position: absolute; left: 765px; top: 487px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" value=""  action="atrasmotivocesantias" actionListener="#{controlMotivosCesantias.cancelarModificacion()}"   />
 
                         
-                        <fieldset style="position: absolute; left: 10px; top: 90px; font-size: 10px; width: 835px; height: 270px; border-radius: 10px; ">
+                        <fieldset style="position: absolute; left: 10px; top: 90px; font-size: 10px; width: 835px; height: 370px; border-radius: 10px; ">
                             <legend style="font-size: 14px; color: blue"><strong>Motivos de las Cesantías</strong></legend>
 
                             <p:dataTable id="datosTipoReemplazo" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 830px ;font-size: 10px; border: 1px;"                           
-                                         value="#{controlMotivosCesantias.listMotivosCesantias}" scrollable="true" scrollHeight="#{controlMotivosCesantias.altoTabla}"  scrollWidth="830"
+                                         value="#{controlMotivosCesantias.listMotivosCesantias}" scrollable="true" scrollHeight="280"  scrollWidth="830"
                                          filteredValue="#{controlMotivosCesantias.filtrarMotivosCesantias}" emptyMessage="No se encontraron resultados para la búsqueda"
                                          editable="true" editMode="cell" selection="#{controlMotivosCesantias.motivoCesantiaSeleccionado}" selectionMode="single"  
                                          >

@@ -462,7 +462,6 @@ public class ControlPerTelefonos implements Serializable {
         Exporter exporter = new ExportarPDF();
         exporter.export(context, tabla, "TelefonosPDF", false, false, "UTF-8", null, null);
         context.responseComplete();
-        telefonoSeleccionado = null;
     }
 
     public void exportXLS() throws IOException {
@@ -471,7 +470,6 @@ public class ControlPerTelefonos implements Serializable {
         Exporter exporter = new ExportarXLS();
         exporter.export(context, tabla, "TelefonosXLS", false, false, "UTF-8", null, null);
         context.responseComplete();
-        telefonoSeleccionado = null;
     }
     //LIMPIAR NUEVO REGISTRO
 

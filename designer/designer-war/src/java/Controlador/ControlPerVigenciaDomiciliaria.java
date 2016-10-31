@@ -31,8 +31,12 @@ import Entidades.TiposFamiliares;
 import Entidades.TiposTelefonos;
 import Entidades.VigenciasDomiciliarias;
 import Entidades.VigenciasEstadosCiviles;
+import Exportar.ExportarPDF;
+import Exportar.ExportarPDFTablasAnchas;
+import Exportar.ExportarXLS;
 import InterfaceAdministrar.AdministrarRastrosInterface;
 import InterfaceAdministrar.AdministrarVigenciasDomiciliariasInterface;
+import java.io.IOException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -42,6 +46,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -49,6 +54,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
+import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
 
 /**
@@ -70,10 +76,14 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
     private List<VigenciasDomiciliarias> listVigenciasDomiciliariasModificar;
     private List<VigenciasDomiciliarias> listVigenciasDomiciliariasBorrar;
     private List<VigenciasDomiciliarias> listVigenciasDomiciliariasFiltrar;
+    private List<VigenciasDomiciliarias> lovVisitas;
+
     private VigenciasDomiciliarias vigenciasDomiciliariaSeleccionada;
     private VigenciasDomiciliarias nuevaVigenciaDomiciliaria;
     private VigenciasDomiciliarias duplicarVigenciaDomiciliaria;
     private VigenciasDomiciliarias editarVigenciaDomiciliaria;
+    private VigenciasDomiciliarias visitaSeleccionada;
+    private VigenciasDomiciliarias visitaLovSeleccionada;
     //lista vigencias Formales
     private List<VigenciasFormales> listVigenciasFormales;
     private List<VigenciasFormales> listVigenciasFormalesCrear;
@@ -243,7 +253,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
     private int tipoActualizacion; //Activo/Desactivo Crtl + F11
     private int bandera;
     private boolean permitirIndex;
-    private String altoTabla;
+    private String altoTabla, tablaImprimir, nombreArchivo;
     private Personas persona;
     private Empleados empleado;
     private Telefonos telefonoActual;
@@ -294,15 +304,16 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
     private Column condicionesF, condicionesS, situacionE, nivelAc, motivacionC;
     private String infoRegistroRelaciones, infoRegistroServicios, infoRegistroIngresos, infoRegistroAportesH, infoRegistrosEgresos, infoRegistrosIndicadores, nombreDialogo;
     private int cualtabla;
-    private boolean activarotroservicio,activarotroegreso,activarotroaporte;
+    private boolean activarotroservicio;
+    private boolean activarotroegreso;
+    private boolean activarotroaporte;
+    private String infoRegistrolovvisitas, infoRegistroVigenciaD;
 
     /**
      * Creates a new instance of ControlPerVigenciaDomiciliaria
      */
     public ControlPerVigenciaDomiciliaria() {
         altoTabla = "70";
-        nuevaVigenciaDomiciliaria = new VigenciasDomiciliarias();
-        hojaVida = new HVHojasDeVida();
         nuevaPersona = new Personas();
         nuevahvexp = new HvExperienciasLaborales();
         nuevoTelefono = new Telefonos();
@@ -386,6 +397,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         listaFamiliaresModificar = new ArrayList<Familiares>();
         nuevaVigenciaDomiciliaria = new VigenciasDomiciliarias();
         nuevaVigenciaDomiciliaria.setFecha(new Date());
+        duplicarVigenciaDomiciliaria = new VigenciasDomiciliarias();
         lovCargos = null;
         listHojasdeVidaCrear = new ArrayList<HVHojasDeVida>();
         listHojasdeVidaBorrar = new ArrayList<HVHojasDeVida>();
@@ -415,7 +427,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
     }
 
     public void recibirEmpleado(BigInteger secuencia) {
-        listVigenciasDomiciliarias = null;
+        System.out.println("secuencia del empleado en recibir empleado : " + secuencia);
         listVigenciasFormales = null;
         listDirecciones = null;
         listTelefonos = null;
@@ -424,6 +436,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         listaFamiliares = null;
         listhvExpLaborales = null;
         listAntecedentesM = null;
+        guardado = true;
         persona = administrarVigDomiciliarias.encontrarPersona(secuencia);
         empleado = administrarVigDomiciliarias.buscarEmpleado(persona.getSecuencia());
         if (persona != null) {
@@ -433,37 +446,50 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
             getListhvExpLaborales();
         }
 
-        if (listDirecciones != null) {
-            if (!listDirecciones.isEmpty()) {
-                direccionSeleccionada = listDirecciones.get(0);
-            }
+        if (administrarVigDomiciliarias.vigenciaDomiciliariaActual(persona.getSecuencia()) != null) {
+            vigenciasDomiciliariaSeleccionada = administrarVigDomiciliarias.vigenciaDomiciliariaActual(persona.getSecuencia());
+        } else {
+            vigenciasDomiciliariaSeleccionada = new VigenciasDomiciliarias();
+            vigenciasDomiciliariaSeleccionada.setPersona(persona);
         }
-
+        listVigenciasDomiciliarias = null;
+        getListVigenciasDomiciliarias();
+//        System.out.println("vigencia domiciliaria actual  del empleado " + persona.getNombreCompleto() + "secuencia : " + administrarVigDomiciliarias.vigenciaDomiciliariaActual(persona.getSecuencia()));
     }
 
     /////FAMILIARES
     public void cambiarIndiceFamiliares(Familiares familiar, int celda) {
         if (permitirIndex == true) {
             cualCelda = celda;
+            cualtabla = 5;
             familiarSeleccionado = familiar;
             if (cualCelda == 1) {
                 familiarSeleccionado.getPersonafamiliar().getNombreCompleto();
+                cualCelda = -1;
             } else if (cualCelda == 2) {
                 familiarSeleccionado.getOcupacion();
+                cualCelda = -1;
             } else if (cualCelda == 3) {
                 familiarSeleccionado.getTipofamiliar().getTipo();
+                cualCelda = -1;
             } else if (cualCelda == 4) {
                 familiarSeleccionado.getServiciomedico();
+                cualCelda = -1;
             } else if (cualCelda == 5) {
                 familiarSeleccionado.getSubsidiofamiliar();
+                cualCelda = -1;
             } else if (cualCelda == 6) {
                 familiarSeleccionado.getBeneficiario();
+                cualCelda = -1;
             } else if (cualCelda == 7) {
                 familiarSeleccionado.getUpcadicional();
+                cualCelda = -1;
             } else if (cualCelda == 8) {
                 familiarSeleccionado.getValorupcadicional();
+                cualCelda = -1;
             }
         }
+//        cualtabla = -1;
     }
 
     public void modificarFamiliar(Familiares familiar, String confirmarCambio, String valorConfirmar) {
@@ -564,46 +590,46 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         }
+        guardado = true;
     }
 
-    public void guardarCambiosFamiliares() {
-        RequestContext context = RequestContext.getCurrentInstance();
-        try {
-            if (guardado == false) {
-                if (!listaFamiliaresBorrar.isEmpty()) {
-                    administrarVigDomiciliarias.borrarFamiliares(listaFamiliaresBorrar);
-                    listaFamiliaresBorrar.clear();
-                }
-                if (!listaFamiliaresCrear.isEmpty()) {
-                    administrarVigDomiciliarias.crearFamilares(listaFamiliaresCrear);
-                    listaFamiliaresCrear.clear();
-                }
-                if (!listaFamiliaresModificar.isEmpty()) {
-                    administrarVigDomiciliarias.modificarFamiliares(listaFamiliaresModificar);
-                    listaFamiliaresModificar.clear();
-                }
-                listaFamiliares = null;
-                getListaFamiliares();
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                k = 0;
-                FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
-                FacesContext.getCurrentInstance().addMessage(null, msg);
-                RequestContext.getCurrentInstance().update("form:growl");
-                contarRegistrosFamiliares();
-                familiarSeleccionado = null;
-            }
-
-            guardado = true;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            RequestContext.getCurrentInstance().update("form:datosFamiliares");
-        } catch (Exception e) {
-            System.out.println("Error guardarCambios : " + e.toString());
-            FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-            RequestContext.getCurrentInstance().update("form:growl");
-        }
-    }
-
+//    public void guardarCambiosFamiliares() {
+//        RequestContext context = RequestContext.getCurrentInstance();
+//        try {
+//            if (guardado == false) {
+//                if (!listaFamiliaresBorrar.isEmpty()) {
+//                    administrarVigDomiciliarias.borrarFamiliares(listaFamiliaresBorrar);
+//                    listaFamiliaresBorrar.clear();
+//                }
+//                if (!listaFamiliaresCrear.isEmpty()) {
+//                    administrarVigDomiciliarias.crearFamilares(listaFamiliaresCrear);
+//                    listaFamiliaresCrear.clear();
+//                }
+//                if (!listaFamiliaresModificar.isEmpty()) {
+//                    administrarVigDomiciliarias.modificarFamiliares(listaFamiliaresModificar);
+//                    listaFamiliaresModificar.clear();
+//                }
+//                listaFamiliares = null;
+//                getListaFamiliares();
+//                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+//                k = 0;
+//                FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
+//                FacesContext.getCurrentInstance().addMessage(null, msg);
+//                RequestContext.getCurrentInstance().update("form:growl");
+//                contarRegistrosFamiliares();
+//                familiarSeleccionado = null;
+//            }
+//
+//            guardado = true;
+//            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+//            RequestContext.getCurrentInstance().update("form:datosFamiliares");
+//        } catch (Exception e) {
+//            System.out.println("Error guardarCambios : " + e.toString());
+//            FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
+//            FacesContext.getCurrentInstance().addMessage(null, msg);
+//            RequestContext.getCurrentInstance().update("form:growl");
+//        }
+//    }
     public void cancelarModificacionFamiliares() {
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 1) {
@@ -1368,17 +1394,23 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
     public void cambiarIndiceAntecedentes(SoAntecedentesMedicos antecedentesm, int celda) {
         if (permitirIndex == true) {
             cualCelda = celda;
+            cualtabla = 4;
             antecedentemSeleccionado = antecedentesm;
             if (cualCelda == 1) {
                 antecedentemSeleccionado.getFecha();
+                cualCelda = -1;
             } else if (cualCelda == 2) {
                 antecedentemSeleccionado.getTipoantecedente().getDescripcion();
+                cualCelda = -1;
             } else if (cualCelda == 3) {
                 antecedentemSeleccionado.getAntecedente().getDescripcion();
+                cualCelda = -1;
             } else if (cualCelda == 4) {
                 antecedentemSeleccionado.getDescripcion();
+                cualCelda = -1;
             }
         }
+//        cualtabla = -1;
     }
 
     public void modificarAntecedenteM(SoAntecedentesMedicos antecedentem, String confirmarCambio, String valorConfirmar) {
@@ -1690,40 +1722,36 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
-    public void guardarAntecedenteM() {
-        RequestContext context = RequestContext.getCurrentInstance();
-
-        if (guardado == false) {
-            if (!listAntecedentesMBorrar.isEmpty()) {
-//                for (int i = 0; i < borrarVigenciaEstadoCivilPorEmplado.size(); i++) {
-//                    System.out.println("Borrando...");
-//                }
-                administrarVigDomiciliarias.borrarAntecedenteM(listAntecedentesMBorrar);
-                listAntecedentesMBorrar.clear();
-            }
-            if (!listAntecedentesMCrear.isEmpty()) {
-                administrarVigDomiciliarias.crearAntecedenteM(listAntecedentesMCrear);
-                listAntecedentesMCrear.clear();
-            }
-            if (!listAntecedentesModificar.isEmpty()) {
-                System.out.println("Modificando...");
-                administrarVigDomiciliarias.modificarAntecedenteM(listAntecedentesModificar);
-                listAntecedentesModificar.clear();
-            }
-            listAntecedentesM = null;
-            getListAntecedentesM();
-            contarRegistrosAntecedentesM();
-            RequestContext.getCurrentInstance().update("form:datosAntecedentes");
-            k = 0;
-            guardado = true;
-            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-            RequestContext.getCurrentInstance().update("form:growl");
-        }
-        antecedentemSeleccionado = null;
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-    }
-
+//    public void guardarAntecedenteM() {
+//        RequestContext context = RequestContext.getCurrentInstance();
+//
+//        if (guardado == false) {
+//            if (!listAntecedentesMBorrar.isEmpty()) {
+//                administrarVigDomiciliarias.borrarAntecedenteM(listAntecedentesMBorrar);
+//                listAntecedentesMBorrar.clear();
+//            }
+//            if (!listAntecedentesMCrear.isEmpty()) {
+//                administrarVigDomiciliarias.crearAntecedenteM(listAntecedentesMCrear);
+//                listAntecedentesMCrear.clear();
+//            }
+//            if (!listAntecedentesModificar.isEmpty()) {
+//                System.out.println("Modificando...");
+//                administrarVigDomiciliarias.modificarAntecedenteM(listAntecedentesModificar);
+//                listAntecedentesModificar.clear();
+//            }
+//            listAntecedentesM = null;
+//            getListAntecedentesM();
+//            contarRegistrosAntecedentesM();
+//            RequestContext.getCurrentInstance().update("form:datosAntecedentes");
+//            k = 0;
+//            guardado = true;
+//            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
+//            FacesContext.getCurrentInstance().addMessage(null, msg);
+//            RequestContext.getCurrentInstance().update("form:growl");
+//        }
+//        antecedentemSeleccionado = null;
+//        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+//    }
     public void actualizarTipoAntecedente() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (tipoActualizacion == 0) {
@@ -1894,27 +1922,45 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
 
     ////direcciones
     public void cambiarIndiceDirecciones(Direcciones direccion, int celda) {
-        if (permitirIndex == true) {
+        if (direccionSeleccionada != null) {
             direccionSeleccionada = direccion;
             cualCelda = celda;
-            if (tipoLista == 0) {
-                direccionSeleccionada.getSecuencia();
-//                deshabilitarBotonLOV();
-                if (cualCelda == 6) {
-                    contarRegistroCiudades();
-                    direccionSeleccionada.getCiudad().getNombre();
-//                    habilitarBotonLOV();
-                }
-            } else {
-                direccionSeleccionada.getSecuencia();
-//                deshabilitarBotonLOV();
-                if (cualCelda == 6) {
-                    contarRegistroCiudades();
-                    direccionSeleccionada.getCiudad().getNombre();
-//                    habilitarBotonLOV();
-                }
+            cualtabla = 1;
+            direccionSeleccionada.getSecuencia();
+            if (cualCelda == 0) {
+                direccionSeleccionada.getFechavigencia();
+                cualCelda = -1;
+            } else if (cualCelda == 1) {
+                direccionSeleccionada.getEstadoTipoPpal();
+                cualCelda = -1;
+            } else if (cualCelda == 2) {
+                direccionSeleccionada.getPpal();
+                cualCelda = -1;
+            } else if (cualCelda == 3) {
+                direccionSeleccionada.getEstadoTipoSecundario();
+                cualCelda = -1;
+            } else if (cualCelda == 4) {
+                direccionSeleccionada.getSecundario();
+                cualCelda = -1;
+            } else if (cualCelda == 5) {
+                direccionSeleccionada.getInterior();
+                cualCelda = -1;
+            } else if (cualCelda == 6) {
+                contarRegistroCiudades();
+                direccionSeleccionada.getCiudad().getNombre();
+                cualCelda = -1;
+            } else if (cualCelda == 7) {
+                direccionSeleccionada.getTipovivienda();
+                cualCelda = -1;
+            } else if (cualCelda == 8) {
+                direccionSeleccionada.getHipoteca();
+                cualCelda = -1;
+            } else if (cualCelda == 9) {
+                direccionSeleccionada.getDireccionalternativa();
+                cualCelda = -1;
             }
         }
+//        cualtabla = -1;
     }
 
     public void seleccionarTipoPpal(String estadoTipoPpal, Direcciones direccion, int celda) {
@@ -2694,36 +2740,35 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         }
     }
 
-    public void guardarCambiosDireccion() {
-        if (guardado == false) {
-            if (!listDireccionesBorrar.isEmpty()) {
-                administrarVigDomiciliarias.borrarDirecciones(listDireccionesBorrar);
-                listDireccionesBorrar.clear();
-            }
-            if (!listDireccionesCrear.isEmpty()) {
-                administrarVigDomiciliarias.crearDirecciones(listDireccionesCrear);
-                listDireccionesCrear.clear();
-            }
-            if (!listDireccionesModificar.isEmpty()) {
-                administrarVigDomiciliarias.modificarDirecciones(listDireccionesModificar);
-                listDireccionesModificar.clear();
-            }
-            System.out.println("Se guardaron los datos con exito");
-            listDirecciones = null;
-            getListDirecciones();
-            contarRegistrosDirecciones();
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().update("form:datosDireccionesPersona");
-            guardado = true;
-            permitirIndex = true;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-            RequestContext.getCurrentInstance().update("form:growl");
-        }
-        direccionSeleccionada = null;
-    }
-
+//    public void guardarCambiosDireccion() {
+//        if (guardado == false) {
+//            if (!listDireccionesBorrar.isEmpty()) {
+//                administrarVigDomiciliarias.borrarDirecciones(listDireccionesBorrar);
+//                listDireccionesBorrar.clear();
+//            }
+//            if (!listDireccionesCrear.isEmpty()) {
+//                administrarVigDomiciliarias.crearDirecciones(listDireccionesCrear);
+//                listDireccionesCrear.clear();
+//            }
+//            if (!listDireccionesModificar.isEmpty()) {
+//                administrarVigDomiciliarias.modificarDirecciones(listDireccionesModificar);
+//                listDireccionesModificar.clear();
+//            }
+//            System.out.println("Se guardaron los datos con exito");
+//            listDirecciones = null;
+//            getListDirecciones();
+//            contarRegistrosDirecciones();
+//            RequestContext context = RequestContext.getCurrentInstance();
+//            RequestContext.getCurrentInstance().update("form:datosDireccionesPersona");
+//            guardado = true;
+//            permitirIndex = true;
+//            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+//            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
+//            FacesContext.getCurrentInstance().addMessage(null, msg);
+//            RequestContext.getCurrentInstance().update("form:growl");
+//        }
+//        direccionSeleccionada = null;
+//    }
     public void salirDirecciones() {
         if (bandera == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
@@ -2817,22 +2862,23 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         if (permitirIndex == true) {
             telefonoSeleccionado = telefono;
             cualCelda = celda;
-            if (tipoLista == 0) {
-                telefonoSeleccionado.getSecuencia();
-                if (cualCelda == 1) {
-                    telefonoSeleccionado.getTipotelefono().getNombre();
-                } else if (cualCelda == 3) {
-                    telefonoSeleccionado.getCiudad().getNombre();
-                }
-            } else {
-                telefonoSeleccionado.getSecuencia();
-                if (cualCelda == 1) {
-                    telefonoSeleccionado.getTipotelefono().getNombre();
-                } else if (cualCelda == 3) {
-                    telefonoSeleccionado.getCiudad().getNombre();
-                }
+            cualtabla = 2;
+            telefonoSeleccionado.getSecuencia();
+            if (cualCelda == 0) {
+                telefonoSeleccionado.getFechavigencia();
+                cualCelda = -1;
+            } else if (cualCelda == 1) {
+                telefonoSeleccionado.getTipotelefono().getNombre();
+                cualCelda = -1;
+            } else if (cualCelda == 2) {
+                telefonoSeleccionado.getNumerotelefono();
+                cualCelda = -1;
+            } else if (cualCelda == 3) {
+                telefonoSeleccionado.getCiudad().getNombre();
+                cualCelda = -1;
             }
         }
+//        cualtabla = -1;
     }
 
     public void asignarIndexTelefono(Telefonos telefono, int dlg, int LND) {
@@ -3354,59 +3400,58 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         RequestContext.getCurrentInstance().update("formularioDialogos:aceptarCT");
     }
 
-    public void guardarCambiosTelefono() {
-        if (guardado == false) {
-            if (!listTelefonosBorrar.isEmpty()) {
-                for (int i = 0; i < listTelefonosBorrar.size(); i++) {
-                    if (listTelefonosBorrar.get(i).getTipotelefono().getSecuencia() == null) {
-                        listTelefonosBorrar.get(i).setTipotelefono(null);
-                        administrarVigDomiciliarias.borrarTelefonos(listTelefonosBorrar.get(i));
-                    } else if (listTelefonosBorrar.get(i).getCiudad().getSecuencia() == null) {
-                        listTelefonosBorrar.get(i).setCiudad(null);
-                        administrarVigDomiciliarias.borrarTelefonos(listTelefonosBorrar.get(i));
-                    } else {
-                        administrarVigDomiciliarias.borrarTelefonos(listTelefonosBorrar.get(i));
-                    }
-                }
-                listTelefonosBorrar.clear();
-            }
-
-            if (!listTelefonosCrear.isEmpty()) {
-                for (int i = 0; i < listTelefonosCrear.size(); i++) {
-                    System.out.println("Creando...");
-                    if (listTelefonosCrear.get(i).getTipotelefono().getSecuencia() == null) {
-                        listTelefonosCrear.get(i).setTipotelefono(null);
-                        administrarVigDomiciliarias.crearTelefonos(listTelefonosCrear.get(i));
-                    } else if (listTelefonosCrear.get(i).getCiudad().getSecuencia() == null) {
-                        listTelefonosCrear.get(i).setCiudad(null);
-                        administrarVigDomiciliarias.crearTelefonos(listTelefonosCrear.get(i));
-                    } else {
-                        administrarVigDomiciliarias.crearTelefonos(listTelefonosCrear.get(i));
-                    }
-                }
-                listTelefonosCrear.clear();
-            }
-            if (!listTelefonosModificar.isEmpty()) {
-                administrarVigDomiciliarias.modificarTelefonos(listTelefonosModificar);
-                listTelefonosModificar.clear();
-            }
-            listTelefonos = null;
-            getListTelefonos();
-            contarRegistrosCiudadesTelefonos();
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            k = 0;
-            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-            RequestContext.getCurrentInstance().update("form:growl");
-        }
-        guardado = true;
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-        RequestContext.getCurrentInstance().update("form:datosTelefonosPersona");
-        permitirIndex = true;
-        telefonoSeleccionado = null;
-    }
-
+//    public void guardarCambiosTelefono() {
+//        if (guardado == false) {
+//            if (!listTelefonosBorrar.isEmpty()) {
+//                for (int i = 0; i < listTelefonosBorrar.size(); i++) {
+//                    if (listTelefonosBorrar.get(i).getTipotelefono().getSecuencia() == null) {
+//                        listTelefonosBorrar.get(i).setTipotelefono(null);
+//                        administrarVigDomiciliarias.borrarTelefonos(listTelefonosBorrar.get(i));
+//                    } else if (listTelefonosBorrar.get(i).getCiudad().getSecuencia() == null) {
+//                        listTelefonosBorrar.get(i).setCiudad(null);
+//                        administrarVigDomiciliarias.borrarTelefonos(listTelefonosBorrar.get(i));
+//                    } else {
+//                        administrarVigDomiciliarias.borrarTelefonos(listTelefonosBorrar.get(i));
+//                    }
+//                }
+//                listTelefonosBorrar.clear();
+//            }
+//
+//            if (!listTelefonosCrear.isEmpty()) {
+//                for (int i = 0; i < listTelefonosCrear.size(); i++) {
+//                    System.out.println("Creando...");
+//                    if (listTelefonosCrear.get(i).getTipotelefono().getSecuencia() == null) {
+//                        listTelefonosCrear.get(i).setTipotelefono(null);
+//                        administrarVigDomiciliarias.crearTelefonos(listTelefonosCrear.get(i));
+//                    } else if (listTelefonosCrear.get(i).getCiudad().getSecuencia() == null) {
+//                        listTelefonosCrear.get(i).setCiudad(null);
+//                        administrarVigDomiciliarias.crearTelefonos(listTelefonosCrear.get(i));
+//                    } else {
+//                        administrarVigDomiciliarias.crearTelefonos(listTelefonosCrear.get(i));
+//                    }
+//                }
+//                listTelefonosCrear.clear();
+//            }
+//            if (!listTelefonosModificar.isEmpty()) {
+//                administrarVigDomiciliarias.modificarTelefonos(listTelefonosModificar);
+//                listTelefonosModificar.clear();
+//            }
+//            listTelefonos = null;
+//            getListTelefonos();
+//            contarRegistrosCiudadesTelefonos();
+//            RequestContext context = RequestContext.getCurrentInstance();
+//            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+//            k = 0;
+//            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
+//            FacesContext.getCurrentInstance().addMessage(null, msg);
+//            RequestContext.getCurrentInstance().update("form:growl");
+//        }
+//        guardado = true;
+//        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+//        RequestContext.getCurrentInstance().update("form:datosTelefonosPersona");
+//        permitirIndex = true;
+//        telefonoSeleccionado = null;
+//    }
     public void salirTelefonos() {
         FacesContext c = FacesContext.getCurrentInstance();
 
@@ -3453,6 +3498,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
 //            deshabilitarBotonLov();
             vigenciaEstadoCivilSeleccionado = vigenciaEstadoCivil;
             cualCelda = celda;
+            cualtabla = 3;
             vigenciaEstadoCivilSeleccionado.getSecuencia();
             if (cualCelda == 1) {
 //                habilitarBotonLov();
@@ -3465,6 +3511,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
             }
 
         }
+//        cualtabla = -1;
     }
 
     public void asignarIndexEstadosCiviles(VigenciasEstadosCiviles vigenciaEstadoCivil, int LND, int dig) {
@@ -3685,6 +3732,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
 
     public void cancelarCambioEstadoCivil() {
         listVigenciaEstadoCivilFiltrar = null;
+        estadoCivilSeleccionado = null;
         aceptar = true;
         tipoActualizacion = -1;
         permitirIndex = true;
@@ -3749,43 +3797,42 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
 
     }
 
-    public void guardarVigenciaEstadoCivil() {
-        RequestContext context = RequestContext.getCurrentInstance();
-
-        if (guardado == false) {
-            System.out.println("Realizando guardarEvalCompetencias");
-            if (!listVigenciaEstadoCivilBorrar.isEmpty()) {
-                for (int i = 0; i < listVigenciaEstadoCivilBorrar.size(); i++) {
-                    System.out.println("Borrando...");
-                }
-                administrarVigDomiciliarias.borrarVigenciasEstadosCiviles(listVigenciaEstadoCivilBorrar);
-                //mostrarBorrados
-                listVigenciaEstadoCivilBorrar.clear();
-            }
-            if (!listVigenciaEstadoCivilCrear.isEmpty()) {
-                administrarVigDomiciliarias.crearVigenciasEstadosCiviles(listVigenciaEstadoCivilCrear);
-                listVigenciaEstadoCivilCrear.clear();
-            }
-            if (!listVigenciaEstadoCivilModificar.isEmpty()) {
-                System.out.println("Modificando...");
-                administrarVigDomiciliarias.modificarVigenciasEstadosCiviles(listVigenciaEstadoCivilModificar);
-                listVigenciaEstadoCivilModificar.clear();
-            }
-            listVigenciaEstadoCivil = null;
-            getListVigenciaEstadoCivil();
-            contarRegistrosEstadoCivil();
-            RequestContext.getCurrentInstance().update("form:datosEstadoCivil");
-            k = 0;
-            guardado = true;
-            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-            RequestContext.getCurrentInstance().update("form:growl");
-        }
-        vigenciaEstadoCivilSeleccionado = null;
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-
-    }
-
+//    public void guardarVigenciaEstadoCivil() {
+//        RequestContext context = RequestContext.getCurrentInstance();
+//
+//        if (guardado == false) {
+//            System.out.println("Realizando guardarEvalCompetencias");
+//            if (!listVigenciaEstadoCivilBorrar.isEmpty()) {
+//                for (int i = 0; i < listVigenciaEstadoCivilBorrar.size(); i++) {
+//                    System.out.println("Borrando...");
+//                }
+//                administrarVigDomiciliarias.borrarVigenciasEstadosCiviles(listVigenciaEstadoCivilBorrar);
+//                //mostrarBorrados
+//                listVigenciaEstadoCivilBorrar.clear();
+//            }
+//            if (!listVigenciaEstadoCivilCrear.isEmpty()) {
+//                administrarVigDomiciliarias.crearVigenciasEstadosCiviles(listVigenciaEstadoCivilCrear);
+//                listVigenciaEstadoCivilCrear.clear();
+//            }
+//            if (!listVigenciaEstadoCivilModificar.isEmpty()) {
+//                System.out.println("Modificando...");
+//                administrarVigDomiciliarias.modificarVigenciasEstadosCiviles(listVigenciaEstadoCivilModificar);
+//                listVigenciaEstadoCivilModificar.clear();
+//            }
+//            listVigenciaEstadoCivil = null;
+//            getListVigenciaEstadoCivil();
+//            contarRegistrosEstadoCivil();
+//            RequestContext.getCurrentInstance().update("form:datosEstadoCivil");
+//            k = 0;
+//            guardado = true;
+//            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
+//            FacesContext.getCurrentInstance().addMessage(null, msg);
+//            RequestContext.getCurrentInstance().update("form:growl");
+//        }
+//        vigenciaEstadoCivilSeleccionado = null;
+//        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+//
+//    }
     public void agregarNuevoVigenciaEstadoCivil() {
         System.out.println("agregarNuevoVigenciaEstadoCivil");
         int contador = 0;
@@ -3984,7 +4031,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         if (permitirIndex == true) {
             vigenciaFormalSeleccionada = vigenciaformal;
             cualCelda = celda;
-
+            cualtabla = 6;
             vigenciaFormalSeleccionada.getSecuencia();
             if (cualCelda == 1) {
 //                habilitarBotonLov();
@@ -4010,6 +4057,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
                 vigenciaFormalSeleccionada.getObservacion();
             }
         }
+//        cualtabla = -1;
     }
 
     public void asignarIndexEducacion(VigenciasFormales vigenciaFormal, int dlg, int LND) {
@@ -4796,40 +4844,39 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         RequestContext.getCurrentInstance().update("form:datosVigenciasFormalesPersona");
     }
 
-    public void guardarVigenciasFormales() {
-        try {
-            RequestContext context = RequestContext.getCurrentInstance();
-            if (!listVigenciasFormalesBorrar.isEmpty()) {
-                administrarVigDomiciliarias.borrarVigenciaFormal(listVigenciasFormalesBorrar);
-                listVigenciasFormalesBorrar.clear();
-            }
-            if (!listVigenciasFormalesCrear.isEmpty()) {
-                administrarVigDomiciliarias.crearVigenciaFormal(listVigenciasFormalesCrear);
-                listVigenciasFormalesCrear.clear();
-            }
-            if (!listVigenciasFormalesModificar.isEmpty()) {
-                administrarVigDomiciliarias.modificarVigenciaFormal(listVigenciasFormalesModificar);
-                listVigenciasFormalesModificar.clear();
-            }
-            listVigenciasFormales = null;
-            getListVigenciasFormales();
-            contarRegistrosEducacion();
-            vigenciaFormalSeleccionada = null;
-            RequestContext.getCurrentInstance().update("form:datosVigenciasFormalesPersona");
-            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-            RequestContext.getCurrentInstance().update("form:growl");
-            guardado = true;
-            permitirIndex = true;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-        } catch (Exception e) {
-            System.out.println("Error guardarVigenciasNoFormales  Controlador : " + e.toString());
-            FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado de Educación Formal, Por favor intente nuevamente.");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-            RequestContext.getCurrentInstance().update("form:growl");
-        }
-    }
-
+//    public void guardarVigenciasFormales() {
+//        try {
+//            RequestContext context = RequestContext.getCurrentInstance();
+//            if (!listVigenciasFormalesBorrar.isEmpty()) {
+//                administrarVigDomiciliarias.borrarVigenciaFormal(listVigenciasFormalesBorrar);
+//                listVigenciasFormalesBorrar.clear();
+//            }
+//            if (!listVigenciasFormalesCrear.isEmpty()) {
+//                administrarVigDomiciliarias.crearVigenciaFormal(listVigenciasFormalesCrear);
+//                listVigenciasFormalesCrear.clear();
+//            }
+//            if (!listVigenciasFormalesModificar.isEmpty()) {
+//                administrarVigDomiciliarias.modificarVigenciaFormal(listVigenciasFormalesModificar);
+//                listVigenciasFormalesModificar.clear();
+//            }
+//            listVigenciasFormales = null;
+//            getListVigenciasFormales();
+//            contarRegistrosEducacion();
+//            vigenciaFormalSeleccionada = null;
+//            RequestContext.getCurrentInstance().update("form:datosVigenciasFormalesPersona");
+//            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
+//            FacesContext.getCurrentInstance().addMessage(null, msg);
+//            RequestContext.getCurrentInstance().update("form:growl");
+//            guardado = true;
+//            permitirIndex = true;
+//            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+//        } catch (Exception e) {
+//            System.out.println("Error guardarVigenciasNoFormales  Controlador : " + e.toString());
+//            FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado de Educación Formal, Por favor intente nuevamente.");
+//            FacesContext.getCurrentInstance().addMessage(null, msg);
+//            RequestContext.getCurrentInstance().update("form:growl");
+//        }
+//    }
     public void limpiarNuevaVigenciaFormal() {
         nuevaVigenciaFormal = new VigenciasFormales();
         nuevaVigenciaFormal.setTipoeducacion(new TiposEducaciones());
@@ -5037,25 +5084,35 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         if (permitirIndex == true) {
             hvexpSeleccionada = experienciaLaboral;
             cualCelda = celda;
+            cualtabla = 7;
 //                    fechaFin = hvexpSeleccionada.getFechahasta();
             if (cualCelda == 0) {
                 hvexpSeleccionada.getEmpresa();
+                cualCelda = -1;
             } else if (cualCelda == 1) {
                 hvexpSeleccionada.getFechadesde();
+                cualCelda = -1;
             } else if (cualCelda == 2) {
                 hvexpSeleccionada.getFechahasta();
+                cualCelda = -1;
             } else if (cualCelda == 3) {
                 hvexpSeleccionada.getCargo();
+                cualCelda = -1;
             } else if (cualCelda == 4) {
                 hvexpSeleccionada.getJefeinmediato();
+                cualCelda = -1;
             } else if (cualCelda == 5) {
                 hvexpSeleccionada.getTelefono();
+                cualCelda = -1;
             } else if (cualCelda == 6) {
                 hvexpSeleccionada.getSectoreconomico().getDescripcion();
+                cualCelda = -1;
             } else if (cualCelda == 7) {
                 hvexpSeleccionada.getMotivoretiro().getNombre();
+                cualCelda = -1;
             }
         }
+//        cualtabla = -1;
     }
 
     public void asignarIndexExperiencia(HvExperienciasLaborales experienciaLaboral, int dlg, int LND) {
@@ -5470,43 +5527,42 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         }
     }
 
-    public void guardarCambiosExpLaboral() {
-        RequestContext context = RequestContext.getCurrentInstance();
-        try {
-            if (guardado == false) {
-                if (!listhvExpLaboralesBorrar.isEmpty()) {
-                    administrarVigDomiciliarias.borrarExperienciaLaboral(listhvExpLaboralesBorrar);
-                    listhvExpLaboralesBorrar.clear();
-                }
-                if (!listhvExpLaboralesCrear.isEmpty()) {
-                    administrarVigDomiciliarias.crearExperienciaLaboral(listhvExpLaboralesCrear);
-                    listhvExpLaboralesCrear.clear();
-                }
-                if (!listhvExpLaboralesModificar.isEmpty()) {
-                    administrarVigDomiciliarias.editarExperienciaLaboral(listhvExpLaboralesModificar);
-                    listhvExpLaboralesModificar.clear();
-                }
-                listhvExpLaborales = null;
-                getListhvExpLaborales();
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                k = 0;
-                FacesMessage msg = new FacesMessage("Información", "Se gurdaron los datos con éxito");
-                FacesContext.getCurrentInstance().addMessage(null, msg);
-                RequestContext.getCurrentInstance().update("form:growl");
-                contarRegistrosExp();
-                hvexpSeleccionada = null;
-            }
-            guardado = true;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            RequestContext.getCurrentInstance().update("form:datosExperiencia");
-        } catch (Exception e) {
-            System.out.println("Error guardarCambios : " + e.toString());
-            FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-            RequestContext.getCurrentInstance().update("form:growl");
-        }
-    }
-
+//    public void guardarCambiosExpLaboral() {
+//        RequestContext context = RequestContext.getCurrentInstance();
+//        try {
+//            if (guardado == false) {
+//                if (!listhvExpLaboralesBorrar.isEmpty()) {
+//                    administrarVigDomiciliarias.borrarExperienciaLaboral(listhvExpLaboralesBorrar);
+//                    listhvExpLaboralesBorrar.clear();
+//                }
+//                if (!listhvExpLaboralesCrear.isEmpty()) {
+//                    administrarVigDomiciliarias.crearExperienciaLaboral(listhvExpLaboralesCrear);
+//                    listhvExpLaboralesCrear.clear();
+//                }
+//                if (!listhvExpLaboralesModificar.isEmpty()) {
+//                    administrarVigDomiciliarias.editarExperienciaLaboral(listhvExpLaboralesModificar);
+//                    listhvExpLaboralesModificar.clear();
+//                }
+//                listhvExpLaborales = null;
+//                getListhvExpLaborales();
+//                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+//                k = 0;
+//                FacesMessage msg = new FacesMessage("Información", "Se gurdaron los datos con éxito");
+//                FacesContext.getCurrentInstance().addMessage(null, msg);
+//                RequestContext.getCurrentInstance().update("form:growl");
+//                contarRegistrosExp();
+//                hvexpSeleccionada = null;
+//            }
+//            guardado = true;
+//            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+//            RequestContext.getCurrentInstance().update("form:datosExperiencia");
+//        } catch (Exception e) {
+//            System.out.println("Error guardarCambios : " + e.toString());
+//            FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente");
+//            FacesContext.getCurrentInstance().addMessage(null, msg);
+//            RequestContext.getCurrentInstance().update("form:growl");
+//        }
+//    }
     public void cancelarModificacionExpLaboral() {
         if (bandera == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
@@ -5924,10 +5980,11 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroMotivo");
     }
 
-    public void cambiarIndiceVigenciaDomiciliaris(VigenciasDomiciliarias vigenciaD, int celda) {
+    public void cambiarIndiceVigenciaDomiciliaria(VigenciasDomiciliarias vigenciaD, int celda) {
         if (permitirIndex == true) {
             vigenciasDomiciliariaSeleccionada = vigenciaD;
             cualCelda = celda;
+            cualtabla = 8;
             if (cualCelda == 1) {
                 vigenciasDomiciliariaSeleccionada.getCalificacionfamiliar();
             } else if (cualCelda == 2) {
@@ -5954,8 +6011,6 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
                 vigenciasDomiciliariaSeleccionada.getServicioalcantarillado();
             } else if (cualCelda == 13) {
                 vigenciasDomiciliariaSeleccionada.getServiciootros();
-                activarotroservicio = false;
-                RequestContext.getCurrentInstance().update("form:otrosservicios");
             } else if (cualCelda == 14) {
                 vigenciasDomiciliariaSeleccionada.getDetalleotrosservicios();
             } else if (cualCelda == 15) {
@@ -5984,8 +6039,6 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
                 vigenciasDomiciliariaSeleccionada.getIngresotio();
             } else if (cualCelda == 27) {
                 vigenciasDomiciliariaSeleccionada.getIngresootro();
-                activarotroaporte = false;
-                RequestContext.getCurrentInstance().update("form:otrosIngresos");
             } else if (cualCelda == 28) {
                 vigenciasDomiciliariaSeleccionada.getDetalleotroingreso();
             } else if (cualCelda == 29) {
@@ -6003,7 +6056,6 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
             } else if (cualCelda == 35) {
                 vigenciasDomiciliariaSeleccionada.getInversionotros();
             } else if (cualCelda == 36) {
-                activarotroegreso = false;
                 vigenciasDomiciliariaSeleccionada.getDetalleotrasinversiones();
             } else if (cualCelda == 37) {
                 observaciones = vigenciasDomiciliariaSeleccionada.getObservaciones();
@@ -6023,15 +6075,11 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
                 vigenciasDomiciliariaSeleccionada.getMotivacioncargo();
             } else if (cualCelda == 45) {
                 vigenciasDomiciliariaSeleccionada.getPersonaspresentes();
+            } else if (cualCelda == 46) {
+                vigenciasDomiciliariaSeleccionada.getFecha();
+            } else if (cualCelda == 47) {
+                vigenciasDomiciliariaSeleccionada.getProfesional();
             }
-            RequestContext.getCurrentInstance().update("form:editarCondiciones");
-            RequestContext.getCurrentInstance().update("form:editarDistribucion");
-            RequestContext.getCurrentInstance().update("form:editarDescripcionGeneral");
-            RequestContext.getCurrentInstance().update("form:editarObservaciones");
-            RequestContext.getCurrentInstance().update("form:editarConceptoF");
-            RequestContext.getCurrentInstance().update("form:editarConceptoS");
-            RequestContext.getCurrentInstance().update("form:editarPersonas");
-//
         }
     }
 
@@ -6063,17 +6111,21 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         }
-        RequestContext.getCurrentInstance().update("form:editarCondiciones");
-        RequestContext.getCurrentInstance().update("form:editarDistribucion");
-        RequestContext.getCurrentInstance().update("form:editarDescripcionGeneral");
-        RequestContext.getCurrentInstance().update("form:editarObservaciones");
-        RequestContext.getCurrentInstance().update("form:editarConceptoF");
-        RequestContext.getCurrentInstance().update("form:editarConceptoS");
-        RequestContext.getCurrentInstance().update("form:editarPersonas");
+        actualizarCamposVigDomiciliaria();
+    }
+
+    public void modificarFechaVigenciaDomiciliaria(VigenciasDomiciliarias vigenciaD, int c) {
+        vigenciasDomiciliariaSeleccionada = vigenciaD;
+        cambiarIndiceVigenciaDomiciliaria(vigenciaD, c);
+        modificarVigenciaDomiciliaria(vigenciaD);
+        vigenciasDomiciliariaSeleccionada.setFecha(vigenciasDomiciliariaSeleccionada.getFecha());
+        RequestContext.getCurrentInstance().update("form:editarFechaDomiciliaria");
     }
 
     public void seleccionarCalificacionFamiliar(String calificacion, VigenciasDomiciliarias vigDom) {
-        if (calificacion.equals("BUENA")) {
+        if (calificacion.equals(" ")) {
+            vigenciasDomiciliariaSeleccionada.setCalificacionfamiliar("NULL");
+        } else if (calificacion.equals("BUENA")) {
             vigenciasDomiciliariaSeleccionada.setCalificacionfamiliar("BUENA");
         } else if (calificacion.equals("REGULAR")) {
             vigenciasDomiciliariaSeleccionada.setCalificacionfamiliar("REGULAR");
@@ -6092,11 +6144,40 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
             guardado = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
-        RequestContext.getCurrentInstance().update("form:datosRelaciones");
+        RequestContext.getCurrentInstance().update("form:editarCalificacionF");
+    }
+
+    public void seleccionarConstruccion(String construccion, VigenciasDomiciliarias vigDom) {
+        if (construccion.equals(" ")) {
+            vigenciasDomiciliariaSeleccionada.setConstruccion("NULL");
+        } else if (construccion.equals("LADRILLO")) {
+            vigenciasDomiciliariaSeleccionada.setConstruccion("LADRILLO");
+        } else if (construccion.equals("MADERA")) {
+            vigenciasDomiciliariaSeleccionada.setConstruccion("MADERA");
+        } else if (construccion.equals("OBRA NEGRA")) {
+            vigenciasDomiciliariaSeleccionada.setConstruccion("OBRA NEGRA");
+        } else if (construccion.equals("OBRA BLANCA")) {
+            vigenciasDomiciliariaSeleccionada.setConstruccion("OBRA BLANCA");
+        }
+        if (!listVigenciasDomiciliariasCrear.contains(vigenciasDomiciliariaSeleccionada)) {
+            if (listVigenciasDomiciliariasModificar.isEmpty()) {
+                listVigenciasDomiciliariasModificar.add(vigenciasDomiciliariaSeleccionada);
+            } else if (!listVigenciasDomiciliariasModificar.contains(vigenciasDomiciliariaSeleccionada)) {
+                listVigenciasDomiciliariasModificar.add(vigenciasDomiciliariaSeleccionada);
+            }
+        }
+
+        if (guardado == true) {
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        }
+        RequestContext.getCurrentInstance().update("form:editarConst");
     }
 
     public void seleccionarIngreso(String calificacion, VigenciasDomiciliarias vigDom) {
-        if (calificacion.equals("DE 1 A 3 SALARIOS MINIMOS")) {
+        if (calificacion.equals(" ")) {
+            vigenciasDomiciliariaSeleccionada.setIngresos("NULL");
+        } else if (calificacion.equals("DE 1 A 3 SALARIOS MINIMOS")) {
             vigenciasDomiciliariaSeleccionada.setIngresos("DE 1 A 3 SALARIOS MINIMOS");
         } else if (calificacion.equals("DE 4 A 6 SALARIOS MINIMOS")) {
             vigenciasDomiciliariaSeleccionada.setIngresos("DE 4 A 6 SALARIOS MINIMOS");
@@ -6117,11 +6198,13 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
             guardado = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
-        RequestContext.getCurrentInstance().update("form:datosIngresos");
+        RequestContext.getCurrentInstance().update("form:editarIngresos");
     }
 
     public void seleccionarCondicionF(String condicionf, VigenciasDomiciliarias vigDom) {
-        if (condicionf.equals("ADECUADA")) {
+        if (condicionf.equals(" ")) {
+            vigenciasDomiciliariaSeleccionada.setCondicionfamiliar("NULL");
+        } else if (condicionf.equals("ADECUADA")) {
             vigenciasDomiciliariaSeleccionada.setCondicionfamiliar("ADECUADA");
         } else if (condicionf.equals("INADECUADA")) {
             vigenciasDomiciliariaSeleccionada.setCondicionfamiliar("INADECUADA");
@@ -6139,11 +6222,13 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
             guardado = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
-        RequestContext.getCurrentInstance().update("form:datosIndicadores");
+        RequestContext.getCurrentInstance().update("form:editarCondicionesF");
     }
 
     public void seleccionarCondicionS(String condicionsocial, VigenciasDomiciliarias vigDom) {
-        if (condicionsocial.equals("ADECUADA")) {
+        if (condicionsocial.equals(" ")) {
+            vigenciasDomiciliariaSeleccionada.setCondicionsocial("NULL");
+        } else if (condicionsocial.equals("ADECUADA")) {
             vigenciasDomiciliariaSeleccionada.setCondicionsocial("ADECUADA");
         } else if (condicionsocial.equals("INADECUADA")) {
             vigenciasDomiciliariaSeleccionada.setCondicionsocial("INADECUADA");
@@ -6161,11 +6246,13 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
             guardado = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
-        RequestContext.getCurrentInstance().update("form:datosIndicadores");
+        RequestContext.getCurrentInstance().update("form:editarCondicionesS");
     }
 
     public void seleccionarSituacionEconomica(String situacion, VigenciasDomiciliarias vigDom) {
-        if (situacion.equals("ADECUADA")) {
+        if (situacion.equals(" ")) {
+            vigenciasDomiciliariaSeleccionada.setSituacioneconomica("NULL");
+        } else if (situacion.equals("ADECUADA")) {
             vigenciasDomiciliariaSeleccionada.setSituacioneconomica("ADECUADA");
         } else if (situacion.equals("INADECUADA")) {
             vigenciasDomiciliariaSeleccionada.setSituacioneconomica("INADECUADA");
@@ -6183,11 +6270,13 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
             guardado = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
-        RequestContext.getCurrentInstance().update("form:datosIndicadores");
+        RequestContext.getCurrentInstance().update("form:editarSituacionE");
     }
 
     public void seleccionarNivelAcademico(String nivel, VigenciasDomiciliarias vigDom) {
-        if (nivel.equals("ADECUADA")) {
+        if (nivel.equals(" ")) {
+            vigenciasDomiciliariaSeleccionada.setNivelacademico("NULL");
+        } else if (nivel.equals("ADECUADA")) {
             vigenciasDomiciliariaSeleccionada.setNivelacademico("ADECUADA");
         } else if (nivel.equals("INADECUADA")) {
             vigenciasDomiciliariaSeleccionada.setNivelacademico("INADECUADA");
@@ -6205,11 +6294,13 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
             guardado = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
-        RequestContext.getCurrentInstance().update("form:datosIndicadores");
+        RequestContext.getCurrentInstance().update("form:editarNivelAc");
     }
 
     public void seleccionarMotivacionCargo(String motivacionCargo, VigenciasDomiciliarias vigDom) {
-        if (motivacionCargo.equals("ADECUADA")) {
+        if (motivacionCargo.equals(" ")) {
+            vigenciasDomiciliariaSeleccionada.setMotivacioncargo("NULL");
+        } else if (motivacionCargo.equals("ADECUADA")) {
             vigenciasDomiciliariaSeleccionada.setMotivacioncargo("ADECUADA");
         } else if (motivacionCargo.equals("INADECUADA")) {
             vigenciasDomiciliariaSeleccionada.setMotivacioncargo("INADECUADA");
@@ -6227,9 +6318,8 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
             guardado = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
-        RequestContext.getCurrentInstance().update("form:datosIndicadores");
+        RequestContext.getCurrentInstance().update("form:editarMotivacionC");
     }
-
 
     public void activarCtrlF11() {
         System.out.println("TipoLista= " + tipoLista);
@@ -6335,83 +6425,6 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
             valorupc = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFamiliares:valorUpc");
             valorupc.setFilterStyle("width: 85% !important");
 
-            editarcalf = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosRelaciones:editarcalf");
-            editarcalf.setFilterStyle("width: 85% !important");
-            obsFamiliar = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosRelaciones:obsFamiliar");
-            obsFamiliar.setFilterStyle("width: 85% !important");
-            editarconstruccion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosServicios:editarconstruccion");
-            editarconstruccion.setFilterStyle("width: 85% !important");
-            servicioAgua = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosServicios:servicioAgua");
-            servicioAgua.setFilterStyle("width: 85% !important");
-            servicioLuz = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosServicios:servicioLuz");
-            servicioLuz.setFilterStyle("width: 85% !important");
-            servicioTel = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosServicios:servicioTel");
-            servicioTel.setFilterStyle("width: 85% !important");
-            servicioPar = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosServicios:servicioPar");
-            servicioPar.setFilterStyle("width: 85% !important");
-            servicioTrasn = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosServicios:servicioTrasn");
-            servicioTrasn.setFilterStyle("width: 85% !important");
-            servicioAlcan = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosServicios:servicioAlcan");
-            servicioAlcan.setFilterStyle("width: 85% !important");
-            servicioOtros = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosServicios:servicioOtros");
-            servicioOtros.setFilterStyle("width: 85% !important");
-            otrosServicios = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosServicios:otrosServicios");
-            otrosServicios.setFilterStyle("width: 85% !important");
-            ingresos = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIngresos:ingresos");
-            ingresos.setFilterStyle("width: 85% !important");
-            origenInd = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIngresos:origenInd");
-            origenInd.setFilterStyle("width: 85% !important");
-            origenArriendos = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIngresos:origenArriendos");
-            origenArriendos.setFilterStyle("width: 85% !important");
-            origenPension = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIngresos:origenPension");
-            origenPension.setFilterStyle("width: 85% !important");
-            origenSalario = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIngresos:origenSalario");
-            origenSalario.setFilterStyle("width: 85% !important");
-            origenCDT = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIngresos:origenCDT");
-            origenCDT.setFilterStyle("width: 85% !important");
-            origenAuxilios = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIngresos:origenAuxilios");
-            origenAuxilios.setFilterStyle("width: 85% !important");
-            aportePadre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosAportesHogar:aportePadre");
-            aportePadre.setFilterStyle("width: 85% !important");
-            aporteMadre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosAportesHogar:aporteMadre");
-            aporteMadre.setFilterStyle("width: 85% !important");
-            aporteHermano = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosAportesHogar:aporteHermano");
-            aporteHermano.setFilterStyle("width: 85% !important");
-            aporteAbuelo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosAportesHogar:aporteAbuelo");
-            aporteAbuelo.setFilterStyle("width: 85% !important");
-            aporteTio = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosAportesHogar:aporteTio");
-            aporteTio.setFilterStyle("width: 85% !important");
-            aporteOtro = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosAportesHogar:aporteOtro");
-            aporteOtro.setFilterStyle("width: 85% !important");
-            otrosIngresos = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosAportesHogar:otrosIngresos");
-            otrosIngresos.setFilterStyle("width: 85% !important");
-            egresoEdu = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEgresos:egresoEdu");
-            egresoEdu.setFilterStyle("width: 85% !important");
-            egresoRec = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEgresos:egresoRec");
-            egresoRec.setFilterStyle("width: 85% !important");
-            egresoAlimentacion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEgresos:egresoAlimentacion");
-            egresoAlimentacion.setFilterStyle("width: 85% !important");
-            egresoMedico = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEgresos:egresoMedico");
-            egresoMedico.setFilterStyle("width: 85% !important");
-            egresoArriendo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEgresos:egresoArriendo");
-            egresoArriendo.setFilterStyle("width: 85% !important");
-            egresoServicios = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEgresos:egresoServicios");
-            egresoServicios.setFilterStyle("width: 85% !important");
-            egresoOtro = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEgresos:egresoOtro");
-            egresoOtro.setFilterStyle("width: 85% !important");
-            otrosEgresos = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEgresos:otrosEgresos");
-            otrosEgresos.setFilterStyle("width: 85% !important");
-            condicionesF = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIndicadores:condicionesF");
-            condicionesF.setFilterStyle("width: 85% !important");
-            condicionesS = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIndicadores:condicionesS");
-            condicionesS.setFilterStyle("width: 85% !important");
-            situacionE = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIndicadores:situacionE");
-            situacionE.setFilterStyle("width: 85% !important");
-            nivelAc = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIndicadores:nivelAc");
-            nivelAc.setFilterStyle("width: 85% !important");
-            motivacionC = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIndicadores:motivacionC");
-            motivacionC.setFilterStyle("width: 85% !important");
-
             RequestContext.getCurrentInstance().update("form:datosFamiliares");
             RequestContext.getCurrentInstance().update("form:datosExperiencia");
             RequestContext.getCurrentInstance().update("form:datosEstadoCivil");
@@ -6419,12 +6432,6 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
             RequestContext.getCurrentInstance().update("form:datosDireccionesPersona");
             RequestContext.getCurrentInstance().update("form:datosAntecedentes");
             RequestContext.getCurrentInstance().update("form:datosVigenciasFormalesPersona");
-            RequestContext.getCurrentInstance().update("form:datosRelaciones");
-            RequestContext.getCurrentInstance().update("form:datosServicios");
-            RequestContext.getCurrentInstance().update("form:datosIngresos");
-            RequestContext.getCurrentInstance().update("form:datosAportesHogar");
-            RequestContext.getCurrentInstance().update("form:datosEgresos");
-            RequestContext.getCurrentInstance().update("form:datosIndicadores");
             altoTabla = "250";
             bandera = 1;
             tipoLista = 1;
@@ -6524,83 +6531,6 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
             valorupc = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFamiliares:valorUpc");
             valorupc.setFilterStyle("display: none; visibility: hidden;");
 
-            editarcalf = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosRelaciones:editarcalf");
-            editarcalf.setFilterStyle("display: none; visibility: hidden;");
-            obsFamiliar = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosRelaciones:obsFamiliar");
-            obsFamiliar.setFilterStyle("display: none; visibility: hidden;");
-            editarconstruccion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosServicios:editarconstruccion");
-            editarconstruccion.setFilterStyle("display: none; visibility: hidden;");
-            servicioAgua = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosServicios:servicioAgua");
-            servicioAgua.setFilterStyle("display: none; visibility: hidden;");
-            servicioLuz = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosServicios:servicioLuz");
-            servicioLuz.setFilterStyle("display: none; visibility: hidden;");
-            servicioTel = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosServicios:servicioTel");
-            servicioTel.setFilterStyle("display: none; visibility: hidden;");
-            servicioPar = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosServicios:servicioPar");
-            servicioPar.setFilterStyle("display: none; visibility: hidden;");
-            servicioTrasn = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosServicios:servicioTrasn");
-            servicioTrasn.setFilterStyle("display: none; visibility: hidden;");
-            servicioAlcan = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosServicios:servicioAlcan");
-            servicioAlcan.setFilterStyle("display: none; visibility: hidden;");
-            servicioOtros = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosServicios:servicioOtros");
-            servicioOtros.setFilterStyle("display: none; visibility: hidden;");
-            otrosServicios = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosServicios:otrosServicios");
-            otrosServicios.setFilterStyle("display: none; visibility: hidden;");
-            ingresos = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIngresos:ingresos");
-            ingresos.setFilterStyle("display: none; visibility: hidden;");
-            origenInd = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIngresos:origenInd");
-            origenInd.setFilterStyle("display: none; visibility: hidden;");
-            origenArriendos = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIngresos:origenArriendos");
-            origenArriendos.setFilterStyle("display: none; visibility: hidden;");
-            origenPension = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIngresos:origenPension");
-            origenPension.setFilterStyle("display: none; visibility: hidden;");
-            origenSalario = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIngresos:origenSalario");
-            origenSalario.setFilterStyle("display: none; visibility: hidden;");
-            origenCDT = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIngresos:origenCDT");
-            origenCDT.setFilterStyle("display: none; visibility: hidden;");
-            origenAuxilios = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIngresos:origenAuxilios");
-            origenAuxilios.setFilterStyle("display: none; visibility: hidden;");
-            aportePadre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosAportesHogar:aportePadre");
-            aportePadre.setFilterStyle("display: none; visibility: hidden;");
-            aporteMadre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosAportesHogar:aporteMadre");
-            aporteMadre.setFilterStyle("display: none; visibility: hidden;");
-            aporteHermano = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosAportesHogar:aporteHermano");
-            aporteHermano.setFilterStyle("display: none; visibility: hidden;");
-            aporteAbuelo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosAportesHogar:aporteAbuelo");
-            aporteAbuelo.setFilterStyle("display: none; visibility: hidden;");
-            aporteTio = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosAportesHogar:aporteTio");
-            aporteTio.setFilterStyle("display: none; visibility: hidden;");
-            aporteOtro = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosAportesHogar:aporteOtro");
-            aporteOtro.setFilterStyle("display: none; visibility: hidden;");
-            otrosIngresos = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosAportesHogar:otrosIngresos");
-            otrosIngresos.setFilterStyle("display: none; visibility: hidden;");
-            egresoEdu = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEgresos:egresoEdu");
-            egresoEdu.setFilterStyle("display: none; visibility: hidden;");
-            egresoRec = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEgresos:egresoRec");
-            egresoRec.setFilterStyle("display: none; visibility: hidden;");
-            egresoAlimentacion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEgresos:egresoAlimentacion");
-            egresoAlimentacion.setFilterStyle("display: none; visibility: hidden;");
-            egresoMedico = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEgresos:egresoMedico");
-            egresoMedico.setFilterStyle("display: none; visibility: hidden;");
-            egresoArriendo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEgresos:egresoArriendo");
-            egresoArriendo.setFilterStyle("display: none; visibility: hidden;");
-            egresoServicios = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEgresos:egresoServicios");
-            egresoServicios.setFilterStyle("display: none; visibility: hidden;");
-            egresoOtro = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEgresos:egresoOtro");
-            egresoOtro.setFilterStyle("display: none; visibility: hidden;");
-            otrosEgresos = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEgresos:otrosEgresos");
-            otrosEgresos.setFilterStyle("display: none; visibility: hidden;");
-            condicionesF = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIndicadores:condicionesF");
-            condicionesF.setFilterStyle("display: none; visibility: hidden;");
-            condicionesS = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIndicadores:condicionesS");
-            condicionesS.setFilterStyle("display: none; visibility: hidden;");
-            situacionE = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIndicadores:situacionE");
-            situacionE.setFilterStyle("display: none; visibility: hidden;");
-            nivelAc = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIndicadores:nivelAc");
-            nivelAc.setFilterStyle("display: none; visibility: hidden;");
-            motivacionC = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIndicadores:motivacionC");
-            motivacionC.setFilterStyle("display: none; visibility: hidden;");
-
             RequestContext.getCurrentInstance().update("form:datosFamiliares");
             RequestContext.getCurrentInstance().update("form:datosExperiencia");
             RequestContext.getCurrentInstance().update("form:datosTelefonosPersona");
@@ -6608,12 +6538,6 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
             RequestContext.getCurrentInstance().update("form:datosEstadoCivil");
             RequestContext.getCurrentInstance().update("form:datosAntecedentes");
             RequestContext.getCurrentInstance().update("form:datosVigenciasFormalesPersona");
-            RequestContext.getCurrentInstance().update("form:datosRelaciones");
-            RequestContext.getCurrentInstance().update("form:datosServicios");
-            RequestContext.getCurrentInstance().update("form:datosIngresos");
-            RequestContext.getCurrentInstance().update("form:datosAportesHogar");
-            RequestContext.getCurrentInstance().update("form:datosEgresos");
-            RequestContext.getCurrentInstance().update("form:datosIndicadores");
             altoTabla = "270";
             bandera = 0;
             listTelefonosFiltrar = null;
@@ -6621,7 +6545,6 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
             listVigenciaEstadoCivilFiltrar = null;
             listAntecedentesMFiltrar = null;
             listaFamiliaresFiltrar = null;
-            listVigenciasDomiciliariasFiltrar = null;
             tipoLista = 0;
         }
     }
@@ -6634,12 +6557,12 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
     public void actualizarCargo() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (tipoActualizacion == 0) {
-            nuevaHV.setCargo(cargoSeleccionada);
-            if (!listHojasdeVidaCrear.contains(nuevaHV)) {
+            hojaVida.setCargo(cargoSeleccionada);
+            if (!listHojasdeVidaCrear.contains(hojaVida)) {
                 if (listHojasdeVidaModificar.isEmpty()) {
-                    listHojasdeVidaModificar.add(nuevaHV);
-                } else if (!listHojasdeVidaModificar.contains(nuevaHV)) {
-                    listHojasdeVidaModificar.add(nuevaHV);
+                    listHojasdeVidaModificar.add(hojaVida);
+                } else if (!listHojasdeVidaModificar.contains(hojaVida)) {
+                    listHojasdeVidaModificar.add(hojaVida);
                 }
             }
             if (guardado == true) {
@@ -6649,7 +6572,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
             permitirIndex = true;
             RequestContext.getCurrentInstance().update("form:cargoPostulado");
         } else if (tipoActualizacion == 1) {
-            hvactual.setCargo(cargoSeleccionada);
+            hojaVida.setCargo(cargoSeleccionada);
             RequestContext.getCurrentInstance().update("form:cargoPostulado");
         }
 
@@ -6686,281 +6609,1171 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroCargos");
     }
 
-    public void modificarCargo(Cargos cargo, String confirmarCambio, String valorConfirmar) {
+    public void modificarCargo(Cargos cargo) {
         cargoSeleccionada = cargo;
-        int coincidencias = 0;
-        int indiceUnicoElemento = 0;
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (confirmarCambio.equalsIgnoreCase("CARGO")) {
-//                nuevaHV.setCargo(cargoSeleccionada);
-
-            for (int i = 0; i < lovCargos.size(); i++) {
-                if (lovCargos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
-                    indiceUnicoElemento = i;
-                    coincidencias++;
-                }
+        nuevaHV.setCargo(cargoSeleccionada);
+        if (!listHojasdeVidaCrear.contains(nuevaHV)) {
+            if (listHojasdeVidaModificar.isEmpty()) {
+                listHojasdeVidaModificar.add(nuevaHV);
+            } else if (!listHojasdeVidaModificar.contains(nuevaHV)) {
+                listHojasdeVidaModificar.add(nuevaHV);
             }
-            if (coincidencias == 1) {
-                nuevaHV.setCargo(cargoSeleccionada);
-                lovCargos.clear();
-                getLovCargos();
-            } else {
-                permitirIndex = false;
-                RequestContext.getCurrentInstance().update("formularioDialogos:cargoDialogo");
-                RequestContext.getCurrentInstance().execute("PF('cargoDialogo').show()");
-                tipoActualizacion = 0;
+            if (guardado == true) {
+                guardado = false;
+                RequestContext context = RequestContext.getCurrentInstance();
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:cargoPostulado");
             }
         }
-        if (coincidencias == 1) {
-            if (tipoLista == 0) {
-                if (!listHojasdeVidaCrear.contains(nuevaHV)) {
-                    if (listHojasdeVidaModificar.isEmpty()) {
-                        listHojasdeVidaModificar.add(nuevaHV);
-                    } else if (!listHojasdeVidaModificar.contains(nuevaHV)) {
-                        listHojasdeVidaModificar.add(nuevaHV);
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                    }
-                }
-            } else if (!listHojasdeVidaCrear.contains(nuevaHV)) {
-
-                if (listHojasdeVidaModificar.isEmpty()) {
-                    listHojasdeVidaModificar.add(nuevaHV);
-                } else if (!listHojasdeVidaModificar.contains(nuevaHV)) {
-                    listHojasdeVidaModificar.add(nuevaHV);
-                }
-                if (guardado == true) {
-                    guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                }
-            }
-        }
-        RequestContext.getCurrentInstance().update("form:cargoPostulado");
+        guardado = true;
     }
 
-    public void cerrarFiltradoVigenciaDomiciliaria() {
-        editarcalf = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosRelaciones:editarcalf");
-        editarcalf.setFilterStyle("display: none; visibility: hidden;");
-        obsFamiliar = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosRelaciones:obsFamiliar");
-        obsFamiliar.setFilterStyle("display: none; visibility: hidden;");
-        editarconstruccion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosServicios:editarconstruccion");
-        editarconstruccion.setFilterStyle("display: none; visibility: hidden;");
-        servicioAgua = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosServicios:servicioAgua");
-        servicioAgua.setFilterStyle("display: none; visibility: hidden;");
-        servicioLuz = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosServicios:servicioLuz");
-        servicioLuz.setFilterStyle("display: none; visibility: hidden;");
-        servicioTel = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosServicios:servicioTel");
-        servicioTel.setFilterStyle("display: none; visibility: hidden;");
-        servicioPar = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosServicios:servicioPar");
-        servicioPar.setFilterStyle("display: none; visibility: hidden;");
-        servicioTrasn = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosServicios:servicioTrasn");
-        servicioTrasn.setFilterStyle("display: none; visibility: hidden;");
-        servicioAlcan = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosServicios:servicioAlcan");
-        servicioAlcan.setFilterStyle("display: none; visibility: hidden;");
-        servicioOtros = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosServicios:servicioOtros");
-        servicioOtros.setFilterStyle("display: none; visibility: hidden;");
-        otrosServicios = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosServicios:otrosServicios");
-        otrosServicios.setFilterStyle("display: none; visibility: hidden;");
-        ingresos = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIngresos:ingresos");
-        ingresos.setFilterStyle("display: none; visibility: hidden;");
-        origenInd = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIngresos:origenInd");
-        origenInd.setFilterStyle("display: none; visibility: hidden;");
-        origenArriendos = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIngresos:origenArriendos");
-        origenArriendos.setFilterStyle("display: none; visibility: hidden;");
-        origenPension = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIngresos:origenPension");
-        origenPension.setFilterStyle("display: none; visibility: hidden;");
-        origenSalario = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIngresos:origenSalario");
-        origenSalario.setFilterStyle("display: none; visibility: hidden;");
-        origenCDT = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIngresos:origenCDT");
-        origenCDT.setFilterStyle("display: none; visibility: hidden;");
-        origenAuxilios = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIngresos:origenAuxilios");
-        origenAuxilios.setFilterStyle("display: none; visibility: hidden;");
-        aportePadre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosAportesHogar:aportePadre");
-        aportePadre.setFilterStyle("display: none; visibility: hidden;");
-        aporteMadre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosAportesHogar:aporteMadre");
-        aporteMadre.setFilterStyle("display: none; visibility: hidden;");
-        aporteHermano = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosAportesHogar:aporteHermano");
-        aporteHermano.setFilterStyle("display: none; visibility: hidden;");
-        aporteAbuelo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosAportesHogar:aporteAbuelo");
-        aporteAbuelo.setFilterStyle("display: none; visibility: hidden;");
-        aporteTio = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosAportesHogar:aporteTio");
-        aporteTio.setFilterStyle("display: none; visibility: hidden;");
-        aporteOtro = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosAportesHogar:aporteOtro");
-        aporteOtro.setFilterStyle("display: none; visibility: hidden;");
-        otrosIngresos = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosAportesHogar:otrosIngresos");
-        otrosIngresos.setFilterStyle("display: none; visibility: hidden;");
-        egresoEdu = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEgresos:egresoEdu");
-        egresoEdu.setFilterStyle("display: none; visibility: hidden;");
-        egresoRec = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEgresos:egresoRec");
-        egresoRec.setFilterStyle("display: none; visibility: hidden;");
-        egresoAlimentacion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEgresos:egresoAlimentacion");
-        egresoAlimentacion.setFilterStyle("display: none; visibility: hidden;");
-        egresoMedico = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEgresos:egresoMedico");
-        egresoMedico.setFilterStyle("display: none; visibility: hidden;");
-        egresoArriendo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEgresos:egresoArriendo");
-        egresoArriendo.setFilterStyle("display: none; visibility: hidden;");
-        egresoServicios = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEgresos:egresoServicios");
-        egresoServicios.setFilterStyle("display: none; visibility: hidden;");
-        egresoOtro = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEgresos:egresoOtro");
-        egresoOtro.setFilterStyle("display: none; visibility: hidden;");
-        otrosEgresos = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEgresos:otrosEgresos");
-        otrosEgresos.setFilterStyle("display: none; visibility: hidden;");
-        condicionesF = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIndicadores:condicionesF");
-        condicionesF.setFilterStyle("display: none; visibility: hidden;");
-        condicionesS = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIndicadores:condicionesS");
-        condicionesS.setFilterStyle("display: none; visibility: hidden;");
-        situacionE = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIndicadores:situacionE");
-        situacionE.setFilterStyle("display: none; visibility: hidden;");
-        nivelAc = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIndicadores:nivelAc");
-        nivelAc.setFilterStyle("display: none; visibility: hidden;");
-        motivacionC = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosIndicadores:motivacionC");
-        motivacionC.setFilterStyle("display: none; visibility: hidden;");
-        bandera = 0;
-        tipoLista = 0;
-        listVigenciasDomiciliariasFiltrar = null;
-        RequestContext.getCurrentInstance().update("form:datosRelaciones");
-        RequestContext.getCurrentInstance().update("form:datosServicios");
-        RequestContext.getCurrentInstance().update("form:datosIngresos");
-        RequestContext.getCurrentInstance().update("form:datosAportesHogar");
-        RequestContext.getCurrentInstance().update("form:datosEgresos");
-        RequestContext.getCurrentInstance().update("form:datosIndicadores");
+    public void modificarPersona(Personas personam) {
+        persona = personam;
+
+        if (!listPersonasCrear.contains(persona)) {
+            if (listPersonasModificar.isEmpty()) {
+                listPersonasModificar.add(persona);
+            } else if (!listPersonasModificar.contains(persona)) {
+                listPersonasModificar.add(persona);
+            }
+            if (guardado == true) {
+                guardado = false;
+                RequestContext context = RequestContext.getCurrentInstance();
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:editarEdad");
+                RequestContext.getCurrentInstance().update("form:editarCiudadDoc");
+                RequestContext.getCurrentInstance().update("form:editarDocumento");
+                RequestContext.getCurrentInstance().update("form:editarPersona");
+            }
+        }
+        guardado = true;
     }
 
-    public void agregarVigenciaDomiciliaria() {
-        if (bandera == 1) {
-            cerrarFiltradoVigenciaDomiciliaria();
-        }
-        k++;
-        x = BigDecimal.valueOf(k);
-        nuevaVigenciaDomiciliaria.setSecuencia(x);
-        listVigenciasDomiciliariasCrear.add(nuevaVigenciaDomiciliaria);
-        listVigenciasDomiciliarias.add(nuevaVigenciaDomiciliaria);
-        contarRegistrosRelaciones();
-        contarRegistrosServicios();
-        contarRegistrosIngresos();
-        contarRegistrosAportesHogar();
-        contarRegistrosEgresos();
-        contarRegistrosIndicadores();
-//        antecedentemSeleccionado = nuevoAntecedentem;
-        nuevaVigenciaDomiciliaria = new VigenciasDomiciliarias();
-        nuevaVigenciaDomiciliaria.setFecha(new Date());
-        RequestContext.getCurrentInstance().update("form:datosRelaciones");
-        RequestContext.getCurrentInstance().update("form:datosServicios");
-        RequestContext.getCurrentInstance().update("form:datosIngresos");
-        RequestContext.getCurrentInstance().update("form:datosAportesHogar");
-        RequestContext.getCurrentInstance().update("form:datosEgresos");
-        RequestContext.getCurrentInstance().update("form:datosIndicadores");
-        RequestContext.getCurrentInstance().update("form:editarCondiciones");
-        RequestContext.getCurrentInstance().update("form:editarDistribucion");
-        RequestContext.getCurrentInstance().update("form:editarDescripcionGeneral");
-        RequestContext.getCurrentInstance().update("form:editarProfesional");
+
+    public void actualizarCamposVigDomiciliaria() {
         RequestContext.getCurrentInstance().update("form:editarFechaDomiciliaria");
-        if (guardado == true) {
-            guardado = false;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-        }
-
-        if (cualtabla == 1) {
-            nombreDialogo = "nuevoRegistroRelaciones";
-        } else if (cualtabla == 2) {
-            nombreDialogo = "nuevoRegistroServicios";
-        } else if (cualtabla == 3) {
-            nombreDialogo = "nuevoRegistroIngresos";
-        } else if (cualtabla == 4) {
-            nombreDialogo = "nuevoRegistroAportesH";
-        } else if (cualtabla == 5) {
-            nombreDialogo = "nuevoRegistroEgresos";
-        } else if (cualtabla == 6) {
-            nombreDialogo = "nuevoRegistroIndicadores";
-        }
-
-        RequestContext.getCurrentInstance().execute("PF('" + nombreDialogo + "').hide()");
-
-    }
-
-    public void contarRegistrosRelaciones() {
-        RequestContext.getCurrentInstance().update("form:infoRegistroRelaciones");
-    }
-
-    public void contarRegistrosServicios() {
-        RequestContext.getCurrentInstance().update("form:infoRegistroServicios");
-    }
-
-    public void contarRegistrosIngresos() {
-        RequestContext.getCurrentInstance().update("form:infoRegistroIngresos");
-    }
-
-    public void contarRegistrosAportesHogar() {
-        RequestContext.getCurrentInstance().update("form:infoRegistroAportesH");
-    }
-
-    public void contarRegistrosEgresos() {
-        RequestContext.getCurrentInstance().update("form:infoRegistroEgresos");
-    }
-
-    public void contarRegistrosIndicadores() {
-        RequestContext.getCurrentInstance().update("form:infoRegistroIndicadores");
-    }
-
-    public void modificarCondiciones() {
-        modificarVigenciaDomiciliaria(vigenciasDomiciliariaSeleccionada);
-        RequestContext context = RequestContext.getCurrentInstance();
+        RequestContext.getCurrentInstance().update("form:editarProfesional");
+        RequestContext.getCurrentInstance().update("form:editarCalificacionF");
+        RequestContext.getCurrentInstance().update("form:editarObsFamiliar");
         RequestContext.getCurrentInstance().update("form:editarCondiciones");
-        guardado = false;
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-    }
-
-    public void modificarDistribucion() {
-        modificarVigenciaDomiciliaria(vigenciasDomiciliariaSeleccionada);
-        RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:editarDistribucion");
-        guardado = false;
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-    }
-
-    public void modificarDescripcion() {
-        modificarVigenciaDomiciliaria(vigenciasDomiciliariaSeleccionada);
-        RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:editarDescripcionGeneral");
-        guardado = false;
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-    }
-
-    public void modificarObservaciones() {
-        modificarVigenciaDomiciliaria(vigenciasDomiciliariaSeleccionada);
-        RequestContext context = RequestContext.getCurrentInstance();
+        RequestContext.getCurrentInstance().update("form:editarConst");
+        RequestContext.getCurrentInstance().update("form:otrosservicios");
+        RequestContext.getCurrentInstance().update("form:editarIngresos");
+        RequestContext.getCurrentInstance().update("form:otrosIngresos");
+        RequestContext.getCurrentInstance().update("form:otrosEgresos");
         RequestContext.getCurrentInstance().update("form:editarObservaciones");
-        guardado = false;
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-    }
-
-    public void modificarConceptoF() {
-        modificarVigenciaDomiciliaria(vigenciasDomiciliariaSeleccionada);
-        RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:editarConceptoF");
-        guardado = false;
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-    }
-
-    public void modificarConceptoS() {
-        modificarVigenciaDomiciliaria(vigenciasDomiciliariaSeleccionada);
-        RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:editarConceptoS");
-        guardado = false;
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-    }
-
-    public void modificarPersonasAsistenes() {
-        modificarVigenciaDomiciliaria(vigenciasDomiciliariaSeleccionada);
-        RequestContext context = RequestContext.getCurrentInstance();
+        RequestContext.getCurrentInstance().update("form:editarCondicionesF");
+        RequestContext.getCurrentInstance().update("form:editarCondicionesS");
+        RequestContext.getCurrentInstance().update("form:editarSituacionE");
+        RequestContext.getCurrentInstance().update("form:editarNivelAc");
+        RequestContext.getCurrentInstance().update("form:editarMotivacionC");
         RequestContext.getCurrentInstance().update("form:editarPersonas");
-        guardado = false;
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
-    /// /////SETS Y GETS///////
+    public void exportPDF() throws IOException {
+        if (cualtabla == 1) {
+            DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosDireccionesExportar");
+            FacesContext context = FacesContext.getCurrentInstance();
+            Exporter exporter = new ExportarPDF();
+            exporter.export(context, tabla, "DireccionesPDF", false, false, "UTF-8", null, null);
+            context.responseComplete();
+        } else if (cualtabla == 2) {
+            DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosTelefonosExportar");
+            FacesContext context = FacesContext.getCurrentInstance();
+            Exporter exporter = new ExportarPDF();
+            exporter.export(context, tabla, "TelefonosPDF", false, false, "UTF-8", null, null);
+            context.responseComplete();
+        } else if (cualtabla == 3) {
+            DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosEstadoCivilExportar");
+            FacesContext context = FacesContext.getCurrentInstance();
+            Exporter exporter = new ExportarPDF();
+            exporter.export(context, tabla, "VigenciasEstadosCivilesPDF", false, false, "UTF-8", null, null);
+            context.responseComplete();
+        } else if (cualtabla == 4) {
+            DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosAntecedentesMExportar");
+            FacesContext context = FacesContext.getCurrentInstance();
+            Exporter exporter = new ExportarXLS();
+            exporter.export(context, tabla, "AntecedentesMedicosPDF", false, false, "UTF-8", null, null);
+            context.responseComplete();
+        } else if (cualtabla == 5) {
+            DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosFamiliaresExportar");
+            FacesContext context = FacesContext.getCurrentInstance();
+            Exporter exporter = new ExportarPDF();
+            exporter.export(context, tabla, "FamiliaresPDF", false, false, "UTF-8", null, null);
+            context.responseComplete();
+        } else if (cualtabla == 6) {
+            DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosVigenciasFormalesExportar");
+            FacesContext context = FacesContext.getCurrentInstance();
+            Exporter exporter = new ExportarPDF();
+            exporter.export(context, tabla, "VigenciasFormalesPDF", false, false, "UTF-8", null, null);
+            context.responseComplete();
+        } else if (cualtabla == 7) {
+            DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosExperienciaExportar");
+            FacesContext context = FacesContext.getCurrentInstance();
+            Exporter exporter = new ExportarPDF();
+            exporter.export(context, tabla, "ExperienciasLaboralesPDF", false, false, "UTF-8", null, null);
+            context.responseComplete();
+        } else if (cualtabla == 8) {
+            DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosVisitaExportar");
+            FacesContext context = FacesContext.getCurrentInstance();
+            Exporter exporter = new ExportarPDFTablasAnchas();
+            exporter.export(context, tabla, "VisitasDomiciliariasXLS", false, false, "UTF-8", null, null);
+            context.responseComplete();
+        }
+    }
+
+    public void exportXLS() throws IOException {
+        if (cualtabla == 1) {
+            DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosDireccionesExportar");
+            FacesContext context = FacesContext.getCurrentInstance();
+            Exporter exporter = new ExportarXLS();
+            exporter.export(context, tabla, "DireccionesXLS", false, false, "UTF-8", null, null);
+            context.responseComplete();
+        } else if (cualtabla == 2) {
+            DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosTelefonosExportar");
+            FacesContext context = FacesContext.getCurrentInstance();
+            Exporter exporter = new ExportarXLS();
+            exporter.export(context, tabla, "TelefonosXLS", false, false, "UTF-8", null, null);
+            context.responseComplete();
+        } else if (cualtabla == 3) {
+            DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosEstadoCivilExportar");
+            FacesContext context = FacesContext.getCurrentInstance();
+            Exporter exporter = new ExportarXLS();
+            exporter.export(context, tabla, "VigenciasEstadosCivilesXLS", false, false, "UTF-8", null, null);
+            context.responseComplete();
+        } else if (cualtabla == 4) {
+            DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosAntecedentesMExportar");
+            FacesContext context = FacesContext.getCurrentInstance();
+            Exporter exporter = new ExportarXLS();
+            exporter.export(context, tabla, "AntecedentesMedicosXLS", false, false, "UTF-8", null, null);
+            context.responseComplete();
+        } else if (cualtabla == 5) {
+            DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosFamiliaresExportar");
+            FacesContext context = FacesContext.getCurrentInstance();
+            Exporter exporter = new ExportarXLS();
+            exporter.export(context, tabla, "FamiliaresXLS", false, false, "UTF-8", null, null);
+            context.responseComplete();
+        } else if (cualtabla == 6) {
+            DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosVigenciasFormalesExportar");
+            FacesContext context = FacesContext.getCurrentInstance();
+            Exporter exporter = new ExportarXLS();
+            exporter.export(context, tabla, "VigenciasFormalesXLS", false, false, "UTF-8", null, null);
+            context.responseComplete();
+        } else if (cualtabla == 7) {
+            DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosExperienciaExportar");
+            FacesContext context = FacesContext.getCurrentInstance();
+            Exporter exporter = new ExportarXLS();
+            exporter.export(context, tabla, "VigenciasFormalesXLS", false, false, "UTF-8", null, null);
+            context.responseComplete();
+        } else if (cualtabla == 8) {
+            DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosVisitaExportar");
+            FacesContext context = FacesContext.getCurrentInstance();
+            Exporter exporter = new ExportarXLS();
+            exporter.export(context, tabla, "VisitasDomiciliariasXLS", false, false, "UTF-8", null, null);
+            context.responseComplete();
+        }
+
+    }
+
+    public void limpiarVigenciaDomiciliaria() {
+        vigenciasDomiciliariaSeleccionada = administrarVigDomiciliarias.vigenciaDomiciliariaActual(persona.getSecuencia());
+        vigenciasDomiciliariaSeleccionada.setPersona(persona);
+    }
+
+    public void limpiarExportar() {
+        if (cualtabla == 1) {
+            limpiarNuevaDireccion();
+            nombreArchivo = "DireccionesXML";
+            tablaImprimir = ":formExportar:datosDireccionesExportar";
+        } else if (cualtabla == 2) {
+            limpiarNuevoTelefono();
+            nombreArchivo = "TelefonosXML";
+            tablaImprimir = ":formExportar:datosTelefonosExportar";
+        } else if (cualtabla == 3) {
+            limpiarNuevoEstadoCivil();
+            nombreArchivo = "VigenciasEstadoCivilXML";
+            tablaImprimir = ":formExportar:datosEstadoCivilExportar";
+        } else if (cualtabla == 4) {
+            limpiarAntecedenteM();
+            nombreArchivo = "AntecedentesMedicosXML";
+            tablaImprimir = ":formExportar:datosAntecedentesMExportar";
+        } else if (cualtabla == 5) {
+            limpiarNuevoFamiliar();
+            nombreArchivo = "FamiliaresXML";
+            tablaImprimir = ":formExportar:datosFamiliaresExportar";
+        } else if (cualtabla == 6) {
+            limpiarNuevaVigenciaFormal();
+            nombreArchivo = "EducacionXML";
+            tablaImprimir = ":formExportar:datosVigenciasFormalesExportar";
+        } else if (cualtabla == 7) {
+            limpiarNuevaExpL();
+            nombreArchivo = "ExperienciaLaboralXML";
+            tablaImprimir = ":formExportar:datosExperienciaExportar";
+        } else if (cualtabla == 8) {
+            nombreArchivo = "VisitasDomiciliariasXML";
+            tablaImprimir = ":formExportar:datosVisitaExportar";
+            limpiarVigenciaDomiciliaria();
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('formularioDialogos:seleccionarRegistro').show()");
+        }
+
+    }
+
+    public void editarCelda() {
+        if (cualtabla == 1) {
+            if (direccionSeleccionada != null) {
+                editarDireccion = direccionSeleccionada;
+                RequestContext context = RequestContext.getCurrentInstance();
+                if (cualCelda == 0) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarFecha");
+                    RequestContext.getCurrentInstance().execute("PF('editarFecha').show()");
+                    cualCelda = -1;
+                } else if (cualCelda == 1) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarUbicacionesPrincipales");
+                    RequestContext.getCurrentInstance().execute("PF('editarUbicacionesPrincipales').show()");
+                    cualCelda = -1;
+                } else if (cualCelda == 2) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarDescripcionesUbicacionesPrincipales");
+                    RequestContext.getCurrentInstance().execute("PF('editarDescripcionesUbicacionesPrincipales').show()");
+                    cualCelda = -1;
+                } else if (cualCelda == 3) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarUbicacionesSecundarias");
+                    RequestContext.getCurrentInstance().execute("PF('editarUbicacionesSecundarias').show()");
+                    cualCelda = -1;
+                } else if (cualCelda == 4) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarDescripcionesUbicacionesSecundarias");
+                    RequestContext.getCurrentInstance().execute("PF('editarDescripcionesUbicacionesSecundarias').show()");
+                    cualCelda = -1;
+                } else if (cualCelda == 5) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarBarrios");
+                    RequestContext.getCurrentInstance().execute("PF('editarBarrios').show()");
+                    cualCelda = -1;
+                } else if (cualCelda == 6) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarCiudades");
+                    RequestContext.getCurrentInstance().execute("PF('editarCiudades').show()");
+                    cualCelda = -1;
+                } else if (cualCelda == 7) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarTiposViviendas");
+                    RequestContext.getCurrentInstance().execute("PF('editarTiposViviendas').show()");
+                    cualCelda = -1;
+                } else if (cualCelda == 8) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarHipotecas");
+                    RequestContext.getCurrentInstance().execute("PF('editarHipotecas').show()");
+                    cualCelda = -1;
+                } else if (cualCelda == 9) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarDireccionesAlternativas");
+                    RequestContext.getCurrentInstance().execute("PF('editarDireccionesAlternativas').show()");
+                    cualCelda = -1;
+                }
+            }
+        } else if (cualtabla == 2) {
+            if (telefonoSeleccionado != null) {
+                editarTelefono = telefonoSeleccionado;
+
+                if (cualCelda == 0) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaTelefono");
+                    RequestContext.getCurrentInstance().execute("PF('editarFechaTelefono').show()");
+                    cualCelda = -1;
+                } else if (cualCelda == 1) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarTT");
+                    RequestContext.getCurrentInstance().execute("PF('editarTT').show()");
+                    cualCelda = -1;
+                } else if (cualCelda == 2) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarNumeroTelefono");
+                    RequestContext.getCurrentInstance().execute("PF('editarNumeroTelefono').show()");
+                    cualCelda = -1;
+                } else if (cualCelda == 3) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarCiudadTelefono");
+                    RequestContext.getCurrentInstance().execute("PF('editarCiudadTelefono').show()");
+                    cualCelda = -1;
+                }
+            }
+        } else if (cualtabla == 3) {
+            if (vigenciaEstadoCivilSeleccionado != null) {
+                editarVigenciaEstadoCivil = vigenciaEstadoCivilSeleccionado;
+                RequestContext context = RequestContext.getCurrentInstance();
+                if (cualCelda == 0) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaEstadoCivil");
+                    RequestContext.getCurrentInstance().execute("PF('editarFechaEstadoCivil').show()");
+                    cualCelda = -1;
+                } else if (cualCelda == 1) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editEstadoCivil");
+                    RequestContext.getCurrentInstance().execute("PF('editEstadoCivil').show()");
+                    cualCelda = -1;
+                }
+            }
+        } else if (cualtabla == 4) {
+            if (antecedentemSeleccionado != null) {
+                editarAntecedenteM = antecedentemSeleccionado;
+                if (cualCelda == 1) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editFechaAntecedenteM");
+                    RequestContext.getCurrentInstance().execute("PF('editFechaAntecedenteM').show()");
+                    cualCelda = -1;
+                } else if (cualCelda == 2) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editTipoAntecedenteM");
+                    RequestContext.getCurrentInstance().execute("PF('editTipoAntecedenteM').show()");
+                    cualCelda = -1;
+                } else if (cualCelda == 3) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editAntecedenteD");
+                    RequestContext.getCurrentInstance().execute("PF('editAntecedenteD').show()");
+                    cualCelda = -1;
+                } else if (cualCelda == 4) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editAntecedenteMDescripcion");
+                    RequestContext.getCurrentInstance().execute("PF('editAntecedenteMDescripcion').show()");
+                    cualCelda = -1;
+                }
+            }
+        } else if (cualtabla == 5) {
+            if (familiarSeleccionado != null) {
+                editarFamiliar = familiarSeleccionado;
+
+                if (cualCelda == 1) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarNombreD");
+                    RequestContext.getCurrentInstance().execute("PF('editarNombreD').show()");
+                    cualCelda = -1;
+                } else if (cualCelda == 2) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarOcupacionD");
+                    RequestContext.getCurrentInstance().execute("PF('editarOcupacionD').show()");
+                    cualCelda = -1;
+                } else if (cualCelda == 3) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarTipoFamiliarD");
+                    RequestContext.getCurrentInstance().execute("PF('editarTipoFamiliarD').show()");
+                    cualCelda = -1;
+                } else if (cualCelda == 8) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarValorUpcD");
+                    RequestContext.getCurrentInstance().execute("PF('editarValorUpcD').show()");
+                    cualCelda = -1;
+                }
+            }
+        } else if (cualtabla == 6) {
+            if (vigenciaFormalSeleccionada != null) {
+
+                editarVigenciaFormal = vigenciaFormalSeleccionada;
+                if (cualCelda == 0) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaEducacion");
+                    RequestContext.getCurrentInstance().execute("PF('editarFechaEducacion').show()");
+                    cualCelda = -1;
+                } else if (cualCelda == 1) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarTipoEducacion");
+                    RequestContext.getCurrentInstance().execute("PF('editarTipoEducacion').show()");
+                    cualCelda = -1;
+                } else if (cualCelda == 2) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarProfesion");
+                    RequestContext.getCurrentInstance().execute("PF('editarProfesion').show()");
+                    cualCelda = -1;
+                } else if (cualCelda == 3) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarInstitucion");
+                    RequestContext.getCurrentInstance().execute("PF('editarInstitucion').show()");
+                    cualCelda = -1;
+                } else if (cualCelda == 4) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarAdiestramientoF");
+                    RequestContext.getCurrentInstance().execute("PF('editarAdiestramientoF').show()");
+                    cualCelda = -1;
+                } else if (cualCelda == 5) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarValoracion");
+                    RequestContext.getCurrentInstance().execute("PF('editarValoracion').show()");
+                    cualCelda = -1;
+                } else if (cualCelda == 6) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarNumeroTarjeta");
+                    RequestContext.getCurrentInstance().execute("PF('editarNumeroTarjeta').show()");
+                    cualCelda = -1;
+                } else if (cualCelda == 7) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaExpedicion");
+                    RequestContext.getCurrentInstance().execute("PF('editarFechaExpedicion').show()");
+                    cualCelda = -1;
+                } else if (cualCelda == 8) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaVencimiento");
+                    RequestContext.getCurrentInstance().execute("PF('editarFechaVencimiento').show()");
+                    cualCelda = -1;
+                } else if (cualCelda == 9) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarObservacion");
+                    RequestContext.getCurrentInstance().execute("PF('editarObservacion').show()");
+                    cualCelda = -1;
+                }
+            }
+        } else if (cualtabla == 7) {
+            if (hvexpSeleccionada != null) {
+                editarhvexp = hvexpSeleccionada;
+                RequestContext context = RequestContext.getCurrentInstance();
+                if (cualCelda == 0) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarEmpresaD");
+                    RequestContext.getCurrentInstance().execute("PF('editarEmpresaD').show()");
+                    cualCelda = -1;
+                } else if (cualCelda == 1) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaInicialD");
+                    RequestContext.getCurrentInstance().execute("PF('editarFechaInicialD').show()");
+                    cualCelda = -1;
+                } else if (cualCelda == 2) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaFinalD");
+                    RequestContext.getCurrentInstance().execute("PF('editarFechaFinalD').show()");
+                    cualCelda = -1;
+                } else if (cualCelda == 3) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarCargoD");
+                    RequestContext.getCurrentInstance().execute("PF('editarCargoD').show()");
+                    cualCelda = -1;
+                } else if (cualCelda == 4) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarJefeD");
+                    RequestContext.getCurrentInstance().execute("PF('editarJefeD').show()");
+                    cualCelda = -1;
+                } else if (cualCelda == 5) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarTelefonoD");
+                    RequestContext.getCurrentInstance().execute("PF('editarTelefonoD').show()");
+                    cualCelda = -1;
+                } else if (cualCelda == 6) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarSectorD");
+                    RequestContext.getCurrentInstance().execute("PF('editarSectorD').show()");
+                    cualCelda = -1;
+                } else if (cualCelda == 7) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarMotivoD");
+                    RequestContext.getCurrentInstance().execute("PF('editarMotivoD').show()");
+                    cualCelda = -1;
+                } else if (cualCelda == 8) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarLogroD");
+                    RequestContext.getCurrentInstance().execute("PF('editarLogroD').show()");
+                    cualCelda = -1;
+                }
+            }
+        } else if (cualtabla == 8) {
+            if (vigenciasDomiciliariaSeleccionada != null) {
+                editarVigenciaDomiciliaria = vigenciasDomiciliariaSeleccionada;
+
+                if (cualCelda == 2) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarObservacionFamiliarD");
+                    RequestContext.getCurrentInstance().execute("PF('editarObservacionFamiliarD').show()");
+                    cualCelda = -1;
+                } else if (cualCelda == 3) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarCondicionesGeneralesD");
+                    RequestContext.getCurrentInstance().execute("PF('editarCondicionesGeneralesD').show()");
+                    cualCelda = -1;
+                } else if (cualCelda == 4) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarDistribucionD");
+                    RequestContext.getCurrentInstance().execute("PF('editarDistribucionD').show()");
+                    cualCelda = -1;
+                } else if (cualCelda == 5) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarDescrGeneralD");
+                    RequestContext.getCurrentInstance().execute("PF('editarDescrGeneralD').show()");
+                    cualCelda = -1;
+                } else if (cualCelda == 14) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarOtrosServiciosD");
+                    RequestContext.getCurrentInstance().execute("PF('editarOtrosServiciosD').show()");
+                    cualCelda = -1;
+                } else if (cualCelda == 28) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarOtrosAportesD");
+                    RequestContext.getCurrentInstance().execute("PF('editarOtrosAportesD').show()");
+                    cualCelda = -1;
+                } else if (cualCelda == 36) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarOtrosEgresosD");
+                    RequestContext.getCurrentInstance().execute("PF('editarOtrosEgresosD').show()");
+                    cualCelda = -1;
+                } else if (cualCelda == 37) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarObservacionesD");
+                    RequestContext.getCurrentInstance().execute("PF('editarObservacionesD').show()");
+                    cualCelda = -1;
+                } else if (cualCelda == 38) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarConceptoFinalD");
+                    RequestContext.getCurrentInstance().execute("PF('editarConceptoFinalD').show()");
+                    cualCelda = -1;
+                } else if (cualCelda == 39) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarConceptoSocialD");
+                    RequestContext.getCurrentInstance().execute("PF('editarConceptoSocialD').show()");
+                    cualCelda = -1;
+                } else if (cualCelda == 45) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarPersonasPresentesD");
+                    RequestContext.getCurrentInstance().execute("PF('editarPersonasPresentesD').show()");
+                    cualCelda = -1;
+                } else if (cualCelda == 46) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaVisitaD");
+                    RequestContext.getCurrentInstance().execute("PF('editarFechaVisitaD').show()");
+                    cualCelda = -1;
+                } else if (cualCelda == 47) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarProfesionalD");
+                    RequestContext.getCurrentInstance().execute("PF('editarProfesionalD').show()");
+                    cualCelda = -1;
+                }
+            }
+
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+        }
+    }
+
+    public void guardarTodo() {
+        RequestContext context = RequestContext.getCurrentInstance();
+        try {
+            if (guardado == false) {
+                if (!listAntecedentesMBorrar.isEmpty()) {
+                    administrarVigDomiciliarias.borrarAntecedenteM(listAntecedentesMBorrar);
+                    listAntecedentesMBorrar.clear();
+                }
+                if (!listAntecedentesMCrear.isEmpty()) {
+                    administrarVigDomiciliarias.crearAntecedenteM(listAntecedentesMCrear);
+                    listAntecedentesMCrear.clear();
+                }
+                if (!listAntecedentesModificar.isEmpty()) {
+                    System.out.println("Modificando...");
+                    administrarVigDomiciliarias.modificarAntecedenteM(listAntecedentesModificar);
+                    listAntecedentesModificar.clear();
+                }
+                if (!listaFamiliaresBorrar.isEmpty()) {
+                    administrarVigDomiciliarias.borrarFamiliares(listaFamiliaresBorrar);
+                    listaFamiliaresBorrar.clear();
+                }
+                if (!listaFamiliaresCrear.isEmpty()) {
+                    administrarVigDomiciliarias.crearFamilares(listaFamiliaresCrear);
+                    listaFamiliaresCrear.clear();
+                }
+                if (!listaFamiliaresModificar.isEmpty()) {
+                    administrarVigDomiciliarias.modificarFamiliares(listaFamiliaresModificar);
+                    listaFamiliaresModificar.clear();
+                }
+                if (!listDireccionesBorrar.isEmpty()) {
+                    administrarVigDomiciliarias.borrarDirecciones(listDireccionesBorrar);
+                    listDireccionesBorrar.clear();
+                }
+                if (!listDireccionesCrear.isEmpty()) {
+                    administrarVigDomiciliarias.crearDirecciones(listDireccionesCrear);
+                    listDireccionesCrear.clear();
+                }
+                if (!listDireccionesModificar.isEmpty()) {
+                    administrarVigDomiciliarias.modificarDirecciones(listDireccionesModificar);
+                    listDireccionesModificar.clear();
+                }
+
+                if (!listTelefonosBorrar.isEmpty()) {
+                    for (int i = 0; i < listTelefonosBorrar.size(); i++) {
+                        if (listTelefonosBorrar.get(i).getTipotelefono().getSecuencia() == null) {
+                            listTelefonosBorrar.get(i).setTipotelefono(null);
+                            administrarVigDomiciliarias.borrarTelefonos(listTelefonosBorrar.get(i));
+                        } else if (listTelefonosBorrar.get(i).getCiudad().getSecuencia() == null) {
+                            listTelefonosBorrar.get(i).setCiudad(null);
+                            administrarVigDomiciliarias.borrarTelefonos(listTelefonosBorrar.get(i));
+                        } else {
+                            administrarVigDomiciliarias.borrarTelefonos(listTelefonosBorrar.get(i));
+                        }
+                    }
+                    listTelefonosBorrar.clear();
+                }
+
+                if (!listTelefonosCrear.isEmpty()) {
+                    for (int i = 0; i < listTelefonosCrear.size(); i++) {
+                        System.out.println("Creando...");
+                        if (listTelefonosCrear.get(i).getTipotelefono().getSecuencia() == null) {
+                            listTelefonosCrear.get(i).setTipotelefono(null);
+                            administrarVigDomiciliarias.crearTelefonos(listTelefonosCrear.get(i));
+                        } else if (listTelefonosCrear.get(i).getCiudad().getSecuencia() == null) {
+                            listTelefonosCrear.get(i).setCiudad(null);
+                            administrarVigDomiciliarias.crearTelefonos(listTelefonosCrear.get(i));
+                        } else {
+                            administrarVigDomiciliarias.crearTelefonos(listTelefonosCrear.get(i));
+                        }
+                    }
+                    listTelefonosCrear.clear();
+                }
+                if (!listTelefonosModificar.isEmpty()) {
+                    administrarVigDomiciliarias.modificarTelefonos(listTelefonosModificar);
+                    listTelefonosModificar.clear();
+                }
+                if (!listVigenciaEstadoCivilBorrar.isEmpty()) {
+                    for (int i = 0; i < listVigenciaEstadoCivilBorrar.size(); i++) {
+                        System.out.println("Borrando...");
+                    }
+                    administrarVigDomiciliarias.borrarVigenciasEstadosCiviles(listVigenciaEstadoCivilBorrar);
+                    listVigenciaEstadoCivilBorrar.clear();
+                }
+                if (!listVigenciaEstadoCivilCrear.isEmpty()) {
+                    administrarVigDomiciliarias.crearVigenciasEstadosCiviles(listVigenciaEstadoCivilCrear);
+                    listVigenciaEstadoCivilCrear.clear();
+                }
+                if (!listVigenciaEstadoCivilModificar.isEmpty()) {
+                    System.out.println("Modificando...");
+                    administrarVigDomiciliarias.modificarVigenciasEstadosCiviles(listVigenciaEstadoCivilModificar);
+                    listVigenciaEstadoCivilModificar.clear();
+                }
+
+                if (!listVigenciasFormalesBorrar.isEmpty()) {
+                    administrarVigDomiciliarias.borrarVigenciaFormal(listVigenciasFormalesBorrar);
+                    listVigenciasFormalesBorrar.clear();
+                }
+                if (!listVigenciasFormalesCrear.isEmpty()) {
+                    administrarVigDomiciliarias.crearVigenciaFormal(listVigenciasFormalesCrear);
+                    listVigenciasFormalesCrear.clear();
+                }
+                if (!listVigenciasFormalesModificar.isEmpty()) {
+                    administrarVigDomiciliarias.modificarVigenciaFormal(listVigenciasFormalesModificar);
+                    listVigenciasFormalesModificar.clear();
+                }
+
+                if (!listhvExpLaboralesBorrar.isEmpty()) {
+                    administrarVigDomiciliarias.borrarExperienciaLaboral(listhvExpLaboralesBorrar);
+                    listhvExpLaboralesBorrar.clear();
+                }
+                if (!listhvExpLaboralesCrear.isEmpty()) {
+                    administrarVigDomiciliarias.crearExperienciaLaboral(listhvExpLaboralesCrear);
+                    listhvExpLaboralesCrear.clear();
+                }
+                if (!listhvExpLaboralesModificar.isEmpty()) {
+                    administrarVigDomiciliarias.editarExperienciaLaboral(listhvExpLaboralesModificar);
+                    listhvExpLaboralesModificar.clear();
+                }
+
+                if (!listVigenciasDomiciliariasBorrar.isEmpty()) {
+                    System.out.println("tamaño lista visitas domiciliarias borrar " + listVigenciasDomiciliariasBorrar.size());
+                    administrarVigDomiciliarias.borrarVigencia(listVigenciasDomiciliariasBorrar);
+                    listVigenciasDomiciliariasBorrar.clear();
+                }
+                if (!listVigenciasDomiciliariasCrear.isEmpty()) {
+                    System.out.println("tamaño lista visitas domiciliarias crear " + listVigenciasDomiciliariasCrear.size());
+                    administrarVigDomiciliarias.crearVigencia(listVigenciasDomiciliariasCrear);
+                    listVigenciasDomiciliariasCrear.clear();
+                }
+                if (!listVigenciasDomiciliariasModificar.isEmpty()) {
+                    System.out.println("tamaño lista visitas domiciliarias modificar " + listVigenciasDomiciliariasModificar.size());
+                    administrarVigDomiciliarias.modificarVigencia(listVigenciasDomiciliariasModificar);
+                    listVigenciasDomiciliariasModificar.clear();
+                }
+
+                if (!listHojasdeVidaModificar.isEmpty()) {
+                    administrarVigDomiciliarias.editarHojadeVida(listHojasdeVidaModificar);
+                    listHojasdeVidaModificar.clear();
+                }
+
+                if (!listPersonasModificar.isEmpty()) {
+                    administrarVigDomiciliarias.editarPersona(listPersonasModificar);
+                    listPersonasModificar.clear();
+                }
+
+                listaFamiliares = null;
+                getListaFamiliares();
+                listAntecedentesM = null;
+                getListAntecedentesM();
+                listDirecciones = null;
+                getListDirecciones();
+                listTelefonos = null;
+                getListTelefonos();
+                listVigenciaEstadoCivil = null;
+                listVigenciasFormales = null;
+                listhvExpLaborales = null;
+                getListhvExpLaborales();
+                getListVigenciasFormales();
+                contarRegistrosEducacion();
+                getListVigenciaEstadoCivil();
+                contarRegistrosEstadoCivil();
+                contarRegistrosCiudadesTelefonos();
+                contarRegistrosAntecedentesM();
+                contarRegistrosFamiliares();
+                contarRegistrosDirecciones();
+                contarRegistrosExp();
+                RequestContext.getCurrentInstance().update("form:datosAntecedentes");
+                RequestContext.getCurrentInstance().update("form:datosFamiliares");
+                RequestContext.getCurrentInstance().update("form:datosDireccionesPersona");
+                RequestContext.getCurrentInstance().update("form:datosTelefonosPersona");
+                RequestContext.getCurrentInstance().update("form:datosEstadoCivil");
+                RequestContext.getCurrentInstance().update("form:datosVigenciasFormalesPersona");
+                RequestContext.getCurrentInstance().update("form:datosExperiencia");
+                RequestContext.getCurrentInstance().update("form:cargoPostulado");
+
+                actualizarCamposVigDomiciliaria();
+                k = 0;
+                guardado = true;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+                RequestContext.getCurrentInstance().update("form:growl");
+                familiarSeleccionado = null;
+                antecedentemSeleccionado = null;
+                vigenciaFormalSeleccionada = null;
+                direccionSeleccionada = null;
+                telefonoSeleccionado = null;
+                vigenciaEstadoCivilSeleccionado = null;
+                hvexpSeleccionada = null;
+            }
+        } catch (Exception e) {
+            System.out.println("Error guardarCambios : " + e.toString());
+            FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            RequestContext.getCurrentInstance().update("form:growl");
+        }
+    }
+
+    public void activarOtroServicio() {
+        if (vigenciasDomiciliariaSeleccionada.isRecotro() == true) {
+            System.out.println("activo otros servicios");
+            activarotroservicio = false;
+            RequestContext.getCurrentInstance().update("form:otrosservicios");
+        } else {
+            System.out.println("desactivo otros servicios");
+            activarotroservicio = true;
+            RequestContext.getCurrentInstance().update("form:otrosservicios");
+        }
+    }
+
+    public void activarOtroEgreso() {
+        if (vigenciasDomiciliariaSeleccionada.isEgresoOtros() == true) {
+            System.out.println("activo otros egresos");
+            activarotroegreso = false;
+            RequestContext.getCurrentInstance().update("form:otrosEgresos");
+        } else {
+            System.out.println("desactivo otros egresos");
+            activarotroegreso = true;
+            RequestContext.getCurrentInstance().update("form:otrosEgresos");
+        }
+    }
+
+    public void activarOtroAporte() {
+        if (vigenciasDomiciliariaSeleccionada.isAporteotro() == true) {
+            System.out.println("activo otros aportes");
+            activarotroaporte = false;
+            RequestContext.getCurrentInstance().update("form:otrosIngresos");
+        } else {
+            System.out.println("desactivo otros aportes");
+            activarotroaporte = true;
+            RequestContext.getCurrentInstance().update("form:otrosIngresos");
+        }
+    }
+
+    public void agregarNuevaVigenciaDomiciliaria() {
+        vigenciasDomiciliariaSeleccionada = nuevaVigenciaDomiciliaria;
+        vigenciasDomiciliariaSeleccionada.setPersona(persona);
+        actualizarCamposVigDomiciliaria();
+        checkDefault();
+    }
+    
+    public void duplicarVigenciaDomiciliaria(){
+        System.out.println("entró a duplicar Vigencia Domiciliaria");
+        k++;
+            x = BigDecimal.valueOf(k);
+            duplicarVigenciaDomiciliaria.setSecuencia(x);
+            duplicarVigenciaDomiciliaria.setPersona(persona);
+            duplicarVigenciaDomiciliaria = vigenciasDomiciliariaSeleccionada;
+            listVigenciasDomiciliariasCrear.add(duplicarVigenciaDomiciliaria);
+            vigenciasDomiciliariaSeleccionada = duplicarVigenciaDomiciliaria;
+            actualizarCamposVigDomiciliaria();
+            checkDefault();
+            if (guardado == true) {
+                guardado = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            }
+        
+        
+//        duplicarVigenciaDomiciliaria = vigenciasDomiciliariaSeleccionada;
+//        vigenciasDomiciliariaSeleccionada = new VigenciasDomiciliarias();
+//        vigenciasDomiciliariaSeleccionada.setPersona(persona);
+//        vigenciasDomiciliariaSeleccionada = duplicarVigenciaDomiciliaria;
+    }
+    
+    public void checkDefault() {
+        activarotroaporte = true;
+        activarotroegreso = true;
+        activarotroservicio = true;
+        RequestContext.getCurrentInstance().update("form:servagua");
+        RequestContext.getCurrentInstance().update("form:servluz");
+        RequestContext.getCurrentInstance().update("form:servtel");
+        RequestContext.getCurrentInstance().update("form:servpara");
+        RequestContext.getCurrentInstance().update("form:servtrans");
+        RequestContext.getCurrentInstance().update("form:servalc");
+        RequestContext.getCurrentInstance().update("form:servotro");
+        RequestContext.getCurrentInstance().update("form:otrosservicios");
+
+        RequestContext.getCurrentInstance().update("form:editarIngresos");
+        RequestContext.getCurrentInstance().update("form:comind");
+        RequestContext.getCurrentInstance().update("form:arriendo");
+        RequestContext.getCurrentInstance().update("form:pension");
+        RequestContext.getCurrentInstance().update("form:Salario");
+        RequestContext.getCurrentInstance().update("form:cdt");
+        RequestContext.getCurrentInstance().update("form:Auxilios");
+
+        RequestContext.getCurrentInstance().update("form:Padre");
+        RequestContext.getCurrentInstance().update("form:Madre");
+        RequestContext.getCurrentInstance().update("form:Hermano");
+        RequestContext.getCurrentInstance().update("form:Abuelo");
+        RequestContext.getCurrentInstance().update("form:Tío");
+        RequestContext.getCurrentInstance().update("form:Otro");
+        RequestContext.getCurrentInstance().update("form:otrosIngresos");
+
+        RequestContext.getCurrentInstance().update("form:educacion");
+        RequestContext.getCurrentInstance().update("form:recreacion");
+        RequestContext.getCurrentInstance().update("form:alimentacion");
+        RequestContext.getCurrentInstance().update("form:medica");
+        RequestContext.getCurrentInstance().update("form:Arriendo");
+        RequestContext.getCurrentInstance().update("form:Servicios");
+        RequestContext.getCurrentInstance().update("form:egresootro");
+        RequestContext.getCurrentInstance().update("form:otrosEgresos");
+
+        RequestContext.getCurrentInstance().update("form:editarObservaciones");
+        RequestContext.getCurrentInstance().update("form:editarConceptoF");
+        RequestContext.getCurrentInstance().update("form:editarConceptoS");
+        RequestContext.getCurrentInstance().update("form:editarCondicionesF");
+        RequestContext.getCurrentInstance().update("form:editarCondicionesS");
+        RequestContext.getCurrentInstance().update("form:editarSituacionE");
+        RequestContext.getCurrentInstance().update("form:editarNivelAc");
+        RequestContext.getCurrentInstance().update("form:editarMotivacionC");
+        RequestContext.getCurrentInstance().update("form:editarPersonas");
+
+    }
+
+    public void mostrarDialogoInsertarTelefono() {
+        RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroTelefono");
+        RequestContext.getCurrentInstance().execute("PF('NuevoRegistroTelefono').show()");
+    }
+
+    public void mostrarDialogoInsertarDireccion() {
+        RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroDireccion");
+        RequestContext.getCurrentInstance().execute("PF('NuevoRegistroDireccion').show()");
+    }
+
+    public void mostrarDialogoInsertarAntecedente() {
+        RequestContext.getCurrentInstance().update("formularioDialogos:nuevoRegistroAntecedentesM");
+        RequestContext.getCurrentInstance().execute("PF('nuevoRegistroAntecedentesM').show()");
+    }
+
+    public void mostrarDialogoInsertarEstadoCivil() {
+        RequestContext.getCurrentInstance().update("formularioDialogos:nuevoRegistroEstadoCivil");
+        RequestContext.getCurrentInstance().execute("PF('nuevoRegistroEstadoCivil').show()");
+    }
+
+    public void mostrarDialogoInsertarEducacion() {
+        RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroVigenciaFormal");
+        RequestContext.getCurrentInstance().execute("PF('NuevoRegistroVigenciaFormal').show()");
+    }
+
+    public void mostrarDialogoInsertarExpLaboral() {
+        RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroExpLaborales");
+        RequestContext.getCurrentInstance().execute("PF('NuevoRegistroExpLaborales').show()");
+    }
+
+    public void mostrarDialogoInsertarFamiliares() {
+        RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroFamiliarPersona");
+        RequestContext.getCurrentInstance().execute("PF('NuevoRegistroFamiliarPersona').show()");
+    }
+
+    public void mostrarDialogoInsertarPersona() {
+        RequestContext.getCurrentInstance().update("formularioDialogos:nuevoFamiliarPersona");
+        RequestContext.getCurrentInstance().execute("PF('nuevoFamiliarPersona').show()");
+    }
+
+    public void guardarSalir() {
+        guardarTodo();
+        salirTodo();
+    }
+
+    public void cancelarModificacionTodo() {
+        cancelarModificacionAntecedenteM();
+        cancelarModificacionDireccion();
+        cancelarModificacionEducacion();
+        cancelarModificacionEstadosCiviles();
+        cancelarModificacionExpLaboral();
+        cancelarModificacionFamiliares();
+        cancelarModificacionTelefono();
+        checkDefault();
+        actualizarCamposVigDomiciliaria();
+
+    }
+
+    public void salirTodo() {
+        salirAntecedenteM();
+        salirDirecciones();
+        salirEducacion();
+        salirEstadosCiviles();
+        salirExpLaborales();
+        salirFamiliares();
+        salirTelefonos();
+    }
+
+    public void cancelarSalir() {
+        cancelarModificacionTodo();
+        salirTodo();
+    }
+
+    public void contarRegistrosBuscarVisita() {
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroBuscarVisita");
+    }
+
+    public void contarRegistrosLovVisita() {
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroLovVisita");
+
+    }
+
+    public void mostrarDialogoBuscarVisita() {
+        RequestContext.getCurrentInstance().update("formularioDialogos:buscarVisita");
+        RequestContext.getCurrentInstance().execute("PF('buscarVisita').show()");
+    }
+
+    public void actualizarVisita() {
+        RequestContext context = RequestContext.getCurrentInstance();
+        if (!listVigenciasDomiciliarias.isEmpty()) {
+            listVigenciasDomiciliarias.clear();
+            listVigenciasDomiciliarias.add(visitaSeleccionada);
+//            empleadoSeleccionado = listaEmpleadosNovedad.get(0);
+        }
+        vigenciasDomiciliariaSeleccionada = visitaSeleccionada;
+        aceptar = true;
+        listVigenciasDomiciliariasFiltrar = null;
+        tipoActualizacion = -1;
+        cualCelda = -1;
+        context.reset("formularioDialogos:lovBuscarVisita:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('lovBuscarVisita').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('buscarVisita').hide()");
+        RequestContext.getCurrentInstance().update("formularioDialogos:buscarVisita");
+        RequestContext.getCurrentInstance().update("formularioDialogos:lovBuscarVisita");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarBuscar");
+        actualizarCamposVigDomiciliaria();
+        checkDefault();
+
+    }
+
+    public void verificarRastro() {
+        if (cualtabla == 1) {
+            if (direccionSeleccionada != null) {
+                int resultado = administrarRastros.obtenerTabla(direccionSeleccionada.getSecuencia(), "DIRECCIONES");
+                if (resultado == 1) {
+                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDBDirecciones').show()");
+                } else if (resultado == 2) {
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastroDirecciones').show()");
+                } else if (resultado == 3) {
+                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastroDirecciones').show()");
+                } else if (resultado == 4) {
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastroDirecciones').show()");
+                } else if (resultado == 5) {
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastroDirecciones').show()");
+                }
+            } else if (administrarRastros.verificarHistoricosTabla("DIRECCIONES")) {
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistoricoDirecciones').show()");
+            } else {
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistoricoDirecciones').show()");
+            }
+        } else if (cualtabla == 2) {
+            if (telefonoSeleccionado != null) {
+                int resultado = administrarRastros.obtenerTabla(telefonoSeleccionado.getSecuencia(), "TELEFONOS");
+                if (resultado == 1) {
+                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDBTelefonos').show()");
+                } else if (resultado == 2) {
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastroTelefonos').show()");
+                } else if (resultado == 3) {
+                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastroTelefonos').show()");
+                } else if (resultado == 4) {
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastroTelefonos').show()");
+                } else if (resultado == 5) {
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastroTelefonos').show()");
+                }
+            } else if (administrarRastros.verificarHistoricosTabla("TELEFONOS")) {
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistoricoTelefonos').show()");
+            } else {
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistoricoTelefonos').show()");
+            }
+
+        } else if (cualtabla == 3) {
+            if (vigenciaEstadoCivilSeleccionado != null) {
+                int resultado = administrarRastros.obtenerTabla(vigenciaEstadoCivilSeleccionado.getSecuencia(), "VIGENCIASESTADOSCIVILES");
+                if (resultado == 1) {
+                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDBEstadosCiviles').show()");
+                } else if (resultado == 2) {
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastroEstadosCiviles').show()");
+                } else if (resultado == 3) {
+                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastroEstadosCiviles').show()");
+                } else if (resultado == 4) {
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastroEstadosCiviles').show()");
+                } else if (resultado == 5) {
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastroEstadosCiviles').show()");
+                }
+            } else if (administrarRastros.verificarHistoricosTabla("VIGENCIASESTADOSCIVILES")) {
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistoricoEstadosCiviles').show()");
+            } else {
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistoricoEstadosCiviles').show()");
+            }
+
+        } else if (cualtabla == 4) {
+
+            if (antecedentemSeleccionado != null) {
+                int resultado = administrarRastros.obtenerTabla(antecedentemSeleccionado.getSecuencia(), "SOANTECEDENTESMEDICOS");
+                if (resultado == 1) {
+                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDBAntecedentes').show()");
+                } else if (resultado == 2) {
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastroAntecedentes').show()");
+                } else if (resultado == 3) {
+                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastroAntecedentes').show()");
+                } else if (resultado == 4) {
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastroAntecedentes').show()");
+                } else if (resultado == 5) {
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastroAntecedentes').show()");
+                }
+            } else if (administrarRastros.verificarHistoricosTabla("SOANTECEDENTESMEDICOS")) {
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistoricoAntecedentes').show()");
+            } else {
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistoricoAntecedentes').show()");
+            }
+
+        } else if (cualtabla == 5) {
+
+            if (familiarSeleccionado != null) {
+                int resultado = administrarRastros.obtenerTabla(familiarSeleccionado.getSecuencia().toBigInteger(), "FAMILIARES");
+                if (resultado == 1) {
+                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDBFamiliares').show()");
+                } else if (resultado == 2) {
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastroFamiliares').show()");
+                } else if (resultado == 3) {
+                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastroFamiliares').show()");
+                } else if (resultado == 4) {
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastroFamiliares').show()");
+                } else if (resultado == 5) {
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastroFamiliares').show()");
+                }
+            } else if (administrarRastros.verificarHistoricosTabla("FAMILIARES")) {
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistoricoFamiliares').show()");
+            } else {
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistoricoFamiliares').show()");
+            }
+
+        } else if (cualtabla == 6) {
+
+            if (vigenciaFormalSeleccionada != null) {
+                int resultado = administrarRastros.obtenerTabla(vigenciaFormalSeleccionada.getSecuencia(), "VIGENCIASFORMALES");
+                if (resultado == 1) {
+                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDBEducacion').show()");
+                } else if (resultado == 2) {
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastroEducacion').show()");
+                } else if (resultado == 3) {
+                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastroEducacion').show()");
+                } else if (resultado == 4) {
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastroEducacion').show()");
+                } else if (resultado == 5) {
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastroEducacion').show()");
+                }
+            } else if (administrarRastros.verificarHistoricosTabla("VIGENCIASFORMALES")) {
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistoricoEducacion').show()");
+            } else {
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistoricoEducacion').show()");
+            }
+
+        } else if (cualtabla == 7) {
+
+            if (hvexpSeleccionada != null) {
+                int resultado = administrarRastros.obtenerTabla(hvexpSeleccionada.getSecuencia(), "HVEXPERIENCIASLABORALES");
+                if (resultado == 1) {
+                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDBExpLaboral').show()");
+                } else if (resultado == 2) {
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastroExpLaboral').show()");
+                } else if (resultado == 3) {
+                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastroExpLaboral').show()");
+                } else if (resultado == 4) {
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastroExpLaboral').show()");
+                } else if (resultado == 5) {
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastroExpLaboral').show()");
+                }
+            } else if (administrarRastros.verificarHistoricosTabla("HVEXPERIENCIASLABORALES")) {
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistoricoExpLaboral').show()");
+            } else {
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistoricoExpLaboral').show()");
+            }
+
+        } else if (cualtabla == 8) {
+            if (vigenciasDomiciliariaSeleccionada != null) {
+                int resultado = administrarRastros.obtenerTabla(vigenciasDomiciliariaSeleccionada.getSecuencia().toBigInteger(), "VIGENCIASDOMICILIARIAS");
+                if (resultado == 1) {
+                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDBVisitaDomiciliaria').show()");
+                } else if (resultado == 2) {
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastroVisitaDomiciliaria').show()");
+                } else if (resultado == 3) {
+                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastroVisitaDomiciliaria').show()");
+                } else if (resultado == 4) {
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastroVisitaDomiciliaria').show()");
+                } else if (resultado == 5) {
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastroVisitaDomiciliaria').show()");
+                }
+            } else if (administrarRastros.verificarHistoricosTabla("VIGENCIASDOMICILIARIAS")) {
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistoricoVisitaDomiciliaria').show()");
+            } else {
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistoricoVisitaDomiciliaria').show()");
+            }
+        }
+
+    }
+
+    public void borrarVigenciaDomiciliaria() {
+        if (vigenciasDomiciliariaSeleccionada != null) {
+            if (!listVigenciasDomiciliariasModificar.isEmpty() && listVigenciasDomiciliariasModificar.contains(vigenciasDomiciliariaSeleccionada)) {
+                listVigenciasDomiciliariasModificar.remove(listVigenciasDomiciliariasModificar.indexOf(vigenciasDomiciliariaSeleccionada));
+                listVigenciasDomiciliariasBorrar.add(vigenciasDomiciliariaSeleccionada);
+            } else if (!listVigenciasDomiciliariasCrear.isEmpty() && listVigenciasDomiciliariasCrear.contains(vigenciasDomiciliariaSeleccionada)) {
+                listVigenciasDomiciliariasCrear.remove(listVigenciasDomiciliariasCrear.indexOf(vigenciasDomiciliariaSeleccionada));
+            } else {
+                listVigenciasDomiciliariasBorrar.add(vigenciasDomiciliariaSeleccionada);
+            }
+            RequestContext context = RequestContext.getCurrentInstance();
+            if (guardado == true) {
+                guardado = false;
+            }
+            vigenciasDomiciliariaSeleccionada = new VigenciasDomiciliarias();
+            vigenciasDomiciliariaSeleccionada.setPersona(persona);
+            actualizarCamposVigDomiciliaria();
+            checkDefault();
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('formularioDialogos:seleccionarRegistro').show()");
+        }
+    }
+
+    public void cancelarCambioVisita() {
+        listVigenciasDomiciliariasFiltrar = null;
+        visitaSeleccionada = null;
+        aceptar = true;
+        tipoActualizacion = -1;
+        permitirIndex = true;
+        RequestContext context = RequestContext.getCurrentInstance();
+        context.reset("formularioDialogos:lovBuscarVisita:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('lovBuscarVisita').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('buscarVisita').hide()");
+        RequestContext.getCurrentInstance().update("formularioDialogos:buscarVisita");
+        RequestContext.getCurrentInstance().update("formularioDialogos:lovBuscarVisita");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarBuscar");
+    }
+
+    public void elegirBorrar() {
+        if (cualtabla == 1) {
+            borrarDirecciones();
+        } else if (cualtabla == 2) {
+            borrarTelefonos();
+        } else if (cualtabla == 3) {
+            borrandoVigenciasEstadosCiviles();
+        } else if (cualtabla == 4) {
+            borrarAntecedenteMedico();
+        } else if (cualtabla == 4) {
+            borrarFamiliar();
+        } else if (cualtabla == 6) {
+            borrarVigenciaFormal();
+        } else if (cualtabla == 7) {
+            borrarExpLaborales();
+        } else if (cualtabla == 8) {
+            borrarVigenciaDomiciliaria();
+        }
+    }
+
+    public void elegirDuplicar(){
+     if (cualtabla == 1) {
+            duplicarDireccion();
+        } else if (cualtabla == 2) {
+            duplicarTelefono();
+        } else if (cualtabla == 3) {
+            duplicandoVigenciaEstadoCivil();
+        } else if (cualtabla == 4) {
+            duplicarAntecedenteMedico();
+        } else if (cualtabla == 4) {
+            duplicarFamiliar();
+        } else if (cualtabla == 6) {
+            duplicarVF();
+        } else if (cualtabla == 7) {
+            duplicarExpLaboral();
+        } else if (cualtabla == 8) {
+           duplicarVigenciaDomiciliaria();
+        }   
+    }
+    
+/// /////SETS Y GETS///////
     public List<VigenciasDomiciliarias> getListVigenciasDomiciliarias() {
         if (listVigenciasDomiciliarias == null) {
             listVigenciasDomiciliarias = administrarVigDomiciliarias.vigenciasDomiciliariasporPersona(persona.getSecuencia());
@@ -6970,14 +7783,6 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
 
     public void setListVigenciasDomiciliarias(List<VigenciasDomiciliarias> listVigenciasDomiciliarias) {
         this.listVigenciasDomiciliarias = listVigenciasDomiciliarias;
-    }
-
-    public List<VigenciasDomiciliarias> getListVigenciasDomiciliariasFiltrar() {
-        return listVigenciasDomiciliariasFiltrar;
-    }
-
-    public void setListVigenciasDomiciliariasFiltrar(List<VigenciasDomiciliarias> listVigenciasDomiciliariasFiltrar) {
-        this.listVigenciasDomiciliariasFiltrar = listVigenciasDomiciliariasFiltrar;
     }
 
     public VigenciasDomiciliarias getVigenciasDomiciliariaSeleccionada() {
@@ -7754,7 +8559,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
 
     public String getInfoRegistroDireccion() {
         FacesContext c = FacesContext.getCurrentInstance();
-        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosTelefonosPersona");
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosDireccionesPersona");
         infoRegistroDireccion = String.valueOf(tabla.getRowCount());
         return infoRegistroDireccion;
     }
@@ -7797,8 +8602,6 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
     }
 
     public String getDistribucion() {
-//          descGeneral = vigenciasDomiciliariaSeleccionada.getDistribucionvivienda();
-//           RequestContext.getCurrentInstance().update("form:editarDistribucion");
         return distribucion;
     }
 
@@ -7807,8 +8610,6 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
     }
 
     public String getCondiciones() {
-//          descGeneral = vigenciasDomiciliariaSeleccionada.getCondicionesgenerales();
-//           RequestContext.getCurrentInstance().update("form:editarCondiciones");
         return condiciones;
     }
 
@@ -7817,8 +8618,6 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
     }
 
     public String getDescGeneral() {
-//           descGeneral = vigenciasDomiciliariaSeleccionada.getDescripcionvivienda();
-//           RequestContext.getCurrentInstance().update("form:editarDescripcionGeneral");
         return descGeneral;
     }
 
@@ -8320,7 +9119,6 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
 
     public void setCargoSeleccionada(Cargos cargoSeleccionada) {
         this.cargoSeleccionada = cargoSeleccionada;
-        System.out.println("cargo seleccionado = " + cargoSeleccionada);
     }
 
     public Empleados getEmpleado() {
@@ -8436,7 +9234,6 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
     }
 
     public boolean isActivarotroservicio() {
-        System.out.println("activar otro servicio : " + activarotroservicio);
         return activarotroservicio;
     }
 
@@ -8445,7 +9242,6 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
     }
 
     public boolean isActivarotroegreso() {
-        System.out.println("activar otro egreso : " + activarotroegreso);
         return activarotroegreso;
     }
 
@@ -8454,12 +9250,164 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
     }
 
     public boolean isActivarotroaporte() {
-        System.out.println("activar otro aporte : " + activarotroaporte);
         return activarotroaporte;
     }
 
     public void setActivarotroaporte(boolean activarotroaporte) {
         this.activarotroaporte = activarotroaporte;
     }
-    
+
+    public VigenciasFormales getEditarVigenciaFormal() {
+        return editarVigenciaFormal;
+    }
+
+    public void setEditarVigenciaFormal(VigenciasFormales editarVigenciaFormal) {
+        this.editarVigenciaFormal = editarVigenciaFormal;
+    }
+
+    public HVHojasDeVida getEditarHV() {
+        return editarHV;
+    }
+
+    public void setEditarHV(HVHojasDeVida editarHV) {
+        this.editarHV = editarHV;
+    }
+
+    public Personas getEditarPersona() {
+        return editarPersona;
+    }
+
+    public void setEditarPersona(Personas editarPersona) {
+        this.editarPersona = editarPersona;
+    }
+
+    public HvExperienciasLaborales getEditarhvexp() {
+        return editarhvexp;
+    }
+
+    public void setEditarhvexp(HvExperienciasLaborales editarhvexp) {
+        this.editarhvexp = editarhvexp;
+    }
+
+    public Direcciones getEditarDireccion() {
+        return editarDireccion;
+    }
+
+    public void setEditarDireccion(Direcciones editarDireccion) {
+        this.editarDireccion = editarDireccion;
+    }
+
+    public Telefonos getEditarTelefono() {
+        return editarTelefono;
+    }
+
+    public void setEditarTelefono(Telefonos editarTelefono) {
+        this.editarTelefono = editarTelefono;
+    }
+
+    public VigenciasEstadosCiviles getEditarVigenciaEstadoCivil() {
+        return editarVigenciaEstadoCivil;
+    }
+
+    public void setEditarVigenciaEstadoCivil(VigenciasEstadosCiviles editarVigenciaEstadoCivil) {
+        this.editarVigenciaEstadoCivil = editarVigenciaEstadoCivil;
+    }
+
+    public Familiares getEditarFamiliar() {
+        return editarFamiliar;
+    }
+
+    public void setEditarFamiliar(Familiares editarFamiliar) {
+        this.editarFamiliar = editarFamiliar;
+    }
+
+    public SoAntecedentesMedicos getEditarAntecedenteM() {
+        return editarAntecedenteM;
+    }
+
+    public void setEditarAntecedenteM(SoAntecedentesMedicos editarAntecedenteM) {
+        this.editarAntecedenteM = editarAntecedenteM;
+    }
+
+    public boolean isGuardado() {
+        return guardado;
+    }
+
+    public void setGuardado(boolean guardado) {
+        this.guardado = guardado;
+    }
+
+    public String getInfoRegistrolovvisitas() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:lovVisitas");
+        infoRegistrolovvisitas = String.valueOf(tabla.getRowCount());
+        return infoRegistrolovvisitas;
+    }
+
+    public void setInfoRegistrolovvisitas(String infoRegistrolovvisitas) {
+        this.infoRegistrolovvisitas = infoRegistrolovvisitas;
+    }
+
+    public String getInfoRegistroVigenciaD() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:lovBuscarVisita");
+        infoRegistroVigenciaD = String.valueOf(tabla.getRowCount());
+        return infoRegistroVigenciaD;
+    }
+
+    public void setInfoRegistroVigenciaD(String infoRegistroVigenciaD) {
+        this.infoRegistroVigenciaD = infoRegistroVigenciaD;
+    }
+
+    public List<VigenciasDomiciliarias> getLovVisitas() {
+        if (lovVisitas == null) {
+            lovVisitas = administrarVigDomiciliarias.vigenciasDomiciliariasporPersona(persona.getSecuencia());
+        }
+        return lovVisitas;
+    }
+
+    public void setLovVisitas(List<VigenciasDomiciliarias> lovVisitas) {
+        this.lovVisitas = lovVisitas;
+    }
+
+    public List<VigenciasDomiciliarias> getListVigenciasDomiciliariasFiltrar() {
+        return listVigenciasDomiciliariasFiltrar;
+    }
+
+    public void setListVigenciasDomiciliariasFiltrar(List<VigenciasDomiciliarias> listVigenciasDomiciliariasFiltrar) {
+        this.listVigenciasDomiciliariasFiltrar = listVigenciasDomiciliariasFiltrar;
+    }
+
+    public VigenciasDomiciliarias getVisitaSeleccionada() {
+        return visitaSeleccionada;
+    }
+
+    public void setVisitaSeleccionada(VigenciasDomiciliarias visitaSeleccionada) {
+        this.visitaSeleccionada = visitaSeleccionada;
+    }
+
+    public VigenciasDomiciliarias getVisitaLovSeleccionada() {
+        return visitaLovSeleccionada;
+    }
+
+    public void setVisitaLovSeleccionada(VigenciasDomiciliarias visitaLovSeleccionada) {
+        this.visitaLovSeleccionada = visitaLovSeleccionada;
+    }
+
+    public String getTablaImprimir() {
+        return tablaImprimir;
+    }
+
+    public void setTablaImprimir(String tablaImprimir) {
+        this.tablaImprimir = tablaImprimir;
+    }
+
+    public String getNombreArchivo() {
+        return nombreArchivo;
+    }
+
+    public void setNombreArchivo(String nombreArchivo) {
+        this.nombreArchivo = nombreArchivo;
+    }
+
 }
