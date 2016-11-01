@@ -56,4 +56,6 @@ public interface PersistenciaVigenciasIndicadoresInterface {
      * con la secuencia dada por parámetro.
      */
     public List<VigenciasIndicadores> ultimosIndicadoresEmpleado(EntityManager em, BigInteger secuencia);
+    
+    public String primeraVigenciaIndicador(EntityManager em,BigInteger secuencia);
 }

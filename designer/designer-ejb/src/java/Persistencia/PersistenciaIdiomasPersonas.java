@@ -87,7 +87,7 @@ public class PersistenciaIdiomasPersonas implements PersistenciaIdiomasPersonasI
     }
 
     private Long contarIdiomasPersona(EntityManager em, BigInteger secuenciaPersona) {
-        System.out.println(this.getClass().getName()+".contarIdiomasPersona()");
+        System.out.println(this.getClass().getName() + ".contarIdiomasPersona()");
         Long resultado = null;
         try {
             em.clear();
@@ -108,22 +108,22 @@ public class PersistenciaIdiomasPersonas implements PersistenciaIdiomasPersonasI
         System.out.println("secuencia persona:" + secuenciaPersona);
 //        Long resultado = this.contarIdiomasPersona(em, secuenciaPersona);
 //        if (resultado != null && resultado > 0) {
-            try {
-                /*em.clear();
+        try {
+            /*em.clear();
                  Query query = em.createQuery("SELECT COUNT(ip) FROM IdiomasPersonas ip WHERE ip.persona.secuencia = :secuenciaPersona");
                  query.setParameter("secuenciaPersona", secuenciaPersona);
                  query.setHint("javax.persistence.cache.storeMode", "REFRESH");
                  Long resultado = (Long) query.getSingleResult();*/
-                Query queryFinal = em.createQuery("SELECT ip FROM IdiomasPersonas ip WHERE ip.persona.secuencia = :secuenciaPersona");
-                queryFinal.setParameter("secuenciaPersona", secuenciaPersona);
-                queryFinal.setHint("javax.persistence.cache.storeMode", "REFRESH");
-                List<IdiomasPersonas> listaIdiomasPersonas = queryFinal.getResultList();
-                System.out.println("retorna listaIdiomasPersonas: " + listaIdiomasPersonas);
-                return listaIdiomasPersonas;
-            } catch (Exception e) {
-                System.out.println("Error PersistenciaIdiomasPersonas.idiomasPersona" + e.toString());
-                return null;
-            }
+            Query queryFinal = em.createQuery("SELECT ip FROM IdiomasPersonas ip WHERE ip.persona.secuencia = :secuenciaPersona");
+            queryFinal.setParameter("secuenciaPersona", secuenciaPersona);
+            queryFinal.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            List<IdiomasPersonas> listaIdiomasPersonas = queryFinal.getResultList();
+            System.out.println("retorna listaIdiomasPersonas: " + listaIdiomasPersonas);
+            return listaIdiomasPersonas;
+        } catch (Exception e) {
+            System.out.println("Error PersistenciaIdiomasPersonas.idiomasPersona" + e.toString());
+            return null;
+        }
 //        } else {
 //            System.out.println("el conteo no proporcionó datos validos");
 //            return null;
@@ -142,6 +142,26 @@ public class PersistenciaIdiomasPersonas implements PersistenciaIdiomasPersonasI
         } catch (Exception e) {
             System.out.println("Error PersistenciaIdiomasPersonas.totalIdiomasPersonas" + e);
             return null;
+        }
+    }
+
+    @Override
+    public String primerIdioma(EntityManager em,BigInteger secuenciaPersona) {
+        String idioma;
+        try {
+            em.clear();
+            String sql = "SELECT SUBSTR(B.NOMBRE,1,30)\n"
+                    + "   FROM  VWIDIOMASPERSONAS A, IDIOMAS B\n"
+                    + "   WHERE A.PERSONA = ? AND\n"
+                    + "   A.IDIOMA = B.SECUENCIA\n"
+                    + "   AND A.SECUENCIA = (SELECT MAX(V.SECUENCIA) FROM VWIDIOMASPERSONAS V WHERE V.PERSONA = A.PERSONA) ";
+            Query query = em.createNativeQuery(sql);
+            query.setParameter(1,secuenciaPersona);
+            idioma = (String) query.getSingleResult();
+            return idioma;
+        } catch (Exception e) {
+            idioma = "SIN REGISTRAR";
+            return idioma;
         }
     }
 }

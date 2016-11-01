@@ -37,4 +37,7 @@ public interface PersistenciaDemandasInterface {
      * @return Retorna una lista de Demandas.
      */
     public List<Demandas> demandasPersona(EntityManager em,BigInteger secuenciaEmpl);
+    
+    public String primeraDemanda (EntityManager em,BigInteger secuenciaEmpl);
+    
 }

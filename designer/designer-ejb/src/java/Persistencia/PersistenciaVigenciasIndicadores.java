@@ -12,20 +12,23 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+
 /**
- * Clase Stateless.<br> 
+ * Clase Stateless.<br>
  * Clase encargada de realizar operaciones sobre la tabla 'VigenciasIndicadores'
  * de la base de datos.
+ *
  * @author AndresPineda
  */
 @Stateless
 public class PersistenciaVigenciasIndicadores implements PersistenciaVigenciasIndicadoresInterface {
+
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
      */
-/*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
+    /*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
     private EntityManager em;
-*/
+     */
 
     @Override
     public void crear(EntityManager em, VigenciasIndicadores vigenciasIndicadores) {
@@ -131,13 +134,34 @@ public class PersistenciaVigenciasIndicadores implements PersistenciaVigenciasIn
         try {
             em.clear();
             Query queryFinal = em.createQuery("SELECT vi FROM VigenciasIndicadores vi WHERE vi.empleado.secuencia = :secuenciaEmpl");
-                queryFinal.setParameter("secuenciaEmpl", secuencia);
-                queryFinal.setHint("javax.persistence.cache.storeMode", "REFRESH");
-                List<VigenciasIndicadores> listaVigenciasIndicadores = queryFinal.getResultList();
-                return listaVigenciasIndicadores;
+            queryFinal.setParameter("secuenciaEmpl", secuencia);
+            queryFinal.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            List<VigenciasIndicadores> listaVigenciasIndicadores = queryFinal.getResultList();
+            return listaVigenciasIndicadores;
         } catch (Exception e) {
-            System.out.println("Error indicadoresTotalesEmpleadoSecuencia : "+e.toString());
+            System.out.println("Error indicadoresTotalesEmpleadoSecuencia : " + e.toString());
             return null;
+        }
+    }
+
+    @Override
+    public String primeraVigenciaIndicador(EntityManager em, BigInteger secuencia) {
+        String indicador;
+        try {
+            em.clear();
+            String sql = "SELECT SUBSTR(B.DESCRIPCION||' '||TO_CHAR(A.FECHAINICIAL,'DD-MM-YYYY'),1,30)\n"
+                    + "   FROM VIGENCIASINDICADORES A, INDICADORES B\n"
+                    + "   WHERE A.EMPLEADO = (select secuencia from empleados where persona=?) AND\n"
+                    + "   A.INDICADOR = B.SECUENCIA \n"
+                    + "   AND A.FECHAINICIAL = (SELECT MAX(V.FECHAINICIAL) FROM VIGENCIASINDICADORES V WHERE V.EMPLEADO = A.EMPLEADO)";
+            Query query = em.createNativeQuery(sql);
+            query.setParameter(1, secuencia);
+            indicador = (String) query.getSingleResult();
+            return indicador;
+
+        } catch (Exception e) {
+            indicador = "SIN REGISTRAR";
+            return indicador;
         }
     }
 }

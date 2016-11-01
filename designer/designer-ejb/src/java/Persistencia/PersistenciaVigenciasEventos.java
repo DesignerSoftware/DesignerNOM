@@ -112,4 +112,24 @@ public class PersistenciaVigenciasEventos implements PersistenciaVigenciasEvento
             return null;
         }
     }
+
+    @Override
+    public String primerEvento(EntityManager em, BigInteger secPersona) {
+        String evento;
+        try {
+            em.clear();
+            String sql = "SELECT SUBSTR(B.DESCRIPCION ||' '|| TO_CHAR(FECHAINICIAL,'DD-MM-YYYY'),1,30)\n"
+                    + "    FROM vigenciaseventos A, EVENTOS B\n"
+                    + "    WHERE A.empleado = (select secuencia from empleados where persona=?) \n"
+                    + "    AND A.evento = B.secuencia\n"
+                    + "    AND A.FECHAINICIAL = (SELECT MAX(V.FECHAINICIAL) FROM vigenciaseventos  V WHERE V.EMPLEADO = A.EMPLEADO)";
+            Query query = em.createNativeQuery(sql);
+            query.setParameter(1, secPersona);
+            evento = (String) query.getSingleResult();
+            return evento;
+        } catch (Exception e) {
+            evento = "SIN REGISTRAR";
+            return evento;
+        }
+    }
 }

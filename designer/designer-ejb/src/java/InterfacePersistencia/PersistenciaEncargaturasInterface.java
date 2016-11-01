@@ -50,4 +50,6 @@ public interface PersistenciaEncargaturasInterface {
      */
     public List<Encargaturas> encargaturasEmpleado(EntityManager em,BigInteger secuenciaEmpleado);
     
+    public String  primeraEncargatura(EntityManager em, BigInteger secuenciaEmpleado);
+    
 }

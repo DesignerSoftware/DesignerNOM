@@ -123,4 +123,23 @@ public class PersistenciaHvExperienciasLaborales implements PersistenciaHvExperi
             return null;
         }
     }
+
+    @Override
+    public String primeraExpLaboral(EntityManager em, BigInteger secuenciaHv) {
+        String experiencia;
+        try {
+            em.clear();
+            String sql = "SELECT SUBSTR(E.empresa||' '||TO_CHAR(E.fechadesde,'DD-MM-YYYY'),1,30)\n"
+                    + "     FROM  HVEXPERIENCIASLABORALES E \n"
+                    + "     WHERE E.HOJADEVIDA = ? \n"
+                    + "     AND   E.fechadesde = (SELECT MAX(EI.FECHADESDE) FROM HVEXPERIENCIASLABORALES EI WHERE EI.hojadevida = E.HOJADEVIDA)";
+            Query query = em.createNativeQuery(sql);
+            query.setParameter(1, secuenciaHv);
+            experiencia = (String) query.getSingleResult();
+            return experiencia;
+        } catch (Exception e) {
+            experiencia = "SIN REGISTRAR";
+            return experiencia;
+        }
+    }
 }

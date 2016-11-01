@@ -12,21 +12,23 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+
 /**
- * Clase Stateless.<br> 
- * Clase encargada de realizar operaciones sobre la tabla 'VigenciasDeportes'
- * de la base de datos.
+ * Clase Stateless.<br>
+ * Clase encargada de realizar operaciones sobre la tabla 'VigenciasDeportes' de
+ * la base de datos.
+ *
  * @author betelgeuse
  */
 @Stateless
 public class PersistenciaVigenciasDeportes implements PersistenciaVigenciasDeportesInterface {
+
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
      */
-/*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
+    /*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
     private EntityManager em;
-*/
-
+     */
     @Override
     public void crear(EntityManager em, VigenciasDeportes vigenciasDeportes) {
         em.clear();
@@ -109,6 +111,26 @@ public class PersistenciaVigenciasDeportes implements PersistenciaVigenciasDepor
         } catch (Exception e) {
             System.out.println("Error deportesTotalesSecuenciaPersona PersistenciaVigenciasDeportes : " + e.toString());
             return null;
+        }
+    }
+
+    @Override
+    public String consultarPrimerDeporte(EntityManager em, BigInteger secuencia) {
+        String deporte;
+        try {
+            em.clear();
+            String sql = "SELECT SUBSTR(B.NOMBRE||' '||TO_CHAR(A.FECHAINICIAL,'DD-MM-YYYY'),1,30)\n"
+                    + "    FROM VIGENCIASDEPORTES A, DEPORTES B\n"
+                    + "    WHERE A.persona = ?\n"
+                    + "    AND A.deporte = B.secuencia\n"
+                    + "    AND A.FECHAINICIAL= (SELECT MAX(V.FECHAINICIAL) FROM VIGENCIASDEPORTES V WHERE V.PERSONA = A.PERSONA)";
+            Query query = em.createNativeQuery(sql);
+            query.setParameter(1, secuencia);
+            deporte = (String) query.getSingleResult();
+            return deporte;
+        } catch (Exception e) {
+            deporte = "SIN REGISTRAR";
+            return deporte;
         }
     }
 }

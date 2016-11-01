@@ -44,4 +44,6 @@ public interface PersistenciaVigenciasDeportesInterface {
      * @return Retorna una lista de VigenciasDeportes asociados a la Persona cuya secuencia coincide con el parámetro.
      */
     public List<VigenciasDeportes> deportesTotalesSecuenciaPersona(EntityManager em, BigInteger secuencia);
+
+    public String consultarPrimerDeporte(EntityManager em,BigInteger secuencia);
 }

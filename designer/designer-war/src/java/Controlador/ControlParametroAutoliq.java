@@ -287,7 +287,6 @@ public class ControlParametroAutoliq implements Serializable {
             cambiosParametro = true;
             activoBtnsPaginas = true;
             RequestContext.getCurrentInstance().update("form:novedadauto");
-            RequestContext.getCurrentInstance().update("form:incaPag");
             RequestContext.getCurrentInstance().update("form:eliminarToda");
             RequestContext.getCurrentInstance().update("form:procesoLiq");
             RequestContext.getCurrentInstance().update("form:acumDif");
@@ -307,7 +306,6 @@ public class ControlParametroAutoliq implements Serializable {
             cambiosParametro = true;
             activoBtnsPaginas = true;
             RequestContext.getCurrentInstance().update("form:novedadauto");
-            RequestContext.getCurrentInstance().update("form:incaPag");
             RequestContext.getCurrentInstance().update("form:eliminarToda");
             RequestContext.getCurrentInstance().update("form:procesoLiq");
             RequestContext.getCurrentInstance().update("form:acumDif");
@@ -403,7 +401,6 @@ public class ControlParametroAutoliq implements Serializable {
                 cambiosParametro = true;
                 activoBtnsPaginas = true;
                 RequestContext.getCurrentInstance().update("form:novedadauto");
-                RequestContext.getCurrentInstance().update("form:incaPag");
                 RequestContext.getCurrentInstance().update("form:eliminarToda");
                 RequestContext.getCurrentInstance().update("form:procesoLiq");
                 RequestContext.getCurrentInstance().update("form:acumDif");
@@ -423,7 +420,6 @@ public class ControlParametroAutoliq implements Serializable {
                 cambiosParametro = true;
                 activoBtnsPaginas = true;
                 RequestContext.getCurrentInstance().update("form:novedadauto");
-                RequestContext.getCurrentInstance().update("form:incaPag");
                 RequestContext.getCurrentInstance().update("form:eliminarToda");
                 RequestContext.getCurrentInstance().update("form:procesoLiq");
                 RequestContext.getCurrentInstance().update("form:acumDif");
@@ -722,7 +718,6 @@ public class ControlParametroAutoliq implements Serializable {
             visibilidadMostrarTodos = "hidden";
             RequestContext.getCurrentInstance().update("form:mostrarTodos");
             RequestContext.getCurrentInstance().update("form:novedadauto");
-            RequestContext.getCurrentInstance().update("form:incaPag");
             RequestContext.getCurrentInstance().update("form:eliminarToda");
             RequestContext.getCurrentInstance().update("form:procesoLiq");
             RequestContext.getCurrentInstance().update("form:acumDif");
@@ -927,14 +922,14 @@ public class ControlParametroAutoliq implements Serializable {
             k = 0;
             activoBtnsPaginas = true;
             RequestContext.getCurrentInstance().update("form:novedadauto");
-            RequestContext.getCurrentInstance().update("form:incaPag");
             RequestContext.getCurrentInstance().update("form:eliminarToda");
             RequestContext.getCurrentInstance().update("form:procesoLiq");
             RequestContext.getCurrentInstance().update("form:acumDif");
             cambiosParametro = false;
-            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos de Parámetros de Liquidación con éxito");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-            RequestContext.getCurrentInstance().update("form:growl");
+            System.out.println ( "Se guardaron los datos de Parámetros de Liquidación con éxito");
+//            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos de Parámetros de Liquidación con éxito");
+//            FacesContext.getCurrentInstance().addMessage(null, msg);
+//            RequestContext.getCurrentInstance().update("form:growl");
             guardado = true;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
         } catch (Exception e) {
@@ -971,9 +966,8 @@ public class ControlParametroAutoliq implements Serializable {
             RequestContext.getCurrentInstance().update("form:tablaAportesEntidades");
             contarRegistrosAporte();
             k = 0;
-//            aporteTablaSeleccionado = null;
             cambiosAporte = true;
-            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos de Aporte Entidad con éxito");
+            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
             guardado = true;
@@ -1057,7 +1051,6 @@ public class ControlParametroAutoliq implements Serializable {
                 }
                 activoBtnsPaginas = true;
                 RequestContext.getCurrentInstance().update("form:novedadauto");
-                RequestContext.getCurrentInstance().update("form:incaPag");
                 RequestContext.getCurrentInstance().update("form:eliminarToda");
                 RequestContext.getCurrentInstance().update("form:procesoLiq");
                 RequestContext.getCurrentInstance().update("form:acumDif");
@@ -1312,17 +1305,17 @@ public class ControlParametroAutoliq implements Serializable {
         nuevoAporteEntidad.setAno(parametroTablaSeleccionado.getAno());
         nuevoAporteEntidad.setMes(parametroTablaSeleccionado.getMes());
         RequestContext.getCurrentInstance().update("formularioDialogos:nuevoAporteEntidad");
-        RequestContext.getCurrentInstance().execute("PF('formularioDialogos:nuevoAporteEntidad').show()");
+        RequestContext.getCurrentInstance().execute("PF('nuevoAporteEntidad').show()");
     }
 
     public void mostrarDialogoNuevoParametro() {
         RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroParametro");
-        RequestContext.getCurrentInstance().execute("PF('formularioDialogos:NuevoRegistroParametro').show()");
+        RequestContext.getCurrentInstance().execute("PF('NuevoRegistroParametro').show()");
     }
 
     public void mostrarDialogoElegirTabla() {
         RequestContext.getCurrentInstance().update("formularioDialogos:seleccionarTablaNewReg");
-        RequestContext.getCurrentInstance().execute("PF('formularioDialogos:seleccionarTablaNewReg').show()");
+        RequestContext.getCurrentInstance().execute("PF('seleccionarTablaNewReg').show()");
     }
 
     public void agregarNuevaParametroAutoliq() {
@@ -1375,7 +1368,6 @@ public class ControlParametroAutoliq implements Serializable {
             }
             activoBtnsPaginas = true;
 //                RequestContext.getCurrentInstance().update("form:novedadauto");
-//                RequestContext.getCurrentInstance().update("form:incaPag");
 //                RequestContext.getCurrentInstance().update("form:eliminarToda");
 //                RequestContext.getCurrentInstance().update("form:procesoLiq");
 //                RequestContext.getCurrentInstance().update("form:acumDif");
@@ -1568,7 +1560,6 @@ public class ControlParametroAutoliq implements Serializable {
             RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroParametro').hide()");
             activoBtnsPaginas = true;
             RequestContext.getCurrentInstance().update("form:novedadauto");
-            RequestContext.getCurrentInstance().update("form:incaPag");
             RequestContext.getCurrentInstance().update("form:eliminarToda");
             RequestContext.getCurrentInstance().update("form:procesoLiq");
             RequestContext.getCurrentInstance().update("form:acumDif");
@@ -1700,7 +1691,7 @@ public class ControlParametroAutoliq implements Serializable {
 //                    getListaParametrosAutoliq();
 //                    modificarInfoRegistroParametro(listaParametrosAutoliq.size());
                     listaAportesEntidades = null;
-                   contarRegistrosAporte();
+                    contarRegistrosAporte();
                     disabledBuscar = true;
                     visibilidadMostrarTodos = "hidden";
                     RequestContext.getCurrentInstance().update("form:mostrarTodos");
@@ -1712,7 +1703,6 @@ public class ControlParametroAutoliq implements Serializable {
                     RequestContext.getCurrentInstance().update("form:tablaAportesEntidades");
                     activoBtnsPaginas = true;
                     RequestContext.getCurrentInstance().update("form:novedadauto");
-                    RequestContext.getCurrentInstance().update("form:incaPag");
                     RequestContext.getCurrentInstance().update("form:eliminarToda");
                     RequestContext.getCurrentInstance().update("form:procesoLiq");
                     RequestContext.getCurrentInstance().update("form:acumDif");
@@ -2387,7 +2377,7 @@ public class ControlParametroAutoliq implements Serializable {
         aporteTarifaMEN = (Column) c.getViewRoot().findComponent("form:tablaAportesEntidades:aporteTarifaMEN");
         aporteTarifaMEN.setFilterStyle("width: 85% !important");
 
-        RequestContext.getCurrentInstance().update("form:tablaAportesEntidades:tablaAportesEntidades");
+        RequestContext.getCurrentInstance().update("form:tablaAportesEntidades");
 
         RequestContext.getCurrentInstance().update("form:tablaAportesEntidades");
 
@@ -2514,7 +2504,6 @@ public class ControlParametroAutoliq implements Serializable {
         aceptar = true;
         activoBtnsPaginas = true;
         RequestContext.getCurrentInstance().update("form:novedadauto");
-        RequestContext.getCurrentInstance().update("form:incaPag");
         RequestContext.getCurrentInstance().update("form:eliminarToda");
         RequestContext.getCurrentInstance().update("form:procesoLiq");
         RequestContext.getCurrentInstance().update("form:acumDif");
@@ -2535,7 +2524,6 @@ public class ControlParametroAutoliq implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         activoBtnsPaginas = true;
         RequestContext.getCurrentInstance().update("form:novedadauto");
-        RequestContext.getCurrentInstance().update("form:incaPag");
         RequestContext.getCurrentInstance().update("form:eliminarToda");
         RequestContext.getCurrentInstance().update("form:procesoLiq");
         RequestContext.getCurrentInstance().update("form:acumDif");
@@ -2560,7 +2548,6 @@ public class ControlParametroAutoliq implements Serializable {
         aceptar = true;
         activoBtnsPaginas = true;
         RequestContext.getCurrentInstance().update("form:novedadauto");
-        RequestContext.getCurrentInstance().update("form:incaPag");
         RequestContext.getCurrentInstance().update("form:eliminarToda");
         RequestContext.getCurrentInstance().update("form:procesoLiq");
         RequestContext.getCurrentInstance().update("form:acumDif");
@@ -2581,7 +2568,6 @@ public class ControlParametroAutoliq implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         activoBtnsPaginas = true;
         RequestContext.getCurrentInstance().update("form:novedadauto");
-        RequestContext.getCurrentInstance().update("form:incaPag");
         RequestContext.getCurrentInstance().update("form:eliminarToda");
         RequestContext.getCurrentInstance().update("form:procesoLiq");
         RequestContext.getCurrentInstance().update("form:acumDif");
@@ -2811,7 +2797,6 @@ public class ControlParametroAutoliq implements Serializable {
         aceptar = true;
         activoBtnsPaginas = true;
         RequestContext.getCurrentInstance().update("form:novedadauto");
-        RequestContext.getCurrentInstance().update("form:incaPag");
         RequestContext.getCurrentInstance().update("form:eliminarToda");
         RequestContext.getCurrentInstance().update("form:procesoLiq");
         RequestContext.getCurrentInstance().update("form:acumDif");
@@ -2837,7 +2822,6 @@ public class ControlParametroAutoliq implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         activoBtnsPaginas = true;
         RequestContext.getCurrentInstance().update("form:novedadauto");
-        RequestContext.getCurrentInstance().update("form:incaPag");
         RequestContext.getCurrentInstance().update("form:eliminarToda");
         RequestContext.getCurrentInstance().update("form:procesoLiq");
         RequestContext.getCurrentInstance().update("form:acumDif");
@@ -3014,7 +2998,7 @@ public class ControlParametroAutoliq implements Serializable {
             if (tipoListaAporte == 0) {
                 tipoListaAporte = 1;
             }
-           contarRegistrosAporte();
+            contarRegistrosAporte();
         }
     }
 
@@ -3050,7 +3034,6 @@ public class ControlParametroAutoliq implements Serializable {
         }
         activoBtnsPaginas = true;
         RequestContext.getCurrentInstance().update("form:novedadauto");
-        RequestContext.getCurrentInstance().update("form:incaPag");
         RequestContext.getCurrentInstance().update("form:eliminarToda");
         RequestContext.getCurrentInstance().update("form:procesoLiq");
         RequestContext.getCurrentInstance().update("form:acumDif");
@@ -3240,6 +3223,9 @@ public class ControlParametroAutoliq implements Serializable {
     }
 
     public String getInfoRegistroTipoTrabajador() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioLovTipoTrabajador:lovTipoTrabajador");
+        infoRegistroTipoTrabajador = String.valueOf(tabla.getRowCount());
         return infoRegistroTipoTrabajador;
     }
 
@@ -3281,6 +3267,9 @@ public class ControlParametroAutoliq implements Serializable {
     }
 
     public String getInfoRegistroEmpresa() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioLovEmpresa:lovEmpresa");
+        infoRegistroEmpresa = String.valueOf(tabla.getRowCount());
         return infoRegistroEmpresa;
     }
 
@@ -3382,6 +3371,9 @@ public class ControlParametroAutoliq implements Serializable {
     }
 
     public String getInfoRegistroEmpleado() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioLovEmpleado:lovEmpleado");
+        infoRegistroEmpleado = String.valueOf(tabla.getRowCount());
         return infoRegistroEmpleado;
     }
 
@@ -3417,6 +3409,9 @@ public class ControlParametroAutoliq implements Serializable {
     }
 
     public String getInfoRegistroTercero() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioLovTercero:lovTercero");
+        infoRegistroTercero = String.valueOf(tabla.getRowCount());
         return infoRegistroTercero;
     }
 
@@ -3452,6 +3447,9 @@ public class ControlParametroAutoliq implements Serializable {
     }
 
     public String getInfoRegistroTipoEntidad() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioLovTipoEntidad:lovTipoEntidad");
+        infoRegistroTipoEntidad = String.valueOf(tabla.getRowCount());
         return infoRegistroTipoEntidad;
     }
 
@@ -3504,6 +3502,9 @@ public class ControlParametroAutoliq implements Serializable {
     }
 
     public String getInfoRegistroAporteEntidad() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioLovAporteEntidad:lovBuscarAporte");
+        infoRegistroAporteEntidad = String.valueOf(tabla.getRowCount());
         return infoRegistroAporteEntidad;
     }
 
@@ -3520,6 +3521,9 @@ public class ControlParametroAutoliq implements Serializable {
     }
 
     public String getInfoRegistroParametro() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosParametroAuto");
+        infoRegistroParametro = String.valueOf(tabla.getRowCount());
         return infoRegistroParametro;
     }
 
@@ -3528,6 +3532,9 @@ public class ControlParametroAutoliq implements Serializable {
     }
 
     public String getInfoRegistroAporte() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:tablaAportesEntidades");
+        infoRegistroAporte = String.valueOf(tabla.getRowCount());
         return infoRegistroAporte;
     }
 

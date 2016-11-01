@@ -51,4 +51,6 @@ public interface PersistenciaTelefonosInterface {
     
     public Telefonos telefonoActual(EntityManager em, BigInteger secuenciaPersona);
 
+    public String consultarUltimoTelefono(EntityManager em, BigInteger secuenciaPersona);
+    
 }

@@ -25,4 +25,5 @@ public interface PersistenciaVigenciasDomiciliariasInterface {
     public void editar(EntityManager em,VigenciasDomiciliarias visita);
     public List<VigenciasDomiciliarias> visitasDomiciliariasPersona(EntityManager em, BigInteger secuencia) ;
     public VigenciasDomiciliarias actualVisitaDomiciliariaPersona(EntityManager em, BigInteger secuencia) ;
+    public String primeraVigenciaDomiciliaria(EntityManager em, BigInteger secuencia);
 }

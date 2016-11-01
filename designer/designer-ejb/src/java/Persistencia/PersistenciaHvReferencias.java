@@ -138,7 +138,7 @@ public class PersistenciaHvReferencias implements PersistenciaHvReferenciasInter
     public List<HVHojasDeVida> consultarHvHojaDeVidaPorPersona(EntityManager em, BigInteger secPersona) {
         try {
             em.clear();
-            String sql ="SELECT * FROM HVHOJASDEVIDA hv , PERSONAS p WHERE p.secuencia= hv.persona AND p.secuencia = ?";
+            String sql = "SELECT * FROM HVHOJASDEVIDA hv , PERSONAS p WHERE p.secuencia= hv.persona AND p.secuencia = ?";
             System.out.println("PersistenciaHvReferencias secuencia empleado hoja de vida " + secPersona);
             Query query = em.createNativeQuery(sql, HVHojasDeVida.class);
             query.setParameter(1, secPersona);
@@ -194,6 +194,46 @@ public class PersistenciaHvReferencias implements PersistenciaHvReferenciasInter
         } catch (Exception e) {
             System.out.println("Error PersistenciasHvReferencias.referenciasPersonalesPersona" + e);
             return null;
+        }
+    }
+
+    @Override
+    public String primeraReferenciaFamiliar(EntityManager em, BigInteger secHV) {
+        String referenciaF;
+        try {
+            em.clear();
+            String sql = "SELECT R.NOMBREPERSONA\n"
+                    + "   FROM  HVREFERENCIAS R\n"
+                    + "   WHERE R.HOJADEVIDA = ? AND\n"
+                    + "   R.TIPO = 'FAMILIARES'\n"
+                    + "   AND rownum = 1";
+            Query query = em.createNativeQuery(sql);
+            query.setParameter(1, secHV);
+            referenciaF = (String) query.getSingleResult();
+            return referenciaF;
+        } catch (Exception e) {
+            referenciaF = "SIN REGISTRAR";
+            return referenciaF;
+        }
+    }
+
+    @Override
+    public String primeraReferenciaPersonal(EntityManager em, BigInteger secHV) {
+        String referenciaP;
+        try {
+            em.clear();
+            String sql = "SELECT R.NOMBREPERSONA\n"
+                    + "   FROM  HVREFERENCIAS R\n"
+                    + "   WHERE R.HOJADEVIDA = ? AND\n"
+                    + "   R.TIPO = 'PERSONALES'\n"
+                    + "   AND R.secuencia = (SELECT MAX(RI.SECUENCIA) FROM HVREFERENCIAS RI WHERE RI.hojadevida = R.HOJADEVIDA)";
+            Query query = em.createNativeQuery(sql);
+            query.setParameter(1, secHV);
+            referenciaP = (String) query.getSingleResult();
+            return referenciaP;
+        } catch (Exception e) {
+            referenciaP = "SIN REGISTRAR";
+            return referenciaP;
         }
     }
 

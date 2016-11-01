@@ -105,18 +105,40 @@ public class PersistenciaFamiliares implements PersistenciaFamiliaresInterface {
     public String consultaFamiliar(EntityManager em, BigInteger secuenciaPersona) {
         String resultado = null;
         try {
+            em.clear();
             String consulta = "SELECT SUBSTR(B.TIPO ||'  '|| P.PRIMERAPELLIDO ||' '|| P.NOMBRE,1,30)\n"
                     + "   FROM  FAMILIARES A, TIPOSFAMILIARES B,PERSONAS P\n"
                     + "   WHERE A.TIPOFAMILIAR = B.SECUENCIA \n"
                     + "   AND A.PERSONAFAMILIAR = P.SECUENCIA \n"
                     + "   AND A.SECUENCIA = (SELECT MAX(V.SECUENCIA) FROM FAMILIARES V WHERE V.PERSONA = A.PERSONA)\n"
-                    + "   AND A.PERSONA = "+ secuenciaPersona + " ";
+                    + "   AND A.PERSONA = " + secuenciaPersona + " ";
             Query query = em.createNativeQuery(consulta);
             resultado = (String) query.getSingleResult();
         } catch (Exception e) {
-            System.out.println(this.getClass().getName()+".consultaFamiliar()");
-            System.out.println("error: "+e.getMessage());
+            System.out.println(this.getClass().getName() + ".consultaFamiliar()");
+            System.out.println("error: " + e.getMessage());
         }
         return resultado;
+    }
+
+    @Override
+    public String consultarPrimerFamiliar(EntityManager em, BigInteger secuenciaPersona) {
+        String familiar;
+        try {
+            em.clear();
+            String sql = "SELECT SUBSTR(B.TIPO ||'  '|| P.PRIMERAPELLIDO ||' '|| P.NOMBRE,1,30)\n"
+                    + "    FROM  FAMILIARES A, TIPOSFAMILIARES B,PERSONAS P\n"
+                    + "   WHERE A.PERSONA = ? AND\n"
+                    + "   A.TIPOFAMILIAR = B.SECUENCIA AND\n"
+                    + "   A.PERSONAFAMILIAR = P.SECUENCIA \n"
+                    + "   AND A.SECUENCIA = (SELECT MAX(V.SECUENCIA) FROM FAMILIARES V WHERE V.PERSONA = A.PERSONA)";
+            Query query = em.createNativeQuery(sql);
+            query.setParameter(1, secuenciaPersona);
+            familiar = (String) query.getSingleResult();
+            return familiar;
+        } catch (Exception e) {
+            familiar = "SIN REGISTRAR";
+            return familiar;
+        }
     }
 }

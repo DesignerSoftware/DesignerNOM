@@ -101,7 +101,49 @@ public interface AdministrarEmpleadoIndividualInterface {
     public Generales obtenerRutaFoto();
 
     public String fotoEmpleado(Empleados empleado);
-    
+
     public Personas encontrarPersona(BigInteger secPersona);
+
     public Personas obtenerPersonaPorEmpleado(BigInteger secPersona);
+
+    public String consultarPrimerTelefonoPersona(BigInteger secPersona);
+
+    public String consultarPrimeraDireccionPersona(BigInteger secPersona);
+
+    public String consultarPrimerEstadoCivilPersona(BigInteger secPersona);
+
+    public String consultarPrimeraInformacionAd(BigInteger secPersona);
+
+    public String consultarPrimerReemplazo(BigInteger secPersona);
+
+    public String consultarPrimeraVigenciaFormal(BigInteger secPersona);
+
+    public String consultarPimerIdioma(BigInteger secPersona);
+
+    public String consultarPrimerProyecto(BigInteger secPersona);
+    
+    public String consultarPrimerEvento(BigInteger secPersona);
+    
+    public String consultarPrimerDeporte(BigInteger secPersona);
+    
+    public String consultarPrimeraAficion(BigInteger secPersona);
+    
+    public String consultarPrimerFamiliar(BigInteger secPersona);
+    
+    public String consultarPrimerIndicador(BigInteger secPersona);
+    
+    public String consultarPrimeraDemanda(BigInteger Persona);
+    
+    public String consultarPrimeraVisita(BigInteger secPersona);
+    
+    public String consultarPrimeraEntrevista(BigInteger secHV);
+    
+    public String consultarPrimeraReferenciaF(BigInteger secHV);
+    
+    public String consultarPrimeraReferenciaP(BigInteger secHV);
+    
+    public String consultarPrimeraExpLaboral(BigInteger secHv);
+    
+    public String consultarPrimeraPrueba(BigInteger secPersona);
+
 }

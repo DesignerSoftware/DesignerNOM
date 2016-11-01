@@ -116,4 +116,20 @@ public class PersistenciaEvalResultadosConv implements PersistenciaEvalResultado
             return null;
         }
     }
+
+    @Override
+    public String primerPruebaAplicada(EntityManager em, BigInteger secuenciaEmpleado) {
+       String pruebas;
+        try {
+            em.clear();
+            String sql = "SELECT * FROM EvalResultadosConv WHERE empleado = ? \n" ;
+            Query query = em.createNativeQuery(sql);
+            query.setParameter(1, secuenciaEmpleado);
+            pruebas = (String) query.getSingleResult();
+            return pruebas;
+        } catch (Exception e) {
+           pruebas="SIN REGISTRAR";
+            return pruebas;
+        }
+    }
 }

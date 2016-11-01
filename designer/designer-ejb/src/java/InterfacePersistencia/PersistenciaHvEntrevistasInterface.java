@@ -89,5 +89,7 @@ public interface PersistenciaHvEntrevistasInterface {
      */
     public List<HvEntrevistas> entrevistasPersona(EntityManager em,BigInteger secuenciaHV);
     
+    public String consultarPrimeraEnterevista(EntityManager em,BigInteger secuenciaHV);
+    
     
 }

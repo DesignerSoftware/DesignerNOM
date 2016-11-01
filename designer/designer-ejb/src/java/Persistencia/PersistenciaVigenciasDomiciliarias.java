@@ -33,11 +33,11 @@ public class PersistenciaVigenciasDomiciliarias implements PersistenciaVigencias
     public List<VigenciasDomiciliarias> visitasDomiciliariasPersona(EntityManager em, BigInteger secuenciaPersona) {
         try {
             em.clear();
-            String sql="SELECT * FROM VIGENCIASDOMICILIARIAS WHERE PERSONA = ?";
+            String sql = "SELECT * FROM VIGENCIASDOMICILIARIAS WHERE PERSONA = ?";
             Query query = em.createNativeQuery(sql, VigenciasDomiciliarias.class);
             query.setParameter(1, secuenciaPersona);
             List<VigenciasDomiciliarias> listVisitas = query.getResultList();
-           return listVisitas; 
+            return listVisitas;
 //            Query query = em.createQuery("SELECT COUNT(vd) FROM VigenciasDomiciliarias vd WHERE vd.persona.secuencia = :secuenciaPersona");
 //            query.setParameter("secuenciaPersona", secuenciaPersona);
 //            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
@@ -112,7 +112,7 @@ public class PersistenciaVigenciasDomiciliarias implements PersistenciaVigencias
     public VigenciasDomiciliarias actualVisitaDomiciliariaPersona(EntityManager em, BigInteger secuencia) {
         try {
             em.clear();
-            String sql = "SELECT DISTINCT * FROM VIGENCIASDOMICILIARIAS WHERE FECHA= (SELECT MAX(vdo.fecha) FROM VigenciasDomiciliarias vdo WHERE vdo.persona = ?) and persona = ?";
+            String sql = "SELECT * FROM VIGENCIASDOMICILIARIAS WHERE FECHA= (SELECT MAX(vdo.fecha) FROM VigenciasDomiciliarias vdo WHERE vdo.persona = ?) and persona = ?";
             Query query = em.createNativeQuery(sql, VigenciasDomiciliarias.class);
             query.setParameter(1, secuencia);
             query.setParameter(2, secuencia);
@@ -122,6 +122,27 @@ public class PersistenciaVigenciasDomiciliarias implements PersistenciaVigencias
         } catch (Exception e) {
             System.out.println("Error PersistenciaVigenciasDomiciliarias.actualVisitaDomiciliariaPersona" + e);
             return null;
+        }
+    }
+
+    @Override
+    public String primeraVigenciaDomiciliaria(EntityManager em, BigInteger secuencia) {
+        String visita;
+        try {
+            em.clear();
+            String sql = "SELECT DECODE(AUX.NOMBRE,NULL,'NO VISITADO','VISITADO EL'||' '||TO_CHAR(AUX.FECHA,'DD-MM-YYYY'))\n"
+                    + "	 FROM (SELECT V.persona NOMBRE,MAX(V.fecha)FECHA\n"
+                    + "	 FROM PERSONAS P,VIGENCIASDOMICILIARIAS V\n"
+                    + "	 WHERE  P.SECUENCIA =V.persona(+) AND P.secuencia= ? \n"
+                    + "	 GROUP BY V.persona) AUX";
+            Query query = em.createNativeQuery(sql);
+            query.setParameter(1, secuencia);
+            visita = (String) query.getSingleResult();
+            return visita;
+
+        } catch (Exception e) {
+            visita = "SIN REGISTRAR";
+            return visita;
         }
     }
 }

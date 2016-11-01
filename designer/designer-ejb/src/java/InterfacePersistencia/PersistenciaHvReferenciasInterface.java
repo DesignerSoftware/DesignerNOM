@@ -107,4 +107,8 @@ public interface PersistenciaHvReferenciasInterface {
      * @return Retorna una lista De HVHojasDeVida
      */
     public List<HVHojasDeVida> consultarHvHojaDeVidaPorPersona(EntityManager em,BigInteger secEmpleado);
+    
+    public String primeraReferenciaFamiliar(EntityManager em, BigInteger secHV);
+    
+    public String primeraReferenciaPersonal(EntityManager em, BigInteger secHV);
 }

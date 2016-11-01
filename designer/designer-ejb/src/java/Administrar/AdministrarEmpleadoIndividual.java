@@ -300,9 +300,8 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
             return null;
         }
     }*/
-    
     @Override
-    public String consultaFamiliaresPersona(BigInteger secPersona){
+    public String consultaFamiliaresPersona(BigInteger secPersona) {
         String resultado = persistenciaFamiliares.consultaFamiliar(em, secPersona);
         return resultado;
     }
@@ -476,14 +475,134 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
 
     @Override
     public Personas encontrarPersona(BigInteger secPersona) {
-        System.out.println(this.getClass().getName()+"encontrarPersona()");
-        System.out.println("secPersona: "+secPersona);
+        System.out.println(this.getClass().getName() + "encontrarPersona()");
         return persistenciaPersonas.buscarPersonaSecuencia(em, secPersona);
     }
+
     @Override
     public Personas obtenerPersonaPorEmpleado(BigInteger secPersona) {
-        System.out.println(this.getClass().getName()+"encontrarPersona()");
-        System.out.println("secPersona: "+secPersona);
+        System.out.println(this.getClass().getName() + "encontrarPersona()");
+        System.out.println("secPersona: " + secPersona);
         return persistenciaPersonas.buscarPersonaSecuencia(em, secPersona);
+    }
+
+    @Override
+    public String consultarPrimerTelefonoPersona(BigInteger secPersona) {
+        String telefono = persistenciaTelefonos.consultarUltimoTelefono(em, secPersona);
+        return telefono;
+    }
+
+    @Override
+    public String consultarPrimeraDireccionPersona(BigInteger secPersona) {
+        String direccion = persistenciaDirecciones.consultarPrimeraDireccion(em, secPersona);
+        return direccion;
+    }
+
+    @Override
+    public String consultarPrimerEstadoCivilPersona(BigInteger secPersona) {
+        String estadoCivil = persistenciaVigenciasEstadosCiviles.consultarPrimerEstadoCivil(em, secPersona);
+        return estadoCivil;
+    }
+
+    @Override
+    public String consultarPrimeraInformacionAd(BigInteger secPersona) {
+        String infoAd = persistenciaInformacionesAdicionales.primeraInformacionAdicional(em, secPersona);
+        return infoAd;
+    }
+
+    @Override
+    public String consultarPrimerReemplazo(BigInteger secPersona) {
+        String reemplazo = persistenciaEncargaturas.primeraEncargatura(em, secPersona);
+        return reemplazo;
+    }
+
+    @Override
+    public String consultarPrimeraVigenciaFormal(BigInteger secPersona) {
+        String educacion = persistenciaVigenciasFormales.primeraVigenciaFormal(em, secPersona);
+        return educacion;
+    }
+
+    @Override
+    public String consultarPimerIdioma(BigInteger secPersona) {
+        String idioma = persistenciaIdiomasPersonas.primerIdioma(em, secPersona);
+        return idioma;
+    }
+
+    @Override
+    public String consultarPrimerProyecto(BigInteger secPersona) {
+        String proyecto = persistenciaVigenciasProyectos.primerProyecto(em, secPersona);
+        return proyecto;
+    }
+
+    @Override
+    public String consultarPrimerEvento(BigInteger secPersona) {
+       String evento = persistenciaVigenciasEventos.primerEvento(em, secPersona);
+       return evento;
+    }
+
+    @Override
+    public String consultarPrimerDeporte(BigInteger secPersona) {
+        String deporte = persistenciaVigenciasDeportes.consultarPrimerDeporte(em, secPersona);
+        return deporte;
+    }
+
+    @Override
+    public String consultarPrimeraAficion(BigInteger secPersona) {
+        String aficion = persistenciaVigenciasAficiones.primeraAficion(em, secPersona);
+        return aficion;
+    }
+
+    @Override
+    public String consultarPrimerFamiliar(BigInteger secPersona) {
+        String familiar = persistenciaFamiliares.consultarPrimerFamiliar(em, secPersona);
+        return familiar;
+    }
+
+    @Override
+    public String consultarPrimerIndicador(BigInteger secPersona) {
+        String indicador = persistenciaVigenciasIndicadores.primeraVigenciaIndicador(em, secPersona);
+        return indicador;
+    }
+
+    @Override
+    public String consultarPrimeraDemanda(BigInteger Persona) {
+        String demanda = persistenciaDemandas.primeraDemanda(em, Persona);
+        return demanda;
+    }
+
+    @Override
+    public String consultarPrimeraVisita(BigInteger secPersona) {
+       String visita = persistenciaVigenciasDomiciliarias.primeraVigenciaDomiciliaria(em, secPersona);
+       return visita;
+    }
+
+    @Override
+    public String consultarPrimeraEntrevista(BigInteger secHV) {
+       String entrevista = persistenciaHvEntrevistas.consultarPrimeraEnterevista(em, secHV);
+       return entrevista;
+    }
+
+    @Override
+    public String consultarPrimeraReferenciaF(BigInteger secHV) {
+      String referenciaF = persistenciaHvReferencias.primeraReferenciaFamiliar(em, secHV);
+      return referenciaF;
+    }
+
+    @Override
+    public String consultarPrimeraReferenciaP(BigInteger secHV) {
+        String referenciaP = persistenciaHvReferencias.primeraReferenciaPersonal(em, secHV);
+        return referenciaP;
+    }
+
+    @Override
+    public String consultarPrimeraExpLaboral(BigInteger secHv) {
+        String experiencia = persistenciaHvExperienciasLaborales.primeraExpLaboral(em, secHv);
+        return experiencia;
+    }
+
+    @Override
+    public String consultarPrimeraPrueba(BigInteger secPersona) {
+        String prueba = persistenciaEvalResultadosConv.primerPruebaAplicada(em, secPersona);
+        return prueba;
     }
 }

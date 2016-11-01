@@ -28,7 +28,6 @@ public class PersistenciaDemandas implements PersistenciaDemandasInterface {
      */
     /* @PersistenceContext(unitName = "DesignerRHN-ejbPU")
     private EntityManager em;*/
-
     @Override
     public void crear(EntityManager em, Demandas demandas) {
         em.clear();
@@ -99,6 +98,26 @@ public class PersistenciaDemandas implements PersistenciaDemandasInterface {
         } catch (Exception e) {
             System.out.println("Error PersistenciaDemandas.demandasPersona" + e);
             return null;
+        }
+    }
+
+    @Override
+    public String primeraDemanda(EntityManager em, BigInteger secuenciaEmpl) {
+        String demanda;
+        try {
+            em.clear();
+            String sql = "SELECT substr(B.DESCRIPCION,1,30)\n"
+                    + "   FROM DEMANDAS A, MOTIVOSDEMANDAS B\n"
+                    + "   WHERE A.EMPLEADO = (select secuencia from empleados where persona=?)\n"
+                    + "   AND A.MOTIVO = B.SECUENCIA\n"
+                    + "   AND A.SECUENCIA = (SELECT MAX(SECUENCIA) FROM DEMANDAS V WHERE V.EMPLEADO = A.EMPLEADO)";
+            Query queryFinal = em.createNativeQuery(sql);
+            queryFinal.setParameter(1, secuenciaEmpl);
+            demanda = (String) queryFinal.getSingleResult();
+            return demanda;
+        } catch (Exception e) {
+            demanda = "SIN REGISTRAR";
+            return demanda;
         }
     }
 }

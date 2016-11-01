@@ -125,11 +125,6 @@ public class PersistenciaVigenciasFormales implements PersistenciaVigenciasForma
         Long resultado = this.contarEducacionPersona(em, secuencia);
         if (resultado > 0) {
             try {
-                /*em.clear();
-                 Query query = em.createQuery("SELECT COUNT(vf) FROM VigenciasFormales vf WHERE vf.persona.secuencia = :secuenciaPersona");
-                 query.setParameter("secuenciaPersona", secuencia);
-                 query.setHint("javax.persistence.cache.storeMode", "REFRESH");
-                 Long resultado = (Long) query.getSingleResult();*/
                 Query queryFinal = em.createQuery("SELECT vf FROM VigenciasFormales vf WHERE vf.persona.secuencia = :secuenciaPersona and vf.fechavigencia = (SELECT MAX(vfo.fechavigencia) FROM VigenciasFormales vfo WHERE vfo.persona.secuencia = :secuenciaPersona)");
                 queryFinal.setParameter("secuenciaPersona", secuencia);
                 List<VigenciasFormales> listaVigenciasFormales = queryFinal.getResultList();
@@ -156,6 +151,27 @@ public class PersistenciaVigenciasFormales implements PersistenciaVigenciasForma
         } catch (Exception e) {
             System.out.println("Error PersistenciaTelefonos.telefonoPersona" + e);
             return null;
+        }
+    }
+
+    @Override
+    public String primeraVigenciaFormal(EntityManager em, BigInteger secuencia) {
+        String educacion;
+        try {
+            em.clear();
+            String sql = "SELECT SUBSTR(TE.NOMBRE||' '||TO_CHAR(V.FECHAVIGENCIA,'DD-MM-YYYY'),1,30)\n"
+                    + "   FROM vigenciasformales V,TIPOSEDUCACIONES TE\n"
+                    + "   WHERE V.persona = ? \n"
+                    + "   AND   V.tipoeducacion = TE.secuencia\n"
+                    + "   AND V.FECHAVIGENCIA=(SELECT MAX(A.FECHAVIGENCIA) FROM vigenciasformales A WHERE A.PERSONA = V.PERSONA)\n"
+                    + "   and rownum=1";
+            Query query = em.createNativeQuery(sql);
+            query.setParameter(1, secuencia);
+            educacion = (String) query.getSingleResult();
+            return educacion;
+        } catch (Exception e) {
+            educacion = "SIN REGISTRAR";
+            return educacion;
         }
     }
 }

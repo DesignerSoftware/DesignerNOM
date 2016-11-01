@@ -54,4 +54,6 @@ public interface PersistenciaInformacionesAdicionalesInterface {
      * @return Retorna una lista de InformacionesAdicionales asociadas a un empleado.
      */
     public List<InformacionesAdicionales> informacionAdicionalEmpleadoSecuencia(EntityManager em, BigInteger secuenciaEmpleado);
+    
+    public String primeraInformacionAdicional(EntityManager em, BigInteger secuenciaEmpleado);
 }

@@ -27,6 +27,7 @@ public class PersistenciaInformacionesAdicionales implements PersistenciaInforma
 //    private EntityManager em;
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
+     *
      * @param em
      * @param informacionesAdicionales
      */
@@ -158,9 +159,29 @@ public class PersistenciaInformacionesAdicionales implements PersistenciaInforma
             List<InformacionesAdicionales> resultado = (List<InformacionesAdicionales>) query.getResultList();
             return resultado;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInformacionesAdicionales.informacionAdicionalEmpleadoSecuencia : " );
+            System.out.println("Error PersistenciaInformacionesAdicionales.informacionAdicionalEmpleadoSecuencia : ");
             e.printStackTrace();
             return null;
         }
+    }
+
+    @Override
+    public String primeraInformacionAdicional(EntityManager em, BigInteger secuenciaEmpleado) {
+        String infoAd;
+        try {
+            em.clear();
+            String sql = "SELECT SUBSTR(I.DESCRIPCION||' '||TO_CHAR(FECHAINICIAL,'DD-MM-YYYY'),1,30) \n"
+                    + "   FROM INFORMACIONESADICIONALES I \n"
+                    + "   WHERE I.EMPLEADO = (select secuencia from empleados where persona=?) \n"
+                    + "   AND I.FECHAINICIAL = (SELECT MAX(V.FECHAINICIAL) FROM INFORMACIONESADICIONALES V WHERE V.EMPLEADO = I.EMPLEADO)";
+            Query query = em.createNativeQuery(sql);
+            query.setParameter(1, secuenciaEmpleado);
+            infoAd = (String) query.getSingleResult();
+            return infoAd;
+        } catch (Exception e) {
+            infoAd = "SIN REGISTRAR";
+            return infoAd;
+        }
+
     }
 }

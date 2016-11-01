@@ -113,7 +113,7 @@ public class PersistenciaHvEntrevistas implements PersistenciaHvEntrevistasInter
     public List<HVHojasDeVida> buscarHvHojaDeVidaPorPersona(EntityManager em, BigInteger secPersona) {
         try {
             em.clear();
-            String sql= "SELECT * FROM HVHOJASDEVIDA hv , PERSONAS p WHERE p.secuencia= hv.persona AND p.secuencia = ?";
+            String sql = "SELECT * FROM HVHOJASDEVIDA hv , PERSONAS p WHERE p.secuencia= hv.persona AND p.secuencia = ?";
             Query query = em.createNativeQuery(sql, HVHojasDeVida.class);
             query.setParameter(1, secPersona);
             List<HVHojasDeVida> hvHojasDeVIda = query.getResultList();
@@ -143,6 +143,25 @@ public class PersistenciaHvEntrevistas implements PersistenciaHvEntrevistasInter
         } catch (Exception e) {
             System.out.println("Error PersistenciaHvEntrevistas.entrevistasPersona" + e);
             return null;
+        }
+    }
+
+    @Override
+    public String consultarPrimeraEnterevista(EntityManager em, BigInteger secuenciaHV) {
+        String entrevista;
+        try {
+            em.clear();
+            String sql = "SELECT E.NOMBRE||' '||TO_CHAR(E.FECHA,'DD-MM-YYYY')\n"
+                    + "   FROM  HVENTREVISTAS E\n"
+                    + "   WHERE E.HOJADEVIDA = ?\n"
+                    + "   AND FECHA= (SELECT MAX(EI.FECHA) FROM HVENTREVISTAS EI WHERE EI.HOJADEVIDA = E.HOJADEVIDA)";
+            Query query= em.createNativeQuery(sql);
+            query.setParameter(1, secuenciaHV);
+            entrevista = (String)query.getSingleResult();
+            return entrevista;
+        } catch (Exception e) {
+            entrevista = "SIN REGISTRAR";
+            return entrevista;
         }
     }
 }

@@ -37,4 +37,7 @@ public interface PersistenciaEvalResultadosConvInterface {
     public List<EvalResultadosConv> consultarEvalResultadosConvocatorias(EntityManager em,BigInteger secuenciaEmpleado);
 
     public List<EvalResultadosConv> pruebasAplicadasPersona(EntityManager em, BigInteger secuenciaEmpleado);
+    
+    public String primerPruebaAplicada(EntityManager em,BigInteger secuenciaEmpleado);
+    
 }

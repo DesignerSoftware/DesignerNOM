@@ -52,4 +52,7 @@ public interface PersistenciaVigenciasAficionesInterface {
      * con la secuencia dada por parámetro.
      */
     public List<VigenciasAficiones> aficionesTotalesSecuenciaPersona(EntityManager em, BigInteger secuencia);
+    
+    public String primeraAficion(EntityManager em, BigInteger secuencia);
+    
 }

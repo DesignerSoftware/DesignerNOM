@@ -50,4 +50,6 @@ public interface PersistenciaVigenciasProyectosInterface {
      * con la secuencia dada por parámetro.
      */
     public List<VigenciasProyectos> proyectosEmpleado(EntityManager em, BigInteger secuencia);
+    
+     public String primerProyecto(EntityManager em,BigInteger secuenciaPersona);
 }

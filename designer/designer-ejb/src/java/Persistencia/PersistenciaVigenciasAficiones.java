@@ -29,7 +29,6 @@ public class PersistenciaVigenciasAficiones implements PersistenciaVigenciasAfic
     /*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
     private EntityManager em;
      */
-
     @Override
     public void crear(EntityManager em, VigenciasAficiones vigenciasAficiones) {
         em.clear();
@@ -125,5 +124,26 @@ public class PersistenciaVigenciasAficiones implements PersistenciaVigenciasAfic
             System.out.println("Error aficionesTotalesSecuenciaPersona PersistenciaVigenciasAficiones : " + e.toString());
             return null;
         }
+    }
+
+    @Override
+    public String primeraAficion(EntityManager em, BigInteger secuencia) {
+        String aficion;
+        try {
+            em.clear();
+            String sql = "SELECT  SUBSTR (B.DESCRIPCION ||' '||TO_CHAR(A.FECHAINICIAL,'DD-MM-YYYY'),1,30)\n"
+                    + "   FROM VIGENCIASAFICIONES A,AFICIONES B\n"
+                    + "   WHERE A.PERSONA = ?\n"
+                    + "   AND A.AFICION = B.SECUENCIA\n"
+                    + "   AND A.FECHAINICIAL = (SELECT MAX(AI.FECHAINICIAL) FROM VIGENCIASAFICIONES AI WHERE AI.PERSONA =A.PERSONA)";
+            Query query = em.createNativeQuery(sql);
+            query.setParameter(1, secuencia);
+            aficion = (String) query.getSingleResult();
+            return aficion;
+        } catch (Exception e) {
+            aficion = "SIN REGISTRAR";
+            return aficion;
+        }
+
     }
 }

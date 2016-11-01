@@ -50,4 +50,7 @@ public interface PersistenciaVigenciasFormalesInterface {
      * con la secuencia dada por parámetro.
      */
     public List<VigenciasFormales> educacionPersona(EntityManager em, BigInteger secuencia);
+    
+    public String primeraVigenciaFormal(EntityManager em,BigInteger secuencia);
+    
 }

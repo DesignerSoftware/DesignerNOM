@@ -198,141 +198,32 @@ public class ControlEmpleadoIndividual implements Serializable {
         if (hojaDeVidaPersona != null && hojaDeVidaPersona.getSecuencia() != null) {
             BigInteger secHv = hojaDeVidaPersona.getSecuencia();
 
-            hvReferenciasPersonales = administrarEmpleadoIndividual.referenciasPersonalesPersona(secHv);
-            if (hvReferenciasPersonales != null) {
-                referenciasPersonalesP = hvReferenciasPersonales.getNombrepersona();
-            } else {
-                referenciasPersonalesP = "";
-            }
+            referenciasPersonalesP = administrarEmpleadoIndividual.consultarPrimeraReferenciaP(secHv);
+            referenciasFamiliaresP = administrarEmpleadoIndividual.consultarPrimeraReferenciaF(secHv);
 
-            hvReferenciasFamiliares = administrarEmpleadoIndividual.referenciasFamiliaresPersona(secHv);
-            if (hvReferenciasFamiliares != null) {
-                referenciasFamiliaresP = hvReferenciasFamiliares.getNombrepersona();
-            } else {
-                referenciasFamiliaresP = "";
-            }
-            experienciaLaboral = administrarEmpleadoIndividual.experienciaLaboralPersona(secHv);
-            if (experienciaLaboral != null) {
-                experienciaLaboralP = experienciaLaboral.getEmpresa() + "  " + formatoFecha.format(experienciaLaboral.getFechadesde());
-            } else {
-                experienciaLaboralP = "";
-            }
-            entrevistas = administrarEmpleadoIndividual.entrevistasPersona(secHv);
-            if (entrevistas != null) {
-                entrevistasP = entrevistas.getNombre() + "  " + formatoFecha.format(entrevistas.getFecha());
-            } else {
-                entrevistasP = "";
-            }
+            experienciaLaboralP = administrarEmpleadoIndividual.consultarPrimeraExpLaboral(secHv);
+            entrevistasP = administrarEmpleadoIndividual.consultarPrimeraEntrevista(secHv);
             existenHV = false;
-        } else {
-            hojaDeVidaPersona = new HVHojasDeVida();
-//            hojaDeVidaPersona.setPerfilprofesional(" ");
-            referenciasPersonalesP = "";
-            referenciasFamiliaresP = "";
-            experienciaLaboralP = "";
-            entrevistasP = "";
-            existenHV = true;
         }
-        telefono = administrarEmpleadoIndividual.primerTelefonoPersona(secPersona);
-        if (telefono != null) {
-            telefonoP = telefono.getTipotelefono().getNombre() + " :  " + telefono.getNumerotelefono();
-        } else {
-            telefonoP = "";
-        }
-        direccion = administrarEmpleadoIndividual.primeraDireccionPersona(secPersona);
-        if (direccion != null) {
-            direccionP = direccion.getDireccionalternativa();
-        } else {
-            direccionP = "";
-        }
-        estadoCivil = administrarEmpleadoIndividual.estadoCivilPersona(secPersona);
-        if (estadoCivil != null) {
-            estadoCivilP = estadoCivil.getEstadocivil().getDescripcion() + "   " + formatoFecha.format(estadoCivil.getFechavigencia());
-        } else {
-            estadoCivilP = "";
-        }
-        informacionAdicional = administrarEmpleadoIndividual.informacionAdicionalPersona(secEmpleado);
-        if (informacionAdicional != null) {
-            informacionAdicionalP = informacionAdicional.getDescripcion() + "  " + formatoFecha.format(informacionAdicional.getFechainicial());
-        } else {
-            informacionAdicionalP = "";
-        }
-        encargatura = administrarEmpleadoIndividual.reemplazoPersona(secEmpleado);
-        if (encargatura != null) {
-            reemplazoP = encargatura.getTiporeemplazo().getNombre() + "  " + formatoFecha.format(encargatura.getFechainicial());
-        } else {
-            reemplazoP = "";
-        }
-        vigenciaFormal = administrarEmpleadoIndividual.educacionPersona(secPersona);
-        if (vigenciaFormal != null) {
-            educacionP = vigenciaFormal.getTipoeducacion().getNombre() + "  " + formatoFecha.format(vigenciaFormal.getFechavigencia());
-        } else {
-            educacionP = "";
-        }
-        idiomasPersona = administrarEmpleadoIndividual.idiomasPersona(secPersona);
-        if (idiomasPersona != null) {
-            idiomasP = idiomasPersona.getIdioma().getNombre();
-        } else {
-            idiomasP = "";
-        }
-        vigenciaProyecto = administrarEmpleadoIndividual.proyectosPersona(secEmpleado);
-        if (vigenciaProyecto != null) {
-//            proyectosP = vigenciaProyecto.getProyecto().getNombreproyecto() + "  " + formatoFecha.format(vigenciaProyecto.getFechafinal());
-            if (vigenciaProyecto.getProyecto() != null) {
-                proyectosP = vigenciaProyecto.getProyecto().getNombreproyecto();
-            }
-        } else {
-            proyectosP = "";
-        }
-        vigenciaEvento = administrarEmpleadoIndividual.eventosPersona(secEmpleado);
-        if (vigenciaEvento != null) {
-            eventosP = vigenciaEvento.getEvento().getDescripcion() + "  " + formatoFecha.format(vigenciaEvento.getFechainicial());
-        } else {
-            eventosP = "";
-        }
-        vigenciaDeporte = administrarEmpleadoIndividual.deportesPersona(secPersona);
-        if (vigenciaDeporte != null) {
-            deportesP = vigenciaDeporte.getDeporte().getNombre() + "  " + formatoFecha.format(vigenciaDeporte.getFechainicial());
-        } else {
-            deportesP = "";
-        }
-        vigenciaAficion = administrarEmpleadoIndividual.aficionesPersona(secPersona);
-        if (vigenciaAficion != null) {
-            aficionesP = vigenciaAficion.getAficion().getDescripcion() + "  " + formatoFecha.format(vigenciaAficion.getFechainicial());
-        } else {
-            aficionesP = "";
-        }
-//        familiares = administrarEmpleadoIndividual.familiaresPersona(secPersona);
-//        if (familiares != null) {
-//            familiaresP = familiares.getTipofamiliar().getTipo() + "  " + familiares.getPersonafamiliar().getPrimerapellido() + "  " + familiares.getPersonafamiliar().getNombre();
-//        } else {
-//            familiaresP = "";
-//        }
-        familiaresP = administrarEmpleadoIndividual.consultaFamiliaresPersona(secPersona);
-        vigenciaIndicador = administrarEmpleadoIndividual.indicadoresPersona(secEmpleado);
-        if (vigenciaIndicador != null) {
-            indicadoresP = vigenciaIndicador.getIndicador().getDescripcion() + "  " + formatoFecha.format(vigenciaIndicador.getFechainicial());
-        } else {
-            indicadoresP = "";
-        }
-        demandas = administrarEmpleadoIndividual.demandasPersona(secEmpleado);
-        if (demandas != null) {
-            demandasP = demandas.getMotivo().getDescripcion();
-        } else {
-            demandasP = "";
-        }
-        vigenciaDomiciliaria = administrarEmpleadoIndividual.visitasDomiciliariasPersona(secPersona);
-        if (vigenciaDomiciliaria != null) {
-            visitasDomiciliariasP = "VISITADO EL:  " + formatoFecha.format(vigenciaDomiciliaria.getFecha());
-        } else {
-            visitasDomiciliariasP = "";
-        }
-        pruebasAplicadas = administrarEmpleadoIndividual.pruebasAplicadasPersona(secEmpleado);
-        if (pruebasAplicadas != null) {
-            pruebasAplicadasP = pruebasAplicadas.getNombreprueba() + " -> " + pruebasAplicadas.getPuntajeobtenido() + "%";
-        } else {
-            pruebasAplicadasP = "";
-        }
+
+        telefonoP = administrarEmpleadoIndividual.consultarPrimerTelefonoPersona(secPersona);
+        direccionP = administrarEmpleadoIndividual.consultarPrimeraDireccionPersona(secPersona);
+        estadoCivilP = administrarEmpleadoIndividual.consultarPrimerEstadoCivilPersona(secPersona);
+        informacionAdicionalP = administrarEmpleadoIndividual.consultarPrimeraInformacionAd(secPersona);
+        reemplazoP = administrarEmpleadoIndividual.consultarPrimerReemplazo(secPersona);
+        educacionP = administrarEmpleadoIndividual.consultarPrimeraVigenciaFormal(secPersona);
+        idiomasP = administrarEmpleadoIndividual.consultarPimerIdioma(secPersona);
+        proyectosP = administrarEmpleadoIndividual.consultarPrimerProyecto(secPersona);
+        deportesP = administrarEmpleadoIndividual.consultarPrimerDeporte(secPersona);
+        eventosP = administrarEmpleadoIndividual.consultarPrimerEvento(secPersona);
+        aficionesP = administrarEmpleadoIndividual.consultarPrimeraAficion(secPersona);
+        familiaresP = administrarEmpleadoIndividual.consultarPrimerFamiliar(secPersona);
+        indicadoresP = administrarEmpleadoIndividual.consultarPrimerIndicador(secPersona);
+        demandasP = administrarEmpleadoIndividual.consultarPrimeraDemanda(secPersona);
+        visitasDomiciliariasP = administrarEmpleadoIndividual.consultarPrimeraVisita(secPersona);
+
+//        pruebasAplicadas = administrarEmpleadoIndividual.pruebasAplicadasPersona(secEmpleado);
+        pruebasAplicadasP = administrarEmpleadoIndividual.consultarPrimeraPrueba(secPersona);
         //VEHICULO PROPIO
         if (persona.getPlacavehiculo() != null) {
             estadoVP = false;

@@ -49,4 +49,6 @@ public interface PersistenciaHvExperienciasLaboralesInterface {
      * @return Retorna una lista con las experiencias laborales de una persona.
      */
     public List<HvExperienciasLaborales> experienciasLaboralesSecuenciaEmpleado(EntityManager em,BigInteger secuenciaHv);
+    
+    public String primeraExpLaboral(EntityManager em,BigInteger secuenciaHv);
 }

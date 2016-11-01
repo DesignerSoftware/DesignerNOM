@@ -43,4 +43,6 @@ public interface PersistenciaVigenciasEventosInterface {
      * @return Retorna una lista de las VigenciasEstadosCiviles asociadas a un Empleado. 
      */
     public List<VigenciasEventos> vigenciasEventosSecuenciaEmpleado(EntityManager em, BigInteger secuencia);
+    
+    public String primerEvento(EntityManager em,BigInteger secPersona);
 }

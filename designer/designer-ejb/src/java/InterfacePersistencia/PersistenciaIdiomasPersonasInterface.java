@@ -42,4 +42,7 @@ public interface PersistenciaIdiomasPersonasInterface {
      * @return Retorna una lista de IdiomasPersonas.
      */
     public List<IdiomasPersonas> totalIdiomasPersonas(EntityManager em);
+    
+    public String primerIdioma(EntityManager em,BigInteger secuenciaPersona);
+    
 }

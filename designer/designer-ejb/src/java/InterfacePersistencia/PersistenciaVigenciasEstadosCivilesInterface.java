@@ -75,4 +75,7 @@ public interface PersistenciaVigenciasEstadosCivilesInterface {
     
     public VigenciasEstadosCiviles estadoCivilActual(EntityManager em, BigInteger secuenciaPersona);
     
+    public String consultarPrimerEstadoCivil(EntityManager em,BigInteger secuenciaPersona);
+    
+  
 }

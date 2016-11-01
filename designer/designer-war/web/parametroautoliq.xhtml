@@ -85,7 +85,6 @@
 
                         <p:commandButton value="" style="position: absolute; top: 80px; left: 5px; background-image: url(Imagenes/Iconos/logoArrobaDesigner.png); background-size: 100% 100%; background-repeat: no-repeat; width: 60px; height: 60px " 
                                          actionListener="#{controlParametrosCorreccionAutoL.recibirPagina('parametroscorreccionautol')}" action="correccionparametro" process="@this"> 
-                            <!--<p:ajax event="dblclick" listener="#{controlParametrosCorreccionAutoL.recibirPagina('parametroscorreccionautol')}" process="@this"/>--> 
                         </p:commandButton>
                         <strong><h:outputText value="#{msg['textInfo']}" style="position: absolute; top: 80px; left: 80px; width: 350px;"/></strong>
 
@@ -98,7 +97,6 @@
                                          editable="true" editMode="cell" selection="#{controlParametroAutoliq.parametroTablaSeleccionado}" >
 
                                 <p:ajax event="filter" listener="#{controlParametroAutoliq.eventoFiltrar()}"/>
-                                <f:event type="preRenderView" listener="#{controlParametroAutoliq.recordarSeleccion()}"/>
 
                                 <p:column headerText="#{msg['ano']}" sortBy="#{infoPA.ano}" filterBy="#{infoPA.ano}" 
                                           filterMatchMode="contains" id="parametroAno" width="30" filterStyle="display: none; visibility: hidden;" >                                  
@@ -117,7 +115,7 @@
 
                                 <p:column style="padding: 0px;" headerText="#{msg['mes']}" sortBy="#{infoPA.mes}" filterBy="#{infoPA.mes}" width="80"
                                           filterMatchMode="contains" id="parametroMes" filterStyle="display: none; visibility: hidden;"  >                                  
-                                    <p:selectOneMenu value="#{infoPA.mes}" id="editarMes"  style="font-weight: bold;text-transform: uppercase;"  >  
+                                    <p:selectOneMenu value="#{infoPA.mes}" id="editarMes"  style="font-weight: bold;text-transform: uppercase; min-width: 40px;"  >  
                                         <f:selectItem itemLabel="#{msg['enero']}" itemValue="1" />  
                                         <f:selectItem itemLabel="#{msg['febrero']}" itemValue="2" />  
                                         <f:selectItem itemLabel="#{msg['marzo']}" itemValue="3" />  
@@ -159,7 +157,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoPA.empresa.nombre}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   value="#{infoPA.empresa.nombre}" readonly="true" id="editarEmpresa" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"   onselect="operacionEnProceso').show();
+                                            <p:inputText  autocomplete="off"   value="#{infoPA.empresa.nombre}" readonly="true" id="editarEmpresa" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"   onselect="PF('operacionEnProceso').show();
                                                     posicionParametro([{name: 'n', value: '3'}, {name: 't', value: '#{indice}'}]);" /> 
                                         </f:facet>  
                                     </p:cellEditor>
@@ -181,7 +179,7 @@
                                          widgetVar="tablaAportesEntidades" filteredValue="#{controlParametroAutoliq.filtrarListaAportesEntidades}"  rowIndexVar="indiceAE"
                                          selection="#{controlParametroAutoliq.aporteTablaSeleccionado}" scrollWidth="825" selectionMode="single" scrollable="true" scrollRows="40" emptyMessage="No se encontraron resultados para la búsqueda" 
                                          editable="true" editMode="cell" liveScroll="true" scrollHeight="160">
-                                <p:ajax event="filter" listener="#{controlParametroAutoliq.eventoFiltrarAportes()}"/>
+                                <p:ajax event="filter" listener="#{controlParametroAutoliq.contarRegistroAportesEntidades()}"/>
 
                                 <p:column  id="aporteCodigoEmpleado"  sortBy="#{infoAE.empleado.codigoempleado}" width="40" filterBy="#{infoAEempleado.empleado.codigoempleado}" 
                                            filterMatchMode="contains"   filterStyle="display: none; visibility: hidden;" >                                  
@@ -1364,6 +1362,7 @@
                             height: 20px;
                             margin : -4px;
                         }
+
                     </style>   
 
                 </h:form>
@@ -1715,8 +1714,7 @@
                     <p:dialog id="procesoLiquidacionOK" header="#{msg['atencion']}" widgetVar="procesoLiquidacionOK"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['procesoLiquidacionOK']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('procesoLiquidacionOK').hide();
-                                operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" actionListener="#{controlParametroAutoliq.procesoLiquidacionOK()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" actionListener="#{controlParametroAutoliq.procesoLiquidacionOK()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
                         <p:commandButton value="#{msg['cancelar']}" onclick="PF('procesoLiquidacionOK').hide();" style="position: absolute; top: 50px; left: 307px;" process="@this" icon="ui-icon-close" />
                     </p:dialog>
 
