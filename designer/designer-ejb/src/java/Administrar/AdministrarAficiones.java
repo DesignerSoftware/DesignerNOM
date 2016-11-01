@@ -60,6 +60,4 @@ public class AdministrarAficiones implements AdministrarAficionesInterface {
         List<Aficiones> listAficiones = persistenciaAficiones.buscarAficiones(em);
         return listAficiones;
     }
-
-
 }

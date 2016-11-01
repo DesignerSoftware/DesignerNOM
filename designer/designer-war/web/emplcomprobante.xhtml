@@ -105,8 +105,8 @@
                                  <p:inputText  autocomplete="off"  value="#{comprobante.numero}" readonly="#{comprobante.readOnlyNumero}" id="editarNumero" style=" border-radius: 0px; width: 98%; text-transform: uppercase; height: 12px;"
                                                onselect="posicionComprobante([{name: 'n', value: '0'}, {name: 't', value: '#{indiceComprobante}'}]);"> 
                                     <p:ajax event="change" listener="#{controlEmplComprobantes.modificarComprobantes(comprobante)}" update="@this"/>
-                                    <p:ajax event="select" listener="#{controlEmplComprobantes.cambiarIndiceComprobantes(comprobante, 0)}"
-                                            onstart="PF('datosComprobantes').unselectAllRows();PF('datosComprobantes').selectRow(#{indiceComprobante});" update="numeroComprobanteC"/>
+                                    <p:ajax event="select" listener="#{controlEmplComprobantes.cambiarIndiceComprobantes(comprobante, 0)}" process="@this"
+                                            onstart="PF('datosComprobantes').unselectAllRows();"/>
                                  </p:inputText>
                               </f:facet>   
                            </p:cellEditor>
@@ -128,7 +128,7 @@
                                               onselect="posicionComprobante([{name: 'n', value: '1'}, {name: 't', value: '#{indiceComprobante}'}]);"> 
                                     <p:ajax event="dateSelect" listener="#{controlEmplComprobantes.modificarComprobantes(comprobante)}" update="@this"/>
                                     <p:ajax event="change" listener="#{controlEmplComprobantes.modificarComprobantes(comprobante)}" update="@this"/>
-                                    <p:ajax event="select" listener="#{controlEmplComprobantes.cambiarIndiceComprobantes(comprobante, 1)}"
+                                    <p:ajax event="select" listener="#{controlEmplComprobantes.cambiarIndiceComprobantes(comprobante, 1)}" process="@this"
                                             onstart="PF('datosComprobantes').unselectAllRows();PF('datosComprobantes').selectRow(#{indiceComprobante});"/>
                                  </p:calendar>
                               </f:facet>   
@@ -234,7 +234,7 @@
 
                   <fieldset style="position: absolute; top: 205px; width: 840px; height: 284px; border-radius: 10px; left: 5px; padding-top: 0px;">
 
-                     <p:scrollPanel id="scrollPanel1" styleClass="tabla2ScrollInteligente" style="position: absolute; width: 840px; height: 297px; background-color: transparent; padding: 0px; left: 5px; border: none; padding-right: 10px;">
+                     <p:scrollPanel id="scrollPanel1" styleClass="tabla2ScrollInteligente" style="position: absolute; width: 830px; height: 297px; background-color: transparent; padding: 0px; left: 5px; border: none; padding-right: 10px;">
                         <h:outputText style=" font-weight: bold; color: #00F;" value="#{msg['empleado']}" />
                         <div id="inferiorIzquierda" style="top: 0px; display: block; height: 110px;">
 

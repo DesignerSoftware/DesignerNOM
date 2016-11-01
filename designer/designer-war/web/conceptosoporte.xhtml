@@ -128,7 +128,6 @@
                             </p:dataTable>
 
                         </fieldset>
-
                         <h:outputText id="informacionRegistro" value="#{controlConceptosSoportes.infoRegistro}"  style="position: absolute; left: 15px; top: 450px;font-weight: bold"/>
                         <p:commandButton style="position: absolute; left: 10px; top: 475px; " id="BUSCARCENTROCOSTO" disabled="#{controlConceptosSoportes.buscarConceptoSoporte}" icon="ui-icon-search"  value="#{msg['buscarConcepto']}" actionListener="#{controlConceptosSoportes.llamadoDialogoBuscarConceptos()}" process="@this" />
                         <p:commandButton style="position: absolute; left: 180px; top: 475px;  " id="MOSTRARTODOS" icon="ui-icon-search" disabled="#{controlConceptosSoportes.mostrarTodos}" value="#{msg['mostrarTodos']}" actionListener="#{controlConceptosSoportes.cancelarModificacion()}" process="@this"/>

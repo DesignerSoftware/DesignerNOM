@@ -310,6 +310,7 @@ public class ControlEmplComprobantes implements Serializable {
    }
 
    public void cargarListasConComprobante() {
+      System.out.println("Entro en cargarListasConComprobante()");
       listaCortesProcesos = administrarComprobantes.consultarCortesProcesosComprobante(comprobanteSeleccionado.getSecuencia());
       if (!listaCortesProcesos.isEmpty()) {
          cortesProcesosSeleccionado = listaCortesProcesos.get(0);
@@ -322,6 +323,7 @@ public class ControlEmplComprobantes implements Serializable {
    }
 
    public void cargarListasSolucionesNodos() {
+      System.out.println("Entro en cargarListasSolucionesNodos()");
       listaSolucionesNodosEmpleado = administrarComprobantes.consultarSolucionesNodosEmpleado(cortesProcesosSeleccionado.getSecuencia(), empleado.getSecuencia());
       listaSolucionesNodosEmpleador = administrarComprobantes.consultarSolucionesNodosEmpleador(cortesProcesosSeleccionado.getSecuencia(), empleado.getSecuencia());
       if (listaSolucionesNodosEmpleado != null) {
@@ -375,6 +377,7 @@ public class ControlEmplComprobantes implements Serializable {
       if (modificacionesSolucionesNodosEmpleado == false && modificacionesSolucionesNodosEmpleador == false) {
          if (modificacionesCortesProcesos == false) {
             if (permitirIndex == true) {
+               System.out.println("Esta en cambiarIndiceComprobantes()");
                subtotalPago = new BigDecimal(0);
                subtotalDescuento = new BigDecimal(0);
                subtotalPasivo = new BigDecimal(0);
@@ -413,8 +416,8 @@ public class ControlEmplComprobantes implements Serializable {
 
    public void cambiarIndiceCortesProcesos(CortesProcesos corteProceso, int celda) {
       cortesProcesosSeleccionado = corteProceso;
-      RequestContext context = RequestContext.getCurrentInstance();
       if (modificacionesSolucionesNodosEmpleado == false && modificacionesSolucionesNodosEmpleador == false) {
+         System.out.println("Esta en cambiarIndiceCortesProcesos()");
          if (permitirIndex == true) {
             subtotalPago = new BigDecimal(0);
             subtotalDescuento = new BigDecimal(0);
@@ -1470,7 +1473,6 @@ public class ControlEmplComprobantes implements Serializable {
    public void agregarNuevoComprobante() {
       int pasa = 0;
       mensajeValidacion = "";
-      RequestContext context = RequestContext.getCurrentInstance();
       if (nuevoComprobante.getNumero() == null) {
          mensajeValidacion = " * Numero \n";
          pasa++;
@@ -1525,7 +1527,6 @@ public class ControlEmplComprobantes implements Serializable {
    public void agregarNuevoCorteProceso() {
       int pasa = 0;
       mensajeValidacion = "";
-      RequestContext context = RequestContext.getCurrentInstance();
       if (nuevoCorteProceso.getCorte() == null) {
          mensajeValidacion = " * Fecha de corte \n";
          pasa++;
@@ -1582,7 +1583,6 @@ public class ControlEmplComprobantes implements Serializable {
             duplicarComprobante.setEmpleado(comprobanteSeleccionado.getEmpleado());
             duplicarComprobante.setValor(new BigDecimal(0));
 
-            RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicadoComprobante");
             RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroComprobantes').show()");
             secRegistro = null;
@@ -1595,7 +1595,6 @@ public class ControlEmplComprobantes implements Serializable {
             duplicarCorteProceso.setEmpleado(cortesProcesosSeleccionado.getEmpleado());
             duplicarCorteProceso.setComprobante(comprobanteSeleccionado);
 
-            RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicadoCorteProceso");
             RequestContext.getCurrentInstance().execute("PF('DuplicarCortesProcesos').show()");
             secRegistro = null;
@@ -1606,7 +1605,6 @@ public class ControlEmplComprobantes implements Serializable {
    public void confirmarDuplicarComprobantes() {
       int pasa = 0;
       mensajeValidacion = "";
-      RequestContext context = RequestContext.getCurrentInstance();
       if (duplicarComprobante.getNumero() == null) {
          mensajeValidacion = " * Numero \n";
          pasa++;
@@ -1656,7 +1654,6 @@ public class ControlEmplComprobantes implements Serializable {
    public void confirmarDuplicarCortesProcesos() {
       int pasa = 0;
       mensajeValidacion = "";
-      RequestContext context = RequestContext.getCurrentInstance();
       if (duplicarCorteProceso.getCorte() == null) {
          mensajeValidacion = " * Fecha Corte \n";
          pasa++;
@@ -1834,7 +1831,6 @@ public class ControlEmplComprobantes implements Serializable {
    //RASTRO - COMPROBAR SI LA TABLA TIENE RASTRO ACTIVO
 
    public void verificarRastro() {
-      RequestContext context = RequestContext.getCurrentInstance();
       int resultado = -1;
       if (nombreTabla != null) {
          if (nombreTabla.equals("Comprobantes")) {
@@ -1954,7 +1950,6 @@ public class ControlEmplComprobantes implements Serializable {
       guardado = true;
       permitirIndex = true;
       recibirEmpleado(secuenciaEmpleado);
-      RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("form:ACEPTAR");
       RequestContext.getCurrentInstance().update("form:datosComprobantes");
       RequestContext.getCurrentInstance().update("form:datosCortesProcesos");
@@ -1963,7 +1958,6 @@ public class ControlEmplComprobantes implements Serializable {
    }
 
    public void guardarCambiosComprobantes() {
-      RequestContext context = RequestContext.getCurrentInstance();
       try {
          if (!listaComprobantesBorrar.isEmpty()) {
             for (int i = 0; i < listaComprobantesBorrar.size(); i++) {
@@ -1999,7 +1993,6 @@ public class ControlEmplComprobantes implements Serializable {
    }
 
    public void eliminarComprobantegeneral() {
-      RequestContext context = RequestContext.getCurrentInstance();
       System.out.println("Entro en eliminarComprobantegeneral()");
       try {
          System.out.println("cortesProcesosSeleccionado : " + cortesProcesosSeleccionado);
@@ -2502,8 +2495,10 @@ public class ControlEmplComprobantes implements Serializable {
    }
 
    public List<Terceros> getLovTerceros() {
-      if (empleado.getEmpresa().getSecuencia() != null && lovTerceros.isEmpty()) {
+      if (empleado.getEmpresa() != null && lovTerceros.isEmpty()) {
+      if (empleado.getEmpresa().getSecuencia() != null) {
          lovTerceros = administrarComprobantes.consultarLOVTerceros(empleado.getEmpresa().getSecuencia());
+      }
       }
       return lovTerceros;
    }

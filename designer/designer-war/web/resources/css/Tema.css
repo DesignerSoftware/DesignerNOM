@@ -657,3 +657,7 @@ button .ui-widget-header{
 .ui-selectonemenu label.ui-selectonemenu-label{
    padding: 2px 3px !important;
 }
+
+.ui-paginator.ui-paginator-bottom {
+    display: none !important;
+}

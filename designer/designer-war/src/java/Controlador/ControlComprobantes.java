@@ -118,7 +118,6 @@ public class ControlComprobantes implements Serializable {
          FacesContext x = FacesContext.getCurrentInstance();
          HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
          administrarComprobantes.obtenerConexion(ses.getId());
-
       } catch (Exception e) {
          System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
          System.out.println("Causa: " + e.getCause());
@@ -131,12 +130,12 @@ public class ControlComprobantes implements Serializable {
       listaParametros = null;
       listaSolucionesNodosEmpleado = null;
       listaSolucionesNodosEmpleador = null;
-      getListaSolucionesNodosEmpleado();
-      getListaSolucionesNodosEmpleador();
+//      getListaSolucionesNodosEmpleado();
+//      getListaSolucionesNodosEmpleador();
       getListaParametros();
       RequestContext context = RequestContext.getCurrentInstance();
       context.update("form:datosSolucionesNodosEmpleado");
-      context.update("form:datosSolucionesNodosEmpleadoR");
+      context.update("form:datosSolucionesNodosEmpleador");
    }
 
    public void anteriorEmpleado() {

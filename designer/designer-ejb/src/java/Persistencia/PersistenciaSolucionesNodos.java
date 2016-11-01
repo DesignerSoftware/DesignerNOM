@@ -87,44 +87,58 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
       try {
          javax.persistence.criteria.CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
          cq.select(cq.from(SolucionesNodos.class));
-         List<SolucionesNodos> listSolucionesNodos = em.createQuery(cq).getResultList();
+         List<SolucionesNodos> listSNodos = em.createQuery(cq).getResultList();
 
-         if (listSolucionesNodos != null) {
-            if (!listSolucionesNodos.isEmpty()) {
-               System.out.println("resultado.size() : " + listSolucionesNodos.size());
-               for (int i = 0; i < listSolucionesNodos.size(); i++) {
+         if (listSNodos != null) {
+            if (!listSNodos.isEmpty()) {
+               System.out.println("resultado.size() : " + listSNodos.size());
+               for (int i = 0; i < listSNodos.size(); i++) {
                   em.clear();
-                  String stringSQLQuery = "SELECT sn.SECUENCIA,"
-                          + "c.CODIGO CODIGOCONCEPTO, c.DESCRIPCION NOMBRECONCEPTO,t.NOMBRE NOMBRETERCERO,cu.CODIGO CODIGOCUENTAD,"
-                          + " cu1.CODIGO CODIGOCUENTAC, p.PRIMERAPELLIDO||' '|| p.SEGUNDOAPELLIDO ||' '||p.NOMBRE NOMBREEMPLEADO,"
-                          + " cc.NOMBRE NOMBRECENTROCOSTOD, cc1.NOMBRE NOMBRECENTROCOSTOC \n"
-                          + "FROM SOLUCIONESNODOS sn, TERCEROS t ,CONCEPTOS c,CUENTAS cu,CUENTAS cu1, EMPLEADOS e, PERSONAS p ,CENTROSCOSTOS cc, CENTROSCOSTOS cc1, CORTESPROCESOS cpr\n"
-                          + "WHERE sn.EMPLEADO =E.SECUENCIA\n"
-                          + "AND sn.NIT = t.SECUENCIA\n"
-                          + "AND sn.CONCEPTO = c.SECUENCIA\n"
-                          + "AND sn.CUENTAD = cu.SECUENCIA\n"
-                          + "AND sn.CUENTAC = cu1.SECUENCIA\n"
-                          + "AND e.persona = p.secuencia\n"
-                          + "AND sn.CENTROCOSTOD = cc.SECUENCIA\n"
-                          + "AND sn.CENTROCOSTOC = cc1.SECUENCIA\n"
-                          + "AND sn.CORTEPROCESO = cpr.SECUENCIA\n"
-                          + "AND sn.SECUENCIA = " + listSolucionesNodos.get(i).getSecuencia()
-                          + " ORDER BY sn.CONCEPTO ASC";
+                  String nitTercero = "NULL";
+                  if (listSNodos.get(i).getNittercero() != null) {
+                     nitTercero = "" + listSNodos.get(i).getNittercero();
+                  }
+                  String stringSQLQuery = "SELECT sn.secuencia,\n"
+                          + "c.CODIGO CODIGOCONCEPTO,\n"
+                          + "c.DESCRIPCION NOMBRECONCEPTO,\n"
+                          + "(select NOMBRE from TERCEROS WHERE " + nitTercero + " = SECUENCIA(+)) NOMBRETERCERO,\n"
+                          + "(select CODIGO from CUENTAS WHERE SECUENCIA = " + listSNodos.get(i).getCuentad() + ") CODIGOCUENTAD,\n"
+                          + "(select CODIGO from CUENTAS WHERE SECUENCIA = " + listSNodos.get(i).getCuentac() + ") CODIGOCUENTAC,\n"
+                          + "(select p.PRIMERAPELLIDO||' '|| p.SEGUNDOAPELLIDO ||' '||p.NOMBRE NOMBREEMPLEADO from personas p, empleados e where e.persona = p.secuencia and e.secuencia = " + listSNodos.get(i).getEmpleado() + ") NOMBREEMPLEADO,\n"
+                          + "(select NOMBRE from CENTROSCOSTOS WHERE SECUENCIA = " + listSNodos.get(i).getCentrocostod() + ") NOMBRECENTROCOSTOD,\n"
+                          + "(select NOMBRE from CENTROSCOSTOS WHERE SECUENCIA = " + listSNodos.get(i).getCentrocostoc() + ") NOMBRECENTROCOSTOC\n"
+                          + "FROM SOLUCIONESNODOS sn, (select CODIGO,DESCRIPCION from conceptos where secuencia = " + listSNodos.get(i).getConcepto() + ") c \n"
+                          + "where sn.SECUENCIA = " + listSNodos.get(i).getSecuencia();
+//                  String stringSQLQuery = "SELECT sn.SECUENCIA,"
+//                          + "c.CODIGO CODIGOCONCEPTO, c.DESCRIPCION NOMBRECONCEPTO,t.NOMBRE NOMBRETERCERO,cu.CODIGO CODIGOCUENTAD,"
+//                          + " cu1.CODIGO CODIGOCUENTAC, p.PRIMERAPELLIDO||' '|| p.SEGUNDOAPELLIDO ||' '||p.NOMBRE NOMBREEMPLEADO,"
+//                          + " cc.NOMBRE NOMBRECENTROCOSTOD, cc1.NOMBRE NOMBRECENTROCOSTOC \n"
+//                          + "FROM SOLUCIONESNODOS sn, TERCEROS t ,CONCEPTOS c,CUENTAS cu,CUENTAS cu1, EMPLEADOS e, PERSONAS p ,CENTROSCOSTOS cc, CENTROSCOSTOS cc1, CORTESPROCESOS cpr\n"
+//                          + "WHERE sn.EMPLEADO =E.SECUENCIA\n"
+//                          + "AND sn.NIT = t.SECUENCIA\n"
+//                          + "AND sn.CONCEPTO = c.SECUENCIA\n"
+//                          + "AND sn.CUENTAD = cu.SECUENCIA\n"
+//                          + "AND sn.CUENTAC = cu1.SECUENCIA\n"
+//                          + "AND e.persona = p.secuencia\n"
+//                          + "AND sn.CENTROCOSTOD = cc.SECUENCIA\n"
+//                          + "AND sn.CENTROCOSTOC = cc1.SECUENCIA\n"
+//                          + "AND sn.CORTEPROCESO = cpr.SECUENCIA\n"
+//                          + "AND sn.SECUENCIA = " + listSolucionesNodos.get(i).getSecuencia()
+//                          + " ORDER BY sn.CONCEPTO ASC";
                   Query query2 = em.createNativeQuery(stringSQLQuery, SolucionesNodosAux.class);
                   SolucionesNodosAux sNAux = (SolucionesNodosAux) query2.getSingleResult();
-                  listSolucionesNodos.get(i).setCodigoconcepto(sNAux.getCodigoconcepto());
-                  listSolucionesNodos.get(i).setNombreconcepto(sNAux.getNombreconcepto());
-                  listSolucionesNodos.get(i).setNombretercero(sNAux.getNombretercero());
-                  listSolucionesNodos.get(i).setCodigocuentad(sNAux.getCodigocuentad());
-                  listSolucionesNodos.get(i).setCodigocuentac(sNAux.getCodigocuentac());
-                  listSolucionesNodos.get(i).setNombreempleado(sNAux.getNombreempleado());
-                  listSolucionesNodos.get(i).setNombrecentrocostod(sNAux.getNombrecentrocostod());
-                  listSolucionesNodos.get(i).setNombrecentrocostoc(sNAux.getNombrecentrocostoc());
+                  listSNodos.get(i).setCodigoconcepto(sNAux.getCodigoconcepto());
+                  listSNodos.get(i).setNombreconcepto(sNAux.getNombreconcepto());
+                  listSNodos.get(i).setNombretercero(sNAux.getNombretercero());
+                  listSNodos.get(i).setCodigocuentad(sNAux.getCodigocuentad());
+                  listSNodos.get(i).setCodigocuentac(sNAux.getCodigocuentac());
+                  listSNodos.get(i).setNombreempleado(sNAux.getNombreempleado());
+                  listSNodos.get(i).setNombrecentrocostod(sNAux.getNombrecentrocostod());
+                  listSNodos.get(i).setNombrecentrocostoc(sNAux.getNombrecentrocostoc());
                }
             }
          }
-
-         return listSolucionesNodos;
+         return listSNodos;
       } catch (Exception e) {
          System.out.println("Error: (PersistenciaSolucionesNodos.buscarSolucionesNodos) : " + e);
          return null;
@@ -135,67 +149,73 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
    public List<SolucionesNodos> solucionNodoCorteProcesoEmpleado(EntityManager em, BigInteger secuenciaCorteProceso, BigInteger secuenciaEmpleado) {
       try {
          em.clear();
-         String sql = "SELECT sn.* \n"
-                 + "FROM SOLUCIONESNODOS sn, TERCEROS t ,CONCEPTOS c,CUENTAS cu,CUENTAS cu1, EMPLEADOS e, PERSONAS p ,CENTROSCOSTOS cc, CENTROSCOSTOS cc1, CORTESPROCESOS cpr\n"
-                 + "WHERE sn.ESTADO = 'CERRADO' \n"
-                 + "AND sn.TIPO IN  ('PAGO','DESCUENTO')\n"
-                 + "AND sn.VALOR <> 0 \n"
-                 + "AND sn.EMPLEADO =E.SECUENCIA\n"
-                 + "AND sn.NIT = t.SECUENCIA\n"
-                 + "AND sn.CONCEPTO = c.SECUENCIA\n"
-                 + "AND sn.CUENTAD=cu.SECUENCIA\n"
-                 + "AND sn.CUENTAC=cu1.SECUENCIA\n"
-                 + "AND e.persona=p.secuencia\n"
-                 + "AND sn.CENTROCOSTOD = cc.SECUENCIA\n"
-                 + "AND sn.CENTROCOSTOC = cc1.SECUENCIA\n"
-                 + "AND sn.CORTEPROCESO = cpr.SECUENCIA\n"
-                 + "AND SN.CORTEPROCESO = " + secuenciaCorteProceso + "\n"
-                 + "AND sn.EMPLEADO = " + secuenciaEmpleado + " \n"
-                 + " ORDER BY sn.CONCEPTO ASC";
+         String sql = "SELECT sn.*\n"
+                 + "FROM SOLUCIONESNODOS sn\n"
+                 + "WHERE sn.ESTADO = 'CERRADO'\n"
+                 + "AND sn.TIPO IN ('PAGO','DESCUENTO') \n"
+                 + "AND sn.CORTEPROCESO = " + secuenciaCorteProceso + "\n"
+                 + "AND sn.EMPLEADO = " + secuenciaEmpleado;
          Query query = em.createNativeQuery(sql, SolucionesNodos.class);
-         List<SolucionesNodos> listSolucionesNodos = query.getResultList();
+         List<SolucionesNodos> listSNodos = query.getResultList();
 
-         if (listSolucionesNodos != null) {
-            if (!listSolucionesNodos.isEmpty()) {
-               System.out.println("resultado.size() : " + listSolucionesNodos.size());
-               for (int i = 0; i < listSolucionesNodos.size(); i++) {
+         if (listSNodos != null) {
+            if (!listSNodos.isEmpty()) {
+               System.out.println("resultado.size() : " + listSNodos.size());
+               for (int i = 0; i < listSNodos.size(); i++) {
                   em.clear();
-                  String stringSQLQuery = "SELECT sn.SECUENCIA,"
-                          + "c.CODIGO CODIGOCONCEPTO, c.DESCRIPCION NOMBRECONCEPTO,t.NOMBRE NOMBRETERCERO,cu.CODIGO CODIGOCUENTAD,"
-                          + " cu1.CODIGO CODIGOCUENTAC, p.PRIMERAPELLIDO||' '|| p.SEGUNDOAPELLIDO ||' '||p.NOMBRE NOMBREEMPLEADO,"
-                          + " cc.NOMBRE NOMBRECENTROCOSTOD, cc1.NOMBRE NOMBRECENTROCOSTOC \n"
-                          + "FROM SOLUCIONESNODOS sn, TERCEROS t ,CONCEPTOS c,CUENTAS cu,CUENTAS cu1, EMPLEADOS e, PERSONAS p ,CENTROSCOSTOS cc, CENTROSCOSTOS cc1, CORTESPROCESOS cpr\n"
-                          + "WHERE sn.ESTADO = 'CERRADO' \n"
-                          + "AND sn.TIPO IN  ('PAGO','DESCUENTO')\n"
-                          + "AND sn.VALOR <> 0 \n"
-                          + "AND sn.EMPLEADO =E.SECUENCIA\n"
-                          + "AND sn.NIT = t.SECUENCIA\n"
-                          + "AND sn.CONCEPTO = c.SECUENCIA\n"
-                          + "AND sn.CUENTAD=cu.SECUENCIA\n"
-                          + "AND sn.CUENTAC=cu1.SECUENCIA\n"
-                          + "AND e.persona=p.secuencia\n"
-                          + "AND sn.CENTROCOSTOD = cc.SECUENCIA\n"
-                          + "AND sn.CENTROCOSTOC = cc1.SECUENCIA\n"
-                          + "AND sn.CORTEPROCESO = cpr.SECUENCIA\n"
-                          + "AND SN.CORTEPROCESO = " + secuenciaCorteProceso + "\n"
-                          + "AND sn.EMPLEADO = " + secuenciaEmpleado + " \n"
-                          + "AND sn.SECUENCIA = " + listSolucionesNodos.get(i).getSecuencia()
-                          + " ORDER BY sn.CONCEPTO ASC";
+                  String nitTercero = "NULL";
+                  if (listSNodos.get(i).getNittercero() != null) {
+                     nitTercero = "" + listSNodos.get(i).getNittercero();
+                  }
+                  String stringSQLQuery = "SELECT sn.secuencia,\n"
+                          + "c.CODIGO CODIGOCONCEPTO,\n"
+                          + "c.DESCRIPCION NOMBRECONCEPTO,\n"
+                          + "(select NOMBRE from TERCEROS WHERE " + nitTercero + " = SECUENCIA(+)) NOMBRETERCERO,\n"
+                          + "(select CODIGO from CUENTAS WHERE SECUENCIA = " + listSNodos.get(i).getCuentad() + ") CODIGOCUENTAD,\n"
+                          + "(select CODIGO from CUENTAS WHERE SECUENCIA = " + listSNodos.get(i).getCuentac() + ") CODIGOCUENTAC,\n"
+                          + "(select p.PRIMERAPELLIDO||' '|| p.SEGUNDOAPELLIDO ||' '||p.NOMBRE NOMBREEMPLEADO from personas p, empleados e where e.persona = p.secuencia and e.secuencia = " + secuenciaEmpleado + ") NOMBREEMPLEADO,\n"
+                          + "(select NOMBRE from CENTROSCOSTOS WHERE SECUENCIA = " + listSNodos.get(i).getCentrocostod() + ") NOMBRECENTROCOSTOD,\n"
+                          + "(select NOMBRE from CENTROSCOSTOS WHERE SECUENCIA = " + listSNodos.get(i).getCentrocostoc() + ") NOMBRECENTROCOSTOC\n"
+                          + "FROM SOLUCIONESNODOS sn, (select CODIGO,DESCRIPCION from conceptos where secuencia = " + listSNodos.get(i).getConcepto() + ") c \n"
+                          + "where sn.SECUENCIA = " + listSNodos.get(i).getSecuencia();
+//                  String stringSQLQuery = "SELECT sn.SECUENCIA,"
+//                          + "c.CODIGO CODIGOCONCEPTO, c.DESCRIPCION NOMBRECONCEPTO,t.NOMBRE NOMBRETERCERO,cu.CODIGO CODIGOCUENTAD,"
+//                          + " cu1.CODIGO CODIGOCUENTAC, p.PRIMERAPELLIDO||' '|| p.SEGUNDOAPELLIDO ||' '||p.NOMBRE NOMBREEMPLEADO,"
+//                          + " cc.NOMBRE NOMBRECENTROCOSTOD, cc1.NOMBRE NOMBRECENTROCOSTOC \n"
+//                          + "FROM SOLUCIONESNODOS sn, TERCEROS t ,CONCEPTOS c,CUENTAS cu,CUENTAS cu1, EMPLEADOS e, PERSONAS p ,CENTROSCOSTOS cc, CENTROSCOSTOS cc1, CORTESPROCESOS cpr\n"
+//                          + "WHERE sn.ESTADO = 'CERRADO' \n"
+//                          + "AND sn.TIPO IN ('PAGO','DESCUENTO')\n"
+//                          + "AND sn.EMPLEADO =E.SECUENCIA\n"
+//                          + "AND sn.NIT = t.SECUENCIA(+)\n"
+//                          + "AND sn.CONCEPTO = c.SECUENCIA\n"
+//                          + "AND sn.CUENTAD=cu.SECUENCIA\n"
+//                          + "AND sn.CUENTAC=cu1.SECUENCIA\n"
+//                          + "AND e.persona=p.secuencia\n"
+//                          + "AND sn.CENTROCOSTOD = cc.SECUENCIA\n"
+//                          + "AND sn.CENTROCOSTOC = cc1.SECUENCIA\n"
+//                          + "AND sn.CORTEPROCESO = cpr.SECUENCIA\n"
+//                          + "AND SN.CORTEPROCESO = " + secuenciaCorteProceso + "\n"
+//                          + "AND sn.EMPLEADO = " + secuenciaEmpleado + " \n"
+//                          + "AND sn.SECUENCIA = " + listSolucionesNodos.get(i).getSecuencia()
+//                          + " ORDER BY sn.CONCEPTO ASC";
+                  if (i == 0) {
+                     System.out.println("stringSQLQuery : " + stringSQLQuery);
+                  }
                   Query query2 = em.createNativeQuery(stringSQLQuery, SolucionesNodosAux.class);
                   SolucionesNodosAux sNAux = (SolucionesNodosAux) query2.getSingleResult();
-                  listSolucionesNodos.get(i).setCodigoconcepto(sNAux.getCodigoconcepto());
-                  listSolucionesNodos.get(i).setNombreconcepto(sNAux.getNombreconcepto());
-                  listSolucionesNodos.get(i).setNombretercero(sNAux.getNombretercero());
-                  listSolucionesNodos.get(i).setCodigocuentad(sNAux.getCodigocuentad());
-                  listSolucionesNodos.get(i).setCodigocuentac(sNAux.getCodigocuentac());
-                  listSolucionesNodos.get(i).setNombreempleado(sNAux.getNombreempleado());
-                  listSolucionesNodos.get(i).setNombrecentrocostod(sNAux.getNombrecentrocostod());
-                  listSolucionesNodos.get(i).setNombrecentrocostoc(sNAux.getNombrecentrocostoc());
+                  listSNodos.get(i).setCodigoconcepto(sNAux.getCodigoconcepto());
+                  listSNodos.get(i).setNombreconcepto(sNAux.getNombreconcepto());
+                  listSNodos.get(i).setNombretercero(sNAux.getNombretercero());
+                  listSNodos.get(i).setCodigocuentad(sNAux.getCodigocuentad());
+                  listSNodos.get(i).setCodigocuentac(sNAux.getCodigocuentac());
+                  listSNodos.get(i).setNombreempleado(sNAux.getNombreempleado());
+                  listSNodos.get(i).setNombrecentrocostod(sNAux.getNombrecentrocostod());
+                  listSNodos.get(i).setNombrecentrocostoc(sNAux.getNombrecentrocostoc());
                }
             }
          }
 
-         return listSolucionesNodos;
+         return listSNodos;
       } catch (Exception e) {
          System.out.println("Error: (PersistenciaSolucionesNodos.solucionNodoCorteProcesoEmpleado)" + e);
          return null;
@@ -206,67 +226,71 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
    public List<SolucionesNodos> solucionNodoCorteProcesoEmpleador(EntityManager em, BigInteger secuenciaCorteProceso, BigInteger secuenciaEmpleado) {
       try {
          em.clear();
-         String sql = "SELECT sn.* "
-                 + "FROM SOLUCIONESNODOS sn, TERCEROS t ,CONCEPTOS c,CUENTAS cu,CUENTAS cu1, EMPLEADOS e, PERSONAS p ,CENTROSCOSTOS cc, CENTROSCOSTOS cc1, CORTESPROCESOS cpr\n"
-                 + "WHERE sn.ESTADO = 'CERRADO' \n"
-                 + "AND sn.TIPO IN  ('PASIVO','GASTO','NETO')\n"
-                 + "AND sn.VALOR <> 0 \n"
-                 + "AND sn.EMPLEADO =E.SECUENCIA\n"
-                 + "AND sn.NIT = t.SECUENCIA\n"
-                 + "AND sn.CONCEPTO = c.SECUENCIA\n"
-                 + "AND sn.CUENTAD=cu.SECUENCIA\n"
-                 + "AND sn.CUENTAC=cu1.SECUENCIA\n"
-                 + "AND e.persona=p.secuencia\n"
-                 + "AND sn.CENTROCOSTOD = cc.SECUENCIA\n"
-                 + "AND sn.CENTROCOSTOC = cc1.SECUENCIA\n"
-                 + "AND sn.CORTEPROCESO = cpr.SECUENCIA\n"
+         String sql = "SELECT sn.* \n"
+                 + "FROM SOLUCIONESNODOS sn \n"
+                 + "WHERE sn.ESTADO = 'CERRADO'\n"
+                 + "AND sn.TIPO IN ('PASIVO','GASTO','NETO')\n"
                  + "AND SN.CORTEPROCESO = " + secuenciaCorteProceso + " \n"
-                 + "AND sn.EMPLEADO = " + secuenciaEmpleado + " \n"
-                 + "ORDER BY sn.CONCEPTO ASC";
+                 + "AND sn.EMPLEADO = " + secuenciaEmpleado;
          Query query = em.createNativeQuery(sql, SolucionesNodos.class);
-         List<SolucionesNodos> listSolucionesNodos = query.getResultList();
+         List<SolucionesNodos> listSNodos = query.getResultList();
 
-         if (listSolucionesNodos != null) {
-            if (!listSolucionesNodos.isEmpty()) {
-               System.out.println("resultado.size() : " + listSolucionesNodos.size());
-               for (int i = 0; i < listSolucionesNodos.size(); i++) {
+         if (listSNodos != null) {
+            if (!listSNodos.isEmpty()) {
+               System.out.println("resultado.size() : " + listSNodos.size());
+               for (int i = 0; i < listSNodos.size(); i++) {
                   em.clear();
-                  String stringSQLQuery = "SELECT sn.SECUENCIA,"
-                          + "c.CODIGO CODIGOCONCEPTO, c.DESCRIPCION NOMBRECONCEPTO,t.NOMBRE NOMBRETERCERO, cu.CODIGO CODIGOCUENTAD,"
-                          + " cu1.CODIGO CODIGOCUENTAC, p.PRIMERAPELLIDO||' '|| p.SEGUNDOAPELLIDO ||' '||p.NOMBRE NOMBREEMPLEADO,"
-                          + " cc.NOMBRE NOMBRECENTROCOSTOD, cc1.NOMBRE NOMBRECENTROCOSTOC \n"
-                          + "FROM SOLUCIONESNODOS sn, TERCEROS t, CONCEPTOS c, CUENTAS cu, CUENTAS cu1, EMPLEADOS e, PERSONAS p, CENTROSCOSTOS cc, CENTROSCOSTOS cc1, CORTESPROCESOS cpr \n"
-                          + "WHERE "
-                          //                          + "sn.ESTADO = 'CERRADO' \n"
-                          //                          + "AND sn.TIPO IN  ('PASIVO','GASTO','NETO')\n"
-                          //                          + "AND sn.VALOR <> 0 \n"
-                          + "sn.EMPLEADO =E.SECUENCIA\n"
-                          + "AND sn.NIT = t.SECUENCIA\n"
-                          + "AND sn.CONCEPTO = c.SECUENCIA\n"
-                          + "AND sn.CUENTAD=cu.SECUENCIA\n"
-                          + "AND sn.CUENTAC=cu1.SECUENCIA\n"
-                          + "AND e.persona=p.secuencia\n"
-                          + "AND sn.CENTROCOSTOD = cc.SECUENCIA\n"
-                          + "AND sn.CENTROCOSTOC = cc1.SECUENCIA\n"
-                          + "AND sn.CORTEPROCESO = cpr.SECUENCIA\n"
-                          + "AND SN.CORTEPROCESO = " + secuenciaCorteProceso + "\n"
-                          + "AND sn.EMPLEADO = " + secuenciaEmpleado + " \n"
-                          + "AND sn.SECUENCIA = " + listSolucionesNodos.get(i).getSecuencia()
-                          + " ORDER BY sn.CONCEPTO ASC";
+                  String nitTercero = "NULL";
+                  if (listSNodos.get(i).getNittercero() != null) {
+                     nitTercero = "" + listSNodos.get(i).getNittercero();
+                  }
+                  String stringSQLQuery = "SELECT sn.secuencia,\n"
+                          + "c.CODIGO CODIGOCONCEPTO,\n"
+                          + "c.DESCRIPCION NOMBRECONCEPTO,\n"
+                          + "(select NOMBRE from TERCEROS WHERE " + nitTercero + " = SECUENCIA(+)) NOMBRETERCERO,\n"
+                          + "(select CODIGO from CUENTAS WHERE SECUENCIA = " + listSNodos.get(i).getCuentad() + ") CODIGOCUENTAD,\n"
+                          + "(select CODIGO from CUENTAS WHERE SECUENCIA = " + listSNodos.get(i).getCuentac() + ") CODIGOCUENTAC,\n"
+                          + "(select p.PRIMERAPELLIDO||' '|| p.SEGUNDOAPELLIDO ||' '||p.NOMBRE NOMBREEMPLEADO from personas p, empleados e where e.persona = p.secuencia and e.secuencia = " + secuenciaEmpleado + ") NOMBREEMPLEADO,\n"
+                          + "(select NOMBRE from CENTROSCOSTOS WHERE SECUENCIA = " + listSNodos.get(i).getCentrocostod() + ") NOMBRECENTROCOSTOD,\n"
+                          + "(select NOMBRE from CENTROSCOSTOS WHERE SECUENCIA = " + listSNodos.get(i).getCentrocostoc() + ") NOMBRECENTROCOSTOC\n"
+                          + "FROM SOLUCIONESNODOS sn, (select CODIGO,DESCRIPCION from conceptos where secuencia = " + listSNodos.get(i).getConcepto() + ") c \n"
+                          + "where sn.SECUENCIA = " + listSNodos.get(i).getSecuencia();
+//                  String stringSQLQuery = "SELECT sn.SECUENCIA,"
+//                          + "c.CODIGO CODIGOCONCEPTO, c.DESCRIPCION NOMBRECONCEPTO,t.NOMBRE NOMBRETERCERO, cu.CODIGO CODIGOCUENTAD,"
+//                          + " cu1.CODIGO CODIGOCUENTAC, p.PRIMERAPELLIDO||' '|| p.SEGUNDOAPELLIDO ||' '||p.NOMBRE NOMBREEMPLEADO,"
+//                          + " cc.NOMBRE NOMBRECENTROCOSTOD, cc1.NOMBRE NOMBRECENTROCOSTOC \n"
+//                          + "FROM SOLUCIONESNODOS sn, TERCEROS t, CONCEPTOS c, CUENTAS cu, CUENTAS cu1, EMPLEADOS e, PERSONAS p, CENTROSCOSTOS cc, CENTROSCOSTOS cc1, CORTESPROCESOS cpr \n"
+//                          + "WHERE "
+//                          + "sn.EMPLEADO = E.SECUENCIA\n"
+//                          + "AND sn.NIT = t.SECUENCIA(+)\n"
+//                          + "AND sn.CONCEPTO = c.SECUENCIA\n"
+//                          + "AND sn.CUENTAD = cu.SECUENCIA\n"
+//                          + "AND sn.CUENTAC = cu1.SECUENCIA\n"
+//                          + "AND e.persona = p.secuencia\n"
+//                          + "AND sn.CENTROCOSTOD = cc.SECUENCIA\n"
+//                          + "AND sn.CENTROCOSTOC = cc1.SECUENCIA\n"
+//                          + "AND sn.CORTEPROCESO = cpr.SECUENCIA\n"
+//                          + "AND sn.CORTEPROCESO = " + secuenciaCorteProceso + "\n"
+//                          + "AND sn.EMPLEADO = " + secuenciaEmpleado + " \n"
+//                          + "AND sn.SECUENCIA = " + listSolucionesNodos.get(i).getSecuencia()
+//                          + " ORDER BY sn.CONCEPTO ASC";
+                  if (i == 0) {
+                     System.out.println("stringSQLQuery : " + stringSQLQuery);
+                  }
                   Query query2 = em.createNativeQuery(stringSQLQuery, SolucionesNodosAux.class);
                   SolucionesNodosAux sNAux = (SolucionesNodosAux) query2.getSingleResult();
-                  listSolucionesNodos.get(i).setCodigoconcepto(sNAux.getCodigoconcepto());
-                  listSolucionesNodos.get(i).setNombreconcepto(sNAux.getNombreconcepto());
-                  listSolucionesNodos.get(i).setNombretercero(sNAux.getNombretercero());
-                  listSolucionesNodos.get(i).setCodigocuentad(sNAux.getCodigocuentad());
-                  listSolucionesNodos.get(i).setCodigocuentac(sNAux.getCodigocuentac());
-                  listSolucionesNodos.get(i).setNombreempleado(sNAux.getNombreempleado());
-                  listSolucionesNodos.get(i).setNombrecentrocostod(sNAux.getNombrecentrocostod());
-                  listSolucionesNodos.get(i).setNombrecentrocostoc(sNAux.getNombrecentrocostoc());
+                  listSNodos.get(i).setCodigoconcepto(sNAux.getCodigoconcepto());
+                  listSNodos.get(i).setNombreconcepto(sNAux.getNombreconcepto());
+                  listSNodos.get(i).setNombretercero(sNAux.getNombretercero());
+                  listSNodos.get(i).setCodigocuentad(sNAux.getCodigocuentad());
+                  listSNodos.get(i).setCodigocuentac(sNAux.getCodigocuentac());
+                  listSNodos.get(i).setNombreempleado(sNAux.getNombreempleado());
+                  listSNodos.get(i).setNombrecentrocostod(sNAux.getNombrecentrocostod());
+                  listSNodos.get(i).setNombrecentrocostoc(sNAux.getNombrecentrocostoc());
                }
             }
          }
-         return listSolucionesNodos;
+         return listSNodos;
       } catch (Exception e) {
          System.out.println("Error: (PersistenciaSolucionesNodos.solucionNodoCorteProcesoEmpleador)" + e);
          return null;
@@ -326,11 +350,6 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
                  + "  and cs.tipo='AUTOLIQUIDACION' \n"
                  + "  AND cs.subgrupo='COTIZACION')";
          Query query = em.createNativeQuery(strQuery);
-//         query.setParameter(1, secuencia);
-//         query.setParameter("fechaInicial", fechaInicial);
-//         query.setParameter("secuenciaT", secuenciaTE);
-//         query.setParameter("secuenciaTer", secuenciaTer);
-//         query.setHint("javax.persistence.cache.storeMode", "REFRESH");
          BigDecimal count = (BigDecimal) query.getSingleResult();
          Long conteo = count.longValue();
          System.out.println("validacionTercerosVigenciaAfiliacion Resultado conteo : " + conteo);
@@ -367,67 +386,135 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
    public List<SolucionesNodos> solucionNodoEmpleado(EntityManager em, BigInteger secuenciaEmpleado) {
       try {
          em.clear();
-         String sql = "SELECT sn.* "
-                 + "FROM SOLUCIONESNODOS sn, TERCEROS t ,CONCEPTOS c,CUENTAS cu,CUENTAS cu1, EMPLEADOS e, PERSONAS p ,CENTROSCOSTOS cc, CENTROSCOSTOS cc1\n"
-                 + "WHERE sn.ESTADO = 'LIQUIDADO' \n"
-                 + "AND sn.TIPO IN  ('PAGO','DESCUENTO')\n"
-                 + "AND sn.VALOR <> 0 \n"
-                 + "AND sn.EMPLEADO =E.SECUENCIA\n"
-                 + "AND sn.NIT = t.SECUENCIA(+) \n"
+         String sql = "SELECT sn.* \n"
+                 + "FROM SOLUCIONESNODOS sn, CONCEPTOS c\n"
+                 + "WHERE sn.ESTADO = 'LIQUIDADO'\n"
                  + "AND sn.CONCEPTO = c.SECUENCIA\n"
-                 + "AND sn.CUENTAD=cu.SECUENCIA\n"
-                 + "AND sn.CUENTAC=cu1.SECUENCIA\n"
-                 + "AND e.persona=p.secuencia\n"
-                 + "AND sn.CENTROCOSTOD = cc.SECUENCIA\n"
-                 + "AND sn.CENTROCOSTOC = cc1.SECUENCIA\n"
-                 + "AND sn.EMPLEADO = " + secuenciaEmpleado + " \n"
-                 + "ORDER BY c.CODIGO ASC";
+                 + "AND sn.TIPO IN ('PAGO','DESCUENTO')\n"
+                 + "AND sn.EMPLEADO = " + secuenciaEmpleado;
          Query query = em.createNativeQuery(sql, SolucionesNodos.class);
-         List<SolucionesNodos> listSolucionesNodos = query.getResultList();
+         List<SolucionesNodos> listSNodos = query.getResultList();
 
-         if (listSolucionesNodos != null) {
-            if (!listSolucionesNodos.isEmpty()) {
-               System.out.println("resultado.size() : " + listSolucionesNodos.size());
-               for (int i = 0; i < listSolucionesNodos.size(); i++) {
+         if (listSNodos != null) {
+            if (!listSNodos.isEmpty()) {
+               System.out.println("listSNodos.size() : " + listSNodos.size());
+               for (int i = 0; i < listSNodos.size(); i++) {
                   em.clear();
-                  String stringSQLQuery = "SELECT sn.SECUENCIA,"
-                          + "c.CODIGO CODIGOCONCEPTO, c.DESCRIPCION NOMBRECONCEPTO,t.NOMBRE NOMBRETERCERO,cu.CODIGO CODIGOCUENTAD,"
-                          + " cu1.CODIGO CODIGOCUENTAC, p.PRIMERAPELLIDO||' '|| p.SEGUNDOAPELLIDO ||' '||p.NOMBRE NOMBREEMPLEADO,"
-                          + " cc.NOMBRE NOMBRECENTROCOSTOD, cc1.NOMBRE NOMBRECENTROCOSTOC \n"
-                          + "FROM SOLUCIONESNODOS sn, TERCEROS t ,CONCEPTOS c,CUENTAS cu,CUENTAS cu1, EMPLEADOS e, PERSONAS p ,CENTROSCOSTOS cc, CENTROSCOSTOS cc1\n"
-                          + "WHERE "
-                          //                          + "sn.ESTADO = 'LIQUIDADO' \n"
-                          //                          + "AND sn.TIPO IN  ('PAGO','DESCUENTO')\n"
-                          //                          + "AND sn.VALOR <> 0 \n"
-                          + "sn.EMPLEADO =E.SECUENCIA\n"
-                          + "AND sn.NIT = t.SECUENCIA(+) \n"
-                          + "AND sn.CONCEPTO = c.SECUENCIA\n"
-                          + "AND sn.CUENTAD=cu.SECUENCIA\n"
-                          + "AND sn.CUENTAC=cu1.SECUENCIA\n"
-                          + "AND e.persona=p.secuencia\n"
-                          + "AND sn.CENTROCOSTOD = cc.SECUENCIA\n"
-                          + "AND sn.CENTROCOSTOC = cc1.SECUENCIA\n"
-                          + "AND sn.EMPLEADO = " + secuenciaEmpleado + " \n"
-                          + "AND sn.SECUENCIA = " + listSolucionesNodos.get(i).getSecuencia() + " \n"
-                          + " ORDER BY c.CODIGO ASC";
+                  String nitTercero = "NULL";
+                  if (listSNodos.get(i).getNittercero() != null) {
+                     nitTercero = "" + listSNodos.get(i).getNittercero();
+                  }
+                  String stringSQLQuery = "SELECT sn.secuencia,\n"
+                          + "c.CODIGO CODIGOCONCEPTO,\n"
+                          + "c.DESCRIPCION NOMBRECONCEPTO,\n"
+                          + "(select NOMBRE from TERCEROS WHERE " + nitTercero + " = SECUENCIA(+)) NOMBRETERCERO,\n"
+                          + "(select CODIGO from CUENTAS WHERE SECUENCIA = " + listSNodos.get(i).getCuentad() + ") CODIGOCUENTAD,\n"
+                          + "(select CODIGO from CUENTAS WHERE SECUENCIA = " + listSNodos.get(i).getCuentac() + ") CODIGOCUENTAC,\n"
+                          + "(select p.PRIMERAPELLIDO||' '|| p.SEGUNDOAPELLIDO ||' '||p.NOMBRE NOMBREEMPLEADO from personas p, empleados e where e.persona = p.secuencia and e.secuencia = " + secuenciaEmpleado + ") NOMBREEMPLEADO,\n"
+                          + "(select NOMBRE from CENTROSCOSTOS WHERE SECUENCIA = " + listSNodos.get(i).getCentrocostod() + ") NOMBRECENTROCOSTOD,\n"
+                          + "(select NOMBRE from CENTROSCOSTOS WHERE SECUENCIA = " + listSNodos.get(i).getCentrocostoc() + ") NOMBRECENTROCOSTOC\n"
+                          + "FROM SOLUCIONESNODOS sn, (select CODIGO,DESCRIPCION from conceptos where secuencia = " + listSNodos.get(i).getConcepto() + ") c \n"
+                          + "where sn.SECUENCIA = " + listSNodos.get(i).getSecuencia();
+//                  if (i == 0) {
+//                     System.out.println("stringSQLQuery : " + stringSQLQuery);
+//                  }
                   Query query2 = em.createNativeQuery(stringSQLQuery, SolucionesNodosAux.class);
                   SolucionesNodosAux sNAux = (SolucionesNodosAux) query2.getSingleResult();
-                  listSolucionesNodos.get(i).setCodigoconcepto(sNAux.getCodigoconcepto());
-                  listSolucionesNodos.get(i).setNombreconcepto(sNAux.getNombreconcepto());
-                  listSolucionesNodos.get(i).setNombretercero(sNAux.getNombretercero());
-                  listSolucionesNodos.get(i).setCodigocuentad(sNAux.getCodigocuentad());
-                  listSolucionesNodos.get(i).setCodigocuentac(sNAux.getCodigocuentac());
-                  listSolucionesNodos.get(i).setNombreempleado(sNAux.getNombreempleado());
-                  listSolucionesNodos.get(i).setNombrecentrocostod(sNAux.getNombrecentrocostod());
-                  listSolucionesNodos.get(i).setNombrecentrocostoc(sNAux.getNombrecentrocostoc());
+                  listSNodos.get(i).setCodigoconcepto(sNAux.getCodigoconcepto());
+                  listSNodos.get(i).setNombreconcepto(sNAux.getNombreconcepto());
+                  listSNodos.get(i).setNombretercero(sNAux.getNombretercero());
+                  listSNodos.get(i).setCodigocuentad(sNAux.getCodigocuentad());
+                  listSNodos.get(i).setCodigocuentac(sNAux.getCodigocuentac());
+                  listSNodos.get(i).setNombreempleado(sNAux.getNombreempleado());
+                  listSNodos.get(i).setNombrecentrocostod(sNAux.getNombrecentrocostod());
+                  listSNodos.get(i).setNombrecentrocostoc(sNAux.getNombrecentrocostoc());
+//                  System.out.println("i : " + i);
                }
+               System.out.println("Ya termino de asignar las SolucionesNodosAux");
             }
          }
-         return listSolucionesNodos;
+         return listSNodos;
       } catch (Exception e) {
          System.out.println("Error: (PersistenciaSolucionesNodos.solucionNodoEmpleado)" + e);
          return null;
       }
+//
+//      System.out.println("entro en solucionNodoEmpleado()");
+//      try {
+//         em.clear();
+//         String sql = "SELECT sn.* "
+//                 + "FROM SOLUCIONESNODOS sn, TERCEROS t ,CONCEPTOS c,CUENTAS cu,CUENTAS cu1, EMPLEADOS e, PERSONAS p ,CENTROSCOSTOS cc, CENTROSCOSTOS cc1\n"
+//                 + "WHERE sn.ESTADO = 'LIQUIDADO' \n"
+//                 + "AND sn.TIPO IN ('PAGO','DESCUENTO')\n"
+//                 + "AND sn.VALOR <> 0 \n"
+//                 + "AND sn.EMPLEADO =E.SECUENCIA\n"
+//                 + "AND sn.NIT = t.SECUENCIA(+) \n"
+//                 + "AND sn.CONCEPTO = c.SECUENCIA\n"
+//                 + "AND sn.CUENTAD=cu.SECUENCIA\n"
+//                 + "AND sn.CUENTAC=cu1.SECUENCIA\n"
+//                 + "AND e.persona=p.secuencia\n"
+//                 + "AND sn.CENTROCOSTOD = cc.SECUENCIA\n"
+//                 + "AND sn.CENTROCOSTOC = cc1.SECUENCIA\n"
+//                 + "AND sn.EMPLEADO = " + secuenciaEmpleado + " \n"
+//                 + "ORDER BY c.CODIGO ASC";
+//         Query query = em.createNativeQuery(sql, SolucionesNodos.class);
+//         List<SolucionesNodos> listSNodos = query.getResultList();
+//
+//         if (listSNodos != null) {
+//            if (!listSNodos.isEmpty()) {
+//               System.out.println("listSNodos.size() : " + listSNodos.size());
+//               em.clear();
+//               String stringSQLQuery = "SELECT sn.SECUENCIA,"
+//                       + "c.CODIGO CODIGOCONCEPTO, c.DESCRIPCION NOMBRECONCEPTO,t.NOMBRE NOMBRETERCERO,cu.CODIGO CODIGOCUENTAD,"
+//                       + " cu1.CODIGO CODIGOCUENTAC, p.PRIMERAPELLIDO||' '|| p.SEGUNDOAPELLIDO ||' '||p.NOMBRE NOMBREEMPLEADO,"
+//                       + " cc.NOMBRE NOMBRECENTROCOSTOD, cc1.NOMBRE NOMBRECENTROCOSTOC \n"
+//                       + "FROM SOLUCIONESNODOS sn, TERCEROS t ,CONCEPTOS c,CUENTAS cu,CUENTAS cu1, EMPLEADOS e, PERSONAS p ,CENTROSCOSTOS cc, CENTROSCOSTOS cc1\n"
+//                       + "WHERE sn.ESTADO = 'LIQUIDADO' \n"
+//                       + "AND sn.TIPO IN ('PAGO','DESCUENTO')\n"
+//                       + "AND sn.VALOR <> 0 \n"
+//                       + "AND sn.EMPLEADO =E.SECUENCIA\n"
+//                       + "AND sn.NIT = t.SECUENCIA(+) \n"
+//                       + "AND sn.CONCEPTO = c.SECUENCIA\n"
+//                       + "AND sn.CUENTAD=cu.SECUENCIA\n"
+//                       + "AND sn.CUENTAC=cu1.SECUENCIA\n"
+//                       + "AND e.persona=p.secuencia\n"
+//                       + "AND sn.CENTROCOSTOD = cc.SECUENCIA\n"
+//                       + "AND sn.CENTROCOSTOC = cc1.SECUENCIA\n"
+//                       + "AND sn.EMPLEADO = " + secuenciaEmpleado;
+//               System.out.println(stringSQLQuery);
+//               Query query2 = em.createNativeQuery(stringSQLQuery, SolucionesNodosAux.class);
+//               List<SolucionesNodosAux> sNAux = query2.getResultList();
+//
+//               if (sNAux != null) {
+//                  if (!sNAux.isEmpty()) {
+//                     System.out.println("sNAux.size() : " + sNAux.size());
+//                     for (int i = 0; i < listSNodos.size(); i++) {
+//                        for (int j = 0; j < sNAux.size(); j++) {
+//                           if (listSNodos.get(i).getSecuencia().equals(sNAux.get(j).getSecuencia())) {
+//                              listSNodos.get(i).setCodigoconcepto(sNAux.get(j).getCodigoconcepto());
+//                              listSNodos.get(i).setNombreconcepto(sNAux.get(j).getNombreconcepto());
+//                              listSNodos.get(i).setNombretercero(sNAux.get(j).getNombretercero());
+//                              listSNodos.get(i).setCodigocuentad(sNAux.get(j).getCodigocuentad());
+//                              listSNodos.get(i).setCodigocuentac(sNAux.get(j).getCodigocuentac());
+//                              listSNodos.get(i).setNombreempleado(sNAux.get(j).getNombreempleado());
+//                              listSNodos.get(i).setNombrecentrocostod(sNAux.get(j).getNombrecentrocostod());
+//                              listSNodos.get(i).setNombrecentrocostoc(sNAux.get(j).getNombrecentrocostoc());
+//                              sNAux.remove(sNAux.get(j));
+//                              break;
+//                           }
+//                        }
+//                        System.out.println("i : " + i);
+//                     }
+//                     System.out.println("Ya termino de asignar las SolucionesNodosAux");
+//                  }
+//               }
+//            }
+//         }
+//         return listSNodos;
+//      } catch (Exception e) {
+//         System.out.println("Error: (PersistenciaSolucionesNodos.solucionNodoEmpleado)" + e);
+//         return null;
+//      }
    }
 
    @Override
@@ -435,66 +522,144 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
       try {
          em.clear();
          String sql = "SELECT sn.* \n"
-                 + "FROM SOLUCIONESNODOS sn, TERCEROS t ,CONCEPTOS c,CUENTAS cu,CUENTAS cu1, EMPLEADOS e, PERSONAS p ,CENTROSCOSTOS cc, CENTROSCOSTOS cc1\n"
+                 + "FROM SOLUCIONESNODOS sn, CONCEPTOS c\n"
                  + "WHERE sn.ESTADO = 'LIQUIDADO' \n"
-                 + "AND sn.TIPO IN  ('PASIVO','GASTO','NETO')\n"
                  + "AND sn.VALOR <> 0 \n"
-                 + "AND sn.EMPLEADO =E.SECUENCIA\n"
-                 + "AND sn.NIT = t.SECUENCIA(+) \n"
+                 + "AND sn.TIPO IN ('PASIVO','GASTO','NETO')\n"
                  + "AND sn.CONCEPTO = c.SECUENCIA\n"
-                 + "AND sn.CUENTAD=cu.SECUENCIA\n"
-                 + "AND sn.CUENTAC=cu1.SECUENCIA\n"
-                 + "AND e.persona=p.secuencia\n"
-                 + "AND sn.CENTROCOSTOD = cc.SECUENCIA\n"
-                 + "AND sn.CENTROCOSTOC = cc1.SECUENCIA\n"
-                 + "AND sn.EMPLEADO = " + secuenciaEmpleado + "\n"
-                 + "ORDER BY c.CODIGO ASC";
+                 + "AND sn.EMPLEADO = " + secuenciaEmpleado;
          Query query = em.createNativeQuery(sql, SolucionesNodos.class);
-         List<SolucionesNodos> listSolucionesNodos = query.getResultList();
+         List<SolucionesNodos> listSNodos = query.getResultList();
 
-         if (listSolucionesNodos != null) {
-            if (!listSolucionesNodos.isEmpty()) {
-               System.out.println("resultado.size() : " + listSolucionesNodos.size());
-               for (int i = 0; i < listSolucionesNodos.size(); i++) {
+         if (listSNodos != null) {
+            if (!listSNodos.isEmpty()) {
+               System.out.println("listSNodos.size() : " + listSNodos.size());
+               for (int i = 0; i < listSNodos.size(); i++) {
                   em.clear();
-                  String stringSQLQuery = "SELECT sn.SECUENCIA,"
-                          + "c.CODIGO CODIGOCONCEPTO, c.DESCRIPCION NOMBRECONCEPTO,t.NOMBRE NOMBRETERCERO,cu.CODIGO CODIGOCUENTAD,"
-                          + " cu1.CODIGO CODIGOCUENTAC, p.PRIMERAPELLIDO||' '|| p.SEGUNDOAPELLIDO ||' '||p.NOMBRE NOMBREEMPLEADO,"
-                          + " cc.NOMBRE NOMBRECENTROCOSTOD, cc1.NOMBRE NOMBRECENTROCOSTOC \n"
-                          + "FROM SOLUCIONESNODOS sn, TERCEROS t ,CONCEPTOS c,CUENTAS cu,CUENTAS cu1, EMPLEADOS e, PERSONAS p ,CENTROSCOSTOS cc, CENTROSCOSTOS cc1\n"
-                          + "WHERE "
-                          //                          + "sn.ESTADO = 'LIQUIDADO' \n"
-                          //                          + "AND sn.TIPO IN  ('PASIVO','GASTO','NETO')\n"
-                          //                          + "AND sn.VALOR <> 0 \n"
-                          + "sn.EMPLEADO =E.SECUENCIA\n"
-                          + "AND sn.NIT = t.SECUENCIA(+) \n"
-                          + "AND sn.CONCEPTO = c.SECUENCIA\n"
-                          + "AND sn.CUENTAD=cu.SECUENCIA\n"
-                          + "AND sn.CUENTAC=cu1.SECUENCIA\n"
-                          + "AND e.persona=p.secuencia\n"
-                          + "AND sn.CENTROCOSTOD = cc.SECUENCIA\n"
-                          + "AND sn.CENTROCOSTOC = cc1.SECUENCIA\n"
-                          + "AND sn.EMPLEADO = " + secuenciaEmpleado + "\n"
-                          + "AND sn.SECUENCIA = " + listSolucionesNodos.get(i).getSecuencia() + " \n"
-                          + "ORDER BY c.CODIGO ASC";
+                  String nitTercero = "NULL";
+                  if (listSNodos.get(i).getNittercero() != null) {
+                     nitTercero = "" + listSNodos.get(i).getNittercero();
+                  }
+                  String stringSQLQuery = "SELECT sn.secuencia,\n"
+                          + "c.CODIGO CODIGOCONCEPTO,\n"
+                          + "c.DESCRIPCION NOMBRECONCEPTO,\n"
+                          + "(select NOMBRE from TERCEROS WHERE " + nitTercero + " = SECUENCIA(+)) NOMBRETERCERO,\n"
+                          + "(select CODIGO from CUENTAS WHERE SECUENCIA = " + listSNodos.get(i).getCuentad() + ") CODIGOCUENTAD,\n"
+                          + "(select CODIGO from CUENTAS WHERE SECUENCIA = " + listSNodos.get(i).getCuentac() + ") CODIGOCUENTAC,\n"
+                          + "(select p.PRIMERAPELLIDO||' '|| p.SEGUNDOAPELLIDO ||' '||p.NOMBRE NOMBREEMPLEADO from personas p, empleados e where e.persona = p.secuencia and e.secuencia = " + secuenciaEmpleado + ") NOMBREEMPLEADO,\n"
+                          + "(select NOMBRE from CENTROSCOSTOS WHERE SECUENCIA = " + listSNodos.get(i).getCentrocostod() + ") NOMBRECENTROCOSTOD,\n"
+                          + "(select NOMBRE from CENTROSCOSTOS WHERE SECUENCIA = " + listSNodos.get(i).getCentrocostoc() + ") NOMBRECENTROCOSTOC\n"
+                          + "FROM SOLUCIONESNODOS sn, (select CODIGO,DESCRIPCION from conceptos where secuencia = " + listSNodos.get(i).getConcepto() + ") c \n"
+                          + "where sn.SECUENCIA = " + listSNodos.get(i).getSecuencia();
+//                  String stringSQLQuery = "SELECT sn.SECUENCIA,"
+//                          + "c.CODIGO CODIGOCONCEPTO, c.DESCRIPCION NOMBRECONCEPTO,t.NOMBRE NOMBRETERCERO,cu.CODIGO CODIGOCUENTAD,"
+//                          + " cu1.CODIGO CODIGOCUENTAC, p.PRIMERAPELLIDO||' '|| p.SEGUNDOAPELLIDO ||' '||p.NOMBRE NOMBREEMPLEADO,"
+//                          + " cc.NOMBRE NOMBRECENTROCOSTOD, cc1.NOMBRE NOMBRECENTROCOSTOC \n"
+//                          + "FROM SOLUCIONESNODOS sn, TERCEROS t ,CONCEPTOS c,CUENTAS cu,CUENTAS cu1, EMPLEADOS e, PERSONAS p ,CENTROSCOSTOS cc, CENTROSCOSTOS cc1\n"
+//                          + "WHERE "
+//                          + "sn.EMPLEADO =E.SECUENCIA\n"
+//                          + "AND sn.NIT = t.SECUENCIA(+) \n"
+//                          + "AND sn.CONCEPTO = c.SECUENCIA\n"
+//                          + "AND sn.CUENTAD=cu.SECUENCIA\n"
+//                          + "AND sn.CUENTAC=cu1.SECUENCIA\n"
+//                          + "AND e.persona=p.secuencia\n"
+//                          + "AND sn.CENTROCOSTOD = cc.SECUENCIA\n"
+//                          + "AND sn.CENTROCOSTOC = cc1.SECUENCIA\n"
+//                          + "AND sn.EMPLEADO = " + secuenciaEmpleado + "\n"
+//                          + "AND sn.SECUENCIA = " + listSolucionesNodos.get(i).getSecuencia() + "";
+//                  if (i == 0) {
+//                     System.out.println("stringSQLQuery : " + stringSQLQuery);
+//                  }
                   Query query2 = em.createNativeQuery(stringSQLQuery, SolucionesNodosAux.class);
                   SolucionesNodosAux sNAux = (SolucionesNodosAux) query2.getSingleResult();
-                  listSolucionesNodos.get(i).setCodigoconcepto(sNAux.getCodigoconcepto());
-                  listSolucionesNodos.get(i).setNombreconcepto(sNAux.getNombreconcepto());
-                  listSolucionesNodos.get(i).setNombretercero(sNAux.getNombretercero());
-                  listSolucionesNodos.get(i).setCodigocuentad(sNAux.getCodigocuentad());
-                  listSolucionesNodos.get(i).setCodigocuentac(sNAux.getCodigocuentac());
-                  listSolucionesNodos.get(i).setNombreempleado(sNAux.getNombreempleado());
-                  listSolucionesNodos.get(i).setNombrecentrocostod(sNAux.getNombrecentrocostod());
-                  listSolucionesNodos.get(i).setNombrecentrocostoc(sNAux.getNombrecentrocostoc());
+                  listSNodos.get(i).setCodigoconcepto(sNAux.getCodigoconcepto());
+                  listSNodos.get(i).setNombreconcepto(sNAux.getNombreconcepto());
+                  listSNodos.get(i).setNombretercero(sNAux.getNombretercero());
+                  listSNodos.get(i).setCodigocuentad(sNAux.getCodigocuentad());
+                  listSNodos.get(i).setCodigocuentac(sNAux.getCodigocuentac());
+                  listSNodos.get(i).setNombreempleado(sNAux.getNombreempleado());
+                  listSNodos.get(i).setNombrecentrocostod(sNAux.getNombrecentrocostod());
+                  listSNodos.get(i).setNombrecentrocostoc(sNAux.getNombrecentrocostoc());
+//                  System.out.println("i : " + i);
                }
+               System.out.println("Ya termino de asignar las SolucionesNodosAux");
             }
          }
-         return listSolucionesNodos;
+         return listSNodos;
       } catch (Exception e) {
          System.out.println("Error: (PersistenciaSolucionesNodos.solucionNodoEmpleador)" + e);
          return null;
       }
+//      System.out.println("Entro en solucionNodoEmpleador()");
+//      try {
+//         em.clear();
+//         String sql = "SELECT sn.* \n"
+//                 + "FROM SOLUCIONESNODOS sn, TERCEROS t ,CONCEPTOS c,CUENTAS cu,CUENTAS cu1, EMPLEADOS e, PERSONAS p ,CENTROSCOSTOS cc, CENTROSCOSTOS cc1\n"
+//                 + "WHERE sn.ESTADO = 'LIQUIDADO' \n"
+//                 + "AND sn.TIPO IN ('PASIVO','GASTO','NETO')\n"
+//                 + "AND sn.VALOR <> 0 \n"
+//                 + "AND sn.EMPLEADO =E.SECUENCIA\n"
+//                 + "AND sn.NIT = t.SECUENCIA(+) \n"
+//                 + "AND sn.CONCEPTO = c.SECUENCIA\n"
+//                 + "AND sn.CUENTAD=cu.SECUENCIA\n"
+//                 + "AND sn.CUENTAC=cu1.SECUENCIA\n"
+//                 + "AND e.persona=p.secuencia\n"
+//                 + "AND sn.CENTROCOSTOD = cc.SECUENCIA\n"
+//                 + "AND sn.CENTROCOSTOC = cc1.SECUENCIA\n"
+//                 + "AND sn.EMPLEADO = " + secuenciaEmpleado + "\n"
+//                 + "ORDER BY c.CODIGO ASC";
+//         Query query = em.createNativeQuery(sql, SolucionesNodos.class);
+//         List<SolucionesNodos> listSNodos = query.getResultList();
+//
+//         if (listSNodos != null) {
+//            if (!listSNodos.isEmpty()) {
+//               System.out.println("listSNodos.size() : " + listSNodos.size());
+//               em.clear();
+//               String stringSQLQuery = "SELECT sn.SECUENCIA,"
+//                       + "c.CODIGO CODIGOCONCEPTO, c.DESCRIPCION NOMBRECONCEPTO,t.NOMBRE NOMBRETERCERO,cu.CODIGO CODIGOCUENTAD,"
+//                       + " cu1.CODIGO CODIGOCUENTAC, p.PRIMERAPELLIDO||' '|| p.SEGUNDOAPELLIDO ||' '||p.NOMBRE NOMBREEMPLEADO,"
+//                       + " cc.NOMBRE NOMBRECENTROCOSTOD, cc1.NOMBRE NOMBRECENTROCOSTOC \n"
+//                       + "FROM SOLUCIONESNODOS sn, TERCEROS t ,CONCEPTOS c,CUENTAS cu,CUENTAS cu1, EMPLEADOS e, PERSONAS p ,CENTROSCOSTOS cc, CENTROSCOSTOS cc1\n"
+//                       + "WHERE sn.ESTADO = 'LIQUIDADO' \n"
+//                       + "AND sn.TIPO IN ('PASIVO','GASTO','NETO')\n"
+//                       + "AND sn.VALOR <> 0 \n"
+//                       + "AND sn.EMPLEADO =E.SECUENCIA\n"
+//                       + "AND sn.NIT = t.SECUENCIA(+) \n"
+//                       + "AND sn.CONCEPTO = c.SECUENCIA\n"
+//                       + "AND sn.CUENTAD=cu.SECUENCIA\n"
+//                       + "AND sn.CUENTAC=cu1.SECUENCIA\n"
+//                       + "AND e.persona=p.secuencia\n"
+//                       + "AND sn.CENTROCOSTOD = cc.SECUENCIA\n"
+//                       + "AND sn.CENTROCOSTOC = cc1.SECUENCIA\n"
+//                       + "AND sn.EMPLEADO = " + secuenciaEmpleado;
+//
+//               Query query2 = em.createNativeQuery(stringSQLQuery, SolucionesNodosAux.class);
+//               List<SolucionesNodosAux> sNAux = query2.getResultList();
+//               for (int i = 0; i < listSNodos.size(); i++) {
+//                  for (int j = 0; j < listSNodos.size(); j++) {
+//                     if (listSNodos.get(i).getSecuencia().equals(sNAux.get(j).getSecuencia())) {
+//                        listSNodos.get(i).setCodigoconcepto(sNAux.get(j).getCodigoconcepto());
+//                        listSNodos.get(i).setNombreconcepto(sNAux.get(j).getNombreconcepto());
+//                        listSNodos.get(i).setNombretercero(sNAux.get(j).getNombretercero());
+//                        listSNodos.get(i).setCodigocuentad(sNAux.get(j).getCodigocuentad());
+//                        listSNodos.get(i).setCodigocuentac(sNAux.get(j).getCodigocuentac());
+//                        listSNodos.get(i).setNombreempleado(sNAux.get(j).getNombreempleado());
+//                        listSNodos.get(i).setNombrecentrocostod(sNAux.get(j).getNombrecentrocostod());
+//                        listSNodos.get(i).setNombrecentrocostoc(sNAux.get(j).getNombrecentrocostoc());
+//                        sNAux.remove(sNAux.get(j));
+//                        System.out.println("i : " + i);
+//                        break;
+//                     }
+//                  }
+//               }
+//               System.out.println("Ya termino de asignar las SolucionesNodosAux");
+//            }
+//         }
+//         return listSNodos;
+//      } catch (Exception e) {
+//         System.out.println("Error: (PersistenciaSolucionesNodos.solucionNodoEmpleador)" + e);
+//         return null;
+//      }
    }
 
    @Override
@@ -502,13 +667,13 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
       try {
          em.clear();
          String sqlQuery = "SELECT COUNT(distinct empleado)\n"
-                 + "  FROM solucionesnodos sn\n"
-                 + "  WHERE estado='LIQUIDADO'\n"
-                 + "  AND sn.proceso = ?\n"
-                 + "  AND exists (select 'x' from parametros p, usuarios u\n"
-                 + "              where u.secuencia = p.usuario\n"
-                 + "              and p.proceso = sn.proceso\n"
-                 + "              AND p.empleado = sn.empleado)";
+                 + " FROM solucionesnodos sn\n"
+                 + " WHERE estado='LIQUIDADO'\n"
+                 + " AND sn.proceso = ?\n"
+                 + " AND exists (select 'x' from parametros p, usuarios u\n"
+                 + " where u.secuencia = p.usuario\n"
+                 + " and p.proceso = sn.proceso\n"
+                 + " AND p.empleado = sn.empleado)";
          Query query = em.createNativeQuery(sqlQuery);
          query.setParameter(1, secProceso);
          BigDecimal conteo = (BigDecimal) query.getSingleResult();
@@ -524,8 +689,7 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
    public boolean solucionesNodosParaConcepto(EntityManager em, BigInteger secuencia) {
       try {
          em.clear();
-//         Query query = em.createQuery("SELECT count(sn) FROM SolucionesNodos sn WHERE sn.concepto.secuencia=:secuencia");
-         Query query = em.createQuery("SELECT count(sn) FROM SolucionesNodos sn WHERE sn.concepto = :secuencia");
+         Query query = em.createQuery("SELECT count(sn) FROM SolucionesNodos sn WHERE sn.concepto.secuencia=:secuencia");
          query.setParameter("secuencia", secuencia);
          query.setHint("javax.persistence.cache.storeMode", "REFRESH");
          Long valor = (Long) query.getSingleResult();
@@ -565,45 +729,62 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
                  + "  AND p.secuencia = cp.proceso\n"
                  + "  AND CONTABILIZACION = 'S') \n"
                  + "  and exists (select 'x' from empleados e where e.secuencia=sN.empleado)";
-         Query query = em.createNativeQuery(sql, SolucionesNodos.class);
+         Query query = em.createNativeQuery(sql, SolucionesNodos.class
+         );
          query.setParameter(1, fechaInicial);
          query.setParameter(2, fechaFinal);
-         List<SolucionesNodos> listSolucionesNodos = query.getResultList();
+         List<SolucionesNodos> listSNodos = query.getResultList();
 
-         if (listSolucionesNodos != null) {
-            if (!listSolucionesNodos.isEmpty()) {
-               System.out.println("resultado.size() : " + listSolucionesNodos.size());
-               for (int i = 0; i < listSolucionesNodos.size(); i++) {
+         if (listSNodos != null) {
+            if (!listSNodos.isEmpty()) {
+               System.out.println("resultado.size() : " + listSNodos.size());
+               for (int i = 0; i < listSNodos.size(); i++) {
                   em.clear();
-                  String stringSQLQuery = "SELECT sn.SECUENCIA,"
-                          + "c.CODIGO CODIGOCONCEPTO, c.DESCRIPCION NOMBRECONCEPTO,t.NOMBRE NOMBRETERCERO,cu.CODIGO CODIGOCUENTAD,"
-                          + " cu1.CODIGO CODIGOCUENTAC, p.PRIMERAPELLIDO||' '|| p.SEGUNDOAPELLIDO ||' '||p.NOMBRE NOMBREEMPLEADO,"
-                          + " cc.NOMBRE NOMBRECENTROCOSTOD, cc1.NOMBRE NOMBRECENTROCOSTOC \n"
-                          + "FROM SOLUCIONESNODOS sn, TERCEROS t ,CONCEPTOS c,CUENTAS cu,CUENTAS cu1, EMPLEADOS e, PERSONAS p ,CENTROSCOSTOS cc, CENTROSCOSTOS cc1\n"
-                          + "WHERE sn.EMPLEADO =E.SECUENCIA\n"
-                          + "AND sn.NIT = t.SECUENCIA(+) \n"
-                          + "AND sn.CONCEPTO = c.SECUENCIA\n"
-                          + "AND sn.CUENTAD=cu.SECUENCIA\n"
-                          + "AND sn.CUENTAC=cu1.SECUENCIA\n"
-                          + "AND e.persona=p.secuencia\n"
-                          + "AND sn.CENTROCOSTOD = cc.SECUENCIA\n"
-                          + "AND sn.CENTROCOSTOC = cc1.SECUENCIA\n"
-                          + "AND sn.SECUENCIA = " + listSolucionesNodos.get(i).getSecuencia() + " \n"
-                          + " ORDER BY c.CODIGO ASC";
-                  Query query2 = em.createNativeQuery(stringSQLQuery, SolucionesNodosAux.class);
+                  String nitTercero = "NULL";
+                  if (listSNodos.get(i).getNittercero() != null) {
+                     nitTercero = "" + listSNodos.get(i).getNittercero();
+                  }
+                  String stringSQLQuery = "SELECT sn.secuencia,\n"
+                          + "c.CODIGO CODIGOCONCEPTO,\n"
+                          + "c.DESCRIPCION NOMBRECONCEPTO,\n"
+                          + "(select NOMBRE from TERCEROS WHERE " + nitTercero + " = SECUENCIA(+)) NOMBRETERCERO,\n"
+                          + "(select CODIGO from CUENTAS WHERE SECUENCIA = " + listSNodos.get(i).getCuentad() + ") CODIGOCUENTAD,\n"
+                          + "(select CODIGO from CUENTAS WHERE SECUENCIA = " + listSNodos.get(i).getCuentac() + ") CODIGOCUENTAC,\n"
+                          + "(select p.PRIMERAPELLIDO||' '|| p.SEGUNDOAPELLIDO ||' '||p.NOMBRE NOMBREEMPLEADO from personas p, empleados e where e.persona = p.secuencia and e.secuencia = " + listSNodos.get(i).getEmpleado() + ") NOMBREEMPLEADO,\n"
+                          + "(select NOMBRE from CENTROSCOSTOS WHERE SECUENCIA = " + listSNodos.get(i).getCentrocostod() + ") NOMBRECENTROCOSTOD,\n"
+                          + "(select NOMBRE from CENTROSCOSTOS WHERE SECUENCIA = " + listSNodos.get(i).getCentrocostoc() + ") NOMBRECENTROCOSTOC\n"
+                          + "FROM SOLUCIONESNODOS sn, (select CODIGO,DESCRIPCION from conceptos where secuencia = " + listSNodos.get(i).getConcepto() + ") c \n"
+                          + "where sn.SECUENCIA = " + listSNodos.get(i).getSecuencia();
+//                  String stringSQLQuery = "SELECT sn.SECUENCIA,"
+//                          + "c.CODIGO CODIGOCONCEPTO, c.DESCRIPCION NOMBRECONCEPTO,t.NOMBRE NOMBRETERCERO,cu.CODIGO CODIGOCUENTAD,"
+//                          + " cu1.CODIGO CODIGOCUENTAC, p.PRIMERAPELLIDO||' '|| p.SEGUNDOAPELLIDO ||' '||p.NOMBRE NOMBREEMPLEADO,"
+//                          + " cc.NOMBRE NOMBRECENTROCOSTOD, cc1.NOMBRE NOMBRECENTROCOSTOC \n"
+//                          + "FROM SOLUCIONESNODOS sn, TERCEROS t ,CONCEPTOS c,CUENTAS cu,CUENTAS cu1, EMPLEADOS e, PERSONAS p ,CENTROSCOSTOS cc, CENTROSCOSTOS cc1\n"
+//                          + "WHERE sn.EMPLEADO =E.SECUENCIA\n"
+//                          + "AND sn.NIT = t.SECUENCIA(+) \n"
+//                          + "AND sn.CONCEPTO = c.SECUENCIA\n"
+//                          + "AND sn.CUENTAD=cu.SECUENCIA\n"
+//                          + "AND sn.CUENTAC=cu1.SECUENCIA\n"
+//                          + "AND e.persona=p.secuencia\n"
+//                          + "AND sn.CENTROCOSTOD = cc.SECUENCIA\n"
+//                          + "AND sn.CENTROCOSTOC = cc1.SECUENCIA\n"
+//                          + "AND sn.SECUENCIA = " + listSolucionesNodos.get(i).getSecuencia() + " \n"
+//                          + " ORDER BY c.CODIGO ASC";
+                  Query query2 = em.createNativeQuery(stringSQLQuery, SolucionesNodosAux.class
+                  );
                   SolucionesNodosAux sNAux = (SolucionesNodosAux) query2.getSingleResult();
-                  listSolucionesNodos.get(i).setCodigoconcepto(sNAux.getCodigoconcepto());
-                  listSolucionesNodos.get(i).setNombreconcepto(sNAux.getNombreconcepto());
-                  listSolucionesNodos.get(i).setNombretercero(sNAux.getNombretercero());
-                  listSolucionesNodos.get(i).setCodigocuentad(sNAux.getCodigocuentad());
-                  listSolucionesNodos.get(i).setCodigocuentac(sNAux.getCodigocuentac());
-                  listSolucionesNodos.get(i).setNombreempleado(sNAux.getNombreempleado());
-                  listSolucionesNodos.get(i).setNombrecentrocostod(sNAux.getNombrecentrocostod());
-                  listSolucionesNodos.get(i).setNombrecentrocostoc(sNAux.getNombrecentrocostoc());
+                  listSNodos.get(i).setCodigoconcepto(sNAux.getCodigoconcepto());
+                  listSNodos.get(i).setNombreconcepto(sNAux.getNombreconcepto());
+                  listSNodos.get(i).setNombretercero(sNAux.getNombretercero());
+                  listSNodos.get(i).setCodigocuentad(sNAux.getCodigocuentad());
+                  listSNodos.get(i).setCodigocuentac(sNAux.getCodigocuentac());
+                  listSNodos.get(i).setNombreempleado(sNAux.getNombreempleado());
+                  listSNodos.get(i).setNombrecentrocostod(sNAux.getNombrecentrocostod());
+                  listSNodos.get(i).setNombrecentrocostoc(sNAux.getNombrecentrocostoc());
                }
             }
          }
-         return listSolucionesNodos;
+         return listSNodos;
       } catch (Exception e) {
          System.out.println("Error buscarSolucionesNodosParaParametroContable PersistenciaSolucionesNodos : " + e.toString());
          return null;
@@ -622,45 +803,62 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
                  + "AND EXISTS (SELECT 'X' FROM  cortesprocesos cp , procesos p WHERE  cp.secuencia = s.corteproceso \n"
                  + "AND p.secuencia = cp.proceso AND CONTABILIZACION = 'S') \n"
                  + "and exists (select 'x' from empleados e where e.secuencia=s.empleado)";
-         Query query = em.createNativeQuery(sql, SolucionesNodos.class);
+         Query query = em.createNativeQuery(sql, SolucionesNodos.class
+         );
          query.setParameter(1, fechaInicial);
          query.setParameter(2, fechaFinal);
-         List<SolucionesNodos> listSolucionesNodos = query.getResultList();
+         List<SolucionesNodos> listSNodos = query.getResultList();
 
-         if (listSolucionesNodos != null) {
-            if (!listSolucionesNodos.isEmpty()) {
-               System.out.println("resultado.size() : " + listSolucionesNodos.size());
-               for (int i = 0; i < listSolucionesNodos.size(); i++) {
+         if (listSNodos != null) {
+            if (!listSNodos.isEmpty()) {
+               System.out.println("resultado.size() : " + listSNodos.size());
+               for (int i = 0; i < listSNodos.size(); i++) {
                   em.clear();
-                  String stringSQLQuery = "SELECT sn.SECUENCIA,"
-                          + "c.CODIGO CODIGOCONCEPTO, c.DESCRIPCION NOMBRECONCEPTO,t.NOMBRE NOMBRETERCERO,cu.CODIGO CODIGOCUENTAD,"
-                          + " cu1.CODIGO CODIGOCUENTAC, p.PRIMERAPELLIDO||' '|| p.SEGUNDOAPELLIDO ||' '||p.NOMBRE NOMBREEMPLEADO,"
-                          + " cc.NOMBRE NOMBRECENTROCOSTOD, cc1.NOMBRE NOMBRECENTROCOSTOC \n"
-                          + "FROM SOLUCIONESNODOS sn, TERCEROS t ,CONCEPTOS c,CUENTAS cu,CUENTAS cu1, EMPLEADOS e, PERSONAS p ,CENTROSCOSTOS cc, CENTROSCOSTOS cc1\n"
-                          + "WHERE sn.EMPLEADO =E.SECUENCIA\n"
-                          + "AND sn.NIT = t.SECUENCIA(+) \n"
-                          + "AND sn.CONCEPTO = c.SECUENCIA\n"
-                          + "AND sn.CUENTAD=cu.SECUENCIA\n"
-                          + "AND sn.CUENTAC=cu1.SECUENCIA\n"
-                          + "AND e.persona=p.secuencia\n"
-                          + "AND sn.CENTROCOSTOD = cc.SECUENCIA\n"
-                          + "AND sn.CENTROCOSTOC = cc1.SECUENCIA\n"
-                          + "AND sn.SECUENCIA = " + listSolucionesNodos.get(i).getSecuencia() + " \n"
-                          + " ORDER BY c.CODIGO ASC";
-                  Query query2 = em.createNativeQuery(stringSQLQuery, SolucionesNodosAux.class);
+                  String nitTercero = "NULL";
+                  if (listSNodos.get(i).getNittercero() != null) {
+                     nitTercero = "" + listSNodos.get(i).getNittercero();
+                  }
+                  String stringSQLQuery = "SELECT sn.secuencia,\n"
+                          + "c.CODIGO CODIGOCONCEPTO,\n"
+                          + "c.DESCRIPCION NOMBRECONCEPTO,\n"
+                          + "(select NOMBRE from TERCEROS WHERE " + nitTercero + " = SECUENCIA(+)) NOMBRETERCERO,\n"
+                          + "(select CODIGO from CUENTAS WHERE SECUENCIA = " + listSNodos.get(i).getCuentad() + ") CODIGOCUENTAD,\n"
+                          + "(select CODIGO from CUENTAS WHERE SECUENCIA = " + listSNodos.get(i).getCuentac() + ") CODIGOCUENTAC,\n"
+                          + "(select p.PRIMERAPELLIDO||' '|| p.SEGUNDOAPELLIDO ||' '||p.NOMBRE NOMBREEMPLEADO from personas p, empleados e where e.persona = p.secuencia and e.secuencia = " + listSNodos.get(i).getEmpleado() + ") NOMBREEMPLEADO,\n"
+                          + "(select NOMBRE from CENTROSCOSTOS WHERE SECUENCIA = " + listSNodos.get(i).getCentrocostod() + ") NOMBRECENTROCOSTOD,\n"
+                          + "(select NOMBRE from CENTROSCOSTOS WHERE SECUENCIA = " + listSNodos.get(i).getCentrocostoc() + ") NOMBRECENTROCOSTOC\n"
+                          + "FROM SOLUCIONESNODOS sn, (select CODIGO,DESCRIPCION from conceptos where secuencia = " + listSNodos.get(i).getConcepto() + ") c \n"
+                          + "where sn.SECUENCIA = " + listSNodos.get(i).getSecuencia();
+//                  String stringSQLQuery = "SELECT sn.SECUENCIA,"
+//                          + "c.CODIGO CODIGOCONCEPTO, c.DESCRIPCION NOMBRECONCEPTO,t.NOMBRE NOMBRETERCERO,cu.CODIGO CODIGOCUENTAD,"
+//                          + " cu1.CODIGO CODIGOCUENTAC, p.PRIMERAPELLIDO||' '|| p.SEGUNDOAPELLIDO ||' '||p.NOMBRE NOMBREEMPLEADO,"
+//                          + " cc.NOMBRE NOMBRECENTROCOSTOD, cc1.NOMBRE NOMBRECENTROCOSTOC \n"
+//                          + "FROM SOLUCIONESNODOS sn, TERCEROS t ,CONCEPTOS c,CUENTAS cu,CUENTAS cu1, EMPLEADOS e, PERSONAS p ,CENTROSCOSTOS cc, CENTROSCOSTOS cc1\n"
+//                          + "WHERE sn.EMPLEADO =E.SECUENCIA\n"
+//                          + "AND sn.NIT = t.SECUENCIA(+) \n"
+//                          + "AND sn.CONCEPTO = c.SECUENCIA\n"
+//                          + "AND sn.CUENTAD=cu.SECUENCIA\n"
+//                          + "AND sn.CUENTAC=cu1.SECUENCIA\n"
+//                          + "AND e.persona=p.secuencia\n"
+//                          + "AND sn.CENTROCOSTOD = cc.SECUENCIA\n"
+//                          + "AND sn.CENTROCOSTOC = cc1.SECUENCIA\n"
+//                          + "AND sn.SECUENCIA = " + listSolucionesNodos.get(i).getSecuencia() + " \n"
+//                          + " ORDER BY c.CODIGO ASC";
+                  Query query2 = em.createNativeQuery(stringSQLQuery, SolucionesNodosAux.class
+                  );
                   SolucionesNodosAux sNAux = (SolucionesNodosAux) query2.getSingleResult();
-                  listSolucionesNodos.get(i).setCodigoconcepto(sNAux.getCodigoconcepto());
-                  listSolucionesNodos.get(i).setNombreconcepto(sNAux.getNombreconcepto());
-                  listSolucionesNodos.get(i).setNombretercero(sNAux.getNombretercero());
-                  listSolucionesNodos.get(i).setCodigocuentad(sNAux.getCodigocuentad());
-                  listSolucionesNodos.get(i).setCodigocuentac(sNAux.getCodigocuentac());
-                  listSolucionesNodos.get(i).setNombreempleado(sNAux.getNombreempleado());
-                  listSolucionesNodos.get(i).setNombrecentrocostod(sNAux.getNombrecentrocostod());
-                  listSolucionesNodos.get(i).setNombrecentrocostoc(sNAux.getNombrecentrocostoc());
+                  listSNodos.get(i).setCodigoconcepto(sNAux.getCodigoconcepto());
+                  listSNodos.get(i).setNombreconcepto(sNAux.getNombreconcepto());
+                  listSNodos.get(i).setNombretercero(sNAux.getNombretercero());
+                  listSNodos.get(i).setCodigocuentad(sNAux.getCodigocuentad());
+                  listSNodos.get(i).setCodigocuentac(sNAux.getCodigocuentac());
+                  listSNodos.get(i).setNombreempleado(sNAux.getNombreempleado());
+                  listSNodos.get(i).setNombrecentrocostod(sNAux.getNombrecentrocostod());
+                  listSNodos.get(i).setNombrecentrocostoc(sNAux.getNombrecentrocostoc());
                }
             }
          }
-         return listSolucionesNodos;
+         return listSNodos;
       } catch (Exception e) {
          System.out.println("Error buscarSolucionesNodosParaParametroContable_SAP PersistenciaSolucionesNodos : " + e.toString());
          return null;
@@ -678,45 +876,62 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
                  + "AND  EXISTS (SELECT 'X' FROM  cortesprocesos cp , procesos p WHERE  cp.secuencia = s.corteproceso\n"
                  + "AND p.secuencia = cp.proceso AND CONTABILIZACION = 'S')\n"
                  + "and exists (select 'x' from empleados e where e.secuencia=s.empleado)";
-         Query query = em.createNativeQuery(sql, SolucionesNodos.class);
+         Query query = em.createNativeQuery(sql, SolucionesNodos.class
+         );
          query.setParameter(1, fechaInicial);
          query.setParameter(2, fechaFinal);
-         List<SolucionesNodos> listSolucionesNodos = query.getResultList();
+         List<SolucionesNodos> listSNodos = query.getResultList();
 
-         if (listSolucionesNodos != null) {
-            if (!listSolucionesNodos.isEmpty()) {
-               System.out.println("resultado.size() : " + listSolucionesNodos.size());
-               for (int i = 0; i < listSolucionesNodos.size(); i++) {
+         if (listSNodos != null) {
+            if (!listSNodos.isEmpty()) {
+               System.out.println("resultado.size() : " + listSNodos.size());
+               for (int i = 0; i < listSNodos.size(); i++) {
                   em.clear();
-                  String stringSQLQuery = "SELECT sn.SECUENCIA,"
-                          + "c.CODIGO CODIGOCONCEPTO, c.DESCRIPCION NOMBRECONCEPTO,t.NOMBRE NOMBRETERCERO,cu.CODIGO CODIGOCUENTAD,"
-                          + " cu1.CODIGO CODIGOCUENTAC, p.PRIMERAPELLIDO||' '|| p.SEGUNDOAPELLIDO ||' '||p.NOMBRE NOMBREEMPLEADO,"
-                          + " cc.NOMBRE NOMBRECENTROCOSTOD, cc1.NOMBRE NOMBRECENTROCOSTOC \n"
-                          + "FROM SOLUCIONESNODOS sn, TERCEROS t ,CONCEPTOS c,CUENTAS cu,CUENTAS cu1, EMPLEADOS e, PERSONAS p ,CENTROSCOSTOS cc, CENTROSCOSTOS cc1\n"
-                          + "WHERE sn.EMPLEADO =E.SECUENCIA\n"
-                          + "AND sn.NIT = t.SECUENCIA(+) \n"
-                          + "AND sn.CONCEPTO = c.SECUENCIA\n"
-                          + "AND sn.CUENTAD=cu.SECUENCIA\n"
-                          + "AND sn.CUENTAC=cu1.SECUENCIA\n"
-                          + "AND e.persona=p.secuencia\n"
-                          + "AND sn.CENTROCOSTOD = cc.SECUENCIA\n"
-                          + "AND sn.CENTROCOSTOC = cc1.SECUENCIA\n"
-                          + "AND sn.SECUENCIA = " + listSolucionesNodos.get(i).getSecuencia() + " \n"
-                          + " ORDER BY c.CODIGO ASC";
-                  Query query2 = em.createNativeQuery(stringSQLQuery, SolucionesNodosAux.class);
+                  String nitTercero = "NULL";
+                  if (listSNodos.get(i).getNittercero() != null) {
+                     nitTercero = "" + listSNodos.get(i).getNittercero();
+                  }
+                  String stringSQLQuery = "SELECT sn.secuencia,\n"
+                          + "c.CODIGO CODIGOCONCEPTO,\n"
+                          + "c.DESCRIPCION NOMBRECONCEPTO,\n"
+                          + "(select NOMBRE from TERCEROS WHERE " + nitTercero + " = SECUENCIA(+)) NOMBRETERCERO,\n"
+                          + "(select CODIGO from CUENTAS WHERE SECUENCIA = " + listSNodos.get(i).getCuentad() + ") CODIGOCUENTAD,\n"
+                          + "(select CODIGO from CUENTAS WHERE SECUENCIA = " + listSNodos.get(i).getCuentac() + ") CODIGOCUENTAC,\n"
+                          + "(select p.PRIMERAPELLIDO||' '|| p.SEGUNDOAPELLIDO ||' '||p.NOMBRE NOMBREEMPLEADO from personas p, empleados e where e.persona = p.secuencia and e.secuencia = " + listSNodos.get(i).getEmpleado() + ") NOMBREEMPLEADO,\n"
+                          + "(select NOMBRE from CENTROSCOSTOS WHERE SECUENCIA = " + listSNodos.get(i).getCentrocostod() + ") NOMBRECENTROCOSTOD,\n"
+                          + "(select NOMBRE from CENTROSCOSTOS WHERE SECUENCIA = " + listSNodos.get(i).getCentrocostoc() + ") NOMBRECENTROCOSTOC\n"
+                          + "FROM SOLUCIONESNODOS sn, (select CODIGO,DESCRIPCION from conceptos where secuencia = " + listSNodos.get(i).getConcepto() + ") c \n"
+                          + "where sn.SECUENCIA = " + listSNodos.get(i).getSecuencia();
+//                  String stringSQLQuery = "SELECT sn.SECUENCIA,"
+//                          + "c.CODIGO CODIGOCONCEPTO, c.DESCRIPCION NOMBRECONCEPTO,t.NOMBRE NOMBRETERCERO,cu.CODIGO CODIGOCUENTAD,"
+//                          + " cu1.CODIGO CODIGOCUENTAC, p.PRIMERAPELLIDO||' '|| p.SEGUNDOAPELLIDO ||' '||p.NOMBRE NOMBREEMPLEADO,"
+//                          + " cc.NOMBRE NOMBRECENTROCOSTOD, cc1.NOMBRE NOMBRECENTROCOSTOC \n"
+//                          + "FROM SOLUCIONESNODOS sn, TERCEROS t ,CONCEPTOS c,CUENTAS cu,CUENTAS cu1, EMPLEADOS e, PERSONAS p ,CENTROSCOSTOS cc, CENTROSCOSTOS cc1\n"
+//                          + "WHERE sn.EMPLEADO =E.SECUENCIA\n"
+//                          + "AND sn.NIT = t.SECUENCIA(+) \n"
+//                          + "AND sn.CONCEPTO = c.SECUENCIA\n"
+//                          + "AND sn.CUENTAD=cu.SECUENCIA\n"
+//                          + "AND sn.CUENTAC=cu1.SECUENCIA\n"
+//                          + "AND e.persona=p.secuencia\n"
+//                          + "AND sn.CENTROCOSTOD = cc.SECUENCIA\n"
+//                          + "AND sn.CENTROCOSTOC = cc1.SECUENCIA\n"
+//                          + "AND sn.SECUENCIA = " + listSolucionesNodos.get(i).getSecuencia() + " \n"
+//                          + " ORDER BY c.CODIGO ASC";
+                  Query query2 = em.createNativeQuery(stringSQLQuery, SolucionesNodosAux.class
+                  );
                   SolucionesNodosAux sNAux = (SolucionesNodosAux) query2.getSingleResult();
-                  listSolucionesNodos.get(i).setCodigoconcepto(sNAux.getCodigoconcepto());
-                  listSolucionesNodos.get(i).setNombreconcepto(sNAux.getNombreconcepto());
-                  listSolucionesNodos.get(i).setNombretercero(sNAux.getNombretercero());
-                  listSolucionesNodos.get(i).setCodigocuentad(sNAux.getCodigocuentad());
-                  listSolucionesNodos.get(i).setCodigocuentac(sNAux.getCodigocuentac());
-                  listSolucionesNodos.get(i).setNombreempleado(sNAux.getNombreempleado());
-                  listSolucionesNodos.get(i).setNombrecentrocostod(sNAux.getNombrecentrocostod());
-                  listSolucionesNodos.get(i).setNombrecentrocostoc(sNAux.getNombrecentrocostoc());
+                  listSNodos.get(i).setCodigoconcepto(sNAux.getCodigoconcepto());
+                  listSNodos.get(i).setNombreconcepto(sNAux.getNombreconcepto());
+                  listSNodos.get(i).setNombretercero(sNAux.getNombretercero());
+                  listSNodos.get(i).setCodigocuentad(sNAux.getCodigocuentad());
+                  listSNodos.get(i).setCodigocuentac(sNAux.getCodigocuentac());
+                  listSNodos.get(i).setNombreempleado(sNAux.getNombreempleado());
+                  listSNodos.get(i).setNombrecentrocostod(sNAux.getNombrecentrocostod());
+                  listSNodos.get(i).setNombrecentrocostoc(sNAux.getNombrecentrocostoc());
                }
             }
          }
-         return listSolucionesNodos;
+         return listSNodos;
       } catch (Exception e) {
          System.out.println("Error buscarSolucionesNodosParaParametroContable_Dynamics PersistenciaSolucionesNodos : " + e.toString());
          return null;

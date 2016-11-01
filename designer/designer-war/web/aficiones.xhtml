@@ -77,7 +77,7 @@
                         <fieldset style="position: absolute;top: 80px;left: 10px;height: 350px;width: 830px; border-radius: 10px; text-align: left">
                             <legend style="font-size: 14px; color: blue"><strong>#{msg['aficiones']}</strong></legend>
 
-                            <p:dataTable id="datosDeporte" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px ; border: 1px;"                           
+                            <p:dataTable id="datosDeporte" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="width: 810px ; border: 1px;"                           
                                          value="#{controlAficiones.listAficiones}" scrollHeight="#{controlAficiones.tamano}"  
                                          filteredValue="#{controlAficiones.filtrarAficiones }" emptyMessage="#{msg['vacio']}"
                                          selection="#{controlAficiones.aficionSeleccionada}" selectionMode="single"
