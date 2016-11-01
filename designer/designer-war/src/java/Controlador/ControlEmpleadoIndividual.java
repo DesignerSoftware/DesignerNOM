@@ -31,6 +31,7 @@ import Exportar.ExportarPDFTablasAnchas;
 import Exportar.ExportarXLS;
 import InterfaceAdministrar.AdministrarEmpleadoIndividualInterface;
 import InterfaceAdministrar.AdministrarRastrosInterface;
+import com.sun.xml.ws.security.opt.impl.util.SOAPUtil;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -204,6 +205,11 @@ public class ControlEmpleadoIndividual implements Serializable {
             experienciaLaboralP = administrarEmpleadoIndividual.consultarPrimeraExpLaboral(secHv);
             entrevistasP = administrarEmpleadoIndividual.consultarPrimeraEntrevista(secHv);
             existenHV = false;
+        } else{
+        referenciasPersonalesP = "SIN REGISTRAR";
+        referenciasFamiliaresP = "SIN REGISTRAR";
+        experienciaLaboralP = "SIN REGISTRAR";
+        entrevistasP = "SIN REGISTRAR";
         }
 
         telefonoP = administrarEmpleadoIndividual.consultarPrimerTelefonoPersona(secPersona);
