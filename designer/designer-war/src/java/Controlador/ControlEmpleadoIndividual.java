@@ -211,10 +211,10 @@ public class ControlEmpleadoIndividual implements Serializable {
             entrevistasP = administrarEmpleadoIndividual.consultarPrimeraEntrevista(secHv);
             existenHV = false;
         } else{
-        referenciasPersonalesP = "SIN REGISTRAR";
-        referenciasFamiliaresP = "SIN REGISTRAR";
-        experienciaLaboralP = "SIN REGISTRAR";
-        entrevistasP = "SIN REGISTRAR";
+        referenciasPersonalesP = "";
+        referenciasFamiliaresP = "";
+        experienciaLaboralP = "";
+        entrevistasP = "";
         }
 
         telefonoP = administrarEmpleadoIndividual.consultarPrimerTelefonoPersona(secPersona);

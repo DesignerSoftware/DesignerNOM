@@ -160,7 +160,7 @@ public class PersistenciaHvEntrevistas implements PersistenciaHvEntrevistasInter
             entrevista = (String)query.getSingleResult();
             return entrevista;
         } catch (Exception e) {
-            entrevista = "SIN REGISTRAR";
+            entrevista = "";
             return entrevista;
         }
     }

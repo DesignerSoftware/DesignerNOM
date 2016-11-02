@@ -160,7 +160,7 @@ public class PersistenciaIdiomasPersonas implements PersistenciaIdiomasPersonasI
             idioma = (String) query.getSingleResult();
             return idioma;
         } catch (Exception e) {
-            idioma = "SIN REGISTRAR";
+            idioma = "";
             return idioma;
         }
     }

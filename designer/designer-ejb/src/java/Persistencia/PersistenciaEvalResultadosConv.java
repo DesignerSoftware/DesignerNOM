@@ -128,7 +128,7 @@ public class PersistenciaEvalResultadosConv implements PersistenciaEvalResultado
             pruebas = (String) query.getSingleResult();
             return pruebas;
         } catch (Exception e) {
-           pruebas="SIN REGISTRAR";
+           pruebas="";
             return pruebas;
         }
     }

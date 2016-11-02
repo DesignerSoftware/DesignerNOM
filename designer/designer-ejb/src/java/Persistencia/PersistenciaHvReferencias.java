@@ -212,7 +212,7 @@ public class PersistenciaHvReferencias implements PersistenciaHvReferenciasInter
             referenciaF = (String) query.getSingleResult();
             return referenciaF;
         } catch (Exception e) {
-            referenciaF = "SIN REGISTRAR";
+            referenciaF = "";
             return referenciaF;
         }
     }
@@ -232,7 +232,7 @@ public class PersistenciaHvReferencias implements PersistenciaHvReferenciasInter
             referenciaP = (String) query.getSingleResult();
             return referenciaP;
         } catch (Exception e) {
-            referenciaP = "SIN REGISTRAR";
+            referenciaP = "";
             return referenciaP;
         }
     }

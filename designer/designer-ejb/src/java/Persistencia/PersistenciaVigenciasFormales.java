@@ -170,7 +170,7 @@ public class PersistenciaVigenciasFormales implements PersistenciaVigenciasForma
             educacion = (String) query.getSingleResult();
             return educacion;
         } catch (Exception e) {
-            educacion = "SIN REGISTRAR";
+            educacion = "";
             return educacion;
         }
     }

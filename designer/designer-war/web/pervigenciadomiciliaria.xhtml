@@ -525,7 +525,7 @@
                                                 <p:inputText  autocomplete="off"  value="#{antecedente.antecedente.descripcion}" id="editarAntecedente" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                     <p:ajax event="select" listener="#{controlPerVigenciaDomiciliaria.cambiarIndiceAntecedentes(antecedente, 3)}"  process="@this" />   
                                                     <p:ajax event="change" listener="#{controlPerVigenciaDomiciliaria.modificarAntecedenteM(antecedente,'N',antecedente.antecedente.descripcion)}" process="@this" update="editarOcu" />
-                                                    <p:ajax event="dblclick" listener="#{controlPerVigenciaDomiciliaria.asignarIndexAntecedentesM(antecedente,1,0)}" />
+                                                    <p:ajax event="dblclick" listener="#{controlPerVigenciaDomiciliaria.asignarIndexAntecedentesM(antecedente,1,0)}"  />
                                                 </p:inputText>
                                             </f:facet>  
                                         </p:cellEditor>
@@ -1988,7 +1988,7 @@
                     <!--dialogos antecedentes-->
                     <p:dialog header="Antecedentes" widgetVar="antecedentesDialogo" draggable="true" resizable="false" closable="false" id="antecedentesDialogo"  
                               showEffect="fade" hideEffect="fade" width="470" modal="true">
-                        <p:dataTable id="lovAntecedentes"  var="ant" value="#{controlPerVigenciaDomiciliaria.lovAntecedentes}" rowKey="#{antecedente.secuencia}"
+                        <p:dataTable id="lovAntecedentes"  var="ant" value="#{controlPerVigenciaDomiciliaria.lovAntecedentes}" rowKey="#{ant.secuencia}"
                                      selection="#{controlPerVigenciaDomiciliaria.antecedenteSeleccionado}" selectionMode="single" widgetVar="lovAntecedentes" scrollable="true" scrollWidth="445" scrollHeight="250"
                                      filteredValue="#{controlPerVigenciaDomiciliaria.lovAntecedentesFiltrar}" emptyMessage="No se encontraron resultados con el criterio de búsqueda.">
                             <p:ajax event="rowSelect" listener="#{controlPerVigenciaDomiciliaria.activarAceptar()}" update=":formularioDialogos:aceptarAnt"/>
@@ -2027,9 +2027,9 @@
                               showEffect="fade" hideEffect="fade" width="470" modal="true">
                         <p:dataTable id="lovTiposAntecedentes"  var="tantecedente" value="#{controlPerVigenciaDomiciliaria.lovTiposAntecedentes}" rowKey="#{tantecedente.secuencia}"
                                      selection="#{controlPerVigenciaDomiciliaria.tipoAntecedenteSeleccionado}" selectionMode="single" widgetVar="lovTiposAntecedentes" scrollable="true" scrollWidth="445" scrollHeight="250"
-                                     filteredValue="#{controlPerVigenciaDomiciliaria.lovTiposAntecedentesFiltrar}" emptyMessage="No se encontraron resultados con el criterio de busqueda.">
+                                     filteredValue="#{controlPerVigenciaDomiciliaria.lovTiposAntecedentesFiltrar}" emptyMessage="No se encontraron resultados con el criterio de búsqueda.">
                             <p:ajax event="rowSelect" listener="#{controlPerVigenciaDomiciliaria.activarAceptar()}" update=":formularioDialogos:aceptarTipoAnt"/>
-                            <p:ajax event="rowDblselect" listener="#{controlPerVigenciaDomiciliaria.actualizarTipoAntecedente()}" process="@this" />
+                            <p:ajax event="rowDblselect" listener="#{controlPerVigenciaDomiciliaria.actualizarTipoAntecedente()}" process="@this"  />
                             <p:ajax event="filter" listener="#{controlPerVigenciaDomiciliaria.contarRegistroTipoAntecedentes()}"/>
                             <f:facet name="header">  
                                 <h:outputText value="Buscar Antecedente: " />  
@@ -2130,7 +2130,7 @@
                             <strong><h:outputText value="*Antecedente: " style=" position: absolute; top: 115px;" /></strong>
                             <p:inputText  autocomplete="off"  id="duplicarAntecedente" value="#{controlPerVigenciaDomiciliaria.duplicarAntecedenteM.antecedente.descripcion}" style=" width: 127px; position: absolute; left: 135px; top: 110px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this" />
-                                <p:ajax event="dblclick" listener="#{controlPerVigenciaDomiciliaria.asignarIndexAntecedentesM(antecedente, 1, 1)}" />
+                                <p:ajax event="dblclick" listener="#{controlPerVigenciaDomiciliaria.asignarIndexAntecedentesM(antecedente, 1, 2)}" />
                             </p:inputText>
 
                             <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 272px; top: 110px;  " id="btnduplicarAntecedente" process="@this" value=" " actionListener="#{controlPerVigenciaDomiciliaria.asignarIndexAntecedentesM(antecedente, 1, 2)}"/>   

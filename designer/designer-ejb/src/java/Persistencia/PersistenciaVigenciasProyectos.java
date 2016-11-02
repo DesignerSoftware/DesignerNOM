@@ -168,7 +168,7 @@ public class PersistenciaVigenciasProyectos implements PersistenciaVigenciasProy
             proyecto = (String) query.getSingleResult();
             return proyecto;
         } catch (Exception e) {
-            proyecto = "SIN REGISTRAR";
+            proyecto = "";
             return proyecto;
         }
     }

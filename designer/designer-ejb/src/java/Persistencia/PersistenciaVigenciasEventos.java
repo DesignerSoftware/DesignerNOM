@@ -128,7 +128,7 @@ public class PersistenciaVigenciasEventos implements PersistenciaVigenciasEvento
             evento = (String) query.getSingleResult();
             return evento;
         } catch (Exception e) {
-            evento = "SIN REGISTRAR";
+            evento = "";
             return evento;
         }
     }

@@ -141,7 +141,7 @@ public class PersistenciaVigenciasAficiones implements PersistenciaVigenciasAfic
             aficion = (String) query.getSingleResult();
             return aficion;
         } catch (Exception e) {
-            aficion = "SIN REGISTRAR";
+            aficion = "";
             return aficion;
         }
 

@@ -160,7 +160,7 @@ public class PersistenciaVigenciasIndicadores implements PersistenciaVigenciasIn
             return indicador;
 
         } catch (Exception e) {
-            indicador = "SIN REGISTRAR";
+            indicador = "";
             return indicador;
         }
     }

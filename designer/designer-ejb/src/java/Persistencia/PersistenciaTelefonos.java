@@ -169,7 +169,7 @@ public class PersistenciaTelefonos implements PersistenciaTelefonosInterface {
             telefono = (String) query.getSingleResult();
             return telefono;
         } catch (Exception e) {
-            telefono = "SIN REGISTRAR";
+            telefono = "";
             return telefono;
         }
     }

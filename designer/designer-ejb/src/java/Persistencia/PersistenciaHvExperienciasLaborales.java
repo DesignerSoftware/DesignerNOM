@@ -138,7 +138,7 @@ public class PersistenciaHvExperienciasLaborales implements PersistenciaHvExperi
             experiencia = (String) query.getSingleResult();
             return experiencia;
         } catch (Exception e) {
-            experiencia = "SIN REGISTRAR";
+            experiencia = "";
             return experiencia;
         }
     }

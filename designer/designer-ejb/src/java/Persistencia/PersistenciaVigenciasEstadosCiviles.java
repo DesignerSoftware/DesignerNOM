@@ -209,7 +209,7 @@ public class PersistenciaVigenciasEstadosCiviles implements PersistenciaVigencia
             EstadoCivil = (String) query.getSingleResult();
             return EstadoCivil;
         } catch (Exception e) {
-            EstadoCivil = "SIN REGISTRAR";
+            EstadoCivil = "";
             return EstadoCivil;
         }
     }

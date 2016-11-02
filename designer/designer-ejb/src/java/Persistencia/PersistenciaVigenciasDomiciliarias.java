@@ -130,7 +130,7 @@ public class PersistenciaVigenciasDomiciliarias implements PersistenciaVigencias
         String visita;
         try {
             em.clear();
-            String sql = "SELECT DECODE(AUX.NOMBRE,NULL,'NO VISITADO','VISITADO EL'||' '||TO_CHAR(AUX.FECHA,'DD-MM-YYYY'))\n"
+            String sql = "SELECT DECODE(AUX.NOMBRE,NULL,'','VISITADO EL'||' '||TO_CHAR(AUX.FECHA,'DD-MM-YYYY'))\n"
                     + "	 FROM (SELECT V.persona NOMBRE,MAX(V.fecha)FECHA\n"
                     + "	 FROM PERSONAS P,VIGENCIASDOMICILIARIAS V\n"
                     + "	 WHERE  P.SECUENCIA =V.persona(+) AND P.secuencia= ? \n"
@@ -141,7 +141,7 @@ public class PersistenciaVigenciasDomiciliarias implements PersistenciaVigencias
             return visita;
 
         } catch (Exception e) {
-            visita = "SIN REGISTRAR";
+            visita = "";
             return visita;
         }
     }

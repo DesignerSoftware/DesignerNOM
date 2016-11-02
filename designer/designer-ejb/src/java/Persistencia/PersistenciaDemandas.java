@@ -116,7 +116,7 @@ public class PersistenciaDemandas implements PersistenciaDemandasInterface {
             demanda = (String) queryFinal.getSingleResult();
             return demanda;
         } catch (Exception e) {
-            demanda = "SIN REGISTRAR";
+            demanda = "";
             return demanda;
         }
     }

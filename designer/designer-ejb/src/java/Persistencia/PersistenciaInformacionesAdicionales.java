@@ -179,7 +179,7 @@ public class PersistenciaInformacionesAdicionales implements PersistenciaInforma
             infoAd = (String) query.getSingleResult();
             return infoAd;
         } catch (Exception e) {
-            infoAd = "SIN REGISTRAR";
+            infoAd = "";
             return infoAd;
         }
 

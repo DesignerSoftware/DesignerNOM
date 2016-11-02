@@ -166,7 +166,7 @@ public class PersistenciaEncargaturas implements PersistenciaEncargaturasInterfa
             return reemplazo;
 
         } catch (Exception e) {
-            reemplazo = "SIN REGISTRAR";
+            reemplazo = "";
             return reemplazo;
         }
     }

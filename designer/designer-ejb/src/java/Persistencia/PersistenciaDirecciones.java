@@ -217,7 +217,7 @@ public class PersistenciaDirecciones implements PersistenciaDireccionesInterface
             direccion = (String) query.getSingleResult();
             return direccion;
         } catch (Exception e) {
-            direccion = "SIN REGISTRAR";
+            direccion = " ";
             return direccion;
         }
     }

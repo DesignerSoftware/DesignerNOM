@@ -411,6 +411,9 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         activarotroservicio = true;
         activarotroegreso = true;
         activarotroaporte = true;
+        nuevoAntecedentem = new SoAntecedentesMedicos();
+        nuevoAntecedentem.setAntecedente(new SoAntecedentes());
+        nuevoAntecedentem.setTipoantecedente(new SoTiposAntecedentes());
     }
 
     @PostConstruct
@@ -432,10 +435,8 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         listDirecciones = null;
         listTelefonos = null;
         listVigenciaEstadoCivil = null;
-        listAntecedentesM = null;
         listaFamiliares = null;
         listhvExpLaborales = null;
-        listAntecedentesM = null;
         guardado = true;
         persona = administrarVigDomiciliarias.encontrarPersona(secuencia);
         empleado = administrarVigDomiciliarias.buscarEmpleado(persona.getSecuencia());
@@ -473,10 +474,18 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
             vigenciasDomiciliariaSeleccionada.setIngresopapa("N");
             vigenciasDomiciliariaSeleccionada.setIngresotio("N");
         }
-        
+
         listVigenciasDomiciliarias = null;
         getListVigenciasDomiciliarias();
-//        System.out.println("vigencia domiciliaria actual  del empleado " + persona.getNombreCompleto() + "secuencia : " + administrarVigDomiciliarias.vigenciaDomiciliariaActual(persona.getSecuencia()));
+        listAntecedentesM = null;
+        getListAntecedentesM();
+        if (listAntecedentesM != null) {
+            if (!listAntecedentesM.isEmpty()) {
+                antecedentemSeleccionado = listAntecedentesM.get(0);
+                System.out.println("antecedente medico seleccionado en recibir empleado" + antecedentemSeleccionado.getSecuencia());
+                System.out.println("tipo antecedente medico seleccionado en recibir empleado" + antecedentemSeleccionado.getTipoantecedente().getDescripcion());
+            }
+        }
     }
 
     /////FAMILIARES
@@ -1735,6 +1744,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         antecedentemSeleccionado = null;
         k = 0;
         listAntecedentesM = null;
+        lovAntecedentes = null;
         guardado = true;
         permitirIndex = true;
         getListAntecedentesM();
@@ -1749,6 +1759,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         if (tipoActualizacion == 0) {
             if (tipoLista == 0) {
                 antecedentemSeleccionado.setTipoantecedente(tipoAntecedenteSeleccionado);
+                antecedentemSeleccionado.setAntecedente(new SoAntecedentes());
 
                 if (!listAntecedentesMCrear.contains(antecedentemSeleccionado)) {
                     if (listAntecedentesModificar.isEmpty()) {
@@ -1759,6 +1770,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
                 }
             } else {
                 antecedentemSeleccionado.setTipoantecedente(tipoAntecedenteSeleccionado);
+                antecedentemSeleccionado.setAntecedente(new SoAntecedentes());
 
                 if (!listAntecedentesMCrear.contains(antecedentemSeleccionado)) {
                     if (listAntecedentesModificar.isEmpty()) {
@@ -1772,6 +1784,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
                 guardado = false;
             }
             permitirIndex = true;
+            System.out.println("tipo antecedente seleccionado : " + antecedentemSeleccionado.getTipoantecedente().getDescripcion());
             RequestContext.getCurrentInstance().update("form:datosAntecedentes");
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
         } else if (tipoActualizacion == 1) {
@@ -1791,6 +1804,12 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         RequestContext.getCurrentInstance().update("formularioDialogos:tiposAntecedentesDialogo");
         RequestContext.getCurrentInstance().update("formularioDialogos:lovTiposAntecedentes");
         RequestContext.getCurrentInstance().execute("PF('tiposAntecedentesDialogo').hide()");
+
+        lovAntecedentes = null;
+        getLovAntecedentes();
+        RequestContext.getCurrentInstance().update("formularioDialogos:antecedentesDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:lovAntecedentes");
+
     }
 
     public void cancelarCambioTipoAntecedente() {
@@ -1883,7 +1902,10 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         tipoActualizacion = LND;
         if (dlg == 1) {
+            lovAntecedentes = null;
+            getLovAntecedentes();
             contarRegistroAntecedentes();
+            RequestContext.getCurrentInstance().update("formularioDialogos:lovAntecedentes");
             RequestContext.getCurrentInstance().update("formularioDialogos:antecedentesDialogo");
             RequestContext.getCurrentInstance().execute("PF('antecedentesDialogo').show()");
         } else if (dlg == 2) {
@@ -7246,7 +7268,6 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
 //                    administrarVigDomiciliarias.editarPersona(listPersonasModificar);
 //                    listPersonasModificar.clear();
 //                }
-
                 if (!listVigenciasDomiciliariasBorrar.isEmpty()) {
                     System.out.println("entra a visita domiciliaris borrar");
                     System.out.println("tamaño lista visitas domiciliarias borrar " + listVigenciasDomiciliariasBorrar.size());
@@ -8118,7 +8139,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
     }
 
     public List<SoAntecedentesMedicos> getListAntecedentesM() {
-        if(listAntecedentesM == null){
+        if (listAntecedentesM == null) {
             listAntecedentesM = administrarVigDomiciliarias.buscarAntecedentesMedicos(persona.getSecuencia());
         }
         return listAntecedentesM;
@@ -9024,7 +9045,20 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
 
     public List<SoAntecedentes> getLovAntecedentes() {
         if (lovAntecedentes == null) {
-            lovAntecedentes = administrarVigDomiciliarias.lovAntecedentes(antecedentemSeleccionado.getTipoantecedente().getSecuencia());
+            if (tipoActualizacion == 0) {
+                System.out.println("tipo antecedente" + " " + antecedentemSeleccionado.getTipoantecedente().getDescripcion());
+                lovAntecedentes = administrarVigDomiciliarias.lovAntecedentes(antecedentemSeleccionado.getTipoantecedente().getSecuencia());
+                System.out.println("tipo antecedente" + " " + lovAntecedentes);
+            } else if (tipoActualizacion == 1) {
+                System.out.println("tipo antecedente" + " " + antecedentemSeleccionado.getTipoantecedente().getDescripcion());
+                lovAntecedentes = administrarVigDomiciliarias.lovAntecedentes(nuevoAntecedentem.getTipoantecedente().getSecuencia());
+                System.out.println("tipo antecedente" + " " + lovAntecedentes);
+            } else if (tipoActualizacion == 2) {
+                System.out.println("tipo antecedente" + " " + antecedentemSeleccionado.getTipoantecedente().getDescripcion());
+                System.out.println("tipo antecedente" + " " + lovAntecedentes);
+                lovAntecedentes = administrarVigDomiciliarias.lovAntecedentes(duplicarAntecedenteM.getTipoantecedente().getSecuencia());
+
+            }
         }
         return lovAntecedentes;
     }

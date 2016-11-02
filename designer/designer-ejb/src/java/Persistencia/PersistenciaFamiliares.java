@@ -137,7 +137,7 @@ public class PersistenciaFamiliares implements PersistenciaFamiliaresInterface {
             familiar = (String) query.getSingleResult();
             return familiar;
         } catch (Exception e) {
-            familiar = "SIN REGISTRAR";
+            familiar = "";
             return familiar;
         }
     }

@@ -129,7 +129,7 @@ public class PersistenciaVigenciasDeportes implements PersistenciaVigenciasDepor
             deporte = (String) query.getSingleResult();
             return deporte;
         } catch (Exception e) {
-            deporte = "SIN REGISTRAR";
+            deporte = "";
             return deporte;
         }
     }
