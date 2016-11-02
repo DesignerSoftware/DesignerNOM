@@ -48,7 +48,7 @@ public class ControlParametro implements Serializable {
    private Procesos seleccionProcesos;
    private List<Empresas> listaEmpresas;
    //OTROS
-   private boolean aceptar, guardado, cambiosEmpleadosParametros, borrarTodos, cambiosParametros;
+   private boolean aceptar, guardado, cambiosEmpleadosParametros, cambiosFechasParametros, borrarTodos, cambiosParametros;
    private int index, tipoLista, cualCelda, bandera, editor;
    private String altoTabla;
    private Integer empleadosParametrizados;
@@ -82,6 +82,7 @@ public class ControlParametro implements Serializable {
       aceptar = true;
       guardado = true;
       cambiosEmpleadosParametros = false;
+      cambiosFechasParametros = false;
       bandera = 0;
       editor = 0;
       index = -1;
@@ -377,7 +378,7 @@ public class ControlParametro implements Serializable {
             filtradoEmpleadosParametros.add(parametro);
          }
       }
-      if (cambiosEmpleadosParametros == false) {
+      if (!cambiosEmpleadosParametros) {
          cambiosEmpleadosParametros = true;
       }
       borrarTodos = false;
@@ -585,8 +586,9 @@ public class ControlParametro implements Serializable {
    }
 
    public void guardarCambios() {
+      System.out.println("Entro en guardarCambios()");
       try {
-         if (cambiosParametros == true) {
+         if (cambiosParametros) {
             if (parametroLiquidacion.getTipotrabajador().getSecuencia() == null) {
                parametroLiquidacion.setTipotrabajador(null);
             }
@@ -595,15 +597,18 @@ public class ControlParametro implements Serializable {
             }
             administrarParametros.crearParametroEstructura(parametroLiquidacion);
             parametroLiquidacion = null;
-            getParametroLiquidacion();
+            parametroLiquidacion = getParametroLiquidacion();
             cambiosParametros = false;
          }
-         if (cambiosEmpleadosParametros == true) {
+         System.out.println("cambiosEmpleadosParametros : " + cambiosEmpleadosParametros);
+         if (cambiosEmpleadosParametros) {
             if (!listaBorrarParametros.isEmpty()) {
                administrarParametros.eliminarParametros(listaBorrarParametros);
                listaBorrarParametros.clear();
             }
             if (!listaCrearParametros.isEmpty()) {
+               System.out.println("guardarCambios() !listaCrearParametros.isEmpty()  : ");
+               System.out.println("parametroLiquidacion.getFechadesdecausado() : " + parametroLiquidacion.getFechadesdecausado() + ",  parametroLiquidacion.getFechahastacausado() : " + parametroLiquidacion.getFechahastacausado());
                Usuarios au = administrarParametros.usuarioActual();
                Date fechaDesde = parametroLiquidacion.getFechadesdecausado();
                Date fechaHasta = parametroLiquidacion.getFechahastacausado();
@@ -620,10 +625,38 @@ public class ControlParametro implements Serializable {
                   }
                }
                administrarParametros.crearParametros(listaCrearParametros);
-               listaCrearParametros.clear();
             }
-            cambiosEmpleadosParametros = false;
          }
+            
+         System.out.println("cambiosFechasParametros : " + cambiosFechasParametros);
+         if (cambiosFechasParametros) {
+            if (!empleadosParametros.isEmpty()) {
+               if (!listaCrearParametros.isEmpty()) {
+//                  for (int j = 0; j < listaCrearParametros.size(); j++) {
+                  empleadosParametros.removeAll(listaCrearParametros);
+//                  }
+               }
+               Date fechaDesde = parametroLiquidacion.getFechadesdecausado();
+               Date fechaHasta = parametroLiquidacion.getFechahastacausado();
+               Date fechaSistema = parametroLiquidacion.getFechasistema();
+               Procesos proceso = parametroLiquidacion.getProceso();
+               for (int i = 0; i < empleadosParametros.size(); i++) {
+
+                  empleadosParametros.get(i).setFechadesdecausado(fechaDesde);
+                  empleadosParametros.get(i).setFechahastacausado(fechaHasta);
+                  empleadosParametros.get(i).setFechasistema(fechaSistema);
+                  empleadosParametros.get(i).setProceso(proceso);
+//                  empleadosParametros.get(i).setUsuario(au);
+                  if (empleadosParametros.get(i).getParametroestructura().getTipotrabajador().getSecuencia() == null) {
+                     empleadosParametros.get(i).getParametroestructura().setTipotrabajador(null);
+                  }
+               }
+               administrarParametros.crearParametros(empleadosParametros);
+            }
+         }
+         cambiosEmpleadosParametros = false;
+         listaCrearParametros.clear();
+
          if (tipoGuardado.equals("ADICIONAR EMPLEADOS")) {
             System.out.println("Entro a ADICIONAR EMPLEADOS");
             if (consultarEmpleadosParametrizados() == true) {
@@ -654,6 +687,7 @@ public class ControlParametro implements Serializable {
          RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().update("form:growl");
       }
+      cambiosFechasParametros = false;
    }
 
    public void editarCelda() {
@@ -801,7 +835,14 @@ public class ControlParametro implements Serializable {
    public void cambiosCampos() {
       guardado = false;
       cambiosParametros = true;
-      RequestContext context = RequestContext.getCurrentInstance();
+      RequestContext.getCurrentInstance().update("form:empleadosParametros");
+      RequestContext.getCurrentInstance().update("form:ACEPTAR");
+   }
+
+   public void cambiosCamposParaEmpl() {
+      guardado = false;
+      cambiosParametros = true;
+      cambiosFechasParametros = true;
       RequestContext.getCurrentInstance().update("form:empleadosParametros");
       RequestContext.getCurrentInstance().update("form:ACEPTAR");
    }
@@ -888,7 +929,6 @@ public class ControlParametro implements Serializable {
    }
 
    public void seguirErrorFechas() {
-      RequestContext context = RequestContext.getCurrentInstance();
       if (conteoDias_Proceso() == true) {
          guardarCambios();
       } else {
@@ -903,6 +943,7 @@ public class ControlParametro implements Serializable {
       empleadosParametros = null;
       getEmpleadosParametros();
       cambiosEmpleadosParametros = false;
+      cambiosFechasParametros = false;
       lovEstructuras = null;
       lovProcesos = null;
       lovTiposTrabajadores = null;
@@ -931,6 +972,7 @@ public class ControlParametro implements Serializable {
       parametroLiquidacion = null;
       empleadosParametros = null;
       cambiosEmpleadosParametros = false;
+      cambiosFechasParametros = false;
       lovEstructuras = null;
       lovProcesos = null;
       lovTiposTrabajadores = null;
@@ -976,6 +1018,7 @@ public class ControlParametro implements Serializable {
       listaBorrarParametros.clear();
       listaCrearParametros.clear();
       cambiosEmpleadosParametros = false;
+      cambiosFechasParametros = false;
       administrarParametros.borrarParametros(parametroLiquidacion.getSecuencia());
       if (cambiosParametros == true) {
          guardado = false;

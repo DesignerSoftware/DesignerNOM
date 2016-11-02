@@ -95,24 +95,24 @@
                               <div style="position: relative; top: 0px; left: -5px; display: inline-block;">
                                  <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="fechaDesde" value="#{controlParametro.parametroLiquidacion.fechadesdecausado}" 
                                              onclick="PF('ubicacionC(([{name: 'CAMPO', value: 'FECHA DESDE'}]));">
-                                    <p:ajax event="dateSelect" listener="#{controlParametro.cambiosCampos()}" update="@this"/>
-                                    <p:ajax event="change" listener="#{controlParametro.cambiosCampos()}" update="@this"/>
+                                    <p:ajax event="dateSelect" listener="#{controlParametro.cambiosCamposParaEmpl()}" update="@this"/>
+                                    <p:ajax event="change" listener="#{controlParametro.cambiosCamposParaEmpl()}" update="@this"/>
                                  </p:calendar>
                               </div>
 
                               <div style="position: relative; top: 0px; left: 0px; display: inline-block;">
                                  <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="fechaHasta" value="#{controlParametro.parametroLiquidacion.fechahastacausado}"
                                              onclick="PF('ubicacionC(([{name: 'CAMPO', value: 'FECHA HASTA'}]));">
-                                    <p:ajax event="dateSelect" listener="#{controlParametro.cambiosCampos()}" update="@this"/>
-                                    <p:ajax event="change" listener="#{controlParametro.cambiosCampos()}" update="@this"/>
+                                    <p:ajax event="dateSelect" listener="#{controlParametro.cambiosCamposParaEmpl()}" update="@this"/>
+                                    <p:ajax event="change" listener="#{controlParametro.cambiosCamposParaEmpl()}" update="@this"/>
                                  </p:calendar>
                               </div>
 
                               <div style="position: relative; top: 0px; left: 5px; display: inline-block;">
                                  <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="fechaCorte" value="#{controlParametro.parametroLiquidacion.fechasistema}"
                                              onclick="PF('ubicacionC(([{name: 'CAMPO', value: 'FECHA CORTE'}]));">
-                                    <p:ajax event="dateSelect" listener="#{controlParametro.cambiosCampos()}" update="@this"/>
-                                    <p:ajax event="change" listener="#{controlParametro.cambiosCampos()}" update="@this"/>
+                                    <p:ajax event="dateSelect" listener="#{controlParametro.cambiosCamposParaEmpl()}" update="@this"/>
+                                    <p:ajax event="change" listener="#{controlParametro.cambiosCamposParaEmpl()}" update="@this"/>
                                  </p:calendar>
                               </div>
 

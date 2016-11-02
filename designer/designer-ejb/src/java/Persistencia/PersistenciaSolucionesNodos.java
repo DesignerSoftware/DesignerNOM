@@ -391,7 +391,8 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
                  + "WHERE sn.ESTADO = 'LIQUIDADO'\n"
                  + "AND sn.CONCEPTO = c.SECUENCIA\n"
                  + "AND sn.TIPO IN ('PAGO','DESCUENTO')\n"
-                 + "AND sn.EMPLEADO = " + secuenciaEmpleado;
+                 + "AND sn.EMPLEADO = " + secuenciaEmpleado
+                 + " ORDER BY sn.CONCEPTO ASC";
          Query query = em.createNativeQuery(sql, SolucionesNodos.class);
          List<SolucionesNodos> listSNodos = query.getResultList();
 
@@ -527,7 +528,8 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
                  + "AND sn.VALOR <> 0 \n"
                  + "AND sn.TIPO IN ('PASIVO','GASTO','NETO')\n"
                  + "AND sn.CONCEPTO = c.SECUENCIA\n"
-                 + "AND sn.EMPLEADO = " + secuenciaEmpleado;
+                 + "AND sn.EMPLEADO = " + secuenciaEmpleado
+                 + " ORDER BY sn.CONCEPTO ASC";
          Query query = em.createNativeQuery(sql, SolucionesNodos.class);
          List<SolucionesNodos> listSNodos = query.getResultList();
 

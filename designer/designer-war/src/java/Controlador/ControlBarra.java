@@ -97,7 +97,8 @@ public class ControlBarra implements Serializable {
       liquifinalizada = false;
       usuarioBD = administrarBarra.consultarUsuarioBD();
       permisoParaLiquidar = administrarBarra.verificarPermisosLiquidar(usuarioBD);
-      if (permisoParaLiquidar == true) {
+      System.out.println("permisoParaLiquidar : " + permisoParaLiquidar);
+      if (permisoParaLiquidar) {
          administrarBarra.inicializarParametrosEstados();
          administrarBarra.liquidarNomina();
          mensajeBarra = "Preparando datos...";
@@ -110,7 +111,7 @@ public class ControlBarra implements Serializable {
          System.out.println("Hora Inicio: " + formato.format(horaInicio));
          horaInicialLiquidacion = formato.format(horaInicio);
          horaFinalLiquidacion = "--:--:--";
-         RequestContext.getCurrentInstance().execute("PF('barra.start()");
+         RequestContext.getCurrentInstance().execute("PF('barra').start()");
          RequestContext.getCurrentInstance().update("form:liquidar");
          RequestContext.getCurrentInstance().update("form:cancelar");
          RequestContext.getCurrentInstance().update("form:horaF");
@@ -127,10 +128,6 @@ public class ControlBarra implements Serializable {
       barra = null;
       empezar = !empezar;
       liquifinalizada = false;
-      /*
-         * if (empezar == false) { empezar = true; } else if (empezar == true) {
-         * empezar = false; }
-       */
    }
 
    public void liquidacionCompleta() {
@@ -149,8 +146,7 @@ public class ControlBarra implements Serializable {
       Date horaFinal = new Date();
       System.out.println("Hora Final: " + formato.format(horaFinal));
       horaFinalLiquidacion = formato.format(horaFinal);
-      RequestContext context = RequestContext.getCurrentInstance();
-      RequestContext.getCurrentInstance().execute("PF('barra.stop()");
+      RequestContext.getCurrentInstance().execute("PF('barra').stop()");
       RequestContext.getCurrentInstance().update("form:empleadosLiquidados");
       RequestContext.getCurrentInstance().update("form:horaF");
       RequestContext.getCurrentInstance().update("form:liquidar");
@@ -164,8 +160,7 @@ public class ControlBarra implements Serializable {
    }
 
    public void cancelarLiquidacion() {
-      RequestContext context = RequestContext.getCurrentInstance();
-      RequestContext.getCurrentInstance().execute("PF('barra.cancel()");
+      RequestContext.getCurrentInstance().execute("PF('barra').cancel()");
       empezar = false;
       liquifinalizada = true;
       administrarBarra.cancelarLiquidacion(usuarioBD);
@@ -183,7 +178,7 @@ public class ControlBarra implements Serializable {
       RequestContext.getCurrentInstance().update("form:cancelar");
       RequestContext.getCurrentInstance().update("form:estadoLiquidacion");
       RequestContext.getCurrentInstance().update("form:imagen");
-      RequestContext.getCurrentInstance().execute("PF('barra.setValue(" + barra + ")");
+      RequestContext.getCurrentInstance().execute("PF('barra').setValue(" + barra + ")");
       RequestContext.getCurrentInstance().update("form:barra");
       RequestContext.getCurrentInstance().update("form:growl");
       consultarEstadoDatos();
@@ -213,8 +208,6 @@ public class ControlBarra implements Serializable {
       filtradoLiquidacionesAbiertas = null;
       filtradoLiquidacionesCerradas = null;
       parametroEstructura = null;
-      contarRegistrosCerrada();
-      contarRegistrosEnProceso();
    }
 
    public void consultarDatos() {
@@ -415,7 +408,7 @@ public class ControlBarra implements Serializable {
                System.out.println("ES FINALIZADO");
                if (barra < 100) {
                   System.out.println("Liquidacion Terminada Parcialmente");
-                  RequestContext.getCurrentInstance().execute("PF('barra.cancel()");
+                  RequestContext.getCurrentInstance().execute("PF('barra').cancel()");
                   empezar = false;
                   liquifinalizada = true;
                   Date horaFinal = new Date();
@@ -432,7 +425,7 @@ public class ControlBarra implements Serializable {
                   RequestContext.getCurrentInstance().update("form:cancelar");
                   RequestContext.getCurrentInstance().update("form:estadoLiquidacion");
                   RequestContext.getCurrentInstance().update("form:imagen");
-                  RequestContext.getCurrentInstance().execute("PF('barra.setValue(" + barra + ")");
+                  RequestContext.getCurrentInstance().execute("PF('barra').setValue(" + barra + ")");
                   RequestContext.getCurrentInstance().update("form:barra");
                   RequestContext.getCurrentInstance().update("form:estadoLiquidacion");
                   RequestContext.getCurrentInstance().update("form:growl");
@@ -441,7 +434,6 @@ public class ControlBarra implements Serializable {
                   barra = 100;
                   System.out.println("Esta en teoría completa...Barra: " + barra);
                   liquidacionCompleta();
-
                }
             }
          }

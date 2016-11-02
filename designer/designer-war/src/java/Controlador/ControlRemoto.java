@@ -961,7 +961,7 @@ public class ControlRemoto implements Serializable {
       if (totalActual != totalRegistros) {
          posicion = 0;
          totalRegistros = totalActual;
-         primerTipoTrabajador();
+//         primerTipoTrabajador();
          buscarEmplTipo = null;
          busquedaRapida = null;
          actualizarInformacionTipoTrabajador();
