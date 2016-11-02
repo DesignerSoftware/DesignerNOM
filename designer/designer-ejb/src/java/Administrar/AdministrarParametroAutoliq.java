@@ -59,7 +59,6 @@ public class AdministrarParametroAutoliq implements AdministrarParametroAutoliqI
     PersistenciaParametrosInformesInterface persistenciaParametrosInformes;
     @EJB
     PersistenciaParametrosEstructurasInterface persistenciaParametrosEstructuras;
-   
 
     @EJB
     AdministrarSesionesInterface administrarSesiones;
@@ -133,14 +132,14 @@ public class AdministrarParametroAutoliq implements AdministrarParametroAutoliqI
         }
     }
 
-    
-    
     @Override
     public List<AportesEntidades> consultarAportesEntidadesPorParametroAutoliq(BigInteger empresa, short mes, short ano) {
         try {
+            System.out.println("entró en: consultarAportesEntidadesPorParametroAutoliq ");
             List<AportesEntidades> lista = persistenciaAportesEntidades.consultarAportesEntidadesPorEmpresaMesYAnio(em, empresa, mes, ano);
 
             if (lista != null) {
+                System.out.println("ya tiene lista : " + lista.size());
                 for (int i = 0; i < lista.size(); i++) {
                     if (lista.get(i).getTercero() != null) {
                         Terceros tercero = persistenciaTerceros.buscarTercerosSecuencia(em, lista.get(i).getTercero());
@@ -154,7 +153,7 @@ public class AdministrarParametroAutoliq implements AdministrarParametroAutoliqI
                     }
                 }
             }
-
+            System.out.println("terminó el for de la lista aportes");
             return lista;
         } catch (Exception e) {
             System.out.println("Error consultarAportesEntidadesPorParametroAutoliq Admi : " + e.toString());
@@ -391,5 +390,5 @@ public class AdministrarParametroAutoliq implements AdministrarParametroAutoliqI
             System.out.println("Error ejecutarPKGActualizarNovedades Admi : " + e.toString());
         }
     }
-    
+
 }

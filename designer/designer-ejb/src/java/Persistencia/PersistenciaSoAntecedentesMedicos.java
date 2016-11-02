@@ -79,7 +79,7 @@ public class PersistenciaSoAntecedentesMedicos implements PersistenciaSoAntecede
     public List<SoAntecedentes> lovAntecedentes(EntityManager em, BigInteger secTipoAntecedente) {
        try {
             em.clear();
-            String sql = "SELECT * FROM SOANTECEDENTES WHERE SOANTECEDENTES.TIPOANTECEDENTE = ?";
+            String sql = "SELECT * FROM SOANTECEDENTES WHERE TIPOANTECEDENTE = ?";
             Query query = em.createNativeQuery(sql, SoAntecedentes.class);
             query.setParameter(1, secTipoAntecedente);
             List<SoAntecedentes> antecedentes = query.getResultList();
@@ -96,28 +96,13 @@ public class PersistenciaSoAntecedentesMedicos implements PersistenciaSoAntecede
     }
 
     @Override
-    public List<SoAntecedentesMedicos> listaAntecedentesMedicos(EntityManager em,BigInteger secEmpleado) {
-          try {
+    public List<SoAntecedentesMedicos> listaAntecedentesMedicos(EntityManager em, BigInteger secEmpleado) {
+        try {
             em.clear();
-            String sql = "SELECT * FROM SOANTECEDENTESMEDICOS WHERE PERSONA = ?";
+            String sql = "SELECT * FROM SOANTECEDENTESMEDICOS WHERE EMPLEADO = (SELECT SECUENCIA FROM EMPLEADOS WHERE PERSONA = ?)";
             Query query = em.createNativeQuery(sql, SoAntecedentesMedicos.class);
             query.setParameter(1, secEmpleado);
             List<SoAntecedentesMedicos> antecedentesM = query.getResultList();
-            return antecedentesM;
-        } catch (Exception e) {
-            System.out.println("Error PersistenciaSoAntecedentesMedicos.listaAntecedentesMedicos: " + e);
-            return null;
-        }
-    }
-
-    @Override
-    public SoAntecedentesMedicos ultimoAntecedenteMedico(EntityManager em, BigInteger secEmpleado) {
-        try {
-            em.clear();
-            String sql = "SELECT * FROM SOANTECEDENTESMEDICOS WHERE FECHA =(SELECT MAX(FECHA) FROM SOANTECEDENTESMEDICOS WHERE EMPLEADO = ? )";
-            Query query = em.createNativeQuery(sql, SoAntecedentesMedicos.class);
-            query.setParameter(1, secEmpleado);
-            SoAntecedentesMedicos antecedentesM = (SoAntecedentesMedicos) query.getSingleResult();
             return antecedentesM;
         } catch (Exception e) {
             System.out.println("Error PersistenciaSoAntecedentesMedicos.listaAntecedentesMedicos: " + e);

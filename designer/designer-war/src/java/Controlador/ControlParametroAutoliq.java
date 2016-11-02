@@ -702,10 +702,8 @@ public class ControlParametroAutoliq implements Serializable {
         if (permitirIndex == true) {
             RequestContext context = RequestContext.getCurrentInstance();
             cualTabla = 1;
-            RequestContext.getCurrentInstance().execute("PF('operacionEnProceso').hide()");
             parametroTablaSeleccionado = parametro;
             cualCelda = celda;
-            parametroTablaSeleccionado.getSecuencia();
             auxTipoTipoTrabajador = parametroTablaSeleccionado.getTipotrabajador().getNombre();
             if (banderaAporte == 1) {
                 desactivarFiltradoAporteEntidad();
@@ -723,8 +721,8 @@ public class ControlParametroAutoliq implements Serializable {
             RequestContext.getCurrentInstance().update("form:acumDif");
             RequestContext.getCurrentInstance().update("form:infoRegistroAporte");
             RequestContext.getCurrentInstance().update("form:tablaAportesEntidades");
-            getParametroTablaSeleccionado();
             cargarDatosNuevos();
+            RequestContext.getCurrentInstance().execute("PF('operacionEnProceso').hide()");
         }
     }
 
@@ -732,19 +730,13 @@ public class ControlParametroAutoliq implements Serializable {
         try {
             listaAportesEntidades = null;
             getListaAportesEntidades();
-//            lovAportesEntidades = null;
-//            getLovAportesEntidades();
-            if (listaAportesEntidades != null) {
-                contarRegistrosAporte();
-            }
-            Thread.sleep(2000L);
-//            RequestContext.getCurrentInstance().update("form:PanelTotal");
+//            Thread.sleep(2000L);
             RequestContext.getCurrentInstance().update("form:tablaAportesEntidades");
             RequestContext.getCurrentInstance().execute("PF('operacionEnProceso').hide()");
-
         } catch (Exception e) {
             System.out.println("Error cargarDatosNuevos Controlador : " + e.toString());
         }
+        contarRegistrosAporte();
     }
 
     public void cambiarIndiceAporteEntidad(AportesEntidades aporte, int celda) {
@@ -926,7 +918,7 @@ public class ControlParametroAutoliq implements Serializable {
             RequestContext.getCurrentInstance().update("form:procesoLiq");
             RequestContext.getCurrentInstance().update("form:acumDif");
             cambiosParametro = false;
-            System.out.println ( "Se guardaron los datos de Parámetros de Liquidación con éxito");
+            System.out.println("Se guardaron los datos de Parámetros de Liquidación con éxito");
 //            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos de Parámetros de Liquidación con éxito");
 //            FacesContext.getCurrentInstance().addMessage(null, msg);
 //            RequestContext.getCurrentInstance().update("form:growl");
@@ -3099,19 +3091,11 @@ public class ControlParametroAutoliq implements Serializable {
     }
 
     public void contarRegistrosAporte() {
-        if (listaAportesEntidades != null) {
-            if (!listaAportesEntidades.isEmpty()) {
-                RequestContext.getCurrentInstance().update("form:infoRegistroAporte");
-            }
-        }
+        RequestContext.getCurrentInstance().update("form:infoRegistroAporte");
     }
 
     public void contarRegistrosParametros() {
-        if (listaParametrosAutoliq != null) {
-            if (!listaParametrosAutoliq.isEmpty()) {
-                RequestContext.getCurrentInstance().update("form:infoRegistroParametro");
-            }
-        }
+        RequestContext.getCurrentInstance().update("form:infoRegistroParametro");
     }
 
     //GET - SET//
@@ -3288,16 +3272,17 @@ public class ControlParametroAutoliq implements Serializable {
     public List<AportesEntidades> getListaAportesEntidades() {
         try {
             if (listaAportesEntidades == null) {
+                System.out.println("getListaAportesEntidades : lista aportes entidades es null");
                 if (parametroTablaSeleccionado != null) {
                     listaAportesEntidades = administrarParametroAutoliq.consultarAportesEntidadesPorParametroAutoliq(parametroTablaSeleccionado.getEmpresa().getSecuencia(), parametroTablaSeleccionado.getMes(), parametroTablaSeleccionado.getAno());
-                    if (listaAportesEntidades != null) {
-                        for (int i = 0; i < listaAportesEntidades.size(); i++) {
-                            if (listaAportesEntidades.get(i).getTerceroRegistro() == null) {
-                                listaAportesEntidades.get(i).setTerceroRegistro(null);
-                            }
-                        }
-
-                    }
+//                    if (listaAportesEntidades != null) {
+//                        for (int i = 0; i < listaAportesEntidades.size(); i++) {
+//                            if (listaAportesEntidades.get(i).getTerceroRegistro() == null) {
+//                                listaAportesEntidades.get(i).setTerceroRegistro(null);
+//                            }
+//                        }
+//
+//                    }
                 }
             }
             return listaAportesEntidades;

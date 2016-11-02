@@ -1699,8 +1699,7 @@
                     <p:dialog id="confirmarBorrarTodoAuto" header="#{msg['informacion']}" widgetVar="confirmarBorrarTodoAuto"  resizable="false" draggable="true" modal="true" height="85" width="290"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarBorrarTodoAuto']}" style="position: absolute; left: 60px; top: 15px; width: 200px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('confirmarBorrarTodoAuto').hide();
-                                operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" actionListener="#{controlParametroAutoliq.borrarAporteEntidadProcesoAutomatico()}" style="position: absolute; top: 50px; left: 70px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('confirmarBorrarTodoAuto').hide();PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" actionListener="#{controlParametroAutoliq.borrarAporteEntidadProcesoAutomatico()}" style="position: absolute; top: 50px; left: 70px;" process="@this" icon="ui-icon-check" />
                         <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarBorrarTodoAuto').hide();" style="position: absolute; top: 50px; left: 170px;" process="@this" icon="ui-icon-close" />
                     </p:dialog>
 

@@ -196,6 +196,11 @@ public class ControlEmpleadoIndividual implements Serializable {
         }
         BigInteger secEmpleado = empleado.getSecuencia();
         hojaDeVidaPersona = administrarEmpleadoIndividual.hvHojaDeVidaPersona(secPersona);
+        if(hojaDeVidaPersona == null){
+            hojaDeVidaPersona = new HVHojasDeVida();
+            hojaDeVidaPersona.setCargo(new Cargos());
+        }
+       
         if (hojaDeVidaPersona != null && hojaDeVidaPersona.getSecuencia() != null) {
             BigInteger secHv = hojaDeVidaPersona.getSecuencia();
 
@@ -227,9 +232,9 @@ public class ControlEmpleadoIndividual implements Serializable {
         indicadoresP = administrarEmpleadoIndividual.consultarPrimerIndicador(secPersona);
         demandasP = administrarEmpleadoIndividual.consultarPrimeraDemanda(secPersona);
         visitasDomiciliariasP = administrarEmpleadoIndividual.consultarPrimeraVisita(secPersona);
+        pruebasAplicadasP = administrarEmpleadoIndividual.consultarPrimeraPrueba(secPersona);
 
 //        pruebasAplicadas = administrarEmpleadoIndividual.pruebasAplicadasPersona(secEmpleado);
-        pruebasAplicadasP = administrarEmpleadoIndividual.consultarPrimeraPrueba(secPersona);
         //VEHICULO PROPIO
         if (persona.getPlacavehiculo() != null) {
             estadoVP = false;

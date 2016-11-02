@@ -63,14 +63,14 @@
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) " action="atrassectoreconomico"  process="@this"/>  
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) " action="#{controlSectoresEconomicos.redirigir()}"  process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
                             </p:toolbarGroup>  
                         </p:toolbar>
 
                         <p:commandButton class="cssBotonAceptar"  id="ACEPTAR" value=""  actionListener="#{controlSectoresEconomicos.revisarDialogoGuardar()}" disabled="#{controlSectoresEconomicos.guardado}"    process="@this"   />
-                        <p:commandButton class="cssBotonCancelar" id="ATRAS" action="atrassectoreconomico"  actionListener="#{controlSectoresEconomicos.salir()}"  value=""/>
+                        <p:commandButton class="cssBotonCancelar" id="ATRAS" action="#{controlSectoresEconomicos.redirigir()}"  actionListener="#{controlSectoresEconomicos.salir()}"  value=""/>
 
                         <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 830px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px;">
                             <h:outputText value="#{msg['empresa']}: " style="font-weight: bold; color: #14388B; position: relative; top: 1px; left: 10px;"/>

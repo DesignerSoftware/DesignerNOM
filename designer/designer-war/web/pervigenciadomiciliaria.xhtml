@@ -261,7 +261,7 @@
                                         </p:cellEditor>
 
                                         <f:facet name="footer">
-                                            <p:commandButton style="width: 170px;" id="fooCiudad" action="ciudades" onclick="#{controlCiudades.recibirPaginaEntrante('perdireccion')}"  value=""/>
+                                            <p:commandButton style="width: 170px;" id="fooCiudad" action="ciudadvisita" onclick="#{controlCiudades.recibirPaginaEntrante('pervigenciadomiciliaria')}"  value=""/>
                                         </f:facet>
                                     </p:column> 
 
@@ -374,7 +374,7 @@
                                         </p:cellEditor>
 
                                         <f:facet name="footer">
-                                            <p:commandButton style="width: 250px;" id="fooTipoTelefono" value=" " action="tipotelefono" actionListener="#{controlTiposTelefonos.recibirPaginaEntrante('pervigenciadomiciliaria')}"/>
+                                            <p:commandButton style="width: 250px;" id="fooTipoTelefono" value=" " action="tipotelvisita" actionListener="#{controlTiposTelefonos.recibirPaginaEntrante('pervigenciadomiciliaria')}"/>
                                         </f:facet>
                                     </p:column>
 
@@ -408,7 +408,7 @@
                                         </p:cellEditor>
 
                                         <f:facet name="footer">
-                                            <!--<p:commandButton style="width: 210px;" id="fooCiudad" value=" " action="ciudad" onclick="#{controlCiudades.recibirPaginaEntrante('pertelefono')}"/>-->
+                                            <p:commandButton style="width: 210px;" id="fooCiudadTel" value=" " action="ciudadvisita" onclick="#{controlCiudades.recibirPaginaEntrante('pervigenciadomiciliaria')}"/>
                                         </f:facet>
                                     </p:column> 
                                 </p:dataTable>  
@@ -459,7 +459,7 @@
                                         </p:cellEditor>
 
                                         <f:facet name="footer">
-                                            <p:commandButton style="width: 740px;" id="fooEstadoCivil"  action="estadoCivil" value=" " onclick="#{controlEstadosCiviles.recibirPag('estadocivil')}"/>
+                                            <p:commandButton style="width: 740px;" id="fooEstadoCivil"  action="estadocivilvisita" value=" " onclick="#{controlEstadosCiviles.recibirPag('estadocivil')}"/>
                                         </f:facet>
                                     </p:column>
                                 </p:dataTable>
@@ -486,7 +486,7 @@
                                                 </h:outputText>    
                                             </f:facet>  
                                             <f:facet name="input">
-                                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaAntecedenteM" value="#{antecedente.fechainicial}" > 
+                                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaAntecedenteM" value="#{antecedente.fecha}" > 
                                                     <p:ajax event="dateSelect" update="dateFechaAntecedenteM" process="@this"/>
                                                     <p:ajax event="change" update="dateFechaAntecedenteM" listener="#{controlPerVigenciaDomiciliaria.modificarAntecedenteM(antecedente)}" process="@this"/>
                                                     <p:ajax event="select" listener="#{controlPerVigenciaDomiciliaria.cambiarIndiceAntecedentes(antecedente, 1)}"  process="@this" />   
@@ -501,12 +501,13 @@
                                               id="tipoAntecedenteM" filterStyle="display: none; visibility: hidden;" >  
                                         <p:cellEditor>  
                                             <f:facet name="output">
-                                                <h:outputText value="#{info.tipoantecedente.descripcion}" style="text-transform: uppercase" />
+                                                <h:outputText value="#{antecedente.tipoantecedente.descripcion}" style="text-transform: uppercase" />
                                             </f:facet>  
                                             <f:facet name="input">
                                                 <p:inputText  autocomplete="off"  value="#{antecedente.tipoantecedente.descripcion}" id="editarOcu" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"  >
                                                     <p:ajax event="select" listener="#{controlPerVigenciaDomiciliaria.cambiarIndiceAntecedentes(antecedente, 2)}"  process="@this" />   
                                                     <p:ajax event="change" listener="#{controlPerVigenciaDomiciliaria.modificarAntecedenteM(antecedente,'N',antecedente.tipoantecedente.descripcion)}" process="@this" update="editarOcu" />
+                                                    <p:ajax event="dblclick" listener="#{controlPerVigenciaDomiciliaria.asignarIndexAntecedentesM(antecedente,2,0)}" />
                                                 </p:inputText>
                                             </f:facet>   
                                         </p:cellEditor>
@@ -524,6 +525,7 @@
                                                 <p:inputText  autocomplete="off"  value="#{antecedente.antecedente.descripcion}" id="editarAntecedente" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                     <p:ajax event="select" listener="#{controlPerVigenciaDomiciliaria.cambiarIndiceAntecedentes(antecedente, 3)}"  process="@this" />   
                                                     <p:ajax event="change" listener="#{controlPerVigenciaDomiciliaria.modificarAntecedenteM(antecedente,'N',antecedente.antecedente.descripcion)}" process="@this" update="editarOcu" />
+                                                    <p:ajax event="dblclick" listener="#{controlPerVigenciaDomiciliaria.asignarIndexAntecedentesM(antecedente,1,0)}" />
                                                 </p:inputText>
                                             </f:facet>  
                                         </p:cellEditor>
@@ -539,7 +541,7 @@
                                                 <h:outputText value="#{antecedente.descripcion}" style="text-transform: uppercase" />
                                             </f:facet>  
                                             <f:facet name="input">
-                                                <p:inputText  autocomplete="off"  value="#{info.tipoantecedente.descripcion}" id="editarDescripcionVigencia"  style="border-radius: 0px; width: 93.5%;text-transform: uppercase"  >
+                                                <p:inputText  autocomplete="off"  value="#{antecedente.tipoantecedente.descripcion}" id="editarDescripcionVigencia"  style="border-radius: 0px; width: 93.5%;text-transform: uppercase"  >
                                                     <p:ajax event="select" listener="#{controlPerVigenciaDomiciliaria.cambiarIndiceAntecedentes(antecedente, 4)}"  process="@this" />   
                                                     <p:ajax event="change" listener="#{controlPerVigenciaDomiciliaria.modificarAntecedenteM(antecedente)}" process="@this" update="editarOcu" />
                                                 </p:inputText>
@@ -618,7 +620,7 @@
                                         </p:cellEditor>
 
                                         <f:facet name="footer">
-                                            <p:commandButton style="width: 120%;" id="fooTipoFamiliar" action="tiposfamiliares" onclick="#{controlTiposFamiliares.recibirPagina('emplfamiliares')}"  value=" "/>
+                                            <p:commandButton style="width: 120%;" id="fooTipoFamiliar" action="tipofamiliarvisita" onclick="#{controlTiposFamiliares.recibirPagina('pervigenciadomiciliaria')}"  value=" "/>
                                         </f:facet>
                                     </p:column> 
                                     <p:column id="servicioMedico" sortBy="#{familiar.serviciomedico}" filterBy="#{familiar.serviciomedico}" width="20"
@@ -750,7 +752,7 @@
                                         </p:cellEditor>
 
                                         <f:facet name="footer">
-                                            <p:commandButton style="width: 170px;" id="fooTipoEducacion" value="" action="tipoEducacion" onclick="#{controlTiposEducaciones.recibirPaginaEntrante('personaeducacion')}" />
+                                            <p:commandButton style="width: 170px;" id="fooTipoEducacion" value="" action="tipoeducacionvisita" onclick="#{controlTiposEducaciones.recibirPaginaEntrante('pervigenciadomiciliaria')}" />
                                         </f:facet>
                                     </p:column>
 
@@ -767,7 +769,7 @@
                                         </p:cellEditor>
 
                                         <f:facet name="footer">
-                                            <p:commandButton style="width: 170px;" id="fooProfesion" value="" action="profesion" onclick="#{controlProfesiones.recibirPaginaEntrante('personaeducacion')}" />
+                                            <p:commandButton style="width: 170px;" id="fooProfesion" value="" action="profesionesvisita" onclick="#{controlProfesiones.recibirPaginaEntrante('pervigenciadomiciliaria')}" />
                                         </f:facet>
                                     </p:column>
 
@@ -784,7 +786,7 @@
                                         </p:cellEditor>
 
                                         <f:facet name="footer">
-                                            <p:commandButton style="width: 170px;" id="fooInstitucion" value="" action="institucion" onclick="#{controlInstituciones.recibirPaginaEntrante('personaeducacion')}" />
+                                            <p:commandButton style="width: 170px;" id="fooInstitucion" value="" action="institucionesvisita" onclick="#{controlInstituciones.recibirPaginaEntrante('pervigenciadomiciliaria')}" />
                                         </f:facet>
                                     </p:column>
 
@@ -1032,7 +1034,7 @@
                                             </f:facet>  
                                         </p:cellEditor>
                                         <f:facet name="footer">
-                                            <p:commandButton style="width: 170px; margin: -1px; height: 26px;  border: none; color: blue" id="fooSector" value="" action="sectoreconomico" actionListener="#{controlSectoresEconomicos.recibirPaginaEntrante('perexperiencialaboral')}"/>
+                                            <p:commandButton style="width: 170px; margin: -1px; height: 26px;  border: none; color: blue" id="fooSector" value="" action="sectoreseconomicosvisita" actionListener="#{controlSectoresEconomicos.recibirPaginaEntrante('pervigenciadomiciliaria')}"/>
                                         </f:facet>
                                     </p:column>
 
@@ -1049,7 +1051,7 @@
                                             </f:facet>  
                                         </p:cellEditor>
                                         <f:facet name="footer">
-                                            <p:commandButton style="width: 170px; margin: -1px; height: 26px;  border: none; color: blue" id="fooMotivo" value="" action="motivo" actionListener="#{controlMotivosRetiros.recibirPagina('perexperiencialaboral')}"/>
+                                            <p:commandButton style="width: 170px; margin: -1px; height: 26px;  border: none; color: blue" id="fooMotivo" value="" action="motivoretirovisita" actionListener="#{controlMotivosRetiros.recibirPagina('pervigenciadomiciliaria')}"/>
                                         </f:facet>
                                     </p:column>
                                 </p:dataTable>
@@ -1151,18 +1153,24 @@
                                     <p:selectBooleanCheckbox id="servalc" value="#{controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada.recalcantarillado}" style="border-radius: 4px; width: 15px; font-weight: bold; position: absolute; left: 100px; top :50px; ">
                                         <p:ajax event="change" listener="#{controlPerVigenciaDomiciliaria.modificarVigenciaDomiciliaria(controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada)}" update="@this" />
                                         <p:ajax event="select" listener="#{controlPerVigenciaDomiciliaria.cambiarIndiceVigenciaDomiciliaria(controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada, 12)}" />
+                                    </p:selectBooleanCheckbox>     
+                                    
+                                    <h:outputText value="Aseo" style="position: absolute; left: 150px; top :50px;" />
+                                    <p:selectBooleanCheckbox id="servaseo" value="#{controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada.recaseo}" style="border-radius: 4px; width: 15px; font-weight: bold; position: absolute; left: 180px; top :50px; ">
+                                        <p:ajax event="change" listener="#{controlPerVigenciaDomiciliaria.modificarVigenciaDomiciliaria(controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada)}" update="@this" />
+                                        <p:ajax event="select" listener="#{controlPerVigenciaDomiciliaria.cambiarIndiceVigenciaDomiciliaria(controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada, 48)}" />
                                     </p:selectBooleanCheckbox>      
+                                    
 
-
-                                    <h:outputText value="#{msg['servotro']}" style="position: absolute; left: 150px; top :50px;" />
-                                    <p:selectBooleanCheckbox id="servotro" value="#{controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada.recotro}" style="border-radius: 4px; width: 15px; font-weight: bold; position: absolute; left: 190px; top :50px; ">
+                                    <h:outputText value="#{msg['servotro']}" style="position: absolute; left: 240px; top :50px;" />
+                                    <p:selectBooleanCheckbox id="servotro" value="#{controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada.recotro}" style="border-radius: 4px; width: 15px; font-weight: bold; position: absolute; left: 280px; top :50px; ">
                                         <p:ajax event="change" listener="#{controlPerVigenciaDomiciliaria.modificarVigenciaDomiciliaria(controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada)}" oncomplete="#{controlPerVigenciaDomiciliaria.activarOtroServicio()}" update="@this"/>
                                         <p:ajax event="select" listener="#{controlPerVigenciaDomiciliaria.cambiarIndiceVigenciaDomiciliaria(controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada, 13)}" />
                                     </p:selectBooleanCheckbox> 
 
-                                    <h:outputText value="#{msg['cual']}" style="position: absolute; left: 240px; top :50px;" />
+                                    <h:outputText value="#{msg['cual']}" style="position: absolute; left: 335px; top :50px;" />
                                     <p:inputText id="otrosservicios"  autocomplete="off"  value="#{controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada.detalleotrosservicios}" disabled="#{controlPerVigenciaDomiciliaria.activarotroservicio}"
-                                                 style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px; position: absolute; left: 300px; top :50px; width: 160px;" > 
+                                                 style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px; position: absolute; left: 390px; top :50px; width: 160px;" > 
                                         <p:ajax event="change" listener="#{controlPerVigenciaDomiciliaria.modificarVigenciaDomiciliaria(controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada)}"/>
                                         <p:ajax event="select" listener="#{controlPerVigenciaDomiciliaria.cambiarIndiceVigenciaDomiciliaria(controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada, 14)}" />
                                     </p:inputText>
@@ -1980,9 +1988,9 @@
                     <!--dialogos antecedentes-->
                     <p:dialog header="Antecedentes" widgetVar="antecedentesDialogo" draggable="true" resizable="false" closable="false" id="antecedentesDialogo"  
                               showEffect="fade" hideEffect="fade" width="470" modal="true">
-                        <p:dataTable id="lovAntecedentes"  var="antecedente" value="#{controlPerVigenciaDomiciliaria.lovAntecedentes}" rowKey="#{antecedente.secuencia}"
+                        <p:dataTable id="lovAntecedentes"  var="ant" value="#{controlPerVigenciaDomiciliaria.lovAntecedentes}" rowKey="#{antecedente.secuencia}"
                                      selection="#{controlPerVigenciaDomiciliaria.antecedenteSeleccionado}" selectionMode="single" widgetVar="lovAntecedentes" scrollable="true" scrollWidth="445" scrollHeight="250"
-                                     filteredValue="#{controlPerVigenciaDomiciliaria.lovAntecedentesFiltrar}" emptyMessage="No se encontraron resultados con el criterio de busqueda.">
+                                     filteredValue="#{controlPerVigenciaDomiciliaria.lovAntecedentesFiltrar}" emptyMessage="No se encontraron resultados con el criterio de búsqueda.">
                             <p:ajax event="rowSelect" listener="#{controlPerVigenciaDomiciliaria.activarAceptar()}" update=":formularioDialogos:aceptarAnt"/>
                             <p:ajax event="rowDblselect" listener="#{controlPerVigenciaDomiciliaria.actualizarAntecedente()}" process="@this" />
                             <p:ajax event="filter" listener="#{controlPerVigenciaDomiciliaria.contarRegistroAntecedentes()}"/>
@@ -1990,17 +1998,17 @@
                                 <h:outputText value="Buscar Antecedente: " />  
                                 <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovAntecedentes').filter();" class="cssFiltroLOV" />  
                             </f:facet>
-                            <p:column filterBy="#{antecedente.codigo}" width="60" filterStyle="width:50px;" filterMatchMode="contains">
+                            <p:column filterBy="#{ant.codigo}" width="60" filterStyle="width:50px;" filterMatchMode="contains">
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['codigo']}" />
                                 </f:facet>
-                                <h:outputText value="#{antecedente.codigo}" />
+                                <h:outputText value="#{ant.codigo}" />
                             </p:column>
-                            <p:column filterBy="#{antecedente.descripcion}" width="160px;" filterStyle="width:140px;" filterMatchMode="contains">
+                            <p:column filterBy="#{ant.descripcion}" width="160px;" filterStyle="width:140px;" filterMatchMode="contains">
                                 <f:facet name="header">
                                     <h:outputText value="Nombre" />
                                 </f:facet>
-                                <h:outputText value="#{antecedente.descripcion}" />
+                                <h:outputText value="#{ant.descripcion}" />
                             </p:column>
 
                         </p:dataTable>
@@ -2020,7 +2028,7 @@
                         <p:dataTable id="lovTiposAntecedentes"  var="tantecedente" value="#{controlPerVigenciaDomiciliaria.lovTiposAntecedentes}" rowKey="#{tantecedente.secuencia}"
                                      selection="#{controlPerVigenciaDomiciliaria.tipoAntecedenteSeleccionado}" selectionMode="single" widgetVar="lovTiposAntecedentes" scrollable="true" scrollWidth="445" scrollHeight="250"
                                      filteredValue="#{controlPerVigenciaDomiciliaria.lovTiposAntecedentesFiltrar}" emptyMessage="No se encontraron resultados con el criterio de busqueda.">
-                            <p:ajax event="rowSelect" listener="#{controlPerVigenciaDomiciliaria.activarAceptar()}" update=":formularioDialogos:aceptarAnt"/>
+                            <p:ajax event="rowSelect" listener="#{controlPerVigenciaDomiciliaria.activarAceptar()}" update=":formularioDialogos:aceptarTipoAnt"/>
                             <p:ajax event="rowDblselect" listener="#{controlPerVigenciaDomiciliaria.actualizarTipoAntecedente()}" process="@this" />
                             <p:ajax event="filter" listener="#{controlPerVigenciaDomiciliaria.contarRegistroTipoAntecedentes()}"/>
                             <f:facet name="header">  
@@ -4052,10 +4060,6 @@
                             <h:outputText value="#{infoExpAntecedentes.antecedente.descripcion}" />
                         </p:column>
 
-                        <p:column headerText="#{msg['tipofX']}">                                  
-                            <f:facet name="header"><h:outputText value="#{msg['tipofX']}"/> </f:facet> 
-                            <h:outputText value="#{infoExpAntecedentes.tipofamiliar.tipo}" />
-                        </p:column>
 
                         <p:column headerText="#{msg['desc']}">                                  
                             <f:facet name="header"><h:outputText value="#{msg['desc']}"/> </f:facet> 

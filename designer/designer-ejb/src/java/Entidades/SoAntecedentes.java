@@ -38,7 +38,7 @@ public class SoAntecedentes implements Serializable {
     private BigInteger codigo;
     @Column(name = "DESCRIPCION")
     private String descripcion;
-    @JoinColumn(name = "SOTIPOSANTECEDENTES", referencedColumnName = "SECUENCIA")
+    @JoinColumn(name = "TIPOANTECEDENTE", referencedColumnName = "SECUENCIA")
     @ManyToOne(optional = false)
     private SoTiposAntecedentes tipoantecedente;
 

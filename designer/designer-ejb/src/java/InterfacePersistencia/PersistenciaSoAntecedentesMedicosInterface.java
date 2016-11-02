@@ -29,5 +29,4 @@ public interface PersistenciaSoAntecedentesMedicosInterface {
     
     public List<SoAntecedentesMedicos> listaAntecedentesMedicos(EntityManager em,BigInteger secEmpleado);
     
-    public SoAntecedentesMedicos ultimoAntecedenteMedico(EntityManager em,BigInteger secEmpleado);
 }

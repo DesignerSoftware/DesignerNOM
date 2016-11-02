@@ -6129,4 +6129,99 @@
             <redirect />
         </navigation-case>
     </navigation-rule>
+    
+           <navigation-rule>
+        <from-view-id>/pervigenciadomiciliaria.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>ciudadvisita</from-outcome>
+            <to-view-id>/ciudades.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/pervigenciadomiciliaria.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>tipotelvisita</from-outcome>
+            <to-view-id>/tipotelefono.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
+        <navigation-rule>
+        <from-view-id>/pervigenciadomiciliaria.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>estadocivilvisita</from-outcome>
+            <to-view-id>/estadocivil.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+
+        <navigation-rule>
+        <from-view-id>/pervigenciadomiciliaria.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>tipofamiliarvisita</from-outcome>
+            <to-view-id>/tipofamiliar.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+
+        <navigation-rule>
+        <from-view-id>/pervigenciadomiciliaria.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>tipoeducacionvisita</from-outcome>
+            <to-view-id>/tipoeducacion.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+
+        <navigation-rule>
+        <from-view-id>/pervigenciadomiciliaria.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>profesionesvisita</from-outcome>
+            <to-view-id>/profesiones.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+
+        <navigation-rule>
+        <from-view-id>/pervigenciadomiciliaria.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>institucionesvisita</from-outcome>
+            <to-view-id>/instituciones.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+
+        <navigation-rule>
+        <from-view-id>/pervigenciadomiciliaria.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>sectoreseconomicosvisita</from-outcome>
+            <to-view-id>/sectoreseconomicos.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+
+        <navigation-rule>
+        <from-view-id>/pervigenciadomiciliaria.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>sectoreseconomicosvisita</from-outcome>
+            <to-view-id>/sectoreseconomicos.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+
+        <navigation-rule>
+        <from-view-id>/pervigenciadomiciliaria.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>motivoretirovisita</from-outcome>
+            <to-view-id>/motivosretiros.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+
+
+
+
 </faces-config>
+

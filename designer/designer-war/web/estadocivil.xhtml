@@ -63,14 +63,16 @@
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
                                 <p:separator style="position: relative; top: -9px"/>
                                 <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlEstadosCiviles.salir()}" 
-                                                 action="atrasPerEstadoCivil" process="@this"/>  
+                                                 action="#{controlEstadosCiviles.retornarPagina()}" process="@this"/>  
                                 <p:tooltip  for="salir" value="Salir"/>
 
                             </p:toolbarGroup>  
                         </p:toolbar>
 
-                        <p:commandButton style=" position: absolute; left: 675px; top: 485px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ACEPTAR" value=""  disabled="#{controlEstadosCiviles.guardado}" actionListener="#{controlEstadosCiviles.revisarDialogoGuardar()}"     process="@this"   />
-                        <p:commandButton style=" position: absolute; left: 765px; top: 485px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" value="" action="atrasPerEstadoCivil"    />
+                        <p:commandButton style=" position: absolute; left: 675px; top: 485px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" 
+                                         id="ACEPTAR" value=""  disabled="#{controlEstadosCiviles.guardado}" actionListener="#{controlEstadosCiviles.revisarDialogoGuardar()}"     process="@this"   />
+                        <p:commandButton style=" position: absolute; left: 765px; top: 485px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;"
+                                         id="ATRAS" value="" action="#{controlEstadosCiviles.retornarPagina()}"   />
 
                         <fieldset style="position: absolute;top: 80px;left: 10px;height: 350px;width: 830px; border-radius: 10px; text-align: left">
                             <legend style="font-size: 14px; color: blue"><strong>Estados Civiles</strong></legend>
