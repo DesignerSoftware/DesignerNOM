@@ -666,8 +666,18 @@ button .ui-widget-header{
    margin: 0px;
 }
 
-.cssEstiloColumnasNumericas .ui-cell-editor-output,
-.cssEstiloColumnasNumericas .ui-cell-editor-input input {
+.cssColumnasNumericas .ui-cell-editor-output,
+.cssColumnasNumericas .ui-cell-editor-input input {
    width: 100% !important;
    text-align: right !important;
+}
+
+.cssTablaFooterAlto .ui-datatable-scrollable-footer,
+.cssTablaFooterAlto tfoot tr td {
+   /*position: rela;*/
+   height: 22px !important;
+}
+
+.ui-datatable-scrollable th {
+   text-align: center !important;
 }

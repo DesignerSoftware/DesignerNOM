@@ -1479,19 +1479,20 @@ public class ControlParametrosConjuntos implements Serializable {
          }
          System.out.println("Ya Asigno las Unidades de Detalles");
       }
-      calcularTotalesDet();
       actualizarCosasDetalles();
    }
 
    public void actualizarCosasDetalles() {
-      RequestContext.getCurrentInstance().reset("form:lOVDetalles:globalFilter");
+      RequestContext context = RequestContext.getCurrentInstance();
+      calcularTotalesDet();
+      context.reset("form:lOVDetalles:globalFilter");
       System.out.println("1");
       RequestContext.getCurrentInstance().update("form:detallesDialogo");
       System.out.println("2");
       RequestContext.getCurrentInstance().update("form:lOVDetalles");
       System.out.println("3");
-      RequestContext.getCurrentInstance().execute("PF('form:lOVDetalles').clearFilters()");
       contarRegistrosDetalles();
+      RequestContext.getCurrentInstance().execute("PF('lOVDetalles').clearFilters()");
       System.out.println("4");
       RequestContext.getCurrentInstance().execute("PF('operacionEnProceso').hide()");
       System.out.println("5");
@@ -1500,7 +1501,6 @@ public class ControlParametrosConjuntos implements Serializable {
    }
 
    public void estadisticasDetalleLB() {
-      RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().execute("PF('operacionEnProceso').show()");
       seleccionPorcentajes = false;
       FacesContext contextF = FacesContext.getCurrentInstance();
@@ -1613,20 +1613,22 @@ public class ControlParametrosConjuntos implements Serializable {
          }
          System.out.println("Ya Asigno las Unidades de Detalles");
       }
-      calcularTotalesDet();
-      context.reset("form:lOVDetalles:globalFilter");
-      System.out.println("1");
-      RequestContext.getCurrentInstance().update("form:detallesDialogo");
-      System.out.println("2");
-      RequestContext.getCurrentInstance().update("form:lOVDetalles");
-      System.out.println("3");
-      contarRegistrosDetalles();
-      RequestContext.getCurrentInstance().execute("PF('lOVDetalles').clearFilters()");
-      System.out.println("4");
-      RequestContext.getCurrentInstance().execute("PF('operacionEnProceso').hide()");
-      System.out.println("5");
-      RequestContext.getCurrentInstance().execute("PF('detallesDialogo').show()");
-      System.out.println("6");
+//      calcularTotalesDet();
+//      context.reset("form:lOVDetalles:globalFilter");
+//      System.out.println("1");
+//      RequestContext.getCurrentInstance().update("form:detallesDialogo");
+//      System.out.println("2");
+//      RequestContext.getCurrentInstance().update("form:lOVDetalles");
+//      System.out.println("3");
+//      contarRegistrosDetalles();
+//      RequestContext.getCurrentInstance().execute("PF('lOVDetalles').clearFilters()");
+//      System.out.println("4");
+//      RequestContext.getCurrentInstance().execute("PF('operacionEnProceso').hide()");
+//      System.out.println("5");
+//      RequestContext.getCurrentInstance().execute("PF('detallesDialogo').show()");
+//      System.out.println("6");
+      actualizarCosasDetalles();
+
    }
 
    public void salirDetalles() {
