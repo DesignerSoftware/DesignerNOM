@@ -871,12 +871,36 @@ public class ControlComprobantes implements Serializable {
       this.filtradolistaSolucionesNodosEmpleador = filtradolistaSolucionesNodosEmpleador;
    }
 
-   public String getPago() {
+   public String getPago(){
       return pago;
    }
 
-   public String getDescuento() {
+   public void setPago(String pago) {
+      this.pago = pago;
+   }
+   
+    public String getDescuento() {
       return descuento;
+   }
+
+   public void setNeto(BigDecimal neto) {
+      this.neto = neto;
+   }
+
+   public void setDescuento(String descuento) {
+      this.descuento = descuento;
+   }
+
+   public void setPasivo(String pasivo) {
+      this.pasivo = pasivo;
+   }
+
+   public void setGasto(String gasto) {
+      this.gasto = gasto;
+   }
+
+   public void setNetoTotal(String netoTotal) {
+      this.netoTotal = netoTotal;
    }
 
    public String getPasivo() {

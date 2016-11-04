@@ -589,14 +589,6 @@ button .ui-widget-header{
    padding-left: 3px !important;
 }
 
-.ui-datatable-scrollable td div .ui-cell-editor-output {
-   height: 18px;
-   position: relative;
-   width: -moz-max-content;
-   width: max-content;
-   margin: 0px;
-}
-
 .ui-datatable-scrollable .ui-state-highlight input,
 .ui-datatable-scrollable .ui-state-highlight .ui-input
 {
@@ -616,16 +608,16 @@ button .ui-widget-header{
 }
 
 .ui-datatable-scrollable-theadclone tr th {
-  height: 0px !important;
-  padding-top: 0px !important;
-  padding-bottom: 0px !important;
+   height: 0px !important;
+   padding-top: 0px !important;
+   padding-bottom: 0px !important;
 }
 
 .ui-datepicker .ui-datepicker-header {
-    background: #61A0CA url("images/ui-bg_highlight-hard_50_61A0CA_1x100.png") 50% 50% repeat-x
+   background: #61A0CA url("images/ui-bg_highlight-hard_50_61A0CA_1x100.png") 50% 50% repeat-x
 }
 
-.ui-scrollpanel-hbar .ui-scrollpanel-track{
+.ui-scrollpanel-hbar .ui-scrollpanel-track {
    height: 10px !important;
    background: #9CC3DD !important; 
 }
@@ -638,26 +630,44 @@ button .ui-widget-header{
 }
 
 .ui-selectonemenu {
-    display: block;
-    height: 19px;
-    padding-right: 27px;
+   display: block;
+   height: 19px;
+   padding-right: 27px;
 }
 
-.ui-fileupload-content{
+.ui-fileupload-content {
    display: none !important;
    /*border: none !important;*/
    background-color: white !important;
 }
 
-.ui-fileupload-buttonbar, .ui-fileupload-buttonbar-.ui-widget-header{
+.ui-fileupload-buttonbar, .ui-fileupload-buttonbar-.ui-widget-header {
    padding: 0 0;
    background-color: white !important;
 }
 
-.ui-selectonemenu label.ui-selectonemenu-label{
+.ui-selectonemenu label.ui-selectonemenu-label {
    padding: 2px 3px !important;
 }
 
 .ui-paginator.ui-paginator-bottom {
-    display: none !important;
+   display: none !important;
+}
+/*
+.ui-datatable-scrollable .ui-cell-editor {
+   display: initial !important;
+}*/
+
+.ui-datatable-scrollable .ui-cell-editor-output {
+   width: max-content;
+   width: -moz-max-content;
+   height: 18px;
+   position: relative;
+   margin: 0px;
+}
+
+.cssEstiloColumnasNumericas .ui-cell-editor-output,
+.cssEstiloColumnasNumericas .ui-cell-editor-input input {
+   width: 100% !important;
+   text-align: right !important;
 }

@@ -117,15 +117,13 @@
                                     <h:outputText value="#{msg['progresoliquidacion']}" style="font-weight: bold; position: absolute; top: 10px; left: 10px"/>
 
                                     <p:progressBar id="barra" widgetVar="barra" ajax="true" value="#{controlBarra.barra}" labelTemplate="#{controlBarra.mensajeBarra}"
-                                                   styleClass="#{controlBarra.liquifinalizada ? 'finished':'animated'}" interval="700" style="position: relative; top: 25px; width: 446px; left: 5px;">
-                                        <p:ajax event="complete" listener="#{controlBarra.liquidacionCompleta()}"/>  
-                                    </p:progressBar>
+                                                   styleClass="#{controlBarra.liquifinalizada ? 'finished':'animated'}" interval="700" style="position: relative; top: 25px; width: 446px; left: 5px;"/>
                                     <h:outputText id="estadoLiquidacion" value="#{controlBarra.mensajeEstado}" style="font-weight: bold; position: absolute; top: 57px; left: 0px; color: blue; width: 460px; text-align: center;"/>
                                 </fieldset>
                             </p:panel>
 
                             <fieldset style="position: relative; top: -125px; left: -5px; width: 479px; padding: 0px; border-width: 2px; height: 83px; text-align: center; background-color: #cccccc; border-radius: 0px 0px 6px 6px;">
-                                <p:commandButton id="liquidar" value="#{msg['liquidar']}" actionListener="#{controlBarra.liquidar()}" disabled="#{controlBarra.botonLiquidar}" 
+                               <p:commandButton id="liquidar" value="#{msg['liquidar']}" actionListener="#{controlBarra.liquidar()}" disabled="#{controlBarra.botonLiquidar}"
                                                  style="position: relative; top: 10px; left: 0px ; width: 315px; height: 35px; border-color: #203A8E; border-width: 2px; background-color: white;"/>
                                 <p:commandButton value="#{msg['repcontrol']}" style="position: relative; top: 10px; width: 151px; height: 35px; left: 2px; border-color: #203A8E; border-width: 2px; background-color: white;"/>
                                 <p:commandButton id="cancelar" value="#{msg['cancelar']}" actionListener="#{controlBarra.cancelarLiquidacion()}" disabled="#{controlBarra.botonCancelar}"
@@ -371,6 +369,12 @@
                         <p:commandButton style="position: absolute; left: 770px; top: 500px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); 
                                          background-size: 100% 100%; background-repeat: no-repeat; border: none;" value="" id="ATRAS"  actionListener="#{controlBarra.salir()}" action="nomina" process="@this" />
                     </p:panel>
+                    
+<!--                    <p:dialog id="liquidacionTerminada" header="#{msg['atencion']}" widgetVar="liquidacionTerminada" resizable="false" draggable="true" modal="true" height="95" width="400" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:outputText value="bla bla bla bla bla bla bla bla bla :" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
+                        <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="window.location.reload()" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                    </p:dialog>-->
                 </h:form>
                 <h:form>
                     <p:dialog id="permisoLiquidacion" header="#{msg['atencion']}" widgetVar="permisoLiquidacion"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  

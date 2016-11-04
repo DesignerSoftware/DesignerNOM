@@ -156,7 +156,8 @@ public class ControlBarra implements Serializable {
       RequestContext.getCurrentInstance().update("form:PanelTotal");
       RequestContext.getCurrentInstance().update("form:imagen");
       RequestContext.getCurrentInstance().update("form:growl");
-      consultarEstadoDatos();
+//      System.out.println("--------------------:  Va a ejecutar {PF('liquidacionTerminada').show()}  :--------------------");
+//      RequestContext.getCurrentInstance().execute("PF('liquidacionTerminada').show()");
    }
 
    public void cancelarLiquidacion() {
@@ -429,7 +430,6 @@ public class ControlBarra implements Serializable {
                   RequestContext.getCurrentInstance().update("form:barra");
                   RequestContext.getCurrentInstance().update("form:estadoLiquidacion");
                   RequestContext.getCurrentInstance().update("form:growl");
-                  consultarEstadoDatos();
                } else if (barra >= 100) {
                   barra = 100;
                   System.out.println("Esta en teoría completa...Barra: " + barra);

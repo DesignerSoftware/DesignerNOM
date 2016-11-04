@@ -112,23 +112,23 @@
                         <p:ajax event="filter" listener="#{controlCargo.eventoFiltrar()}"/>
 
                         <p:column headerText="#{msg['codigo']}" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" 
-                                  id="cargoCodigo" width="40" style="text-align: center;" filterStyle="display: none; visibility: hidden;" >                                  
+                                  id="cargoCodigo" width="40" style="text-align: center;" filterStyle="display: none; visibility: hidden;">
                            <f:facet name="header">
                               <h:outputText id="headerCd" value="Cod"/>
-                              <p:tooltip  for="headerCd" value="#{msg['codigo']}" />
+                              <p:tooltip for="headerCd" value="#{msg['codigo']}"/>
                            </f:facet>
-                           <p:cellEditor>  
-                              <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
+                           <p:cellEditor>
+                              <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off" value="#{info.codigo}" onclick="select();" id="editarCodigoCargo" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                 <p:inputText  autocomplete="off" value="#{info.codigo}" onclick="select();" id="editarCodigoCargo" style="border-radius: 0px; width: 99.5%; text-transform: uppercase;">
                                     <p:ajax event="change" listener="#{controlCargo.procesoModificacionCargo(info)}" update="editarCodigoCargo" process="@this"/>
-                                    <p:ajax event="select" listener="#{controlCargo.cambiarIndice(info, 0)}"  process="@this"
+                                    <p:ajax event="select" listener="#{controlCargo.cambiarIndice(info, 0)}" process="@this"
                                             onstart="PF('datosCargo').unselectAllRows();PF('datosCargo').selectRow(#{indice});"/>
                                  </p:inputText>
-                              </f:facet>  
+                              </f:facet>
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <h:outputText value="" />
+                              <h:outputText value=""/>
                            </f:facet>
                         </p:column>
 

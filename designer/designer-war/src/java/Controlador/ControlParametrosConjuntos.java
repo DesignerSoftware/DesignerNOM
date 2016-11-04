@@ -346,12 +346,12 @@ public class ControlParametrosConjuntos implements Serializable {
       tipoListaLB = 0;
       bandera = 0;
       restablecerTablas();
-      contarRegistros();
-      contarRegistrosLB();
       despintarPorcentajes();
       FacesMessage msg = new FacesMessage("Información", "Se guardaron los parametros con éxito");
       FacesContext.getCurrentInstance().addMessage(null, msg);
       RequestContext.getCurrentInstance().update("form:growl");
+      contarRegistrosLB();
+      contarRegistros();
 //      RequestContext.getCurrentInstance().update("form:tablaEstadisticasTotales");
 //      RequestContext.getCurrentInstance().update("form:tablaEstadisticasTotalesLB");
 //      RequestContext.getCurrentInstance().update("form:tablaEstadisticasLB");
@@ -910,9 +910,9 @@ public class ControlParametrosConjuntos implements Serializable {
       String estiloNaranja = " background-color: #FDAB1C !important;";
       String estiloVerde = " background-color: #89fd89 !important;";
       String estiloRojo = " background-color: red !important; color: white !important;";
-      
+
       if ((parametrosActuales.getDesviacion1().doubleValue() == 0) || (porcentajesVariacion.get("1").doubleValue() == 0)) {
-            input1.setStyle(estilo + estiloNaranja);
+         input1.setStyle(estilo + estiloNaranja);
       } else if (parametrosActuales.getDesviacion1().compareTo(porcentajesVariacion.get("1")) == -1) {
          input1.setStyle(estilo + estiloRojo);
       } else {
@@ -1477,15 +1477,26 @@ public class ControlParametrosConjuntos implements Serializable {
                }
             }
          }
+         System.out.println("Ya Asigno las Unidades de Detalles");
       }
       calcularTotalesDet();
-      contarRegistrosDetalles();
-      context.reset("form:lOVDetalles:globalFilter");
+      actualizarCosasDetalles();
+   }
+
+   public void actualizarCosasDetalles() {
+      RequestContext.getCurrentInstance().reset("form:lOVDetalles:globalFilter");
+      System.out.println("1");
       RequestContext.getCurrentInstance().update("form:detallesDialogo");
+      System.out.println("2");
       RequestContext.getCurrentInstance().update("form:lOVDetalles");
+      System.out.println("3");
       RequestContext.getCurrentInstance().execute("PF('form:lOVDetalles').clearFilters()");
+      contarRegistrosDetalles();
+      System.out.println("4");
       RequestContext.getCurrentInstance().execute("PF('operacionEnProceso').hide()");
+      System.out.println("5");
       RequestContext.getCurrentInstance().execute("PF('detallesDialogo').show()");
+      System.out.println("6");
    }
 
    public void estadisticasDetalleLB() {
@@ -1600,15 +1611,22 @@ public class ControlParametrosConjuntos implements Serializable {
                }
             }
          }
+         System.out.println("Ya Asigno las Unidades de Detalles");
       }
       calcularTotalesDet();
-      contarRegistrosDetalles();
       context.reset("form:lOVDetalles:globalFilter");
+      System.out.println("1");
       RequestContext.getCurrentInstance().update("form:detallesDialogo");
+      System.out.println("2");
       RequestContext.getCurrentInstance().update("form:lOVDetalles");
+      System.out.println("3");
+      contarRegistrosDetalles();
       RequestContext.getCurrentInstance().execute("PF('lOVDetalles').clearFilters()");
+      System.out.println("4");
       RequestContext.getCurrentInstance().execute("PF('operacionEnProceso').hide()");
+      System.out.println("5");
       RequestContext.getCurrentInstance().execute("PF('detallesDialogo').show()");
+      System.out.println("6");
    }
 
    public void salirDetalles() {
@@ -1621,6 +1639,7 @@ public class ControlParametrosConjuntos implements Serializable {
    }
 
    public void calcularTotalesDet() {
+      System.out.println("Entro en calcularTotalesDet()");
       valorTotalDetalles = new BigInteger("0");
       if (!listaDetalles.isEmpty()) {
          for (int i = 0; i < listaDetalles.size(); i++) {
@@ -1633,6 +1652,7 @@ public class ControlParametrosConjuntos implements Serializable {
             totalUnidadesDetalles = listaDetalles.get(i).getUnidadesActivo().add(totalUnidadesDetalles);
          }
       }
+      System.out.println("Termino calcularTotalesDet()");
    }
 
    public void activarFiltros() {
@@ -2080,10 +2100,10 @@ public class ControlParametrosConjuntos implements Serializable {
       tipoLista = 0;
       tipoListaLB = 0;
 
-      contarRegistros();
-      contarRegistrosLB();
       RequestContext.getCurrentInstance().update("form:tablaEstadisticasLB");
       RequestContext.getCurrentInstance().update("form:tablaEstadisticas");
+      contarRegistros();
+      contarRegistrosLB();
    }
 
    public void eventoFiltrar() {
@@ -2111,7 +2131,8 @@ public class ControlParametrosConjuntos implements Serializable {
    }
 
    public void contarRegistrosDetalles() {
-         RequestContext.getCurrentInstance().update("form:infoRegistroDetalles");
+      System.out.println("Entro en contarRegistrosDetalles()");
+      RequestContext.getCurrentInstance().update("form:infoRegistroDetalles");
    }
 
    public void contarRegistrosConceptos() {
@@ -2130,7 +2151,6 @@ public class ControlParametrosConjuntos implements Serializable {
             }
          }
       }
-      contarRegistrosConceptos();
       System.out.println("listaConceptosEspecificos.size() : " + listaConceptosEspecificos.size());
       System.out.println("infoRegistroConceptos : " + infoRegistroConceptos);
       RequestContext context = RequestContext.getCurrentInstance();
@@ -2142,6 +2162,7 @@ public class ControlParametrosConjuntos implements Serializable {
       RequestContext.getCurrentInstance().execute("PF('LOVConceptos').unselectAllRows()");
       RequestContext.getCurrentInstance().execute("PF('operacionEnProceso').hide()");
       RequestContext.getCurrentInstance().execute("PF('conceptosDialogo').show()");
+      contarRegistrosConceptos();
    }
 
    public void cargarListaConceptos() {

@@ -269,8 +269,7 @@
                      <h:outputText id="infoRegistroComprobanteEmpleado" value="#{msg['infoRegistros']} #{controlComprobantes.infoRegistroComprobanteEmpleado}" style="position: relative; left: 10px; top: 118px; font-weight: bold;"/>
 
                      <h:outputText value="#{msg['totales']}" style="text-align: left; position: relative; border: none; color: #14388B; background-color: white; left: 180px; top: 118px; font-weight: bold;"/>
-                     <p:inputText id="pagocomprobante" value="#{controlComprobantes.pago}"
-                                  style="width: 90px; height: 19px; padding: 0; font-size: 11px; text-align: right; position: relative; left: 210px; top: 118px; font-weight: bold; color: #14388B;"/>
+                     <p:inputText id="pagocomprobante" value="#{controlComprobantes.pago}" style="width: 90px; height: 19px; padding: 0; font-size: 11px; text-align: right; position: relative; left: 210px; top: 118px; font-weight: bold; color: #14388B;"/>
                      <p:inputText id="descuentocomprobante" value="#{controlComprobantes.descuento}"
                                   style="width: 90px; height: 19px; padding: 0; font-size: 11px; text-align: right; position: relative; left: 211px; top: 118px; font-weight: bold; color: #14388B;"/>
                      <h:outputText id="netocomprobante" value="Neto: &nbsp;&nbsp; #{controlComprobantes.netoTotal}"
@@ -290,7 +289,7 @@
                         <p:ajax event="filter" listener="#{controlComprobantes.eventoFiltrarComprobanteEmpleador()}"/>
 
                         <p:column width="21"> 
-                           <p:commandButton value="" style="width: 17px; height: 17px;" actionListener="#{controlComprobantes.parcialSolucionNodoEmpleador(indiceER, 0)}"/>
+                           <p:commandButton value="" style="width: 17px; height: 17px;" actionListener="#{controlComprobantes.parcialSolucionNodoEmpleador(solucionNodoEmpleador, 0)}"/>
                         </p:column>
 
                         <p:column id="codigoSNER" headerText="#{msg['codigo']}" sortBy="#{solucionNodoEmpleador.codigoconcepto}" width="60"
