@@ -77,7 +77,7 @@ public class PersistenciaSoAntecedentes implements PersistenciaSoAntecedentesInt
     public List<SoAntecedentes> lovAntecedentes(EntityManager em, BigInteger secTipoAntecedente) {
         try {
             em.clear();
-            String sql = "SELECT * FROM SOANTECEDENTES WHERE SOANTECEDENTES.TIPOANTECEDENTE = ?";
+            String sql = "SELECT * FROM SOANTECEDENTES WHERE TIPOANTECEDENTE = ?";
             Query query = em.createNativeQuery(sql, SoAntecedentes.class);
             query.setParameter(1, secTipoAntecedente);
             List<SoAntecedentes> antecedentes = query.getResultList();

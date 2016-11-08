@@ -19,6 +19,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -54,6 +55,8 @@ public class SoAntecedentesMedicos implements Serializable {
     @NotNull
     @ManyToOne(optional = false)
     private Empleados empleado;
+    @Transient
+    private String antecedenteDescripcion;
 
     public BigInteger getSecuencia() {
         return secuencia;
@@ -102,7 +105,18 @@ public class SoAntecedentesMedicos implements Serializable {
     public void setEmpleado(Empleados empleado) {
         this.empleado = empleado;
     }
-    
+
+    public String getAntecedenteDescripcion() {
+        if (antecedenteDescripcion == null) {
+            antecedenteDescripcion = this.antecedente.getDescripcion();
+        }
+        return antecedenteDescripcion;
+    }
+
+    public void setAntecedenteDescripcion(String antecedenteDescripcion) {
+        this.antecedenteDescripcion = antecedenteDescripcion;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -127,5 +141,5 @@ public class SoAntecedentesMedicos implements Serializable {
     public String toString() {
         return "Entidades.SoAntecedentesMedicos[ secuencia=" + secuencia + " ]";
     }
-    
+
 }

@@ -1,6 +1,5 @@
 package Controlador;
 
-
 import Entidades.ActualUsuario;
 import Entidades.Empresas;
 import Entidades.Inforeportes;
@@ -24,6 +23,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -135,7 +135,7 @@ public class ControlInterfaseContableTotal implements Serializable {
     //
     private String msnFechasActualizar;
     //
-    private int totalCGenerado, totalDGenerado, totalDInter, totalCInter;
+    private BigDecimal totalCGenerado, totalDGenerado, totalDInter, totalCInter;
     //
     private String msnPaso1;
     //
@@ -157,10 +157,10 @@ public class ControlInterfaseContableTotal implements Serializable {
     public ControlInterfaseContableTotal() {
         ftpClient = new FTPClient();
         msnPaso1 = "";
-        totalCGenerado = 0;
-        totalDGenerado = 0;
-        totalDInter = 0;
-        totalCInter = 0;
+        totalCGenerado = BigDecimal.ZERO;
+        totalDGenerado = BigDecimal.ZERO;
+        totalDInter = BigDecimal.ZERO;
+        totalCInter = BigDecimal.ZERO;
         activarEnviar = true;
         activarDeshacer = true;
         msnFechasActualizar = "";
@@ -231,13 +231,9 @@ public class ControlInterfaseContableTotal implements Serializable {
         parametroContableActual = null;
         getParametroContableActual();
         getLovEmpresas();
-        modificarInfoRegistroEmpresas(lovEmpresas.size());
         getLovProcesos();
-        modificarInfoRegistroProcesos(lovProcesos.size());
         getListaGenerados();
-        contarRegistrosGenerados();
         getListaInterconTotal();
-        contarRegistrosContabilizados();
     }
 
     public String redirigir() {
@@ -257,10 +253,10 @@ public class ControlInterfaseContableTotal implements Serializable {
                 RequestContext.getCurrentInstance().update("form:btnEnviar");
                 RequestContext.getCurrentInstance().update("form:btnDeshacer");
                 RequestContext.getCurrentInstance().update("form:PLANO");
-                totalCGenerado = 0;
-                totalDGenerado = 0;
-                totalDInter = 0;
-                totalCInter = 0;
+                totalCGenerado = BigDecimal.ZERO;
+                totalDGenerado = BigDecimal.ZERO;
+                totalDInter = BigDecimal.ZERO;
+                totalCInter = BigDecimal.ZERO;
                 if (registroActual == 0) {
                     estadoBtnArriba = true;
                 }
@@ -337,10 +333,10 @@ public class ControlInterfaseContableTotal implements Serializable {
                 RequestContext.getCurrentInstance().update("form:btnEnviar");
                 RequestContext.getCurrentInstance().update("form:btnDeshacer");
                 RequestContext.getCurrentInstance().update("form:PLANO");
-                totalCGenerado = 0;
-                totalDGenerado = 0;
-                totalDInter = 0;
-                totalCInter = 0;
+                totalCGenerado = BigDecimal.ZERO;
+                totalDGenerado = BigDecimal.ZERO;
+                totalDInter = BigDecimal.ZERO;
+                totalCInter = BigDecimal.ZERO;
                 if (registroActual > 0) {
                     estadoBtnArriba = false;
                 }
@@ -998,97 +994,95 @@ public class ControlInterfaseContableTotal implements Serializable {
             if ((fechaHasta.after(parametroContableActual.getFechainicialcontabilizacion()) && fechaHasta.after(parametroContableActual.getFechafinalcontabilizacion()))
                     || (fechaDesde.before(parametroContableActual.getFechainicialcontabilizacion()) && fechaHasta.after(parametroContableActual.getFechafinalcontabilizacion()))) {
                 RequestContext.getCurrentInstance().execute("PF('errorVWActualesFechas').show()");
-            } else {
-                if (parametroContableActual.getEmpresaRegistro().getSecuencia() != null
-                        && parametroContableActual.getFechafinalcontabilizacion() != null
-                        && parametroContableActual.getFechainicialcontabilizacion() != null) {
-                    guardadoGeneral();
-                    administrarInterfaseContableTotal.ejcutarPKGUbicarnuevointercon_total(parametroContableActual.getSecuencia(), parametroContableActual.getFechainicialcontabilizacion(), parametroContableActual.getFechafinalcontabilizacion(), parametroContableActual.getProceso().getSecuencia());
-                    listaGenerados = null;
-                    if (listaGenerados == null) {
-                        listaGenerados = administrarInterfaseContableTotal.obtenerSolucionesNodosParametroContable(parametroContableActual.getFechainicialcontabilizacion(), parametroContableActual.getFechafinalcontabilizacion());
-                        if (listaGenerados != null) {
-                            if (listaGenerados.size() > 0) {
-                                activarEnviar = false;
-                            } else {
-                                activarDeshacer = true;
-                            }
+            } else if (parametroContableActual.getEmpresaRegistro().getSecuencia() != null
+                    && parametroContableActual.getFechafinalcontabilizacion() != null
+                    && parametroContableActual.getFechainicialcontabilizacion() != null) {
+                guardadoGeneral();
+                administrarInterfaseContableTotal.ejcutarPKGUbicarnuevointercon_total(parametroContableActual.getSecuencia(), parametroContableActual.getFechainicialcontabilizacion(), parametroContableActual.getFechafinalcontabilizacion(), parametroContableActual.getProceso().getSecuencia());
+                listaGenerados = null;
+                if (listaGenerados == null) {
+                    listaGenerados = administrarInterfaseContableTotal.obtenerSolucionesNodosParametroContable(parametroContableActual.getFechainicialcontabilizacion(), parametroContableActual.getFechafinalcontabilizacion());
+                    if (listaGenerados != null) {
+                        if (listaGenerados.size() > 0) {
+                            activarEnviar = false;
                         } else {
                             activarDeshacer = true;
                         }
-                        getTotalCGenerado();
-                        getTotalDGenerado();
+                    } else {
+                        activarDeshacer = true;
                     }
-                    listaInterconTotal = null;
-                    if (listaInterconTotal == null) {
-                        listaInterconTotal = administrarInterfaseContableTotal.obtenerInterconTotalParametroContable(parametroContableActual.getFechainicialcontabilizacion(), parametroContableActual.getFechafinalcontabilizacion());
-                        if (listaInterconTotal != null) {
+                    getTotalCGenerado();
+                    getTotalDGenerado();
+                }
+                listaInterconTotal = null;
+                if (listaInterconTotal == null) {
+                    listaInterconTotal = administrarInterfaseContableTotal.obtenerInterconTotalParametroContable(parametroContableActual.getFechainicialcontabilizacion(), parametroContableActual.getFechafinalcontabilizacion());
+                    if (listaInterconTotal != null) {
 //                            if (listaInterconTotal.size() > 0) {
-                            activarDeshacer = false;
+                        activarDeshacer = false;
 //                            } else {
 //                                activarDeshacer = true;
 //                            }
-                        } else {
-                            activarDeshacer = true;
-                        }
-                        getTotalCInter();
-                        getTotalDInter();
+                    } else {
+                        activarDeshacer = true;
                     }
-                    RequestContext.getCurrentInstance().update("form:totalDGenerado");
-                    RequestContext.getCurrentInstance().update("form:totalCGenerado");
-                    RequestContext.getCurrentInstance().update("form:totalDInter");
-                    RequestContext.getCurrentInstance().update("form:totalCInter");
-
-                    RequestContext.getCurrentInstance().update("form:btnEnviar");
-                    RequestContext.getCurrentInstance().update("form:btnDeshacer");
-                    RequestContext.getCurrentInstance().update("form:PLANO");
-                    if (banderaGenerado == 1) {
-                        FacesContext c = FacesContext.getCurrentInstance();
-                        altoTablaGenerada = "75";
-                        genProceso = (Column) c.getViewRoot().findComponent("form:datosGenerados:genProceso");
-                        genProceso.setFilterStyle("display: none; visibility: hidden;");
-                        genEmpleado = (Column) c.getViewRoot().findComponent("form:datosGenerados:genEmpleado");
-                        genEmpleado.setFilterStyle("display: none; visibility: hidden;");
-                        genCntCredito = (Column) c.getViewRoot().findComponent("form:datosGenerados:genCntCredito");
-                        genCntCredito.setFilterStyle("display: none; visibility: hidden;");
-                        genCntDebito = (Column) c.getViewRoot().findComponent("form:datosGenerados:genCntDebito");
-                        genCntDebito.setFilterStyle("display: none; visibility: hidden;");
-                        genTercero = (Column) c.getViewRoot().findComponent("form:datosGenerados:genTercero");
-                        genTercero.setFilterStyle("display: none; visibility: hidden;");
-                        genValor = (Column) c.getViewRoot().findComponent("form:datosGenerados:genValor");
-                        genValor.setFilterStyle("display: none; visibility: hidden;");
-                        genConcepto = (Column) c.getViewRoot().findComponent("form:datosGenerados:genConcepto");
-                        genConcepto.setFilterStyle("display: none; visibility: hidden;");
-                        RequestContext.getCurrentInstance().update("form:datosGenerados");
-                        banderaGenerado = 0;
-                        filtrarListaGenerados = null;
-                        tipoListaGenerada = 0;
-                    }
-                    if (banderaIntercon == 1) {
-                        FacesContext c = FacesContext.getCurrentInstance();
-                        altoTablaIntercon = "75";
-                        interEmpleado = (Column) c.getViewRoot().findComponent("form:datosIntercon:interEmpleado");
-                        interEmpleado.setFilterStyle("display: none; visibility: hidden;");
-                        interTercero = (Column) c.getViewRoot().findComponent("form:datosIntercon:interTercero");
-                        interTercero.setFilterStyle("display: none; visibility: hidden;");
-                        interCuenta = (Column) c.getViewRoot().findComponent("form:datosIntercon:interCuenta");
-                        interCuenta.setFilterStyle("display: none; visibility: hidden;");
-                        interDebito = (Column) c.getViewRoot().findComponent("form:datosIntercon:interDebito");
-                        interDebito.setFilterStyle("display: none; visibility: hidden;");
-                        interCredito = (Column) c.getViewRoot().findComponent("form:datosIntercon:interCredito");
-                        interCredito.setFilterStyle("display: none; visibility: hidden;");
-                        interConcepto = (Column) c.getViewRoot().findComponent("form:datosIntercon:interConcepto");
-                        interConcepto.setFilterStyle("display: none; visibility: hidden;");
-                        interCentroCosto = (Column) c.getViewRoot().findComponent("form:datosIntercon:interCentroCosto");
-                        interCentroCosto.setFilterStyle("display: none; visibility: hidden;");
-                        RequestContext.getCurrentInstance().update("form:datosIntercon");
-                        banderaIntercon = 0;
-                        filtrarListaInterconTotal = null;
-                        tipoListaIntercon = 0;
-                    }
-                    RequestContext.getCurrentInstance().update("form:datosGenerados");
-                    RequestContext.getCurrentInstance().update("form:datosIntercon");
+                    getTotalCInter();
+                    getTotalDInter();
                 }
+                RequestContext.getCurrentInstance().update("form:totalDGenerado");
+                RequestContext.getCurrentInstance().update("form:totalCGenerado");
+                RequestContext.getCurrentInstance().update("form:totalDInter");
+                RequestContext.getCurrentInstance().update("form:totalCInter");
+
+                RequestContext.getCurrentInstance().update("form:btnEnviar");
+                RequestContext.getCurrentInstance().update("form:btnDeshacer");
+                RequestContext.getCurrentInstance().update("form:PLANO");
+                if (banderaGenerado == 1) {
+                    FacesContext c = FacesContext.getCurrentInstance();
+                    altoTablaGenerada = "75";
+                    genProceso = (Column) c.getViewRoot().findComponent("form:datosGenerados:genProceso");
+                    genProceso.setFilterStyle("display: none; visibility: hidden;");
+                    genEmpleado = (Column) c.getViewRoot().findComponent("form:datosGenerados:genEmpleado");
+                    genEmpleado.setFilterStyle("display: none; visibility: hidden;");
+                    genCntCredito = (Column) c.getViewRoot().findComponent("form:datosGenerados:genCntCredito");
+                    genCntCredito.setFilterStyle("display: none; visibility: hidden;");
+                    genCntDebito = (Column) c.getViewRoot().findComponent("form:datosGenerados:genCntDebito");
+                    genCntDebito.setFilterStyle("display: none; visibility: hidden;");
+                    genTercero = (Column) c.getViewRoot().findComponent("form:datosGenerados:genTercero");
+                    genTercero.setFilterStyle("display: none; visibility: hidden;");
+                    genValor = (Column) c.getViewRoot().findComponent("form:datosGenerados:genValor");
+                    genValor.setFilterStyle("display: none; visibility: hidden;");
+                    genConcepto = (Column) c.getViewRoot().findComponent("form:datosGenerados:genConcepto");
+                    genConcepto.setFilterStyle("display: none; visibility: hidden;");
+                    RequestContext.getCurrentInstance().update("form:datosGenerados");
+                    banderaGenerado = 0;
+                    filtrarListaGenerados = null;
+                    tipoListaGenerada = 0;
+                }
+                if (banderaIntercon == 1) {
+                    FacesContext c = FacesContext.getCurrentInstance();
+                    altoTablaIntercon = "75";
+                    interEmpleado = (Column) c.getViewRoot().findComponent("form:datosIntercon:interEmpleado");
+                    interEmpleado.setFilterStyle("display: none; visibility: hidden;");
+                    interTercero = (Column) c.getViewRoot().findComponent("form:datosIntercon:interTercero");
+                    interTercero.setFilterStyle("display: none; visibility: hidden;");
+                    interCuenta = (Column) c.getViewRoot().findComponent("form:datosIntercon:interCuenta");
+                    interCuenta.setFilterStyle("display: none; visibility: hidden;");
+                    interDebito = (Column) c.getViewRoot().findComponent("form:datosIntercon:interDebito");
+                    interDebito.setFilterStyle("display: none; visibility: hidden;");
+                    interCredito = (Column) c.getViewRoot().findComponent("form:datosIntercon:interCredito");
+                    interCredito.setFilterStyle("display: none; visibility: hidden;");
+                    interConcepto = (Column) c.getViewRoot().findComponent("form:datosIntercon:interConcepto");
+                    interConcepto.setFilterStyle("display: none; visibility: hidden;");
+                    interCentroCosto = (Column) c.getViewRoot().findComponent("form:datosIntercon:interCentroCosto");
+                    interCentroCosto.setFilterStyle("display: none; visibility: hidden;");
+                    RequestContext.getCurrentInstance().update("form:datosIntercon");
+                    banderaIntercon = 0;
+                    filtrarListaInterconTotal = null;
+                    tipoListaIntercon = 0;
+                }
+                RequestContext.getCurrentInstance().update("form:datosGenerados");
+                RequestContext.getCurrentInstance().update("form:datosIntercon");
             }
         }
     }
@@ -1145,10 +1139,10 @@ public class ControlInterfaseContableTotal implements Serializable {
 
             listaGenerados = null;
             if (listaGenerados == null) {
-                System.out.println("fecha inicial contabilzacion : " + parametroContableActual.getFechainicialcontabilizacion() );
-                System.out.println("fecha final contabilzacion : " + parametroContableActual.getFechafinalcontabilizacion() );
-                System.out.println("empresa parametro : " +parametroContableActual.getEmpresaRegistro().getNombre());
-                        
+                System.out.println("fecha inicial contabilzacion : " + parametroContableActual.getFechainicialcontabilizacion());
+                System.out.println("fecha final contabilzacion : " + parametroContableActual.getFechafinalcontabilizacion());
+                System.out.println("empresa parametro : " + parametroContableActual.getEmpresaRegistro().getNombre());
+
                 listaGenerados = administrarInterfaseContableTotal.obtenerSolucionesNodosParametroContable(parametroContableActual.getFechainicialcontabilizacion(), parametroContableActual.getFechafinalcontabilizacion());
                 if (listaGenerados != null) {
                     if (listaGenerados.size() > 0) {
@@ -1161,8 +1155,7 @@ public class ControlInterfaseContableTotal implements Serializable {
                 }
                 getTotalCGenerado();
                 getTotalDGenerado();
-               // modificarInfoRegistroGenerados(listaGenerados.size());
-               contarRegistrosGenerados();
+                contarRegistrosGenerados();
             }
             /*
            
@@ -1177,14 +1170,12 @@ public class ControlInterfaseContableTotal implements Serializable {
                     } else {
                         activarDeshacer = true;
                     }
-                } 
-                else {
+                } else {
                     activarDeshacer = true;
                 }
                 getTotalCInter();
                 getTotalDInter();
-                contarRegistrosContabilizados();
-//                modificarInfoRegistroContabilizados(listaInterconTotal.size());
+                contarRegistroContabilizados();
             }
 
             RequestContext.getCurrentInstance().update("form:PanelTotal");
@@ -1202,6 +1193,7 @@ public class ControlInterfaseContableTotal implements Serializable {
             //validarFechasProcesoActualizar();
 
             System.out.println("I finish");
+            System.out.println("terminó proceso actualizar");
         } else {
             RequestContext.getCurrentInstance().execute("PF('errorFechasParametros').show()");
         }
@@ -1302,10 +1294,10 @@ public class ControlInterfaseContableTotal implements Serializable {
             filtrarListaInterconTotal = null;
             tipoListaIntercon = 0;
         }
-        totalCGenerado = 0;
-        totalDGenerado = 0;
-        totalDInter = 0;
-        totalCInter = 0;
+        totalCGenerado = BigDecimal.ZERO;
+        totalDGenerado = BigDecimal.ZERO;
+        totalDInter = BigDecimal.ZERO;
+        totalCInter = BigDecimal.ZERO;
         activarEnviar = true;
         activarDeshacer = true;
         modificacionParametro = false;
@@ -1496,10 +1488,10 @@ public class ControlInterfaseContableTotal implements Serializable {
         interconTablaSeleccionada = null;
         activarEnviar = true;
         activarDeshacer = true;
-        totalCGenerado = 0;
-        totalDGenerado = 0;
-        totalDInter = 0;
-        totalCInter = 0;
+        totalCGenerado = BigDecimal.ZERO;
+        totalDGenerado = BigDecimal.ZERO;
+        totalDInter = BigDecimal.ZERO;
+        totalCInter = BigDecimal.ZERO;
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
@@ -1558,7 +1550,6 @@ public class ControlInterfaseContableTotal implements Serializable {
         context.reset("form:lovEmpresa:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('lovEmpresa').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('EmpresaDialogo').hide()");
-        RequestContext.getCurrentInstance().update("form:EmpresaDialogo').hide()");
     }
 
     public void actualizarProceso() {
@@ -1698,10 +1689,10 @@ public class ControlInterfaseContableTotal implements Serializable {
         }
         activarEnviar = true;
         activarDeshacer = true;
-        totalCGenerado = 0;
-        totalDGenerado = 0;
-        totalDInter = 0;
-        totalCInter = 0;
+        totalCGenerado = BigDecimal.ZERO;
+        totalDGenerado = BigDecimal.ZERO;
+        totalDInter = BigDecimal.ZERO;
+        totalCInter = BigDecimal.ZERO;
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:PanelTotal");
         RequestContext.getCurrentInstance().update("form:btnEnviar");
@@ -1734,10 +1725,10 @@ public class ControlInterfaseContableTotal implements Serializable {
                     listaInterconTotal = null;
                     activarEnviar = true;
                     activarDeshacer = true;
-                    totalCGenerado = 0;
-                    totalDGenerado = 0;
-                    totalDInter = 0;
-                    totalCInter = 0;
+                    totalCGenerado = BigDecimal.ZERO;
+                    totalDGenerado = BigDecimal.ZERO;
+                    totalDInter = BigDecimal.ZERO;
+                    totalCInter = BigDecimal.ZERO;
                     RequestContext.getCurrentInstance().update("form:btnEnviar");
                     RequestContext.getCurrentInstance().update("form:btnDeshacer");
                     RequestContext.getCurrentInstance().update("form:PLANO");
@@ -2012,7 +2003,6 @@ public class ControlInterfaseContableTotal implements Serializable {
                 tipoListaIntercon = 0;
             }
         }
-
     }
 
     public void validarRastro() {
@@ -2037,86 +2027,55 @@ public class ControlInterfaseContableTotal implements Serializable {
             } else if (resultado == 5) {
                 RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
+        } else if (administrarRastros.verificarHistoricosTabla("INTERCON_TOTAL")) {
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            if (administrarRastros.verificarHistoricosTabla("INTERCON_TOTAL")) {
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-            }
-
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
     }
 
-    public void modificarInfoRegistroEmpresas(int valor) {
-        infoRegistroEmpresa = String.valueOf(valor);
+    public void contarRegistroEmpresas() {
         RequestContext.getCurrentInstance().update("form:infoRegistroEmpresa");
     }
 
-    public void modificarInfoRegistroProcesos(int valor) {
-        infoRegistroProceso = String.valueOf(valor);
+    public void contarRegistroProcesos() {
         RequestContext.getCurrentInstance().update("form:infoRegistroProceso");
     }
 
-    public void modificarInfoRegistroGenerados(int valor) {
-        infoRegistroGenerados = String.valueOf(valor);
-        RequestContext.getCurrentInstance().update("form:infoRegistroGenerados");
-    }
-
-    public void modificarInfoRegistroContabilizados(int valor) {
-        infoRegistroContabilizados = String.valueOf(valor);
+    public void contarRegistroContabilizados() {
         RequestContext.getCurrentInstance().update("form:infoRegistroContabilizados");
     }
 
-    public void contarRegistrosGenerados(){
-        if(listaGenerados != null){
-            modificarInfoRegistroGenerados(listaGenerados.size());
-        } else{
-            modificarInfoRegistroGenerados(0);
-        }
+    public void contarRegistrosGenerados() {
+        RequestContext.getCurrentInstance().update("form:infoRegistroGenerados");
     }
-    
-    public void contarRegistrosContabilizados(){
-        if(listaInterconTotal != null){
-            modificarInfoRegistroContabilizados(listaInterconTotal.size());
-        } else{
-            modificarInfoRegistroContabilizados(0);
-        }
-    }
-    
+
     public void eventoFiltrarGenerados() {
-        if (generadoTablaSeleccionado != null) {
-            if (tipoListaGenerada == 0) {
-                tipoListaGenerada = 1;
-            }
-            modificarInfoRegistroGenerados(filtrarListaGenerados.size());
-        }
+        contarRegistrosGenerados();
     }
 
     public void eventoFiltrarContabilizados() {
-        if (interconTablaSeleccionada != null) {
-            if (tipoListaIntercon == 0) {
-                tipoListaIntercon = 1;
-            }
-            modificarInfoRegistroContabilizados(filtrarListaInterconTotal.size());
-        }
-    }
-
-    public void eventoFiltrarEmpresas() {
-        modificarInfoRegistroEmpresas(filtrarLovEmpresas.size());
-    }
-
-    public void eventoFiltrarProcesos() {
-        modificarInfoRegistroProcesos(filtrarLovProcesos.size());
+        contarRegistroContabilizados();
     }
 
     public void generarReporte() {
         System.out.println(this.getClass().getName() + ".generarReporte()");
         RequestContext context = RequestContext.getCurrentInstance();
 //        seleccionRegistro(reporte);
-        RequestContext.getCurrentInstance().execute("PF('generandoReporte').show();");
-        RequestContext.getCurrentInstance().execute("PF('generarDocumentoReporte();");
+        RequestContext.getCurrentInstance().execute("PF('generandoReporte').show()");
+//        RequestContext.getCurrentInstance().execute("PF('generarDocumentoReporte()').show()");
     }
 
+    /*
+     public void generarReporte(Inforeportes reporte) {
+        System.out.println(this.getClass().getName() + ".generarReporte()");
+        reporteSeleccionado = reporte;
+        seleccionRegistro();
+        RequestContext.getCurrentInstance().execute("PF('generandoReporte').show()");
+        generarDocumentoReporte();
+    }
+    */
+    
 //    public void seleccionRegistro(Inforeportes reporte) {
 //        System.out.println(this.getClass().getName() + ".seleccionRegistro()");
 //        RequestContext context = RequestContext.getCurrentInstance();
@@ -2124,25 +2083,54 @@ public class ControlInterfaseContableTotal implements Serializable {
 //        RequestContext.getCurrentInstance().update("formParametros");
 //        RequestContext.getCurrentInstance().update("form:reportesLaboral");
 //    }
-    public void generarDocumentoReporte() {
+//    public void generarDocumentoReporte() {
+//        RequestContext context = RequestContext.getCurrentInstance();
+//        System.out.println("nombreReporte antes de entrar" + nombreReporte);
+//        if (nombreReporte != null) {
+//            System.out.println("nombreReporte después de entrar" + nombreReporte);
+//            System.out.println("generando reporte - ingreso al 2 if");
+//            pathReporteGenerado = administarReportes.generarReporte(nombreReporte, tipoReporte);
+//        }
+//        if (pathReporteGenerado != null) {
+//            System.out.println("generando reporte - ingreso al 3 if");
+//            RequestContext.getCurrentInstance().execute("PF('validarDescargaReporte();");
+//        } else {
+//            System.out.println("generando reporte - ingreso al 3 if else");
+//            RequestContext.getCurrentInstance().execute("PF('generandoReporte.hide();");
+//            RequestContext.getCurrentInstance().update("formularioDialogos:errorGenerandoReporte");
+//            RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show();");
+//        }
+//    }
+
+    
+    /*
+     public void generarDocumentoReporte() {
         RequestContext context = RequestContext.getCurrentInstance();
-        System.out.println("nombreReporte antes de entrar" + nombreReporte);
-        if (nombreReporte != null) {
-            System.out.println("nombreReporte después de entrar" + nombreReporte);
-            System.out.println("generando reporte - ingreso al 2 if");
-            pathReporteGenerado = administarReportes.generarReporte(nombreReporte, tipoReporte);
-        }
-        if (pathReporteGenerado != null) {
-            System.out.println("generando reporte - ingreso al 3 if");
-            RequestContext.getCurrentInstance().execute("PF('validarDescargaReporte();");
+        if (reporteSeleccionado != null) {
+            System.out.println("generando reporte - ingreso al if");
+            nombreReporte = reporteSeleccionado.getNombrereporte();
+            tipoReporte = reporteSeleccionado.getTipo();
+
+            if (nombreReporte != null && tipoReporte != null) {
+                System.out.println("generando reporte - ingreso al 2 if");
+                pathReporteGenerado = administarReportes.generarReporte(nombreReporte, tipoReporte);
+            }
+            if (pathReporteGenerado != null) {
+                System.out.println("generando reporte - ingreso al 3 if");
+                validarDescargaReporte();
+            } else {
+                System.out.println("generando reporte - ingreso al 3 if else");
+                RequestContext.getCurrentInstance().execute("PF('generandoReporte.hide();");
+                RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
+                RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
+            }
         } else {
-            System.out.println("generando reporte - ingreso al 3 if else");
-            RequestContext.getCurrentInstance().execute("PF('generandoReporte.hide();");
-            RequestContext.getCurrentInstance().update("formularioDialogos:errorGenerandoReporte");
-            RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show();");
+            System.out.println("generando reporte - ingreso al if else");
+            System.out.println("Reporte Seleccionado es nulo");
         }
     }
-
+    
+    */
     public void generarArchivoReporte(JasperPrint print) {
         System.out.println(this.getClass().getName() + ".generarArchivoReporte()");
         if (print != null && tipoReporte != null) {
@@ -2377,6 +2365,9 @@ public class ControlInterfaseContableTotal implements Serializable {
     }
 
     public String getInfoRegistroEmpresa() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lovEmpresa");
+        infoRegistroEmpresa = String.valueOf(tabla.getRowCount());
         return infoRegistroEmpresa;
     }
 
@@ -2385,6 +2376,9 @@ public class ControlInterfaseContableTotal implements Serializable {
     }
 
     public String getInfoRegistroProceso() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lovProceso");
+        infoRegistroProceso = String.valueOf(tabla.getRowCount());
         return infoRegistroProceso;
     }
 
@@ -2604,63 +2598,63 @@ public class ControlInterfaseContableTotal implements Serializable {
         this.activarDeshacer = activarDeshacer;
     }
 
-    public int getTotalCGenerado() {
-        totalCGenerado = 0;
+    public BigDecimal getTotalCGenerado() {
+        totalCGenerado = BigDecimal.ZERO;
         getListaGenerados();
         if (listaGenerados != null) {
             for (int i = 0; i < listaGenerados.size(); i++) {
-                totalCGenerado = totalCGenerado + listaGenerados.get(i).getValor().intValue();
+                totalCGenerado = totalCGenerado.add(listaGenerados.get(i).getValor());
             }
         }
         return totalCGenerado;
     }
 
-    public void setTotalCGenerado(int totalCGenerado) {
+    public void setTotalCGenerado(BigDecimal totalCGenerado) {
         this.totalCGenerado = totalCGenerado;
     }
 
-    public int getTotalDGenerado() {
-        totalDGenerado = 0;
+    public BigDecimal getTotalDGenerado() {
+        totalDGenerado = BigDecimal.ZERO;
         getListaGenerados();
         if (listaGenerados != null) {
             for (int i = 0; i < listaGenerados.size(); i++) {
-                totalDGenerado = totalDGenerado + listaGenerados.get(i).getValor().intValue();
+                totalDGenerado = totalDGenerado .add(listaGenerados.get(i).getValor());
             }
         }
         return totalDGenerado;
     }
 
-    public void setTotalDGenerado(int totalDGenerado) {
+    public void setTotalDGenerado(BigDecimal totalDGenerado) {
         this.totalDGenerado = totalDGenerado;
     }
 
-    public int getTotalDInter() {
-        totalDInter = 0;
+    public BigDecimal getTotalDInter() {
+        totalDInter = BigDecimal.ZERO;
         getListaInterconTotal();
         if (listaInterconTotal != null) {
             for (int i = 0; i < listaInterconTotal.size(); i++) {
-                totalDInter = totalDInter + listaInterconTotal.get(i).getValord().intValue();
+                totalDInter = totalDInter.add(BigDecimal.valueOf(listaInterconTotal.get(i).getValord()));
             }
         }
         return totalDInter;
     }
 
-    public void setTotalDInter(int totalDInter) {
+    public void setTotalDInter(BigDecimal totalDInter) {
         this.totalDInter = totalDInter;
     }
 
-    public int getTotalCInter() {
-        totalCInter = 0;
+    public BigDecimal getTotalCInter() {
+        totalCInter = BigDecimal.ZERO;
         getListaInterconTotal();
         if (listaInterconTotal != null) {
             for (int i = 0; i < listaInterconTotal.size(); i++) {
-                totalCInter = totalCInter + listaInterconTotal.get(i).getValorc().intValue();
+                totalCInter = totalCInter.add(BigDecimal.valueOf(listaInterconTotal.get(i).getValorc()));
             }
         }
         return totalCInter;
     }
 
-    public void setTotalCInter(int totalCInter) {
+    public void setTotalCInter(BigDecimal totalCInter) {
         this.totalCInter = totalCInter;
     }
 
@@ -2761,6 +2755,9 @@ public class ControlInterfaseContableTotal implements Serializable {
     }
 
     public String getInfoRegistroGenerados() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosGenerados");
+        infoRegistroGenerados = String.valueOf(tabla.getRowCount());
         return infoRegistroGenerados;
     }
 
@@ -2769,6 +2766,9 @@ public class ControlInterfaseContableTotal implements Serializable {
     }
 
     public String getInfoRegistroContabilizados() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosIntercon");
+        infoRegistroContabilizados = String.valueOf(tabla.getRowCount());
         return infoRegistroContabilizados;
     }
 

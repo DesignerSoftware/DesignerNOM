@@ -445,7 +445,7 @@
 
                         <h:outputText  value="#{msg['tipoPlano']}" style="position: relative; left: 10px; top: 455px; font-weight: bold"/>
 
-                        <p:selectOneMenu id="tipoPlano" value="#{controlInterfaseContableTotal.tipoPlano}" style="position: relative; left: 10px; top: 460px;">
+                        <p:selectOneMenu id="tipoPlano" value="#{controlInterfaseContableTotal.tipoPlano}" style="position: relative; left: 10px; top: 460px; width: 100px">
                             <f:selectItem itemLabel="#{msg['detallado']}" itemValue="1" />
                             <f:selectItem itemLabel="#{msg['semiDetallado']}" itemValue="2" />
                             <f:selectItem itemLabel="#{msg['resumido']}" itemValue="3" />
@@ -476,7 +476,7 @@
                                          filteredValue="#{controlInterfaseContableTotal.filtrarLovProcesos}" emptyMessage="#{msg['lovvacio']}">              
                                 <p:ajax event="rowSelect" listener="#{controlInterfaseContableTotal.activarAceptar()}" update=":form:aceptarP"/>
                                 <p:ajax event="rowDblselect" listener="#{controlInterfaseContableTotal.actualizarProceso()}" process="@this" />
-                                <p:ajax event="filter" listener="#{controlInterfaseContableTotal.eventoFiltrarProcesos()}"/>
+                                <p:ajax event="filter" listener="#{controlInterfaseContableTotal.contarRegistroProcesos()}"/>
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarP']}" style="position: absolute; left: 27px; top: 14px"/>  
                                     <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovProceso').filter();" style="width:150px; position: relative; left: -10px;" />  
@@ -510,7 +510,7 @@
                                          filteredValue="#{controlInterfaseContableTotal.filtrarLovEmpresas}" emptyMessage="#{msg['lovvacio']}">              
                                 <p:ajax event="rowSelect" listener="#{controlInterfaseContableTotal.activarAceptar()}" update=":form:aceptarE"/>
                                 <p:ajax event="rowDblselect" listener="#{controlInterfaseContableTotal.actualizarEmpresa()}" process="@this" />
-                                <p:ajax event="filter" listener="#{controlInterfaseContableTotal.eventoFiltrarEmpresas()}"/>
+                                <p:ajax event="filter" listener="#{controlInterfaseContableTotal.contarRegistroEmpresas()}"/>
                                 <f:facet name="header">  
                                     <h:outputText value="#{msg['buscarE']}" style="position: absolute; left: 27px; top: 14px"/>  
                                     <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovEmpresa').filter();" style="width:150px; position: relative; left: -10px;"  />  

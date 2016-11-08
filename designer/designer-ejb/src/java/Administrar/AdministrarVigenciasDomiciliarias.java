@@ -315,6 +315,13 @@ public class AdministrarVigenciasDomiciliarias implements AdministrarVigenciasDo
     @Override
     public void crearAntecedenteM(List<SoAntecedentesMedicos> listaCrear) {
         for (int i = 0; i < listaCrear.size(); i++) {
+            if(listaCrear.get(i).getAntecedente() == null){
+                listaCrear.get(i).setAntecedente(new SoAntecedentes());
+            }
+            
+            if(listaCrear.get(i).getEmpleado() == null){
+                listaCrear.get(i).setEmpleado(new Empleados());
+            }
             persistenciaAntecdentesM.crear(em, listaCrear.get(i));
         }
     }

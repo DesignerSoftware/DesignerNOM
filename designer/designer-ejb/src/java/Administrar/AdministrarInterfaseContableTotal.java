@@ -14,6 +14,7 @@ import InterfacePersistencia.PersistenciaActualUsuarioInterface;
 import InterfacePersistencia.PersistenciaContabilizacionesInterface;
 import InterfacePersistencia.PersistenciaEmpresasInterface;
 import InterfacePersistencia.PersistenciaGeneralesInterface;
+import InterfacePersistencia.PersistenciaInforeportesInterface;
 import InterfacePersistencia.PersistenciaInterconTotalInterface;
 import InterfacePersistencia.PersistenciaParametrosContablesInterface;
 import InterfacePersistencia.PersistenciaParametrosEstructurasInterface;
@@ -22,6 +23,7 @@ import InterfacePersistencia.PersistenciaSolucionesNodosInterface;
 import InterfacePersistencia.PersistenciaTercerosInterface;
 import InterfacePersistencia.PersistenciaUsuariosInterfasesInterface;
 import InterfacePersistencia.PersistenciaVWActualesFechasInterface;
+import Persistencia.PersistenciaInforeportes;
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
@@ -62,6 +64,8 @@ public class AdministrarInterfaseContableTotal implements AdministrarInterfaseCo
     PersistenciaUsuariosInterfasesInterface persistenciaUsuariosInterfases;
     @EJB
     PersistenciaGeneralesInterface persistenciaGenerales;
+    @EJB
+    PersistenciaInforeportesInterface persistenciaReportes;
 
     private EntityManager em;
 
