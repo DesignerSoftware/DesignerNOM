@@ -8,7 +8,6 @@
       xmlns:lnk="http://java.sun.com/jsf/composite/linkare"
       xmlns:pe="http://primefaces.org/ui/extensions">
    <h:head>
-
    </h:head>
    <h:body>
       <ui:composition template="/template.xhtml">
@@ -222,8 +221,8 @@
                                  </f:facet>          
                                  <f:facet name="input">        
                                     <h:inputText style="width: 98%;" value="#{info.dimension}" readonly="true" onselect="posicionEstadisticas([{name: 'n', value: '107'}]);
-                                       PF('tablaEstadisticas').unselectAllRows();
-                                       PF('tablaEstadisticas').selectRow(#{indice});" />
+                                          PF('tablaEstadisticas').unselectAllRows();
+                                          PF('tablaEstadisticas').selectRow(#{indice});" />
                                  </f:facet>                                     
                               </p:cellEditor>
                               <f:facet name="footer"><h:outputText value=""/></f:facet>
@@ -242,8 +241,8 @@
                                  </f:facet>          
                                  <f:facet name="input">        
                                     <h:inputText value="#{info.z}" readonly="true" onselect="posicionEstadisticas([{name: 'n', value: '108'}]);
-                                       PF('tablaEstadisticas').unselectAllRows();
-                                       PF('tablaEstadisticas').selectRow(#{indice});">
+                                          PF('tablaEstadisticas').unselectAllRows();
+                                          PF('tablaEstadisticas').selectRow(#{indice});">
                                        <f:convertDateTime pattern="dd/MM/yyyy" />
                                     </h:inputText>
                                  </f:facet>                                     
@@ -265,8 +264,8 @@
                                  </f:facet>          
                                  <f:facet name="input">        
                                     <h:inputText value="#{info.estado}" readonly="true" onselect="posicionEstadisticas([{name: 'n', value: '109'}]);
-                                       PF('tablaEstadisticas').unselectAllRows();
-                                       PF('tablaEstadisticas').selectRow(#{indice});" />
+                                          PF('tablaEstadisticas').unselectAllRows();
+                                          PF('tablaEstadisticas').selectRow(#{indice});" />
                                  </f:facet>                                     
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -294,8 +293,8 @@
                                     <p:inputText autocomplete="off" value="#{info.conjunto1}" style="background-color: rgb(155, 216, 255)" readonly="true"
                                                  ondblclick="PF('operacionEnProceso').show(); posicionEstadisticasDC([{name: 'n', value: '1'}]);"
                                                  onselect="posicionEstadisticas([{name: 'n', value: '1'}]);
-                                                    PF('tablaEstadisticas').unselectAllRows();
-                                                    PF('tablaEstadisticas').selectRow(#{indice});" />
+                                                       PF('tablaEstadisticas').unselectAllRows();
+                                                       PF('tablaEstadisticas').selectRow(#{indice});" />
                                  </f:facet>                                     
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -324,9 +323,9 @@
                                  <f:facet name="input">                                           
                                     <p:inputText  autocomplete="off"  value="#{info.conjunto2}" style="background-color: rgb(155, 216, 255)" readonly="true"
                                                   ondblclick="PF('operacionEnProceso').show();
-                                                     posicionEstadisticasDC([{name: 'n', value: '2'}]);" onselect="posicionEstadisticas([{name: 'n', value: '2'}]);
-                                                        PF('tablaEstadisticas').unselectAllRows();
-                                                        PF('tablaEstadisticas').selectRow(#{indice});"/>
+                                                        posicionEstadisticasDC([{name: 'n', value: '2'}]);" onselect="posicionEstadisticas([{name: 'n', value: '2'}]);
+                                                              PF('tablaEstadisticas').unselectAllRows();
+                                                              PF('tablaEstadisticas').selectRow(#{indice});"/>
                                  </f:facet>                                     
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -356,10 +355,10 @@
                                  <f:facet name="input">                                     
                                     <p:inputText  autocomplete="off"  value="#{info.conjunto3}" style="background-color: rgb(155, 216, 255)" readonly="true"
                                                   ondblclick="PF('operacionEnProceso').show();
-                                                     posicionEstadisticasDC([{name: 'n', value: '3'}]);"
+                                                        posicionEstadisticasDC([{name: 'n', value: '3'}]);"
                                                   onselect="posicionEstadisticas([{name: 'n', value: '3'}]);
-                                                     PF('tablaEstadisticas').unselectAllRows();
-                                                     PF('tablaEstadisticas').selectRow(#{indice});"/>
+                                                        PF('tablaEstadisticas').unselectAllRows();
+                                                        PF('tablaEstadisticas').selectRow(#{indice});"/>
                                  </f:facet>                                    
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -388,10 +387,10 @@
                                  <f:facet name="input">                                       
                                     <p:inputText  autocomplete="off" value="#{info.conjunto4}" style="background-color: rgb(155, 216, 255)" readonly="true"
                                                   ondblclick="PF('operacionEnProceso').show();
-                                                     posicionEstadisticasDC([{name: 'n', value: '4'}]);"
+                                                        posicionEstadisticasDC([{name: 'n', value: '4'}]);"
                                                   onselect="posicionEstadisticas([{name: 'n', value: '4'}]);
-                                                     PF('tablaEstadisticas').unselectAllRows();
-                                                     PF('tablaEstadisticas').selectRow(#{indice});"/>   
+                                                        PF('tablaEstadisticas').unselectAllRows();
+                                                        PF('tablaEstadisticas').selectRow(#{indice});"/>   
                                  </f:facet>                                   
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -419,10 +418,10 @@
                                  <f:facet name="input">                                      
                                     <p:inputText autocomplete="off" value="#{info.conjunto5}" style="background-color: rgb(155, 216, 255)" readonly="true"
                                                  ondblclick="PF('operacionEnProceso').show();
-                                                    posicionEstadisticasDC([{name: 'n', value: '5'}]);"
+                                                       posicionEstadisticasDC([{name: 'n', value: '5'}]);"
                                                  onselect="posicionEstadisticas([{name: 'n', value: '5'}]);
-                                                    PF('tablaEstadisticas').unselectAllRows();
-                                                    PF('tablaEstadisticas').selectRow(#{indice});"/>
+                                                       PF('tablaEstadisticas').unselectAllRows();
+                                                       PF('tablaEstadisticas').selectRow(#{indice});"/>
                                  </f:facet>                                  
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -450,9 +449,9 @@
                                  </f:facet>                                    
                                  <f:facet name="input">                                           
                                     <p:inputText  autocomplete="off"  value="#{info.conjunto6}" style="background-color: rgb(155, 216, 255)" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                       posicionEstadisticasDC([{name: 'n', value: '6'}]);" onselect="posicionEstadisticas([{name: 'n', value: '6'}]);
-                                          PF('tablaEstadisticas').unselectAllRows();
-                                          PF('tablaEstadisticas').selectRow(#{indice});"/>        
+                                          posicionEstadisticasDC([{name: 'n', value: '6'}]);" onselect="posicionEstadisticas([{name: 'n', value: '6'}]);
+                                                PF('tablaEstadisticas').unselectAllRows();
+                                                PF('tablaEstadisticas').selectRow(#{indice});"/>        
                                  </f:facet>                                 
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -480,9 +479,9 @@
                                  </f:facet>                                        
                                  <f:facet name="input">      
                                     <p:inputText  autocomplete="off"  value="#{info.conjunto7}" style="background-color: rgb(155, 216, 255)" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                       posicionEstadisticasDC([{name: 'n', value: '7'}]);" onselect="posicionEstadisticas([{name: 'n', value: '7'}]);
-                                          PF('tablaEstadisticas').unselectAllRows();
-                                          PF('tablaEstadisticas').selectRow(#{indice});"/>      
+                                          posicionEstadisticasDC([{name: 'n', value: '7'}]);" onselect="posicionEstadisticas([{name: 'n', value: '7'}]);
+                                                PF('tablaEstadisticas').unselectAllRows();
+                                                PF('tablaEstadisticas').selectRow(#{indice});"/>      
                                  </f:facet>                                    
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -510,9 +509,9 @@
                                  </f:facet>   
                                  <f:facet name="input">                   
                                     <p:inputText  autocomplete="off"  value="#{info.conjunto8}" style="background-color: rgb(155, 216, 255)" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                       posicionEstadisticasDC([{name: 'n', value: '8'}]);" onselect="posicionEstadisticas([{name: 'n', value: '8'}]);
-                                          PF('tablaEstadisticas').unselectAllRows();
-                                          PF('tablaEstadisticas').selectRow(#{indice});"/>
+                                          posicionEstadisticasDC([{name: 'n', value: '8'}]);" onselect="posicionEstadisticas([{name: 'n', value: '8'}]);
+                                                PF('tablaEstadisticas').unselectAllRows();
+                                                PF('tablaEstadisticas').selectRow(#{indice});"/>
                                  </f:facet>                                
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -540,9 +539,9 @@
                                  </f:facet>                                         
                                  <f:facet name="input">                                       
                                     <p:inputText  autocomplete="off"  value="#{info.conjunto9}" style="background-color: rgb(155, 216, 255)" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                       posicionEstadisticasDC([{name: 'n', value: '9'}]);" onselect="posicionEstadisticas([{name: 'n', value: '9'}]);
-                                          PF('tablaEstadisticas').unselectAllRows();
-                                          PF('tablaEstadisticas').selectRow(#{indice});"/>   
+                                          posicionEstadisticasDC([{name: 'n', value: '9'}]);" onselect="posicionEstadisticas([{name: 'n', value: '9'}]);
+                                                PF('tablaEstadisticas').unselectAllRows();
+                                                PF('tablaEstadisticas').selectRow(#{indice});"/>   
                                  </f:facet>                                     
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -570,9 +569,9 @@
                                  </f:facet>                                         
                                  <f:facet name="input">                                       
                                     <p:inputText  autocomplete="off"  value="#{info.conjunto10}" style="background-color: rgb(155, 216, 255)" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                       posicionEstadisticasDC([{name: 'n', value: '10'}]);" onselect="posicionEstadisticas([{name: 'n', value: '10'}]);
-                                          PF('tablaEstadisticas').unselectAllRows();
-                                          PF('tablaEstadisticas').selectRow(#{indice});"/>        
+                                          posicionEstadisticasDC([{name: 'n', value: '10'}]);" onselect="posicionEstadisticas([{name: 'n', value: '10'}]);
+                                                PF('tablaEstadisticas').unselectAllRows();
+                                                PF('tablaEstadisticas').selectRow(#{indice});"/>        
                                  </f:facet>                                      
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -600,9 +599,9 @@
                                  </f:facet>     
                                  <f:facet name="input">   
                                     <p:inputText  autocomplete="off"  value="#{info.conjunto11}" style="background-color: rgb(155, 216, 255)" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                       posicionEstadisticasDC([{name: 'n', value: '11'}]);" onselect="posicionEstadisticas([{name: 'n', value: '11'}]);
-                                          PF('tablaEstadisticas').unselectAllRows();
-                                          PF('tablaEstadisticas').selectRow(#{indice});"/>
+                                          posicionEstadisticasDC([{name: 'n', value: '11'}]);" onselect="posicionEstadisticas([{name: 'n', value: '11'}]);
+                                                PF('tablaEstadisticas').unselectAllRows();
+                                                PF('tablaEstadisticas').selectRow(#{indice});"/>
                                  </f:facet>                                
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -630,9 +629,9 @@
                                  </f:facet>    
                                  <f:facet name="input">  
                                     <p:inputText  autocomplete="off"  value="#{info.conjunto12}" style="background-color: rgb(155, 216, 255)" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                       posicionEstadisticasDC([{name: 'n', value: '12'}]);" onselect="posicionEstadisticas([{name: 'n', value: '12'}]);
-                                          PF('tablaEstadisticas').unselectAllRows();
-                                          PF('tablaEstadisticas').selectRow(#{indice});"/> 
+                                          posicionEstadisticasDC([{name: 'n', value: '12'}]);" onselect="posicionEstadisticas([{name: 'n', value: '12'}]);
+                                                PF('tablaEstadisticas').unselectAllRows();
+                                                PF('tablaEstadisticas').selectRow(#{indice});"/> 
                                  </f:facet>                                
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -661,10 +660,10 @@
                                  <f:facet name="input">                                          
                                     <p:inputText autocomplete="off" value="#{info.conjunto13}" style="background-color: rgb(155, 216, 255)" readonly="true"
                                                  ondblclick="PF('operacionEnProceso').show();
-                                                    posicionEstadisticasDC([{name: 'n', value: '13'}]);"
+                                                       posicionEstadisticasDC([{name: 'n', value: '13'}]);"
                                                  onselect="posicionEstadisticas([{name: 'n', value: '13'}]);
-                                                    PF('tablaEstadisticas').unselectAllRows();
-                                                    PF('tablaEstadisticas').selectRow(#{indice});"/>     
+                                                       PF('tablaEstadisticas').unselectAllRows();
+                                                       PF('tablaEstadisticas').selectRow(#{indice});"/>     
                                  </f:facet>                                     
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -693,9 +692,9 @@
                                  <f:facet name="input">                  
                                     <p:inputText  autocomplete="off"  value="#{info.conjunto14}" style="background-color: rgb(155, 216, 255)" readonly="true"
                                                   ondblclick="PF('operacionEnProceso').show();
-                                                     posicionEstadisticasDC([{name: 'n', value: '14'}]);" onselect="posicionEstadisticas([{name: 'n', value: '14'}]);
-                                                        PF('tablaEstadisticas').unselectAllRows();
-                                                        PF('tablaEstadisticas').selectRow(#{indice});"/>   
+                                                        posicionEstadisticasDC([{name: 'n', value: '14'}]);" onselect="posicionEstadisticas([{name: 'n', value: '14'}]);
+                                                              PF('tablaEstadisticas').unselectAllRows();
+                                                              PF('tablaEstadisticas').selectRow(#{indice});"/>   
                                  </f:facet>                                    
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -724,9 +723,9 @@
                                  <f:facet name="input">                                            
                                     <p:inputText  autocomplete="off"  value="#{info.conjunto15}" style="background-color: rgb(155, 216, 255)" readonly="true"
                                                   ondblclick="PF('operacionEnProceso').show();
-                                                     posicionEstadisticasDC([{name: 'n', value: '15'}]);" onselect="posicionEstadisticas([{name: 'n', value: '15'}]);
-                                                        PF('tablaEstadisticas').unselectAllRows();
-                                                        PF('tablaEstadisticas').selectRow(#{indice});"/>           
+                                                        posicionEstadisticasDC([{name: 'n', value: '15'}]);" onselect="posicionEstadisticas([{name: 'n', value: '15'}]);
+                                                              PF('tablaEstadisticas').unselectAllRows();
+                                                              PF('tablaEstadisticas').selectRow(#{indice});"/>           
                                  </f:facet>                                     
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -755,9 +754,9 @@
                                  <f:facet name="input">                                           
                                     <p:inputText  autocomplete="off"  value="#{info.conjunto16}" style="background-color: rgb(155, 216, 255)" readonly="true"
                                                   ondblclick="PF('operacionEnProceso').show();
-                                                     posicionEstadisticasDC([{name: 'n', value: '16'}]);" onselect="posicionEstadisticas([{name: 'n', value: '16'}]);
-                                                        PF('tablaEstadisticas').unselectAllRows();
-                                                        PF('tablaEstadisticas').selectRow(#{indice});"/>    
+                                                        posicionEstadisticasDC([{name: 'n', value: '16'}]);" onselect="posicionEstadisticas([{name: 'n', value: '16'}]);
+                                                              PF('tablaEstadisticas').unselectAllRows();
+                                                              PF('tablaEstadisticas').selectRow(#{indice});"/>    
                                  </f:facet>                                  
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -786,10 +785,10 @@
                                  <f:facet name="input">                                        
                                     <p:inputText autocomplete="off" value="#{info.conjunto17}" style="background-color: rgb(155, 216, 255)" readonly="true"
                                                  ondblclick="PF('operacionEnProceso').show();
-                                                    posicionEstadisticasDC([{name: 'n', value: '17'}]);"
+                                                       posicionEstadisticasDC([{name: 'n', value: '17'}]);"
                                                  onselect="posicionEstadisticas([{name: 'n', value: '17'}]);
-                                                    PF('tablaEstadisticas').unselectAllRows();
-                                                    PF('tablaEstadisticas').selectRow(#{indice});"/>     
+                                                       PF('tablaEstadisticas').unselectAllRows();
+                                                       PF('tablaEstadisticas').selectRow(#{indice});"/>     
                                  </f:facet>                                   
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -818,10 +817,10 @@
                                  <f:facet name="input">                                          
                                     <p:inputText autocomplete="off" value="#{info.conjunto18}" style="background-color: rgb(155, 216, 255)" readonly="true"
                                                  ondblclick="PF('operacionEnProceso').show();
-                                                    posicionEstadisticasDC([{name: 'n', value: '18'}]);"
+                                                       posicionEstadisticasDC([{name: 'n', value: '18'}]);"
                                                  onselect="posicionEstadisticas([{name: 'n', value: '18'}]);
-                                                    PF('tablaEstadisticas').unselectAllRows();
-                                                    PF('tablaEstadisticas').selectRow(#{indice});"/> 
+                                                       PF('tablaEstadisticas').unselectAllRows();
+                                                       PF('tablaEstadisticas').selectRow(#{indice});"/> 
                                  </f:facet>                           
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -850,10 +849,10 @@
                                  <f:facet name="input">                                         
                                     <p:inputText autocomplete="off" value="#{info.conjunto19}" style="background-color: rgb(155, 216, 255)" readonly="true"
                                                  ondblclick="PF('operacionEnProceso').show();
-                                                    posicionEstadisticasDC([{name: 'n', value: '19'}]);"
+                                                       posicionEstadisticasDC([{name: 'n', value: '19'}]);"
                                                  onselect="posicionEstadisticas([{name: 'n', value: '19'}]);
-                                                    PF('tablaEstadisticas').unselectAllRows();
-                                                    PF('tablaEstadisticas').selectRow(#{indice});"/>                    
+                                                       PF('tablaEstadisticas').unselectAllRows();
+                                                       PF('tablaEstadisticas').selectRow(#{indice});"/>                    
                                  </f:facet>                               
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -881,10 +880,11 @@
                                  </f:facet>                                          
                                  <f:facet name="input">                      
                                     <p:inputText autocomplete="off" value="#{info.conjunto20}" style="background-color: rgb(155, 216, 255)" readonly="true"
-                                                 ondblclick="PF('operacionEnProceso').show(); posicionEstadisticasDC([{name: 'n', value: '20'}]);"
+                                                 ondblclick="PF('operacionEnProceso').show();
+                                                       posicionEstadisticasDC([{name: 'n', value: '20'}]);"
                                                  onselect="posicionEstadisticas([{name: 'n', value: '20'}]);
-                                                    PF('tablaEstadisticas').unselectAllRows();
-                                                    PF('tablaEstadisticas').selectRow(#{indice});"/>    
+                                                       PF('tablaEstadisticas').unselectAllRows();
+                                                       PF('tablaEstadisticas').selectRow(#{indice});"/>    
                                  </f:facet>                                    
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -908,8 +908,8 @@
                                  <f:facet name="input">                                   
                                     <p:inputText autocomplete="off" value="#{info.totalPagos}" style="background-color: rgb(155, 216, 255)" readonly="true"
                                                  onselect="posicionEstadisticas([{name: 'n', value: '101'}]);
-                                                    PF('tablaEstadisticas').unselectAllRows();
-                                                    PF('tablaEstadisticas').selectRow(#{indice});"/>    
+                                                       PF('tablaEstadisticas').unselectAllRows();
+                                                       PF('tablaEstadisticas').selectRow(#{indice});"/>    
                                  </f:facet>                                     
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -938,10 +938,11 @@
                                  </f:facet>                                        
                                  <f:facet name="input">       
                                     <p:inputText autocomplete="off" value="#{info.conjunto21}" style="background-color: rgb(255, 182, 255);" readonly="true"
-                                                 ondblclick="PF('operacionEnProceso').show(); posicionEstadisticasDC([{name: 'n', value: '21'}]);"
+                                                 ondblclick="PF('operacionEnProceso').show();
+                                                       posicionEstadisticasDC([{name: 'n', value: '21'}]);"
                                                  onselect="posicionEstadisticas([{name: 'n', value: '21'}]);
-                                                    PF('tablaEstadisticas').unselectAllRows();
-                                                    PF('tablaEstadisticas').selectRow(#{indice});"/> 
+                                                       PF('tablaEstadisticas').unselectAllRows();
+                                                       PF('tablaEstadisticas').selectRow(#{indice});"/> 
                                  </f:facet>                                      
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -971,10 +972,10 @@
                                  <f:facet name="input">                                           
                                     <p:inputText autocomplete="off" value="#{info.conjunto22}" style="background-color: rgb(255, 182, 255);" readonly="true"
                                                  ondblclick="PF('operacionEnProceso').show();
-                                                    posicionEstadisticasDC([{name: 'n', value: '22'}]);"
+                                                       posicionEstadisticasDC([{name: 'n', value: '22'}]);"
                                                  onselect="posicionEstadisticas([{name: 'n', value: '22'}]);
-                                                    PF('tablaEstadisticas').unselectAllRows();
-                                                    PF('tablaEstadisticas').selectRow(#{indice});"/>
+                                                       PF('tablaEstadisticas').unselectAllRows();
+                                                       PF('tablaEstadisticas').selectRow(#{indice});"/>
                                  </f:facet>                                     
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -1003,10 +1004,10 @@
                                  <f:facet name="input">                                           
                                     <p:inputText autocomplete="off" value="#{info.conjunto23}" style="background-color: rgb(255, 182, 255);" readonly="true"
                                                  ondblclick="PF('operacionEnProceso').show();
-                                                    posicionEstadisticasDC([{name: 'n', value: '23'}]);"
+                                                       posicionEstadisticasDC([{name: 'n', value: '23'}]);"
                                                  onselect="posicionEstadisticas([{name: 'n', value: '23'}]);
-                                                    PF('tablaEstadisticas').unselectAllRows();
-                                                    PF('tablaEstadisticas').selectRow(#{indice});"/>              
+                                                       PF('tablaEstadisticas').unselectAllRows();
+                                                       PF('tablaEstadisticas').selectRow(#{indice});"/>              
                                  </f:facet>                                     
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -1034,9 +1035,9 @@
                                  </f:facet>                                      
                                  <f:facet name="input">                                           
                                     <p:inputText  autocomplete="off"  value="#{info.conjunto24}" style="background-color: rgb(255, 182, 255);" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                       posicionEstadisticasDC([{name: 'n', value: '24'}]);" onselect="posicionEstadisticas([{name: 'n', value: '24'}]);
-                                          PF('tablaEstadisticas').unselectAllRows();
-                                          PF('tablaEstadisticas').selectRow(#{indice});"/>              
+                                          posicionEstadisticasDC([{name: 'n', value: '24'}]);" onselect="posicionEstadisticas([{name: 'n', value: '24'}]);
+                                                PF('tablaEstadisticas').unselectAllRows();
+                                                PF('tablaEstadisticas').selectRow(#{indice});"/>              
                                  </f:facet>                                     
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -1064,9 +1065,9 @@
                                  </f:facet>                                        
                                  <f:facet name="input">                                     
                                     <p:inputText autocomplete="off" value="#{info.conjunto25}" style="background-color: rgb(255, 182, 255);" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                       posicionEstadisticasDC([{name: 'n', value: '25'}]);" onselect="posicionEstadisticas([{name: 'n', value: '25'}]);
-                                          PF('tablaEstadisticas').unselectAllRows();
-                                          PF('tablaEstadisticas').selectRow(#{indice});"/>
+                                          posicionEstadisticasDC([{name: 'n', value: '25'}]);" onselect="posicionEstadisticas([{name: 'n', value: '25'}]);
+                                                PF('tablaEstadisticas').unselectAllRows();
+                                                PF('tablaEstadisticas').selectRow(#{indice});"/>
                                  </f:facet>                                    
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -1094,9 +1095,9 @@
                                  </f:facet>                    
                                  <f:facet name="input">                             
                                     <p:inputText  autocomplete="off"  value="#{info.conjunto26}" style="background-color: rgb(255, 182, 255);" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                       posicionEstadisticasDC([{name: 'n', value: '26'}]);" onselect="posicionEstadisticas([{name: 'n', value: '26'}]);
-                                          PF('tablaEstadisticas').unselectAllRows();
-                                          PF('tablaEstadisticas').selectRow(#{indice});"/>
+                                          posicionEstadisticasDC([{name: 'n', value: '26'}]);" onselect="posicionEstadisticas([{name: 'n', value: '26'}]);
+                                                PF('tablaEstadisticas').unselectAllRows();
+                                                PF('tablaEstadisticas').selectRow(#{indice});"/>
                                  </f:facet>                                    
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -1124,9 +1125,9 @@
                                  </f:facet>                                       
                                  <f:facet name="input">                                    
                                     <p:inputText  autocomplete="off"  value="#{info.conjunto27}" style="background-color: rgb(255, 182, 255);" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                       posicionEstadisticasDC([{name: 'n', value: '27'}]);" onselect="posicionEstadisticas([{name: 'n', value: '27'}]);
-                                          PF('tablaEstadisticas').unselectAllRows();
-                                          PF('tablaEstadisticas').selectRow(#{indice});"/>       
+                                          posicionEstadisticasDC([{name: 'n', value: '27'}]);" onselect="posicionEstadisticas([{name: 'n', value: '27'}]);
+                                                PF('tablaEstadisticas').unselectAllRows();
+                                                PF('tablaEstadisticas').selectRow(#{indice});"/>       
                                  </f:facet>                                    
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -1155,10 +1156,10 @@
                                  <f:facet name="input">                   
                                     <p:inputText  autocomplete="off"  value="#{info.conjunto28}" style="background-color: rgb(255, 182, 255);" readonly="true"
                                                   ondblclick="PF('operacionEnProceso').show();
-                                                     posicionEstadisticasDC([{name: 'n', value: '28'}]);"
+                                                        posicionEstadisticasDC([{name: 'n', value: '28'}]);"
                                                   onselect="posicionEstadisticas([{name: 'n', value: '28'}]);
-                                                     PF('tablaEstadisticas').unselectAllRows();
-                                                     PF('tablaEstadisticas').selectRow(#{indice});"/>                                     
+                                                        PF('tablaEstadisticas').unselectAllRows();
+                                                        PF('tablaEstadisticas').selectRow(#{indice});"/>                                     
                                  </f:facet>                                     
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -1187,9 +1188,9 @@
                                  <f:facet name="input">               
                                     <p:inputText  autocomplete="off"  value="#{info.conjunto29}" style="background-color: rgb(255, 182, 255);" readonly="true"
                                                   ondblclick="PF('operacionEnProceso').show();
-                                                     posicionEstadisticasDC([{name: 'n', value: '29'}]);" onselect="posicionEstadisticas([{name: 'n', value: '29'}]);
-                                                        PF('tablaEstadisticas').unselectAllRows();
-                                                        PF('tablaEstadisticas').selectRow(#{indice});"/>
+                                                        posicionEstadisticasDC([{name: 'n', value: '29'}]);" onselect="posicionEstadisticas([{name: 'n', value: '29'}]);
+                                                              PF('tablaEstadisticas').unselectAllRows();
+                                                              PF('tablaEstadisticas').selectRow(#{indice});"/>
                                  </f:facet>                                     
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -1219,8 +1220,8 @@
                                     <p:inputText autocomplete="off"  value="#{info.conjunto30}" style="background-color: rgb(255, 182, 255);" readonly="true"
                                                  ondblclick="PF('operacionEnProceso').show(); posicionEstadisticasDC([{name: 'n', value: '30'}]);"
                                                  onselect="posicionEstadisticas([{name: 'n', value: '30'}]);
-                                                    PF('tablaEstadisticas').unselectAllRows();
-                                                    PF('tablaEstadisticas').selectRow(#{indice});"/>  
+                                                       PF('tablaEstadisticas').unselectAllRows();
+                                                       PF('tablaEstadisticas').selectRow(#{indice});"/>  
                                  </f:facet>                                     
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -1245,8 +1246,8 @@
                                  <f:facet name="input">                                         
                                     <p:inputText autocomplete="off" value="#{info.totalDescuentos}" style="background-color: rgb(255, 182, 255);" readonly="true"
                                                  onselect="posicionEstadisticas([{name: 'n', value: '102'}]);
-                                                    PF('tablaEstadisticas').unselectAllRows();
-                                                    PF('tablaEstadisticas').selectRow(#{indice});"/>   
+                                                       PF('tablaEstadisticas').unselectAllRows();
+                                                       PF('tablaEstadisticas').selectRow(#{indice});"/>   
                                  </f:facet>                                    
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -1272,8 +1273,8 @@
                                  <f:facet name="input">                     
                                     <p:inputText autocomplete="off" value="#{info.netos}" style="background-color: #ffcc66;" readonly="true"
                                                  onselect="posicionEstadisticas([{name: 'n', value: '103'}]);
-                                                    PF('tablaEstadisticas').unselectAllRows();
-                                                    PF('tablaEstadisticas').selectRow(#{indice});"/>
+                                                       PF('tablaEstadisticas').unselectAllRows();
+                                                       PF('tablaEstadisticas').selectRow(#{indice});"/>
                                  </f:facet>                                     
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -1302,8 +1303,8 @@
                                  </f:facet>                                         
                                  <f:facet name="input">                                          
                                     <p:inputText  autocomplete="off"  value="#{info.conjunto31}" style="background-color: rgb(149, 221, 193);" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                       posicionEstadisticasDC([{name: 'n', value: '31'}]);" onselect="posicionEstadisticas([{name: 'n', value: '31'}]);
-                                          PF('tablaEstadisticas').unselectAllRows(); PF('tablaEstadisticas').selectRow(#{indice});"/>
+                                          posicionEstadisticasDC([{name: 'n', value: '31'}]);" onselect="posicionEstadisticas([{name: 'n', value: '31'}]);
+                                                PF('tablaEstadisticas').unselectAllRows(); PF('tablaEstadisticas').selectRow(#{indice});"/>
                                  </f:facet>                                  
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -1331,9 +1332,11 @@
                                  </f:facet>                              
                                  <f:facet name="input">   
                                     <p:inputText autocomplete="off" value="#{info.conjunto32}" style="background-color: rgb(149, 221, 193);" readonly="true"
-                                                 ondblclick="PF('operacionEnProceso').show(); posicionEstadisticasDC([{name: 'n', value: '32'}]);"
+                                                 ondblclick="PF('operacionEnProceso').show();
+                                                       posicionEstadisticasDC([{name: 'n', value: '32'}]);"
                                                  onselect="posicionEstadisticas([{name: 'n', value: '32'}]);
-                                                    PF('tablaEstadisticas').unselectAllRows(); PF('tablaEstadisticas').selectRow(#{indice});"/>     
+                                                       PF('tablaEstadisticas').unselectAllRows();
+                                                       PF('tablaEstadisticas').selectRow(#{indice});"/>     
                                  </f:facet>                                     
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -1359,7 +1362,8 @@
                                     <p:inputText autocomplete="off" value="#{info.conjunto33}" style="background-color: rgb(149, 221, 193);" readonly="true"
                                                  ondblclick="PF('operacionEnProceso').show(); posicionEstadisticasDC([{name: 'n', value: '33'}]);"
                                                  onselect="posicionEstadisticas([{name: 'n', value: '33'}]);
-                                                    PF('tablaEstadisticas').unselectAllRows(); PF('tablaEstadisticas').selectRow(#{indice});"/>             
+                                                       PF('tablaEstadisticas').unselectAllRows();
+                                                       PF('tablaEstadisticas').selectRow(#{indice});"/>             
                                  </f:facet>                                     
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -1385,7 +1389,7 @@
                                     <p:inputText  autocomplete="off" value="#{info.conjunto34}" style="background-color: rgb(149, 221, 193);" readonly="true"
                                                   ondblclick="PF('operacionEnProceso').show(); posicionEstadisticasDC([{name: 'n', value: '34'}]);"
                                                   onselect="posicionEstadisticas([{name: 'n', value: '34'}]);
-                                                     PF('tablaEstadisticas').unselectAllRows(); PF('tablaEstadisticas').selectRow(#{indice});"/>      
+                                                        PF('tablaEstadisticas').unselectAllRows(); PF('tablaEstadisticas').selectRow(#{indice});"/>      
                                  </f:facet>                                     
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -1413,8 +1417,8 @@
                                  <f:facet name="input">                      
                                     <p:inputText  autocomplete="off"  value="#{info.conjunto35}" style="background-color: rgb(149, 221, 193);" readonly="true"
                                                   ondblclick="PF('operacionEnProceso').show();
-                                                     posicionEstadisticasDC([{name: 'n', value: '35'}]);" onselect="posicionEstadisticas([{name: 'n', value: '35'}]);
-                                                        PF('tablaEstadisticas').unselectAllRows(); PF('tablaEstadisticas').selectRow(#{indice});"/>
+                                                        posicionEstadisticasDC([{name: 'n', value: '35'}]);" onselect="posicionEstadisticas([{name: 'n', value: '35'}]);
+                                                              PF('tablaEstadisticas').unselectAllRows(); PF('tablaEstadisticas').selectRow(#{indice});"/>
                                  </f:facet> 
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -1442,8 +1446,8 @@
                                  </f:facet>                                 
                                  <f:facet name="input">                                
                                     <p:inputText  autocomplete="off"  value="#{info.conjunto36}" style="background-color: rgb(149, 221, 193);" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                       posicionEstadisticasDC([{name: 'n', value: '36'}]);" onselect="posicionEstadisticas([{name: 'n', value: '36'}]);
-                                          PF('tablaEstadisticas').unselectAllRows(); PF('tablaEstadisticas').selectRow(#{indice});"/>  
+                                          posicionEstadisticasDC([{name: 'n', value: '36'}]);" onselect="posicionEstadisticas([{name: 'n', value: '36'}]);
+                                                PF('tablaEstadisticas').unselectAllRows(); PF('tablaEstadisticas').selectRow(#{indice});"/>  
                                  </f:facet>                                 
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -1471,8 +1475,8 @@
                                  </f:facet>                                         
                                  <f:facet name="input">                                 
                                     <p:inputText  autocomplete="off"  value="#{info.conjunto37}" style="background-color: rgb(149, 221, 193);" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                       posicionEstadisticasDC([{name: 'n', value: '37'}]);" onselect="posicionEstadisticas([{name: 'n', value: '37'}]);
-                                          PF('tablaEstadisticas').unselectAllRows(); PF('tablaEstadisticas').selectRow(#{indice});"/>         
+                                          posicionEstadisticasDC([{name: 'n', value: '37'}]);" onselect="posicionEstadisticas([{name: 'n', value: '37'}]);
+                                                PF('tablaEstadisticas').unselectAllRows(); PF('tablaEstadisticas').selectRow(#{indice});"/>         
                                  </f:facet>                                    
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -1497,7 +1501,7 @@
                                  <f:facet name="input">                               
                                     <p:inputText autocomplete="off" value="#{info.totalGastos}" style="background-color: rgb(149, 221, 193);" readonly="true"
                                                  onselect="posicionEstadisticas([{name: 'n', value: '104'}]);
-                                                    PF('tablaEstadisticas').unselectAllRows(); PF('tablaEstadisticas').selectRow(#{indice});"/>           
+                                                       PF('tablaEstadisticas').unselectAllRows(); PF('tablaEstadisticas').selectRow(#{indice});"/>           
                                  </f:facet>                                
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -1527,8 +1531,9 @@
                                  <f:facet name="input">                              
                                     <p:inputText autocomplete="off" value="#{info.conjunto38}" style="background-color: rgb(216, 155, 254);" readonly="true"
                                                  ondblclick="PF('operacionEnProceso').show();
-                                                    posicionEstadisticasDC([{name: 'n', value: '38'}]);" onselect="posicionEstadisticas([{name: 'n', value: '38'}]);
-                                                       PF('tablaEstadisticas').unselectAllRows(); PF('tablaEstadisticas').selectRow(#{indice});"/>
+                                                       posicionEstadisticasDC([{name: 'n', value: '38'}]);" onselect="posicionEstadisticas([{name: 'n', value: '38'}]);
+                                                             PF('tablaEstadisticas').unselectAllRows();
+                                                             PF('tablaEstadisticas').selectRow(#{indice});"/>
                                  </f:facet>                                   
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -1556,8 +1561,8 @@
                                  </f:facet>                                        
                                  <f:facet name="input">                                  
                                     <p:inputText  autocomplete="off"  value="#{info.conjunto39}" style="background-color: rgb(216, 155, 254);" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                       posicionEstadisticasDC([{name: 'n', value: '39'}]);" onselect="posicionEstadisticas([{name: 'n', value: '39'}]);
-                                          PF('tablaEstadisticas').unselectAllRows(); PF('tablaEstadisticas').selectRow(#{indice});"/>
+                                          posicionEstadisticasDC([{name: 'n', value: '39'}]);" onselect="posicionEstadisticas([{name: 'n', value: '39'}]);
+                                                PF('tablaEstadisticas').unselectAllRows(); PF('tablaEstadisticas').selectRow(#{indice});"/>
                                  </f:facet>                                      
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -1585,8 +1590,9 @@
                                  </f:facet>                                          
                                  <f:facet name="input">    
                                     <p:inputText  autocomplete="off"  value="#{info.conjunto40}" style="background-color: rgb(216, 155, 254);" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                       posicionEstadisticasDC([{name: 'n', value: '40'}]);" onselect="posicionEstadisticas([{name: 'n', value: '40'}]);
-                                          PF('tablaEstadisticas').unselectAllRows(); PF('tablaEstadisticas').selectRow(#{indice});"/>   
+                                          posicionEstadisticasDC([{name: 'n', value: '40'}]);" onselect="posicionEstadisticas([{name: 'n', value: '40'}]);
+                                                PF('tablaEstadisticas').unselectAllRows();
+                                                PF('tablaEstadisticas').selectRow(#{indice});"/>   
                                  </f:facet>                                      
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -1614,8 +1620,8 @@
                                  </f:facet>                                       
                                  <f:facet name="input">                                     
                                     <p:inputText  autocomplete="off"  value="#{info.conjunto41}" style="background-color: rgb(216, 155, 254);" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                       posicionEstadisticasDC([{name: 'n', value: '41'}]);" onselect="posicionEstadisticas([{name: 'n', value: '41'}]);
-                                          PF('tablaEstadisticas').unselectAllRows(); PF('tablaEstadisticas').selectRow(#{indice});"/>    
+                                          posicionEstadisticasDC([{name: 'n', value: '41'}]);" onselect="posicionEstadisticas([{name: 'n', value: '41'}]);
+                                                PF('tablaEstadisticas').unselectAllRows(); PF('tablaEstadisticas').selectRow(#{indice});"/>    
                                  </f:facet>                                    
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -1643,8 +1649,8 @@
                                  </f:facet>                                        
                                  <f:facet name="input">                           
                                     <p:inputText  autocomplete="off"  value="#{info.conjunto42}" style="background-color: rgb(216, 155, 254);" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                       posicionEstadisticasDC([{name: 'n', value: '42'}]);" onselect="posicionEstadisticas([{name: 'n', value: '42'}]);
-                                          PF('tablaEstadisticas').unselectAllRows(); PF('tablaEstadisticas').selectRow(#{indice});"/>
+                                          posicionEstadisticasDC([{name: 'n', value: '42'}]);" onselect="posicionEstadisticas([{name: 'n', value: '42'}]);
+                                                PF('tablaEstadisticas').unselectAllRows(); PF('tablaEstadisticas').selectRow(#{indice});"/>
                                  </f:facet>                                    
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -1672,8 +1678,9 @@
                                  </f:facet>                                         
                                  <f:facet name="input">          
                                     <p:inputText  autocomplete="off"  value="#{info.conjunto43}" style="background-color: rgb(216, 155, 254);" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                       posicionEstadisticasDC([{name: 'n', value: '43'}]);" onselect="posicionEstadisticas([{name: 'n', value: '43'}]);
-                                          PF('tablaEstadisticas').unselectAllRows(); PF('tablaEstadisticas').selectRow(#{indice});"/>                                  
+                                          posicionEstadisticasDC([{name: 'n', value: '43'}]);" onselect="posicionEstadisticas([{name: 'n', value: '43'}]);
+                                                PF('tablaEstadisticas').unselectAllRows();
+                                                PF('tablaEstadisticas').selectRow(#{indice});"/>                                  
                                  </f:facet>                                      
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -1701,8 +1708,8 @@
                                  </f:facet>                                          
                                  <f:facet name="input">                                         
                                     <p:inputText  autocomplete="off"  value="#{info.conjunto44}" style="background-color: rgb(216, 155, 254);" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                       posicionEstadisticasDC([{name: 'n', value: '44'}]);" onselect="posicionEstadisticas([{name: 'n', value: '44'}]);
-                                          PF('tablaEstadisticas').unselectAllRows(); PF('tablaEstadisticas').selectRow(#{indice});"/>                                   
+                                          posicionEstadisticasDC([{name: 'n', value: '44'}]);" onselect="posicionEstadisticas([{name: 'n', value: '44'}]);
+                                                PF('tablaEstadisticas').unselectAllRows(); PF('tablaEstadisticas').selectRow(#{indice});"/>                                   
                                  </f:facet>                                     
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -1727,7 +1734,7 @@
                                  <f:facet name="input">                                         
                                     <p:inputText  autocomplete="off"  value="#{info.totalPasivos}" style="background-color: rgb(216, 155, 254);" readonly="true"
                                                   onselect="posicionEstadisticas([{name: 'n', value: '105'}]);
-                                                     PF('tablaEstadisticas').unselectAllRows(); PF('tablaEstadisticas').selectRow(#{indice});"/>   
+                                                        PF('tablaEstadisticas').unselectAllRows(); PF('tablaEstadisticas').selectRow(#{indice});"/>   
                                  </f:facet>                      
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -1756,8 +1763,8 @@
                                  </f:facet>                                         
                                  <f:facet name="input">                            
                                     <p:inputText  autocomplete="off"  value="#{info.conjunto45}" style="background-color: #00a893;" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                       posicionEstadisticasDC([{name: 'n', value: '45'}]);" onselect="posicionEstadisticas([{name: 'n', value: '45'}]);
-                                          PF('tablaEstadisticas').unselectAllRows(); PF('tablaEstadisticas').selectRow(#{indice});"/>                  
+                                          posicionEstadisticasDC([{name: 'n', value: '45'}]);" onselect="posicionEstadisticas([{name: 'n', value: '45'}]);
+                                                PF('tablaEstadisticas').unselectAllRows(); PF('tablaEstadisticas').selectRow(#{indice});"/>                  
                                  </f:facet>                            
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -1781,7 +1788,7 @@
                                  </f:facet>                                   
                                  <f:facet name="input">                        
                                     <p:inputText  autocomplete="off" value="#{info.granTotal}" readonly="true" onselect="posicionEstadisticas([{name: 'n', value: '106'}]);
-                                       PF('tablaEstadisticas').unselectAllRows(); PF('tablaEstadisticas').selectRow(#{indice});"/> 
+                                          PF('tablaEstadisticas').unselectAllRows(); PF('tablaEstadisticas').selectRow(#{indice});"/> 
                                  </f:facet>                                
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -1803,7 +1810,7 @@
                                  </f:facet>                                   
                                  <f:facet name="input">                        
                                     <h:inputText value="#{info.codigoEmpleado}" readonly="true" onselect="posicionEstadisticas([{name: 'n', value: '110'}]);
-                                       PF('tablaEstadisticas').unselectAllRows(); PF('tablaEstadisticas').selectRow(#{indice});"/>  
+                                          PF('tablaEstadisticas').unselectAllRows(); PF('tablaEstadisticas').selectRow(#{indice});"/>  
                                  </f:facet>                                
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -1821,7 +1828,8 @@
                                  </f:facet>                                   
                                  <f:facet name="input">                        
                                     <h:inputText style="width: 98%;" value="#{info.estructura}" readonly="true" onselect="posicionEstadisticas([{name: 'n', value: '111'}]);
-                                       PF('tablaEstadisticas').unselectAllRows(); PF('tablaEstadisticas').selectRow(#{indice});"/>    
+                                          PF('tablaEstadisticas').unselectAllRows();
+                                          PF('tablaEstadisticas').selectRow(#{indice});"/>    
                                  </f:facet>                                
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -1839,7 +1847,7 @@
                                  </f:facet>                                   
                                  <f:facet name="input">                        
                                     <h:inputText style="width: 98%;" value="#{info.cargo}" readonly="true" onselect="posicionEstadisticas([{name: 'n', value: '112'}]);
-                                       PF('tablaEstadisticas').unselectAllRows(); PF('tablaEstadisticas').selectRow(#{indice});"/>   
+                                          PF('tablaEstadisticas').unselectAllRows(); PF('tablaEstadisticas').selectRow(#{indice});"/>   
                                  </f:facet>                                
                               </p:cellEditor>
                               <f:facet name="footer">
@@ -1879,7 +1887,8 @@
                               </f:facet>
                               <f:facet name="input">
                                  <h:inputText style="width: 98%;" value="#{infoLB.dimension}" readonly="true" onselect="posicionEstadisticas([{name: 'n', value: '107'}]);
-                                    PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
+                                       PF('tablaEstadisticasLB').unselectAllRows();
+                                       PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
                               </f:facet>
                            </p:cellEditor>
                            <f:facet name="footer"><h:outputText value="" style="z-index: 5;"/></f:facet>
@@ -1898,8 +1907,8 @@
                               </f:facet>
                               <f:facet name="input">        
                                  <h:inputText value="#{infoLB.z}" readonly="true" onselect="posicionEstadisticas([{name: 'n', value: '108'}]);
-                                    PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});">
-                                 <f:convertDateTime pattern="dd/MM/yyyy" />
+                                       PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});">
+                                    <f:convertDateTime pattern="dd/MM/yyyy" />
                                  </h:inputText>
                               </f:facet>                                     
                            </p:cellEditor>
@@ -1923,7 +1932,7 @@
                               </f:facet>          
                               <f:facet name="input">        
                                  <h:inputText value="#{infoLB.estado}" readonly="true" onselect="posicionEstadisticas([{name: 'n', value: '109'}]);
-                                    PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
+                                       PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
                               </f:facet>                                     
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -1952,7 +1961,7 @@
                               </f:facet>                                          
                               <f:facet name="input">                                         
                                  <p:inputText  autocomplete="off" value="#{infoLB.conjunto1}" style="background-color: rgb(155, 216, 255)" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                    posicionEstadisticasDCLB([{name: 'n', value: '1'}]);" onselect="posicionEstadisticas([{name: 'n', value: '1'}]);" />              
+                                       posicionEstadisticasDCLB([{name: 'n', value: '1'}]);" onselect="posicionEstadisticas([{name: 'n', value: '1'}]);" />              
                                  PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>         
                               </f:facet>                                     
                            </p:cellEditor>
@@ -1995,8 +2004,9 @@
                               </f:facet>
                               <f:facet name="input">                                      
                                  <p:inputText  autocomplete="off"  value="#{infoLB.conjunto2}" style="background-color: rgb(155, 216, 255)" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                       posicionEstadisticasDCLB([{name: 'n', value: '2'}]);" onselect="posicionEstadisticas([{name: 'n', value: '2'}]);
-                                          PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
+                                             posicionEstadisticasDCLB([{name: 'n', value: '2'}]);" onselect="posicionEstadisticas([{name: 'n', value: '2'}]);
+                                                   PF('tablaEstadisticasLB').unselectAllRows();
+                                                   PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
                               </f:facet>                                      
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -2038,8 +2048,9 @@
                               <f:facet name="input">                                            
                                  <p:inputText  autocomplete="off"  value="#{infoLB.conjunto3}" style="background-color: rgb(155, 216, 255)" readonly="true"
                                                ondblclick="PF('operacionEnProceso').show();
-                                          posicionEstadisticasDCLB([{name: 'n', value: '3'}]);" onselect="posicionEstadisticas([{name: 'n', value: '3'}]);
-                                             PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>    
+                                                   posicionEstadisticasDCLB([{name: 'n', value: '3'}]);" onselect="posicionEstadisticas([{name: 'n', value: '3'}]);
+                                                         PF('tablaEstadisticasLB').unselectAllRows();
+                                                         PF('tablaEstadisticasLB').selectRow(#{indice2});"/>    
                               </f:facet>                                      
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -2080,8 +2091,8 @@
                               </f:facet>                                      
                               <f:facet name="input">                                            
                                  <p:inputText  autocomplete="off"  value="#{infoLB.conjunto4}" style="background-color: rgb(155, 216, 255)" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                             posicionEstadisticasDCLB([{name: 'n', value: '4'}]);" onselect="posicionEstadisticas([{name: 'n', value: '4'}]);
-                                                PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>                                      
+                                                         posicionEstadisticasDCLB([{name: 'n', value: '4'}]);" onselect="posicionEstadisticas([{name: 'n', value: '4'}]);
+                                                               PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>                                      
                               </f:facet>                                    
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -2122,8 +2133,8 @@
                               </f:facet>                                        
                               <f:facet name="input">                                          
                                  <p:inputText  autocomplete="off"  value="#{infoLB.conjunto5}" style="background-color: rgb(155, 216, 255)" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                                posicionEstadisticasDCLB([{name: 'n', value: '5'}]);" onselect="posicionEstadisticas([{name: 'n', value: '5'}]);
-                                                   PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>                 
+                                                               posicionEstadisticasDCLB([{name: 'n', value: '5'}]);" onselect="posicionEstadisticas([{name: 'n', value: '5'}]);
+                                                                     PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>                 
                               </f:facet>                                  
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -2164,8 +2175,9 @@
                               </f:facet>                                         
                               <f:facet name="input">                                         
                                  <p:inputText  autocomplete="off"  value="#{infoLB.conjunto6}" style="background-color: rgb(155, 216, 255)" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                                   posicionEstadisticasDCLB([{name: 'n', value: '6'}]);" onselect="posicionEstadisticas([{name: 'n', value: '6'}]);
-                                                      PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
+                                                                     posicionEstadisticasDCLB([{name: 'n', value: '6'}]);" onselect="posicionEstadisticas([{name: 'n', value: '6'}]);
+                                                                           PF('tablaEstadisticasLB').unselectAllRows();
+                                                                           PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
                               </f:facet>                            
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -2206,8 +2218,8 @@
                               </f:facet>                                          
                               <f:facet name="input">                                          
                                  <p:inputText  autocomplete="off"  value="#{infoLB.conjunto7}" style="background-color: rgb(155, 216, 255)" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                                      posicionEstadisticasDCLB([{name: 'n', value: '7'}]);" onselect="posicionEstadisticas([{name: 'n', value: '7'}]);
-                                                         PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>    
+                                                                           posicionEstadisticasDCLB([{name: 'n', value: '7'}]);" onselect="posicionEstadisticas([{name: 'n', value: '7'}]);
+                                                                                 PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>    
                               </f:facet>             
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -2248,8 +2260,9 @@
                               </f:facet>                                      
                               <f:facet name="input">                                           
                                  <p:inputText  autocomplete="off"  value="#{infoLB.conjunto8}" style="background-color: rgb(155, 216, 255)" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                                         posicionEstadisticasDCLB([{name: 'n', value: '8'}]);" onselect="posicionEstadisticas([{name: 'n', value: '8'}]);
-                                                            PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
+                                                                                 posicionEstadisticasDCLB([{name: 'n', value: '8'}]);" onselect="posicionEstadisticas([{name: 'n', value: '8'}]);
+                                                                                       PF('tablaEstadisticasLB').unselectAllRows();
+                                                                                       PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -2290,8 +2303,9 @@
                               </f:facet>                                         
                               <f:facet name="input">                                           
                                  <p:inputText  autocomplete="off"  value="#{infoLB.conjunto9}" style="background-color: rgb(155, 216, 255)" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                                            posicionEstadisticasDCLB([{name: 'n', value: '9'}]);" onselect="posicionEstadisticas([{name: 'n', value: '9'}]);
-                                                               PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>                                  
+                                                                                       posicionEstadisticasDCLB([{name: 'n', value: '9'}]);" onselect="posicionEstadisticas([{name: 'n', value: '9'}]);
+                                                                                             PF('tablaEstadisticasLB').unselectAllRows();
+                                                                                             PF('tablaEstadisticasLB').selectRow(#{indice2});"/>                                  
                               </f:facet>                                   
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -2332,8 +2346,9 @@
                               </f:facet>                                         
                               <f:facet name="input">                                          
                                  <p:inputText  autocomplete="off"  value="#{infoLB.conjunto10}" style="background-color: rgb(155, 216, 255)" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                                               posicionEstadisticasDCLB([{name: 'n', value: '10'}]);" onselect="posicionEstadisticas([{name: 'n', value: '10'}]);
-                                                                  PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
+                                                                                             posicionEstadisticasDCLB([{name: 'n', value: '10'}]);" onselect="posicionEstadisticas([{name: 'n', value: '10'}]);
+                                                                                                   PF('tablaEstadisticasLB').unselectAllRows();
+                                                                                                   PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
                               </f:facet>                                    
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -2373,8 +2388,9 @@
                                  </h:outputText>
                               </f:facet>                                          <f:facet name="input">                                           
                                  <p:inputText  autocomplete="off"  value="#{infoLB.conjunto11}" style="background-color: rgb(155, 216, 255)" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                                                  posicionEstadisticasDCLB([{name: 'n', value: '11'}]);" onselect="posicionEstadisticas([{name: 'n', value: '11'}]);
-                                                                     PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/> 
+                                                                                                   posicionEstadisticasDCLB([{name: 'n', value: '11'}]);" onselect="posicionEstadisticas([{name: 'n', value: '11'}]);
+                                                                                                         PF('tablaEstadisticasLB').unselectAllRows();
+                                                                                                         PF('tablaEstadisticasLB').selectRow(#{indice2});"/> 
                               </f:facet>
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -2415,8 +2431,9 @@
                               </f:facet> 
                               <f:facet name="input">                                         
                                  <p:inputText  autocomplete="off"  value="#{infoLB.conjunto12}" style="background-color: rgb(155, 216, 255)" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                                                     posicionEstadisticasDCLB([{name: 'n', value: '12'}]);" onselect="posicionEstadisticas([{name: 'n', value: '12'}]);
-                                                                        PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
+                                                                                                         posicionEstadisticasDCLB([{name: 'n', value: '12'}]);" onselect="posicionEstadisticas([{name: 'n', value: '12'}]);
+                                                                                                               PF('tablaEstadisticasLB').unselectAllRows();
+                                                                                                               PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
                               </f:facet>
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -2457,7 +2474,7 @@
                               </f:facet>
                               <f:facet name="input">                                           
                                  <p:inputText  autocomplete="off"  value="#{infoLB.conjunto13}" style="background-color: rgb(155, 216, 255)" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                                                        posicionEstadisticasDCLB([{name: 'n', value: '13'}]);" onselect="posicionEstadisticas([{name: 'n', value: '13'}]);" />   
+                                                                                                               posicionEstadisticasDCLB([{name: 'n', value: '13'}]);" onselect="posicionEstadisticas([{name: 'n', value: '13'}]);" />   
                                  PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>                  
                               </f:facet>                                 
                            </p:cellEditor>
@@ -2499,8 +2516,8 @@
                               </f:facet>                                        
                               <f:facet name="input">                                            
                                  <p:inputText  autocomplete="off"  value="#{infoLB.conjunto14}" style="background-color: rgb(155, 216, 255)" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                                                           posicionEstadisticasDCLB([{name: 'n', value: '14'}]);" onselect="posicionEstadisticas([{name: 'n', value: '14'}]);
-                                                                              PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>        
+                                                                                                                     posicionEstadisticasDCLB([{name: 'n', value: '14'}]);" onselect="posicionEstadisticas([{name: 'n', value: '14'}]);
+                                                                                                                           PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>        
                               </f:facet>                               
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -2541,8 +2558,8 @@
                               </f:facet> 
                               <f:facet name="input">                                           
                                  <p:inputText  autocomplete="off"  value="#{infoLB.conjunto15}" style="background-color: rgb(155, 216, 255)" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                                                              posicionEstadisticasDCLB([{name: 'n', value: '15'}]);" onselect="posicionEstadisticas([{name: 'n', value: '15'}]);
-                                                                                 PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>                                 
+                                                                                                                           posicionEstadisticasDCLB([{name: 'n', value: '15'}]);" onselect="posicionEstadisticas([{name: 'n', value: '15'}]);
+                                                                                                                                 PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>                                 
                               </f:facet>                                   
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -2583,8 +2600,9 @@
                               </f:facet>                                         
                               <f:facet name="input">                     
                                  <p:inputText  autocomplete="off"  value="#{infoLB.conjunto16}" style="background-color: rgb(155, 216, 255)" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                                                                 posicionEstadisticasDCLB([{name: 'n', value: '16'}]);" onselect="posicionEstadisticas([{name: 'n', value: '16'}]);
-                                                                                    PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
+                                                                                                                                 posicionEstadisticasDCLB([{name: 'n', value: '16'}]);" onselect="posicionEstadisticas([{name: 'n', value: '16'}]);
+                                                                                                                                       PF('tablaEstadisticasLB').unselectAllRows();
+                                                                                                                                       PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
                               </f:facet>                                     
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -2625,8 +2643,8 @@
                               </f:facet>                                       
                               <f:facet name="input">                                            
                                  <p:inputText  autocomplete="off"  value="#{infoLB.conjunto17}" style="background-color: rgb(155, 216, 255)" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                                                                    posicionEstadisticasDCLB([{name: 'n', value: '17'}]);" onselect="posicionEstadisticas([{name: 'n', value: '17'}]);
-                                                                                       PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
+                                                                                                                                       posicionEstadisticasDCLB([{name: 'n', value: '17'}]);" onselect="posicionEstadisticas([{name: 'n', value: '17'}]);
+                                                                                                                                             PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
                               </f:facet>                                 
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -2667,8 +2685,9 @@
                               </f:facet>                                         
                               <f:facet name="input">                              
                                  <p:inputText autocomplete="off" value="#{infoLB.conjunto18}" style="background-color: rgb(155, 216, 255)" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                                                                       posicionEstadisticasDCLB([{name: 'n', value: '18'}]);" onselect="posicionEstadisticas([{name: 'n', value: '18'}]);
-                                                                                          PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>                         
+                                                                                                                                             posicionEstadisticasDCLB([{name: 'n', value: '18'}]);" onselect="posicionEstadisticas([{name: 'n', value: '18'}]);
+                                                                                                                                                   PF('tablaEstadisticasLB').unselectAllRows();
+                                                                                                                                                   PF('tablaEstadisticasLB').selectRow(#{indice2});"/>                         
                               </f:facet>                                   
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -2709,8 +2728,9 @@
                               </f:facet>
                               <f:facet name="input">                                
                                  <p:inputText  autocomplete="off"  value="#{infoLB.conjunto19}" style="background-color: rgb(155, 216, 255)" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                                                                          posicionEstadisticasDCLB([{name: 'n', value: '19'}]);" onselect="posicionEstadisticas([{name: 'n', value: '19'}]);
-                                                     PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
+                                                                                                                                                   posicionEstadisticasDCLB([{name: 'n', value: '19'}]);" onselect="posicionEstadisticas([{name: 'n', value: '19'}]);
+                                                                                                                                                         PF('tablaEstadisticasLB').unselectAllRows();
+                                                                                                                                                         PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
                               </f:facet>                           
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -2751,8 +2771,8 @@
                               </f:facet>                             
                               <f:facet name="input">                                         
                                  <p:inputText  autocomplete="off"  value="#{infoLB.conjunto20}" style="background-color: rgb(155, 216, 255)" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                                                                             posicionEstadisticasDCLB([{name: 'n', value: '20'}]);" onselect="posicionEstadisticas([{name: 'n', value: '20'}]);
-                                                     PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>    
+                                                                                                                                                         posicionEstadisticasDCLB([{name: 'n', value: '20'}]);" onselect="posicionEstadisticas([{name: 'n', value: '20'}]);
+                                                                                                                                                               PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>    
                               </f:facet>                                     
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -2789,7 +2809,7 @@
                               <f:facet name="input">                                       
                                  <p:inputText  autocomplete="off"  value="#{infoLB.totalPagos}" style="background-color: rgb(155, 216, 255)" readonly="true"
                                                onselect="posicionEstadisticas([{name: 'n', value: '101'}]);
-                                                     PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>     
+                                                                                                                                                               PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>     
                               </f:facet>                                   
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -2828,8 +2848,8 @@
                               </f:facet>                                        
                               <f:facet name="input">                                           
                                  <p:inputText  autocomplete="off"  value="#{infoLB.conjunto21}" style="background-color: rgb(255, 182, 255);" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                            posicionEstadisticasDCLB([{name: 'n', value: '21'}]);" onselect="posicionEstadisticas([{name: 'n', value: '21'}]);
-                                                     PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
+                                       posicionEstadisticasDCLB([{name: 'n', value: '21'}]);" onselect="posicionEstadisticas([{name: 'n', value: '21'}]);
+                                             PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
                               </f:facet>                                     
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -2870,8 +2890,9 @@
                               </f:facet>                                     
                               <f:facet name="input">                                           
                                  <p:inputText  autocomplete="off"  value="#{infoLB.conjunto22}" style="background-color: rgb(255, 182, 255);" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                                       posicionEstadisticasDCLB([{name: 'n', value: '22'}]);" onselect="posicionEstadisticas([{name: 'n', value: '22'}]);
-                                                     PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
+                                             posicionEstadisticasDCLB([{name: 'n', value: '22'}]);" onselect="posicionEstadisticas([{name: 'n', value: '22'}]);
+                                                   PF('tablaEstadisticasLB').unselectAllRows();
+                                                   PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
                               </f:facet>                                    
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -2912,8 +2933,9 @@
                               </f:facet>                                         
                               <f:facet name="input">                                          
                                  <p:inputText  autocomplete="off"  value="#{infoLB.conjunto23}" style="background-color: rgb(255, 182, 255);" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                                          posicionEstadisticasDCLB([{name: 'n', value: '23'}]);" onselect="posicionEstadisticas([{name: 'n', value: '23'}]);
-                                                     PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>      
+                                                   posicionEstadisticasDCLB([{name: 'n', value: '23'}]);" onselect="posicionEstadisticas([{name: 'n', value: '23'}]);
+                                                         PF('tablaEstadisticasLB').unselectAllRows();
+                                                         PF('tablaEstadisticasLB').selectRow(#{indice2});"/>      
                               </f:facet>                                      
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -2954,8 +2976,8 @@
                               </f:facet>                                        
                               <f:facet name="input">                        
                                  <p:inputText  autocomplete="off"  value="#{infoLB.conjunto24}" style="background-color: rgb(255, 182, 255);" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                                             posicionEstadisticasDCLB([{name: 'n', value: '24'}]);" onselect="posicionEstadisticas([{name: 'n', value: '24'}]);
-                                                     PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
+                                                         posicionEstadisticasDCLB([{name: 'n', value: '24'}]);" onselect="posicionEstadisticas([{name: 'n', value: '24'}]);
+                                                               PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
                               </f:facet>                              
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -2996,8 +3018,9 @@
                               </f:facet>                                       
                               <f:facet name="input">                                  
                                  <p:inputText  autocomplete="off"  value="#{infoLB.conjunto25}" style="background-color: rgb(255, 182, 255);" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                                                posicionEstadisticasDCLB([{name: 'n', value: '25'}]);" onselect="posicionEstadisticas([{name: 'n', value: '25'}]);
-                                                     PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>      
+                                                               posicionEstadisticasDCLB([{name: 'n', value: '25'}]);" onselect="posicionEstadisticas([{name: 'n', value: '25'}]);
+                                                                     PF('tablaEstadisticasLB').unselectAllRows();
+                                                                     PF('tablaEstadisticasLB').selectRow(#{indice2});"/>      
                               </f:facet>                                 
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -3038,8 +3061,8 @@
                               </f:facet>                                         
                               <f:facet name="input">                         
                                  <p:inputText  autocomplete="off"  value="#{infoLB.conjunto26}" style="background-color: rgb(255, 182, 255);" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                                                   posicionEstadisticasDCLB([{name: 'n', value: '26'}]);" onselect="posicionEstadisticas([{name: 'n', value: '26'}]);
-                                                     PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
+                                                                     posicionEstadisticasDCLB([{name: 'n', value: '26'}]);" onselect="posicionEstadisticas([{name: 'n', value: '26'}]);
+                                                                           PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
                               </f:facet>                                
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -3080,8 +3103,8 @@
                               </f:facet>                                       
                               <f:facet name="input">                                           
                                  <p:inputText  autocomplete="off"  value="#{infoLB.conjunto27}" style="background-color: rgb(255, 182, 255);" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                                                      posicionEstadisticasDCLB([{name: 'n', value: '27'}]);" onselect="posicionEstadisticas([{name: 'n', value: '27'}]);
-                                                     PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
+                                                                           posicionEstadisticasDCLB([{name: 'n', value: '27'}]);" onselect="posicionEstadisticas([{name: 'n', value: '27'}]);
+                                                                                 PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
                               </f:facet>                                     
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -3122,8 +3145,9 @@
                               </f:facet>                                       
                               <f:facet name="input">                        
                                  <p:inputText  autocomplete="off"  value="#{infoLB.conjunto28}" style="background-color: rgb(255, 182, 255);" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                                                         posicionEstadisticasDCLB([{name: 'n', value: '28'}]);" onselect="posicionEstadisticas([{name: 'n', value: '28'}]);
-                                                     PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>  
+                                                                                 posicionEstadisticasDCLB([{name: 'n', value: '28'}]);" onselect="posicionEstadisticas([{name: 'n', value: '28'}]);
+                                                                                       PF('tablaEstadisticasLB').unselectAllRows();
+                                                                                       PF('tablaEstadisticasLB').selectRow(#{indice2});"/>  
                               </f:facet>                                     
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -3164,8 +3188,8 @@
                               </f:facet>                                       
                               <f:facet name="input">                            
                                  <p:inputText  autocomplete="off"  value="#{infoLB.conjunto29}" style="background-color: rgb(255, 182, 255);" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                                                            posicionEstadisticasDCLB([{name: 'n', value: '29'}]);" onselect="posicionEstadisticas([{name: 'n', value: '29'}]);
-                                                     PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
+                                                                                       posicionEstadisticasDCLB([{name: 'n', value: '29'}]);" onselect="posicionEstadisticas([{name: 'n', value: '29'}]);
+                                                                                             PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
                               </f:facet>                                  
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -3206,8 +3230,9 @@
                               </f:facet>                                  
                               <f:facet name="input">                   
                                  <p:inputText  autocomplete="off"  value="#{infoLB.conjunto30}" style="background-color: rgb(255, 182, 255);" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                                                               posicionEstadisticasDCLB([{name: 'n', value: '30'}]);" onselect="posicionEstadisticas([{name: 'n', value: '30'}]);
-                                                     PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>  
+                                                                                             posicionEstadisticasDCLB([{name: 'n', value: '30'}]);" onselect="posicionEstadisticas([{name: 'n', value: '30'}]);
+                                                                                                   PF('tablaEstadisticasLB').unselectAllRows();
+                                                                                                   PF('tablaEstadisticasLB').selectRow(#{indice2});"/>  
                               </f:facet>                                   
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -3245,7 +3270,8 @@
                               <f:facet name="input">                                     
                                  <p:inputText  autocomplete="off"  value="#{infoLB.totalDescuentos}" style="background-color: rgb(255, 182, 255);" readonly="true"
                                                onselect="posicionEstadisticas([{name: 'n', value: '102'}]);
-                                                     PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>                              
+                                                                                                   PF('tablaEstadisticasLB').unselectAllRows();
+                                                                                                   PF('tablaEstadisticasLB').selectRow(#{indice2});"/>                              
                               </f:facet>                                
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -3282,7 +3308,8 @@
                               </f:facet>                                        
                               <f:facet name="input">                         
                                  <p:inputText  autocomplete="off"  value="#{infoLB.netos}" style="background-color: #ffcc66;" readonly="true" onselect="posicionEstadisticas([{name: 'n', value: '103'}]);
-                                                     PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
+                                       PF('tablaEstadisticasLB').unselectAllRows();
+                                       PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
                               </f:facet>                                
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -3321,8 +3348,9 @@
                               </f:facet>                                         
                               <f:facet name="input">                
                                  <p:inputText  autocomplete="off"  value="#{infoLB.conjunto31}" style="background-color: rgb(149, 221, 193);" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                    posicionEstadisticasDCLB([{name: 'n', value: '31'}]);" onselect="posicionEstadisticas([{name: 'n', value: '31'}]);
-                                                     PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>    
+                                       posicionEstadisticasDCLB([{name: 'n', value: '31'}]);" onselect="posicionEstadisticas([{name: 'n', value: '31'}]);
+                                             PF('tablaEstadisticasLB').unselectAllRows();
+                                             PF('tablaEstadisticasLB').selectRow(#{indice2});"/>    
                               </f:facet>                          
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -3363,8 +3391,9 @@
                               </f:facet>                                          
                               <f:facet name="input">                                
                                  <p:inputText  autocomplete="off"  value="#{infoLB.conjunto32}" style="background-color: rgb(149, 221, 193);" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                       posicionEstadisticasDCLB([{name: 'n', value: '32'}]);" onselect="posicionEstadisticas([{name: 'n', value: '32'}]);
-                                                     PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>     
+                                             posicionEstadisticasDCLB([{name: 'n', value: '32'}]);" onselect="posicionEstadisticas([{name: 'n', value: '32'}]);
+                                                   PF('tablaEstadisticasLB').unselectAllRows();
+                                                   PF('tablaEstadisticasLB').selectRow(#{indice2});"/>     
                               </f:facet>                              
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -3402,8 +3431,8 @@
                               </f:facet>                                        
                               <f:facet name="input">                                
                                  <p:inputText  autocomplete="off"  value="#{infoLB.conjunto33}" style="background-color: rgb(149, 221, 193);" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                          posicionEstadisticasDCLB([{name: 'n', value: '33'}]);" onselect="posicionEstadisticas([{name: 'n', value: '33'}]);
-                                                     PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
+                                                   posicionEstadisticasDCLB([{name: 'n', value: '33'}]);" onselect="posicionEstadisticas([{name: 'n', value: '33'}]);
+                                                         PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
                               </f:facet>                                    
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -3441,8 +3470,9 @@
                               </f:facet>                                       
                               <f:facet name="input">                
                                  <p:inputText  autocomplete="off"  value="#{infoLB.conjunto34}" style="background-color: rgb(149, 221, 193);" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                             posicionEstadisticasDCLB([{name: 'n', value: '34'}]);" onselect="posicionEstadisticas([{name: 'n', value: '34'}]);
-                                                     PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
+                                                         posicionEstadisticasDCLB([{name: 'n', value: '34'}]);" onselect="posicionEstadisticas([{name: 'n', value: '34'}]);
+                                                               PF('tablaEstadisticasLB').unselectAllRows();
+                                                               PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
                               </f:facet>                              
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -3483,8 +3513,9 @@
                               </f:facet>                                          
                               <f:facet name="input">                                          
                                  <p:inputText  autocomplete="off"  value="#{infoLB.conjunto35}" style="background-color: rgb(149, 221, 193);" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                                posicionEstadisticasDCLB([{name: 'n', value: '35'}]);" onselect="posicionEstadisticas([{name: 'n', value: '35'}]);
-                                                     PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
+                                                               posicionEstadisticasDCLB([{name: 'n', value: '35'}]);" onselect="posicionEstadisticas([{name: 'n', value: '35'}]);
+                                                                     PF('tablaEstadisticasLB').unselectAllRows();
+                                                                     PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
                               </f:facet>                                    
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -3525,8 +3556,9 @@
                               </f:facet>                                     
                               <f:facet name="input">                            
                                  <p:inputText  autocomplete="off"  value="#{infoLB.conjunto36}" style="background-color: rgb(149, 221, 193);" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                                   posicionEstadisticasDCLB([{name: 'n', value: '36'}]);" onselect="posicionEstadisticas([{name: 'n', value: '36'}]);
-                                                     PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>          
+                                                                     posicionEstadisticasDCLB([{name: 'n', value: '36'}]);" onselect="posicionEstadisticas([{name: 'n', value: '36'}]);
+                                                                           PF('tablaEstadisticasLB').unselectAllRows();
+                                                                           PF('tablaEstadisticasLB').selectRow(#{indice2});"/>          
                               </f:facet>                                  
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -3567,8 +3599,9 @@
                               </f:facet>
                               <f:facet name="input">
                                  <p:inputText  autocomplete="off"  value="#{infoLB.conjunto37}" style="background-color: rgb(149, 221, 193);" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                                      posicionEstadisticasDCLB([{name: 'n', value: '37'}]);" onselect="posicionEstadisticas([{name: 'n', value: '37'}]);
-                                                     PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>   
+                                                                           posicionEstadisticasDCLB([{name: 'n', value: '37'}]);" onselect="posicionEstadisticas([{name: 'n', value: '37'}]);
+                                                                                 PF('tablaEstadisticasLB').unselectAllRows();
+                                                                                 PF('tablaEstadisticasLB').selectRow(#{indice2});"/>   
                               </f:facet>
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -3606,7 +3639,8 @@
                               <f:facet name="input">  
                                  <p:inputText  autocomplete="off"  value="#{infoLB.totalGastos}" style="background-color: rgb(149, 221, 193);" readonly="true"
                                                onselect="posicionEstadisticas([{name: 'n', value: '104'}]);
-                                                     PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
+                                                                                 PF('tablaEstadisticasLB').unselectAllRows();
+                                                                                 PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
                               </f:facet>                               
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -3646,8 +3680,9 @@
                               <f:facet name="input"> 
                                  <p:inputText  autocomplete="off"  value="#{infoLB.conjunto38}" style="background-color: rgb(216, 155, 254);" readonly="true"
                                                ondblclick="PF('operacionEnProceso').show();
-                                    posicionEstadisticasDCLB([{name: 'n', value: '38'}]);" onselect="posicionEstadisticas([{name: 'n', value: '38'}]);
-                                                     PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/> 
+                                                     posicionEstadisticasDCLB([{name: 'n', value: '38'}]);" onselect="posicionEstadisticas([{name: 'n', value: '38'}]);
+                                                           PF('tablaEstadisticasLB').unselectAllRows();
+                                                           PF('tablaEstadisticasLB').selectRow(#{indice2});"/> 
                               </f:facet> 
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -3688,8 +3723,8 @@
                               </f:facet>
                               <f:facet name="input"> 
                                  <p:inputText  autocomplete="off"  value="#{infoLB.conjunto39}" style="background-color: rgb(216, 155, 254);" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                       posicionEstadisticasDCLB([{name: 'n', value: '39'}]);" onselect="posicionEstadisticas([{name: 'n', value: '39'}]);
-                                                     PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
+                                                           posicionEstadisticasDCLB([{name: 'n', value: '39'}]);" onselect="posicionEstadisticas([{name: 'n', value: '39'}]);
+                                                                 PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
                               </f:facet>                                
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -3730,8 +3765,9 @@
                               </f:facet>                          
                               <f:facet name="input">            
                                  <p:inputText  autocomplete="off"  value="#{infoLB.conjunto40}" style="background-color: rgb(216, 155, 254);" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                          posicionEstadisticasDCLB([{name: 'n', value: '40'}]);" onselect="posicionEstadisticas([{name: 'n', value: '40'}]);
-                                                     PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>     
+                                                                 posicionEstadisticasDCLB([{name: 'n', value: '40'}]);" onselect="posicionEstadisticas([{name: 'n', value: '40'}]);
+                                                                       PF('tablaEstadisticasLB').unselectAllRows();
+                                                                       PF('tablaEstadisticasLB').selectRow(#{indice2});"/>     
                               </f:facet>       
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -3772,8 +3808,9 @@
                               </f:facet> 
                               <f:facet name="input">                       
                                  <p:inputText  autocomplete="off"  value="#{infoLB.conjunto41}" style="background-color: rgb(216, 155, 254);" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                             posicionEstadisticasDCLB([{name: 'n', value: '41'}]);" onselect="posicionEstadisticas([{name: 'n', value: '41'}]);
-                                                     PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>       
+                                                                       posicionEstadisticasDCLB([{name: 'n', value: '41'}]);" onselect="posicionEstadisticas([{name: 'n', value: '41'}]);
+                                                                             PF('tablaEstadisticasLB').unselectAllRows();
+                                                                             PF('tablaEstadisticasLB').selectRow(#{indice2});"/>       
                               </f:facet>                           
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -3814,8 +3851,9 @@
                               </f:facet>                                
                               <f:facet name="input">                          
                                  <p:inputText  autocomplete="off"  value="#{infoLB.conjunto42}" style="background-color: rgb(216, 155, 254);" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                                posicionEstadisticasDCLB([{name: 'n', value: '42'}]);" onselect="posicionEstadisticas([{name: 'n', value: '42'}]);
-                                                     PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
+                                                                             posicionEstadisticasDCLB([{name: 'n', value: '42'}]);" onselect="posicionEstadisticas([{name: 'n', value: '42'}]);
+                                                                                   PF('tablaEstadisticasLB').unselectAllRows();
+                                                                                   PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
                               </f:facet>        
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -3856,8 +3894,9 @@
                               </f:facet>      
                               <f:facet name="input">     
                                  <p:inputText  autocomplete="off"  value="#{infoLB.conjunto43}" style="background-color: rgb(216, 155, 254);" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                                   posicionEstadisticasDCLB([{name: 'n', value: '43'}]);" onselect="posicionEstadisticas([{name: 'n', value: '43'}]);
-                                                     PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
+                                                                                   posicionEstadisticasDCLB([{name: 'n', value: '43'}]);" onselect="posicionEstadisticas([{name: 'n', value: '43'}]);
+                                                                                         PF('tablaEstadisticasLB').unselectAllRows();
+                                                                                         PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
                               </f:facet>         
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -3898,8 +3937,9 @@
                               </f:facet>                           
                               <f:facet name="input">                     
                                  <p:inputText  autocomplete="off"  value="#{infoLB.conjunto44}" style="background-color: rgb(216, 155, 254);" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                                      posicionEstadisticasDCLB([{name: 'n', value: '44'}]);" onselect="posicionEstadisticas([{name: 'n', value: '44'}]);
-                                                     PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
+                                                                                         posicionEstadisticasDCLB([{name: 'n', value: '44'}]);" onselect="posicionEstadisticas([{name: 'n', value: '44'}]);
+                                                                                               PF('tablaEstadisticasLB').unselectAllRows();
+                                                                                               PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
                               </f:facet>                                 
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -3937,7 +3977,7 @@
                               <f:facet name="input">                               
                                  <p:inputText  autocomplete="off"  value="#{infoLB.totalPasivos}" style="background-color: rgb(216, 155, 254);" readonly="true"
                                                onselect="posicionEstadisticas([{name: 'n', value: '105'}]);
-                                                     PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
+                                                                                               PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
                               </f:facet>                              
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -3977,8 +4017,9 @@
 
                               <f:facet name="input">                           
                                  <p:inputText  autocomplete="off"  value="#{infoLB.conjunto45}" style="background-color: #00a893;" readonly="true" ondblclick="PF('operacionEnProceso').show();
-                                    posicionEstadisticasDCLB([{name: 'n', value: '45'}]);" onselect="posicionEstadisticas([{name: 'n', value: '45'}]);
-                                                     PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
+                                       posicionEstadisticasDCLB([{name: 'n', value: '45'}]);" onselect="posicionEstadisticas([{name: 'n', value: '45'}]);
+                                             PF('tablaEstadisticasLB').unselectAllRows();
+                                             PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
                               </f:facet>                               
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -4015,7 +4056,8 @@
                               </f:facet>                                  
                               <f:facet name="input">                                     
                                  <p:inputText  autocomplete="off"  value="#{infoLB.granTotal}" readonly="true" onselect="posicionEstadisticas([{name: 'n', value: '106'}]);
-                                                     PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
+                                             PF('tablaEstadisticasLB').unselectAllRows();
+                                             PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
                               </f:facet>                            
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -4047,7 +4089,7 @@
                               </f:facet>                                  
                               <f:facet name="input">                                     
                                  <h:inputText value="#{infoLB.codigoEmpleado}" readonly="true" onselect="posicionEstadisticas([{name: 'n', value: '110'}]);
-                                                     PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
+                                       PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
                               </f:facet>                            
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -4065,7 +4107,8 @@
                               </f:facet>                                  
                               <f:facet name="input">                                     
                                  <h:inputText style="width: 98%;" value="#{infoLB.estructura}" readonly="true" onselect="posicionEstadisticas([{name: 'n', value: '111'}]);
-                                                     PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
+                                       PF('tablaEstadisticasLB').unselectAllRows();
+                                       PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
                               </f:facet>                            
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -4083,7 +4126,7 @@
                               </f:facet>                                  
                               <f:facet name="input">                                     
                                  <h:inputText style="width: 98%;" value="#{infoLB.cargo}" readonly="true" onselect="posicionEstadisticas([{name: 'n', value: '112'}]);
-                                                     PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
+                                       PF('tablaEstadisticasLB').unselectAllRows(); PF('tablaEstadisticasLB').selectRow(#{indice2});"/>
                               </f:facet>                            
                            </p:cellEditor>
                            <f:facet name="footer">
@@ -4205,13 +4248,13 @@
                   <div class="cssBotonesLOV">
                      <h:outputText id="infoRegistroDetalles" value="#{msg['infoRegistro']} #{controlParametrosConjuntos.infoRegistroDetalles}" class="cssinfoRegistroLOV"/>
                      <p:commandButton id="atrasDetalle" class="cssAtrasLOV" value="#{msg['atras']}" icon="ui-icon-close"
-                                   actionListener="#{controlParametrosConjuntos.salirDetalles()}"/>
+                                      actionListener="#{controlParametrosConjuntos.salirDetalles()}"/>
                   </div>
                </p:dialog>
 
                <!-- L.O.V CONCEPTOS-->
                <p:dialog header="#{msg['conceptos']}" widgetVar="conceptosDialogo" draggable="true" resizable="false" id="conceptosDialogo" closable="false"  
-                         showEffect="fade" hideEffect="fade" modal="true" width="460" height="340" >
+                         showEffect="fade" hideEffect="fade" modal="true" width="460" >
 
                   <p:dataTable  id="LOVConceptos" style=" width: 420px;" var="conceptos" value="#{controlParametrosConjuntos.listaConceptosEspecificos}"
                                 scrollable="true" scrollHeight="200" scrollWidth="435" widgetVar="LOVConceptos" editable="true" editMode="cell"
@@ -4222,8 +4265,8 @@
                      <p:ajax event="rowSelect" update=":form:infoRegistroConceptos"/>
 
                      <f:facet name="header">  
-                        <h:outputText value="#{msg['buscarC']} :"  style="position: absolute; left: 27px; top: 15px;"/>  
-                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVConceptos').filter();" style="width: 200px; position: relative; left: 40px;" />  
+                        <h:outputText value="#{msg['buscarC']} :"/>  
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('LOVConceptos').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
 
                      <p:column sortBy="#{conceptos.codigo}" filterBy="#{conceptos.codigo}" width="60" filterStyle="width: 85% !important;" filterMatchMode="contains" > 
@@ -4250,18 +4293,20 @@
                               <h:outputText style="padding: 0px;" value="#{conceptos.conjunto}"/>
                            </f:facet>                                
                            <f:facet name="input">                          
-                              <p:selectOneMenu id="editarConjunto" value="#{conceptos.conjunto}" style="width: 45px; position: relative" panelStyle="width: 45px;">  
+                              <p:selectOneMenu id="editarConjunto" value="#{conceptos.conjunto}" style="width: 45px; position: relative;" panelStyle="width: 45px;">  
                                  <f:selectItems value="#{controlParametrosConjuntos.conjuntoC}"/> 
                                  <p:keyFilter for="editarConjunto" mask="num"/>
-                                 <p:ajax event="change" listener="#{controlParametrosConjuntos.modificarConjuntoConcepto}"/>
+                                 <p:ajax event="change" listener="#{controlParametrosConjuntos.modificarConjuntoConcepto(conceptos)}"/>
                               </p:selectOneMenu>
                            </f:facet>        
                         </p:cellEditor>
                      </p:column>
 
                   </p:dataTable>
-                  <h:outputText id="infoRegistroConceptos" value="#{msg['infoRegistro']} #{controlParametrosConjuntos.infoRegistroConceptos} " style="position: relative; left: 10px; top: 25px; font-weight: bold"/>
-                  <p:commandButton id="atrasC" icon="ui-icon-close" style=" position: absolute; left: 340px; top: 305px; height: 28px; width: 97px;" value="#{msg['atras']} " onclick="PF('conceptosDialogo').hide()"/>
+                  <div class="cssBotonesLOV">
+                     <h:outputText id="infoRegistroConceptos" value="#{msg['infoRegistro']} #{controlParametrosConjuntos.infoRegistroConceptos}" class="cssinfoRegistroLOV"/>
+                     <p:commandButton id="atrasC" icon="ui-icon-close" class="cssAtrasLOV" value="#{msg['atras']}" onclick="PF('conceptosDialogo').hide()"/>
+                  </div>
                </p:dialog>
 
                <!--    Dialogos    -->

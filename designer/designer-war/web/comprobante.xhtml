@@ -37,7 +37,7 @@
                         <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
 
                         <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);  border: none " ajax="false">
-                           <p:dataExporter type="xml"  target=":formExportar:datosSolucionesNodosEmpleadoExportar" fileName="SolucionesNodosEmpleadoXML" encoding="UTF-8"/> 
+                           <p:dataExporter type="xml" target=":formExportar:datosSolucionesNodosEmpleadoExportar" fileName="SolucionesNodosEmpleadoXML" encoding="UTF-8"/> 
                         </p:commandButton> 
                         <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
 
@@ -72,7 +72,7 @@
                      </p:toolbarGroup>
                   </p:toolbar>
 
-                  <p:commandButton style="width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; position: absolute; left: 760px; top: 500px;" id="ATRAS" value=" " actionListener="#{controlComprobantes.salir()}" action="nomina" process="@this" />
+                  <p:commandButton class="cssBotonCancelar" id="ATRAS" value=" " actionListener="#{controlComprobantes.salir()}" action="nomina" process="@this" />
                   <fieldset style="position: relative; left: -5px; top: 40px; width: 835px; height: 78px; border-radius: 10px; ">
                      <!--<legend style="color: blue;text-align: left"><strong>/#/{msg['empleado']}</strong></legend>-->
                      <p:panel id="panelInf" style="border: none; height: 76px; margin-top: 0px">
@@ -86,10 +86,10 @@
                         </div>
 
                         <div>
-                           <h:outputText value="#{msg['periodo']}" style="color: #14388B; font-weight: bold; position: relative; top: -25px; left: 0px; "/>
-                           <h:outputText value="#{msg['estructura']}" style="color: #14388B; font-weight: bold; position: relative; top: -25px; left: 80px; "/>
-                           <h:outputText value="#{controlComprobantes.parametroActual.fechasParametros}" style="color: black; font-weight: bold; position: relative; top: -10px; left: -270px;"/>
-                           <h:outputText value="#{controlComprobantes.parametroEstructura.estructura.nombre}" style="color: black; font-weight: bold; position: relative; top: -10px; left: -220px;"/>
+                           <h:outputText value="#{msg['periodo']}" style="color: #14388B; font-weight: bold; position: relative; top: -20px; left: 0px;"/>
+                           <h:outputText value="#{msg['estructura']}" style="color: #14388B; font-weight: bold; position: relative; top: -20px; left: 80px;"/>
+                           <h:outputText value="#{controlComprobantes.parametroActual.fechasParametros}" style="color: black; font-weight: bold; position: absolute; top: 65px; left: 15px;"/>
+                           <h:outputText value="#{controlComprobantes.parametroEstructura.estructura.nombre}" style="color: black; font-weight: bold; position: absolute; top: 65px; left: 220px;"/>
                         </div>
 
                         <p:commandButton style="background-image: url(Imagenes/Iconos/buscardb.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; 
@@ -100,13 +100,15 @@
                                          actionListener="#{controlComprobantes.mostarTodosEmpleados()}" process="@this" />
 
                         <div>
-                           <h:outputText id="informacionComprobante"  value="#{controlComprobantes.infoRegistroComprobante}" style="position: absolute; left: 480px; top: 57px; color: #14388B; font-weight: bold;"/>
-                           <p:commandButton id="btnArriba" styleClass="cssBotonesEmpleado" style="background-image: url(Imagenes/Iconos/rgatras.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; position: relative; left: 550px; top: -65px; width: 28px; height: 28px; text-align: center;"  
+                           <h:outputText id="informacionComprobante" value="#{controlComprobantes.infoRegistroComprobante}" style="position: absolute; left: 520px; top: 62px; color: #14388B; font-weight: bold;"/>
+                           <p:commandButton id="btnArriba" styleClass="cssBotonesEmpleado" style="background-image: url(Imagenes/Iconos/rgatras.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; position: relative;
+                                            left: 560px; top: -65px; width: 28px; height: 28px; text-align: center;"  
                                             onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"
                                             value="" actionListener="#{controlComprobantes.anteriorEmpleado()}" disabled="#{controlComprobantes.estadoBtnArriba}" process="@this" />
-                           <p:commandButton id="btnAbajo" styleClass="cssBotonesEmpleado" style="background-image: url(Imagenes/Iconos/rgsiguiente.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; position: relative; left: 550px; top: -65px; width: 28px; height: 28px; text-align: center;"
+                           <p:commandButton id="btnAbajo" styleClass="cssBotonesEmpleado" style="background-image: url(Imagenes/Iconos/rgsiguiente.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; position: relative;
+                                            left: 561px; top: -65px; width: 28px; height: 28px; text-align: center;"
                                             onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"
-                                            value=""  actionListener="#{controlComprobantes.siguienteEmpleado()}" disabled="#{controlComprobantes.estadoBtnAbajo}" process="@this" />
+                                            value="" actionListener="#{controlComprobantes.siguienteEmpleado()}" disabled="#{controlComprobantes.estadoBtnAbajo}" process="@this" />
                         </div>
                      </p:panel>
                   </fieldset>
@@ -265,7 +267,7 @@
                            </h:outputText> 
                         </p:column>
                      </p:dataTable>
-                     
+
                      <h:outputText id="infoRegistroComprobanteEmpleado" value="#{msg['infoRegistros']} #{controlComprobantes.infoRegistroComprobanteEmpleado}" style="position: relative; left: 10px; top: 118px; font-weight: bold;"/>
 
                      <h:outputText value="#{msg['totales']}" style="text-align: left; position: relative; border: none; color: #14388B; background-color: white; left: 180px; top: 118px; font-weight: bold;"/>
@@ -273,7 +275,7 @@
                      <p:inputText id="descuentocomprobante" value="#{controlComprobantes.descuento}"
                                   style="width: 90px; height: 19px; padding: 0; font-size: 11px; text-align: right; position: relative; left: 211px; top: 118px; font-weight: bold; color: #14388B;"/>
                      <h:outputText id="netocomprobante" value="Neto: &nbsp;&nbsp; #{controlComprobantes.netoTotal}"
-                                  style="text-align: left; position: relative; left: 320px; top: 120px; font-weight: bold; color: #14388B;"/>
+                                   style="text-align: left; position: relative; left: 320px; top: 120px; font-weight: bold; color: #14388B;"/>
 
                      <p:remoteCommand name="posicionOtro" actionListener="#{controlComprobantes.posicionOtro()}"/>
                   </fieldset>
@@ -458,8 +460,10 @@
             </style>     
 
             <h:form id="formularioDialogos">
-               <p:dialog id="buscarEmpleadoDialogo" header="#{msg['empleados']}" widgetVar="buscarEmpleadoDialogo"  resizable="false" draggable="true" modal="true" width="732"  closable="false">  
-                  <p:dataTable  id="lovEmpleados" style="width: 700px;" var="parametro" value="#{controlComprobantes.listaParametrosLOV}"
+
+               <p:dialog id="buscarEmpleadoDialogo" header="#{msg['empleados']}" widgetVar="buscarEmpleadoDialogo"  resizable="false" draggable="true" modal="true" width="732" closable="false">
+
+                  <p:dataTable  id="lovEmpleados" var="parametro" value="#{controlComprobantes.listaParametrosLOV}"
                                 scrollable="true" scrollHeight="225" scrollWidth="716" widgetVar="lovEmpleados" liveScroll="true" scrollRows="20" 
                                 filteredValue="#{controlComprobantes.filtradoListaParametrosLOV}" emptyMessage="#{msg['lovvacio']}" 
                                 rowKey="#{parametro.empleado.secuencia}" selection="#{controlComprobantes.parametroSeleccionado}" selectionMode="single" >
@@ -469,33 +473,33 @@
                      <p:ajax event="filter" listener="#{controlComprobantes.contarRegistrosEmpleado()}"/>
 
                      <f:facet name="header" >  
-                        <h:outputText value="#{msg['buscar']}"  style="position: absolute; left: 22px; top: 18px;"/>  
-                        <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('lovEmpleados').filter();" style="width:150px; position: relative; left: -150px;"/>
+                        <h:outputText value="#{msg['buscar']}"/>
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovEmpleados').filter();" class="cssFiltroLOV"/>
                         <p:watermark for="globalFilter" value="#{msg['ingresar']}" />
                      </f:facet>
 
-                     <p:column  headerText="#{msg['codigoE']}" filterOptions="" filterBy="#{parametro.empleado.codigoempleado}" filterMatchMode="contains">  
+                     <p:column  headerText="#{msg['codigoE']}" filterBy="#{parametro.empleado.codigoempleado}" filterMatchMode="contains" filterStyle="width: 85% !important">  
                         <h:outputText value="#{parametro.empleado.codigoempleado}" />  
                      </p:column>  
 
-                     <p:column headerText="#{msg['pa']}" filterBy="#{parametro.empleado.persona.primerapellido}" filterMatchMode="contains">  
+                     <p:column headerText="#{msg['pa']}" filterBy="#{parametro.empleado.persona.primerapellido}" filterMatchMode="contains" filterStyle="width: 85% !important">  
                         <h:outputText value="#{parametro.empleado.persona.primerapellido}" />  
                      </p:column>  
 
-                     <p:column headerText="#{msg['sa']}" filterBy="#{parametro.empleado.persona.segundoapellido}" filterMatchMode="contains" >  
+                     <p:column headerText="#{msg['sa']}" filterBy="#{parametro.empleado.persona.segundoapellido}" filterMatchMode="contains" filterStyle="width: 85% !important">  
                         <h:outputText value="#{parametro.empleado.persona.segundoapellido}" />  
                      </p:column>  
 
-                     <p:column headerText="#{msg['nombre']}" width="160" filterBy="#{parametro.empleado.persona.nombre}" filterMatchMode="contains">  
+                     <p:column headerText="#{msg['nombre']}" width="160" filterBy="#{parametro.empleado.persona.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important">  
                         <h:outputText value="#{parametro.empleado.persona.nombre}" />  
                      </p:column> 
                   </p:dataTable> 
-
-                  <h:outputText id="infoRegistroEmpleado" value="#{msg['infoRegistros']} #{controlComprobantes.infoRegistroEmpleado}" style="position: absolute; left: 20px; top: 325px; font-weight: bold"/>
-
-                  <p:commandButton icon="ui-icon-check" id="aceptarP" style="position: relative; left: 515px;" value="#{msg['aceptar']}" disabled="#{controlComprobantes.aceptar}" actionListener="#{controlComprobantes.seleccionarEmpleado()}"  process="@this"/>
-
-                  <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasP" style="position: relative; left: 520px;" value="#{msg['atras']}" actionListener="#{controlComprobantes.cancelarSeleccionEmpleado()}"  process="@this"/>
+                  
+                  <div class="cssBotonesLOV">
+                     <h:outputText id="infoRegistroEmpleado" value="#{msg['infoRegistros']} #{controlComprobantes.infoRegistroEmpleado}" class="cssinfoRegistroLOV"/>
+                     <p:commandButton icon="ui-icon-check" id="aceptarP" value="#{msg['aceptar']}" disabled="#{controlComprobantes.aceptar}" actionListener="#{controlComprobantes.seleccionarEmpleado()}" process="@this" class="cssAceptarLOV"/>
+                     <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasP" value="#{msg['atras']}" actionListener="#{controlComprobantes.cancelarSeleccionEmpleado()}" process="@this" class="cssAtrasLOV"/>
+                  </div>
 
                </p:dialog>
 

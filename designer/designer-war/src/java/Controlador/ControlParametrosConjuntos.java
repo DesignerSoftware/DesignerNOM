@@ -2154,7 +2154,6 @@ public class ControlParametrosConjuntos implements Serializable {
          }
       }
       System.out.println("listaConceptosEspecificos.size() : " + listaConceptosEspecificos.size());
-      System.out.println("infoRegistroConceptos : " + infoRegistroConceptos);
       RequestContext context = RequestContext.getCurrentInstance();
       conceptoSeleccionado = null;
       context.reset("form:LOVConceptos:globalFilter");
@@ -2164,7 +2163,9 @@ public class ControlParametrosConjuntos implements Serializable {
       RequestContext.getCurrentInstance().execute("PF('LOVConceptos').unselectAllRows()");
       RequestContext.getCurrentInstance().execute("PF('operacionEnProceso').hide()");
       RequestContext.getCurrentInstance().execute("PF('conceptosDialogo').show()");
+      System.out.println("Va a contar Registros");
       contarRegistrosConceptos();
+      System.out.println("Ya hizo todo cargarConceptosEspecificos()");
    }
 
    public void cargarListaConceptos() {
@@ -2173,7 +2174,8 @@ public class ControlParametrosConjuntos implements Serializable {
       }
    }
 
-   public void modificarConjuntoConcepto() {
+   public void modificarConjuntoConcepto(Conceptos concepto) {
+      conceptoSeleccionado = concepto;
       System.out.println("modificarConjuntoConcepto() conceptoSeleccionado.getDescripcion() : " + conceptoSeleccionado.getDescripcion());
       System.out.println("modificarConjuntoConcepto() conceptoSeleccionado.getConjunto() : " + conceptoSeleccionado.getConjunto());
       administrarParametrosConjuntos.modificarConcepto(conceptoSeleccionado);

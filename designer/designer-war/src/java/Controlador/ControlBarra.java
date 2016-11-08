@@ -192,6 +192,7 @@ public class ControlBarra implements Serializable {
       totalEmpleadosParaLiquidar = 0;
       totalEmpleadosLiquidados = 0;
       barra = 0;
+      mensajeBarra = "";
       empezar = false;
       liquifinalizada = false;
       bandera = true;
@@ -363,7 +364,6 @@ public class ControlBarra implements Serializable {
    public Integer getBarra() {
       System.out.println("Entra GetBarra");
       if (empezar == true) {
-         RequestContext context = RequestContext.getCurrentInstance();
          String estado = administrarBarra.consultarEstadoLiquidacion(usuarioBD);
          System.out.println("Estado: 1" + estado);
          if (preparandoDatos == true) {

@@ -109,7 +109,7 @@ public class ControlComprobantes implements Serializable {
       registroActual = 0;
       listaSolucionesNodosEmpleado = null;
       listaSolucionesNodosEmpleador = null;
-      listaParametros = null;
+      listaParametros = new ArrayList<Parametros>();
    }
 
    @PostConstruct
@@ -127,7 +127,7 @@ public class ControlComprobantes implements Serializable {
    public void refrescar() {
       solucionNodoEmpleadoSeleccionada = null;
       solucionNodoEmpleadorSeleccionada = null;
-      listaParametros = null;
+      listaParametros.clear();
       listaSolucionesNodosEmpleado = null;
       listaSolucionesNodosEmpleador = null;
 //      getListaSolucionesNodosEmpleado();
@@ -164,6 +164,8 @@ public class ControlComprobantes implements Serializable {
          context.update("form:pasivocomprobantes");
          context.update("form:gastocomprobantes");
       }
+      contarRegistrosComprobanteEmpleado();
+      contarRegistrosComprobanteEmpleador();
    }
 
    public void siguienteEmpleado() {
@@ -192,6 +194,8 @@ public class ControlComprobantes implements Serializable {
          context.update("form:pasivocomprobantes");
          context.update("form:gastocomprobantes");
       }
+      contarRegistrosComprobanteEmpleado();
+      contarRegistrosComprobanteEmpleador();
    }
 
    public void seleccionarEmpleado() {
@@ -232,7 +236,7 @@ public class ControlComprobantes implements Serializable {
 
    public void mostarTodosEmpleados() {
       registroActual = 0;
-      listaParametros = null;
+      listaParametros.clear();
       parametroActual = null;
       listaParametrosLOV = null;
       getParametroActual();
@@ -724,7 +728,7 @@ public class ControlComprobantes implements Serializable {
    //GETTER AND SETTER
    public List<Parametros> getListaParametros() {
       listaParametros = administrarComprobantes.consultarParametrosComprobantesActualUsuario();
-      if (listaParametros == null || listaParametros.isEmpty()) {
+      if (listaParametros.isEmpty()) {
          estadoBtnArriba = true;
          estadoBtnAbajo = true;
       } else {
@@ -871,15 +875,15 @@ public class ControlComprobantes implements Serializable {
       this.filtradolistaSolucionesNodosEmpleador = filtradolistaSolucionesNodosEmpleador;
    }
 
-   public String getPago(){
+   public String getPago() {
       return pago;
    }
 
    public void setPago(String pago) {
       this.pago = pago;
    }
-   
-    public String getDescuento() {
+
+   public String getDescuento() {
       return descuento;
    }
 
@@ -1023,6 +1027,7 @@ public class ControlComprobantes implements Serializable {
    }
 
    public String getInfoRegistroComprobante() {
+      infoRegistroComprobante = (registroActual + 1) + " / " + listaParametros.size();
       return infoRegistroComprobante;
    }
 

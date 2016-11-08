@@ -747,23 +747,23 @@
                         <p:watermark for="globalFilter" value="#{msg['ingresarvalor']}"/>
                      </f:facet>
 
-                     <p:column  headerText="#{msg['codigoE']}" filterOptions="" width="80" filterBy="#{item.codigoEmpleado}" filterStyle="width: 85% !important;" filterMatchMode="contains">  
+                     <p:column  headerText="#{msg['codigoE']}" filterOptions="" width="80" filterBy="#{item.codigoEmpleado}" sortBy="#{item.codigoEmpleado}" filterStyle="width: 85% !important;" filterMatchMode="contains">  
                         <h:outputText value="#{item.codigoEmpleado}"/>
                      </p:column>  
 
-                     <p:column headerText="#{msg['primerapellidoE']}" width="120" filterBy="#{item.primerApellido}" filterStyle="width: 85% !important;" filterMatchMode="contains">  
+                     <p:column headerText="#{msg['primerapellidoE']}" width="120" filterBy="#{item.primerApellido}" sortBy="#{item.primerApellido}" filterStyle="width: 85% !important;" filterMatchMode="contains">  
                         <h:outputText value="#{item.primerApellido}"/>  
                      </p:column>  
 
-                     <p:column headerText="#{msg['segundoapellidoE']}" width="120" filterBy="#{item.segundoApellido}" filterStyle="width: 85% !important;" filterMatchMode="contains" >  
+                     <p:column headerText="#{msg['segundoapellidoE']}" width="120" filterBy="#{item.segundoApellido}" sortBy="#{item.segundoApellido}" filterStyle="width: 85% !important;" filterMatchMode="contains" >  
                         <h:outputText value="#{item.segundoApellido}"/>  
                      </p:column>  
 
-                     <p:column headerText="#{msg['nombre']}" filterBy="#{item.nombre}" filterStyle="width: 85% !important;" filterMatchMode="contains">  
+                     <p:column headerText="#{msg['nombre']}" filterBy="#{item.nombre}" sortBy="#{item.nombre}" filterStyle="width: 85% !important;" filterMatchMode="contains">  
                         <h:outputText value="#{item.nombre}"/>  
                      </p:column>  
 
-                     <p:column headerText="#{msg['tipo']}" width="80" filterBy="#{item.tipo}" filterStyle="width: 85% !important;" filterMatchMode="contains">  
+                     <p:column headerText="#{msg['tipo']}" width="80" filterBy="#{item.tipo}" sortBy="#{item.tipo}" filterStyle="width: 85% !important;" filterMatchMode="contains">  
                         <h:outputText value="#{item.tipo}"/>  
                      </p:column>
 
@@ -797,19 +797,19 @@
                         <p:watermark for="globalFilter" value="#{msg['ingresarvalor']}" />
                      </f:facet>
 
-                     <p:column  headerText="#{msg['codigoE']}" filterOptions="" width="80" filterBy="#{item.codigoEmpleado}" filterStyle="width: 85% !important;" filterMatchMode="contains">  
+                     <p:column headerText="#{msg['codigoE']}" filterOptions="" width="80" filterBy="#{item.codigoEmpleado}" sortBy="#{item.codigoEmpleado}" filterStyle="width: 85% !important;" filterMatchMode="contains">  
                         <h:outputText value="#{item.codigoEmpleado}" />  
                      </p:column>  
 
-                     <p:column headerText="#{msg['primerapellidoE']}" width="120" filterBy="#{item.primerApellido}" filterStyle="width: 85% !important;" filterMatchMode="contains">  
+                     <p:column headerText="#{msg['primerapellidoE']}" width="120" filterBy="#{item.primerApellido}" sortBy="#{item.primerApellido}" filterStyle="width: 85% !important;" filterMatchMode="contains">  
                         <h:outputText value="#{item.primerApellido}" />  
                      </p:column>  
 
-                     <p:column headerText="#{msg['segundoapellidoE']}" width="120" filterBy="#{item.segundoApellido}" filterStyle="width: 85% !important;" filterMatchMode="contains" >  
+                     <p:column headerText="#{msg['segundoapellidoE']}" width="120" filterBy="#{item.segundoApellido}" sortBy="#{item.segundoApellido}" filterStyle="width: 85% !important;" filterMatchMode="contains" >  
                         <h:outputText value="#{item.segundoApellido}" />  
                      </p:column>  
 
-                     <p:column headerText="#{msg['nombre']}" filterBy="#{item.nombre}"  filterStyle="width: 85% !important;" filterMatchMode="contains">  
+                     <p:column headerText="#{msg['nombre']}" filterBy="#{item.nombre}" sortBy="#{item.nombre}" filterStyle="width: 85% !important;" filterMatchMode="contains">  
                         <h:outputText value="#{item.nombre}" />  
                      </p:column>  
                   </p:dataTable> 
@@ -835,12 +835,14 @@
                         <h:outputText value="#{msg['buscarT']}" />  
                         <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovtablas').filter();" class="cssFiltroLOV" />  
                      </f:facet>
+                     
                      <p:column filterBy="#{tabla.nombre}" sortBy="#{tabla.nombre}" filterMatchMode="contains" filterStyle="width: 150px">
                         <f:facet name="header">
                            <h:outputText value="#{msg['nombre']}" />
                         </f:facet>
                         <h:outputText value="#{tabla.nombre}" />
                      </p:column>
+                     
                      <p:column filterBy="#{tabla.descripcion}" sortBy="#{tabla.descripcion}" filterMatchMode="contains" filterStyle="width: 150px">
                         <f:facet name="header">
                            <h:outputText value="#{msg['descripcion']}" />
@@ -879,14 +881,14 @@
                         <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('LovEmpresasTabla').filter();" class="cssFiltroLOV"/>
                      </f:facet>
 
-                     <p:column filterBy="#{empresaIPV.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                     <p:column filterBy="#{empresaIPV.nombre}" sortBy="#{empresaIPV.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important;">
                         <f:facet name="header">
                            <h:outputText style="text-align: center" value="#{msg['nombreEmpresa']}" />
                         </f:facet>
                         <h:outputText  value="#{empresaIPV.nombre}" />
                      </p:column>
 
-                     <p:column filterBy="#{empresaIPV.nit}" filterMatchMode="contains" filterStyle="width: 85% !important;" width="80" style="text-align: center;">
+                     <p:column filterBy="#{empresaIPV.nit}" sortBy="#{empresaIPV.nit}" filterMatchMode="contains" filterStyle="width: 85% !important;" width="80" style="text-align: center;">
                         <f:facet name="header">
                            <h:outputText value="#{msg['nitEmpresa']}" />
                         </f:facet>
