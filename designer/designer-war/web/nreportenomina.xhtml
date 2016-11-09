@@ -15,7 +15,7 @@
                 <h:form id="form">
                     <f:loadBundle basename="Recursos.nreportenomina" var="msg"/>
                     <p:growl id="growl" showDetail="true"/>
-                    
+
                     <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal"> 
                         <p:toolbar styleClass="cssToolbar" >  
                             <p:toolbarGroup align="left"> 
@@ -162,9 +162,16 @@
                                          actionListener="#{controlNReporteNomina.cancelarYSalir()}" process="@this" />
 
                         <p:commandButton id="ENVIOCORREO" icon="ui-icon-extlink" style="position: absolute; left: 10px; top: 480px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
-                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;"  value="envio correo" process="@this" update=":form:EnvioCorreoDialogo:"
-                                         oncomplete="PF('EnvioCorreoDialogo').show()"/>
+                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;"  value="envio correo" action="enviocorreo" actionListener="#{controlEnvioCorreos.recibirPagina('enviocorreo', controlNReporteNomina.reporteSeleccionado.secuencia)}" process="@this" />
                         <p:tooltip  for="ENVIOCORREO" value="#{msg['envio']}" />
+
+                        <!--                        <p:lightBox iframe="true" height="400px" width="550px" widgetVar="envioCorreo">
+                                                    <h:outputLink value="enviocorreo.xhtml" onclick="#{controlEnvioCorreos.recibirPagina('enviocorreo', controlNReporteNomina.reporteSeleccionado.secuencia)}" 
+                                                                  title="ENVIO CORREO" style="position: absolute; left: 10px; top: 480px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
+                                                                  background-size: 100% 100%; background-repeat: no-repeat; border: none;" >
+                                                        <h:outputText value="Envio Correo" style="position: relative; left: 35px; top: 9px;"/>
+                                                    </h:outputLink>
+                                                </p:lightBox>-->
 
                         <p:commandButton id="ENVIOLOTE" icon="ui-icon-extlink" style="position: absolute; left: 145px; top: 480px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
                                          background-size: 100% 100%; background-repeat: no-repeat; border: none;"  value="envio lote"   process="@this" />
@@ -229,39 +236,6 @@
                             <p:commandButton id="atrasR" class="cssAtrasLOV" value="#{msg['cancelar']}" 
                                              actionListener="#{controlNReporteNomina.cancelarSeleccionInforeporte()}" update=":form:lovReportesDialogo" icon="ui-icon-arrowreturnthick-1-w" process="@this" />
                         </div>
-                    </p:dialog>
-
-                    <p:dialog header="#{msg['envioporcorreo']}" widgetVar="EnvioCorreoDialogo" draggable="true" resizable="false" closable="false" id="EnvioCorreoDialogo"  
-                              showEffect="fade" hideEffect="fade" width="460" height="350" modal="true" >
-
-                        <h:outputText style="position: absolute;top: 10px; left: 10px; text-align: left" value="#{msg['enviarcorreo']}" />
-                        <h:outputText style="position: absolute; top: 70px; left: 10px;font-weight: bold;color: darkblue" value="#{msg['reporte']}"/>
-                        <h:outputText style="position: absolute; top: 90px; left: 10px;font-weight: bold;" value="#{controlNReporteNomina.reporteSeleccionado.nombre}"/>
-
-                        <fieldset  style="position: absolute; left: 15px; top: 120px;  width: 400px; height: 150px; border-radius: 10px; text-align: left">
-                            <legend style=" color: blue;text-align: left"><strong>#{msg['envio']}</strong></legend>
-                            <strong><h:outputText value="#{msg['de']}" style="position: absolute; left: 10px; top: 25px;font-size: 12px"/></strong>
-                            <p:inputText  autocomplete="off"  value="nomina@designer.com.co" style="position: absolute; left: 80px; top: 20px;width: 300px"/>
-                            <strong><h:outputText value="#{msg['para']}" style="position: absolute; left: 10px; top: 60px;font-size: 12px"/></strong>
-                            <p:inputText  autocomplete="off"  style="position: absolute; left: 80px; top: 55px;width: 300px" disabled="#{controlNReporteNomina.reporteSeleccionado.estadoEnvioMasivo}"/>
-                            <strong><h:outputText value="#{msg['cc']}" style="position: absolute; left: 10px; top: 95px;font-size: 12px"/></strong>
-                            <p:inputText  autocomplete="off"  style="position: absolute; left: 80px; top: 90px;width: 300px" disabled="#{controlNReporteNomina.reporteSeleccionado.estadoEnvioMasivo}"/>
-                            <strong><h:outputText value="#{msg['asunto']}" style="position: absolute; left: 10px; top: 130px;font-size: 12px"/></strong>
-                            <p:inputText  autocomplete="off"  style="position: absolute; left: 80px; top: 125px;width: 300px"/>
-                        </fieldset>
-
-                        <p:commandButton icon="ui-icon-extlink" id="registroEnvio" style="position: absolute; left: 155px; top: 288px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); 
-                                         background-size: 100% 100%; background-repeat: no-repeat; border: none; color: white" value="Registros E" onclick="PF('EnvioCorreoDialogo').hide()"
-                                         action="registroEnvios" actionListener="#{controlRegistroEnvios.recibirPagina('atrasregistroenvio', controlNReporteNomina.reporteSeleccionado.secuencia)}" process="@this"/>
-                        <p:tooltip for="registroEnvio" value="#{msg['registrodeenvios']}"/>
-
-                        <p:commandButton id="envioCorreo"  icon="ui-icon-extlink"  style="position: absolute; left: 300px; top: 288px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); 
-                                         background-size: 100% 100%; background-repeat: no-repeat; border: none; color: white" value="Enviar"/>
-                        <p:tooltip for="envioCorreo" value="#{msg['envio']}"/>
-
-                        <p:commandButton id="atras" style="position: absolute; left: 300px; top: 325px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); 
-                                         background-size: 100% 100%; background-repeat: no-repeat; border: none; color: white" icon="ui-icon-arrowreturnthick-1-w" value="Atras" onclick="PF('EnvioCorreoDialogo').hide()"  process="@this"/>
-
                     </p:dialog>
 
                     <p:dialog id="EmpleadoDesdeDialogo" header="#{msg['codigoEMP']}" widgetVar="EmpleadoDesdeDialogo" draggable="true" resizable="false" closable="false"   

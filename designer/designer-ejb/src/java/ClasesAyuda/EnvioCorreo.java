@@ -20,10 +20,17 @@ import javax.mail.internet.MimeMultipart;
  * @author user
  */
 public class EnvioCorreo {
+
     public EnvioCorreo() {
     }
 
     public boolean enviarCorreo(ConfiguracionCorreo cfc, String destinatario, String asunto, String mensaje, String pathAdjunto) {
+        System.out.println("ClasesAyuda.EnvioCorreo.enviarCorreo()");
+        System.out.println("cfc : " + cfc);
+        System.out.println("destinatario : " + destinatario);
+        System.out.println("asunto: " + asunto);
+        System.out.println("mensaje: " + mensaje);
+        System.out.println("pathAdjunto: " + pathAdjunto);
 //        try {
         boolean resEnvio = false;
         // Propiedades de la conexión
@@ -32,17 +39,21 @@ public class EnvioCorreo {
         propiedadesConexion.setProperty("mail.smtp.port", cfc.getPuerto());
 
         if (cfc.getAutenticado().equalsIgnoreCase("S")) {
+            System.out.println("if (cfc.getAutenticado().equalsIgnoreCase(\"S\"))");
             propiedadesConexion.setProperty("mail.smtp.auth", "true");
             if (cfc.getUsarssl().equalsIgnoreCase("S")) {
+                System.out.println("cfc.getUsarssl().equalsIgnoreCase(\"S\")");
                 propiedadesConexion.put("mail.smtp.socketFactory.port", cfc.getPuerto());
                 propiedadesConexion.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-            }else if (cfc.getStarttls().equalsIgnoreCase("S")) {
+            } else if (cfc.getStarttls().equalsIgnoreCase("S")) {
+                System.out.println("Entre a else validar usarssl");
                 propiedadesConexion.setProperty("mail.smtp.starttls.enable", "true");
             }
         }
 
         // Preparamos la sesion
         Session session = Session.getDefaultInstance(propiedadesConexion);
+        System.out.println("session: " + session);
         /*Session session = Session.getDefaultInstance(propiedadesConexion, new javax.mail.Authenticator() {
                 @Override
                 protected PasswordAuthentication getPasswordAuthentication() {
@@ -50,6 +61,7 @@ public class EnvioCorreo {
                 }
             });*/
         try {
+            System.out.println("Ingrese al try");
             //Mensaje que va en el correo
             BodyPart texto = new MimeBodyPart();
             texto.setText(mensaje);
@@ -57,10 +69,14 @@ public class EnvioCorreo {
             //Archivo adjunto
             BodyPart adjunto = null;
             if (pathAdjunto != null && !pathAdjunto.isEmpty()) {
+                System.out.println("Ingrese al primer if");
                 adjunto = new MimeBodyPart();
                 FileDataSource archivo = new FileDataSource(pathAdjunto);
                 adjunto.setDataHandler(new DataHandler(archivo));
                 adjunto.setFileName(archivo.getFile().getName());
+                System.out.println("archivo " + archivo);
+                System.out.println("adjunto.setFileName : " + adjunto.getFileName());
+
             }
 
             //Estructura del contenido (Texto y Adjnto)
@@ -68,6 +84,7 @@ public class EnvioCorreo {
             multiParte.addBodyPart(texto);
 
             if (adjunto != null) {
+                System.out.println("Ingrese segundo IF");
                 multiParte.addBodyPart(adjunto);
             }
 
@@ -83,8 +100,12 @@ public class EnvioCorreo {
 
             //Validamos si requiere autenticacion o no.
             if (cfc.getAutenticado().equalsIgnoreCase("S")) {
+                System.out.println("ingrese if autenticado = 'S'");
+                System.out.println("cfc.getRemitente(): " + cfc.getRemitente());
+                System.out.println("cfc.getClave(): " + cfc.getClave());
                 t.connect(cfc.getRemitente(), cfc.getClave());
             } else {
+                System.out.println("Ingtrese a else autenticado = 'S'");
                 t.connect();
             }
 
@@ -98,12 +119,16 @@ public class EnvioCorreo {
 //            return true;
             resEnvio = true;
         } catch (NoSuchProviderException nspe) {
+            System.out.println("Ingrese primer catch");
             System.out.println("Error enviarCorreo: " + nspe.getMessage());
             resEnvio = false;
         } catch (MessagingException e) {
+            System.out.println("Ingrese segundo catch");
             System.out.println("Error enviarCorreo: " + e.getMessage());
             resEnvio = false;
         }
+
+        System.out.println("resEnvio: " + resEnvio);
         return resEnvio;
     }
 }

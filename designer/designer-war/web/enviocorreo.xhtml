@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+    </h:head>
+    <h:body> 
+        <ui:composition template="/template.xhtml">
+            <ui:define name="body"> 
+                <h:form id="form">
+                    <f:loadBundle basename="Recursos.envioCorreo" var="msg"/>
+                    <p:growl id="growl" showDetail="true"/>
+                    <div id="messagesout" class="top">
+                        <p:messages id="messagessgeneral" showDetail="true"
+                                    autoUpdate="true" closable="true"/>
+
+                    </div>
+                    <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal"> 
+            <!--<p:remoteCommand name="validarEnvioCorreo" actionListener="#{controlEnvioCorreos.validarEnviaCorreo()}"/>-->
+                        <fieldset style="position: absolute; top: 50px; left: 30px; height: 330px; width: 460px; border-radius: 10px; text-align: left; font-family: inherit;">
+                            <!--<legend style="font-size: 12px; font-family: inherit; color: blue"><strong></strong></legend>-->                  
+                            <h:outputText style="position: absolute;top: 10px; left: 10px; text-align: left; font-family: inherit; font-size: 14px;" value="#{msg['enviarcorreo']}" />
+                            <h:outputText style="position: absolute; top: 90px; left: 10px; font-weight: bold; color: darkblue; font-family: inherit; font-size: 14px;" value="#{msg['reporte']}"/>
+                            <h:outputText style="position: absolute; top: 110px; left: 10px; font-weight: bolder; font-family: inherit; font-size: 12px;" value="#{controlEnvioCorreos.nombreReporte}"/>
+
+                            <fieldset style="position: absolute; left: 15px; top: 130px; width: 400px; height: 150px; border-radius: 10px; text-align: left">
+                                <legend style=" color: blue;text-align: left; font-size: 14px; font-family: inherit;"><strong>#{msg['envio']}</strong></legend>
+
+                                <strong><h:outputText value="#{msg['de']}" style="position: absolute; left: 10px; top: 25px; font-size: 14px; font-family: inherit;"/></strong>
+                                <p:inputText  autocomplete="off" value="nomina@designer.com.co" style="position: absolute; left: 80px; top: 20px; width: 300px; font-family: inherit; font-size: 13px;"/>
+
+                                <strong><h:outputText id="para" value="#{msg['para']}" style="position: absolute; left: 10px; top: 60px; font-family: inherit; font-size: 14px;"/></strong>
+                                <p:inputText  autocomplete="off" style="position: absolute; left: 80px; top: 55px; width: 300px; font-family: inherit; font-size: 13px;" disabled="#{controlEnvioCorreos.reporteActual.estadoEnvioMasivo}"
+                                              value="#{controlEnvioCorreos.email}">
+                                    <p:ajax event="dblclick" listener="#{controlEnvioCorreos.dialogos}" process="@this"/>
+                                </p:inputText>
+
+                                <strong><h:outputText value="#{msg['cc']}" style="position: absolute; left: 10px; top: 95px;font-size: 14px; font-family: inherit;"/></strong>
+                                <p:inputText  autocomplete="off" style="position: absolute; left: 80px; top: 90px;width: 300px; font-family: inherit; font-size: 13px;" disabled="#{controlEnvioCorreos.reporteActual.estadoEnvioMasivo}">
+
+<!--                        <p:ajax event="dblclick" listener="#{controlEnvioCorreos.dialogos}" process="@this"/>-->
+                                </p:inputText>
+
+                                <strong><h:outputText value="#{msg['asunto']}" style="position: absolute; left: 10px; top: 130px;font-size: 14px"/></strong>
+                                <p:inputText  autocomplete="off" style="position: absolute; left: 80px; top: 125px;width: 300px;  font-size: 13px; font-family: inherit;"/>
+                            </fieldset>
+
+                            <p:commandButton id="registroEnvio" icon="ui-icon-extlink" style="font-size: small; position: absolute; left: 150px; top: 305px; height: 25px; width: 130px;" value="Registros E" onclick="PF('EnvioCorreoDialogo').hide()"
+                                             action="registroEnvios" actionListener="#{controlRegistroEnvios.recibirPagina('atrasregistroenvio', controlNReporteNomina.reporteSeleccionado.secuencia)}" process="@this"/>
+                            <p:tooltip for="registroEnvio" value="#{msg['registrodeenvios']}"/>
+
+                            <p:commandButton id="envioCorreo"  icon="ui-icon-extlink"  style="font-size: small; position: absolute; left: 310px; top: 305px; height: 25px; width: 130px;" value="Enviar"
+                                             actionListener="#{controlEnvioCorreos.validarEnviaCorreo()}"/>
+                            <p:tooltip for="envioCorreo" value="#{msg['envio']}"/>
+
+                        </fieldset>
+                        <p:commandButton id="atras" style="position: absolute; font-size: small; left: 343px; top: 405px; height: 25px; width: 130px;" icon="ui-icon-arrowreturnthick-1-w" 
+                                         value="Atras" action="enviocorreo" process="@this"/>
+                    </p:panel>
+                </h:form>
+
+                <h:form id="formDialogos">
+                    <p:dialog id="correoEmpleadosDialogo" header="#{msg['correo']}" widgetVar="correoEmpleadosDialogo" draggable="true" resizable="false" closable="false"  
+                              showEffect="fade" hideEffect="fade" width="440" modal="true" >
+                        <p:dataTable id="lovCorreoEmpleado" widgetVar="lovCorreoEmpleado" var="correoEmpl" value="#{controlEnvioCorreos.lovEmpleados}" rowKey="#{correoEmpl.secuencia}"
+                                     selection="#{controlEnvioCorreos.empleadoSeleccionado}" selectionMode="single" scrollable="true" scrollWidth="425" scrollHeight="250"
+                                     filteredValue="#{controlEnvioCorreos.filtrarListEmpleados}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
+
+                            <p:ajax event="filter" listener="#{controlEnvioCorreos.contarRegistros()}"/>    
+
+                            <p:ajax event="rowSelect" listener="#{controlEnvioCorreos.activarAceptar()}" update=":formDialogos:aceptar"/>
+                            <p:ajax event="rowDblselect" listener="#{controlEnvioCorreos.actualizarCorreoEmpl()}" update=":formDialogos:correoEmpleadosDialogo" process="@this"   />
+                            <f:facet name="header">  
+                                <h:outputText value="#{msg['buscar']}"/>  
+                                <p:inputText class="cssFiltroLOV" autocomplete="off" id="globalFilter" onkeyup="PF('lovCorreoEmpleado').filter();" value="#{filtrado}"/>  
+                            </f:facet>
+                            <p:column filterBy="#{correoEmpl.persona.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 80% !important">
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['nombre']}"/>
+                                </f:facet>
+                                <h:outputText value="#{correoEmpl.persona.nombreCompleto}" />
+                            </p:column>
+
+                            <p:column filterBy="#{correoEmpl.persona.email}" width="40%" filterMatchMode="contains" filterStyle="width: 80% !important">
+                                <f:facet name="header">
+                                    <h:outputText style="text-align: center" value="#{msg['email']}" />
+                                </f:facet>
+                                <h:outputText  value="#{correoEmpl.persona.email}" />
+                            </p:column>
+                        </p:dataTable>
+                        <div class="cssBotonesLOV">
+                            <h:outputText id="infoRegistro" class="cssinfoRegistroLOV" value="#{msg['infoRegistro']} #{controlEnvioCorreos.infoRegistro}"/>
+
+                            <p:commandButton id="aceptar" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlEnvioCorreos.aceptar}" actionListener="#{controlEnvioCorreos.actualizarCorreoEmpl()}" 
+                                             icon="ui-icon-check" update=":formDialogos:correoEmpleadosDialogo" process="@this" />
+
+                            <p:commandButton id="atras" class="cssAtrasLOV" value="#{msg['cancelar']}" actionListener="#{controlEnvioCorreos.cancelarCambioCorreoEmpl()}"
+                                             update=":formDialogos:correoEmpleadosDialogo" icon="ui-icon-arrowreturnthick-1-w" process="@this"/>
+                        </div>
+                    </p:dialog>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

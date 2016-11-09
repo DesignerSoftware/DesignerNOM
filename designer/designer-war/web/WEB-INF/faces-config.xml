@@ -6130,6 +6130,23 @@
         </navigation-case>
     </navigation-rule>
     
+       <navigation-rule>
+        <from-view-id>/nreportenomina.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>enviocorreo</from-outcome>
+            <to-view-id>/enviocorreo.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/enviocorreo.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>enviocorreo</from-outcome>
+            <to-view-id>/nreportenomina.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
            <navigation-rule>
         <from-view-id>/pervigenciadomiciliaria.xhtml</from-view-id>
         <navigation-case>

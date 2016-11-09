@@ -2,7 +2,8 @@ package InterfacePersistencia;
 
 import Entidades.Empleados;
 import Entidades.Inforeportes;
-import Entidades.envioCorreos;
+import Entidades.EnvioCorreos;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -14,40 +15,40 @@ import javax.persistence.EntityManager;
 public interface PersistenciaEnvioCorreosInterface {
 
     /**
-     * Método encargado de buscar todos los envioCorreos existentes en la base de
+     * Método encargado de buscar todos los EnvioCorreos existentes en la base de
      * datos.
      *
      * @param em
      * @param secReporte
-     * @return Retorna una lista de envioCorreos.
+     * @return Retorna una lista de EnvioCorreos.
      */
-    public List<envioCorreos> consultarEnvios(EntityManager em, BigInteger secReporte);
+    public List<EnvioCorreos> consultarEnvios(EntityManager em, BigInteger secReporte);
     
         /**
-     * Método encargado de buscar el envioCorreos con la secuencia dada por parámetro.
+     * Método encargado de buscar el EnvioCorreos con la secuencia dada por parámetro.
      * @param em
      * @param secEnvioReporte
-     * @return Retorna el envioCorreos con la secuencia dada por parámetro.
+     * @return Retorna el EnvioCorreos con la secuencia dada por parámetro.
      */
     public Inforeportes buscarEnvioCorreoporSecuencia(EntityManager em, BigInteger secEnvioReporte);
     
             /**
-     * Método encargado de buscar el envioCorreos con la secuencia dada por parámetro.
+     * Método encargado de buscar el EnvioCorreos con la secuencia dada por parámetro.
      * @param em
      * @param secEnvioReporte
-     * @return Retorna el envioCorreos identificada con la secuencia dada por parámetro.
+     * @return Retorna el EnvioCorreos identificada con la secuencia dada por parámetro.
      */
 //    public List<Empleados> buscarEmpleados(EntityManager em, BigInteger secEnvioRepEmp);
 
     /**
-     * Método encargado de modificar un envioCorreos de la base de datos. Este método
+     * Método encargado de modificar un EnvioCorreos de la base de datos. Este método
      * recibe la información del parámetro para hacer un 'merge' con la
      * información de la base de datos.
      *
      * @param em
-     * @param enviocorreos envioCorreos con los cambios que se van a realizar.
+     * @param enviocorreos EnvioCorreos con los cambios que se van a realizar.
      */
-    public void editar(EntityManager em, envioCorreos enviocorreos);
+    public void editar(EntityManager em, EnvioCorreos enviocorreos);
 
     /**
      * Método encargado de eliminar de la base de datos el Envio de correo que
@@ -56,5 +57,15 @@ public interface PersistenciaEnvioCorreosInterface {
      * @param em
      * @param enviocorreo
      */
-    public void borrar(EntityManager em, envioCorreos enviocorreo);
+    public void borrar(EntityManager em, EnvioCorreos enviocorreo);
+    
+    /**
+     *
+     * @param em
+     * @param emplDesde
+     * @param emplHasta
+     * @return
+     */
+    public List<Empleados> CorreoCodEmpleados(EntityManager em, BigDecimal emplDesde, BigDecimal emplHasta);
+    
 }

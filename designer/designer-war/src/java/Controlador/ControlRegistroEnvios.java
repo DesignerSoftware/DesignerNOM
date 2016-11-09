@@ -7,10 +7,10 @@ package Controlador;
 
 import Entidades.Empleados;
 import Entidades.Inforeportes;
-import Entidades.envioCorreos;
-import InterfaceAdministrar.AdministrarEnvioCorreosInterface;
+import Entidades.EnvioCorreos;
 import InterfaceAdministrar.AdministrarNReportesNominaInterface;
 import InterfaceAdministrar.AdministrarRastrosInterface;
+import InterfaceAdministrar.AdministrarRegistroEnviosInterface;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -36,7 +36,7 @@ import org.primefaces.context.RequestContext;
 public class ControlRegistroEnvios implements Serializable {
 
     @EJB
-    AdministrarEnvioCorreosInterface administrarEnvioCorreos;
+    AdministrarRegistroEnviosInterface administrarRegistroEnvio;
     @EJB
     AdministrarRastrosInterface administrarRastros;
     @EJB
@@ -44,18 +44,18 @@ public class ControlRegistroEnvios implements Serializable {
     //------------------------------------------------------------------------------------------
     //ATRIBUTOS
     //------------------------------------------------------------------------------------------
-    private List<envioCorreos> enviocorreos;
-    private List<envioCorreos> filterEC;
-    private envioCorreos envioSeleccionado;
+    private List<EnvioCorreos> enviocorreos;
+    private List<EnvioCorreos> filterEC;
+    private EnvioCorreos envioSeleccionado;
     private DataTable tablaEC;
 //Pruebas para modificar
-    private List<envioCorreos> listECModificar;
+    private List<EnvioCorreos> listECModificar;
     private boolean guardado;
 
     //borrar VC
-    private List<envioCorreos> listECBorrar;
+    private List<EnvioCorreos> listECBorrar;
     //editar celda
-    private envioCorreos editarEC;
+    private EnvioCorreos editarEC;
     private int cualCelda, tipoLista;
     private boolean aceptar;
     private String infoRegistro;
@@ -84,7 +84,7 @@ public class ControlRegistroEnvios implements Serializable {
         listECBorrar = new ArrayList();
         listECModificar = new ArrayList();
         //editar
-        editarEC = new envioCorreos();
+        editarEC = new EnvioCorreos();
         cualCelda = -1;
         tipoLista = 0;
         //guardar
@@ -99,7 +99,7 @@ public class ControlRegistroEnvios implements Serializable {
         try {
             FacesContext x = FacesContext.getCurrentInstance();
             HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
-            administrarEnvioCorreos.obtenerConexion(ses.getId());
+            administrarRegistroEnvio.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
         } catch (Exception e) {
             System.out.println("Error Controlador.ControlRegistroEnvios.inicializarAdministrador()" + e);
@@ -119,7 +119,7 @@ public class ControlRegistroEnvios implements Serializable {
         System.out.println("Controlador.ControlRegistroEnvios.recibirPagina()");
         System.out.println("pagina: " + pagina);
         paginaAnterior = pagina;
-        Inforeportes reporte = administrarEnvioCorreos.consultarPorSecuencia(secReporte);
+        Inforeportes reporte = administrarRegistroEnvio.consultarPorSecuencia(secReporte);
         reporteActual = reporte;
         nombreReporte = reporteActual.getNombre();
 //        if (reporteActual != null) {
@@ -140,12 +140,12 @@ public class ControlRegistroEnvios implements Serializable {
             System.out.println("listECBorrar.size(): " + listECBorrar.size());
             if (!listECBorrar.isEmpty()) {
                 for (int i = 0; i < listECBorrar.size(); i++) {
-                    administrarEnvioCorreos.borrarEnvioCorreos(listECBorrar.get(i));
+                    administrarRegistroEnvio.borrarEnvioCorreos(listECBorrar.get(i));
                 }
                 listECBorrar.clear();
             }
             if (!listECModificar.isEmpty()) {
-                administrarEnvioCorreos.modificarEC(listECModificar);
+                administrarRegistroEnvio.modificarEC(listECModificar);
                 listECModificar.clear();
             }
             System.out.println("Se guardaron los datos con exito");
@@ -285,7 +285,7 @@ public class ControlRegistroEnvios implements Serializable {
         }
     }
 
-    public void modificarCorreo(envioCorreos ecorreos, String valorConfirmar) {
+    public void modificarCorreo(EnvioCorreos ecorreos, String valorConfirmar) {
         envioSeleccionado = ecorreos;
 //            for (int i = 0; i < enviocorreos.size(); i++) {
 //                if (enviocorreos.get(i) == envioSeleccionado) {
@@ -345,7 +345,7 @@ public class ControlRegistroEnvios implements Serializable {
         contarRegistros();
     }
 
-    public void cambiarIndice(envioCorreos correos, int celda) {
+    public void cambiarIndice(EnvioCorreos correos, int celda) {
         envioSeleccionado = correos;
         cualCelda = celda;
         if (cualCelda == 0) {
@@ -383,7 +383,7 @@ public class ControlRegistroEnvios implements Serializable {
         cancelarModificaciones();
         salir();
     }
-    
+
 //    public void validarReenviar() {
 //        if (conexionEmpleado.isEnvioCorreo()) {
 //            if (administrarGenerarReporte.enviarCorreo(conexionEmpleado.getEmpleado().getEmpresa().getSecuencia(), email,
@@ -397,21 +397,20 @@ public class ControlRegistroEnvios implements Serializable {
 //            }
 //        }
 //    }
-
 //    public void cargarListaCorreos(BigInteger secReporte) {
 //        System.out.println("Controlador.ControlRegistroEnvios.cargarListaCorreos()");
 //        System.out.println("secReporte: " + secReporte);
 //        if (enviocorreos == null) {
-//            enviocorreos = administrarEnvioCorreos.consultarEnvioCorreos(secReporte);
+//            enviocorreos = administrarRegistroEnvio.consultarEnvioCorreos(secReporte);
 //        }
 //    }
     //GET & SET
-    public List<envioCorreos> getEnviocorreos() {
+    public List<EnvioCorreos> getEnviocorreos() {
 //        if (enviocorreos == null && reporteActual != null) {
 //            cargarListaCorreos(reporteActual.getSecuencia());
 //        }
         if (enviocorreos == null) {
-            enviocorreos = administrarEnvioCorreos.consultarEnvioCorreos(reporteActual.getSecuencia());
+            enviocorreos = administrarRegistroEnvio.consultarEnvioCorreos(reporteActual.getSecuencia());
         }
         return enviocorreos;
     }
@@ -424,23 +423,23 @@ public class ControlRegistroEnvios implements Serializable {
         this.reporteActual = reporteActual;
     }
 
-    public void setEnviocorreos(List<envioCorreos> enviocorreos) {
+    public void setEnviocorreos(List<EnvioCorreos> enviocorreos) {
         this.enviocorreos = enviocorreos;
     }
 
-    public List<envioCorreos> getFilterEC() {
+    public List<EnvioCorreos> getFilterEC() {
         return filterEC;
     }
 
-    public void setFilterEC(List<envioCorreos> filterEC) {
+    public void setFilterEC(List<EnvioCorreos> filterEC) {
         this.filterEC = filterEC;
     }
 
-    public envioCorreos getEnvioSeleccionado() {
+    public EnvioCorreos getEnvioSeleccionado() {
         return envioSeleccionado;
     }
 
-    public void setEnvioSeleccionado(envioCorreos envioSeleccionado) {
+    public void setEnvioSeleccionado(EnvioCorreos envioSeleccionado) {
         this.envioSeleccionado = envioSeleccionado;
     }
 
@@ -452,11 +451,11 @@ public class ControlRegistroEnvios implements Serializable {
         this.tablaEC = tablaEC;
     }
 
-    public List<envioCorreos> getListECModificar() {
+    public List<EnvioCorreos> getListECModificar() {
         return listECModificar;
     }
 
-    public void setListECModificar(List<envioCorreos> listECModificar) {
+    public void setListECModificar(List<EnvioCorreos> listECModificar) {
         this.listECModificar = listECModificar;
     }
 
@@ -468,19 +467,19 @@ public class ControlRegistroEnvios implements Serializable {
         this.guardado = guardado;
     }
 
-    public List<envioCorreos> getListECBorrar() {
+    public List<EnvioCorreos> getListECBorrar() {
         return listECBorrar;
     }
 
-    public void setListECBorrar(List<envioCorreos> listECBorrar) {
+    public void setListECBorrar(List<EnvioCorreos> listECBorrar) {
         this.listECBorrar = listECBorrar;
     }
 
-    public envioCorreos getEditarEC() {
+    public EnvioCorreos getEditarEC() {
         return editarEC;
     }
 
-    public void setEditarEC(envioCorreos editarEC) {
+    public void setEditarEC(EnvioCorreos editarEC) {
         this.editarEC = editarEC;
     }
 

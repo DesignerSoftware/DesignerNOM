@@ -1,11 +1,18 @@
 package Administrar;
 
-import Entidades.Inforeportes;
-import Entidades.envioCorreos;
+import ClasesAyuda.EnvioCorreo;
+import Entidades.ConfiguracionCorreo;
+import Entidades.Empleados;
 import InterfaceAdministrar.AdministrarEnvioCorreosInterface;
 import InterfaceAdministrar.AdministrarSesionesInterface;
+import InterfacePersistencia.PersistenciaActualUsuarioInterface;
+import InterfacePersistencia.PersistenciaConfiguracionCorreoInterface;
 import InterfacePersistencia.PersistenciaEnvioCorreosInterface;
+import InterfacePersistencia.PersistenciaParametrosEstructurasInterface;
+import Persistencia.PersistenciaActualUsuario;
+import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
@@ -21,97 +28,73 @@ import javax.persistence.EntityManager;
 public class AdministrarEnvioCorreos implements AdministrarEnvioCorreosInterface {
 
     @EJB
-    PersistenciaEnvioCorreosInterface PersistenciaEnvioCorreos;
-    @EJB
     AdministrarSesionesInterface administrarSesiones;
-//    private List<envioCorreos> enviocorreos;
-    private envioCorreos ec;
+    @EJB
+    PersistenciaEnvioCorreosInterface persistenciaEnvioCorreos;
+    @EJB
+    PersistenciaConfiguracionCorreoInterface persistenciaConfiguracionCorreo;
+    @EJB
+    PersistenciaParametrosEstructurasInterface persistenciaParametrosEstructuras;
+    @EJB
+    PersistenciaActualUsuarioInterface persistenciaActualUsuario;
+
     private EntityManager em;
 
-    //--------------------------------------------------------------------------
-    //MÉTODOS
-    //--------------------------------------------------------------------------
     @Override
     public void obtenerConexion(String idSesion) {
         em = administrarSesiones.obtenerConexionSesion(idSesion);
     }
 
     @Override
-    public List<envioCorreos> consultarEnvioCorreos(BigInteger secReporte) {
-        System.out.println("Administrar.AdministrarEnvioCorreos.consultarEnvioCorreos()");
-        List<envioCorreos> enviocorreos;
+    public List<Empleados> correoCodigoEmpleado(BigDecimal emplDesde, BigDecimal emplHasta) {
+        System.out.println("Administrar.AdministrarRegistroEnvios.consultarEnvioCorreos()");
+        System.out.println("emplDesde: " + emplDesde);
+        System.out.println("emplHasta: " + emplHasta);
+        List<Empleados> correoEmpleados;
         try {
-            enviocorreos = PersistenciaEnvioCorreos.consultarEnvios(em, secReporte);
+            System.out.println("Ingrese al try");
+            correoEmpleados = persistenciaEnvioCorreos.CorreoCodEmpleados(em, emplDesde, emplHasta);
         } catch (Exception e) {
-            System.out.println("Error Administrar.AdministrarEnvioCorreos.consultarEnvioCorreos() " + e);
-            enviocorreos = null;
+            System.out.println("Ingrese al catch");
+            System.out.println("Error Administrar.AdministrarRegistroEnvios.consultarEnvioCorreos() " + e);
+            correoEmpleados = new ArrayList<>();
         }
-        return enviocorreos;
+        return correoEmpleados;
     }
 
     @Override
-    public void editarEnvioCorreos(envioCorreos listaEC) {
+    public boolean comprobarConfigCorreo(BigInteger secuenciaEmpresa) {
+        boolean retorno = false;
         try {
-            System.out.println("Administrar.AdministrarEnvioCorreos.editarEnvioCorreos()  " + listaEC.getSecuencia());
-            PersistenciaEnvioCorreos.editar(em, listaEC);
-        } catch (Exception ex) {
-            System.out.println("Error Administrar.AdministrarEnvioCorreos.editarEnvioCorreos() " + ex);
-        }
-    }
-
-    @Override
-    public void modificarEC(List<envioCorreos> listECModificadas) {
-        for (int i = 0; i < listECModificadas.size(); i++) {
-            System.out.println("Modificando...");
-            if (listECModificadas.get(i).getCodigoEmpleado() != null && listECModificadas.get(i).getCodigoEmpleado().getSecuencia() == null) {
-                listECModificadas.get(i).setCodigoEmpleado(null);
-                ec = listECModificadas.get(i);
-                PersistenciaEnvioCorreos.editar(em, ec);
-            } else {
-                ec = listECModificadas.get(i);
-                PersistenciaEnvioCorreos.editar(em, ec);
-            }
-
-        }
-    }
-
-    @Override
-    public void borrarEnvioCorreos(envioCorreos listaEC) {
-        try {
-            PersistenciaEnvioCorreos.borrar(em, listaEC);
+            ConfiguracionCorreo cc = persistenciaConfiguracionCorreo.consultarConfiguracionServidorCorreo(em, secuenciaEmpresa);
+//            if (cc.getServidorSmtp().length() != 0) {
+//                retorno = true;
+//            } else {
+//                retorno = false;
+//            }
+            retorno = cc.getServidorSmtp().length() != 0;
+        } catch (NullPointerException npe) {
+            retorno = false;
         } catch (Exception e) {
-            System.out.println("Error" + e);
+            System.out.println("Administrar.AdministrarEnvioCorreos.comprobarConfigCorreo()");
+            System.out.println("Error validando configuracion");
+            System.out.println("ex: " + e);
         }
+        return retorno;
 
     }
 
     @Override
-    public Inforeportes consultarPorSecuencia(BigInteger envio) {
-        System.out.println("Administrar.AdministrarEnvioCorreos.consultarPorSecuencia()");
-        System.out.println("envio: " + envio);
-        Inforeportes envioConsultado;
-        try {
-            envioConsultado = PersistenciaEnvioCorreos.buscarEnvioCorreoporSecuencia(em, envio);
-        } catch (Exception e) {
-            envioConsultado = null;
-        }
-        System.out.println("ec: " + ec);
-        return envioConsultado;
+    public boolean enviarCorreo(BigInteger secEmpresa, String destinatario, String asunto, String mensaje, String pathAdjunto) {
+        System.out.println("Administrar.AdministrarEnvioCorreos.enviarCorreo()");
+        ConfiguracionCorreo cc = persistenciaConfiguracionCorreo.consultarConfiguracionServidorCorreo(em, secEmpresa);
+        EnvioCorreo enviarCorreo = new EnvioCorreo();
+        return enviarCorreo.enviarCorreo(cc, destinatario, asunto, mensaje, pathAdjunto);
     }
 
-//    @Override
-//    public List<Empleados> consultarEmpleados(BigInteger reporte) {
-//         System.out.println("Administrar.AdministrarEnvioCorreos.consultarEmpleados()");
-//        List<Empleados> empleado;
-//        try {
-//            empleado = PersistenciaEnvioCorreos.buscarEmpleados(em, reporte);
-//        } catch (Exception e) {
-//            System.out.println("Error Administrar.AdministrarEnvioCorreos.consultarEnvioCorreos() " + e);
-//            empleado = null;
-//        }
-//        System.out.println("*******************************************************************************");
-//        System.out.println("empleado: " + empleado);
-//        return empleado;
-//    }
-   
+    @Override
+    public BigInteger empresaAsociada() {
+        BigInteger secEmpresa = persistenciaParametrosEstructuras.buscarEmpresaParametros(em, persistenciaActualUsuario.actualAliasBD(em));
+        return secEmpresa;
+    }
 }

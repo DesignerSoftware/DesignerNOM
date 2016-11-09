@@ -1,10 +1,13 @@
 package Persistencia;
 
+import Entidades.Empleados;
 import Entidades.Inforeportes;
-import Entidades.envioCorreos;
-import Entidades.envioCorreosAux;
+import Entidades.EnvioCorreos;
+import Entidades.EnvioCorreosAux;
 import InterfacePersistencia.PersistenciaEnvioCorreosInterface;
+import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -16,34 +19,34 @@ import javax.persistence.Query;
  * @author user
  */
 @Stateless
-public class PersisteciaEnvioCorreos implements PersistenciaEnvioCorreosInterface {
+public class PersistenciaEnvioCorreos implements PersistenciaEnvioCorreosInterface {
 
     @Override
-    public List<envioCorreos> consultarEnvios(EntityManager em, BigInteger secReporte) {
+    public List<EnvioCorreos> consultarEnvios(EntityManager em, BigInteger secReporte) {
         System.out.println("Persistencia.PersisteciaEnvioCorreos.consultarEnvios()");
         System.out.println("secReporte:  " + secReporte);
         try {
             em.clear();
             String consulta = "SELECT ec.* \n"
-                    + "FROM Inforeportes ir, envioCorreos ec\n"
-                    + "WHERE NOT (ec.empleado IS NULL)\n"
+                    + "FROM Inforeportes ir, EnvioCorreos ec \n"
+                    + "WHERE ec.empleado IS NOT NULL \n"
                     + "AND ec.reporte = ir.secuencia "
                     + "AND ec.estado = 'NO ENVIADO' \n"
                     + "AND ir.secuencia = " + secReporte + "";
-            Query query2 = em.createNativeQuery(consulta, envioCorreos.class);
-            List<envioCorreos> listaEnvios = (List<envioCorreos>) query2.getResultList();
+            Query query2 = em.createNativeQuery(consulta, EnvioCorreos.class);
+            List<EnvioCorreos> listaEnvios = (List<EnvioCorreos>) query2.getResultList();
             if (listaEnvios != null) {
                 em.clear();
                 String consulta2 = "SELECT ec.secuencia, p.nombre||' '||p.primerapellido||' '||p.segundoapellido NOMBREEMPLEADO \n"
-                        + "FROM Inforeportes ir, envioCorreos ec, empleados e, personas p\n"
+                        + "FROM Inforeportes ir, EnvioCorreos ec, empleados e, personas p\n"
                         + "WHERE\n"
                         + "ec.reporte = ir.secuencia\n"
                         + "AND ec.estado = 'NO ENVIADO'\n"
                         + "AND ec.empleado = e.CODIGOEMPLEADO\n"
                         + "AND e.persona = p.SECUENCIA\n"
                         + "AND ir.secuencia = " + secReporte + "";
-                Query query = em.createNativeQuery(consulta2, envioCorreosAux.class);
-                List<envioCorreosAux> listaEnvios2 = (List<envioCorreosAux>) query.getResultList();
+                Query query = em.createNativeQuery(consulta2, EnvioCorreosAux.class);
+                List<EnvioCorreosAux> listaEnvios2 = (List<EnvioCorreosAux>) query.getResultList();
                 for (int i = 0; i < listaEnvios.size(); i++) {
                     for (int j = 0; j < listaEnvios2.size(); j++) {
                         if (listaEnvios.get(i).getSecuencia().equals(listaEnvios2.get(j).getSecuencia())) {
@@ -78,12 +81,12 @@ public class PersisteciaEnvioCorreos implements PersistenciaEnvioCorreosInterfac
 
 //    @Override
 //    public List<Empleados> buscarEmpleados(EntityManager em, BigInteger secEnvioRepEmp) {
-//        System.out.println("Persistencia.PersisteciaEnvioCorreos.buscarEmpleados()");
+//        System.out.println("Persistencia.PersistenciaEnvioCorreos.buscarEmpleados()");
 //        System.out.println("secEnvioRepEmp:  " + secEnvioRepEmp);
 //        try {
 //            em.clear();
 //            String consulta = "SELECT e.* \n"
-//                    + "FROM Inforeportes ir, envioCorreos ec, Empleados e, Personas p\n"
+//                    + "FROM Inforeportes ir, EnvioCorreos ec, Empleados e, Personas p\n"
 //                    + "WHERE ec.reporte = ir.secuencia \n"
 //                    + "AND ec.empleado = e.codigoempleado \n"
 //                    + "AND e.persona = p.secuencia \n"
@@ -93,12 +96,12 @@ public class PersisteciaEnvioCorreos implements PersistenciaEnvioCorreosInterfac
 //            List<Empleados> listEmpleados = (List<Empleados>) query2.getResultList();
 //            return listEmpleados;
 //        } catch (Exception e) {
-//            System.out.println("Error Persistencia.PersisteciaEnvioCorreos.buscarEmpleados() " + e);
+//            System.out.println("Error Persistencia.PersistenciaEnvioCorreos.buscarEmpleados() " + e);
 //            return null;
 //        }
 //    }
     @Override
-    public void editar(EntityManager em, envioCorreos enviocorreos) {
+    public void editar(EntityManager em, EnvioCorreos enviocorreos) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
@@ -114,7 +117,7 @@ public class PersisteciaEnvioCorreos implements PersistenciaEnvioCorreosInterfac
     }
 
     @Override
-    public void borrar(EntityManager em, envioCorreos envio) {
+    public void borrar(EntityManager em, EnvioCorreos envio) {
         System.out.println("Persistencia.PersisteciaEnvioCorreos.borrar()");
         em.clear();
         EntityTransaction tx = em.getTransaction();
@@ -134,6 +137,30 @@ public class PersisteciaEnvioCorreos implements PersistenciaEnvioCorreosInterfac
             }
         }
 
+    }
+
+    @Override
+    public List<Empleados> CorreoCodEmpleados(EntityManager em, BigDecimal emplDesde, BigDecimal emplHasta) {
+        System.out.println("Persistencia.PersistenciaEnvioCorreos.CorreoCodEmpleados()");
+        System.out.println("emplDesde: " + emplDesde);
+        System.out.println("emplHasta: " + emplHasta);
+        try {
+            em.clear();
+            String consulta = "SELECT p.* \n"
+                    + "FROM ParametrosReportes pr, Empleados e, Personas p \n"
+                    + "WHERE p.email IS NOT NULL \n"
+                    + "AND pr.usuario = USER \n"
+                    + "AND e.persona = p.secuencia \n"
+                    + "AND e.codigoempleado BETWEEN " + emplDesde + "AND " + emplHasta + " ";
+
+            Query query = em.createNativeQuery(consulta, Empleados.class);
+            List<Empleados> correoCod = (List<Empleados>) query.getResultList();
+            System.out.println("CorreoCod: " + correoCod);
+            return correoCod;
+        } catch (Exception e) {
+            System.out.println("Error Persistencia.PersisteciaEnvioCorreos.CorreoCodEmpleados(): " + e);
+            return null;
+        }
     }
 
 }

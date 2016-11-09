@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package InterfacePersistencia;
+package Persistencia;
 
 import Entidades.ConfiguracionCorreo;
+import InterfacePersistencia.PersistenciaConfiguracionCorreoInterface;
 import java.math.BigInteger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -20,7 +21,6 @@ public class PersistenciaConfiguracionCorreo implements PersistenciaConfiguracio
 
     @Override
     public ConfiguracionCorreo consultarConfiguracionServidorCorreo(EntityManager eManager, BigInteger secuenciaEmpresa) {
-        ConfiguracionCorreo retorno = null;
         try {
             eManager.getTransaction().begin();
             String sqlQuery = "SELECT cc FROM ConfiguracionCorreo cc WHERE cc.empresa.secuencia = :secuenciaEmpresa";
@@ -28,17 +28,11 @@ public class PersistenciaConfiguracionCorreo implements PersistenciaConfiguracio
             query.setParameter("secuenciaEmpresa", secuenciaEmpresa);
             ConfiguracionCorreo cc = (ConfiguracionCorreo) query.getSingleResult();
             eManager.getTransaction().commit();
-            retorno = cc;
-            return retorno;
+            return cc;
         } catch (Exception e) {
-//            System.out.println("Error PersistenciaConfiguracionCorreo.consultarConfiguracionServidorCorreo: " + e);
-//            eManager.getTransaction().rollback();
-//            return retorno;
-//        } catch (Exception e) {
-            System.out.println("Error PersistenciaConfiguracionCorreo.consultarConfiguracionServidorCorreo:");
-            System.out.println("Error consultando Configuracion");
-            System.out.println("ex: " + e);
+            System.out.println("Error PersistenciaConfiguracionCorreo.consultarConfiguracionServidorCorreo: " + e);
+            eManager.getTransaction().rollback();
+            return null;
         }
-        return retorno;
     }
 }

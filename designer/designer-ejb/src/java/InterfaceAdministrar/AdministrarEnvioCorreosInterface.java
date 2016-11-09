@@ -1,8 +1,7 @@
 package InterfaceAdministrar;
 
 import Entidades.Empleados;
-import Entidades.Inforeportes;
-import Entidades.envioCorreos;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 
@@ -15,14 +14,11 @@ public interface AdministrarEnvioCorreosInterface {
 
     public void obtenerConexion(String idSesion);
 
-    public List<envioCorreos> consultarEnvioCorreos(BigInteger reporte);
+    public List<Empleados> correoCodigoEmpleado(BigDecimal emplDesde, BigDecimal emplHasta);
 
-    public Inforeportes consultarPorSecuencia(BigInteger envio);
+    public boolean comprobarConfigCorreo(BigInteger secuenciaEmpresa);
 
-//    public List<Empleados> consultarEmpleados(BigInteger reporte);
-    public void editarEnvioCorreos(envioCorreos listaEC);
-
-    public void modificarEC(List<envioCorreos> listECModificadas);
-
-    public void borrarEnvioCorreos(envioCorreos listaEC);
+    public boolean enviarCorreo(BigInteger secEmpresa, String destinatario, String asunto, String mensaje, String pathAdjunto);
+    
+    public BigInteger empresaAsociada();
 }
