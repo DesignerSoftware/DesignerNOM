@@ -1,5 +1,6 @@
 package Controlador;
 
+import Entidades.ConfiguracionCorreo;
 import Entidades.Empleados;
 import Entidades.Inforeportes;
 import Entidades.ParametrosReportes;
@@ -41,6 +42,7 @@ public class ControlEnvioCorreos implements Serializable {
     private List<Empleados> lovEmpleados;
     private Empleados empleadoSeleccionado;
     private Empleados empleadoCorreo;
+    private ConfiguracionCorreo correoRemitente;
     private Inforeportes reporteActual;
     private ParametrosReportes codigoParametros;
     private BigInteger secEmpresa;
@@ -53,6 +55,7 @@ public class ControlEnvioCorreos implements Serializable {
 
     public ControlEnvioCorreos() {
         listCorreoCodigos = null;
+        lovEmpleados = null;
         reporteActual = new Inforeportes();
         empleadoSeleccionado = null;
         codigoParametros = null;
@@ -72,12 +75,18 @@ public class ControlEnvioCorreos implements Serializable {
             getSecEmpresa();
             if (!validarConfigSMTP()) {
                 System.out.println("Configuración de Servidor SMTP inválida");
-                FacesContext.getCurrentInstance().addMessage(null,
-                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error: ", "Configuración de Servidor SMTP inválida."));
+                FacesMessage msg = new FacesMessage("Error", "Configuración de Servidor SMTP inválida.");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+                RequestContext.getCurrentInstance().update("form:growl");
+//                FacesContext.getCurrentInstance().addMessage(null,
+//                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error: ", "Configuración de Servidor SMTP inválida."));
             } else {
                 System.out.println("La configuración es valida");
-                FacesContext.getCurrentInstance().addMessage(null,
-                        new FacesMessage(FacesMessage.SEVERITY_INFO, "Informacion: ", "La configuración es valida."));
+                FacesMessage msg = new FacesMessage("Informacion", "La configuración es valida.");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+                RequestContext.getCurrentInstance().update("form:growl");
+//                FacesContext.getCurrentInstance().addMessage(null,
+//                        new FacesMessage(FacesMessage.SEVERITY_INFO, "Informacion: ", "La configuración es valida."));
             }
             System.out.println(this.getClass().getName() + " fin de iniciarAdministradores()");
         } catch (Exception e) {
@@ -336,6 +345,14 @@ public class ControlEnvioCorreos implements Serializable {
 
     public void setSecEmpresa(BigInteger secEmpresa) {
         this.secEmpresa = secEmpresa;
+    }
+
+    public ConfiguracionCorreo getCorreoRemitente() {
+        return correoRemitente;
+    }
+
+    public void setCorreoRemitente(ConfiguracionCorreo correoRemitente) {
+        this.correoRemitente = correoRemitente;
     }
 
 }

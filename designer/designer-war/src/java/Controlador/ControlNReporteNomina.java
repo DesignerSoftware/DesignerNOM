@@ -10,8 +10,6 @@ import InterfaceAdministrar.AdministrarInforeportesInterface;
 import InterfaceAdministrar.AdministrarNReportesNominaInterface;
 import java.io.*;
 import java.math.BigDecimal;
-import java.math.BigInteger;
-//import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
