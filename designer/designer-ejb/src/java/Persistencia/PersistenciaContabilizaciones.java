@@ -205,7 +205,7 @@ public class PersistenciaContabilizaciones implements PersistenciaContabilizacio
             em.clear();
             String sql = "select count(*) from contabilizaciones c\n"
                     + "	where  c.flag = 'GENERADO' and \n"
-                    + "	c.fechageneracion  between ? and ?\n"
+                    + "	c.fechageneracion  between ? and ? \n"
                     + "	and exists (select 'x' from solucionesnodos sn, empleados e\n"
                     + "	where e.secuencia=sn.empleado and c.solucionnodo=sn.secuencia)";
             Query query = em.createNativeQuery(sql);

@@ -28,6 +28,10 @@ public interface AdministrarInterfaseContableTotalInterface {
     public void crearParametroContable(ParametrosContables parametro);
 
     public void borrarParametroContable(List<ParametrosContables> listPC);
+    
+     public void borrarRegistroGenerado(List<SolucionesNodos> listBorrar);
+     
+      public void borrarRegistroIntercon(List<InterconTotal> listBorrar);
 
     public List<SolucionesNodos> obtenerSolucionesNodosParametroContable(Date fechaInicial, Date fechaFinal);
 

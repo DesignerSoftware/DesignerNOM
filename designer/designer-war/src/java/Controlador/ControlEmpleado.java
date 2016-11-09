@@ -5,7 +5,6 @@
  */
 package Controlador;
 
-
 import Entidades.Empleados;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
@@ -94,7 +93,6 @@ public class ControlEmpleado implements Serializable {
         paginaanterior = pagina;
         listaEmpleados = null;
         getListaEmpleados();
-        contarRegistros();
         if (listaEmpleados != null) {
             if (!listaEmpleados.isEmpty()) {
                 empleadoSeleccionado = listaEmpleados.get(0);
@@ -123,7 +121,7 @@ public class ControlEmpleado implements Serializable {
         }
     }
 
-      public void guardarSalir() {
+    public void guardarSalir() {
         guardarCambios();
         salir();
     }
@@ -132,7 +130,7 @@ public class ControlEmpleado implements Serializable {
         cancelarModificacion();
         salir();
     }
-    
+
     public void guardarCambios() {
         try {
             if (guardado == false) {
@@ -297,7 +295,7 @@ public class ControlEmpleado implements Serializable {
         cambiarIndice(listaEmpleados.get(indice), columna);
 
     }
-    
+
     public void exportPDF() throws IOException {
         DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosEmpleadosExportar");
         FacesContext context = FacesContext.getCurrentInstance();
@@ -318,29 +316,15 @@ public class ControlEmpleado implements Serializable {
         if (tipoLista == 0) {
             tipoLista = 1;
         }
-        modificarInfoRegistro(listaFiltrarEmpleados.size());
+        contarRegistros();
     }
 
-    public void modificarInfoRegistro(int valor) {
-        infoRegistro = String.valueOf(valor);
-        RequestContext.getCurrentInstance().update("form:infoRegistro");
-    }
-
-    public void modificarInfoRegistroLovEmpleados(int valor) {
-        infoRegistroLov = String.valueOf(valor);
+    public void contarRegistroLovEmpleados() {
         RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroLovEmpleados");
     }
 
-    public void eventoFiltrarLovEmpleados() {
-        modificarInfoRegistroLovEmpleados(filtrarlovEmpleados.size());
-    }
-
     public void contarRegistros() {
-        if (listaEmpleados != null) {
-            modificarInfoRegistro(listaEmpleados.size());
-        } else {
-            modificarInfoRegistro(0);
-        }
+        RequestContext.getCurrentInstance().update("form:infoRegistro");
     }
 
     public void recordarSeleccion() {
@@ -376,7 +360,7 @@ public class ControlEmpleado implements Serializable {
     public void dispararLovEmpleados() {
         RequestContext context = RequestContext.getCurrentInstance();
 //     getLovEmpleados();
-        modificarInfoRegistroLovEmpleados(lovEmpleados.size());
+        contarRegistroLovEmpleados();
         RequestContext.getCurrentInstance().update("formularioDialogos:empleadosDialogo");
         RequestContext.getCurrentInstance().execute("PF('empleadosDialogo').show()");
     }
@@ -440,7 +424,7 @@ public class ControlEmpleado implements Serializable {
         } else {
             listaEmpleados.add(e);
         }
-        modificarInfoRegistro(listaEmpleados.size());
+        contarRegistroLovEmpleados();
         context.reset("formularioDialogos:LOVEmpleados:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVEmpleados').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('empleadosDialogo').hide()");
@@ -558,6 +542,9 @@ public class ControlEmpleado implements Serializable {
     }
 
     public String getInfoRegistro() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosEmpleados");
+        infoRegistro = String.valueOf(tabla.getRowCount());
         return infoRegistro;
     }
 
@@ -614,6 +601,9 @@ public class ControlEmpleado implements Serializable {
     }
 
     public String getInfoRegistroLov() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVEmpleados");
+        infoRegistroLov = String.valueOf(tabla.getRowCount());
         return infoRegistroLov;
     }
 

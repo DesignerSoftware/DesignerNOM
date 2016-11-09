@@ -1,6 +1,7 @@
 package Entidades;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 import javax.persistence.*;
@@ -35,9 +36,9 @@ public class InterconTotal implements Serializable {
     @Column(name = "NATURALEZA")
     private String naturaleza;
     @Column(name = "VALORC")
-    private Long valorc;
+    private BigDecimal valorc;
     @Column(name = "VALORD")
-    private Long valord;
+    private BigDecimal valord;
     @Id
     @Basic(optional = false)
     @NotNull
@@ -130,19 +131,19 @@ public class InterconTotal implements Serializable {
         this.naturaleza = naturaleza;
     }
 
-    public Long getValorc() {
+    public BigDecimal getValorc() {
         return valorc;
     }
 
-    public void setValorc(Long valorc) {
+    public void setValorc(BigDecimal valorc) {
         this.valorc = valorc;
     }
 
-    public Long getValord() {
+    public BigDecimal getValord() {
         return valord;
     }
 
-    public void setValord(Long valord) {
+    public void setValord(BigDecimal valord) {
         this.valord = valord;
     }
 

@@ -140,7 +140,7 @@
                                         <f:facet name="output"><h:outputText value="#{info.codigoalternativodeudor}"  /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.codigoalternativodeudor}" id="editarcodigodeudor" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"
-                                                         onselect="posicionOtro([{name: 'n', value: '2'}, {name: 't', value: '#{indice}'}]);"> 
+                                                          onselect="posicionOtro([{name: 'n', value: '2'}, {name: 't', value: '#{indice}'}]);"> 
                                                 <p:ajax event="change" listener="#{controlEmpleado.modificarEmpleados(info)}" process="@this" update="editarcodigodeudor"/>                                   
                                             </p:inputText>
                                         </f:facet>  
@@ -157,7 +157,7 @@
                                         <f:facet name="output"><h:outputText value="#{info.codigoalternativoacreedor}" style="width: 100px;"/></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.codigoalternativoacreedor}" id="editarcodigoacreedor" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"
-                                                         onselect="posicionOtro([{name: 'n', value: '3'}, {name: 't', value: '#{indice}'}]);"> 
+                                                          onselect="posicionOtro([{name: 'n', value: '3'}, {name: 't', value: '#{indice}'}]);"> 
                                                 <p:ajax event="change" listener="#{controlEmpleado.modificarEmpleados(info)}" process="@this" update="editarcodigoacreedor"/>                                   
                                             </p:inputText>
                                         </f:facet>  
@@ -172,7 +172,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output">
                                             <h:outputText value="#{info.fechacreacion}" style="width: 100px;">
-                                            <f:convertDateTime pattern="dd/MM/yyyy" />    
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />    
                                             </h:outputText>    
                                         </f:facet>  
                                         <f:facet name="input">
@@ -188,12 +188,12 @@
 
                         </fieldset>
                         <p:remoteCommand name="posicionOtro" actionListener="#{controlEmpleado.posicionOtro()}"/>
-                        
+
                     </p:panel>
-                <p:commandButton id="btnBuscarEmpleados" style="position: absolute; left: 22px; top: 485px; height: 30px; width: 180px; background-image: url(Imagenes/Iconos/buscardbL.png); 
-                                 background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=" " actionListener="#{controlEmpleado.dispararLovEmpleados()}" process="@this"/>
-                <p:commandButton id="btnMostrarTodos" style="position: absolute; left: 215px; top: 485px; height: 30px; width: 180px; background-image: url(Imagenes/Iconos/todosdbL.png); 
-                                 background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=" "  actionListener="#{controlEmpleado.mostrarTodos()}" process="@this"/>
+                    <p:commandButton id="btnBuscarEmpleados" style="position: absolute; left: 22px; top: 485px; height: 30px; width: 180px; background-image: url(Imagenes/Iconos/buscardbL.png); 
+                                     background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=" " actionListener="#{controlEmpleado.dispararLovEmpleados()}" process="@this"/>
+                    <p:commandButton id="btnMostrarTodos" style="position: absolute; left: 215px; top: 485px; height: 30px; width: 180px; background-image: url(Imagenes/Iconos/todosdbL.png); 
+                                     background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=" "  actionListener="#{controlEmpleado.mostrarTodos()}" process="@this"/>
                 </h:form>
 
 
@@ -204,12 +204,12 @@
                         <p:dataTable id="LOVEmpleados" style="width: 400px" var="empl" value="#{controlEmpleado.lovEmpleados}" rowKey="#{empl.secuencia}"
                                      selection="#{controlEmpleado.empleadoLovSeleccionado}" selectionMode="single" widgetVar="LOVEmpleados" scrollable="true" scrollWidth="415" scrollHeight="250"
                                      filteredValue="#{controlEmpleado.filtrarlovEmpleados}" emptyMessage="#{msg['lovvacio']}">   
-                            <p:ajax event="filter" listener="#{controlEmpleado.eventoFiltrarLovEmpleados()}"/>
+                            <p:ajax event="filter" listener="#{controlEmpleado.contarRegistroLovEmpleados()}"/>
                             <p:ajax event="rowSelect" listener="#{controlEmpleado.activarAceptar()}" update=":formularioDialogos:aceptarD"/>
                             <p:ajax event="rowDblselect" listener="#{controlEmpleado.actualizarEmpleados()}" process="@this" />
                             <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarE']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovDeLOVEmpleados').filter();" style="width:150px; position: relative; left: 5px;" />  
+                                <h:outputText value="#{msg['buscarE']}" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovDeLOVEmpleados').filter();" class="cssFiltroLOV" />  
                             </f:facet>
 
                             <p:column filterBy="#{empl.codigoempleado}" filterMatchMode="contains" filterStyle="width:80%">
@@ -227,15 +227,14 @@
                             </p:column>
                         </p:dataTable>
 
-
-                        <h:outputText id="infoRegistroLovEmpleados" value="#{msg['infoRegistros']} #{controlEmpleado.infoRegistroLov}" style="position: relative; left: 10px; top: 5px; font-weight: bold"/>
-
-                        <p:commandButton id="aceptarD" icon="ui-icon-check" style="position: relative; left: 135px" value="#{msg['aceptar']}" disabled="#{controlEmpleado.aceptar}"  actionListener="#{controlEmpleado.actualizarEmpleados()}"  process="@this"/>
-
-                        <p:commandButton id="atrasD" style="position: relative; left: 135px" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlEmpleado.cancelarCambioEmpleados()}"   process="@this"/>
+                        <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroLovEmpleados" value="#{msg['infoRegistros']} #{controlEmpleado.infoRegistroLov}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarD" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlEmpleado.aceptar}"  actionListener="#{controlEmpleado.actualizarEmpleados()}"  process="@this"/>
+                            <p:commandButton id="atrasD"   class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlEmpleado.cancelarCambioEmpleados()}"   process="@this"/>
+                        </div>
                     </p:dialog> 
-                    
-                    
+
+
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
@@ -295,8 +294,8 @@
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; width: 185px; font-weight:bold;" />
                     </p:dialog>
-                    
-                  
+
+
                     <p:dialog id="editarCodigoE" header="#{msg['editarCodigoE']}" widgetVar="editarCodigoE" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:inputTextarea value="#{controlEmpleado.editarEmpleado.codigoempleado}" style="overflow: auto; width: 360px; height: 60px" readonly="true">                        
                         </p:inputTextarea>
@@ -316,7 +315,7 @@
 
                     <p:dialog id="editarFechaE" header="#{msg['editarFechaE']}" widgetVar="editarFechaE" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlEmpleado.editarEmpleado.fechacreacion}"  style="overflow: auto; width: 360px; height: 60px" readonly="true" > 
-                        <f:convertDateTime pattern="dd/MM/yyyy"/>    
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>    
                         </p:inputTextarea>    
                     </p:dialog>
                 </h:form>
@@ -355,7 +354,7 @@
                         </p:column>
                     </p:dataTable>
                 </h:form>
-                
+
             </ui:define>
         </ui:composition>
     </h:body>

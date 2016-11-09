@@ -369,4 +369,18 @@ public class AdministrarInterfaseContableTotal implements AdministrarInterfaseCo
             return null;
         }
     }
+
+    @Override
+    public void borrarRegistroGenerado(List<SolucionesNodos> listBorrar) {
+        for(int i=0;i<listBorrar.size();i++){
+            persistenciaSolucionesNodos.borrar(em, listBorrar.get(i));
+        }
+    }
+
+    @Override
+    public void borrarRegistroIntercon(List<InterconTotal> listBorrar) {
+        for(int i=0;i<listBorrar.size();i++){
+            persistenciaInterconTotal.borrar(em, listBorrar.get(i));
+        }
+    }
 }
