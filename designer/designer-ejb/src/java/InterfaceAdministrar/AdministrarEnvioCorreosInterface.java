@@ -18,7 +18,17 @@ public interface AdministrarEnvioCorreosInterface {
 
     public boolean comprobarConfigCorreo(BigInteger secuenciaEmpresa);
 
-    public boolean enviarCorreo(BigInteger secEmpresa, String destinatario, String asunto, String mensaje, String pathAdjunto);
+    /**
+     *
+     * @param secEmpresa
+     * @param destinatario
+     * @param asunto
+     * @param mensaje
+     * @param pathAdjunto
+     * @param paramResultado
+     * @return
+     */
+    public boolean enviarCorreo(BigInteger secEmpresa, String destinatario, String asunto, String mensaje, String pathAdjunto, String[] paramResultado);
     
     public BigInteger empresaAsociada();
 }

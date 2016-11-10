@@ -24,9 +24,15 @@ public class EnvioCorreo {
     public EnvioCorreo() {
     }
 
-    public boolean enviarCorreo(ConfiguracionCorreo cfc, String destinatario, String asunto, String mensaje, String pathAdjunto) {
-        System.out.println("ClasesAyuda.EnvioCorreo.enviarCorreo()");
-        System.out.println("cfc : " + cfc);
+    public static boolean enviarCorreo(ConfiguracionCorreo cfc, String destinatario, String asunto, String mensaje, String pathAdjunto, String[] resultado) {
+        System.out.println("EnvioCorreo.enviarCorreo()");
+        System.out.println("cfc smtp: " + cfc.getServidorSmtp());
+        System.out.println("cfc port: " + cfc.getPuerto());
+        System.out.println("cfc rem: " + cfc.getRemitente());
+        System.out.println("cfc pwd: " + cfc.getClave());
+        System.out.println("cfc auth: " + cfc.getAutenticado());
+        System.out.println("cfc starttls: " + cfc.getStarttls());
+        System.out.println("cfc ssl: " + cfc.getUsarssl());
         System.out.println("destinatario : " + destinatario);
         System.out.println("asunto: " + asunto);
         System.out.println("mensaje: " + mensaje);
@@ -37,16 +43,18 @@ public class EnvioCorreo {
         Properties propiedadesConexion = new Properties();
         propiedadesConexion.setProperty("mail.smtp.host", cfc.getServidorSmtp()); //IP DEL SERVIDOR SMTP
         propiedadesConexion.setProperty("mail.smtp.port", cfc.getPuerto());
-
+        if (resultado == null){
+            resultado = new String[1];
+        }
         if (cfc.getAutenticado().equalsIgnoreCase("S")) {
-            System.out.println("if (cfc.getAutenticado().equalsIgnoreCase(\"S\"))");
+            System.out.println("Se debe autenticar.");
             propiedadesConexion.setProperty("mail.smtp.auth", "true");
             if (cfc.getUsarssl().equalsIgnoreCase("S")) {
-                System.out.println("cfc.getUsarssl().equalsIgnoreCase(\"S\")");
+                System.out.println("Se debe utilizar SSL");
                 propiedadesConexion.put("mail.smtp.socketFactory.port", cfc.getPuerto());
                 propiedadesConexion.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
             } else if (cfc.getStarttls().equalsIgnoreCase("S")) {
-                System.out.println("Entre a else validar usarssl");
+                System.out.println("Se debe utilizar STARTTLS");
                 propiedadesConexion.setProperty("mail.smtp.starttls.enable", "true");
             }
         }
@@ -76,7 +84,6 @@ public class EnvioCorreo {
                 adjunto.setFileName(archivo.getFile().getName());
                 System.out.println("archivo " + archivo);
                 System.out.println("adjunto.setFileName : " + adjunto.getFileName());
-
             }
 
             //Estructura del contenido (Texto y Adjnto)
@@ -118,14 +125,17 @@ public class EnvioCorreo {
             //System.out.println("CORREO ENVIADO EXITOSAMENTE");
 //            return true;
             resEnvio = true;
+            resultado[0] = "CORREO ENVIADO";
         } catch (NoSuchProviderException nspe) {
             System.out.println("Ingrese primer catch");
             System.out.println("Error enviarCorreo: " + nspe.getMessage());
             resEnvio = false;
+            resultado[0] = nspe.getMessage();
         } catch (MessagingException e) {
             System.out.println("Ingrese segundo catch");
             System.out.println("Error enviarCorreo: " + e.getMessage());
             resEnvio = false;
+            resultado[0] = e.getMessage();
         }
 
         System.out.println("resEnvio: " + resEnvio);

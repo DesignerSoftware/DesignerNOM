@@ -85,11 +85,14 @@ public class AdministrarEnvioCorreos implements AdministrarEnvioCorreosInterface
     }
 
     @Override
-    public boolean enviarCorreo(BigInteger secEmpresa, String destinatario, String asunto, String mensaje, String pathAdjunto) {
+    public boolean enviarCorreo(BigInteger secEmpresa, String destinatario, String asunto, String mensaje, String pathAdjunto, String[] paramResultado) {
         System.out.println("Administrar.AdministrarEnvioCorreos.enviarCorreo()");
         ConfiguracionCorreo cc = persistenciaConfiguracionCorreo.consultarConfiguracionServidorCorreo(em, secEmpresa);
-        EnvioCorreo enviarCorreo = new EnvioCorreo();
-        return enviarCorreo.enviarCorreo(cc, destinatario, asunto, mensaje, pathAdjunto);
+        boolean res = EnvioCorreo.enviarCorreo(cc, destinatario, asunto, mensaje, pathAdjunto, paramResultado);
+        if (paramResultado != null) {
+            System.out.println("resultado envio: " + paramResultado[0]);
+        }
+        return res;
     }
 
     @Override

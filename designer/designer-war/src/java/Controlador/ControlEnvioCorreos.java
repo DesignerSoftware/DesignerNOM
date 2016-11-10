@@ -138,14 +138,19 @@ public class ControlEnvioCorreos implements Serializable {
 
     public void validarEnviaCorreo() {
         System.out.println("Controlador.ControlEnvioCorreos.validarEnviaCorreo()");
+        System.out.println("adjunto: "+pathReporteGenerado);
+        String[] msjResul= new String[1];
+        msjResul[0] = "";
         if (administrarEnviosCorreos.enviarCorreo(secEmpresa, email,
                 reporteActual.getNombre(), "Mensaje enviado automáticamente, por favor no responda a este correo.",
-                pathReporteGenerado)) {
-            FacesMessage msg = new FacesMessage("Error", "El reporte ha sido enviado exitosamente.");
+                pathReporteGenerado, msjResul)) {
+//            FacesMessage msg = new FacesMessage("Error", "El reporte ha sido enviado exitosamente.");
+            FacesMessage msg = new FacesMessage("Error", msjResul[0]);
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
         } else {
-            FacesMessage msg = new FacesMessage("Error", "No fue posible enviar el correo");
+//            FacesMessage msg = new FacesMessage("Error", "No fue posible enviar el correo");
+            FacesMessage msg = new FacesMessage("Error", msjResul[0]);
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
         }
