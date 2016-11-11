@@ -128,7 +128,7 @@
                                 </div>
 
                                 <p:commandButton value="#{msg['actualizar']}" style="position: relative; top: -160px; left: 690px;" icon="ui-icon-refresh" actionListener="#{controlInterfaseContableTotal.actionBtnActualizar()}" process="@this" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
-                                <p:commandButton id="btnAnular" value="." style="position: relative; top: -160px; left: 695px;width: 10px; text-align: left" oncomplete="PF('anularComprobantesCerrados').show()" />
+                                <p:commandButton id="btnAnular" value="." style="position: relative; top: -160px; left: 695px;width: 10px; text-align: left" onclick="PF('anularComprobantesCerrados').show()" />
                                 <p:tooltip  for="btnAnular" value="#{msg['btnAnular']}" />
 
                                 <p:remoteCommand name="validarDescargaReporte" actionListener="#{controlInterfaseContableTotal.validarDescargaReporte()}"/>
@@ -657,7 +657,7 @@
                     <p:dialog id="paso1Recon" header="#{msg['informacion']}" widgetVar="paso1Recon"  resizable="false" draggable="true" modal="true" height="115" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['paso1Recon']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('paso1Recon').hide()" oncomplete="PF('paso2Recon').show()" style="position: absolute; top: 90px; left: 125px" icon="ui-icon-check"  process="@this" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('paso1Recon').hide();PF('paso2Recon').show()" style="position: absolute; top: 90px; left: 125px" icon="ui-icon-check"  process="@this" />
                         <p:commandButton value="#{msg['cancelar']}" onclick="PF('paso1Recon').hide();" icon="ui-icon-close" style="position: absolute; top: 90px; left: 225px" process="@this" />
                     </p:dialog>
 
@@ -683,7 +683,7 @@
                     <p:dialog id="paso1CerrarPeriodo" header="#{msg['informacion']}" widgetVar="paso1CerrarPeriodo"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['paso1CerrarPeriodo']} #{controlInterfaseContableTotal.msnPaso1()}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('paso1CerrarPeriodo').hide();" oncomplete="PF('paso2CerrarPeriodo').show()" style="position: absolute; top: 63px; left: 125px" icon="ui-icon-check"  process="@this" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('paso1CerrarPeriodo').hide(); PF('paso2CerrarPeriodo').show()" style="position: absolute; top: 63px; left: 125px" icon="ui-icon-check"  process="@this" />
                         <p:commandButton value="#{msg['cancelar']}" onclick="PF('paso1CerrarPeriodo').hide();" icon="ui-icon-close" style="position: absolute; top: 63px; left: 225px" process="@this" />
                     </p:dialog>
 
@@ -700,6 +700,11 @@
                         <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('paso3CerrarPeriodo').hide();"  style="position: absolute; top: 63px; left: 125px"  process="@this" />
                     </p:dialog>
                     
+                       <p:dialog id="RecontabilizacionExitosa" header="#{msg['informacion']}" widgetVar="RecontabilizacionExitosa"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['recontabilizacionExitosa']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('RecontabilizacionExitosa').hide();" style="position: absolute; top: 70px; left: 175px" process="@this" />
+                    </p:dialog>
 
                 </h:form>
                 <h:form id="formularioDialogos" >

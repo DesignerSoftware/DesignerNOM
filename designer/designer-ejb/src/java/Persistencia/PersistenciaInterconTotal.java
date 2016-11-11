@@ -5,15 +5,19 @@
  */
 package Persistencia;
 
+import ClasesAyuda.ExtraeCausaExcepcion;
 import Entidades.InterconTotal;
 import InterfacePersistencia.PersistenciaInterconTotalInterface;
+import excepciones.ExcepcionBD;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
 /**
@@ -290,10 +294,12 @@ public class PersistenciaInterconTotal implements PersistenciaInterconTotalInter
     }
 
     @Override
-    public void ejecutarPKGRecontabilizacion(EntityManager em, Date fechaIni, Date fechaFin) {
-        em.clear();
-        EntityTransaction tx = em.getTransaction();
+    public void ejecutarPKGRecontabilizacion(EntityManager em, Date fechaIni, Date fechaFin) throws ExcepcionBD {
+        System.out.println(this.getClass().getName() + ".ejecutarPKGRecontabilizacion()");
+        EntityTransaction tx = null;
         try {
+            em.clear();
+            tx = em.getTransaction();
             tx.begin();
             String sql = "call INTERFASETOTAL$PKG.Recontabilizacion(?,?)";
             Query query = em.createNativeQuery(sql);
@@ -301,10 +307,15 @@ public class PersistenciaInterconTotal implements PersistenciaInterconTotalInter
             query.setParameter(2, fechaFin);
             query.executeUpdate();
             tx.commit();
-        } catch (Exception e) {
-            System.out.println("Error PersistenciaInterconTotal.ejecutarPKGRecontabilizacion : " + e.toString());
-            if (tx.isActive()) {
-                tx.rollback();
+            System.out.println("Terminó proceso de recontabilización");
+        } catch (Exception pe) {
+            System.out.println("Error en la persistencia causado por: " + pe.toString());
+            throw new ExcepcionBD(ExtraeCausaExcepcion.obtenerMensajeSQLException(pe));
+        } finally {
+            if (tx != null) {
+                if (tx.isActive()) {
+                    tx.rollback();
+                }
             }
         }
     }
@@ -338,7 +349,6 @@ public class PersistenciaInterconTotal implements PersistenciaInterconTotalInter
         }
     }
 
-    
     @Override
     public void ejecutarPKGCrearArchivoPlano_GEO(EntityManager em, int tipoTxt, Date fechaIni, Date fechaFin, BigInteger proceso, String nombreArchivo) {
         em.clear();

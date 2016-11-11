@@ -24,6 +24,7 @@ import InterfacePersistencia.PersistenciaTercerosInterface;
 import InterfacePersistencia.PersistenciaUsuariosInterfasesInterface;
 import InterfacePersistencia.PersistenciaVWActualesFechasInterface;
 import Persistencia.PersistenciaInforeportes;
+import excepciones.ExcepcionBD;
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
@@ -309,9 +310,11 @@ public class AdministrarInterfaseContableTotal implements AdministrarInterfaseCo
     }
 
     @Override
-    public void ejecutarPKGRecontabilizacion(Date fechaIni, Date fechaFin) {
+    public void ejecutarPKGRecontabilizacion(Date fechaIni, Date fechaFin) throws ExcepcionBD {
         try {
             persistenciaInterconTotal.ejecutarPKGRecontabilizacion(em, fechaIni, fechaFin);
+        } catch (ExcepcionBD ebd){
+            throw ebd;
         } catch (Exception e) {
             System.out.println("Error ejecutarPKGRecontabilizacion Admi : " + e.toString());
         }

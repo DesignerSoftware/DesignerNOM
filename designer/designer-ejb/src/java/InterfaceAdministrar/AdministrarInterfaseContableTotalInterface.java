@@ -9,6 +9,7 @@ import Entidades.Procesos;
 import Entidades.SolucionesNodos;
 import Entidades.UsuariosInterfases;
 import Entidades.VWActualesFechas;
+import excepciones.ExcepcionBD;
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
@@ -67,7 +68,7 @@ public interface AdministrarInterfaseContableTotalInterface {
 
     public Integer obtenerContadorFlagGeneradoFechasTotal(Date fechaIni, Date fechaFin);
 
-    public void ejecutarPKGRecontabilizacion(Date fechaIni, Date fechaFin);
+    public void ejecutarPKGRecontabilizacion(Date fechaIni, Date fechaFin) throws ExcepcionBD ;
 
     public String obtenerDescripcionProcesoArchivo(BigInteger proceso);
 

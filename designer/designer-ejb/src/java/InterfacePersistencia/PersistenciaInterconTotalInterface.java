@@ -6,6 +6,7 @@
 package InterfacePersistencia;
 
 import Entidades.InterconTotal;
+import excepciones.ExcepcionBD;
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
@@ -41,7 +42,7 @@ public interface PersistenciaInterconTotalInterface {
 
     public void cerrarProcesoContabilizacion(EntityManager em, Date fechaInicial, Date fechaFinal, Short empresa, BigInteger proceso);
 
-    public void ejecutarPKGRecontabilizacion(EntityManager em, Date fechaIni, Date fechaFin);
+    public void ejecutarPKGRecontabilizacion(EntityManager em, Date fechaIni, Date fechaFin) throws ExcepcionBD;
 
     public void ejecutarPKGCrearArchivoPlano(EntityManager em, int tipoTxt, Date fechaIni, Date fechaFin, BigInteger proceso, String nombreArchivo);
     

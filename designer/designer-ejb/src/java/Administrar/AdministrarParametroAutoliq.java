@@ -137,23 +137,23 @@ public class AdministrarParametroAutoliq implements AdministrarParametroAutoliqI
         try {
             System.out.println("entró en: consultarAportesEntidadesPorParametroAutoliq ");
             List<AportesEntidades> lista = persistenciaAportesEntidades.consultarAportesEntidadesPorEmpresaMesYAnio(em, empresa, mes, ano);
-
-            if (lista != null) {
                 System.out.println("ya tiene lista : " + lista.size());
-                for (int i = 0; i < lista.size(); i++) {
-                    if (lista.get(i).getTercero() != null) {
-                        Terceros tercero = persistenciaTerceros.buscarTercerosSecuencia(em, lista.get(i).getTercero());
-                        if (tercero != null) {
-                            lista.get(i).setTerceroRegistro(tercero);
-                        } else {
-                            lista.get(i).setTerceroRegistro(new Terceros());
-                        }
-                    } else {
-                        lista.get(i).setTerceroRegistro(new Terceros());
-                    }
-                }
-            }
-            System.out.println("terminó el for de la lista aportes");
+
+//            if (lista != null) {
+//                for (int i = 0; i < lista.size(); i++) {
+//                    if (lista.get(i).getTercero() != null) {
+//                        Terceros tercero = persistenciaTerceros.buscarTercerosSecuencia(em, lista.get(i).getTercero());
+//                        if (tercero != null) {
+//                            lista.get(i).setTerceroRegistro(tercero);
+//                        } else {
+//                            lista.get(i).setTerceroRegistro(new Terceros());
+//                        }
+//                    } else {
+//                        lista.get(i).setTerceroRegistro(new Terceros());
+//                    }
+//                }
+//            }
+//            System.out.println("terminó el for de la lista aportes");
             return lista;
         } catch (Exception e) {
             System.out.println("Error consultarAportesEntidadesPorParametroAutoliq Admi : " + e.toString());

@@ -3,6 +3,7 @@
  */
 package Persistencia;
 
+import ClasesAyuda.ExtraeCausaExcepcion;
 import Entidades.Perfiles;
 import InterfacePersistencia.PersistenciaConexionInicialInterface;
 import java.math.BigDecimal;
@@ -83,19 +84,18 @@ public class PersistenciaConexionInicial implements PersistenciaConexionInicialI
         em.getTransaction().commit();
     }
 
-    /**
-     * Metodo encargado de retornar el ultimo error que se capturo en los try -
-     * catch.
-     *
-     * @param e Exception
-     * @return Retorna el ultimo error capturado.
-     */
-    private Throwable getLastThrowable(Exception e) {
-        Throwable t;
-        for (t = e.getCause(); t.getCause() != null; t = t.getCause());
-        return t;
-    }
-
+//    /**
+//     * Metodo encargado de retornar el ultimo error que se capturo en los try -
+//     * catch.
+//     *
+//     * @param e Exception
+//     * @return Retorna el ultimo error capturado.
+//     */
+//    private Throwable getLastThrowable(Exception e) {
+//        Throwable t;
+//        for (t = e.getCause(); t.getCause() != null; t = t.getCause());
+//        return t;
+//    }
     @Override
     public Perfiles perfilUsuario(EntityManager eManager, BigInteger secPerfil) {
         em = eManager;
@@ -142,10 +142,16 @@ public class PersistenciaConexionInicial implements PersistenciaConexionInicialI
             em.getTransaction().commit();
             return resultado;
         } catch (Exception e) {
-            Throwable t = getLastThrowable(e);
-            SQLException exxx = (SQLException) t;
+//            Throwable t = getLastThrowable(e);
+//            SQLException exxx = (SQLException) t;
             em.getTransaction().rollback();
-            return exxx.getErrorCode();
+//            return exxx.getErrorCode();
+            try {
+                int codigo = ExtraeCausaExcepcion.obtenerCodigoSQLException(e);
+                return codigo;
+            } catch (Exception ex) {
+                return ex.hashCode();
+            }
         }
     }
 }

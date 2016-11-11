@@ -683,7 +683,7 @@ public class ControlParametroAutoliq implements Serializable {
         int indice = Integer.parseInt(type);
         int columna = Integer.parseInt(name);
         cambiarIndice(listaParametrosAutoliq.get(indice), columna);
-        System.out.println("parametrotablaseleccionado: " + parametroTablaSeleccionado);
+//        System.out.println("parametrotablaseleccionado: " + parametroTablaSeleccionado);
 
     }
 
@@ -714,14 +714,14 @@ public class ControlParametroAutoliq implements Serializable {
             activoBtnsPaginas = false;
             //RequestContext.getCurrentInstance().update("form:datosAporteEntidad2");
             visibilidadMostrarTodos = "hidden";
-            RequestContext.getCurrentInstance().update("form:mostrarTodos");
-            RequestContext.getCurrentInstance().update("form:novedadauto");
-            RequestContext.getCurrentInstance().update("form:eliminarToda");
-            RequestContext.getCurrentInstance().update("form:procesoLiq");
-            RequestContext.getCurrentInstance().update("form:acumDif");
-            RequestContext.getCurrentInstance().update("form:infoRegistroAporte");
-            RequestContext.getCurrentInstance().update("form:tablaAportesEntidades");
-            cargarDatosNuevos();
+//            RequestContext.getCurrentInstance().update("form:mostrarTodos");
+//            RequestContext.getCurrentInstance().update("form:novedadauto");
+//            RequestContext.getCurrentInstance().update("form:eliminarToda");
+//            RequestContext.getCurrentInstance().update("form:procesoLiq");
+//            RequestContext.getCurrentInstance().update("form:acumDif");
+//            RequestContext.getCurrentInstance().update("form:infoRegistroAporte");
+//            RequestContext.getCurrentInstance().update("form:tablaAportesEntidades");
+          cargarDatosNuevos();
             RequestContext.getCurrentInstance().execute("PF('operacionEnProceso').hide()");
         }
     }
@@ -730,7 +730,7 @@ public class ControlParametroAutoliq implements Serializable {
         try {
             listaAportesEntidades = null;
             getListaAportesEntidades();
-//            Thread.sleep(2000L);
+            Thread.sleep(2000L);
             RequestContext.getCurrentInstance().update("form:tablaAportesEntidades");
             RequestContext.getCurrentInstance().execute("PF('operacionEnProceso').hide()");
         } catch (Exception e) {

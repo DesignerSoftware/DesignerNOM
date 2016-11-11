@@ -14,6 +14,7 @@ import Exportar.ExportarXLS;
 import InterfaceAdministrar.AdministarReportesInterface;
 import InterfaceAdministrar.AdministrarInterfaseContableTotalInterface;
 import InterfaceAdministrar.AdministrarRastrosInterface;
+import excepciones.ExcepcionBD;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -47,6 +48,7 @@ import org.apache.commons.net.ftp.FTPClient;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
+import org.primefaces.component.inputtext.InputText;
 import org.primefaces.context.RequestContext;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
@@ -111,7 +113,7 @@ public class ControlInterfaseContableTotal implements Serializable {
     private StreamedContent reporte;
     private String pathReporteGenerado = null;
     private String nombreReporte, tipoReporte;
-    private Inforeportes reporteSeleccionado;
+    private Inforeportes cifraControl;
     private String cabezeraVisor;
     //
     private boolean guardado;
@@ -167,7 +169,7 @@ public class ControlInterfaseContableTotal implements Serializable {
         activarEnviar = true;
         activarDeshacer = true;
         msnFechasActualizar = "";
-//        tipoPlano = 1;
+        tipoPlano = 1;
         altoTablaGenerada = "75";
         altoTablaIntercon = "75";
         tipoListaGenerada = 0;
@@ -195,8 +197,6 @@ public class ControlInterfaseContableTotal implements Serializable {
         editarGenerado = new SolucionesNodos();
         editarIntercon = new InterconTotal();
         registroActual = 0;
-//        estadoBtnArriba = true;
-//        estadoBtnAbajo = true;
         aceptar = true;
         cambiosParametro = false;
         permitirIndexParametro = true;
@@ -745,50 +745,6 @@ public class ControlInterfaseContableTotal implements Serializable {
             RequestContext.getCurrentInstance().update("form:totalCGenerado");
             RequestContext.getCurrentInstance().update("form:totalDInter");
             RequestContext.getCurrentInstance().update("form:totalCInter");
-//            if (banderaGenerado == 1) {
-//                FacesContext c = FacesContext.getCurrentInstance();
-//                altoTablaGenerada = "75";
-//                genProceso = (Column) c.getViewRoot().findComponent("form:datosGenerados:genProceso");
-//                genProceso.setFilterStyle("display: none; visibility: hidden;");
-//                genEmpleado = (Column) c.getViewRoot().findComponent("form:datosGenerados:genEmpleado");
-//                genEmpleado.setFilterStyle("display: none; visibility: hidden;");
-//                genCntCredito = (Column) c.getViewRoot().findComponent("form:datosGenerados:genCntCredito");
-//                genCntCredito.setFilterStyle("display: none; visibility: hidden;");
-//                genCntDebito = (Column) c.getViewRoot().findComponent("form:datosGenerados:genCntDebito");
-//                genCntDebito.setFilterStyle("display: none; visibility: hidden;");
-//                genTercero = (Column) c.getViewRoot().findComponent("form:datosGenerados:genTercero");
-//                genTercero.setFilterStyle("display: none; visibility: hidden;");
-//                genValor = (Column) c.getViewRoot().findComponent("form:datosGenerados:genValor");
-//                genValor.setFilterStyle("display: none; visibility: hidden;");
-//                genConcepto = (Column) c.getViewRoot().findComponent("form:datosGenerados:genConcepto");
-//                genConcepto.setFilterStyle("display: none; visibility: hidden;");
-//                RequestContext.getCurrentInstance().update("form:datosGenerados");
-//                banderaGenerado = 0;
-//                filtrarListaGenerados = null;
-//                tipoListaGenerada = 0;
-//            }
-//            if (banderaIntercon == 1) {
-//                FacesContext c = FacesContext.getCurrentInstance();
-//                altoTablaIntercon = "75";
-//                interEmpleado = (Column) c.getViewRoot().findComponent("form:datosIntercon:interEmpleado");
-//                interEmpleado.setFilterStyle("display: none; visibility: hidden;");
-//                interTercero = (Column) c.getViewRoot().findComponent("form:datosIntercon:interTercero");
-//                interTercero.setFilterStyle("display: none; visibility: hidden;");
-//                interCuenta = (Column) c.getViewRoot().findComponent("form:datosIntercon:interCuenta");
-//                interCuenta.setFilterStyle("display: none; visibility: hidden;");
-//                interDebito = (Column) c.getViewRoot().findComponent("form:datosIntercon:interDebito");
-//                interDebito.setFilterStyle("display: none; visibility: hidden;");
-//                interCredito = (Column) c.getViewRoot().findComponent("form:datosIntercon:interCredito");
-//                interCredito.setFilterStyle("display: none; visibility: hidden;");
-//                interConcepto = (Column) c.getViewRoot().findComponent("form:datosIntercon:interConcepto");
-//                interConcepto.setFilterStyle("display: none; visibility: hidden;");
-//                interCentroCosto = (Column) c.getViewRoot().findComponent("form:datosIntercon:interCentroCosto");
-//                interCentroCosto.setFilterStyle("display: none; visibility: hidden;");
-//                RequestContext.getCurrentInstance().update("form:datosIntercon");
-//                banderaIntercon = 0;
-//                filtrarListaInterconTotal = null;
-//                tipoListaIntercon = 0;
-//            }
             RequestContext.getCurrentInstance().update("form:datosGenerados");
             RequestContext.getCurrentInstance().update("form:datosIntercon");
             RequestContext.getCurrentInstance().execute("PF('paso3CerrarPeriodo').show()");
@@ -896,8 +852,19 @@ public class ControlInterfaseContableTotal implements Serializable {
             guardadoGeneral();
             administrarInterfaseContableTotal.ejecutarPKGRecontabilizacion(parametroContableActual.getFechainicialcontabilizacion(), parametroContableActual.getFechafinalcontabilizacion());
             RequestContext.getCurrentInstance().execute("PF('operacionEnProceso').hide()");
+            RequestContext.getCurrentInstance().execute("PF('RecontabilizacionExitosa').show()");
+        } catch (ExcepcionBD ebd){
+            RequestContext.getCurrentInstance().execute("PF('operacionEnProceso').hide()");
+            RequestContext.getCurrentInstance().execute("PF('RecontabilizacionExitosa').hide()");
+            System.out.println("controlInterfaseTotal. finalizarProcesoRecontabilizacion : "+ ebd.getMessage());
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("", ebd.getMessage()));
+             RequestContext.getCurrentInstance().update("form:growl");
         } catch (Exception e) {
             System.out.println("Error finalizarProcesoRecontabilizacion Controlador : " + e.toString());
+            RequestContext.getCurrentInstance().execute("PF('operacionEnProceso').hide()");
+            RequestContext.getCurrentInstance().execute("PF('RecontabilizacionExitosa').hide()");
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("", e.getMessage()));
+             RequestContext.getCurrentInstance().update("form:growl");
         }
 
     }
@@ -2104,9 +2071,8 @@ public class ControlInterfaseContableTotal implements Serializable {
 
     public void generarDocumentoReporte() {
         RequestContext context = RequestContext.getCurrentInstance();
-//        if (reporteSeleccionado != null) {
         System.out.println("generando reporte - ingreso al if");
-        nombreReporte = "cifraControl";
+        nombreReporte = "CifraControl";
         tipoReporte = "PDF";
 
         if (nombreReporte != null && tipoReporte != null) {
@@ -2122,77 +2088,17 @@ public class ControlInterfaseContableTotal implements Serializable {
             RequestContext.getCurrentInstance().update("formularioDialogos:errorGenerandoReporte");
             RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
         }
-//        } else {
-//            System.out.println("generando reporte - ingreso al if else");
-//            System.out.println("Reporte Seleccionado es nulo");
-//        }
     }
 
     public void generarReporte() {
         System.out.println(this.getClass().getName() + ".generarReporte()");
         RequestContext.getCurrentInstance().execute("PF('generandoReporte').show()");
+        System.out.println("nombreReporte" + nombreReporte);
+        
+//        if(parametroContableActual.getFechacontabilizacion())
+        
+        
         generarDocumentoReporte();
-    }
-
-//    public void seleccionRegistro(Inforeportes reporte) {
-//        System.out.println(this.getClass().getName() + ".seleccionRegistro()");
-//        RequestContext context = RequestContext.getCurrentInstance();
-//        reporteSeleccionado = reporte;
-//        RequestContext.getCurrentInstance().update("formParametros");
-//        RequestContext.getCurrentInstance().update("form:reportesLaboral");
-//    }
-//    public void generarDocumentoReporte() {
-//        RequestContext context = RequestContext.getCurrentInstance();
-//        System.out.println("nombreReporte antes de entrar" + nombreReporte);
-//        if (nombreReporte != null) {
-//            System.out.println("nombreReporte después de entrar" + nombreReporte);
-//            System.out.println("generando reporte - ingreso al 2 if");
-//            pathReporteGenerado = administarReportes.generarReporte(nombreReporte, tipoReporte);
-//        }
-//        if (pathReporteGenerado != null) {
-//            System.out.println("generando reporte - ingreso al 3 if");
-//            RequestContext.getCurrentInstance().execute("PF('validarDescargaReporte();");
-//        } else {
-//            System.out.println("generando reporte - ingreso al 3 if else");
-//            RequestContext.getCurrentInstance().execute("PF('generandoReporte.hide();");
-//            RequestContext.getCurrentInstance().update("formularioDialogos:errorGenerandoReporte");
-//            RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show();");
-//        }
-//    }
-    /*
-     public void generarDocumentoReporte() {
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (reporteSeleccionado != null) {
-            System.out.println("generando reporte - ingreso al if");
-            nombreReporte = reporteSeleccionado.getNombrereporte();
-            tipoReporte = reporteSeleccionado.getTipo();
-
-            if (nombreReporte != null && tipoReporte != null) {
-                System.out.println("generando reporte - ingreso al 2 if");
-                pathReporteGenerado = administarReportes.generarReporte(nombreReporte, tipoReporte);
-            }
-            if (pathReporteGenerado != null) {
-                System.out.println("generando reporte - ingreso al 3 if");
-                validarDescargaReporte();
-            } else {
-                System.out.println("generando reporte - ingreso al 3 if else");
-                RequestContext.getCurrentInstance().execute("PF('generandoReporte.hide();");
-                RequestContext.getCurrentInstance().update("formularioDialogos:errorGenerandoReporte");
-                RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
-            }
-        } else {
-            System.out.println("generando reporte - ingreso al if else");
-            System.out.println("Reporte Seleccionado es nulo");
-        }
-    }
-    
-     */
-    public void generarArchivoReporte(JasperPrint print) {
-        System.out.println(this.getClass().getName() + ".generarArchivoReporte()");
-        if (print != null && tipoReporte != null) {
-            pathReporteGenerado = administarReportes.crearArchivoReporte(print, tipoReporte);
-            validarDescargaReporte();
-        }
     }
 
     public AsynchronousFilllListener listener() {
@@ -2258,14 +2164,13 @@ public class ControlInterfaseContableTotal implements Serializable {
                 }
                 if (reporte != null) {
                     System.out.println("validar descarga reporte - ingreso al if 3");
-                    if (reporteSeleccionado != null) {
+//                    if (reporteSeleccionado != null) {
                         System.out.println("validar descarga reporte - ingreso al if 4");
-                        //cabezeraVisor = "Reporte - " + reporteSeleccionado.getNombre();
                         cabezeraVisor = "Reporte - " + nombreReporte;
-                    } else {
-                        System.out.println("validar descarga reporte - ingreso al if 4 else ");
-                        cabezeraVisor = "Reporte - ";
-                    }
+//                    } else {
+//                        System.out.println("validar descarga reporte - ingreso al if 4 else ");
+//                        cabezeraVisor = "Reporte - ";
+//                    }
                     RequestContext.getCurrentInstance().update("formularioDialogos:verReportePDF");
                     RequestContext.getCurrentInstance().execute("PF('verReportePDF').show()");
                 }
@@ -2755,15 +2660,7 @@ public class ControlInterfaseContableTotal implements Serializable {
         this.activarLov = activarLov;
     }
 
-    public Inforeportes getReporteSeleccionado() {
-        return reporteSeleccionado;
-    }
-
-    public void setReporteSeleccionado(Inforeportes reporteSeleccionado) {
-        this.reporteSeleccionado = reporteSeleccionado;
-    }
-
-    public String getPathReporteGenerado() {
+     public String getPathReporteGenerado() {
         return pathReporteGenerado;
     }
 
@@ -2833,4 +2730,6 @@ public class ControlInterfaseContableTotal implements Serializable {
         this.infoRegistroContabilizados = infoRegistroContabilizados;
     }
 
+    
+    
 }

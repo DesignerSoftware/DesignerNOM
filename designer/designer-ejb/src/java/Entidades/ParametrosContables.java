@@ -29,10 +29,10 @@ public class ParametrosContables implements Serializable {
     @Column(name = "MONEDA_CODIGO")
     private Short monedaCodigo;
     @Column(name = "FECHAINICIALCONTABILIZACION")
-    @Temporal(TemporalType.TIMESTAMP)
+    //@Temporal(TemporalType.TIMESTAMP)
     private Date fechainicialcontabilizacion;
     @Column(name = "FECHAFINALCONTABILIZACION")
-    @Temporal(TemporalType.TIMESTAMP)
+    //@Temporal(TemporalType.TIMESTAMP)
     private Date fechafinalcontabilizacion;
     @Size(max = 30)
     @Column(name = "USUARIO")

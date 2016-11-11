@@ -83,7 +83,11 @@ public class PersistenciaAportesEntidades implements PersistenciaAportesEntidade
     public List<AportesEntidades> consultarAportesEntidadesPorEmpresaMesYAnio(EntityManager em, BigInteger secEmpresa, short mes, short ano) {
         try {
             em.clear();
-            String sql = "SELECT * FROM AportesEntidades a WHERE a.empresa =? AND a.ano =? AND a.mes =? AND EXISTS(SELECT 'x' FROM Empleados e WHERE e.secuencia = a.empleado) ORDER BY a.empleado DESC";
+//            String sql = "SELECT * FROM AportesEntidades a WHERE a.empresa =? AND a.ano =? AND a.mes =? AND EXISTS(SELECT 'x' FROM Empleados e WHERE e.secuencia = a.empleado) ORDER BY a.empleado DESC";
+            String sql = "SELECT a.*,t.nombre NOMBRETERCERO FROM AportesEntidades a , terceros t\n"
+                    + "WHERE a.empresa =? AND a.ano =? AND a.mes =? \n"
+                    + "AND a.tercero = t.SECUENCIA\n"
+                    + "AND EXISTS(SELECT 'x' FROM Empleados e WHERE e.secuencia = a.empleado) ORDER BY a.empleado DESC";
             Query query = em.createNativeQuery(sql, AportesEntidades.class);
             query.setParameter(1, secEmpresa);
             query.setParameter(2, ano);

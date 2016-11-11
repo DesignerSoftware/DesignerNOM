@@ -256,17 +256,17 @@
                                     </f:facet>
                                 </p:column>
 
-                                <p:column id="aporteNIT" sortBy="#{infoAE.terceroRegistro.strNit}" filterBy="#{infoAE.terceroRegistro.strNit}" width="60"
+                                <p:column id="aporteNIT" sortBy="#{infoAE.tercero}" filterBy="#{infoAE.tercero}" width="60"
                                           filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"   >                                  
                                     <f:facet name="header"> 
                                         <h:outputText id="nitt" value="#{msg['nitTercero']}" /> 
                                         <p:tooltip  for="nitt" value="NIT del Tercero" />
                                     </f:facet>
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{infoAE.terceroRegistro.nit}" /></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{infoAE.tercero}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   value="#{infoAE.terceroRegistro.nit}" id="editarNITAporte" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
-                                                <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE, 'TERCERO', infoAE.terceroRegistro.nit)}" update="@this"/>
+                                            <p:inputText  autocomplete="off"   value="#{infoAE.tercero}" id="editarNITAporte" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
+                                                <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE, 'TERCERO', infoAE.tercero)}" update="@this"/>
                                                 <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 4)}" />
                                                 <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 0, 2)}"/>
                                             </p:inputText>
@@ -277,15 +277,15 @@
                                     </f:facet>
                                 </p:column>
 
-                                <p:column id="aporteTercero"  headerText="" sortBy="#{infoAE.terceroRegistro.nombre}" width="120" filterBy="#{infoAE.terceroRegistro.nombre}" filterMatchMode="contains"   filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column id="aporteTercero"  headerText="" sortBy="#{infoAE.nombretercero}" width="120" filterBy="#{infoAE.nombretercero}" filterMatchMode="contains"   filterStyle="display: none; visibility: hidden;" >                                  
                                     <f:facet name="header"> 
                                         <h:outputText id="nomtercero" value="#{msg['nombreTercero']}" /> 
                                         <p:tooltip  for="nomtercero" value="Nombre del Tercero" />
                                     </f:facet>
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{infoAE.terceroRegistro.nombre}" /></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{infoAE.nombretercero}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{infoAE.terceroRegistro.nombre}" readonly="true" id="editarTerceroAporte" style="border-radius: 0px; width: 98.5%;"
+                                            <p:inputText  autocomplete="off"  value="#{infoAE.nombretercero}" readonly="true" id="editarTerceroAporte" style="border-radius: 0px; width: 98.5%;"
                                                          onselect="posicionAporteEntidad([{name: 'n', value: '5'}, {name: 't', value: '#{indiceAE}'}]);"  /> 
                                         </f:facet>  
                                     </p:cellEditor>

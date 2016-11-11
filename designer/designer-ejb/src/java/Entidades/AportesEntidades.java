@@ -268,6 +268,8 @@ public class AportesEntidades implements Serializable {
     @ManyToOne(optional = false)
     private Empleados empleado;
     @Transient
+    private String nombretercero;
+    @Transient
     private Terceros terceroRegistro;
     @Transient
     private String subtipocotizanteSTR;
@@ -1400,6 +1402,15 @@ public class AportesEntidades implements Serializable {
         }
     }
 
+    public String getNombretercero() {
+        return nombretercero;
+    }
+
+    public void setNombretercero(String nombretercero) {
+        this.nombretercero = nombretercero;
+    }
+
+    
     @Override
     public int hashCode() {
         int hash = 0;
