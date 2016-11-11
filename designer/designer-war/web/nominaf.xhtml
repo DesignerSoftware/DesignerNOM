@@ -301,24 +301,24 @@
 
                         <p:commandButton id="listavalores" value="" style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; width: 30px; height: 30px; position: absolute; left: 270px; top: 103px; z-index: 1; border: none;" 
                                          process="@this" actionListener="#{controlRemoto.requerirBuscarEmpleadoTipo()}" styleClass="bticon"/>
-                        <p:tooltip  for="listavalores" value="#{msg['lista']}" />
+                        <p:tooltip  for="listavalores" value="#{msg['lista']}"/>
                         <p:commandButton id="exportarxls" value="" style="background-image: url(Imagenes/Iconos/excel.png); background-size: 100% 100%; background-repeat: no-repeat; width: 30px; height: 30px; position: absolute; left: 300px; top: 103px; z-index: 1; border: none;" 
-                                         actionListener="#{controlRemoto.requerirBuscarEmpleadoTipo()}"   ajax="false" styleClass="bticon">
-                           <p:dataExporter type="xls"  target=":formexportar:empleadosexportar" fileName="PersonalXLS" encoding="UTF-8"/>
+                                         actionListener="#{controlRemoto.requerirBuscarEmpleadoTipo()}" ajax="false" styleClass="bticon">
+                           <p:dataExporter type="xls" target=":formexportar:empleadosexportar" fileName="PersonalXLS" encoding="UTF-8"/>
                         </p:commandButton>
-                        <p:tooltip  for="exportarxls" value="#{msg['xls']}" />
+                        <p:tooltip  for="exportarxls" value="#{msg['xls']}"/>
                         <p:commandButton id="exportarxml" value="" style="background-image: url(Imagenes/Iconos/xml.png); background-size: 100% 100%; background-repeat: no-repeat; width: 30px; height: 30px; position: absolute; left: 330px; top: 103px; z-index: 1; border: none;" 
                                          actionListener="#{controlRemoto.requerirBuscarEmpleadoTipo()}" ajax="false" styleClass="bticon">
-                           <p:dataExporter type="xml"  target=":formexportar:empleadosexportar" fileName="PersonalXML" encoding="UTF-8"/> 
+                           <p:dataExporter type="xml" target=":formexportar:empleadosexportar" fileName="PersonalXML" encoding="UTF-8"/> 
                         </p:commandButton> 
-                        <p:tooltip  for="exportarxml" value="#{msg['xml']}" />
+                        <p:tooltip  for="exportarxml" value="#{msg['xml']}"/>
                         <p:commandButton id="exportarpdf" value="" style="background-image: url(Imagenes/Iconos/pdf.png); background-size: 100% 100%; background-repeat: no-repeat; width: 30px; height: 30px; position: absolute; left: 360px; top: 103px; z-index: 1; border: none;" 
-                                         actionListener="#{controlRemoto.requerirBuscarEmpleadoTipo()}"  ajax="false" styleClass="bticon">
-                           <p:dataExporter type="pdf"  target=":formexportar:empleadosexportar" fileName="PersonalPDF" encoding="UTF-8"/>
+                                         actionListener="#{controlRemoto.requerirBuscarEmpleadoTipo()}" ajax="false" styleClass="bticon">
+                           <p:dataExporter type="pdf" target=":formexportar:empleadosexportar" fileName="PersonalPDF" encoding="UTF-8"/>
                         </p:commandButton>
-                        <p:tooltip  for="exportarpdf" value="#{msg['pdf']}" />
+                        <p:tooltip for="exportarpdf" value="#{msg['pdf']}"/>
 
-                        <p:panel id="panelinf" style="position: absolute; top:423px; left:0px; padding: 0px; width: 849px; border: none; background: transparent;" >
+                        <p:panel id="panelinf" style="position: absolute; top:423px; left:0px; padding: 0px; width: 849px; border: none; background: transparent;">
 
                            <!-- Panel Acumulados y Novedades -->
                            <fieldset style="border-radius: 5px; position: relative; left: 0px; width: 808px;">
@@ -329,7 +329,7 @@
                               </p:tooltip>
                               <p:commandButton id="novedadesempleado" value="" disabled="#{controlRemoto.novedad}" style="background-image: url(Imagenes/Iconos/novedadEmpleado.png); width: 40px; height: 40px; background-repeat: no-repeat; background-size: 100% 100%; border: none;" action="novedadEmpl" actionListener="#{controlEmplNovedad.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado.secuencia)}"
                                                styleClass="bticon"/>
-                              <p:tooltip   for="novedadesempleado" >
+                              <p:tooltip   for="novedadesempleado">
                                  #{msg['NovedadesEmpleado1']} 
                                  <br/>
                                  #{msg['NovedadesEmpleado2']}
@@ -734,7 +734,7 @@
 
                <p:dialog id="lvbr" widgetVar="lvbr" header="#{msg['busquedarapida']}" resizable="false" draggable="true" modal="true"  width="750" closable="false">
                   <p:dataTable id="lvbusquedarapida" widgetVar="lvbusquedarapida"  var="item" value="#{controlRemoto.busquedaRapida}" scrollable="true"
-                               scrollHeight="162" scrollWidth="717" filteredValue="#{controlRemoto.filterBusquedaRapida}" emptyMessage="#{msg['lovvacio']}"
+                               scrollHeight="162" scrollWidth="725" filteredValue="#{controlRemoto.filterBusquedaRapida}" emptyMessage="#{msg['lovvacio']}"
                                rowKey="#{item.rfEmpleado}" selection="#{controlRemoto.emplSeleccionado}" selectionMode="single">
 
                      <p:ajax event="rowSelect" listener="#{controlRemoto.activarBuscar()}" update=":form:buscarrap"/>
@@ -747,15 +747,15 @@
                         <p:watermark for="globalFilter" value="#{msg['ingresarvalor']}"/>
                      </f:facet>
 
-                     <p:column  headerText="#{msg['codigoE']}" filterOptions="" width="80" filterBy="#{item.codigoEmpleado}" sortBy="#{item.codigoEmpleado}" filterStyle="width: 85% !important;" filterMatchMode="contains">  
+                     <p:column headerText="#{msg['codigo']}" filterOptions="" width="80" filterBy="#{item.codigoEmpleado}" sortBy="#{item.codigoEmpleado}" filterStyle="width: 85% !important;" filterMatchMode="contains">  
                         <h:outputText value="#{item.codigoEmpleado}"/>
                      </p:column>  
 
-                     <p:column headerText="#{msg['primerapellidoE']}" width="120" filterBy="#{item.primerApellido}" sortBy="#{item.primerApellido}" filterStyle="width: 85% !important;" filterMatchMode="contains">  
+                     <p:column headerText="#{msg['primerapellidoE']}" width="130" filterBy="#{item.primerApellido}" sortBy="#{item.primerApellido}" filterStyle="width: 85% !important;" filterMatchMode="contains">  
                         <h:outputText value="#{item.primerApellido}"/>  
                      </p:column>  
 
-                     <p:column headerText="#{msg['segundoapellidoE']}" width="120" filterBy="#{item.segundoApellido}" sortBy="#{item.segundoApellido}" filterStyle="width: 85% !important;" filterMatchMode="contains" >  
+                     <p:column headerText="#{msg['segundoapellidoE']}" width="130" filterBy="#{item.segundoApellido}" sortBy="#{item.segundoApellido}" filterStyle="width: 85% !important;" filterMatchMode="contains" >  
                         <h:outputText value="#{item.segundoApellido}"/>  
                      </p:column>  
 
@@ -782,7 +782,7 @@
 
                <p:dialog id="lvbe" widgetVar="lvbe" header="#{msg['empleadosE']}" resizable="false" draggable="true" modal="true" width="750" closable="false">  
                   <p:dataTable id="lvbuscarempleado" widgetVar="lvbuscarempleado" var="item" value="#{controlRemoto.buscarEmplTipo}"
-                               scrollable="true" scrollHeight="162" scrollWidth="717" 
+                               scrollable="true" scrollHeight="162" scrollWidth="725" 
                                filteredValue="#{controlRemoto.filterBuscarEmpleado}" emptyMessage="#{msg['lovvacio']}"
                                rowKey="#{item.rfEmpleado}" selection="#{controlRemoto.emplSeleccionadoBE}" selectionMode="single">
 
@@ -797,15 +797,15 @@
                         <p:watermark for="globalFilter" value="#{msg['ingresarvalor']}" />
                      </f:facet>
 
-                     <p:column headerText="#{msg['codigoE']}" filterOptions="" width="80" filterBy="#{item.codigoEmpleado}" sortBy="#{item.codigoEmpleado}" filterStyle="width: 85% !important;" filterMatchMode="contains">  
+                     <p:column headerText="#{msg['codigo']}" filterOptions="" width="80" filterBy="#{item.codigoEmpleado}" sortBy="#{item.codigoEmpleado}" filterStyle="width: 85% !important;" filterMatchMode="contains">  
                         <h:outputText value="#{item.codigoEmpleado}" />  
                      </p:column>  
 
-                     <p:column headerText="#{msg['primerapellidoE']}" width="120" filterBy="#{item.primerApellido}" sortBy="#{item.primerApellido}" filterStyle="width: 85% !important;" filterMatchMode="contains">  
+                     <p:column headerText="#{msg['primerapellidoE']}" width="150" filterBy="#{item.primerApellido}" sortBy="#{item.primerApellido}" filterStyle="width: 85% !important;" filterMatchMode="contains">  
                         <h:outputText value="#{item.primerApellido}" />  
                      </p:column>  
 
-                     <p:column headerText="#{msg['segundoapellidoE']}" width="120" filterBy="#{item.segundoApellido}" sortBy="#{item.segundoApellido}" filterStyle="width: 85% !important;" filterMatchMode="contains" >  
+                     <p:column headerText="#{msg['segundoapellidoE']}" width="150" filterBy="#{item.segundoApellido}" sortBy="#{item.segundoApellido}" filterStyle="width: 85% !important;" filterMatchMode="contains" >  
                         <h:outputText value="#{item.segundoApellido}" />  
                      </p:column>  
 

@@ -92,11 +92,9 @@
                            <h:outputText value="#{controlComprobantes.parametroEstructura.estructura.nombre}" style="color: black; font-weight: bold; position: absolute; top: 65px; left: 220px;"/>
                         </div>
 
-                        <p:commandButton style="background-image: url(Imagenes/Iconos/buscardb.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; 
-                                         width: 90px; height: 30px; position: relative; left: 640px; top: -35px; text-align: center; padding: 0px;" id="buscarEmpleado" value=" "  process="@this" oncomplete="PF('buscarEmpleadoDialogo').show();" 
+                        <p:commandButton class="cssBotonBuscar" style="position: relative; left: 640px; top: -35px;" id="buscarEmpleado" value=" "  process="@this" oncomplete="PF('buscarEmpleadoDialogo').show();" 
                                          update=":formularioDialogos:buscarEmpleadoDialogo" />
-                        <p:commandButton style="background-image: url(Imagenes/Iconos/todosdb.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; text-align: center; padding: 0px; 
-                                         width: 90px; height: 30px; position: relative; left: 640px; top: -35px;" disabled="#{controlComprobantes.mostrarTodos}" id="mostrarTodos" value=" " 
+                        <p:commandButton class="cssBotonMostrarTodos" style="position: relative; left: 640px; top: -35px;" disabled="#{controlComprobantes.mostrarTodos}" id="mostrarTodos" value=" " 
                                          actionListener="#{controlComprobantes.mostarTodosEmpleados()}" process="@this" />
 
                         <div>

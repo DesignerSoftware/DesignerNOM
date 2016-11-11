@@ -1493,7 +1493,6 @@ public class ControlCargo implements Serializable {
    }
 
    public void dispararDialogoNuevoTipoDetalle() {
-      RequestContext context = RequestContext.getCurrentInstance();
       codigoNuevoTipoDetalle();
       RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroTipoDetalle");
       RequestContext.getCurrentInstance().execute("PF('NuevoRegistroTipoDetalle').show()");
@@ -1556,7 +1555,6 @@ public class ControlCargo implements Serializable {
             nuevoCargo.setGrupoviatico(new GruposViaticos());
             nuevoCargo.setProcesoproductivo(new ProcesosProductivos());
             cambiosPagina = false;
-            RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
             RequestContext.getCurrentInstance().update("form:datosCargo");
             RequestContext.getCurrentInstance().execute("PF('NuevoRegistroCargo').hide()");

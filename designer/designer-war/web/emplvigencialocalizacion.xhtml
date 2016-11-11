@@ -129,7 +129,6 @@
                                  </p:calendar>
                               </f:facet>   
                            </p:cellEditor>
-
                            <f:facet name="footer">
                               <h:outputText value="" />
                            </f:facet>
@@ -144,7 +143,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{infoDVL.localizacion.centrocosto.codigoNombre}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{infoDVL.localizacion.centrocosto.codigoNombre}"  id="editarNombreJornada" style=" border-radius: 0px; width: 95%;text-transform: uppercase; height: 12px"> 
+                                 <p:inputText  autocomplete="off" value="#{infoDVL.localizacion.centrocosto.codigoNombre}"  id="editarNombreJornada" style=" border-radius: 0px; width: 95%;text-transform: uppercase; height: 12px"> 
                                     <p:ajax event="change" listener="#{controlVigenciaLocalizacion.modificarVL(infoDVL, 'CENTROCOSTO')}" update="editarNombreJornada"/>
                                     <p:ajax event="dblclick" listener="#{controlVigenciaLocalizacion.asignarIndex(infoDVL,0,0)}"/>
                                     <p:ajax event="select" listener="#{controlVigenciaLocalizacion.cambiarIndice(infoDVL,1)}"
@@ -265,25 +264,21 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column  sortBy="#{info.porcentaje}" filterBy="#{info.porcentaje}" filterMatchMode="contains" id="vPPorcentaje" filterStyle="display: none; visibility: hidden;" width="50">                                  
+                        <p:column sortBy="#{info.porcentaje}" filterBy="#{info.porcentaje}" filterMatchMode="contains" id="vPPorcentaje" filterStyle="display: none; visibility: hidden;" width="50">                                  
                            <f:facet name="header">
                               <h:outputText id="headerPorcentajeVP" value="#{msg['p']}" />
-                              <p:tooltip  for="headerPorcentajeVP" value="Ingrese el porcentaje." />
+                              <p:tooltip for="headerPorcentajeVP" value="Ingrese el porcentaje." />
                            </f:facet>
                            <p:cellEditor>  
-                              <f:facet name="output"><h:outputText value="#{info.porcentaje}%"/></f:facet>  
+                              <f:facet name="output"><h:outputText value="#{info.porcentaje}%" /></f:facet>  
                               <f:facet name="input">
-<!--                                 <p:inputText  autocomplete="off"  id="editPorcentaje1" binding="#{vPPorcentajeAux}" maxlength="4" style="border-radius: 0px; width: 93.5%;"> 
-                                    <p:keyFilter for="editPorcentaje1" mask="num"/>
-                                    <p:ajax event="select" listener="#{controlVigenciaLocalizacion.cambiarIndiceVP(info,1)}" update=":form:datosVPPVigencia" process="@this"/>
-                                    <p:ajax event="change" listener="#{controlVigenciaLocalizacion.modificarVPPorcentaje(vPPorcentajeAux.value, indiceVP, 1, 0)}" process="@this"/>
-                                 </p:inputText>-->
-                                 <p:inputNumber id="editPorcentaje1" value="#{info.porcentaje}" symbol="%" maxValue="100" minValue="0" maxlength="3" decimalPlaces="1" symbolPosition="s" emptyValue="empty">  
-                                    <p:ajax event="select" listener="#{controlVigenciaLocalizacion.cambiarIndiceVP(info,1)}" update=":form:datosVPPVigencia" process="@this"
-                                            onstart="PF('datosVPVigencia').unselectAllRows();PF('datosVPVigencia').selectRow(#{indiceVP});"/>
+                                 <p:inputNumber id="editPorcentaje1" value="#{info.porcentaje}" symbol="%" maxValue="100" minValue="0" maxlength="3"
+                                                decimalPlaces="1" symbolPosition="s" emptyValue="zero" class="clasePorcentaje">
+                                    <p:ajax event="select" listener="#{controlVigenciaLocalizacion.cambiarIndiceVP(info,1)}" process="@this" update=":form:datosVPPVigencia"
+                                            onstart="PF('datosVPVigencia').unselectAllRows();PF('datosVPVigencia').selectRow(#{indiceVP})"/>
                                     <p:ajax event="change" listener="#{controlVigenciaLocalizacion.modificarVP()}" process="@this"/>
                                  </p:inputNumber>
-                              </f:facet>  
+                              </f:facet>
                            </p:cellEditor>
                            <f:facet name="footer">
                               <h:outputText value=""/>
@@ -351,11 +346,12 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.proyecto.nombreproyecto}" /></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  maxlength="50" value="#{info.proyecto.nombreproyecto}" id="editarProyectoVP" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
+                                 <p:inputText  autocomplete="off"  maxlength="50" value="#{info.proyecto.nombreproyecto}"
+                                               id="editarProyectoVP" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px;"> 
                                     <p:ajax event="select" listener="#{controlVigenciaLocalizacion.cambiarIndiceVP(info,4)}" update=":form:datosVPPVigencia" process="@this"
                                             onstart="PF('datosVPVigencia').unselectAllRows();PF('datosVPVigencia').selectRow(#{indiceVP});"/> 
                                     <p:ajax event="dblclick" listener="#{controlVigenciaLocalizacion.asignarIndexVP(info,1,0)}" process="@this"/>
-                                    <p:ajax event="change" listener="#{controlVigenciaLocalizacion.modificarVP(indiceVP, 'PROYECTO')}" process="@this"/>
+                                    <p:ajax event="change" listener="#{controlVigenciaLocalizacion.modificarVP(info, 'PROYECTO')}" process="@this"/>
                                  </p:inputText>
                               </f:facet>  
                            </p:cellEditor>
@@ -373,13 +369,13 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.subporcentaje}%" /></f:facet>  
                               <f:facet name="input">
-                                 <!--<p:inputText  autocomplete="off"  id="editsPorcentaje2" binding="#/{vPPorcentajeAuxSub}" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height: 12px">--> 
-                                 <p:inputNumber id="editsPorcentaje2" value="#{info.subporcentaje}" symbol="%" maxValue="100" minValue="0" maxlength="3" decimalPlaces="1" symbolPosition="s" emptyValue="empty"> 
-                                    <p:ajax event="select" listener="#{controlVigenciaLocalizacion.cambiarIndiceVP(info,5)}" update=":form:datosVPPVigencia" process="@this"
-                                            onstart="PF('datosVPVigencia').unselectAllRows();PF('datosVPVigencia').selectRow(#{indiceVP});"/> 
+                                 <p:inputNumber id="editsPorcentaje2" value="#{info.subporcentaje}" symbol="%" maxValue="100" minValue="0" maxlength="3" 
+                                                decimalPlaces="1" symbolPosition="s" emptyValue="zero" class="clasePorcentaje">  
+                                    <p:ajax event="select" listener="#{controlVigenciaLocalizacion.cambiarIndiceVP(info,5)}" process="@this" update=":form:datosVPPVigencia" 
+                                            onstart="PF('datosVPVigencia').unselectAllRows();PF('datosVPVigencia').selectRow(#{indiceVP})"/>
                                     <p:ajax event="change" listener="#{controlVigenciaLocalizacion.modificarVP()}" process="@this"/>
                                  </p:inputNumber>
-                              </f:facet>  
+                              </f:facet>
                            </p:cellEditor>
                            <f:facet name="footer">
                               <h:outputText value="" id="fooSubPorcentajeVP"/>
@@ -401,7 +397,7 @@
                         <p:ajax event="filter" listener="#{controlVigenciaLocalizacion.eventoFiltrarVPP()}"/>
                         <f:event type="preRenderView" listener="#{controlVigenciaLocalizacion.recordarSeleccionVPP()}"/>
 
-                        <p:column  sortBy="#{info2.proyecto.nombreproyecto}" filterBy="#{info2.proyecto.nombreproyecto}" filterMatchMode="contains" id="vPPProyecto" filterStyle="display: none; visibility: hidden;" >
+                        <p:column sortBy="#{info2.proyecto.nombreproyecto}" filterBy="#{info2.proyecto.nombreproyecto}" filterMatchMode="contains" id="vPPProyecto" filterStyle="display: none; visibility: hidden;" >
                            <f:facet name="header">
                               <h:outputText id="headerProyectoVPP" value="#{msg['proyecto']}" />
                               <p:tooltip  for="headerProyectoVPP" value="Ingrese el nombre del proyecto." />
@@ -409,7 +405,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info2.proyecto.nombreproyecto}" /></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  maxlength="50" value="#{info2.proyecto.nombreproyecto}" id="editarProyectoVPP" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
+                                 <p:inputText autocomplete="off" maxlength="50" value="#{info2.proyecto.nombreproyecto}" id="editarProyectoVPP" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
                                     <p:ajax event="select" listener="#{controlVigenciaLocalizacion.cambiarIndiceVPP(info2, 0)}" update=":form:datosVPVigencia" process="@this"
                                             onstart="PF('datosVPPVigencia').unselectAllRows();PF('datosVPPVigencia').selectRow(#{indiceVPP});"/> 
                                     <p:ajax event="dblclick" listener="#{controlVigenciaLocalizacion.asignarIndexVPP(info2,0,0)}" process="@this"/>
@@ -431,8 +427,8 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info2.porcentaje}%" /></f:facet>  
                               <f:facet name="input">
-                                 <!--<p:inputText  autocomplete="off"  id="editPorcentaje2" binding="#/{vPPorcentajeAux2}" maxlength="4" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px ">--> 
-                                 <p:inputNumber id="editPorcentaje2" value="#{info2.porcentaje}" symbol="%" maxlength="3" maxValue="100" minValue="0" decimalPlaces="1" symbolPosition="s" emptyValue="empty">
+                                 <p:inputNumber id="editPorcentaje2" value="#{info2.porcentaje}" symbol="%" maxlength="3" maxValue="100" minValue="0"
+                                                decimalPlaces="1" symbolPosition="s" emptyValue="zero">
                                     <p:ajax event="select" listener="#{controlVigenciaLocalizacion.cambiarIndiceVPP(info2,1)}" update=":form:datosVPVigencia" process="@this"
                                             onstart="PF('datosVPPVigencia').unselectAllRows();PF('datosVPPVigencia').selectRow(#{indiceVPP});"/>
                                     <p:ajax event="change" listener="#{controlVigenciaLocalizacion.modificarVPP()}" process="@this"/>
@@ -444,8 +440,8 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column  sortBy="#{info2.fechainicial}" filterBy="#{info2.fechainicial}" filterMatchMode="contains"
-                                   id="vPPFechaInicial" filterStyle="display: none; visibility: hidden;" width="67">                                  
+                        <p:column sortBy="#{info2.fechainicial}" filterBy="#{info2.fechainicial}" filterMatchMode="contains"
+                                  id="vPPFechaInicial" filterStyle="display: none; visibility: hidden;" width="67">                                  
                            <f:facet name="header">
                               <h:outputText id="headerFechaInicialVPP" value="#{msg['inicial']}" />
                               <p:tooltip  for="headerFechaInicialVPP" value="Ingrese la fecha inicial en formato(DD/MM/YYYY)." />
@@ -595,30 +591,32 @@
                   <!-- DIALOGO L.O.V ESTATICO PROYECTOS -->
                   <p:dialog header="#{msg['proyectoP']}" widgetVar="ProyectosDialogo" draggable="true" resizable="false" closable="false" id="ProyectosDialogo"  
                             showEffect="fade" hideEffect="fade" width="630" modal="true" >
-                     <p:dataTable id="lovProyectos" var="proyecto" value="#{controlVigenciaLocalizacion.listProyectos}" rowKey="#{proyecto.secuencia}"
-                                  selection="#{controlVigenciaLocalizacion.proyectoSelecionado}" selectionMode="single" widgetVar="lovProyectos" scrollable="true" scrollWidth="608" scrollHeight="210"
-                                  filteredValue="#{controlVigenciaLocalizacion.filtradoProyectos}" emptyMessage="#{msg['lovvacio']}">              
+                     <p:dataTable id="lovProyectos" var="proyecto" value="#{controlVigenciaLocalizacion.listProyectos}" rowKey="#{proyecto.secuencia}" 
+                                  selection="#{controlVigenciaLocalizacion.proyectoSelecionado}" selectionMode="single" widgetVar="lovProyectos" scrollable="true" 
+                                  scrollWidth="608" scrollHeight="210" filteredValue="#{controlVigenciaLocalizacion.filtradoProyectos}" emptyMessage="#{msg['lovvacio']}">              
 
                         <p:ajax event="filter" listener="#{controlVigenciaLocalizacion.contarRegistrosProyecto()}"/>
                         <p:ajax event="rowSelect" listener="#{controlVigenciaLocalizacion.activarAceptar()}" update=":form:aceptarP"/>
                         <p:ajax event="rowDblselect" listener="#{controlVigenciaLocalizacion.actualizarProyecto()}" oncomplete="PF('ProyectosDialogo').hide()" update=":form:ProyectosDialogo" process="@this" />
+
                         <f:facet name="header">  
                            <h:outputText value="#{msg['buscarP']}" />  
                            <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovProyectos').filter();" value="#{filtrado}" class="cssFiltroLOV" />  
                         </f:facet>
-                        <p:column filterBy="#{proyecto.codigo}" width="160" filterMatchMode="contains" filterStyle="width: 85% !important">
+
+                        <p:column filterBy="#{proyecto.codigo}" sortBy="#{proyecto.codigo}" width="80" filterMatchMode="contains" filterStyle="width: 85% !important">
                            <f:facet name="header">
-                              <h:outputText style="text-align: center" value="#{msg['codigoP']}" />
+                              <h:outputText style="text-align: center" value="#{msg['codigoLP']}" />
                            </f:facet>
                            <h:outputText  value="#{proyecto.codigo}" />
                         </p:column>
-                        <p:column filterBy="#{proyecto.nombreproyecto}" width="160"  filterMatchMode="contains" filterStyle="width: 85% !important">
+                        <p:column filterBy="#{proyecto.nombreproyecto}" width="200" sortBy="#{proyecto.nombreproyecto}" filterMatchMode="contains" filterStyle="width: 85% !important">
                            <f:facet name="header">
                               <h:outputText value="#{msg['nombreP']}" />
                            </f:facet>
                            <h:outputText value="#{proyecto.nombreproyecto}" />
                         </p:column>
-                        <p:column filterBy="#{proyecto.empresa.nombre}" width="160"  filterMatchMode="contains" filterStyle="width: 85% !important">
+                        <p:column filterBy="#{proyecto.empresa.nombre}" sortBy="#{proyecto.empresa.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important">
                            <f:facet name="header">
                               <h:outputText value="#{msg['empresaP']}" />
                            </f:facet>
@@ -776,6 +774,13 @@
                   <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 17px; width: 185px; font-weight:bold;" />
                </p:dialog>
                <p:hotkey bind="ctrl+f11" actionListener="#{controlVigenciaLocalizacion.activarCtrlF11()}"/> 
+
+               <style>
+                  .clasePorcentaje input {
+                     padding-left: -3px !important;
+                     border: none !important;
+                  }
+               </style>
             </h:form>
 
             <h:form id="formularioDialogos">
@@ -944,10 +949,17 @@
                      </div>
 
                      <strong><h:outputText value="*#{msg['porcentajeVP']}" style=" position: absolute; top: 165px; left: 50px;" /></strong>
-                     <p:inputText  autocomplete="off"  id="nuevaPorcentajeVP" binding="#{vPPorcentajeAux3}" maxlength="4" style=" width: 110px; position: absolute; top: 160px; left: 170px;" onclick="select();"> 
+<!--                     <p:inputText  autocomplete="off"  id="nuevaPorcentajeVP" binding="#/{vPPorcentajeAux3}" maxlength="4" style=" width: 110px; position: absolute; top: 160px; left: 170px;" onclick="select();"> 
                         <p:keyFilter for="nuevaPorcentajeVP" mask="num"/>
-                        <p:ajax event="change" listener="#{controlVigenciaLocalizacion.modificarVPPorcentajes(1, 1, vPPorcentajeAux3.value, 0)}" update="nuevaPorcentajeVP" process="@this"/>
-                     </p:inputText>
+                        <p:ajax event="change" listener="#/{controlVigenciaLocalizacion.modificarVPPorcentajes(1, 1, vPPorcentajeAux3.value, 0)}" update="nuevaPorcentajeVP" process="@this"/>
+                     </p:inputText>-->
+                     <div style="width: 70px; position: absolute; top: 160px; left: 170px;">
+                        <p:inputNumber id="nuevaPorcentajeVP" value="#{controlVigenciaLocalizacion.nuevaVigenciaP.porcentaje}"
+                                       symbol="%" maxlength="3" maxValue="100" minValue="0" style="position: relative;"
+                                       decimalPlaces="1" symbolPosition="s" emptyValue="zero">
+                           <p:ajax event="change" update="nuevaPorcentajeVP" process="@this"/>
+                        </p:inputNumber>
+                     </div>
                      <p:watermark for="nuevaPorcentajeVP" value="#{msg['p']}" />
 
                      <strong><h:outputText value="#{msg['proyectoVP']}" style=" position: absolute; top: 195px; left: 50px;" /></strong>
@@ -962,10 +974,17 @@
                      <p:watermark for="nuevaProyectoVP" value="#{msg['proyecto']}" />
 
                      <strong><h:outputText value="#{msg['subporcentajeVP']}" style=" position: absolute; top: 225px; left: 50px;" /></strong>
-                     <p:inputText  autocomplete="off"  id="nuevaSubPorcentajeVP" binding="#{vPPorcentajeAux3sub}" style=" width: 110px; position: absolute; left: 170px; top: 220px;">
+<!--                     <p:inputText  autocomplete="off"  id="nuevaSubPorcentajeVP" binding="#/{vPPorcentajeAux3sub}" style=" width: 110px; position: absolute; left: 170px; top: 220px;">
                         <p:keyFilter for="nuevaSubPorcentajeVP" mask="num"/>
-                        <p:ajax event="change" listener="#{controlVigenciaLocalizacion.modificarVPPorcentajes(1, 1, vPPorcentajeAux3sub.value, 1)}" update="nuevaSubPorcentajeVP" />
-                     </p:inputText>
+                        <p:ajax event="change" listener="#/{controlVigenciaLocalizacion.modificarVPPorcentajes(1, 1, vPPorcentajeAux3sub.value, 1)}" update="nuevaSubPorcentajeVP" />
+                     </p:inputText>-->
+                     <div style="width: 70px; position: absolute; left: 170px; top: 220px;">
+                        <p:inputNumber id="nuevaSubPorcentajeVP" value="#{controlVigenciaLocalizacion.nuevaVigenciaP.subporcentaje}"
+                                       symbol="%" maxlength="3" maxValue="100" minValue="0" style="position: relative;"
+                                       decimalPlaces="1" symbolPosition="s" emptyValue="zero">
+                           <p:ajax event="change" update="nuevaSubPorcentajeVP" process="@this"/>
+                        </p:inputNumber>
+                     </div>
                      <p:watermark for="nuevaSubPorcentajeVP" value="#{msg['p']}"/>
 
                      <p:commandButton id="limpiarVP" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 265px;" actionListener="#{controlVigenciaLocalizacion.limpiarNuevaVP()}" update="nuevaVP" process="@this" icon="ui-icon-trash"/>
@@ -1008,11 +1027,18 @@
                      </div>
 
                      <strong><h:outputText value="*#{msg['porcentajeVP']}" style=" position: absolute; top: 165px; left: 50px;"/></strong>
-                     <p:inputText  autocomplete="off"  id="duplicadoPorcentajeVP" maxlength="4" binding="#{vPPorcentajeAux4}" style=" width: 110px; position: absolute; top: 160px; left: 170px;" onclick="select();" >
+<!--                     <p:inputText  autocomplete="off"  id="duplicadoPorcentajeVP" maxlength="4" binding="#/{vPPorcentajeAux4}" style=" width: 110px; position: absolute; top: 160px; left: 170px;" onclick="select();" >
                         <p:keyFilter for="duplicadoPorcentajeVP" mask="num"/>
                         <p:ajax event="change" listener="#{controlVigenciaLocalizacion.modificarVPPorcentajes(2, 1, vPPorcentajeAux4.value, 0)}" update="duplicadoPorcentajeVP" process="@this"/>
-                     </p:inputText>
-                     <p:watermark for="duplicadoPorcentajeVP" value="#{msg['p']}" />
+                     </p:inputText>-->
+                     <div style="width: 70px; position: absolute; top: 160px; left: 170px;">
+                        <p:inputNumber id="duplicadoPorcentajeVP" value="#{controlVigenciaLocalizacion.duplicarVP.porcentaje}"
+                                       symbol="%" maxlength="3" maxValue="100" minValue="0" style="position: relative;"
+                                       decimalPlaces="1" symbolPosition="s" emptyValue="zero">
+                           <p:ajax event="change" update="duplicadoPorcentajeVP" process="@this"/>
+                        </p:inputNumber>
+                     </div>
+                     <!--<p:watermark for="duplicadoPorcentajeVP" value="#{msg['p']}" />-->
 
                      <strong><h:outputText value="#{msg['proyectoVP']}" style=" position: absolute; top: 195px; left: 50px;" /></strong>
                      <p:inputText  autocomplete="off"  maxlength="50" id="duplicadoProyectoVP" value="#{controlVigenciaLocalizacion.duplicarVP.proyecto.nombreproyecto}" style=" width: 110px; position: absolute; left: 170px; top: 190px; text-transform: uppercase" onclick="select();">
@@ -1026,10 +1052,17 @@
                      <p:watermark for="duplicadoProyectoVP" value="#{msg['proyecto']}"/>
 
                      <strong><h:outputText value="#{msg['subporcentajeVP']}" style=" position: absolute; top: 225px; left: 50px;" /></strong>
-                     <p:inputText  autocomplete="off"  id="duplicadoSubPorcentajeVP" binding="#{vPPorcentajeAux4sub}" style=" width: 110px; position: absolute; left: 170px; top: 220px;">
+<!--                     <p:inputText  autocomplete="off" id="duplicadoSubPorcentajeVP" binding="#{vPPorcentajeAux4sub}" style=" width: 110px; position: absolute; left: 170px; top: 220px;">
                         <p:keyFilter for="duplicadoSubPorcentajeVP" mask="num"/>
-                        <p:ajax event="change" listener="#{controlVigenciaLocalizacion.modificarVPPorcentajes(2, 1, vPPorcentajeAux4sub.value, 1)}" update="duplicadoSubPorcentajeVP" />
-                     </p:inputText>
+                        <p:ajax event="change" listener="#/{controlVigenciaLocalizacion.modificarVPPorcentajes(2, 1, vPPorcentajeAux4sub.value, 1)}" update="duplicadoSubPorcentajeVP" />
+                     </p:inputText>-->
+                     <div style=" width: 70px; position: absolute; left: 170px; top: 220px;">
+                        <p:inputNumber id="duplicadoSubPorcentajeVP" value="#{controlVigenciaLocalizacion.duplicarVP.subporcentaje}"
+                                       symbol="%" maxlength="3" maxValue="100" minValue="0" style="position: relative;"
+                                       decimalPlaces="1" symbolPosition="s" emptyValue="zero">
+                           <p:ajax event="change" update="duplicadoSubPorcentajeVP" process="@this"/>
+                        </p:inputNumber>
+                     </div>
                      <p:watermark for="duplicadoSubPorcentajeVP" value="#{msg['subporcentaje']}" />
 
                      <p:commandButton id="limpiarDuplicadoVP" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 265px;" actionListener="#{controlVigenciaLocalizacion.limpiarduplicarVP()}" update="duplicadoVP" process="@this" icon="ui-icon-trash"/>
@@ -1072,10 +1105,17 @@
                      </div>
 
                      <strong><h:outputText value="*#{msg['porcentajeVPP']}" style=" position: absolute; top: 165px; left: 50px;" /></strong>
-                     <p:inputText  autocomplete="off"  id="nuevaPorcentajeVPP" binding="#{vPPorcentajeAux5}" maxlength="4" style=" width: 110px; position: absolute; top: 160px; left: 160px;" onclick="select();"> 
+<!--                    <p:inputText  autocomplete="off"  id="nuevaPorcentajeVPP" binding="#/{vPPorcentajeAux5}" maxlength="4" style=" width: 110px; position: absolute; top: 160px; left: 160px;" onclick="select();"> 
                         <p:keyFilter for="nuevaPorcentajeVPP" mask="num"/>
-                        <p:ajax event="change" listener="#{controlVigenciaLocalizacion.modificarVPPorcentajes(1, 2, vPPorcentajeAux5.value, 0)}" process="@this"/>
-                     </p:inputText>
+                        <p:ajax event="change" listener="#/{controlVigenciaLocalizacion.modificarVPPorcentajes(1, 2, vPPorcentajeAux5.value, 0)}" process="@this"/>
+                     </p:inputText>-->
+                     <div style="width: 70px !important; position: absolute; top: 160px; left: 160px;">
+                        <p:inputNumber id="nuevaPorcentajeVPP" value="#{controlVigenciaLocalizacion.nuevaVigenciaPP.porcentaje}"
+                                       symbol="%" maxlength="3" maxValue="100" minValue="0" style="position: relative;"
+                                       decimalPlaces="1" symbolPosition="s" emptyValue="zero">
+                           <p:ajax event="change" update="nuevaPorcentajeVPP" process="@this"/>
+                        </p:inputNumber>
+                     </div>
                      <p:watermark for="nuevaPorcentajeVPP" value="#{msg['p']}" />
 
                      <p:commandButton id="limpiarVPP" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 210px;" actionListener="#{controlVigenciaLocalizacion.limpiarNuevaVPP()}" update="nuevaVPP" process="@this" icon="ui-icon-trash"/>
@@ -1119,11 +1159,18 @@
                      </div>
 
                      <strong><h:outputText value="*#{msg['porcentajeVPP']}" style=" position: absolute; top: 165px; left: 50px;" /></strong>
-                     <p:inputText  autocomplete="off"  id="duplicarPorcentajeVPP" binding="#{vPPorcentajeAux6}" maxlength="4" style=" width: 110px; position: absolute; top: 160px; left: 160px;" onclick="select();"> 
-                        <p:keyFilter for="duplicarPorcentajeVPP" mask="num"/>
-                        <p:ajax event="change" listener="#{controlVigenciaLocalizacion.modificarVPPorcentajes(2, 2, vPPorcentajeAux6.value, 0)}" process="@this"/>
-                     </p:inputText>
-                     <p:watermark for="duplicarPorcentajeVPP" value="#{msg['p']}" />
+                     <!--<p:inputText  autocomplete="off"  id="duplicarPorcentajeVPP" binding="#/{vPPorcentajeAux6}" maxlength="4" style=" width: 110px; position: absolute; top: 160px; left: 160px;" onclick="select();">--> 
+                     <!--                        <p:keyFilter for="duplicarPorcentajeVPP" mask="num"/>
+                                             <p:ajax event="change" listener="#/{controlVigenciaLocalizacion.modificarVPPorcentajes(2, 2, vPPorcentajeAux6.value, 0)}" process="@this"/>
+                                          </p:inputText>-->
+                     <div style="width: 70px !important; position: absolute; top: 160px; left: 160px;">
+                        <p:inputNumber id="duplicarPorcentajeVPP" value="#{controlVigenciaLocalizacion.duplicarVPP.porcentaje}"
+                                       symbol="%" maxlength="3" maxValue="100" minValue="0" style="position: relative;"
+                                       decimalPlaces="1" symbolPosition="s" emptyValue="zero">
+                           <p:ajax event="change" update="duplicarPorcentajeVPP" process="@this"/>
+                        </p:inputNumber>
+                     </div>
+                                          <!--<p:watermark for="duplicarPorcentajeVPP" value="#{msg['p']}" />-->
 
                      <p:commandButton id="limpiarDuplicarVPP" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 210px;" actionListener="#{controlVigenciaLocalizacion.limpiarduplicarVPP()}" update="duplicarVPP" process="@this" icon="ui-icon-trash"/>
                      <p:commandButton id="agregarDuplicarVPP" value="#{msg['agregar']}" style=" position: absolute; left: 135px; top: 210px;" actionListener="#{controlVigenciaLocalizacion.confirmarDuplicarVPP()}"  process="@this" icon="ui-icon-circle-check"/>

@@ -414,7 +414,10 @@ public class ControlVigenciaLocalizacion implements Serializable {
                vigenciaLocalizacionSeleccionada.setProyecto(listProyectos.get(indiceUnicoElemento));
             } else {
                permitirIndex = false;
+               getListProyectos();
                RequestContext.getCurrentInstance().update("form:ProyectosDialogo");
+               RequestContext.getCurrentInstance().update("form:lovProyectos");
+               contarRegistrosProyecto();
                RequestContext.getCurrentInstance().execute("PF('ProyectosDialogo').show()");
                tipoActualizacion = 0;
             }
@@ -501,45 +504,67 @@ public class ControlVigenciaLocalizacion implements Serializable {
       }
 
    }
+//
+//   public void modificarVPPorcentajes(int tipoAct, int nTabla, String valor, int subPorcent) {
+//      activarLOV = true;
+//      RequestContext.getCurrentInstance().update("form:listaValores");
+//      tipoActualizacion = tipoAct;
+//      try {
+//         System.out.println("entro al try ");
+//         if (nTabla == 1) {
+//            BigDecimal porcentajePrueba = new BigDecimal(valor);
+//            if (tipoActualizacion == 1) {
+//               if (subPorcent == 1) {
+//                  nuevaVigenciaP.setSubporcentaje(porcentajePrueba.toBigInteger());
+//               } else {
+//                  nuevaVigenciaP.setPorcentaje(porcentajePrueba);
+//               }
+//            } else if (tipoActualizacion == 2) {
+//               if (subPorcent == 1) {
+//                  duplicarVP.setPorcentaje(porcentajePrueba);
+//               } else {
+//                  duplicarVP.setPorcentaje(porcentajePrueba);
+//               }
+//            }
+//            if (porcentajePrueba.intValueExact() > 100
+//                    || porcentajePrueba.intValueExact() < 0) {
+//               RequestContext.getCurrentInstance().update("form:validarPorcentajes");
+//               RequestContext.getCurrentInstance().execute("PF('validarPorcentajes').show()");
+//            }
+//         }
+//         if (nTabla == 2) {
+//            int porcentajePrueba = Integer.parseInt(valor);
+//            if (tipoActualizacion == 1) {
+//               nuevaVigenciaPP.setPorcentaje(porcentajePrueba);
+//            } else if (tipoActualizacion == 2) {
+//            }
+//            duplicarVPP.setPorcentaje(porcentajePrueba);
+//            if (porcentajePrueba > 100 || porcentajePrueba < 0) {
+//               RequestContext.getCurrentInstance().update("form:validarPorcentajes");
+//               RequestContext.getCurrentInstance().execute("PF('validarPorcentajes').show()");
+//            }
+//         }
+//         if (nTabla == 1) {
+//            if (tipoActualizacion == 1) {
+//               RequestContext.getCurrentInstance().update("formularioDialogos:nuevaCentroCostoVP");
+//            } else if (tipoActualizacion == 2) {
+//               RequestContext.getCurrentInstance().update("formularioDialogos:duplicadoCentroCostoVP");
+//            }
+//         } else if (nTabla == 2) {
+//            if (tipoActualizacion == 1) {
+//               RequestContext.getCurrentInstance().update("formularioDialogos:nuevaProyectoVP");
+//            } else if (tipoActualizacion == 2) {
+//               RequestContext.getCurrentInstance().update("formularioDialogos:duplicadoProyectoVP");
+//            }
+//         }
+//      } catch (NumberFormatException e) {
+//         RequestContext.getCurrentInstance().update("form:validarPorcentajes");
+//         RequestContext.getCurrentInstance().execute("PF('validarPorcentajes').show()");
+//      }
+//   }
 
-   /*
-     * public void modificarVPPorcentajes(int tipoAct, int nTabla, String valor,
-     * int subPorcent) { activarLOV = true;
-     * RequestContext.getCurrentInstance().update("form:listaValores");
-     * tipoActualizacion = tipoAct; RequestContext context =
-     * RequestContext.getCurrentInstance(); try { System.out.println("entro al
-     * try"); if (nTabla == 1) { BigDecimal porcentajePrueba = new
-     * BigDecimal(valor); if (tipoActualizacion == 1) { if (subPorcent == 1) {
-     * nuevaVigenciaP.setSubporcentaje(porcentajePrueba.toBigInteger()); } else
-     * { nuevaVigenciaP.setPorcentaje(porcentajePrueba); } } else if
-     * (tipoActualizacion == 2) { if (subPorcent == 1) {
-     * duplicarVP.setPorcentaje(porcentajePrueba); } else {
-     * duplicarVP.setPorcentaje(porcentajePrueba); } } if
-     * (porcentajePrueba.intValueExact() > 100 ||
-     * porcentajePrueba.intValueExact() < 0) {
-     * RequestContext.getCurrentInstance().update("form:validarPorcentajes");
-     * RequestContext.getCurrentInstance().execute("PF('validarPorcentajes').show()"); } } if (nTabla == 2) { int
-     * porcentajePrueba = Integer.parseInt(valor); if (tipoActualizacion == 1) {
-     * nuevaVigenciaPP.setPorcentaje(porcentajePrueba); } else if
-     * (tipoActualizacion == 2) { } duplicarVPP.setPorcentaje(porcentajePrueba);
-     * if (porcentajePrueba > 100 || porcentajePrueba < 0) {
-     * RequestContext.getCurrentInstance().update("form:validarPorcentajes");
-     * RequestContext.getCurrentInstance().execute("PF('validarPorcentajes').show()"); } } if (nTabla == 1) { if
-     * (tipoActualizacion == 1) {
-     * RequestContext.getCurrentInstance().update("formularioDialogos:nuevaCentroCostoVP"); } else if
-     * (tipoActualizacion == 2) {
-     * RequestContext.getCurrentInstance().update("formularioDialogos:duplicadoCentroCostoVP"); } } else if
-     * (nTabla == 2) { if (tipoActualizacion == 1) {
-     * RequestContext.getCurrentInstance().update("formularioDialogos:nuevaProyectoVP"); } else if
-     * (tipoActualizacion == 2) {
-     * RequestContext.getCurrentInstance().update("formularioDialogos:duplicadoProyectoVP"); } } } catch
-     * (NumberFormatException e) { RequestContext.getCurrentInstance().update("form:validarPorcentajes");
-     * RequestContext.getCurrentInstance().execute("PF('validarPorcentajes').show()"); }
-     *
-     * }
-    */
    public void modificarVP() {
-      RequestContext context = RequestContext.getCurrentInstance();
+      System.out.println("Entro en modificarVP()");
       if (!listVPCrear.contains(vigenciaProrrateoSeleccionada)) {
 
          if (listVPModificar.isEmpty()) {
@@ -651,7 +676,6 @@ public class ControlVigenciaLocalizacion implements Serializable {
       vigenciaProrrateoSeleccionada = vProrrateos;
       int coincidencias = 0;
       int indiceUnicoElemento = 0;
-      RequestContext context = RequestContext.getCurrentInstance();
       if (confirmarCambio.equalsIgnoreCase("CENTROCOSTO")) {
          activarLOV = false;
          RequestContext.getCurrentInstance().update("form:listaValores");
@@ -689,7 +713,10 @@ public class ControlVigenciaLocalizacion implements Serializable {
                vigenciaProrrateoSeleccionada.setProyecto(listProyectos.get(indiceUnicoElemento));
             } else {
                permitirIndexVP = false;
+               getListProyectos();
                RequestContext.getCurrentInstance().update("form:ProyectosDialogo");
+               RequestContext.getCurrentInstance().update("form:lovProyectos");
+               contarRegistrosProyecto();
                RequestContext.getCurrentInstance().execute("PF('ProyectosDialogo').show()");
                tipoActualizacion = 0;
             }
@@ -729,7 +756,7 @@ public class ControlVigenciaLocalizacion implements Serializable {
     * @param indice Fila donde se efectu el cambio
     */
    public void modificarVPP() {
-      RequestContext context = RequestContext.getCurrentInstance();
+      System.out.println("Entro en modificarVPP()");
       if (!listVPPCrear.contains(vigenciaProrrateoProyectoSeleccionada)) {
 
          if (listVPPModificar.isEmpty()) {
@@ -856,7 +883,10 @@ public class ControlVigenciaLocalizacion implements Serializable {
             vigenciaProrrateoProyectoSeleccionada.setProyecto(listProyectos.get(indiceUnicoElemento));
          } else {
             permitirIndexVPP = false;
+            getListProyectos();
             RequestContext.getCurrentInstance().update("form:ProyectosDialogo");
+            RequestContext.getCurrentInstance().update("form:lovProyectos");
+            contarRegistrosProyecto();
             RequestContext.getCurrentInstance().execute("PF('ProyectosDialogo').show()");
             tipoActualizacion = 0;
          }
@@ -1004,7 +1034,10 @@ public class ControlVigenciaLocalizacion implements Serializable {
                   RequestContext.getCurrentInstance().update("formularioDialogos:duplicarProyecto");
                }
             } else {
+               getListProyectos();
                RequestContext.getCurrentInstance().update("form:ProyectosDialogo");
+               RequestContext.getCurrentInstance().update("form:lovProyectos");
+               contarRegistrosProyecto();
                RequestContext.getCurrentInstance().execute("PF('ProyectosDialogo').show()");
                tipoActualizacion = tipoNuevo;
                if (tipoNuevo == 1) {
@@ -1112,7 +1145,10 @@ public class ControlVigenciaLocalizacion implements Serializable {
                   RequestContext.getCurrentInstance().update("formularioDialogos:duplicadoProyectoVP");
                }
             } else {
+               getListProyectos();
                RequestContext.getCurrentInstance().update("form:ProyectosDialogo");
+               RequestContext.getCurrentInstance().update("form:lovProyectos");
+               contarRegistrosProyecto();
                RequestContext.getCurrentInstance().execute("PF('ProyectosDialogo').show()");
                tipoActualizacion = tipoNuevo;
                if (tipoNuevo == 1) {
@@ -1182,7 +1218,10 @@ public class ControlVigenciaLocalizacion implements Serializable {
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarProyectoVPP");
             }
          } else {
+            getListProyectos();
             RequestContext.getCurrentInstance().update("form:ProyectosDialogo");
+            RequestContext.getCurrentInstance().update("form:lovProyectos");
+            contarRegistrosProyecto();
             RequestContext.getCurrentInstance().execute("PF('ProyectosDialogo').show()");
             tipoActualizacion = tipoNuevo;
             if (tipoNuevo == 1) {
@@ -1206,12 +1245,10 @@ public class ControlVigenciaLocalizacion implements Serializable {
 
    public void cambiarIndice(VigenciasLocalizaciones vLocalizacion, int celda) {
       FacesContext c = FacesContext.getCurrentInstance();
-      RequestContext context = RequestContext.getCurrentInstance();
       vigenciaLocalizacionSeleccionada = vLocalizacion;
-
       if (permitirIndex) {
+         cualCelda = celda;
          if ((cambioVigenciaP == false) && (cambioVigenciaPP == false)) {
-            cualCelda = celda;
 
             if (cualCelda == 0) {
                activarLOV = true;
@@ -1226,12 +1263,12 @@ public class ControlVigenciaLocalizacion implements Serializable {
                proyecto = vigenciaLocalizacionSeleccionada.getProyecto().getNombreproyecto();
             }
             RequestContext.getCurrentInstance().update("form:listaValores");
-
             vigenciasProrrateosCentroC = null;
             getVigenciasProrrateosCentroC();
             vigenciasProrrateosProyectos = null;
             getVigenciasProrrateosProyectos();
          } else {
+            System.out.println("va a abrir confirmarGuardarSinSalir");
             RequestContext.getCurrentInstance().execute("PF('confirmarGuardarSinSalir').show()");
          }
       }
@@ -1257,8 +1294,11 @@ public class ControlVigenciaLocalizacion implements Serializable {
     * @param celda Columna de la tabla
     */
    public void cambiarIndiceVP(VigenciasProrrateos vProrrateos, int celda) {
-      RequestContext context = RequestContext.getCurrentInstance();
+      System.out.println("listVPPCrear : " + listVPPCrear.size());
+      System.out.println("listVPPBorrar : " + listVPPBorrar.size());
+      System.out.println("listVPPModificar : " + listVPPModificar.size());
       if (listVPPCrear.isEmpty() && listVPPBorrar.isEmpty() && listVPPModificar.isEmpty()) {
+         System.out.println("Entro al if()");
          vigenciaProrrateoSeleccionada = vProrrateos;
          FacesContext c = FacesContext.getCurrentInstance();
          if (permitirIndexVP) {
@@ -1284,10 +1324,12 @@ public class ControlVigenciaLocalizacion implements Serializable {
          if (banderaVPP == 1) {
             restablecerTablaVPP();
          }
+         System.out.println("1");
          vigenciaProrrateoProyectoSeleccionada = null;
-         //recordarSeleccionVPP();
-         RequestContext.getCurrentInstance().update("form:datosVPPVigencia");
+         RequestContext.getCurrentInstance().execute("PF('datosVPPVigencia').unselectAllRows();");
+//         RequestContext.getCurrentInstance().update("form:datosVPPVigencia");
       } else {
+         System.out.println("va a abrir confirmarGuardarSinSalir");
          RequestContext.getCurrentInstance().execute("PF('confirmarGuardarSinSalir').show()");
       }
    }
@@ -1300,8 +1342,11 @@ public class ControlVigenciaLocalizacion implements Serializable {
     * @param celda Columna de la tabla
     */
    public void cambiarIndiceVPP(VigenciasProrrateosProyectos vProrrateosProyectos, int celda) {
-      RequestContext context = RequestContext.getCurrentInstance();
+      System.out.println("listVPCrear :" + listVPCrear.size());
+      System.out.println("listVPBorrar :" + listVPBorrar.size());
+      System.out.println("listVPModificar :" + listVPCrear.size());
       if (listVPCrear.isEmpty() && listVPBorrar.isEmpty() && listVPModificar.isEmpty()) {
+         System.out.println("Entro al if()");
          vigenciaProrrateoProyectoSeleccionada = vProrrateosProyectos;
          FacesContext c = FacesContext.getCurrentInstance();
          if (permitirIndexVPP) {
@@ -1321,10 +1366,12 @@ public class ControlVigenciaLocalizacion implements Serializable {
          if (banderaVP == 1) {
             restablecerTablaVP();
          }
+         System.out.println("2");
          vigenciaProrrateoSeleccionada = null;
-         //recordarSeleccionVP();
-         RequestContext.getCurrentInstance().update("form:datosVPVigencia");
+         RequestContext.getCurrentInstance().execute("PF('datosVPVigencia').unselectAllRows();");
+//         RequestContext.getCurrentInstance().update("form:datosVPVigencia");
       } else {
+         System.out.println("va a abrir confirmarGuardarSinSalir");
          RequestContext.getCurrentInstance().execute("PF('confirmarGuardarSinSalir').show()");
       }
    }
@@ -1406,7 +1453,6 @@ public class ControlVigenciaLocalizacion implements Serializable {
          RequestContext.getCurrentInstance().update("form:growl");
          paraNuevaV = 0;
       }
-      vigenciaLocalizacionSeleccionada = null;
    }
 
    /**
@@ -1500,10 +1546,10 @@ public class ControlVigenciaLocalizacion implements Serializable {
             listVPPModificar.clear();
          }
          vigenciasProrrateosProyectos = null;
-         contarRegistrosVPP();
          activarLOV = true;
          RequestContext.getCurrentInstance().update("form:listaValores");
          RequestContext.getCurrentInstance().update("form:datosVPPVigencia");
+         contarRegistrosVPP();
          paraNuevaV = 0;
          cambioVigenciaPP = false;
          FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos de Prorrateo Proyecto con éxito");
@@ -1660,7 +1706,7 @@ public class ControlVigenciaLocalizacion implements Serializable {
                RequestContext.getCurrentInstance().execute("PF('editarCentroCostoVP').show()");
                cualCeldaVP = -1;
             } else if (cualCeldaVP == 1) {
-               RequestContext.getCurrentInstance().update("formularioDialogos:sali");
+               RequestContext.getCurrentInstance().update("formularioDialogos:editarPorcentajeVP");
                RequestContext.getCurrentInstance().execute("PF('editarPorcentajeVP').show()");
                cualCeldaVP = -1;
             } else if (cualCeldaVP == 2) {
@@ -2069,7 +2115,7 @@ public class ControlVigenciaLocalizacion implements Serializable {
     * VigenciaProrrateo
     */
    public void confirmarDuplicarVP() {
-      RequestContext context = RequestContext.getCurrentInstance();
+      System.out.println("Entro en confirmarDuplicarVP()");
       int cont = 0;
       mensajeValidacion = "";
       for (int j = 0; j < vigenciasProrrateosCentroC.size(); j++) {
@@ -2081,7 +2127,8 @@ public class ControlVigenciaLocalizacion implements Serializable {
          mensajeValidacion = "FECHAS INICIALES NO REPETIDAS";
          RequestContext.getCurrentInstance().update("form:validarNuevoFechas");
          RequestContext.getCurrentInstance().execute("PF('validarNuevoFechas').show()");
-      } else if (duplicarVP.getCentrocosto().getSecuencia() != null && duplicarVP.getPorcentaje() == null && duplicarVP.getFechainicial() != null) {
+      } else if (duplicarVP.getCentrocosto().getSecuencia() != null && duplicarVP.getPorcentaje() != null && duplicarVP.getFechainicial() != null) {
+         System.out.println("Va a validar ñas fechas al duplicar");
          if (validarFechasRegistroVigenciaProrrateo(2)) {
             cambioVigenciaP = true;
             paraNuevaV++;
@@ -2091,7 +2138,7 @@ public class ControlVigenciaLocalizacion implements Serializable {
             listVPCrear.add(duplicarVP);
             contarRegistrosVP();
             RequestContext.getCurrentInstance().update("form:datosVPVigencia");
-            RequestContext.getCurrentInstance().execute("PF('DuplicadoRegistroVP.hide();");
+            RequestContext.getCurrentInstance().execute("PF('DuplicadoRegistroVP').hide();");
             vigenciaProrrateoSeleccionada = vigenciasProrrateosCentroC.get(vigenciasProrrateosCentroC.indexOf(duplicarVP));
             if (guardado) {
                guardado = false;
@@ -2136,7 +2183,6 @@ public class ControlVigenciaLocalizacion implements Serializable {
          duplicarVPP.setPorcentaje(vigenciaProrrateoProyectoSeleccionada.getPorcentaje());
          duplicarVPP.setProyecto(vigenciaProrrateoProyectoSeleccionada.getProyecto());
 
-         RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().update("formularioDialogos:duplicarVPP");
          RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroVPP').show()");
       }
@@ -2147,7 +2193,6 @@ public class ControlVigenciaLocalizacion implements Serializable {
     * Vigencia Prorrateo Proyecto
     */
    public void confirmarDuplicarVPP() {
-      RequestContext context = RequestContext.getCurrentInstance();
       int cont = 0;
       mensajeValidacion = "";
       for (int j = 0; j < vigenciasProrrateosProyectos.size(); j++) {
@@ -2168,7 +2213,7 @@ public class ControlVigenciaLocalizacion implements Serializable {
             listVPPCrear.add(duplicarVPP);
             contarRegistrosVPP();
             RequestContext.getCurrentInstance().update("form:datosVPPVigencia");
-            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroVPP').show()");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroVPP').hide()");
             vigenciaProrrateoProyectoSeleccionada = vigenciasProrrateosProyectos.get(vigenciasProrrateosProyectos.indexOf(duplicarVPP));
             if (guardado) {
                guardado = false;
@@ -2511,8 +2556,9 @@ public class ControlVigenciaLocalizacion implements Serializable {
          context.execute("PF('MotivoDialogo').show()");
       } else if (campo == 2) {
          //Proyectos
-         contarRegistrosProyecto();
+         getListProyectos();
          context.update("form:ProyectosDialogo");
+         contarRegistrosProyecto();
          context.execute("PF('ProyectosDialogo').show()");
       }
    }
@@ -2533,8 +2579,10 @@ public class ControlVigenciaLocalizacion implements Serializable {
          RequestContext.getCurrentInstance().execute("PF('CentroCostosDialogo').show()");
       } else if (dlg == 1) {
          //Proyectos
-         contarRegistrosProyecto();
+         getListProyectos();
          RequestContext.getCurrentInstance().update("form:ProyectosDialogo");
+         RequestContext.getCurrentInstance().update("form:lovProyectos");
+         contarRegistrosProyecto();
          RequestContext.getCurrentInstance().execute("PF('ProyectosDialogo').show()");
       }
    }
@@ -2549,8 +2597,10 @@ public class ControlVigenciaLocalizacion implements Serializable {
       RequestContext.getCurrentInstance().update("form:listaValores");
       if (dlg == 0) {
          //Proyectos
-         contarRegistrosProyecto();
+         getListProyectos();
          RequestContext.getCurrentInstance().update("form:ProyectosDialogo");
+         RequestContext.getCurrentInstance().update("form:lovProyectos");
+         contarRegistrosProyecto();
          RequestContext.getCurrentInstance().execute("PF('ProyectosDialogo').show()");
       }
    }
@@ -2928,14 +2978,18 @@ public class ControlVigenciaLocalizacion implements Serializable {
                RequestContext.getCurrentInstance().execute("PF('CentroCostosDialogo').show()");
             }
             if (cualCeldaVP == 4) {
-               contarRegistrosProyecto();
+               getListProyectos();
                RequestContext.getCurrentInstance().update("form:ProyectosDialogo");
+               RequestContext.getCurrentInstance().update("form:lovProyectos");
+               contarRegistrosProyecto();
                RequestContext.getCurrentInstance().execute("PF('ProyectosDialogo').show()");
             }
          } else if (vigenciaProrrateoProyectoSeleccionada != null) {
             if (cualCeldaVPP == 0) {
-               contarRegistrosProyecto();
+               getListProyectos();
                RequestContext.getCurrentInstance().update("form:ProyectosDialogo");
+               RequestContext.getCurrentInstance().update("form:lovProyectos");
+               contarRegistrosProyecto();
                RequestContext.getCurrentInstance().execute("PF('ProyectosDialogo').show()");
             }
          } else if (vigenciaLocalizacionSeleccionada != null) {
@@ -2953,8 +3007,10 @@ public class ControlVigenciaLocalizacion implements Serializable {
             }
             if (cualCelda == 4) {
                //Proyecto
-               contarRegistrosProyecto();
+               getListProyectos();
                RequestContext.getCurrentInstance().update("form:ProyectosDialogo");
+               RequestContext.getCurrentInstance().update("form:lovProyectos");
+               contarRegistrosProyecto();
                RequestContext.getCurrentInstance().execute("PF('ProyectosDialogo').show()");
             }
          }
@@ -3552,9 +3608,7 @@ public class ControlVigenciaLocalizacion implements Serializable {
 
    public List<Proyectos> getListProyectos() {
       if (listProyectos == null) {
-         System.out.println("getListProyectos() listProyectos : " + listProyectos);
          listProyectos = administrarVigenciaLocalizacion.proyectos();
-         System.out.println("getListProyectos() listProyectos : " + listProyectos);
       }
       return listProyectos;
    }
