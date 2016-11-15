@@ -47,7 +47,7 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
     }
 
     @Override
-    public String ejecutarReporte(String nombreReporte, String rutaReporte, String rutaGenerado, String nombreArchivo, String tipoReporte, Connection cxn) {
+    public String ejecutarReporte(String nombreReporte, String rutaReporte, String rutaGenerado, String nombreArchivo, String tipoReporte, Connection cxn, Map parametrosemp) {
         try {
             //inicarC();
             System.out.println("INICIARREPORTE NombreReporte: " + nombreReporte);
@@ -61,6 +61,12 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
             System.out.println("INICIARREPORTE creo master ");
             Map parametros = new HashMap();
             parametros.put("RutaReportes", rutaReporte);
+            if (parametrosemp != null && !parametrosemp.isEmpty()) {
+                if ( parametrosemp.containsKey("envioMasivo") ) {
+                    parametros.put("empleadoDesde", parametrosemp.get("empleadoDesde"));
+                    parametros.put("empleadoHasta", parametrosemp.get("empleadoHasta"));
+                }
+            }
             //JasperPrint imprimir = JasperFillManager.fillReport(masterReport, null, cxn);
             JasperPrint imprimir = JasperFillManager.fillReport(masterReport, parametros, cxn);
             System.out.println("INICIARREPORTE lleno reporte ");
