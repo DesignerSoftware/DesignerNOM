@@ -78,7 +78,7 @@
                             </p:toolbarGroup>  
                         </p:toolbar> 
 
-                        <p:panel style="position: absolute;top: 70px;left: 5px; width: 864px; height: 75px;border: none" id="panelParametro">
+                        <p:panel style="position: absolute;top: 70px; left: 5px; width: 864px; height: 75px; border: none" id="panelParametro">
                             <fieldset style="position: absolute; top: -1px; left: 5px;height: 65px;width: 830px; border-radius: 10px; text-align: left">
                                 <legend style=" color: blue;text-align:left"><strong>#{msg['parametrosContables']}</strong></legend>
 
@@ -139,10 +139,12 @@
                             <legend style=" color: blue;text-align:left"><strong>#{msg['generados']}</strong></legend>
 
                             <p:dataTable id="datosGenerados" var="infoG" rowKey="#{infoG.secuencia}" rowIndexVar="indiceG" style="width: 814px; border: 1px;"                           
-                                         value="#{controlInterfaseContableTotal.listaGenerados}" scrollable="true" scrollHeight="#{controlInterfaseContableTotal.altoTablaGenerada}" scrollWidth="830"
+                                         value="#{controlInterfaseContableTotal.listaGenerados}" scrollable="true" scrollHeight="50" scrollWidth="830"
                                          filteredValue="#{controlInterfaseContableTotal.filtrarListaGenerados}" emptyMessage="#{msg['vacio']}"
-                                         editable="true" editMode="cell" liveScroll="true" scrollRows="25" 
-                                         selection="#{controlInterfaseContableTotal.generadoTablaSeleccionado}" selectionMode="single">
+                                         editable="true" editMode="cell" liveScroll="true" rows="50" 
+                                         selection="#{controlInterfaseContableTotal.generadoTablaSeleccionado}" selectionMode="single"
+                                         paginator="true"
+                                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" >
 
                                 <p:ajax event="filter" listener="#{controlInterfaseContableTotal.eventoFiltrarGenerados()}"/>
 
@@ -274,7 +276,7 @@
                             <p:commandButton id="btnDeshacer"  disabled="#{controlInterfaseContableTotal.activarDeshacer}" value="#{msg['deshacer']}"  style="position: absolute; top: 125px; left: 220px; height: 30px; width: 101px; background-image: url(Imagenes/Iconos/boton.png); 
                                              color: white; background-size: 100% 100%; background-repeat: no-repeat; text-align: center; border: none;" icon="ui-icon-arrowreturnthick-1-s"  onclick="PF('procesoDeshacer').show()"/>
                             
-                            <p:commandButton id="reporteControl"   value="R. Control" actionListener="#{controlInterfaseContableTotal.generarReporte()}"  icon="ui-icon-arrowreturnthick-1-s"
+                            <p:commandButton id="reporteControl"   value="R. Control" actionListener="#{controlInterfaseContableTotal.validarDescargaReporte()}"  icon="ui-icon-arrowreturnthick-1-s"
                                              style="position: absolute; top: 125px; left: 325px; height: 30px; width: 111px; background-image: url(Imagenes/Iconos/boton.png); color: white; text-align: center;
                                              background-size: 100% 100%; background-repeat: no-repeat; border: none;"/>
                             <p:tooltip  for="reporteControl" value="#{msg['reportecontrol']}" />
@@ -297,10 +299,12 @@
                             <legend style=" color: blue;text-align:left"><strong>#{msg['intercontotal']}</strong></legend>
 
                             <p:dataTable id="datosIntercon" var="infoI" rowKey="#{infoI.secuencia}" rowIndexVar="indiceI" style="width: 814px; border: 1px;"                           
-                                         value="#{controlInterfaseContableTotal.listaInterconTotal}" scrollable="true" scrollHeight="#{controlInterfaseContableTotal.altoTablaIntercon}" scrollWidth="830"
+                                         value="#{controlInterfaseContableTotal.listaInterconTotal}" scrollable="true" scrollHeight="50" scrollWidth="830"
                                          filteredValue="#{controlInterfaseContableTotal.filtrarListaInterconTotal}" emptyMessage="#{msg['vacio']}"
-                                         editable="true" editMode="cell" liveScroll="true" scrollRows="25"
-                                         selection="#{controlInterfaseContableTotal.interconTablaSeleccionada}" selectionMode="single">
+                                         editable="true" editMode="cell" liveScroll="true" rows="50" 
+                                         selection="#{controlInterfaseContableTotal.interconTablaSeleccionada}" selectionMode="single" 
+                                         paginator="true"
+                                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
 
                                 <p:ajax event="filter" listener="#{controlInterfaseContableTotal.eventoFiltrarContabilizados()}"/>
 
@@ -776,12 +780,12 @@
                         <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" onclick="PF('generandoReporte').hide();" actionListener="#{controlInterfaseContableTotal.cancelarReporte()}" style="position: absolute; top: 55px; left: 242px" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="descargarReporte" widgetVar="descargarReporte" header="#{msg['informacion']}" resizable="false" draggable="true" modal="true" height="90" width="330" style="font-size: 12px" closable="false">  
+<!--                    <p:dialog id="descargarReporte" widgetVar="descargarReporte" header="#{msg['informacion']}" resizable="false" draggable="true" modal="true" height="90" width="330" style="font-size: 12px" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/descargar.gif" width="50" height="50" style="position: absolute; left: 20px; top: 10px;"  />
                         <h:outputText value="#{msg['mensajeExitoReporte']}" style="position: absolute; left: 80px; top: 20px; width: 240px; text-align: justify" />
                         <p:commandButton value="#{msg['descargar']}" icon="ui-icon-download" actionListener="#{controlInterfaseContableTotal.exportarReporte()}" style="position: absolute; top: 50px; left: 100px" process="@this" ajax="false" onclick="PF('descargarReporte').hide();"/>
                         <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" onclick="PF('descargarReporte').hide();" style="position: absolute; top: 50px; left: 212px" process="@this" />
-                    </p:dialog> 
+                    </p:dialog> -->
 
                     <p:dialog id="editarEmpresaParametro" header="#{msg['editarEmpresaParametro']}" widgetVar="editarEmpresaParametro" resizable="false" draggable="true" modal="true" height="80" width="400" >  
                         <p:inputTextarea value="#{controlInterfaseContableTotal.parametroContableActual.empresaRegistro.nombre}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
@@ -808,19 +812,19 @@
                     </p:dialog>
 
                     <p:dialog id="editarProcesoGenerado" header="#{msg['editarProcesoGenerado']}" widgetVar="editarProcesoGenerado" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlInterfaseContableTotal.editarGenerado.proceso.descripcion}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlInterfaseContableTotal.editarGenerado.nombreproceso}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarEmpleadoGenerado" header="#{msg['editarEmpleadoGenerado']}" widgetVar="editarEmpleadoGenerado" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlInterfaseContableTotal.editarGenerado.empleado.persona.nombreCompleto}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlInterfaseContableTotal.editarGenerado.nombreempleado}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarCreditoGenerado" header="#{msg['editarCreditoGenerado']}" widgetVar="editarCreditoGenerado" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlInterfaseContableTotal.editarGenerado.cuentac.codigo}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlInterfaseContableTotal.editarGenerado.codigocuentac}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarDebitoGenerado" header="#{msg['editarDebitoGenerado']}" widgetVar="editarDebitoGenerado" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlInterfaseContableTotal.editarGenerado.cuentad.codigo}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlInterfaseContableTotal.editarGenerado.codigocuentad}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarTerceroGenerado" header="#{msg['editarTerceroGenerado']}" widgetVar="editarTerceroGenerado" resizable="false" draggable="true" modal="true" height="80" width="400" >  
@@ -834,7 +838,7 @@
                     </p:dialog>
 
                     <p:dialog id="editarConceptoGenerado" header="#{msg['editarConceptoGenerado']}" widgetVar="editarConceptoGenerado" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlInterfaseContableTotal.editarGenerado.concepto.descripcion}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
+                        <p:inputTextarea value="#{controlInterfaseContableTotal.editarGenerado.nombreconcepto}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
                     </p:dialog>
 
                     <!-- -->
@@ -880,7 +884,7 @@
                         <h:outputText value="#{msg['planoGeneradoOK']}" style="position: absolute; left: 70px; top: 15px; font-weight:bold;width: 250px;"  />
                         <p:inputText  autocomplete="off"  value="#{controlInterfaseContableTotal.rutaArchivo}" style="position: absolute; left: 70px; top: 50px;text-transform: uppercase;width: 230px;" readonly="true"/>
                         <h:outputText value="#{msg['deseaGuardarTxt']}" style="position: absolute; left: 70px; top: 80px; font-weight:bold;width: 230px;"  />
-                        <p:commandButton id="downloadLink" value="#{msg['descargar']}" ajax="false" style="position: absolute; top: 130px; left: 70px" onclick="PF('cerrarPaginaDescarga()" actionListener="#{controlInterfaseContableTotal.descargarArchivoFTP()}">
+                        <p:commandButton id="downloadLink" value="#{msg['descargar']}" ajax="false" style="position: absolute; top: 130px; left: 70px" onclick="PF('cerrarPaginaDescarga()" icon="ui-icon-download" actionListener="#{controlInterfaseContableTotal.descargarArchivoFTP()}">
                             <p:fileDownload value="#{controlInterfaseContableTotal.download}" />
                         </p:commandButton>
 

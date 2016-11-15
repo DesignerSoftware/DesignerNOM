@@ -1,6 +1,7 @@
 package Persistencia;
 
 import Entidades.AportesEntidades;
+import Entidades.TercerosAux;
 import InterfacePersistencia.PersistenciaAportesEntidadesInterface;
 import java.math.BigInteger;
 import java.util.Date;
@@ -83,16 +84,34 @@ public class PersistenciaAportesEntidades implements PersistenciaAportesEntidade
     public List<AportesEntidades> consultarAportesEntidadesPorEmpresaMesYAnio(EntityManager em, BigInteger secEmpresa, short mes, short ano) {
         try {
             em.clear();
-//            String sql = "SELECT * FROM AportesEntidades a WHERE a.empresa =? AND a.ano =? AND a.mes =? AND EXISTS(SELECT 'x' FROM Empleados e WHERE e.secuencia = a.empleado) ORDER BY a.empleado DESC";
-            String sql = "SELECT a.*,t.nombre NOMBRETERCERO FROM AportesEntidades a , terceros t\n"
+            String sql = "SELECT a.* FROM AportesEntidades a \n"
                     + "WHERE a.empresa =? AND a.ano =? AND a.mes =? \n"
-                    + "AND a.tercero = t.SECUENCIA\n"
-                    + "AND EXISTS(SELECT 'x' FROM Empleados e WHERE e.secuencia = a.empleado) ORDER BY a.empleado DESC";
+                    + "AND EXISTS(SELECT 'x' FROM Empleados e WHERE e.secuencia = a.empleado) ";
             Query query = em.createNativeQuery(sql, AportesEntidades.class);
             query.setParameter(1, secEmpresa);
             query.setParameter(2, ano);
             query.setParameter(3, mes);
             List<AportesEntidades> aportesEntidades = query.getResultList();
+
+            if (aportesEntidades != null) {
+                if (!aportesEntidades.isEmpty()) {
+                    for (int i = 0; i < aportesEntidades.size(); i++) {
+                        if (aportesEntidades.get(i).getTercero() != null) {
+                            em.clear();
+                            String sqlAux = "select t.secuencia SECUENCIA,t.nit NITTERCERO, t.nombre NOMBRETERCERO from TERCEROS t where t.secuencia = " + aportesEntidades.get(i).getTercero();
+                            if (i == 0) {
+                                System.out.println("SqlAux : " + sqlAux);
+                            }
+                            Query query2 = em.createNativeQuery(sqlAux, TercerosAux.class);
+                            TercerosAux tAux = (TercerosAux) query2.getSingleResult();
+//                        System.out.println("tAux : " + tAux);
+                            aportesEntidades.get(i).setNombretercero(tAux.getNombretercero());
+                            aportesEntidades.get(i).setNittercero(tAux.getNittercero());
+                        }
+                    }
+                }
+            }
+
             return aportesEntidades;
         } catch (Exception e) {
             System.out.println("Error PersistenciaAportesEntidades.consultarAportesEntidadesPorEmpresaMesYAño : " + e.toString());

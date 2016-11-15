@@ -724,33 +724,29 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
                     System.out.println("resultado.size() : " + listSNodos.size());
                     for (int i = 0; i < listSNodos.size(); i++) {
                         em.clear();
-                        String nitTercero = "NULL";
-                        if (listSNodos.get(i).getNittercero() != null) {
-                            nitTercero = "" + listSNodos.get(i).getNittercero();
-                        }
+//                        BigInteger nitTercero = BigInteger.ZERO;
+//                        if (listSNodos.get(i).getNittercero() != null) {
+//                            nitTercero =  listSNodos.get(i).getNittercero();
+//                            System.out.println("nit tercero en la persistencia : " + nitTercero);
+//                        }
                         String stringSQLQuery = "SELECT sn.secuencia,\n"
                                 + "c.CODIGO CODIGOCONCEPTO,\n"
                                 + "c.DESCRIPCION NOMBRECONCEPTO,\n"
-                                + "(select NOMBRE from TERCEROS WHERE " + nitTercero + " = SECUENCIA) NOMBRETERCERO,\n"
+                                + "(select NIT from TERCEROS WHERE SECUENCIA = "+ listSNodos.get(i).getNittercero() + ") NITTERCERO,\n"
                                 + "(select CODIGO from CUENTAS WHERE SECUENCIA = " + listSNodos.get(i).getCuentad() + ") CODIGOCUENTAD,\n"
                                 + "(select CODIGO from CUENTAS WHERE SECUENCIA = " + listSNodos.get(i).getCuentac() + ") CODIGOCUENTAC,\n"
                                 + "(select p.PRIMERAPELLIDO||' '|| p.SEGUNDOAPELLIDO ||' '||p.NOMBRE NOMBREEMPLEADO from personas p, empleados e where e.persona = p.secuencia and e.secuencia = " + listSNodos.get(i).getEmpleado() + ") NOMBREEMPLEADO,\n"
-                                + "(select DESCRIPCION from PROCESOS WHERE SECUENCIA = " + listSNodos.get(i).getProceso()+ ") NOMBREPROCESO,\n"
-                                + "(select NOMBRE from CENTROSCOSTOS WHERE SECUENCIA = " + listSNodos.get(i).getCentrocostod() + ") NOMBRECENTROCOSTOD,\n"
-                                + "(select NOMBRE from CENTROSCOSTOS WHERE SECUENCIA = " + listSNodos.get(i).getCentrocostoc() + ") NOMBRECENTROCOSTOC\n"
+                                + "(select DESCRIPCION from PROCESOS WHERE SECUENCIA = " + listSNodos.get(i).getProceso()+ ") NOMBREPROCESO \n"
                                 + "FROM SOLUCIONESNODOS sn, (select CODIGO,DESCRIPCION from conceptos where secuencia = " + listSNodos.get(i).getConcepto() + ") c \n"
                                 + "where sn.SECUENCIA = " + listSNodos.get(i).getSecuencia();
-                        Query query2 = em.createNativeQuery(stringSQLQuery, SolucionesNodosAux.class
-                        );
+                        Query query2 = em.createNativeQuery(stringSQLQuery, SolucionesNodosAux.class);
                         SolucionesNodosAux sNAux = (SolucionesNodosAux) query2.getSingleResult();
                         listSNodos.get(i).setCodigoconcepto(sNAux.getCodigoconcepto());
                         listSNodos.get(i).setNombreconcepto(sNAux.getNombreconcepto());
-                        listSNodos.get(i).setNombretercero(sNAux.getNombretercero());
+                        listSNodos.get(i).setNittercero(sNAux.getNittercero());
                         listSNodos.get(i).setCodigocuentad(sNAux.getCodigocuentad());
                         listSNodos.get(i).setCodigocuentac(sNAux.getCodigocuentac());
                         listSNodos.get(i).setNombreempleado(sNAux.getNombreempleado());
-                        listSNodos.get(i).setNombrecentrocostod(sNAux.getNombrecentrocostod());
-                        listSNodos.get(i).setNombrecentrocostoc(sNAux.getNombrecentrocostoc());
                         listSNodos.get(i).setNombreproceso(sNAux.getNombreproceso());
                     }
                 }

@@ -48,4 +48,6 @@ public interface AdministarReportesInterface {
     public String crearArchivoReporte(JasperPrint print, String tipoReporte);
 
     public void cancelarReporte();
+    
+     public String generarReporteCifraControl(String nombreReporte, String tipoReporte, Map paramFechas);
 }

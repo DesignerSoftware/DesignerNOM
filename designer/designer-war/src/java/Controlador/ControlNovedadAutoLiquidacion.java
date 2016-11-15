@@ -5,7 +5,6 @@
  */
 package Controlador;
 
-
 import Entidades.Empresas;
 import Entidades.NovedadesAutoLiquidaciones;
 import Entidades.ParametrosAutoliq;
@@ -117,7 +116,7 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
         duplicarnovedad.setSucursalpila(new SucursalesPila());
         duplicarnovedad.setDestino("ACTIVOS");
         editarnovedad = new NovedadesAutoLiquidaciones();
-        altotabla = 260;
+        altotabla = 250;
         aceptar = true;
         guardado = true;
         tipoLista = 0;
@@ -155,16 +154,14 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
         paginaAnterior = pag;
         listaEmpresas = null;
         getListaEmpresas();
-        modificarInfoRegistroEmpresas(listaEmpresas.size());
         nuevanovedad.setAnio(anioParametro);
         nuevanovedad.setMes(mesParametro);
-        if(listaNovedades != null){
-            if(!listaNovedades.isEmpty())
-            {
-            novedadSeleccionada = listaNovedades.get(0);
+        if (listaNovedades != null) {
+            if (!listaNovedades.isEmpty()) {
+                novedadSeleccionada = listaNovedades.get(0);
             }
         }
-        
+
         anioParametro = BigInteger.valueOf(anio);
         mesParametro = BigInteger.valueOf(mes);
         secuenciaParametro = secuenciaEmpresa;
@@ -173,7 +170,6 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
         System.out.println("secuencia de la empresa :" + secuenciaEmpresa);
         listaNovedades = null;
         getListaNovedades();
-        contarRegistros();
     }
 
     public String volverPagAnterior() {
@@ -189,15 +185,15 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
                 habilitarBotonLov();
                 if (novedadSeleccionada.getEmpresa() == null) {
                     novedadSeleccionada.setEmpresa(new Empresas());
-                } else{
-                novedadSeleccionada.getEmpresa();
+                } else {
+                    novedadSeleccionada.getEmpresa();
                 }
             } else if (cualCelda == 1) {
                 habilitarBotonLov();
                 if (novedadSeleccionada.getSucursalpila() == null) {
                     novedadSeleccionada.setSucursalpila(new SucursalesPila());
-                } else{
-                novedadSeleccionada.getSucursalpila();
+                } else {
+                    novedadSeleccionada.getSucursalpila();
                 }
             } else if (cualCelda == 2) {
                 deshabilitarBotonLov();
@@ -209,8 +205,8 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
                 habilitarBotonLov();
                 if (novedadSeleccionada.getTipoentidad() == null) {
                     novedadSeleccionada.setTipoentidad(new TiposEntidades());
-                } else{
-                novedadSeleccionada.getTipoentidad();
+                } else {
+                    novedadSeleccionada.getTipoentidad();
                 }
             } else if (cualCelda == 5) {
                 deshabilitarBotonLov();
@@ -426,7 +422,7 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
             } else if (correccion.equals("SI")) {
                 nuevanovedad.setCorreccion("S");
             }
-                RequestContext.getCurrentInstance().update("formularioDialogos:nuevacorreccion");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevacorreccion");
         } else {
             if (correccion.equals("NO")) {
                 duplicarnovedad.setCorreccion("N");
@@ -502,7 +498,7 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
                 listaNovedades = null;
                 getListaNovedades();
 //                if (listaNovedades != null) {
-                modificarInfoRegistroNovedad(listaNovedades.size());
+                contarRegistros();
 //                }
                 guardado = true;
                 permitirIndex = true;
@@ -542,7 +538,7 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
                 filtrarlistaNovedades.remove(novedadSeleccionada);
             }
             RequestContext.getCurrentInstance().update("form:novedadesAuto");
-            modificarInfoRegistroNovedad(listaNovedades.size());
+            contarRegistros();
             novedadSeleccionada = null;
 
             if (guardado == true) {
@@ -559,7 +555,7 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
         FacesContext c = FacesContext.getCurrentInstance();
 
         if (bandera == 0) {
-            altotabla = 240;
+            altotabla = 250;
             empresa = (Column) c.getViewRoot().findComponent("form:novedadesAuto:empresa");
             empresa.setFilterStyle("width: 85% !important");
             sucursal = (Column) c.getViewRoot().findComponent("form:novedadesAuto:sucursal");
@@ -609,7 +605,7 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
             bandera = 1;
             tipoLista = 1;
         } else if (bandera == 1) {
-            altotabla = 260;
+            altotabla = 225;
             empresa = (Column) c.getViewRoot().findComponent("form:novedadesAuto:empresa");
             empresa.setFilterStyle("display: none; visibility: hidden;");
             sucursal = (Column) c.getViewRoot().findComponent("form:novedadesAuto:sucursal");
@@ -686,7 +682,7 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
 
         if (pasa == 0) {
             if (bandera == 1) {
-                altotabla = 236;
+                altotabla = 225;
                 empresa = (Column) c.getViewRoot().findComponent("form:novedadesAuto:empresa");
                 empresa.setFilterStyle("display: none; visibility: hidden;");
                 sucursal = (Column) c.getViewRoot().findComponent("form:novedadesAuto:sucursal");
@@ -752,7 +748,7 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
             nuevanovedad.setEmpresa(new Empresas());
             nuevanovedad.setSucursalpila(new SucursalesPila());
             nuevanovedad.setDestino("ACTIVOS");
-            modificarInfoRegistroNovedad(listaNovedades.size());
+            contarRegistros();
             RequestContext.getCurrentInstance().update("form:novedadesAuto");
             RequestContext.getCurrentInstance().execute("PF('nuevaNovedadAuto').hide()");
             if (guardado == true) {
@@ -836,7 +832,7 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
         listaNovedades.add(duplicarnovedad);
         novedadSeleccionada = duplicarnovedad;
         getListaNovedades();
-        modificarInfoRegistroNovedad(listaNovedades.size());
+        contarRegistros();
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:novedadesAuto");
         RequestContext.getCurrentInstance().execute("PF('duplicarNovedadAuto').hide()");
@@ -845,7 +841,7 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
         if (bandera == 1) {
-            altotabla = 260;
+            altotabla = 225;
             empresa = (Column) c.getViewRoot().findComponent("form:novedadesAuto:empresa");
             empresa.setFilterStyle("display: none; visibility: hidden;");
             sucursal = (Column) c.getViewRoot().findComponent("form:novedadesAuto:sucursal");
@@ -916,18 +912,16 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
             }
-        } else {
-            if (!listaNovedadesCrear.contains(novedadSeleccionada)) {
+        } else if (!listaNovedadesCrear.contains(novedadSeleccionada)) {
 
-                if (listaNovedadesModificar.isEmpty()) {
-                    listaNovedadesModificar.add(novedadSeleccionada);
-                } else if (!listaNovedadesModificar.contains(novedadSeleccionada)) {
-                    listaNovedadesModificar.add(novedadSeleccionada);
-                }
-                if (guardado == true) {
-                    guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                }
+            if (listaNovedadesModificar.isEmpty()) {
+                listaNovedadesModificar.add(novedadSeleccionada);
+            } else if (!listaNovedadesModificar.contains(novedadSeleccionada)) {
+                listaNovedadesModificar.add(novedadSeleccionada);
+            }
+            if (guardado == true) {
+                guardado = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         }
         RequestContext.getCurrentInstance().update("form:novedadesAuto");
@@ -1054,12 +1048,10 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
             } else if (result == 5) {
                 RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
+        } else if (administrarRastros.verificarHistoricosTabla("NOVEDADESAUTOLIQUIDACION")) {
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            if (administrarRastros.verificarHistoricosTabla("NOVEDADESAUTOLIQUIDACION")) {
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-            }
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
     }
 
@@ -1102,7 +1094,7 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
             RequestContext.getCurrentInstance().update("formularioDialogos:nuevaNovedad");
         } else if (tipoActualizacion == 2) {
             duplicarnovedad.setEmpresa(empresaSeleccionada);
-            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarNovedad");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarNovedades");
         }
         auxiliar = empresaSeleccionada.getSecuencia();
         filtrarlistaEmpresas = null;
@@ -1169,7 +1161,7 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
             RequestContext.getCurrentInstance().update("formularioDialogos:nuevaNovedad");
         } else if (tipoActualizacion == 2) {
             duplicarnovedad.setTercero(terceroSeleccionado);
-            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarNovedad");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarNovedades");
         }
         filtrarlistaTerceros = null;
         terceroSeleccionado = null;
@@ -1234,7 +1226,7 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
             RequestContext.getCurrentInstance().update("formularioDialogos:nuevaNovedad");
         } else if (tipoActualizacion == 2) {
             duplicarnovedad.setSucursalpila(sucursalSeleccionada);
-            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarNovedad");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarNovedades");
         }
         filtrarlistaSucursales = null;
         sucursalSeleccionada = null;
@@ -1255,7 +1247,7 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
         aceptar = true;
         tipoActualizacion = -1;
         permitirIndex = true;
-        listaSucursales= null;
+        listaSucursales = null;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formularioDialogos:lovSucursales:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('lovSucursales').clearFilters()");
@@ -1300,7 +1292,7 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
             RequestContext.getCurrentInstance().update("formularioDialogos:nuevaNovedad");
         } else if (tipoActualizacion == 2) {
             duplicarnovedad.setTipoentidad(tipoEntidadSeleccionada);
-            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarNovedad");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarNovedades");
         }
         filtrarlistaTiposEntidades = null;
         tipoEntidadSeleccionada = null;
@@ -1503,7 +1495,7 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
     public void cancelarModificacion() {
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 1) {
-            altotabla = 260;
+            altotabla = 225;
             empresa = (Column) c.getViewRoot().findComponent("form:novedadesAuto:empresa");
             empresa.setFilterStyle("display: none; visibility: hidden;");
             sucursal = (Column) c.getViewRoot().findComponent("form:novedadesAuto:sucursal");
@@ -1565,7 +1557,7 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
         permitirIndex = true;
         limpiarNuevaNovedad();
         limpiarDuplicarNovedad();
-        altotabla = 260;
+        altotabla = 250;
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:novedadesAuto");
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -1585,7 +1577,7 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
     public void salir() {
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 1) {
-            altotabla = 260;
+            altotabla = 225;
             empresa = (Column) c.getViewRoot().findComponent("form:novedadesAuto:empresa");
             empresa.setFilterStyle("display: none; visibility: hidden;");
             sucursal = (Column) c.getViewRoot().findComponent("form:novedadesAuto:sucursal");
@@ -1667,66 +1659,37 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
         if (tipoLista == 1) {
             tipoLista = 0;
         }
-        modificarInfoRegistroNovedad(filtrarlistaNovedades.size());
+        contarRegistros();
 
-    }
-
-    public void eventoFiltrarEmpresas() {
-        modificarInfoRegistroEmpresas(filtrarlistaEmpresas.size());
-    }
-
-    public void eventoFiltrarTerceros() {
-        modificarInfoRegistroTerceros(filtrarlistaTerceros.size());
-    }
-
-    public void eventoFiltrarSucursales() {
-        modificarInfoRegistroSucursales(filtrarlistaSucursales.size());
-    }
-
-    public void eventoFiltrarTiposEntidades() {
-        modificarInfoRegistroTipoEntidad(filtrarlistaTiposEntidades.size());
     }
 
     public void contarRegistros() {
-        if (listaNovedades != null) {
-            modificarInfoRegistroNovedad(listaNovedades.size());
-        } else {
-            modificarInfoRegistroNovedad(0);
-        }
-    }
-
-    public void modificarInfoRegistroNovedad(int valor) {
-        infoRegistroNovedades = String.valueOf(valor);
         RequestContext.getCurrentInstance().update("form:infoRegistroNovedad");
     }
 
-    public void modificarInfoRegistroEmpresas(int valor) {
-        infoRegistroEmpresas = String.valueOf(valor);
+    public void contarRegistroEmpresas() {
         RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroEmpresa");
     }
 
-    public void modificarInfoRegistroTerceros(int valor) {
-        infoRegistroTerceros = String.valueOf(valor);
+    public void contarRegistroTerceros() {
         RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroTercero");
     }
 
-    public void modificarInfoRegistroSucursales(int valor) {
-        infoRegistroSucursales = String.valueOf(valor);
+    public void contarRegistroSucursales() {
         RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroSucursal");
     }
 
-    public void modificarInfoRegistroTipoEntidad(int valor) {
-        infoRegistroTipoEntidad = String.valueOf(valor);
+    public void contaroRegistroTipoEntidad() {
         RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroTipoEntidad");
     }
 
-    public void dispararDialogoNuevoRegistro(){
+    public void dispararDialogoNuevoRegistro() {
         nuevanovedad.setAnio(anioParametro);
         nuevanovedad.setMes(mesParametro);
         RequestContext.getCurrentInstance().update("formularioDialogos:nuevaNovedadAuto");
         RequestContext.getCurrentInstance().execute("PF('nuevaNovedadAuto').show()");
     }
-    
+
     ////////////////SETS Y GETS//////////////////
     public List<NovedadesAutoLiquidaciones> getListaNovedades() {
 
@@ -1786,7 +1749,6 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
     public List<TiposEntidades> getListaTiposEntidades() {
         if (listaTiposEntidades == null) {
             listaTiposEntidades = administrarNovedadAutoLiquidaciones.tiposEntidadesNovedadAuto();
-            modificarInfoRegistroTipoEntidad(listaTiposEntidades.size());
         }
         return listaTiposEntidades;
     }
@@ -1814,7 +1776,6 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
     public List<Terceros> getListaTerceros() {
         if (listaTerceros == null) {
             listaTerceros = administrarNovedadAutoLiquidaciones.tercerosNovedadAuto();
-            modificarInfoRegistroTerceros(listaTerceros.size());
         }
         return listaTerceros;
     }
@@ -1843,7 +1804,6 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
         listaSucursales = null;
         if (listaSucursales == null) {
             listaSucursales = administrarNovedadAutoLiquidaciones.sucursalesNovedadAuto(auxiliar);
-            modificarInfoRegistroSucursales(listaSucursales.size());
         }
         return listaSucursales;
     }
@@ -1893,6 +1853,9 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
     }
 
     public String getInfoRegistroNovedades() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:novedadesAuto");
+        infoRegistroNovedades = String.valueOf(tabla.getRowCount());
         return infoRegistroNovedades;
     }
 
@@ -1901,6 +1864,9 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
     }
 
     public String getInfoRegistroEmpresas() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:lovEmpresas");
+        infoRegistroEmpresas = String.valueOf(tabla.getRowCount());
         return infoRegistroEmpresas;
     }
 
@@ -1909,6 +1875,9 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
     }
 
     public String getInfoRegistroTerceros() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:lovTerceros");
+        infoRegistroTerceros = String.valueOf(tabla.getRowCount());
         return infoRegistroTerceros;
     }
 
@@ -1917,6 +1886,9 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
     }
 
     public String getInfoRegistroSucursales() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:lovSucursales");
+        infoRegistroSucursales = String.valueOf(tabla.getRowCount());
         return infoRegistroSucursales;
     }
 
@@ -1925,6 +1897,9 @@ public class ControlNovedadAutoLiquidacion implements Serializable {
     }
 
     public String getInfoRegistroTipoEntidad() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:lovTiposEntidades");
+        infoRegistroTipoEntidad = String.valueOf(tabla.getRowCount());
         return infoRegistroTipoEntidad;
     }
 

@@ -5,7 +5,6 @@
  */
 package Controlador;
 
-
 import Entidades.ActualUsuario;
 import Entidades.AportesCorrecciones;
 import Entidades.Empleados;
@@ -48,7 +47,7 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class ControlParametrosCorreccionAutoL implements Serializable {
-    
+
     @EJB
     AdministrarParametrosCorreccionAutoLInterface administrarParametroCorreccionAutoL;
     @EJB
@@ -132,7 +131,7 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
     private List<AportesCorrecciones> lovAportesCorrecciones;
     private List<AportesCorrecciones> filtrarLovAportesCorrecciones;
     private AportesCorrecciones aporteEntidadlovSeleccionado;
-    private String infoRegistroAporteEntidad,auxTipoTrabajador;
+    private String infoRegistroAporteEntidad, auxTipoTrabajador;
 
     public ControlParametrosCorreccionAutoL() {
         altoTabla = "40";
@@ -222,12 +221,13 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
         contarRegistrosAporte();
         contarRegistrosParametros();
         if (listaParametrosCorrecciones != null) {
-            if(!listaParametrosCorrecciones.isEmpty())
-            parametroCorreccionSeleccionado = listaParametrosCorrecciones.get(0);
+            if (!listaParametrosCorrecciones.isEmpty()) {
+                parametroCorreccionSeleccionado = listaParametrosCorrecciones.get(0);
+            }
         }
         if (listaAportesCorrecciones != null) {
-            if(!listaAportesCorrecciones.isEmpty()){
-            aporteTablaSeleccionado = listaAportesCorrecciones.get(0);
+            if (!listaAportesCorrecciones.isEmpty()) {
+                aporteTablaSeleccionado = listaAportesCorrecciones.get(0);
             }
         }
 
@@ -253,27 +253,18 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
             }
-        } else {
-            if (!listParametrosCorreccionesCrear.contains(parametroCorreccionSeleccionado)) {
+        } else if (!listParametrosCorreccionesCrear.contains(parametroCorreccionSeleccionado)) {
 
-                if (listParametrosCorreccionesModificar.isEmpty()) {
-                    listParametrosCorreccionesModificar.add(parametroCorreccionSeleccionado);
-                } else if (!listParametrosCorreccionesModificar.contains(parametroCorreccionSeleccionado)) {
-                    listParametrosCorreccionesModificar.add(parametroCorreccionSeleccionado);
-                }
-                if (guardado == true) {
-                    guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                }
+            if (listParametrosCorreccionesModificar.isEmpty()) {
+                listParametrosCorreccionesModificar.add(parametroCorreccionSeleccionado);
+            } else if (!listParametrosCorreccionesModificar.contains(parametroCorreccionSeleccionado)) {
+                listParametrosCorreccionesModificar.add(parametroCorreccionSeleccionado);
             }
-//            cambiosParametro = true;
-//            activoBtnsPaginas = true;
-//            RequestContext.getCurrentInstance().update("form:novedadauto");
-//            RequestContext.getCurrentInstance().update("form:incaPag");
-//            RequestContext.getCurrentInstance().update("form:eliminarToda");
-//            RequestContext.getCurrentInstance().update("form:procesoLiq");
-//            RequestContext.getCurrentInstance().update("form:acumDif");
-        }
+            if (guardado == true) {
+                guardado = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            }
+        } 
         RequestContext.getCurrentInstance().update("form:datosParametroAuto");
     }
 
@@ -290,7 +281,6 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
                 guardado = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
-//            cambiosAporte = true;
         } else {
             if (listAportesCorreccionesModificar.isEmpty()) {
                 listAportesCorreccionesModificar.add(aporteTablaSeleccionado);
@@ -362,34 +352,18 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
                         RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
                 }
-//                cambiosParametro = true;
-//                activoBtnsPaginas = true;
-//                RequestContext.getCurrentInstance().update("form:novedadauto");
-//                RequestContext.getCurrentInstance().update("form:incaPag");
-//                RequestContext.getCurrentInstance().update("form:eliminarToda");
-//                RequestContext.getCurrentInstance().update("form:procesoLiq");
-//                RequestContext.getCurrentInstance().update("form:acumDif");
-            } else {
-                if (!listParametrosCorreccionesCrear.contains(parametroCorreccionSeleccionado)) {
+            } else if (!listParametrosCorreccionesCrear.contains(parametroCorreccionSeleccionado)) {
 
-                    if (listParametrosCorreccionesModificar.isEmpty()) {
-                        listParametrosCorreccionesModificar.add(parametroCorreccionSeleccionado);
-                    } else if (!listParametrosCorreccionesModificar.contains(parametroCorreccionSeleccionado)) {
-                        listParametrosCorreccionesModificar.add(parametroCorreccionSeleccionado);
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                    }
+                if (listParametrosCorreccionesModificar.isEmpty()) {
+                    listParametrosCorreccionesModificar.add(parametroCorreccionSeleccionado);
+                } else if (!listParametrosCorreccionesModificar.contains(parametroCorreccionSeleccionado)) {
+                    listParametrosCorreccionesModificar.add(parametroCorreccionSeleccionado);
                 }
-//                cambiosParametro = true;
-//                activoBtnsPaginas = true;
-//                RequestContext.getCurrentInstance().update("form:novedadauto");
-//                RequestContext.getCurrentInstance().update("form:incaPag");
-//                RequestContext.getCurrentInstance().update("form:eliminarToda");
-//                RequestContext.getCurrentInstance().update("form:procesoLiq");
-//                RequestContext.getCurrentInstance().update("form:acumDif");
-            }
+                if (guardado == true) {
+                    guardado = false;
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                }
+            }              RequestContext.getCurrentInstance().update("form:acumDif");
         }
         RequestContext.getCurrentInstance().update("form:datosParametroAuto");
     }
@@ -498,7 +472,6 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
                     guardado = false;
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
-//                cambiosAporte = true;
             } else {
                 if (listAportesCorreccionesModificar.isEmpty()) {
                     listAportesCorreccionesModificar.add(aporteTablaSeleccionado);
@@ -509,7 +482,6 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
                     guardado = false;
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
-//                cambiosAporte = true;
             }
         }
         RequestContext.getCurrentInstance().update("form:tablaAportesCorrecciones");
@@ -671,7 +643,6 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
             System.out.println("parametroCorreccionSeleccionado cambiar indice : " + parametroCorreccionSeleccionado);
             cualCelda = celda;
             parametroCorreccionSeleccionado.getSecuencia();
-//            auxTipoTrabajador = parametroCorreccionSeleccionado.getTipotrabajador().getNombre();
             if (celda == 0) {
                 parametroCorreccionSeleccionado.getAno();
             } else if (celda == 1) {
@@ -699,31 +670,25 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
                 tipoListaAporte = 0;
             }
             getParametroCorreccionSeleccionado();
-            
-//            cargarDatosNuevos();
         }
     }
 
-    
-     public void cargarDatosNuevos() {
-     try {
-     listaAportesCorrecciones = null;
-     getListaAportesCorrecciones();
-     //            lovAportesCorrecciones = null;
-     //            getLovAportesCorrecciones();
-     if (listaAportesCorrecciones != null) {
-     modificarInfoRegistroAporte(listaAportesCorrecciones.size());
-     }
-     Thread.sleep(2000L);
-     //            RequestContext.getCurrentInstance().update("form:PanelTotal");
-     RequestContext.getCurrentInstance().update("form:tablaAportesCorrecciones");
-     RequestContext.getCurrentInstance().execute("PF('operacionEnProceso').hide()");
+    public void cargarDatosNuevos() {
+        try {
+            listaAportesCorrecciones = null;
+            getListaAportesCorrecciones();
+            if (listaAportesCorrecciones != null) {
+                modificarInfoRegistroAporte(listaAportesCorrecciones.size());
+            }
+            Thread.sleep(2000L);
+            RequestContext.getCurrentInstance().update("form:tablaAportesCorrecciones");
+            RequestContext.getCurrentInstance().execute("PF('operacionEnProceso').hide()");
 
-     } catch (Exception e) {
-     System.out.println("Error cargarDatosNuevos Controlador : " + e.toString());
-     }
-     }     
-     
+        } catch (Exception e) {
+            System.out.println("Error cargarDatosNuevos Controlador : " + e.toString());
+        }
+    }
+
     public void cambiarIndiceAporteEntidad(AportesCorrecciones aporte, int celda) {
         if (permitirIndexAporte == true) {
             aporteTablaSeleccionado = aporte;
@@ -878,20 +843,6 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
             }
             RequestContext.getCurrentInstance().update("form:datosParametroAuto");
             k = 0;
-//            activoBtnsPaginas = true;
-
-//            RequestContext.getCurrentInstance().update("form:novedadauto");
-//            RequestContext.getCurrentInstance().update("form:incaPag");
-//            RequestContext.getCurrentInstance().update("form:eliminarToda");
-//            RequestContext.getCurrentInstance().update("form:procesoLiq");
-//            RequestContext.getCurrentInstance().update("form:acumDif");
-
-
-//            parametroCorreccionSeleccionado = null;
-//            cambiosParametro = false;
-            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos de Parámetros de Corrección con éxito");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-            RequestContext.getCurrentInstance().update("form:growl");
             guardado = true;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
         } catch (Exception e) {
@@ -928,8 +879,7 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
             RequestContext.getCurrentInstance().update("form:tablaAportesCorrecciones");
             modificarInfoRegistroAporte(listaAportesCorrecciones.size());
             k = 0;
-//            cambiosAporte = true;
-            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos de Aporte Entidad Corrección con éxito");
+            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
             guardado = true;
@@ -997,10 +947,7 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
         } else {
             modificarInfoRegistroAporte(0);
         }
-//        cambiosParametro = false;
-//        cambiosAporte = false;
         guardado = true;
-//        activoBtnsPaginas = true;
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:tablaAportesCorrecciones");
         RequestContext.getCurrentInstance().update("form:datosParametroAuto");
@@ -1041,257 +988,243 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
                 }
                 cualCelda = -1;
             }
-//                activoBtnsPaginas = true;
-//                RequestContext.getCurrentInstance().update("form:novedadauto");
-//                RequestContext.getCurrentInstance().update("form:incaPag");
-//                RequestContext.getCurrentInstance().update("form:eliminarToda");
-//                RequestContext.getCurrentInstance().update("form:procesoLiq");
-//                RequestContext.getCurrentInstance().update("form:acumDif");
-        }
-    
-    else if (cualTabla
-
-    
-        == 2) {
+        } else if (cualTabla == 2) {
             if (aporteTablaSeleccionado != null) {
-            if (tipoListaAporte == 0) {
-                editarAporteEntidad = aporteTablaSeleccionado;
-            } else {
-                editarAporteEntidad = aporteTablaSeleccionado;
+                if (tipoListaAporte == 0) {
+                    editarAporteEntidad = aporteTablaSeleccionado;
+                } else {
+                    editarAporteEntidad = aporteTablaSeleccionado;
+                }
+                if (cualCeldaAporte == 0) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarAnoAD");
+                    RequestContext.getCurrentInstance().execute("PF('editarAnoAD').show()");
+                    cualCeldaAporte = -1;
+                } else if (cualCeldaAporte == 1) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarMesAD");
+                    RequestContext.getCurrentInstance().execute("PF('editarMesAD').show()");
+                    cualCeldaAporte = -1;
+                } else if (cualCeldaAporte == 2) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarNombreEmplD");
+                    RequestContext.getCurrentInstance().execute("PF('editarNombreEmplD').show()");
+                    cualCeldaAporte = -1;
+                } else if (cualCeldaAporte == 3) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarTipoPlanillaD");
+                    RequestContext.getCurrentInstance().execute("PF('editarTipoPlanillaD').show()");
+                    cualCeldaAporte = -1;
+                } else if (cualCeldaAporte == 4) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarNitTerceroD");
+                    RequestContext.getCurrentInstance().execute("PF('editarNitTerceroD').show()");
+                    cualCeldaAporte = -1;
+                } else if (cualCeldaAporte == 5) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarNombreTerceroD");
+                    RequestContext.getCurrentInstance().execute("PF('editarNombreTerceroD').show()");
+                    cualCeldaAporte = -1;
+                } else if (cualCeldaAporte == 6) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarTipoEntidadD");
+                    RequestContext.getCurrentInstance().execute("PF('editarTipoEntidadD').show()");
+                    cualCeldaAporte = -1;
+                } else if (cualCeldaAporte == 7) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarEmpleadoD");
+                    RequestContext.getCurrentInstance().execute("PF('editarEmpleadoD').show()");
+                    cualCeldaAporte = -1;
+                } else if (cualCeldaAporte == 8) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarEmpleadorD");
+                    RequestContext.getCurrentInstance().execute("PF('editarEmpleadorD').show()");
+                    cualCeldaAporte = -1;
+                } else if (cualCeldaAporte == 9) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarAjustePatronalD");
+                    RequestContext.getCurrentInstance().execute("PF('editarAjustePatronalD').show()");
+                    cualCeldaAporte = -1;
+                } else if (cualCeldaAporte == 10) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarSolidaridadD");
+                    RequestContext.getCurrentInstance().execute("PF('editarSolidaridadD').show()");
+                    cualCeldaAporte = -1;
+                } else if (cualCeldaAporte == 11) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarSubSistenciaD");
+                    RequestContext.getCurrentInstance().execute("PF('editarSubSistenciaD').show()");
+                    cualCeldaAporte = -1;
+                } else if (cualCeldaAporte == 12) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarSubsPensionadosD");
+                    RequestContext.getCurrentInstance().execute("PF('editarSubsPensionadosD').show()");
+                    cualCeldaAporte = -1;
+                } else if (cualCeldaAporte == 13) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarSalarioBasicoD");
+                    RequestContext.getCurrentInstance().execute("PF('editarSalarioBasicoD').show()");
+                    cualCeldaAporte = -1;
+                } else if (cualCeldaAporte == 14) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarIBCD");
+                    RequestContext.getCurrentInstance().execute("PF('editarIBCD').show()");
+                    cualCeldaAporte = -1;
+                } else if (cualCeldaAporte == 15) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarIBCReferenciaD");
+                    RequestContext.getCurrentInstance().execute("PF('editarIBCReferenciaD').show()");
+                    cualCeldaAporte = -1;
+                } else if (cualCeldaAporte == 16) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarDiasCotizadosD");
+                    RequestContext.getCurrentInstance().execute("PF('editarDiasCotizadosD').show()");
+                    cualCeldaAporte = -1;
+                } else if (cualCeldaAporte == 17) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarTipoAportanteD");
+                    RequestContext.getCurrentInstance().execute("PF('editarTipoAportanteD').show()");
+                    cualCeldaAporte = -1;
+                } else if (cualCeldaAporte == 18) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarINGD");
+                    RequestContext.getCurrentInstance().execute("PF('editarINGD').show()");
+                    cualCeldaAporte = -1;
+                } else if (cualCeldaAporte == 19) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarRETD");
+                    RequestContext.getCurrentInstance().execute("PF('editarRETD').show()");
+                    cualCeldaAporte = -1;
+                } else if (cualCeldaAporte == 20) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarTDAD");
+                    RequestContext.getCurrentInstance().execute("PF('editarTDAD').show()");
+                    cualCeldaAporte = -1;
+                } else if (cualCeldaAporte == 21) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarTAAD");
+                    RequestContext.getCurrentInstance().execute("PF('editarTAAD').show()");
+                    cualCeldaAporte = -1;
+                } else if (cualCeldaAporte == 22) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarVSPD");
+                    RequestContext.getCurrentInstance().execute("PF('editarVSPD').show()");
+                    cualCeldaAporte = -1;
+                } else if (cualCeldaAporte == 23) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarVTED");
+                    RequestContext.getCurrentInstance().execute("PF('editarVTED').show()");
+                    cualCeldaAporte = -1;
+                } else if (cualCeldaAporte == 24) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarVSTD");
+                    RequestContext.getCurrentInstance().execute("PF('editarVSTD').show()");
+                    cualCeldaAporte = -1;
+                } else if (cualCeldaAporte == 25) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarSLND");
+                    RequestContext.getCurrentInstance().execute("PF('editarSLND').show()");
+                    cualCeldaAporte = -1;
+                } else if (cualCeldaAporte == 26) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarIGED");
+                    RequestContext.getCurrentInstance().execute("PF('editarIGED').show()");
+                    cualCeldaAporte = -1;
+                } else if (cualCeldaAporte == 27) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarLMAD");
+                    RequestContext.getCurrentInstance().execute("PF('editarLMAD').show()");
+                    cualCeldaAporte = -1;
+                } else if (cualCeldaAporte == 28) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarVCAD");
+                    RequestContext.getCurrentInstance().execute("PF('editarVCAD').show()");
+                    cualCeldaAporte = -1;
+                } else if (cualCeldaAporte == 29) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarAVPD");
+                    RequestContext.getCurrentInstance().execute("PF('editarAVPD').show()");
+                    cualCeldaAporte = -1;
+                } else if (cualCeldaAporte == 30) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarVCTD");
+                    RequestContext.getCurrentInstance().execute("PF('editarVCTD').show()");
+                    cualCeldaAporte = -1;
+                } else if (cualCeldaAporte == 31) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarIRPD");
+                    RequestContext.getCurrentInstance().execute("PF('editarIRPD').show()");
+                    cualCeldaAporte = -1;
+                } else if (cualCeldaAporte == 32) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarSUSD");
+                    RequestContext.getCurrentInstance().execute("PF('editarSUSD').show()");
+                    cualCeldaAporte = -1;
+                } else if (cualCeldaAporte == 33) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarINTED");
+                    RequestContext.getCurrentInstance().execute("PF('editarINTED').show()");
+                    cualCeldaAporte = -1;
+                } else if (cualCeldaAporte == 34) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarTarifaEPSD");
+                    RequestContext.getCurrentInstance().execute("PF('editarTarifaEPSD').show()");
+                    cualCeldaAporte = -1;
+                } else if (cualCeldaAporte == 35) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarTarifaAAFPD");
+                    RequestContext.getCurrentInstance().execute("PF('editarTarifaAAFPD').show()");
+                    cualCeldaAporte = -1;
+                } else if (cualCeldaAporte == 36) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarTarifaACTTD");
+                    RequestContext.getCurrentInstance().execute("PF('editarTarifaACTTD').show()");
+                    cualCeldaAporte = -1;
+                } else if (cualCeldaAporte == 37) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarCodigoCTTD");
+                    RequestContext.getCurrentInstance().execute("PF('editarCodigoCTTD').show()");
+                    cualCeldaAporte = -1;
+                } else if (cualCeldaAporte == 38) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarAvpeValorD");
+                    RequestContext.getCurrentInstance().execute("PF('editarAvpeValorD').show()");
+                    cualCeldaAporte = -1;
+                } else if (cualCeldaAporte == 39) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarAvppValorD");
+                    RequestContext.getCurrentInstance().execute("PF('editarAvppValorD').show()");
+                    cualCeldaAporte = -1;
+                } else if (cualCeldaAporte == 40) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarRetcontaValorD");
+                    RequestContext.getCurrentInstance().execute("PF('editarRetcontaValorD').show()");
+                    cualCeldaAporte = -1;
+                } else if (cualCeldaAporte == 41) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarCodigoNEPSD");
+                    RequestContext.getCurrentInstance().execute("PF('editarCodigoNEPSD').show()");
+                    cualCeldaAporte = -1;
+                } else if (cualCeldaAporte == 42) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarCodigoNAFPD");
+                    RequestContext.getCurrentInstance().execute("PF('editarCodigoNAFPD').show()");
+                    cualCeldaAporte = -1;
+                } else if (cualCeldaAporte == 43) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarEgValorD");
+                    RequestContext.getCurrentInstance().execute("PF('editarEgValorD').show()");
+                    cualCeldaAporte = -1;
+                } else if (cualCeldaAporte == 44) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarEgAutorizacionD");
+                    RequestContext.getCurrentInstance().execute("PF('editarEgAutorizacionD').show()");
+                    cualCeldaAporte = -1;
+                } else if (cualCeldaAporte == 45) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarMaternidadValorD");
+                    RequestContext.getCurrentInstance().execute("PF('editarMaternidadValorD').show()");
+                    cualCeldaAporte = -1;
+                } else if (cualCeldaAporte == 46) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarMaternidadAutoD");
+                    RequestContext.getCurrentInstance().execute("PF('editarMaternidadAutoD').show()");
+                    cualCeldaAporte = -1;
+                } else if (cualCeldaAporte == 47) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarUpcValorD");
+                    RequestContext.getCurrentInstance().execute("PF('editarUpcValorD').show()");
+                    cualCeldaAporte = -1;
+                } else if (cualCeldaAporte == 48) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarTipoD");
+                    RequestContext.getCurrentInstance().execute("PF('editarTipoD').show()");
+                    cualCeldaAporte = -1;
+                } else if (cualCeldaAporte == 49) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarTPD");
+                    RequestContext.getCurrentInstance().execute("PF('editarTPD').show()");
+                    cualCeldaAporte = -1;
+                } else if (cualCeldaAporte == 50) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarPCD");
+                    RequestContext.getCurrentInstance().execute("PF('editarPCD').show()");
+                    cualCeldaAporte = -1;
+                } else if (cualCeldaAporte == 51) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaIngreso");
+                    RequestContext.getCurrentInstance().execute("PF('editarFechaIngreso').show()");
+                    cualCeldaAporte = -1;
+                }
             }
-            if (cualCeldaAporte == 0) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarAnoAD");
-                RequestContext.getCurrentInstance().execute("PF('editarAnoAD').show()");
-                cualCeldaAporte = -1;
-            } else if (cualCeldaAporte == 1) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarMesAD");
-                RequestContext.getCurrentInstance().execute("PF('editarMesAD').show()");
-                cualCeldaAporte = -1;
-            } else if (cualCeldaAporte == 2) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarNombreEmplD");
-                RequestContext.getCurrentInstance().execute("PF('editarNombreEmplD').show()");
-                cualCeldaAporte = -1;
-            } else if (cualCeldaAporte == 3) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarTipoPlanillaD");
-                RequestContext.getCurrentInstance().execute("PF('editarTipoPlanillaD').show()");
-                cualCeldaAporte = -1;
-            } else if (cualCeldaAporte == 4) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarNitTerceroD");
-                RequestContext.getCurrentInstance().execute("PF('editarNitTerceroD').show()");
-                cualCeldaAporte = -1;
-            } else if (cualCeldaAporte == 5) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarNombreTerceroD");
-                RequestContext.getCurrentInstance().execute("PF('editarNombreTerceroD').show()");
-                cualCeldaAporte = -1;
-            } else if (cualCeldaAporte == 6) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarTipoEntidadD");
-                RequestContext.getCurrentInstance().execute("PF('editarTipoEntidadD').show()");
-                cualCeldaAporte = -1;
-            } else if (cualCeldaAporte == 7) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarEmpleadoD");
-                RequestContext.getCurrentInstance().execute("PF('editarEmpleadoD').show()");
-                cualCeldaAporte = -1;
-            } else if (cualCeldaAporte == 8) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarEmpleadorD");
-                RequestContext.getCurrentInstance().execute("PF('editarEmpleadorD').show()");
-                cualCeldaAporte = -1;
-            } else if (cualCeldaAporte == 9) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarAjustePatronalD");
-                RequestContext.getCurrentInstance().execute("PF('editarAjustePatronalD').show()");
-                cualCeldaAporte = -1;
-            } else if (cualCeldaAporte == 10) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarSolidaridadD");
-                RequestContext.getCurrentInstance().execute("PF('editarSolidaridadD').show()");
-                cualCeldaAporte = -1;
-            } else if (cualCeldaAporte == 11) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarSubSistenciaD");
-                RequestContext.getCurrentInstance().execute("PF('editarSubSistenciaD').show()");
-                cualCeldaAporte = -1;
-            } else if (cualCeldaAporte == 12) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarSubsPensionadosD");
-                RequestContext.getCurrentInstance().execute("PF('editarSubsPensionadosD').show()");
-                cualCeldaAporte = -1;
-            } else if (cualCeldaAporte == 13) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarSalarioBasicoD");
-                RequestContext.getCurrentInstance().execute("PF('editarSalarioBasicoD').show()");
-                cualCeldaAporte = -1;
-            } else if (cualCeldaAporte == 14) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarIBCD");
-                RequestContext.getCurrentInstance().execute("PF('editarIBCD').show()");
-                cualCeldaAporte = -1;
-            } else if (cualCeldaAporte == 15) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarIBCReferenciaD");
-                RequestContext.getCurrentInstance().execute("PF('editarIBCReferenciaD').show()");
-                cualCeldaAporte = -1;
-            } else if (cualCeldaAporte == 16) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarDiasCotizadosD");
-                RequestContext.getCurrentInstance().execute("PF('editarDiasCotizadosD').show()");
-                cualCeldaAporte = -1;
-            } else if (cualCeldaAporte == 17) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarTipoAportanteD");
-                RequestContext.getCurrentInstance().execute("PF('editarTipoAportanteD').show()");
-                cualCeldaAporte = -1;
-            } else if (cualCeldaAporte == 18) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarINGD");
-                RequestContext.getCurrentInstance().execute("PF('editarINGD').show()");
-                cualCeldaAporte = -1;
-            } else if (cualCeldaAporte == 19) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarRETD");
-                RequestContext.getCurrentInstance().execute("PF('editarRETD').show()");
-                cualCeldaAporte = -1;
-            } else if (cualCeldaAporte == 20) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarTDAD");
-                RequestContext.getCurrentInstance().execute("PF('editarTDAD').show()");
-                cualCeldaAporte = -1;
-            } else if (cualCeldaAporte == 21) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarTAAD");
-                RequestContext.getCurrentInstance().execute("PF('editarTAAD').show()");
-                cualCeldaAporte = -1;
-            } else if (cualCeldaAporte == 22) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarVSPD");
-                RequestContext.getCurrentInstance().execute("PF('editarVSPD').show()");
-                cualCeldaAporte = -1;
-            } else if (cualCeldaAporte == 23) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarVTED");
-                RequestContext.getCurrentInstance().execute("PF('editarVTED').show()");
-                cualCeldaAporte = -1;
-            } else if (cualCeldaAporte == 24) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarVSTD");
-                RequestContext.getCurrentInstance().execute("PF('editarVSTD').show()");
-                cualCeldaAporte = -1;
-            } else if (cualCeldaAporte == 25) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarSLND");
-                RequestContext.getCurrentInstance().execute("PF('editarSLND').show()");
-                cualCeldaAporte = -1;
-            } else if (cualCeldaAporte == 26) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarIGED");
-                RequestContext.getCurrentInstance().execute("PF('editarIGED').show()");
-                cualCeldaAporte = -1;
-            } else if (cualCeldaAporte == 27) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarLMAD");
-                RequestContext.getCurrentInstance().execute("PF('editarLMAD').show()");
-                cualCeldaAporte = -1;
-            } else if (cualCeldaAporte == 28) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarVCAD");
-                RequestContext.getCurrentInstance().execute("PF('editarVCAD').show()");
-                cualCeldaAporte = -1;
-            } else if (cualCeldaAporte == 29) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarAVPD");
-                RequestContext.getCurrentInstance().execute("PF('editarAVPD').show()");
-                cualCeldaAporte = -1;
-            } else if (cualCeldaAporte == 30) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarVCTD");
-                RequestContext.getCurrentInstance().execute("PF('editarVCTD').show()");
-                cualCeldaAporte = -1;
-            } else if (cualCeldaAporte == 31) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarIRPD");
-                RequestContext.getCurrentInstance().execute("PF('editarIRPD').show()");
-                cualCeldaAporte = -1;
-            } else if (cualCeldaAporte == 32) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarSUSD");
-                RequestContext.getCurrentInstance().execute("PF('editarSUSD').show()");
-                cualCeldaAporte = -1;
-            } else if (cualCeldaAporte == 33) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarINTED");
-                RequestContext.getCurrentInstance().execute("PF('editarINTED').show()");
-                cualCeldaAporte = -1;
-            } else if (cualCeldaAporte == 34) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarTarifaEPSD");
-                RequestContext.getCurrentInstance().execute("PF('editarTarifaEPSD').show()");
-                cualCeldaAporte = -1;
-            } else if (cualCeldaAporte == 35) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarTarifaAAFPD");
-                RequestContext.getCurrentInstance().execute("PF('editarTarifaAAFPD').show()");
-                cualCeldaAporte = -1;
-            } else if (cualCeldaAporte == 36) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarTarifaACTTD");
-                RequestContext.getCurrentInstance().execute("PF('editarTarifaACTTD').show()");
-                cualCeldaAporte = -1;
-            } else if (cualCeldaAporte == 37) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarCodigoCTTD");
-                RequestContext.getCurrentInstance().execute("PF('editarCodigoCTTD').show()");
-                cualCeldaAporte = -1;
-            } else if (cualCeldaAporte == 38) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarAvpeValorD");
-                RequestContext.getCurrentInstance().execute("PF('editarAvpeValorD').show()");
-                cualCeldaAporte = -1;
-            } else if (cualCeldaAporte == 39) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarAvppValorD");
-                RequestContext.getCurrentInstance().execute("PF('editarAvppValorD').show()");
-                cualCeldaAporte = -1;
-            } else if (cualCeldaAporte == 40) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarRetcontaValorD");
-                RequestContext.getCurrentInstance().execute("PF('editarRetcontaValorD').show()");
-                cualCeldaAporte = -1;
-            } else if (cualCeldaAporte == 41) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarCodigoNEPSD");
-                RequestContext.getCurrentInstance().execute("PF('editarCodigoNEPSD').show()");
-                cualCeldaAporte = -1;
-            } else if (cualCeldaAporte == 42) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarCodigoNAFPD");
-                RequestContext.getCurrentInstance().execute("PF('editarCodigoNAFPD').show()");
-                cualCeldaAporte = -1;
-            } else if (cualCeldaAporte == 43) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarEgValorD");
-                RequestContext.getCurrentInstance().execute("PF('editarEgValorD').show()");
-                cualCeldaAporte = -1;
-            } else if (cualCeldaAporte == 44) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarEgAutorizacionD");
-                RequestContext.getCurrentInstance().execute("PF('editarEgAutorizacionD').show()");
-                cualCeldaAporte = -1;
-            } else if (cualCeldaAporte == 45) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarMaternidadValorD");
-                RequestContext.getCurrentInstance().execute("PF('editarMaternidadValorD').show()");
-                cualCeldaAporte = -1;
-            } else if (cualCeldaAporte == 46) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarMaternidadAutoD");
-                RequestContext.getCurrentInstance().execute("PF('editarMaternidadAutoD').show()");
-                cualCeldaAporte = -1;
-            } else if (cualCeldaAporte == 47) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarUpcValorD");
-                RequestContext.getCurrentInstance().execute("PF('editarUpcValorD').show()");
-                cualCeldaAporte = -1;
-            } else if (cualCeldaAporte == 48) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarTipoD");
-                RequestContext.getCurrentInstance().execute("PF('editarTipoD').show()");
-                cualCeldaAporte = -1;
-            } else if (cualCeldaAporte == 49) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarTPD");
-                RequestContext.getCurrentInstance().execute("PF('editarTPD').show()");
-                cualCeldaAporte = -1;
-            } else if (cualCeldaAporte == 50) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarPCD");
-                RequestContext.getCurrentInstance().execute("PF('editarPCD').show()");
-                cualCeldaAporte = -1;
-            } else if (cualCeldaAporte == 51) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaIngreso");
-                RequestContext.getCurrentInstance().execute("PF('editarFechaIngreso').show()");
-                cualCeldaAporte = -1;
-            }
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
-    
-        else {
-            RequestContext.getCurrentInstance().execute("PF('formularioDialogos:seleccionarRegistro').show()");
-    }
-}
-
-public void mostrarDialogoNuevoAporte() {
+    public void mostrarDialogoNuevoAporte() {
         nuevoAporteEntidad.setAno(parametroCorreccionSeleccionado.getAno());
         nuevoAporteEntidad.setMes(parametroCorreccionSeleccionado.getMes());
         RequestContext.getCurrentInstance().update("formularioDialogos:nuevoAporteEntidad");
-        RequestContext.getCurrentInstance().execute("PF('formularioDialogos:nuevoAporteEntidad').show()");
+        RequestContext.getCurrentInstance().execute("PF('nuevoAporteEntidad').show()");
     }
 
     public void mostrarDialogoNuevoParametro() {
         RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroParametro");
-        RequestContext.getCurrentInstance().execute("PF('formularioDialogos:NuevoRegistroParametro').show()");
+        RequestContext.getCurrentInstance().execute("PF('NuevoRegistroParametro').show()");
     }
 
     public void mostrarDialogoElegirTabla() {
         RequestContext.getCurrentInstance().update("formularioDialogos:seleccionarTablaNewReg");
-        RequestContext.getCurrentInstance().execute("PF('formularioDialogos:seleccionarTablaNewReg').show()");
+        RequestContext.getCurrentInstance().execute("PF('seleccionarTablaNewReg').show()");
     }
 
     public void agregarNuevaParametroAutoliq() {
@@ -1349,14 +1282,6 @@ public void mostrarDialogoNuevoAporte() {
                 guardado = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
-            // parametroCorreccionSeleccionado = null;
-//            activoBtnsPaginas = true;
-//                RequestContext.getCurrentInstance().update("form:novedadauto");
-//                RequestContext.getCurrentInstance().update("form:incaPag");
-//                RequestContext.getCurrentInstance().update("form:eliminarToda");
-//                RequestContext.getCurrentInstance().update("form:procesoLiq");
-//                RequestContext.getCurrentInstance().update("form:acumDif");
-//            cambiosParametro = true;
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().execute("PF('errorRegNullParametro').show()");
@@ -1482,7 +1407,6 @@ public void mostrarDialogoNuevoAporte() {
         if (cualTabla == 1) {
             if (parametroCorreccionSeleccionado != null) {
                 RequestContext context = RequestContext.getCurrentInstance();
-//            if (guardado == false) {
                 duplicarParametro = new ParametrosCorreccionesAutoL();
                 if (tipoLista == 0) {
                     duplicarParametro.setAno(parametroCorreccionSeleccionado.getAno());
@@ -1553,19 +1477,12 @@ public void mostrarDialogoNuevoAporte() {
 
             RequestContext.getCurrentInstance().update("form:datosParametroAuto");
             RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroParametro').hide()");
-//            activoBtnsPaginas = true;
-//            RequestContext.getCurrentInstance().update("form:novedadauto");
-//            RequestContext.getCurrentInstance().update("form:incaPag");
-//            RequestContext.getCurrentInstance().update("form:eliminarToda");
-//            RequestContext.getCurrentInstance().update("form:procesoLiq");
-//            RequestContext.getCurrentInstance().update("form:acumDif");
             if (guardado == true) {
                 guardado = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
 
             duplicarParametro = new ParametrosCorreccionesAutoL();
-//            cambiosParametro = true;
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().execute("PF('errorRegNullParametro').show()");
@@ -1627,8 +1544,6 @@ public void mostrarDialogoNuevoAporte() {
                 modificarInfoRegistroParametro(listaParametrosCorrecciones.size());
                 RequestContext.getCurrentInstance().update("form:datosParametroAuto");
                 parametroCorreccionSeleccionado = null;
-//                activoBtnsPaginas = true;
-//                cambiosParametro = true;
                 if (guardado == true) {
                     guardado = false;
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -1663,7 +1578,6 @@ public void mostrarDialogoNuevoAporte() {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:tablaAportesCorrecciones");
             aporteTablaSeleccionado = null;
-//            cambiosAporte = true;
             System.out.println("se borró un registro de aportes entidad");
             if (guardado == true) {
                 guardado = false;
@@ -1674,310 +1588,266 @@ public void mostrarDialogoNuevoAporte() {
         }
     }
 
-     public void borrarAporteEntidadProcesoAutomatico() {
-     RequestContext context = RequestContext.getCurrentInstance();
-     try {
-     if (listaAportesCorrecciones != null) {
-     if (!listaAportesCorrecciones.isEmpty()) {
-     //                    if (guardado == false) {
-     //                        guardadoGeneral();
-     //                    }
-     administrarParametroCorreccionAutoL.borrarAportesCorreccionesProcesoAutomatico(parametroCorreccionSeleccionado.getEmpresa().getSecuencia(), parametroCorreccionSeleccionado.getMes(), parametroCorreccionSeleccionado.getAno());
-     //                    listaParametrosAutoliq = null;
-     //                    getListaParametrosAutoliq();
-     //                    modificarInfoRegistroParametro(listaParametrosAutoliq.size());
-     listaAportesCorrecciones = null;
-     modificarInfoRegistroAporte(0);
-     disabledBuscar = true;
-     visibilidadMostrarTodos = "hidden";
-     RequestContext.getCurrentInstance().update("form:mostrarTodos");
-     RequestContext.getCurrentInstance().update("form:ACEPTAR");
-     RequestContext.getCurrentInstance().update("form:buscar");
-     RequestContext.getCurrentInstance().update("form:datosParametroAuto");
-     RequestContext.getCurrentInstance().update("form:tablaAportesCorrecciones");
-     System.out.println("El borrado fue realizado con éxito");
-     FacesMessage msg = new FacesMessage("Información", "El borrado fue realizado con éxito. Recuerde que los cambios manuales deben ser borrados manualmente");
-     FacesContext.getCurrentInstance().addMessage(null, msg);
-     RequestContext.getCurrentInstance().update("form:growl");
-     }
-     } else {
-     System.out.println("No hay información para borrar");
-     FacesMessage msg = new FacesMessage("Información", "No hay información para borrar");
-     FacesContext.getCurrentInstance().addMessage(null, msg);
-     RequestContext.getCurrentInstance().update("form:growl");
-     }
+    public void borrarAporteEntidadProcesoAutomatico() {
+        RequestContext context = RequestContext.getCurrentInstance();
+        try {
+            if (listaAportesCorrecciones != null) {
+                if (!listaAportesCorrecciones.isEmpty()) {
+                    administrarParametroCorreccionAutoL.borrarAportesCorreccionesProcesoAutomatico(parametroCorreccionSeleccionado.getEmpresa().getSecuencia(), parametroCorreccionSeleccionado.getMes(), parametroCorreccionSeleccionado.getAno());
+                    listaAportesCorrecciones = null;
+                    modificarInfoRegistroAporte(0);
+                    disabledBuscar = true;
+                    visibilidadMostrarTodos = "hidden";
+                    RequestContext.getCurrentInstance().update("form:mostrarTodos");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                    RequestContext.getCurrentInstance().update("form:buscar");
+                    RequestContext.getCurrentInstance().update("form:datosParametroAuto");
+                    RequestContext.getCurrentInstance().update("form:tablaAportesCorrecciones");
+                    System.out.println("El borrado fue realizado con éxito");
+                    FacesMessage msg = new FacesMessage("Información", "El borrado fue realizado con éxito. Recuerde que los cambios manuales deben ser borrados manualmente");
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                    RequestContext.getCurrentInstance().update("form:growl");
+                }
+            } else {
+                System.out.println("No hay información para borrar");
+                FacesMessage msg = new FacesMessage("Información", "No hay información para borrar");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+                RequestContext.getCurrentInstance().update("form:growl");
+            }
 
-     } catch (Exception e) {
-     System.out.println("Error borrarAporteEntidadProcesoAutomatico Controlador : " + e.toString());
-     FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el proceso de borrado de Aportes Entidades.");
-     FacesContext.getCurrentInstance().addMessage(null, msg);
-     RequestContext.getCurrentInstance().update("form:growl");
-     }
-     }
+        } catch (Exception e) {
+            System.out.println("Error borrarAporteEntidadProcesoAutomatico Controlador : " + e.toString());
+            FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el proceso de borrado de Aportes Entidades.");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            RequestContext.getCurrentInstance().update("form:growl");
+        }
+    }
 
-    
-     public void procesoLiquidacionAporteEntidad() {
-     RequestContext context = RequestContext.getCurrentInstance();
-     try {
-     getUsuario();
-     if (usuario != null) {
-     getParametroEstructura();
-     getParametroInforme();
-     if (parametroEstructura != null && parametroInforme != null) {
-     boolean fechasIgualesEstructura = true;
-     boolean fechasIgualesInforme = true;
-     short ano = 0;
-     short mes = 0;
-     if (tipoLista == 0) {
-     ano = parametroCorreccionSeleccionado.getAno();
-     mes = parametroCorreccionSeleccionado.getMes();
-     } else {
-     ano = parametroCorreccionSeleccionado.getAno();
-     mes = parametroCorreccionSeleccionado.getMes();
-     }
+    public void procesoLiquidacionAporteEntidad() {
+        RequestContext context = RequestContext.getCurrentInstance();
+        try {
+            getUsuario();
+            if (usuario != null) {
+                getParametroEstructura();
+                getParametroInforme();
+                if (parametroEstructura != null && parametroInforme != null) {
+                    boolean fechasIgualesEstructura = true;
+                    boolean fechasIgualesInforme = true;
+                    short ano = 0;
+                    short mes = 0;
+                    if (tipoLista == 0) {
+                        ano = parametroCorreccionSeleccionado.getAno();
+                        mes = parametroCorreccionSeleccionado.getMes();
+                    } else {
+                        ano = parametroCorreccionSeleccionado.getAno();
+                        mes = parametroCorreccionSeleccionado.getMes();
+                    }
 
-     if ((parametroEstructura.getFechahastacausado().getMonth() + 1) != mes) {
-     fechasIgualesEstructura = false;
-     }
-     if ((parametroEstructura.getFechahastacausado().getYear() + 1900) != ano) {
-     fechasIgualesEstructura = false;
-     }
-     if ((parametroInforme.getFechahasta().getMonth() + 1) != mes) {
-     fechasIgualesInforme = false;
-     }
-     if ((parametroInforme.getFechahasta().getYear() + 1900) != ano) {
-     fechasIgualesInforme = false;
-     }
-     if (fechasIgualesEstructura == true && fechasIgualesInforme == true) {
-     RequestContext.getCurrentInstance().execute("PF('procesoLiquidacionOK').show()");
-     } else {
-     RequestContext.getCurrentInstance().execute("PF('errorProcesoLiquidacionFechas').show()");
-     }
-     }
-     }
+                    if ((parametroEstructura.getFechahastacausado().getMonth() + 1) != mes) {
+                        fechasIgualesEstructura = false;
+                    }
+                    if ((parametroEstructura.getFechahastacausado().getYear() + 1900) != ano) {
+                        fechasIgualesEstructura = false;
+                    }
+                    if ((parametroInforme.getFechahasta().getMonth() + 1) != mes) {
+                        fechasIgualesInforme = false;
+                    }
+                    if ((parametroInforme.getFechahasta().getYear() + 1900) != ano) {
+                        fechasIgualesInforme = false;
+                    }
+                    if (fechasIgualesEstructura == true && fechasIgualesInforme == true) {
+                        RequestContext.getCurrentInstance().execute("PF('procesoLiquidacionOK').show()");
+                    } else {
+                        RequestContext.getCurrentInstance().execute("PF('errorProcesoLiquidacionFechas').show()");
+                    }
+                }
+            }
 
-     } catch (Exception e) {
-     System.out.println("Error procesoLiquidacionAporteEntidad Controlador : " + e.toString());
-     }
-     }
+        } catch (Exception e) {
+            System.out.println("Error procesoLiquidacionAporteEntidad Controlador : " + e.toString());
+        }
+    }
 
-     public void procesoLiquidacionOK() {
-     RequestContext context = RequestContext.getCurrentInstance();
-     try {
-     if (guardado == false) {
-     System.out.println("entró a if 1");
-     guardadoGeneral();
-     } else {
-     System.out.println("guardado : true");
+    public void procesoLiquidacionOK() {
+        RequestContext context = RequestContext.getCurrentInstance();
+        try {
+            if (guardado == false) {
+                System.out.println("entró a if 1");
+                guardadoGeneral();
+            } else {
+                System.out.println("guardado : true");
 
-     getParametroEstructura();
-     getParametroInforme();
-     String procesoInsertar = " ";
-     String procesoActualizar = " ";
-     String procesoIdentificar = " ";
+                getParametroEstructura();
+                getParametroInforme();
+                String procesoInsertar = " ";
+                String procesoActualizar = " ";
+                String procesoIdentificar = " ";
 
-     System.out.println("fechadesde : " + parametroEstructura.getFechadesdecausado());
-     System.out.println("fecha hasta:  " + parametroEstructura.getFechahastacausado());
-     System.out.println("tipo trabajador: " + parametroCorreccionSeleccionado.getTipotrabajador().getSecuencia());
-     System.out.println("empresa : " + parametroCorreccionSeleccionado.getEmpresa().getNombre());
+                System.out.println("fechadesde : " + parametroEstructura.getFechadesdecausado());
+                System.out.println("fecha hasta:  " + parametroEstructura.getFechahastacausado());
+                System.out.println("tipo trabajador: " + parametroCorreccionSeleccionado.getTipotrabajador().getSecuencia());
+                System.out.println("empresa : " + parametroCorreccionSeleccionado.getEmpresa().getNombre());
 
-     if (tipoLista == 0) {
-     System.out.println("entró a if 2");
-     procesoInsertar = administrarParametroCorreccionAutoL.ejecutarPKGInsertarCorreccion(parametroEstructura.getFechadesdecausado(), parametroEstructura.getFechahastacausado(), parametroCorreccionSeleccionado.getTipotrabajador().getSecuencia(), parametroCorreccionSeleccionado.getEmpresa().getSecuencia());
-     System.out.println("procesoinsertar del if 2 : " + procesoInsertar);
-     procesoActualizar = administrarParametroCorreccionAutoL.ejecutarPKGActualizarNovedadesCorreccion(parametroCorreccionSeleccionado.getAno(), parametroCorreccionSeleccionado.getMes(), parametroCorreccionSeleccionado.getEmpresa().getSecuencia());
-     System.out.println("procesoActualizar del if 2 : " + procesoActualizar);
-     procesoIdentificar = administrarParametroCorreccionAutoL.ejecutarPKGIdentificaCorreccion(parametroCorreccionSeleccionado.getAno(), parametroCorreccionSeleccionado.getMes(), parametroCorreccionSeleccionado.getEmpresa().getSecuencia());
-         System.out.println("procesoIdentificarCorreccion del if 2 : " + procesoIdentificar);
-     } else {
-     System.out.println("entró a else 1");
-     procesoInsertar = administrarParametroCorreccionAutoL.ejecutarPKGInsertarCorreccion(parametroEstructura.getFechadesdecausado(), parametroEstructura.getFechahastacausado(), parametroCorreccionSeleccionado.getTipotrabajador().getSecuencia(), parametroCorreccionSeleccionado.getEmpresa().getSecuencia());
-     procesoActualizar = administrarParametroCorreccionAutoL.ejecutarPKGActualizarNovedadesCorreccion(parametroCorreccionSeleccionado.getAno(), parametroCorreccionSeleccionado.getMes(), parametroCorreccionSeleccionado.getEmpresa().getSecuencia());
-     procesoIdentificar = administrarParametroCorreccionAutoL.ejecutarPKGIdentificaCorreccion(parametroCorreccionSeleccionado.getAno(), parametroCorreccionSeleccionado.getMes(), parametroCorreccionSeleccionado.getEmpresa().getSecuencia());
-     }
-     if ((procesoInsertar.equals("PROCESO_EXITOSO")) && (procesoActualizar.equals("PROCESO_EXITOSO")) && (procesoIdentificar.equals("PROCESO_EXITOSO"))) {
-     System.out.println("entró a if 3");
-     System.out.println("procesoinsertar del if 3 : " + procesoInsertar);
-     System.out.println("procesoActualizar del if 3 : " + procesoActualizar);
-     System.out.println("procesoIdentificar del if 3 : " + procesoIdentificar);
-     //                listaParametrosAutoliq = null;
-     //                getListaParametrosAutoliq();
-     //                modificarInfoRegistroParametro(listaParametrosAutoliq.size());
-     listaAportesCorrecciones = null;
-     getListaAportesCorrecciones();
-     contarRegistrosAporte();
-//     modificarInfoRegistroAporte(listaAportesCorrecciones.size());
-     disabledBuscar = true;
-     //parametroCorreccionSeleccionado = null;
-     visibilidadMostrarTodos = "hidden";
-     RequestContext.getCurrentInstance().update("form:mostrarTodos");
-     RequestContext.getCurrentInstance().update("form:tablaAportesCorrecciones");
-     System.out.println("El proceso de Liquidación fue realizado con éxito");
-     System.out.println("lista aportes correcciones : " + listaAportesCorrecciones.size());
-     FacesMessage msg = new FacesMessage("Información", "El proceso de Liquidación fue realizado con éxito");
-     FacesContext.getCurrentInstance().addMessage(null, msg);
-     RequestContext.getCurrentInstance().update("form:growl");
-     } else if ((procesoInsertar.equals("ERROR_PERSISTENCIA")) || (procesoActualizar.equals("ERROR_PERSISTENCIA")) || (procesoIdentificar.equals("ERROR_PERSISTENCIA"))) {
-     System.out.println("entró a else if");
-     FacesMessage msg = new FacesMessage("Información", "Ocurrió un error en la ejecución del proceso de liquidación. Por favor, revisar los archivos de error de la carpeta SalidasUTL");
-     FacesContext.getCurrentInstance().addMessage(null, msg);
-     RequestContext.getCurrentInstance().update("form:growl");
-     }
+                if (tipoLista == 0) {
+                    System.out.println("entró a if 2");
+                    procesoInsertar = administrarParametroCorreccionAutoL.ejecutarPKGInsertarCorreccion(parametroEstructura.getFechadesdecausado(), parametroEstructura.getFechahastacausado(), parametroCorreccionSeleccionado.getTipotrabajador().getSecuencia(), parametroCorreccionSeleccionado.getEmpresa().getSecuencia());
+                    System.out.println("procesoinsertar del if 2 : " + procesoInsertar);
+                    procesoActualizar = administrarParametroCorreccionAutoL.ejecutarPKGActualizarNovedadesCorreccion(parametroCorreccionSeleccionado.getAno(), parametroCorreccionSeleccionado.getMes(), parametroCorreccionSeleccionado.getEmpresa().getSecuencia());
+                    System.out.println("procesoActualizar del if 2 : " + procesoActualizar);
+                    procesoIdentificar = administrarParametroCorreccionAutoL.ejecutarPKGIdentificaCorreccion(parametroCorreccionSeleccionado.getAno(), parametroCorreccionSeleccionado.getMes(), parametroCorreccionSeleccionado.getEmpresa().getSecuencia());
+                    System.out.println("procesoIdentificarCorreccion del if 2 : " + procesoIdentificar);
+                } else {
+                    System.out.println("entró a else 1");
+                    procesoInsertar = administrarParametroCorreccionAutoL.ejecutarPKGInsertarCorreccion(parametroEstructura.getFechadesdecausado(), parametroEstructura.getFechahastacausado(), parametroCorreccionSeleccionado.getTipotrabajador().getSecuencia(), parametroCorreccionSeleccionado.getEmpresa().getSecuencia());
+                    procesoActualizar = administrarParametroCorreccionAutoL.ejecutarPKGActualizarNovedadesCorreccion(parametroCorreccionSeleccionado.getAno(), parametroCorreccionSeleccionado.getMes(), parametroCorreccionSeleccionado.getEmpresa().getSecuencia());
+                    procesoIdentificar = administrarParametroCorreccionAutoL.ejecutarPKGIdentificaCorreccion(parametroCorreccionSeleccionado.getAno(), parametroCorreccionSeleccionado.getMes(), parametroCorreccionSeleccionado.getEmpresa().getSecuencia());
+                }
+                if ((procesoInsertar.equals("PROCESO_EXITOSO")) && (procesoActualizar.equals("PROCESO_EXITOSO")) && (procesoIdentificar.equals("PROCESO_EXITOSO"))) {
+                    System.out.println("entró a if 3");
+                    System.out.println("procesoinsertar del if 3 : " + procesoInsertar);
+                    System.out.println("procesoActualizar del if 3 : " + procesoActualizar);
+                    System.out.println("procesoIdentificar del if 3 : " + procesoIdentificar);
+                    listaAportesCorrecciones = null;
+                    getListaAportesCorrecciones();
+                    contarRegistrosAporte();
+                    disabledBuscar = true;
+                    visibilidadMostrarTodos = "hidden";
+                    RequestContext.getCurrentInstance().update("form:mostrarTodos");
+                    RequestContext.getCurrentInstance().update("form:tablaAportesCorrecciones");
+                    System.out.println("El proceso de Liquidación fue realizado con éxito");
+                    System.out.println("lista aportes correcciones : " + listaAportesCorrecciones.size());
+                    FacesMessage msg = new FacesMessage("Información", "El proceso de Liquidación fue realizado con éxito");
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                    RequestContext.getCurrentInstance().update("form:growl");
+                } else if ((procesoInsertar.equals("ERROR_PERSISTENCIA")) || (procesoActualizar.equals("ERROR_PERSISTENCIA")) || (procesoIdentificar.equals("ERROR_PERSISTENCIA"))) {
+                    System.out.println("entró a else if");
+                    FacesMessage msg = new FacesMessage("Información", "Ocurrió un error en la ejecución del proceso de liquidación. Por favor, revisar los archivos de error de la carpeta SalidasUTL");
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                    RequestContext.getCurrentInstance().update("form:growl");
+                }
 
-     }
+            }
 
-     } catch (Exception e) {
-     System.out.println("Error procesoLiquidacionOK Controlador : " + e.toString());
-     FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el proceso de Liquidación.");
-     FacesContext.getCurrentInstance().addMessage(null, msg);
-     RequestContext.getCurrentInstance().update("form:growl");
-     }
-     }
+        } catch (Exception e) {
+            System.out.println("Error procesoLiquidacionOK Controlador : " + e.toString());
+            FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el proceso de Liquidación.");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            RequestContext.getCurrentInstance().update("form:growl");
+        }
+    }
 
-     public void cambiarFechasParametros() {
-     RequestContext context = RequestContext.getCurrentInstance();
-     try {
-     short ano = 0;
-     short mes = 0;
-     if (tipoLista == 0) {
-     ano = parametroCorreccionSeleccionado.getAno();
-     mes = parametroCorreccionSeleccionado.getMes();
-     } else {
-     ano = parametroCorreccionSeleccionado.getAno();
-     mes = parametroCorreccionSeleccionado.getMes();
-     }
-     Date fechaDesdeParametros;
+    public void cambiarFechasParametros() {
+        RequestContext context = RequestContext.getCurrentInstance();
+        try {
+            short ano = 0;
+            short mes = 0;
+            if (tipoLista == 0) {
+                ano = parametroCorreccionSeleccionado.getAno();
+                mes = parametroCorreccionSeleccionado.getMes();
+            } else {
+                ano = parametroCorreccionSeleccionado.getAno();
+                mes = parametroCorreccionSeleccionado.getMes();
+            }
+            Date fechaDesdeParametros;
 
-     Calendar calFin = Calendar.getInstance();
+            Calendar calFin = Calendar.getInstance();
 
-     calFin.set(Integer.parseInt(String.valueOf(ano)), Integer.parseInt(String.valueOf(mes - 1)), 1);
+            calFin.set(Integer.parseInt(String.valueOf(ano)), Integer.parseInt(String.valueOf(mes - 1)), 1);
 
-     fechaDesdeParametros = calFin.getTime();
+            fechaDesdeParametros = calFin.getTime();
 
-     parametroEstructura.setFechadesdecausado(fechaDesdeParametros);
-     parametroInforme.setFechadesde(fechaDesdeParametros);
+            parametroEstructura.setFechadesdecausado(fechaDesdeParametros);
+            parametroInforme.setFechadesde(fechaDesdeParametros);
 
-     Date fechaHastaParametros;
-     calFin.set(Integer.parseInt(String.valueOf(ano)), Integer.parseInt(String.valueOf(mes - 1)), calFin.getActualMaximum(Calendar.DAY_OF_MONTH));
-     fechaHastaParametros = calFin.getTime();
+            Date fechaHastaParametros;
+            calFin.set(Integer.parseInt(String.valueOf(ano)), Integer.parseInt(String.valueOf(mes - 1)), calFin.getActualMaximum(Calendar.DAY_OF_MONTH));
+            fechaHastaParametros = calFin.getTime();
 
-     parametroEstructura.setFechahastacausado(fechaHastaParametros);
-     parametroInforme.setFechahasta(fechaHastaParametros);
+            parametroEstructura.setFechahastacausado(fechaHastaParametros);
+            parametroInforme.setFechahasta(fechaHastaParametros);
 
-     administrarParametroCorreccionAutoL.modificarParametroEstructura(parametroEstructura);
-     administrarParametroCorreccionAutoL.modificarParametroInforme(parametroInforme);
+            administrarParametroCorreccionAutoL.modificarParametroEstructura(parametroEstructura);
+            administrarParametroCorreccionAutoL.modificarParametroInforme(parametroInforme);
 
-     parametroInforme = null;   ///
-     parametroEstructura = null;///////
-     // parametroCorreccionSeleccionado = null;
-     RequestContext.getCurrentInstance().update("form:datosParametroAuto");
-     FacesMessage msg = new FacesMessage("Información", "Se realizó con éxito el cambio de fechas ");
-     FacesContext.getCurrentInstance().addMessage(null, msg);
-     RequestContext.getCurrentInstance().update("form:growl");
-     } catch (Exception e) {
-     System.out.println("Error cambiarFechasParametros Controlador : " + e.toString());
-     FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en la modificacio de fechas ");
-     FacesContext.getCurrentInstance().addMessage(null, msg);
-     RequestContext.getCurrentInstance().update("form:growl");
-     }
-     }
+            parametroInforme = null;  
+            parametroEstructura = null;
+            RequestContext.getCurrentInstance().update("form:datosParametroAuto");
+            FacesMessage msg = new FacesMessage("Información", "Se realizó con éxito el cambio de fechas ");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            RequestContext.getCurrentInstance().update("form:growl");
+        } catch (Exception e) {
+            System.out.println("Error cambiarFechasParametros Controlador : " + e.toString());
+            FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en la modificacio de fechas ");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            RequestContext.getCurrentInstance().update("form:growl");
+        }
+    }
 
-     
-     public void procesoIncrementarCorreccion() {
-     RequestContext context = RequestContext.getCurrentInstance();
-     try {
-     //            usuario = null;
-     getUsuario();
-     parametroCorreccionSeleccionado = getParametroCorreccionSeleccionado();
-     System.out.println("usuario :" +  usuario.getAlias());
-     if (usuario.getAlias() != null) {
-     getParametroEstructura();
-     getParametroInforme();
-     System.out.println("parametro estructuras : " + parametroEstructura);
-     System.out.println("parametro informe : " + parametroInforme);
-     System.out.println("parametro seleccionado : " + parametroCorreccionSeleccionado);
-     System.out.println("parada 1");
-     if (parametroEstructura != null) {
-     if (parametroInforme != null) {
-     //
-     boolean fechasIgualesEstructura = true;
-     boolean fechasIgualesInforme = true;
-     //                    short ano = 0;
-     //                    short mes = 0;
-     //                    ano = getParametroTablaSeleccionado().getAno();
-     //                    mes = getParametroTablaSeleccionado().getMes();
-     ////
-     //                    System.out.println("Año al entrar al if : " + ano);
-     //                    System.out.println("Mes al entrar al if : " + mes);
-     //                    if ((parametroEstructura.getFechahastacausado().getMonth() + 1) != mes) {
-     //                        fechasIgualesEstructura = false;
-     //                    }
-     //                    if ((parametroEstructura.getFechahastacausado().getYear() + 1900) != ano) {
-     //                        fechasIgualesEstructura = false;
-     //                    }
-     //                    if ((parametroInforme.getFechahasta().getMonth() + 1) != mes) {
-     //                        fechasIgualesInforme = false;
-     //                    }
-     //                    if ((parametroInforme.getFechahasta().getYear() + 1900) != ano) {
-     //                        fechasIgualesInforme = false;
-     //                    }
-     //                    System.out.println("fechas iguales estructura : " + fechasIgualesEstructura);
-     //                    System.out.println("fechas iguales informe : " + fechasIgualesInforme);
+    public void procesoIncrementarCorreccion() {
+        RequestContext context = RequestContext.getCurrentInstance();
+        try {
+            getUsuario();
+            parametroCorreccionSeleccionado = getParametroCorreccionSeleccionado();
+            System.out.println("usuario :" + usuario.getAlias());
+            if (usuario.getAlias() != null) {
+                getParametroEstructura();
+                getParametroInforme();
+                System.out.println("parametro estructuras : " + parametroEstructura);
+                System.out.println("parametro informe : " + parametroInforme);
+                System.out.println("parametro seleccionado : " + parametroCorreccionSeleccionado);
+                System.out.println("parada 1");
+                if (parametroEstructura != null) {
+                    if (parametroInforme != null) {
+                        boolean fechasIgualesEstructura = true;
+                        boolean fechasIgualesInforme = true;
 
-     System.out.println("parada 2");
-     if (fechasIgualesEstructura == true && fechasIgualesInforme == true) {
-     System.out.println("entra a acumular dif ok");
-     RequestContext.getCurrentInstance().execute("PF('acumularDiferenciaOK').show()");
-     } else {
-     RequestContext.getCurrentInstance().execute("PF('errorAcumularDiferencia').show()");
-     }
-     }
-     }
-     }
+                        System.out.println("parada 2");
+                        if (fechasIgualesEstructura == true && fechasIgualesInforme == true) {
+                            System.out.println("entra a acumular dif ok");
+                            RequestContext.getCurrentInstance().execute("PF('acumularDiferenciaOK').show()");
+                        } else {
+                            RequestContext.getCurrentInstance().execute("PF('errorAcumularDiferencia').show()");
+                        }
+                    }
+                }
+            }
 
-     } catch (Exception e) {
-     System.out.println("se estalló");
-     System.out.println("Error procesoLiquidacionAporteEntidad Controlador : " + e.toString());
-     }
-     }
+        } catch (Exception e) {
+            System.out.println("se estalló");
+            System.out.println("Error procesoLiquidacionAporteEntidad Controlador : " + e.toString());
+        }
+    }
 
-     public void incrementarCorreccionOK() {
-     RequestContext context = RequestContext.getCurrentInstance();
-     String resultado;
-     try {
-     parametroCorreccionSeleccionado = getParametroCorreccionSeleccionado();
-     System.out.println("Año " + parametroCorreccionSeleccionado.getAno());
-     System.out.println("Mes " + parametroCorreccionSeleccionado.getMes());
-     System.out.println("Empresa " + parametroCorreccionSeleccionado.getEmpresa().getNombre());
+    public void incrementarCorreccionOK() {
+        RequestContext context = RequestContext.getCurrentInstance();
+        String resultado;
+        try {
+            parametroCorreccionSeleccionado = getParametroCorreccionSeleccionado();
+            System.out.println("Año " + parametroCorreccionSeleccionado.getAno());
+            System.out.println("Mes " + parametroCorreccionSeleccionado.getMes());
+            System.out.println("Empresa " + parametroCorreccionSeleccionado.getEmpresa().getNombre());
 
-     resultado = administrarParametroCorreccionAutoL.ejecutarPKGActualizarNovedadesCorreccion(parametroCorreccionSeleccionado.getAno(), parametroCorreccionSeleccionado.getMes(), parametroCorreccionSeleccionado.getEmpresa().getSecuencia());
-     System.out.println("resultado consulta : " + resultado);
-     //            listaParametrosAutoliq = null;
-     //            getListaParametrosAutoliq();
-     //            modificarInfoRegistroParametro(listaParametrosAutoliq.size());
+            resultado = administrarParametroCorreccionAutoL.ejecutarPKGActualizarNovedadesCorreccion(parametroCorreccionSeleccionado.getAno(), parametroCorreccionSeleccionado.getMes(), parametroCorreccionSeleccionado.getEmpresa().getSecuencia());
+            System.out.println("resultado consulta : " + resultado);
+            disabledBuscar = true;
+            visibilidadMostrarTodos = "hidden";
+            System.out.println("entró a actualizar");
+            RequestContext.getCurrentInstance().update("form:mostrarTodos");
+            System.out.println("El proceso de incrementar Correción fue realizado con éxito");
+            FacesMessage msg = new FacesMessage("Información", "El proceso de incrementar Correción fue realizado con éxito");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            RequestContext.getCurrentInstance().update("form:growl");
+            guardadoGeneral();
+            RequestContext.getCurrentInstance().update("form:tablaAportesCorrecciones");
 
-     disabledBuscar = true;
-     visibilidadMostrarTodos = "hidden";
-     System.out.println("entró a actualizar");
-     RequestContext.getCurrentInstance().update("form:mostrarTodos");
-     System.out.println("El proceso de incrementar Correción fue realizado con éxito");
-     FacesMessage msg = new FacesMessage("Información", "El proceso de incrementar Correción fue realizado con éxito");
-     FacesContext.getCurrentInstance().addMessage(null, msg);
-     RequestContext.getCurrentInstance().update("form:growl");
-     //            listaAportesCorrecciones = null;
-     //            getListaAportesCorrecciones();
-     //            modificarInfoRegistroAporte(listaAportesCorrecciones.size());
-     guardadoGeneral();
-     RequestContext.getCurrentInstance().update("form:tablaAportesCorrecciones");
+        } catch (Exception e) {
+            System.out.println("Error incrementarCorrecionOK Controlador : " + e.toString());
+            FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el proceso de incrementar Correción.");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            RequestContext.getCurrentInstance().update("form:growl");
+        }
+    }
 
-     } catch (Exception e) {
-     System.out.println("Error incrementarCorrecionOK Controlador : " + e.toString());
-     FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el proceso de incrementar Correción.");
-     FacesContext.getCurrentInstance().addMessage(null, msg);
-     RequestContext.getCurrentInstance().update("form:growl");
-     }
-     }
-    
     public void activarCtrlF11() {
 
         FacesContext c = FacesContext.getCurrentInstance();
@@ -2349,7 +2219,6 @@ public void mostrarDialogoNuevoAporte() {
         aporteFechaIngreso = (Column) c.getViewRoot().findComponent("form:tablaAportesCorrecciones:aporteFechaIngreso");
         aporteFechaIngreso.setFilterStyle("width: 85% !important");
 
-//        RequestContext.getCurrentInstance().update("form:tablaAportesCorrecciones:tablaAportesCorrecciones");
         RequestContext.getCurrentInstance().update("form:tablaAportesCorrecciones");
 
     }
@@ -2387,19 +2256,14 @@ public void mostrarDialogoNuevoAporte() {
         listParametrosCorreccionesBorrar.clear();
         listParametrosCorreccionesCrear.clear();
         listParametrosCorreccionesModificar.clear();
-        //
         listAportesCorreccionesBorrar.clear();
         listAportesCorreccionesModificar.clear();
-        //
         parametroCorreccionSeleccionado = null;
-//        activoBtnsPaginas = true;
         aporteTablaSeleccionado = null;
         k = 0;
         listaParametrosCorrecciones = null;
         listaAportesCorrecciones = null;
         guardado = true;
-//        cambiosParametro = false;
-//        cambiosAporte = false;
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
@@ -2470,7 +2334,6 @@ public void mostrarDialogoNuevoAporte() {
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             permitirIndex = true;
-//            cambiosParametro = true;
             RequestContext.getCurrentInstance().update("form:datosParametroAuto");
         } else if (tipoActualizacion == 1) {
             nuevoParametro.setTipotrabajador(tipoTrabajadorSeleccionado);
@@ -2483,17 +2346,7 @@ public void mostrarDialogoNuevoAporte() {
         tipoTrabajadorSeleccionado = new TiposTrabajadores();
         aceptar = true;
         parametroCorreccionSeleccionado = null;
-
-//        activoBtnsPaginas = true;
-//        RequestContext.getCurrentInstance().update("form:novedadauto");
-//        RequestContext.getCurrentInstance().update("form:incaPag");
-//        RequestContext.getCurrentInstance().update("form:eliminarToda");
-//        RequestContext.getCurrentInstance().update("form:procesoLiq");
-//        RequestContext.getCurrentInstance().update("form:acumDif");
-        tipoActualizacion = -1;/*
-         RequestContext.getCurrentInstance().update("formularioLovTipoTrabajador:TipoTrabajadorDialogo");
-         RequestContext.getCurrentInstance().update("formularioLovTipoTrabajador:lovTipoTrabajador");
-         RequestContext.getCurrentInstance().update("formularioLovTipoTrabajador:aceptarTT");*/
+        tipoActualizacion = -1;
 
         context.reset("formularioLovTipoTrabajador:lovTipoTrabajador:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('lovTipoTrabajador').clearFilters()");
@@ -2524,17 +2377,7 @@ public void mostrarDialogoNuevoAporte() {
         filtrarLovEmpresas = null;
         empresaSeleccionada = new Empresas();
         aceptar = true;
-//        activoBtnsPaginas = true;
-//        RequestContext.getCurrentInstance().update("form:novedadauto");
-//        RequestContext.getCurrentInstance().update("form:incaPag");
-//        RequestContext.getCurrentInstance().update("form:eliminarToda");
-//        RequestContext.getCurrentInstance().update("form:procesoLiq");
-//        RequestContext.getCurrentInstance().update("form:acumDif");
-        tipoActualizacion = -1;/*
-         RequestContext.getCurrentInstance().update("formularioLovEmpresa:EmpresaDialogo");
-         RequestContext.getCurrentInstance().update("formularioLovEmpresa:lovEmpresa");
-         RequestContext.getCurrentInstance().update("formularioLovEmpresa:aceptarE");*/
-
+        tipoActualizacion = -1;
         context.reset("formularioLovEmpresa:lovEmpresa:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('lovEmpresa').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('EmpresaDialogo').hide()");
@@ -2575,13 +2418,11 @@ public void mostrarDialogoNuevoAporte() {
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             permitirIndexAporte = true;
-//            cambiosAporte = true;
             RequestContext.getCurrentInstance().update("form:tablaAportesCorrecciones");
         } else if (tipoActualizacion == 1) {
             nuevoAporteEntidad.setEmpleado(empleadoSeleccionado);
             System.out.println("empleado seleccionado :" + empleadoSeleccionado.getSecuencia());
             System.out.println("nuevoaporteempleado empleado seleccionado : " + nuevoAporteEntidad.getEmpleado().getSecuencia());
-//            RequestContext.getCurrentInstance().update("formularioDialogos:nuevoApEntidad");
             RequestContext.getCurrentInstance().update("formularioDialogos:nuevoCodempl");
             RequestContext.getCurrentInstance().update("formularioDialogos:nuevoNomEmpl");
         } else if (tipoActualizacion == 2) {
@@ -2591,7 +2432,6 @@ public void mostrarDialogoNuevoAporte() {
         }
 
         filtrarLovEmpleados = null;
-//        empleadoSeleccionado = new Empleados();
         aceptar = true;
         tipoActualizacion = -1;
 
@@ -2655,7 +2495,7 @@ public void mostrarDialogoNuevoAporte() {
         terceroSeleccionado = new Terceros();
         aceptar = true;
         tipoActualizacion = -1;
-         
+
         context.reset("formularioLovTercero:lovTercero:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('lovTercero').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('TerceroDialogo').hide()");
@@ -2668,8 +2508,6 @@ public void mostrarDialogoNuevoAporte() {
         filtrarLovTerceros = null;
         terceroSeleccionado = new Terceros();
         aceptar = true;
-//        aporteTablaSeleccionado = null;
-//        parametroTablaSeleccionado = null;
         tipoActualizacion = -1;
         permitirIndexAporte = true;
         RequestContext context = RequestContext.getCurrentInstance();
@@ -2709,7 +2547,6 @@ public void mostrarDialogoNuevoAporte() {
             nuevoAporteEntidad.setTipoentidad(tipoEntidadSeleccionado);
             System.out.println("tipo entidad seleccionado : " + tipoEntidadSeleccionado);
             System.out.println("nuevoaporteempleado tipoentidad : " + nuevoAporteEntidad.getTipoentidad().getSecuencia());
-//            RequestContext.getCurrentInstance().update("formularioDialogos:nuevoApEntidad");
             RequestContext.getCurrentInstance().update("formularioDialogos:nuevotipoentidad");
         } else if (tipoActualizacion == 2) {
             duplicarAporteEntidad.setTipoentidad(tipoEntidadSeleccionado);
@@ -2729,7 +2566,6 @@ public void mostrarDialogoNuevoAporte() {
         filtrarLovTiposEntidades = null;
         tipoEntidadSeleccionado = new TiposEntidades();
         aceptar = true;
-//        parametroTablaSeleccionado = null;
         tipoActualizacion = -1;
         permitirIndexAporte = true;
         RequestContext context = RequestContext.getCurrentInstance();
@@ -2791,7 +2627,6 @@ public void mostrarDialogoNuevoAporte() {
 
     public void mostrarTodosAporteEntidad() {
         RequestContext.getCurrentInstance().update("form:mostrarTodos");
-        //index = indexAUX;
         aporteTablaSeleccionado = null;
         if (banderaAporte == 1) {
             desactivarFiltradoAporteEntidad();
@@ -2973,13 +2808,10 @@ public void mostrarDialogoNuevoAporte() {
             } else if (resultado == 5) {
                 RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
+        } else if (administrarRastros.verificarHistoricosTabla("PARAMETROSCORRECCIONAUTOL")) {
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            if (administrarRastros.verificarHistoricosTabla("PARAMETROSCORRECCIONAUTOL")) {
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-            }
-
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
     }
 
@@ -3002,13 +2834,10 @@ public void mostrarDialogoNuevoAporte() {
             } else {
                 RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
             }
+        } else if (administrarRastros.verificarHistoricosTabla("APORTESENTIDADES")) {
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistoricoAporte').show()");
         } else {
-            if (administrarRastros.verificarHistoricosTabla("APORTESENTIDADES")) {
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistoricoAporte').show()");
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-            }
-
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
     }
 
@@ -3086,8 +2915,9 @@ public void mostrarDialogoNuevoAporte() {
 
     public void contarRegistrosAporte() {
         if (listaAportesCorrecciones != null) {
-            if(!listaAportesCorrecciones.isEmpty())
-            modificarInfoRegistroAporte(listaAportesCorrecciones.size());
+            if (!listaAportesCorrecciones.isEmpty()) {
+                modificarInfoRegistroAporte(listaAportesCorrecciones.size());
+            }
         } else {
             modificarInfoRegistroAporte(0);
         }
@@ -3095,8 +2925,9 @@ public void mostrarDialogoNuevoAporte() {
 
     public void contarRegistrosParametros() {
         if (listaParametrosCorrecciones != null) {
-            if(!listaParametrosCorrecciones.isEmpty())
-            modificarInfoRegistroParametro(listaParametrosCorrecciones.size());
+            if (!listaParametrosCorrecciones.isEmpty()) {
+                modificarInfoRegistroParametro(listaParametrosCorrecciones.size());
+            }
         } else {
             modificarInfoRegistroParametro(0);
         }
@@ -3107,15 +2938,15 @@ public void mostrarDialogoNuevoAporte() {
         try {
             if (listaParametrosCorrecciones == null) {
                 listaParametrosCorrecciones = administrarParametroCorreccionAutoL.consultarParametrosCorreccionesAutoliq();
-                if(listaParametrosCorrecciones != null){
-                    for (int i=0; i < listaParametrosCorrecciones.size();i++){
-                        if(listaParametrosCorrecciones.get(i).getTipotrabajador() == null){
+                if (listaParametrosCorrecciones != null) {
+                    for (int i = 0; i < listaParametrosCorrecciones.size(); i++) {
+                        if (listaParametrosCorrecciones.get(i).getTipotrabajador() == null) {
                             listaParametrosCorrecciones.get(i).setTipotrabajador(new TiposTrabajadores());
                         }
                     }
                 }
             }
-        return listaParametrosCorrecciones;
+            return listaParametrosCorrecciones;
         } catch (Exception e) {
             System.out.println("Error getListaParametrosCorrecciones");
             return null;
@@ -3163,15 +2994,15 @@ public void mostrarDialogoNuevoAporte() {
         try {
             if (listaAportesCorrecciones == null) {
                 if (parametroCorreccionSeleccionado != null) {
-                listaAportesCorrecciones = administrarParametroCorreccionAutoL.consultarAportesCorrecciones();
-                if (listaAportesCorrecciones != null) {
-                    for (int i = 0; i < listaAportesCorrecciones.size(); i++) {
-                        if (listaAportesCorrecciones.get(i).getTerceroRegistro() == null) {
-                            listaAportesCorrecciones.get(i).setTerceroRegistro(null);
+                    listaAportesCorrecciones = administrarParametroCorreccionAutoL.consultarAportesCorrecciones();
+                    if (listaAportesCorrecciones != null) {
+                        for (int i = 0; i < listaAportesCorrecciones.size(); i++) {
+                            if (listaAportesCorrecciones.get(i).getTerceroRegistro() == null) {
+                                listaAportesCorrecciones.get(i).setTerceroRegistro(null);
 
+                            }
                         }
                     }
-                }
                 }
             }
             return listaAportesCorrecciones;

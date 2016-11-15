@@ -176,7 +176,6 @@ public class ControlParametroAutoliq implements Serializable {
         nuevoAporteEntidad.setAno(parametroTablaSeleccionado.getAno());
         nuevoAporteEntidad.setMes(parametroTablaSeleccionado.getMes());
         nuevoAporteEntidad.setEmpresa(parametroTablaSeleccionado.getEmpresa());
-        nuevoAporteEntidad.setTerceroRegistro(new Terceros());
         nuevoAporteEntidad.setTipoentidad(new TiposEntidades());
         nuevoAporteEntidad.setEmpleado(new Empleados());
         ///
@@ -184,7 +183,6 @@ public class ControlParametroAutoliq implements Serializable {
         duplicarAporteEntidad.setAno(aporteTablaSeleccionado.getAno());
         duplicarAporteEntidad.setMes(aporteTablaSeleccionado.getMes());
         duplicarAporteEntidad.setEmpresa(aporteTablaSeleccionado.getEmpresa());
-        duplicarAporteEntidad.setTerceroRegistro(new Terceros());
         duplicarAporteEntidad.setTipoentidad(new TiposEntidades());
         duplicarAporteEntidad.setEmpleado(new Empleados());
         editarAporteEntidad = new AportesEntidades();
@@ -433,6 +431,7 @@ public class ControlParametroAutoliq implements Serializable {
         int coincidencias = 0;
         int indiceUnicoElemento = 0;
         RequestContext context = RequestContext.getCurrentInstance();
+        System.out.println("valor confirmar : " + valorConfirmar);
         if (confirmarCambio.equalsIgnoreCase("TIPOENTIDAD")) {
             if (tipoListaAporte == 0) {
                 aporteTablaSeleccionado.getTipoentidad().setNombre(aporteTablaSeleccionado.getTipoentidad().getNombre());
@@ -461,12 +460,10 @@ public class ControlParametroAutoliq implements Serializable {
             }
         }
         if (confirmarCambio.equalsIgnoreCase("TERCERO")) {
+            System.out.println("entro a  modificarTercero");
             if (!valorConfirmar.isEmpty()) {
-                if (tipoListaAporte == 0) {
-                    aporteTablaSeleccionado.getTerceroRegistro().setNit(aporteTablaSeleccionado.getTerceroRegistro().getNit());
-                } else {
-                    aporteTablaSeleccionado.getTerceroRegistro().setNit(aporteTablaSeleccionado.getTerceroRegistro().getNit());
-                }
+                aporteTablaSeleccionado.setNittercero(aporteTablaSeleccionado.getNittercero());
+                aporteTablaSeleccionado.setNombretercero(aporteTablaSeleccionado.getNombretercero());
                 for (int i = 0; i < lovTerceros.size(); i++) {
                     if (lovTerceros.get(i).getStrNit().startsWith(valorConfirmar.toUpperCase())) {
                         indiceUnicoElemento = i;
@@ -474,11 +471,9 @@ public class ControlParametroAutoliq implements Serializable {
                     }
                 }
                 if (coincidencias == 1) {
-                    if (tipoListaAporte == 0) {
-                        aporteTablaSeleccionado.setTerceroRegistro(lovTerceros.get(indiceUnicoElemento));
-                    } else {
-                        aporteTablaSeleccionado.setTerceroRegistro(lovTerceros.get(indiceUnicoElemento));
-                    }
+                    aporteTablaSeleccionado.setTercero(lovTerceros.get(indiceUnicoElemento).getSecuencia());
+                    aporteTablaSeleccionado.setNittercero(lovTerceros.get(indiceUnicoElemento).getNit());
+                    aporteTablaSeleccionado.setNombretercero(lovTerceros.get(indiceUnicoElemento).getNombre());
                     lovTerceros.clear();
                     getLovTerceros();
                 } else {
@@ -487,13 +482,15 @@ public class ControlParametroAutoliq implements Serializable {
                     RequestContext.getCurrentInstance().execute("PF('TerceroDialogo').show()");
                     tipoActualizacion = 0;
                 }
+
+                System.out.println("aporte tabla seleccionado modificado, secuencia = " + aporteTablaSeleccionado.getTercero());
+                System.out.println("aporte tabla seleccionado modificado, nombre = " + aporteTablaSeleccionado.getNombretercero());
+                System.out.println("aporte tabla seleccionado modificado, nit tercero = " + aporteTablaSeleccionado.getNittercero());
             } else {
                 coincidencias = 1;
-                if (tipoListaAporte == 0) {
-                    aporteTablaSeleccionado.setTerceroRegistro(new Terceros());
-                } else {
-                    aporteTablaSeleccionado.setTerceroRegistro(new Terceros());
-                }
+                aporteTablaSeleccionado.setTercero(BigInteger.ZERO);
+                aporteTablaSeleccionado.setNittercero(Long.valueOf(0));
+                aporteTablaSeleccionado.setNombretercero(" ");
                 lovTerceros.clear();
                 getLovTerceros();
             }
@@ -721,7 +718,7 @@ public class ControlParametroAutoliq implements Serializable {
 //            RequestContext.getCurrentInstance().update("form:acumDif");
 //            RequestContext.getCurrentInstance().update("form:infoRegistroAporte");
 //            RequestContext.getCurrentInstance().update("form:tablaAportesEntidades");
-          cargarDatosNuevos();
+            cargarDatosNuevos();
             RequestContext.getCurrentInstance().execute("PF('operacionEnProceso').hide()");
         }
     }
@@ -753,9 +750,9 @@ public class ControlParametroAutoliq implements Serializable {
             } else if (cualCeldaAporte == 3) {
                 aporteTablaSeleccionado.getEmpleado().getPersona().getNombreCompleto();
             } else if (cualCeldaAporte == 4) {
-                aporteTablaSeleccionado.getTerceroRegistro().getNit();
+                aporteTablaSeleccionado.getNittercero();
             } else if (cualCeldaAporte == 5) {
-                aporteTablaSeleccionado.getTerceroRegistro().getNombre();
+                aporteTablaSeleccionado.getNombretercero();
             } else if (cualCeldaAporte == 6) {
                 aporteTablaSeleccionado.getTipoentidad().getNombre();
             } else if (cualCeldaAporte == 7) {
@@ -959,6 +956,8 @@ public class ControlParametroAutoliq implements Serializable {
             contarRegistrosAporte();
             k = 0;
             cambiosAporte = true;
+            RequestContext.getCurrentInstance().execute("PF('operacionEnProceso').hide()");
+            
             FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
@@ -2637,39 +2636,37 @@ public class ControlParametroAutoliq implements Serializable {
         System.out.println("tipo actualización actualizar tercero : " + tipoActualizacion);
         RequestContext context = RequestContext.getCurrentInstance();
         if (tipoActualizacion == 0) {
-            if (tipoListaAporte == 0) {
-                aporteTablaSeleccionado.setTerceroRegistro(terceroSeleccionado);
-                if (!listAportesEntidadesCrear.contains(terceroSeleccionado)) {
-                    if (listAportesEntidadesModificar.isEmpty()) {
-                        listAportesEntidadesModificar.add(aporteTablaSeleccionado);
-                    } else if (!listAportesEntidadesModificar.contains(aporteTablaSeleccionado)) {
-                        listAportesEntidadesModificar.add(aporteTablaSeleccionado);
-                    }
+            aporteTablaSeleccionado.setTercero(terceroSeleccionado.getSecuencia());
+            aporteTablaSeleccionado.setNittercero(terceroSeleccionado.getNit());
+            aporteTablaSeleccionado.setNombretercero(terceroSeleccionado.getNombre());
+            if (!listAportesEntidadesCrear.contains(terceroSeleccionado)) {
+                if (listAportesEntidadesModificar.isEmpty()) {
+                    listAportesEntidadesModificar.add(aporteTablaSeleccionado);
+                } else if (!listAportesEntidadesModificar.contains(aporteTablaSeleccionado)) {
+                    listAportesEntidadesModificar.add(aporteTablaSeleccionado);
                 }
-            } else {
-                aporteTablaSeleccionado.setTerceroRegistro(terceroSeleccionado);
-                if (!listAportesEntidadesCrear.contains(terceroSeleccionado)) {
-                    if (listAportesEntidadesModificar.isEmpty()) {
-                        listAportesEntidadesModificar.add(aporteTablaSeleccionado);
-                    } else if (!listAportesEntidadesModificar.contains(aporteTablaSeleccionado)) {
-                        listAportesEntidadesModificar.add(aporteTablaSeleccionado);
-                    }
-
+                if (guardado == true) {
+                    guardado = false;
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
+                permitirIndexAporte = true;
+                cambiosAporte = true;
             }
-            if (guardado == true) {
-                guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            }
-            permitirIndexAporte = true;
-            cambiosAporte = true;
+            System.out.println("secuencia tercero modificado : " + aporteTablaSeleccionado.getSecuencia());
+            System.out.println("nit tercero modificado : " + aporteTablaSeleccionado.getNittercero());
+            System.out.println("nombre tercero modificado : " + aporteTablaSeleccionado.getNombretercero());
             RequestContext.getCurrentInstance().update("form:tablaAportesEntidades");
         } else if (tipoActualizacion == 1) {
-            nuevoAporteEntidad.setTerceroRegistro(terceroSeleccionado);
+            nuevoAporteEntidad.setTercero(terceroSeleccionado.getSecuencia());
+            nuevoAporteEntidad.setNittercero(terceroSeleccionado.getNit());
+            nuevoAporteEntidad.setNombretercero(terceroSeleccionado.getNombre());
             RequestContext.getCurrentInstance().update("formularioDialogos:nuevoNitTercero");
             RequestContext.getCurrentInstance().update("formularioDialogos:nuevonombretercero");
         } else if (tipoActualizacion == 2) {
-            duplicarAporteEntidad.setTerceroRegistro(terceroSeleccionado);
+            duplicarAporteEntidad.setTercero(terceroSeleccionado.getSecuencia());
+            duplicarAporteEntidad.setNittercero(terceroSeleccionado.getNit());
+            duplicarAporteEntidad.setNombretercero(terceroSeleccionado.getNombre());
+//            duplicarAporteEntidad.setTerceroRegistro(terceroSeleccionado);
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarNitTercero");
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarnombretercero");
         }
@@ -2765,8 +2762,11 @@ public class ControlParametroAutoliq implements Serializable {
     public void dispararDialogoBuscar() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (guardado == true) {
+            lovAportesEntidades = null;
+            getLovAportesEntidades();
             RequestContext.getCurrentInstance().update("formularioLovAporteEntidad:BuscarAporteDialogo");
             RequestContext.getCurrentInstance().execute("PF('BuscarAporteDialogo').show()");
+            RequestContext.getCurrentInstance().execute("PF('operacionEnProceso').hide()");
             contarRegistroAportesEntidades();
         } else {
             RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
@@ -3272,17 +3272,9 @@ public class ControlParametroAutoliq implements Serializable {
     public List<AportesEntidades> getListaAportesEntidades() {
         try {
             if (listaAportesEntidades == null) {
-                System.out.println("getListaAportesEntidades : lista aportes entidades es null");
                 if (parametroTablaSeleccionado != null) {
                     listaAportesEntidades = administrarParametroAutoliq.consultarAportesEntidadesPorParametroAutoliq(parametroTablaSeleccionado.getEmpresa().getSecuencia(), parametroTablaSeleccionado.getMes(), parametroTablaSeleccionado.getAno());
-//                    if (listaAportesEntidades != null) {
-//                        for (int i = 0; i < listaAportesEntidades.size(); i++) {
-//                            if (listaAportesEntidades.get(i).getTerceroRegistro() == null) {
-//                                listaAportesEntidades.get(i).setTerceroRegistro(null);
-//                            }
-//                        }
-//
-//                    }
+                    System.out.println("tabla aportes entidades en el controlador : " + listaAportesEntidades.size());
                 }
             }
             return listaAportesEntidades;
@@ -3454,14 +3446,7 @@ public class ControlParametroAutoliq implements Serializable {
         if (lovAportesEntidades == null) {
             if (parametroTablaSeleccionado != null) {
                 lovAportesEntidades = administrarParametroAutoliq.consultarAportesEntidadesPorParametroAutoliq(parametroTablaSeleccionado.getEmpresa().getSecuencia(), parametroTablaSeleccionado.getMes(), parametroTablaSeleccionado.getAno());
-                if (lovAportesEntidades != null) {
-                    for (int i = 0; i < lovAportesEntidades.size(); i++) {
-                        if (lovAportesEntidades.get(i).getTercero() == null) {
-                            lovAportesEntidades.get(i).setTerceroRegistro(new Terceros());
-                        }
-                    }
-                }
-            }
+             }
         }
         return lovAportesEntidades;
     }

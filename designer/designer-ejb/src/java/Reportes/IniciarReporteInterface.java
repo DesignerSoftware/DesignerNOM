@@ -24,4 +24,6 @@ public interface IniciarReporteInterface {
     public void llenarReporte(String nombreReporte, String rutaReporte, AsynchronousFilllListener asistenteReporte);
 
     public String crearArchivoReporte(String rutaGenerado, String nombreArchivo, String tipoReporte, JasperPrint imprimir);
+    
+    public String ejecutarReporteCifraControl(String nombreReporte, String rutaReporte, String rutaGenerado, String nombreArchivo, String tipoReporte, Connection cxn, Map paramFecha);
 }

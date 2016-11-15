@@ -58,30 +58,31 @@ public class SolucionesNodosAux implements Serializable {
    private String nombreestructura;
    @Column(name = "NOMBREFORMULA")
    private String nombreformula;
+   @Column(name = "NITTERCERO")
+   private BigInteger nittercero;
 
    public SolucionesNodosAux() {
    }
 
-   public SolucionesNodosAux(BigInteger secuencia, String nombretipotrabajador, String nombretipocontrato, String nombretercero, String nombrereformalaboral,
-           String nombreproceso, String nombrecargo, String nombrecentrocostod, String nombrecentrocostoc, String nombreconcepto, BigInteger codigoconcepto,
-           String codigocuentad, String codigocuentac, String nombreempleado, String nombreestructura, String nombreformula) {
-      this.secuencia = secuencia;
-      this.nombretipotrabajador = nombretipotrabajador;
-      this.nombretipocontrato = nombretipocontrato;
-      this.nombretercero = nombretercero;
-      this.nombrereformalaboral = nombrereformalaboral;
-      this.nombreproceso = nombreproceso;
-      this.nombrecargo = nombrecargo;
-      this.nombrecentrocostod = nombrecentrocostod;
-      this.nombrecentrocostoc = nombrecentrocostoc;
-      this.nombreconcepto = nombreconcepto;
-      this.codigoconcepto = codigoconcepto;
-      this.codigocuentad = codigocuentad;
-      this.codigocuentac = codigocuentac;
-      this.nombreempleado = nombreempleado;
-      this.nombreestructura = nombreestructura;
-      this.nombreformula = nombreformula;
-   }
+    public SolucionesNodosAux(BigInteger secuencia, String nombretipotrabajador, String nombretipocontrato, String nombretercero, String nombrereformalaboral, String nombreproceso, String nombrecargo, String nombrecentrocostod, String nombrecentrocostoc, String nombreconcepto, BigInteger codigoconcepto, String codigocuentad, String codigocuentac, String nombreempleado, String nombreestructura, String nombreformula, BigInteger nittercero) {
+        this.secuencia = secuencia;
+        this.nombretipotrabajador = nombretipotrabajador;
+        this.nombretipocontrato = nombretipocontrato;
+        this.nombretercero = nombretercero;
+        this.nombrereformalaboral = nombrereformalaboral;
+        this.nombreproceso = nombreproceso;
+        this.nombrecargo = nombrecargo;
+        this.nombrecentrocostod = nombrecentrocostod;
+        this.nombrecentrocostoc = nombrecentrocostoc;
+        this.nombreconcepto = nombreconcepto;
+        this.codigoconcepto = codigoconcepto;
+        this.codigocuentad = codigocuentad;
+        this.codigocuentac = codigocuentac;
+        this.nombreempleado = nombreempleado;
+        this.nombreestructura = nombreestructura;
+        this.nombreformula = nombreformula;
+        this.nittercero = nittercero;
+    }
 
    public SolucionesNodosAux(BigInteger secuencia) {
       this.secuencia = secuencia;
@@ -214,6 +215,16 @@ public class SolucionesNodosAux implements Serializable {
    public void setNombreformula(String nombreformula) {
       this.nombreformula = nombreformula;
    }
+
+    public BigInteger getNittercero() {
+        return nittercero;
+    }
+
+    public void setNittercero(BigInteger nittercero) {
+        this.nittercero = nittercero;
+    }
+   
+   
 
    @Override
    public int hashCode() {

@@ -137,23 +137,7 @@ public class AdministrarParametroAutoliq implements AdministrarParametroAutoliqI
         try {
             System.out.println("entró en: consultarAportesEntidadesPorParametroAutoliq ");
             List<AportesEntidades> lista = persistenciaAportesEntidades.consultarAportesEntidadesPorEmpresaMesYAnio(em, empresa, mes, ano);
-                System.out.println("ya tiene lista : " + lista.size());
-
-//            if (lista != null) {
-//                for (int i = 0; i < lista.size(); i++) {
-//                    if (lista.get(i).getTercero() != null) {
-//                        Terceros tercero = persistenciaTerceros.buscarTercerosSecuencia(em, lista.get(i).getTercero());
-//                        if (tercero != null) {
-//                            lista.get(i).setTerceroRegistro(tercero);
-//                        } else {
-//                            lista.get(i).setTerceroRegistro(new Terceros());
-//                        }
-//                    } else {
-//                        lista.get(i).setTerceroRegistro(new Terceros());
-//                    }
-//                }
-//            }
-//            System.out.println("terminó el for de la lista aportes");
+            System.out.println("ya tiene lista : " + lista.size());
             return lista;
         } catch (Exception e) {
             System.out.println("Error consultarAportesEntidadesPorParametroAutoliq Admi : " + e.toString());
@@ -164,6 +148,7 @@ public class AdministrarParametroAutoliq implements AdministrarParametroAutoliqI
     @Override
     public void editarAportesEntidades(List<AportesEntidades> listAE) {
         try {
+            System.out.println("entró a editarAportesEntidades");
             for (int i = 0; i < listAE.size(); i++) {
 
                 if (listAE.get(i).getTipoentidad().getSecuencia() == null) {
@@ -172,12 +157,6 @@ public class AdministrarParametroAutoliq implements AdministrarParametroAutoliqI
                 } else if (listAE.get(i).getEmpleado().getSecuencia() == null) {
                     System.out.println("if 3 editarAportesEntidades");
                     listAE.get(i).setEmpleado(null);
-                } else if (listAE.get(i).getTerceroRegistro().getSecuencia() == null) {
-                    System.out.println("if 4 editarAportesEntidades");
-                    listAE.get(i).setTercero(null);
-                } else if (listAE.get(i).getTerceroRegistro().getSecuencia() != null) {
-                    System.out.println("if 5 editarAportesEntidades");
-                    listAE.get(i).setTercero(listAE.get(i).getTerceroRegistro().getSecuencia());
                 }
                 persistenciaAportesEntidades.editar(em, listAE.get(i));
             }
@@ -195,10 +174,6 @@ public class AdministrarParametroAutoliq implements AdministrarParametroAutoliqI
                     listAE.get(i).setTipoentidad(null);
                 } else if (listAE.get(i).getEmpleado().getSecuencia() == null) {
                     listAE.get(i).setEmpleado(null);
-                } else if (listAE.get(i).getTerceroRegistro().getSecuencia() == null) {
-                    listAE.get(i).setTercero(null);
-                } else if (listAE.get(i).getTerceroRegistro().getSecuencia() != null) {
-                    listAE.get(i).setTercero(listAE.get(i).getTerceroRegistro().getSecuencia());
                 }
                 persistenciaAportesEntidades.borrar(em, listAE.get(i));
             }
@@ -227,15 +202,15 @@ public class AdministrarParametroAutoliq implements AdministrarParametroAutoliqI
                     }
                 }
 
-                if (listaAE.get(i).getTerceroRegistro() != null) {
-                    if (listaAE.get(i).getTerceroRegistro().getSecuencia() == null) {
-                        System.out.println("if 4 crearAportesEntidades");
-                        listaAE.get(i).setTercero(null);
-                    } else {
-                        listaAE.get(i).setTercero(listaAE.get(i).getTerceroRegistro().getSecuencia());
-
-                    }
-                }
+//                if (listaAE.get(i).getTerceroRegistro() != null) {
+//                    if (listaAE.get(i).getTerceroRegistro().getSecuencia() == null) {
+//                        System.out.println("if 4 crearAportesEntidades");
+//                        listaAE.get(i).setTercero(null);
+//                    } else {
+//                        listaAE.get(i).setTercero(listaAE.get(i).getTerceroRegistro().getSecuencia());
+//
+//                    }
+//                }
                 persistenciaAportesEntidades.crear(em, listaAE.get(i));
             }
             System.out.println("sale del for crearAportesEntidades");

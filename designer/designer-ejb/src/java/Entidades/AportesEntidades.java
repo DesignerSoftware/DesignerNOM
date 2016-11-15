@@ -7,6 +7,7 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -253,13 +254,13 @@ public class AportesEntidades implements Serializable {
     @Column(name = "TOTALCORRECCION")
     private BigInteger totalcorreccion;
     @JoinColumn(name = "TIPOTRABAJADOR", referencedColumnName = "SECUENCIA")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private TiposTrabajadores tipotrabajador;
     @JoinColumn(name = "TIPOENTIDAD", referencedColumnName = "SECUENCIA")
     @ManyToOne(optional = false)
     private TiposEntidades tipoentidad;
     @JoinColumn(name = "PARAMETROPRESUPUESTO", referencedColumnName = "SECUENCIA")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Parametrospresupuestos parametropresupuesto;
     @JoinColumn(name = "EMPRESA", referencedColumnName = "SECUENCIA")
     @ManyToOne
@@ -269,6 +270,8 @@ public class AportesEntidades implements Serializable {
     private Empleados empleado;
     @Transient
     private String nombretercero;
+    @Transient
+    private Long nittercero;
     @Transient
     private Terceros terceroRegistro;
     @Transient
@@ -1410,6 +1413,13 @@ public class AportesEntidades implements Serializable {
         this.nombretercero = nombretercero;
     }
 
+    public Long getNittercero() {
+        return nittercero;
+    }
+
+    public void setNittercero(Long nittercero) {
+        this.nittercero = nittercero;
+    }
     
     @Override
     public int hashCode() {
