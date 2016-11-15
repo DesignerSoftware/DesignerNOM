@@ -18,6 +18,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
@@ -140,6 +142,11 @@ public class AdministarReportes implements AdministarReportesInterface {
 
     @Override
     public String generarReporte(String nombreReporte, String tipoReporte) {
+        return generarReporte(nombreReporte, tipoReporte, new HashMap() );
+    }
+    
+    @Override
+    public String generarReporte(String nombreReporte, String tipoReporte, Map paramEmpl) {
         System.out.println(this.getClass().getName() + ".generarReporte()");
         try {
             general = persistenciaGenerales.obtenerRutas(em);
@@ -155,24 +162,49 @@ public class AdministarReportes implements AdministarReportesInterface {
                 String rutaGenerado = general.getUbicareportes();
                 System.out.println("general.getPathreportes() : " + general.getPathreportes());
                 System.out.println("general.getUbicareportes() : " + general.getUbicareportes());
-                if (tipoReporte.equals("PDF")) {
-                    System.out.println("entró a PDF");
-                    nombreArchivo = nombreArchivo + ".pdf";
-                } else if (tipoReporte.equals("XLSX")) {
-                    nombreArchivo = nombreArchivo + ".xlsx";
-                } else if (tipoReporte.equals("XLS")) {
-                    nombreArchivo = nombreArchivo + ".xls";
-                } else if (tipoReporte.equals("CSV")) {
-                    nombreArchivo = nombreArchivo + ".csv";
-                } else if (tipoReporte.equals("HTML")) {
-                    nombreArchivo = nombreArchivo + ".html";
-                } else if (tipoReporte.equals("DOCX")) {
-                    nombreArchivo = nombreArchivo + ".rtf";
+//                if (tipoReporte.equals("PDF")) {
+//                    System.out.println("entró a PDF");
+//                    nombreArchivo = nombreArchivo + ".pdf";
+//                } else if (tipoReporte.equals("XLSX")) {
+//                    nombreArchivo = nombreArchivo + ".xlsx";
+//                } else if (tipoReporte.equals("XLS")) {
+//                    nombreArchivo = nombreArchivo + ".xls";
+//                } else if (tipoReporte.equals("CSV")) {
+//                    nombreArchivo = nombreArchivo + ".csv";
+//                } else if (tipoReporte.equals("HTML")) {
+//                    nombreArchivo = nombreArchivo + ".html";
+//                } else if (tipoReporte.equals("DOCX")) {
+//                    nombreArchivo = nombreArchivo + ".rtf";
+//                }
+                String extension = "";
+                switch (tipoReporte){
+                    case "PDF":
+                        extension = ".pdf";
+                        break;
+                    case "XLSX":
+                        extension = ".xlsx";
+                        break;
+                    case "XLS":
+                        extension = ".xls";
+                        break;
+                    case "CSV":
+                        extension = ".csv";
+                        break;
+                    case "HTML":
+                        extension = ".html";
+                        break;
+                    case "DOCX":
+                        extension = ".docx";
+                        break;
+                    default:
+                        extension = "";
+                        break;
                 }
+                nombreArchivo = nombreArchivo + extension;
                 consultarDatosConexion();
                 System.out.println("conexion: " + conexion);
                 if (conexion != null && !conexion.isClosed()) {
-                    pathReporteGenerado = reporte.ejecutarReporte(nombreReporte, rutaReporte, rutaGenerado, nombreArchivo, tipoReporte, conexion);
+                    pathReporteGenerado = reporte.ejecutarReporte(nombreReporte, rutaReporte, rutaGenerado, nombreArchivo, tipoReporte, conexion, paramEmpl);
                     //conexion.close();
                     return pathReporteGenerado;
                 }
@@ -196,6 +228,7 @@ public class AdministarReportes implements AdministarReportesInterface {
         reporte.llenarReporte(nombreReporte, rutaReporte, asistenteReporte);
     }
 
+    @Override
     public String crearArchivoReporte(JasperPrint print, String tipoReporte) {
         String nombreUsuario = persistenciaActualUsuario.actualAliasBD(em);
         String pathReporteGenerado = null;

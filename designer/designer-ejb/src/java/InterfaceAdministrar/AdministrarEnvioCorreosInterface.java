@@ -1,6 +1,8 @@
 package InterfaceAdministrar;
 
+import Entidades.ConfiguracionCorreo;
 import Entidades.Empleados;
+import Entidades.EnvioCorreos;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
@@ -29,6 +31,10 @@ public interface AdministrarEnvioCorreosInterface {
      * @return
      */
     public boolean enviarCorreo(BigInteger secEmpresa, String destinatario, String asunto, String mensaje, String pathAdjunto, String[] paramResultado);
-    
+
     public BigInteger empresaAsociada();
+
+    public ConfiguracionCorreo consultarRemitente(BigInteger secEmpresa);
+    
+    public void insertarRegistroEnvios(EnvioCorreos envioCorreo);
 }

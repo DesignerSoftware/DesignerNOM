@@ -165,14 +165,6 @@
                                          background-size: 100% 100%; background-repeat: no-repeat; border: none;"  value="envio correo" action="enviocorreo" actionListener="#{controlEnvioCorreos.recibirPagina('enviocorreo', controlNReporteNomina.reporteSeleccionado.secuencia)}" process="@this" />
                         <p:tooltip  for="ENVIOCORREO" value="#{msg['envio']}" />
 
-                        <!--                        <p:lightBox iframe="true" height="400px" width="550px" widgetVar="envioCorreo">
-                                                    <h:outputLink value="enviocorreo.xhtml" onclick="#{controlEnvioCorreos.recibirPagina('enviocorreo', controlNReporteNomina.reporteSeleccionado.secuencia)}" 
-                                                                  title="ENVIO CORREO" style="position: absolute; left: 10px; top: 480px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
-                                                                  background-size: 100% 100%; background-repeat: no-repeat; border: none;" >
-                                                        <h:outputText value="Envio Correo" style="position: relative; left: 35px; top: 9px;"/>
-                                                    </h:outputLink>
-                                                </p:lightBox>-->
-
                         <p:commandButton id="ENVIOLOTE" icon="ui-icon-extlink" style="position: absolute; left: 145px; top: 480px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
                                          background-size: 100% 100%; background-repeat: no-repeat; border: none;"  value="envio lote"   process="@this" />
                         <p:tooltip  for="ENVIOLOTE" value="#{msg['envioLote']}" />

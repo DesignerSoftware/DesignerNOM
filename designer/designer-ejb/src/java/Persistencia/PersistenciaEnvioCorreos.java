@@ -1,5 +1,6 @@
 package Persistencia;
 
+import Entidades.ConfiguracionCorreo;
 import Entidades.Empleados;
 import Entidades.Inforeportes;
 import Entidades.EnvioCorreos;
@@ -7,7 +8,6 @@ import Entidades.EnvioCorreosAux;
 import InterfacePersistencia.PersistenciaEnvioCorreosInterface;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -146,7 +146,7 @@ public class PersistenciaEnvioCorreos implements PersistenciaEnvioCorreosInterfa
         System.out.println("emplHasta: " + emplHasta);
         try {
             em.clear();
-            String consulta = "SELECT p.* \n"
+            String consulta = "SELECT e.* \n"
                     + "FROM ParametrosReportes pr, Empleados e, Personas p \n"
                     + "WHERE p.email IS NOT NULL \n"
                     + "AND pr.usuario = USER \n"
@@ -160,6 +160,41 @@ public class PersistenciaEnvioCorreos implements PersistenciaEnvioCorreosInterfa
         } catch (Exception e) {
             System.out.println("Error Persistencia.PersisteciaEnvioCorreos.CorreoCodEmpleados(): " + e);
             return null;
+        }
+    }
+
+    @Override
+    public ConfiguracionCorreo consultarRemitente(EntityManager em, BigInteger secEmpresa) {
+        System.out.println("Persistencia.PersistenciaEnvioCorreos.consultarRemitente()");
+        try {
+            em.clear();
+            String consulta = "SELECT cc.* \n"
+                    + "FROM ConfiguracionCorreos cc \n"
+                    + "WHERE cc.empresa = " + secEmpresa + " ";
+            Query query = em.createNativeQuery(consulta, ConfiguracionCorreo.class);
+            ConfiguracionCorreo remitente = (ConfiguracionCorreo) query.getSingleResult();
+            System.out.println("CorreoCod: " + remitente);
+            return remitente;
+        } catch (Exception e) {
+            System.out.println("Error Persistencia.PersistenciaEnvioCorreos.consultarRemitente(): " + e);
+            return null;
+        }
+    }
+
+    @Override
+    public void insertarFalloCorreos(EntityManager em, EnvioCorreos enviocorreo) {
+        System.out.println("Persistencia.PersistenciaEnvioCorreos.insertarFalloCorreos()");
+        em.clear();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            em.persist(enviocorreo);
+            tx.commit();
+        } catch (Exception e) {
+            System.out.println("Error Persistencia.PersistenciaEnvioCorreos.insertarFalloCorreos(): " + e.toString());
+            if (tx.isActive()) {
+                tx.rollback();
+            }
         }
     }
 

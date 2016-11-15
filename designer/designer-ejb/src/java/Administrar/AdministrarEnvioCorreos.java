@@ -3,13 +3,13 @@ package Administrar;
 import ClasesAyuda.EnvioCorreo;
 import Entidades.ConfiguracionCorreo;
 import Entidades.Empleados;
+import Entidades.EnvioCorreos;
 import InterfaceAdministrar.AdministrarEnvioCorreosInterface;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import InterfacePersistencia.PersistenciaActualUsuarioInterface;
 import InterfacePersistencia.PersistenciaConfiguracionCorreoInterface;
 import InterfacePersistencia.PersistenciaEnvioCorreosInterface;
 import InterfacePersistencia.PersistenciaParametrosEstructurasInterface;
-import Persistencia.PersistenciaActualUsuario;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -99,5 +99,16 @@ public class AdministrarEnvioCorreos implements AdministrarEnvioCorreosInterface
     public BigInteger empresaAsociada() {
         BigInteger secEmpresa = persistenciaParametrosEstructuras.buscarEmpresaParametros(em, persistenciaActualUsuario.actualAliasBD(em));
         return secEmpresa;
+    }
+
+    @Override
+    public ConfiguracionCorreo consultarRemitente(BigInteger secEmpresa) {
+        ConfiguracionCorreo remitente = persistenciaEnvioCorreos.consultarRemitente(em, secEmpresa);
+        return remitente;
+    }
+
+    @Override
+    public void insertarRegistroEnvios(EnvioCorreos envioCorreo) {
+         persistenciaEnvioCorreos.insertarFalloCorreos(em, envioCorreo);
     }
 }

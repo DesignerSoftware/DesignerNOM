@@ -12,6 +12,7 @@
             <ui:define name="body"> 
                 <h:form id="form">
                     <f:loadBundle basename="Recursos.envioCorreo" var="msg"/>
+                    
                     <p:growl id="growl" showDetail="true"/>
                     <div id="messagesout" class="top">
                         <p:messages id="messagessgeneral" showDetail="true"
@@ -19,18 +20,18 @@
 
                     </div>
                     <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal"> 
-            <!--<p:remoteCommand name="validarEnvioCorreo" actionListener="#{controlEnvioCorreos.validarEnviaCorreo()}"/>-->
-                        <fieldset style="position: absolute; top: 50px; left: 30px; height: 330px; width: 460px; border-radius: 10px; text-align: left; font-family: inherit;">
+                        <fieldset style="position: absolute; top: 50px; left: 30px; height: 400px; width: 460px; border-radius: 10px; text-align: left; font-family: inherit;">
                             <!--<legend style="font-size: 12px; font-family: inherit; color: blue"><strong></strong></legend>-->                  
                             <h:outputText style="position: absolute;top: 10px; left: 10px; text-align: left; font-family: inherit; font-size: 14px;" value="#{msg['enviarcorreo']}" />
                             <h:outputText style="position: absolute; top: 90px; left: 10px; font-weight: bold; color: darkblue; font-family: inherit; font-size: 14px;" value="#{msg['reporte']}"/>
                             <h:outputText style="position: absolute; top: 110px; left: 10px; font-weight: bolder; font-family: inherit; font-size: 12px;" value="#{controlEnvioCorreos.nombreReporte}"/>
 
-                            <fieldset style="position: absolute; left: 15px; top: 130px; width: 400px; height: 150px; border-radius: 10px; text-align: left">
+                            <fieldset style="position: absolute; left: 15px; top: 130px; width: 400px; height: 210px; border-radius: 10px; text-align: left">
                                 <legend style=" color: blue;text-align: left; font-size: 14px; font-family: inherit;"><strong>#{msg['envio']}</strong></legend>
 
                                 <strong><h:outputText value="#{msg['de']}" style="position: absolute; left: 10px; top: 25px; font-size: 14px; font-family: inherit;"/></strong>
-                                <p:inputText  autocomplete="off" value="nomina@designer.com.co" style="position: absolute; left: 80px; top: 20px; width: 300px; font-family: inherit; font-size: 13px;"/>
+                                <p:inputText  autocomplete="off" value="#{controlEnvioCorreos.remitente}" disabled="#{controlEnvioCorreos.activarRemitente()}" style="position: absolute; left: 80px; top: 20px; width: 300px; font-family: inherit; font-size: 13px;">
+                                </p:inputText>
 
                                 <strong><h:outputText id="para" value="#{msg['para']}" style="position: absolute; left: 10px; top: 60px; font-family: inherit; font-size: 14px;"/></strong>
                                 <p:inputText  autocomplete="off" style="position: absolute; left: 80px; top: 55px; width: 300px; font-family: inherit; font-size: 13px;" disabled="#{controlEnvioCorreos.reporteActual.estadoEnvioMasivo}"
@@ -39,25 +40,30 @@
                                 </p:inputText>
 
                                 <strong><h:outputText value="#{msg['cc']}" style="position: absolute; left: 10px; top: 95px;font-size: 14px; font-family: inherit;"/></strong>
-                                <p:inputText  autocomplete="off" style="position: absolute; left: 80px; top: 90px;width: 300px; font-family: inherit; font-size: 13px;" disabled="#{controlEnvioCorreos.reporteActual.estadoEnvioMasivo}">
-
-<!--                        <p:ajax event="dblclick" listener="#{controlEnvioCorreos.dialogos}" process="@this"/>-->
+                                <p:inputText  autocomplete="off" style="position: absolute; left: 80px; top: 90px;width: 300px; font-family: inherit; font-size: 13px;"
+                                              disabled="#{controlEnvioCorreos.reporteActual.estadoEnvioMasivo}" value="#{controlEnvioCorreos.cc}">
                                 </p:inputText>
 
-                                <strong><h:outputText value="#{msg['asunto']}" style="position: absolute; left: 10px; top: 130px;font-size: 14px"/></strong>
-                                <p:inputText  autocomplete="off" style="position: absolute; left: 80px; top: 125px;width: 300px;  font-size: 13px; font-family: inherit;"/>
+                                <strong><h:outputText value="#{msg['cco']}" style="position: absolute; left: 10px; top: 130px;font-size: 14px; font-family: inherit;"/></strong>
+                                <p:inputText  autocomplete="off" style="position: absolute; left: 80px; top: 125px;width: 300px; font-family: inherit; font-size: 13px;" 
+                                              value="#{controlEnvioCorreos.cco}" disabled="#{controlEnvioCorreos.reporteActual.estadoEnvioMasivo}">
+                                </p:inputText>
+
+                                <strong><h:outputText value="#{msg['asunto']}" style="position: absolute; left: 10px; top: 165px;font-size: 14px"/></strong>
+                                <p:inputText  autocomplete="off" style="position: absolute; left: 80px; top: 160px;width: 300px;  font-size: 13px; font-family: inherit;"
+                                              value="#{controlEnvioCorreos.asunto}"/>
                             </fieldset>
 
-                            <p:commandButton id="registroEnvio" icon="ui-icon-extlink" style="font-size: small; position: absolute; left: 150px; top: 305px; height: 25px; width: 130px;" value="Registros E" onclick="PF('EnvioCorreoDialogo').hide()"
-                                             action="registroEnvios" actionListener="#{controlRegistroEnvios.recibirPagina('atrasregistroenvio', controlNReporteNomina.reporteSeleccionado.secuencia)}" process="@this"/>
+                            <p:commandButton id="registroEnvio" icon="ui-icon-extlink" style="font-size: small; position: absolute; left: 150px; top: 363px; height: 25px; width: 130px;" value="Registros E" onclick="PF('EnvioCorreoDialogo').hide()"
+                                             action="registroEnvios" actionListener="#{controlRegistroEnvios.recibirPagina('atrasregistroenvio', controlEnvioCorreos.reporteActual.secuencia)}" process="@this"></p:commandButton>
                             <p:tooltip for="registroEnvio" value="#{msg['registrodeenvios']}"/>
 
-                            <p:commandButton id="envioCorreo"  icon="ui-icon-extlink"  style="font-size: small; position: absolute; left: 310px; top: 305px; height: 25px; width: 130px;" value="Enviar"
-                                             actionListener="#{controlEnvioCorreos.validarEnviaCorreo()}"/>
+                            <p:commandButton id="envioCorreo"  icon="ui-icon-extlink"  style="font-size: small; position: absolute; left: 310px; top: 363px; height: 25px; width: 130px;" value="Enviar"
+                                             actionListener="#{controlEnvioCorreos.envioMasivo()}"/>
                             <p:tooltip for="envioCorreo" value="#{msg['envio']}"/>
 
                         </fieldset>
-                        <p:commandButton id="atras" style="position: absolute; font-size: small; left: 343px; top: 405px; height: 25px; width: 130px;" icon="ui-icon-arrowreturnthick-1-w" 
+                        <p:commandButton id="atras" style="position: absolute; font-size: small; left: 343px; top: 485px; height: 25px; width: 130px;" icon="ui-icon-arrowreturnthick-1-w" 
                                          value="Atras" action="enviocorreo" process="@this"/>
                     </p:panel>
                 </h:form>

@@ -2,8 +2,10 @@ package Controlador;
 
 import Entidades.ConfiguracionCorreo;
 import Entidades.Empleados;
+import Entidades.EnvioCorreos;
 import Entidades.Inforeportes;
 import Entidades.ParametrosReportes;
+import InterfaceAdministrar.AdministarReportesInterface;
 import InterfaceAdministrar.AdministrarEnvioCorreosInterface;
 import InterfaceAdministrar.AdministrarNReportesNominaInterface;
 import InterfaceAdministrar.AdministrarRegistroEnviosInterface;
@@ -11,7 +13,11 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.util.AbstractList;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.annotation.PostConstruct;
@@ -36,31 +42,43 @@ public class ControlEnvioCorreos implements Serializable {
     AdministrarRegistroEnviosInterface administrarRegistroEnvio;
     @EJB
     AdministrarNReportesNominaInterface administrarNReporteNomina;
+    @EJB
+    AdministarReportesInterface administarReportes;
 
     private List<Empleados> listCorreoCodigos;
     private List<Empleados> filtrarListEmpleados;
     private List<Empleados> lovEmpleados;
     private Empleados empleadoSeleccionado;
-    private Empleados empleadoCorreo;
+    private EnvioCorreos registrofallocorreo;
+    private List<EnvioCorreos> listRegistrosFallos;
     private ConfiguracionCorreo correoRemitente;
     private Inforeportes reporteActual;
     private ParametrosReportes codigoParametros;
     private BigInteger secEmpresa;
-    private String email;
+    private String email, cc, cco, asunto, remitente;
     private String pathReporteGenerado;
     private String paginaAnterior;
     private String nombreReporte;
     private String infoRegistro;
     private boolean aceptar;
+    private boolean activoRemitente;
 
     public ControlEnvioCorreos() {
         listCorreoCodigos = null;
         lovEmpleados = null;
         reporteActual = new Inforeportes();
         empleadoSeleccionado = null;
+//        empleadoCorreo = null;
         codigoParametros = null;
         email = "";
+        cc = "";
+        cco = "";
+        asunto = "";
+        remitente = "";
+        pathReporteGenerado = "";
         aceptar = true;
+        activoRemitente = false;
+        listRegistrosFallos = new ArrayList<>();
     }
 
     @PostConstruct
@@ -72,6 +90,7 @@ public class ControlEnvioCorreos implements Serializable {
             administrarEnviosCorreos.obtenerConexion(ses.getId());
             administrarRegistroEnvio.obtenerConexion(ses.getId());
             administrarNReporteNomina.obtenerConexion(ses.getId());
+            administarReportes.obtenerConexion(ses.getId());
             getSecEmpresa();
             if (!validarConfigSMTP()) {
                 System.out.println("Configuración de Servidor SMTP inválida");
@@ -119,42 +138,150 @@ public class ControlEnvioCorreos implements Serializable {
     public boolean validarCorreo() {
         System.out.println("Controlador.ControlEnvioCorreos.validarCorreo()");
         if (email != null) {
+            System.out.println("Ingrese a primer if");
             String PATTERN_EMAIL = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
                     + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
             Pattern pattern = Pattern.compile(PATTERN_EMAIL);
             Matcher matcher = pattern.matcher(email);
             if (matcher.matches()) {
+                System.out.println("Ingrese al segundo if");
                 return true;
             } else {
-                FacesMessage msg = new FacesMessage("Error", "Correo inválido, por favor verifique.");
-                FacesContext.getCurrentInstance().addMessage(null, msg);
-                RequestContext.getCurrentInstance().update("form:growl");
+                System.out.println("Correo Invalido");
+//                FacesMessage msg = new FacesMessage("Error", "Correo inválido, por favor verifique.");
+//                FacesContext.getCurrentInstance().addMessage(null, msg);
+//                RequestContext.getCurrentInstance().update("form:growl");
             }
         } else {
+            System.out.println("Ingrese segundo else");
             return true;
         }
         return false;
     }
 
-    public void validarEnviaCorreo() {
+    public void envioMasivo() {
+        System.out.println("Controlador.ControlEnvioCorreos.envioMasivo()");
+        if (reporteActual.isEstadoEnvioMasivo() == true) {
+            getListCorreoCodigos();
+            email = "";
+            String tipoRespCorreo = "D";
+            String mensaje = "";
+            System.out.println("listCorreoCodigos: " + listCorreoCodigos);
+            if (listCorreoCodigos != null) {
+                if (!listCorreoCodigos.isEmpty()) {
+                    for (int i = 0; i < listCorreoCodigos.size(); i++) {
+                        Map paramEmpl = new HashMap();
+                        paramEmpl.put("empleadoDesde", listCorreoCodigos.get(i).getCodigoempleado());
+                        paramEmpl.put("empleadoHasta", listCorreoCodigos.get(i).getCodigoempleado());
+                        pathReporteGenerado = generaReporte(paramEmpl);
+                        String[] msjResul = new String[1];
+                        msjResul[0] = "";
+                        if (validarCorreo()) {
+                            if (enviarReporteCorreo(secEmpresa, listCorreoCodigos.get(i).getPersona().getEmail(), asunto,
+                                    "Mensaje enviado automáticamente, por favor no responda a este correo.",
+                                    pathReporteGenerado, msjResul)) {
+                                mensaje = mensaje + " " + msjResul[0];
+                                if (!tipoRespCorreo.equalsIgnoreCase("E")) {
+                                    tipoRespCorreo = "I";
+                                }
+                            } else {
+                                System.out.println("Ingrese al else");
+                                mensaje = mensaje + " Hubo error en los envíos. " + msjResul[0];
+                                tipoRespCorreo = "E";
+                            }
+                        } else if (tipoRespCorreo.equalsIgnoreCase("E")) {
+//                                System.out.println("Ingrese al else");
+//                                mensaje = mensaje + " Hubo error en los envíos. " + msjResul[0];
+//                                tipoRespCorreo = "E";
+                            ///Reportar error en el envio masivo para la tabla.
+                            registrofallocorreo.setReporte(reporteActual);
+//                            registrofallocorreo.setCodigoEmpleado(listCorreoCodigos.get(i));
+                            listRegistrosFallos.add(registrofallocorreo);
+                            if (!listRegistrosFallos.isEmpty()) {
+                                for (EnvioCorreos listRegistrosFallo : listRegistrosFallos) {
+                                    administrarEnviosCorreos.insertarRegistroEnvios(listRegistrosFallos.get(i));
+                                }
+                            }
+                            listRegistrosFallos.clear();
+                        }
+                    }
+                    System.out.println("Finalizó el ciclo de envío masivo.");
+                } else {
+                    System.out.println("Lista vacia");
+                }
+            } else {
+                System.out.println("Lista null");
+            }
+            mostrarMensajes(tipoRespCorreo, mensaje);
+        }
+    }
+
+    private String generaReporte(Map paramEmpl) {
         System.out.println("Controlador.ControlEnvioCorreos.validarEnviaCorreo()");
-        System.out.println("adjunto: "+pathReporteGenerado);
-        String[] msjResul= new String[1];
+        String pathReporteGeneradoLoc = administarReportes.generarReporte(reporteActual.getNombrereporte(), reporteActual.getTipo(), paramEmpl);
+        System.out.println("adjunto: " + pathReporteGeneradoLoc);
+        return pathReporteGeneradoLoc;
+    }
+
+    private String generaReporte() {
+        System.out.println("Controlador.ControlEnvioCorreos.validarEnviaCorreo()");
+        String pathReporteGeneradoLoc = administarReportes.generarReporte(reporteActual.getNombrereporte(), reporteActual.getTipo());
+        System.out.println("adjunto: " + pathReporteGeneradoLoc);
+        return pathReporteGeneradoLoc;
+    }
+
+    private boolean enviarReporteCorreo(BigInteger secEmp, String correoE, String asuntoCorreo, String mensaje, String rutaArchivo, String[] msjResul) {
+        boolean resultado = false;
+        if (administrarEnviosCorreos.enviarCorreo(secEmp, correoE,
+                asuntoCorreo, mensaje,
+                rutaArchivo, msjResul)) {
+            if (msjResul == null || msjResul.length < 1) {
+                msjResul[0] = "Enviado sin mensaje de respuesta.";
+            }
+            resultado = true;
+        } else {
+            if (msjResul == null || msjResul.length < 1) {
+                msjResul[0] = "Error general enviando correo.";
+            }
+            resultado = false;
+        }
+        return resultado;
+    }
+
+    private void mostrarMensajes(String tipo, String mensaje) {
+        FacesMessage msg;
+        if (tipo.equalsIgnoreCase("I")) {
+            msg = new FacesMessage("Información", mensaje);
+
+        } else if (tipo.equalsIgnoreCase("E")) {
+            msg = new FacesMessage("Error", mensaje);
+        } else {
+            msg = new FacesMessage("Información", "Sin mensaje");
+        }
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+        RequestContext.getCurrentInstance().update("form:growl");
+    }
+
+    public void validarEnviaCorreo() {
+        generaReporte();
+        String[] msjResul = new String[1];
         msjResul[0] = "";
-        if (administrarEnviosCorreos.enviarCorreo(secEmpresa, email,
-                reporteActual.getNombre(), "Mensaje enviado automáticamente, por favor no responda a este correo.",
+
+        if (enviarReporteCorreo(secEmpresa, email,
+                asunto, "Mensaje enviado automáticamente, por favor no responda a este correo.",
                 pathReporteGenerado, msjResul)) {
 //            FacesMessage msg = new FacesMessage("Error", "El reporte ha sido enviado exitosamente.");
-            FacesMessage msg = new FacesMessage("Error", msjResul[0]);
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-            RequestContext.getCurrentInstance().update("form:growl");
+//            FacesMessage msg = new FacesMessage("Información", msjResul[0]);
+//            FacesContext.getCurrentInstance().addMessage(null, msg);
+//            RequestContext.getCurrentInstance().update("form:growl");
+            mostrarMensajes("I", msjResul[0]);
         } else {
 //            FacesMessage msg = new FacesMessage("Error", "No fue posible enviar el correo");
-            FacesMessage msg = new FacesMessage("Error", msjResul[0]);
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-            RequestContext.getCurrentInstance().update("form:growl");
+//            FacesMessage msg = new FacesMessage("Error", msjResul[0]);
+//            FacesContext.getCurrentInstance().addMessage(null, msg);
+//            RequestContext.getCurrentInstance().update("form:growl");
+            mostrarMensajes("E", msjResul[0]);
         }
-//        }
     }
 
     public boolean validarConfigSMTP() {
@@ -205,6 +332,12 @@ public class ControlEnvioCorreos implements Serializable {
         context.reset("formDialogos:lovCorreoEmpleado:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('lovCorreoEmpleado').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('correoEmpleadosDialogo').hide()");
+    }
+
+    public void activarRemitente() {
+        if (remitente != null) {
+            activoRemitente = true;
+        }
     }
 
     //GETTER & SETTER
@@ -278,6 +411,10 @@ public class ControlEnvioCorreos implements Serializable {
     }
 
     public String getPathReporteGenerado() {
+//        System.out.println("Controlador.ControlEnvioCorreos.getPathReporteGenerado()");
+//        if (pathReporteGenerado == null || pathReporteGenerado.isEmpty()) {
+//            pathReporteGenerado = administarReportes.generarReporte(reporteActual.getNombrereporte(), reporteActual.getTipo());
+//        }
         return pathReporteGenerado;
     }
 
@@ -300,17 +437,17 @@ public class ControlEnvioCorreos implements Serializable {
     public void setAceptar(boolean aceptar) {
         this.aceptar = aceptar;
     }
-
-    public Empleados getEmpleadoCorreo() {
-        if (empleadoCorreo == null) {
-            empleadoCorreo = administrarNReporteNomina.listEmpleados().get(0);
-        }
-        return empleadoCorreo;
-    }
-
-    public void setEmpleadoCorreo(Empleados empleadoCorreo) {
-        this.empleadoCorreo = empleadoCorreo;
-    }
+//
+//    public List<Empleados> getEmpleadoCorreo() {
+//        if (empleadoCorreo == null || empleadoCorreo.isEmpty()) {
+//            empleadoCorreo = administrarEnviosCorreos.correoCodigoEmpleado(codigoParametros.getCodigoempleadodesde(), codigoParametros.getCodigoempleadohasta());
+//        }
+//        return empleadoCorreo;
+//    }
+//
+//    public void setEmpleadoCorreo(List<Empleados> empleadoCorreo) {
+//        this.empleadoCorreo = empleadoCorreo;
+//    }
 
     public String getInfoRegistro() {
         FacesContext c = FacesContext.getCurrentInstance();
@@ -360,4 +497,54 @@ public class ControlEnvioCorreos implements Serializable {
         this.correoRemitente = correoRemitente;
     }
 
+    public String getCc() {
+        return cc;
+    }
+
+    public void setCc(String cc) {
+        this.cc = cc;
+    }
+
+    public String getCco() {
+        return cco;
+    }
+
+    public void setCco(String cco) {
+        this.cco = cco;
+    }
+
+    public String getAsunto() {
+        return asunto;
+    }
+
+    public void setAsunto(String asunto) {
+        this.asunto = asunto;
+    }
+
+    public String getRemitente() {
+        if (remitente.isEmpty() || remitente == null) {
+            remitente = administrarEnviosCorreos.consultarRemitente(secEmpresa).getRemitente();
+        }
+        return remitente;
+    }
+
+    public void setRemitente(String remitente) {
+        this.remitente = remitente;
+    }
+
+    public boolean isActivoRemitente() {
+        return activoRemitente;
+    }
+
+    public void setActivoRemitente(boolean activoRemitente) {
+        this.activoRemitente = activoRemitente;
+    }
+
+    public EnvioCorreos getRegistrofallocorreo() {
+        return registrofallocorreo;
+    }
+
+    public void setRegistrofallocorreo(EnvioCorreos registrofallocorreo) {
+        this.registrofallocorreo = registrofallocorreo;
+    }
 }

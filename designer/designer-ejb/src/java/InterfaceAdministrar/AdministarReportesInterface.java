@@ -3,7 +3,7 @@
  */
 package InterfaceAdministrar;
 
-import java.math.BigInteger;
+import java.util.Map;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.fill.AsynchronousFilllListener;
 
@@ -34,11 +34,14 @@ public interface AdministarReportesInterface {
      *
      * @param nombreReporte Nombre del reporte.
      * @param tipoReporte Tipo de reporte.
+     * @param asistenteReporte
      * @return Retorna la ubicacion del reporte generado.
      */
     public String generarReporte(String nombreReporte, String tipoReporte, AsynchronousFilllListener asistenteReporte);
 
     public String generarReporte(String nombreReporte, String tipoReporte);
+    
+    public String generarReporte(String nombreReporte, String tipoReporte, Map paramEmpl);
 
     public void iniciarLlenadoReporte(String nombreReporte, AsynchronousFilllListener asistenteReporte);
 
