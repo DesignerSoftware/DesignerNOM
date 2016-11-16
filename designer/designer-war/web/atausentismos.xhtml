@@ -115,8 +115,8 @@
                                 <p:columnGroup type="header"> 
                                     <!-- Fila de Arriba -->
                                     <p:row>  
-                                        <p:column  style="width: 350px;" rowspan="1" colspan="3" headerText="#{msg['ausentismo']}" />  
-                                        <p:column  style="width: 650px;" rowspan="1" colspan="7" headerText="#{msg['fechas']}" />  
+                                        <p:column  style="width: 344px;" rowspan="1" colspan="3" headerText="#{msg['ausentismo']}" />  
+                                        <p:column  style="width: 600px;" rowspan="1" colspan="7" headerText="#{msg['fechas']}" />  
                                         <p:column  style="width: 250px;" rowspan="1" colspan="3" headerText="#{msg['BML']}" />
                                         <p:column  style="width: 850px;" rowspan="1" colspan="9" headerText="#{msg['ISO']}" />
                                     </p:row>
@@ -179,8 +179,6 @@
                                                 <h:outputText id="fliquidacionHead" value="#{msg['fliquidacion']}" />
                                                 <p:tooltip for="fliquidacionHead" value="#{msg['tfl']}"/>
                                             </f:facet> 
-                                            <f:facet name="footer">
-                                            </f:facet>
                                         </p:column>
 
                                         <p:column  filterBy="#{ausentismos.accidente.descripcioncaso}" filterMatchMode="contains" id="ADescripcionCaso" filterStyle="display: none; visibility: hidden" sortBy="#{ausentismos.accidente.descripcioncaso}" >
@@ -196,16 +194,20 @@
                                                 <p:tooltip for="epHead" value="#{msg['tep']}" showEffect="fade" hideEffect="fade"/>
                                             </f:facet> 
                                         </p:column>
+
                                         <p:column  headerText="#{msg['numero']}" filterBy="#{ausentismos.numerocertificado}" filterMatchMode="contains" id="ANumero" filterStyle="display: none; visibility: hidden" sortBy="#{ausentismos.numerocertificado}" >
                                         </p:column>
+
                                         <p:column  filterBy="#{ausentismos.diagnosticocategoria.descripcion}" filterMatchMode="contains" id="ADiagnostico" filterStyle="display: none; visibility: hidden" sortBy="#{ausentismos.diagnosticocategoria.descripcion}" >
                                             <f:facet name="header">
                                                 <h:outputText id="cdHead" value="#{msg['cdiagnostico']}" />
                                                 <p:tooltip for="cdHead" value="#{msg['tcd']}"  showEffect="fade" hideEffect="fade"/>
                                             </f:facet> 
                                         </p:column>
+
                                         <p:column  headerText="#{msg['prorroga']}" filterBy="#{ausentismos.prorroga}" filterMatchMode="contains" id="AProrroga" filterStyle="display: none; visibility: hidden" sortBy="#{ausentismos.prorroga}" >
                                         </p:column>
+
                                         <p:column  filterBy="#{controlAusentismos.relacion}" filterMatchMode="contains" id="ARelacion" filterStyle="display: none; visibility: hidden" sortBy="#{controlAusentismos.relacion}" >
                                             <f:facet name="header">
                                                 <h:outputText id="periodoHead" value="#{msg['periodo']}" />
@@ -222,8 +224,10 @@
 
                                         <p:column  headerText="#{msg['tercero']}" filterBy="#{ausentismos.tercero.nombre}" filterMatchMode="contains" id="ATercero" filterStyle="display: none; visibility: hidden" sortBy="#{ausentismos.tercero.nombre}" >
                                         </p:column>
+
                                         <p:column  headerText="#{msg['observaciones']}" filterBy="#{ausentismos.observaciones}" filterMatchMode="contains" id="AObservaciones" filterStyle="display: none; visibility: hidden" sortBy="#{ausentismos.observaciones}" >
                                         </p:column>
+
                                     </p:row>
                                 </p:columnGroup>
 
@@ -242,7 +246,7 @@
                                         </f:facet>
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 140px;" value=" " id="fooTipoAusentismo" actionListener="#{controlTiposAusentismos.recibirPagina('atausentismos')}" action="tiposausentismos"  process="@this"/>
+                                        <p:commandButton  value=" " style="width: 115px; margin: -1px; height: 26px; border: none; color: blue"  id="fooTipoAusentismo" actionListener="#{controlTiposAusentismos.recibirPagina('atausentismos')}" action="tiposausentismos"  process="@this"/>
                                     </f:facet>
                                 </p:column>
                                 <!--Clase Ausentismo -->
@@ -259,7 +263,7 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 140px;" value=" " id="fooClaseAusentismo" actionListener="#{controlClasesAusentismos.recibirPagina('atausentismos')}" action="clasesausentismos"  process="@this"/>
+                                        <p:commandButton value=" " style="width: 115px; margin: -1px; height: 26px; border: none; color: blue"  id="fooClaseAusentismo" actionListener="#{controlClasesAusentismos.recibirPagina('atausentismos')}" action="clasesausentismos"  process="@this"/>
                                     </f:facet>
                                 </p:column>
                                 <!--Causa Ausentismo-->
@@ -276,7 +280,7 @@
                                     </p:cellEditor>                                     
 
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 140px;" value=" " id="fooCausaAusentismo" actionListener="#{controlCausasAusentismos.recibirPaginaEntrante('atausentismos')}" action="causaausentismos"  process="@this"/>
+                                        <p:commandButton style="width: 115px; margin: -1px; height: 26px; border: none; color: blue"  value=" " id="fooCausaAusentismo" actionListener="#{controlCausasAusentismos.recibirPaginaEntrante('atausentismos')}" action="causaausentismos"  process="@this"/>
                                     </f:facet>
                                 </p:column>
                                 <!-- Dias Ausentismo -->  
@@ -290,6 +294,9 @@
                                             </p:inputText>
                                         </f:facet>
                                     </p:cellEditor>  
+                                    <f:facet name="footer"> 
+                                        <h:outputText value="" />
+                                    </f:facet>
                                 </p:column>
                                 <!-- Horas Ausentismo -->
                                 <p:column >                                  
@@ -302,6 +309,9 @@
                                             </p:inputText>
                                         </f:facet>
                                     </p:cellEditor>  
+                                    <f:facet name="footer"> 
+                                        <h:outputText value="" />
+                                    </f:facet>
                                 </p:column>
                                 <!--Fecha Inicial Ausentismo-->
                                 <p:column>
@@ -319,9 +329,12 @@
                                             </p:calendar>
                                         </f:facet>
                                     </p:cellEditor>  
+                                    <f:facet name="footer"> 
+                                        <h:outputText value="" />
+                                    </f:facet>
                                 </p:column>
                                 <!--Fecha Final Ausencia -->
-                                <p:column >  
+                                <p:column  >  
                                     <p:cellEditor>  
                                         <f:facet name="output">
                                             <h:outputText value="#{ausentismos.fechafinaus}" >
@@ -329,14 +342,16 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editFechaFinaus" value="#{ausentismos.fechafinaus}"> 
+                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editFechaFinaus" style="width: 78px"  value="#{ausentismos.fechafinaus}"> 
                                                 <p:ajax event="dateSelect" listener="#{controlAusentismos.modificarAusentismos(ausentismos, 'N', ausentismos.fechafinaus)}" process="@this" update="editFechaFinaus"/>
                                                 <p:ajax event="change" listener="#{controlAusentismos.modificarAusentismos(ausentismos, 'N', ausentismos.fechafinaus)}" update="@this" process="@this"/>
                                                 <p:ajax event="click" listener="#{controlAusentismos.cambiarIndice(ausentismos, 6)}" process="@this" />
                                             </p:calendar>
                                         </f:facet>
                                     </p:cellEditor>                                     
-
+                                    <f:facet name="footer"  > 
+                                        <h:outputText value="" />
+                                    </f:facet>
                                 </p:column>
                                 <!-- Fecha Expedicion -->
                                 <p:column >  
@@ -354,6 +369,9 @@
                                             </p:calendar>
                                         </f:facet>
                                     </p:cellEditor>  
+                                    <f:facet name="footer"> 
+                                        <h:outputText value="" />
+                                    </f:facet>
                                 </p:column>
                                 <!-- Fecha Pago Inicial -->
                                 <p:column >  
@@ -371,6 +389,9 @@
                                             </p:calendar>
                                         </f:facet>
                                     </p:cellEditor> 
+                                    <f:facet name="footer"> 
+                                        <h:outputText value="" />
+                                    </f:facet>
                                 </p:column>
                                 <!-- Fecha Pago Final -->
                                 <p:column  >  
@@ -388,6 +409,9 @@
                                             </p:calendar>
                                         </f:facet>
                                     </p:cellEditor> 
+                                    <f:facet name="footer"> 
+                                        <h:outputText value="" />
+                                    </f:facet>
                                 </p:column>
                                 <!-- % Liquidación -->
                                 <p:column   >                                  
@@ -401,6 +425,9 @@
                                             </p:inputText>
                                         </f:facet>
                                     </p:cellEditor>  
+                                    <f:facet name="footer"> 
+                                        <h:outputText value="" />
+                                    </f:facet>
                                 </p:column>
                                 <!-- Base Liquidacion -->
                                 <p:column  >                                  
@@ -414,6 +441,9 @@
                                             </p:inputText>
                                         </f:facet>
                                     </p:cellEditor> 
+                                    <f:facet name="footer"> 
+                                        <h:outputText value="" />
+                                    </f:facet>
                                 </p:column>
                                 <!-- Forma Liquidacion -->
                                 <p:column  >                                  
@@ -427,6 +457,9 @@
                                             </p:inputText>
                                         </f:facet>
                                     </p:cellEditor>  
+                                    <f:facet name="footer"> 
+                                        <h:outputText value="" />
+                                    </f:facet>
                                 </p:column>
                                 <!-- Descripcion Accidente -->
                                 <p:column  >                                  
@@ -440,6 +473,9 @@
                                             </p:inputText>
                                         </f:facet>
                                     </p:cellEditor>
+                                    <f:facet name="footer"> 
+                                        <h:outputText value="" />
+                                    </f:facet>
                                 </p:column>
                                 <!-- Enfermedad-->
                                 <p:column  >                                  
@@ -453,6 +489,9 @@
                                             </p:inputText>
                                         </f:facet>
                                     </p:cellEditor> 
+                                    <f:facet name="footer"> 
+                                        <h:outputText value="" />
+                                    </f:facet>
                                 </p:column>
                                 <!-- Numero Certificado -->
                                 <p:column  >                                  
@@ -464,7 +503,10 @@
                                                 <p:ajax event="select" listener="#{controlAusentismos.cambiarIndice(ausentismos, 15)}" process="@this"/>
                                             </p:inputText>
                                         </f:facet>
-                                    </p:cellEditor>       
+                                    </p:cellEditor>    
+                                    <f:facet name="footer"> 
+                                        <h:outputText value="" />
+                                    </f:facet>
                                 </p:column>
                                 <!-- Diagnosticos Categoria -->
                                 <p:column  >                                  
@@ -479,7 +521,7 @@
                                         </f:facet>
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 140px; margin: -14px; height: 26px; border: none; color: blue" value=" " id="fooDiagnostico" actionListener="#{controlDiagnosticosCategorias.recibirPagina('atausentismos')}" action="diagnostico"  process="@this"/>
+                                        <p:commandButton style="width: 100px; margin: -1px; height: 26px; border: none; color: blue" value=" " id="fooDiagnostico" actionListener="#{controlDiagnosticosCategorias.recibirPagina('atausentismos')}" action="diagnostico"  process="@this"/>
                                     </f:facet>
                                 </p:column>
                                 <!-- Prorroga -->
@@ -494,7 +536,11 @@
                                             </p:inputText>
                                         </f:facet>
                                     </p:cellEditor>
+                                    <f:facet name="footer"> 
+                                        <h:outputText value="" />
+                                    </f:facet>
                                 </p:column>
+
                                 <p:column>                            
                                     <p:cellEditor>
                                         <f:facet name="output"><h:outputText value="#{ausentismos.relacion}"  /></f:facet>  
@@ -504,14 +550,19 @@
                                             </p:inputText>
                                         </f:facet>
                                     </p:cellEditor> 
+                                    <f:facet name="footer"> 
+                                        <h:outputText value="" />
+                                    </f:facet>
                                 </p:column>
-                                <!-- Aca va el CheckBox ese ficti -->
+
                                 <p:column>
-                                    <p:selectBooleanCheckbox value="#{ausentismos.relacionadaBool}" id="editarRelacionada" style="border-radius: 0px; width: 93.5%"> 
+                                    <p:selectBooleanCheckbox value="#{ausentismos.relacionadaBool}" id="editarRelacionada" style="border-radius: 0px; width: 50px"> 
                                         <p:ajax event="change" listener="#{controlAusentismos.modificarAusentismos(ausentismos, 'N', ausentismos.relacionadaBool)}"/>
                                     </p:selectBooleanCheckbox>
+                                    <f:facet name="footer"> 
+                                        <h:outputText value="" />
+                                    </f:facet>
                                 </p:column>
-                                <!-- Tercero -->
                                 <p:column >                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{ausentismos.tercero.nombre}" /></f:facet>  
@@ -523,8 +574,11 @@
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>  
+                                    <f:facet name="footer"> 
+                                        <h:outputText value="" />
+                                    </f:facet>
                                 </p:column>
-                                <!-- Observacion -->
+
                                 <p:column >                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{ausentismos.observaciones}" style="text-transform:uppercase" /></f:facet>  
@@ -534,12 +588,15 @@
                                                 <p:ajax event="select" listener="#{controlAusentismos.cambiarIndice(ausentismos, 20)}" process="@this"/>
                                             </p:inputText>
                                         </f:facet>  
-                                    </p:cellEditor>  
+                                    </p:cellEditor> 
+                                    <f:facet name="footer"> 
+                                        <h:outputText value="" />
+                                    </f:facet>
                                 </p:column>
 
                                 <p:column headerText=" " sortBy="#{ausentismos.tipo.descripcion}" filterBy="#{JornadasLaborales.codigo}" filterMatchMode="contains" id="jornadasLaboralesCodigos" width="70" filterStyle="display: none; visibility: hidden;" >
-
-                                    <f:facet name="footer">
+                                    <f:facet name="footer" >
+                                        <h:outputText value="" style="width: 0px" />
                                     </f:facet>
                                 </p:column>
                             </p:dataTable>
@@ -1005,31 +1062,31 @@
 
                     <p:dialog id="editarFIausencias" header="#{msg['iausencia']}" widgetVar="editarFIausencias" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" value="#{controlAusentismos.editarAusentismos.fecha}" id="editarFechaInicialAusencia"  styleClass="ui-datepicker, myClass"  
-                                    navigator="true" showButtonPanel="true">
+                                     navigator="true" showButtonPanel="true">
                         </p:calendar>
                     </p:dialog>
 
                     <p:dialog id="editFFausencias" header="#{msg['fausencia']}" widgetVar="editarFFausencias" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy"   value="#{controlAusentismos.editarAusentismos.fechafinaus}" id="editarFechaFinalAusencia"  styleClass="ui-datepicker, myClass"  
-                                    navigator="true" showButtonPanel="true">
+                                     navigator="true" showButtonPanel="true">
                         </p:calendar>
                     </p:dialog>
 
                     <p:dialog id="editarFexpediciones" header="#{msg['expediciones']}" widgetVar="editarFexpediciones" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy"   value="#{controlAusentismos.editarAusentismos.fechaexpedicion}" id="editarFechaExpedicion"  styleClass="ui-datepicker, myClass"  
-                                    navigator="true" showButtonPanel="true">
+                                     navigator="true" showButtonPanel="true">
                         </p:calendar>
                     </p:dialog>
 
                     <p:dialog id="editarFIpagos" header="#{msg['ipago']}" widgetVar="editarFIpagos" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy"   value="#{controlAusentismos.editarAusentismos.fechainipago}" id="editarFechaInicialPagos"  styleClass="ui-datepicker, myClass"  
-                                    navigator="true" showButtonPanel="true">
+                                     navigator="true" showButtonPanel="true">
                         </p:calendar>
                     </p:dialog>
 
                     <p:dialog id="editarFFpagos" header="#{msg['fpago']}" widgetVar="editarFFpagos" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
                         <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy"   value="#{controlAusentismos.editarAusentismos.fechafinpago}" id="editarFechaFinalPagos"  styleClass="ui-datepicker, myClass"  
-                                    navigator="true" showButtonPanel="true">
+                                     navigator="true" showButtonPanel="true">
                         </p:calendar>
                     </p:dialog>
 
@@ -1107,11 +1164,11 @@
                                 <h:outputText value="#{tipo.descripcion}" />  
                             </p:column>
                         </p:dataTable>
-                        
+
                         <div class="cssBotonesLOV"> 
-                        <h:outputText id="infoRegistroTipos" value="#{msg['infoRegistros']} #{controlAusentismos.infoRegistroTipo}" class="cssinfoRegistroLOV"/>
-                        <p:commandButton id="aceptarTA" class="cssAceptarLOV" icon="ui-icon-check" value="#{msg['aceptar']} " disabled="#{controlAusentismos.aceptar}" actionListener="#{controlAusentismos.actualizarTiposAusentismos()}" process="@this"/>
-                        <p:commandButton id="atrasTA" class="cssAtrasLOV" icon="ui-icon-close" value="#{msg['cancelar']} " actionListener="#{controlAusentismos.cancelarCambioTiposAusentismos()}" process="@this"/>
+                            <h:outputText id="infoRegistroTipos" value="#{msg['infoRegistros']} #{controlAusentismos.infoRegistroTipo}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarTA" class="cssAceptarLOV" icon="ui-icon-check" value="#{msg['aceptar']} " disabled="#{controlAusentismos.aceptar}" actionListener="#{controlAusentismos.actualizarTiposAusentismos()}" process="@this"/>
+                            <p:commandButton id="atrasTA" class="cssAtrasLOV" icon="ui-icon-close" value="#{msg['cancelar']} " actionListener="#{controlAusentismos.cancelarCambioTiposAusentismos()}" process="@this"/>
                         </div>
 
                     </p:dialog>
@@ -1146,11 +1203,11 @@
                                 <h:outputText value="#{clase.descripcion}" />  
                             </p:column>
                         </p:dataTable>
-                        
+
                         <div class="cssBotonesLOV"> 
-                        <h:outputText id="infoRegistroClases" value="#{msg['infoRegistros']} #{controlAusentismos.infoRegistroClase}" class="cssinfoRegistroLOV"/>
-                        <p:commandButton id="aceptarCA" class="cssAceptarLOV" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlAusentismos.aceptar}" actionListener="#{controlAusentismos.actualizarClasesAusentismos()}" process="@this"/>
-                        <p:commandButton id="atrasCA" class="cssAtrasLOV" value="#{msg['cancelar']}" icon="ui-icon-close" actionListener="#{controlAusentismos.cancelarCambioClasesAusentismos()}" process="@this"/>
+                            <h:outputText id="infoRegistroClases" value="#{msg['infoRegistros']} #{controlAusentismos.infoRegistroClase}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarCA" class="cssAceptarLOV" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlAusentismos.aceptar}" actionListener="#{controlAusentismos.actualizarClasesAusentismos()}" process="@this"/>
+                            <p:commandButton id="atrasCA" class="cssAtrasLOV" value="#{msg['cancelar']}" icon="ui-icon-close" actionListener="#{controlAusentismos.cancelarCambioClasesAusentismos()}" process="@this"/>
                         </div>
                     </p:dialog>
 
@@ -1186,12 +1243,12 @@
                                 <h:outputText value="#{causa.descripcion}" />  
                             </p:column>
                         </p:dataTable>
-                        
+
                         <div class="cssBotonesLOV"> 
-                        <h:outputText id="infoRegistroCausas" value="#{msg['infoRegistros']} #{controlAusentismos.infoRegistroCausa}" class="cssinfoRegistroLOV"/>
-                        <p:commandButton id="aceptarCAS" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']} " disabled="#{controlAusentismos.aceptar}" actionListener="#{controlAusentismos.actualizarCausasAusentismos()}" process="@this"/>
-                        <p:commandButton id="atrasCAS" icon="ui-icon-close" class="cssAtrasLOV" value="#{msg['cancelar']} " actionListener="#{controlAusentismos.cancelarCambioCausasAusentismos()}" process="@this"/>
-                    </div>
+                            <h:outputText id="infoRegistroCausas" value="#{msg['infoRegistros']} #{controlAusentismos.infoRegistroCausa}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarCAS" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']} " disabled="#{controlAusentismos.aceptar}" actionListener="#{controlAusentismos.actualizarCausasAusentismos()}" process="@this"/>
+                            <p:commandButton id="atrasCAS" icon="ui-icon-close" class="cssAtrasLOV" value="#{msg['cancelar']} " actionListener="#{controlAusentismos.cancelarCambioCausasAusentismos()}" process="@this"/>
+                        </div>
                     </p:dialog>
 
                     <!-- L.O.V Empleado-->
@@ -1225,11 +1282,11 @@
                             </p:column>
 
                         </p:dataTable>
-                        
+
                         <div class="cssBotonesLOV"> 
-                        <h:outputText id="infoRegistroEmpleadoLOV" value="#{msg['infoRegistros']} #{controlAusentismos.infoRegistroEmpleadoLov}" class="cssinfoRegistroLOV"/>
-                        <p:commandButton id="aceptarE" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']} " disabled="#{controlAusentismos.aceptar}" actionListener="#{controlAusentismos.actualizarEmpleados()}" process="@this"/>
-                        <p:commandButton id="atrasE" icon="ui-icon-check" class="cssAtrasLOV" value="#{msg['cancelar']} " actionListener="#{controlAusentismos.cancelarCambioEmpleados()}" process="@this"/>
+                            <h:outputText id="infoRegistroEmpleadoLOV" value="#{msg['infoRegistros']} #{controlAusentismos.infoRegistroEmpleadoLov}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarE" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']} " disabled="#{controlAusentismos.aceptar}" actionListener="#{controlAusentismos.actualizarEmpleados()}" process="@this"/>
+                            <p:commandButton id="atrasE" icon="ui-icon-check" class="cssAtrasLOV" value="#{msg['cancelar']} " actionListener="#{controlAusentismos.cancelarCambioEmpleados()}" process="@this"/>
                         </div>
                     </p:dialog>
 
@@ -1257,10 +1314,10 @@
                             </p:column>
 
                         </p:dataTable>
-                        
+
                         <div class="cssBotonesLOV"> 
-                        <p:commandButton id="aceptarP" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']} " disabled="#{controlAusentismos.aceptar}" actionListener="#{controlAusentismos.actualizarPorcentajes()}" process="@this"/>
-                        <p:commandButton id="atrasP" icon="ui-icon-close" class="cssAtrasLOV" value="#{msg['cancelar']} " actionListener="#{controlAusentismos.cancelarCambioPorcentajes()}" process="@this"/>
+                            <p:commandButton id="aceptarP" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']} " disabled="#{controlAusentismos.aceptar}" actionListener="#{controlAusentismos.actualizarPorcentajes()}" process="@this"/>
+                            <p:commandButton id="atrasP" icon="ui-icon-close" class="cssAtrasLOV" value="#{msg['cancelar']} " actionListener="#{controlAusentismos.cancelarCambioPorcentajes()}" process="@this"/>
                         </div>
 
                     </p:dialog>
@@ -1309,11 +1366,11 @@
                             </p:column>
 
                         </p:dataTable>
-                        
+
                         <div class="cssBotonesLOV"> 
-                        <h:outputText id="infoRegistroIBCS" value="#{msg['infoRegistros']} #{controlAusentismos.infoRegistroBase}" class="cssinfoRegistroLOV"/>
-                        <p:commandButton id="aceptarI" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']} " disabled="#{controlAusentismos.aceptar}" actionListener="#{controlAusentismos.actualizarIBCS()}" process="@this"/>
-                        <p:commandButton id="atrasI" icon="ui-icon-close" class="cssAtrasLOV" value="#{msg['cancelar']} " actionListener="#{controlAusentismos.cancelarCambioIBCS()}" process="@this"/>
+                            <h:outputText id="infoRegistroIBCS" value="#{msg['infoRegistros']} #{controlAusentismos.infoRegistroBase}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarI" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']} " disabled="#{controlAusentismos.aceptar}" actionListener="#{controlAusentismos.actualizarIBCS()}" process="@this"/>
+                            <p:commandButton id="atrasI" icon="ui-icon-close" class="cssAtrasLOV" value="#{msg['cancelar']} " actionListener="#{controlAusentismos.cancelarCambioIBCS()}" process="@this"/>
                         </div>
                     </p:dialog>
 
@@ -1340,11 +1397,11 @@
                                 <h:outputText value="#{for}" />  
                             </p:column>
                         </p:dataTable>
-                        
+
                         <div class="cssBotonesLOV"> 
-                        <h:outputText id="infoRegistroForma" value="#{msg['infoRegistros']} #{controlAusentismos.infoRegistroForma}" class="cssinfoRegistroLOV"/>
-                        <p:commandButton id="aceptarFP" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']} " disabled="#{controlAusentismos.aceptar}" actionListener="#{controlAusentismos.actualizarFormas()}" process="@this"/>
-                        <p:commandButton id="atrasFP" icon="ui-icon-close" class="cssAtrasLOV" value="#{msg['cancelar']} " actionListener="#{controlAusentismos.cancelarCambioFormas()}" process="@this"/>
+                            <h:outputText id="infoRegistroForma" value="#{msg['infoRegistros']} #{controlAusentismos.infoRegistroForma}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarFP" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']} " disabled="#{controlAusentismos.aceptar}" actionListener="#{controlAusentismos.actualizarFormas()}" process="@this"/>
+                            <p:commandButton id="atrasFP" icon="ui-icon-close" class="cssAtrasLOV" value="#{msg['cancelar']} " actionListener="#{controlAusentismos.cancelarCambioFormas()}" process="@this"/>
                         </div>
                     </p:dialog>
 
@@ -1395,11 +1452,11 @@
                                 <h:outputText value="#{accidentes.descripcioncaso}" />  
                             </p:column>
                         </p:dataTable>
-                        
+
                         <div class="cssBotonesLOV"> 
-                        <h:outputText id="infoRegistroAccidente" value="#{msg['infoRegistros']} #{controlAusentismos.infoRegistroAccidente}" class="cssinfoRegistroLOV"/>
-                        <p:commandButton icon="ui-icon-check" id="aceptarAD" class="cssAceptarLOV" value="#{msg['aceptar']} " disabled="#{controlAusentismos.aceptar}" actionListener="#{controlAusentismos.actualizarAD()}" process="@this"/>
-                        <p:commandButton icon="ui-icon-close" id="atrasAD" class="cssAtrasLOV" value="#{msg['cancelar']} " actionListener="#{controlAusentismos.cancelarCambioAD()}" process="@this"/>
+                            <h:outputText id="infoRegistroAccidente" value="#{msg['infoRegistros']} #{controlAusentismos.infoRegistroAccidente}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton icon="ui-icon-check" id="aceptarAD" class="cssAceptarLOV" value="#{msg['aceptar']} " disabled="#{controlAusentismos.aceptar}" actionListener="#{controlAusentismos.actualizarAD()}" process="@this"/>
+                            <p:commandButton icon="ui-icon-close" id="atrasAD" class="cssAtrasLOV" value="#{msg['cancelar']} " actionListener="#{controlAusentismos.cancelarCambioAD()}" process="@this"/>
                         </div>
                     </p:dialog>
 
@@ -1434,11 +1491,11 @@
                             </p:column>
 
                         </p:dataTable>
-                        
+
                         <div class="cssBotonesLOV"> 
-                        <h:outputText id="infoRegistroDiagnostico" value="#{msg['infoRegistros']} #{controlAusentismos.infoRegistroDiagnostico}" class="cssinfoRegistroLOV"/>
-                        <p:commandButton id="aceptarD" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']} " disabled="#{controlAusentismos.aceptar}" actionListener="#{controlAusentismos.actualizarDiagnosticos()}" process="@this"/>
-                        <p:commandButton id="atrasD" icon="ui-icon-close" class="cssAtrasLOV" value="#{msg['cancelar']} " actionListener="#{controlAusentismos.cancelarCambioDiagnosticos()}" process="@this"/>
+                            <h:outputText id="infoRegistroDiagnostico" value="#{msg['infoRegistros']} #{controlAusentismos.infoRegistroDiagnostico}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarD" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']} " disabled="#{controlAusentismos.aceptar}" actionListener="#{controlAusentismos.actualizarDiagnosticos()}" process="@this"/>
+                            <p:commandButton id="atrasD" icon="ui-icon-close" class="cssAtrasLOV" value="#{msg['cancelar']} " actionListener="#{controlAusentismos.cancelarCambioDiagnosticos()}" process="@this"/>
                         </div>
                     </p:dialog>
 
@@ -1519,10 +1576,10 @@
                                 <h:outputText value="#{prorrogas.numerocertificado}" />  
                             </p:column>
                         </p:dataTable>
-                        
+
                         <div class="cssBotonesLOV"> 
-                        <h:outputText id="infoRegistroProrroga" value="#{msg['infoRegistros']} #{controlAusentismos.infoRegistroProrroga}" class="cssinfoRegistroLOV"/>
-                        <p:commandButton id="aceptarPR" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']} " disabled="#{controlAusentismos.aceptar}" actionListener="#{controlAusentismos.actualizarProrrogas()}" process="@this"/>
+                            <h:outputText id="infoRegistroProrroga" value="#{msg['infoRegistros']} #{controlAusentismos.infoRegistroProrroga}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarPR" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']} " disabled="#{controlAusentismos.aceptar}" actionListener="#{controlAusentismos.actualizarProrrogas()}" process="@this"/>
                         </div>
                         <p:commandButton id="atrasPR" icon="ui-icon-close" class="cssAtrasLOV" value="#{msg['cancelar']} " actionListener="#{controlAusentismos.cancelarCambioProrrogas()}" process="@this"/>
 
@@ -1553,9 +1610,9 @@
                         </p:dataTable>
 
                         <div class="cssBotonesLOV"> 
-                        <h:outputText id="infoRegistroTercero" value="#{msg['infoRegistros']} #{controlAusentismos.infoRegistroTercero}" class="cssinfoRegistroLOV"/>
-                        <p:commandButton id="aceptarTER" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']} " disabled="#{controlAusentismos.aceptar}" actionListener="#{controlAusentismos.actualizarTerceros()}" process="@this"/>
-                        <p:commandButton id="atrasTER" icon="ui-icon-close" class="cssAtrasLOV" value="#{msg['cancelar']} " actionListener="#{controlAusentismos.cancelarCambioTerceros()}" process="@this"/>
+                            <h:outputText id="infoRegistroTercero" value="#{msg['infoRegistros']} #{controlAusentismos.infoRegistroTercero}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarTER" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']} " disabled="#{controlAusentismos.aceptar}" actionListener="#{controlAusentismos.actualizarTerceros()}" process="@this"/>
+                            <p:commandButton id="atrasTER" icon="ui-icon-close" class="cssAtrasLOV" value="#{msg['cancelar']} " actionListener="#{controlAusentismos.cancelarCambioTerceros()}" process="@this"/>
                         </div>
                     </p:dialog>
 
@@ -1599,11 +1656,11 @@
                                 <h:outputText value="#{enfermedades.categoria.codigo}" />  
                             </p:column>
                         </p:dataTable>
-                        
+
                         <div class="cssBotonesLOV"> 
-                        <h:outputText id="infoRegistroEnfermedad" value="#{msg['infoRegistros']} #{controlAusentismos.infoRegistroEnfermedad}" class="cssinfoRegistroLOV"/>
-                        <p:commandButton id="aceptarEP" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']} " disabled="#{controlAusentismos.aceptar}" actionListener="#{controlAusentismos.actualizarEnfermedades()}" process="@this"/>
-                        <p:commandButton id="atrasEP" icon="ui-icon-close" class="cssAtrasLOV" value="#{msg['cancelar']} " actionListener="#{controlAusentismos.cancelarCambioEnfermedades()}" process="@this"/>
+                            <h:outputText id="infoRegistroEnfermedad" value="#{msg['infoRegistros']} #{controlAusentismos.infoRegistroEnfermedad}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarEP" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']} " disabled="#{controlAusentismos.aceptar}" actionListener="#{controlAusentismos.actualizarEnfermedades()}" process="@this"/>
+                            <p:commandButton id="atrasEP" icon="ui-icon-close" class="cssAtrasLOV" value="#{msg['cancelar']} " actionListener="#{controlAusentismos.cancelarCambioEnfermedades()}" process="@this"/>
                         </div>
 
                     </p:dialog>

@@ -876,10 +876,16 @@ public class ControlParametroAutoliq implements Serializable {
 
     public void guardadoGeneral() {
         if (guardado == false) {
+            RequestContext.getCurrentInstance().execute("PF('operacionEnProceso').show()");
             guardarCambiosParametro();
             guardarCambiosAportes();
             visibilidadMostrarTodos = "hidden";
             RequestContext.getCurrentInstance().update("form:mostrarTodos");
+        } else {
+            System.out.println("no hay datos para guardar");
+            FacesMessage msg = new FacesMessage("Información", "No se han realizado cambios a guardar");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            RequestContext.getCurrentInstance().update("form:growl");
         }
     }
 
@@ -916,9 +922,6 @@ public class ControlParametroAutoliq implements Serializable {
             RequestContext.getCurrentInstance().update("form:acumDif");
             cambiosParametro = false;
             System.out.println("Se guardaron los datos de Parámetros de Liquidación con éxito");
-//            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos de Parámetros de Liquidación con éxito");
-//            FacesContext.getCurrentInstance().addMessage(null, msg);
-//            RequestContext.getCurrentInstance().update("form:growl");
             guardado = true;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
         } catch (Exception e) {
@@ -957,7 +960,7 @@ public class ControlParametroAutoliq implements Serializable {
             k = 0;
             cambiosAporte = true;
             RequestContext.getCurrentInstance().execute("PF('operacionEnProceso').hide()");
-            
+
             FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
@@ -3446,7 +3449,7 @@ public class ControlParametroAutoliq implements Serializable {
         if (lovAportesEntidades == null) {
             if (parametroTablaSeleccionado != null) {
                 lovAportesEntidades = administrarParametroAutoliq.consultarAportesEntidadesPorParametroAutoliq(parametroTablaSeleccionado.getEmpresa().getSecuencia(), parametroTablaSeleccionado.getMes(), parametroTablaSeleccionado.getAno());
-             }
+            }
         }
         return lovAportesEntidades;
     }

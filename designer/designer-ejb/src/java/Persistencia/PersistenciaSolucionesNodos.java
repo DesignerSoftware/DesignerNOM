@@ -713,7 +713,8 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
                     + "AND c.solucionnodo = s.secuencia)\n"
                     + "AND  EXISTS (SELECT 'X' FROM  cortesprocesos cp , procesos p WHERE  cp.secuencia = s.corteproceso\n"
                     + "AND p.secuencia = cp.proceso AND CONTABILIZACION = 'S')\n"
-                    + "and exists (select 'x' from empleados e where e.secuencia=s.empleado)";
+                    + "and exists (select 'x' from empleados e where e.secuencia=s.empleado)"
+                    + "and s.valor <> 0";
             Query query = em.createNativeQuery(sql, SolucionesNodos.class);
             query.setParameter(1, fechaInicial);
             query.setParameter(2, fechaFinal);
@@ -724,19 +725,14 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
                     System.out.println("resultado.size() : " + listSNodos.size());
                     for (int i = 0; i < listSNodos.size(); i++) {
                         em.clear();
-//                        BigInteger nitTercero = BigInteger.ZERO;
-//                        if (listSNodos.get(i).getNittercero() != null) {
-//                            nitTercero =  listSNodos.get(i).getNittercero();
-//                            System.out.println("nit tercero en la persistencia : " + nitTercero);
-//                        }
                         String stringSQLQuery = "SELECT sn.secuencia,\n"
                                 + "c.CODIGO CODIGOCONCEPTO,\n"
                                 + "c.DESCRIPCION NOMBRECONCEPTO,\n"
-                                + "(select NIT from TERCEROS WHERE SECUENCIA = "+ listSNodos.get(i).getNittercero() + ") NITTERCERO,\n"
+                                + "(select NIT from TERCEROS WHERE SECUENCIA = " + listSNodos.get(i).getNittercero() + ") NITTERCERO,\n"
                                 + "(select CODIGO from CUENTAS WHERE SECUENCIA = " + listSNodos.get(i).getCuentad() + ") CODIGOCUENTAD,\n"
                                 + "(select CODIGO from CUENTAS WHERE SECUENCIA = " + listSNodos.get(i).getCuentac() + ") CODIGOCUENTAC,\n"
                                 + "(select p.PRIMERAPELLIDO||' '|| p.SEGUNDOAPELLIDO ||' '||p.NOMBRE NOMBREEMPLEADO from personas p, empleados e where e.persona = p.secuencia and e.secuencia = " + listSNodos.get(i).getEmpleado() + ") NOMBREEMPLEADO,\n"
-                                + "(select DESCRIPCION from PROCESOS WHERE SECUENCIA = " + listSNodos.get(i).getProceso()+ ") NOMBREPROCESO \n"
+                                + "(select DESCRIPCION from PROCESOS WHERE SECUENCIA = " + listSNodos.get(i).getProceso() + ") NOMBREPROCESO \n"
                                 + "FROM SOLUCIONESNODOS sn, (select CODIGO,DESCRIPCION from conceptos where secuencia = " + listSNodos.get(i).getConcepto() + ") c \n"
                                 + "where sn.SECUENCIA = " + listSNodos.get(i).getSecuencia();
                         Query query2 = em.createNativeQuery(stringSQLQuery, SolucionesNodosAux.class);

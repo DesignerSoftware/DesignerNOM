@@ -264,13 +264,6 @@ public class ControlInterfaseContableTotal implements Serializable {
                 totalDGenerado = BigDecimal.ZERO;
                 totalDInter = BigDecimal.ZERO;
                 totalCInter = BigDecimal.ZERO;
-//                if (registroActual == 0) {
-//                    estadoBtnArriba = true;
-//                }
-//                if (registroActual < (listaParametrosContables.size() - 1)) {
-//                    estadoBtnAbajo = false;
-//                }
-
                 if (banderaGenerado == 1) {
                     FacesContext c = FacesContext.getCurrentInstance();
                     altoTablaGenerada = "50";
@@ -344,13 +337,6 @@ public class ControlInterfaseContableTotal implements Serializable {
                 totalDGenerado = BigDecimal.ZERO;
                 totalDInter = BigDecimal.ZERO;
                 totalCInter = BigDecimal.ZERO;
-//                if (registroActual > 0) {
-//                    estadoBtnArriba = false;
-//                }
-//                if (registroActual == (listaParametrosContables.size() - 1)) {
-//                    estadoBtnAbajo = true;
-//                }
-
                 if (banderaGenerado == 1) {
                     FacesContext c = FacesContext.getCurrentInstance();
                     altoTablaGenerada = "50";
@@ -1073,8 +1059,6 @@ public class ControlInterfaseContableTotal implements Serializable {
 
     public void actionBtnActualizar() {
         RequestContext context = RequestContext.getCurrentInstance();
-//        boolean validar = validarFechasParametros();
-//        if (validar == true) {
 
         listaGenerados = null;
         if (listaGenerados == null) {
@@ -1129,9 +1113,6 @@ public class ControlInterfaseContableTotal implements Serializable {
 
         System.out.println("I finish");
         System.out.println("terminó proceso actualizar");
-//        } else {
-//            RequestContext.getCurrentInstance().execute("PF('errorFechasParametros').show()");
-//        }
     }
 
     public void guardarSalir() {
@@ -2510,7 +2491,6 @@ public class ControlInterfaseContableTotal implements Serializable {
 
     public BigDecimal getTotalCGenerado() {
         totalCGenerado = BigDecimal.ZERO;
-//        getListaGenerados();
         if (listaGenerados != null) {
             for (int i = 0; i < listaGenerados.size(); i++) {
                 totalCGenerado = totalCGenerado.add(listaGenerados.get(i).getValor());
@@ -2525,7 +2505,6 @@ public class ControlInterfaseContableTotal implements Serializable {
 
     public BigDecimal getTotalDGenerado() {
         totalDGenerado = BigDecimal.ZERO;
-//        getListaGenerados();
         if (listaGenerados != null) {
             for (int i = 0; i < listaGenerados.size(); i++) {
                 totalDGenerado = totalDGenerado.add(listaGenerados.get(i).getValor());
@@ -2540,7 +2519,6 @@ public class ControlInterfaseContableTotal implements Serializable {
 
     public BigDecimal getTotalDInter() {
         totalDInter = BigDecimal.ZERO;
-//        getListaInterconTotal();
         if (listaInterconTotal != null) {
             for (int i = 0; i < listaInterconTotal.size(); i++) {
                 totalDInter = totalDInter.add(listaInterconTotal.get(i).getValord());
@@ -2555,7 +2533,6 @@ public class ControlInterfaseContableTotal implements Serializable {
 
     public BigDecimal getTotalCInter() {
         totalCInter = BigDecimal.ZERO;
-//        getListaInterconTotal();
         if (listaInterconTotal != null) {
             for (int i = 0; i < listaInterconTotal.size(); i++) {
                 totalCInter = totalCInter.add(listaInterconTotal.get(i).getValorc());
