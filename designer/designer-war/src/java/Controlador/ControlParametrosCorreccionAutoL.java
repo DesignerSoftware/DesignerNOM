@@ -218,8 +218,6 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
         listaAportesCorrecciones = null;
         getListaParametrosCorrecciones();
         getListaAportesCorrecciones();
-        contarRegistrosAporte();
-        contarRegistrosParametros();
         if (listaParametrosCorrecciones != null) {
             if (!listaParametrosCorrecciones.isEmpty()) {
                 parametroCorreccionSeleccionado = listaParametrosCorrecciones.get(0);
@@ -264,7 +262,7 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
                 guardado = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
-        } 
+        }
         RequestContext.getCurrentInstance().update("form:datosParametroAuto");
     }
 
@@ -363,7 +361,8 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
                     guardado = false;
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
-            }              RequestContext.getCurrentInstance().update("form:acumDif");
+            }
+            RequestContext.getCurrentInstance().update("form:acumDif");
         }
         RequestContext.getCurrentInstance().update("form:datosParametroAuto");
     }
@@ -677,9 +676,7 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
         try {
             listaAportesCorrecciones = null;
             getListaAportesCorrecciones();
-            if (listaAportesCorrecciones != null) {
-                modificarInfoRegistroAporte(listaAportesCorrecciones.size());
-            }
+            contarRegistrosAporte();
             Thread.sleep(2000L);
             RequestContext.getCurrentInstance().update("form:tablaAportesCorrecciones");
             RequestContext.getCurrentInstance().execute("PF('operacionEnProceso').hide()");
@@ -839,7 +836,7 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
             listaParametrosCorrecciones = null;
             getListaParametrosCorrecciones();
             if (listaParametrosCorrecciones != null) {
-                modificarInfoRegistroParametro(listaParametrosCorrecciones.size());
+                contarRegistrosParametros();
             }
             RequestContext.getCurrentInstance().update("form:datosParametroAuto");
             k = 0;
@@ -877,7 +874,7 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
             getListaAportesCorrecciones();
             System.out.println("tamaño lista aportes : " + listaAportesCorrecciones.size());
             RequestContext.getCurrentInstance().update("form:tablaAportesCorrecciones");
-            modificarInfoRegistroAporte(listaAportesCorrecciones.size());
+            contarRegistrosAporte();
             k = 0;
             FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -937,16 +934,10 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
         k = 0;
         listaParametrosCorrecciones = null;
         getListaParametrosCorrecciones();
-        if (listaParametrosCorrecciones != null) {
-            modificarInfoRegistroParametro(listaParametrosCorrecciones.size());
-        }
+        contarRegistrosParametros();
         listaAportesCorrecciones = null;
         getListaAportesCorrecciones();
-        if (listaAportesCorrecciones != null) {
-            modificarInfoRegistroAporte(listaAportesCorrecciones.size());
-        } else {
-            modificarInfoRegistroAporte(0);
-        }
+        contarRegistrosAporte();
         guardado = true;
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:tablaAportesCorrecciones");
@@ -1274,8 +1265,7 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
             nuevoParametro.setEmpresa(new Empresas());
             RequestContext context = RequestContext.getCurrentInstance();
 
-            modificarInfoRegistroParametro(listaParametrosCorrecciones.size());
-
+            contarRegistrosParametros();
             RequestContext.getCurrentInstance().update("form:datosParametroAuto");
             RequestContext.getCurrentInstance().execute("PF('NuevoRegistroParametro').hide()");
             if (guardado == true) {
@@ -1317,7 +1307,7 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
         nuevoAporteEntidad.setEmpleado(new Empleados());
         RequestContext context = RequestContext.getCurrentInstance();
 
-        modificarInfoRegistroAporte(listaAportesCorrecciones.size());
+        contarRegistrosAporte();
 
         RequestContext.getCurrentInstance().update("form:tablaAportesCorrecciones");
         RequestContext.getCurrentInstance().execute("PF('formularioDialogos:nuevoAporteEntidad').hide()");
@@ -1393,7 +1383,7 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
         duplicarAporteEntidad.setTipoentidad(new TiposEntidades());
         duplicarAporteEntidad.setEmpleado(new Empleados());
         RequestContext context = RequestContext.getCurrentInstance();
-        modificarInfoRegistroAporte(listaAportesCorrecciones.size());
+        contarRegistrosAporte();
         RequestContext.getCurrentInstance().update("form:tablaAportesCorrecciones");
         RequestContext.getCurrentInstance().execute("PF('formularioDialogos:duplicarAporteEntidad').hide()");
         if (guardado == true) {
@@ -1473,7 +1463,7 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
             parametroCorreccionSeleccionado = duplicarParametro;
             RequestContext context = RequestContext.getCurrentInstance();
 
-            modificarInfoRegistroParametro(listaParametrosCorrecciones.size());
+            contarRegistrosParametros();
 
             RequestContext.getCurrentInstance().update("form:datosParametroAuto");
             RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroParametro').hide()");
@@ -1541,7 +1531,7 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
                     filtrarListaParametrosCorrecciones.remove(parametroCorreccionSeleccionado);
                 }
                 RequestContext context = RequestContext.getCurrentInstance();
-                modificarInfoRegistroParametro(listaParametrosCorrecciones.size());
+                contarRegistrosParametros();
                 RequestContext.getCurrentInstance().update("form:datosParametroAuto");
                 parametroCorreccionSeleccionado = null;
                 if (guardado == true) {
@@ -1574,7 +1564,7 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
                 filtrarListaAportesCorrecciones.remove(aporteTablaSeleccionado);
             }
             System.out.println("lista de aportes entidades después de borrar : " + listaAportesCorrecciones.size());
-            modificarInfoRegistroAporte(listaAportesCorrecciones.size());
+            contarRegistrosAporte();
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:tablaAportesCorrecciones");
             aporteTablaSeleccionado = null;
@@ -1595,7 +1585,7 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
                 if (!listaAportesCorrecciones.isEmpty()) {
                     administrarParametroCorreccionAutoL.borrarAportesCorreccionesProcesoAutomatico(parametroCorreccionSeleccionado.getEmpresa().getSecuencia(), parametroCorreccionSeleccionado.getMes(), parametroCorreccionSeleccionado.getAno());
                     listaAportesCorrecciones = null;
-                    modificarInfoRegistroAporte(0);
+                    contarRegistrosAporte();
                     disabledBuscar = true;
                     visibilidadMostrarTodos = "hidden";
                     RequestContext.getCurrentInstance().update("form:mostrarTodos");
@@ -1769,7 +1759,7 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
             administrarParametroCorreccionAutoL.modificarParametroEstructura(parametroEstructura);
             administrarParametroCorreccionAutoL.modificarParametroInforme(parametroInforme);
 
-            parametroInforme = null;  
+            parametroInforme = null;
             parametroEstructura = null;
             RequestContext.getCurrentInstance().update("form:datosParametroAuto");
             FacesMessage msg = new FacesMessage("Información", "Se realizó con éxito el cambio de fechas ");
@@ -2273,15 +2263,14 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
         tipoActualizacion = LND;
         System.out.println("tipo actualizacion aignar index : " + tipoActualizacion);
         if (dialogo == 1) {
-            modificarInfoRegistroTercero(lovTerceros.size());
+            contarRegistroTercero();
             RequestContext.getCurrentInstance().update("formularioLovTipoTrabajador:TipoTrabajadorDialogo");
             RequestContext.getCurrentInstance().execute("PF('TipoTrabajadorDialogo').show()");
         }
         if (dialogo == 2) {
-            modificarInfoRegistroEmpresa(lovEmpresas.size());
             RequestContext.getCurrentInstance().update("formularioLovEmpresa:EmpresaDialogo");
             RequestContext.getCurrentInstance().execute("PF('EmpresaDialogo').show()");
-            modificarInfoRegistroEmpresa(lovEmpresas.size());
+            contarRegistroEmpresa();
         }
     }
 
@@ -2291,17 +2280,17 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
         tipoActualizacion = LND;
         System.out.println("tipo actualizacion aignar index aporte : " + tipoActualizacion);
         if (dialogo == 1) {
-            modificarInfoRegistroEmpleados(lovEmpleados.size());
+            contarRegistroEmpleados();
             RequestContext.getCurrentInstance().update("formularioLovEmpleado:EmpleadoDialogo");
             RequestContext.getCurrentInstance().execute("PF('EmpleadoDialogo').show()");
         }
         if (dialogo == 2) {
-            modificarInfoRegistroTercero(lovTerceros.size());
+            contarRegistroTercero();
             RequestContext.getCurrentInstance().update("formularioLovTercero:TerceroDialogo");
             RequestContext.getCurrentInstance().execute("PF('TerceroDialogo').show()");
         }
         if (dialogo == 3) {
-            modificarInfoRegistroTiposEntidades(lovTiposEntidades.size());
+            contarRegistroTiposEntidades();
             RequestContext.getCurrentInstance().update("formularioLovTipoEntidad:TipoEntidadDialogo");
             RequestContext.getCurrentInstance().execute("PF('TipoEntidadDialogo').show()");
         }
@@ -2601,8 +2590,8 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
         tipoActualizacion = -1;
         visibilidadMostrarTodos = "visible";
         RequestContext.getCurrentInstance().update("form:mostrarTodos");
-        modificarInfoRegistroParametro(listaParametrosCorrecciones.size());
-        modificarInfoRegistroAporte(listaAportesCorrecciones.size());
+        contarRegistrosParametros();
+        contarRegistrosAporte();
         RequestContext.getCurrentInstance().update("form:tablaAportesCorrecciones");
         /*
          RequestContext.getCurrentInstance().update("formularioLovAporteEntidad:BuscarAporteDialogo");
@@ -2769,19 +2758,11 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
     }
 
     public void eventoFiltrar() {
-        if (parametroCorreccionSeleccionado != null) {
-            if (tipoLista == 0) {
-                tipoLista = 1;
-            }
-            modificarInfoRegistroParametro(filtrarListaParametrosCorrecciones.size());
-        } else {
-            modificarInfoRegistroParametro(0);
-        }
+        contarRegistrosParametros();
     }
 
     public void eventoFiltrarAportes() {
-        RequestContext context = RequestContext.getCurrentInstance();
-        modificarInfoRegistroAporte(filtrarListaAportesCorrecciones.size());
+        contarRegistrosAporte();
     }
 
     public void verificarRastroTablas() {
@@ -2849,88 +2830,36 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
         }
     }
 
-    public void modificarInfoRegistroEmpresa(int valor) {
-        infoRegistroEmpresa = String.valueOf(valor);
+    public void contarRegistroEmpresa() {
         RequestContext.getCurrentInstance().update("formularioLovEmpresa:infoRegistroEmpresa");
     }
 
-    public void modificarInfoRegistroEmpleados(int valor) {
-        infoRegistroEmpleado = String.valueOf(valor);
+    public void contarRegistroEmpleados() {
         RequestContext.getCurrentInstance().update("formularioLovEmpleado:infoRegistroEmpleado");
     }
 
-    public void modificarInfoRegistroTercero(int valor) {
-        infoRegistroTercero = String.valueOf(valor);
+    public void contarRegistroTercero() {
         RequestContext.getCurrentInstance().update("formularioLovTercero:infoRegistroTercero");
     }
 
-    public void modificarInfoRegistroTiposTrabajadores(int valor) {
-        infoRegistroTipoTrabajador = String.valueOf(valor);
+    public void contarRegistroTiposTrabajadores() {
         RequestContext.getCurrentInstance().update("formularioLovTipoTrabajador:infoRegistroTipoTrabajador");
     }
 
-    public void modificarInfoRegistroTiposEntidades(int valor) {
-        infoRegistroTipoEntidad = String.valueOf(valor);
+    public void contarRegistroTiposEntidades() {
         RequestContext.getCurrentInstance().update("formularioLovTipoEntidad:infoRegistroTipoEntidad");
     }
 
-    public void modificarInfoRegistroAportesCorrecciones(int valor) {
-        infoRegistroAporteEntidad = String.valueOf(valor);
+    public void contarRegistroAportesCorrecciones() {
         RequestContext.getCurrentInstance().update("formularioLovAporteEntidad:infoRegistroAporteEntidad");
     }
 
-    public void modificarInfoRegistroParametro(int valor) {
-        infoRegistroParametro = String.valueOf(valor);
-        RequestContext.getCurrentInstance().update("form:infoRegistroParametro");
-    }
-
-    public void modificarInfoRegistroAporte(int valor) {
-        infoRegistroAporte = String.valueOf(valor);
+    public void contarRegistrosAporte() {
         RequestContext.getCurrentInstance().update("form:infoRegistroAporte");
     }
 
-    public void eventoFiltrarLovEmpresas() {
-        modificarInfoRegistroEmpresa(filtrarLovEmpresas.size());
-    }
-
-    public void eventoFiltrarLovTerceros() {
-        modificarInfoRegistroTercero(filtrarLovTerceros.size());
-    }
-
-    public void eventoFiltrarLovTipoEntidades() {
-        modificarInfoRegistroTiposEntidades(filtrarLovTiposEntidades.size());
-    }
-
-    public void eventoFiltrarLovTipoTrabajador() {
-        modificarInfoRegistroTiposTrabajadores(filtrarLovTiposTrabajadores.size());
-    }
-
-    public void eventoFiltrarEmpleados() {
-        modificarInfoRegistroEmpleados(filtrarLovEmpleados.size());
-    }
-
-    public void eventoFiltrarAporteEntidad() {
-        modificarInfoRegistroAportesCorrecciones(filtrarLovAportesCorrecciones.size());
-    }
-
-    public void contarRegistrosAporte() {
-        if (listaAportesCorrecciones != null) {
-            if (!listaAportesCorrecciones.isEmpty()) {
-                modificarInfoRegistroAporte(listaAportesCorrecciones.size());
-            }
-        } else {
-            modificarInfoRegistroAporte(0);
-        }
-    }
-
     public void contarRegistrosParametros() {
-        if (listaParametrosCorrecciones != null) {
-            if (!listaParametrosCorrecciones.isEmpty()) {
-                modificarInfoRegistroParametro(listaParametrosCorrecciones.size());
-            }
-        } else {
-            modificarInfoRegistroParametro(0);
-        }
+        RequestContext.getCurrentInstance().update("form:infoRegistroParametro");
     }
 
     //////////////////////GETS Y SETS//////////////////////////////////////////////////
@@ -2995,14 +2924,6 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
             if (listaAportesCorrecciones == null) {
                 if (parametroCorreccionSeleccionado != null) {
                     listaAportesCorrecciones = administrarParametroCorreccionAutoL.consultarAportesCorrecciones();
-                    if (listaAportesCorrecciones != null) {
-                        for (int i = 0; i < listaAportesCorrecciones.size(); i++) {
-                            if (listaAportesCorrecciones.get(i).getTerceroRegistro() == null) {
-                                listaAportesCorrecciones.get(i).setTerceroRegistro(null);
-
-                            }
-                        }
-                    }
                 }
             }
             return listaAportesCorrecciones;
@@ -3081,6 +3002,9 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
     }
 
     public String getInfoRegistroParametro() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosParametroAuto");
+        infoRegistroParametro = String.valueOf(tabla.getRowCount());
         return infoRegistroParametro;
     }
 
@@ -3089,6 +3013,9 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
     }
 
     public String getInfoRegistroAporte() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:tablaAportesCorrecciones");
+        infoRegistroAporte = String.valueOf(tabla.getRowCount());
         return infoRegistroAporte;
     }
 
@@ -3124,6 +3051,9 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
     }
 
     public String getInfoRegistroTipoTrabajador() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioLovTipoTrabajador:lovTipoTrabajador");
+        infoRegistroTipoTrabajador = String.valueOf(tabla.getRowCount());
         return infoRegistroTipoTrabajador;
     }
 
@@ -3159,6 +3089,9 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
     }
 
     public String getInfoRegistroEmpresa() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioLovEmpresa:lovEmpresa");
+        infoRegistroEmpresa = String.valueOf(tabla.getRowCount());
         return infoRegistroEmpresa;
     }
 
@@ -3194,6 +3127,9 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
     }
 
     public String getInfoRegistroEmpleado() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioLovEmpleado:lovEmpleado");
+        infoRegistroEmpleado = String.valueOf(tabla.getRowCount());
         return infoRegistroEmpleado;
     }
 
@@ -3229,6 +3165,9 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
     }
 
     public String getInfoRegistroTercero() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioLovTercero:lovTercero");
+        infoRegistroTercero = String.valueOf(tabla.getRowCount());
         return infoRegistroTercero;
     }
 
@@ -3264,6 +3203,9 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
     }
 
     public String getInfoRegistroTipoEntidad() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioLovTipoEntidad:lovTipoEntidad");
+        infoRegistroTipoEntidad = String.valueOf(tabla.getRowCount());
         return infoRegistroTipoEntidad;
     }
 
@@ -3275,13 +3217,6 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
         if (lovAportesCorrecciones == null) {
             if (parametroCorreccionSeleccionado != null) {
                 lovAportesCorrecciones = administrarParametroCorreccionAutoL.consultarLovAportesCorrecciones();
-                if (lovAportesCorrecciones != null) {
-                    for (int i = 0; i < lovAportesCorrecciones.size(); i++) {
-                        if (lovAportesCorrecciones.get(i).getTercero() == null) {
-                            lovAportesCorrecciones.get(i).setTerceroRegistro(new Terceros());
-                        }
-                    }
-                }
             }
         }
         return lovAportesCorrecciones;
@@ -3308,6 +3243,9 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
     }
 
     public String getInfoRegistroAporteEntidad() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioLovAporteEntidad:lovBuscarAporte");
+        infoRegistroAporteEntidad = String.valueOf(tabla.getRowCount());
         return infoRegistroAporteEntidad;
     }
 

@@ -1214,7 +1214,6 @@
                                     </f:facet>
                                 </p:column>
 
-                                -->
                             </p:dataTable>
                             <h:outputText id="infoRegistroAporte" value="#{msg['infoRegistro']} #{controlParametrosCorreccionAutoL.infoRegistroAporte}" style="position: relative; left: 5px; top: 210px; font-weight: bold"/>
                         </fieldset>
@@ -1266,10 +1265,10 @@
                                      filteredValue="#{controlParametrosCorreccionAutoL.filtrarLovTiposTrabajadores}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlParametrosCorreccionAutoL.activarAceptar()}" update=":formularioLovTipoTrabajador:aceptarTT"/>
                             <p:ajax event="rowDblselect" listener="#{controlParametrosCorreccionAutoL.actualizarTipoTrabajador()}" process="@this" />
-                            <p:ajax event="filter" listener="#{controlParametrosCorreccionAutoL.eventoFiltrarLovTipoTrabajador()}"/>
+                            <p:ajax event="filter" listener="#{controlParametrosCorreccionAutoL.contarRegistroTiposTrabajadores()}"/>
                             <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarTT']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovTipoTrabajador').filter();" style="width: 150px; position: relative; left: 50px;" />  
+                                <h:outputText value="#{msg['buscarTT']}" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovTipoTrabajador').filter();" class="cssFiltroLOV" />  
                             </f:facet>
 
                             <p:column filterBy="#{tipoT.nombre}"  filterMatchMode="contains" filterStyle="width: 85% !important">
@@ -1279,12 +1278,12 @@
                                 <h:outputText  value="#{tipoT.nombre}" />
                             </p:column>
                         </p:dataTable>
-
-                        <h:outputText id="infoRegistroTipoTrabajador" value="#{msg['infoRegistro']} #{controlParametrosCorreccionAutoL.infoRegistroTipoTrabajador}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
-
-                        <p:commandButton id="aceptarTT" icon="ui-icon-check" style="position: relative; left: 225px;" value="#{msg['aceptar']}" disabled="#{controlParametrosCorreccionAutoL.aceptar}" actionListener="#{controlParametrosCorreccionAutoL.actualizarTipoTrabajador()}" process="@this"/>
-
-                        <p:commandButton id="atrasTT" style="position: relative; left: 225px;" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlParametrosCorreccionAutoL.cancelarCambioTipoTrabajador()}" process="@this"/>
+                        
+                        <div class="cssBotonesLOV"> 
+                        <h:outputText id="infoRegistroTipoTrabajador" value="#{msg['infoRegistro']} #{controlParametrosCorreccionAutoL.infoRegistroTipoTrabajador}" class="cssinfoRegistroLOV"/>
+                        <p:commandButton id="aceptarTT" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlParametrosCorreccionAutoL.aceptar}" actionListener="#{controlParametrosCorreccionAutoL.actualizarTipoTrabajador()}" process="@this"/>
+                        <p:commandButton id="atrasTT" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlParametrosCorreccionAutoL.cancelarCambioTipoTrabajador()}" process="@this"/>
+                        </div>
                     </p:dialog> 
 
                 </h:form>
@@ -1298,10 +1297,10 @@
                                      filteredValue="#{controlParametrosCorreccionAutoL.filtrarLovEmpresas}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlParametrosCorreccionAutoL.activarAceptar()}" update=":formularioLovEmpresa:aceptarE"/>
                             <p:ajax event="rowDblselect" listener="#{controlParametrosCorreccionAutoL.actualizarEmpresa()}" process="@this" />
-                            <p:ajax event="filter" listener="#{controlParametrosCorreccionAutoL.eventoFiltrarLovEmpresas()}"/>
+                            <p:ajax event="filter" listener="#{controlParametrosCorreccionAutoL.contarRegistroEmpresa()}"/>
                             <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarE']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovEmpresa').filter();" style="width:150px; position: relative; left: -40px;" />  
+                                <h:outputText value="#{msg['buscarE']}" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovEmpresa').filter();" class="cssFiltroLOV" />  
                             </f:facet>
 
                             <p:column filterBy="#{empresa.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
@@ -1324,11 +1323,11 @@
                             </p:column>
                         </p:dataTable>
 
-                        <h:outputText id="infoRegistroEmpresa" value="#{msg['infoRegistro']} #{controlParametrosCorreccionAutoL.infoRegistroEmpresa}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
-
-                        <p:commandButton id="aceptarE" icon="ui-icon-check" style="position: relative; left: 330px;" value="#{msg['aceptar']}" disabled="#{controlParametrosCorreccionAutoL.aceptar}" actionListener="#{controlParametrosCorreccionAutoL.actualizarEmpresa()}" process="@this"/>
-
-                        <p:commandButton id="atrasI" style="position: relative; left: 330px;" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlParametrosCorreccionAutoL.cancelarCambioEmpresa()}" process="@this"/>
+                        <div class="cssBotonesLOV"> 
+                        <h:outputText id="infoRegistroEmpresa" value="#{msg['infoRegistro']} #{controlParametrosCorreccionAutoL.infoRegistroEmpresa}" class="cssinfoRegistroLOV" />
+                        <p:commandButton id="aceptarE" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlParametrosCorreccionAutoL.aceptar}" actionListener="#{controlParametrosCorreccionAutoL.actualizarEmpresa()}" process="@this"/>
+                        <p:commandButton id="atrasI" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlParametrosCorreccionAutoL.cancelarCambioEmpresa()}" process="@this"/>
+                        </div>
                     </p:dialog> 
 
                 </h:form>
@@ -1342,10 +1341,10 @@
                                      filteredValue="#{controlParametrosCorreccionAutoL.filtrarLovTiposEntidades}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlParametrosCorreccionAutoL.activarAceptar()}" update=":formularioLovTipoEntidad:aceptarTE"/>
                             <p:ajax event="rowDblselect" listener="#{controlParametrosCorreccionAutoL.actualizarTipoEntidad()}" process="@this" />
-                            <p:ajax event="filter" listener="#{controlParametrosCorreccionAutoL.eventoFiltrarLovTipoEntidades()}"/>
+                            <p:ajax event="filter" listener="#{controlParametrosCorreccionAutoL.contarRegistroTiposEntidades()}"/>
                             <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarTE']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovTipoEntidad').filter();" style="width:150px; position: relative; left: 50px;" />  
+                                <h:outputText value="#{msg['buscarTE']}"/>  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovTipoEntidad').filter();" class="cssFiltroLOV" />  
                             </f:facet>
 
                             <p:column filterBy="#{tipoE.nombre}"  filterMatchMode="contains" filterStyle="width: 85% !important">
@@ -1355,12 +1354,12 @@
                                 <h:outputText  value="#{tipoE.nombre}" />
                             </p:column>
                         </p:dataTable>
-
-                        <h:outputText id="infoRegistroTipoEntidad" value="#{msg['infoRegistro']} #{controlParametrosCorreccionAutoL.infoRegistroTipoEntidad}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
-
-                        <p:commandButton id="aceptarTE" icon="ui-icon-check" style="position: relative; left: 230px;" value="#{msg['aceptar']}" disabled="#{controlParametrosCorreccionAutoL.aceptar}"  actionListener="#{controlParametrosCorreccionAutoL.actualizarTipoEntidad()}"  process="@this"/>
-
-                        <p:commandButton id="atrasTE" style="position: relative; left: 230px;" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}"  actionListener="#{controlParametrosCorreccionAutoL.cancelarCambioTipoEntidad()}"  process="@this"/>
+                        
+                        <div class="cssBotonesLOV"> 
+                        <h:outputText id="infoRegistroTipoEntidad" value="#{msg['infoRegistro']} #{controlParametrosCorreccionAutoL.infoRegistroTipoEntidad}" class="cssinfoRegistroLOV" />
+                        <p:commandButton id="aceptarTE" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlParametrosCorreccionAutoL.aceptar}"  actionListener="#{controlParametrosCorreccionAutoL.actualizarTipoEntidad()}"  process="@this"/>
+                        <p:commandButton id="atrasTE" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}"  actionListener="#{controlParametrosCorreccionAutoL.cancelarCambioTipoEntidad()}"  process="@this"/>
+                        </div>
                     </p:dialog> 
 
                 </h:form>
@@ -1374,10 +1373,10 @@
                                      filteredValue="#{controlParametrosCorreccionAutoL.filtrarLovEmpleados}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlParametrosCorreccionAutoL.activarAceptar()}" update=":formularioLovEmpleado:aceptarEMPL"/>
                             <p:ajax event="rowDblselect" listener="#{controlParametrosCorreccionAutoL.actualizarEmpleado()}" process="@this" />
-                            <p:ajax event="filter" listener="#{controlParametrosCorreccionAutoL.eventoFiltrarEmpleados()}"/>
+                            <p:ajax event="filter" listener="#{controlParametrosCorreccionAutoL.contarRegistroEmpleados()}"/>
                             <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarEMPL']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovEmpleado').filter();" style="width:150px; position: relative; left: 50px;" />  
+                                <h:outputText value="#{msg['buscarEMPL']}"/>  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovEmpleado').filter();" class="cssFiltroLOV" />  
                             </f:facet>
 
                             <p:column filterBy="#{empleado.codigoempleado}" filterStyle="width: 85% !important" width="80" filterMatchMode="contains">
@@ -1394,12 +1393,12 @@
                                 <h:outputText  value="#{empleado.persona.nombreCompleto}" />
                             </p:column>
                         </p:dataTable>
-
-                        <h:outputText id="infoRegistroEmpleado" value="#{msg['infoRegistro']} #{controlParametrosCorreccionAutoL.infoRegistroEmpleado}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
-
-                        <p:commandButton id="aceptarEMPL" icon="ui-icon-check" style="position: relative; left: 230px;" value="#{msg['aceptar']}" disabled="#{controlParametrosCorreccionAutoL.aceptar}"  actionListener="#{controlParametrosCorreccionAutoL.actualizarEmpleado()}" process="@this"/>
-
-                        <p:commandButton id="atrasEMPL" style="position: relative; left: 230px;" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}"  actionListener="#{controlParametrosCorreccionAutoL.cancelarCambioEmpleado()}" process="@this"/>
+                        
+                        <div class="cssBotonesLOV"> 
+                        <h:outputText id="infoRegistroEmpleado" value="#{msg['infoRegistro']} #{controlParametrosCorreccionAutoL.infoRegistroEmpleado}" class="cssinfoRegistroLOV"/>
+                        <p:commandButton id="aceptarEMPL" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlParametrosCorreccionAutoL.aceptar}"  actionListener="#{controlParametrosCorreccionAutoL.actualizarEmpleado()}" process="@this"/>
+                        <p:commandButton id="atrasEMPL" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}"  actionListener="#{controlParametrosCorreccionAutoL.cancelarCambioEmpleado()}" process="@this"/>
+                        </div>
                     </p:dialog> 
 
                 </h:form>
@@ -1413,10 +1412,10 @@
                                      filteredValue="#{controlParametrosCorreccionAutoL.filtrarLovTerceros}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlParametrosCorreccionAutoL.activarAceptar()}" update=":formularioLovTercero:aceptarT"/>
                             <p:ajax event="rowDblselect" listener="#{controlParametrosCorreccionAutoL.actualizarTercero()}" process="@this" />
-                            <p:ajax event="filter" listener="#{controlParametrosCorreccionAutoL.eventoFiltrarLovTerceros()}"/>
+                            <p:ajax event="filter" listener="#{controlParametrosCorreccionAutoL.contarRegistroTercero()}"/>
                             <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarT']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovTercero').filter();" style="width:200px; position: relative; left: -40px;" />  
+                                <h:outputText value="#{msg['buscarT']}" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovTercero').filter();" class="cssFiltroLOV" />  
                             </f:facet>
 
                             <p:column filterBy="#{tercero.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
@@ -1438,12 +1437,12 @@
                                 <h:outputText  value="#{tercero.empresa.nombre}}" />
                             </p:column>
                         </p:dataTable>
-
-                        <h:outputText id="infoRegistroTercero" value="#{msg['infoRegistro']} #{controlParametrosCorreccionAutoL.infoRegistroTercero}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
-
-                        <p:commandButton id="aceptarT" icon="ui-icon-check" style="position: relative; left: 330px;" value="#{msg['aceptar']}" disabled="#{controlParametrosCorreccionAutoL.aceptar}"  actionListener="#{controlParametrosCorreccionAutoL.actualizarTercero()}"  process="@this"/>
-
-                        <p:commandButton id="atrasT" style="position: relative; left: 330px;" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}"  actionListener="#{controlParametrosCorreccionAutoL.cancelarCambioTercero()}"  process="@this"/>
+                        
+                        <div class="cssBotonesLOV"> 
+                        <h:outputText id="infoRegistroTercero" value="#{msg['infoRegistro']} #{controlParametrosCorreccionAutoL.infoRegistroTercero}" class="cssinfoRegistroLOV" />
+                        <p:commandButton id="aceptarT" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlParametrosCorreccionAutoL.aceptar}"  actionListener="#{controlParametrosCorreccionAutoL.actualizarTercero()}"  process="@this"/>
+                        <p:commandButton id="atrasT" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}"  actionListener="#{controlParametrosCorreccionAutoL.cancelarCambioTercero()}"  process="@this"/>
+                        </div>
                     </p:dialog> 
 
                 </h:form>
@@ -1457,10 +1456,10 @@
                                      filteredValue="#{controlParametrosCorreccionAutoL.filtrarLovAportesCorrecciones}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlParametrosCorreccionAutoL.activarAceptar()}" update=":formularioLovAporteEntidad:aceptarBA"/>
                             <p:ajax event="rowDblselect" listener="#{controlParametrosCorreccionAutoL.actualizarAporteEntidad()}" process="@this" />
-                            <p:ajax event="filter" listener="#{controlParametrosCorreccionAutoL.eventoFiltrarAporteEntidad()}"/>
+                            <p:ajax event="filter" listener="#{controlParametrosCorreccionAutoL.contarRegistroAportesCorrecciones()}"/>
                             <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarBA']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovBuscarAporte').filter();" style="width:200px; position: relative; left: -40px;" />  
+                                <h:outputText value="#{msg['buscarBA']}" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovBuscarAporte').filter();" class="cssFiltroLOV" />  
                             </f:facet>
 
                             <p:column filterBy="#{buscarA.ano}" width="90" filterMatchMode="contains" filterStyle="width: 85% !important">
@@ -1483,12 +1482,12 @@
                             </p:column>
 
                         </p:dataTable>
-
-                        <h:outputText id="infoRegistroAporteEntidad" value="#{msg['infoRegistro']} #{controlParametrosCorreccionAutoL.infoRegistroAporteEntidad}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
-
-                        <p:commandButton id="aceptarBA" icon="ui-icon-check" style="position: relative; left: 330px;" value="#{msg['aceptar']}" disabled="#{controlParametrosCorreccionAutoL.aceptar}" actionListener="#{controlParametrosCorreccionAutoL.actualizarAporteEntidad()}" process="@this"/>
-
-                        <p:commandButton id="atrasBA" style="position: relative; left: 330px;" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlParametrosCorreccionAutoL.cancelarCambioAporteEntidad()}" process="@this"/>
+                        
+                        <div class="cssBotonesLOV"> 
+                        <h:outputText id="infoRegistroAporteEntidad" value="#{msg['infoRegistro']} #{controlParametrosCorreccionAutoL.infoRegistroAporteEntidad}" class="cssinfoRegistroLOV" />
+                        <p:commandButton id="aceptarBA" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlParametrosCorreccionAutoL.aceptar}" actionListener="#{controlParametrosCorreccionAutoL.actualizarAporteEntidad()}" process="@this"/>
+                        <p:commandButton id="atrasBA" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlParametrosCorreccionAutoL.cancelarCambioAporteEntidad()}" process="@this"/>
+                        </div>
                     </p:dialog> 
                 </h:form>
 
