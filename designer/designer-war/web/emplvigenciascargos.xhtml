@@ -303,12 +303,11 @@
                      <div class="cssBotonesLOV">
                         <h:outputText id="infoRegistroEstructuras" value="#{msg['infoRegistro']} #{controlVigenciasCargos.infoRegistroEstructuras}" class="cssinfoRegistroLOV"/>
 
-                        <p:commandButton id="aceptarE" value="#{msg['aceptar']}" disabled="#{controlVigenciasCargos.aceptar ? true : false }" class="cssAceptarLOV" 
-                                         icon="ui-icon-check" actionListener="#{controlVigenciasCargos.actualizarEstructura()}" process="@this" 
-                                         oncomplete="PF('dlgEstructuras').hide(), PF('estructurasLOV').clearFilters()"  update=":form:dlgEstructuras"/>
-
+                        <p:commandButton id="aceptarE" value="#{msg['aceptar']}" disabled="#{controlVigenciasCargos.aceptar ? true : false }" class="cssAceptarLOV"
+                                         icon="ui-icon-check" actionListener="#{controlVigenciasCargos.actualizarEstructura()}" process="@this"
+                                         oncomplete="PF('dlgEstructuras').hide(), PF('estructurasLOV').clearFilters()" update=":form:dlgEstructuras"/>
                         <p:commandButton id="atrasE" value="#{msg['atras']}" class="cssAtrasLOV" actionListener="#{controlVigenciasCargos.cancelarCambioEstructura()}"
-                                         icon="ui-icon-arrowreturnthick-1-w"  process="@this" 
+                                         icon="ui-icon-arrowreturnthick-1-w" process="@this"
                                          oncomplete="PF('dlgEstructuras').hide(), PF('estructurasLOV').clearFilters()" update=":form:dlgEstructuras"/>
                      </div>
                   </p:dialog>

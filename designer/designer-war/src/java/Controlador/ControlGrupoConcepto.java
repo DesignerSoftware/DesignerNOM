@@ -137,6 +137,7 @@ public class ControlGrupoConcepto implements Serializable {
       duplicarGruposConceptos = new GruposConceptos();
       //Crear VigenciasGruposConceptos
       nuevoVigenciasGruposConceptos = new VigenciasGruposConceptos();
+      nuevoVigenciasGruposConceptos.setConcepto(new Conceptos());
       duplicarVigenciaGruposConceptos = new VigenciasGruposConceptos();
       m = 0;
       cambiosPagina = true;
@@ -196,14 +197,10 @@ public class ControlGrupoConcepto implements Serializable {
          nuevoVigenciasGruposConceptos.setConcepto(conceptoSeleccionado);
          RequestContext.getCurrentInstance().update("formularioDialogos:nuevoCodigoV");
          RequestContext.getCurrentInstance().update("formularioDialogos:nuevoDescripcionV");
-         RequestContext.getCurrentInstance().update("formularioDialogos:nuevoNaturaleza");
-         RequestContext.getCurrentInstance().update("formularioDialogos:nuevoEmpresa");
       } else if (tipoActualizacion == 2) {
          duplicarVigenciaGruposConceptos.setConcepto(conceptoSeleccionado);
          RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCodigoV");
          RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDescripcionV");
-         RequestContext.getCurrentInstance().update("formularioDialogos:duplicarNaturaleza");
-         RequestContext.getCurrentInstance().update("formularioDialogos:duplicarEmpresa");
       }
       lovfiltradoListaConceptos = null;
       conceptoSeleccionado = null;
@@ -276,32 +273,71 @@ public class ControlGrupoConcepto implements Serializable {
          deshabilitarBotonLov();
          if (guardado == true) {
             guardado = false;
-            RequestContext.getCurrentInstance().update("form:aceptar");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
          }
          RequestContext.getCurrentInstance().execute("PF('NuevoRegistroGruposConceptos').hide()");
-         nuevoGruposConceptos = new GruposConceptos();
-         RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroGruposConceptos");
+         limpiarNuevoGruposConceptos();
+      }
+   }
+
+   public boolean validarCamposNuevaVigencia(VigenciasGruposConceptos vigencia) {
+      int pasa1 = 0;
+      int pasa2 = 0;
+      int pasa3 = 0;
+      Date fechaCero = new Date(1, 1, 1);
+      mensajeValidacion = new String();
+      System.out.println("validarCamposNuevaVigencia fechaCero : " + fechaCero);
+      if (vigencia.getConcepto().getSecuencia() == null) {
+         mensajeValidacion = mensajeValidacion + " * Codigo\n";
+         pasa1++;
+      }
+      if (vigencia.getFechainicial() == null || vigencia.getFechafinal() == null) {
+         mensajeValidacion = mensajeValidacion + " * Fecha Inicial \n * Fecha Final \n";
+         pasa1++;
+      } else if (vigencia.getFechainicial().after(vigencia.getFechafinal())
+              || vigencia.getFechainicial().equals(vigencia.getFechafinal())
+              || vigencia.getFechainicial().before(fechaCero)) {
+         System.out.println("vigencia.getFechainicial().after(vigencia.getFechafinal()) : " + vigencia.getFechainicial().after(vigencia.getFechafinal()));
+         System.out.println("vigencia.getFechainicial().equals(vigencia.getFechafinal()) : " + vigencia.getFechainicial().equals(vigencia.getFechafinal()));
+         System.out.println("vigencia.getFechainicial().before(fechaCero) : " + vigencia.getFechainicial().before(fechaCero));
+         pasa2++;
+      } else if (listaVigenciasGruposConceptos != null) {
+         if (!listaVigenciasGruposConceptos.isEmpty()) {
+            for (int i = 0; i < listaVigenciasGruposConceptos.size(); i++) {
+               if (listaVigenciasGruposConceptos.get(i).getConcepto().getSecuencia().equals(vigencia.getConcepto().getSecuencia())) {
+                  if ((listaVigenciasGruposConceptos.get(i).getFechafinal().after(vigencia.getFechafinal())
+                          && listaVigenciasGruposConceptos.get(i).getFechainicial().before(vigencia.getFechafinal()))
+                          || (listaVigenciasGruposConceptos.get(i).getFechainicial().before(vigencia.getFechainicial())
+                          && listaVigenciasGruposConceptos.get(i).getFechafinal().after(vigencia.getFechainicial()))
+                          || listaVigenciasGruposConceptos.get(i).getFechafinal().equals(vigencia.getFechafinal())
+                          || listaVigenciasGruposConceptos.get(i).getFechainicial().equals(vigencia.getFechainicial())
+                          || listaVigenciasGruposConceptos.get(i).getFechainicial().equals(vigencia.getFechafinal())
+                          || listaVigenciasGruposConceptos.get(i).getFechafinal().equals(vigencia.getFechainicial())) {
+                     pasa3++;
+                  }
+               }
+            }
+         }
+      }
+      if (pasa1 != 0) {
+         RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevo");
+         RequestContext.getCurrentInstance().execute("PF('validacionNuevo').show()");
+      } else if (pasa2 != 0) {
+         RequestContext.getCurrentInstance().execute("PF('validacionNuevoFechas').show()");
+      } else if (pasa3 != 0) {
+         RequestContext.getCurrentInstance().execute("PF('validacionNuevoRepetidos').show()");
+      }
+
+      if (pasa1 == 0 && pasa2 == 0 && pasa3 == 0) {
+         return true;
+      } else {
+         return false;
       }
    }
 
    //CREAR Grupo Concepto
    public void agregarNuevoVigenciaGrupoConcepto() {
-      int pasa = 0;
-      int pasar = 0;
-
-      mensajeValidacion = new String();
-
-      if (nuevoVigenciasGruposConceptos.getConcepto() == null) {
-         mensajeValidacion = mensajeValidacion + " * Codigo\n";
-         pasa++;
-      }
-
-      if (pasa != 0) {
-         RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevo");
-         RequestContext.getCurrentInstance().execute("PF('validacionNuevo').show()");
-      }
-
-      if (pasa == 0 && pasar == 0) {
+      if (validarCamposNuevaVigencia(nuevoVigenciasGruposConceptos)) {
          if (bandera == 1) {
             restaurarTablas();
          }
@@ -320,11 +356,10 @@ public class ControlGrupoConcepto implements Serializable {
          deshabilitarBotonLov();
          if (guardado == true) {
             guardado = false;
-            RequestContext.getCurrentInstance().update("form:aceptar");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
          }
          RequestContext.getCurrentInstance().execute("PF('NuevoRegistroVigenciasGruposConceptos').hide()");
-         nuevoGruposConceptos = new GruposConceptos();
-         RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroVigenciasGruposConceptos");
+         limpiarNuevoGruposConceptos();
       }
    }
 
@@ -359,7 +394,10 @@ public class ControlGrupoConcepto implements Serializable {
          tipoLista = 1;
       }
       grupoConceptoSeleccionado = null;
+      listaVigenciasGruposConceptos = null;
+      RequestContext.getCurrentInstance().update("form:datosVigenciasGruposConceptos");
       contarRegistros();
+      contarRegistrosVigencias();
       deshabilitarBotonLov();
    }
 
@@ -421,7 +459,7 @@ public class ControlGrupoConcepto implements Serializable {
 
             if (guardado == true) {
                guardado = false;
-               RequestContext.getCurrentInstance().update("form:aceptar");
+               RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
          } else {
             System.out.println("No se puede borrar porque tiene registros en la tabla de abajo");
@@ -453,7 +491,7 @@ public class ControlGrupoConcepto implements Serializable {
 
          if (guardado == true) {
             guardado = false;
-            RequestContext.getCurrentInstance().update("form:aceptar");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
          }
       } else {
          deshabilitarBotonLov();
@@ -501,7 +539,7 @@ public class ControlGrupoConcepto implements Serializable {
          guardado = true;
          permitirIndex = true;
          cambiosPagina = true;
-         RequestContext.getCurrentInstance().update("form:aceptar");
+         RequestContext.getCurrentInstance().update("form:ACEPTAR");
       }
       System.out.println("Valor k: " + k);
 
@@ -510,10 +548,8 @@ public class ControlGrupoConcepto implements Serializable {
          if (!listaVigenciasGruposConceptosBorrar.isEmpty()) {
             for (int i = 0; i < listaVigenciasGruposConceptosBorrar.size(); i++) {
                System.out.println("Borrando...");
-
                administrarGruposConceptos.borrarVigenciaGruposConceptos(listaVigenciasGruposConceptosBorrar.get(i));
             }
-
             System.out.println("Entra");
             listaVigenciasGruposConceptosBorrar.clear();
          }
@@ -533,17 +569,19 @@ public class ControlGrupoConcepto implements Serializable {
 
          listaVigenciasGruposConceptosModificar.clear();
       }
-
+      grupoConceptoSeleccionado = null;
       System.out.println("Se guardaron los datos con exito");
       listaVigenciasGruposConceptos = null;
       FacesMessage msg = new FacesMessage("Información", "Se han guardado los datos exitosamente.");
       FacesContext.getCurrentInstance().addMessage(null, msg);
+      RequestContext.getCurrentInstance().update("form:datosGruposConceptos");
       RequestContext.getCurrentInstance().update("form:datosVigenciasGruposConceptos");
       contarRegistrosVigencias();
+      contarRegistros();
       RequestContext.getCurrentInstance().update("form:growl");
       guardado = true;
       permitirIndex = true;
-      RequestContext.getCurrentInstance().update("form:aceptar");
+      RequestContext.getCurrentInstance().update("form:ACEPTAR");
       cambiosPagina = true;
       deshabilitarBotonLov();
    }
@@ -674,58 +712,56 @@ public class ControlGrupoConcepto implements Serializable {
    }
 
 //CREAR Vigencia
-   public void agregarNuevaVigencia() {
-      int pasa = 0;
-      int pasar = 0;
-      mensajeValidacion = new String();
-
-      if (nuevoVigenciasGruposConceptos.getConcepto().getCodigo() == null) {
-         mensajeValidacion = mensajeValidacion + " * Codigo \n";
-         pasa++;
-      }
-
-      if (nuevoVigenciasGruposConceptos.getFechainicial() == null) {
-         mensajeValidacion = mensajeValidacion + " * Fecha Inicial";
-      }
-
-      if (nuevoVigenciasGruposConceptos.getFechafinal() == null) {
-         mensajeValidacion = mensajeValidacion + " * Fecha Final";
-      }
-
-      if (pasa != 0) {
-         RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevo");
-         RequestContext.getCurrentInstance().execute("PF('validacionNuevo').show()");
-      }
-
-      if (pasa == 0 && pasar == 0) {
-         if (bandera == 1) {
-            restaurarTablas();
-         }
-         //AGREGAR REGISTRO A LA LISTA NOVEDADES .
-         k++;
-         l = BigInteger.valueOf(k);
-         nuevoVigenciasGruposConceptos.setSecuencia(l);
-         System.out.println("grupoConceptoSeleccionado" + grupoConceptoSeleccionado.getCodigo());
-         nuevoVigenciasGruposConceptos.setGrupoconcepto(grupoConceptoSeleccionado);
-         cambiosPagina = false;
-         RequestContext.getCurrentInstance().update("form:ACEPTAR");
-         listaVigenciasGruposConceptosCrear.add(nuevoVigenciasGruposConceptos);
-         listaVigenciasGruposConceptos.add(nuevoVigenciasGruposConceptos);
-         vigenciaGrupoCSeleccionado = listaVigenciasGruposConceptos.get(listaVigenciasGruposConceptos.indexOf(nuevoVigenciasGruposConceptos));
-
-         RequestContext.getCurrentInstance().update("form:datosVigenciasGruposConceptos");
-         contarRegistrosVigencias();
-         deshabilitarBotonLov();
-         if (guardado == true) {
-            guardado = false;
-            RequestContext.getCurrentInstance().update("form:aceptar");
-         }
-         RequestContext.getCurrentInstance().execute("PF('NuevoRegistroVigenciasGruposConceptos').hide()");
-         nuevoVigenciasGruposConceptos = new VigenciasGruposConceptos();
-         RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroVigenciasGruposConceptos");
-      }
-   }
-
+//   public void agregarNuevaVigencia() {
+//      int pasa = 0;
+//      int pasar = 0;
+//      mensajeValidacion = new String();
+//
+//      if (nuevoVigenciasGruposConceptos.getConcepto().getCodigo() == null) {
+//         mensajeValidacion = mensajeValidacion + " * Codigo \n";
+//         pasa++;
+//      }
+//
+//      if (nuevoVigenciasGruposConceptos.getFechainicial() == null) {
+//         mensajeValidacion = mensajeValidacion + " * Fecha Inicial";
+//      }
+//
+//      if (nuevoVigenciasGruposConceptos.getFechafinal() == null) {
+//         mensajeValidacion = mensajeValidacion + " * Fecha Final";
+//      }
+//
+//      if (pasa != 0) {
+//         RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevo");
+//         RequestContext.getCurrentInstance().execute("PF('validacionNuevo').show()");
+//      }
+//
+//      if (pasa == 0 && pasar == 0) {
+//         if (bandera == 1) {
+//            restaurarTablas();
+//         }
+//         //AGREGAR REGISTRO A LA LISTA NOVEDADES .
+//         k++;
+//         l = BigInteger.valueOf(k);
+//         nuevoVigenciasGruposConceptos.setSecuencia(l);
+//         System.out.println("grupoConceptoSeleccionado" + grupoConceptoSeleccionado.getCodigo());
+//         nuevoVigenciasGruposConceptos.setGrupoconcepto(grupoConceptoSeleccionado);
+//         cambiosPagina = false;
+//         RequestContext.getCurrentInstance().update("form:ACEPTAR");
+//         listaVigenciasGruposConceptosCrear.add(nuevoVigenciasGruposConceptos);
+//         listaVigenciasGruposConceptos.add(nuevoVigenciasGruposConceptos);
+//         vigenciaGrupoCSeleccionado = listaVigenciasGruposConceptos.get(listaVigenciasGruposConceptos.indexOf(nuevoVigenciasGruposConceptos));
+//
+//         RequestContext.getCurrentInstance().update("form:datosVigenciasGruposConceptos");
+//         contarRegistrosVigencias();
+//         deshabilitarBotonLov();
+//         if (guardado == true) {
+//            guardado = false;
+//            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+//         }
+//         RequestContext.getCurrentInstance().execute("PF('NuevoRegistroVigenciasGruposConceptos').hide()");
+//         limpiarNuevoVigenciaGruposConceptos();
+//      }
+//   }
    public void confirmarDuplicar() {
       int pasa = 0;
       if (pasa == 0) {
@@ -737,7 +773,7 @@ public class ControlGrupoConcepto implements Serializable {
          deshabilitarBotonLov();
          if (guardado == true) {
             guardado = false;
-            RequestContext.getCurrentInstance().update("form:aceptar");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
          }
          if (bandera == 1) {
             restaurarTablas();
@@ -747,20 +783,22 @@ public class ControlGrupoConcepto implements Serializable {
    }
 
    public void confirmarDuplicarD() {
-      listaVigenciasGruposConceptos.add(duplicarVigenciaGruposConceptos);
-      listaVigenciasGruposConceptosCrear.add(duplicarVigenciaGruposConceptos);
-      vigenciaGrupoCSeleccionado = listaVigenciasGruposConceptos.get(listaVigenciasGruposConceptos.indexOf(duplicarVigenciaGruposConceptos));
-      RequestContext.getCurrentInstance().update("form:datosVigenciasGruposConceptos");
-      contarRegistrosVigencias();
-      deshabilitarBotonLov();
-      if (guardado == true) {
-         guardado = false;
-         RequestContext.getCurrentInstance().update("form:aceptar");
+      if (validarCamposNuevaVigencia(duplicarVigenciaGruposConceptos)) {
+         listaVigenciasGruposConceptos.add(duplicarVigenciaGruposConceptos);
+         listaVigenciasGruposConceptosCrear.add(duplicarVigenciaGruposConceptos);
+         vigenciaGrupoCSeleccionado = listaVigenciasGruposConceptos.get(listaVigenciasGruposConceptos.indexOf(duplicarVigenciaGruposConceptos));
+         RequestContext.getCurrentInstance().update("form:datosVigenciasGruposConceptos");
+         contarRegistrosVigencias();
+         deshabilitarBotonLov();
+         if (guardado == true) {
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+         }
+         if (bandera == 1) {
+            restaurarTablas();
+         }
+         duplicarVigenciaGruposConceptos = new VigenciasGruposConceptos();
       }
-      if (bandera == 1) {
-         restaurarTablas();
-      }
-      duplicarVigenciaGruposConceptos = new VigenciasGruposConceptos();
    }
 
    //DUPLICAR Grupos/Vigencias
@@ -774,11 +812,10 @@ public class ControlGrupoConcepto implements Serializable {
          duplicarGruposConceptos.setDescripcion(grupoConceptoSeleccionado.getDescripcion());
          duplicarGruposConceptos.setFundamental(grupoConceptoSeleccionado.getFundamental());
 
-//         RequestContext.getCurrentInstance().update("formularioDialogos:duplicarGrupoConcepto");
+         RequestContext.getCurrentInstance().update("formularioDialogos:duplicarGrupoConcepto");
          RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroGruposConceptos').show()");
 
       } else if (vigenciaGrupoCSeleccionado != null && cualTabla == 1) {
-
          duplicarVigenciaGruposConceptos = new VigenciasGruposConceptos();
          m++;
          n = BigInteger.valueOf(m);
@@ -873,86 +910,46 @@ public class ControlGrupoConcepto implements Serializable {
       }
    }
 
-   public void valoresBackupAutocompletar(int tipoNuevo, String Campo) {
-      if (Campo.equals("CONCEPTO")) {
-         if (tipoNuevo == 1) {
-            codigo = nuevoVigenciasGruposConceptos.getConcepto().getCodigoSTR();
-         } else if (tipoNuevo == 2) {
-            codigo = duplicarVigenciaGruposConceptos.getConcepto().getCodigoSTR();
-         }
-      } else if (Campo.equals("EMPRESA")) {
-         if (tipoNuevo == 1) {
-            empresa = nuevoVigenciasGruposConceptos.getConcepto().getEmpresa().getNombre();
-         } else if (tipoNuevo == 2) {
-            empresa = duplicarVigenciaGruposConceptos.getConcepto().getEmpresa().getNombre();
-         }
+   public void valoresBackupAutocompletar(int tipoNuevo) {
+      if (tipoNuevo == 1) {
+         tipoActualizacion = 1;
+         codigo = nuevoVigenciasGruposConceptos.getConcepto().getCodigoSTR();
+      } else if (tipoNuevo == 2) {
+         codigo = duplicarVigenciaGruposConceptos.getConcepto().getCodigoSTR();
+         tipoActualizacion = 2;
       }
    }
 
-   public void autocompletarNuevoyDuplicado(String confirmarCambio, String valorConfirmar, int tipoNuevo) {
+   public void autocomplConceptoNuevoyDuplicado(String valorConfirmar, int tipoNuevo) {
       int coincidencias = 0;
       int indiceUnicoElemento = 0;
-      RequestContext context = RequestContext.getCurrentInstance();
-      if (confirmarCambio.equalsIgnoreCase("CONCEPTO")) {
+      tipoActualizacion = tipoNuevo;
+      if (tipoNuevo == 1) {
+         nuevoVigenciasGruposConceptos.getConcepto().setCodigoSTR(codigo);
+      } else if (tipoNuevo == 2) {
+         duplicarVigenciaGruposConceptos.getConcepto().setCodigoSTR(codigo);
+      }
+      for (int i = 0; i < lovlistaConceptos.size(); i++) {
+         if (lovlistaConceptos.get(i).getCodigoSTR().startsWith(valorConfirmar.toUpperCase())) {
+            indiceUnicoElemento = i;
+            coincidencias++;
+         }
+      }
+      if (coincidencias == 1) {
          if (tipoNuevo == 1) {
-            nuevoVigenciasGruposConceptos.getConcepto().setCodigoSTR(codigo);
+            nuevoVigenciasGruposConceptos.setConcepto(lovlistaConceptos.get(indiceUnicoElemento));
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevoVigenciaGrupoConcepto");
          } else if (tipoNuevo == 2) {
-            duplicarVigenciaGruposConceptos.getConcepto().setCodigoSTR(codigo);
+            duplicarVigenciaGruposConceptos.setConcepto(lovlistaConceptos.get(indiceUnicoElemento));
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarVigenciaGrupoConcepto");
          }
-         for (int i = 0; i < lovlistaConceptos.size(); i++) {
-            if (lovlistaConceptos.get(i).getCodigoSTR().startsWith(valorConfirmar.toUpperCase())) {
-               indiceUnicoElemento = i;
-               coincidencias++;
-            }
-         }
-         if (coincidencias == 1) {
-            if (tipoNuevo == 1) {
-               nuevoVigenciasGruposConceptos.setConcepto(lovlistaConceptos.get(indiceUnicoElemento));
-               RequestContext.getCurrentInstance().update("formularioDialogos:nuevoVigenciaGrupoConcepto");
-            } else if (tipoNuevo == 2) {
-               duplicarVigenciaGruposConceptos.setConcepto(lovlistaConceptos.get(indiceUnicoElemento));
-               RequestContext.getCurrentInstance().update("formularioDialogos:duplicarVigenciaGrupoConcepto");
-            }
-         } else {
-            RequestContext.getCurrentInstance().update("form:conceptosDialogo");
-            RequestContext.getCurrentInstance().execute("PF('conceptosDialogo').show()");
-            tipoActualizacion = tipoNuevo;
-            if (tipoNuevo == 1) {
-               RequestContext.getCurrentInstance().update("formularioDialogos:nuevoVigenciaGrupoConcepto");
-            } else if (tipoNuevo == 2) {
-               RequestContext.getCurrentInstance().update("formularioDialogos:duplicarVigenciaGrupoConcepto");
-            }
-         }
-      } else if (confirmarCambio.equalsIgnoreCase("EMPRESA")) {
+      } else {
+         RequestContext.getCurrentInstance().update("form:conceptosDialogo");
+         RequestContext.getCurrentInstance().execute("PF('conceptosDialogo').show()");
          if (tipoNuevo == 1) {
-            nuevoVigenciasGruposConceptos.getConcepto().getEmpresa().setNombre(empresa);
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevoVigenciaGrupoConcepto");
          } else if (tipoNuevo == 2) {
-            duplicarVigenciaGruposConceptos.getConcepto().getEmpresa().setNombre(empresa);
-         }
-
-         for (int i = 0; i < lovlistaConceptos.size(); i++) {
-            if (lovlistaConceptos.get(i).getEmpresa().getNombre().startsWith(valorConfirmar.toUpperCase())) {
-               indiceUnicoElemento = i;
-               coincidencias++;
-            }
-         }
-         if (coincidencias == 1) {
-            if (tipoNuevo == 1) {
-               nuevoVigenciasGruposConceptos.setConcepto(lovlistaConceptos.get(indiceUnicoElemento));
-               RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTercero");
-            } else if (tipoNuevo == 2) {
-               duplicarVigenciaGruposConceptos.setConcepto(lovlistaConceptos.get(indiceUnicoElemento));
-               RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTercero");
-            }
-         } else {
-            RequestContext.getCurrentInstance().update("form:conceptosDialogo");
-            RequestContext.getCurrentInstance().execute("PF('conceptosDialogo').show()");
-            tipoActualizacion = tipoNuevo;
-            if (tipoNuevo == 1) {
-               RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTercero");
-            } else if (tipoNuevo == 2) {
-               RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTercero");
-            }
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarVigenciaGrupoConcepto");
          }
       }
    }
@@ -1007,18 +1004,18 @@ public class ControlGrupoConcepto implements Serializable {
 //         RequestContext.getCurrentInstance().execute("PF('NuevoRegistroVigenciasGruposConceptos').show()");
 //      }
 //   }
-
-   public void dialogoGruposConceptos() {
-      cualTabla = 0;
-      RequestContext.getCurrentInstance().update("form:NuevoRegistroGruposConceptos");
-      RequestContext.getCurrentInstance().execute("PF('NuevoRegistroGruposConceptos').show()");
-   }
-
-   public void dialogoVigenciasGruposConceptos() {
-      cualTabla = 1;
-      RequestContext.getCurrentInstance().update("form:NuevoRegistroVigenciasGruposConceptos");
-      RequestContext.getCurrentInstance().execute("PF('NuevoRegistroVigenciasGruposConceptos').show()");
-   }
+//
+//   public void dialogoGruposConceptos() {
+//      cualTabla = 0;
+//      RequestContext.getCurrentInstance().update("form:NuevoRegistroGruposConceptos");
+//      RequestContext.getCurrentInstance().execute("PF('NuevoRegistroGruposConceptos').show()");
+//   }
+//
+//   public void dialogoVigenciasGruposConceptos() {
+//      cualTabla = 1;
+//      RequestContext.getCurrentInstance().update("form:NuevoRegistroVigenciasGruposConceptos");
+//      RequestContext.getCurrentInstance().execute("PF('NuevoRegistroVigenciasGruposConceptos').show()");
+//   }
 
    //Fechas
    public void modificarVigencias(VigenciasGruposConceptos vigencia) {
@@ -1217,23 +1214,6 @@ public class ControlGrupoConcepto implements Serializable {
          }
       } else if (confirmarCambio.equalsIgnoreCase("EMPRESA")) {
          vigenciaGrupoCSeleccionado.getConcepto().getEmpresa().setNombre(empresa);
-
-         for (int i = 0; i < lovlistaConceptos.size(); i++) {
-            if (lovlistaConceptos.get(i).getEmpresa().getNombre().startsWith(valorConfirmar.toUpperCase())) {
-               indiceUnicoElemento = i;
-               coincidencias++;
-            }
-         }
-         if (coincidencias == 1) {
-            vigenciaGrupoCSeleccionado.setConcepto(lovlistaConceptos.get(indiceUnicoElemento));
-            cambiosPagina = false;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-         } else {
-            permitirIndex = false;
-            RequestContext.getCurrentInstance().update("formularioDialogos:conceptosDialogo");
-            RequestContext.getCurrentInstance().execute("PF('conceptosDialogo').show()");
-            tipoActualizacion = 0;
-         }
       }
       if (coincidencias == 1) {
          if (!listaVigenciasGruposConceptosCrear.contains(vigenciaGrupoCSeleccionado)) {
@@ -1350,21 +1330,28 @@ public class ControlGrupoConcepto implements Serializable {
    //LIMPIAR NUEVO REGISTRO
    public void limpiarNuevoGruposConceptos() {
       nuevoGruposConceptos = new GruposConceptos();
+      RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroGruposConceptos");
+      RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroVigenciasGruposConceptos");
    }
 
    //LIMPIAR NUEVO DETALLE EMBARGO
    public void limpiarNuevoVigenciaGruposConceptos() {
       nuevoVigenciasGruposConceptos = new VigenciasGruposConceptos();
+      nuevoVigenciasGruposConceptos.setConcepto(new Conceptos());
+      RequestContext.getCurrentInstance().update("formularioDialogos:nuevoVigenciaGrupoConcepto");
+      RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroVigenciasGruposConceptos");
    }
 
    //LIMPIAR DUPLICAR
    public void limpiarduplicarGruposConceptos() {
       duplicarGruposConceptos = new GruposConceptos();
+      RequestContext.getCurrentInstance().update("formularioDialogos:duplicarGrupoConcepto");
    }
    //LIMPIAR DUPLICAR NO FORMAL
 
    public void limpiarduplicarVigenciaGruposConceptos() {
       duplicarVigenciaGruposConceptos = new VigenciasGruposConceptos();
+      RequestContext.getCurrentInstance().update("formularioDialogos:duplicarVigenciaGrupoConcepto");
    }
 
    public void verificarRastro() {
@@ -1423,7 +1410,14 @@ public class ControlGrupoConcepto implements Serializable {
       }
    }
 
+   public void validarNuevoGrupo() {
+      limpiarNuevoGruposConceptos();
+      RequestContext.getCurrentInstance().execute("PF('NuevoRegistroGruposConceptos').show()");
+   }
+
    public void validarNuevaVigencia() {
+      nuevoVigenciasGruposConceptos = new VigenciasGruposConceptos();
+      nuevoVigenciasGruposConceptos.setConcepto(new Conceptos());
       if (grupoConceptoSeleccionado != null) {
          RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroVigenciasGruposConceptos");
          RequestContext.getCurrentInstance().execute("PF('NuevoRegistroVigenciasGruposConceptos').show()");

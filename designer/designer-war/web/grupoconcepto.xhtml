@@ -30,7 +30,7 @@
 
                         <p:separator />
 
-                        <p:commandButton id="listaValores" value="" actionListener="#{controlGrupoConcepto.listaValoresBoton()}" process="@this"
+                        <p:commandButton id="listaValores" disabled="#{controlGrupoConcepto.activarLov}" value="" actionListener="#{controlGrupoConcepto.listaValoresBoton()}" process="@this"
                                          style="background-image: url(Imagenes/Iconos/lupa.png);"/>
                         <p:tooltip style="font-size: 12px;" for="listaValores" value="#{msg['lista']}" />
 
@@ -293,7 +293,7 @@
                      <h:outputText value="#{msg['infoRegistros']} #{controlGrupoConcepto.infoRegistroVigencias}" id="infoRegistroVigencias" style="position: relative; top: 2px; font-weight: bold;"/>
                   </fieldset>
 
-                  <p:commandButton class="cssBotonAceptar" id="aceptar" value="" disabled="#{controlGrupoConcepto.cambiosPagina}"
+                  <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" disabled="#{controlGrupoConcepto.cambiosPagina}" widgetVar="ACEPTAR"
                                    onclick="PF('confirmarGuardar').show();" update=":form:datosGruposConceptos" process="@this" />
                   <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlGrupoConcepto.salir()}"
                                    action="#{controlGrupoConcepto.volverPaginaAnterior()}" process="@this" /> 
@@ -301,15 +301,15 @@
             </h:form>
 
             <h:form id="formularioDialogos">
-               
+
                <p:dialog id="verificarNuevoRegistro" widgetVar="verificarNuevoRegistro" header="#{msg['nuevoregistropagina']}" resizable="false" draggable="true" modal="true" height="120" width="400" style="font-size: 12px;" >
                   <h:outputText value="#{msg['verificarNuevoRegistro']}" style="position: absolute; left: 20px; top: 20px;color: blue;font-weight: bold; width: 380px; text-align: center;"/>
                   <p:commandButton value="#{msg['gruposconceptos']}" onclick="PF('verificarNuevoRegistro').hide();" style="position: absolute; left: 80px; top: 50px; width: 240px; height: 28px;"
-                                    oncomplete="PF('NuevoRegistroGruposConceptos').show()" update=":formularioDialogos:NuevoRegistroGruposConceptos" process="@this"/>
+                                   actionListener="#{controlGrupoConcepto.validarNuevoGrupo()}" process="@this"/>
                   <p:commandButton value="#{msg['vigencias']}" onclick="PF('verificarNuevoRegistro').hide();" actionListener="#{controlGrupoConcepto.validarNuevaVigencia()}"
                                    style="position: absolute; left: 80px; top: 80px; width: 240px; height: 28px;" process="@this"/>
                </p:dialog>
-               
+
                <!-- Nuevo Vigencia -->
                <p:dialog id="NuevoRegistroGruposConceptos" header="#{msg['nuevoregistroG']}" widgetVar="NuevoRegistroGruposConceptos" closable="false" resizable="false" draggable="true" modal="true" height="220" width="380">  
                   <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
@@ -379,27 +379,27 @@
                </p:dialog>
                <!-- Nuevo Registro Vigencias Grupos Conceptos-->
 
-               <p:dialog id="NuevoRegistroVigenciasGruposConceptos" header="#{msg['nuevoregistroV']}" widgetVar="NuevoRegistroVigenciasGruposConceptos" closable="false" resizable="false" draggable="true" modal="true" height="300" width="360">  
+               <p:dialog id="NuevoRegistroVigenciasGruposConceptos" header="#{msg['nuevoregistroV']}" widgetVar="NuevoRegistroVigenciasGruposConceptos" closable="false" resizable="false" draggable="true" modal="true" height="270" width="360">  
 
                   <center><strong><h:outputText value="#{msg['ingresarnuevo']}"  style="color: blue; position: relative; top: 10px;" /></strong></center> 
 
                   <p:panel id="nuevoVigenciaGrupoConcepto" style="border: none;">
-                     <fieldset style="position: absolute; left: 10px; top: 40px; width: 295px; height: 238px; border: none; ">
+                     <fieldset style="position: absolute; left: 10px; top: 40px; width: 295px; border: none; ">
 
-                        <strong><h:outputText value="#{msg['codigoN']}" style="position: absolute; top: 17px; left: 30px;" /></strong>
-                        <p:inputText autocomplete="off" id="nuevoCodigoV" value="#{controlGrupoConcepto.nuevoVigenciaGruposConceptos.concepto.codigoSTR}" style="width: 122px; position: absolute; left: 152px; top: 15px; text-transform: uppercase" onclick="select();">
-                           <p:ajax event="click" listener="#{controlGrupoConcepto.valoresBackupAutocompletar(1, 'CONCEPTO')}" />
-                           <p:ajax event="change" listener="#{controlGrupoConcepto.autocompletarNuevoyDuplicado('CONCEPTO', controlGrupoConcepto.nuevoVigenciaGruposConceptos.concepto.codigoSTR, 1)}" />
-                           <p:ajax event="dblclick" listener="#{controlGrupoConcepto.asignarIndex(0, 1)}" />
+                        <strong><h:outputText value="*#{msg['codigoN']}" style="position: absolute; top: 17px; left: 30px;" /></strong>
+                        <p:inputText autocomplete="off" id="nuevoCodigoV" value="#{controlGrupoConcepto.nuevoVigenciaGruposConceptos.concepto.codigo}" style="width: 122px; position: absolute; left: 152px; top: 15px; text-transform: uppercase" onclick="select();">
+                           <p:ajax event="click" listener="#{controlGrupoConcepto.valoresBackupAutocompletar(1)}" />
+                           <p:ajax event="change" listener="#{controlGrupoConcepto.autocomplConceptoNuevoyDuplicado(controlGrupoConcepto.nuevoVigenciaGruposConceptos.concepto.codigo, 1)}" />
+                           <p:ajax event="dblclick" listener="#{controlGrupoConcepto.asignarIndex(0, 1)}" process="@this" />
                         </p:inputText>
-                        <p:commandButton class="cssBotonLovDialogos" value=""  style="position: absolute; left: 285px; top: 15px;" id="btnNuevoConcepto" actionListener="#{controlGrupoConcepto.asignarIndex(0, 1)}" process="@this" />
+                        <p:commandButton class="cssBotonLovDialogos" value="" style="position: absolute; left: 285px; top: 15px;" id="btnNuevoConcepto" actionListener="#{controlGrupoConcepto.asignarIndex(0, 1)}" process="@this" />
 
-                        <strong><h:outputText value="#{msg['descripcionN']}"  style="position: absolute; top: 57px; left: 30px;" /></strong>
+                        <strong><h:outputText value="*#{msg['descripcionN']}" style="position: absolute; top: 57px; left: 30px;" /></strong>
                         <p:inputText autocomplete="off" id="nuevoDescripcionV" value="#{controlGrupoConcepto.nuevoVigenciaGruposConceptos.concepto.descripcion}" style="width: 122px; position: absolute; left: 152px; top: 55px; text-transform: uppercase" onclick="select();">
                            <p:ajax event="change" update="nuevoDescripcionV"/>
                         </p:inputText>
 
-                        <strong><h:outputText value="#{msg['inicialN']}" style="position: absolute; top: 97px; left: 30px;" /></strong>
+                        <strong><h:outputText value="*#{msg['inicialN']}" style="position: absolute; top: 97px; left: 30px;" /></strong>
                         <div id="posicionFechaIniNuevoReg" style="width: 122px; position: absolute; left: 152px; top: 95px; text-transform: uppercase">
                            <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicial" value="#{controlGrupoConcepto.nuevoVigenciaGruposConceptos.fechainicial}" >
                               <p:ajax event="dateSelect" update="nuevaFechaInicial" process="@this"/>
@@ -407,7 +407,7 @@
                            </p:calendar>
                         </div>
 
-                        <strong><h:outputText value="#{msg['finalN']}" style="position: absolute; top: 137px; left: 30px;" /></strong>
+                        <strong><h:outputText value="*#{msg['finalN']}" style="position: absolute; top: 137px; left: 30px;" /></strong>
                         <div id="posicionFechaFinNuevoReg" style="position: absolute; top: 135px; left: 152px">
                            <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinal" value="#{controlGrupoConcepto.nuevoVigenciaGruposConceptos.fechafinal}" >
                               <p:ajax event="dateSelect" update="nuevaFechaFinal" process="@this"/>
@@ -415,98 +415,104 @@
                            </p:calendar>
                         </div>
 
-                        <p:commandButton icon="ui-icon-trash" id="limpiarVGC" value="#{msg['limpiar']}" style="position: absolute; left: 0px; top: 190px;" actionListener="#{controlGrupoConcepto.limpiarNuevoVigenciaGruposConceptos()}" update="nuevoVigenciaGrupoConcepto" process="@this"/>
-                        <p:commandButton icon="ui-icon-circle-check" id="agregarVGC" value="#{msg['agregar']}" style="position: absolute; left: 130px; top: 190px;"  process="@this" actionListener="#{controlGrupoConcepto.agregarNuevoVigenciaGrupoConcepto()}" />
-                        <p:commandButton icon="ui-icon-circle-close" id="cancelarVGC" value="#{msg['cancelar']}" style="position: absolute; left: 225px; top: 190px;" actionListener="#{controlGrupoConcepto.limpiarNuevoVigenciaGruposConceptos()}" update="nuevoVigenciaGrupoConcepto" onclick="PF('NuevoRegistroVigenciasGruposConceptos').hide();"  process="@this"/>
+                        <p:commandButton icon="ui-icon-trash" id="limpiarVGC" value="#{msg['limpiar']}" style="position: absolute; left: 0px; top: 190px;"
+                                         actionListener="#{controlGrupoConcepto.limpiarNuevoVigenciaGruposConceptos()}" update="nuevoVigenciaGrupoConcepto" process="@this"/>
+                        <p:commandButton icon="ui-icon-circle-check" id="agregarVGC" value="#{msg['agregar']}" style="position: absolute; left: 128px; top: 190px;"
+                                         actionListener="#{controlGrupoConcepto.agregarNuevoVigenciaGrupoConcepto()}" process="@this"/>
+                        <p:commandButton icon="ui-icon-circle-close" id="cancelarVGC" value="#{msg['cancelar']}" style="position: absolute; left: 225px; top: 190px;"
+                                         actionListener="#{controlGrupoConcepto.limpiarNuevoVigenciaGruposConceptos()}"
+                                         update="nuevoVigenciaGrupoConcepto" onclick="PF('NuevoRegistroVigenciasGruposConceptos').hide();"  process="@this"/>
                      </fieldset>
                   </p:panel>
                </p:dialog>
 
                <!-- Duplicar Vigencia Grupo Concepto -->
 
-               <p:dialog id="DuplicarRegistroVigenciasGruposConceptos" header="#{msg['duplicarregistroV']}" widgetVar="DuplicarRegistroVigenciasGruposConceptos" closable="false" resizable="false"  draggable="true" modal="true" height="340" width="340" >  
+               <p:dialog id="DuplicarRegistroVigenciasGruposConceptos" header="#{msg['duplicarregistroV']}" widgetVar="DuplicarRegistroVigenciasGruposConceptos" closable="false" resizable="false"  draggable="true" modal="true" height="270" width="340" >  
                   <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
 
                   <p:panel id="duplicarVigenciasGruposConceptos" style="border: none;">
-                     <fieldset style="position: absolute; left: 10px; top: 40px; width: 295px; height: 238px; border: none; ">
+                     <fieldset style="position: absolute; left: 10px; top: 40px; width: 295px; border: none; ">
 
-                        <strong><h:outputText value="#{msg['codigoN']}" style="position: absolute; top: 17px; left: 30px;" /></strong>
+                        <strong><h:outputText value="*#{msg['codigoN']}" style="position: absolute; top: 17px; left: 30px;" /></strong>
                         <p:inputText autocomplete="off" id="duplicarCodigoV" value="#{controlGrupoConcepto.duplicarVigenciaGruposConceptos.concepto.codigoSTR}" style="width: 122px; position: absolute; left: 152px; top: 15px; text-transform: uppercase" onclick="select();">
-                           <p:ajax event="click" listener="#{controlGrupoConcepto.valoresBackupAutocompletar(2, 'CONCEPTO')}" />
-                           <p:ajax event="change" listener="#{controlGrupoConcepto.autocompletarNuevoyDuplicado('CONCEPTO', controlGrupoConcepto.duplicarVigenciaGruposConceptos.concepto.codigoSTR, 2)}" />
+                           <p:ajax event="click" listener="#{controlGrupoConcepto.valoresBackupAutocompletar(2)}" />
+                           <p:ajax event="change" listener="#{controlGrupoConcepto.autocomplConceptoNuevoyDuplicado(controlGrupoConcepto.duplicarVigenciaGruposConceptos.concepto.codigoSTR, 2)}" />
                            <p:ajax event="dblclick" listener="#{controlGrupoConcepto.asignarIndex(0, 2)}" />
                         </p:inputText>
-                        <p:commandButton class="cssBotonLovDialogos" value=""  style="position: absolute; left: 285px; top: 15px;" id="btnDuplicarConcepto" actionListener="#{controlGrupoConcepto.asignarIndex(0, 2)}" process="@this" />
+                        <p:commandButton class="cssBotonLovDialogos" value="" style="position: absolute; left: 285px; top: 15px;" id="btnDuplicarConcepto" actionListener="#{controlGrupoConcepto.asignarIndex(0, 2)}" process="@this" />
 
-                        <strong><h:outputText value="#{msg['descripcionN']}"  style="position: absolute; top: 57px; left: 30px;" /></strong>
+                        <strong><h:outputText value="*#{msg['descripcionN']}" style="position: absolute; top: 57px; left: 30px;" /></strong>
                         <p:inputText autocomplete="off" id="duplicarDescripcionV" value="#{controlGrupoConcepto.duplicarVigenciaGruposConceptos.concepto.descripcion}" style="width: 122px; position: absolute; left: 152px; top: 55px; text-transform: uppercase" onclick="select();">
                            <p:ajax event="change" update="duplicarDescripcionV"/>
                         </p:inputText>
 
-                        <strong><h:outputText value="#{msg['naturalezaN']}"  style="position: absolute; top: 97px; left: 30px;" /></strong>
-                        <p:inputText autocomplete="off" id="duplicarNaturaleza" value="#{controlGrupoConcepto.duplicarVigenciaGruposConceptos.concepto.naturalezaConcepto}" style="width: 122px; position: absolute; left: 152px; top: 95px; text-transform: uppercase" onclick="select();">
-                           <p:ajax event="change" update="duplicarNaturaleza"/>
-                        </p:inputText>
-
-                        <strong><h:outputText value="#{msg['inicialN']}" style="position: absolute; top: 137px; left: 30px;" /></strong>
-                        <div id="posicionFechaIniNuevoRegDuplicar" style="position: absolute; top: 135px; left: 152px">
+                        <strong><h:outputText value="*#{msg['inicialN']}" style="position: absolute; top: 97px; left: 30px;" /></strong>
+                        <div id="posicionFechaIniNuevoRegDuplicar" style="width: 122px; position: absolute; left: 152px; top: 95px; text-transform: uppercase;">
                            <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicial" value="#{controlGrupoConcepto.duplicarVigenciaGruposConceptos.fechainicial}" >
                               <p:ajax event="dateSelect" update="duplicarFechaInicial" process="@this"/>
                               <p:ajax event="change" update="duplicarFechaInicial" process="@this"/>
                            </p:calendar>
                         </div>
 
-                        <strong><h:outputText value="#{msg['finalN']}" style="position: absolute; top: 177px; left: 30px;" /></strong>
-                        <div id="posicionFechaFinNuevoRegDuplicar" style="position: absolute; top: 175px; left: 152px">
+                        <strong><h:outputText value="*#{msg['finalN']}" style="position: absolute; top: 137px; left: 30px;" /></strong>
+                        <div id="posicionFechaFinNuevoRegDuplicar" style="position: absolute; top: 135px; left: 152px">
                            <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinal" value="#{controlGrupoConcepto.duplicarVigenciaGruposConceptos.fechafinal}" >
                               <p:ajax event="dateSelect" update="duplicarFechaFinal" process="@this"/>
                               <p:ajax event="change" update="duplicarFechaFinal" process="@this"/>
                            </p:calendar>
                         </div>
 
-                        <strong><h:outputText value="#{msg['empresaN']}" style="position: absolute; top: 217px; left: 30px;" /></strong>
-                        <p:inputText autocomplete="off" id="duplicarEmpresa" value="#{controlGrupoConcepto.duplicarVigenciaGruposConceptos.concepto.empresa.nombre}" style="width: 122px; position: absolute; left: 152px; top: 215px; text-transform: uppercase" onclick="select();">
-                           <p:ajax event="click" listener="#{controlGrupoConcepto.valoresBackupAutocompletar(2, 'EMPRESA')}" />
-                           <p:ajax event="change" listener="#{controlGrupoConcepto.autocompletarNuevoyDuplicado('EMPRESA', controlGrupoConcepto.duplicarVigenciaGruposConceptos.concepto.empresa.nombre, 2)}" />
-                           <p:ajax event="dblclick" listener="#{controlGrupoConcepto.asignarIndex(0, 2)}" />
-                        </p:inputText>
-                        <p:commandButton class="cssBotonLovDialogos" value=""  style="position: absolute; left: 285px; top: 215px;" id="btnDuplicarEmpresa" actionListener="#{controlGrupoConcepto.asignarIndex(0, 2)}" process="@this" />
-
-                        <p:commandButton icon="ui-icon-trash" id="limpiarVGCD" value="#{msg['limpiar']}" style="position: absolute; left: 0px; top: 270px;" actionListener="#{controlGrupoConcepto.limpiarduplicarVigenciaGruposConceptos()}" update="duplicarVigenciasGruposConceptos" process="@this"/>
-                        <p:commandButton icon="ui-icon-circle-check" id="agregarVGCD" value="#{msg['agregar']}" style="position: absolute; left: 130px; top: 270px;"  process="@this" actionListener="#{controlGrupoConcepto.confirmarDuplicarD()}" onclick="PF('DuplicarRegistroVigenciasGruposConceptos').hide();"/>
-                        <p:commandButton icon="ui-icon-circle-close" id="cancelarVGCD" value="#{msg['cancelar']}" style="position: absolute; left: 220px; top: 270px;" actionListener="#{controlGrupoConcepto.limpiarduplicarVigenciaGruposConceptos()}" update="duplicarVigenciasGruposConceptos" onclick="PF('DuplicarRegistroVigenciasGruposConceptos').hide();"  process="@this"/>
+                        <p:commandButton icon="ui-icon-trash" id="limpiarVGCD" value="#{msg['limpiar']}" style="position: absolute; left: 0px; top: 190px;"
+                                         actionListener="#{controlGrupoConcepto.limpiarduplicarVigenciaGruposConceptos()}" update="duplicarVigenciasGruposConceptos" process="@this"/>
+                        <p:commandButton icon="ui-icon-circle-check" id="agregarVGCD" value="#{msg['agregar']}" style="position: absolute; left: 128px; top: 190px;" process="@this" 
+                                         actionListener="#{controlGrupoConcepto.confirmarDuplicarD()}"/>
+                        <p:commandButton icon="ui-icon-circle-close" id="cancelarVGCD" value="#{msg['cancelar']}" style="position: absolute; left: 225px; top: 190px;"
+                                         actionListener="#{controlGrupoConcepto.limpiarduplicarVigenciaGruposConceptos()}" update="duplicarVigenciasGruposConceptos" onclick="PF('DuplicarRegistroVigenciasGruposConceptos').hide();"  process="@this"/>
                      </fieldset>
                   </p:panel>
                </p:dialog>
 
-               <p:dialog id="validacionNuevo" header="#{msg['atencion']}" widgetVar="validacionNuevo"  resizable="false" draggable="true" modal="true" height="105" width="400" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
-                  <h:outputText value="#{msg['validacionNuevo']}  #{controlGrupoConcepto.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                  <p:commandButton value="#{msg['aceptar']}" onclick="PF('validacionNuevo').hide();" style="position: absolute; top: 70px; left: 300px;" process="@this" />
+               <p:dialog id="validacionNuevo" header="#{msg['atencion']}" widgetVar="validacionNuevo" resizable="false" draggable="true" modal="true" height="105" width="400" closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="60" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['validacionNuevo']}  #{controlGrupoConcepto.mensajeValidacion}" style="position: absolute; left: 100px; top: 10px; width: 280px;" />
+                  <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('validacionNuevo').hide();" style="position: absolute; top: 70px; left: 280px;" process="@this" />
                </p:dialog>
 
-               <p:dialog id="registro" header="#{msg['atencion']}" widgetVar="registro"  resizable="false" draggable="true" modal="true" height="105" width="400" style="font-size: 12px;" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
-                  <h:outputText value="#{msg['registro']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                  <p:commandButton value="#{msg['aceptar']}" onclick="PF('registro').hide();" style="position: absolute; top: 70px; left: 300px;" process="@this" />
+               <p:dialog id="validacionNuevoRepetidos" header="#{msg['error']}" widgetVar="validacionNuevoRepetidos" resizable="false" draggable="true" modal="true" height="105" width="400" closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="#{msg['validacionNuevoRepetidos']}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight:bold;"/>
+                  <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('validacionNuevoRepetidos').hide();" style="position: absolute; top: 70px; left: 280px;" process="@this"/>
                </p:dialog>
 
-               <p:dialog id="errorRegNew" header="#{msg['atencion']}" widgetVar="errorRegNew"  resizable="false" draggable="true" modal="true" height="80" width="380" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{msg['errorRegNew']}" style="position: absolute; left: 70px; top: 15px; width: 300px; font-weight:bold;" />
+               <p:dialog id="validacionNuevoFechas" header="#{msg['error']}" widgetVar="validacionNuevoFechas" resizable="false" draggable="true" modal="true" height="105" width="400" closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="#{msg['validacionNuevoFechas']}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight:bold;"/>
+                  <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('validacionNuevoFechas').hide();" style="position: absolute; top: 70px; left: 280px;" process="@this"/>
                </p:dialog>
-
-               <p:dialog id="errorFechas" header="#{msg['atencion']}" widgetVar="errorFechas"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{msg['errorFechas']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;" />
-               </p:dialog>
+               <!--
+                              <p:dialog id="registro" header="#/{msg['atencion']}" widgetVar="registro"  resizable="false" draggable="true" modal="true" height="105" width="400" style="font-size: 12px;" closable="false">  
+                                 <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="60" style="position: absolute; left: 10px; top: 10px;"  />
+                                 <h:outputText value="#/{msg['registro']}" style="position: absolute; left: 100px; top: 20px; width: 280px;" />
+                                 <p:commandButton icon="ui-icon-check" value="#/{msg['aceptar']}" onclick="PF('registro').hide();" style="position: absolute; top: 70px; left: 280px;" process="@this" />
+                              </p:dialog>-->
+               <!--
+                              <p:dialog id="errorRegNew" header="#{msg['error']}" widgetVar="errorRegNew"  resizable="false" draggable="true" modal="true" height="80" width="380" style="font-size: 12px;" closable="true">  
+                                 <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                                 <h:outputText value="#{msg['errorRegNew']}" style="position: absolute; left: 70px; top: 15px; width: 300px; font-weight:bold;" />
+                              </p:dialog>
+               
+                              <p:dialog id="errorFechas" header="#{msg['atencion']}" widgetVar="errorFechas"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+                                 <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                                 <h:outputText value="#{msg['errorFechas']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;" />
+                              </p:dialog>-->
 
                <!-- L.O.V GRUPOS CONCEPTOS-->
                <p:dialog header="#{msg['gruposconceptosGC']}" widgetVar="gruposConceptosDialogo" draggable="true" resizable="false" id="gruposConceptosDialogo" closable="false"  
-                         showEffect="fade" hideEffect="fade" modal="true" width="620">
+                         showEffect="fade" hideEffect="fade" modal="true" width="625">
 
                   <p:dataTable id="LOVGrupos" var="g" value="#{controlGrupoConcepto.lovlistaGruposConceptos}"
-                               scrollable="true" scrollHeight="200" scrollWidth="590" widgetVar="LOVGrupos"
+                               scrollable="true" scrollHeight="200" scrollWidth="600" widgetVar="LOVGrupos"
                                filteredValue="#{controlGrupoConcepto.lovfiltradoListaGruposConceptos}" emptyMessage="#{msg['lovvacio']}"
                                rowKey="#{g.secuencia}" selection="#{controlGrupoConcepto.gruposSeleccionado}" selectionMode="single">
 
@@ -536,14 +542,16 @@
                   </p:dataTable>
                   <div class="cssBotonesLOV">
                      <h:outputText value="#{msg['infoRegistros']} #{controlGrupoConcepto.infoRegistroLOVGruposC}" id="infoRegistroLOVGruposC" class="cssinfoRegistroLOV"/>
-                     <p:commandButton id="aceptarG" value="#{msg['aceptar']}" disabled="#{controlGrupoConcepto.aceptar}" class="cssAceptarLOV" actionListener="#{controlGrupoConcepto.actualizarGruposConceptos()}" process="@this"/>
-                     <p:commandButton id="atrasG" value="#{msg['atras']}" class="cssAtrasLOV" actionListener="#{controlGrupoConcepto.cancelarCambioGruposConceptos()}"  process="@this"/>
+                     <p:commandButton id="aceptarG" value="#{msg['aceptar']}" disabled="#{controlGrupoConcepto.aceptar}" class="cssAceptarLOV" icon="ui-icon-check"
+                                      actionListener="#{controlGrupoConcepto.actualizarGruposConceptos()}" process="@this"/>
+                     <p:commandButton id="atrasG" value="#{msg['atras']}" class="cssAtrasLOV" icon="ui-icon-close"
+                                      actionListener="#{controlGrupoConcepto.cancelarCambioGruposConceptos()}"  process="@this"/>
                   </div>
                </p:dialog>
 
                <!-- L.O.V CONCEPTOS-->
                <p:dialog header="#{msg['conceptosC']}" widgetVar="conceptosDialogo" draggable="true" resizable="false" id="conceptosDialogo" closable="false"  
-                         showEffect="fade" hideEffect="fade" modal="true" width="724" style="font-size: 12px">
+                         showEffect="fade" hideEffect="fade" modal="true" width="725">
 
                   <p:dataTable  id="LOVConceptos" var="con" value="#{controlGrupoConcepto.lovlistaConceptos}"
                                 scrollable="true" scrollHeight="200" scrollWidth="700" widgetVar="LOVConceptos" 
@@ -590,180 +598,194 @@
 
                   <div class="cssBotonesLOV">
                      <h:outputText value="#{msg['infoRegistros']} #{controlGrupoConcepto.infoRegistroLOVConceptos}" id="infoRegistroLOVConceptos" class="cssinfoRegistroLOV"/>
-                     <p:commandButton id="aceptarC" value="#{msg['aceptar']}" disabled="#{controlGrupoConcepto.aceptar}" class="cssAceptarLOV" actionListener="#{controlGrupoConcepto.actualizarConceptos()}" process="@this"/>
-                     <p:commandButton id="atrasC" value="#{msg['atras']}" class="cssAtrasLOV" actionListener="#{controlGrupoConcepto.cancelarCambioConceptos()}" process="@this"/>
+                     <p:commandButton id="aceptarC" value="#{msg['aceptar']}" disabled="#{controlGrupoConcepto.aceptar}" class="cssAceptarLOV" icon="ui-icon-check"
+                                      actionListener="#{controlGrupoConcepto.actualizarConceptos()}" process="@this"/>
+                     <p:commandButton id="atrasC" value="#{msg['atras']}" class="cssAtrasLOV" icon="ui-icon-close"
+                                      actionListener="#{controlGrupoConcepto.cancelarCambioConceptos()}" process="@this"/>
                   </div>
                </p:dialog>
 
                <!-- DIALOGOS EDITAR
                Editar Grupos Conceptos-->
 
-               <p:dialog id="editarCodigoGC" header="#{msg['editarCodigoGC']}" widgetVar="editarCodigoGC" resizable="false" draggable="true" modal="true" height="93" width="240" style="font-size: 12px; padding: 0px">  
+               <p:dialog id="editarCodigoGC" header="#{msg['editarCodigoGC']}" widgetVar="editarCodigoGC" resizable="false" draggable="true" modal="true" height="80" width="400" style="font-size: 12px; padding: 0px">  
                   <p:inputText autocomplete="off" value="#{controlGrupoConcepto.editarGruposConceptos.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
                   </p:inputText>
-                  <p:commandButton id="cancelarCodigoGC" value="#{msg['atras']}" onclick="PF('editarCodigoGC').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                </p:dialog>
 
-               <p:dialog id="editarDescripcionGC" header="#{msg['editarDescripcionGC']}" widgetVar="editarDescripcionGC" resizable="false" draggable="true" modal="true" height="93" width="240" style="font-size: 12px; padding: 0px">  
+               <p:dialog id="editarDescripcionGC" header="#{msg['editarDescripcionGC']}" widgetVar="editarDescripcionGC" resizable="false" draggable="true" modal="true" height="80" width="400" style="font-size: 12px; padding: 0px">  
                   <p:inputText autocomplete="off" value="#{controlGrupoConcepto.editarGruposConceptos.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
                   </p:inputText>
-                  <p:commandButton id="cancelarDescripcionGC" value="#{msg['atras']}" onclick="PF('editarDescripcionGC').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                </p:dialog>
 
                <!-- Editar Vigencias Grupos Conceptos-->
 
-               <p:dialog id="editarCodigoV" header="#{msg['editarCodigoV']}" widgetVar="editarCodigoV" resizable="false" draggable="true" modal="true" height="93" width="240" style="font-size: 12px; padding: 0px">  
+               <p:dialog id="editarCodigoV" header="#{msg['editarCodigoV']}" widgetVar="editarCodigoV" resizable="false" draggable="true" modal="true" height="80" width="400" style="font-size: 12px; padding: 0px">  
                   <p:inputText autocomplete="off" value="#{controlGrupoConcepto.editarVigenciasGruposConceptos.concepto.codigoSTR}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
-                  <p:commandButton id="cancelarCodigoV" value="#{msg['atras']}" onclick="PF('editarCodigoV').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                </p:dialog>
 
-               <p:dialog id="editarDescripcionV" header="#{msg['editarDescripcionV']}" widgetVar="editarDescripcionV" resizable="false" draggable="true" modal="true" height="93" width="240" style="font-size: 12px">  
+               <p:dialog id="editarDescripcionV" header="#{msg['editarDescripcionV']}" widgetVar="editarDescripcionV" resizable="false" draggable="true" modal="true" height="80" width="400" style="font-size: 12px">  
                   <p:inputTextarea value="#{controlGrupoConcepto.editarVigenciasGruposConceptos.concepto.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
-                  <p:commandButton id="cancelarDescripcionV" value="#{msg['atras']}" onclick="PF('editarDescripcionV').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                </p:dialog>
 
-               <p:dialog id="editarNaturalezaV" header="#{msg['editarNaturalezaV']}" widgetVar="editarNaturalezaV" resizable="false" draggable="true" modal="true" height="93" width="240" style="font-size: 12px">  
+               <p:dialog id="editarNaturalezaV" header="#{msg['editarNaturalezaV']}" widgetVar="editarNaturalezaV" resizable="false" draggable="true" modal="true" height="80" width="400" style="font-size: 12px">  
                   <p:inputTextarea value="#{controlGrupoConcepto.editarVigenciasGruposConceptos.concepto.naturalezaConcepto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
-                  <p:commandButton id="cancelarNaturalezaV" value="#{msg['atras']}" onclick="PF('editarNaturalezaV').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                </p:dialog>
 
-               <p:dialog id="editarFechaInicialV" header="#{msg['editarFechaInicialV']}" widgetVar="editarFechaInicialV" resizable="false" draggable="true" modal="true" height="30" width="240" style="font-size: 12px; padding: 0px">  
-                  <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy"  style="font-size: 10px; left: 4px; top: 4px; position: absolute" value="#{controlGrupoConcepto.editarVigenciasGruposConceptos.fechainicial}" id="editFechaInicialCelda"  styleClass="ui-datepicker, myClass"  
-                              navigator="true" showButtonPanel="true" locale="es">
-                  </p:calendar>
-                  <p:commandButton id="cancelarFechaInicialV" value="#{msg['atras']}" onclick="PF('editarFechaInicialV').hide();" style="position: absolute; top: 5px; left: 148px; font-size: 11px;" process="@this" />
+               <p:dialog id="editarFechaInicialV" header="#{msg['editarFechaInicialV']}" widgetVar="editarFechaInicialV" resizable="false" draggable="true" modal="true" height="80" width="400" style="font-size: 12px; padding: 0px">  
+                  <p:inputTextarea value="#{controlGrupoConcepto.editarVigenciasGruposConceptos.fechainicial}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+                     <f:convertDateTime pattern="dd/MM/yyyy"/>
+                  </p:inputTextarea>
                </p:dialog>
 
-               <p:dialog id="editarFechaFinalV" header="#{msg['editarFechaFinalV']}" widgetVar="editarFechaFinalV" resizable="false" draggable="true" modal="true" height="30" width="240" style="font-size: 12px; padding: 0px">  
-                  <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy"  style="font-size: 10px; left: 4px; top: 4px; position: absolute" value="#{controlGrupoConcepto.editarVigenciasGruposConceptos.fechafinal}" id="editFechaFinalCelda"  styleClass="ui-datepicker, myClass"  
-                              navigator="true" showButtonPanel="true" locale="es">
-                  </p:calendar>
-                  <p:commandButton id="cancelarFechaFinalV" value="#{msg['atras']}" onclick="PF('editarFechaFinalV').hide();" style="position: absolute; top: 5px; left: 148px; font-size: 11px;" process="@this" />
+               <p:dialog id="editarFechaFinalV" header="#{msg['editarFechaFinalV']}" widgetVar="editarFechaFinalV" resizable="false" draggable="true" modal="true" height="80" width="400" style="font-size: 12px; padding: 0px">  
+                  <p:inputTextarea value="#{controlGrupoConcepto.editarVigenciasGruposConceptos.fechafinal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+                     <f:convertDateTime pattern="dd/MM/yyyy"/>
+                  </p:inputTextarea>
                </p:dialog>
 
-               <p:dialog id="editarEmpresaV" header="#{msg['editarEmpresaV']}" widgetVar="editarEmpresaV" resizable="false" draggable="true" modal="true" height="93" width="240" style="font-size: 12px">  
+               <p:dialog id="editarEmpresaV" header="#{msg['editarEmpresaV']}" widgetVar="editarEmpresaV" resizable="false" draggable="true" modal="true" height="80" width="400" style="font-size: 12px">  
                   <p:inputTextarea value="#{controlGrupoConcepto.editarVigenciasGruposConceptos.concepto.empresa.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
-                  <p:commandButton id="cancelarEmpresaV" value="#{msg['atras']}" onclick="PF('editarEmpresaV').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="95" width="400" style="font-size: 12px;" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="60" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlGrupoConcepto.guardarTodo()}" style="position: absolute; top: 60px; left: 215px;" process="@this" />
-                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 60px; left: 255px;" process="@this" />
-                  <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
+                  <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlGrupoConcepto.guardarTodo()}"
+                                   style="position: absolute; top: 60px; left: 125px;" process="@this"/>
+                  <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlGrupoConcepto.cancelarModificacion()}"
+                                   style="position: absolute; top: 60px; left: 185px;" process="@this" oncomplete="window.location.reload()"/>
+                  <p:commandButton icon="ui-icon-arrowreturnthick-1-w" value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();"
+                                   style="position: absolute; top: 60px; left: 250px;" process="@this"/>
                </p:dialog>
 
                <!-- DIALOGOS Rastro  -->
 
-               <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlGrupoConcepto.secRegistro, 'GruposConceptos', 'gruposconceptos')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
-                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
+               <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 10px; width: 270px; font-weight: bold; text-align: center;" />
+                  <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarRastro').hide();"
+                                   actionListener="#{controlRastro.recibirDatosTabla(controlGrupoConcepto.grupoConceptoSeleccionado.secuencia, 'GruposConceptos', 'gruposconceptos')}"
+                                   style="position: absolute; top: 70px; left: 210px;" action="rastro" process="@this"/>
+                  <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarRastro').hide();"
+                                   style="position: absolute; top: 70px; left: 270px;" process="@this"/>
                </p:dialog>
 
-               <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
+               <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('GruposConceptos', 'gruposconceptos')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                  <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 270px; font-weight: bold; text-align: center" />
+                  <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();"
+                                   actionListener="#{controlRastro.historicosTabla('GruposConceptos', 'gruposconceptos')}"
+                                   style="position: absolute; top: 70px; left: 210px;" action="rastro" process="@this" />
+                  <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();"
+                                   style="position: absolute; top: 70px; left: 270px;" process="@this" />
                </p:dialog>
 
-               <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+               <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                </p:dialog>
 
-               <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+               <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                </p:dialog>
 
                <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                  <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlGrupoConcepto.secRegistro, 'GruposConceptos', 'gruposconceptos')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                  <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                  <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight:bold; text-align: center;" />
+                  <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();"
+                                   actionListener="#{controlRastro.recibirDatosTabla(controlGrupoConcepto.secRegistro, 'GruposConceptos', 'gruposconceptos')}"
+                                   style="position: absolute; top: 70px; left: 210px;" action="rastro" process="@this"/>
+                  <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();"
+                                   style="position: absolute; top: 70px; left: 270px;" process="@this" />
                </p:dialog>
 
-               <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+               <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro" resizable="false" draggable="true" modal="true" height="60" width="285" style="font-size: 12px;" closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
                </p:dialog>
 
-               <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+               <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro" resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
-               <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+               <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB" resizable="false" draggable="true" modal="true" height="80" width="300" style="font-size: 12px;" closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 8px; width: 185px; font-weight: bold;"/>
                </p:dialog>
-
             </h:form>
 
             <!-- DIALOGOS Rastro Vigencias Grupos Conceptos-->
             <h:form>
-               <p:dialog id="confirmarRastroNF" header="#{msg['atencion']}" widgetVar="confirmarRastroNF"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
+               <p:dialog id="confirmarRastroNF" header="#{msg['informacion']}" widgetVar="confirmarRastroNF" resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="#{msg['confirmarRastroNF']}" style="position: absolute; left: 70px; top: 10px; width: 270px; font-weight: bold; text-align: center;"/>
+                  <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarRastro').hide();"
+                                   actionListener="#{controlRastro.recibirDatosTabla(controlGrupoConcepto.vigenciaGrupoCSeleccionado.secuencia, 'VigenciasGruposConceptos', 'vigenciasgruposconceptos')}"
+                                   style="position: absolute; top: 63px; left: 210px;" action="rastro" process="@this"/>
+                  <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarRastro').hide();"
+                                   style="position: absolute; top: 63px; left: 270px;" process="@this"/>
+               </p:dialog>
+
+               <p:dialog id="confirmarRastroHistoricoNF" header="#{msg['informacion']}" widgetVar="confirmarRastroHistoricoNF" resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{msg['confirmarRastroNF']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlGrupoConcepto.secRegistro, 'VigenciasGruposConceptos', 'vigenciasgruposconceptos')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
-                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
+                  <h:outputText value="#{msg['confirmarRastroHistoricoNF']}" style="position: absolute; left: 70px; top: 15px; width: 270px; font-weight: bold; text-align: center" />
+                  <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();"
+                                   actionListener="#{controlRastro.historicosTabla('VigenciasGruposConceptos', 'vigenciasgruposconceptos')}"
+                                   style="position: absolute; top: 60px; left: 210px;" action="rastro" process="@this"/>
+                  <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();"
+                                   style="position: absolute; top: 60px; left: 270px;" process="@this" />
                </p:dialog>
 
-               <p:dialog id="confirmarRastroHistoricoNF" header="#{msg['atencion']}" widgetVar="confirmarRastroHistoricoNF"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
+               <p:dialog id="errorRastroHistoricoNF" header="#{msg['error']}" widgetVar="errorRastroHistoricoNF" resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorRastroHistoricoNF']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center" />
+               </p:dialog>
+
+               <p:dialog id="errorRegistroRastroNF" header="#{msg['error']}" widgetVar="errorRegistroRastroNF" resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorRegistroRastroNF']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center" />
+               </p:dialog>
+
+               <p:dialog id="errorTablaConRastroNF" header="#{msg['informacion']}" widgetVar="errorTablaConRastroNF" resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{msg['confirmarRastroHistoricoNF']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('VigenciasGruposConceptos', 'vigenciasgruposconceptos')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                  <h:outputText value="#{msg['errorTablaConRastroNF']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center" />
+                  <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();"
+                                   actionListener="#{controlRastro.recibirDatosTabla(controlGrupoConcepto.secRegistro, 'VigenciasGruposConceptos', 'vigenciasgruposconceptos')}"
+                                   style="position: absolute; top: 70px; left: 210px;" action="rastro" process="@this" />
+                  <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();"
+                                   style="position: absolute; top: 70px; left: 270px;" process="@this" />
                </p:dialog>
 
-               <p:dialog id="errorRastroHistoricoNF" header="#{msg['atencion']}" widgetVar="errorRastroHistoricoNF"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{msg['errorRastroHistoricoNF']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+               <p:dialog id="errorTablaSinRastroNF" header="#{msg['error']}" widgetVar="errorTablaSinRastroNF" resizable="false" draggable="true" modal="true" height="60" width="285" style="font-size: 12px;" closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="#{msg['errorTablaSinRastroNF']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center;"/>
                </p:dialog>
 
-               <p:dialog id="errorRegistroRastroNF" header="#{msg['atencion']}" widgetVar="errorRegistroRastroNF"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{msg['errorRegistroRastroNF']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+               <p:dialog id="seleccionarRegistroNF" header="#{msg['error']}" widgetVar="seleccionarRegistroNF" resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
-               <p:dialog id="errorTablaConRastroNF" header="#{msg['atencion']}" widgetVar="errorTablaConRastroNF"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{msg['errorTablaConRastroNF']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                  <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlGrupoConcepto.secRegistro, 'VigenciasGruposConceptos', 'vigenciasgruposconceptos')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                  <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+               <p:dialog id="seleccionarRegistroGrupo" header="#{msg['error']}" widgetVar="seleccionarRegistroGrupo" resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="#{msg['seleccionarRegistroGrupo']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
-               <p:dialog id="errorTablaSinRastroNF" header="#{msg['atencion']}" widgetVar="errorTablaSinRastroNF"  resizable="false" draggable="true" modal="true" height="60" width="285" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{msg['errorTablaSinRastroNF']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
-               </p:dialog>
-
-               <p:dialog id="seleccionarRegistroNF" header="#{msg['atencion']}" widgetVar="seleccionarRegistroNF"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
-               </p:dialog>
-
-               <p:dialog id="seleccionarRegistroGrupo" header="#{msg['atencion']}" widgetVar="seleccionarRegistroGrupo"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{msg['seleccionarRegistroGrupo']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
-               </p:dialog>
-
-               <p:dialog id="errorObjetosDBNF" header="#{msg['atencion']}" widgetVar="errorObjetosDBNF"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{msg['errorObjetosDBNF']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+               <p:dialog id="errorObjetosDBNF" header="#{msg['error']}" widgetVar="errorObjetosDBNF" resizable="false" draggable="true" modal="true" height="75" width="300" style="font-size: 12px;" closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="#{msg['errorObjetosDBNF']}" style="position: absolute; left: 70px; top: 8px; width: 200px; font-weight: bold;"/>
                </p:dialog>
 
                <!-- Dialogo para ver en qué tabla se quiere insertar -->
-               <p:dialog id="elegirTabla" header="#{msg['atencion']}" widgetVar="elegirTabla"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
+<!--               <p:dialog id="elegirTabla" header="#/{msg['informacion']}" widgetVar="elegirTabla"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{msg['elegirTabla']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                  <p:commandButton value="#{msg['gruposconceptos']}" onclick="PF('elegirTabla').hide();" actionListener="#{controlGrupoConcepto.dialogoGruposConceptos()}" style="position: absolute; top: 60px; left: 20px;" process="@this" />
-                  <p:commandButton value="#{msg['vigenciasgruposconceptos']}" onclick="PF('elegirTabla').hide();" actionListener="#{controlGrupoConcepto.dialogoVigenciasGruposConceptos()}" style="position: absolute; top: 60px; left: 220px;" process="@this" />
-               </p:dialog>
+                  <h:outputText value="#/{msg['elegirTabla']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                  <p:commandButton value="#/{msg['gruposconceptos']}" onclick="PF('elegirTabla').hide();" actionListener="#/{controlGrupoConcepto.dialogoGruposConceptos()}" style="position: absolute; top: 60px; left: 20px;" process="@this" />
+                  <p:commandButton value="#/{msg['vigenciasgruposconceptos']}" onclick="PF('elegirTabla').hide();" actionListener="#/{controlGrupoConcepto.dialogoVigenciasGruposConceptos()}" style="position: absolute; top: 60px; left: 220px;" process="@this" />
+               </p:dialog>-->
             </h:form>
 
             <h:form id="formExportar">
