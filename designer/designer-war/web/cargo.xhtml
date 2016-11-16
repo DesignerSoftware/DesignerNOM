@@ -347,6 +347,7 @@
                         </p:column>
 
                      </p:dataTable>  
+                     
                      <h:outputText id="informacionRegistroCargo" value="#{msg['infoRegistro']} #{controlCargo.infoRegistroC}" style="display: table; position: relative; left: 15px; top: 140px; font-weight: bold; margin: 0px;"/>
 
                      <p:commandButton style="position: relative; left: 655px; top: 118px; width: 90px; height: 28px; background-image: url(Imagenes/Iconos/buscardb.png); background-size: 100% 100%; 
@@ -355,7 +356,6 @@
                      <p:commandButton style="position: relative; left: 655px; top: 118px; width: 90px; height: 28px; background-image: url(Imagenes/Iconos/todosdb.png); background-size: 100% 100%; 
                                       background-repeat: no-repeat; border: none;" id="MOSTRARTODOS" value=""  actionListener="#{controlCargo.mostrarTodos()}"  process="@this" />
                      <p:tooltip for="MOSTRARTODOS" value="#{msg['mostrarTodos']}" />
-
                   </fieldset> 
 
                   <fieldset style="position: absolute; left: 7px; top: 290px; width: 857px; height: 195px; border-radius: 10px; padding: 0px; padding-top: 8px ">                            
