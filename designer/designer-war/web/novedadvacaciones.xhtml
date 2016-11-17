@@ -12,18 +12,11 @@
     </h:head>
     <h:body>
         <ui:composition template="/template.xhtml">
-            <ui:define name="body"> 
-               <script type="text/javascript">
-               $(window).load(function() {
-               $(".loader").fadeOut("slow");
-               });
-            </script>
-            <div class="loader"></div>
-            <div style="position: static;"></div>
+            <ui:define name="body">                  
                 <h:form id="form"> 
                     <f:loadBundle basename="Recursos.novedadvacaciones" var="msg" />
                     <p:growl id="growl" showDetail="true"/>
-                    <p:panel id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">    
+                    <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">    
 
                         <p:toolbar styleClass="cssToolbar">  
                             <p:toolbarGroup align="left"> 
@@ -322,7 +315,7 @@
                             <h:outputText value="#{controlNovedadesVacaciones.diasAplazadosTotal}" id="diasAplazados" style=" position: relative; top: 15px ; left:360px; border-radius: 0px; width: 50px;" /> 
                         </fieldset>
 
-                        <p:commandButton class="cssBotonAceptar" value="" disabled="#{controlNovedadesVacaciones.guardado}" onclick="PF('confirmarGuardar').show();" update=":form:datosNovedadesEmpleado" process="@this" />
+                        <p:commandButton class="cssBotonAceptar" value="" id="ACEPTAR" disabled="#{controlNovedadesVacaciones.guardado}" onclick="PF('confirmarGuardar').show();" update=":form:datosNovedadesEmpleado" process="@this" />
                         <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlNovedadesVacaciones.salir()}" action="atrasvacaciones"/>
 
                     </p:panel>
@@ -345,7 +338,7 @@
                                 </p:calendar>
                             </div>
 
-                            <strong><h:outputText value="Período: " style=" position: absolute; top: 105px;" /></strong>
+                            <strong><h:outputText value="*Período: " style=" position: absolute; top: 105px;" /></strong>
                             <p:inputText  autocomplete="off"  id="nuevoPeriodo" value="#{controlNovedadesVacaciones.nuevaNovedad.vacacion.periodo}" 
                                          style=" width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlNovedadesVacaciones.lovPeriodo(controlNovedadesVacaciones.empleadoSeleccionado.secuencia,1)}" />
@@ -353,7 +346,7 @@
                             </p:inputText>
 
                             <strong><h:outputText value="*Días: " style=" position: absolute; top: 145px;" /></strong>
-                            <p:inputText  autocomplete="off"  readonly="true" id="nuevoDias" value="#{controlNovedadesVacaciones.nuevaNovedad.vacacion.diaspendientes}" 
+                            <p:inputText  autocomplete="off"  id="nuevoDias" value="#{controlNovedadesVacaciones.nuevaNovedad.dias}" 
                                          style=" width: 122px; position: absolute; left: 200px; top: 140px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" listener="#{controlNovedadesVacaciones.diasMayor(controlNovedadesVacaciones.nuevaNovedad.dias)}" />
                             </p:inputText>
@@ -421,7 +414,7 @@
                                 </p:calendar>
                             </div>
 
-                            <strong><h:outputText value="Período: " style=" position: absolute; top: 105px;" /></strong>
+                            <strong><h:outputText value="*Período: " style=" position: absolute; top: 105px;" /></strong>
                             <p:inputText  autocomplete="off"  id="duplicarPeriodo" value="#{controlNovedadesVacaciones.duplicarNovedad.vacacion.periodo}" 
                                          style=" width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase" onclick="select();">
                                 <!-- Evento Click, sí es nulo el campo Que aparezca la lista de valores de Periodo -->
@@ -430,7 +423,7 @@
                             </p:inputText>
 
                             <strong><h:outputText value="*Días: " style=" position: absolute; top: 145px;" /></strong>
-                            <p:inputText  autocomplete="off"  readonly="true" id="duplicarDias" value="#{controlNovedadesVacaciones.duplicarNovedad.vacacion.diaspendientes}" 
+                            <p:inputText  autocomplete="off"  readonly="true" id="duplicarDias" value="#{controlNovedadesVacaciones.duplicarNovedad.dias}" 
                                          style=" width: 122px; position: absolute; left: 200px; top: 140px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" listener="#{controlNovedadesVacaciones.diasMayor(controlNovedadesVacaciones.duplicarNovedad.dias)}" />
                             </p:inputText>
