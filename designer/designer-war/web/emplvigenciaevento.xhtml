@@ -483,36 +483,36 @@
                         </p:panel>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaInicialD" header="#{msg['inicialE']}" widgetVar="editarFechaInicialD" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlEmplVigenciaEvento.editarVigenciaEvento.fechainicial}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+                    <p:dialog id="editarFechaInicialD" header="#{msg['inicialE']}" widgetVar="editarFechaInicialD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlEmplVigenciaEvento.editarVigenciaEvento.fechainicial}" style="overflow: auto;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaFinalD" header="#{msg['finalE']}" widgetVar="editarFechaFinalD" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlEmplVigenciaEvento.editarVigenciaEvento.fechafinal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+                    <p:dialog id="editarFechaFinalD" header="#{msg['finalE']}" widgetVar="editarFechaFinalD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlEmplVigenciaEvento.editarVigenciaEvento.fechafinal}" style="overflow: auto;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarDescripcionD" header="#{msg['descripcionE']}" widgetVar="editarDescripcionD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlEmplVigenciaEvento.editarVigenciaEvento.evento.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarDescripcionD" header="#{msg['descripcionE']}" widgetVar="editarDescripcionD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlEmplVigenciaEvento.editarVigenciaEvento.evento.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarIndividualD" header="#{msg['puntajeindividualE']}" widgetVar="editarIndividualD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlEmplVigenciaEvento.editarVigenciaEvento.valorcuantitativo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarIndividualD" header="#{msg['puntajeindividualE']}" widgetVar="editarIndividualD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlEmplVigenciaEvento.editarVigenciaEvento.valorcuantitativo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarCIndividualD" header="#{msg['pciE']}" widgetVar="editarCIndividualD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlEmplVigenciaEvento.editarVigenciaEvento.valorcualitativo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarCIndividualD" header="#{msg['pciE']}" widgetVar="editarCIndividualD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlEmplVigenciaEvento.editarVigenciaEvento.valorcualitativo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarGrupalD" header="#{msg['puntajegrupalE']}" widgetVar="editarGrupalD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlEmplVigenciaEvento.editarVigenciaEvento.valorcuantitativogrupo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarGrupalD" header="#{msg['puntajegrupalE']}" widgetVar="editarGrupalD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlEmplVigenciaEvento.editarVigenciaEvento.valorcuantitativogrupo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarCGrupalD" header="#{msg['pcgE']}" widgetVar="editarCGrupalD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlEmplVigenciaEvento.editarVigenciaEvento.valorcualitativogrupo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarCGrupalD" header="#{msg['pcgE']}" widgetVar="editarCGrupalD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlEmplVigenciaEvento.editarVigenciaEvento.valorcualitativogrupo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
                 </h:form>
 

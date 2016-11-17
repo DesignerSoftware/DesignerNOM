@@ -503,76 +503,76 @@
                   </div>
                </p:dialog>
 
-               <p:dialog id="editarFechaDesde" header="#{msg['editarFechaDesde']}" widgetVar="editarFechaDesde" resizable="false" closable="true" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                  <p:inputTextarea value="#{controlParametro.parametroLiquidacion.fechadesdecausado}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
+               <p:dialog id="editarFechaDesde" header="#{msg['editarFechaDesde']}" widgetVar="editarFechaDesde" resizable="false" closable="true" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                  <p:inputTextarea value="#{controlParametro.parametroLiquidacion.fechadesdecausado}" style="overflow: auto;" readonly="true">
                      <f:convertDateTime pattern="dd/MM/yyyy" />
                   </p:inputTextarea>
                </p:dialog>
 
-               <p:dialog id="editarFechaHasta" header="#{msg['editarFechaHasta']}" widgetVar="editarFechaHasta" resizable="false" closable="true" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                  <p:inputTextarea value="#{controlParametro.parametroLiquidacion.fechahastacausado}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
+               <p:dialog id="editarFechaHasta" header="#{msg['editarFechaHasta']}" widgetVar="editarFechaHasta" resizable="false" closable="true" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                  <p:inputTextarea value="#{controlParametro.parametroLiquidacion.fechahastacausado}" style="overflow: auto;" readonly="true">
                      <f:convertDateTime pattern="dd/MM/yyyy"/>
                   </p:inputTextarea>
                </p:dialog>
 
-               <p:dialog id="editarFechaCorte" header="#{msg['editarFechaCorte']}" widgetVar="editarFechaCorte" resizable="false" closable="true" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                  <p:inputTextarea value="#{controlParametro.parametroLiquidacion.fechasistema}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
+               <p:dialog id="editarFechaCorte" header="#{msg['editarFechaCorte']}" widgetVar="editarFechaCorte" resizable="false" closable="true" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                  <p:inputTextarea value="#{controlParametro.parametroLiquidacion.fechasistema}" style="overflow: auto;" readonly="true">
                      <f:convertDateTime pattern="dd/MM/yyyy"/>
                   </p:inputTextarea>
                </p:dialog>
 
-               <p:dialog id="editarEstructura" header="#{msg['editarEstructura']}" widgetVar="editarEstructura" resizable="false" closable="true"  draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{controlParametro.parametroLiquidacion.estructura.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarEstructura" header="#{msg['editarEstructura']}" widgetVar="editarEstructura" resizable="false" closable="true"  draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlParametro.parametroLiquidacion.estructura.nombre}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
                <p:dialog id="editarCodigoCC" header="#{msg['editarCodigoCC']}" widgetVar="editarCodigoCC" resizable="false" draggable="true" closable="true"  modal="true" height="80" width="400"  >  
-                  <p:inputTextarea value="#{controlParametro.parametroLiquidacion.estructura.centrocosto.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                  <p:inputTextarea value="#{controlParametro.parametroLiquidacion.estructura.centrocosto.codigo}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarNombreCentroCosto" header="#{msg['editarNombreCentroCosto']}" widgetVar="editarNombreCentroCosto" resizable="false" closable="true"  draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{controlParametro.parametroLiquidacion.estructura.centrocosto.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarNombreCentroCosto" header="#{msg['editarNombreCentroCosto']}" widgetVar="editarNombreCentroCosto" resizable="false" closable="true"  draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlParametro.parametroLiquidacion.estructura.centrocosto.nombre}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarTipoTrabajador" header="#{msg['editarTipoTrabajador']}" widgetVar="editarTipoTrabajador" resizable="false" closable="true"  draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{controlParametro.parametroLiquidacion.tipotrabajador.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarTipoTrabajador" header="#{msg['editarTipoTrabajador']}" widgetVar="editarTipoTrabajador" resizable="false" closable="true"  draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlParametro.parametroLiquidacion.tipotrabajador.nombre}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarProceso" header="#{msg['editarProceso']}" widgetVar="editarProceso" resizable="false" closable="true"  draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{controlParametro.parametroLiquidacion.proceso.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarProceso" header="#{msg['editarProceso']}" widgetVar="editarProceso" resizable="false" closable="true"  draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlParametro.parametroLiquidacion.proceso.descripcion}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
                <!-- EDITOR TABLA -->
 
-               <p:dialog id="editarDesde" header="#{msg['editarDesde']}" widgetVar="editarDesde" resizable="false" closable="true" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                  <p:inputTextarea value="#{controlParametro.editarEmpleadosParametros.parametroestructura.fechadesdecausado}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
+               <p:dialog id="editarDesde" header="#{msg['editarDesde']}" widgetVar="editarDesde" resizable="false" closable="true" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                  <p:inputTextarea value="#{controlParametro.editarEmpleadosParametros.parametroestructura.fechadesdecausado}" style="overflow: auto;" readonly="true">
                      <f:convertDateTime pattern="dd/MM/yyyy" />
                   </p:inputTextarea>
                </p:dialog>
 
-               <p:dialog id="editarHasta" header="#{msg['editarHasta']}" widgetVar="editarHasta" resizable="false" closable="true" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                  <p:inputTextarea value="#{controlParametro.editarEmpleadosParametros.parametroestructura.fechahastacausado}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
+               <p:dialog id="editarHasta" header="#{msg['editarHasta']}" widgetVar="editarHasta" resizable="false" closable="true" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                  <p:inputTextarea value="#{controlParametro.editarEmpleadosParametros.parametroestructura.fechahastacausado}" style="overflow: auto;" readonly="true">
                      <f:convertDateTime pattern="dd/MM/yyyy" />
                   </p:inputTextarea>
                </p:dialog>
 
-               <p:dialog id="editarCodigo" header="#{msg['editarCodigo']}" widgetVar="editarCodigo" resizable="false" closable="true"  draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{controlParametro.editarEmpleadosParametros.empleado.codigoempleado}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarCodigo" header="#{msg['editarCodigo']}" widgetVar="editarCodigo" resizable="false" closable="true"  draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlParametro.editarEmpleadosParametros.empleado.codigoempleado}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarPApellido" header="#{msg['editarPApellido']}" widgetVar="editarPApellido" resizable="false" closable="true"  draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{controlParametro.editarEmpleadosParametros.empleado.persona.primerapellido}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarPApellido" header="#{msg['editarPApellido']}" widgetVar="editarPApellido" resizable="false" closable="true"  draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlParametro.editarEmpleadosParametros.empleado.persona.primerapellido}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarSApellido" header="#{msg['editarSApellido']}" widgetVar="editarSApellido" resizable="false" closable="true"  draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{controlParametro.editarEmpleadosParametros.empleado.persona.segundoapellido}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarSApellido" header="#{msg['editarSApellido']}" widgetVar="editarSApellido" resizable="false" closable="true"  draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlParametro.editarEmpleadosParametros.empleado.persona.segundoapellido}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarNombre" header="#{msg['editarNombre']}" widgetVar="editarNombre" resizable="false" closable="true"  draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{controlParametro.editarEmpleadosParametros.empleado.persona.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarNombre" header="#{msg['editarNombre']}" widgetVar="editarNombre" resizable="false" closable="true"  draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlParametro.editarEmpleadosParametros.empleado.persona.nombre}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarEstado" header="#{msg['editarEstado']}" widgetVar="editarEstado" resizable="false" closable="true"  draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{controlParametro.editarEmpleadosParametros.estadoParametro}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarEstado" header="#{msg['editarEstado']}" widgetVar="editarEstado" resizable="false" closable="true"  draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlParametro.editarEmpleadosParametros.estadoParametro}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
 

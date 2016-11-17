@@ -302,20 +302,20 @@
 
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlInstituciones.activarCtrlF11()}" process="@this"/>
                     
-                    <p:dialog id="editarCodigosInstituciones" header="Código" widgetVar="editarCodigosInstituciones" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlInstituciones.editarInstitucion.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarCodigosInstituciones" header="Código" widgetVar="editarCodigosInstituciones" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlInstituciones.editarInstitucion.codigo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarDescripcionInstituciones" header="Nombre" widgetVar="editarDescripcionInstituciones" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlInstituciones.editarInstitucion.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarDescripcionInstituciones" header="Nombre" widgetVar="editarDescripcionInstituciones" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlInstituciones.editarInstitucion.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
                     
-                    <p:dialog id="editarTelefonoInstituciones" header="NivelEducativo" widgetVar="editarTelefonoInstituciones" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlInstituciones.editarInstitucion.contacto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarTelefonoInstituciones" header="NivelEducativo" widgetVar="editarTelefonoInstituciones" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlInstituciones.editarInstitucion.contacto}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
                     
-                    <p:dialog id="editarNivelInstituciones" header="NivelEducativo" widgetVar="editarNivelInstituciones" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlInstituciones.editarInstitucion.telefono}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarNivelInstituciones" header="NivelEducativo" widgetVar="editarNivelInstituciones" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlInstituciones.editarInstitucion.telefono}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
                 </h:form>   
                 

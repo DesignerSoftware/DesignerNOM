@@ -580,62 +580,62 @@
 
                <!-- Editar -->
 
-               <p:dialog id="editarConcepto" header="#{msg['editarConcepto']}" widgetVar="editarConcepto" resizable="false" draggable="true" modal="true" height="80" width="400" >
-                  <p:inputTextarea value="#{cargarArchivoPlano.editarNovedad.concepto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarConcepto" header="#{msg['editarConcepto']}" widgetVar="editarConcepto" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >
+                  <p:inputTextarea value="#{cargarArchivoPlano.editarNovedad.concepto}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarEmpleado" header="#{msg['editarEmpleado']}" widgetVar="editarEmpleado" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{cargarArchivoPlano.editarNovedad.empleado}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarEmpleado" header="#{msg['editarEmpleado']}" widgetVar="editarEmpleado" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{cargarArchivoPlano.editarNovedad.empleado}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarFechainicial" header="#{msg['editarFechainicial']}" widgetVar="editarFechainicial" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                  <p:inputTextarea value="#{cargarArchivoPlano.editarNovedad.fechainicial}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+               <p:dialog id="editarFechainicial" header="#{msg['editarFechainicial']}" widgetVar="editarFechainicial" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                  <p:inputTextarea value="#{cargarArchivoPlano.editarNovedad.fechainicial}" style="overflow: auto;" readonly="true">                        
                      <f:convertDateTime pattern="dd/MM/yyyy"/>
                   </p:inputTextarea>
                </p:dialog>
 
-               <p:dialog id="editarFechaFinal" header="#{msg['editarFechaFinal']}" widgetVar="editarFechaFinal" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                  <p:inputTextarea value="#{cargarArchivoPlano.editarNovedad.fechafinal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+               <p:dialog id="editarFechaFinal" header="#{msg['editarFechaFinal']}" widgetVar="editarFechaFinal" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                  <p:inputTextarea value="#{cargarArchivoPlano.editarNovedad.fechafinal}" style="overflow: auto;" readonly="true">                        
                      <f:convertDateTime pattern="dd/MM/yyyy"/>
                   </p:inputTextarea>
                </p:dialog>
 
-               <p:dialog id="editarFechaReporte" header="#{msg['editarFechaReporte']}" widgetVar="editarFechaReporte" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                  <p:inputTextarea value="#{cargarArchivoPlano.editarNovedad.fechareporte}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+               <p:dialog id="editarFechaReporte" header="#{msg['editarFechaReporte']}" widgetVar="editarFechaReporte" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                  <p:inputTextarea value="#{cargarArchivoPlano.editarNovedad.fechareporte}" style="overflow: auto;" readonly="true">                        
                      <f:convertDateTime pattern="dd/MM/yyyy"/>
                   </p:inputTextarea>
                </p:dialog>
 
-               <p:dialog id="editarDocumentoS" header="#{msg['editarDocumentoS']}" widgetVar="editarDocumentoS" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{cargarArchivoPlano.editarNovedad.documentosoporte}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarDocumentoS" header="#{msg['editarDocumentoS']}" widgetVar="editarDocumentoS" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{cargarArchivoPlano.editarNovedad.documentosoporte}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarValor" header="#{msg['editarValor']}" widgetVar="editarValor" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{cargarArchivoPlano.editarNovedad.valortotal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
+               <p:dialog id="editarValor" header="#{msg['editarValor']}" widgetVar="editarValor" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{cargarArchivoPlano.editarNovedad.valortotal}" style="overflow: auto;" readonly="true">
                      <f:convertNumber currencyCode="COP"/>
                   </p:inputTextarea>
                </p:dialog>
 
-               <p:dialog id="editarPeriodicidad" header="#{msg['editarPeriodicidad']}" widgetVar="editarPeriodicidad" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{cargarArchivoPlano.editarNovedad.periodicidad}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarPeriodicidad" header="#{msg['editarPeriodicidad']}" widgetVar="editarPeriodicidad" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{cargarArchivoPlano.editarNovedad.periodicidad}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarTercero" header="#{msg['editarTercero']}" widgetVar="editarTercero" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{cargarArchivoPlano.editarNovedad.tercero}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarTercero" header="#{msg['editarTercero']}" widgetVar="editarTercero" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{cargarArchivoPlano.editarNovedad.tercero}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarSaldo" header="#{msg['editarSaldo']}" widgetVar="editarSaldo" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{cargarArchivoPlano.editarNovedad.saldo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
+               <p:dialog id="editarSaldo" header="#{msg['editarSaldo']}" widgetVar="editarSaldo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{cargarArchivoPlano.editarNovedad.saldo}" style="overflow: auto;" readonly="true">
                      <f:convertNumber currencyCode="COP"/>
                   </p:inputTextarea>
                </p:dialog>
 
-               <p:dialog id="editarUEntera" header="#{msg['editarUEntera']}" widgetVar="editarUEntera" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{cargarArchivoPlano.editarNovedad.unidadesparteentera}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarUEntera" header="#{msg['editarUEntera']}" widgetVar="editarUEntera" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{cargarArchivoPlano.editarNovedad.unidadesparteentera}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarUFraccion" header="#{msg['editarUFraccion']}" widgetVar="editarUFraccion" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{cargarArchivoPlano.editarNovedad.unidadespartefraccion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarUFraccion" header="#{msg['editarUFraccion']}" widgetVar="editarUFraccion" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{cargarArchivoPlano.editarNovedad.unidadespartefraccion}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
             </h:form>
 

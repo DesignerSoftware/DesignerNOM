@@ -246,12 +246,12 @@
                         </p:panel>
                     </p:dialog>
                     
-                    <p:dialog id="editCodigo" header="#{msg['editCodigo']}" widgetVar="editCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea  value="#{controlTiposAuxilios.editarTipoAuxilio.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editCodigo" header="#{msg['editCodigo']}" widgetVar="editCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea  value="#{controlTiposAuxilios.editarTipoAuxilio.codigo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editDescripcion" header="#{msg['editDescripcion']}" widgetVar="editDescripcion" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea  value="#{controlTiposAuxilios.editarTipoAuxilio.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editDescripcion" header="#{msg['editDescripcion']}" widgetVar="editDescripcion" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea  value="#{controlTiposAuxilios.editarTipoAuxilio.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
                     
                 </h:form>

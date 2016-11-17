@@ -429,27 +429,27 @@
 
                     <!--0-->
                     <p:dialog id="editarCCC" header="Editar Código" widgetVar="editarCCC" resizable="false" draggable="true" modal="true" height="93" width="240" style="font-size: 12px">  
-                        <p:inputTextarea value="#{controlJuzgados.editarJuzgado.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea value="#{controlJuzgados.editarJuzgado.codigo}" style="overflow: auto;" readonly="true"/>
                         <p:commandButton id="cancelarCCC" value="Atras" onclick="PF('editarCCC').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                     </p:dialog>
                     <!--1-->
                     <p:dialog id="editarNCC" header="Editar Nombre" widgetVar="editarNCC" resizable="false" draggable="true" modal="true" height="93" width="240" style="font-size: 12px">  
-                        <p:inputTextarea value="#{controlJuzgados.editarJuzgado.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea value="#{controlJuzgados.editarJuzgado.nombre}" style="overflow: auto;" readonly="true"/>
                         <p:commandButton id="cancelarNCC" value="Atras" onclick="PF('editarNCC').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                     </p:dialog>
                     <!--2-->
                     <p:dialog id="editarTCC" header="Editar Oficina" widgetVar="editarTCC" resizable="false" draggable="true" modal="true" height="93" width="240" style="font-size: 12px">  
-                        <p:inputTextarea value="#{controlJuzgados.editarJuzgado.oficina}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea value="#{controlJuzgados.editarJuzgado.oficina}" style="overflow: auto;" readonly="true"/>
                         <p:commandButton id="cancelarTCC" value="Atras" onclick="PF('editarTCC').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                     </p:dialog>
                     <!--3-->
                     <p:dialog id="editarMO" header="Editar Observacion" widgetVar="editarMO" resizable="false" draggable="true" modal="true" height="93" width="240" style="font-size: 12px">  
-                        <p:inputTextarea value="#{controlJuzgados.editarJuzgado.observaciones}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea value="#{controlJuzgados.editarJuzgado.observaciones}" style="overflow: auto;" readonly="true"/>
                         <p:commandButton id="cancelarMO" value="Atras" onclick="PF('editarMO').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                     </p:dialog>
                     <!--4-->
                     <p:dialog id="editarCAT" header="Editar Ciudad" widgetVar="editarCAT" resizable="false" draggable="true" modal="true" height="93" width="240" style="font-size: 12px">  
-                        <p:inputTextarea value="#{controlJuzgados.editarJuzgado.ciudad.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea value="#{controlJuzgados.editarJuzgado.ciudad.nombre}" style="overflow: auto;" readonly="true"/>
                         <p:commandButton id="cancelarCAT" value="Atras" onclick="PF('editarCAT').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                     </p:dialog>
                 </h:form>

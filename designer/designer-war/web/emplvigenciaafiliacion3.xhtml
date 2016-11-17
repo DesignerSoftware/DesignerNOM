@@ -600,40 +600,40 @@
                     <!-- DIALOGOS DE EDITAR COLUMNAS -->
                     <!-- Dialogos tabla Vigencia Afiliaciones -->
 
-                    <p:dialog id="editarFechaInicialVAD" header="#{msg['inicialE']}" widgetVar="editarFechaInicialVAD" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlEmplVigenciaAfiliacion3.editarVA.fechainicial}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+                    <p:dialog id="editarFechaInicialVAD" header="#{msg['inicialE']}" widgetVar="editarFechaInicialVAD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlEmplVigenciaAfiliacion3.editarVA.fechainicial}" style="overflow: auto;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaFinalVAD" header="#{msg['finalE']}" widgetVar="editarFechaFinalVAD" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlEmplVigenciaAfiliacion3.editarVA.fechafinal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+                    <p:dialog id="editarFechaFinalVAD" header="#{msg['finalE']}" widgetVar="editarFechaFinalVAD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlEmplVigenciaAfiliacion3.editarVA.fechafinal}" style="overflow: auto;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarTerceroVAD" header="#{msg['terceroE']}" widgetVar="editarTerceroVAD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlEmplVigenciaAfiliacion3.editarVA.tercerosucursal.tercero.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarTerceroVAD" header="#{msg['terceroE']}" widgetVar="editarTerceroVAD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlEmplVigenciaAfiliacion3.editarVA.tercerosucursal.tercero.nombre}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarNITTerceroVAD" header="#{msg['terceronitE']}" widgetVar="editarNITTerceroVAD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlEmplVigenciaAfiliacion3.editarVA.tercerosucursal.tercero.nit}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarNITTerceroVAD" header="#{msg['terceronitE']}" widgetVar="editarNITTerceroVAD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlEmplVigenciaAfiliacion3.editarVA.tercerosucursal.tercero.nit}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarTipoEntidadVAD" header="#{msg['tipoentidadE']}" widgetVar="editarTipoEntidadVAD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlEmplVigenciaAfiliacion3.editarVA.tipoentidad.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarTipoEntidadVAD" header="#{msg['tipoentidadE']}" widgetVar="editarTipoEntidadVAD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlEmplVigenciaAfiliacion3.editarVA.tipoentidad.nombre}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarCodigoVAD" header="#{msg['codigoE']}" widgetVar="editarCodigoVAD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlEmplVigenciaAfiliacion3.editarVA.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarCodigoVAD" header="#{msg['codigoE']}" widgetVar="editarCodigoVAD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlEmplVigenciaAfiliacion3.editarVA.codigo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarEstadoAfiliacionVAD" header="#{msg['estadoE']}" widgetVar="editarEstadoAfiliacionVAD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlEmplVigenciaAfiliacion3.editarVA.estadoafiliacion.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarEstadoAfiliacionVAD" header="#{msg['estadoE']}" widgetVar="editarEstadoAfiliacionVAD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlEmplVigenciaAfiliacion3.editarVA.estadoafiliacion.nombre}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarObservacionesVAD" header="#{msg['observacionesE']}" widgetVar="editarObservacionesVAD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlEmplVigenciaAfiliacion3.editarVA.observaciones}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarObservacionesVAD" header="#{msg['observacionesE']}" widgetVar="editarObservacionesVAD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlEmplVigenciaAfiliacion3.editarVA.observaciones}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
                     <!-- Validaciones --> 
                     <p:dialog id="errorIngresoRegistro" header="#{msg['precaucion']}" widgetVar="errorIngresoRegistro" resizable="false" draggable="true" modal="true" height="110" width="420" closable="false">  

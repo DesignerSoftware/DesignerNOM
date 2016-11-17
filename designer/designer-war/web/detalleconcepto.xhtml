@@ -107,7 +107,7 @@
                   <fieldset  style="position: absolute; left: 7px; top: 105px; width: 840px; height: 375px; border-radius: 10px; text-align: left;">
                      <legend style="color: blue"><strong>#{msg['asignaciondecuentas']}</strong></legend>
 
-                     <p:scrollPanel id="scrollPrincipal" style="position: absolute; left: 3px; padding-top: 0px; width: 852px; height: 350px; border: none" mode="native">  
+                     <p:scrollPanel id="scrollPrincipal" style="position: absolute; left: 3px; padding-top: 0px; width: 852px; height: 350px; border: none;" mode="native">  
 
                         <fieldset style="position: absolute; top: -2px; width: 805px; height: 168px; border-radius: 10px; text-align: left;">
                            <legend style="color: blue"><strong>#{msg['cuentasytipocc']}</strong></legend>
@@ -2034,144 +2034,144 @@
 
                <!-- EDITAR CELDAS TABLA VIGENCIA CUENTA -->
 
-               <p:dialog id="editarFechaInicialVCD" header="#{msg['editarFechaInicialVCD']}" widgetVar="editarFechaInicialVCD" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                  <p:inputTextarea value="#{controlDetalleConcepto.editarVigenciaCuenta.fechainicial}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+               <p:dialog id="editarFechaInicialVCD" header="#{msg['editarFechaInicialVCD']}" widgetVar="editarFechaInicialVCD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                  <p:inputTextarea value="#{controlDetalleConcepto.editarVigenciaCuenta.fechainicial}" style="overflow: auto;" readonly="true">                        
                      <f:convertDateTime pattern="dd/MM/yyyy"/>
                   </p:inputTextarea>
                </p:dialog>
 
-               <p:dialog id="editarFechaFinalVCD" header="#{msg['editarFechaFinalVCD']}" widgetVar="editarFechaFinalVCD" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                  <p:inputTextarea value="#{controlDetalleConcepto.editarVigenciaCuenta.fechafinal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+               <p:dialog id="editarFechaFinalVCD" header="#{msg['editarFechaFinalVCD']}" widgetVar="editarFechaFinalVCD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                  <p:inputTextarea value="#{controlDetalleConcepto.editarVigenciaCuenta.fechafinal}" style="overflow: auto;" readonly="true">                        
                      <f:convertDateTime pattern="dd/MM/yyyy"/>
                   </p:inputTextarea>
                </p:dialog>
 
-               <p:dialog id="editarTipoCCVCD" header="#{msg['editarTipoCCVCD']}" widgetVar="editarTipoCCVCD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{controlDetalleConcepto.editarVigenciaCuenta.tipocc.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarTipoCCVCD" header="#{msg['editarTipoCCVCD']}" widgetVar="editarTipoCCVCD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlDetalleConcepto.editarVigenciaCuenta.tipocc.nombre}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editaCodDebitoVCD" header="#{msg['editaCodDebitoVCD']}" widgetVar="editaCodDebitoVCD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{controlDetalleConcepto.editarVigenciaCuenta.cuentad.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editaCodDebitoVCD" header="#{msg['editaCodDebitoVCD']}" widgetVar="editaCodDebitoVCD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlDetalleConcepto.editarVigenciaCuenta.cuentad.codigo}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editaDesDebitoVCD" header="#{msg['editaDesDebitoVCD']}" widgetVar="editaDesDebitoVCD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{controlDetalleConcepto.editarVigenciaCuenta.cuentad.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editaDesDebitoVCD" header="#{msg['editaDesDebitoVCD']}" widgetVar="editaDesDebitoVCD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlDetalleConcepto.editarVigenciaCuenta.cuentad.descripcion}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editaCCConsolidadorDVCD" header="#{msg['editaCCConsolidadorDVCD']}" widgetVar="editaCCConsolidadorDVCD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{controlDetalleConcepto.editarVigenciaCuenta.consolidadord.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editaCCConsolidadorDVCD" header="#{msg['editaCCConsolidadorDVCD']}" widgetVar="editaCCConsolidadorDVCD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlDetalleConcepto.editarVigenciaCuenta.consolidadord.nombre}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editaCodCreditoVCD" header="#{msg['editaCodCreditoVCD']}" widgetVar="editaCodCreditoVCD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{controlDetalleConcepto.editarVigenciaCuenta.cuentac.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editaCodCreditoVCD" header="#{msg['editaCodCreditoVCD']}" widgetVar="editaCodCreditoVCD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlDetalleConcepto.editarVigenciaCuenta.cuentac.codigo}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editaDesCreditoVCD" header="#{msg['editaDesCreditoVCD']}" widgetVar="editaDesCreditoVCD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{controlDetalleConcepto.editarVigenciaCuenta.cuentac.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editaDesCreditoVCD" header="#{msg['editaDesCreditoVCD']}" widgetVar="editaDesCreditoVCD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlDetalleConcepto.editarVigenciaCuenta.cuentac.descripcion}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editaCCConsolidadorCVCD" header="#{msg['editaCCConsolidadorCVCD']}" widgetVar="editaCCConsolidadorCVCD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{controlDetalleConcepto.editarVigenciaCuenta.consolidadorc.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editaCCConsolidadorCVCD" header="#{msg['editaCCConsolidadorCVCD']}" widgetVar="editaCCConsolidadorCVCD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlDetalleConcepto.editarVigenciaCuenta.consolidadorc.nombre}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
                <!-- editar valores tabla vigencias grupos conceptos -->
 
-               <p:dialog id="editarFechaInicialVGCD" header="#{msg['editarFechaInicialVGCD']}" widgetVar="editarFechaInicialVGCD" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                  <p:inputTextarea value="#{controlDetalleConcepto.editarVigenciaGrupoConcepto.fechainicial}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+               <p:dialog id="editarFechaInicialVGCD" header="#{msg['editarFechaInicialVGCD']}" widgetVar="editarFechaInicialVGCD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                  <p:inputTextarea value="#{controlDetalleConcepto.editarVigenciaGrupoConcepto.fechainicial}" style="overflow: auto;" readonly="true">                        
                      <f:convertDateTime pattern="dd/MM/yyyy"/>
                   </p:inputTextarea>
                </p:dialog>
 
-               <p:dialog id="editarFechaFinalVGCD" header="#{msg['editarFechaFinalVGCD']}" widgetVar="editarFechaFinalVGCD" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                  <p:inputTextarea value="#{controlDetalleConcepto.editarVigenciaGrupoConcepto.fechafinal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+               <p:dialog id="editarFechaFinalVGCD" header="#{msg['editarFechaFinalVGCD']}" widgetVar="editarFechaFinalVGCD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                  <p:inputTextarea value="#{controlDetalleConcepto.editarVigenciaGrupoConcepto.fechafinal}" style="overflow: auto;" readonly="true">                        
                      <f:convertDateTime pattern="dd/MM/yyyy"/>
                   </p:inputTextarea>
                </p:dialog>
 
-               <p:dialog id="editarCodigoVGCD" header="#{msg['editarCodigoVGCD']}" widgetVar="editarCodigoVGCD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{controlDetalleConcepto.editarVigenciaGrupoConcepto.grupoconcepto.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarCodigoVGCD" header="#{msg['editarCodigoVGCD']}" widgetVar="editarCodigoVGCD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlDetalleConcepto.editarVigenciaGrupoConcepto.grupoconcepto.codigo}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editaDescripcionVGCD" header="#{msg['editaDescripcionVGCD']}" widgetVar="editaDescripcionVGCD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{controlDetalleConcepto.editarVigenciaGrupoConcepto.grupoconcepto.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editaDescripcionVGCD" header="#{msg['editaDescripcionVGCD']}" widgetVar="editaDescripcionVGCD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlDetalleConcepto.editarVigenciaGrupoConcepto.grupoconcepto.descripcion}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
                <!-- editar valores tabla vigencias conceptos TT -->
 
-               <p:dialog id="editarFechaInicialVCTTD" header="#{msg['editarFechaInicialVCTTD']}" widgetVar="editarFechaInicialVCTTD" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                  <p:inputTextarea value="#{controlDetalleConcepto.editarVigenciaConceptoTT.fechainicial}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+               <p:dialog id="editarFechaInicialVCTTD" header="#{msg['editarFechaInicialVCTTD']}" widgetVar="editarFechaInicialVCTTD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                  <p:inputTextarea value="#{controlDetalleConcepto.editarVigenciaConceptoTT.fechainicial}" style="overflow: auto;" readonly="true">                        
                      <f:convertDateTime pattern="dd/MM/yyyy"/>
                   </p:inputTextarea>
                </p:dialog>
 
-               <p:dialog id="editarFechaFinalVCTTD" header="#{msg['editarFechaFinalVCTTD']}" widgetVar="editarFechaFinalVCTTD" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                  <p:inputTextarea value="#{controlDetalleConcepto.editarVigenciaConceptoTT.fechafinal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+               <p:dialog id="editarFechaFinalVCTTD" header="#{msg['editarFechaFinalVCTTD']}" widgetVar="editarFechaFinalVCTTD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                  <p:inputTextarea value="#{controlDetalleConcepto.editarVigenciaConceptoTT.fechafinal}" style="overflow: auto;" readonly="true">                        
                      <f:convertDateTime pattern="dd/MM/yyyy"/>
                   </p:inputTextarea>
                </p:dialog>
 
-               <p:dialog id="editaDescripcionVCTTD" header="#{msg['editaDescripcionVCTTD']}" widgetVar="editaDescripcionVCTTD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{controlDetalleConcepto.editarVigenciaConceptoTT.tipotrabajador.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editaDescripcionVCTTD" header="#{msg['editaDescripcionVCTTD']}" widgetVar="editaDescripcionVCTTD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlDetalleConcepto.editarVigenciaConceptoTT.tipotrabajador.nombre}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
 
                <!-- editar valores tabla vigencias conceptos TC -->
 
-               <p:dialog id="editarFechaInicialVCTCD" header="#{msg['editarFechaInicialVCTCD']}" widgetVar="editarFechaInicialVCTCD" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                  <p:inputTextarea value="#{controlDetalleConcepto.editarVigenciaConceptoTC.fechainicial}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+               <p:dialog id="editarFechaInicialVCTCD" header="#{msg['editarFechaInicialVCTCD']}" widgetVar="editarFechaInicialVCTCD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                  <p:inputTextarea value="#{controlDetalleConcepto.editarVigenciaConceptoTC.fechainicial}" style="overflow: auto;" readonly="true">                        
                      <f:convertDateTime pattern="dd/MM/yyyy"/>
                   </p:inputTextarea>
                </p:dialog>
 
-               <p:dialog id="editarFechaFinalVCTCD" header="#{msg['editarFechaFinalVCTCD']}" widgetVar="editarFechaFinalVCTCD" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                  <p:inputTextarea value="#{controlDetalleConcepto.editarVigenciaConceptoTC.fechafinal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+               <p:dialog id="editarFechaFinalVCTCD" header="#{msg['editarFechaFinalVCTCD']}" widgetVar="editarFechaFinalVCTCD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                  <p:inputTextarea value="#{controlDetalleConcepto.editarVigenciaConceptoTC.fechafinal}" style="overflow: auto;" readonly="true">                        
                      <f:convertDateTime pattern="dd/MM/yyyy"/>
                   </p:inputTextarea>
                </p:dialog>
 
-               <p:dialog id="editaDescripcionVCTCD" header="#{msg['editaDescripcionVCTCD']}" widgetVar="editaDescripcionVCTCD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{controlDetalleConcepto.editarVigenciaConceptoTC.tipocontrato.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editaDescripcionVCTCD" header="#{msg['editaDescripcionVCTCD']}" widgetVar="editaDescripcionVCTCD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlDetalleConcepto.editarVigenciaConceptoTC.tipocontrato.nombre}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
                <!-- editar valores tabla vigencias conceptos RL -->
 
-               <p:dialog id="editarFechaInicialVCRLD" header="#{msg['editarFechaInicialVCRLD']}" widgetVar="editarFechaInicialVCRLD" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                  <p:inputTextarea value="#{controlDetalleConcepto.editarVigenciaConceptoRL.fechainicial}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+               <p:dialog id="editarFechaInicialVCRLD" header="#{msg['editarFechaInicialVCRLD']}" widgetVar="editarFechaInicialVCRLD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                  <p:inputTextarea value="#{controlDetalleConcepto.editarVigenciaConceptoRL.fechainicial}" style="overflow: auto;" readonly="true">                        
                      <f:convertDateTime pattern="dd/MM/yyyy"/>
                   </p:inputTextarea>
                </p:dialog>
 
-               <p:dialog id="editarFechaFinalVCRLD" header="#{msg['editarFechaFinalVCRLD']}" widgetVar="editarFechaFinalVCRLD" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                  <p:inputTextarea value="#{controlDetalleConcepto.editarVigenciaConceptoRL.fechafinal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+               <p:dialog id="editarFechaFinalVCRLD" header="#{msg['editarFechaFinalVCRLD']}" widgetVar="editarFechaFinalVCRLD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                  <p:inputTextarea value="#{controlDetalleConcepto.editarVigenciaConceptoRL.fechafinal}" style="overflow: auto;" readonly="true">                        
                      <f:convertDateTime pattern="dd/MM/yyyy"/>
                   </p:inputTextarea>
                </p:dialog>
 
-               <p:dialog id="editaDescripcionVCRLD" header="#{msg['editaDescripcionVCRLD']}" widgetVar="editaDescripcionVCRLD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{controlDetalleConcepto.editarVigenciaConceptoRL.tiposalario.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editaDescripcionVCRLD" header="#{msg['editaDescripcionVCRLD']}" widgetVar="editaDescripcionVCRLD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlDetalleConcepto.editarVigenciaConceptoRL.tiposalario.nombre}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
 
                <!-- editar valores tabla formula concepto -->
 
-               <p:dialog id="editarFechaInicialFCD" header="#{msg['editarFechaInicialFCD']}" widgetVar="editarFechaInicialFCD" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                  <p:inputTextarea value="#{controlDetalleConcepto.editarFormulasConceptos.fechainicial}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+               <p:dialog id="editarFechaInicialFCD" header="#{msg['editarFechaInicialFCD']}" widgetVar="editarFechaInicialFCD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                  <p:inputTextarea value="#{controlDetalleConcepto.editarFormulasConceptos.fechainicial}" style="overflow: auto;" readonly="true">                        
                      <f:convertDateTime pattern="dd/MM/yyyy"/>
                   </p:inputTextarea>
                </p:dialog>
 
-               <p:dialog id="editarFechaFinalFCD" header="#{msg['editarFechaFinalFCD']}" widgetVar="editarFechaFinalFCD" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                  <p:inputTextarea value="#{controlDetalleConcepto.editarFormulasConceptos.fechafinal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+               <p:dialog id="editarFechaFinalFCD" header="#{msg['editarFechaFinalFCD']}" widgetVar="editarFechaFinalFCD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                  <p:inputTextarea value="#{controlDetalleConcepto.editarFormulasConceptos.fechafinal}" style="overflow: auto;" readonly="true">                        
                      <f:convertDateTime pattern="dd/MM/yyyy"/>
                   </p:inputTextarea>
                </p:dialog>
 
-               <p:dialog id="editaFormulaFCD" header="#{msg['editFormulaFCD']}" widgetVar="editaFormulaFCD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{controlDetalleConcepto.editarFormulasConceptos.nombreFormula}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editaFormulaFCD" header="#{msg['editFormulaFCD']}" widgetVar="editaFormulaFCD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlDetalleConcepto.editarFormulasConceptos.nombreFormula}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editaOrdenFCD" header="#{msg['editaOrdenFCD']}" widgetVar="editaOrdenFCD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{controlDetalleConcepto.editarFormulasConceptos.strOrden}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editaOrdenFCD" header="#{msg['editaOrdenFCD']}" widgetVar="editaOrdenFCD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlDetalleConcepto.editarFormulasConceptos.strOrden}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
             </h:form>

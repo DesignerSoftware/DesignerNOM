@@ -499,38 +499,38 @@
                         </p:panel>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaInicialD" header="#{msg['inicialE']}" widgetVar="editarFechaInicialD" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlEmplInformacionAdicional.editarInfoAdicional.fechainicial}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+                    <p:dialog id="editarFechaInicialD" header="#{msg['inicialE']}" widgetVar="editarFechaInicialD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlEmplInformacionAdicional.editarInfoAdicional.fechainicial}" style="overflow: auto;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaFinalD" header="#{msg['finalE']}" widgetVar="editarFechaFinalD" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlEmplInformacionAdicional.editarInfoAdicional.fechafinal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+                    <p:dialog id="editarFechaFinalD" header="#{msg['finalE']}" widgetVar="editarFechaFinalD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlEmplInformacionAdicional.editarInfoAdicional.fechafinal}" style="overflow: auto;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarGrupoD" header="#{msg['grupoE']}" widgetVar="editarGrupoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlEmplInformacionAdicional.editarInfoAdicional.grupo.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarGrupoD" header="#{msg['grupoE']}" widgetVar="editarGrupoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlEmplInformacionAdicional.editarInfoAdicional.grupo.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarCaracterD" header="#{msg['caracterE']}" widgetVar="editarCaracterD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlEmplInformacionAdicional.editarInfoAdicional.resultadocaracter}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarCaracterD" header="#{msg['caracterE']}" widgetVar="editarCaracterD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlEmplInformacionAdicional.editarInfoAdicional.resultadocaracter}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarNumericoD" header="#{msg['numericoE']}" widgetVar="editarNumericoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlEmplInformacionAdicional.editarInfoAdicional.resultadonumerico}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarNumericoD" header="#{msg['numericoE']}" widgetVar="editarNumericoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlEmplInformacionAdicional.editarInfoAdicional.resultadonumerico}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaD" header="#{msg['fechaE']}" widgetVar="editarFechaD" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlEmplInformacionAdicional.editarInfoAdicional.resultadofecha}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+                    <p:dialog id="editarFechaD" header="#{msg['fechaE']}" widgetVar="editarFechaD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlEmplInformacionAdicional.editarInfoAdicional.resultadofecha}" style="overflow: auto;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarObservacionD" header="#{msg['observacionE']}" widgetVar="editarObservacionD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlEmplInformacionAdicional.editarInfoAdicional.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarObservacionD" header="#{msg['observacionE']}" widgetVar="editarObservacionD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlEmplInformacionAdicional.editarInfoAdicional.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
                 </h:form>

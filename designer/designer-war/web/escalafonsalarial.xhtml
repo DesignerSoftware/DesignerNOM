@@ -440,26 +440,26 @@
 
                     <!-- editar celdas escalafon salarial -->
 
-                    <p:dialog id="editarEscalafonCodigoD" header="#{msg['editarEscalafonCodigoD']}" widgetVar="editarEscalafonCodigoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlEscalafonSalarial.editarEscalafonSalarial.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarEscalafonCodigoD" header="#{msg['editarEscalafonCodigoD']}" widgetVar="editarEscalafonCodigoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlEscalafonSalarial.editarEscalafonSalarial.codigo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarEscalafonDescripcionD" header="#{msg['editarEscalafonDescripcionD']}" widgetVar="editarEscalafonDescripcionD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlEscalafonSalarial.editarEscalafonSalarial.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarEscalafonDescripcionD" header="#{msg['editarEscalafonDescripcionD']}" widgetVar="editarEscalafonDescripcionD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlEscalafonSalarial.editarEscalafonSalarial.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarEscalafonTipoTrabajadorD" header="#{msg['editarEscalafonTipoTrabajadorD']}" widgetVar="editarEscalafonTipoTrabajadorD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlEscalafonSalarial.editarEscalafonSalarial.tipotrabajador.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarEscalafonTipoTrabajadorD" header="#{msg['editarEscalafonTipoTrabajadorD']}" widgetVar="editarEscalafonTipoTrabajadorD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlEscalafonSalarial.editarEscalafonSalarial.tipotrabajador.nombre}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
                     <!-- editar celdas grupo salarial -->
 
-                    <p:dialog id="editarGrupoDescripcionD" header="#{msg['editarGrupoDescripcionD']}" widgetVar="editarGrupoDescripcionD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlEscalafonSalarial.editarGrupoSalarial.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarGrupoDescripcionD" header="#{msg['editarGrupoDescripcionD']}" widgetVar="editarGrupoDescripcionD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlEscalafonSalarial.editarGrupoSalarial.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarGrupoSalarioD" header="#{msg['editarGrupoSalarioD']}" widgetVar="editarGrupoSalarioD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlEscalafonSalarial.editarGrupoSalarial.salario}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
+                    <p:dialog id="editarGrupoSalarioD" header="#{msg['editarGrupoSalarioD']}" widgetVar="editarGrupoSalarioD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlEscalafonSalarial.editarGrupoSalarial.salario}" style="overflow: auto;" readonly="true">
                             <f:convertNumber currencySymbol="$" type="currency" />
                         </p:inputTextarea>
                     </p:dialog>

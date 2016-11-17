@@ -334,16 +334,16 @@
 
                     <!-- DIALOGOS EDITAR -->
 
-                    <p:dialog id="editarCodigos" header="#{msg['codigoe']}" widgetVar="editarCodigos" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlUnidad.editarUnidad.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarCodigos" header="#{msg['codigoe']}" widgetVar="editarCodigos" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlUnidad.editarUnidad.codigo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarNombres" header="#{msg['nombree']}" widgetVar="editarNombres" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlUnidad.editarUnidad.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarNombres" header="#{msg['nombree']}" widgetVar="editarNombres" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlUnidad.editarUnidad.nombre}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarTipos" header="#{msg['tipounidade']}" widgetVar="editarTipos" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlUnidad.editarUnidad.tipounidad.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarTipos" header="#{msg['tipounidade']}" widgetVar="editarTipos" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlUnidad.editarUnidad.tipounidad.nombre}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
                 </h:form>

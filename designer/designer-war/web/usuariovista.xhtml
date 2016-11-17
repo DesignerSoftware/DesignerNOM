@@ -486,20 +486,20 @@
 
                     <!-- DIALOGOS EDITAR -->
 
-                    <p:dialog id="editarDescripcion" header="#{msg['descripcione']}" widgetVar="editarDescripcion" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlUsuariosVistas.editarUsuariosVistas.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarDescripcion" header="#{msg['descripcione']}" widgetVar="editarDescripcion" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlUsuariosVistas.editarUsuariosVistas.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarNombreVista" header="#{msg['nombrevistae']}" widgetVar="editarNombreVista" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlUsuariosVistas.editarUsuariosVistas.nombrevista}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarNombreVista" header="#{msg['nombrevistae']}" widgetVar="editarNombreVista" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlUsuariosVistas.editarUsuariosVistas.nombrevista}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarObjetoDB" header="#{msg['objetodbe']}" widgetVar="editarObjetoDB" resizable="false" draggable="true" modal="true" height="55" width="300" >  
                         <p:inputTextarea value="#{controlUsuariosVistas.editarUsuariosVistas.objetodb.nombre}" style="overflow: auto; width: 260px; height: 40px;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarAlias" header="#{msg['aliase']}" widgetVar="editarAlias" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlUsuariosVistas.editarUsuariosVistas.alias}" style="overflow: auto; width: 360px; height: 60px;" readonly="true" />
+                    <p:dialog id="editarAlias" header="#{msg['aliase']}" widgetVar="editarAlias" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlUsuariosVistas.editarUsuariosVistas.alias}" style="overflow: auto;" readonly="true" />
                     </p:dialog>
                     
                     <p:dialog id="editarEstructuraJOIN" header="#{msg['estructurajoine']}" widgetVar="editarEstructuraJOIN" resizable="false" draggable="true" modal="true" height="240" width="540" >  

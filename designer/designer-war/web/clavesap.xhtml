@@ -287,11 +287,11 @@
                         <h:outputText value="La tabla 'CLAVES_SAP' no se encuentra en ObjetosDB. Porfavor comunicarse con soporte." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="editClaveD" header="Clave" widgetVar="editClaveD" resizable="false" draggable="true" modal="true" height="80" width="400" style="text-transform: uppercase">  
-                        <p:inputTextarea  value="#{controlClavesSap.editarClavesSap.clave}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editClaveD" header="Clave" widgetVar="editClaveD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
+                        <p:inputTextarea  value="#{controlClavesSap.editarClavesSap.clave}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-                    <p:dialog id="editClaveAjusteD" header="Clave Ajuste" widgetVar="editClaveAjusteD" resizable="false" draggable="true" modal="true" height="80" width="400" style="text-transform: uppercase">  
-                        <p:inputTextarea  value="#{controlClavesSap.editarClavesSap.claveAjuste.clave}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editClaveAjusteD" header="Clave Ajuste" widgetVar="editClaveAjusteD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
+                        <p:inputTextarea  value="#{controlClavesSap.editarClavesSap.claveAjuste.clave}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
 

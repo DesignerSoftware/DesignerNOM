@@ -217,11 +217,11 @@
                   <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 80px; top: 2px; width: 185px; font-weight:bold;" />
                </p:dialog>
 
-               <p:dialog id="editCodigo" header="Código" widgetVar="editCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" style="">  
-                  <p:inputTextarea value="#{controlMotivosCambiosCargos.editarMotivoCambioCargo.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editCodigo" header="Código" widgetVar="editCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="">  
+                  <p:inputTextarea value="#{controlMotivosCambiosCargos.editarMotivoCambioCargo.codigo}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
-               <p:dialog id="editDescripcion" header="Descripción" widgetVar="editDescripcion" resizable="false" draggable="true" modal="true" height="80" width="400" style="text-transform: uppercase">  
-                  <p:inputTextarea value="#{controlMotivosCambiosCargos.editarMotivoCambioCargo.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editDescripcion" header="Descripción" widgetVar="editDescripcion" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
+                  <p:inputTextarea value="#{controlMotivosCambiosCargos.editarMotivoCambioCargo.nombre}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
                <p:dialog id="nuevoRegistroMotivoCambiosCargos" header="Nuevo Registro" widgetVar="nuevoRegistroMotivoCambiosCargos" closable="false" resizable="false"  draggable="true" modal="true" height="155" width="320" style=" padding: 0px">  

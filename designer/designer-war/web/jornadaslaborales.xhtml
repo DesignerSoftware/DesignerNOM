@@ -967,58 +967,58 @@
             <h:form id="formEditar">
                <!-- DIALOGOS EDITAR -->
 
-               <p:dialog id="editarCodigo" header="#{msg['codigoe']}" widgetVar="editarCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{controlJornadasLaborales.editarJornadaLaboral.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarCodigo" header="#{msg['codigoe']}" widgetVar="editarCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlJornadasLaborales.editarJornadaLaboral.codigo}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
                <p:dialog id="editarDescripcion" header="#{msg['descripcione']}" widgetVar="editarDescripcion" resizable="false" draggable="true" modal="true" height="80" width="400">  
-                  <p:inputText  autocomplete="off"  value="#{controlJornadasLaborales.editarJornadaLaboral.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                                
+                  <p:inputText  autocomplete="off"  value="#{controlJornadasLaborales.editarJornadaLaboral.descripcion}" style="overflow: auto;" readonly="true">                                
                   </p:inputText>
                </p:dialog>
                <p:dialog id="editarHorasDiarias" header="#{msg['horasdiariase']}" widgetVar="editarHorasDiarias" resizable="false" draggable="true" modal="true" height="80" width="400">  
-                  <p:inputText  autocomplete="off"  value="#{controlJornadasLaborales.editarJornadaLaboral.horasdiarias}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                                
+                  <p:inputText  autocomplete="off"  value="#{controlJornadasLaborales.editarJornadaLaboral.horasdiarias}" style="overflow: auto;" readonly="true">                                
                   </p:inputText>
                </p:dialog>
                <p:dialog id="editarHorasMensuales" header="#{msg['horasmensualese']}" widgetVar="editarHorasMensuales" resizable="false" draggable="true" modal="true" height="80" width="400">  
-                  <p:inputText  autocomplete="off"  value="#{controlJornadasLaborales.editarJornadaLaboral.horasmensuales}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
+                  <p:inputText  autocomplete="off"  value="#{controlJornadasLaborales.editarJornadaLaboral.horasmensuales}" style="overflow: auto;" readonly="true">
 
                   </p:inputText>
                </p:dialog>
                <p:dialog id="editarJornada" header="#{msg['jornadae']}" widgetVar="editarJornada" resizable="false" draggable="true" modal="true" height="80" width="400">  
-                  <p:inputText  autocomplete="off"  value="#{controlJornadasLaborales.editarJornadaLaboral.jornada.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                               
+                  <p:inputText  autocomplete="off"  value="#{controlJornadasLaborales.editarJornadaLaboral.jornada.descripcion}" style="overflow: auto;" readonly="true">                               
                   </p:inputText>
                </p:dialog>
                <!-- Editar Semana Laboral -->
                <p:dialog id="editarHoraInicialJS" header="#{msg['horainiciale']}" widgetVar="editarHoraInicialJS" resizable="false" draggable="true" modal="true" height="80" width="400">  
-                  <p:inputText  autocomplete="off"  value="#{controlJornadasLaborales.editarJornadaSemanal.horainicial}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                                
+                  <p:inputText  autocomplete="off"  value="#{controlJornadasLaborales.editarJornadaSemanal.horainicial}" style="overflow: auto;" readonly="true">                                
                   </p:inputText>
                </p:dialog>
                <p:dialog id="editarMinutoInicialJS" header="#{msg['minutoiniciale']}" widgetVar="editarMinutoInicialJS" resizable="false" draggable="true" modal="true" height="80" width="400">  
-                  <p:inputText  autocomplete="off"  value="#{controlJornadasLaborales.editarJornadaSemanal.minutoinicial}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                                
+                  <p:inputText  autocomplete="off"  value="#{controlJornadasLaborales.editarJornadaSemanal.minutoinicial}" style="overflow: auto;" readonly="true">                                
                   </p:inputText>
                </p:dialog>
                <p:dialog id="editarHoraInicialAlimentacionJS" header="#{msg['horainicialalimentacione']}" widgetVar="editarHoraInicialAlimentacionJS" resizable="false" draggable="true" modal="true" height="80" width="400">  
-                  <p:inputText  autocomplete="off"  value="#{controlJornadasLaborales.editarJornadaSemanal.horainicialalimentacion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                                
+                  <p:inputText  autocomplete="off"  value="#{controlJornadasLaborales.editarJornadaSemanal.horainicialalimentacion}" style="overflow: auto;" readonly="true">                                
                   </p:inputText>
                </p:dialog>
                <p:dialog id="editarMinutoInicialAlimentacionJS" header="#{msg['minutoinicialalimentacione']}" widgetVar="editarMinutoInicialAlimentacionJS" resizable="false" draggable="true" modal="true" height="80" width="400">  
-                  <p:inputText  autocomplete="off"  value="#{controlJornadasLaborales.editarJornadaSemanal.minutoinicialalimentacion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                                
+                  <p:inputText  autocomplete="off"  value="#{controlJornadasLaborales.editarJornadaSemanal.minutoinicialalimentacion}" style="overflow: auto;" readonly="true">                                
                   </p:inputText>
                </p:dialog>
                <p:dialog id="editarHoraFinalAlimentacionJS" header="#{msg['horafinalalimentacione']}" widgetVar="editarHoraFinalAlimentacionJS" resizable="false" draggable="true" modal="true" height="80" width="400">  
-                  <p:inputText  autocomplete="off"  value="#{controlJornadasLaborales.editarJornadaSemanal.horafinalalimentacion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                                
+                  <p:inputText  autocomplete="off"  value="#{controlJornadasLaborales.editarJornadaSemanal.horafinalalimentacion}" style="overflow: auto;" readonly="true">                                
                   </p:inputText>
                </p:dialog>
                <p:dialog id="editarMinutoFinalAlimentacionJS" header="#{msg['minutofinalalimentacione']}" widgetVar="editarMinutoFinalAlimentacionJS" resizable="false" draggable="true" modal="true" height="80" width="400">  
-                  <p:inputText  autocomplete="off"  value="#{controlJornadasLaborales.editarJornadaSemanal.minutofinalalimentacion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                                
+                  <p:inputText  autocomplete="off"  value="#{controlJornadasLaborales.editarJornadaSemanal.minutofinalalimentacion}" style="overflow: auto;" readonly="true">                                
                   </p:inputText>
                </p:dialog>
                <p:dialog id="editarHoraFinalJS" header="Hora Final" widgetVar="#{msg['horafinale']}" resizable="false" draggable="true" modal="true" height="80" width="400">  
-                  <p:inputText  autocomplete="off"  value="#{controlJornadasLaborales.editarJornadaSemanal.horafinal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                                
+                  <p:inputText  autocomplete="off"  value="#{controlJornadasLaborales.editarJornadaSemanal.horafinal}" style="overflow: auto;" readonly="true">                                
                   </p:inputText>
                </p:dialog>
                <p:dialog id="editarMinutoFinalJS" header="Minuto Final" widgetVar="#{msg['minutofinale']}" resizable="false" draggable="true" modal="true" height="80" width="400">  
-                  <p:inputText  autocomplete="off"  value="#{controlJornadasLaborales.editarJornadaSemanal.minutofinal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                                
+                  <p:inputText  autocomplete="off"  value="#{controlJornadasLaborales.editarJornadaSemanal.minutofinal}" style="overflow: auto;" readonly="true">                                
                   </p:inputText>
                </p:dialog>
             </h:form>

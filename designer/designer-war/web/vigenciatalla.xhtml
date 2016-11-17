@@ -285,19 +285,19 @@
 
 
 
-                    <p:dialog id="editarFecha" header="Fecha Vigencia" widgetVar="editarFecha" resizable="false" draggable="true" modal="true" height="80" width="400" style="position: absolute; top: 10px;  padding: 0px">  
-                        <p:inputTextarea value="#{controlVigenciasTallas.editarVigenciaTalla.fechavigencia}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">  
+                    <p:dialog id="editarFecha" header="Fecha Vigencia" widgetVar="editarFecha" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="position: absolute; top: 10px;  padding: 0px">  
+                        <p:inputTextarea value="#{controlVigenciasTallas.editarVigenciaTalla.fechavigencia}" style="overflow: auto;" readonly="true">  
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
-                    <p:dialog id="editTipoTalla" header="Tipo Talla" widgetVar="editTipoTalla" resizable="false" draggable="true" modal="true" height="80" width="400" style="text-transform: uppercase">  
-                        <p:inputTextarea value="#{controlVigenciasTallas.editarVigenciaTalla.tipoTalla.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editTipoTalla" header="Tipo Talla" widgetVar="editTipoTalla" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
+                        <p:inputTextarea value="#{controlVigenciasTallas.editarVigenciaTalla.tipoTalla.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-                    <p:dialog id="editTallita" header="Talla" widgetVar="editTallita" resizable="false" draggable="true" modal="true" height="80" width="400" style="text-transform: uppercase">  
-                        <p:inputTextarea value="#{controlVigenciasTallas.editarVigenciaTalla.talla}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editTallita" header="Talla" widgetVar="editTallita" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
+                        <p:inputTextarea value="#{controlVigenciasTallas.editarVigenciaTalla.talla}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-                    <p:dialog id="editObservacion" header="Observacion" widgetVar="editObservacion" resizable="false" draggable="true" modal="true" height="80" width="400" style="text-transform: uppercase">  
-                        <p:inputTextarea value="#{controlVigenciasTallas.editarVigenciaTalla.observaciones}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editObservacion" header="Observacion" widgetVar="editObservacion" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
+                        <p:inputTextarea value="#{controlVigenciasTallas.editarVigenciaTalla.observaciones}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
 

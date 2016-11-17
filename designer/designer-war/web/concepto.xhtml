@@ -989,72 +989,72 @@
                <!-- EDITOR -->
 
                <p:dialog id="editorCodigo" header="#{msg['codigoE']}" widgetVar="editorCodigo" resizable="false" draggable="true" modal="true" height="80" width="400">  
-                  <p:inputTextarea  value="#{controlConcepto.conceptoSeleccionado.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                  <p:inputTextarea  value="#{controlConcepto.conceptoSeleccionado.codigo}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
                <p:dialog id="editorDescripcion" header="#{msg['descripcionE']}" widgetVar="editorDescripcion" resizable="false" draggable="true" modal="true" height="80" width="400">  
-                  <p:inputTextarea  value="#{controlConcepto.conceptoSeleccionado.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                  <p:inputTextarea  value="#{controlConcepto.conceptoSeleccionado.descripcion}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
                <p:dialog id="editorNaturaleza" header="#{msg['naturalezaE']}" widgetVar="editorNaturaleza" 
-                         resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{controlConcepto.conceptoSeleccionado.naturalezaConcepto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                         resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlConcepto.conceptoSeleccionado.naturalezaConcepto}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
                <p:dialog id="editorCodigoUnidad" header="#{msg['codigounidadE']}" widgetVar="editorCodigoUnidad" 
-                         resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea  value="#{controlConcepto.conceptoSeleccionado.unidad.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                         resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea  value="#{controlConcepto.conceptoSeleccionado.unidad.codigo}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
                <p:dialog id="editorNombreUnidad" header="#{msg['nombreunidadE']}" widgetVar="editorNombreUnidad" 
-                         resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea  value="#{controlConcepto.conceptoSeleccionado.unidad.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                         resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea  value="#{controlConcepto.conceptoSeleccionado.unidad.nombre}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
                <p:dialog id="editorCodigoDesprendible" header="#{msg['nombreunidadE']}" widgetVar="editorCodigoDesprendible" 
-                         resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea  value="#{controlConcepto.conceptoSeleccionado.codigodesprendible}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                         resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea  value="#{controlConcepto.conceptoSeleccionado.codigodesprendible}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
                <p:dialog id="editorDescripcionDesprendible" header="#{msg['descripciondesprendibleE']}" widgetVar="editorDescripcionDesprendible" 
-                         resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea  value="#{controlConcepto.conceptoSeleccionado.descripciondesprendible}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                         resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea  value="#{controlConcepto.conceptoSeleccionado.descripciondesprendible}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
                <p:dialog id="editorIndependienteTesoreria" header="#{msg['independienteE']}" widgetVar="editorIndependienteTesoreria" 
-                         resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea  value="#{controlConcepto.conceptoSeleccionado.independienteConcepto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                         resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea  value="#{controlConcepto.conceptoSeleccionado.independienteConcepto}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
                <p:dialog id="editorConjunto" header="#{msg['conjuntoconceptoE']}" widgetVar="editorConjunto" 
-                         resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea  value="#{controlConcepto.conceptoSeleccionado.conjunto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                         resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea  value="#{controlConcepto.conceptoSeleccionado.conjunto}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
                <p:dialog id="editorFechaAcumulacion" header="#{msg['fechaacumulacionE']}" widgetVar="editorFechaAcumulacion" 
-                         resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                  <p:inputTextarea  value="#{controlConcepto.conceptoSeleccionado.contenidofechahasta}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+                         resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                  <p:inputTextarea  value="#{controlConcepto.conceptoSeleccionado.contenidofechahasta}" style="overflow: auto;" readonly="true">                        
                      <f:convertDateTime pattern="dd/MM/yyyy"/>
                   </p:inputTextarea>
                </p:dialog>
 
                <p:dialog id="editorTercero" header="#{msg['nombreterceroE']}" widgetVar="editorTercero" 
-                         resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea  value="#{controlConcepto.conceptoSeleccionado.tercero.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                         resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea  value="#{controlConcepto.conceptoSeleccionado.tercero.nombre}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editorEstado" header="#{msg['estadooE']}" widgetVar="editorEstado" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea  value="#{controlConcepto.conceptoSeleccionado.estadoConcepto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editorEstado" header="#{msg['estadooE']}" widgetVar="editorEstado" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea  value="#{controlConcepto.conceptoSeleccionado.estadoConcepto}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
                <p:dialog id="editorEnvioTesoreria" header="#{msg['enviaraE']}" widgetVar="editorEnvioTesoreria" 
-                         resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea  value="#{controlConcepto.conceptoSeleccionado.enviarConcepto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                         resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea  value="#{controlConcepto.conceptoSeleccionado.enviarConcepto}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
                <p:dialog id="editorCodigoAleternativo" header="#{msg['codigoalternativoE']}" 
-                         widgetVar="editorCodigoAleternativo" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea  value="#{controlConcepto.conceptoSeleccionado.codigoalternativo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                         widgetVar="editorCodigoAleternativo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea  value="#{controlConcepto.conceptoSeleccionado.codigoalternativo}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
             </h:form>
 

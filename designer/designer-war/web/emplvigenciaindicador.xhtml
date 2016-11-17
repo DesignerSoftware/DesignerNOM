@@ -404,24 +404,24 @@
 
                     <!-- ////// ////// ////// -->
 
-                    <p:dialog id="editarFechaInicialVD" header="#{msg['editarFechaInicialVD']}" widgetVar="editarFechaInicialVD" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlEmplVigenciaIndicador.editarVigenciaIndicador.fechainicial}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+                    <p:dialog id="editarFechaInicialVD" header="#{msg['editarFechaInicialVD']}" widgetVar="editarFechaInicialVD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlEmplVigenciaIndicador.editarVigenciaIndicador.fechainicial}" style="overflow: auto;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaFinalVD" header="#{msg['editarFechaFinalVD']}" widgetVar="editarFechaFinalVD" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlEmplVigenciaIndicador.editarVigenciaIndicador.fechafinal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+                    <p:dialog id="editarFechaFinalVD" header="#{msg['editarFechaFinalVD']}" widgetVar="editarFechaFinalVD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlEmplVigenciaIndicador.editarVigenciaIndicador.fechafinal}" style="overflow: auto;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarTipoVD" header="#{msg['editarTipoVD']}" widgetVar="editarTipoVD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlEmplVigenciaIndicador.editarVigenciaIndicador.tipoindicador.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarTipoVD" header="#{msg['editarTipoVD']}" widgetVar="editarTipoVD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlEmplVigenciaIndicador.editarVigenciaIndicador.tipoindicador.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarIndicadorVD" header="#{msg['editarIndicadorVD']}" widgetVar="editarIndicadorVD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlEmplVigenciaIndicador.editarVigenciaIndicador.indicador.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarIndicadorVD" header="#{msg['editarIndicadorVD']}" widgetVar="editarIndicadorVD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlEmplVigenciaIndicador.editarVigenciaIndicador.indicador.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
 

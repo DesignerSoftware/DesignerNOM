@@ -346,22 +346,22 @@
                         </p:panel>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaCD" header="#{msg['editarFechaCD']}" widgetVar="editarFechaCD" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlConceptoJuridico.editarConcepto.fecha}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+                    <p:dialog id="editarFechaCD" header="#{msg['editarFechaCD']}" widgetVar="editarFechaCD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlConceptoJuridico.editarConcepto.fecha}" style="overflow: auto;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarNombreCD" header="#{msg['editarNombreCD']}" widgetVar="editarNombreCD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlConceptoJuridico.editarConcepto.expedidopor}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarNombreCD" header="#{msg['editarNombreCD']}" widgetVar="editarNombreCD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlConceptoJuridico.editarConcepto.expedidopor}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarCargoCD" header="#{msg['editarCargoCD']}" widgetVar="editarCargoCD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlConceptoJuridico.editarConcepto.quien}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarCargoCD" header="#{msg['editarCargoCD']}" widgetVar="editarCargoCD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlConceptoJuridico.editarConcepto.quien}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editaTextoD" header="#{msg['editaTextoD']}" widgetVar="editaTextoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlConceptoJuridico.editarConcepto.texto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editaTextoD" header="#{msg['editaTextoD']}" widgetVar="editaTextoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlConceptoJuridico.editarConcepto.texto}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
                 </h:form>

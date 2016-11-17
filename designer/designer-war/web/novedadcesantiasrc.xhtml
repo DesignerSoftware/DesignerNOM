@@ -514,40 +514,40 @@
 
                     <!-- DIALOGOS EDITAR -->
 
-                    <p:dialog id="editFechaCorteCesantias" header="#{msg['fechacortecesantias']}" widgetVar="editFechaCorteCesantias" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlNovedadCesantiasRC.editarNovedades.fechainicialdisfrute}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+                    <p:dialog id="editFechaCorteCesantias" header="#{msg['fechacortecesantias']}" widgetVar="editFechaCorteCesantias" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlNovedadCesantiasRC.editarNovedades.fechainicialdisfrute}" style="overflow: auto;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editFechaCorteIntCesantias" header="#{msg['fechacorteint']}" widgetVar="editFechaCorteIntCesantias" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlNovedadCesantiasRC.editarNovedades.fechacortecesantia}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
+                    <p:dialog id="editFechaCorteIntCesantias" header="#{msg['fechacorteint']}" widgetVar="editFechaCorteIntCesantias" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlNovedadCesantiasRC.editarNovedades.fechacortecesantia}" style="overflow: auto;" readonly="true">
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editValorCesantias" header="#{msg['vlrCesantias']}" widgetVar="editValorCesantias" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlNovedadCesantiasRC.editarNovedades.valorcesantia}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editValorCesantias" header="#{msg['vlrCesantias']}" widgetVar="editValorCesantias" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlNovedadCesantiasRC.editarNovedades.valorcesantia}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editValorIntCesantias" header="#{msg['vlrintcesantias']}" widgetVar="editValorIntCesantias" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlNovedadCesantiasRC.editarNovedades.valorinterescesantia}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editValorIntCesantias" header="#{msg['vlrintcesantias']}" widgetVar="editValorIntCesantias" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlNovedadCesantiasRC.editarNovedades.valorinterescesantia}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editValorSolicitado" header="#{msg['vlrsolicitado']}" widgetVar="editValorSolicitado" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlNovedadCesantiasRC.editarNovedades.valorsolicitado}" style="overflow: auto; width: 360px; height: 60px;" readonly="true" />                        
+                    <p:dialog id="editValorSolicitado" header="#{msg['vlrsolicitado']}" widgetVar="editValorSolicitado" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlNovedadCesantiasRC.editarNovedades.valorsolicitado}" style="overflow: auto;" readonly="true" />                        
                     </p:dialog>
 
-                    <p:dialog id="editMotivoCesantias" header="#{msg['motcesantias']}" widgetVar="editMotivoCesantias" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlNovedadCesantiasRC.editarNovedades.motivocesantia.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true" />                        
+                    <p:dialog id="editMotivoCesantias" header="#{msg['motcesantias']}" widgetVar="editMotivoCesantias" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlNovedadCesantiasRC.editarNovedades.motivocesantia.nombre}" style="overflow: auto;" readonly="true" />                        
                     </p:dialog>
 
-                    <p:dialog id="editObservaciones" header="#{msg['obs']}" widgetVar="editObservaciones" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlNovedadCesantiasRC.editarNovedades.observaciones}" style="overflow: auto; width: 360px; height: 60px;" readonly="true" />                        
+                    <p:dialog id="editObservaciones" header="#{msg['obs']}" widgetVar="editObservaciones" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlNovedadCesantiasRC.editarNovedades.observaciones}" style="overflow: auto;" readonly="true" />                        
                     </p:dialog>
 
-                    <p:dialog id="editBeneficiarios" header="#{msg['beneficiarios']}" widgetVar="editBeneficiarios" resizable="false" draggable="true" modal="true" height="80" width="400"  >  
-                        <p:inputTextarea value="#{controlNovedadCesantiasRC.editarNovedades.beneficiario}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editBeneficiarios" header="#{msg['beneficiarios']}" widgetVar="editBeneficiarios" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar"  >  
+                        <p:inputTextarea value="#{controlNovedadCesantiasRC.editarNovedades.beneficiario}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
 

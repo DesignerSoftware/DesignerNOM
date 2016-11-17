@@ -273,31 +273,31 @@
                         <h:outputText value="La tabla 'LIQUIDACIONESLOGS' no se encuentra en ObjetosDB. Porfavor comunicarse con soporte." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="editarFechaInicial" header="Fecha Desde" widgetVar="editarFechaInicial" resizable="false" draggable="true" modal="true" height="80" width="400" style="position: absolute; top: 10px;  padding: 0px">  
-                        <p:inputTextarea value="#{controlLiquidacionesLogs.editarLiquidacionesLogs.fechadesde}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">  
+                    <p:dialog id="editarFechaInicial" header="Fecha Desde" widgetVar="editarFechaInicial" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="position: absolute; top: 10px;  padding: 0px">  
+                        <p:inputTextarea value="#{controlLiquidacionesLogs.editarLiquidacionesLogs.fechadesde}" style="overflow: auto;" readonly="true">  
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
-                    <p:dialog id="editarFechaHasta" header="Fecha Hasta" widgetVar="editarFechaHasta" resizable="false" draggable="true" modal="true" height="80" width="400" style="position: absolute; top: 10px;  padding: 0px">  
-                        <p:inputTextarea value="#{controlLiquidacionesLogs.editarLiquidacionesLogs.fechahasta}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">  
+                    <p:dialog id="editarFechaHasta" header="Fecha Hasta" widgetVar="editarFechaHasta" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="position: absolute; top: 10px;  padding: 0px">  
+                        <p:inputTextarea value="#{controlLiquidacionesLogs.editarLiquidacionesLogs.fechahasta}" style="overflow: auto;" readonly="true">  
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
 
-                    <p:dialog id="editarEmpleado" header="Empleado" widgetVar="editarEmpleado" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlLiquidacionesLogs.editarLiquidacionesLogs.empleado.persona.nombreCompleto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarEmpleado" header="Empleado" widgetVar="editarEmpleado" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlLiquidacionesLogs.editarLiquidacionesLogs.empleado.persona.nombreCompleto}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarOperandoE" header="Operando" widgetVar="editarOperandoE" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlLiquidacionesLogs.editarLiquidacionesLogs.operando.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarOperandoE" header="Operando" widgetVar="editarOperandoE" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlLiquidacionesLogs.editarLiquidacionesLogs.operando.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarProcesoE" header="Proceso" widgetVar="editarProcesoE" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlLiquidacionesLogs.editarLiquidacionesLogs.proceso.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarProcesoE" header="Proceso" widgetVar="editarProcesoE" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlLiquidacionesLogs.editarLiquidacionesLogs.proceso.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-                    <p:dialog id="editarValorE" header="Valor" widgetVar="editarValorE" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlLiquidacionesLogs.editarLiquidacionesLogs.valor}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarValorE" header="Valor" widgetVar="editarValorE" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlLiquidacionesLogs.editarLiquidacionesLogs.valor}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
                 </h:form>

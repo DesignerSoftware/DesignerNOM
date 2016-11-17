@@ -176,12 +176,12 @@
                     </p:dialog>
 
                     <p:dialog id="editarFormulas" header="#{msg['editarFormulas']}" widgetVar="editarFormulas" resizable="false" draggable="true" modal="true" height="93" width="240" >  
-                        <p:inputTextarea value="#{controlTipoFormula.editarTiposFormulas.formula.nombrecorto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea value="#{controlTipoFormula.editarTiposFormulas.formula.nombrecorto}" style="overflow: auto;" readonly="true"/>
                         <p:commandButton id="cancelarFormulas" value="#{msg['atras']}" onclick="PF('editarFormulas').hide();" style="position: absolute; top: 60px; left: 148px; " process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="editarEstados" header="#{msg['editarEstados']}" widgetVar="editarEstados" resizable="false" draggable="true" modal="true" height="93" width="240" >  
-                        <p:inputTextarea value="#{controlTipoFormula.editarTiposFormulas.formula.estado}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea value="#{controlTipoFormula.editarTiposFormulas.formula.estado}" style="overflow: auto;" readonly="true"/>
                         <p:commandButton id="cancelarEstado" value="#{msg['atras']}" onclick="PF('editarEstados').hide();" style="position: absolute; top: 60px; left: 148px; " process="@this"/>
                     </p:dialog>
 

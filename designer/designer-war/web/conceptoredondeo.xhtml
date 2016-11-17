@@ -150,12 +150,12 @@
                <p:hotkey bind="ctrl+f11" actionListener="#{controlDeclarantes.activarCtrlF11()}" process="@this"/> 
 
                <!-- DIALOGOS EDITAR -->
-               <p:dialog id="editarConcepto" header="#{msg['editarConcepto']}"  widgetVar="editarConcepto" resizable="false" draggable="true" modal="true" height="80" width="400" style="font-size: 12px; padding: 0px">  
-                  <p:inputTextarea value="#{controlConceptoRedondeo.editarConceptosRedondeos.concepto.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarConcepto" header="#{msg['editarConcepto']}"  widgetVar="editarConcepto" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="font-size: 12px; padding: 0px">  
+                  <p:inputTextarea value="#{controlConceptoRedondeo.editarConceptosRedondeos.concepto.descripcion}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarTipoRedondeo" header="#{msg['editarTipoRedondeo']}"  widgetVar="editarTipoRedondeo" resizable="false" draggable="true" modal="true" height="80" width="400" style="font-size: 12px; padding: 0px">  
-                  <p:inputTextarea value="#{controlConceptoRedondeo.editarConceptosRedondeos.concepto.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarTipoRedondeo" header="#{msg['editarTipoRedondeo']}"  widgetVar="editarTipoRedondeo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="font-size: 12px; padding: 0px">  
+                  <p:inputTextarea value="#{controlConceptoRedondeo.editarConceptosRedondeos.concepto.descripcion}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
                <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="95" width="400" style="font-size: 12px;" closable="false">  

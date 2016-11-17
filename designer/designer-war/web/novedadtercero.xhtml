@@ -655,64 +655,64 @@
 
                <!-- DIALOGOS EDITAR -->
 
-               <p:dialog id="editarEmpleadosCodigos" header="#{msg['editarEmpleadosCodigos']}" widgetVar="editarEmpleadosCodigos" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{controlNovedadesTerceros.editarNovedades.empleado.codigoempleadoSTR}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarEmpleadosCodigos" header="#{msg['editarEmpleadosCodigos']}" widgetVar="editarEmpleadosCodigos" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlNovedadesTerceros.editarNovedades.empleado.codigoempleadoSTR}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarEmpleadosNombres" header="#{msg['editarEmpleadosNombres']}" widgetVar="editarEmpleadosNombres" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{controlNovedadesTerceros.editarNovedades.empleado.persona.nombreCompleto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarEmpleadosNombres" header="#{msg['editarEmpleadosNombres']}" widgetVar="editarEmpleadosNombres" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlNovedadesTerceros.editarNovedades.empleado.persona.nombreCompleto}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarConceptosCodigos" header="#{msg['editarConceptosCodigos']}" widgetVar="editarConceptosCodigos" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{controlNovedadesTerceros.editarNovedades.concepto.codigoSTR}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarConceptosCodigos" header="#{msg['editarConceptosCodigos']}" widgetVar="editarConceptosCodigos" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlNovedadesTerceros.editarNovedades.concepto.codigoSTR}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarConceptosDescripciones" header="#{msg['editarConceptosDescripcion']}" widgetVar="editarConceptosDescripciones" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{controlNovedadesTerceros.editarNovedades.concepto.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarConceptosDescripciones" header="#{msg['editarConceptosDescripcion']}" widgetVar="editarConceptosDescripciones" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlNovedadesTerceros.editarNovedades.concepto.descripcion}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editFechaInicial" header="#{msg['editFechaInicial']}" widgetVar="editFechaInicial" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                  <p:inputTextarea value="#{controlNovedadesTerceros.editarNovedades.fechainicial}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+               <p:dialog id="editFechaInicial" header="#{msg['editFechaInicial']}" widgetVar="editFechaInicial" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                  <p:inputTextarea value="#{controlNovedadesTerceros.editarNovedades.fechainicial}" style="overflow: auto;" readonly="true">                        
                      <f:convertDateTime pattern="dd/MM/yyyy"/>
                   </p:inputTextarea>
                </p:dialog>
 
-               <p:dialog id="editFechasFinales" header="#{msg['editFechasFinales']}" widgetVar="editFechasFinales" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                  <p:inputTextarea value="#{controlNovedadesTerceros.editarNovedades.fechafinal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+               <p:dialog id="editFechasFinales" header="#{msg['editFechasFinales']}" widgetVar="editFechasFinales" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                  <p:inputTextarea value="#{controlNovedadesTerceros.editarNovedades.fechafinal}" style="overflow: auto;" readonly="true">                        
                      <f:convertDateTime pattern="dd/MM/yyyy"/>
                   </p:inputTextarea>
                </p:dialog>
 
-               <p:dialog id="editarValores" header="#{msg['editarValores']}" widgetVar="editarValores" resizable="false" draggable="true" modal="true" height="80" width="400"  >  
-                  <p:inputTextarea value="#{controlNovedadesTerceros.editarNovedades.valortotal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarValores" header="#{msg['editarValores']}" widgetVar="editarValores" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar"  >  
+                  <p:inputTextarea value="#{controlNovedadesTerceros.editarNovedades.valortotal}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarSaldos" header="#{msg['editarSaldos']}" widgetVar="editarSaldos" resizable="false" draggable="true" modal="true" height="80" width="400"  >  
-                  <p:inputTextarea value="#{controlNovedadesTerceros.editarNovedades.saldo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarSaldos" header="#{msg['editarSaldos']}" widgetVar="editarSaldos" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar"  >  
+                  <p:inputTextarea value="#{controlNovedadesTerceros.editarNovedades.saldo}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarPeriodicidadesCodigos" header="#{msg['editarPeriodicidadesCodigos']}" widgetVar="editarPeriodicidadesCodigos" resizable="false" draggable="true" modal="true" height="80" width="400"  >  
-                  <p:inputTextarea value="#{controlNovedadesTerceros.editarNovedades.periodicidad.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarPeriodicidadesCodigos" header="#{msg['editarPeriodicidadesCodigos']}" widgetVar="editarPeriodicidadesCodigos" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar"  >  
+                  <p:inputTextarea value="#{controlNovedadesTerceros.editarNovedades.periodicidad.codigo}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarPeriodicidadesDescripciones" header="#{msg['editarPeriodicidadesDescripciones']}" widgetVar="editarPeriodicidadesDescripciones" resizable="false" draggable="true" modal="true" height="80" width="400"  >  
-                  <p:inputTextarea value="#{controlNovedadesTerceros.editarNovedades.periodicidad.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarPeriodicidadesDescripciones" header="#{msg['editarPeriodicidadesDescripciones']}" widgetVar="editarPeriodicidadesDescripciones" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar"  >  
+                  <p:inputTextarea value="#{controlNovedadesTerceros.editarNovedades.periodicidad.nombre}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarFormulas" header="#{msg['editarFormulas']}" widgetVar="editarFormulas" resizable="false" draggable="true" modal="true" height="80" width="400"  >  
-                  <p:inputTextarea value="#{controlNovedadesTerceros.editarNovedades.formula.nombrelargo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarFormulas" header="#{msg['editarFormulas']}" widgetVar="editarFormulas" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar"  >  
+                  <p:inputTextarea value="#{controlNovedadesTerceros.editarNovedades.formula.nombrelargo}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarHorasDias" header="#{msg['editarHorasDias']}" widgetVar="editarHorasDias" resizable="false" draggable="true" modal="true" height="80" width="400"  >  
-                  <p:inputTextarea value="#{controlNovedadesTerceros.editarNovedades.unidadesparteentera}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarHorasDias" header="#{msg['editarHorasDias']}" widgetVar="editarHorasDias" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar"  >  
+                  <p:inputTextarea value="#{controlNovedadesTerceros.editarNovedades.unidadesparteentera}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarMinutosHoras" header="#{msg['editarMinutosHoras']}" widgetVar="editarMinutosHoras" resizable="false" draggable="true" modal="true" height="80" width="400"  >  
-                  <p:inputTextarea value="#{controlNovedadesTerceros.editarNovedades.unidadespartefraccion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarMinutosHoras" header="#{msg['editarMinutosHoras']}" widgetVar="editarMinutosHoras" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar"  >  
+                  <p:inputTextarea value="#{controlNovedadesTerceros.editarNovedades.unidadespartefraccion}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarTipos" header="#{msg['editarTipos']}" widgetVar="editarTipos" resizable="false" draggable="true" modal="true" height="80" width="400"  >  
-                  <p:inputTextarea value="#{controlNovedadesTerceros.editarNovedades.tipo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarTipos" header="#{msg['editarTipos']}" widgetVar="editarTipos" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar"  >  
+                  <p:inputTextarea value="#{controlNovedadesTerceros.editarNovedades.tipo}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
                <!-- DIALOGOS RASTROS -->

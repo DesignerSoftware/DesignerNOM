@@ -724,54 +724,54 @@
 
                <!-- ////// ////// ////// -->
 
-               <p:dialog id="editarEmpresaPD" header="#{msg['editarEmpresaPD']}" widgetVar="editarEmpresaPD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{controlProyecto.editarProyecto.empresa.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarEmpresaPD" header="#{msg['editarEmpresaPD']}" widgetVar="editarEmpresaPD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlProyecto.editarProyecto.empresa.nombre}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarCodigoPD" header="#{msg['editarCodigoPD']}" widgetVar="editarCodigoPD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{controlProyecto.editarProyecto.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarCodigoPD" header="#{msg['editarCodigoPD']}" widgetVar="editarCodigoPD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlProyecto.editarProyecto.codigo}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarNombrePD" header="#{msg['editarNombrePD']}" widgetVar="editarNombrePD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{controlProyecto.editarProyecto.nombreproyecto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarNombrePD" header="#{msg['editarNombrePD']}" widgetVar="editarNombrePD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlProyecto.editarProyecto.nombreproyecto}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarClientePD" header="#{msg['editarClientePD']}" widgetVar="editarClientePD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{controlProyecto.editarProyecto.pryCliente.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarClientePD" header="#{msg['editarClientePD']}" widgetVar="editarClientePD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlProyecto.editarProyecto.pryCliente.nombre}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
                <p:dialog id="editarPlataformaPD" header="#{msg['editarPlataformaPD']}" widgetVar="editarPlataformaPD" resizable="false" draggable="true" modal="true" height="80" width="4000" >  
-                  <p:inputTextarea value="#{controlProyecto.editarProyecto.pryPlataforma.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                  <p:inputTextarea value="#{controlProyecto.editarProyecto.pryPlataforma.descripcion}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarMontoPD" header="#{msg['editarMontoPD']}" widgetVar="editarMontoPD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{controlProyecto.editarProyecto.monto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
+               <p:dialog id="editarMontoPD" header="#{msg['editarMontoPD']}" widgetVar="editarMontoPD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlProyecto.editarProyecto.monto}" style="overflow: auto;" readonly="true">
                      <f:convertNumber currencySymbol="$" type="currency" />
                   </p:inputTextarea>
                </p:dialog>
 
-               <p:dialog id="editarMonedaPD" header="#{msg['editarMonedaPD']}" widgetVar="editarMonedaPD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{controlProyecto.editarProyecto.tipomoneda.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarMonedaPD" header="#{msg['editarMonedaPD']}" widgetVar="editarMonedaPD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlProyecto.editarProyecto.tipomoneda.nombre}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarPersonasPD" header="#{msg['editarPersonasPD']}" widgetVar="editarPersonasPD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{controlProyecto.editarProyecto.cantidadpersonas}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarPersonasPD" header="#{msg['editarPersonasPD']}" widgetVar="editarPersonasPD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlProyecto.editarProyecto.cantidadpersonas}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarFechaInicialPD" header="#{msg['editarFechaInicialPD']}" widgetVar="editarFechaInicialPD" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                  <p:inputTextarea value="#{controlProyecto.editarProyecto.fechainicial}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+               <p:dialog id="editarFechaInicialPD" header="#{msg['editarFechaInicialPD']}" widgetVar="editarFechaInicialPD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                  <p:inputTextarea value="#{controlProyecto.editarProyecto.fechainicial}" style="overflow: auto;" readonly="true">                        
                      <f:convertDateTime pattern="dd/MM/yyyy"/>
                   </p:inputTextarea>
                </p:dialog>
 
-               <p:dialog id="editarFechaFinalPD" header="#{msg['editarFechaFinalPD']}" widgetVar="editarFechaFinalPD" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                  <p:inputTextarea value="#{controlProyecto.editarProyecto.fechafinal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+               <p:dialog id="editarFechaFinalPD" header="#{msg['editarFechaFinalPD']}" widgetVar="editarFechaFinalPD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                  <p:inputTextarea value="#{controlProyecto.editarProyecto.fechafinal}" style="overflow: auto;" readonly="true">                        
                      <f:convertDateTime pattern="dd/MM/yyyy"/>
                   </p:inputTextarea>
                </p:dialog>
 
-               <p:dialog id="editarDescripcionPD" header="#{msg['editarDescripcionPD']}" widgetVar="editarDescripcionPD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{controlProyecto.editarProyecto.descripcionproyecto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarDescripcionPD" header="#{msg['editarDescripcionPD']}" widgetVar="editarDescripcionPD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlProyecto.editarProyecto.descripcionproyecto}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
 

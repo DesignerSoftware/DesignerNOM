@@ -141,12 +141,12 @@
                <p:hotkey bind="ctrl+f11" actionListener="#{controlDependenciaOperando.activarCtrlF11()}" process="@this"/> 
 
                <p:dialog id="editarCodigos" header="#{msg['editarCodigos']}" widgetVar="editarCodigos" resizable="false" draggable="true" modal="true" height="93" width="240" style="font-size: 12px">  
-                  <p:inputTextarea value="#{controlDependenciaOperando.editarDependenciasOperandos.operando.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                  <p:inputTextarea value="#{controlDependenciaOperando.editarDependenciasOperandos.operando.codigo}" style="overflow: auto;" readonly="true"/>
                   <p:commandButton id="cancelarCodigo" value="#{msg['atras']}" onclick="PF('editarCodigos').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="editarConsecutivos" header="#{msg['editarConsecutivo']}" widgetVar="editarConsecutivo" resizable="false" draggable="true" modal="true" height="93" width="240" style="font-size: 12px">  
-                  <p:inputTextarea value="#{controlDependenciaOperando.editarDependenciasOperandos.consecutivo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                  <p:inputTextarea value="#{controlDependenciaOperando.editarDependenciasOperandos.consecutivo}" style="overflow: auto;" readonly="true"/>
                   <p:commandButton id="cancelarConsecutivo" value="#{msg['atras']}" onclick="PF('editarConsecutivo').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                </p:dialog>
 

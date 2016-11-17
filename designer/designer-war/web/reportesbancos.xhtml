@@ -488,52 +488,52 @@
 
                 <h:form id="formDialogos">
                     
-                    <p:dialog id="editarFechaDesde" header="#{msg['editarFechaDesde']}" widgetVar="editarFechaDesde" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlReportesBancos.parametroDeInforme.fechadesde}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
+                    <p:dialog id="editarFechaDesde" header="#{msg['editarFechaDesde']}" widgetVar="editarFechaDesde" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlReportesBancos.parametroDeInforme.fechadesde}" style="overflow: auto;" readonly="true">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </p:inputTextarea>
                     </p:dialog>
                     
-                    <p:dialog id="empleadoDesde" header="#{msg['empleadoDesde']}" widgetVar="empleadoDesde" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlReportesBancos.parametroDeInforme.codigoempleadodesde}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="empleadoDesde" header="#{msg['empleadoDesde']}" widgetVar="empleadoDesde" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlReportesBancos.parametroDeInforme.codigoempleadodesde}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
                     
-                    <p:dialog id="editarFechaHasta" header="#{msg['editarFechaHasta']}" widgetVar="editarFechaHasta" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlReportesBancos.parametroDeInforme.fechahasta}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
+                    <p:dialog id="editarFechaHasta" header="#{msg['editarFechaHasta']}" widgetVar="editarFechaHasta" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlReportesBancos.parametroDeInforme.fechahasta}" style="overflow: auto;" readonly="true">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </p:inputTextarea>
                     </p:dialog>
                     
-                    <p:dialog id="empleadoHasta" header="#{msg['empleadoHasta']}" widgetVar="empleadoHasta" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlReportesBancos.parametroDeInforme.codigoempleadohasta}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="empleadoHasta" header="#{msg['empleadoHasta']}" widgetVar="empleadoHasta" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlReportesBancos.parametroDeInforme.codigoempleadohasta}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
                     
-                    <p:dialog id="empresa" header="#{msg['Empresa']}" widgetVar="empresa" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlReportesBancos.parametroDeInforme.empresa.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="empresa" header="#{msg['Empresa']}" widgetVar="empresa" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlReportesBancos.parametroDeInforme.empresa.nombre}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
                     
-                    <p:dialog id="tipoTrabajador" header="#{msg['tipoTrabajador']}" widgetVar="tipoTrabajador" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlReportesBancos.parametroDeInforme.tipotrabajador.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="tipoTrabajador" header="#{msg['tipoTrabajador']}" widgetVar="tipoTrabajador" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlReportesBancos.parametroDeInforme.tipotrabajador.nombre}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
                     
-                    <p:dialog id="proceso" header="#{msg['Proceso']}" widgetVar="proceso" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlReportesBancos.parametroDeInforme.proceso.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="proceso" header="#{msg['Proceso']}" widgetVar="proceso" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlReportesBancos.parametroDeInforme.proceso.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="ciudad" header="#{msg['Ciudad']}" widgetVar="ciudad" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlReportesBancos.parametroDeInforme.ciudad.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="ciudad" header="#{msg['Ciudad']}" widgetVar="ciudad" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlReportesBancos.parametroDeInforme.ciudad.nombre}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
                     
-                    <p:dialog id="banco" header="#{msg['Banco']}" widgetVar="banco" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlReportesBancos.parametroDeInforme.banco.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="banco" header="#{msg['Banco']}" widgetVar="banco" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlReportesBancos.parametroDeInforme.banco.nombre}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
                     
-                    <p:dialog id="numeroCuenta" header="#{msg['umeroCuenta']}" widgetVar="numeroCuenta" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlReportesBancos.parametroDeInforme.numerocuentacredi}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="numeroCuenta" header="#{msg['umeroCuenta']}" widgetVar="numeroCuenta" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlReportesBancos.parametroDeInforme.numerocuentacredi}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaCorte" header="#{msg['editarFechaCorte']}" widgetVar="editarFechaCorte" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlReportesBancos.parametroDeInforme.fechacorte}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
+                    <p:dialog id="editarFechaCorte" header="#{msg['editarFechaCorte']}" widgetVar="editarFechaCorte" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlReportesBancos.parametroDeInforme.fechacorte}" style="overflow: auto;" readonly="true">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </p:inputTextarea>
                     </p:dialog>

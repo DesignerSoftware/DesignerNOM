@@ -251,19 +251,19 @@
 
 
 
-                    <p:dialog id="editarFecha" header="#{msg['fecha']}" widgetVar="editarFecha" resizable="false" draggable="true" modal="true" height="80" width="400" style="position: absolute; top: 10px;  padding: 0px">  
-                        <p:inputText  autocomplete="off"  value="#{controlHvEntrevistas.editarHvEntrevista.fecha}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">  
+                    <p:dialog id="editarFecha" header="#{msg['fecha']}" widgetVar="editarFecha" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="position: absolute; top: 10px;  padding: 0px">  
+                        <p:inputText  autocomplete="off"  value="#{controlHvEntrevistas.editarHvEntrevista.fecha}" style="overflow: auto;" readonly="true">  
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputText>
                     </p:dialog>
 
-                    <p:dialog id="editNombre" header="#{msg['nombre']}" widgetVar="editNombre" resizable="false" draggable="true" modal="true" height="80" width="400" style="text-transform: uppercase">  
-                        <p:inputTextarea value="#{controlHvEntrevistas.editarHvEntrevista.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editNombre" header="#{msg['nombre']}" widgetVar="editNombre" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
+                        <p:inputTextarea value="#{controlHvEntrevistas.editarHvEntrevista.nombre}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-                    <p:dialog id="editDescripcionCompetencia" header="#{msg['tipo']}" widgetVar="editDescripcionCompetencia" resizable="false" draggable="true" modal="true" height="80" width="400" style="text-transform: uppercase">  
+                    <p:dialog id="editDescripcionCompetencia" header="#{msg['tipo']}" widgetVar="editDescripcionCompetencia" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
                         <p:inputTextarea value="#{controlHvEntrevistas.editarHvEntrevista.tipo}" style="overflow: auto; width: 225px; height: 40px;" readonly="true"/>
                     </p:dialog>
-                    <p:dialog id="editPuntaje" header="#{msg['puntaje']}" widgetVar="editPuntaje" resizable="false" draggable="true" modal="true" height="80" width="400" style="text-transform: uppercase">  
+                    <p:dialog id="editPuntaje" header="#{msg['puntaje']}" widgetVar="editPuntaje" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
                         <p:inputTextarea value="#{controlHvEntrevistas.editarHvEntrevista.puntaje}" style="overflow: auto; width: 225px; height: 40px;" readonly="true"/>
                     </p:dialog>
 

@@ -270,14 +270,14 @@
                   <h:outputText value="La tabla 'TIPOSENTIDADES' no se encuentra en ObjetosDB. Porfavor comunicarse con soporte." style="position: absolute; left: 70px; top: 15px; width: 205px; font-weight:bold;" />
                </p:dialog>
 
-               <p:dialog id="editCodigo" header="Código" widgetVar="editCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" style="">  
-                  <p:inputTextarea value="#{controlTiposEntidades.editarTipoEntidad.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editCodigo" header="Código" widgetVar="editCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="">  
+                  <p:inputTextarea value="#{controlTiposEntidades.editarTipoEntidad.codigo}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
-               <p:dialog id="editNombre" header="Nómbre" widgetVar="editNombre" resizable="false" draggable="true" modal="true" height="80" width="400" style="">  
-                  <p:inputTextarea value="#{controlTiposEntidades.editarTipoEntidad.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editNombre" header="Nómbre" widgetVar="editNombre" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="">  
+                  <p:inputTextarea value="#{controlTiposEntidades.editarTipoEntidad.nombre}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
-               <p:dialog id="editGrupoAsociado" header="Grupo Asociado" widgetVar="editGrupoAsociado" resizable="false" draggable="true" modal="true" height="80" width="400" style="">  
-                  <p:inputTextarea value="#{controlTiposEntidades.editarTipoEntidad.grupo.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editGrupoAsociado" header="Grupo Asociado" widgetVar="editGrupoAsociado" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="">  
+                  <p:inputTextarea value="#{controlTiposEntidades.editarTipoEntidad.grupo.nombre}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
 

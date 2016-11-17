@@ -758,34 +758,34 @@
                         <h:outputText value="#{msg['nnvj']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="editarFechaVigencia" header="#{msg['fechaE']}" widgetVar="editarFechaVigencia" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlVigenciaJornada.editarVJ.fechavigencia}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+                    <p:dialog id="editarFechaVigencia" header="#{msg['fechaE']}" widgetVar="editarFechaVigencia" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlVigenciaJornada.editarVJ.fechavigencia}" style="overflow: auto;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarNombreJornada" header="#{msg['nombreE']}" widgetVar="editarNombreJornada" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlVigenciaJornada.editarVJ.jornadatrabajo.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarNombreJornada" header="#{msg['nombreE']}" widgetVar="editarNombreJornada" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlVigenciaJornada.editarVJ.jornadatrabajo.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarTipoDescanso" header="#{msg['tipoE']}" widgetVar="editarTipoDescanso" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlVigenciaJornada.editarVJ.tipodescanso.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarTipoDescanso" header="#{msg['tipoE']}" widgetVar="editarTipoDescanso" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlVigenciaJornada.editarVJ.tipodescanso.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
                     <!-- Dialogos tabla Vigencia Prorrateo -->
 
-                    <p:dialog id="editarComentarioVCT" header="#{msg['cdtE']}" widgetVar="editarComentarioVCT" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlVigenciaJornada.editarVCT.comentario}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarComentarioVCT" header="#{msg['cdtE']}" widgetVar="editarComentarioVCT" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlVigenciaJornada.editarVCT.comentario}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaInicialVCT" header="#{msg['fidtE']}" widgetVar="editarFechaInicialVCT" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlVigenciaJornada.editarVCT.fechainicial}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+                    <p:dialog id="editarFechaInicialVCT" header="#{msg['fidtE']}" widgetVar="editarFechaInicialVCT" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlVigenciaJornada.editarVCT.fechainicial}" style="overflow: auto;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaFinalVCT" header="#{msg['ffdtE']}" widgetVar="editarFechaFinalVCT" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlVigenciaJornada.editarVCT.fechafinal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+                    <p:dialog id="editarFechaFinalVCT" header="#{msg['ffdtE']}" widgetVar="editarFechaFinalVCT" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlVigenciaJornada.editarVCT.fechafinal}" style="overflow: auto;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
@@ -793,18 +793,18 @@
                     <!-- Dialogos tabla Vigencia Prorrateo Proyecto -->
 
 
-                    <p:dialog id="editarComentarioVCD" header="#{msg['cddE']}" widgetVar="editarComentarioVCD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlVigenciaJornada.editarVCD.comentario}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarComentarioVCD" header="#{msg['cddE']}" widgetVar="editarComentarioVCD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlVigenciaJornada.editarVCD.comentario}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaInicialVCD" header="#{msg['fiddE']}" widgetVar="editarFechaInicialVCD" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlVigenciaJornada.editarVCD.fechainicial}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+                    <p:dialog id="editarFechaInicialVCD" header="#{msg['fiddE']}" widgetVar="editarFechaInicialVCD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlVigenciaJornada.editarVCD.fechainicial}" style="overflow: auto;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaFinalVCD" header="#{msg['ffddE']}" widgetVar="editarFechaFinalVCD" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlVigenciaJornada.editarVCD.fechafinal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+                    <p:dialog id="editarFechaFinalVCD" header="#{msg['ffddE']}" widgetVar="editarFechaFinalVCD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlVigenciaJornada.editarVCD.fechafinal}" style="overflow: auto;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>

@@ -581,24 +581,24 @@ and open the template in the editor.
 
                     <!-- DIALOGOS EDITAR -->
 
-                    <p:dialog id="editarCodigo" header="#{msg['codigoe']}" widgetVar="editarCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea  value="#{controlCausasAusentismos.editarCausasAusentismos.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarCodigo" header="#{msg['codigoe']}" widgetVar="editarCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea  value="#{controlCausasAusentismos.editarCausasAusentismos.codigo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarDescripcion" header="#{msg['descripcione']}" widgetVar="editarDescripcion" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea  value="#{controlCausasAusentismos.editarCausasAusentismos.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarDescripcion" header="#{msg['descripcione']}" widgetVar="editarDescripcion" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea  value="#{controlCausasAusentismos.editarCausasAusentismos.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarClase" header="#{msg['clasee']}" widgetVar="editarClase" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea  value="#{controlCausasAusentismos.editarCausasAusentismos.clase.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarClase" header="#{msg['clasee']}" widgetVar="editarClase" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea  value="#{controlCausasAusentismos.editarCausasAusentismos.clase.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarPorcentajeLiquidacion" header="#{msg['porcentajeliquidacione']}" widgetVar="editarPorcentajeLiquidacion" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea  value="#{controlCausasAusentismos.editarCausasAusentismos.porcentajeliquidacion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarPorcentajeLiquidacion" header="#{msg['porcentajeliquidacione']}" widgetVar="editarPorcentajeLiquidacion" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea  value="#{controlCausasAusentismos.editarCausasAusentismos.porcentajeliquidacion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarRestaDiasIncapacidad" header="#{msg['restadiasincapacidade']}" widgetVar="editarRestaDiasIncapacidad" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea  value="#{controlCausasAusentismos.editarCausasAusentismos.restadiasincapacidad}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarRestaDiasIncapacidad" header="#{msg['restadiasincapacidade']}" widgetVar="editarRestaDiasIncapacidad" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea  value="#{controlCausasAusentismos.editarCausasAusentismos.restadiasincapacidad}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
                 </h:form>

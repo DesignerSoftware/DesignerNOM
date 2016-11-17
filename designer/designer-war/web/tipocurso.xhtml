@@ -210,11 +210,11 @@
                         <p:commandButton value="Aceptar" onclick="PF('existeCodigo').hide();" icon="ui-icon-check" style="position: absolute; top: 70px; left: 280px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="editCodigo" header="Código" widgetVar="editCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" style="text-transform: uppercase">  
-                        <p:inputTextarea value="#{controlTiposCursos.editarTiposCursos.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editCodigo" header="Código" widgetVar="editCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
+                        <p:inputTextarea value="#{controlTiposCursos.editarTiposCursos.codigo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-                    <p:dialog id="editDescripcion" header="Descripcion" widgetVar="editDescripcion" resizable="false" draggable="true" modal="true" height="80" width="400" style="text-transform: uppercase">  
-                        <p:inputTextarea value="#{controlTiposCursos.editarTiposCursos.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editDescripcion" header="Descripcion" widgetVar="editDescripcion" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
+                        <p:inputTextarea value="#{controlTiposCursos.editarTiposCursos.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="nuevoRegistroTiposCursos" header="Nuevo Registro" widgetVar="nuevoRegistroTiposCursos" closable="false" resizable="false"  draggable="true" modal="true" height="150" width="320" style=" padding: 0px">  

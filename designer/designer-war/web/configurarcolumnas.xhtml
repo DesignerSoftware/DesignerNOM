@@ -170,11 +170,11 @@
                 <h:form id="formularioDialogos" >
 
                     <p:dialog id="editarCampoColumna" header="#{msg['editarCampoColumna']}" widgetVar="editarCampoColumna" resizable="false" draggable="true" modal="true" height="93" width="240" style="font-size: 12px">  
-                        <p:inputTextarea value="#{controlConfigurarColumnas.editarColumna.nombrecolumna}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea value="#{controlConfigurarColumnas.editarColumna.nombrecolumna}" style="overflow: auto;" readonly="true"/>
                         <p:commandButton id="cancelarCampoColumna" value="#{msg['atras']}" onclick="PF('editarCampoColumna').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                     </p:dialog>
                     <p:dialog id="editarDescripcionColumna" header="#{msg['editarDescripcionColumna']}" widgetVar="editarDescripcionColumna" resizable="false" draggable="true" modal="true" height="93" width="240" style="font-size: 12px">  
-                        <p:inputTextarea value="#{controlConfigurarColumnas.editarColumna.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea value="#{controlConfigurarColumnas.editarColumna.descripcion}" style="overflow: auto;" readonly="true"/>
                         <p:commandButton id="cancelarDescripcionColumna" value="#{msg['atras']}" onclick="PF('editarDescripcionColumna').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                     </p:dialog>
 

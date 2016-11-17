@@ -403,24 +403,24 @@
                         <h:outputText value="La tabla 'CONCEPTOS' no se encuentra en ObjetosDB. Porfavor comunicarse con soporte." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="editDescripcion" header="Descripcion" widgetVar="editDescripcion" resizable="false" draggable="true" modal="true" height="80" width="400" style="text-transform: uppercase">  
-                        <p:inputTextarea  value="#{controlActualizarConceptos.editarConceptos.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editDescripcion" header="Descripcion" widgetVar="editDescripcion" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
+                        <p:inputTextarea  value="#{controlActualizarConceptos.editarConceptos.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-                    <p:dialog id="editClaveContableDebito" header="Clave Contable Debito" widgetVar="editClaveContableDebito" resizable="false" draggable="true" modal="true" height="80" width="400" style="text-transform: uppercase">  
-                        <p:inputTextarea  value="#{controlActualizarConceptos.editarConceptos.clavecontabledebito.clave}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editClaveContableDebito" header="Clave Contable Debito" widgetVar="editClaveContableDebito" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
+                        <p:inputTextarea  value="#{controlActualizarConceptos.editarConceptos.clavecontabledebito.clave}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-                    <p:dialog id="editClaveContableCredito" header="Clave Contable Credito" widgetVar="editClaveContableCredito" resizable="false" draggable="true" modal="true" height="80" width="400" style="text-transform: uppercase">  
-                        <p:inputTextarea  value="#{controlActualizarConceptos.editarConceptos.clavecontablecredito.clave}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editClaveContableCredito" header="Clave Contable Credito" widgetVar="editClaveContableCredito" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
+                        <p:inputTextarea  value="#{controlActualizarConceptos.editarConceptos.clavecontablecredito.clave}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-                    <p:dialog id="editIndiceDeudor" header="Indice Deudor" widgetVar="editIndiceDeudor" resizable="false" draggable="true" modal="true" height="80" width="400" style="text-transform: uppercase">  
-                        <p:inputTextarea  value="#{controlActualizarConceptos.editarConceptos.indicedeudor}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editIndiceDeudor" header="Indice Deudor" widgetVar="editIndiceDeudor" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
+                        <p:inputTextarea  value="#{controlActualizarConceptos.editarConceptos.indicedeudor}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-                    <p:dialog id="editIndiceAcredor" header="Indice Deudor" widgetVar="editIndiceAcredor" resizable="false" draggable="true" modal="true" height="80" width="400" style="text-transform: uppercase">  
-                        <p:inputTextarea  value="#{controlActualizarConceptos.editarConceptos.indiceacreedor}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editIndiceAcredor" header="Indice Deudor" widgetVar="editIndiceAcredor" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
+                        <p:inputTextarea  value="#{controlActualizarConceptos.editarConceptos.indiceacreedor}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editFechaCreacion" header="Fecha Creación" widgetVar="editFechaCreacion" resizable="false" draggable="true" modal="true" height="80" width="400" style="position: absolute; top: 10px;  padding: 0px">  
-                        <p:inputTextarea  value="#{controlActualizarConceptos.editarConceptos.fechacreacion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">  
+                    <p:dialog id="editFechaCreacion" header="Fecha Creación" widgetVar="editFechaCreacion" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="position: absolute; top: 10px;  padding: 0px">  
+                        <p:inputTextarea  value="#{controlActualizarConceptos.editarConceptos.fechacreacion}" style="overflow: auto;" readonly="true">  
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>

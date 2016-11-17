@@ -174,18 +174,18 @@
                         <p:commandButton id="cancelareditDialogoIbcs" value="#{msg['atras']}" onclick="PF('dialogoIbcs').hide();" style="position: absolute; top: 190px; left: 225px; " process="@this" />
 
                     </p:dialog>
-                    <p:dialog id="editFechaInicial" header="#{msg['editFechaInicial']}" widgetVar="editFechaInicial" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editFechaInicial" header="#{msg['editFechaInicial']}" widgetVar="editFechaInicial" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
                         <p:inputTextarea readonly="true"  style="overflow: auto; width: 200px; height: 40px;" value="#{controlEmplIbcs.editarIbcsPorEmpleado.fechainicial}">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </p:inputTextarea>
                     </p:dialog>
-                    <p:dialog id="editFechaFinal" header="#{msg['editFechaFinal']}" widgetVar="editFechaFinal" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editFechaFinal" header="#{msg['editFechaFinal']}" widgetVar="editFechaFinal" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
                         <p:inputTextarea readonly="true"  value="#{controlEmplIbcs.editarIbcsPorEmpleado.fechafinal}" style="overflow: auto; width: 200px; height: 40px">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </p:inputTextarea>
                     </p:dialog>
-                    <p:dialog id="editValor" header="#{msg['editValor']}" widgetVar="editValor" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlEmplIbcs.editarIbcsPorEmpleado.valor}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editValor" header="#{msg['editValor']}" widgetVar="editValor" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlEmplIbcs.editarIbcsPorEmpleado.valor}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
                 </h:form>

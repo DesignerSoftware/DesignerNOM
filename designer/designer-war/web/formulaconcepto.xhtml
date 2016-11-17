@@ -533,36 +533,36 @@
                   </p:panel>
                </p:dialog>
 
-               <p:dialog id="editarFechaInicialFD" header="#{msg['editarFechaInicialFD']}" widgetVar="editarFechaInicialFD" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                  <p:inputTextarea value="#{controlFormulaConcepto.editarFormulaConcepto.fechainicial}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+               <p:dialog id="editarFechaInicialFD" header="#{msg['editarFechaInicialFD']}" widgetVar="editarFechaInicialFD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                  <p:inputTextarea value="#{controlFormulaConcepto.editarFormulaConcepto.fechainicial}" style="overflow: auto;" readonly="true">                        
                      <f:convertDateTime pattern="dd/MM/yyyy"/>
                   </p:inputTextarea>
                </p:dialog>
 
-               <p:dialog id="editarFechaFinalFD" header="#{msg['editarFechaFinalFD']}" widgetVar="editarFechaFinalFD" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                  <p:inputTextarea value="#{controlFormulaConcepto.editarFormulaConcepto.fechafinal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+               <p:dialog id="editarFechaFinalFD" header="#{msg['editarFechaFinalFD']}" widgetVar="editarFechaFinalFD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                  <p:inputTextarea value="#{controlFormulaConcepto.editarFormulaConcepto.fechafinal}" style="overflow: auto;" readonly="true">                        
                      <f:convertDateTime pattern="dd/MM/yyyy"/>
                   </p:inputTextarea>
                </p:dialog>
 
-               <p:dialog id="editarCodigoFD" header="#{msg['editarCodigoFD']}" widgetVar="editarCodigoFD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{controlFormulaConcepto.editarFormulaConcepto.codigoConcepto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarCodigoFD" header="#{msg['editarCodigoFD']}" widgetVar="editarCodigoFD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlFormulaConcepto.editarFormulaConcepto.codigoConcepto}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarConceptoFD" header="#{msg['editarConceptoFD']}" widgetVar="editarConceptoFD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{controlFormulaConcepto.editarFormulaConcepto.nombreConcepto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarConceptoFD" header="#{msg['editarConceptoFD']}" widgetVar="editarConceptoFD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlFormulaConcepto.editarFormulaConcepto.nombreConcepto}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarOrdenFD" header="#{msg['editarOrdenFD']}" widgetVar="editarOrdenFD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{controlFormulaConcepto.editarFormulaConcepto.strOrden}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarOrdenFD" header="#{msg['editarOrdenFD']}" widgetVar="editarOrdenFD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlFormulaConcepto.editarFormulaConcepto.strOrden}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarEmpresaFD" header="#{msg['editarEmpresaFD']}" widgetVar="editarEmpresaFD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{controlFormulaConcepto.editarFormulaConcepto.nombreEmpresa}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarEmpresaFD" header="#{msg['editarEmpresaFD']}" widgetVar="editarEmpresaFD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlFormulaConcepto.editarFormulaConcepto.nombreEmpresa}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarNitFD" header="#{msg['editarNitFD']}" widgetVar="editarNitFD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{controlFormulaConcepto.editarFormulaConcepto.concepto.empresa.nit}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarNitFD" header="#{msg['editarNitFD']}" widgetVar="editarNitFD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlFormulaConcepto.editarFormulaConcepto.concepto.empresa.nit}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
             </h:form>

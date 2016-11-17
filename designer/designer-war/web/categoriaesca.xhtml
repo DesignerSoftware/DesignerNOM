@@ -412,27 +412,27 @@
                     </p:dialog>
 
                     <p:dialog id="editarCodigoD" header="#{msg['codigoE']}" widgetVar="editarCodigoD" resizable="false" draggable="true" modal="true" height="93" width="240" style="font-size: 12px">  
-                        <p:inputTextarea  value="#{controlCategoriaEsca.editarCategoria.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea  value="#{controlCategoriaEsca.editarCategoria.codigo}" style="overflow: auto;" readonly="true"/>
                         <p:commandButton id="cancelarCodigoD" value="#{msg['atras']}" onclick="PF('editarCodigoD').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="editarDescripcionD" header="#{msg['descripcionE']}" widgetVar="editarDescripcionD" resizable="false" draggable="true" modal="true" height="93" width="240" style="font-size: 12px">  
-                        <p:inputTextarea  value="#{controlCategoriaEsca.editarCategoria.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea  value="#{controlCategoriaEsca.editarCategoria.descripcion}" style="overflow: auto;" readonly="true"/>
                         <p:commandButton id="cancelarDescripcionD" value="#{msg['atras']}" onclick="PF('editarDescripcionD').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="editarClaseD" header="#{msg['claseE']}" widgetVar="editarClaseD" resizable="false" draggable="true" modal="true" height="93" width="240" style="font-size: 12px">  
-                        <p:inputTextarea  value="#{controlCategoriaEsca.editarCategoria.clasecategoria.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea  value="#{controlCategoriaEsca.editarCategoria.clasecategoria.descripcion}" style="overflow: auto;" readonly="true"/>
                         <p:commandButton id="cancelarClaseD" value="#{msg['atras']}" onclick="PF('editarClaseD').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="editarTipoD" header="#{msg['tipoE']}" widgetVar="editarTipoD" resizable="false" draggable="true" modal="true" height="93" width="240" style="font-size: 12px">  
-                        <p:inputTextarea  value="#{controlCategoriaEsca.editarCategoria.tiposueldo.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea  value="#{controlCategoriaEsca.editarCategoria.tiposueldo.descripcion}" style="overflow: auto;" readonly="true"/>
                         <p:commandButton id="cancelarTipoD" value="#{msg['atras']}" onclick="PF('editarTipoD').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                     </p:dialog>
 
                     <p:dialog id="editarConceptoD" header="#{msg['conceptoE']}" widgetVar="editarConceptoD" resizable="false" draggable="true" modal="true" height="93" width="240" style="font-size: 12px">  
-                        <p:inputTextarea  value="#{controlCategoriaEsca.editarCategoria.concepto.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea  value="#{controlCategoriaEsca.editarCategoria.concepto.descripcion}" style="overflow: auto;" readonly="true"/>
                         <p:commandButton id="cancelarConceptoD" value="#{msg['atras']}" onclick="PF('editarConceptoD').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                     </p:dialog>
 

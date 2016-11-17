@@ -321,18 +321,18 @@
 
                     <!-- ////// ////// ////// -->
 
-                    <p:dialog id="editarFechaDD" header="#{msg['editarFechaDD']}" widgetVar="editarFechaDD" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlEmplDemanda.editarDemandaEmpleado.fecha}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+                    <p:dialog id="editarFechaDD" header="#{msg['editarFechaDD']}" widgetVar="editarFechaDD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlEmplDemanda.editarDemandaEmpleado.fecha}" style="overflow: auto;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarSeguimientoD" header="#{msg['editarSeguimientoD']}" widgetVar="editarSeguimientoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlEmplDemanda.editarDemandaEmpleado.seguimiento}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarSeguimientoD" header="#{msg['editarSeguimientoD']}" widgetVar="editarSeguimientoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlEmplDemanda.editarDemandaEmpleado.seguimiento}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarMotivoD" header="#{msg['editarMotivoD']}" widgetVar="editarMotivoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlEmplDemanda.editarDemandaEmpleado.motivo.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarMotivoD" header="#{msg['editarMotivoD']}" widgetVar="editarMotivoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlEmplDemanda.editarDemandaEmpleado.motivo.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
 

@@ -981,50 +981,50 @@
 
                     <!-- editar celdas extras recargos -->
 
-                    <p:dialog id="editarExtraCodigoD" header="#{msg['editarExtraCodigoD']}" widgetVar="editarExtraCodigoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea  value="#{controlATExtraRecargo.editarExtraRecargo.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarExtraCodigoD" header="#{msg['editarExtraCodigoD']}" widgetVar="editarExtraCodigoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea  value="#{controlATExtraRecargo.editarExtraRecargo.codigo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarExtraDescripcionD" header="#{msg['editarExtraDescripcionD']}" widgetVar="editarExtraDescripcionD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea  value="#{controlATExtraRecargo.editarExtraRecargo.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarExtraDescripcionD" header="#{msg['editarExtraDescripcionD']}" widgetVar="editarExtraDescripcionD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea  value="#{controlATExtraRecargo.editarExtraRecargo.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarExtraTipoDiaD" header="#{msg['editarExtraTipoDiaD']}" widgetVar="editarExtraTipoDiaD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea  value="#{controlATExtraRecargo.editarExtraRecargo.tipodia.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarExtraTipoDiaD" header="#{msg['editarExtraTipoDiaD']}" widgetVar="editarExtraTipoDiaD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea  value="#{controlATExtraRecargo.editarExtraRecargo.tipodia.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarExtraTipoJornadaD" header="#{msg['editarExtraTipoJornadaD']}" widgetVar="editarExtraTipoJornadaD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea  value="#{controlATExtraRecargo.editarExtraRecargo.tipojornada.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarExtraTipoJornadaD" header="#{msg['editarExtraTipoJornadaD']}" widgetVar="editarExtraTipoJornadaD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea  value="#{controlATExtraRecargo.editarExtraRecargo.tipojornada.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarExtraLegislacionD" header="#{msg['editarExtraLegislacionD']}" widgetVar="editarExtraLegislacionD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea  value="#{controlATExtraRecargo.editarExtraRecargo.tipolegislacion.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarExtraLegislacionD" header="#{msg['editarExtraLegislacionD']}" widgetVar="editarExtraLegislacionD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea  value="#{controlATExtraRecargo.editarExtraRecargo.tipolegislacion.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
                     <!-- editar celdas detalles extras recargos -->
 
-                    <p:dialog id="editarDetalleHID" header="#{msg['editarDetalleHID']}" widgetVar="editarDetalleHID" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea  value="#{controlATExtraRecargo.editarDetalleExtraRecargo.horasinicial}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
+                    <p:dialog id="editarDetalleHID" header="#{msg['editarDetalleHID']}" widgetVar="editarDetalleHID" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea  value="#{controlATExtraRecargo.editarDetalleExtraRecargo.horasinicial}" style="overflow: auto;" readonly="true">
                             <f:convertNumber pattern="#00.00" />
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarDetalleHFD" header="#{msg['editarDetalleHFD']}" widgetVar="editarDetalleHFD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea  value="#{controlATExtraRecargo.editarDetalleExtraRecargo.horasfinal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
+                    <p:dialog id="editarDetalleHFD" header="#{msg['editarDetalleHFD']}" widgetVar="editarDetalleHFD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea  value="#{controlATExtraRecargo.editarDetalleExtraRecargo.horasfinal}" style="overflow: auto;" readonly="true">
                             <f:convertNumber pattern="#00.00" />
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarDetalleConceptoD" header="#{msg['editarDetalleConceptoD']}" widgetVar="editarDetalleConceptoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea  value="#{controlATExtraRecargo.editarDetalleExtraRecargo.concepto.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarDetalleConceptoD" header="#{msg['editarDetalleConceptoD']}" widgetVar="editarDetalleConceptoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea  value="#{controlATExtraRecargo.editarDetalleExtraRecargo.concepto.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarDetalleEmpresaD" header="#{msg['editarDetalleEmpresaD']}" widgetVar="editarDetalleEmpresaD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea  value="#{controlATExtraRecargo.editarDetalleExtraRecargo.concepto.empresa.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarDetalleEmpresaD" header="#{msg['editarDetalleEmpresaD']}" widgetVar="editarDetalleEmpresaD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea  value="#{controlATExtraRecargo.editarDetalleExtraRecargo.concepto.empresa.nombre}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarDetalleMinutoD" header="#{msg['editarDetalleMinutoD']}" widgetVar="editarDetalleMinutoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea  value="#{controlATExtraRecargo.editarDetalleExtraRecargo.minimominutospagar}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarDetalleMinutoD" header="#{msg['editarDetalleMinutoD']}" widgetVar="editarDetalleMinutoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea  value="#{controlATExtraRecargo.editarDetalleExtraRecargo.minimominutospagar}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
 

@@ -328,13 +328,13 @@
                     </p:dialog>
 
                     <p:dialog id="editarFecha" header="#{msg['fechaE']}" widgetVar="editarFecha" resizable="false" draggable="true" modal="true" height="80" width="400">  
-                        <p:inputTextarea value="#{controlVigenciasReformasLaborales.editarVRL.fechavigencia}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+                        <p:inputTextarea value="#{controlVigenciasReformasLaborales.editarVRL.fechavigencia}" style="overflow: auto;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarReformaLaboral" header="#{msg['nombreE']}" widgetVar="editarReformaLaboral" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlVigenciasReformasLaborales.editarVRL.reformalaboral.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarReformaLaboral" header="#{msg['nombreE']}" widgetVar="editarReformaLaboral" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlVigenciasReformasLaborales.editarVRL.reformalaboral.nombre}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
                 </h:form>

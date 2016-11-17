@@ -428,69 +428,69 @@
 
                     <!-- DIALOGOS DE EDITAR COLUMNAS -->
 
-                    <p:dialog id="editarFechaInicialCreditoD" header="#{msg['fechainicialE']}" widgetVar="editarFechaInicialCreditoD" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlDetalleCuenta.editarCredito.fechainicial}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+                    <p:dialog id="editarFechaInicialCreditoD" header="#{msg['fechainicialE']}" widgetVar="editarFechaInicialCreditoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlDetalleCuenta.editarCredito.fechainicial}" style="overflow: auto;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaFinalCreditoD" header="#{msg['fechafinalE']}" widgetVar="editarFechaFinalCreditoD" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlDetalleCuenta.editarCredito.fechafinal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+                    <p:dialog id="editarFechaFinalCreditoD" header="#{msg['fechafinalE']}" widgetVar="editarFechaFinalCreditoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlDetalleCuenta.editarCredito.fechafinal}" style="overflow: auto;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarCodigoCreditoD" header="#{msg['codigoE']}" widgetVar="editarCodigoCreditoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlDetalleCuenta.editarCredito.concepto.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarCodigoCreditoD" header="#{msg['codigoE']}" widgetVar="editarCodigoCreditoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlDetalleCuenta.editarCredito.concepto.codigo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarDescripcionCreditoD" header="#{msg['descripcionE']}" widgetVar="editarDescripcionCreditoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlDetalleCuenta.editarCredito.concepto.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarDescripcionCreditoD" header="#{msg['descripcionE']}" widgetVar="editarDescripcionCreditoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlDetalleCuenta.editarCredito.concepto.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarDescripcionCCCreditoD" header="#{msg['descripcionccE']}" widgetVar="editarDescripcionCCCreditoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlDetalleCuenta.editarCredito.consolidadorc.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarDescripcionCCCreditoD" header="#{msg['descripcionccE']}" widgetVar="editarDescripcionCCCreditoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlDetalleCuenta.editarCredito.consolidadorc.nombre}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarCCCreditoD" header="#{msg['ccE']}" widgetVar="editarCCCreditoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlDetalleCuenta.editarCredito.consolidadorc.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarCCCreditoD" header="#{msg['ccE']}" widgetVar="editarCCCreditoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlDetalleCuenta.editarCredito.consolidadorc.codigo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarTipoCreditoD" header="#{msg['tipoE']}" widgetVar="editarTipoCreditoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlDetalleCuenta.editarCredito.tipocc.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarTipoCreditoD" header="#{msg['tipoE']}" widgetVar="editarTipoCreditoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlDetalleCuenta.editarCredito.tipocc.nombre}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
                     <!--           -->
-                    <p:dialog id="editarFechaInicialDebitoD" header="#{msg['fechainicialED']}" widgetVar="editarFechaInicialDebitoD" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlDetalleCuenta.editarDebito.fechainicial}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+                    <p:dialog id="editarFechaInicialDebitoD" header="#{msg['fechainicialED']}" widgetVar="editarFechaInicialDebitoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlDetalleCuenta.editarDebito.fechainicial}" style="overflow: auto;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaFinalDebitoD" header="#{msg['fechafinalED']}" widgetVar="editarFechaFinalDebitoD" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlDetalleCuenta.editarDebito.fechafinal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+                    <p:dialog id="editarFechaFinalDebitoD" header="#{msg['fechafinalED']}" widgetVar="editarFechaFinalDebitoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlDetalleCuenta.editarDebito.fechafinal}" style="overflow: auto;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarCodigoDebitoD" header="#{msg['codigoED']}" widgetVar="editarCodigoDebitoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlDetalleCuenta.editarDebito.concepto.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarCodigoDebitoD" header="#{msg['codigoED']}" widgetVar="editarCodigoDebitoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlDetalleCuenta.editarDebito.concepto.codigo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarDescripcionDebitoD" header="#{msg['descripcionED']}" widgetVar="editarDescripcionDebitoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlDetalleCuenta.editarDebito.concepto.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarDescripcionDebitoD" header="#{msg['descripcionED']}" widgetVar="editarDescripcionDebitoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlDetalleCuenta.editarDebito.concepto.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarDescripcionCCDebitoD" header="#{msg['descripcionCCED']}" widgetVar="editarDescripcionCCDebitoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlDetalleCuenta.editarDebito.consolidadorc.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarDescripcionCCDebitoD" header="#{msg['descripcionCCED']}" widgetVar="editarDescripcionCCDebitoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlDetalleCuenta.editarDebito.consolidadorc.nombre}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarCCDebitoD" header="#{msg['ccED']}" widgetVar="editarCCDebitoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlDetalleCuenta.editarDebito.consolidadorc.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarCCDebitoD" header="#{msg['ccED']}" widgetVar="editarCCDebitoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlDetalleCuenta.editarDebito.consolidadorc.codigo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarTipoDebitoD" header="#{msg['tipoED']}" widgetVar="editarTipoDebitoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlDetalleCuenta.editarDebito.tipocc.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarTipoDebitoD" header="#{msg['tipoED']}" widgetVar="editarTipoDebitoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlDetalleCuenta.editarDebito.tipocc.nombre}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
 

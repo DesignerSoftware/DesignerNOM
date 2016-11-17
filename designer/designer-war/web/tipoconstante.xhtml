@@ -208,34 +208,34 @@
 
                     <!-- DIALOGOS EDITAR -->
 
-                    <p:dialog id="editarTipos" header="#{msg['editarTipos']}" widgetVar="editarTipos" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlTipoConstante.editarTiposConstantes.tipo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarTipos" header="#{msg['editarTipos']}" widgetVar="editarTipos" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlTipoConstante.editarTiposConstantes.tipo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarFechasIniciales" header="#{msg['editarFechasIniciales']}" widgetVar="editarFechasIniciales" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlTipoConstante.editarTiposConstantes.fechainicial}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+                    <p:dialog id="editarFechasIniciales" header="#{msg['editarFechasIniciales']}" widgetVar="editarFechasIniciales" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlTipoConstante.editarTiposConstantes.fechainicial}" style="overflow: auto;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarFechasFinales" header="#{msg['editarFechasFinales']}" widgetVar="editarFechasFinales" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlTipoConstante.editarTiposConstantes.fechafinal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+                    <p:dialog id="editarFechasFinales" header="#{msg['editarFechasFinales']}" widgetVar="editarFechasFinales" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlTipoConstante.editarTiposConstantes.fechafinal}" style="overflow: auto;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarValoresReales" header="#{msg['editarValoresReales']}" widgetVar="editarValoresReales" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlTipoConstante.editarTiposConstantes.valorreal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarValoresReales" header="#{msg['editarValoresReales']}" widgetVar="editarValoresReales" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlTipoConstante.editarTiposConstantes.valorreal}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarValoresDates" header="#{msg['editarValoresDates']}" widgetVar="editarValoresDates" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editarValoresDates" header="#{msg['editarValoresDates']}" widgetVar="editarValoresDates" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
                         <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy"   value="#{controlTipoConstante.editarTiposConstantes.valordate}" id="editarValoresD"  styleClass="ui-datepicker, myClass"  
                                       navigator="true" showButtonPanel="true" pattern="dd/MM/yyyy">
                         </p:calendar>
                     </p:dialog>
 
-                    <p:dialog id="editarValoresCadenas" header="#{msg['editarValoresCadenas']}" widgetVar="editarValoresCadenas" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlTipoConstante.editarTiposConstantes.valorstring}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarValoresCadenas" header="#{msg['editarValoresCadenas']}" widgetVar="editarValoresCadenas" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlTipoConstante.editarTiposConstantes.valorstring}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  

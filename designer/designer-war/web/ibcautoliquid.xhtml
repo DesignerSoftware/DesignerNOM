@@ -451,34 +451,34 @@
                         </p:panel>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaInicialD" header="#{msg['fechainicialE']}" widgetVar="editarFechaInicialD" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlIbcAutoliquid.editarIBC.fechainicial}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+                    <p:dialog id="editarFechaInicialD" header="#{msg['fechainicialE']}" widgetVar="editarFechaInicialD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlIbcAutoliquid.editarIBC.fechainicial}" style="overflow: auto;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaFinalD" header="#{msg['fechafinalE']}" widgetVar="editarFechaFinalD" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlIbcAutoliquid.editarIBC.fechafinal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+                    <p:dialog id="editarFechaFinalD" header="#{msg['fechafinalE']}" widgetVar="editarFechaFinalD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlIbcAutoliquid.editarIBC.fechafinal}" style="overflow: auto;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarEstadoD" header="#{msg['estadoE']}" widgetVar="editarEstadoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlIbcAutoliquid.editarIBC.estado}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarEstadoD" header="#{msg['estadoE']}" widgetVar="editarEstadoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlIbcAutoliquid.editarIBC.estado}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarProcesoD" header="#{msg['procesoE']}" widgetVar="editarProcesoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlIbcAutoliquid.editarIBC.proceso.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarProcesoD" header="#{msg['procesoE']}" widgetVar="editarProcesoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlIbcAutoliquid.editarIBC.proceso.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarValorD" header="#{msg['valorE']}" widgetVar="editarValorD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlIbcAutoliquid.editarIBC.valor}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
+                    <p:dialog id="editarValorD" header="#{msg['valorE']}" widgetVar="editarValorD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlIbcAutoliquid.editarIBC.valor}" style="overflow: auto;" readonly="true">
                             <f:convertNumber type="currency" currencySymbol="$"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaPagoD" header="#{msg['fechapagoE']}" widgetVar="editarFechaPagoD" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlIbcAutoliquid.editarIBC.fechapago}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+                    <p:dialog id="editarFechaPagoD" header="#{msg['fechapagoE']}" widgetVar="editarFechaPagoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlIbcAutoliquid.editarIBC.fechapago}" style="overflow: auto;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>

@@ -389,28 +389,28 @@
                         </p:panel>
                     </p:dialog>
 
-                    <p:dialog id="editarCodigoD" header="#{msg['codigoE']}" widgetVar="editarCodigoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlGrupoSalarial.editarGrupoSalarial.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarCodigoD" header="#{msg['codigoE']}" widgetVar="editarCodigoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlGrupoSalarial.editarGrupoSalarial.codigo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarDescripcionD" header="#{msg['descripcionE']}" widgetVar="editarDescripcionD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlGrupoSalarial.editarGrupoSalarial.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarDescripcionD" header="#{msg['descripcionE']}" widgetVar="editarDescripcionD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlGrupoSalarial.editarGrupoSalarial.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarSalarioD" header="#{msg['salarioE']}" widgetVar="editarSalarioD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlGrupoSalarial.editarGrupoSalarial.salario}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
+                    <p:dialog id="editarSalarioD" header="#{msg['salarioE']}" widgetVar="editarSalarioD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlGrupoSalarial.editarGrupoSalarial.salario}" style="overflow: auto;" readonly="true">
                             <f:convertNumber currencySymbol="$" type="currency" />
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaVigenciaD" header="#{msg['fechaE']}" widgetVar="editarFechaVigenciaD" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlGrupoSalarial.editarVigenciaGrupoSalarial.fechavigencia}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+                    <p:dialog id="editarFechaVigenciaD" header="#{msg['fechaE']}" widgetVar="editarFechaVigenciaD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlGrupoSalarial.editarVigenciaGrupoSalarial.fechavigencia}" style="overflow: auto;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarValorD" header="#{msg['valorE']}" widgetVar="editarValorD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlGrupoSalarial.editarVigenciaGrupoSalarial.valor}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
+                    <p:dialog id="editarValorD" header="#{msg['valorE']}" widgetVar="editarValorD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlGrupoSalarial.editarVigenciaGrupoSalarial.valor}" style="overflow: auto;" readonly="true">
                             <f:convertNumber currencySymbol="$" type="currency" />
                         </p:inputTextarea>
                     </p:dialog>

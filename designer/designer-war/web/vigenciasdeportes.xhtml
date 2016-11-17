@@ -517,36 +517,36 @@
                         </p:panel>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaInicialD" header="#{msg['editarFechaInicialD']}" widgetVar="editarFechaInicialD" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlVigenciaDeporte.editarVigenciaDeporte.fechainicial}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+                    <p:dialog id="editarFechaInicialD" header="#{msg['editarFechaInicialD']}" widgetVar="editarFechaInicialD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlVigenciaDeporte.editarVigenciaDeporte.fechainicial}" style="overflow: auto;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaFinalD" header="#{msg['editarFechaFinalD']}" widgetVar="editarFechaFinalD" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlVigenciaDeporte.editarVigenciaDeporte.fechafinal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+                    <p:dialog id="editarFechaFinalD" header="#{msg['editarFechaFinalD']}" widgetVar="editarFechaFinalD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlVigenciaDeporte.editarVigenciaDeporte.fechafinal}" style="overflow: auto;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarDescripcionD" header="#{msg['editarDescripcionD']}" widgetVar="editarDescripcionD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlVigenciaDeporte.editarVigenciaDeporte.deporte.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarDescripcionD" header="#{msg['editarDescripcionD']}" widgetVar="editarDescripcionD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlVigenciaDeporte.editarVigenciaDeporte.deporte.nombre}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarIndividualD" header="#{msg['editarIndividualD']}" widgetVar="editarIndividualD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlVigenciaDeporte.editarVigenciaDeporte.valorcuantitativo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarIndividualD" header="#{msg['editarIndividualD']}" widgetVar="editarIndividualD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlVigenciaDeporte.editarVigenciaDeporte.valorcuantitativo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarCIndividualD" header="#{msg['editarCIndividualD']}" widgetVar="editarCIndividualD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlVigenciaDeporte.editarVigenciaDeporte.valorcualitativo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarCIndividualD" header="#{msg['editarCIndividualD']}" widgetVar="editarCIndividualD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlVigenciaDeporte.editarVigenciaDeporte.valorcualitativo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarGrupalD" header="#{msg['editarGrupalD']}" widgetVar="editarGrupalD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlVigenciaDeporte.editarVigenciaDeporte.valorcuantitativogrupo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarGrupalD" header="#{msg['editarGrupalD']}" widgetVar="editarGrupalD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlVigenciaDeporte.editarVigenciaDeporte.valorcuantitativogrupo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarCGrupalD" header="#{msg['editarCGrupalD']}" widgetVar="editarCGrupalD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlVigenciaDeporte.editarVigenciaDeporte.valorcualitativogrupo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarCGrupalD" header="#{msg['editarCGrupalD']}" widgetVar="editarCGrupalD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlVigenciaDeporte.editarVigenciaDeporte.valorcualitativogrupo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
                 </h:form>

@@ -469,25 +469,25 @@
 
                     <!-- DIALOGOS EDITAR -->
 
-                    <p:dialog id="editarMensajes" header="#{msg['editarMensajes']}" widgetVar="editarMensajes" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlProverbio.editarProverbios.mensaje}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarMensajes" header="#{msg['editarMensajes']}" widgetVar="editarMensajes" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlProverbio.editarProverbios.mensaje}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarAnos" header="#{msg['editarAños']}" widgetVar="editarAños" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlProverbio.editarProverbios.estadoAno}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarAnos" header="#{msg['editarAños']}" widgetVar="editarAños" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlProverbio.editarProverbios.estadoAno}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarMeses" header="#{msg['editarMeses']}" widgetVar="editarMeses" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlProverbio.editarProverbios.estadoMes}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarMeses" header="#{msg['editarMeses']}" widgetVar="editarMeses" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlProverbio.editarProverbios.estadoMes}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarDias" header="#{msg['editarDias']}" widgetVar="editarDias" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlProverbio.editarProverbios.estadoAno}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarDias" header="#{msg['editarDias']}" widgetVar="editarDias" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlProverbio.editarProverbios.estadoAno}" style="overflow: auto;" readonly="true"/>
                         <p:commandButton id="cancelarDias" value="#{msg['atras']}" onclick="PF('editarDias').hide();" style="position: absolute; top: 60px; left: 148px; " process="@this"/>
                     </p:dialog>
 
-                    <p:dialog id="editarMensajes2" header="#{msg['editarMensajes2']}" widgetVar="editarMensajes2" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlProverbio.editarProverbios.mensaje}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarMensajes2" header="#{msg['editarMensajes2']}" widgetVar="editarMensajes2" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlProverbio.editarProverbios.mensaje}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
                     <!-- DIALOGOS RASTROS -->

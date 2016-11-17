@@ -253,14 +253,14 @@
 
 
 
-                    <p:dialog id="editarFecha" header="Fecha " widgetVar="editarFecha" resizable="false" draggable="true" modal="true" height="80" width="400" style="position: absolute; top: 10px;  padding: 0px">  
-                        <p:inputTextarea value="#{controlVigenciasEstadosCiviles.editarVigenciaEstadoCivil.fechavigencia}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">  
+                    <p:dialog id="editarFecha" header="Fecha " widgetVar="editarFecha" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="position: absolute; top: 10px;  padding: 0px">  
+                        <p:inputTextarea value="#{controlVigenciasEstadosCiviles.editarVigenciaEstadoCivil.fechavigencia}" style="overflow: auto;" readonly="true">  
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editEstadoCivil" header="Estado Civil" widgetVar="editEstadoCivil" resizable="false" draggable="true" modal="true" height="80" width="400" style="text-transform: uppercase">  
-                        <p:inputTextarea value="#{controlVigenciasEstadosCiviles.editarVigenciaEstadoCivil.estadocivil.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editEstadoCivil" header="Estado Civil" widgetVar="editEstadoCivil" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
+                        <p:inputTextarea value="#{controlVigenciasEstadosCiviles.editarVigenciaEstadoCivil.estadocivil.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
 

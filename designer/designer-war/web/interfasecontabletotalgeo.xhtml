@@ -724,92 +724,92 @@
                     </p:dialog>
 
 
-                    <p:dialog id="editarEmpresaParametro" header="#{msg['editarEmpresaParametro']}" widgetVar="editarEmpresaParametro" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlInterfaseContableTotalGEO.parametroContableActual.empresaRegistro.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarEmpresaParametro" header="#{msg['editarEmpresaParametro']}" widgetVar="editarEmpresaParametro" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlInterfaseContableTotalGEO.parametroContableActual.empresaRegistro.nombre}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarDocContableParametro" header="#{msg['editarDocContableParametro']}" widgetVar="editarDocContableParametro" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlInterfaseContableTotalGEO.parametroContableActual.documentoContable}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarDocContableParametro" header="#{msg['editarDocContableParametro']}" widgetVar="editarDocContableParametro" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlInterfaseContableTotalGEO.parametroContableActual.documentoContable}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarProcesoParametro" header="#{msg['editarProcesoParametro']}" widgetVar="editarProcesoParametro" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlInterfaseContableTotalGEO.parametroContableActual.proceso.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarProcesoParametro" header="#{msg['editarProcesoParametro']}" widgetVar="editarProcesoParametro" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlInterfaseContableTotalGEO.parametroContableActual.proceso.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaInicialParametro" header="#{msg['editarFechaInicialParametro']}" widgetVar="editarFechaInicialParametro" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlInterfaseContableTotalGEO.parametroContableActual.fechainicialcontabilizacion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+                    <p:dialog id="editarFechaInicialParametro" header="#{msg['editarFechaInicialParametro']}" widgetVar="editarFechaInicialParametro" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlInterfaseContableTotalGEO.parametroContableActual.fechainicialcontabilizacion}" style="overflow: auto;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaFinalParametro" header="#{msg['editarFechaFinalParametro']}" widgetVar="editarFechaFinalParametro" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlInterfaseContableTotalGEO.parametroContableActual.fechafinalcontabilizacion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+                    <p:dialog id="editarFechaFinalParametro" header="#{msg['editarFechaFinalParametro']}" widgetVar="editarFechaFinalParametro" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlInterfaseContableTotalGEO.parametroContableActual.fechafinalcontabilizacion}" style="overflow: auto;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
                     <!-- -->
-                    <p:dialog id="editarProcesoGenerado" header="#{msg['editarProcesoGenerado']}" widgetVar="editarProcesoGenerado" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlInterfaseContableTotalGEO.editarGenerado.proceso.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarProcesoGenerado" header="#{msg['editarProcesoGenerado']}" widgetVar="editarProcesoGenerado" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlInterfaseContableTotalGEO.editarGenerado.proceso.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarEmpleadoGenerado" header="#{msg['editarEmpleadoGenerado']}" widgetVar="editarEmpleadoGenerado" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlInterfaseContableTotalGEO.editarGenerado.empleado.persona.nombreCompleto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarEmpleadoGenerado" header="#{msg['editarEmpleadoGenerado']}" widgetVar="editarEmpleadoGenerado" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlInterfaseContableTotalGEO.editarGenerado.empleado.persona.nombreCompleto}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarCreditoGenerado" header="#{msg['editarCreditoGenerado']}" widgetVar="editarCreditoGenerado" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlInterfaseContableTotalGEO.editarGenerado.cuentac.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarCreditoGenerado" header="#{msg['editarCreditoGenerado']}" widgetVar="editarCreditoGenerado" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlInterfaseContableTotalGEO.editarGenerado.cuentac.codigo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarDebitoGenerado" header="#{msg['editarDebitoGenerado']}" widgetVar="editarDebitoGenerado" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlInterfaseContableTotalGEO.editarGenerado.cuentad.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarDebitoGenerado" header="#{msg['editarDebitoGenerado']}" widgetVar="editarDebitoGenerado" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlInterfaseContableTotalGEO.editarGenerado.cuentad.codigo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarTerceroGenerado" header="#{msg['editarTerceroGenerado']}" widgetVar="editarTerceroGenerado" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlInterfaseContableTotalGEO.editarGenerado.nit.nit}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarTerceroGenerado" header="#{msg['editarTerceroGenerado']}" widgetVar="editarTerceroGenerado" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlInterfaseContableTotalGEO.editarGenerado.nit.nit}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarValorGenerado" header="#{msg['editarValorGenerado']}" widgetVar="editarValorGenerado" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlInterfaseContableTotalGEO.editarGenerado.valor}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
+                    <p:dialog id="editarValorGenerado" header="#{msg['editarValorGenerado']}" widgetVar="editarValorGenerado" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlInterfaseContableTotalGEO.editarGenerado.valor}" style="overflow: auto;" readonly="true">
                             <f:convertNumber currencySymbol="$" type="currency" />
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarConceptoGenerado" header="#{msg['editarConceptoGenerado']}" widgetVar="editarConceptoGenerado" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlInterfaseContableTotalGEO.editarGenerado.concepto.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarConceptoGenerado" header="#{msg['editarConceptoGenerado']}" widgetVar="editarConceptoGenerado" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlInterfaseContableTotalGEO.editarGenerado.concepto.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
                     <!-- -->
-                    <p:dialog id="editarEmpleadoIntercon" header="#{msg['editarEmpleadoIntercon']}" widgetVar="editarEmpleadoIntercon" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlInterfaseContableTotalGEO.editarIntercon.empleado.persona.nombreCompleto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarEmpleadoIntercon" header="#{msg['editarEmpleadoIntercon']}" widgetVar="editarEmpleadoIntercon" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlInterfaseContableTotalGEO.editarIntercon.empleado.persona.nombreCompleto}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarTerceroIntercon" header="#{msg['editarTerceroIntercon']}" widgetVar="editarTerceroIntercon" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlInterfaseContableTotalGEO.editarIntercon.codigotercero}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarTerceroIntercon" header="#{msg['editarTerceroIntercon']}" widgetVar="editarTerceroIntercon" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlInterfaseContableTotalGEO.editarIntercon.codigotercero}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarCuentaIntercon" header="#{msg['editarCuentaIntercon']}" widgetVar="editarCuentaIntercon" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlInterfaseContableTotalGEO.editarIntercon.cuenta.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarCuentaIntercon" header="#{msg['editarCuentaIntercon']}" widgetVar="editarCuentaIntercon" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlInterfaseContableTotalGEO.editarIntercon.cuenta.codigo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarDebitoIntercon" header="#{msg['editarDebitoIntercon']}" widgetVar="editarDebitoIntercon" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlInterfaseContableTotalGEO.editarIntercon.valord}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
+                    <p:dialog id="editarDebitoIntercon" header="#{msg['editarDebitoIntercon']}" widgetVar="editarDebitoIntercon" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlInterfaseContableTotalGEO.editarIntercon.valord}" style="overflow: auto;" readonly="true">
                             <f:convertNumber currencySymbol="$" type="currency" />
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarCreditoIntercon" header="#{msg['editarCreditoIntercon']}" widgetVar="editarCreditoIntercon" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlInterfaseContableTotalGEO.editarIntercon.valorc}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
+                    <p:dialog id="editarCreditoIntercon" header="#{msg['editarCreditoIntercon']}" widgetVar="editarCreditoIntercon" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlInterfaseContableTotalGEO.editarIntercon.valorc}" style="overflow: auto;" readonly="true">
                             <f:convertNumber currencySymbol="$" type="currency" />
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarConceptoIntercon" header="#{msg['editarConceptoIntercon']}" widgetVar="editarConceptoIntercon" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlInterfaseContableTotalGEO.editarIntercon.concepto.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarConceptoIntercon" header="#{msg['editarConceptoIntercon']}" widgetVar="editarConceptoIntercon" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlInterfaseContableTotalGEO.editarIntercon.concepto.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarCentroCostoIntercon" header="#{msg['editarCentroCostoIntercon']}" widgetVar="editarCentroCostoIntercon" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlInterfaseContableTotalGEO.editarIntercon.centrocosto.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarCentroCostoIntercon" header="#{msg['editarCentroCostoIntercon']}" widgetVar="editarCentroCostoIntercon" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlInterfaseContableTotalGEO.editarIntercon.centrocosto.nombre}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="operacionEnProceso" header="#{msg['atencion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="true" modal="true" height="65" width="350" style="font-size: 12px;" closable="false">  

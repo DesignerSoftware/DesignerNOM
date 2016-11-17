@@ -150,19 +150,19 @@
 
                     <!-- DIALOGOS EDITAR -->
                     <p:dialog id="editarFechasIniciales" header="#{msg['editarFechasIniciales']}" widgetVar="editarFechasIniciales" resizable="false" draggable="true" modal="true" height="93" width="240" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlTipoFuncion.editarTiposFunciones.fechainicial}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+                        <p:inputTextarea value="#{controlTipoFuncion.editarTiposFunciones.fechainicial}" style="overflow: auto;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
                     <p:dialog id="editarFechasFinales" header="#{msg['editarFechasFinales']}" widgetVar="editarFechasFinales" resizable="false" draggable="true" modal="true" height="93" width="240" >  
-                        <p:inputTextarea value="#{controlTipoFuncion.editarTiposFunciones.fechafinal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+                        <p:inputTextarea value="#{controlTipoFuncion.editarTiposFunciones.fechafinal}" style="overflow: auto;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
                     <p:dialog id="editarObjetos" header="#{msg['editarObjetos']}" widgetVar="editarObjetos" resizable="false" draggable="true" modal="true" height="93" width="240" >  
-                        <p:inputTextarea value="#{controlTipoFuncion.editarTiposFunciones.nombreobjeto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                        <p:inputTextarea value="#{controlTipoFuncion.editarTiposFunciones.nombreobjeto}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  

@@ -865,30 +865,30 @@
                </p:dialog>
 
                <!-- EDITOR COMPROBANTES -->
-               <p:dialog id="editarNumeroComprobante" header="#{msg['editarNumeroComrpobante']}" widgetVar="editarNumeroComprobante" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{controlEmplComprobantes.editarComprobante.numero}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarNumeroComprobante" header="#{msg['editarNumeroComrpobante']}" widgetVar="editarNumeroComprobante" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlEmplComprobantes.editarComprobante.numero}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarFechaComprobante" header="#{msg['editarFechaComprobante']}" widgetVar="editarFechaComprobante" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                  <p:inputTextarea value="#{controlEmplComprobantes.editarComprobante.fecha}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+               <p:dialog id="editarFechaComprobante" header="#{msg['editarFechaComprobante']}" widgetVar="editarFechaComprobante" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                  <p:inputTextarea value="#{controlEmplComprobantes.editarComprobante.fecha}" style="overflow: auto;" readonly="true">                        
                      <f:convertDateTime pattern="dd/MM/yyyy"/>
                   </p:inputTextarea>
                </p:dialog>
-               <p:dialog id="editarFechaEntrega" header="#{msg['editarFechaEntrega']}" widgetVar="editarFechaEntrega" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                  <p:inputTextarea value="#{controlEmplComprobantes.editarComprobante.fechaentregado}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+               <p:dialog id="editarFechaEntrega" header="#{msg['editarFechaEntrega']}" widgetVar="editarFechaEntrega" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                  <p:inputTextarea value="#{controlEmplComprobantes.editarComprobante.fechaentregado}" style="overflow: auto;" readonly="true">                        
                      <f:convertDateTime pattern="dd/MM/yyyy"/>
                   </p:inputTextarea>
                </p:dialog>
 
                <!-- EDITOR CORTES PROCESOS -->
-               <p:dialog id="editarFechaCorte" header="#{msg['editarFechaCorte']}" widgetVar="editarFechaCorte" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                  <p:inputTextarea value="#{controlEmplComprobantes.editarCorteProceso.corte}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+               <p:dialog id="editarFechaCorte" header="#{msg['editarFechaCorte']}" widgetVar="editarFechaCorte" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                  <p:inputTextarea value="#{controlEmplComprobantes.editarCorteProceso.corte}" style="overflow: auto;" readonly="true">                        
                      <f:convertDateTime pattern="dd/MM/yyyy"/>
                   </p:inputTextarea>
                </p:dialog>
 
-               <p:dialog id="editarProceso" header="#{msg['editarProceso']}" widgetVar="editarProceso" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{controlEmplComprobantes.editarCorteProceso.proceso.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarProceso" header="#{msg['editarProceso']}" widgetVar="editarProceso" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlEmplComprobantes.editarCorteProceso.proceso.descripcion}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
                <!-- DIALOGOS RASTRO-->

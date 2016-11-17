@@ -302,39 +302,39 @@
                         <h:outputText value="La tabla 'ERRORESLIQUIDACION' no se encuentra en ObjetosDB. Porfavor comunicarse con soporte." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="editarFechaInicial" header="Fecha Desde" widgetVar="editarFechaInicial" resizable="false" draggable="true" modal="true" height="80" width="400" style="position: absolute; top: 10px;  padding: 0px">  
-                        <p:inputTextarea value="#{controlErroresLiquidacion.editarErroresLiquidacion.fechadesde}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">  
+                    <p:dialog id="editarFechaInicial" header="Fecha Desde" widgetVar="editarFechaInicial" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="position: absolute; top: 10px;  padding: 0px">  
+                        <p:inputTextarea value="#{controlErroresLiquidacion.editarErroresLiquidacion.fechadesde}" style="overflow: auto;" readonly="true">  
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
-                    <p:dialog id="editarFechaHasta" header="Fecha Hasta" widgetVar="editarFechaHasta" resizable="false" draggable="true" modal="true" height="80" width="400" style="position: absolute; top: 10px;  padding: 0px">  
-                        <p:inputTextarea value="#{controlErroresLiquidacion.editarErroresLiquidacion.fechahasta}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">  
+                    <p:dialog id="editarFechaHasta" header="Fecha Hasta" widgetVar="editarFechaHasta" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="position: absolute; top: 10px;  padding: 0px">  
+                        <p:inputTextarea value="#{controlErroresLiquidacion.editarErroresLiquidacion.fechahasta}" style="overflow: auto;" readonly="true">  
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarEmpleado" header="Empleado" widgetVar="editarEmpleado" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlErroresLiquidacion.editarErroresLiquidacion.empleado.persona.nombreCompleto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarEmpleado" header="Empleado" widgetVar="editarEmpleado" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlErroresLiquidacion.editarErroresLiquidacion.empleado.persona.nombreCompleto}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-                    <p:dialog id="editarTipoCentroCosto" header="Tipo Centro Costo" widgetVar="editarTipoCentroCosto" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlErroresLiquidacion.editarErroresLiquidacion.vigenciaLocalizacion.localizacion.centrocosto.tipocentrocosto.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarTipoCentroCosto" header="Tipo Centro Costo" widgetVar="editarTipoCentroCosto" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlErroresLiquidacion.editarErroresLiquidacion.vigenciaLocalizacion.localizacion.centrocosto.tipocentrocosto.nombre}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-                    <p:dialog id="editarConcepto" header="Concepto" widgetVar="editarConcepto" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlErroresLiquidacion.editarErroresLiquidacion.concepto.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarConcepto" header="Concepto" widgetVar="editarConcepto" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlErroresLiquidacion.editarErroresLiquidacion.concepto.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-                    <p:dialog id="editarFormula" header="Formula" widgetVar="editarFormula" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlErroresLiquidacion.editarErroresLiquidacion.formula.nombrelargo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarFormula" header="Formula" widgetVar="editarFormula" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlErroresLiquidacion.editarErroresLiquidacion.formula.nombrelargo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-                    <p:dialog id="editarFechaE" header="Fecha" widgetVar="editarFechaE" resizable="false" draggable="true" modal="true" height="80" width="400" style="position: absolute; top: 10px;  padding: 0px">  
-                        <p:inputTextarea value="#{controlErroresLiquidacion.editarErroresLiquidacion.fecha}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">  
+                    <p:dialog id="editarFechaE" header="Fecha" widgetVar="editarFechaE" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="position: absolute; top: 10px;  padding: 0px">  
+                        <p:inputTextarea value="#{controlErroresLiquidacion.editarErroresLiquidacion.fecha}" style="overflow: auto;" readonly="true">  
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
-                    <p:dialog id="editarErrorE" header="Error" widgetVar="editarErrorE" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlErroresLiquidacion.editarErroresLiquidacion.error}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarErrorE" header="Error" widgetVar="editarErrorE" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlErroresLiquidacion.editarErroresLiquidacion.error}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-                    <p:dialog id="editarPaqueteE" header="Paquete" widgetVar="editarPaqueteE" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlErroresLiquidacion.editarErroresLiquidacion.paquete}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarPaqueteE" header="Paquete" widgetVar="editarPaqueteE" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlErroresLiquidacion.editarErroresLiquidacion.paquete}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
                 </h:form>

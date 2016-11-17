@@ -220,20 +220,20 @@
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlOperando.activarCtrlF11()}" process="@this"/> 
 
                     <!-- DIALOGOS EDITAR -->
-                    <p:dialog id="editarNombres" header="#{msg['editarNombres']}" widgetVar="editarNombres" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlOperando.editarOperandos.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarNombres" header="#{msg['editarNombres']}" widgetVar="editarNombres" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlOperando.editarOperandos.nombre}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarValor" header="#{msg['editarValor']}" widgetVar="editarValor" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlOperando.editarOperandos.valor}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarValor" header="#{msg['editarValor']}" widgetVar="editarValor" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlOperando.editarOperandos.valor}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarDescripciones" header="#{msg['editarDescripciones']}" widgetVar="editarDescripciones" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlOperando.editarOperandos.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarDescripciones" header="#{msg['editarDescripciones']}" widgetVar="editarDescripciones" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlOperando.editarOperandos.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarCodigos" header="#{msg['editarCodigos']}" widgetVar="editarCodigos" resizable="false" draggable="true" modal="true" height="80" width="400"  >  
-                        <p:inputTextarea value="#{controlOperando.editarOperandos.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarCodigos" header="#{msg['editarCodigos']}" widgetVar="editarCodigos" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar"  >  
+                        <p:inputTextarea value="#{controlOperando.editarOperandos.codigo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425"  closable="false">  

@@ -314,20 +314,20 @@
 
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlCursos.activarCtrlF11()}" process="@this"/>
 
-                    <p:dialog id="editarCodigosCurso" header="Código" widgetVar="editarCodigosCurso" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlCursos.editarCurso.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarCodigosCurso" header="Código" widgetVar="editarCodigosCurso" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlCursos.editarCurso.codigo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarDescripcionCurso" header="Nombre" widgetVar="editarDescripcionCurso" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlCursos.editarCurso.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarDescripcionCurso" header="Nombre" widgetVar="editarDescripcionCurso" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlCursos.editarCurso.nombre}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarTipoCurso" header="NivelEducativo" widgetVar="editarTipoCurso" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlCursos.editarCurso.tipocurso.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarTipoCurso" header="NivelEducativo" widgetVar="editarTipoCurso" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlCursos.editarCurso.tipocurso.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarObjetivoCurso" header="NivelEducativo" widgetVar="editarObjetivoCurso" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlCursos.editarCurso.objetivo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarObjetivoCurso" header="NivelEducativo" widgetVar="editarObjetivoCurso" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlCursos.editarCurso.objetivo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
 

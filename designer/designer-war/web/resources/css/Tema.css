@@ -703,3 +703,8 @@ button .ui-widget-header{
    width: 90px !important;
    height: 30px !important; 
 }
+
+.cssDialogosEditar textArea {
+   height: 66px !important;
+   width: 366px !important;
+}

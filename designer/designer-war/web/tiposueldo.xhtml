@@ -976,50 +976,50 @@
 
                     <!-- editar celdas tipo sueldo -->
 
-                    <p:dialog id="editarCodigoTipoSueldoD" header="#{msg['editarCodigoTipoSueldoD']}" widgetVar="editarCodigoTipoSueldoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlTipoSueldo.editarTipoSueldo.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarCodigoTipoSueldoD" header="#{msg['editarCodigoTipoSueldoD']}" widgetVar="editarCodigoTipoSueldoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlTipoSueldo.editarTipoSueldo.codigo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarDescripcionTipoSueldoD" header="#{msg['editarDescripcionTipoSueldoD']}" widgetVar="editarDescripcionTipoSueldoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlTipoSueldo.editarTipoSueldo.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarDescripcionTipoSueldoD" header="#{msg['editarDescripcionTipoSueldoD']}" widgetVar="editarDescripcionTipoSueldoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlTipoSueldo.editarTipoSueldo.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
                     <!-- editar celdas tsformula concepto -->
 
-                    <p:dialog id="editarFormulaTSFormulaD" header="#{msg['editarFormulaTSFormulaD']}" widgetVar="editarFormulaTSFormulaD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlTipoSueldo.editarTSFormulaConcepto.formula.nombrelargo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarFormulaTSFormulaD" header="#{msg['editarFormulaTSFormulaD']}" widgetVar="editarFormulaTSFormulaD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlTipoSueldo.editarTSFormulaConcepto.formula.nombrelargo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarConceptoTSFormulaD" header="#{msg['editarConceptoTSFormulaD']}" widgetVar="editarConceptoTSFormulaD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlTipoSueldo.editarTSFormulaConcepto.concepto.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarConceptoTSFormulaD" header="#{msg['editarConceptoTSFormulaD']}" widgetVar="editarConceptoTSFormulaD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlTipoSueldo.editarTSFormulaConcepto.concepto.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarEmpresaTSFormulaD" header="#{msg['editarEmpresaTSFormulaD']}" widgetVar="editarEmpresaTSFormulaD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlTipoSueldo.editarTSFormulaConcepto.concepto.empresa.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarEmpresaTSFormulaD" header="#{msg['editarEmpresaTSFormulaD']}" widgetVar="editarEmpresaTSFormulaD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlTipoSueldo.editarTSFormulaConcepto.concepto.empresa.nombre}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
                     <!-- editar celdas ts grupo tipo entidad -->
 
-                    <p:dialog id="editarGrupoTSGrupoD" header="#{msg['editarGrupoTSGrupoD']}" widgetVar="editarGrupoTSGrupoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlTipoSueldo.editarTSGrupoTipoEntidad.grupotipoentidad.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarGrupoTSGrupoD" header="#{msg['editarGrupoTSGrupoD']}" widgetVar="editarGrupoTSGrupoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlTipoSueldo.editarTSGrupoTipoEntidad.grupotipoentidad.nombre}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
                     <!-- editar celdas teformula concepto -->
 
-                    <p:dialog id="editarFormulaTETipoEntidadD" header="#{msg['editarFormulaTETipoEntidadD']}" widgetVar="editarFormulaTETipoEntidadD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlTipoSueldo.editarTEFormulaConcepto.tipoentidad.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarFormulaTETipoEntidadD" header="#{msg['editarFormulaTETipoEntidadD']}" widgetVar="editarFormulaTETipoEntidadD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlTipoSueldo.editarTEFormulaConcepto.tipoentidad.nombre}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarFormulaTEFormulaD" header="#{msg['editarFormulaTEFormulaD']}" widgetVar="editarFormulaTEFormulaD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlTipoSueldo.editarTEFormulaConcepto.formula.nombrelargo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarFormulaTEFormulaD" header="#{msg['editarFormulaTEFormulaD']}" widgetVar="editarFormulaTEFormulaD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlTipoSueldo.editarTEFormulaConcepto.formula.nombrelargo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarConceptoTEFormulaD" header="#{msg['editarConceptoTEFormulaD']}" widgetVar="editarConceptoTEFormulaD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlTipoSueldo.editarTEFormulaConcepto.concepto.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarConceptoTEFormulaD" header="#{msg['editarConceptoTEFormulaD']}" widgetVar="editarConceptoTEFormulaD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlTipoSueldo.editarTEFormulaConcepto.concepto.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarEmpresaTEFormulaD" header="#{msg['editarEmpresaTEFormulaD']}" widgetVar="editarEmpresaTEFormulaD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlTipoSueldo.editarTEFormulaConcepto.concepto.empresa.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarEmpresaTEFormulaD" header="#{msg['editarEmpresaTEFormulaD']}" widgetVar="editarEmpresaTEFormulaD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlTipoSueldo.editarTEFormulaConcepto.concepto.empresa.nombre}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
                 </h:form>

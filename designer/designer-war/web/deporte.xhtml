@@ -209,11 +209,11 @@
                         <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 4px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="editCodigo" header="#{msg['editCodigo']}" widgetVar="editCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" style="text-transform: uppercase">  
-                        <p:inputTextarea value="#{controlDeportes.editarDeportes.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editCodigo" header="#{msg['editCodigo']}" widgetVar="editCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
+                        <p:inputTextarea value="#{controlDeportes.editarDeportes.codigo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-                    <p:dialog id="editDescripcion" header="#{msg['editDescripcion']}" widgetVar="editDescripcion" resizable="false" draggable="true" modal="true" height="80" width="400" style="text-transform: uppercase">  
-                        <p:inputTextarea value="#{controlDeportes.editarDeportes.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editDescripcion" header="#{msg['editDescripcion']}" widgetVar="editDescripcion" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
+                        <p:inputTextarea value="#{controlDeportes.editarDeportes.nombre}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="nuevoRegistroDeporte" header="#{msg['nuevoregistro']}" widgetVar="nuevoRegistroDeporte" closable="false" resizable="false"  draggable="true" modal="true" height="170" width="330" style=" padding: 0px">  

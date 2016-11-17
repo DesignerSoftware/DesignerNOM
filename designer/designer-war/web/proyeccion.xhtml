@@ -349,60 +349,60 @@
                     </p:dialog>
 
 
-                    <p:dialog id="editarDescripcionConceptoD" header="Descripción Concepto" widgetVar="editarDescripcionConceptoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlProyecciones.editarProyeccion.concepto.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarDescripcionConceptoD" header="Descripción Concepto" widgetVar="editarDescripcionConceptoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlProyecciones.editarProyeccion.concepto.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarNombreEmpleadoD" header="Nombre Empleado" widgetVar="editarNombreEmpleadoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlProyecciones.editarProyeccion.empleado.persona.nombreCompleto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarNombreEmpleadoD" header="Nombre Empleado" widgetVar="editarNombreEmpleadoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlProyecciones.editarProyeccion.empleado.persona.nombreCompleto}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaDesdeD" header="Fecha Desde" widgetVar="editarFechaDesdeD" resizable="false" draggable="true" modal="true" height="80" width="400" style="position: absolute; top: 10px;  padding: 0px">  
-                        <p:inputTextarea value="#{controlProyecciones.editarProyeccion.fechaDesde}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">  
+                    <p:dialog id="editarFechaDesdeD" header="Fecha Desde" widgetVar="editarFechaDesdeD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="position: absolute; top: 10px;  padding: 0px">  
+                        <p:inputTextarea value="#{controlProyecciones.editarProyeccion.fechaDesde}" style="overflow: auto;" readonly="true">  
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaHastaD" header="Fecha Hasta" widgetVar="editarFechaHastaD" resizable="false" draggable="true" modal="true" height="80" width="400" style="position: absolute; top: 10px;  padding: 0px">  
-                        <p:inputTextarea value="#{controlProyecciones.editarProyeccion.fechaHasta}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">  
+                    <p:dialog id="editarFechaHastaD" header="Fecha Hasta" widgetVar="editarFechaHastaD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="position: absolute; top: 10px;  padding: 0px">  
+                        <p:inputTextarea value="#{controlProyecciones.editarProyeccion.fechaHasta}" style="overflow: auto;" readonly="true">  
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarValorD" header="Valor" widgetVar="editarValorD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlProyecciones.editarProyeccion.valor}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarValorD" header="Valor" widgetVar="editarValorD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlProyecciones.editarProyeccion.valor}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarFormulaD" header="Formula" widgetVar="editarFormulaD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlProyecciones.editarProyeccion.formula.nombrelargo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarFormulaD" header="Formula" widgetVar="editarFormulaD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlProyecciones.editarProyeccion.formula.nombrelargo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarCentroCostoD" header="Centro Costo" widgetVar="editarCentroCostoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlProyecciones.editarProyeccion.centroCosto.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarCentroCostoD" header="Centro Costo" widgetVar="editarCentroCostoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlProyecciones.editarProyeccion.centroCosto.nombre}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarCodigoCuentaCD" header="Codigo Cuenta C" widgetVar="editarCodigoCuentaCD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlProyecciones.editarProyeccion.cuentaC.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarCodigoCuentaCD" header="Codigo Cuenta C" widgetVar="editarCodigoCuentaCD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlProyecciones.editarProyeccion.cuentaC.codigo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarDescripcionCuentaCD" header="Descripcion Cuenta C" widgetVar="editarDescripcionCuentaCD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlProyecciones.editarProyeccion.cuentaC.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarDescripcionCuentaCD" header="Descripcion Cuenta C" widgetVar="editarDescripcionCuentaCD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlProyecciones.editarProyeccion.cuentaC.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarCodigoCuentaDD" header="Formula" widgetVar="editarCodigoCuentaDD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlProyecciones.editarProyeccion.cuentaD.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarCodigoCuentaDD" header="Formula" widgetVar="editarCodigoCuentaDD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlProyecciones.editarProyeccion.cuentaD.codigo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarDescripcionCuentaDD" header="Formula" widgetVar="editarDescripcionCuentaDD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlProyecciones.editarProyeccion.cuentaD.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarDescripcionCuentaDD" header="Formula" widgetVar="editarDescripcionCuentaDD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlProyecciones.editarProyeccion.cuentaD.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarNitCodigoD" header="Nit" widgetVar="editarNitCodigoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlProyecciones.editarProyeccion.nit.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarNitCodigoD" header="Nit" widgetVar="editarNitCodigoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlProyecciones.editarProyeccion.nit.codigo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarNitNombreD" header="Nombre Tercero" widgetVar="editarNitNombreD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlProyecciones.editarProyeccion.nit.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarNitNombreD" header="Nombre Tercero" widgetVar="editarNitNombreD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlProyecciones.editarProyeccion.nit.nombre}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
                     <!-- LOV EMPRESAS -->

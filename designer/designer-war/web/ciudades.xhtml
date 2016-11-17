@@ -387,20 +387,20 @@
 
                <!-- DIALOGOS EDITAR -->
 
-               <p:dialog id="editarCodigos" header="#{msg['codigo']}" widgetVar="editarCodigos" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                  <p:inputTextarea  value="#{controlCiudades.editarCiudad.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarCodigos" header="#{msg['codigo']}" widgetVar="editarCodigos" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                  <p:inputTextarea  value="#{controlCiudades.editarCiudad.codigo}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarNombresCiudades" header="#{msg['nombre']}" widgetVar="editarNombresCiudades" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea  value="#{controlCiudades.editarCiudad.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarNombresCiudades" header="#{msg['nombre']}" widgetVar="editarNombresCiudades" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea  value="#{controlCiudades.editarCiudad.nombre}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarDepartamentos" header="#{msg['departamento']}" widgetVar="editarDepartamentos" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea  value="#{controlCiudades.editarCiudad.departamento.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarDepartamentos" header="#{msg['departamento']}" widgetVar="editarDepartamentos" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea  value="#{controlCiudades.editarCiudad.departamento.nombre}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarCodigosAlternativos" header="#{msg['codigoalternativo']}" widgetVar="editarCodigosAlternativos" resizable="false" draggable="true" modal="true" height="80" width="400"  >  
-                  <p:inputTextarea  value="#{controlCiudades.editarCiudad.codigoalternativo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarCodigosAlternativos" header="#{msg['codigoalternativo']}" widgetVar="editarCodigosAlternativos" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar"  >  
+                  <p:inputTextarea  value="#{controlCiudades.editarCiudad.codigoalternativo}" style="overflow: auto;" readonly="true"/>
                </p:dialog> 
             </h:form>
 

@@ -817,52 +817,52 @@
                </p:dialog> 
                <!-- editar organigrama -->
 
-               <p:dialog id="editarFechaOrganigramaD" header="#{msg['editarFechaOrganigramaD']}" widgetVar="editarFechaOrganigramaD" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                  <p:inputTextarea value="#{controlEstructuraPlanta.editarOrganigrama.fecha}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+               <p:dialog id="editarFechaOrganigramaD" header="#{msg['editarFechaOrganigramaD']}" widgetVar="editarFechaOrganigramaD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                  <p:inputTextarea value="#{controlEstructuraPlanta.editarOrganigrama.fecha}" style="overflow: auto;" readonly="true">                        
                      <f:convertDateTime pattern="dd/MM/yyyy"/>
                   </p:inputTextarea>
                </p:dialog>
 
-               <p:dialog id="editarCodigoOrganigramaD" header="#{msg['editarCodigoOrganigramaD']}" widgetVar="editarCodigoOrganigramaD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{controlEstructuraPlanta.editarOrganigrama.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarCodigoOrganigramaD" header="#{msg['editarCodigoOrganigramaD']}" widgetVar="editarCodigoOrganigramaD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlEstructuraPlanta.editarOrganigrama.codigo}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarEmpresaOrganigramaD" header="#{msg['editarEmpresaOrganigramaD']}" widgetVar="editarEmpresaOrganigramaD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{controlEstructuraPlanta.editarOrganigrama.empresa.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarEmpresaOrganigramaD" header="#{msg['editarEmpresaOrganigramaD']}" widgetVar="editarEmpresaOrganigramaD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlEstructuraPlanta.editarOrganigrama.empresa.nombre}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarNITOrganigramaD" header="#{msg['editarNITOrganigramaD']}" widgetVar="editarNITOrganigramaD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{controlEstructuraPlanta.editarOrganigrama.empresa.nit}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarNITOrganigramaD" header="#{msg['editarNITOrganigramaD']}" widgetVar="editarNITOrganigramaD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlEstructuraPlanta.editarOrganigrama.empresa.nit}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarEstadoOrganigramaD" header="#{msg['editarEstadoOrganigramaD']}" widgetVar="editarEstadoOrganigramaD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{controlEstructuraPlanta.editarOrganigrama.estado}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarEstadoOrganigramaD" header="#{msg['editarEstadoOrganigramaD']}" widgetVar="editarEstadoOrganigramaD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlEstructuraPlanta.editarOrganigrama.estado}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
                <!-- editar celdas estructura -->
 
-               <p:dialog id="editarCodigoEstructuraD" header="#{msg['editarCodigoEstructuraD']}" widgetVar="editarCodigoEstructuraD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{controlEstructuraPlanta.editarEstructura.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarCodigoEstructuraD" header="#{msg['editarCodigoEstructuraD']}" widgetVar="editarCodigoEstructuraD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlEstructuraPlanta.editarEstructura.codigo}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarEstructuraEstructuraD" header="#{msg['editarEstructuraEstructuraD']}" widgetVar="editarEstructuraEstructuraD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{controlEstructuraPlanta.editarEstructura.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarEstructuraEstructuraD" header="#{msg['editarEstructuraEstructuraD']}" widgetVar="editarEstructuraEstructuraD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlEstructuraPlanta.editarEstructura.nombre}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarCantidadControlarEstructuraD" header="#{msg['editarCantidadControlarEstructuraD']}" widgetVar="editarCantidadControlarEstructuraD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{controlEstructuraPlanta.editarEstructura.cantidadCargosControlar}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarCantidadControlarEstructuraD" header="#{msg['editarCantidadControlarEstructuraD']}" widgetVar="editarCantidadControlarEstructuraD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlEstructuraPlanta.editarEstructura.cantidadCargosControlar}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarCantidadActivosEstructuraD" header="#{msg['editarCantidadActivosEstructuraD']}" widgetVar="editarCantidadActivosEstructuraD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{controlEstructuraPlanta.editarEstructura.cantidadCargosEmplActivos}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarCantidadActivosEstructuraD" header="#{msg['editarCantidadActivosEstructuraD']}" widgetVar="editarCantidadActivosEstructuraD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlEstructuraPlanta.editarEstructura.cantidadCargosEmplActivos}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarCentroCostoEstructuraD" header="#{msg['editarCentroCostoEstructuraD']}" widgetVar="editarCentroCostoEstructuraD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{controlEstructuraPlanta.editarEstructura.centrocosto.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarCentroCostoEstructuraD" header="#{msg['editarCentroCostoEstructuraD']}" widgetVar="editarCentroCostoEstructuraD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlEstructuraPlanta.editarEstructura.centrocosto.nombre}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarEstructuraPadreEstructuraD" header="#{msg['editarEstructuraPadreEstructuraD']}" widgetVar="editarEstructuraPadreEstructuraD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{controlEstructuraPlanta.editarEstructura.estructurapadre.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarEstructuraPadreEstructuraD" header="#{msg['editarEstructuraPadreEstructuraD']}" widgetVar="editarEstructuraPadreEstructuraD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlEstructuraPlanta.editarEstructura.estructurapadre.nombre}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
             </h:form>

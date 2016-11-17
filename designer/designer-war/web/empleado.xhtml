@@ -296,24 +296,24 @@
                     </p:dialog>
 
 
-                    <p:dialog id="editarCodigoE" header="#{msg['editarCodigoE']}" widgetVar="editarCodigoE" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
+                    <p:dialog id="editarCodigoE" header="#{msg['editarCodigoE']}" widgetVar="editarCodigoE" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
                         <p:inputTextarea value="#{controlEmpleado.editarEmpleado.codigoempleado}" style="overflow: auto; width: 360px; height: 60px" readonly="true">                        
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarNombreE" header="#{msg['editarNombreE']}" widgetVar="editarNombreE" resizable="false" draggable="true" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarNombreE" header="#{msg['editarNombreE']}" widgetVar="editarNombreE" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
                         <p:inputTextarea value="#{controlEmpleado.editarEmpleado.persona.nombreCompleto}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarCodDeudorE" header="#{msg['editarCodDeudorE']}" widgetVar="editarCodDeudorE" resizable="false" draggable="true" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarCodDeudorE" header="#{msg['editarCodDeudorE']}" widgetVar="editarCodDeudorE" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
                         <p:inputTextarea value="#{controlEmpleado.editarEmpleado.codigoalternativodeudor}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarCodAcreeE" header="#{msg['editarCodAcreeE']}" widgetVar="editarCodAcreeE" resizable="false" draggable="true" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarCodAcreeE" header="#{msg['editarCodAcreeE']}" widgetVar="editarCodAcreeE" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
                         <p:inputTextarea value="#{controlEmpleado.editarEmpleado.codigoalternativoacreedor}" style="overflow: auto; width: 360px; height: 60px" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaE" header="#{msg['editarFechaE']}" widgetVar="editarFechaE" resizable="false" draggable="true" modal="true" height="80" width="400" >  
+                    <p:dialog id="editarFechaE" header="#{msg['editarFechaE']}" widgetVar="editarFechaE" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
                         <p:inputTextarea value="#{controlEmpleado.editarEmpleado.fechacreacion}"  style="overflow: auto; width: 360px; height: 60px" readonly="true" > 
                             <f:convertDateTime pattern="dd/MM/yyyy"/>    
                         </p:inputTextarea>    

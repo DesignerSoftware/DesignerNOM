@@ -817,80 +817,80 @@
                     </p:dialog>
                     
 
-                    <p:dialog id="editarEmpleadoCodigo" header="#{msg['editarEmpleadoCodigo']}" widgetVar="editarEmpleadoCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea  value="#{controlATHoraExtra.empleadoActual.codigoempleadoSTR}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarEmpleadoCodigo" header="#{msg['editarEmpleadoCodigo']}" widgetVar="editarEmpleadoCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea  value="#{controlATHoraExtra.empleadoActual.codigoempleadoSTR}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarEmpleadoNombre" header="#{msg['editarEmpleadoNombre']}" widgetVar="editarEmpleadoNombre" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea  value="#{controlATHoraExtra.empleadoActual.persona.nombreCompleto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarEmpleadoNombre" header="#{msg['editarEmpleadoNombre']}" widgetVar="editarEmpleadoNombre" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea  value="#{controlATHoraExtra.empleadoActual.persona.nombreCompleto}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
                     
                     
                     
                     <!-- -->
 
-                    <p:dialog id="editarHoraExtraFechaInicial" header="#{msg['editarHoraExtraFechaInicial']}" widgetVar="editarHoraExtraFechaInicial" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea  value="#{controlATHoraExtra.editarTurnoEmpleado.fechainicial}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+                    <p:dialog id="editarHoraExtraFechaInicial" header="#{msg['editarHoraExtraFechaInicial']}" widgetVar="editarHoraExtraFechaInicial" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea  value="#{controlATHoraExtra.editarTurnoEmpleado.fechainicial}" style="overflow: auto;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
                     
-                    <p:dialog id="editarHoraExtraFechaFinal" header="#{msg['editarHoraExtraFechaFinal']}" widgetVar="editarHoraExtraFechaFinal" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea  value="#{controlATHoraExtra.editarTurnoEmpleado.fechafinal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+                    <p:dialog id="editarHoraExtraFechaFinal" header="#{msg['editarHoraExtraFechaFinal']}" widgetVar="editarHoraExtraFechaFinal" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea  value="#{controlATHoraExtra.editarTurnoEmpleado.fechafinal}" style="overflow: auto;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarHoraExtraMotivo" header="#{msg['editarHoraExtraMotivo']}" widgetVar="editarHoraExtraMotivo" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea  value="#{controlATHoraExtra.editarTurnoEmpleado.motivoturno.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarHoraExtraMotivo" header="#{msg['editarHoraExtraMotivo']}" widgetVar="editarHoraExtraMotivo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea  value="#{controlATHoraExtra.editarTurnoEmpleado.motivoturno.nombre}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
                     
-                    <p:dialog id="editarHoraExtraNHA" header="#{msg['editarHoraExtraNHA']}" widgetVar="editarHoraExtraNHA" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea  value="#{controlATHoraExtra.editarTurnoEmpleado.descuentahorasalimentacion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarHoraExtraNHA" header="#{msg['editarHoraExtraNHA']}" widgetVar="editarHoraExtraNHA" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea  value="#{controlATHoraExtra.editarTurnoEmpleado.descuentahorasalimentacion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
                     
-                    <p:dialog id="editarHoraExtraNVA" header="#{msg['editarHoraExtraNVA']}" widgetVar="editarHoraExtraNVA" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea  value="#{controlATHoraExtra.editarTurnoEmpleado.pagavalesalimentacion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarHoraExtraNVA" header="#{msg['editarHoraExtraNVA']}" widgetVar="editarHoraExtraNVA" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea  value="#{controlATHoraExtra.editarTurnoEmpleado.pagavalesalimentacion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
                     
-                    <p:dialog id="editarHoraExtraEstructura" header="#{msg['editarHoraExtraEstructura']}" widgetVar="editarHoraExtraEstructura" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea  value="#{controlATHoraExtra.editarTurnoEmpleado.estructuraaprueba.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarHoraExtraEstructura" header="#{msg['editarHoraExtraEstructura']}" widgetVar="editarHoraExtraEstructura" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea  value="#{controlATHoraExtra.editarTurnoEmpleado.estructuraaprueba.nombre}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
                     
-                    <p:dialog id="editarHoraExtraComentario" header="#{msg['editarHoraExtraComentario']}" widgetVar="editarHoraExtraComentario" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea  value="#{controlATHoraExtra.editarTurnoEmpleado.comentario}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarHoraExtraComentario" header="#{msg['editarHoraExtraComentario']}" widgetVar="editarHoraExtraComentario" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea  value="#{controlATHoraExtra.editarTurnoEmpleado.comentario}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
                     
                     <!-- -->
 
-                    <p:dialog id="editarDetalleConcepto" header="#{msg['editarDetalleConcepto']}" widgetVar="editarDetalleConcepto" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea  value="#{controlATHoraExtra.editarDetalleTurno.conceptodescripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarDetalleConcepto" header="#{msg['editarDetalleConcepto']}" widgetVar="editarDetalleConcepto" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea  value="#{controlATHoraExtra.editarDetalleTurno.conceptodescripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
                     
-                    <p:dialog id="editarDetalleFechaPago" header="#{msg['editarDetalleFechaPago']}" widgetVar="editarDetalleFechaPago" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea  value="#{controlATHoraExtra.editarDetalleTurno.fechapago}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+                    <p:dialog id="editarDetalleFechaPago" header="#{msg['editarDetalleFechaPago']}" widgetVar="editarDetalleFechaPago" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea  value="#{controlATHoraExtra.editarDetalleTurno.fechapago}" style="overflow: auto;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarDetalleHoras" header="#{msg['editarDetalleHoras']}" widgetVar="editarDetalleHoras" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea  value="#{controlATHoraExtra.editarDetalleTurno.horas}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarDetalleHoras" header="#{msg['editarDetalleHoras']}" widgetVar="editarDetalleHoras" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea  value="#{controlATHoraExtra.editarDetalleTurno.horas}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
                     
-                    <p:dialog id="editarDetalleMinutos" header="#{msg['editarDetalleMinutos']}" widgetVar="editarDetalleMinutos" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea  value="#{controlATHoraExtra.editarDetalleTurno.minutos}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarDetalleMinutos" header="#{msg['editarDetalleMinutos']}" widgetVar="editarDetalleMinutos" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea  value="#{controlATHoraExtra.editarDetalleTurno.minutos}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
                     
-                    <p:dialog id="editarDetalleAprobado" header="#{msg['editarDetalleAprobado']}" widgetVar="editarDetalleAprobado" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea  value="#{controlATHoraExtra.editarDetalleTurno.aprobado}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarDetalleAprobado" header="#{msg['editarDetalleAprobado']}" widgetVar="editarDetalleAprobado" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea  value="#{controlATHoraExtra.editarDetalleTurno.aprobado}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
                     
-                    <p:dialog id="editarDetalleDescripcion" header="#{msg['editarDetalleDescripcion']}" widgetVar="editarDetalleDescripcion" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea  value="#{controlATHoraExtra.editarDetalleTurno.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarDetalleDescripcion" header="#{msg['editarDetalleDescripcion']}" widgetVar="editarDetalleDescripcion" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea  value="#{controlATHoraExtra.editarDetalleTurno.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
                     
-                    <p:dialog id="editarDetalleOpcion" header="#{msg['editarDetalleOpcion']}" widgetVar="editarDetalleOpcion" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea  value="#{controlATHoraExtra.editarDetalleTurno.opcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarDetalleOpcion" header="#{msg['editarDetalleOpcion']}" widgetVar="editarDetalleOpcion" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea  value="#{controlATHoraExtra.editarDetalleTurno.opcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
                     
                 </h:form>

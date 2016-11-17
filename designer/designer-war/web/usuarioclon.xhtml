@@ -537,20 +537,20 @@
 
                     <!-- DIALOGOS EDITAR -->
 
-                    <p:dialog id="editarPersona" header="#{msg['personae']}" widgetVar="editarPersona" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlUsuariosClon.editarUsuarios.persona.nombreCompleto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarPersona" header="#{msg['personae']}" widgetVar="editarPersona" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlUsuariosClon.editarUsuarios.persona.nombreCompleto}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarPerfil" header="#{msg['perfile']}" widgetVar="editarPerfil" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlUsuariosClon.editarUsuarios.perfil.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarPerfil" header="#{msg['perfile']}" widgetVar="editarPerfil" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlUsuariosClon.editarUsuarios.perfil.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarAlias" header="#{msg['aliase']}" widgetVar="editarAlias" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlUsuariosClon.editarUsuarios.alias}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarAlias" header="#{msg['aliase']}" widgetVar="editarAlias" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlUsuariosClon.editarUsuarios.alias}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarPantalla" header="#{msg['pantallae']}" widgetVar="editarPantalla" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea value="#{controlUsuariosClon.editarUsuarios.pantallainicio.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarPantalla" header="#{msg['pantallae']}" widgetVar="editarPantalla" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlUsuariosClon.editarUsuarios.pantallainicio.nombre}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
                 </h:form>
 

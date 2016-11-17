@@ -514,28 +514,28 @@
                   </p:panel>
                </p:dialog>
 
-               <p:dialog id="editarFechaInicialFD" header="#{msg['editarFechaInicialFD']}" widgetVar="editarFechaInicialFD" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                  <p:inputTextarea value="#{controlFormulaContrato.editarFormulaContrato.fechainicial}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+               <p:dialog id="editarFechaInicialFD" header="#{msg['editarFechaInicialFD']}" widgetVar="editarFechaInicialFD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                  <p:inputTextarea value="#{controlFormulaContrato.editarFormulaContrato.fechainicial}" style="overflow: auto;" readonly="true">                        
                      <f:convertDateTime pattern="dd/MM/yyyy"/>
                   </p:inputTextarea>
                </p:dialog>
 
-               <p:dialog id="editarFechaFinalFD" header="#{msg['editarFechaFinalFD']}" widgetVar="editarFechaFinalFD" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                  <p:inputTextarea value="#{controlFormulaContrato.editarFormulaContrato.fechafinal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+               <p:dialog id="editarFechaFinalFD" header="#{msg['editarFechaFinalFD']}" widgetVar="editarFechaFinalFD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                  <p:inputTextarea value="#{controlFormulaContrato.editarFormulaContrato.fechafinal}" style="overflow: auto;" readonly="true">                        
                      <f:convertDateTime pattern="dd/MM/yyyy"/>
                   </p:inputTextarea>
                </p:dialog>
 
-               <p:dialog id="editarContratoFD" header="#{msg['editarContratoFD']}" widgetVar="editarContratoFD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{controlFormulaContrato.editarFormulaContrato.contrato.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarContratoFD" header="#{msg['editarContratoFD']}" widgetVar="editarContratoFD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlFormulaContrato.editarFormulaContrato.contrato.descripcion}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarPerdiodicidadFD" header="#{msg['editarPerdiodicidadFD']}" widgetVar="editarPerdiodicidadFD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{controlFormulaContrato.editarFormulaContrato.periodicidad.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarPerdiodicidadFD" header="#{msg['editarPerdiodicidadFD']}" widgetVar="editarPerdiodicidadFD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlFormulaContrato.editarFormulaContrato.periodicidad.nombre}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarTerceroFD" header="#{msg['editarTerceroFD']}" widgetVar="editarTerceroFD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{controlFormulaContrato.editarFormulaContrato.tercero.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarTerceroFD" header="#{msg['editarTerceroFD']}" widgetVar="editarTerceroFD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlFormulaContrato.editarFormulaContrato.tercero.nombre}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
             </h:form>

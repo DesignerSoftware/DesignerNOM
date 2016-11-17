@@ -345,38 +345,38 @@
 
             <h:form id="formularioDialogos" >
 
-               <p:dialog id="editarFechaInicialP" header="#{msg['fechainicialEP']}" widgetVar="editarFechaInicialP" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                  <p:inputTextarea value="#{controlEmplVacaPendiente.editarVacacion.inicialcausacion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+               <p:dialog id="editarFechaInicialP" header="#{msg['fechainicialEP']}" widgetVar="editarFechaInicialP" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                  <p:inputTextarea value="#{controlEmplVacaPendiente.editarVacacion.inicialcausacion}" style="overflow: auto;" readonly="true">                        
                      <f:convertDateTime pattern="dd/MM/yyyy"/>
                   </p:inputTextarea>
                </p:dialog>
 
-               <p:dialog id="editarFechaFinalP" header="#{msg['fechafinalEP']}" widgetVar="editarFechaFinalP" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                  <p:inputTextarea value="#{controlEmplVacaPendiente.editarVacacion.finalcausacion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
-                     <f:convertDateTime pattern="dd/MM/yyyy"/>
-                  </p:inputTextarea>
-               </p:dialog>
-
-
-               <p:dialog id="editarDiasPendientesP" header="#{msg['diaspendientesEP']}" widgetVar="editarDiasPendientesP" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{controlEmplVacaPendiente.editarVacacion.diaspendientes}"  style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
-               </p:dialog>
-
-               <p:dialog id="editarFechaInicialD" header="#{msg['fechainicialED']}" widgetVar="editarFechaInicialD" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                  <p:inputTextarea value="#{controlEmplVacaPendiente.editarVacacion.inicialcausacion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
-                     <f:convertDateTime pattern="dd/MM/yyyy"/>
-                  </p:inputTextarea>
-               </p:dialog>
-
-               <p:dialog id="editarFechaFinalD" header="#{msg['fechafinalED']}" widgetVar="editarFechaFinalD" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                  <p:inputTextarea value="#{controlEmplVacaPendiente.editarVacacion.finalcausacion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+               <p:dialog id="editarFechaFinalP" header="#{msg['fechafinalEP']}" widgetVar="editarFechaFinalP" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                  <p:inputTextarea value="#{controlEmplVacaPendiente.editarVacacion.finalcausacion}" style="overflow: auto;" readonly="true">                        
                      <f:convertDateTime pattern="dd/MM/yyyy"/>
                   </p:inputTextarea>
                </p:dialog>
 
 
-               <p:dialog id="editarDiasPendientesD" header="#{msg['diaspendientesED']}" widgetVar="editarDiasPendientesD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea value="#{controlEmplVacaPendiente.editarVacacion.diaspendientes}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarDiasPendientesP" header="#{msg['diaspendientesEP']}" widgetVar="editarDiasPendientesP" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlEmplVacaPendiente.editarVacacion.diaspendientes}"  style="overflow: auto;" readonly="true"/>
+               </p:dialog>
+
+               <p:dialog id="editarFechaInicialD" header="#{msg['fechainicialED']}" widgetVar="editarFechaInicialD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                  <p:inputTextarea value="#{controlEmplVacaPendiente.editarVacacion.inicialcausacion}" style="overflow: auto;" readonly="true">                        
+                     <f:convertDateTime pattern="dd/MM/yyyy"/>
+                  </p:inputTextarea>
+               </p:dialog>
+
+               <p:dialog id="editarFechaFinalD" header="#{msg['fechafinalED']}" widgetVar="editarFechaFinalD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                  <p:inputTextarea value="#{controlEmplVacaPendiente.editarVacacion.finalcausacion}" style="overflow: auto;" readonly="true">                        
+                     <f:convertDateTime pattern="dd/MM/yyyy"/>
+                  </p:inputTextarea>
+               </p:dialog>
+
+
+               <p:dialog id="editarDiasPendientesD" header="#{msg['diaspendientesED']}" widgetVar="editarDiasPendientesD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlEmplVacaPendiente.editarVacacion.diaspendientes}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
                <p:dialog id="NuevoRegistroVP" header="#{msg['nuevoregistroVP']}" widgetVar="NuevoRegistroVP" closable="false" resizable="false"  draggable="true" modal="true" height="210" width="380" style=" padding: 0px">  

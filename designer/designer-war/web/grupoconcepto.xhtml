@@ -615,44 +615,44 @@
                <!-- DIALOGOS EDITAR
                Editar Grupos Conceptos-->
 
-               <p:dialog id="editarCodigoGC" header="#{msg['editarCodigoGC']}" widgetVar="editarCodigoGC" resizable="false" draggable="true" modal="true" height="80" width="400" style="font-size: 12px; padding: 0px">  
-                  <p:inputText autocomplete="off" value="#{controlGrupoConcepto.editarGruposConceptos.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
+               <p:dialog id="editarCodigoGC" header="#{msg['editarCodigoGC']}" widgetVar="editarCodigoGC" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="font-size: 12px; padding: 0px">  
+                  <p:inputText autocomplete="off" value="#{controlGrupoConcepto.editarGruposConceptos.codigo}" style="overflow: auto;" readonly="true">
                   </p:inputText>
                </p:dialog>
 
-               <p:dialog id="editarDescripcionGC" header="#{msg['editarDescripcionGC']}" widgetVar="editarDescripcionGC" resizable="false" draggable="true" modal="true" height="80" width="400" style="font-size: 12px; padding: 0px">  
-                  <p:inputText autocomplete="off" value="#{controlGrupoConcepto.editarGruposConceptos.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
+               <p:dialog id="editarDescripcionGC" header="#{msg['editarDescripcionGC']}" widgetVar="editarDescripcionGC" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="font-size: 12px; padding: 0px">  
+                  <p:inputText autocomplete="off" value="#{controlGrupoConcepto.editarGruposConceptos.descripcion}" style="overflow: auto;" readonly="true">
                   </p:inputText>
                </p:dialog>
 
                <!-- Editar Vigencias Grupos Conceptos-->
 
-               <p:dialog id="editarCodigoV" header="#{msg['editarCodigoV']}" widgetVar="editarCodigoV" resizable="false" draggable="true" modal="true" height="80" width="400" style="font-size: 12px; padding: 0px">  
-                  <p:inputText autocomplete="off" value="#{controlGrupoConcepto.editarVigenciasGruposConceptos.concepto.codigoSTR}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarCodigoV" header="#{msg['editarCodigoV']}" widgetVar="editarCodigoV" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="font-size: 12px; padding: 0px">  
+                  <p:inputText autocomplete="off" value="#{controlGrupoConcepto.editarVigenciasGruposConceptos.concepto.codigoSTR}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarDescripcionV" header="#{msg['editarDescripcionV']}" widgetVar="editarDescripcionV" resizable="false" draggable="true" modal="true" height="80" width="400" style="font-size: 12px">  
-                  <p:inputTextarea value="#{controlGrupoConcepto.editarVigenciasGruposConceptos.concepto.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarDescripcionV" header="#{msg['editarDescripcionV']}" widgetVar="editarDescripcionV" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="font-size: 12px">  
+                  <p:inputTextarea value="#{controlGrupoConcepto.editarVigenciasGruposConceptos.concepto.descripcion}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarNaturalezaV" header="#{msg['editarNaturalezaV']}" widgetVar="editarNaturalezaV" resizable="false" draggable="true" modal="true" height="80" width="400" style="font-size: 12px">  
-                  <p:inputTextarea value="#{controlGrupoConcepto.editarVigenciasGruposConceptos.concepto.naturalezaConcepto}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarNaturalezaV" header="#{msg['editarNaturalezaV']}" widgetVar="editarNaturalezaV" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="font-size: 12px">  
+                  <p:inputTextarea value="#{controlGrupoConcepto.editarVigenciasGruposConceptos.concepto.naturalezaConcepto}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarFechaInicialV" header="#{msg['editarFechaInicialV']}" widgetVar="editarFechaInicialV" resizable="false" draggable="true" modal="true" height="80" width="400" style="font-size: 12px; padding: 0px">  
-                  <p:inputTextarea value="#{controlGrupoConcepto.editarVigenciasGruposConceptos.fechainicial}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+               <p:dialog id="editarFechaInicialV" header="#{msg['editarFechaInicialV']}" widgetVar="editarFechaInicialV" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="font-size: 12px; padding: 0px">  
+                  <p:inputTextarea value="#{controlGrupoConcepto.editarVigenciasGruposConceptos.fechainicial}" style="overflow: auto;" readonly="true">                        
                      <f:convertDateTime pattern="dd/MM/yyyy"/>
                   </p:inputTextarea>
                </p:dialog>
 
-               <p:dialog id="editarFechaFinalV" header="#{msg['editarFechaFinalV']}" widgetVar="editarFechaFinalV" resizable="false" draggable="true" modal="true" height="80" width="400" style="font-size: 12px; padding: 0px">  
-                  <p:inputTextarea value="#{controlGrupoConcepto.editarVigenciasGruposConceptos.fechafinal}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">                        
+               <p:dialog id="editarFechaFinalV" header="#{msg['editarFechaFinalV']}" widgetVar="editarFechaFinalV" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="font-size: 12px; padding: 0px">  
+                  <p:inputTextarea value="#{controlGrupoConcepto.editarVigenciasGruposConceptos.fechafinal}" style="overflow: auto;" readonly="true">                        
                      <f:convertDateTime pattern="dd/MM/yyyy"/>
                   </p:inputTextarea>
                </p:dialog>
 
-               <p:dialog id="editarEmpresaV" header="#{msg['editarEmpresaV']}" widgetVar="editarEmpresaV" resizable="false" draggable="true" modal="true" height="80" width="400" style="font-size: 12px">  
-                  <p:inputTextarea value="#{controlGrupoConcepto.editarVigenciasGruposConceptos.concepto.empresa.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarEmpresaV" header="#{msg['editarEmpresaV']}" widgetVar="editarEmpresaV" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="font-size: 12px">  
+                  <p:inputTextarea value="#{controlGrupoConcepto.editarVigenciasGruposConceptos.concepto.empresa.nombre}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
                <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="95" width="400" style="font-size: 12px;" closable="false">  

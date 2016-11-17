@@ -511,24 +511,24 @@
                         <h:outputText value="#{msg['repetido']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="editarCodigos" header="#{msg['editarCodigos']}" widgetVar="editarCodigos" resizable="false" draggable="true" modal="true" height="80" width="400" style=" padding: 0px">  
-                        <p:inputTextarea  value="#{controlAdminreportes.editarInforeportes.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarCodigos" header="#{msg['editarCodigos']}" widgetVar="editarCodigos" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea  value="#{controlAdminreportes.editarInforeportes.codigo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarReportes" header="#{msg['editarReportes']}" widgetVar="editarReportes" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea  value="#{controlAdminreportes.editarInforeportes.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarReportes" header="#{msg['editarReportes']}" widgetVar="editarReportes" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea  value="#{controlAdminreportes.editarInforeportes.nombre}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarContadores" header="#{msg['editarContadores']}" widgetVar="editarContadores" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                        <p:inputTextarea  value="#{controlAdminreportes.editarInforeportes.contador}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarContadores" header="#{msg['editarContadores']}" widgetVar="editarContadores" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea  value="#{controlAdminreportes.editarInforeportes.contador}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <p:dialog id="editarNombresReportes" header="#{msg['editarNombreReportes']}" widgetVar="editarNombresReportes" resizable="false" draggable="true" modal="true" height="80" width="400"  >  
-                        <p:inputTextarea  value="#{controlAdminreportes.editarInforeportes.nombrereporte}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarNombresReportes" header="#{msg['editarNombreReportes']}" widgetVar="editarNombresReportes" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar"  >  
+                        <p:inputTextarea  value="#{controlAdminreportes.editarInforeportes.nombrereporte}" style="overflow: auto;" readonly="true"/>
                     </p:dialog> 
 
-                    <p:dialog id="editarModulos" header="#{msg['editarModulos']}" widgetVar="editarModulos" resizable="false" draggable="true" modal="true" height="80" width="400"  >  
-                        <p:inputTextarea  value="#{controlAdminreportes.editarInforeportes.modulo.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+                    <p:dialog id="editarModulos" header="#{msg['editarModulos']}" widgetVar="editarModulos" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar"  >  
+                        <p:inputTextarea  value="#{controlAdminreportes.editarInforeportes.modulo.nombre}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
                     <!-- Nuevo Registro --> 

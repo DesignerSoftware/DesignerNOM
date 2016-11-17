@@ -1379,62 +1379,62 @@
 
                <!-- editar celdas cargo -->
 
-               <p:dialog id="editarCodigoCargoD" header="#{msg['editarCodigoCargoD']}" widgetVar="editarCodigoCargoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea  value="#{controlCargo.editarCargo.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarCodigoCargoD" header="#{msg['editarCodigoCargoD']}" widgetVar="editarCodigoCargoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea  value="#{controlCargo.editarCargo.codigo}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarNombreCargoD" header="#{msg['editarNombreCargoD']}" widgetVar="editarNombreCargoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea  value="#{controlCargo.editarCargo.nombre}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarNombreCargoD" header="#{msg['editarNombreCargoD']}" widgetVar="editarNombreCargoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea  value="#{controlCargo.editarCargo.nombre}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarGrupoSalarialCargoD" header="#{msg['editarGrupoSalarialCargoD']}" widgetVar="editarGrupoSalarialCargoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea  value="#{controlCargo.editarCargo.gruposalarial.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarGrupoSalarialCargoD" header="#{msg['editarGrupoSalarialCargoD']}" widgetVar="editarGrupoSalarialCargoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea  value="#{controlCargo.editarCargo.gruposalarial.descripcion}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarSalarioCargoD" header="#{msg['editarSalarioCargoD']}" widgetVar="editarSalarioCargoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea  value="#{controlCargo.editarCargo.gruposalarial.salario}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
+               <p:dialog id="editarSalarioCargoD" header="#{msg['editarSalarioCargoD']}" widgetVar="editarSalarioCargoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea  value="#{controlCargo.editarCargo.gruposalarial.salario}" style="overflow: auto;" readonly="true">
                      <f:convertNumber currencySymbol="$" type="currency" />
                   </p:inputTextarea>
                </p:dialog>
 
-               <p:dialog id="editarSueldoMinimoCargoD" header="#{msg['editarSueldoMinimoCargoD']}" widgetVar="editarSueldoMinimoCargoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea  value="#{controlCargo.editarCargo.sueldominimo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
+               <p:dialog id="editarSueldoMinimoCargoD" header="#{msg['editarSueldoMinimoCargoD']}" widgetVar="editarSueldoMinimoCargoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea  value="#{controlCargo.editarCargo.sueldominimo}" style="overflow: auto;" readonly="true">
                      <f:convertNumber currencySymbol="$" type="currency" />
                   </p:inputTextarea>
                </p:dialog>
 
-               <p:dialog id="editarSueldoMaximoCargoD" header="#{msg['editarSueldoMaximoCargoD']}" widgetVar="editarSueldoMaximoCargoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea  value="#{controlCargo.editarCargo.sueldomaximo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
+               <p:dialog id="editarSueldoMaximoCargoD" header="#{msg['editarSueldoMaximoCargoD']}" widgetVar="editarSueldoMaximoCargoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea  value="#{controlCargo.editarCargo.sueldomaximo}" style="overflow: auto;" readonly="true">
                      <f:convertNumber currencySymbol="$" type="currency" />
                   </p:inputTextarea>
                </p:dialog>
 
-               <p:dialog id="editarGrupoViaticoCargoD" header="#{msg['editarGrupoViaticoCargoD']}" widgetVar="editarGrupoViaticoCargoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea  value="#{controlCargo.editarCargo.grupoviatico.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarGrupoViaticoCargoD" header="#{msg['editarGrupoViaticoCargoD']}" widgetVar="editarGrupoViaticoCargoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea  value="#{controlCargo.editarCargo.grupoviatico.descripcion}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarProcesoProductivoCargoD" header="#{msg['editarProcesoProductivoCargoD']}" widgetVar="editarProcesoProductivoCargoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea  value="#{controlCargo.editarCargo.procesoproductivo.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarProcesoProductivoCargoD" header="#{msg['editarProcesoProductivoCargoD']}" widgetVar="editarProcesoProductivoCargoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea  value="#{controlCargo.editarCargo.procesoproductivo.descripcion}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarCodigoAlternativoCargoD" header="#{msg['editarCodigoAlternativoCargoD']}" widgetVar="editarCodigoAlternativoCargoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea  value="#{controlCargo.editarCargo.codigoalternativo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarCodigoAlternativoCargoD" header="#{msg['editarCodigoAlternativoCargoD']}" widgetVar="editarCodigoAlternativoCargoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea  value="#{controlCargo.editarCargo.codigoalternativo}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
                <!-- editar celdas sueldo mercado -->
 
-               <p:dialog id="editarTipoEmpresaSueldoMercadoD" header="#{msg['editarTipoEmpresaSueldoMercadoD']}" widgetVar="editarTipoEmpresaSueldoMercadoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea  value="#{controlCargo.editarSueldoMercado.tipoempresa.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarTipoEmpresaSueldoMercadoD" header="#{msg['editarTipoEmpresaSueldoMercadoD']}" widgetVar="editarTipoEmpresaSueldoMercadoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea  value="#{controlCargo.editarSueldoMercado.tipoempresa.descripcion}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarSueldoMinimoSueldoMercadoD" header="#{msg['editarSueldoMinimoSueldoMercadoD']}" widgetVar="editarSueldoMinimoSueldoMercadoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea  value="#{controlCargo.editarSueldoMercado.sueldomin}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
+               <p:dialog id="editarSueldoMinimoSueldoMercadoD" header="#{msg['editarSueldoMinimoSueldoMercadoD']}" widgetVar="editarSueldoMinimoSueldoMercadoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea  value="#{controlCargo.editarSueldoMercado.sueldomin}" style="overflow: auto;" readonly="true">
                      <f:convertNumber currencySymbol="$" type="currency" />
                   </p:inputTextarea>
                </p:dialog>
 
-               <p:dialog id="editarSueldoMaximoSueldoMercadoD" header="#{msg['editarSueldoMaximoSueldoMercadoD']}" widgetVar="editarSueldoMaximoSueldoMercadoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea  value="#{controlCargo.editarSueldoMercado.sueldomax}" style="overflow: auto; width: 360px; height: 60px;" readonly="true">
+               <p:dialog id="editarSueldoMaximoSueldoMercadoD" header="#{msg['editarSueldoMaximoSueldoMercadoD']}" widgetVar="editarSueldoMaximoSueldoMercadoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea  value="#{controlCargo.editarSueldoMercado.sueldomax}" style="overflow: auto;" readonly="true">
                      <f:convertNumber currencySymbol="$" type="currency" />
                   </p:inputTextarea>
                </p:dialog>
@@ -1443,22 +1443,22 @@
 
                <!-- editar celdas competencia cargo -->
 
-               <p:dialog id="editarDescripcionCompetenciaCargoD" header="#{msg['editarDescripcionCompetenciaCargoD']}" widgetVar="editarDescripcionCompetenciaCargoD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea  value="#{controlCargo.editarCompetenciaCargo.evalcompetencia.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarDescripcionCompetenciaCargoD" header="#{msg['editarDescripcionCompetenciaCargoD']}" widgetVar="editarDescripcionCompetenciaCargoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea  value="#{controlCargo.editarCompetenciaCargo.evalcompetencia.descripcion}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
                <!-- editar celdas tipo detalle -->
 
-               <p:dialog id="editarCodigoTipoDetalleD" header="#{msg['editarCodigoTipoDetalleD']}" widgetVar="editarCodigoTipoDetalleD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea  value="#{controlCargo.editarTipoDetalle.codigo}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarCodigoTipoDetalleD" header="#{msg['editarCodigoTipoDetalleD']}" widgetVar="editarCodigoTipoDetalleD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea  value="#{controlCargo.editarTipoDetalle.codigo}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarDescripcionTipoDetalleD" header="#{msg['editarDescripcionTipoDetalleD']}" widgetVar="editarDescripcionTipoDetalleD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea  value="#{controlCargo.editarTipoDetalle.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarDescripcionTipoDetalleD" header="#{msg['editarDescripcionTipoDetalleD']}" widgetVar="editarDescripcionTipoDetalleD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea  value="#{controlCargo.editarTipoDetalle.descripcion}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarEnfoqueTipoDetalleD" header="#{msg['editarEnfoqueTipoDetalleD']}" widgetVar="editarEnfoqueTipoDetalleD" resizable="false" draggable="true" modal="true" height="80" width="400" >  
-                  <p:inputTextarea  value="#{controlCargo.editarTipoDetalle.enfoque.descripcion}" style="overflow: auto; width: 360px; height: 60px;" readonly="true"/>
+               <p:dialog id="editarEnfoqueTipoDetalleD" header="#{msg['editarEnfoqueTipoDetalleD']}" widgetVar="editarEnfoqueTipoDetalleD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea  value="#{controlCargo.editarTipoDetalle.enfoque.descripcion}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
 
