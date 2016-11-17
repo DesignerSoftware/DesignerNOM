@@ -1,4 +1,3 @@
-
 package Administrar;
 
 import Entidades.Aficiones;
@@ -10,7 +9,7 @@ import Entidades.EstadosCiviles;
 import Entidades.Estructuras;
 import Entidades.Idiomas;
 import Entidades.Inforeportes;
-import Entidades.ParametrosInformes;
+import Entidades.ParametrosReportes;
 import Entidades.TiposTelefonos;
 import Entidades.TiposTrabajadores;
 import InterfaceAdministrar.AdministrarNReportePersonalInterface;
@@ -25,7 +24,7 @@ import InterfacePersistencia.PersistenciaEstadosCivilesInterface;
 import InterfacePersistencia.PersistenciaEstructurasInterface;
 import InterfacePersistencia.PersistenciaIdiomasInterface;
 import InterfacePersistencia.PersistenciaInforeportesInterface;
-import InterfacePersistencia.PersistenciaParametrosInformesInterface;
+import InterfacePersistencia.PersistenciaParametrosReportesInterface;
 import InterfacePersistencia.PersistenciaTiposTelefonosInterface;
 import InterfacePersistencia.PersistenciaTiposTrabajadoresInterface;
 import java.util.List;
@@ -38,12 +37,12 @@ import javax.persistence.EntityManager;
  * @author AndresPineda
  */
 @Stateless
-public class AdministrarNReportePersonal implements AdministrarNReportePersonalInterface{
+public class AdministrarNReportePersonal implements AdministrarNReportePersonalInterface {
 
     @EJB
     PersistenciaInforeportesInterface persistenciaInforeportes;
     @EJB
-    PersistenciaParametrosInformesInterface persistenciaParametrosInformes;
+    PersistenciaParametrosReportesInterface persistenciaParametrosReportes;
     @EJB
     PersistenciaActualUsuarioInterface persistenciaActualUsuario;
     ///
@@ -67,10 +66,10 @@ public class AdministrarNReportePersonal implements AdministrarNReportePersonalI
     PersistenciaAficionesInterface persistenciaAficiones;
     @EJB
     PersistenciaIdiomasInterface persistenciaIdiomas;
-    
+
     //
     List<Inforeportes> listInforeportes;
-    ParametrosInformes parametroReporte;
+    ParametrosReportes parametroReporte;
     String usuarioActual;
     //
     List<EstadosCiviles> listEstadosCiviles;
@@ -83,7 +82,7 @@ public class AdministrarNReportePersonal implements AdministrarNReportePersonalI
     List<Aficiones> listAficiones;
     List<Idiomas> listIdiomas;
     List<Empresas> listEmpresas;
-        /**
+    /**
      * Enterprise JavaBean.<br>
      * Atributo que representa todo lo referente a la conexión del usuario que
      * está usando el aplicativo.
@@ -97,19 +96,19 @@ public class AdministrarNReportePersonal implements AdministrarNReportePersonalI
     public void obtenerConexion(String idSesion) {
         em = administrarSesiones.obtenerConexionSesion(idSesion);
     }
-    
+
     @Override
-    public ParametrosInformes parametrosDeReporte() {
+    public ParametrosReportes parametrosDeReporte() {
         try {
             usuarioActual = persistenciaActualUsuario.actualAliasBD(em);
-            parametroReporte = persistenciaParametrosInformes.buscarParametroInformeUsuario(em, usuarioActual);
+            parametroReporte = persistenciaParametrosReportes.buscarParametroInformeUsuario(em, usuarioActual);
             return parametroReporte;
         } catch (Exception e) {
             System.out.println("Error parametrosDeReporte Administrar" + e);
             return null;
         }
     }
-    
+
     @Override
     public List<Inforeportes> listInforeportesUsuario() {
         try {
@@ -120,16 +119,16 @@ public class AdministrarNReportePersonal implements AdministrarNReportePersonalI
             return null;
         }
     }
-    
+
     @Override
-    public void modificarParametrosInformes(ParametrosInformes parametroInforme){
-        try{
-            persistenciaParametrosInformes.editar(em, parametroInforme);
-        }catch(Exception e){
-            System.out.println("Error modificarParametrosInformes : "+e.toString());
+    public void modificarParametrosReportes(ParametrosReportes parametroInforme) {
+        try {
+            persistenciaParametrosReportes.editar(em, parametroInforme);
+        } catch (Exception e) {
+            System.out.println("Error modificarParametrosReportes : " + e.toString());
         }
     }
-         
+
     @Override
     public List<Empresas> listEmpresas() {
         try {
@@ -140,7 +139,7 @@ public class AdministrarNReportePersonal implements AdministrarNReportePersonalI
             return null;
         }
     }
-    
+
     @Override
     public List<Idiomas> listIdiomas() {
         try {
@@ -151,7 +150,7 @@ public class AdministrarNReportePersonal implements AdministrarNReportePersonalI
             return null;
         }
     }
-    
+
     @Override
     public List<Aficiones> listAficiones() {
         try {
@@ -162,7 +161,7 @@ public class AdministrarNReportePersonal implements AdministrarNReportePersonalI
             return null;
         }
     }
-    
+
     @Override
     public List<Deportes> listDeportes() {
         try {
@@ -173,7 +172,7 @@ public class AdministrarNReportePersonal implements AdministrarNReportePersonalI
             return null;
         }
     }
-    
+
     @Override
     public List<Ciudades> listCiudades() {
         try {
@@ -184,7 +183,7 @@ public class AdministrarNReportePersonal implements AdministrarNReportePersonalI
             return null;
         }
     }
-    
+
     @Override
     public List<TiposTrabajadores> listTiposTrabajadores() {
         try {
@@ -195,7 +194,7 @@ public class AdministrarNReportePersonal implements AdministrarNReportePersonalI
             return null;
         }
     }
-    
+
     @Override
     public List<Estructuras> listEstructuras() {
         try {
@@ -206,7 +205,7 @@ public class AdministrarNReportePersonal implements AdministrarNReportePersonalI
             return null;
         }
     }
-    
+
     @Override
     public List<Empleados> listEmpleados() {
         try {
@@ -217,7 +216,7 @@ public class AdministrarNReportePersonal implements AdministrarNReportePersonalI
             return null;
         }
     }
-    
+
     @Override
     public List<TiposTelefonos> listTiposTelefonos() {
         try {
@@ -228,7 +227,7 @@ public class AdministrarNReportePersonal implements AdministrarNReportePersonalI
             return null;
         }
     }
-    
+
     @Override
     public List<EstadosCiviles> listEstadosCiviles() {
         try {
@@ -239,8 +238,8 @@ public class AdministrarNReportePersonal implements AdministrarNReportePersonalI
             return null;
         }
     }
-    
-     @Override 
+
+    @Override
     public void guardarCambiosInfoReportes(List<Inforeportes> listaIR) {
         try {
             for (int i = 0; i < listaIR.size(); i++) {

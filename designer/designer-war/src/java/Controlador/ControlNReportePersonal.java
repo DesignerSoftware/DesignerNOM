@@ -9,7 +9,8 @@ import Entidades.EstadosCiviles;
 import Entidades.Estructuras;
 import Entidades.Idiomas;
 import Entidades.Inforeportes;
-import Entidades.ParametrosInformes;
+import Entidades.ParametrosReportes;
+import Entidades.Personas;
 import Entidades.TiposTelefonos;
 import Entidades.TiposTrabajadores;
 import InterfaceAdministrar.AdministarReportesInterface;
@@ -53,8 +54,8 @@ public class ControlNReportePersonal implements Serializable {
     @EJB
     AdministrarInforeportesInterface administrarInforeportes;
     //
-    private ParametrosInformes parametroDeReporte;
-    private ParametrosInformes nuevoParametroInforme;
+    private ParametrosReportes parametroDeReporte;
+    private ParametrosReportes nuevoParametroInforme;
     private List<Inforeportes> listaIR;
     private List<Inforeportes> filtrarListInforeportesUsuario;
     private List<Inforeportes> listaIRRespaldo;
@@ -64,7 +65,7 @@ public class ControlNReportePersonal implements Serializable {
     private Inforeportes inforreporteSeleccionado;
     //
     private int casilla;
-    private ParametrosInformes parametroModificacion;
+    private ParametrosReportes parametroModificacion;
     private int posicionReporte;
     private String requisitosReporte;
     private InputText empleadoDesdeParametro, empleadoHastaParametro, estadoCivilParametro, tipoTelefonoParametro, estructuraParametro;
@@ -160,7 +161,7 @@ public class ControlNReportePersonal implements Serializable {
         bandera = 0;
         aceptar = true;
         casilla = -1;
-        parametroModificacion = new ParametrosInformes();
+        parametroModificacion = new ParametrosReportes();
         tipoLista = 0;
         reporteGenerar = "";
         requisitosReporte = "";
@@ -437,7 +438,7 @@ public class ControlNReportePersonal implements Serializable {
                     if (parametroDeReporte.getNombregerente().getSecuencia() == null) {
                         parametroDeReporte.setNombregerente(null);
                     }
-                    administrarNReportePersonal.modificarParametrosInformes(parametroDeReporte);
+                    administrarNReportePersonal.modificarParametrosReportes(parametroDeReporte);
                 }
                 if (!listaInfoReportesModificados.isEmpty()) {
                     administrarNReportePersonal.guardarCambiosInfoReportes(listaInfoReportesModificados);
@@ -1937,11 +1938,11 @@ public class ControlNReportePersonal implements Serializable {
     }
 
     ///////////////////////////////SETS Y GETS/////////////////////////////
-    public ParametrosInformes getParametroDeReporte() {
+    public ParametrosReportes getParametroDeReporte() {
         System.out.println("Controlador.ControlNReportePersonal.getParametroDeReporte()");
         try {
             if (parametroDeReporte == null) {
-                parametroDeReporte = new ParametrosInformes();
+                parametroDeReporte = new ParametrosReportes();
                 parametroDeReporte = administrarNReportePersonal.parametrosDeReporte();
             }
             if (parametroDeReporte.getEstadocivil() == null) {
@@ -1973,8 +1974,8 @@ public class ControlNReportePersonal implements Serializable {
             }
             if (parametroDeReporte.getNombregerente() == null) {
                 parametroDeReporte.setNombregerente(new Empleados());
+                parametroDeReporte.getNombregerente().setPersona(new Personas());
             }
-            System.out.println("Sali de getParametroDeInforme()");
             return parametroDeReporte;
         } catch (Exception e) {
             System.out.println("Error getParametroDeInforme : " + e.toString());
@@ -1982,7 +1983,7 @@ public class ControlNReportePersonal implements Serializable {
         }
     }
 
-    public void setParametroDeReporte(ParametrosInformes parametroDeReporte) {
+    public void setParametroDeReporte(ParametrosReportes parametroDeReporte) {
         this.parametroDeReporte = parametroDeReporte;
     }
 
@@ -2026,19 +2027,19 @@ public class ControlNReportePersonal implements Serializable {
         this.aceptar = aceptar;
     }
 
-    public ParametrosInformes getNuevoParametroInforme() {
+    public ParametrosReportes getNuevoParametroInforme() {
         return nuevoParametroInforme;
     }
 
-    public void setNuevoParametroInforme(ParametrosInformes nuevoParametroInforme) {
+    public void setNuevoParametroInforme(ParametrosReportes nuevoParametroInforme) {
         this.nuevoParametroInforme = nuevoParametroInforme;
     }
 
-    public ParametrosInformes getParametroModificacion() {
+    public ParametrosReportes getParametroModificacion() {
         return parametroModificacion;
     }
 
-    public void setParametroModificacion(ParametrosInformes parametroModificacion) {
+    public void setParametroModificacion(ParametrosReportes parametroModificacion) {
         this.parametroModificacion = parametroModificacion;
     }
 

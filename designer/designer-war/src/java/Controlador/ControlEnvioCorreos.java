@@ -13,8 +13,8 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.math.BigInteger;
-import java.util.AbstractList;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -62,13 +62,15 @@ public class ControlEnvioCorreos implements Serializable {
     private String infoRegistro;
     private boolean aceptar;
     private boolean activoRemitente;
+    private BigInteger l;
+    private int k;
 
     public ControlEnvioCorreos() {
         listCorreoCodigos = null;
         lovEmpleados = null;
         reporteActual = new Inforeportes();
         empleadoSeleccionado = null;
-//        empleadoCorreo = null;
+        registrofallocorreo = new EnvioCorreos();
         codigoParametros = null;
         email = "";
         cc = "";
@@ -79,6 +81,7 @@ public class ControlEnvioCorreos implements Serializable {
         aceptar = true;
         activoRemitente = false;
         listRegistrosFallos = new ArrayList<>();
+        k = 0;
     }
 
     @PostConstruct
@@ -170,13 +173,14 @@ public class ControlEnvioCorreos implements Serializable {
             if (listCorreoCodigos != null) {
                 if (!listCorreoCodigos.isEmpty()) {
                     for (int i = 0; i < listCorreoCodigos.size(); i++) {
-                        Map paramEmpl = new HashMap();
-                        paramEmpl.put("empleadoDesde", listCorreoCodigos.get(i).getCodigoempleado());
-                        paramEmpl.put("empleadoHasta", listCorreoCodigos.get(i).getCodigoempleado());
-                        pathReporteGenerado = generaReporte(paramEmpl);
                         String[] msjResul = new String[1];
                         msjResul[0] = "";
                         if (validarCorreo()) {
+                            System.out.println("Entre if validar el correo");
+                            Map paramEmpl = new HashMap();
+                            paramEmpl.put("empleadoDesde", listCorreoCodigos.get(i).getCodigoempleado());
+                            paramEmpl.put("empleadoHasta", listCorreoCodigos.get(i).getCodigoempleado());
+                            pathReporteGenerado = generaReporte(paramEmpl);
                             if (enviarReporteCorreo(secEmpresa, listCorreoCodigos.get(i).getPersona().getEmail(), asunto,
                                     "Mensaje enviado automáticamente, por favor no responda a este correo.",
                                     pathReporteGenerado, msjResul)) {
@@ -185,24 +189,36 @@ public class ControlEnvioCorreos implements Serializable {
                                     tipoRespCorreo = "I";
                                 }
                             } else {
-                                System.out.println("Ingrese al else");
                                 mensaje = mensaje + " Hubo error en los envíos. " + msjResul[0];
                                 tipoRespCorreo = "E";
                             }
-                        } else if (tipoRespCorreo.equalsIgnoreCase("E")) {
-//                                System.out.println("Ingrese al else");
-//                                mensaje = mensaje + " Hubo error en los envíos. " + msjResul[0];
-//                                tipoRespCorreo = "E";
+                        } else {
+                            mensaje = mensaje + " Hubo error en los envíos." + "\n No olvide consultar el Registro de Envíos para verificar el envio." + msjResul[0];
+                            System.out.println("mensaje: " + mensaje);
+                            tipoRespCorreo = "E";
                             ///Reportar error en el envio masivo para la tabla.
+                            Date fecha = new Date();
+                            System.out.println("fecha: " + fecha);
+                            registrofallocorreo.setFecha(fecha);
+
+                            k++;
+                            l = BigInteger.valueOf(k);
+                            registrofallocorreo.setSecuencia(l);
+                            registrofallocorreo.setCodigoEmpleado(listCorreoCodigos.get(i));
+                            registrofallocorreo.setNombreEmpleado(listCorreoCodigos.get(i).getPersona().getNombreCompleto());
+                            registrofallocorreo.setCorreo(listCorreoCodigos.get(i).getPersona().getEmail());
+                            registrofallocorreo.setCorreoorigen(remitente);
+                            registrofallocorreo.setEstado("NO ENVIADO");
                             registrofallocorreo.setReporte(reporteActual);
-//                            registrofallocorreo.setCodigoEmpleado(listCorreoCodigos.get(i));
+                            registrofallocorreo.setReenviar("N");
                             listRegistrosFallos.add(registrofallocorreo);
+                            System.out.println("listRegistrosFallos: " + listRegistrosFallos);
                             if (!listRegistrosFallos.isEmpty()) {
-                                for (EnvioCorreos listRegistrosFallo : listRegistrosFallos) {
-                                    administrarEnviosCorreos.insertarRegistroEnvios(listRegistrosFallos.get(i));
+                                for (int j = 0; j < listRegistrosFallos.size(); j++) {
+                                    administrarEnviosCorreos.insertarRegistroEnvios(listRegistrosFallos.get(j));
                                 }
+                                listRegistrosFallos.clear();
                             }
-                            listRegistrosFallos.clear();
                         }
                     }
                     System.out.println("Finalizó el ciclo de envío masivo.");
@@ -212,7 +228,10 @@ public class ControlEnvioCorreos implements Serializable {
             } else {
                 System.out.println("Lista null");
             }
+
             mostrarMensajes(tipoRespCorreo, mensaje);
+        }else{
+            validarEnviaCorreo();
         }
     }
 
@@ -317,7 +336,7 @@ public class ControlEnvioCorreos implements Serializable {
         RequestContext.getCurrentInstance().execute("PF('correoEmpleadosDialogo').hide()");
 
         RequestContext.getCurrentInstance().update("formDialogos:aceptar");
-        RequestContext.getCurrentInstance().update("form:para");
+        RequestContext.getCurrentInstance().update("form:destinatario");
         empleadoSeleccionado = null;
         aceptar = true;
         filtrarListEmpleados = null;
@@ -338,6 +357,12 @@ public class ControlEnvioCorreos implements Serializable {
         if (remitente != null) {
             activoRemitente = true;
         }
+    }
+
+    public void salir() {
+        System.out.println("Controlador.ControlRegistroEnvios.salir()");
+        empleadoSeleccionado = null;
+        email = "";
     }
 
     //GETTER & SETTER

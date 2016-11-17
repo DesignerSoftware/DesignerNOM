@@ -697,7 +697,9 @@ public class ParametrosReportes implements Serializable {
     }
 
     public Empleados getNombregerente() {
+        System.out.println("Entidades.ParametrosReportes.getNombregerente(). getNombregerente(): " + nombregerente);
         if (nombregerente == null) {
+            System.out.println("Ingrese al if");
             nombregerente = new Empleados();
         }
         return nombregerente;
