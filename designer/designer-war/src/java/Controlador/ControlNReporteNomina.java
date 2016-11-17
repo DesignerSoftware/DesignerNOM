@@ -855,6 +855,8 @@ public class ControlNReporteNomina implements Serializable {
         } else {
             System.out.println("generando reporte - ingreso al if else");
             System.out.println("Reporte Seleccionado es nulo");
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Error", "Se debe seleccionar un reporte."));
+            RequestContext.getCurrentInstance().update("form:growl");
         }
     }
 

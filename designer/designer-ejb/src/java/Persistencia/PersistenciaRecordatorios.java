@@ -99,12 +99,22 @@ public class PersistenciaRecordatorios implements PersistenciaRecordatoriosInter
     public List<String> recordatoriosInicio(EntityManager entity) {
         try {
             entity.clear();
-            String consulta = "SELECT R.MENSAJE FROM RECORDATORIOS R WHERE R.TIPO='RECORDATORIO' "
+            /*String consulta = "SELECT R.MENSAJE FROM RECORDATORIOS R WHERE R.TIPO='RECORDATORIO' "
                     + "AND (R.DIA=0 OR R.DIA=TO_NUMBER(TO_CHAR(SYSDATE,'DD'))) AND (R.MES=0 "
                     + "OR R.MES=TO_NUMBER(TO_CHAR(SYSDATE,'MM'))) AND (R.ANO=0 "
                     + "OR R.ANO=TO_NUMBER(TO_CHAR(SYSDATE,'YYYY'))) "
                     + "AND (R.USUARIO=(SELECT U.SECUENCIA FROM USUARIOS U "
-                    + "WHERE U.ALIAS=USER) OR R.USUARIO IS NULL)";
+                    + "WHERE U.ALIAS=USER) OR R.USUARIO IS NULL)";*/
+            String consulta = "SELECT R.MENSAJE \n" +
+                              "FROM RECORDATORIOS R \n" +
+                              "WHERE R.TIPO='RECORDATORIO' \n" +
+                              "AND (R.DIA=0 OR R.DIA=TO_NUMBER(TO_CHAR(SYSDATE,'DD')) OR (R.DIA - R.DIASPREVIOS) <= TO_NUMBER(TO_CHAR(SYSDATE,'DD')) ) \n" +
+                              "AND (R.MES=0 OR R.MES=TO_NUMBER(TO_CHAR(SYSDATE,'MM'))) \n" +
+                              "AND (R.ANO=0 OR R.ANO=TO_NUMBER(TO_CHAR(SYSDATE,'YYYY'))) \n" +
+                              "AND (R.USUARIO=(SELECT U.SECUENCIA \n" +
+                              "                FROM USUARIOS U \n" +
+                              "                WHERE U.ALIAS=USER) \n" +
+                              "     OR R.USUARIO IS NULL)";
             Query query = entity.createNativeQuery(consulta);
             List<String> listaRecordatorios = query.getResultList();
             return listaRecordatorios;

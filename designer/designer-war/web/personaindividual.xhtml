@@ -12,27 +12,12 @@
       xmlns:lnk="http://java.sun.com/jsf/composite/linkare">
 
     <h:head>
-        <script type="text/javascript">
-            $(window).load(function () {
-                $(".loader").fadeOut("slow");
-            });
-        </script>
-        <style>
-            .loader {
-                position: fixed;
-                left: 240px;
-                top: 45px;
-                width: 90%; 
-                height: 90%;
-                z-index: 1;
-                background: url('Imagenes/Iconos/cargando.gif') 50% 50% no-repeat rgb(255,255,255);
-            }
-        </style>
     </h:head>
     <h:body>
         <ui:composition template="/template.xhtml">
             <ui:define name="body">
-                 <div class="loader"></div> 
+                <div class="loader"></div> 
+                <div style="position: static;"></div>
                 <h:form id="form"> 
                     <script>
                         /*window.addEventListener('load', function () {*/
