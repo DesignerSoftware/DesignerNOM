@@ -64,8 +64,6 @@ public class AdministrarNovedadesSistema implements AdministrarNovedadesSistemaI
     
     @Override
     public void borrarNovedades(NovedadesSistema novedades) {
-        
-        
         persistenciaNovedades.borrar(em, novedades);
     }
 

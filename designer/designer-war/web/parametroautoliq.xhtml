@@ -186,7 +186,7 @@
                                          editable="true" editMode="cell" liveScroll="true" scrollHeight="120"
                                          paginator="true"
                                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" >
-                                <p:ajax event="filter" listener="#{controlParametroAutoliq.contarRegistroAportesEntidades()}"/>
+                                <p:ajax event="filter" listener="#{controlParametroAutoliq.contarRegistrosAporte()}"/>
 
                                 <p:column  id="aporteCodigoEmpleado"  sortBy="#{infoAE.empleado.codigoempleado}" width="40" filterBy="#{infoAEempleado.empleado.codigoempleado}" 
                                            filterMatchMode="contains"   filterStyle="display: none; visibility: hidden;" >                                  
@@ -1193,7 +1193,7 @@
                                         <f:facet name ="output"><h:outputText id="outsubtipocontizante" value="#{infoAE.subtipocotizanteSTR}" style="text-transform: uppercase"/> </f:facet>
                                         <f:facet name="input">
 
-                                            <p:selectOneMenu value="#{infoAE.subtipocotizante}" id="editarSubTipoCotizanteAporte"  style="width: 254px;font-weight: bold;text-transform: uppercase; margin-left: -9px;"  >  
+                                            <p:selectOneMenu value="#{infoAE.subtipocotizante}" id="editarSubTipoCotizanteAporte"  style="width: 227px;font-weight: bold;text-transform: uppercase; margin-left: -9px;"  >  
                                                 <f:selectItem itemLabel="#{msg['subTipoCotizante1']}" itemValue="1" />  
                                                 <f:selectItem itemLabel="#{msg['subTipoCotizante2']}" itemValue="2" />  
                                                 <f:selectItem itemLabel="#{msg['subTipoCotizante3']}" itemValue="3" />  
@@ -1881,12 +1881,7 @@
                             <strong><h:outputText value="Nombre Empleado" style=" position: absolute; top: 115px; left: 40px"/></strong>
                             <p:inputText  autocomplete="off"  id="nuevoNomEmpl" value="#{controlParametroAutoliq.nuevoAporteEntidad.empleado.persona.nombreCompleto}" 
                                           style=" width: 122px; position: absolute; left: 200px; top: 110px; text-transform: uppercase" onclick="select();">
-                                <!--                                <p:ajax event="change" listener="#/{controlParametroAutoliq.modificarAporteEntidad(infoAE, 'EMPLEADO', infoAE.empleado.persona.nombreCompleto)}"/>
-                                                                <p:ajax event="dblclick" listener="#/{controlParametroAutoliq.asignarIndexAporte(infoAE, 1, 1)}"/>
-                                                                <p:ajax event="click" listener="#/{controlParametroAutoliq.valoresBackupAutocompletar(1, 'EMPLEADO')}" />-->
                             </p:inputText>
-                            <!--                            <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px;
-                                                                         height: 23px; position: absolute; left: 331px; top: 110px;  " id="btnNuevoemp" actionListener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 1, 1)}" value="" process="@this" />-->
 
                             <strong><h:outputText value="NIT Tercero" style=" position: absolute; top: 145px; left: 40px"/></strong>
                             <p:inputText  autocomplete="off"  id="nuevoNitTercero" value="#{controlParametroAutoliq.nuevoAporteEntidad.nittercero}" 
@@ -2179,11 +2174,11 @@
                                     <p:ajax event="change" update="nuevaFechaI" process="@this"/>
                                 </p:calendar>
                             </div>
-
+                            
                             <strong><h:outputText value="SubTipo Cotizante" style=" position: absolute; top: 535px; left: 450px;" /></strong>
                             <p:selectOneMenu id="nuevoTipo" value="#{controlParametroAutoliq.nuevoAporteEntidad.subtipocotizante}"  
-                                             style=" width: 122px; position: absolute; left: 600px; top: 530px; text-transform: uppercase">
-                                <f:selectItem itemLabel="#{msg['subTipoCotizante1']}" itemValue="1" />  
+                                             style=" position: absolute; left: 604px; top: 534px; text-transform: uppercase; width: 120px !important;" >
+                                <f:selectItem itemLabel="#{msg['subTipoCotizante1']}" itemValue="1"  />  
                                 <f:selectItem itemLabel="#{msg['subTipoCotizante2']}" itemValue="2" />  
                                 <f:selectItem itemLabel="#{msg['subTipoCotizante3']}" itemValue="3" />  
                                 <f:selectItem itemLabel="#{msg['subTipoCotizante4']}" itemValue="4" />  
@@ -2191,10 +2186,9 @@
                                 <f:selectItem itemLabel="#{msg['subTipoCotizante6']}" itemValue="6" />  
                                 <f:selectItem itemLabel="#{msg['subTipoCotizante0']}" itemValue="0" />  
                                 <f:selectItem itemLabel="" itemValue="null" />  
-                                <!--<p:ajax  update="@this" />-->
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="nuevoTipo"/>
                             </p:selectOneMenu>
-
+                            
                             <strong><h:outputText value="Tarifa Caja" style=" position: absolute; top: 565px; left: 450px"/></strong>
                             <p:inputText  autocomplete="off"  id="nuevotarifacaja" value="#{controlParametroAutoliq.nuevoAporteEntidad.tarifacaja}" 
                                           style=" width: 122px; position: absolute; left: 600px; top: 560px; text-transform: uppercase" onclick="select();">

@@ -5,6 +5,7 @@
 package Controlador;
 
 import Entidades.Empleados;
+import Entidades.Novedades;
 import Entidades.NovedadesSistema;
 import Entidades.Vacaciones;
 import Exportar.ExportarPDF;
@@ -260,8 +261,21 @@ public class ControlNovedadesVacaciones implements Serializable {
             paraNuevaNovedad++;
             nuevaNovedadSec = BigInteger.valueOf(paraNuevaNovedad);
             nuevaNovedad.setSecuencia(nuevaNovedadSec);
-            nuevaNovedad.setEmpleado(empleadoSeleccionado); //Envia empleado
+            nuevaNovedad.setEmpleado(empleadoSeleccionado); 
+            System.out.println("nueva novedad estado : " + nuevaNovedad.getEstado());
             System.out.println("Empleado enviado: " + empleadoSeleccionado.getPersona().getNombreCompleto());
+            System.out.println("secuencia nueva novedad : " + nuevaNovedad.getSecuencia());
+            System.out.println("empleado nueva novedad : " + nuevaNovedad.getEmpleado().getPersona().getNombreCompleto());
+            System.out.println("empleado nueva novedad : " + nuevaNovedad.getEmpleado().getPersona().getNombreCompleto());
+            System.out.println("empleado nueva novedad : " + nuevaNovedad.getEmpleado().getPersona().getNombreCompleto());
+            System.out.println("empleado nueva novedad : " + nuevaNovedad.getEmpleado().getPersona().getNombreCompleto());
+            System.out.println("empleado nueva novedad : " + nuevaNovedad.getEmpleado().getPersona().getNombreCompleto());
+            System.out.println("empleado nueva novedad : " + nuevaNovedad.getEmpleado().getPersona().getNombreCompleto());
+            System.out.println("empleado nueva novedad : " + nuevaNovedad.getEmpleado().getPersona().getNombreCompleto());
+            System.out.println("empleado nueva novedad : " + nuevaNovedad.getEmpleado().getPersona().getNombreCompleto());
+            System.out.println("empleado nueva novedad : " + nuevaNovedad.getEmpleado().getPersona().getNombreCompleto());
+            System.out.println("empleado nueva novedad : " + nuevaNovedad.getEmpleado().getPersona().getNombreCompleto());
+            
             listaNovedadesCrear.add(nuevaNovedad);
             listaNovedades.add(nuevaNovedad);
             System.out.println("periodo : " + nuevaNovedad.getVacacion().getPeriodo());
@@ -274,6 +288,8 @@ public class ControlNovedadesVacaciones implements Serializable {
             }
             RequestContext.getCurrentInstance().execute("PF('nuevanovedadVacaciones').hide()");
             RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
+            RequestContext.getCurrentInstance().update("form:diasTotales");
+            RequestContext.getCurrentInstance().update("form:diasAplazados");
         } else {
         }
     }
@@ -492,11 +508,12 @@ public class ControlNovedadesVacaciones implements Serializable {
             RequestContext.getCurrentInstance().update("form:diasTotales");
             RequestContext.getCurrentInstance().update("form:diasAplazados");
 
-        } else {
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().update("formularioDialogos:cambiar");
-            RequestContext.getCurrentInstance().execute("PF('cambiar').show()");
-        }
+        } 
+//        else {
+//            RequestContext context = RequestContext.getCurrentInstance();
+//            RequestContext.getCurrentInstance().update("formularioDialogos:cambiar");
+//            RequestContext.getCurrentInstance().execute("PF('cambiar').show()");
+//        }
     }
 
     public void abrirLista(int listaV) {
@@ -545,8 +562,9 @@ public class ControlNovedadesVacaciones implements Serializable {
 
         RequestContext context = RequestContext.getCurrentInstance();
         if (tipoActualizacion == 0) {
-            novedadSeleccionada.getVacacion().setPeriodo(periodoSeleccionado.getPeriodo());
+            System.out.println("entró a actualizar periodo 1");
             if (!listaNovedadesCrear.contains(novedadSeleccionada)) {
+            novedadSeleccionada.getVacacion().setPeriodo(periodoSeleccionado.getPeriodo());
                 if (listaNovedadesModificar.isEmpty()) {
                     listaNovedadesModificar.add(novedadSeleccionada);
                 } else if (!listaNovedadesModificar.contains(novedadSeleccionada)) {
@@ -560,29 +578,39 @@ public class ControlNovedadesVacaciones implements Serializable {
             }
             permitirIndex = true;
             RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
-        } else if (tipoActualizacion == 1) {
+        } 
+        if (tipoActualizacion == 1) {
+            System.out.println("entró a actualizar periodo 2");
+            periodoSeleccionado.setEstado("ABIERTO");
+            periodoSeleccionado.setNovedad(new Novedades());
             nuevaNovedad.setVacacion(periodoSeleccionado);
-//            nuevaNovedad.getVacacion().setDiaspendientes(periodoSeleccionado.getDiaspendientes());
+            nuevaNovedad.getVacacion().setPeriodo(periodoSeleccionado.getPeriodo());
+            nuevaNovedad.setDias(periodoSeleccionado.getDiaspendientes().toBigInteger());
             RequestContext.getCurrentInstance().update("formularioDialogos:nuevaNovedad");
         } else if (tipoActualizacion == 2) {
+            System.out.println("entró a actualizar periodo 3");
+            periodoSeleccionado.setEstado("ABIERTO");
+            periodoSeleccionado.setNovedad(new Novedades());
             duplicarNovedad.setVacacion(periodoSeleccionado);
-//            duplicarNovedad.getVacacion().setDiaspendientes(periodoSeleccionado.getDiaspendientes());
+            duplicarNovedad.getVacacion().setPeriodo(periodoSeleccionado.getPeriodo());
+            duplicarNovedad.setDias(periodoSeleccionado.getDiaspendientes().toBigInteger());
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarNovedad");
         }
         filtradoslistaPeriodos = null;
         periodoSeleccionado = null;
         aceptar = true;
-        novedadSeleccionada = null;
         tipoActualizacion = -1;
         cualCelda = -1;
-        contarRegistroPeriodos();
+        listaPeriodos = null;
+        RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
+        RequestContext.getCurrentInstance().update("formularioDialogos:LOVPeriodos");
+        RequestContext.getCurrentInstance().update("formularioDialogos:periodosDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarP");
+        
         context.reset("formularioDialogos:LOVPeriodos:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVPeriodos').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('periodosDialogo').hide()");
-        RequestContext.getCurrentInstance().update("formularioDialogos:LOVPeriodos");
-        RequestContext.getCurrentInstance().update("form:datosEmpleados");
-        RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
-        
+        System.out.println("sale de actualizar Periodo");
     }
 
     //BORRAR NOVEDADES
@@ -619,6 +647,7 @@ public class ControlNovedadesVacaciones implements Serializable {
 
     //GUARDAR
     public void guardarCambiosNovedades() {
+        System.out.println("entra a guardar");
         Empleados emp = new Empleados();
         if (guardado == false) {
             System.out.println("Realizando Operaciones Novedades");
@@ -626,10 +655,11 @@ public class ControlNovedadesVacaciones implements Serializable {
             if (!listaNovedadesBorrar.isEmpty()) {
                 for (int i = 0; i < listaNovedadesBorrar.size(); i++) {
                     System.out.println("Borrando..." + listaNovedadesBorrar.size());
-
-                    if (listaNovedadesBorrar.get(i).getVacacion().getSecuencia() == null) {
-                        listaNovedadesBorrar.get(i).setVacacion(null);
+                    
+                     if(listaNovedadesBorrar.get(i).getVacacion() == null){
+                        listaNovedadesBorrar.get(i).setVacacion(new Vacaciones());
                     }
+
                     if (listaNovedadesBorrar.get(i).getFechasiguientefinvaca() == null) {
                         listaNovedadesBorrar.get(i).setFechasiguientefinvaca(null);
                     }
@@ -651,26 +681,39 @@ public class ControlNovedadesVacaciones implements Serializable {
             if (!listaNovedadesCrear.isEmpty()) {
                 for (int i = 0; i < listaNovedadesCrear.size(); i++) {
                     System.out.println("Creando...");
-
-                    if (listaNovedadesCrear.get(i).getVacacion().getSecuencia() == null) {
-                        listaNovedadesCrear.get(i).setVacacion(null);
-                    } else if (listaNovedadesCrear.get(i).getFechasiguientefinvaca() == null) {
+                    
+                    System.out.println("1");
+                    if(listaNovedadesCrear.get(i).getVacacion() == null){
+                        listaNovedadesCrear.get(i).setVacacion(new Vacaciones());
+                    }
+                    System.out.println("2");
+                    
+                    if (listaNovedadesCrear.get(i).getFechasiguientefinvaca() == null) {
                         listaNovedadesCrear.get(i).setFechasiguientefinvaca(null);
-                    } else if (listaNovedadesCrear.get(i).getFechapago() == null) {
+                    } 
+                    System.out.println("3");
+                    if (listaNovedadesCrear.get(i).getFechapago() == null) {
                         listaNovedadesCrear.get(i).setFechapago(null);
-                    } else if (listaNovedadesCrear.get(i).getAdelantapagohasta() == null) {
+                    } 
+                    System.out.println("4");
+                    if (listaNovedadesCrear.get(i).getAdelantapagohasta() == null) {
                         listaNovedadesCrear.get(i).setAdelantapagohasta(null);
-                    } else if (listaNovedadesCrear.get(i).getVacadiasaplazados() == null) {
+                    } 
+                    if (listaNovedadesCrear.get(i).getVacadiasaplazados() == null) {
                         listaNovedadesCrear.get(i).setVacadiasaplazados(null);
                     }
+                    System.out.println("6");
                     System.out.println(listaNovedadesCrear.get(i).getTipo());
+                    System.out.println("7");
                     administrarNovedadesSistema.crearNovedades(listaNovedadesCrear.get(i));
+                    System.out.println("8");
                 }
                 System.out.println("LimpiaLista");
                 listaNovedadesCrear.clear();
             }
             System.out.println("Se guardaron los datos con exito");
             listaNovedades = null;
+            getListaNovedades();
             contarRegistrosNovedades();
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
@@ -682,21 +725,25 @@ public class ControlNovedadesVacaciones implements Serializable {
             RequestContext.getCurrentInstance().update("form:growl");
             //  k = 0;
         }
-        novedadSeleccionada = null;
     }
 
     public void cancelarCambioPeriodos() {
         filtradoslistaPeriodos = null;
         periodoSeleccionado = null;
         aceptar = true;
-        novedadSeleccionada = null;
         tipoActualizacion = -1;
         cualCelda = -1;
         permitirIndex = true;
+        listaPeriodos = null;
         RequestContext context = RequestContext.getCurrentInstance();
+          RequestContext.getCurrentInstance().update("formularioDialogos:LOVPeriodos");
+        RequestContext.getCurrentInstance().update("formularioDialogos:periodosDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarP");
+        
         context.reset("formularioDialogos:LOVPeriodos:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVPeriodos').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('periodosDialogo').hide()");
+        
     }
 
     //Sumarle dias a una fecha determinada
@@ -725,11 +772,15 @@ public class ControlNovedadesVacaciones implements Serializable {
         if (nuevaNovedad.getDias() == null || nuevaNovedad.getDias() == BigInteger.valueOf(0)) {
             System.out.println("Entró");
             System.out.println("empleado seleccionado = " + secuenciaEmpleado);
-            listaPeriodos = administrarNovedadesSistema.periodosEmpleado(secuenciaEmpleado);
+            listaPeriodos = null;
+            getListaPeriodos();
             if (listaPeriodos.isEmpty()) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:dias");
                 RequestContext.getCurrentInstance().execute("PF('dias').show()");
             } else {
+                 FacesContext c = FacesContext.getCurrentInstance();
+//                DataTable tablaPeriodos = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVPeriodos");
+//                tablaPeriodos.setValue(listaPeriodos);
                 contarRegistroPeriodos();
                 RequestContext.getCurrentInstance().update("formularioDialogos:periodosDialogo");
                 RequestContext.getCurrentInstance().execute("PF('periodosDialogo').show()");
@@ -739,11 +790,12 @@ public class ControlNovedadesVacaciones implements Serializable {
 
     public void diasMayor(BigInteger dias) {
         RequestContext context = RequestContext.getCurrentInstance();
-        System.out.println("Dias Mayor");
+        System.out.println(" entró a Dias Mayor");
         BigInteger backup = dias;
-        if (nuevaNovedad.getDias().compareTo(BigInteger.valueOf(15)) == 1) {
+        System.out.println("días solicitados : " + dias);
+        if (nuevaNovedad.getDias().compareTo(BigInteger.valueOf(15)) == 1) { //// si el resultado es uno e sporque nueva novedad . get dias es mayor a 15
             RequestContext.getCurrentInstance().update("formularioDialogos:diasMayor");
-            nuevaNovedad.setDias(null);
+            nuevaNovedad.setDias(BigInteger.ZERO);
             RequestContext.getCurrentInstance().update("formularioDialogos:nuevaNovedad");
             RequestContext.getCurrentInstance().execute("PF('diasMayor').show()");
         }
@@ -780,6 +832,7 @@ public class ControlNovedadesVacaciones implements Serializable {
         vaca.setDiaspendientes(BigDecimal.valueOf(15));
         vaca.setInicialcausacion(suma364);
         vaca.setFinalcausacion(finalsuma364);
+        vaca.setEstado("ABIERTO");
         vaca.setPeriodo(per);
         listaPeriodos.add(vaca);
         RequestContext.getCurrentInstance().update("formularioDialogos:periodosDialogo");
