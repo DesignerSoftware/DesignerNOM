@@ -10,6 +10,13 @@
    <h:body>
       <ui:composition template="template.xhtml">
          <ui:define name="body"> 
+            <script type="text/javascript">
+               $(window).load(function() {
+               $(".loader").fadeOut("slow");
+               });
+            </script>
+            <div class="loader"></div>
+            <div style="position: static;"></div>
             <h:form id="form">
                <f:loadBundle basename="Recursos.novedadplano" var="msg" />
                <p:dialog id="erroresNovedad" header="#{msg['erroresdelanovedad']}" widgetVar="erroresNovedad"  resizable="false" draggable="true" modal="true" height="100" width="400">  
@@ -19,7 +26,7 @@
                      <strong><h:outputText value="#{error}" style="width: 200px; text-align: center;" /></strong>
                   </p:dataGrid>                     
                </p:dialog>
-               <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal" >
+               <p:panel id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal" >
 
                   <p:toolbar styleClass="cssToolbar">
                      <p:toolbarGroup align="left"> 

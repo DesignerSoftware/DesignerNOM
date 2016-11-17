@@ -521,12 +521,10 @@ public class Conceptos implements Serializable {
     }
 
     public String getCodigoSTR() {
-
         if (codigo != null) {
             codigoSTR = codigo.toString();
-
         } else {
-            codigoSTR = null;
+            codigoSTR = "0";
             codigo = null;
         }
         return codigoSTR;

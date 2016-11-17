@@ -14,10 +14,10 @@
             <h:form id="form"> 
                <f:loadBundle basename="Recursos.emplvigencialocalizacion" var="msg" />
                <p:growl id="growl" showDetail="true"/>
-               <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">    
+               <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">
 
-                  <p:toolbar styleClass="cssToolbar">  
-                     <p:toolbarGroup align="left"> 
+                  <p:toolbar styleClass="cssToolbar">
+                     <p:toolbarGroup align="left">
 
                         <p:commandButton id="guardarRapido" value="" actionListener="#{controlVigenciaLocalizacion.guardadoGeneral()}" process="@this" 
                                          style="background-image: url(Imagenes/Iconos/guardar.png);"/>
@@ -251,7 +251,7 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.centrocosto.nombre}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off" value="#{info.centrocosto.nombre}" id="editarCentroCostoVP" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
+                                 <p:inputText  autocomplete="off" value="#{info.centrocosto.nombre}" id="editarCentroCostoVP" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px;"> 
                                     <p:ajax event="select" listener="#{controlVigenciaLocalizacion.cambiarIndiceVP(info,0)}" update=":form:datosVPPVigencia"
                                             onstart="PF('datosVPVigencia').unselectAllRows();PF('datosVPVigencia').selectRow(#{indiceVP});" process="@this"/> 
                                     <p:ajax event="dblclick" listener="#{controlVigenciaLocalizacion.asignarIndexVP(info,0,0)}" process="@this"/>

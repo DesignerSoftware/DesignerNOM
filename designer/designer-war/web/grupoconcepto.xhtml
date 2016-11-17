@@ -11,7 +11,14 @@
    </h:head>
    <h:body>
       <ui:composition template="/template.xhtml">
-         <ui:define name="body">                  
+         <ui:define name="body">   
+            <script type="text/javascript">
+               $(window).load(function() {
+               $(".loader").fadeOut("slow");
+               });
+            </script>
+            <div class="loader"></div>
+            <div style="position: static;"></div>
             <h:form id="form">
                <f:loadBundle basename="Recursos.grupoconcepto" var="msg"/>
                <p:growl id="growl" showDetail="true" />
@@ -84,7 +91,7 @@
                      </p:toolbarGroup>
                   </p:toolbar>
 
-                  <fieldset style="position: absolute; top: 70px; font-size: 11px; width: 835px; height: 205px; border-radius: 10px; left: 10px;">
+                  <fieldset style="position: absolute; top: 70px; font-size: 11px; width: 835px; height: 206px; border-radius: 10px; left: 10px;">
                      <legend style="font-size: 12px; font-weight: bold; color: #00F;">#{msg['gruposconceptos']}</legend>
 
                      <p:dataTable id="datosGruposConceptos" var="g" style="font-size: 11px; width: 810px;" value="#{controlGrupoConcepto.listaGruposConceptos}"
@@ -153,9 +160,9 @@
 
                      </p:dataTable>
                      <h:outputText value="#{msg['infoRegistros']} #{controlGrupoConcepto.infoRegistro}" id="infoRegistro" style="position: relative; top: 2px; font-weight: bold; display: block;"/>
-                     <p:commandButton style="position: relative; left: 657px; top: -11px;" id="btnBuscarGrupos" class="cssBotonBuscar"
+                     <p:commandButton style="position: relative; left: 657px; top: -12px;" id="btnBuscarGrupos" class="cssBotonBuscar"
                                       actionListener="#{controlGrupoConcepto.gruposConceptosDialogo()}" value="" process="@this"/>
-                     <p:commandButton style="position: relative; left: 657px; top: -11px;" id="btnMostrarTodos" class="cssBotonMostrarTodos"
+                     <p:commandButton style="position: relative; left: 657px; top: -12px;" id="btnMostrarTodos" class="cssBotonMostrarTodos"
                                       actionListener="#{controlGrupoConcepto.mostrarTodos()}" value="" process="@this"/>
                   </fieldset>
 

@@ -11,7 +11,14 @@
    </h:head>
    <h:body>
       <ui:composition template="/template.xhtml">
-         <ui:define name="body">                  
+         <ui:define name="body">       
+            <script type="text/javascript">
+               $(window).load(function() {
+               $(".loader").fadeOut("slow");
+               });
+            </script>
+            <div class="loader"></div>
+            <div style="position: static;"></div>
             <h:form id="form"> 
                <p:growl id="growl" showDetail="true"/>
                <f:loadBundle basename="Recursos.novedadtercero" var="msg"/>

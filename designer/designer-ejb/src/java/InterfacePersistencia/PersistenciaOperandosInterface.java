@@ -34,5 +34,5 @@ public interface PersistenciaOperandosInterface {
 
     public Operandos operandosPorSecuencia(EntityManager em, BigInteger secuencia);
 
-    public List<Operandos> operandoPorConceptoSoporte(EntityManager em, BigInteger secConceptoSoporte);
+    public List<Operandos> operandoPorConceptoSoporte(EntityManager em, BigInteger secConcepto);
 }

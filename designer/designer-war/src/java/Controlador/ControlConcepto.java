@@ -1598,7 +1598,6 @@ public class ControlConcepto implements Serializable {
 
    //CLONAR
    public void clonarConcepto() {
-      RequestContext context = RequestContext.getCurrentInstance();
       if (conceptoClon.getCodigo() != null && conceptoClon.getDescripcion() != null && conceptoOriginal.getSecuencia() != null) {
          tipoActualizacion = 3;
          //Se valida que el codigo de concepto no exista
@@ -1609,8 +1608,6 @@ public class ControlConcepto implements Serializable {
             conceptoOriginal = new Conceptos();
             listaConceptosEmpresa = null;
             getListaConceptosEmpresa();
-            guardado = false;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             FacesMessage msg = new FacesMessage("Información", "Concepto clonado con exito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");

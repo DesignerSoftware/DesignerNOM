@@ -285,7 +285,7 @@
 
                         <f:facet name="header">  
                            <h:outputText value="#{msg['buscarE']}"/>  
-                           <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('estructurasLOV').filter();" value="#{filtrado}" class="cssFiltroLOV" />  
+                           <p:inputText  autocomplete="off" id="globalFilter" onkeyup="PF('estructurasLOV').filter();" value="#{filtrado}" class="cssFiltroLOV" />  
                            <p:watermark for="globalFilter" value="#{msg['ingreseEJ']}" />
                         </f:facet>  
 
@@ -549,20 +549,6 @@
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;" />
                </p:dialog>
-
-               <!--                    <style>
-                                       .ui-datatable-scrollable .ui-datatable-scrollable-footer {
-                                           /*position: rela;*/
-                                           height: 11px;
-                                       }
-                                       .ui-datatable-scrollable .ui-datatable-scrollable-footer button {
-                                           top: -7px;
-                                           height: 20px;
-                                           border-radius: 0px;
-                                           margin-left: -10px; 
-                                           margin-right: -10px;
-                                       }
-                                   </style>-->
 
                <!-- Hotkey Ctrl + F11 -->
                <p:hotkey bind="ctrl+f11" actionListener="#{controlVigenciasCargos.activarCtrlF11()}"/> 
