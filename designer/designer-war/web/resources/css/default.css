@@ -44,17 +44,17 @@ a:link:hover, a:visited:hover  {
     margin: 0px 10px 0; 
     box-shadow: none;
 }
-.loader {
-                position: absolute;
-                /*left: 240px;*/
-                left: 0px;
-                /*top: 45px;*/
-                top: 0px;
-                width: 1200px; 
-                height: 570px;
-                z-index: 9999;
-                background: url('Imagenes/Iconos/cargando.gif') 50% 50% no-repeat rgb(255,255,255);
-            }
+/*.loader {
+    position: absolute;
+    left: 240px;
+    left: 0px;
+    top: 45px;
+    top: 0px;
+    width: 1200px; 
+    height: 570px;
+    z-index: 9999;
+    background: url('Imagenes/Iconos/cargando.gif') 50% 50% no-repeat rgb(255,255,255);
+}*/
 .ui-felipe .ui-datagrid-content {
     border: none;
 }
