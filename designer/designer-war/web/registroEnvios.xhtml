@@ -15,7 +15,10 @@
                 <h:form id="form">
                     <f:loadBundle basename="Recursos.registroEnvios" var="msg"/>
                     <p:growl id="growl" showDetail="true"/>
-
+                    <div id="messagesout" class="top">
+                        <p:messages id="messagessgeneral" showDetail="true"
+                                    autoUpdate="true" closable="true"/>
+                    </div>
                     <p:panel  id="PanelTotal" header="#{msg['registros']}" styleClass="panelTotal"> 
 
                         <p:toolbar styleClass="cssToolbar" >  
@@ -154,7 +157,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.correo}" style="text-transform: uppercase;"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText id="editCorreo" autocomplete="off"  value="#{info.correo}" style="border-radius: 0px; text-transform: uppercase; height: 12px;  width: 94%;" disabled="true"> 
+                                            <p:inputText id="editCorreo" autocomplete="off" value="#{controlRegistroEnvios.correo}" style="border-radius: 0px; text-transform: uppercase; height: 12px;  width: 94%;"> 
                                                 <p:ajax event="select" listener="#{controlRegistroEnvios.cambiarIndice(info, 3)}"
                                                         onstart="PF('datosEC').unselectAllRows();PF('datosEC').selectRow(#{indice});"/>
                                                 <p:ajax event="change" listener="#{controlRegistroEnvios.modificarCorreo(info, info.correo)}"/>
@@ -180,15 +183,16 @@
 
                                 <p:column id="check" headerText="  " sortBy="#{info.reenviar}" filterBy="#{info.reenviar}" filterMatchMode="contains" 
                                           width="25" filterStyle="display: none; visibility: hidden;">
-                                    <p:selectBooleanCheckbox id="enviarCorreo" value="#{controlRegistroEnvios.reenviar}" >
-                                        <p:ajax update=":form:datosEC" />
+                                    <p:selectBooleanCheckbox id="enviarCorreo" value="#{info.estadoReenviar}" >
+                                        <p:ajax event="change" listener="#{controlRegistroEnvios.checkBox(info)}" update="@this" />
                                     </p:selectBooleanCheckbox>
                                 </p:column>
                             </p:dataTable>
                             <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlRegistroEnvios.infoRegistro}" style="position: relative; left: 15px; top: 0px; font-weight: bold"/>
 
                             <p:commandButton id="REENVIAR" style="position: absolute; left: 10px; top: 250px; height: 30px; width: 180px; background-image: url(Imagenes/Iconos/botonL.png); 
-                                             background-size: 100% 100%; background-repeat: no-repeat; border: none; color: white;" value="#{msg['reenviar']}" icon="ui-icon-extlink" process="@this" />
+                                             background-size: 100% 100%; background-repeat: no-repeat; border: none; color: white;" value="#{msg['reenviar']}" icon="ui-icon-extlink" process="@this"
+                                             actionListener="#{controlRegistroEnvios.reenviarCorreo()}"/>
                             <p:tooltip  for="REENVIAR" value="#{msg['reenviar']}" />
 
                             <p:commandButton id="BORRARTODO" style="position: absolute; left: 190px; top: 250px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); 
@@ -200,7 +204,7 @@
                                          background-size: 100% 100%; background-repeat: no-repeat; border: none;"  value=""  
                                          actionListener="#{controlRegistroEnvios.dispararDialogoGuardarCambios()}" disabled="#{controlNReporteNomina.cambiosReporte}" process="@this" />
                         <p:commandButton id="ATRAS" style="position: absolute; left: 763px; top: 483px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); 
-                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;"  value="" action="atrasregistroenvio" 
+                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;"  value="" action="registroenvio" 
                                          actionListener="#{controlRegistroEnvios.cancelarYSalir()}" process="@this" />
 
                     </p:panel>

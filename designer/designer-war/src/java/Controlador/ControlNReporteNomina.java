@@ -855,8 +855,6 @@ public class ControlNReporteNomina implements Serializable {
         } else {
             System.out.println("generando reporte - ingreso al if else");
             System.out.println("Reporte Seleccionado es nulo");
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Error", "Se debe seleccionar un reporte."));
-            RequestContext.getCurrentInstance().update("form:growl");
         }
     }
 
@@ -1770,44 +1768,17 @@ public class ControlNReporteNomina implements Serializable {
 
     //MODIFICAR PARAMETRO REPORTE
     public void modificarParametroInforme() {
-        //        if (parametroDeReporte.getFechadesde() != null && parametroDeReporte.getFechahasta() != null
-//                && parametroDeReporte.getCodigoempleadodesde() != null && parametroDeReporte.getCodigoempleadohasta() != null) {
         if (parametroDeReporte.getFechadesde() != null && parametroDeReporte.getFechahasta() != null) {
             if (parametroDeReporte.getFechadesde().before(parametroDeReporte.getFechahasta())) {
                 System.out.println("Entre al segundo if");
                 parametroModificacion = parametroDeReporte;
                 cambiosReporte = false;
-//                parametroDeReporte.setFechadesde(fechaDesde);
-//                parametroDeReporte.setFechahasta(fechaHasta);
-//                RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
-//                RequestContext.getCurrentInstance().update("formParametros:fechaDesdeParametro");
             } else {
                 System.out.println("entre a else del segundo if");
-//                parametroDeReporte.setFechadesde(fechaDesde);
-//                parametroDeReporte.setFechahasta(fechaHasta);
-//                RequestContext context = RequestContext.getCurrentInstance();
-//                RequestContext.getCurrentInstance().update("formParametros");
-//                RequestContext.getCurrentInstance().execute("PF('errorFechas').show()");
                 cambiosReporte = true;
             }
         }
-//        else {
-//            System.out.println("Controlador.ControlNReporteNomina.modificarParametroInforme()");
-//            System.out.println("entre al ultimo else");
-//            parametroDeReporte.setFechadesde(fechaDesde);
-//            parametroDeReporte.setFechahasta(fechaHasta);
-//            parametroDeReporte.setCodigoempleadodesde(emplDesde);
-//            parametroDeReporte.setCodigoempleadohasta(emplHasta);
-//            parametroDeReporte.setGrupo(grupoCSeleccionado);
-//            parametroDeReporte.setLocalizacion(estructuraSeleccionada);
-//            parametroDeReporte.setTipotrabajador(tipoTSeleccionado);
-//            parametroDeReporte.setTercero(terceroSeleccionado);
-//            parametroDeReporte.setEstadosolucionnodo(estado);
-//            RequestContext context = RequestContext.getCurrentInstance();
-//            RequestContext.getCurrentInstance().update("formParametros");
-
-        // guardarCambios();
     }
 
     public void mostrarDialogoGenerarReporte() {
@@ -1875,6 +1846,15 @@ public class ControlNReporteNomina implements Serializable {
     public void contarRegistrosTipoTrabajador() {
         RequestContext.getCurrentInstance().update("form:infoRegistroTipoTrabajador");
     }
+    
+    
+    private static abstract class FacesContextWrapper extends FacesContext {
+
+        protected static void setCurrentInstance(FacesContext facesContext) {
+            FacesContext.setCurrentInstance(facesContext);
+        }
+    }
+
 
     //GETTER AND SETTER
     public ParametrosReportes getParametroDeInforme() {
@@ -1963,27 +1943,22 @@ public class ControlNReporteNomina implements Serializable {
     }
 
     public ParametrosReportes getNuevoParametroInforme() {
-        System.out.println(this.getClass().getName() + ".getNuevoParametroInforme()");
         return nuevoParametroInforme;
     }
 
     public void setNuevoParametroInforme(ParametrosReportes nuevoParametroInforme) {
-        System.out.println(this.getClass().getName() + ".setNuevoParametroInforme()");
         this.nuevoParametroInforme = nuevoParametroInforme;
     }
 
     public ParametrosReportes getParametroModificacion() {
-        System.out.println(this.getClass().getName() + ".getParametroModificacion()");
         return parametroModificacion;
     }
 
     public void setParametroModificacion(ParametrosReportes parametroModificacion) {
-        System.out.println(this.getClass().getName() + ".setParametroModificacion()");
         this.parametroModificacion = parametroModificacion;
     }
 
     public String getReporteGenerar() {
-        System.out.println(this.getClass().getName() + ".getReporteGenerar()");
         if (posicionReporte != -1) {
             reporteGenerar = listaIR.get(posicionReporte).getNombre();
         }
@@ -1991,7 +1966,6 @@ public class ControlNReporteNomina implements Serializable {
     }
 
     public void setReporteGenerar(String reporteGenerar) {
-        System.out.println(this.getClass().getName() + ".setReporteGenerar()");
         this.reporteGenerar = reporteGenerar;
     }
 
@@ -2004,9 +1978,6 @@ public class ControlNReporteNomina implements Serializable {
     }
 
     public List<Empleados> getListValEmpleados() {
-        System.out.println("Controlador.ControlNReporteNomina.getListValEmpleados()");
-//        System.out.println("listValEmpleados: " + listValEmpleados);
-//        if (listValEmpleados == null || listValEmpleados.isEmpty()) {
         if (listValEmpleados == null) {
             listValEmpleados = administrarNReportesNomina.listEmpleados();
         }
@@ -2354,39 +2325,6 @@ public class ControlNReporteNomina implements Serializable {
 
     public String getPathReporteGenerado() {
         return pathReporteGenerado;
-    }
-
-    /*
-     * public static FacesContext getFacesContext(HttpServletRequest request,
-     * HttpServletResponse response) { // Get current FacesContext. FacesContext
-     * facesContext;
-     *
-     * System.out.println("Entro a crear un FacesContext"); // Create new
-     * Lifecycle. LifecycleFactory lifecycleFactory = (LifecycleFactory)
-     * FactoryFinder.getFactory(FactoryFinder.LIFECYCLE_FACTORY); Lifecycle
-     * lifecycle =
-     * lifecycleFactory.getLifecycle(LifecycleFactory.DEFAULT_LIFECYCLE);
-     *
-     * // Create new FacesContext. FacesContextFactory contextFactory =
-     * (FacesContextFactory)
-     * FactoryFinder.getFactory(FactoryFinder.FACES_CONTEXT_FACTORY);
-     * facesContext = contextFactory.getFacesContext(
-     * request.getSession().getServletContext(), request, response, lifecycle);
-     *
-     * // Create new View. UIViewRoot view =
-     * facesContext.getApplication().getViewHandler().createView( facesContext,
-     * ""); facesContext.setViewRoot(view);
-     *
-     * // Set current FacesContext.
-     * FacesContextWrapper.setCurrentInstance(facesContext);
-     *
-     * return facesContext; }
-     */
-    private static abstract class FacesContextWrapper extends FacesContext {
-
-        protected static void setCurrentInstance(FacesContext facesContext) {
-            FacesContext.setCurrentInstance(facesContext);
-        }
     }
 
     public String getInfoRegistro() {

@@ -197,5 +197,4 @@ public class PersistenciaEnvioCorreos implements PersistenciaEnvioCorreosInterfa
             }
         }
     }
-
 }

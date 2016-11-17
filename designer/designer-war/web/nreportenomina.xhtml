@@ -133,21 +133,19 @@
                                         <h:outputText value=""/>
                                     </f:facet>
                                 </p:column>
-
-
                             </p:dataTable>
+                            
                             <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlNReporteNomina.infoRegistro}" style="position: relative; left: 15px; top: -3px; font-weight: bold"/>
 
-                            <p:commandButton style="position: relative; left: 430px; top: 0px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/buscardb.png); 
-                                             background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="BUSCARREPORTE" value=""   process="@this" 
+                            <p:commandButton id="BUSCARREPORTE" style="position: relative; left: 430px; top: 0px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/buscardb.png); 
+                                             background-size: 100% 100%; background-repeat: no-repeat; border: none;" value="" process="@this" 
                                              actionListener="#{controlNReporteNomina.mostrarDialogoBuscarReporte()}" disabled="#{controlNReporteNomina.activoBuscarReporte}"/>
                             <p:tooltip  for="BUSCARREPORTE" value="#{msg['buscarReporte']}" />
-                            <p:commandButton style="position: relative; left: 430px; top: 0px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/todosdb.png); 
-                                             background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="MOSTRARTODOS" value=""  process="@this" 
+                            
+                            <p:commandButton id="MOSTRARTODOS" style="position: relative; left: 430px; top: 0px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/todosdb.png); 
+                                             background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=""  process="@this" 
                                              actionListener="#{controlNReporteNomina.mostrarTodos()}" disabled="#{controlNReporteNomina.activoMostrarTodos}" />
                             <p:tooltip  for="MOSTRARTODOS" value="#{msg['mostrarTodos']}" />
-<!--                            <p:remoteCommand name="validarDescargaReporte" actionListener="#{controlNReporteNomina.validarDescargaReporte()}"/>
-                            <p:remoteCommand name="generarDocumentoReporte" actionListener="#{controlNReporteNomina.generarDocumentoReporte()}"/>-->
                         </fieldset>
 
                         <fieldset style="position: absolute; left: 10px; top: 260px; height: 205px;width: 115px; border-radius: 10px;">
@@ -157,10 +155,11 @@
                         <p:commandButton id="ACEPTAR" style="position: absolute; left: 673px; top: 483px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); 
                                          background-size: 100% 100%; background-repeat: no-repeat; border: none;"  value=""  
                                          actionListener="#{controlNReporteNomina.dispararDialogoGuardarCambios()}" disabled="#{controlNReporteNomina.cambiosReporte}" process="@this" />
+                        
                         <p:commandButton id="ATRAS" style="position: absolute; left: 763px; top: 483px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); 
                                          background-size: 100% 100%; background-repeat: no-repeat; border: none;"  value="" action="nomina" 
                                          actionListener="#{controlNReporteNomina.cancelarYSalir()}" process="@this" />
-
+                        
                         <p:commandButton id="ENVIOCORREO" icon="ui-icon-extlink" style="position: absolute; left: 10px; top: 480px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
                                          background-size: 100% 100%; background-repeat: no-repeat; border: none;"  value="envio correo" action="enviocorreo" actionListener="#{controlEnvioCorreos.recibirPagina('enviocorreo', controlNReporteNomina.reporteSeleccionado.secuencia)}" process="@this" />
                         <p:tooltip  for="ENVIOCORREO" value="#{msg['envio']}" />

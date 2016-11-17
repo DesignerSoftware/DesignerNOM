@@ -6114,7 +6114,7 @@
     </navigation-rule>
         
        <navigation-rule>
-        <from-view-id>/nreportenomina.xhtml</from-view-id>
+        <from-view-id>/enviocorreo.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>registroEnvios</from-outcome>
             <to-view-id>/registroEnvios.xhtml</to-view-id>
@@ -6124,8 +6124,8 @@
     <navigation-rule>
         <from-view-id>/registroEnvios.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>atrasregistroenvio</from-outcome>
-            <to-view-id>/nreportenomina.xhtml</to-view-id>
+            <from-outcome>registroenvio</from-outcome>
+            <to-view-id>/enviocorreo.xhtml</to-view-id>
             <redirect />
         </navigation-case>
     </navigation-rule>
