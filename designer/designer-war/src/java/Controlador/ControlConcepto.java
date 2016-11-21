@@ -109,7 +109,7 @@ public class ControlConcepto implements Serializable {
 
       conceptoSeleccionado = null;
       activoDetalle = true;
-      altoTabla = "205";
+//      altoTabla = "205";
       lovUnidades = null;
       lovTerceros = null;
       lovEmpresas = null;
@@ -1132,7 +1132,7 @@ public class ControlConcepto implements Serializable {
       conceptoSeleccionado = null;
       FacesContext c = FacesContext.getCurrentInstance();
       if (bandera == 0) {
-         altoTabla = "185";
+//         altoTabla = "185";
          columnaIndependienteConcepto = (Column) c.getViewRoot().findComponent("form:datosConceptos:columnaIndependienteConcepto");
          columnaIndependienteConcepto.setFilterStyle("width: 85% !important;");
          columnaCodigo = (Column) c.getViewRoot().findComponent("form:datosConceptos:columnaCodigo");
@@ -1148,7 +1148,7 @@ public class ControlConcepto implements Serializable {
          columnaCodigoDesprendible = (Column) c.getViewRoot().findComponent("form:datosConceptos:columnaCodigoDesprendible");
          columnaCodigoDesprendible.setFilterStyle("width: 85% !important;");
          columnaDescripcionDesplendible = (Column) c.getViewRoot().findComponent("form:datosConceptos:columnaDescripcionDesplendible");
-         columnaDescripcionDesplendible.setFilterStyle("width:90%;");
+         columnaDescripcionDesplendible.setFilterStyle("width: 85% !important;");
          columnaConjunto = (Column) c.getViewRoot().findComponent("form:datosConceptos:columnaConjunto");
          columnaConjunto.setFilterStyle("width: 85% !important;");
          columnaFechaAcumulado = (Column) c.getViewRoot().findComponent("form:datosConceptos:columnaFechaAcumulado");
@@ -1453,7 +1453,7 @@ public class ControlConcepto implements Serializable {
          cargarTablaDefault();
       }
       activoDetalle = true;
-      altoTabla = "205";
+//      altoTabla = "205";
       aceptar = true;
       listaConceptosBorrar.clear();
       listaConceptosEmpresaCrear.clear();
@@ -1505,7 +1505,7 @@ public class ControlConcepto implements Serializable {
 
    public void cargarTablaDefault() {
       FacesContext c = FacesContext.getCurrentInstance();
-      altoTabla = "205";
+//      altoTabla = "205";
       columnaCodigo = (Column) c.getViewRoot().findComponent("form:datosConceptos:columnaCodigo");
       columnaCodigo.setFilterStyle("display: none; visibility: hidden;");
       columnaDescripción = (Column) c.getViewRoot().findComponent("form:datosConceptos:columnaDescripción");
@@ -1934,6 +1934,13 @@ public class ControlConcepto implements Serializable {
    }
 
    public String getAltoTabla() {
+      columnaCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosConceptos:columnaCodigo");
+      if (columnaCodigo.getFilterStyle().startsWith("width: 85%")) {
+         altoTabla = "" + 7;
+      } else {
+         bandera = 0;
+         altoTabla = "" + 8;
+      }
       return altoTabla;
    }
 

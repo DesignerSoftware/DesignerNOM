@@ -345,6 +345,10 @@ public class ControlDetalleConcepto implements Serializable {
       nuevaVigenciaCuenta.setCuentac(new Cuentas());
       nuevaVigenciaCuenta.setCuentad(new Cuentas());
       nuevaVigenciaCuenta.setTipocc(new TiposCentrosCostos());
+      nuevaVigenciaCuenta.setProceso(null);
+      nuevaVigenciaCuenta.setNombreProceso("");
+      
+      
       nuevaVigenciaGrupoConcepto = new VigenciasGruposConceptos();
       nuevaVigenciaGrupoConcepto.setGrupoconcepto(new GruposConceptos());
       nuevaVigenciaConceptoTT = new VigenciasConceptosTT();
@@ -1849,6 +1853,7 @@ public class ControlDetalleConcepto implements Serializable {
    }
 
    public void cambiarIndiceVigenciaConceptoTT(VigenciasConceptosTT conceptoTT, int celda) {
+      System.out.println("Ya entro en cambiarIndiceVigenciaConceptoTT() permitirIndexVigenciaConceptoTT : " + permitirIndexVigenciaConceptoTT);
       if (permitirIndexVigenciaConceptoTT == true) {
          cualCeldaVigenciaConceptoTT = celda;
          if (celda == 2) {
@@ -1868,7 +1873,6 @@ public class ControlDetalleConcepto implements Serializable {
          vigenciaConceptoRLSeleccionada = null;
          vigFormulaConceptoSeleccionada = null;
          formulaSeleccionada = true;
-         RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().update("form:detalleFormula");
 //            RequestContext.getCurrentInstance().update("form:datosVigenciaCuenta");
 //            RequestContext.getCurrentInstance().update("form:datosVigenciaGrupoConcepto");
@@ -2285,7 +2289,6 @@ public class ControlDetalleConcepto implements Serializable {
    }
 
    public void guardarCambiosVigenciaCuenta() {
-      RequestContext context = RequestContext.getCurrentInstance();
       try {
          if (!listVigenciasCuentasBorrar.isEmpty()) {
             administrarDetalleConcepto.borrarVigenciasCuentas(listVigenciasCuentasBorrar);
@@ -2722,13 +2725,6 @@ public class ControlDetalleConcepto implements Serializable {
          }
       }
       if (tabla == 1) {
-//            if (tipoAct == 0) {
-//                tipoActualizacion = 0;
-//            } else if (tipoAct == 1) {
-//                tipoActualizacion = 1;
-//            } else if (tipoAct == 2) {
-//                tipoActualizacion = 2;
-//            }
          if (campo == 0) {
             contarRegistrosLovGrupoConcepto();
             RequestContext.getCurrentInstance().update("form:GruposConceptosDialogo");
@@ -2740,13 +2736,6 @@ public class ControlDetalleConcepto implements Serializable {
          }
       }
       if (tabla == 2) {
-//            if (tipoAct == 0) {
-//                tipoActualizacion = 0;
-//            } else if (tipoAct == 1) {
-//                tipoActualizacion = 1;
-//            } else if (tipoAct == 2) {
-//                tipoActualizacion = 2;
-//            }
          if (campo == 0) {
             contarRegistrosLovTipoTrabajador();
             RequestContext.getCurrentInstance().update("form:TipoTrabajadorDialogo");
@@ -2754,13 +2743,6 @@ public class ControlDetalleConcepto implements Serializable {
          }
       }
       if (tabla == 3) {
-//            if (tipoAct == 0) {
-//                tipoActualizacion = 0;
-//            } else if (tipoAct == 1) {
-//                tipoActualizacion = 1;
-//            } else if (tipoAct == 2) {
-//                tipoActualizacion = 2;
-//            }
          if (campo == 0) {
             contarRegistrosLovTipoContrato();
             RequestContext.getCurrentInstance().update("form:TipoContratosDialogo");
@@ -2768,13 +2750,6 @@ public class ControlDetalleConcepto implements Serializable {
          }
       }
       if (tabla == 4) {
-//            if (tipoAct == 0) {
-//                tipoActualizacion = 0;
-//            } else if (tipoAct == 1) {
-//                tipoActualizacion = 1;
-//            } else if (tipoAct == 2) {
-//                tipoActualizacion = 2;
-//            }
          if (campo == 0) {
             contarRegistrosLovReformaLaboral();
             RequestContext.getCurrentInstance().update("form:ReformaLaboralDialogo");
@@ -2784,13 +2759,6 @@ public class ControlDetalleConcepto implements Serializable {
       if (tabla == 5) {
          formulaSeleccionada = true;
          RequestContext.getCurrentInstance().update("form:detalleFormula");
-//            if (tipoAct == 0) {
-//                tipoActualizacion = 0;
-//            } else if (tipoAct == 1) {
-//                tipoActualizacion = 1;
-//            } else if (tipoAct == 2) {
-//                tipoActualizacion = 2;
-//            }
          if (campo == 0) {
             contarRegistrosLovFormula();
             RequestContext.getCurrentInstance().update("form:FormulasDialogo");
@@ -2968,51 +2936,45 @@ public class ControlDetalleConcepto implements Serializable {
 
    public void ingresoNuevoRegistro() {
       formulaSeleccionada = true;
-      RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("form:detalleFormula");
       RequestContext.getCurrentInstance().execute("PF('seleccionarTablaNewReg').show()");
    }
 
    public void validarIngresoNuevaVigenciaCuenta() {
-      RequestContext context = RequestContext.getCurrentInstance();
       limpiarNuevoVigenciaCuenta();
-      RequestContext.getCurrentInstance().update("form:nuevaVC");
+      RequestContext.getCurrentInstance().update("formularioDialogos:nuevaVC");
       RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroVigenciaCuenta");
       RequestContext.getCurrentInstance().execute("PF('NuevoRegistroVigenciaCuenta').show()");
 
    }
 
    public void validarIngresoNuevaVigenciaGrupoConcepto() {
-      RequestContext context = RequestContext.getCurrentInstance();
       limpiarNuevoVigenciaGrupoConcepto();
-      RequestContext.getCurrentInstance().update("form:nuevaVGC");
+      RequestContext.getCurrentInstance().update("formularioDialogos:nuevaVGC");
       RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroGrupoConcepto");
       RequestContext.getCurrentInstance().execute("PF('NuevoRegistroGrupoConcepto').show()");
 
    }
 
    public void validarIngresoNuevaVigenciaConceptoTT() {
-      RequestContext context = RequestContext.getCurrentInstance();
       limpiarNuevoVigenciaConceptoTT();
-      RequestContext.getCurrentInstance().update("form:nuevaVCTT");
+      RequestContext.getCurrentInstance().update("formularioDialogos:nuevaVCTT");
       RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroVigenciaConceptoTT");
       RequestContext.getCurrentInstance().execute("PF('NuevoRegistroVigenciaConceptoTT').show()");
 
    }
 
    public void validarIngresoNuevaVigenciaConceptoTC() {
-      RequestContext context = RequestContext.getCurrentInstance();
       limpiarNuevoVigenciaConceptoTC();
-      RequestContext.getCurrentInstance().update("form:nuevaVCTC");
+      RequestContext.getCurrentInstance().update("formularioDialogos:nuevaVCTC");
       RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroVigenciaConceptoTC");
       RequestContext.getCurrentInstance().execute("PF('NuevoRegistroVigenciaConceptoTC').show()");
 
    }
 
    public void validarIngresoNuevaVigenciaConceptoRL() {
-      RequestContext context = RequestContext.getCurrentInstance();
       limpiarNuevoVigenciaConceptoRL();
-      RequestContext.getCurrentInstance().update("form:nuevaVCRL");
+      RequestContext.getCurrentInstance().update("formularioDialogos:nuevaVCRL");
       RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroVigenciaConceptoRL");
       RequestContext.getCurrentInstance().execute("PF('NuevoRegistroVigenciaConceptoRL').show()");
 
@@ -3023,7 +2985,7 @@ public class ControlDetalleConcepto implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("form:detalleFormula");
       limpiarNuevoFormulasConceptos();
-      RequestContext.getCurrentInstance().update("form:nuevaFC");
+      RequestContext.getCurrentInstance().update("formularioDialogos:nuevaFC");
       RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroFormulaConcepto");
       RequestContext.getCurrentInstance().execute("PF('NuevoRegistroFormulaConcepto').show()");
 
@@ -3071,12 +3033,22 @@ public class ControlDetalleConcepto implements Serializable {
          }
       }
       if (i == 1) {
-         if ((nuevaVigenciaCuenta.getFechafinal() != null) && (nuevaVigenciaCuenta.getFechainicial() != null)
+         System.out.println("(nuevaVigenciaCuenta.getFechafinal() != null) : " + (nuevaVigenciaCuenta.getFechafinal() != null) );
+         System.out.println("(nuevaVigenciaCuenta.getFechainicial() != null) : " + (nuevaVigenciaCuenta.getFechainicial() != null));
+         System.out.println("(nuevaVigenciaCuenta.getConsolidadorc().getSecuencia() != null)" + (nuevaVigenciaCuenta.getConsolidadorc().getSecuencia() != null));
+         System.out.println("(nuevaVigenciaCuenta.getConsolidadord().getSecuencia() != null)" + (nuevaVigenciaCuenta.getConsolidadord().getSecuencia() != null));
+         System.out.println("(nuevaVigenciaCuenta.getCuentac().getSecuencia() != null)" + (nuevaVigenciaCuenta.getCuentac().getSecuencia() != null));
+         System.out.println("(nuevaVigenciaCuenta.getCuentad().getSecuencia() != null)" + (nuevaVigenciaCuenta.getCuentad().getSecuencia() != null));
+         System.out.println("(nuevaVigenciaCuenta.getTipocc().getSecuencia() != null)" + (nuevaVigenciaCuenta.getTipocc().getSecuencia() != null));
+                
+         if ((nuevaVigenciaCuenta.getFechafinal() != null) 
+                 && (nuevaVigenciaCuenta.getFechainicial() != null)
                  && (nuevaVigenciaCuenta.getConsolidadorc().getSecuencia() != null)
                  && (nuevaVigenciaCuenta.getConsolidadord().getSecuencia() != null)
                  && (nuevaVigenciaCuenta.getCuentac().getSecuencia() != null)
                  && (nuevaVigenciaCuenta.getCuentad().getSecuencia() != null)
                  && (nuevaVigenciaCuenta.getTipocc().getSecuencia() != null)) {
+            System.out.println("Va a retornar true");
             retorno = true;
          }
       }
@@ -3242,9 +3214,8 @@ public class ControlDetalleConcepto implements Serializable {
    }
 
    public void agregarNuevoVigenciaCuenta() {
-      RequestContext context = RequestContext.getCurrentInstance();
       boolean resp = validarNuevosDatosVigenciaCuenta(1);
-      if (resp == true) {
+      if (resp) {
          boolean validacion = validarFechasRegistroVigenciaCuenta(1);
          if (validacion == true) {
             if (banderaVigenciaCuenta == 1) {
@@ -3257,13 +3228,13 @@ public class ControlDetalleConcepto implements Serializable {
             listVigenciasCuentasCrear.add(nuevaVigenciaCuenta);
             listVigenciasCuentasConcepto.add(nuevaVigenciaCuenta);
             vigenciaCuentaSeleccionada = listVigenciasCuentasConcepto.get(listVigenciasCuentasConcepto.indexOf(nuevaVigenciaCuenta));
-            contarRegistrosCuentas();
             ////------////
             limpiarNuevoVigenciaCuenta();
             ////-----////
             RequestContext.getCurrentInstance().execute("PF('NuevoRegistroVigenciaCuenta').hide()");
             RequestContext.getCurrentInstance().update("form:datosVigenciaCuenta");
             RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroVigenciaCuenta");
+            contarRegistrosCuentas();
             if (guardado == true) {
                guardado = false;
                RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -3284,7 +3255,7 @@ public class ControlDetalleConcepto implements Serializable {
       nuevaVigenciaCuenta.setCuentac(new Cuentas());
       nuevaVigenciaCuenta.setCuentad(new Cuentas());
       nuevaVigenciaCuenta.setTipocc(new TiposCentrosCostos());
-      nuevaVigenciaCuenta.setProceso(new BigInteger("0"));
+      nuevaVigenciaCuenta.setProceso(null);
       nuevaVigenciaCuenta.setNombreProceso("");
    }
 
@@ -4366,7 +4337,7 @@ public class ControlDetalleConcepto implements Serializable {
 
       RequestContext.getCurrentInstance().update("form:TipoCCDialogo");
       RequestContext.getCurrentInstance().update("form:lovTiposCC");
-      RequestContext.getCurrentInstance().update("form:TipoCCDialogo:aceptarTCC");
+      RequestContext.getCurrentInstance().update("form:aceptarTCC");
       context.reset("form:lovTiposCC:globalFilter");
       RequestContext.getCurrentInstance().execute("PF('lovTiposCC').clearFilters()");
       RequestContext.getCurrentInstance().execute("PF('TipoCCDialogo').hide()");
@@ -4380,7 +4351,7 @@ public class ControlDetalleConcepto implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("form:lovTiposCC");
       RequestContext.getCurrentInstance().update("form:TipoCCDialogo");
-      RequestContext.getCurrentInstance().update("form:TipoCCDialogo:aceptarTCC");
+      RequestContext.getCurrentInstance().update("form:aceptarTCC");
       context.reset("form:lovTiposCC:globalFilter");
       RequestContext.getCurrentInstance().execute("PF('lovTiposCC').clearFilters()");
       RequestContext.getCurrentInstance().execute("PF('TipoCCDialogo').hide()");
@@ -4420,7 +4391,7 @@ public class ControlDetalleConcepto implements Serializable {
       tipoActualizacion = -1;
       RequestContext.getCurrentInstance().update("form:lovDebito");
       RequestContext.getCurrentInstance().update("form:DebitoDialogo");
-      RequestContext.getCurrentInstance().update("form:DebitoDialogo:aceptarCD");
+      RequestContext.getCurrentInstance().update("form:aceptarCD");
       context.reset("form:lovDebito:globalFilter");
       RequestContext.getCurrentInstance().execute("PF('lovDebito').clearFilters()");
       RequestContext.getCurrentInstance().execute("PF('DebitoDialogo').hide()");
@@ -4435,7 +4406,7 @@ public class ControlDetalleConcepto implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("form:lovDebito");
       RequestContext.getCurrentInstance().update("form:DebitoDialogo");
-      RequestContext.getCurrentInstance().update("form:DebitoDialogo:aceptarCD");
+      RequestContext.getCurrentInstance().update("form:aceptarCD");
       context.reset("form:lovDebito:globalFilter");
       RequestContext.getCurrentInstance().execute("PF('lovDebito').clearFilters()");
       RequestContext.getCurrentInstance().execute("PF('DebitoDialogo').hide()");
@@ -4474,7 +4445,7 @@ public class ControlDetalleConcepto implements Serializable {
       tipoActualizacion = -1;
       RequestContext.getCurrentInstance().update("form:lovCredito");
       RequestContext.getCurrentInstance().update("form:CreditoDialogo");
-      RequestContext.getCurrentInstance().update("form:CreditoDialogo:aceptarCC");
+      RequestContext.getCurrentInstance().update("form:aceptarCC");
       context.reset("form:lovCredito:globalFilter");
       RequestContext.getCurrentInstance().execute("PF('lovCredito').clearFilters()");
       RequestContext.getCurrentInstance().execute("PF('CreditoDialogo').hide()");
@@ -4489,7 +4460,7 @@ public class ControlDetalleConcepto implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("form:lovCredito");
       RequestContext.getCurrentInstance().update("form:CreditoDialogo");
-      RequestContext.getCurrentInstance().update("form:CreditoDialogo:aceptarCC");
+      RequestContext.getCurrentInstance().update("form:aceptarCC");
       context.reset("form:lovCredito:globalFilter");
       RequestContext.getCurrentInstance().execute("PF('lovCredito').clearFilters()");
       RequestContext.getCurrentInstance().execute("PF('CreditoDialogo').hide()");
@@ -4526,7 +4497,7 @@ public class ControlDetalleConcepto implements Serializable {
       tipoActualizacion = -1;
       RequestContext.getCurrentInstance().update("form:lovCentroCostoD");
       RequestContext.getCurrentInstance().update("form:CentroCostoDDialogo");
-      RequestContext.getCurrentInstance().update("form:CentroCostoDDialogo:aceptarCCD");
+      RequestContext.getCurrentInstance().update("form:aceptarCCD");
       context.reset("form:lovCentroCostoD:globalFilter");
       RequestContext.getCurrentInstance().execute("PF('lovCentroCostoD').clearFilters()");
       RequestContext.getCurrentInstance().execute("PF('CentroCostoDDialogo').hide()");
@@ -4541,7 +4512,7 @@ public class ControlDetalleConcepto implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("form:lovCentroCostoD");
       RequestContext.getCurrentInstance().update("form:CentroCostoDDialogo");
-      RequestContext.getCurrentInstance().update("form:CentroCostoDDialogo:aceptarCCD");
+      RequestContext.getCurrentInstance().update("form:aceptarCCD");
       context.reset("form:lovCentroCostoD:globalFilter");
       RequestContext.getCurrentInstance().execute("PF('lovCentroCostoD').clearFilters()");
       RequestContext.getCurrentInstance().execute("PF('CentroCostoDDialogo').hide()");
@@ -4579,7 +4550,7 @@ public class ControlDetalleConcepto implements Serializable {
       tipoActualizacion = -1;
       RequestContext.getCurrentInstance().update("form:lovCentroCostoC");
       RequestContext.getCurrentInstance().update("form:CentroCostoCDialogo");
-      RequestContext.getCurrentInstance().update("form:CentroCostoCDialogo:aceptarCCC");
+      RequestContext.getCurrentInstance().update("form:aceptarCCC");
       context.reset("form:lovCentroCostoC:globalFilter");
       RequestContext.getCurrentInstance().execute("PF('lovCentroCostoC').clearFilters()");
       RequestContext.getCurrentInstance().execute("PF('CentroCostoCDialogo').hide()");
@@ -4594,7 +4565,7 @@ public class ControlDetalleConcepto implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("form:lovCentroCostoC");
       RequestContext.getCurrentInstance().update("form:CentroCostoCDialogo");
-      RequestContext.getCurrentInstance().update("form:CentroCostoCDialogo:aceptarCCC");
+      RequestContext.getCurrentInstance().update("form:aceptarCCC");
       context.reset("form:lovCentroCostoC:globalFilter");
       RequestContext.getCurrentInstance().execute("PF('lovCentroCostoC').clearFilters()");
       RequestContext.getCurrentInstance().execute("PF('CentroCostoCDialogo').hide()");
@@ -4641,7 +4612,7 @@ public class ControlDetalleConcepto implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("form:lovProceso");
       RequestContext.getCurrentInstance().update("form:ProcesosDialogo");
-      RequestContext.getCurrentInstance().update("form:ProcesosDialogo:aceptarPro");
+      RequestContext.getCurrentInstance().update("form:aceptarPro");
       context.reset("form:lovProceso:globalFilter");
       RequestContext.getCurrentInstance().execute("PF('lovProceso').clearFilters()");
       RequestContext.getCurrentInstance().execute("PF('ProcesosDialogo').hide()");
@@ -4680,7 +4651,7 @@ public class ControlDetalleConcepto implements Serializable {
       tipoActualizacion = -1;
       RequestContext.getCurrentInstance().update("form:lovGrupoConcepto");
       RequestContext.getCurrentInstance().update("form:GruposConceptosDialogo");
-      RequestContext.getCurrentInstance().update("form:GruposConceptosDialogo:aceptarGC");
+      RequestContext.getCurrentInstance().update("form:aceptarGC");
       context.reset("form:lovGrupoConcepto:globalFilter");
       RequestContext.getCurrentInstance().execute("PF('lovGrupoConcepto').clearFilters()");
       RequestContext.getCurrentInstance().execute("PF('GruposConceptosDialogo').hide()");
@@ -4695,7 +4666,7 @@ public class ControlDetalleConcepto implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("form:lovGrupoConcepto");
       RequestContext.getCurrentInstance().update("form:GruposConceptosDialogo");
-      RequestContext.getCurrentInstance().update("form:GruposConceptosDialogo:aceptarGC");
+      RequestContext.getCurrentInstance().update("form:aceptarGC");
       context.reset("form:lovGrupoConcepto:globalFilter");
       RequestContext.getCurrentInstance().execute("PF('lovGrupoConcepto').clearFilters()");
       RequestContext.getCurrentInstance().execute("PF('GruposConceptosDialogo').hide()");
@@ -4732,7 +4703,7 @@ public class ControlDetalleConcepto implements Serializable {
       tipoActualizacion = -1;
       RequestContext.getCurrentInstance().update("form:lovTipoTrabajador");
       RequestContext.getCurrentInstance().update("form:TipoTrabajadorDialogo");
-      RequestContext.getCurrentInstance().update("form:TipoTrabajadorDialogo:aceptarTTr");
+      RequestContext.getCurrentInstance().update("form:aceptarTTr");
       context.reset("form:lovTipoTrabajador:globalFilter");
       RequestContext.getCurrentInstance().execute("PF('lovTipoTrabajador').clearFilters()");
       RequestContext.getCurrentInstance().execute("PF('TipoTrabajadorDialogo').hide()");
@@ -4747,7 +4718,7 @@ public class ControlDetalleConcepto implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("form:lovTipoTrabajador");
       RequestContext.getCurrentInstance().update("form:TipoTrabajadorDialogo");
-      RequestContext.getCurrentInstance().update("form:TipoTrabajadorDialogo:aceptarTTr");
+      RequestContext.getCurrentInstance().update("form:aceptarTTr");
       context.reset("form:lovTipoTrabajador:globalFilter");
       RequestContext.getCurrentInstance().execute("PF('lovTipoTrabajador').clearFilters()");
       RequestContext.getCurrentInstance().execute("PF('TipoTrabajadorDialogo').hide()");
@@ -4785,7 +4756,7 @@ public class ControlDetalleConcepto implements Serializable {
       tipoActualizacion = -1;
       RequestContext.getCurrentInstance().update("form:lovTipoContrato");
       RequestContext.getCurrentInstance().update("form:TipoContratosDialogo");
-      RequestContext.getCurrentInstance().update("form:TipoContratosDialogo:aceptarTCt");
+      RequestContext.getCurrentInstance().update("form:aceptarTCt");
       context.reset("form:lovTipoContrato:globalFilter");
       RequestContext.getCurrentInstance().execute("PF('lovTipoContrato').clearFilters()");
       RequestContext.getCurrentInstance().execute("PF('TipoContratosDialogo').hide()");
@@ -4800,7 +4771,7 @@ public class ControlDetalleConcepto implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("form:lovTipoContrato");
       RequestContext.getCurrentInstance().update("form:TipoContratosDialogo");
-      RequestContext.getCurrentInstance().update("form:TipoContratosDialogo:aceptarTCt");
+      RequestContext.getCurrentInstance().update("form:aceptarTCt");
       context.reset("form:lovTipoContrato:globalFilter");
       RequestContext.getCurrentInstance().execute("PF('lovTipoContrato').clearFilters()");
       RequestContext.getCurrentInstance().execute("PF('TipoContratosDialogo').hide()");
@@ -4837,7 +4808,7 @@ public class ControlDetalleConcepto implements Serializable {
       tipoActualizacion = -1;
       RequestContext.getCurrentInstance().update("form:lovReformaLaboral");
       RequestContext.getCurrentInstance().update("form:ReformaLaboralDialogo");
-      RequestContext.getCurrentInstance().update("form:ReformaLaboralDialogo:aceptarRL");
+      RequestContext.getCurrentInstance().update("form:aceptarRL");
       context.reset("form:lovReformaLaboral:globalFilter");
       RequestContext.getCurrentInstance().execute("PF('lovReformaLaboral').clearFilters()");
       RequestContext.getCurrentInstance().execute("PF('ReformaLaboralDialogo').hide()");
@@ -4852,7 +4823,7 @@ public class ControlDetalleConcepto implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("form:lovReformaLaboral");
       RequestContext.getCurrentInstance().update("form:ReformaLaboralDialogo");
-      RequestContext.getCurrentInstance().update("form:ReformaLaboralDialogo:aceptarRL");
+      RequestContext.getCurrentInstance().update("form:aceptarRL");
       context.reset("form:lovReformaLaboral:globalFilter");
       RequestContext.getCurrentInstance().execute("PF('lovReformaLaboral').clearFilters()");
       RequestContext.getCurrentInstance().execute("PF('ReformaLaboralDialogo').hide()");
@@ -4892,7 +4863,7 @@ public class ControlDetalleConcepto implements Serializable {
       tipoActualizacion = -1;
       RequestContext.getCurrentInstance().update("form:lovFormula");
       RequestContext.getCurrentInstance().update("form:FormulasDialogo");
-      RequestContext.getCurrentInstance().update("form:FormulasDialogo:aceptarF");
+      RequestContext.getCurrentInstance().update("form:aceptarF");
       context.reset("form:lovFormula:globalFilter");
       RequestContext.getCurrentInstance().execute("PF('lovFormula').clearFilters()");
       RequestContext.getCurrentInstance().execute("PF('FormulasDialogo').hide()");
@@ -4907,7 +4878,7 @@ public class ControlDetalleConcepto implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("form:lovFormula");
       RequestContext.getCurrentInstance().update("form:FormulasDialogo");
-      RequestContext.getCurrentInstance().update("form:FormulasDialogo:aceptarF");
+      RequestContext.getCurrentInstance().update("form:aceptarF");
       context.reset("form:lovFormula:globalFilter");
       RequestContext.getCurrentInstance().execute("PF('lovFormula').clearFilters()");
       RequestContext.getCurrentInstance().execute("PF('FormulasDialogo').hide()");
@@ -4945,7 +4916,7 @@ public class ControlDetalleConcepto implements Serializable {
       tipoActualizacion = -1;
       context.reset("form:lovFormulaC");
       context.reset("form:FormulaConceptoDialogo");
-      context.reset("form:FormulaConceptoDialogo:aceptarFC");
+      context.reset("form:aceptarFC");
       context.reset("form:lovFormulaC:globalFilter");
       RequestContext.getCurrentInstance().execute("PF('lovFormulaC').clearFilters()");
       RequestContext.getCurrentInstance().execute("PF('FormulaConceptoDialogo').hide()");
@@ -4960,7 +4931,7 @@ public class ControlDetalleConcepto implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       context.reset("form:lovFormulaC");
       context.reset("form:FormulaConceptoDialogo");
-      context.reset("form:FormulaConceptoDialogo:aceptarFC");
+      context.reset("form:aceptarFC");
       context.reset("form:lovFormulaC:globalFilter");
       RequestContext.getCurrentInstance().execute("PF('lovFormulaC').clearFilters()");
       RequestContext.getCurrentInstance().execute("PF('FormulaConceptoDialogo').hide()");
@@ -5004,7 +4975,6 @@ public class ControlDetalleConcepto implements Serializable {
       }
       return nombreTabla;
    }
-
    /**
     * Valida la tabla a exportar en PDF con respecto al index activo
     *
@@ -5056,7 +5026,6 @@ public class ControlDetalleConcepto implements Serializable {
       Exporter exporter = new ExportarPDF();
       exporter.export(context, tabla, nombreExportar, false, false, "UTF-8", null, null);
       context.responseComplete();
-
    }
 
    /**

@@ -12,8 +12,8 @@
       <ui:composition template="/template.xhtml">
          <ui:define name="body">  
             <script type="text/javascript">
-               $(window).load(function() {
-               $(".loader").fadeOut("slow");
+               $(window).load(function () {
+                  $(".loader").fadeOut("slow");
                });
             </script>
             <div class="loader"></div>
@@ -131,7 +131,8 @@
                                     </f:facet>  
                                     <f:facet name="input">
                                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{infoVC.fechainicial}" > 
-                                          <p:ajax event="select" listener="#{controlDetalleConcepto.cambiarIndiceVigenciaCuenta(infoVC,0)}"/>
+                                          <p:ajax event="select" listener="#{controlDetalleConcepto.cambiarIndiceVigenciaCuenta(infoVC,0)}"
+                                                  onstart="PF('datosVigenciaCuenta').unselectAllRows();PF('datosVigenciaCuenta').selectRow(#{indiceVC});"/>
                                           <p:ajax event="change" listener="#{controlDetalleConcepto.modificacionesFechaVigenciaCuenta(infoVC,0)}" update="dateFechaInicial"/>
                                           <p:ajax event="dateSelect" listener="#{controlDetalleConcepto.modificacionesFechaVigenciaCuenta(infoVC,0)}" update="dateFechaInicial"/>
                                        </p:calendar>
@@ -152,7 +153,8 @@
                                     </f:facet>  
                                     <f:facet name="input">
                                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="dateFecha" value="#{infoVC.fechafinal}" > 
-                                          <p:ajax event="select" listener="#{controlDetalleConcepto.cambiarIndiceVigenciaCuenta(infoVC,1)}" />
+                                          <p:ajax event="select" listener="#{controlDetalleConcepto.cambiarIndiceVigenciaCuenta(infoVC,1)}"
+                                                  onstart="PF('datosVigenciaCuenta').unselectAllRows();PF('datosVigenciaCuenta').selectRow(#{indiceVC});"/>
                                           <p:ajax event="change" listener="#{controlDetalleConcepto.modificacionesFechaVigenciaCuenta(infoVC,1)}" update="dateFecha"/>
                                           <p:ajax event="dateSelect" listener="#{controlDetalleConcepto.modificacionesFechaVigenciaCuenta(infoVC,1)}" update="dateFecha"/>
                                        </p:calendar>
@@ -169,7 +171,8 @@
                                     <f:facet name="output"><h:outputText value="#{infoVC.tipocc.nombre}" style="text-transform: uppercase"/></f:facet>  
                                     <f:facet name="input">
                                        <p:inputText autocomplete="off" value="#{infoVC.tipocc.nombre}"  id="editarTipoCCVC" style="border-radius: 0px;  width: 99%; text-transform: uppercase"> 
-                                          <p:ajax event="select"  listener="#{controlDetalleConcepto.cambiarIndiceVigenciaCuenta(infoVC, 2)}" />
+                                          <p:ajax event="select"  listener="#{controlDetalleConcepto.cambiarIndiceVigenciaCuenta(infoVC, 2)}"
+                                                  onstart="PF('datosVigenciaCuenta').unselectAllRows();PF('datosVigenciaCuenta').selectRow(#{indiceVC});"/>
                                           <p:ajax event="change" update="editarTipoCCVC" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.modificarVigenciaCuenta(infoVC,'TIPOCC',infoVC.tipocc.nombre)}" />
                                           <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show(); PF('datosVigenciaGrupoConcepto').unselectAllRows(); PF('datosVigenciaConceptoTT').unselectAllRows(); PF('datosVigenciaConceptoTC').unselectAllRows(); PF('datosVigenciaConceptoRL').unselectAllRows(); PF('datosFormulaConcepto').unselectAllRows();"
                                                   oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(0,0,0)}" />
@@ -187,7 +190,8 @@
                                     <f:facet name="output"><h:outputText value="#{infoVC.cuentad.codigo}" style="text-transform: uppercase"/></f:facet>  
                                     <f:facet name="input">
                                        <p:inputText autocomplete="off" value="#{infoVC.cuentad.codigo}"  id="editarCodigoDebVC" style="border-radius: 0px; width: 99%; text-transform: uppercase"> 
-                                          <p:ajax event="select" listener="#{controlDetalleConcepto.cambiarIndiceVigenciaCuenta(infoVC, 3)}" />
+                                          <p:ajax event="select" listener="#{controlDetalleConcepto.cambiarIndiceVigenciaCuenta(infoVC, 3)}"
+                                                  onstart="PF('datosVigenciaCuenta').unselectAllRows();PF('datosVigenciaCuenta').selectRow(#{indiceVC});"/>
                                           <p:ajax event="change" update="editarCodigoDebVC" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.modificarVigenciaCuenta(infoVC,'CODDEBITO',infoVC.cuentad.codigo)}" />
                                           <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show(); PF('datosVigenciaGrupoConcepto').unselectAllRows(); PF('datosVigenciaConceptoTT').unselectAllRows(); PF('datosVigenciaConceptoTC').unselectAllRows(); PF('datosVigenciaConceptoRL').unselectAllRows(); PF('datosFormulaConcepto').unselectAllRows();" 
                                                   oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(1,0,0)}" />
@@ -199,13 +203,14 @@
                                  </f:facet>
                               </p:column>
 
-                              <p:column headerText="#{msg['descripcion']}" width="160" sortBy="#{infoVC.cuentad.descripcion}" filterBy="#{infoVC.cuentad.descripcion}" filterMatchMode="contains" 
+                              <p:column headerText="#{msg['descripcion']} D" width="160" sortBy="#{infoVC.cuentad.descripcion}" filterBy="#{infoVC.cuentad.descripcion}" filterMatchMode="contains" 
                                         id="vigenciaCuentaDebitoDes" filterStyle="display: none; visibility: hidden" >                                  
                                  <p:cellEditor>  
                                     <f:facet name="output"><h:outputText value="#{infoVC.cuentad.descripcion}" style="text-transform: uppercase;"/></f:facet>  
                                     <f:facet name="input">
                                        <p:inputText autocomplete="off" value="#{infoVC.cuentad.descripcion}"  id="editarDescripcionDebVC" style="border-radius: 0px; width: 99%; text-transform: uppercase"> 
-                                          <p:ajax event="select"  listener="#{controlDetalleConcepto.cambiarIndiceVigenciaCuenta(infoVC, 4)}" />
+                                          <p:ajax event="select" listener="#{controlDetalleConcepto.cambiarIndiceVigenciaCuenta(infoVC, 4)}"
+                                                  onstart="PF('datosVigenciaCuenta').unselectAllRows();PF('datosVigenciaCuenta').selectRow(#{indiceVC});"/>
                                           <p:ajax event="change" update="editarDescripcionDebVC" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.modificarVigenciaCuenta(infoVC,'DESDEBITO',infoVC.cuentad.descripcion)}" />
                                           <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show(); PF('datosVigenciaGrupoConcepto').unselectAllRows(); PF('datosVigenciaConceptoTT').unselectAllRows(); PF('datosVigenciaConceptoTC').unselectAllRows(); PF('datosVigenciaConceptoRL').unselectAllRows(); PF('datosFormulaConcepto').unselectAllRows();" 
                                                   oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(2,0,0)}" />
@@ -217,13 +222,18 @@
                                  </f:facet>
                               </p:column>
 
-                              <p:column headerText="#{msg['ccconsolidador']}" sortBy="#{infoVC.consolidadord.nombre}" filterBy="#{infoVC.consolidadord.nombre}" filterMatchMode="contains" 
+                              <p:column sortBy="#{infoVC.consolidadord.nombre}" filterBy="#{infoVC.consolidadord.nombre}" filterMatchMode="contains" 
                                         id="vigenciaCuentaCCConsolidadorD" width="160" filterStyle="display: none; visibility: hidden" >                                  
+                                 <f:facet name="header">
+                                    <h:outputText id="headerconsolida0" value="#{msg['ccconsolidador']}"/>
+                                    <p:tooltip for="headerconsolida0" value="#{msg['ccconsolidadorWM']}"/>
+                                 </f:facet>
                                  <p:cellEditor>  
                                     <f:facet name="output"><h:outputText value="#{infoVC.consolidadord.nombre}" style="text-transform: uppercase"/></f:facet>  
                                     <f:facet name="input">
                                        <p:inputText autocomplete="off" value="#{infoVC.consolidadord.nombre}"  id="editarCCConsolidadorDVC" style="border-radius: 0px; width: 99%; text-transform: uppercase"> 
-                                          <p:ajax event="select"  listener="#{controlDetalleConcepto.cambiarIndiceVigenciaCuenta(infoVC, 5)}" />
+                                          <p:ajax event="select"  listener="#{controlDetalleConcepto.cambiarIndiceVigenciaCuenta(infoVC, 5)}"
+                                                  onstart="PF('datosVigenciaCuenta').unselectAllRows();PF('datosVigenciaCuenta').selectRow(#{indiceVC});"/>
                                           <p:ajax event="change" update="editarCCConsolidadorDVC" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.modificarVigenciaCuenta(infoVC,'CONSOLIDADORDEBITO',infoVC.consolidadord.nombre)}" />
                                           <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show(); PF('datosVigenciaGrupoConcepto').unselectAllRows(); PF('datosVigenciaConceptoTT').unselectAllRows(); PF('datosVigenciaConceptoTC').unselectAllRows(); PF('datosVigenciaConceptoRL').unselectAllRows(); PF('datosFormulaConcepto').unselectAllRows();"
                                                   oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(3,0,0)}" />
@@ -241,7 +251,8 @@
                                     <f:facet name="output"><h:outputText value="#{infoVC.cuentac.codigo}" style="text-transform: uppercase"/></f:facet>  
                                     <f:facet name="input">
                                        <p:inputText autocomplete="off" value="#{infoVC.cuentac.codigo}"  id="editarCodigoCreVC" style="border-radius: 0px; width: 99%; text-transform: uppercase"> 
-                                          <p:ajax event="select"  listener="#{controlDetalleConcepto.cambiarIndiceVigenciaCuenta(infoVC, 6)}" />
+                                          <p:ajax event="select"  listener="#{controlDetalleConcepto.cambiarIndiceVigenciaCuenta(infoVC, 6)}"
+                                                  onstart="PF('datosVigenciaCuenta').unselectAllRows();PF('datosVigenciaCuenta').selectRow(#{indiceVC});"/>
                                           <p:ajax event="change" update="editarCodigoCreVC" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.modificarVigenciaCuenta(infoVC,'CODCREDITO',infoVC.cuentac.codigo)}" />
                                           <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show(); PF('datosVigenciaGrupoConcepto').unselectAllRows(); PF('datosVigenciaConceptoTT').unselectAllRows(); PF('datosVigenciaConceptoTC').unselectAllRows(); PF('datosVigenciaConceptoRL').unselectAllRows(); PF('datosFormulaConcepto').unselectAllRows();" 
                                                   oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(4,0,0)}" />
@@ -253,13 +264,14 @@
                                  </f:facet>
                               </p:column>
 
-                              <p:column headerText="#{msg['descripcion']}" sortBy="#{infoVC.cuentac.descripcion}" filterBy="#{infoVC.cuentac.descripcion}" filterMatchMode="contains" 
-                                        id="vigenciaCuentaCreditoDes" width="160" filterStyle="display: none; visibility: hidden" >                                  
+                              <p:column headerText="#{msg['descripcion']} C" sortBy="#{infoVC.cuentac.descripcion}" filterBy="#{infoVC.cuentac.descripcion}" filterMatchMode="contains" 
+                                        id="vigenciaCuentaCreditoDes" width="160" filterStyle="display: none; visibility: hidden">                                  
                                  <p:cellEditor>  
                                     <f:facet name="output"><h:outputText value="#{infoVC.cuentac.descripcion}" style="text-transform: uppercase"/></f:facet>  
                                     <f:facet name="input">
                                        <p:inputText autocomplete="off" value="#{infoVC.cuentac.descripcion}"  id="editarDescripcionCreVC" style="border-radius: 0px; width: 99%; text-transform: uppercase"> 
-                                          <p:ajax event="select" listener="#{controlDetalleConcepto.cambiarIndiceVigenciaCuenta(infoVC, 7)}" />
+                                          <p:ajax event="select" listener="#{controlDetalleConcepto.cambiarIndiceVigenciaCuenta(infoVC, 7)}"
+                                                  onstart="PF('datosVigenciaCuenta').unselectAllRows();PF('datosVigenciaCuenta').selectRow(#{indiceVC});"/>
                                           <p:ajax event="change" update="editarDescripcionCreVC" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.modificarVigenciaCuenta(infoVC,'DESCREDITO',infoVC.cuentac.descripcion)}" />
                                           <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show(); PF('datosVigenciaGrupoConcepto').unselectAllRows(); PF('datosVigenciaConceptoTT').unselectAllRows(); PF('datosVigenciaConceptoTC').unselectAllRows(); PF('datosVigenciaConceptoRL').unselectAllRows(); PF('datosFormulaConcepto').unselectAllRows();" 
                                                   oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(5,0,0)}" />
@@ -271,13 +283,18 @@
                                  </f:facet>
                               </p:column>
 
-                              <p:column headerText="#{msg['ccconsolidador']}" sortBy="#{infoVC.consolidadorc.nombre}" filterBy="#{infoVC.consolidadorc.nombre}" filterMatchMode="contains" 
+                              <p:column sortBy="#{infoVC.consolidadorc.nombre}" filterBy="#{infoVC.consolidadorc.nombre}" filterMatchMode="contains" 
                                         id="vigenciaCuentaCCConsolidadorC" width="133" filterStyle="display: none; visibility: hidden" >                                  
+                                 <f:facet name="header">
+                                    <h:outputText id="headerconsolida1" value="#{msg['ccconsolidador']}"/>
+                                    <p:tooltip for="headerconsolida1" value="#{msg['ccconsolidadorcuentacreditoWM']}"/>
+                                 </f:facet>
                                  <p:cellEditor>  
                                     <f:facet name="output"><h:outputText value="#{infoVC.consolidadorc.nombre}" style="text-transform: uppercase"/></f:facet>  
                                     <f:facet name="input">
                                        <p:inputText autocomplete="off" value="#{infoVC.consolidadorc.nombre}" id="editarCCConsolidadorCVC" style="border-radius: 0px; width: 99%; text-transform: uppercase"> 
-                                          <p:ajax event="select"  listener="#{controlDetalleConcepto.cambiarIndiceVigenciaCuenta(infoVC, 8)}" />
+                                          <p:ajax event="select"  listener="#{controlDetalleConcepto.cambiarIndiceVigenciaCuenta(infoVC, 8)}"
+                                                  onstart="PF('datosVigenciaCuenta').unselectAllRows();PF('datosVigenciaCuenta').selectRow(#{indiceVC});"/>
                                           <p:ajax event="change" update="editarCCConsolidadorCVC" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.modificarVigenciaCuenta(infoVC,'CONSOLIDADORCREDITO',infoVC.consolidadorc.nombre)}" />
                                           <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show(); PF('datosVigenciaGrupoConcepto').unselectAllRows(); PF('datosVigenciaConceptoTT').unselectAllRows(); PF('datosVigenciaConceptoTC').unselectAllRows(); PF('datosVigenciaConceptoRL').unselectAllRows(); PF('datosFormulaConcepto').unselectAllRows();"
                                                   oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(6,0,0)}" />
@@ -295,7 +312,8 @@
                                     <f:facet name="output"><h:outputText value="#{infoVC.nombreProceso}" style="text-transform: uppercase;"/></f:facet>  
                                     <f:facet name="input">
                                        <p:inputText autocomplete="off" value="#{infoVC.nombreProceso}" id="editarCCProceso" style="border-radius: 0px; width: 99%; text-transform: uppercase;"> 
-                                          <p:ajax event="select" listener="#{controlDetalleConcepto.cambiarIndiceVigenciaCuenta(infoVC, 9)}" />
+                                          <p:ajax event="select" listener="#{controlDetalleConcepto.cambiarIndiceVigenciaCuenta(infoVC, 9)}"
+                                                  onstart="PF('datosVigenciaCuenta').unselectAllRows();PF('datosVigenciaCuenta').selectRow(#{indiceVC});"/>
                                           <p:ajax event="change" update="editarCCProceso" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.modificarVigenciaCuenta(infoVC,'PROCESO',infoVC.nombreProceso)}" />
                                           <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show(); PF('datosVigenciaGrupoConcepto').unselectAllRows(); PF('datosVigenciaConceptoTT').unselectAllRows(); PF('datosVigenciaConceptoTC').unselectAllRows(); PF('datosVigenciaConceptoRL').unselectAllRows(); PF('datosFormulaConcepto').unselectAllRows();"
                                                   oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(9,0,0)}" />
@@ -332,7 +350,8 @@
                                     </f:facet>  
                                     <f:facet name="input">
                                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="dateVGCFechaInicial" value="#{infoVGC.fechainicial}" > 
-                                          <p:ajax event="select" listener="#{controlDetalleConcepto.cambiarIndiceVigenciaGrupoConcepto(infoVGC,0)}" />
+                                          <p:ajax event="select" listener="#{controlDetalleConcepto.cambiarIndiceVigenciaGrupoConcepto(infoVGC,0)}"
+                                                  onstart="PF('datosVigenciaGrupoConcepto').unselectAllRows();PF('datosVigenciaGrupoConcepto').selectRow(#{indiceVGC});"/>
                                           <p:ajax event="change" listener="#{controlDetalleConcepto.modificacionesFechaVigenciaGrupoConcepto(infoVGC,0)}"  update="dateVGCFechaInicial"/>
                                           <p:ajax event="dateSelect" listener="#{controlDetalleConcepto.modificacionesFechaVigenciaGrupoConcepto(infoVGC,0)}"  update="dateVGCFechaInicial"/>
                                        </p:calendar>
@@ -353,7 +372,8 @@
                                     </f:facet>  
                                     <f:facet name="input">
                                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="dateVGCFechaFinal" value="#{infoVGC.fechafinal}" > 
-                                          <p:ajax event="select" listener="#{controlDetalleConcepto.cambiarIndiceVigenciaGrupoConcepto(infoVGC,1)}" />
+                                          <p:ajax event="select" listener="#{controlDetalleConcepto.cambiarIndiceVigenciaGrupoConcepto(infoVGC,1)}"
+                                                  onstart="PF('datosVigenciaGrupoConcepto').unselectAllRows();PF('datosVigenciaGrupoConcepto').selectRow(#{indiceVGC});"/>
                                           <p:ajax event="change" listener="#{controlDetalleConcepto.modificacionesFechaVigenciaGrupoConcepto(infoVGC,1)}"  update="dateVGCFechaFinal"/>
                                           <p:ajax event="dateSelect" listener="#{controlDetalleConcepto.modificacionesFechaVigenciaGrupoConcepto(infoVGC,1)}"  update="dateVGCFechaFinal"/>
                                        </p:calendar>
@@ -370,7 +390,8 @@
                                     <f:facet name="output"><h:outputText value="#{infoVGC.grupoconcepto.strCodigo}" style="text-transform: uppercase"/></f:facet>  
                                     <f:facet name="input">
                                        <p:inputText autocomplete="off" value="#{infoVGC.grupoconcepto.strCodigo}" id="editarCodigoVGC" style="border-radius: 0px; width: 99%; text-transform: uppercase;"> 
-                                          <p:ajax event="select" listener="#{controlDetalleConcepto.cambiarIndiceVigenciaGrupoConcepto(infoVGC, 2)}"/>
+                                          <p:ajax event="select" listener="#{controlDetalleConcepto.cambiarIndiceVigenciaGrupoConcepto(infoVGC, 2)}"
+                                                  onstart="PF('datosVigenciaGrupoConcepto').unselectAllRows();PF('datosVigenciaGrupoConcepto').selectRow(#{indiceVGC});"/>
                                           <p:ajax event="change" update="editarCodigoVGC" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.modificarVigenciaGrupoConcepto(infoVGC, 'CODIGO', infoVGC.grupoconcepto.strCodigo)}"/>
                                           <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show(); PF('datosVigenciaCuenta').unselectAllRows(); PF('datosVigenciaConceptoTT').unselectAllRows(); PF('datosVigenciaConceptoTC').unselectAllRows(); PF('datosVigenciaConceptoRL').unselectAllRows(); PF('datosFormulaConcepto').unselectAllRows();"
                                                   oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(0,0,1)}" />
@@ -388,7 +409,8 @@
                                     <f:facet name="output"><h:outputText value="#{infoVGC.grupoconcepto.descripcion}" style="text-transform: uppercase;"/></f:facet>  
                                     <f:facet name="input">
                                        <p:inputText autocomplete="off" value="#{infoVGC.grupoconcepto.descripcion}"  id="editarDescripcionVGC" style="border-radius: 0px; width: 99%; text-transform: uppercase;"> 
-                                          <p:ajax event="select" listener="#{controlDetalleConcepto.cambiarIndiceVigenciaGrupoConcepto(infoVGC, 3)}"/>
+                                          <p:ajax event="select" listener="#{controlDetalleConcepto.cambiarIndiceVigenciaGrupoConcepto(infoVGC, 3)}"
+                                                  onstart="PF('datosVigenciaGrupoConcepto').unselectAllRows();PF('datosVigenciaGrupoConcepto').selectRow(#{indiceVGC});"/>
                                           <p:ajax event="change" update="editarDescripcionVGC" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.modificarVigenciaGrupoConcepto(infoVGC,'DESCRIPCION',infoVGC.grupoconcepto.descripcion)}"/>
                                           <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show(); PF('datosVigenciaCuenta').unselectAllRows(); PF('datosVigenciaConceptoTT').unselectAllRows(); PF('datosVigenciaConceptoTC').unselectAllRows(); PF('datosVigenciaConceptoRL').unselectAllRows(); PF('datosFormulaConcepto').unselectAllRows();"
                                                   oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(1,0,1)}"/>
@@ -420,13 +442,14 @@
                                         filterMatchMode="contains" id="vigenciaCTTFechaInicial" width="74" filterStyle="display: none; visibility: hidden;"  >                                  
                                  <p:cellEditor>  
                                     <f:facet name="output">
-                                       <h:outputText value="#{infoVCTT.fechainicial}" style="text-transform: uppercase">
+                                       <h:outputText value="#{infoVCTT.fechainicial}" style="text-transform: uppercase;">
                                           <f:convertDateTime pattern="dd/MM/yyyy"/>
                                        </h:outputText>
                                     </f:facet>  
                                     <f:facet name="input">
                                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="dateVCTTFechaInicial" value="#{infoVCTT.fechainicial}" > 
-                                          <p:ajax event="select" listener="#{controlDetalleConcepto.cambiarIndiceVigenciaConceptoTT(infoVCTT,0)}" />
+                                          <p:ajax event="select" listener="#{controlDetalleConcepto.cambiarIndiceVigenciaConceptoTT(infoVCTT,0)}"
+                                                  onstart="PF('datosVigenciaConceptoTT').unselectAllRows();PF('datosVigenciaConceptoTT').selectRow(#{indiceVCTT});"/>
                                           <p:ajax event="change" listener="#{controlDetalleConcepto.modificacionesFechaVigenciaConceptoTT(infoVCTT,0)}"  update="dateVCTTFechaInicial"/>
                                           <p:ajax event="dateSelect" listener="#{controlDetalleConcepto.modificacionesFechaVigenciaConceptoTT(infoVCTT,0)}"  update="dateVCTTFechaInicial"/>
                                        </p:calendar>
@@ -447,7 +470,8 @@
                                     </f:facet>  
                                     <f:facet name="input">
                                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="dateVCTTFechaFinal" value="#{infoVCTT.fechafinal}" > 
-                                          <p:ajax event="select" listener="#{controlDetalleConcepto.cambiarIndiceVigenciaConceptoTT(infoVCTT,1)}" />
+                                          <p:ajax event="select" listener="#{controlDetalleConcepto.cambiarIndiceVigenciaConceptoTT(infoVCTT,1)}"
+                                                  onstart="PF('datosVigenciaConceptoTT').unselectAllRows();PF('datosVigenciaConceptoTT').selectRow(#{indiceVCTT});"/>
                                           <p:ajax event="change" listener="#{controlDetalleConcepto.modificacionesFechaVigenciaConceptoTT(infoVCTT,1)}"  update="dateVCTTFechaFinal"/>
                                           <p:ajax event="dateSelect" listener="#{controlDetalleConcepto.modificacionesFechaVigenciaConceptoTT(infoVCTT,1)}"  update="dateVCTTFechaFinal"/>
                                        </p:calendar>
@@ -464,7 +488,8 @@
                                     <f:facet name="output"><h:outputText value="#{infoVCTT.tipotrabajador.nombre}" style="text-transform: uppercase"/></f:facet>  
                                     <f:facet name="input">
                                        <p:inputText autocomplete="off" value="#{infoVCTT.tipotrabajador.nombre}"  id="editarDescripcionVCTT" style="border-radius: 0px;  width: 99%; text-transform: uppercase"> 
-                                          <p:ajax event="select"  listener="#{controlDetalleConcepto.cambiarIndiceVigenciaConceptoTT(infoVCTT, 2)}" />
+                                          <p:ajax event="select"  listener="#{controlDetalleConcepto.cambiarIndiceVigenciaConceptoTT(infoVCTT, 2)}"
+                                                  onstart="PF('datosVigenciaConceptoTT').unselectAllRows();PF('datosVigenciaConceptoTT').selectRow(#{indiceVCTT});"/>
                                           <p:ajax event="change" update="editarDescripcionVCTT" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.modificarVigenciaConceptoTT(infoVCTT,'TRABAJADOR',infoVCTT.tipotrabajador.nombre)}" />
                                           <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show(); PF('datosVigenciaCuenta').unselectAllRows(); PF('datosVigenciaGrupoConcepto').unselectAllRows(); PF('datosVigenciaConceptoTC').unselectAllRows(); PF('datosVigenciaConceptoRL').unselectAllRows(); PF('datosFormulaConcepto').unselectAllRows();"
                                                   oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(0,0,2)}" />
@@ -502,7 +527,8 @@
                                     </f:facet>  
                                     <f:facet name="input">
                                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="dateVCTCFechaInicial" value="#{infoVCTC.fechainicial}" > 
-                                          <p:ajax event="select" listener="#{controlDetalleConcepto.cambiarIndiceVigenciaConceptoTC(infoVCTC,0)}" />
+                                          <p:ajax event="select" listener="#{controlDetalleConcepto.cambiarIndiceVigenciaConceptoTC(infoVCTC,0)}"
+                                                  onstart="PF('datosVigenciaConceptoTC').unselectAllRows();PF('datosVigenciaConceptoTC').selectRow(#{indiceVCTC});"/>
                                           <p:ajax event="change" listener="#{controlDetalleConcepto.modificacionesFechaVigenciaConceptoTC(infoVCTC,0)}" update="dateVCTCFechaInicial"/>
                                           <p:ajax event="dateSelect" listener="#{controlDetalleConcepto.modificacionesFechaVigenciaConceptoTC(infoVCTC,0)}" update="dateVCTCFechaInicial"/>
 
@@ -524,7 +550,8 @@
                                     </f:facet>  
                                     <f:facet name="input">
                                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="dateVCTCFechaFinal" value="#{infoVCTC.fechafinal}" > 
-                                          <p:ajax event="select" listener="#{controlDetalleConcepto.cambiarIndiceVigenciaConceptoTC(infoVCTC,1)}" />
+                                          <p:ajax event="select" listener="#{controlDetalleConcepto.cambiarIndiceVigenciaConceptoTC(infoVCTC,1)}"
+                                                  onstart="PF('datosVigenciaConceptoTC').unselectAllRows();PF('datosVigenciaConceptoTC').selectRow(#{indiceVCTC});"/>
                                           <p:ajax event="change" listener="#{controlDetalleConcepto.modificacionesFechaVigenciaConceptoTC(infoVCTC,1)}"  update="dateVCTCFechaFinal"/>
                                           <p:ajax event="dateSelect" listener="#{controlDetalleConcepto.modificacionesFechaVigenciaConceptoTC(infoVCTC,1)}"  update="dateVCTCFechaFinal"/>
                                        </p:calendar>
@@ -541,7 +568,8 @@
                                     <f:facet name="output"><h:outputText value="#{infoVCTC.tipocontrato.nombre}" style="text-transform: uppercase"/></f:facet>  
                                     <f:facet name="input">
                                        <p:inputText autocomplete="off" value="#{infoVCTC.tipocontrato.nombre}"  id="editarDescripcionVCTC" style="border-radius: 0px;  width: 99%; text-transform: uppercase"> 
-                                          <p:ajax event="select"  listener="#{controlDetalleConcepto.cambiarIndiceVigenciaConceptoTC(infoVCTC, 2)}" />
+                                          <p:ajax event="select"  listener="#{controlDetalleConcepto.cambiarIndiceVigenciaConceptoTC(infoVCTC, 2)}"
+                                                  onstart="PF('datosVigenciaConceptoTC').unselectAllRows();PF('datosVigenciaConceptoTC').selectRow(#{indiceVCTC});"/>
                                           <p:ajax event="change" update="editarDescripcionVCTC" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.modificarVigenciaConceptoTC(infoVCTC,'CONTRATO',infoVCTC.tipocontrato.nombre)}" />
                                           <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show(); PF('datosVigenciaCuenta').unselectAllRows(); PF('datosVigenciaGrupoConcepto').unselectAllRows(); PF('datosVigenciaConceptoTT').unselectAllRows(); PF('datosVigenciaConceptoRL').unselectAllRows(); PF('datosFormulaConcepto').unselectAllRows();" 
                                                   oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(0,0,3)}" />
@@ -579,7 +607,8 @@
                                     </f:facet>  
                                     <f:facet name="input">
                                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="dateVCRLFechaInicial" value="#{infoVCRL.fechainicial}" > 
-                                          <p:ajax event="select" listener="#{controlDetalleConcepto.cambiarIndiceVigenciaConceptoRL(infoVCRL,0)}" />
+                                          <p:ajax event="select" listener="#{controlDetalleConcepto.cambiarIndiceVigenciaConceptoRL(infoVCRL,0)}"
+                                                  onstart="PF('datosVigenciaConceptoRL').unselectAllRows();PF('datosVigenciaConceptoRL').selectRow(#{indiceVCRL});"/>
                                           <p:ajax event="change" listener="#{controlDetalleConcepto.modificacionesFechaVigenciaConceptoRL(infoVCRL,0)}"  update="dateVCRLFechaInicial"/>
                                           <p:ajax event="dateSelect" listener="#{controlDetalleConcepto.modificacionesFechaVigenciaConceptoRL(infoVCRL,0)}"  update="dateVCRLFechaInicial"/>
                                        </p:calendar>
@@ -600,7 +629,8 @@
                                     </f:facet>  
                                     <f:facet name="input">
                                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="dateVCRLFechaFinal" value="#{infoVCRL.fechafinal}" > 
-                                          <p:ajax event="select" listener="#{controlDetalleConcepto.cambiarIndiceVigenciaConceptoRL(infoVCRL,1)}" />
+                                          <p:ajax event="select" listener="#{controlDetalleConcepto.cambiarIndiceVigenciaConceptoRL(infoVCRL,1)}"
+                                                  onstart="PF('datosVigenciaConceptoRL').unselectAllRows();PF('datosVigenciaConceptoRL').selectRow(#{indiceVCRL});"/>
                                           <p:ajax event="change" listener="#{controlDetalleConcepto.modificacionesFechaVigenciaConceptoRL(infoVCRL,1)}"  update="dateVCRLFechaFinal"/>
                                           <p:ajax event="dateSelect" listener="#{controlDetalleConcepto.modificacionesFechaVigenciaConceptoRL(infoVCRL,1)}"  update="dateVCRLFechaFinal"/>
                                        </p:calendar>
@@ -617,7 +647,8 @@
                                     <f:facet name="output"><h:outputText value="#{infoVCRL.tiposalario.nombre}" style="text-transform: uppercase"/></f:facet>  
                                     <f:facet name="input">
                                        <p:inputText autocomplete="off" value="#{infoVCRL.tiposalario.nombre}"  id="editarDescripcionVCRL" style="border-radius: 0px;  width: 99%; text-transform: uppercase"> 
-                                          <p:ajax event="select"  listener="#{controlDetalleConcepto.cambiarIndiceVigenciaConceptoRL(infoVCRL, 2)}" />
+                                          <p:ajax event="select"  listener="#{controlDetalleConcepto.cambiarIndiceVigenciaConceptoRL(infoVCRL, 2)}"
+                                                  onstart="PF('datosVigenciaConceptoRL').unselectAllRows();PF('datosVigenciaConceptoRL').selectRow(#{indiceVCRL});"/>
                                           <p:ajax event="change" update="editarDescripcionVCRL" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.modificarVigenciaConceptoRL(infoVCRL,'REFORMA',infoVCRL.tiposalario.nombre)}" />
                                           <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show(); PF('datosVigenciaCuenta').unselectAllRows(); PF('datosVigenciaGrupoConcepto').unselectAllRows(); PF('datosVigenciaConceptoTT').unselectAllRows(); PF('datosVigenciaConceptoTC').unselectAllRows(); PF('datosFormulaConcepto').unselectAllRows();"
                                                   oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(0,0,4)}" />
@@ -655,7 +686,8 @@
                                     </f:facet>  
                                     <f:facet name="input">
                                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="dateFCFechaInicial" value="#{infoFC.fechainicial}" > 
-                                          <p:ajax event="select" listener="#{controlDetalleConcepto.cambiarIndiceFormulasConceptos(infoFC,0)}" />
+                                          <p:ajax event="select" listener="#{controlDetalleConcepto.cambiarIndiceFormulasConceptos(infoFC,0)}"
+                                                  onstart="PF('datosFormulaConcepto').unselectAllRows();PF('datosFormulaConcepto').selectRow(#{indiceFC});"/>
                                           <p:ajax event="change" listener="#{controlDetalleConcepto.modificacionesFechaFormulasConceptos(infoFC,0)}"  update="dateFCFechaInicial"/>
                                           <p:ajax event="dateSelect" listener="#{controlDetalleConcepto.modificacionesFechaFormulasConceptos(infoFC,0)}"  update="dateFCFechaInicial"/>
                                        </p:calendar>
@@ -676,7 +708,8 @@
                                     </f:facet>  
                                     <f:facet name="input">
                                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="dateFCFechaFinal" value="#{infoFC.fechafinal}" > 
-                                          <p:ajax event="select" listener="#{controlDetalleConcepto.cambiarIndiceFormulasConceptos(infoFC,1)}" />
+                                          <p:ajax event="select" listener="#{controlDetalleConcepto.cambiarIndiceFormulasConceptos(infoFC,1)}"
+                                                  onstart="PF('datosFormulaConcepto').unselectAllRows();PF('datosFormulaConcepto').selectRow(#{indiceFC});"/>
                                           <p:ajax event="change" listener="#{controlDetalleConcepto.modificacionesFechaFormulasConceptos(infoFC,1)}"  update="dateFCFechaFinal"/>
                                           <p:ajax event="dateSelect" listener="#{controlDetalleConcepto.modificacionesFechaFormulasConceptos(infoFC,1)}"  update="dateFCFechaFinal"/>
                                        </p:calendar>
@@ -693,7 +726,8 @@
                                     <f:facet name="output"><h:outputText value="#{infoFC.nombreFormula}" style="text-transform: uppercase"/></f:facet>  
                                     <f:facet name="input">
                                        <p:inputText autocomplete="off" value="#{infoFC.nombreFormula}"  id="editarNombreFC" style="border-radius: 0px;  width: 99%; text-transform: uppercase"> 
-                                          <p:ajax event="select"  listener="#{controlDetalleConcepto.cambiarIndiceFormulasConceptos(infoFC, 2)}" />
+                                          <p:ajax event="select"  listener="#{controlDetalleConcepto.cambiarIndiceFormulasConceptos(infoFC, 2)}"
+                                                  onstart="PF('datosFormulaConcepto').unselectAllRows();PF('datosFormulaConcepto').selectRow(#{indiceFC});"/>
                                           <p:ajax event="change" update="editarNombreFC" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.modificarFormulasConceptos(infoFC,'FORMULA',infoFC.nombreFormula)}" />
                                           <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show(); PF('datosVigenciaCuenta').unselectAllRows(); PF('datosVigenciaGrupoConcepto').unselectAllRows(); PF('datosVigenciaConceptoTT').unselectAllRows(); PF('datosVigenciaConceptoTC').unselectAllRows(); PF('datosVigenciaConceptoRL').unselectAllRows();"
                                                   oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(0,0,5)}" />
@@ -715,7 +749,8 @@
                                     <f:facet name="output"><h:outputText value="#{infoFC.strOrden}" style="text-transform: uppercase"/></f:facet>  
                                     <f:facet name="input">
                                        <p:inputText autocomplete="off" value="#{infoFC.strOrden}" id="editarOrdenFC" style="border-radius: 0px;  width: 99%; text-transform: uppercase"> 
-                                          <p:ajax event="select" listener="#{controlDetalleConcepto.cambiarIndiceFormulasConceptos(infoFC, 3)}" />
+                                          <p:ajax event="select" listener="#{controlDetalleConcepto.cambiarIndiceFormulasConceptos(infoFC, 3)}"
+                                                  onstart="PF('datosFormulaConcepto').unselectAllRows();PF('datosFormulaConcepto').selectRow(#{indiceFC});"/>
                                           <p:ajax event="change" update="editarOrdenFC" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.modificarFormulasConceptos(infoFC, 'ORDEN', infoFC.strOrden)}"/>
                                           <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show(); PF('datosVigenciaCuenta').unselectAllRows(); PF('datosVigenciaGrupoConcepto').unselectAllRows(); PF('datosVigenciaConceptoTT').unselectAllRows(); PF('datosVigenciaConceptoTC').unselectAllRows(); PF('datosVigenciaConceptoRL').unselectAllRows();"
                                                   oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(1,0,5)}" />
@@ -857,8 +892,7 @@
                <p:dialog id="paso2Eliminacion" header="#{msg['eliminacion24']}" widgetVar="paso2Eliminacion"  resizable="false" draggable="true" modal="true" height="95" width="350" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['paso2Eliminacion']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;" />
-                  <p:commandButton value="#{msg['continuar']}" onclick="PF('paso3Eliminacion').show();
-                     paso2Eliminacion').hide();" style="position: absolute; top: 60px; left: 100px;"  icon="ui-icon-check"/>
+                  <p:commandButton value="#{msg['continuar']}" onclick="PF('paso3Eliminacion').show(); PF('paso2Eliminacion').hide();" style="position: absolute; top: 60px; left: 100px;"  icon="ui-icon-check"/>
                   <p:commandButton value="#{msg['cancelar']}" onclick="PF('paso2Eliminacion').hide();" icon="ui-icon-close" style="position: absolute; top: 60px; left: 240px;"/>
                </p:dialog>
 
@@ -870,7 +904,6 @@
                </p:dialog>
 
                <p:hotkey bind="ctrl+f11" actionListener="#{controlDetalleConcepto.activarCtrlF11()}"/>
-
 
                <p:dialog header="#{msg['tiposcentroscostosTCC']}" widgetVar="TipoCCDialogo" draggable="true" resizable="false" closable="false" id="TipoCCDialogo"  
                          showEffect="fade" hideEffect="fade" width="431" modal="true">
@@ -1349,11 +1382,10 @@
 
                <p:dialog id="NuevoRegistroVigenciaCuenta" header="#{msg['NuevoRegistroVigenciaCuenta']}" widgetVar="NuevoRegistroVigenciaCuenta" closable="false" resizable="false"
                          draggable="true" modal="true" height="400" width="410" style="padding: 0px;">  
-
                   <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
-
                   <p:panel id="nuevaVC" style="border: none;">
                      <strong><h:outputText value="*#{msg['fechainicialN']}" style="position: absolute; top: 60px; left: 50px;" /></strong>
+
                      <div id="posicionFechaIniVCNuevoReg" style="position: absolute; top: 55px; left: 220px">
                         <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="nuevaDateFechaInicialVC" value="#{controlDetalleConcepto.nuevaVigenciaCuenta.fechainicial}" >
                            <p:ajax event="dateSelect" update="nuevaDateFechaInicialVC" />
@@ -1362,7 +1394,7 @@
                      </div>
 
                      <strong><h:outputText value="*#{msg['fechafinalN']}" style="position: absolute; top: 95px; left: 50px;" /></strong>
-                     <div id="posicionFechaFinVCNuevoReg" style="position: absolute; top: 85px; left: 220px">
+                     <div id="posicionFechaFinVCNuevoReg" style="position: absolute; top: 85px; left: 220px;">
                         <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="nuevaDateFechaFinalVC" value="#{controlDetalleConcepto.nuevaVigenciaCuenta.fechafinal}" >
                            <p:ajax event="dateSelect" update="nuevaDateFechaFinalVC" />
                            <p:ajax event="change" update="nuevaDateFechaFinalVC" />
@@ -1407,7 +1439,8 @@
                      </p:inputText>
                      <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 350px; top: 205px;"
                                       id="btnNuevoConsoDebVC" value="" actionListener="#{controlDetalleConcepto.asignarIndex(3,1,0)}" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" update="nuevaConsoliDebVC" process="@this"/>   
-                     <p:watermark for="nuevaConsoliDebVC" value="#{msg['ccconsolidadorWM']}" />
+                     <p:watermark for="nuevaConsoliDebVC" value="#{msg['ccconsolidadorWM']}"/>
+                     <p:tooltip for="nuevaConsoliDebVC" value="#{msg['ccconsolidadorWM']}"/>
 
                      <strong><h:outputText value="*#{msg['cuentacreditoN']}" style="position: absolute; top: 240px; left: 50px;" /></strong>
                      <p:inputText autocomplete="off" id="nuevaCreditoVC" value="#{controlDetalleConcepto.nuevaVigenciaCuenta.cuentac.codigo}" style="width: 122px; position: absolute; left: 220px; top: 235px; text-transform: uppercase" onclick="select();">
@@ -1438,6 +1471,7 @@
                      <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 350px; top: 295px;" 
                                       id="btnNuevoConsoCreVC" value="" actionListener="#{controlDetalleConcepto.asignarIndex(6,1,0)}" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" update="nuevaConsoliCreVC" process="@this"/>   
                      <p:watermark for="nuevaConsoliCreVC" value="#{msg['ccconsolidadorcuentacreditoWM']}"/>
+                     <p:tooltip for="nuevaConsoliCreVC" value="#{msg['ccconsolidadorcuentacreditoWM']}"/>
 
                      <strong><h:outputText value="*#{msg['proceso']}:" style="position: absolute; top: 330px; left: 50px;"/></strong>
                      <p:inputText autocomplete="off" id="nuevoProceso" value="#{controlDetalleConcepto.nuevaVigenciaCuenta.nombreProceso}" style="width: 122px; position: absolute; left: 220px; top: 325px; text-transform: uppercase" onclick="select();">
@@ -1459,10 +1493,9 @@
                   </p:panel>
                </p:dialog>
 
+
                <p:dialog id="DuplicarRegistroVigenciaCuenta" header="#{msg['DuplicarRegistroVigenciaCuenta']}" widgetVar="DuplicarRegistroVigenciaCuenta" closable="false" resizable="false" draggable="true" modal="true" height="400" width="410" style="padding: 0px">  
-
                   <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
-
                   <p:panel id="duplicarVC" style="border: none;">
 
                      <strong><h:outputText value="*#{msg['fechainicialN']}" style="position: absolute; top: 60px; left: 50px;" /></strong>
@@ -1519,7 +1552,8 @@
                      </p:inputText>
                      <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 350px; top: 205px;" 
                                       id="btnDuplicaConsoDebVC" value="" actionListener="#{controlDetalleConcepto.asignarIndex(3,2,0)}" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" update="duplicaConsoliDebVC" process="@this"/>   
-                     <p:watermark for="duplicaConsoliDebVC" value="#{msg['ccconsolidadorWM']}" />
+                     <p:watermark for="duplicaConsoliDebVC" value="#{msg['ccconsolidadorWM']}"/>
+                     <p:tooltip for="duplicaConsoliDebVC" value="#{msg['ccconsolidadorWM']}"/>
 
                      <strong><h:outputText value="*#{msg['cuentacreditoN']}" style="position: absolute; top: 240px; left: 50px;" /></strong>
                      <p:inputText autocomplete="off" id="duplicaCreditoVC" value="#{controlDetalleConcepto.duplicarVigenciaCuenta.cuentac.codigo}" style="width: 122px; position: absolute; left: 220px; top: 235px; text-transform: uppercase" onclick="select();">
@@ -1549,7 +1583,8 @@
                      </p:inputText>
                      <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 350px; top: 295px;" 
                                       id="btnDuplicaConsoCreVC" value="" actionListener="#{controlDetalleConcepto.asignarIndex(6,2,0)}" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" update="duplicaConsoliCreVC" process="@this"/>   
-                     <p:watermark for="duplicaConsoliCreVC" value="#{msg['ccconsolidadorcuentacreditoWM']}" />
+                     <p:watermark for="duplicaConsoliCreVC" value="#{msg['ccconsolidadorcuentacreditoWM']}"/>
+                     <p:tooltip for="duplicaConsoliCreVC" value="#{msg['ccconsolidadorcuentacreditoWM']}"/>
 
                      <strong><h:outputText value="*#{msg['proceso']}:" style="position: absolute; top: 330px; left: 50px;" /></strong>
                      <p:inputText autocomplete="off" id="duplicadoProceso" value="#{controlDetalleConcepto.duplicarVigenciaCuenta.nombreProceso}" style="width: 122px; position: absolute; left: 220px; top: 325px; text-transform: uppercase;" onclick="select();">
@@ -1571,11 +1606,8 @@
                   </p:panel>
                </p:dialog>
 
-
                <p:dialog id="NuevoRegistroGrupoConcepto" header="#{msg['NuevoRegistroGrupoConcepto']}" widgetVar="NuevoRegistroGrupoConcepto" closable="false" resizable="false" draggable="true" modal="true" height="230" width="410" style="padding: 0px;">  
-
                   <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
-
                   <p:panel id="nuevaVGC" style="border: none;">
 
                      <strong><h:outputText value="*#{msg['fechainicialN']}" style="position: absolute; top: 60px; left: 50px;" /></strong>
@@ -1624,9 +1656,7 @@
                </p:dialog>
 
                <p:dialog id="DuplicarRegistroVigenciaGrupoConcepto" header="#{msg['DuplicarRegistroVigenciaGrupoConcepto']}" widgetVar="DuplicarRegistroVigenciaGrupoConcepto" closable="false" resizable="false"  draggable="true" modal="true" height="230" width="410" style="padding: 0px">  
-
                   <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style=" color: blue; position: relative; top: 10px;" /></strong></center> 
-
                   <p:panel id="duplicarVGC" style="border: none;">
 
                      <strong><h:outputText value="*#{msg['fechainicialN']}" style="position: absolute; top: 60px; left: 50px;" /></strong>
@@ -1677,10 +1707,8 @@
 
 
                <p:dialog id="NuevoRegistroVigenciaConceptoTT" header="#{msg['NuevoRegistroVigenciaConceptoTT']}" widgetVar="NuevoRegistroVigenciaConceptoTT" closable="false" resizable="false" draggable="true" modal="true" height="195" width="410" style="padding: 0px">  
-
                   <center><strong><h:outputText value="#{msg['ingresarnuevoTT']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
-
-                  <p:panel id="nuevaVCTT" style="border: none;">
+                  <p:panel id="nuevaVCTT" widgetVar="nuevaVC" style="border: none;">
 
                      <strong><h:outputText value="*#{msg['fechainicialN']}" style="position: absolute; top: 60px; left: 50px;" /></strong>
                      <div id="posicionFechaIniVCTTNuevoReg" style="position: absolute; top: 55px; left: 220px">
@@ -1719,9 +1747,7 @@
                </p:dialog>
 
                <p:dialog id="DuplicarRegistroVigenciaConceptoTT" header="#{msg['DuplicarRegistroVigenciaConceptoTT']}" widgetVar="DuplicarRegistroVigenciaConceptoTT" closable="false" resizable="false" draggable="true" modal="true" height="195" width="410" style="padding: 0px">  
-
                   <center><strong><h:outputText value="#{msg['ingresarnuevoTT']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
-
                   <p:panel id="duplicarVCTT" style="border: none;">
 
                      <strong><h:outputText value="*#{msg['fechainicialN']}" style="position: absolute; top: 60px; left: 50px;" /></strong>

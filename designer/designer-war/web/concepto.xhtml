@@ -103,13 +103,15 @@
                      <h:outputText id="nitEmpresa" value="#{controlConcepto.empresaActual.nit}" style="font-weight: bold; color: #BF1A1A; position: relative; left: 140px; top: 1px;"/>
                   </fieldset>   
 
-                  <fieldset style="position: absolute; left: 5px; top: 108px; width: 835px; height: 270px; border-radius: 10px;">
+                  <fieldset style="position: absolute; left: 5px; top: 108px; width: 835px; height: 272px; border-radius: 10px;">
                      <legend style="color: blue"><strong>#{msg['titulo']}</strong></legend>
 
                      <p:dataTable id="datosConceptos" var="concepto" rowKey="#{concepto.secuencia}" rowIndexVar="indice" style="width: 1300px; position: absolute;"                            
-                                  value="#{controlConcepto.listaConceptosEmpresa}" scrollable="true" scrollWidth="835" scrollHeight="#{controlConcepto.altoTabla}" 
-                                  liveScroll="true" scrollRows="40" filteredValue="#{controlConcepto.filtradoConceptosEmpresa}" emptyMessage="#{msg['vacio']}"
-                                  widgetVar="datosConceptos" editable="true" editMode="cell" selection="#{controlConcepto.conceptoSeleccionado}" selectionMode="single">
+                                  value="#{controlConcepto.listaConceptosEmpresa}" scrollable="true" scrollWidth="835"
+                                  filteredValue="#{controlConcepto.filtradoConceptosEmpresa}" emptyMessage="#{msg['vacio']}"
+                                  widgetVar="datosConceptos" editable="true" editMode="cell" selection="#{controlConcepto.conceptoSeleccionado}" selectionMode="single"
+                                  rows="#{controlConcepto.altoTabla}" paginator="true" paginatorTemplate="página {JumpToPageDropdown} de {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {NextPageLink} {LastPageLink}"
+                                  currentPageReportTemplate="{totalPages}">
 
                         <!--<f:event type="preRenderView" listener="#/{controlConcepto.recordarSeleccion()}"/>-->
                         <p:ajax event="filter" listener="#{controlConcepto.eventoFiltrar()}" />
@@ -424,7 +426,7 @@
                         </p:column>
 
                      </p:dataTable> 
-                     <h:outputText id="informacionRegistro" value="#{msg['infoRegistros']} #{controlConcepto.infoRegistro}" style="position: relative; left: 15px; top: 240px; font-weight: bold;"/>
+                     <h:outputText id="informacionRegistro" value="#{msg['infoRegistros']} #{controlConcepto.infoRegistro}" style="position: relative; left: 15px; top: 248px; font-weight: bold;"/>
 
                   </fieldset>
                   <br/><br/><br/><br/><br/>
@@ -597,8 +599,8 @@
 
                      <strong><h:outputText value="#{msg['codigoalternativo']}" style="position: absolute; top: 255px; left: 360px;" /></strong>
                      <p:inputText autocomplete="off" id="codAltNu" value="#{controlConcepto.nuevoConcepto.codigoalternativo}" maxlength="15" style="width: 122px; position: absolute; left: 520px; top: 250px; text-transform: uppercase;" onclick="select();">
-                     <!--<p:inputMask id="codAltNu" value="#/{controlConcepto.nuevoConcepto.codigoalternativo}" mask="999999999999999"-->
-                                  <!--style="width: 122px; position: absolute; left: 520px; top: 250px; text-transform: uppercase;" onclick="select();">-->
+                        <!--<p:inputMask id="codAltNu" value="#/{controlConcepto.nuevoConcepto.codigoalternativo}" mask="999999999999999"-->
+                        <!--style="width: 122px; position: absolute; left: 520px; top: 250px; text-transform: uppercase;" onclick="select();">-->
                         <p:ajax event="change" update="@this"/>
                         <p:keyFilter for="codAltNu" mask="num"/>
                      </p:inputText>

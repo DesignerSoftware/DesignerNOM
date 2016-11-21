@@ -555,10 +555,6 @@ button .ui-widget-header{
 .ui-selectonemenu label.ui-selectonemenu-label {
    padding: 2px 3px !important;
 }
-
-.ui-paginator.ui-paginator-bottom {
-   display: none !important;
-}
 /*
 .ui-datatable-scrollable .ui-cell-editor {
    display: initial !important;
@@ -571,6 +567,33 @@ button .ui-widget-header{
    position: relative;
    margin: 0px;
 }
+
+.ui-paginator.ui-paginator-bottom {
+   display: none !important;
+}
+
+.ui-paginator-top {
+   text-align: right !important;
+}
+
+.ui-paginator-top .ui-paginator-jtp-select{
+   margin-right: 5px !important;
+   width: 50px !important;
+}
+
+.ui-paginator-top a{
+   color: transparent !important;
+}
+
+.ui-paginator-current{
+   margin: 0px !important;
+}
+
+.ui-paginator-first{
+   margin-left: 15px !important;
+}
+
+/* Clases que yo cree */
 
 .cssColumnasNumericas .ui-cell-editor-output,
 .cssColumnasNumericas .ui-cell-editor-input input {

@@ -12,6 +12,7 @@ import javax.validation.constraints.NotNull;
  *
  * @author user
  */
+
 @Entity
 @Table(name = "VIGENCIASCUENTAS")
 public class VigenciasCuentas implements Serializable {
@@ -22,38 +23,47 @@ public class VigenciasCuentas implements Serializable {
     @NotNull
     @Column(name = "SECUENCIA")
     private BigInteger secuencia;
+    @NotNull
     @Column(name = "FECHAFINAL")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechafinal;
+    @NotNull
     @Column(name = "FECHAINICIAL")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechainicial;
-    @Column(name = "PROCESO")
-    private BigInteger proceso;
-    @Transient
-    private String nombreProceso;
+    @NotNull
     @JoinColumn(name = "TIPOCC", referencedColumnName = "SECUENCIA")
     @ManyToOne(optional = true)
     private TiposCentrosCostos tipocc;
+    @NotNull
     @JoinColumn(name = "CUENTAD", referencedColumnName = "SECUENCIA")
     @ManyToOne(optional = true)
     private Cuentas cuentad;
+    @NotNull
     @JoinColumn(name = "CUENTAC", referencedColumnName = "SECUENCIA")
     @ManyToOne(optional = false)
     private Cuentas cuentac;
+    @NotNull
     @JoinColumn(name = "CONCEPTO", referencedColumnName = "SECUENCIA")
     @ManyToOne(optional = true)
     private Conceptos concepto;
+    @NotNull
     @JoinColumn(name = "CONSOLIDADORD", referencedColumnName = "SECUENCIA")
     @ManyToOne(optional = true)
     private CentrosCostos consolidadord;
+    @NotNull
     @JoinColumn(name = "CONSOLIDADORC", referencedColumnName = "SECUENCIA")
     @ManyToOne(optional = true)
     private CentrosCostos consolidadorc;
+    
     @Transient
     private String strFechaInicial;
     @Transient
     private String strFechaFinal;
+    @Column(name = "PROCESO")
+    private BigInteger proceso;
+    @Transient
+    private String nombreProceso;
 
     public VigenciasCuentas() {
     }
@@ -145,7 +155,7 @@ public class VigenciasCuentas implements Serializable {
             SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
             strFechaInicial = formatoFecha.format(fechainicial);
         } else {
-            strFechaInicial = " ";
+            strFechaInicial = "";
         }
         return strFechaInicial;
     }
@@ -161,7 +171,7 @@ public class VigenciasCuentas implements Serializable {
             SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
             strFechaFinal = formatoFecha.format(fechafinal);
         } else {
-            strFechaFinal = " ";
+            strFechaFinal = "";
         }
         return strFechaFinal;
     }
@@ -187,6 +197,8 @@ public class VigenciasCuentas implements Serializable {
     public void setNombreProceso(String nombreProceso) {
         this.nombreProceso = nombreProceso;
     }
+    
+    
 
     @Override
     public int hashCode() {
