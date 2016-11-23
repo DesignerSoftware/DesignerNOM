@@ -394,12 +394,7 @@ public class PersistenciaEmpleados implements PersistenciaEmpleadoInterface {
     public List<Empleados> empleadosVacaciones(EntityManager em) {
         try {
             em.clear();
-            String sqlQuery = "select SECUENCIA, CODIGOEMPLEADO, RUTATRANSPORTE, TELEFONO,"
-                    + "EXTENSION, PARQUEADERO, SERVICIORESTAURANTE, NIVELENDEUDAMIENTO, "
-                    + "TOTALULTIMOPAGO, TOTALULTIMODESCUENTO, TOTALULTIMOSOBREGIRO, "
-                    + "EXCLUIRLIQUIDACION, CODIGOALTERNATIVODEUDOR, CODIGOALTERNATIVOACREEDOR, "
-                    + "FECHACREACION, CODIGOALTERNATIVO, TEMPTOTALINGRESOS, EXTRANJERO, "
-                    + "PAGASUBSIDIOTRANSPORTELEGAL, TEMPBASERECALCULO, PERSONA, EMPRESA, USUARIOBD "
+            String sqlQuery = "select * "
                     + "from empleados v where EXISTS (SELECT 'X' from  VWACTUALESTIPOSTRABAJADORES vtt, tipostrabajadores  tt\n"
                     + "where tt.secuencia = vtt.tipotrabajador\n"
                     + "and vtt.empleado = v.secuencia\n"

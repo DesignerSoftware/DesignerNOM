@@ -11,6 +11,7 @@ import Entidades.NovedadesSistema;
 import Entidades.Vacaciones;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -49,5 +50,7 @@ public interface AdministrarNovedadesSistemaInterface {
     public BigDecimal valorCesantias(BigInteger secuenciaEmpleado);
     
     public BigDecimal valorIntCesantias(BigInteger secuenciaEmpleado);
+    
+
     
 }

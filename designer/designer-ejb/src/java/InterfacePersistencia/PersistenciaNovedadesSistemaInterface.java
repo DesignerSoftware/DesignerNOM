@@ -65,5 +65,5 @@ public interface PersistenciaNovedadesSistemaInterface {
     
     public List<NovedadesSistema> novedadsistemaPorEmpleadoYVacacion(EntityManager em, BigInteger secEmpleado, BigInteger secVacacion);
 
-    public BigDecimal consultarValorTotalDetalleVacacion(EntityManager em, BigInteger secNovedadSistema);
+    public BigDecimal consultarValorTotalDetalleVacacion(EntityManager em, BigInteger secNovedadSistema);    
 }

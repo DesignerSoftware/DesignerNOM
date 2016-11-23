@@ -18,6 +18,7 @@ import InterfacePersistencia.PersistenciaNovedadesSistemaInterface;
 import InterfacePersistencia.PersistenciaVacacionesInterface;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
