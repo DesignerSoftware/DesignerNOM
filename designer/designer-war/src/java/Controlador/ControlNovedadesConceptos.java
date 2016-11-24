@@ -154,7 +154,7 @@ public class ControlNovedadesConceptos implements Serializable {
       nuevaNovedad.setPeriodicidad(new Periodicidades());
       nuevaNovedad.setFechareporte(new Date());
       nuevaNovedad.setTipo("FIJA");
-      altoTabla = "155";
+      altoTabla = "140";
       valor = new BigDecimal(Integer.toString(0));
       nuevaNovedad.setValortotal(valor);
       infoRegistroConceptos = "0";
@@ -436,8 +436,6 @@ public class ControlNovedadesConceptos implements Serializable {
       contarRegistrosNovedades();
       anularBotonLOV();
       RequestContext.getCurrentInstance().update("form:datosConceptos");
-      RequestContext.getCurrentInstance().update("form:diasTotales");
-      RequestContext.getCurrentInstance().update("form:diasAplazados");
 
       listaNovedades.clear();
       filtradosListaConceptosNovedad = null;
@@ -1121,7 +1119,7 @@ public class ControlNovedadesConceptos implements Serializable {
          nCMinutosHoras.setFilterStyle("width: 85% !important;");
          nCTipo = (Column) c.getViewRoot().findComponent("form:datosNovedadesConcepto:nCTipo");
          nCTipo.setFilterStyle("width: 85% !important;");
-         altoTabla = "135";
+         altoTabla = "120";
 
          RequestContext.getCurrentInstance().update("form:datosNovedadesConcepto");
          bandera = 1;
@@ -1613,7 +1611,7 @@ public class ControlNovedadesConceptos implements Serializable {
       nCMinutosHoras.setFilterStyle("display: none; visibility: hidden;");
       nCTipo = (Column) c.getViewRoot().findComponent("form:datosNovedadesConcepto:nCTipo");
       nCTipo.setFilterStyle("display: none; visibility: hidden;");
-      altoTabla = "155";
+      altoTabla = "140";
 
       RequestContext.getCurrentInstance().update("form:datosNovedadesConcepto");
       bandera = 0;

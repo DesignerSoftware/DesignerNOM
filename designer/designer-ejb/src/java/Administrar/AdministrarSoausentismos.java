@@ -164,8 +164,11 @@ public class AdministrarSoausentismos implements AdministrarSoausentismosInterfa
     }
 
     //Lista de Valores Empleados
+    @Override
     public List<Empleados> lovEmpleados() {
-        return persistenciaEmpleados.empleadosNovedad(em);
+        System.out.println("Administrar.AdministrarSoausentismos.lovEmpleados()");
+       List<Empleados> lovEmpleados = persistenciaEmpleados.empleadosAusentismos(em);
+        return  lovEmpleados;
     }
 
     public List<Tiposausentismos> lovTiposAusentismos() {

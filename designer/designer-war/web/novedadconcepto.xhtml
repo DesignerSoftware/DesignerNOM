@@ -93,9 +93,11 @@
 
                      <p:dataTable id="datosConceptos" var="conceptos" value="#{controlNovedadesConceptos.listaConceptosNovedad}"
                                   rowKey="#{conceptos.secuencia}" rowIndexVar="indiceT" style=" border: 1px; text-align: left; width: 555px;"                           
-                                  scrollable="true" scrollHeight="80" scrollWidth="575" filteredValue="#{controlNovedadesConceptos.filtradosListaConceptosNovedad}" 
+                                  scrollable="true" scrollHeight="60" scrollWidth="575" filteredValue="#{controlNovedadesConceptos.filtradosListaConceptosNovedad}" 
                                   emptyMessage="#{msg['vacio']}" selection="#{controlNovedadesConceptos.conceptoSeleccionado}"
-                                  editable="true" editMode="cell" selectionMode="single">
+                                  editable="true" editMode="cell" selectionMode="single" rows="20" paginator="true" 
+                                  paginatorTemplate="página {JumpToPageDropdown} de {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {NextPageLink} {LastPageLink}" 
+                                  currentPageReportTemplate="{totalPages}" >
 
                         <!--<p:ajax event="filter" listener="#/{controlNovedadesConceptos.eventoFiltrar()}"/>-->
                         <p:ajax event="rowSelect" listener="#{controlNovedadesConceptos.cambiarConcepto()}"/>
@@ -130,7 +132,10 @@
                                   scrollable="true" scrollHeight="#{controlNovedadesConceptos.altoTabla}" scrollWidth="820"
                                   filteredValue="#{controlNovedadesConceptos.filtradosListaNovedades}"
                                   emptyMessage="#{msg['vacio']}" editable="true" editMode="cell" widgetVar="datosNovedadesConcepto"
-                                  selection="#{controlNovedadesConceptos.novedadSeleccionada}" selectionMode="single">
+                                  selection="#{controlNovedadesConceptos.novedadSeleccionada}" selectionMode="single" 
+                                  rows="#{controlNovedadesConceptos.altoTabla}" paginator="true" 
+                                  paginatorTemplate="página {JumpToPageDropdown} de {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {NextPageLink} {LastPageLink}" 
+                                  currentPageReportTemplate="{totalPages}">
 
                         <p:ajax event="filter" listener="#{controlNovedadesConceptos.eventoFiltrar()}"/>
 

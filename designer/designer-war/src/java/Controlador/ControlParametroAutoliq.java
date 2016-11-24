@@ -131,7 +131,7 @@ public class ControlParametroAutoliq implements Serializable {
     //
     private String paginaAnterior;
     //
-    private Column parametroAno, parametroTipoTrabajador, parametroEmpresa;
+    private Column parametroAno, parametroTipoTrabajador, parametroEmpresa, mesParametro;
     //
     private Column aporteCodigoEmpleado, aporteAno, aporteMes, aporteNombreEmpleado, aporteNIT, aporteTercero, aporteTipoEntidad;
     private Column aporteEmpleado, aporteEmpleador, aporteAjustePatronal, aporteSolidaridadl, aporteSubSistencia;
@@ -162,7 +162,7 @@ public class ControlParametroAutoliq implements Serializable {
         activoBtnsPaginas = false;
         disabledBuscar = true;
         altoTabla = "50";
-        altoTablaAporte = "160";
+        altoTablaAporte = "130";
         //
         parametroTablaSeleccionado = new ParametrosAutoliq();
         aporteTablaSeleccionado = new AportesEntidades();
@@ -981,6 +981,8 @@ public class ControlParametroAutoliq implements Serializable {
             altoTabla = "50";
             parametroAno = (Column) c.getViewRoot().findComponent("form:datosParametroAuto:parametroAno");
             parametroAno.setFilterStyle("display: none; visibility: hidden;");
+            mesParametro = (Column) c.getViewRoot().findComponent("form:datosParametroAuto:parametroMes");
+            mesParametro.setFilterStyle("display: none; visibility: hidden;");
             parametroTipoTrabajador = (Column) c.getViewRoot().findComponent("form:datosParametroAuto:parametroTipoTrabajador");
             parametroTipoTrabajador.setFilterStyle("display: none; visibility: hidden;");
             parametroEmpresa = (Column) c.getViewRoot().findComponent("form:datosParametroAuto:parametroEmpresa");
@@ -1321,6 +1323,8 @@ public class ControlParametroAutoliq implements Serializable {
                 //CERRAR FILTRADO
                 parametroAno = (Column) c.getViewRoot().findComponent("form:datosParametroAuto:parametroAno");
                 parametroAno.setFilterStyle("display: none; visibility: hidden;");
+                mesParametro = (Column) c.getViewRoot().findComponent("form:datosParametroAuto:parametroMes");
+                mesParametro.setFilterStyle("display: none; visibility: hidden;");
                 parametroTipoTrabajador = (Column) c.getViewRoot().findComponent("form:datosParametroAuto:parametroTipoTrabajador");
                 parametroTipoTrabajador.setFilterStyle("display: none; visibility: hidden;");
                 parametroEmpresa = (Column) c.getViewRoot().findComponent("form:datosParametroAuto:parametroEmpresa");
@@ -1526,6 +1530,8 @@ public class ControlParametroAutoliq implements Serializable {
                 FacesContext c = FacesContext.getCurrentInstance();
                 parametroAno = (Column) c.getViewRoot().findComponent("form:datosParametroAuto:parametroAno");
                 parametroAno.setFilterStyle("display: none; visibility: hidden;");
+                mesParametro = (Column) c.getViewRoot().findComponent("form:datosParametroAuto:parametroMes");
+                mesParametro.setFilterStyle("display: none; visibility: hidden;");
                 parametroTipoTrabajador = (Column) c.getViewRoot().findComponent("form:datosParametroAuto:parametroTipoTrabajador");
                 parametroTipoTrabajador.setFilterStyle("display: none; visibility: hidden;");
                 parametroEmpresa = (Column) c.getViewRoot().findComponent("form:datosParametroAuto:parametroEmpresa");
@@ -1980,9 +1986,11 @@ public class ControlParametroAutoliq implements Serializable {
 
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
-            altoTabla = "30";
+            altoTabla = "35";
             parametroAno = (Column) c.getViewRoot().findComponent("form:datosParametroAuto:parametroAno");
             parametroAno.setFilterStyle("width: 85% !important");
+            mesParametro = (Column) c.getViewRoot().findComponent("form:datosParametroAuto:parametroMes");
+            mesParametro.setFilterStyle("width: 85% !important");
             parametroTipoTrabajador = (Column) c.getViewRoot().findComponent("form:datosParametroAuto:parametroTipoTrabajador");
             parametroTipoTrabajador.setFilterStyle("width: 85% !important");
             parametroEmpresa = (Column) c.getViewRoot().findComponent("form:datosParametroAuto:parametroEmpresa");
@@ -1994,6 +2002,8 @@ public class ControlParametroAutoliq implements Serializable {
             altoTabla = "50";
             parametroAno = (Column) c.getViewRoot().findComponent("form:datosParametroAuto:parametroAno");
             parametroAno.setFilterStyle("display: none; visibility: hidden;");
+            mesParametro = (Column) c.getViewRoot().findComponent("form:datosParametroAuto:parametroMes");
+            mesParametro.setFilterStyle("display: none; visibility: hidden;");
             parametroTipoTrabajador = (Column) c.getViewRoot().findComponent("form:datosParametroAuto:parametroTipoTrabajador");
             parametroTipoTrabajador.setFilterStyle("display: none; visibility: hidden;");
             parametroEmpresa = (Column) c.getViewRoot().findComponent("form:datosParametroAuto:parametroEmpresa");
@@ -2008,7 +2018,7 @@ public class ControlParametroAutoliq implements Serializable {
 
     public void desactivarFiltradoAporteEntidad() {
         FacesContext c = FacesContext.getCurrentInstance();
-        altoTablaAporte = "160";
+        altoTablaAporte = "130";
 
         aporteCodigoEmpleado = (Column) c.getViewRoot().findComponent("form:tablaAportesEntidades:aporteCodigoEmpleado");
         aporteCodigoEmpleado.setFilterStyle("display: none; visibility: hidden;");
@@ -2192,7 +2202,7 @@ public class ControlParametroAutoliq implements Serializable {
 
     public void activarFiltradoAporteEntidad() {
         FacesContext c = FacesContext.getCurrentInstance();
-        altoTablaAporte = "138";
+        altoTablaAporte = "115";
 
         aporteCodigoEmpleado = (Column) c.getViewRoot().findComponent("form:tablaAportesEntidades:aporteCodigoEmpleado");
         aporteCodigoEmpleado.setFilterStyle("width: 85% !important");
@@ -2383,6 +2393,8 @@ public class ControlParametroAutoliq implements Serializable {
             FacesContext c = FacesContext.getCurrentInstance();
             parametroAno = (Column) c.getViewRoot().findComponent("form:datosParametroAuto:parametroAno");
             parametroAno.setFilterStyle("display: none; visibility: hidden;");
+            mesParametro = (Column) c.getViewRoot().findComponent("form:datosParametroAuto:parametroMes");
+            mesParametro.setFilterStyle("display: none; visibility: hidden;");
             parametroTipoTrabajador = (Column) c.getViewRoot().findComponent("form:datosParametroAuto:parametroTipoTrabajador");
             parametroTipoTrabajador.setFilterStyle("display: none; visibility: hidden;");
             parametroEmpresa = (Column) c.getViewRoot().findComponent("form:datosParametroAuto:parametroEmpresa");

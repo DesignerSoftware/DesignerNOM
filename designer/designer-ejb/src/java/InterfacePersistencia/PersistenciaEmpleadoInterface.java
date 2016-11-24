@@ -64,7 +64,7 @@ public interface PersistenciaEmpleadoInterface {
      * Método encargado de buscar el Empleado con la secuencia dada por
      * parámetro.
      *
-    * @param em
+     * @param em
      * @param secuencia Secuencia del Empleado que se quiere encontrar.
      * @return Retorna el Empleado identificado con la secuencia dada por
      * parámetro.
@@ -204,5 +204,7 @@ public interface PersistenciaEmpleadoInterface {
     public List<Empleados> consultarCesantiasnoLiquidadas(EntityManager em);
 
     public List<NovedadesSistema> novedadescesantiasnoliquidadas(EntityManager em, BigInteger secuenciaEmpleado);
+
+    public List<Empleados> empleadosAusentismos(EntityManager em);
 
 }

@@ -90,19 +90,22 @@
 
                             <p:dataTable id="datosEmpleados" var="empleados" value="#{controlNovedadesVacaciones.listaEmpleadosNovedad}"
                                          rowKey="#{empleados.secuencia}" style=" border: 1px; text-align: left; width: 560px;"                           
-                                         scrollable="true"  scrollHeight="86" scrollWidth="580" filteredValue="#{controlNovedadesVacaciones.filtradosListaEmpleadosNovedad}" 
+                                         scrollable="true"  scrollHeight="60" scrollWidth="580" filteredValue="#{controlNovedadesVacaciones.filtradosListaEmpleadosNovedad}" 
                                          emptyMessage="No se encontraron resultados para la búsqueda" selection="#{controlNovedadesVacaciones.empleadoSeleccionado}"
-                                         editable="true" editMode="cell" selectionMode="single" >
+                                         editable="true" editMode="cell" selectionMode="single" 
+                                         rows="20" paginator="true" 
+                                         paginatorTemplate="página {JumpToPageDropdown} de {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {NextPageLink} {LastPageLink}" 
+                                         currentPageReportTemplate="{totalPages}"  >
 
                                 <p:ajax event="rowSelect" listener="#{controlNovedadesVacaciones.cambiarEmpleado()}"/>
 
                                 <p:column headerText="Nombre" sortBy="#{empleados.persona.nombreCompleto}" filterBy="#{empleados.persona.nombreCompleto}" 
-                                          filterMatchMode="contains" id="nEEmpleadosNombres" filterStyle="display: none; visibility: hidden;" >                                  
+                                          filterMatchMode="contains" id="nEEmpleadosNombres" filterStyle="display: none; visibility: hidden;" width="420" >                                  
                                     <h:outputText value="#{empleados.persona.nombreCompleto}" />
                                 </p:column>
 
                                 <p:column style="text-align: center" headerText="Fecha Ingreso" sortBy="#{empleados.fechacreacion}" filterBy="#{empleados.fechacreacion}" 
-                                          filterMatchMode="contains"  width="76" id="nEFechasIngreso" filterStyle="display: none; visibility: hidden;"  >
+                                          filterMatchMode="contains"  id="nEFechasIngreso" filterStyle="display: none; visibility: hidden;"  >
                                     <h:outputText value="#{empleados.fechacreacion}" >
                                         <f:convertDateTime pattern="dd/MM/yyyy" />
                                     </h:outputText>
@@ -123,11 +126,14 @@
                             <legend style="font-size: 14px; color: #14388B"><strong>Novedad de Vacaciones disfrutadas/por disfrutar</strong></legend>
                             <p:dataTable id="datosNovedadesEmpleado" var="novedades" value="#{controlNovedadesVacaciones.listaNovedades}"
                                          rowKey="#{novedades.secuencia}" rowIndexVar="indice" style=" border: 1px;width: 820px;"                             
-                                         scrollable="true" scrollHeight="#{controlNovedadesVacaciones.altoTabla}" scrollWidth="828"
+                                         scrollable="true"  scrollWidth="828"
                                          filteredValue="#{controlNovedadesVacaciones.filtradosListaNovedades}" 
                                          emptyMessage="No se encontrarón resultados para la búsqueda"
-                                         editable="true" editMode="cell"
-                                         selectionMode="single" selection="#{controlNovedadesVacaciones.novedadSeleccionada}">
+                                         editable="true" editMode="cell" scrollHeight="#{controlNovedadesVacaciones.altoTabla}"
+                                         selectionMode="single" selection="#{controlNovedadesVacaciones.novedadSeleccionada}"
+                                         rows="#{controlNovedadesVacaciones.altoTabla}" paginator="true" 
+                                         paginatorTemplate="página {JumpToPageDropdown} de {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {NextPageLink} {LastPageLink}" 
+                                         currentPageReportTemplate="{totalPages}" >
 
                                 <p:ajax event="filter" listener="#{controlNovedadesVacaciones.eventoFiltrar()}"/>
 
@@ -160,7 +166,7 @@
                                 </p:column>
 
                                 <p:column style="text-align: center" headerText="Periodo" sortBy="#{novedades.vacacion.periodo}" filterBy="#{novedades.vacacion.periodo}" 
-                                          filterMatchMode="contains" id="nEPeriodo" filterStyle="display: none; visibility: hidden;" >                                  
+                                          filterMatchMode="contains" id="nEPeriodo" filterStyle="display: none; visibility: hidden;" width="232" >                                  
                                     <p:cellEditor>  
                                         <f:facet name="output">
                                             <h:outputText value="#{novedades.vacacion.periodo}" /></f:facet>  
@@ -343,9 +349,9 @@
                                           style=" width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlNovedadesVacaciones.lovPeriodo(controlNovedadesVacaciones.empleadoSeleccionado.secuencia,1)}" />
                             </p:inputText>
-                            
-                                <p:commandButton class="cssBotonLovDialogos"  value="" style="position : absolute; left: 340px; top: 100px"  process="@this" id="btnlovperiodos" 
-                                                 actionListener="#{controlNovedadesVacaciones.lovPeriodo(controlNovedadesVacaciones.empleadoSeleccionado.secuencia,1)}" />
+
+                            <p:commandButton class="cssBotonLovDialogos"  value="" style="position : absolute; left: 340px; top: 100px"  process="@this" id="btnlovperiodos" 
+                                             actionListener="#{controlNovedadesVacaciones.lovPeriodo(controlNovedadesVacaciones.empleadoSeleccionado.secuencia,1)}" />
 
                             <strong><h:outputText value="*Días: " style=" position: absolute; top: 145px;" /></strong>
                             <p:inputText  autocomplete="off"  id="nuevoDias" value="#{controlNovedadesVacaciones.nuevaNovedad.dias}" 
@@ -414,8 +420,8 @@
                                           style=" width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlNovedadesVacaciones.lovPeriodo(controlNovedadesVacaciones.empleadoSeleccionado.secuencia,2)}" />
                             </p:inputText>
-                             <p:commandButton class="cssBotonLovDialogos"  value="" style="position : absolute; left: 340px; top: 100px"  process="@this" id="btnduplicarlovperiodos" 
-                                                 actionListener="#{controlNovedadesVacaciones.lovPeriodo(controlNovedadesVacaciones.empleadoSeleccionado.secuencia,2)}" />
+                            <p:commandButton class="cssBotonLovDialogos"  value="" style="position : absolute; left: 340px; top: 100px"  process="@this" id="btnduplicarlovperiodos" 
+                                             actionListener="#{controlNovedadesVacaciones.lovPeriodo(controlNovedadesVacaciones.empleadoSeleccionado.secuencia,2)}" />
 
                             <strong><h:outputText value="*Días: " style=" position: absolute; top: 145px;" /></strong>
                             <p:inputText  autocomplete="off"  readonly="true" id="duplicarDias" value="#{controlNovedadesVacaciones.duplicarNovedad.dias}" 
@@ -437,7 +443,7 @@
                                 <f:selectItem itemLabel="TIEMPO" itemValue="TIEMPO" />  
                                 <f:selectItem itemLabel="DINERO" itemValue="DINERO" />  
                                 <p:ajax event="change" listener="#{controlNovedadesVacaciones.seleccionarSubtipo(controlNovedadesVacaciones.duplicarNovedad.subtipo, 2)}" update="@this" />
-                                
+
                             </p:selectOneMenu>
 
                             <strong><h:outputText value="Adelanto Hasta: " style=" position: absolute; top: 265px;" /></strong>

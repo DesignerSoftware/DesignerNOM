@@ -102,11 +102,13 @@ public class PersistenciaIBCS implements PersistenciaIBCSInterface {
 
     @Override
     public List<Ibcs> buscarIbcsPorEmpleado(EntityManager em, BigInteger secEmpleado) {
+        System.out.println("Persistencia.PersistenciaIBCS.buscarIbcsPorEmpleado()");
+        System.out.println("empleado en buscar IBC por empleado : " + secEmpleado);
         try {
             em.clear();
-            Query query = em.createQuery("SELECT ib FROM Ibcs ib WHERE ib.empleado.secuencia = :secuenciaEmpl ORDER BY ib.fechainicial DESC");
-            query.setParameter("secuenciaEmpl", secEmpleado);
-            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            String sql = "SELECT * FROM Ibcs ib WHERE ib.empleado = ? ORDER BY ib.fechainicial DESC";
+            Query query = em.createNativeQuery(sql, Ibcs.class);
+            query.setParameter(1, secEmpleado);
             List<Ibcs> ibcs = query.getResultList();
             return ibcs;
         } catch (Exception e) {

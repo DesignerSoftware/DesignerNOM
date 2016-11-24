@@ -64,10 +64,10 @@ public class PersistenciaEmpleados implements PersistenciaEmpleadoInterface {
             query.setParameter(5, secEstructura);
             query.setParameter(6, fechaIngreso);
             query.setParameter(7, secMotivoCargo);
-            
+
             query.execute();
             query.hasMoreResults();
-            BigDecimal empleado_Sec = (BigDecimal)query.getOutputParameterValue(1);
+            BigDecimal empleado_Sec = (BigDecimal) query.getOutputParameterValue(1);
             System.out.println("PersistenciaEmpleados crearConVCargo() se supone creo el empleado con V cargo");
             System.out.println("crearConVCargo() retorno parametro '" + "'SECUENCIA_EMPLEADO'" + "' : " + empleado_Sec);
             return empleado_Sec.toBigInteger();
@@ -78,8 +78,7 @@ public class PersistenciaEmpleados implements PersistenciaEmpleadoInterface {
             if (tx.isActive()) {
                 tx.rollback();
             }
-        }
-        finally {
+        } finally {
             tx.commit();
         }
         return null;
@@ -819,6 +818,28 @@ public class PersistenciaEmpleados implements PersistenciaEmpleadoInterface {
             return null;
         }
 
+    }
+
+    @Override
+    public List<Empleados> empleadosAusentismos(EntityManager em) {
+        System.out.println("entró a  empleadosAusentismos");
+        try {
+            System.out.println("entro al try");
+            em.clear();
+            String sql = "SELECT * \n"
+                    + "FROM  EMPLEADOS E\n"
+                    + "WHERE  EXISTS (SELECT 'X' FROM VWACTUALESTIPOSTRABAJADORES VTT,   TIPOSTRABAJADORES TT \n"
+                    + "   WHERE VTT.TIPOTRABAJADOR = TT.SECUENCIA \n"
+                    + "   AND   VTT.EMPLEADO = E.SECUENCIA \n"
+                    + "   AND   TT.TIPO = 'ACTIVO')";
+            Query query = em.createNativeQuery(sql, Empleados.class);
+            List<Empleados> empleadosAusentismos = query.getResultList();
+            System.out.println("empleadosAusentismos : " + empleadosAusentismos.size());
+            return empleadosAusentismos;
+        } catch (Exception e) {
+            System.out.println("error persistenciaEmpledos.empleadoAusentismos()");
+            return null;
+        }
     }
 
 }

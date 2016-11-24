@@ -146,12 +146,12 @@
                      <legend style=" color: blue;text-align:left"><strong>#{msg['generados']}</strong></legend>
 
                      <p:dataTable id="datosGenerados" var="infoG" rowKey="#{infoG.secuencia}" rowIndexVar="indiceG" style="width: 814px; border: 1px;"                           
-                                  value="#{controlInterfaseContableTotal.listaGenerados}" scrollable="true" scrollHeight="50" scrollWidth="830"
+                                  value="#{controlInterfaseContableTotal.listaGenerados}" scrollable="true" scrollWidth="830"
                                   filteredValue="#{controlInterfaseContableTotal.filtrarListaGenerados}" emptyMessage="#{msg['vacio']}"
-                                  editable="true" editMode="cell" liveScroll="true" rows="50" 
+                                  editable="true" editMode="cell" liveScroll="true" scrollHeight="#{controlInterfaseContableTotal.altoTablaGenerada}"
                                   selection="#{controlInterfaseContableTotal.generadoTablaSeleccionado}" selectionMode="single"
-                                  paginator="true"
-                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" >
+                                  rows="#{controlInterfaseContableTotal.altoTablaGenerada}" paginator="true" 
+                                  paginatorTemplate="página {JumpToPageDropdown} de {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {NextPageLink} {LastPageLink}" currentPageReportTemplate="{totalPages}">
 
                         <p:ajax event="filter" listener="#{controlInterfaseContableTotal.eventoFiltrarGenerados()}"/>
 
@@ -306,12 +306,12 @@
                      <legend style=" color: blue;text-align:left"><strong>#{msg['intercontotal']}</strong></legend>
 
                      <p:dataTable id="datosIntercon" var="infoI" rowKey="#{infoI.secuencia}" rowIndexVar="indiceI" style="width: 814px; border: 1px;"                           
-                                  value="#{controlInterfaseContableTotal.listaInterconTotal}" scrollable="true" scrollHeight="50" scrollWidth="830"
+                                  value="#{controlInterfaseContableTotal.listaInterconTotal}" scrollable="true" scrollWidth="830"
                                   filteredValue="#{controlInterfaseContableTotal.filtrarListaInterconTotal}" emptyMessage="#{msg['vacio']}"
-                                  editable="true" editMode="cell" liveScroll="true" rows="50" 
-                                  selection="#{controlInterfaseContableTotal.interconTablaSeleccionada}" selectionMode="single" 
-                                  paginator="true"
-                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+                                  editable="true" editMode="cell"   selection="#{controlInterfaseContableTotal.interconTablaSeleccionada}" selectionMode="single" 
+                                  rows="#{controlInterfaseContableTotal.altoTablaIntercon}" paginator="true" 
+                                  paginatorTemplate="página {JumpToPageDropdown} de {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {NextPageLink} {LastPageLink}" 
+                                  currentPageReportTemplate="{totalPages}" liveScroll="true" scrollHeight="#{controlInterfaseContableTotal.altoTablaIntercon}" >
 
                         <p:ajax event="filter" listener="#{controlInterfaseContableTotal.eventoFiltrarContabilizados()}"/>
 
@@ -714,6 +714,18 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['recontabilizacionExitosa']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
                   <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('RecontabilizacionExitosa').hide();" style="position: absolute; top: 70px; left: 175px" process="@this" />
+               </p:dialog>
+               
+               <p:dialog id="errorVWActualesFechas" header="#{msg['error']}" widgetVar="errorVWActualesFechas"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorVWActualesFechas']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
+                  <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('errorVWActualesFechas').hide();" style="position: absolute; top: 70px; left: 175px" process="@this" />
+               </p:dialog>
+               
+               <p:dialog id="errorCifraControl" header="#{msg['error']}" widgetVar="errorCifraControl"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorCifraControl']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
+                  <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('errorCifraControl').hide();" style="position: absolute; top: 70px; left: 175px" process="@this" />
                </p:dialog>
 
             </h:form>

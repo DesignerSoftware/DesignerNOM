@@ -140,7 +140,7 @@ public class ControlNovedadesVacaciones implements Serializable {
         duplicarNovedad.setDias(BigInteger.valueOf(0));
         diasTotales = BigInteger.valueOf(0);
         diasAplazadosTotal = Short.parseShort(cero);
-        altoTabla = "125";
+        altoTabla = "110";
         paginaAnterior = "";
         activarMTodos = true;
         novedadSeleccionada = null;
@@ -402,7 +402,7 @@ public class ControlNovedadesVacaciones implements Serializable {
         FacesContext c = FacesContext.getCurrentInstance();
 
         if (bandera == 0) {
-            altoTabla = "105";
+            altoTabla = "90";
             nEFechaInicialDisfrute = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:nEFechaInicialDisfrute");
             nEFechaInicialDisfrute.setFilterStyle("width: 85% !important");
             nEPeriodo = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:nEPeriodo");
@@ -733,7 +733,7 @@ public class ControlNovedadesVacaciones implements Serializable {
         limpiarduplicarNovedades();
         diasTotales = BigInteger.valueOf(0);
         diasAplazadosTotal = Short.parseShort(cero);
-        altoTabla = "125";
+        altoTabla = "110";
         listaNovedadesBorrar.clear();
         listaNovedadesCrear.clear();
         listaNovedadesModificar.clear();
@@ -749,7 +749,7 @@ public class ControlNovedadesVacaciones implements Serializable {
 
     public void cargarTablaDefault() {
         FacesContext c = FacesContext.getCurrentInstance();
-        altoTabla = "125";
+        altoTabla = "110";
         nEFechaInicialDisfrute = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:nEFechaInicialDisfrute");
         nEFechaInicialDisfrute.setFilterStyle("display: none; visibility: hidden;");
         nEPeriodo = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:nEPeriodo");
@@ -786,7 +786,7 @@ public class ControlNovedadesVacaciones implements Serializable {
         limpiarduplicarNovedades();
         diasTotales = BigInteger.valueOf(0);
         diasAplazadosTotal = Short.parseShort(cero);
-        altoTabla = "125";
+        altoTabla = "110";
         listaNovedadesBorrar.clear();
         listaNovedadesCrear.clear();
         listaNovedadesModificar.clear();

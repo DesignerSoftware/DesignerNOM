@@ -172,7 +172,7 @@ public class ControlNovedadesEmpleados implements Serializable {
       nuevaNovedad.setUsuarioreporta(new Usuarios());
       nuevaNovedad.setTerminal(" ");
       nuevaNovedad.setFechareporte(new Date());
-      altoTabla = "155";
+      altoTabla = "140";
       nuevaNovedad.setValortotal(valor);
       cargarTodos = false;
       cantidadEmpleadosNov = 0;
@@ -276,7 +276,7 @@ public class ControlNovedadesEmpleados implements Serializable {
          nEMinutosHoras.setFilterStyle("display: none; visibility: hidden;");
          nETipo = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:nETipo");
          nETipo.setFilterStyle("display: none; visibility: hidden;");
-         altoTabla = "155";
+         altoTabla = "140";
          RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
          bandera = 0;
          filtradosListaNovedades = null;
@@ -869,7 +869,7 @@ public class ControlNovedadesEmpleados implements Serializable {
          nEMinutosHoras.setFilterStyle("width: 85% !important");
          nETipo = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:nETipo");
          nETipo.setFilterStyle("width: 85% !important");
-         altoTabla = "135";
+         altoTabla = "120";
          RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
          bandera = 1;
          tipoLista = 1;

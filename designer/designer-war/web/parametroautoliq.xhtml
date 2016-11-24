@@ -188,10 +188,11 @@
 
                      <p:dataTable id="tablaAportesEntidades" var="infoAE"  rowKey="#{infoAE.secuencia}" style="border: 1px; width: 4650px; position: inherit;" value="#{controlParametroAutoliq.listaAportesEntidades}"
                                   widgetVar="tablaAportesEntidades" filteredValue="#{controlParametroAutoliq.filtrarListaAportesEntidades}"  rowIndexVar="indiceAE"
-                                  selection="#{controlParametroAutoliq.aporteTablaSeleccionado}" scrollWidth="825" selectionMode="single" scrollable="true" rows="40" emptyMessage="No se encontraron resultados para la búsqueda" 
-                                  editable="true" editMode="cell" liveScroll="true" scrollHeight="120"
-                                  paginator="true"
-                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" >
+                                  selection="#{controlParametroAutoliq.aporteTablaSeleccionado}" scrollWidth="825" selectionMode="single" scrollable="true" emptyMessage="No se encontraron resultados para la búsqueda" 
+                                  editable="true" editMode="cell" liveScroll="true" scrollHeight="#{controlParametroAutoliq.altoTablaAporte}"
+                                    rows="#{controlParametroAutoliq.altoTablaAporte}" paginator="true" 
+                                  paginatorTemplate="página {JumpToPageDropdown} de {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {NextPageLink} {LastPageLink}" 
+                                  currentPageReportTemplate="{totalPages}" >
                         <p:ajax event="filter" listener="#{controlParametroAutoliq.contarRegistroAportesEntidades()}"/>
 
                         <p:column  id="aporteCodigoEmpleado"  sortBy="#{infoAE.empleado.codigoempleado}" width="40" filterBy="#{infoAEempleado.empleado.codigoempleado}" 
@@ -1330,7 +1331,7 @@
 
                      </p:dataTable>
                      <!--</p:scrollPanel>-->
-                     <h:outputText id="infoRegistroAporte" value="#{msg['infoRegistro']} #{controlParametroAutoliq.infoRegistroAporte}" style="position: relative; left: 5px; top: 200px; font-weight: bold"/>
+                     <h:outputText id="infoRegistroAporte" value="#{msg['infoRegistro']} #{controlParametroAutoliq.infoRegistroAporte}" style="position: relative; left: 5px; top: 205px; font-weight: bold"/>
                   </fieldset>
 
 

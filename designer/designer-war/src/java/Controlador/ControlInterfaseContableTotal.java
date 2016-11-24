@@ -364,7 +364,7 @@ public class ControlInterfaseContableTotal implements Serializable {
         }
         if (i == 1) {
             if (nuevoParametroContable.getFechainicialcontabilizacion().after(fechaDeParametro) && nuevoParametroContable.getFechainicialcontabilizacion().before(nuevoParametroContable.getFechafinalcontabilizacion())) {
-                    retorno = true;
+                retorno = true;
             } else {
                 retorno = false;
             }
@@ -788,11 +788,11 @@ public class ControlInterfaseContableTotal implements Serializable {
                 if (listaInterconTotal == null) {
                     listaInterconTotal = administrarInterfaseContableTotal.obtenerInterconTotalParametroContable(parametroContableActual.getFechainicialcontabilizacion(), parametroContableActual.getFechafinalcontabilizacion());
                     if (listaInterconTotal != null) {
-//                            if (listaInterconTotal.size() > 0) {
-                        activarDeshacer = false;
-//                            } else {
-//                                activarDeshacer = true;
-//                            }
+                        if (listaInterconTotal.size() > 0) {
+                            activarDeshacer = false;
+                        } else {
+                            activarDeshacer = true;
+                        }
                     } else {
                         activarDeshacer = true;
                     }
@@ -1890,60 +1890,56 @@ public class ControlInterfaseContableTotal implements Serializable {
     }
 
     public void validarDescargaReporte() {
-        System.out.println(this.getClass().getName() + ".validarDescargaReporte()");
-        RequestContext.getCurrentInstance().execute("PF('generandoReporte').show()");
-        RequestContext context = RequestContext.getCurrentInstance();
-        nombreReporte = "CifraControl";
-        tipoReporte = "PDF";
-        System.out.println("nombre reporte : " + nombreReporte);
-        System.out.println("tipo reporte: " + tipoReporte);
-        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
-        String auxfechainicial = formatoFecha.format(parametroContableActual.getFechainicialcontabilizacion());
-        String auxfechafinal = formatoFecha.format(parametroContableActual.getFechafinalcontabilizacion());
+        try {
+            System.out.println(this.getClass().getName() + ".validarDescargaReporte()");
+            RequestContext.getCurrentInstance().execute("PF('generandoReporte').show()");
+            RequestContext context = RequestContext.getCurrentInstance();
+            nombreReporte = "CifraControl";
+            tipoReporte = "PDF";
+            System.out.println("nombre reporte : " + nombreReporte);
+            System.out.println("tipo reporte: " + tipoReporte);
+            SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+            String auxfechainicial = formatoFecha.format(parametroContableActual.getFechainicialcontabilizacion());
+            String auxfechafinal = formatoFecha.format(parametroContableActual.getFechafinalcontabilizacion());
 
-        Map paramFechas = new HashMap();
-        System.out.println("fecha desde : " + auxfechainicial);
-        System.out.println("fecha hasta : " + auxfechafinal);
-        paramFechas.put("fechaDesde", auxfechainicial);
-        paramFechas.put("fechaHasta", auxfechafinal);
+            Map paramFechas = new HashMap();
+            System.out.println("fecha desde : " + auxfechainicial);
+            System.out.println("fecha hasta : " + auxfechafinal);
+            paramFechas.put("fechaDesde", auxfechainicial);
+            paramFechas.put("fechaHasta", auxfechafinal);
 
-        pathReporteGenerado = administarReportes.generarReporteCifraControl(nombreReporte, tipoReporte, paramFechas);
-        RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
-        if (pathReporteGenerado != null && !pathReporteGenerado.startsWith("Error:")) {
-            System.out.println("validar descarga reporte - ingreso al if 1");
-            if (tipoReporte.equals("PDF")) {
+            pathReporteGenerado = administarReportes.generarReporteCifraControl(nombreReporte, tipoReporte, paramFechas);
+            RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
+            if (pathReporteGenerado != null && !pathReporteGenerado.startsWith("Error:")) {
+                System.out.println("validar descarga reporte - ingreso al if 1");
+                if (tipoReporte.equals("PDF")) {
 
-                System.out.println("validar descarga reporte - ingreso al if 2 else");
-                FileInputStream fis;
-                try {
-                    System.out.println("pathReporteGenerado : " + pathReporteGenerado);
-                    fis = new FileInputStream(new File(pathReporteGenerado));
-                    System.out.println("fis : " + fis);
-                    reporte = new DefaultStreamedContent(fis, "application/pdf");
-                    System.out.println("reporte despues de esto : " + reporte);
-                    cabezeraVisor = "Reporte - " + nombreReporte;
-                    RequestContext.getCurrentInstance().update("formularioDialogos:verReportePDF");
-                    RequestContext.getCurrentInstance().execute("PF('verReportePDF').show()");
-                    pathReporteGenerado = null;
-                } catch (FileNotFoundException ex) {
-                    System.out.println("validar descarga reporte - ingreso al catch 1");
-                    System.out.println(ex);
-                    reporte = null;
+                    System.out.println("validar descarga reporte - ingreso al if 2 else");
+                    FileInputStream fis;
+                    try {
+                        System.out.println("pathReporteGenerado : " + pathReporteGenerado);
+                        fis = new FileInputStream(new File(pathReporteGenerado));
+                        System.out.println("fis : " + fis);
+                        reporte = new DefaultStreamedContent(fis, "application/pdf");
+                        System.out.println("reporte despues de esto : " + reporte);
+                        cabezeraVisor = "Reporte - " + nombreReporte;
+                        RequestContext.getCurrentInstance().update("formularioDialogos:verReportePDF");
+                        RequestContext.getCurrentInstance().execute("PF('verReportePDF').show()");
+                        pathReporteGenerado = null;
+                    } catch (FileNotFoundException ex) {
+                        System.out.println("validar descarga reporte - ingreso al catch 1");
+                        System.out.println(ex);
+                        reporte = null;
+                    }
                 }
-//                if (reporte != null) {
-//                    System.out.println("validar descarga reporte - ingreso al if 3");
-////                    if (reporteSeleccionado != null) {
-//                    System.out.println("validar descarga reporte - ingreso al if 4");
-////                    } else {
-////                        System.out.println("validar descarga reporte - ingreso al if 4 else ");
-////                        cabezeraVisor = "Reporte - ";
-////                    }
-//                }
+            } else {
+                System.out.println("validar descarga reporte - ingreso al if 1 else");
+                RequestContext.getCurrentInstance().update("formularioDialogos:errorGenerandoReporte");
+                RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
             }
-        } else {
-            System.out.println("validar descarga reporte - ingreso al if 1 else");
-            RequestContext.getCurrentInstance().update("formularioDialogos:errorGenerandoReporte");
-            RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
+        } catch (Exception e) {
+            System.out.println("Error en validar descargar Reporte");
+            RequestContext.getCurrentInstance().execute("PF('errorCifraControl').show()");
         }
     }
 

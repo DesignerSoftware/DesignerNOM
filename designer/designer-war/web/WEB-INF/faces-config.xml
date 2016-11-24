@@ -5940,7 +5940,7 @@
         </navigation-case>
     </navigation-rule>
     
-        <navigation-rule>
+    <navigation-rule>
         <from-view-id>/vigenciaaficion.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>aficion</from-outcome>
@@ -6011,7 +6011,7 @@
         </navigation-case>
     </navigation-rule>
     
-     <navigation-rule>
+    <navigation-rule>
         <from-view-id>/emplvigenciaindicador.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>indicador</from-outcome>
@@ -6019,7 +6019,7 @@
             <redirect />
         </navigation-case>
     </navigation-rule>
-     <navigation-rule>
+    <navigation-rule>
         <from-view-id>/indicadores.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>atrasindicador</from-outcome>
@@ -6036,7 +6036,7 @@
             <redirect />
         </navigation-case>
     </navigation-rule>
-     <navigation-rule>
+    <navigation-rule>
         <from-view-id>/resultadosindicesexternos.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>atrasresultadoindice</from-outcome>
@@ -6062,7 +6062,7 @@
         </navigation-case>
     </navigation-rule>
     
-        <navigation-rule>
+    <navigation-rule>
         <from-view-id>/perexperiencialaboral.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>sectoreconomico</from-outcome>
@@ -6113,7 +6113,7 @@
         </navigation-case>
     </navigation-rule>
         
-       <navigation-rule>
+    <navigation-rule>
         <from-view-id>/enviocorreo.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>registroEnvios</from-outcome>
@@ -6130,7 +6130,7 @@
         </navigation-case>
     </navigation-rule>
     
-       <navigation-rule>
+    <navigation-rule>
         <from-view-id>/nreportenomina.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>enviocorreo</from-outcome>
@@ -6147,7 +6147,7 @@
         </navigation-case>
     </navigation-rule>
     
-           <navigation-rule>
+    <navigation-rule>
         <from-view-id>/pervigenciadomiciliaria.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>ciudadvisita</from-outcome>
@@ -6165,7 +6165,7 @@
         </navigation-case>
     </navigation-rule>
     
-        <navigation-rule>
+    <navigation-rule>
         <from-view-id>/pervigenciadomiciliaria.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>estadocivilvisita</from-outcome>
@@ -6174,7 +6174,7 @@
         </navigation-case>
     </navigation-rule>
 
-        <navigation-rule>
+    <navigation-rule>
         <from-view-id>/pervigenciadomiciliaria.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>tipofamiliarvisita</from-outcome>
@@ -6183,7 +6183,7 @@
         </navigation-case>
     </navigation-rule>
 
-        <navigation-rule>
+    <navigation-rule>
         <from-view-id>/pervigenciadomiciliaria.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>tipoeducacionvisita</from-outcome>
@@ -6192,7 +6192,7 @@
         </navigation-case>
     </navigation-rule>
 
-        <navigation-rule>
+    <navigation-rule>
         <from-view-id>/pervigenciadomiciliaria.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>profesionesvisita</from-outcome>
@@ -6201,7 +6201,7 @@
         </navigation-case>
     </navigation-rule>
 
-        <navigation-rule>
+    <navigation-rule>
         <from-view-id>/pervigenciadomiciliaria.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>institucionesvisita</from-outcome>
@@ -6210,7 +6210,7 @@
         </navigation-case>
     </navigation-rule>
 
-        <navigation-rule>
+    <navigation-rule>
         <from-view-id>/pervigenciadomiciliaria.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>sectoreseconomicosvisita</from-outcome>
@@ -6219,7 +6219,7 @@
         </navigation-case>
     </navigation-rule>
 
-        <navigation-rule>
+    <navigation-rule>
         <from-view-id>/pervigenciadomiciliaria.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>sectoreseconomicosvisita</from-outcome>
@@ -6228,11 +6228,28 @@
         </navigation-case>
     </navigation-rule>
 
-        <navigation-rule>
+    <navigation-rule>
         <from-view-id>/pervigenciadomiciliaria.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>motivoretirovisita</from-outcome>
             <to-view-id>/motivosretiros.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/atausentismos.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>tempsoausentismos</from-outcome>
+            <to-view-id>/tempsoausentismos.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/tempsoausentismos.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>tempsoausentismos</from-outcome>
+            <to-view-id>/atausentismos.xhtml</to-view-id>
             <redirect />
         </navigation-case>
     </navigation-rule>

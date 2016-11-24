@@ -141,7 +141,7 @@ public class ControlNovedadesTerceros implements Serializable {
       nuevaNovedad.setPeriodicidad(new Periodicidades());
       nuevaNovedad.setFechareporte(new Date());
       nuevaNovedad.setTipo("FIJA");
-      altoTabla = "165";
+      altoTabla = "135";
       nuevaNovedad.setValortotal(valor);
       terceroSeleccionado = null;
       terceroSeleccionadoLOV = null;
@@ -492,7 +492,7 @@ public class ControlNovedadesTerceros implements Serializable {
       if (pasa == 0 && pasa2 == 0) {
          if (bandera == 1) {
             cerrarFiltrado();
-            altoTabla = "165";
+            altoTabla = "135";
          }
          //AGREGAR REGISTRO A LA LISTA NOVEDADES .
          k++;
@@ -883,7 +883,7 @@ public class ControlNovedadesTerceros implements Serializable {
          }
          if (bandera == 1) {
             cerrarFiltrado();
-            altoTabla = "165";
+            altoTabla = "135";
          }
 
          // OBTENER EL TERMINAL 
@@ -1112,7 +1112,7 @@ public class ControlNovedadesTerceros implements Serializable {
          nTMinutosHoras.setFilterStyle("width: 85% !important;");
          nTTipo = (Column) c.getViewRoot().findComponent("form:datosNovedadesTercero:nTTipo");
          nTTipo.setFilterStyle("width: 85% !important;");
-         altoTabla = "145";
+         altoTabla = "115";
          RequestContext.getCurrentInstance().update("form:datosNovedadesTercero");
          bandera = 1;
          tipoLista = 1;
@@ -1120,7 +1120,7 @@ public class ControlNovedadesTerceros implements Serializable {
          System.out.println("Desactivar");
          System.out.println("TipoLista= " + tipoLista);
          cerrarFiltrado();
-         altoTabla = "165";
+         altoTabla = "135";
       }
    }
 
@@ -1612,7 +1612,7 @@ public class ControlNovedadesTerceros implements Serializable {
    //CANCELAR MODIFICACIONES
    public void cancelarModificacion() {
       if (bandera == 1) {
-         altoTabla = "165";
+         altoTabla = "135";
          cerrarFiltrado();
       }
       mostrarTodos();
@@ -1631,7 +1631,7 @@ public class ControlNovedadesTerceros implements Serializable {
 
    public void salir() {
       if (bandera == 1) {
-         altoTabla = "165";
+         altoTabla = "135";
          cerrarFiltrado();
       }
       listaNovedadesBorrar.clear();
