@@ -119,7 +119,7 @@ public class ControlNovedadCesantiasRC implements Serializable {
         tipoLista = 0;
         listaEmpleadosLOV = null;
         permitirIndex = true;
-        altotabla = 125;
+        altotabla = 110;
         paginaAnterior = "";
         empleadoSeleccionado = null;
         novedadSeleccionada = null;
@@ -485,7 +485,7 @@ public class ControlNovedadCesantiasRC implements Serializable {
         FacesContext c = FacesContext.getCurrentInstance();
 
         if (bandera == 0) {
-            altotabla = 105;
+            altotabla = 90;
             fechaCorteCesantias = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:fechacortecesantias");
             fechaCorteCesantias.setFilterStyle("width: 85% !important");
             fechaCorteIntCesantias = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:fechacorteintcesantias");
@@ -530,7 +530,7 @@ public class ControlNovedadCesantiasRC implements Serializable {
         tipoActualizacion = -1;
         cualCelda = -1;
         activarMTodos = true;
-
+        contarRegistroEmpleados();
         RequestContext.getCurrentInstance().update("form:datosEmpleados");
         RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
         RequestContext.getCurrentInstance().update("form:btnMostrarTodos");
@@ -538,7 +538,7 @@ public class ControlNovedadCesantiasRC implements Serializable {
 
     public void cargarTablaDefault() {
         FacesContext c = FacesContext.getCurrentInstance();
-        altotabla = 125;
+        altotabla = 110;
         fechaCorteCesantias = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:fechacortecesantias");
         fechaCorteCesantias.setFilterStyle("display: none; visibility: hidden;");
         fechaCorteIntCesantias = (Column) c.getViewRoot().findComponent("form:datosNovedadesEmpleado:fechacorteintcesantias");
@@ -922,7 +922,7 @@ public class ControlNovedadCesantiasRC implements Serializable {
         nuevaNovedad.setTipo("CESANTIA");
         nuevaNovedad.setSubtipo("DINERO");
         nuevaNovedad.setFechasistema(new Date());
-        altotabla = 125;
+        altotabla = 110;
         listaNovedadesBorrar.clear();
         listaNovedadesCrear.clear();
         listaNovedadesModificar.clear();
@@ -954,7 +954,7 @@ public class ControlNovedadCesantiasRC implements Serializable {
         nuevaNovedad.setTipo("CESANTIA");
         nuevaNovedad.setSubtipo("DINERO");
         nuevaNovedad.setFechasistema(new Date());
-        altotabla = 125;
+        altotabla = 110;
         listaNovedadesBorrar.clear();
         listaNovedadesCrear.clear();
         listaNovedadesModificar.clear();

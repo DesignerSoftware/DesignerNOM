@@ -4,7 +4,6 @@
  */
 package Controlador;
 
-
 import Entidades.Empleados;
 import Entidades.MotivosRetiros;
 import Entidades.MotivosDefinitivas;
@@ -148,7 +147,7 @@ public class ControlNovedadesDefinitivas implements Serializable {
     public void recibirPagina(String pagina) {
         paginaAnterior = pagina;
         getListaEmpleados();
-        if(listaEmpleados != null){
+        if (listaEmpleados != null) {
             empleadoSeleccionado = listaEmpleados.get(0);
         }
     }
@@ -162,17 +161,17 @@ public class ControlNovedadesDefinitivas implements Serializable {
         tipoActualizacion = tipoAct;
 
         if (cualLOV == 0) {
-            contarRegistrosLovEmpl(0);
+            contarRegistrosLovEmpl();
             RequestContext.getCurrentInstance().update("formularioDialogos:empleadosDialogo");
             RequestContext.getCurrentInstance().execute("PF('empleadosDialogo').show()");
         } else if (cualLOV == 1) {
             activarBotonLov();
-            contarRegistrosLovMLiqDef(0);
+            contarRegistrosLovMLiqDef();
             RequestContext.getCurrentInstance().update("formularioDialogos:motivosDialogo");
             RequestContext.getCurrentInstance().execute("PF('motivosDialogo').show()");
         } else if (cualLOV == 2) {
             activarBotonLov();
-            contarRegistrosLovMRetiro(0);
+            contarRegistrosLovMRetiro();
             RequestContext.getCurrentInstance().update("formularioDialogos:retirosDialogo");
             RequestContext.getCurrentInstance().execute("PF('retirosDialogo').show()");
         } else {
@@ -250,7 +249,7 @@ public class ControlNovedadesDefinitivas implements Serializable {
                 RequestContext.getCurrentInstance().update("form:formularioNovedades:motivoLiquidacion");
                 listaModificar.add(novedadMostrar);
             } else {
-                contarRegistrosLovMLiqDef(0);
+                contarRegistrosLovMLiqDef();
                 RequestContext.getCurrentInstance().update("formularioDialogos:motivosDialogo");
                 RequestContext.getCurrentInstance().execute("PF('motivosDialogo').show()");
                 RequestContext.getCurrentInstance().update("form:formularioNovedades:motivoLiquidacion");
@@ -268,7 +267,7 @@ public class ControlNovedadesDefinitivas implements Serializable {
                 RequestContext.getCurrentInstance().update("form:formularioNovedades:motivoRetiro");
                 listaModificar.add(novedadMostrar);
             } else {
-                contarRegistrosLovMRetiro(0);
+                contarRegistrosLovMRetiro();
                 RequestContext.getCurrentInstance().update("formularioDialogos:retirosDialogo");
                 RequestContext.getCurrentInstance().execute("PF('retirosDialogo').show()");
                 RequestContext.getCurrentInstance().update("form:formularioNovedades:motivoRetiro");
@@ -370,12 +369,12 @@ public class ControlNovedadesDefinitivas implements Serializable {
 
         RequestContext context = RequestContext.getCurrentInstance();
         if (cualCelda == 0) {
-            contarRegistrosLovMLiqDef(0);
+            contarRegistrosLovMLiqDef();
             RequestContext.getCurrentInstance().update("formularioDialogos:motivosDialogo");
             RequestContext.getCurrentInstance().execute("PF('motivosDialogo').show()");
             tipoActualizacion = 0;
         } else if (cualCelda == 1) {
-            contarRegistrosLovMRetiro(0);
+            contarRegistrosLovMRetiro();
             RequestContext.getCurrentInstance().update("formularioDialogos:retirosDialogo");
             RequestContext.getCurrentInstance().execute("PF('retirosDialogo').show()");
             tipoActualizacion = 0;
@@ -805,12 +804,10 @@ public class ControlNovedadesDefinitivas implements Serializable {
             } else if (result == 5) {
                 RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
+        } else if (administrarRastros.verificarHistoricosTabla("NOVEDADESSISTEMA")) {
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            if (administrarRastros.verificarHistoricosTabla("NOVEDADESSISTEMA")) {
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-            }
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
     }
 
@@ -840,7 +837,7 @@ public class ControlNovedadesDefinitivas implements Serializable {
         listaEmpleados = null;
         getListaEmpleados();
         contarRegistros();
-        contarRegistrosLovEmpl(0);
+        contarRegistrosLovEmpl();
         deshabilitarBotonLov();
         RequestContext.getCurrentInstance().update("form:btnMostrarTodos");
         RequestContext.getCurrentInstance().update("form:datosEmpleados");
@@ -939,10 +936,6 @@ public class ControlNovedadesDefinitivas implements Serializable {
         RequestContext.getCurrentInstance().update("form:formularioNovedades");
     }
 
-    public void eventoFiltrarLovEmpl() {
-        contarRegistrosLovEmpl(1);
-    }
-
     public void eventoFiltrar() {
         if (tipoLista == 0) {
             tipoLista = 1;
@@ -952,46 +945,18 @@ public class ControlNovedadesDefinitivas implements Serializable {
     }
 
     public void contarRegistros() {
-        if (tipoLista == 1) {
-            infoRegistro = String.valueOf(filtradosListaEmpleadosNovedad.size());
-        } else if (listaEmpleados != null) {
-            infoRegistro = String.valueOf(listaEmpleados.size());
-        } else {
-            infoRegistro = String.valueOf(0);
-        }
         RequestContext.getCurrentInstance().update("form:informacionRegistro");
     }
 
-    public void contarRegistrosLovEmpl(int tipoListaLOV) {
-        if (tipoListaLOV == 1) {
-            infoRegistroEmpl = String.valueOf(filtradoslistaEmpleadosLOV.size());
-        } else if (listaEmpleadosLOV != null) {
-            infoRegistroEmpl = String.valueOf(listaEmpleadosLOV.size());
-        } else {
-            infoRegistroEmpl = String.valueOf(0);
-        }
+    public void contarRegistrosLovEmpl() {
         RequestContext.getCurrentInstance().update("formularioDialogos:informacionRegistroEmplLov");
     }
 
-    public void contarRegistrosLovMRetiro(int tipoListaLOV) {
-        if (tipoListaLOV == 1) {
-            infoRegistroMRetiro = String.valueOf(filtradosListaRetiros.size());
-        } else if (listaEmpleadosLOV != null) {
-            infoRegistroMRetiro = String.valueOf(listaMotiRetiros.size());
-        } else {
-            infoRegistroMRetiro = String.valueOf(0);
-        }
+    public void contarRegistrosLovMRetiro() {
         RequestContext.getCurrentInstance().update("formularioDialogos:informacionRegistroRet");
     }
 
-    public void contarRegistrosLovMLiqDef(int tipoListaLOV) {
-        if (tipoListaLOV == 1) {
-            infoRegistroMLiqDef = String.valueOf(filtradosListaMotivos.size());
-        } else if (listaMotiRetiros != null) {
-            infoRegistroMLiqDef = String.valueOf(listaMotivos.size());
-        } else {
-            infoRegistroMLiqDef = String.valueOf(0);
-        }
+    public void contarRegistrosLovMLiqDef() {
         RequestContext.getCurrentInstance().update("formularioDialogos:informacionRegistroMot");
     }
 
@@ -1176,6 +1141,9 @@ public class ControlNovedadesDefinitivas implements Serializable {
     }
 
     public String getInfoRegistro() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosEmpleados");
+        infoRegistro = String.valueOf(tabla.getRowCount());
         return infoRegistro;
     }
 
@@ -1200,6 +1168,9 @@ public class ControlNovedadesDefinitivas implements Serializable {
     }
 
     public String getInfoRegistroEmpl() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVEmpleados");
+        infoRegistroEmpl = String.valueOf(tabla.getRowCount());
         return infoRegistroEmpl;
     }
 
@@ -1216,6 +1187,9 @@ public class ControlNovedadesDefinitivas implements Serializable {
     }
 
     public String getInfoRegistroMLiqDef() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVMotivos");
+        infoRegistroMLiqDef = String.valueOf(tabla.getRowCount());
         return infoRegistroMLiqDef;
     }
 
@@ -1224,11 +1198,14 @@ public class ControlNovedadesDefinitivas implements Serializable {
     }
 
     public String getInfoRegistroMRetiro() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVRetiros");
+        infoRegistroMRetiro = String.valueOf(tabla.getRowCount());
         return infoRegistroMRetiro;
     }
 
     public void setInfoRegistroMRetiro(String infoRegistroMRetiro) {
         this.infoRegistroMRetiro = infoRegistroMRetiro;
     }
-    
+
 }
