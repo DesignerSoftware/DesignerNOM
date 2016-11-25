@@ -85,11 +85,12 @@
                                          >
                                 <p:ajax event="filter" listener="#{controlMotivosCesantias.eventoFiltrar()}"/>
 
-                                <p:column headerText="Código" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" width="100" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="Código" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" width="100" filterStyle="display: none; visibility: hidden;"
+                                          style="font-size: 12px;" >                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.codigo}" id="editarCodigo" style=" font-size: 10px; border-radius: 0px; width: 400px; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"  value="#{info.codigo}" id="editarCodigo" style="border-radius: 0px; width: 400px; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlMotivosCesantias.cambiarIndice(info, 0)}" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlMotivosCesantias.modificandoMotivoCensantia(info, 'N', info.codigo)}"  update="codigo"/>
                                                  <p:keyFilter for="editarCodigo" mask="num"/>
@@ -101,11 +102,12 @@
                                         <h:outputText value=" "/>
                                     </f:facet>
                                 </p:column>
-                                <p:column headerText="Descripción" sortBy="#{info.nombre}" filterBy="#{info.nombre}" filterMatchMode="contains" id="descripcion" width="275" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="Descripción" sortBy="#{info.nombre}" filterBy="#{info.nombre}" filterMatchMode="contains" id="descripcion" width="275" filterStyle="display: none; visibility: hidden;"
+                                          style="font-size: 12px;" >                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase; width: 99%" value="#{info.nombre}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.nombre}" id="editarNombre" style=" font-size: 10px; border-radius: 0px; width: 99%; text-transform: uppercase"  > 
+                                            <p:inputText  autocomplete="off"  value="#{info.nombre}" id="editarNombre" style=" border-radius: 0px; width: 99%; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlMotivosCesantias.cambiarIndice(info, 1)}" process="@this"/> 
                                                 <p:ajax event="change"  listener="#{controlMotivosCesantias.modificandoMotivoCensantia(info, 'N', info.nombre)}" update="descripcion"/>
                                             </p:inputText>
@@ -118,7 +120,7 @@
                                 </p:column>
 
                             </p:dataTable>
-                            <h:outputText id="infoRegistro" value="#{msg['infoRegistros']} #{controlMotivosCesantias.infoRegistro}" style="position: relative; left: 7px; top: 1px; font-weight: bold"/>
+                            <h:outputText id="infoRegistro" value="#{msg['infoRegistros']} #{controlMotivosCesantias.infoRegistro}" style="position: relative; left: 7px; top: 15px; font-weight: bold ; font-size: 12px;"/>
                         </fieldset>
 
                         

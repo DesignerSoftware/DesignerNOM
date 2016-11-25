@@ -669,7 +669,7 @@
 
                             <strong><h:outputText value="#{msg['iausenciaN']}" style=" position: absolute; top: 285px;" /></strong>
                             <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" style=" position: absolute; top: 280px; left: 110px" id="nuevaFecha" value="#{controlAusentismos.nuevoAusentismo.fecha}" >
-                                <p:ajax event="dateSelect" update="nuevaFecha" process="@this" listener="#{controlAusentismos.autompletarFechas(controlAusentismos.nuevoAusentismo.fecha, controlAusentismos.nuevoAusentismo.dias, 1)}"  />
+                                <p:ajax event="dateSelect" update="nuevaFecha" process="@this" listener="#{controlAusentismos.autocompletarFechas(controlAusentismos.nuevoAusentismo.fecha, controlAusentismos.nuevoAusentismo.dias, 1)}"  />
                                 <p:ajax event="change" update="nuevaFecha" listener="#{controlAusentismos.autocompletarFechas(controlAusentismos.nuevoAusentismo.fecha, controlAusentismos.nuevoAusentismo.dias, 1)}" process="@this"/>
                             </p:calendar>
 
@@ -687,8 +687,8 @@
 
                             <strong><h:outputText value="#{msg['ipagoN']}" style=" position: absolute; top: 125px; left: 300px;"  /></strong>
                             <p:calendar  autocomplete="off" style=" position: absolute; top: 120px; left: 400px"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicioPago" value="#{controlAusentismos.nuevoAusentismo.fechainipago}" >
-                                <p:ajax event="dateSelect"  update="nuevaFechaInicioPago" process="@this"/>
-                                <p:ajax event="change"  update="nuevaFechaInicioPago" process="@this"/>
+                                <p:ajax event="dateSelect"  update="nuevaFechaInicioPago" process="@this" listener="#{controlAusentismos.autocompletarFechapago(controlAusentismos.nuevoAusentismo.fechainipago, controlAusentismos.nuevoAusentismo.dias, 1)}"/>
+                                <p:ajax event="change"  update="nuevaFechaInicioPago" process="@this" listener="#{controlAusentismos.autocompletarFechapago(controlAusentismos.nuevoAusentismo.fechainipago, controlAusentismos.nuevoAusentismo.dias, 1)}"/>
                             </p:calendar>
 
                             <strong><h:outputText value="#{msg['fpagoN']}" style=" position: absolute; top: 165px; left: 300px;" /></strong>

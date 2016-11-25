@@ -155,6 +155,16 @@ public class ControlNovedadesVacaciones implements Serializable {
             administrarNovedadesVacaciones.obtenerConexion(ses.getId());
             administrarNovedadesSistema.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
+            getListaEmpleadosNovedad();
+            if(listaEmpleadosNovedad != null){
+                if(!listaEmpleadosNovedad.isEmpty()){
+                    empleadoSeleccionado = listaEmpleadosNovedad.get(0);
+                }
+            }
+            listaNovedades = null;
+            getListaNovedades();
+            cambiarEmpleado();
+            
         } catch (Exception e) {
             System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
             System.out.println("Causa: " + e.getCause());
