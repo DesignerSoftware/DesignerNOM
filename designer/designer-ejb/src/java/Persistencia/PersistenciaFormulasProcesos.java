@@ -93,8 +93,7 @@ public class PersistenciaFormulasProcesos implements PersistenciaFormulasProceso
             return null;
         }
     }
-    
-    
+        
     @Override 
     public List<FormulasProcesos> formulasProcesosParaProcesoSecuencia(EntityManager em,BigInteger secuencia) {
         try {

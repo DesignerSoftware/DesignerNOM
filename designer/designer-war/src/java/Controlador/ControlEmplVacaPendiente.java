@@ -1292,10 +1292,16 @@ public class ControlEmplVacaPendiente implements Serializable {
    }
 
    public String getInfoRegistroD() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosVacacionesDEmpleado");
+      infoRegistroD = String.valueOf(tabla.getRowCount());
       return infoRegistroD;
    }
 
    public String getInfoRegistroP() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosVacacionesPEmpleado");
+      infoRegistroP = String.valueOf(tabla.getRowCount());
       return infoRegistroP;
    }
 }

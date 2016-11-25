@@ -593,12 +593,25 @@ button .ui-widget-header{
    margin-left: 15px !important;
 }
 
+.ui-datatable-scrollable-header,
+.ui-datatable-scrollable-body,
+.ui-datatable-scrollable-footer{
+   border-left: solid #C0D0DA 2px !important;
+   border-right: solid #C0D0DA 2px !important;
+}
+
 /* Clases que yo cree */
 
 .cssColumnasNumericas .ui-cell-editor-output,
 .cssColumnasNumericas .ui-cell-editor-input input {
    width: 100% !important;
    text-align: right !important;
+}
+
+.cssColumnasCentradas .ui-cell-editor-output,
+.cssColumnasCentradas .ui-cell-editor-input input {
+   width: 100% !important;
+   text-align: center !important;
 }
 
 .cssTablaFooterAlto .ui-datatable-scrollable-footer,

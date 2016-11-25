@@ -84,11 +84,13 @@
                      <legend style="color: blue"><strong>#{msg['formulas']}</strong></legend>
 
                      <p:dataTable id="datosFormulas" widgetVar="datosFormulas" var="formula" rowKey="#{formula.secuencia}" rowIndexVar="indice" style="width: 820px; position: relative"                           
-                                  value="#{controlFormula.listaFormulas}" scrollable="true" scrollWidth="835" scrollHeight="#{controlFormula.altoTabla}" 
-                                  liveScroll="true" scrollRows="25" filteredValue="#{controlFormula.filtradoListaFormulas}" emptyMessage="#{msg['vacio']}" 
-                                  selection="#{controlFormula.formulaSeleccionada}" selectionMode="single" editable="true" editMode="cell">
+                                  value="#{controlFormula.listaFormulas}" scrollable="true" scrollWidth="835"
+                                  filteredValue="#{controlFormula.filtradoListaFormulas}" emptyMessage="#{msg['vacio']}" 
+                                  selection="#{controlFormula.formulaSeleccionada}" selectionMode="single" editable="true" editMode="cell"
+                                  paginatorTemplate="página {JumpToPageDropdown} de {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {NextPageLink} {LastPageLink}"
+                                  rows="#{controlFormula.altoTabla}" paginator="true" currentPageReportTemplate="{totalPages}">
 
-                        <f:event type="preRenderView" listener="#{controlFormula.recordarSeleccion()}"/>
+                        <f:event type="preRenderView" listener="#{controlFormula.darSeleccion()}"/>
                         <p:ajax event="filter" listener="#{controlFormula.eventoFiltrar()}"/>
 
                         <p:column id="columnaDetalleFormula" width="19" style="padding: 0px !important; width: 20px; alignment-adjust: central;" >                                                              
@@ -115,9 +117,9 @@
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{formula.nombrelargo}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off" value="#{formula.nombrelargo}" style="border-radius: 0px; width: 97%; text-transform: uppercase"> 
+                                 <p:inputText autocomplete="off" value="#{formula.nombrelargo}" style="border-radius: 0px; width: 97%; text-transform: uppercase;"> 
                                     <p:ajax event="change" listener="#{controlFormula.modificarFormula(formula)}"/>
-                                    <p:ajax event="select" listener="#{controlFormula.cambiarIndice(formula, 0)}"
+                                    <p:ajax event="select" listener="#{controlFormula.cambiarIndice(formula, 0)}" process="@this"
                                             onstart="PF('datosFormulas').unselectAllRows();PF('datosFormulas').selectRow(#{indice});"/>
                                  </p:inputText> 
                               </f:facet>  
@@ -237,27 +239,27 @@
                      <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlFormula.infoRegistro}" style="position: relative; left: 15px; top: 0px; font-weight: bold"/>
                   </fieldset>
 
-                  <fieldset style="position: absolute; left: 5px; top: 355px; width: 560px; height: 34px; border-radius: 10px; padding-left: 0px; padding-right: 0px ">
+                  <fieldset style="position: absolute; left: 5px; top: 355px; width: 560px; height: 34px; border-radius: 10px; padding-left: 0px; padding-right: 0px;">
                      <legend style="color: blue"><strong>#{msg['propiedades']}</strong></legend>
 
-                     <p:commandButton icon="ui-icon-extlink" id="novedadFormula" widgetVar="novedadFormula" disabled="#{controlFormula.propiedadesFormula}" value="Novedades"
+                     <p:commandButton icon="ui-icon-extlink" id="novedadFormula" widgetVar="novedadFormula" disabled="#{controlFormula.disabledPropiedadesFormula}" value="Novedades"
                                       style="background-image: url(Imagenes/Iconos/boton.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 128px; height: 30px;color: white; position: relative; top: -5px; left: 15px;  " 
-                                      action="novedadesFormula" actionListener="#{controlFormulaNovedad.recibirFormula(controlFormula.formulaSeleccionada.secuencia)}" immediate="#{controlFormula.activarSelec()}" process="@this"/>
+                                      action="novedadesFormula" actionListener="#{controlFormulaNovedad.recibirFormula(controlFormula.formulaSeleccionada, 'retornoFormula')}" immediate="#{controlFormula.activarSelec()}" process="@this"/>
                      <p:tooltip for="novedadFormula" value="#{msg['novedades']}"/>
 
-                     <p:commandButton icon="ui-icon-extlink" id="procesoFormula" disabled="#{controlFormula.propiedadesFormula}" value="Procesos" 
+                     <p:commandButton icon="ui-icon-extlink" id="procesoFormula" disabled="#{controlFormula.disabledPropiedadesFormula}" value="Procesos" 
                                       style="background-image: url(Imagenes/Iconos/boton.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 128px; height: 30px; color: white; position: relative; top: -5px; left: 15px; " 
-                                      action="procesosFormula" actionListener="#{controlFormulaProceso.recibirFormula(controlFormula.formulaSeleccionada.secuencia)}" immediate="#{controlFormula.activarSelec()}" process="@this"/>  
+                                      action="procesosFormula" actionListener="#{controlFormulaProceso.recibirFormula(controlFormula.formulaSeleccionada, 'retornoFormula')}" immediate="#{controlFormula.activarSelec()}" process="@this"/>  
                      <p:tooltip for="procesoFormula" value="#{msg['procesos']}"/>
 
-                     <p:commandButton icon="ui-icon-extlink" id="conceptoFormula" disabled="#{controlFormula.propiedadesFormula}" value="Conceptos" 
+                     <p:commandButton icon="ui-icon-extlink" id="conceptoFormula" disabled="#{controlFormula.disabledPropiedadesFormula}" value="Conceptos" 
                                       style="background-image: url(Imagenes/Iconos/boton.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 128px; height: 30px; color: white; position: relative; top: -5px; left: 15px; " 
-                                      action="conceptoFormula" actionListener="#{controlFormulaConcepto.recibirFormula(controlFormula.formulaSeleccionada.secuencia)}" immediate="#{controlFormula.activarSelec()}" process="@this"/>  
+                                      action="conceptoFormula" actionListener="#{controlFormulaConcepto.recibirFormula(controlFormula.formulaSeleccionada,'retornoFormula')}" immediate="#{controlFormula.activarSelec()}" process="@this"/>  
                      <p:tooltip for="conceptoFormula" value="#{msg['conceptos']}"/>
 
-                     <p:commandButton icon="ui-icon-extlink" id="legislacionFormula" disabled="#{controlFormula.propiedadesFormula}" value="Legislación" 
+                     <p:commandButton icon="ui-icon-extlink" id="legislacionFormula" disabled="#{controlFormula.disabledPropiedadesFormula}" value="Legislación" 
                                       style="background-image: url(Imagenes/Iconos/boton.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 128px; height: 30px; color: white; position: relative; top: -5px; left: 15px; " 
-                                      action="legislacionFormula" actionListener="#{controlFormulaContrato.recibirFormula(controlFormula.formulaSeleccionada.secuencia)}" immediate="#{controlFormula.activarSelec()}" process="@this"/>  
+                                      action="legislacionFormula" actionListener="#{controlFormulaContrato.recibirFormula(controlFormula.formulaSeleccionada,'retornoFormula')}" immediate="#{controlFormula.activarSelec()}" process="@this"/>  
                      <p:tooltip for="legislacionFormula" value="#{msg['legislacion']}"/>
 
                      <p:commandButton style="position: relative; left: 670px; top: -35px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/buscardb.png); background-size: 100% 100%; 

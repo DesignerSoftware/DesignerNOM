@@ -16,6 +16,7 @@ import InterfacePersistencia.PersistenciaProcesosInterface;
 import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 
@@ -24,6 +25,7 @@ import javax.persistence.EntityManager;
  * @author PROYECTO01
  */
 @Stateless
+@Local
 public class AdministrarFormulaProceso implements AdministrarFormulaProcesoInterface {
 
     @EJB
@@ -92,10 +94,9 @@ public class AdministrarFormulaProceso implements AdministrarFormulaProcesoInter
     }
 
     @Override
-    public List<Procesos> listProcesos(BigInteger secuencia) {
+    public List<Procesos> listProcesos() {
         try {
-            List<Procesos> lista = persistenciaProcesos.buscarProcesos(em);
-            return lista;
+            return persistenciaProcesos.buscarProcesos(em);
         } catch (Exception e) {
             System.out.println("Error listProcesos Admi : " + e.toString());
             return null;

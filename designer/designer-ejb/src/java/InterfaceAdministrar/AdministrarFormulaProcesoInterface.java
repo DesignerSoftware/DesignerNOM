@@ -25,7 +25,7 @@ public interface AdministrarFormulaProcesoInterface {
 
     public void borrarFormulasProcesos(List<FormulasProcesos> listFN);
 
-    public List<Procesos> listProcesos(BigInteger secuencia);
+    public List<Procesos> listProcesos();
 
     public Formulas formulaActual(BigInteger secuencia);
 

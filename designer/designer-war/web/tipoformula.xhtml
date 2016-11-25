@@ -147,7 +147,7 @@
                             </p:toolbarGroup>
                         </p:toolbar>
 
-                        <p:remoteCommand name="dirigirFormula" actionListener="#{controlFormula.recibirDatosTiposFormulas(controlTipoFormula.secuenciaTiposFormulas,controlTipoFormula.tiposFormulasRegistro)}" action="formula" process="@this"/>
+                        <p:remoteCommand name="dirigirFormula" actionListener="#{controlFormula.recibirDatosTiposFormulas(controlTipoFormula.tiposFormulasRegistro)}" action="formula" process="@this"/>
                         <p:commandButton style="background-image: url(Imagenes/Iconos/proceso.png); background-size: 100% 100%; background-repeat: no-repeat;position: absolute; width: 28px; height: 28px; left: 800px; top: 430px;" id="FORMULAS" value="" process="@this" actionListener="#{controlTipoFormula.guardarVariables(controlTipoFormula.tiposFormulasRegistro.secuencia)}" />
                         <p:tooltip  for="FORMULAS" value="#{msg['dirigirFormula']}" />
                         <p:commandButton style="position: absolute; left: 700px; top: 470px;" icon="ui-icon-check" id="ACEPTAR" disabled="#{controlTipoFormula.cambiosPagina}" value="#{msg['aceptar']}" onclick="PF('confirmarGuardar').show();" update=":form:datosTiposFormulas" process="@this" />

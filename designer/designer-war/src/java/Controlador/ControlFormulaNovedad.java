@@ -1,6 +1,5 @@
 package Controlador;
 
-
 import Entidades.Formulas;
 import Entidades.FormulasNovedades;
 import Exportar.ExportarPDF;
@@ -33,1159 +32,979 @@ import org.primefaces.context.RequestContext;
 @SessionScoped
 public class ControlFormulaNovedad implements Serializable {
 
-    @EJB
-    AdministrarFormulaNovedadInterface administrarFormulaNovedad;
-    @EJB
-    AdministrarRastrosInterface administrarRastros;
+   @EJB
+   AdministrarFormulaNovedadInterface administrarFormulaNovedad;
+   @EJB
+   AdministrarRastrosInterface administrarRastros;
 
-    private List<FormulasNovedades> listFormulasNovedades;
-    private List<FormulasNovedades> filtrarListFormulasNovedades;
-    private FormulasNovedades formulaTablaSeleccionada;
-    private Formulas formulaActual;
-    ///////
-    //Activo/Desactivo Crtl + F11
-    private int bandera;
-    //Columnas Tabla VC
-    private Column formulaCorto, formulaNombre, formulaSugerida, formulaCargue, formulaUsa, formulaGarantiza;
-    //Otros
-    private boolean aceptar;
-    private int index;
-    //modificar
-    private List<FormulasNovedades> listFormulasNovedadesModificar;
-    private boolean guardado;
-    //crear 
-    private FormulasNovedades nuevoFormulaNovedad;
-    private List<FormulasNovedades> listFormulasNovedadesCrear;
-    private BigInteger l;
-    private int k;
-    //borrar 
-    private List<FormulasNovedades> listFormulasNovedadesBorrar;
-    //editar celda
-    private FormulasNovedades editarFormulaNovedad;
-    private int cualCelda, tipoLista;
-    //duplicar
-    private FormulasNovedades duplicarFormulaNovedad;
-    private BigInteger secRegistro;
-    private BigInteger backUpSecRegistro;
-    private String msnConfirmarRastro, msnConfirmarRastroHistorico;
-    private BigInteger backUp;
-    private String nombreTablaRastro;
-    private String nombreXML, nombreTabla;
-    private String formula;
+   private List<FormulasNovedades> listFormulasNovedades;
+   private List<FormulasNovedades> filtrarListFormulasNovedades;
+   private FormulasNovedades formulaNovedadSeleccionada;
+   private Formulas formulaActual;
+   ///////
+   //Activo/Desactivo Crtl + F11
+   private int bandera;
+   //Columnas Tabla VC
+   private Column formulaCorto, formulaNombre, formulaSugerida, formulaCargue, formulaUsa, formulaGarantiza;
+   //Otros
+   private boolean aceptar;
+   //modificar
+   private List<FormulasNovedades> listFormulasNovedadesModificar;
+   private boolean guardado;
+   //crear 
+   private FormulasNovedades nuevoFormulaNovedad;
+   private List<FormulasNovedades> listFormulasNovedadesCrear;
+   private BigInteger l;
+   private int k;
+   //borrar 
+   private List<FormulasNovedades> listFormulasNovedadesBorrar;
+   //editar celda
+   private FormulasNovedades editarFormulaNovedad;
+   private int cualCelda, tipoLista;
+   //duplicar
+   private FormulasNovedades duplicarFormulaNovedad;
+   private String msnConfirmarRastro, msnConfirmarRastroHistorico;
+   private String nombreTablaRastro;
+   private String nombreXML, nombreTabla;
+   private String formula, infoRegistro;
 
-    //////////////////////
-    private List<Formulas> lovFormulas;
-    private List<Formulas> filtrarLovFormulas;
-    private Formulas formulaSeleccionada;
+   //////////////////////
+//   private List<Formulas> lovFormulas;
+//   private List<Formulas> filtrarLovFormulas;
+//   private Formulas formulaSeleccionada;
+   private boolean permitirIndex;
+   private int tipoActualizacion;
+   private String auxFormulaDescripcion;
+   //
+   private String altoTabla;
+   private boolean nuevoYBOrrado;
+   private String paginaAnterior;
 
-    private boolean permitirIndex;
-    private int tipoActualizacion;
-    private String auxFormulaDescripcion;
-    //
-    private String infoRegistro;
-    private String infoRegistroFormula;
-    private String altoTabla;
+   public ControlFormulaNovedad() {
+      altoTabla = "270";
+      auxFormulaDescripcion = "";
+      permitirIndex = true;
+      tipoActualizacion = -1;
+      listFormulasNovedades = new ArrayList<FormulasNovedades>();
+      //Otros
+      aceptar = true;
+      //borrar aficiones
+      listFormulasNovedadesBorrar = new ArrayList<FormulasNovedades>();
+      //crear aficiones
+      listFormulasNovedadesCrear = new ArrayList<FormulasNovedades>();
+      k = 0;
+      //modificar aficiones
+      listFormulasNovedadesModificar = new ArrayList<FormulasNovedades>();
+      //editar
+      editarFormulaNovedad = new FormulasNovedades();
+      cualCelda = -1;
+      tipoLista = 0;
+      //guardar
+      guardado = true;
+      //Crear VC
+      nuevoFormulaNovedad = new FormulasNovedades();
+      nuevoFormulaNovedad.setFormula(null);
+      duplicarFormulaNovedad = new FormulasNovedades();
+      formulaNovedadSeleccionada = null;
+      formulaActual = new Formulas();
+      paginaAnterior = "";
+   }
 
-    public ControlFormulaNovedad() {
-        altoTabla = "310";
-        auxFormulaDescripcion = "";
-        permitirIndex = true;
-        tipoActualizacion = -1;
-        lovFormulas = null;
-        formulaSeleccionada = new Formulas();
-        backUpSecRegistro = null;
-        listFormulasNovedades = null;
-        //Otros
-        aceptar = true;
-        //borrar aficiones
-        listFormulasNovedadesBorrar = new ArrayList<FormulasNovedades>();
-        //crear aficiones
-        listFormulasNovedadesCrear = new ArrayList<FormulasNovedades>();
-        k = 0;
-        //modificar aficiones
-        listFormulasNovedadesModificar = new ArrayList<FormulasNovedades>();
-        //editar
-        editarFormulaNovedad = new FormulasNovedades();
-        cualCelda = -1;
-        tipoLista = 0;
-        //guardar
-        guardado = true;
-        //Crear VC
-        nuevoFormulaNovedad = new FormulasNovedades();
-        nuevoFormulaNovedad.setFormula(new Formulas());
-        duplicarFormulaNovedad = new FormulasNovedades();
-        secRegistro = null;
-        formulaActual = new Formulas();
-    }
+   @PostConstruct
+   public void inicializarAdministrador() {
+      try {
+         FacesContext x = FacesContext.getCurrentInstance();
+         HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
+         administrarFormulaNovedad.obtenerConexion(ses.getId());
+         administrarRastros.obtenerConexion(ses.getId());
+      } catch (Exception e) {
+         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
+         System.out.println("Causa: " + e.getCause());
+      }
+   }
 
-    @PostConstruct
-    public void inicializarAdministrador() {
-        try {
-            FacesContext x = FacesContext.getCurrentInstance();
-            HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
-            administrarFormulaNovedad.obtenerConexion(ses.getId());
-            administrarRastros.obtenerConexion(ses.getId());
-        } catch (Exception e) {
-            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-            System.out.println("Causa: " + e.getCause());
-        }
-    }
+   public void recibirFormula(Formulas formula, String pagina) {
+      paginaAnterior = pagina;
+      formulaActual = formula;
+      getListFormulasNovedades();
+   }
 
-    public void recibirFormula(BigInteger secuencia) {
-        formulaActual = administrarFormulaNovedad.formulaActual(secuencia);
-        listFormulasNovedades = getListFormulasNovedades();
-        if (listFormulasNovedades != null) {
-            infoRegistro = "Cantidad de registros : " + listFormulasNovedades.size();
-        } else {
-            infoRegistro = "Cantidad de registros : 0";
-        }
-    }
+   public String volverPaginaAnterior() {
+      return paginaAnterior;
+   }
 
-    public void modificacionesCamposFormula(int indice) {
-        if (tipoLista == 0) {
-            listFormulasNovedades.get(indice).getFormula().setNombrelargo(auxFormulaDescripcion);
-        }
-        if (tipoLista == 1) {
-            listFormulasNovedades.get(indice).getFormula().setNombrelargo(auxFormulaDescripcion);
-        }
-        modificarFormulaNovedad(indice);
-    }
+   public void modificacionesCamposFormula(int indice) {
+      formulaNovedadSeleccionada.getFormula().setNombrelargo(auxFormulaDescripcion);
+      modificarFormulaNovedad(formulaNovedadSeleccionada);
+   }
 
-    public void modificarFormulaNovedad(int indice) {
-        if (tipoLista == 0) {
-            if (!listFormulasNovedadesCrear.contains(listFormulasNovedades.get(indice))) {
-                if (listFormulasNovedadesModificar.isEmpty()) {
-                    listFormulasNovedadesModificar.add(listFormulasNovedades.get(indice));
-                } else if (!listFormulasNovedadesModificar.contains(listFormulasNovedades.get(indice))) {
-                    listFormulasNovedadesModificar.add(listFormulasNovedades.get(indice));
-                }
-                if (guardado == true) {
-                    guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                }
+   public void modificarFormulaNovedad(FormulasNovedades formulaN) {
+      formulaNovedadSeleccionada = formulaN;
+      if (!listFormulasNovedadesCrear.contains(formulaNovedadSeleccionada)) {
+         if (listFormulasNovedadesModificar.isEmpty()) {
+            listFormulasNovedadesModificar.add(formulaNovedadSeleccionada);
+         } else if (!listFormulasNovedadesModificar.contains(formulaNovedadSeleccionada)) {
+            listFormulasNovedadesModificar.add(formulaNovedadSeleccionada);
+         }
+         if (guardado == true) {
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+         }
+      }
+      RequestContext.getCurrentInstance().update("form:datosFormulaNovedad");
+
+   }
+//
+//   public void modificarFormulaNovedad(int indice, String confirmarCambio, String valorConfirmar) {
+//      index = indice;
+//      int coincidencias = 0;
+//      int indiceUnicoElemento = 0;
+//      if (confirmarCambio.equalsIgnoreCase("FORMULA")) {
+//         if (tipoLista == 0) {
+//            formulaNovedadSeleccionada.getFormula().setNombrecorto(formula);
+//         } else {
+//            filtrarListFormulasNovedades.get(indice).getFormula().setNombrecorto(formula);
+//         }
+//         for (int i = 0; i < lovFormulas.size(); i++) {
+//            if (lovFormulas.get(i).getNombrecorto().startsWith(valorConfirmar.toUpperCase())) {
+//               indiceUnicoElemento = i;
+//               coincidencias++;
+//            }
+//         }
+//         if (coincidencias == 1) {
+//            if (tipoLista == 0) {
+//               formulaNovedadSeleccionada.setFormula(lovFormulas.get(indiceUnicoElemento));
+//            } else {
+//               filtrarListFormulasNovedades.get(indice).setFormula(lovFormulas.get(indiceUnicoElemento));
+//            }
+//            lovFormulas.clear();
+//            getLovFormulas();
+//         } else {
+//            permitirIndex = false;
+//            RequestContext.getCurrentInstance().update("form:FormulaDialogo");
+//            RequestContext.getCurrentInstance().execute("PF('FormulaDialogo').show()");
+//            tipoActualizacion = 0;
+//         }
+//      }
+//      if (coincidencias == 1) {
+//         if (tipoLista == 0) {
+//            if (!listFormulasNovedadesCrear.contains(formulaNovedadSeleccionada)) {
+//               if (listFormulasNovedadesModificar.isEmpty()) {
+//                  listFormulasNovedadesModificar.add(formulaNovedadSeleccionada);
+//               } else if (!listFormulasNovedadesModificar.contains(formulaNovedadSeleccionada)) {
+//                  listFormulasNovedadesModificar.add(formulaNovedadSeleccionada);
+//               }
+//               if (guardado == true) {
+//                  guardado = false;
+//                  RequestContext.getCurrentInstance().update("form:ACEPTAR");
+//               }
+//            }
+//         }
+//         if (tipoLista == 1) {
+//            if (!listFormulasNovedadesCrear.contains(filtrarListFormulasNovedades.get(indice))) {
+//               if (listFormulasNovedadesModificar.isEmpty()) {
+//                  listFormulasNovedadesModificar.add(filtrarListFormulasNovedades.get(indice));
+//               } else if (!listFormulasNovedadesModificar.contains(filtrarListFormulasNovedades.get(indice))) {
+//                  listFormulasNovedadesModificar.add(filtrarListFormulasNovedades.get(indice));
+//               }
+//               if (guardado == true) {
+//                  guardado = false;
+//                  RequestContext.getCurrentInstance().update("form:ACEPTAR");
+//               }
+//            }
+//         }
+//         guardado = true;
+//      }
+//      RequestContext.getCurrentInstance().update("form:datosFormulaNovedad");
+//   }
+
+   public void posicionFormula() {
+      FacesContext context = FacesContext.getCurrentInstance();
+      Map<String, String> map = context.getExternalContext().getRequestParameterMap();
+      String name = map.get("n"); // name attribute of node
+      String type = map.get("t"); // type attribute of node
+      int indice = Integer.parseInt(type);
+      int columna = Integer.parseInt(name);
+      cambiarIndice(listFormulasNovedades.get(indice), columna);
+   }
+
+   public void cambiarIndice(FormulasNovedades formulaN, int celda) {
+      formulaNovedadSeleccionada = formulaN;
+      if (permitirIndex == true) {
+         cualCelda = celda;
+         auxFormulaDescripcion = formulaNovedadSeleccionada.getFormula().getNombrelargo();
+         formula = formulaNovedadSeleccionada.getFormula().getNombrecorto();
+      }
+   }
+
+   //GUARDAR
+   public void guardarGeneral() {
+      guardarCambiosFormulaNovedad();
+   }
+
+   public void guardarCambiosFormulaNovedad() {
+      RequestContext context = RequestContext.getCurrentInstance();
+      try {
+         if (guardado == false) {
+            if (!listFormulasNovedadesBorrar.isEmpty()) {
+               for (int i = 0; i < listFormulasNovedadesBorrar.size(); i++) {
+                  administrarFormulaNovedad.borrarFormulasNovedades(listFormulasNovedadesBorrar);
+               }
+               listFormulasNovedadesBorrar.clear();
             }
-        }
-        if (tipoLista == 1) {
-            if (!listFormulasNovedadesCrear.contains(filtrarListFormulasNovedades.get(indice))) {
-                if (listFormulasNovedadesModificar.isEmpty()) {
-                    listFormulasNovedadesModificar.add(filtrarListFormulasNovedades.get(indice));
-                } else if (!listFormulasNovedadesModificar.contains(filtrarListFormulasNovedades.get(indice))) {
-                    listFormulasNovedadesModificar.add(filtrarListFormulasNovedades.get(indice));
-                }
-                if (guardado == true) {
-                    guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                }
+            if (!listFormulasNovedadesCrear.isEmpty()) {
+               for (int i = 0; i < listFormulasNovedadesCrear.size(); i++) {
+                  administrarFormulaNovedad.crearFormulasNovedades(listFormulasNovedadesCrear);
+               }
+               listFormulasNovedadesCrear.clear();
             }
-        }
-        index = -1;
-        secRegistro = null;
-        RequestContext context = RequestContext.getCurrentInstance();
-        RequestContext.getCurrentInstance().update("form:datosFormulaNovedad");
-
-    }
-
-    public void modificarFormulaNovedad(int indice, String confirmarCambio, String valorConfirmar) {
-        index = indice;
-        int coincidencias = 0;
-        int indiceUnicoElemento = 0;
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (confirmarCambio.equalsIgnoreCase("FORMULA")) {
-            if (tipoLista == 0) {
-                listFormulasNovedades.get(indice).getFormula().setNombrecorto(formula);
-            } else {
-                filtrarListFormulasNovedades.get(indice).getFormula().setNombrecorto(formula);
+            if (!listFormulasNovedadesModificar.isEmpty()) {
+               administrarFormulaNovedad.editarFormulasNovedades(listFormulasNovedadesModificar);
+               listFormulasNovedadesModificar.clear();
             }
-            for (int i = 0; i < lovFormulas.size(); i++) {
-                if (lovFormulas.get(i).getNombrecorto().startsWith(valorConfirmar.toUpperCase())) {
-                    indiceUnicoElemento = i;
-                    coincidencias++;
-                }
-            }
-            if (coincidencias == 1) {
-                if (tipoLista == 0) {
-                    listFormulasNovedades.get(indice).setFormula(lovFormulas.get(indiceUnicoElemento));
-                } else {
-                    filtrarListFormulasNovedades.get(indice).setFormula(lovFormulas.get(indiceUnicoElemento));
-                }
-                lovFormulas.clear();
-                getLovFormulas();
-            } else {
-                permitirIndex = false;
-                RequestContext.getCurrentInstance().update("form:FormulaDialogo");
-                RequestContext.getCurrentInstance().execute("PF('FormulaDialogo').show()");
-                tipoActualizacion = 0;
-            }
-        }
-        if (coincidencias == 1) {
-            if (tipoLista == 0) {
-                if (!listFormulasNovedadesCrear.contains(listFormulasNovedades.get(indice))) {
-                    if (listFormulasNovedadesModificar.isEmpty()) {
-                        listFormulasNovedadesModificar.add(listFormulasNovedades.get(indice));
-                    } else if (!listFormulasNovedadesModificar.contains(listFormulasNovedades.get(indice))) {
-                        listFormulasNovedadesModificar.add(listFormulasNovedades.get(indice));
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                    }
-                }
-            }
-            if (tipoLista == 1) {
-                if (!listFormulasNovedadesCrear.contains(filtrarListFormulasNovedades.get(indice))) {
-                    if (listFormulasNovedadesModificar.isEmpty()) {
-                        listFormulasNovedadesModificar.add(filtrarListFormulasNovedades.get(indice));
-                    } else if (!listFormulasNovedadesModificar.contains(filtrarListFormulasNovedades.get(indice))) {
-                        listFormulasNovedadesModificar.add(filtrarListFormulasNovedades.get(indice));
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                    }
-                }
-            }
-            guardado = true;
-        }
-        RequestContext.getCurrentInstance().update("form:datosFormulaNovedad");
-    }
-
-    public void posicionFormula() {
-        FacesContext context = FacesContext.getCurrentInstance();
-        Map<String, String> map = context.getExternalContext().getRequestParameterMap();
-        String name = map.get("n"); // name attribute of node
-        String type = map.get("t"); // type attribute of node
-        int indice = Integer.parseInt(type);
-        int columna = Integer.parseInt(name);
-        cambiarIndice(indice, columna);
-    }
-
-    public void cambiarIndice(int indice, int celda) {
-        if (permitirIndex == true) {
-            index = indice;
-            cualCelda = celda;
-            if (tipoLista == 0) {
-                auxFormulaDescripcion = listFormulasNovedades.get(index).getFormula().getNombrelargo();
-                secRegistro = listFormulasNovedades.get(index).getSecuencia();
-                formula = listFormulasNovedades.get(index).getFormula().getNombrecorto();
-            }
-            if (tipoLista == 1) {
-                auxFormulaDescripcion = filtrarListFormulasNovedades.get(index).getFormula().getNombrelargo();
-                secRegistro = filtrarListFormulasNovedades.get(index).getSecuencia();
-                formula = filtrarListFormulasNovedades.get(index).getFormula().getNombrecorto();
-            }
-        }
-    }
-
-    //GUARDAR
-    public void guardarGeneral() {
-        guardarCambiosFormulaNovedad();
-    }
-
-    public void guardarCambiosFormulaNovedad() {
-        RequestContext context = RequestContext.getCurrentInstance();
-        try {
-            if (guardado == false) {
-                if (!listFormulasNovedadesBorrar.isEmpty()) {
-                    for (int i = 0; i < listFormulasNovedadesBorrar.size(); i++) {
-                        administrarFormulaNovedad.borrarFormulasNovedades(listFormulasNovedadesBorrar);
-                    }
-                    listFormulasNovedadesBorrar.clear();
-                }
-                if (!listFormulasNovedadesCrear.isEmpty()) {
-                    for (int i = 0; i < listFormulasNovedadesCrear.size(); i++) {
-                        administrarFormulaNovedad.crearFormulasNovedades(listFormulasNovedadesCrear);
-                    }
-                    listFormulasNovedadesCrear.clear();
-                }
-                if (!listFormulasNovedadesModificar.isEmpty()) {
-                    administrarFormulaNovedad.editarFormulasNovedades(listFormulasNovedadesModificar);
-                    listFormulasNovedadesModificar.clear();
-                }
-                listFormulasNovedades = null;
-                getListFormulasNovedades();
-                if (listFormulasNovedades != null) {
-                    infoRegistro = "Cantidad de registros : " + listFormulasNovedades.size();
-                } else {
-                    infoRegistro = "Cantidad de registros : 0";
-                }
-                RequestContext.getCurrentInstance().update("form:informacionRegistro");
-                RequestContext.getCurrentInstance().update("form:datosFormulaNovedad");
-                k = 0;
-                index = -1;
-                secRegistro = null;
-                FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
-                FacesContext.getCurrentInstance().addMessage(null, msg);
-                RequestContext.getCurrentInstance().update("form:growl");
-                guardado = true;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            }
-        } catch (Exception e) {
-            System.out.println("Error guardarCambios : " + e.toString());
-            FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
+            listFormulasNovedades = new ArrayList<FormulasNovedades>();
+            getListFormulasNovedades();
+            RequestContext.getCurrentInstance().update("form:datosFormulaNovedad");
+            contarRegistros();
+            k = 0;
+            FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
-        }
+            guardado = true;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+         }
+      } catch (Exception e) {
+         System.out.println("Error guardarCambios : " + e.toString());
+         FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
+         FacesContext.getCurrentInstance().addMessage(null, msg);
+         RequestContext.getCurrentInstance().update("form:growl");
+      }
 
-    }
+   }
 
-    public void cancelarModificacionGeneral() {
-        cancelarModificacionFormulaNovedad();
-        RequestContext context = RequestContext.getCurrentInstance();
-        RequestContext.getCurrentInstance().update("form:datosFormulaNovedad");
-    }
+   public void cancelarModificacionGeneral() {
+      cancelarModificacionFormulaNovedad();
+      RequestContext.getCurrentInstance().update("form:datosFormulaNovedad");
+   }
 
-    public void cancelarModificacionFormulaNovedad() {
-        FacesContext c = FacesContext.getCurrentInstance();
-        if (bandera == 1) {
-            altoTabla = "310";
-            formulaCorto = (Column) c.getViewRoot().findComponent("form:datosFormulaNovedad:formulaCorto");
-            formulaCorto.setFilterStyle("display: none; visibility: hidden;");
-            formulaNombre = (Column) c.getViewRoot().findComponent("form:datosFormulaNovedad:formulaNombre");
-            formulaNombre.setFilterStyle("display: none; visibility: hidden;");
-            formulaUsa = (Column) c.getViewRoot().findComponent("form:datosFormulaNovedad:formulaUsa");
-            formulaUsa.setFilterStyle("display: none; visibility: hidden;");
-            formulaGarantiza = (Column) c.getViewRoot().findComponent("form:datosFormulaNovedad:formulaGarantiza");
-            formulaGarantiza.setFilterStyle("display: none; visibility: hidden;");
-            formulaSugerida = (Column) c.getViewRoot().findComponent("form:datosFormulaNovedad:formulaSugerida");
-            formulaSugerida.setFilterStyle("display: none; visibility: hidden;");
-            formulaCargue = (Column) c.getViewRoot().findComponent("form:datosFormulaNovedad:formulaCargue");
-            formulaCargue.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosFormulaNovedad");
-            bandera = 0;
-            filtrarListFormulasNovedades = null;
-            tipoLista = 0;
-        }
-        listFormulasNovedadesBorrar.clear();
-        listFormulasNovedadesCrear.clear();
-        listFormulasNovedadesModificar.clear();
-        index = -1;
-        secRegistro = null;
-        k = 0;
-        listFormulasNovedades = null;
-        guardado = true;
-        permitirIndex = true;
-        RequestContext context = RequestContext.getCurrentInstance();
-        getListFormulasNovedades();
-        if (listFormulasNovedades != null) {
-            infoRegistro = "Cantidad de registros : " + listFormulasNovedades.size();
-        } else {
-            infoRegistro = "Cantidad de registros : 0";
-        }
-        RequestContext.getCurrentInstance().update("form:informacionRegistro");
-        RequestContext.getCurrentInstance().update("form:datosFormulaNovedad");
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-    }
+   public void cancelarModificacionFormulaNovedad() {
+      if (bandera == 1) {
+         restablecerTabla();
+      }
+      listFormulasNovedadesBorrar.clear();
+      listFormulasNovedadesCrear.clear();
+      listFormulasNovedadesModificar.clear();
+      formulaNovedadSeleccionada = null;
+      k = 0;
+      listFormulasNovedades = new ArrayList<FormulasNovedades>();
+      guardado = true;
+      permitirIndex = true;
+      getListFormulasNovedades();
+      RequestContext.getCurrentInstance().update("form:datosFormulaNovedad");
+      contarRegistros();
+      RequestContext.getCurrentInstance().update("form:ACEPTAR");
+   }
 
-    public void editarCelda() {
-        if (index >= 0) {
-            if (tipoLista == 0) {
-                editarFormulaNovedad = listFormulasNovedades.get(index);
-            }
-            if (tipoLista == 1) {
-                editarFormulaNovedad = filtrarListFormulasNovedades.get(index);
-            }
-            RequestContext context = RequestContext.getCurrentInstance();
-            if (cualCelda == 0) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarFormulaCortoD");
-                RequestContext.getCurrentInstance().execute("PF('editarFormulaCortoD').show()");
-                cualCelda = -1;
-            } else if (cualCelda == 1) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarFormulaNombreD");
-                RequestContext.getCurrentInstance().execute("PF('editarFormulaNombreD').show()");
-                cualCelda = -1;
-            }
-            index = -1;
-            secRegistro = null;
-        }
-    }
+   public void editarCelda() {
+      if (formulaNovedadSeleccionada != null) {
+         editarFormulaNovedad = formulaNovedadSeleccionada;
 
-    public void dialogoNuevoRegistro() {
-        RequestContext context = RequestContext.getCurrentInstance();
-        RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroFormula");
-        RequestContext.getCurrentInstance().execute("PF('NuevoRegistroFormula').show()");
-    }
+         if (cualCelda == 0) {
+            RequestContext.getCurrentInstance().update("formularioDialogos:editarFormulaCortoD");
+            RequestContext.getCurrentInstance().execute("PF('editarFormulaCortoD').show()");
+            cualCelda = -1;
+         } else if (cualCelda == 1) {
+            RequestContext.getCurrentInstance().update("formularioDialogos:editarFormulaNombreD");
+            RequestContext.getCurrentInstance().execute("PF('editarFormulaNombreD').show()");
+            cualCelda = -1;
+         }
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+      }
+   }
 
-    //CREAR 
-    public void agregarNuevoFormulaNovedad() {
-        if (nuevoFormulaNovedad.getFormula().getSecuencia() != null) {
-            FacesContext c = FacesContext.getCurrentInstance();
-            if (bandera == 1) {
-                altoTabla = "310";
-                formulaCorto = (Column) c.getViewRoot().findComponent("form:datosFormulaNovedad:formulaCorto");
-                formulaCorto.setFilterStyle("display: none; visibility: hidden;");
-                formulaNombre = (Column) c.getViewRoot().findComponent("form:datosFormulaNovedad:formulaNombre");
-                formulaNombre.setFilterStyle("display: none; visibility: hidden;");
-                formulaUsa = (Column) c.getViewRoot().findComponent("form:datosFormulaNovedad:formulaUsa");
-                formulaUsa.setFilterStyle("display: none; visibility: hidden;");
-                formulaGarantiza = (Column) c.getViewRoot().findComponent("form:datosFormulaNovedad:formulaGarantiza");
-                formulaGarantiza.setFilterStyle("display: none; visibility: hidden;");
-                formulaSugerida = (Column) c.getViewRoot().findComponent("form:datosFormulaNovedad:formulaSugerida");
-                formulaSugerida.setFilterStyle("display: none; visibility: hidden;");
-                formulaCargue = (Column) c.getViewRoot().findComponent("form:datosFormulaNovedad:formulaCargue");
-                formulaCargue.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosFormulaNovedad");
-                bandera = 0;
-                filtrarListFormulasNovedades = null;
-                tipoLista = 0;
-            }
+   public void dialogoNuevoRegistro() {
+      RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroFormula");
+      RequestContext.getCurrentInstance().execute("PF('NuevoRegistroFormula').show()");
+   }
 
-            k++;
-            l = BigInteger.valueOf(k);
-            nuevoFormulaNovedad.setSecuencia(l);
-            nuevoFormulaNovedad.setFormula(formulaActual);
-            listFormulasNovedadesCrear.add(nuevoFormulaNovedad);
-            listFormulasNovedades.add(nuevoFormulaNovedad);
-            nuevoFormulaNovedad = new FormulasNovedades();
-            nuevoFormulaNovedad.setFormula(new Formulas());
-            RequestContext context = RequestContext.getCurrentInstance();
+   //CREAR 
+   public void agregarNuevoFormulaNovedad() {
+      if (nuevoFormulaNovedad.getFormula().getSecuencia() != null) {
+         FacesContext c = FacesContext.getCurrentInstance();
+         if (bandera == 1) {
+            restablecerTabla();
+         }
 
-            infoRegistro = "Cantidad de registros : " + listFormulasNovedades.size();
+         k++;
+         l = BigInteger.valueOf(k);
+         nuevoFormulaNovedad.setSecuencia(l);
+         listFormulasNovedadesCrear.add(nuevoFormulaNovedad);
+         listFormulasNovedades.add(nuevoFormulaNovedad);
+         formulaNovedadSeleccionada = listFormulasNovedades.get(listFormulasNovedades.indexOf(nuevoFormulaNovedad));
 
-            RequestContext.getCurrentInstance().update("form:informacionRegistro");
-            RequestContext.getCurrentInstance().update("form:datosFormulaNovedad");
-            RequestContext.getCurrentInstance().execute("PF('NuevoRegistroFormula').hide()");
-            if (guardado == true) {
-                guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            }
-            index = -1;
-            secRegistro = null;
-        } else {
-            RequestContext.getCurrentInstance().execute("PF('errorRegistroFN').show()");
-        }
-    }
+         nuevoFormulaNovedad = new FormulasNovedades();
+         nuevoFormulaNovedad.setFormula(formulaActual);
 
-    //LIMPIAR NUEVO REGISTRO
-    /**
-     */
-    public void limpiarNuevaFormulaNovedad() {
-        nuevoFormulaNovedad = new FormulasNovedades();
-        nuevoFormulaNovedad.setFormula(new Formulas());
-        index = -1;
-        secRegistro = null;
-    }
+         RequestContext.getCurrentInstance().update("form:datosFormulaNovedad");
+         contarRegistros();
+         RequestContext.getCurrentInstance().execute("PF('NuevoRegistroFormula').hide()");
+         if (guardado == true) {
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+         }
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('errorRegistroFN').show()");
+      }
+   }
+
+   //LIMPIAR NUEVO REGISTRO
+   /**
+    */
+   public void limpiarNuevaFormulaNovedad() {
+      nuevoFormulaNovedad = new FormulasNovedades();
+      nuevoFormulaNovedad.setFormula(formulaActual);
+   }
 
 //DUPLICAR VC
-    /**
-     */
-    public void verificarRegistroDuplicar() {
-        if (index >= 0) {
-            duplicarFormulaNovedadM();
-        }
-    }
+   /**
+    */
+   public void verificarRegistroDuplicar() {
+      if (formulaNovedadSeleccionada != null) {
+         duplicarFormulaNovedadM();
+      }
+   }
 
-    public void duplicarFormulaNovedadM() {
-        if (index >= 0) {
-            duplicarFormulaNovedad = new FormulasNovedades();
-            k++;
-            l = BigInteger.valueOf(k);
-            if (tipoLista == 0) {
+   public void duplicarFormulaNovedadM() {
+      duplicarFormulaNovedad = new FormulasNovedades();
+      k++;
+      l = BigInteger.valueOf(k);
 
-                duplicarFormulaNovedad.setFormula(listFormulasNovedades.get(index).getFormula());
-                duplicarFormulaNovedad.setGarantizada(listFormulasNovedades.get(index).getGarantizada());
-                duplicarFormulaNovedad.setUsaordenformulaconcepto(listFormulasNovedades.get(index).getUsaordenformulaconcepto());
-                duplicarFormulaNovedad.setSugerida(listFormulasNovedades.get(index).getSugerida());
-                duplicarFormulaNovedad.setCargue(listFormulasNovedades.get(index).getCargue());
-            }
-            if (tipoLista == 1) {
-                duplicarFormulaNovedad.setFormula(filtrarListFormulasNovedades.get(index).getFormula());
-                duplicarFormulaNovedad.setGarantizada(filtrarListFormulasNovedades.get(index).getGarantizada());
-                duplicarFormulaNovedad.setUsaordenformulaconcepto(filtrarListFormulasNovedades.get(index).getUsaordenformulaconcepto());
-                duplicarFormulaNovedad.setSugerida(filtrarListFormulasNovedades.get(index).getSugerida());
-                duplicarFormulaNovedad.setCargue(filtrarListFormulasNovedades.get(index).getCargue());
-            }
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarRegistroFormulaNovedad");
-            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroFormulaNovedad').show()");
-            index = -1;
-            secRegistro = null;
-        }
-    }
+      duplicarFormulaNovedad.setFormula(formulaNovedadSeleccionada.getFormula());
+      duplicarFormulaNovedad.setGarantizada(formulaNovedadSeleccionada.getGarantizada());
+      duplicarFormulaNovedad.setUsaordenformulaconcepto(formulaNovedadSeleccionada.getUsaordenformulaconcepto());
+      duplicarFormulaNovedad.setSugerida(formulaNovedadSeleccionada.getSugerida());
+      duplicarFormulaNovedad.setCargue(formulaNovedadSeleccionada.getCargue());
 
-    /**
-     * Metodo que confirma el duplicado y actualiza los datos de la tabla Sets
-     */
-    public void confirmarDuplicarFormulaNovedad() {
-        if (duplicarFormulaNovedad.getFormula().getSecuencia() != null) {
-            k++;
-            l = BigInteger.valueOf(k);
-            duplicarFormulaNovedad.setSecuencia(l);
-            listFormulasNovedades.add(duplicarFormulaNovedad);
-            listFormulasNovedadesCrear.add(duplicarFormulaNovedad);
-            RequestContext context = RequestContext.getCurrentInstance();
-            infoRegistro = "Cantidad de registros : " + listFormulasNovedades.size();
-            RequestContext.getCurrentInstance().update("form:informacionRegistro");
-            RequestContext.getCurrentInstance().update("form:datosFormulaNovedad");
-            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroFormulaNovedad').hide()");
-            index = -1;
-            secRegistro = null;
-            if (guardado == true) {
-                guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            }
-            FacesContext c = FacesContext.getCurrentInstance();
-            if (bandera == 1) {
-                altoTabla = "310";
-                formulaCorto = (Column) c.getViewRoot().findComponent("form:datosFormulaNovedad:formulaCorto");
-                formulaCorto.setFilterStyle("display: none; visibility: hidden;");
-                formulaNombre = (Column) c.getViewRoot().findComponent("form:datosFormulaNovedad:formulaNombre");
-                formulaNombre.setFilterStyle("display: none; visibility: hidden;");
-                formulaUsa = (Column) c.getViewRoot().findComponent("form:datosFormulaNovedad:formulaUsa");
-                formulaUsa.setFilterStyle("display: none; visibility: hidden;");
-                formulaGarantiza = (Column) c.getViewRoot().findComponent("form:datosFormulaNovedad:formulaGarantiza");
-                formulaGarantiza.setFilterStyle("display: none; visibility: hidden;");
-                formulaSugerida = (Column) c.getViewRoot().findComponent("form:datosFormulaNovedad:formulaSugerida");
-                formulaSugerida.setFilterStyle("display: none; visibility: hidden;");
-                formulaCargue = (Column) c.getViewRoot().findComponent("form:datosFormulaNovedad:formulaCargue");
-                formulaCargue.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosFormulaNovedad");
-                bandera = 0;
-                filtrarListFormulasNovedades = null;
-                tipoLista = 0;
-            }
-            duplicarFormulaNovedad = new FormulasNovedades();
-        } else {
-            RequestContext.getCurrentInstance().execute("PF('errorRegistroFN').show()");
-        }
-    }
+      RequestContext context = RequestContext.getCurrentInstance();
+      RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarRegistroFormulaNovedad");
+      RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroFormulaNovedad').show()");
+   }
 
-    //LIMPIAR DUPLICAR
-    /**
-     * Metodo que limpia los datos de un duplicar Set
-     */
-    public void limpiarDuplicarFormulaNovedad() {
-        duplicarFormulaNovedad = new FormulasNovedades();
-        duplicarFormulaNovedad.setFormula(new Formulas());
-    }
+   /**
+    * Metodo que confirma el duplicado y actualiza los datos de la tabla Sets
+    */
+   public void confirmarDuplicarFormulaNovedad() {
+      if (duplicarFormulaNovedad.getFormula().getSecuencia() != null) {
+         k++;
+         l = BigInteger.valueOf(k);
+         duplicarFormulaNovedad.setSecuencia(l);
+         listFormulasNovedades.add(duplicarFormulaNovedad);
+         listFormulasNovedadesCrear.add(duplicarFormulaNovedad);
+         formulaNovedadSeleccionada = listFormulasNovedades.get(listFormulasNovedades.indexOf(duplicarFormulaNovedad));
 
-    public void limpiarMSNRastros() {
-        msnConfirmarRastro = "";
-        msnConfirmarRastroHistorico = "";
-        nombreTablaRastro = "";
-    }
+         RequestContext.getCurrentInstance().update("form:datosFormulaNovedad");
+         contarRegistros();
+         RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroFormulaNovedad').hide()");
+         if (guardado == true) {
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+         }
+         FacesContext c = FacesContext.getCurrentInstance();
+         if (bandera == 1) {
+            restablecerTabla();
+         }
+         duplicarFormulaNovedad = new FormulasNovedades();
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('errorRegistroFN').show()");
+      }
+   }
 
-    //BORRAR VC
-    /**
-     */
-    public void verificarRegistroBorrar() {
-        if (index >= 0) {
-            borrarFormulaNovedad();
-        }
-    }
+   //LIMPIAR DUPLICAR
+   /**
+    * Metodo que limpia los datos de un duplicar Set
+    */
+   public void limpiarDuplicarFormulaNovedad() {
+      duplicarFormulaNovedad = new FormulasNovedades();
+      duplicarFormulaNovedad.setFormula(new Formulas());
+   }
 
-    public void borrarFormulaNovedad() {
-        if (index >= 0) {
-            if (tipoLista == 0) {
-                if (!listFormulasNovedadesModificar.isEmpty() && listFormulasNovedadesModificar.contains(listFormulasNovedades.get(index))) {
-                    int modIndex = listFormulasNovedadesModificar.indexOf(listFormulasNovedades.get(index));
-                    listFormulasNovedadesModificar.remove(modIndex);
-                    listFormulasNovedadesBorrar.add(listFormulasNovedades.get(index));
-                } else if (!listFormulasNovedadesCrear.isEmpty() && listFormulasNovedadesCrear.contains(listFormulasNovedades.get(index))) {
-                    int crearIndex = listFormulasNovedadesCrear.indexOf(listFormulasNovedades.get(index));
-                    listFormulasNovedadesCrear.remove(crearIndex);
-                } else {
-                    listFormulasNovedadesBorrar.add(listFormulasNovedades.get(index));
-                }
-                listFormulasNovedades.remove(index);
-            }
-            if (tipoLista == 1) {
-                if (!listFormulasNovedadesModificar.isEmpty() && listFormulasNovedadesModificar.contains(filtrarListFormulasNovedades.get(index))) {
-                    int modIndex = listFormulasNovedadesModificar.indexOf(filtrarListFormulasNovedades.get(index));
-                    listFormulasNovedadesModificar.remove(modIndex);
-                    listFormulasNovedadesBorrar.add(filtrarListFormulasNovedades.get(index));
-                } else if (!listFormulasNovedadesCrear.isEmpty() && listFormulasNovedadesCrear.contains(filtrarListFormulasNovedades.get(index))) {
-                    int crearIndex = listFormulasNovedadesCrear.indexOf(filtrarListFormulasNovedades.get(index));
-                    listFormulasNovedadesCrear.remove(crearIndex);
-                } else {
-                    listFormulasNovedadesBorrar.add(filtrarListFormulasNovedades.get(index));
-                }
-                int VCIndex = listFormulasNovedades.indexOf(filtrarListFormulasNovedades.get(index));
-                listFormulasNovedades.remove(VCIndex);
-                filtrarListFormulasNovedades.remove(index);
-            }
+   public void limpiarMSNRastros() {
+      msnConfirmarRastro = "";
+      msnConfirmarRastroHistorico = "";
+      nombreTablaRastro = "";
+   }
 
-            RequestContext context = RequestContext.getCurrentInstance();
-            infoRegistro = "Cantidad de registros : " + listFormulasNovedades.size();
-            RequestContext.getCurrentInstance().update("form:informacionRegistro");
-            RequestContext.getCurrentInstance().update("form:datosFormulaNovedad");
-            index = -1;
-            secRegistro = null;
+   //BORRAR VC
+   /**
+    */
+   public void verificarRegistroBorrar() {
+      if (formulaNovedadSeleccionada != null) {
+         borrarFormulaNovedad();
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+      }
+   }
 
-            if (guardado == true) {
-                guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            }
-        }
-    }
+   public void borrarFormulaNovedad() {
+      if (formulaNovedadSeleccionada != null) {
+         if (!listFormulasNovedadesModificar.isEmpty() && listFormulasNovedadesModificar.contains(formulaNovedadSeleccionada)) {
+            listFormulasNovedadesModificar.remove(formulaNovedadSeleccionada);
+            listFormulasNovedadesBorrar.add(formulaNovedadSeleccionada);
+         } else if (!listFormulasNovedadesCrear.isEmpty() && listFormulasNovedadesCrear.contains(formulaNovedadSeleccionada)) {
+            listFormulasNovedadesCrear.remove(formulaNovedadSeleccionada);
+         } else {
+            listFormulasNovedadesBorrar.add(formulaNovedadSeleccionada);
+         }
+         listFormulasNovedades.remove(formulaNovedadSeleccionada);
+         if (tipoLista == 1) {
+            filtrarListFormulasNovedades.remove(formulaNovedadSeleccionada);
+         }
+         formulaNovedadSeleccionada = null;
+         RequestContext.getCurrentInstance().update("form:datosFormulaNovedad");
+         contarRegistros();
+         if (guardado == true) {
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+         }
+      }
+   }
 
-    //CTRL + F11 ACTIVAR/DESACTIVAR
-    /**
-     * Metodo que activa el filtrado por medio de la opcion en el tollbar o por
-     * medio de la tecla Crtl+F11
-     */
-    public void activarCtrlF11() {
-        FacesContext c = FacesContext.getCurrentInstance();
-        if (bandera == 0) {
-            altoTabla = "290";
-            formulaCorto = (Column) c.getViewRoot().findComponent("form:datosFormulaNovedad:formulaCorto");
-            formulaCorto.setFilterStyle("width: 85% !important");
-            formulaNombre = (Column) c.getViewRoot().findComponent("form:datosFormulaNovedad:formulaNombre");
-            formulaNombre.setFilterStyle("width: 85% !important");
-            formulaUsa = (Column) c.getViewRoot().findComponent("form:datosFormulaNovedad:formulaUsa");
-            formulaUsa.setFilterStyle("width: 85% !important");
-            formulaGarantiza = (Column) c.getViewRoot().findComponent("form:datosFormulaNovedad:formulaGarantiza");
-            formulaGarantiza.setFilterStyle("width: 85% !important");
-            formulaSugerida = (Column) c.getViewRoot().findComponent("form:datosFormulaNovedad:formulaSugerida");
-            formulaSugerida.setFilterStyle("width: 85% !important");
-            formulaCargue = (Column) c.getViewRoot().findComponent("form:datosFormulaNovedad:formulaCargue");
-            formulaCargue.setFilterStyle("width: 85% !important");
-            RequestContext.getCurrentInstance().update("form:datosFormulaNovedad");
-            bandera = 1;
-        } else if (bandera == 1) {
-            altoTabla = "310";
-            formulaCorto = (Column) c.getViewRoot().findComponent("form:datosFormulaNovedad:formulaCorto");
-            formulaCorto.setFilterStyle("display: none; visibility: hidden;");
-            formulaNombre = (Column) c.getViewRoot().findComponent("form:datosFormulaNovedad:formulaNombre");
-            formulaNombre.setFilterStyle("display: none; visibility: hidden;");
-            formulaUsa = (Column) c.getViewRoot().findComponent("form:datosFormulaNovedad:formulaUsa");
-            formulaUsa.setFilterStyle("display: none; visibility: hidden;");
-            formulaGarantiza = (Column) c.getViewRoot().findComponent("form:datosFormulaNovedad:formulaGarantiza");
-            formulaGarantiza.setFilterStyle("display: none; visibility: hidden;");
-            formulaSugerida = (Column) c.getViewRoot().findComponent("form:datosFormulaNovedad:formulaSugerida");
-            formulaSugerida.setFilterStyle("display: none; visibility: hidden;");
-            formulaCargue = (Column) c.getViewRoot().findComponent("form:datosFormulaNovedad:formulaCargue");
-            formulaCargue.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosFormulaNovedad");
-            bandera = 0;
-            filtrarListFormulasNovedades = null;
-            tipoLista = 0;
-        }
-    }
+   //CTRL + F11 ACTIVAR/DESACTIVAR
+   /**
+    * Metodo que activa el filtrado por medio de la opcion en el tollbar o por
+    * medio de la tecla Crtl+F11
+    */
+   public void activarCtrlF11() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      if (bandera == 0) {
+         altoTabla = "250";
+         formulaCorto = (Column) c.getViewRoot().findComponent("form:datosFormulaNovedad:formulaCorto");
+         formulaCorto.setFilterStyle("width: 85% !important");
+         formulaNombre = (Column) c.getViewRoot().findComponent("form:datosFormulaNovedad:formulaNombre");
+         formulaNombre.setFilterStyle("width: 85% !important");
+         formulaUsa = (Column) c.getViewRoot().findComponent("form:datosFormulaNovedad:formulaUsa");
+         formulaUsa.setFilterStyle("width: 66% !important");
+         formulaGarantiza = (Column) c.getViewRoot().findComponent("form:datosFormulaNovedad:formulaGarantiza");
+         formulaGarantiza.setFilterStyle("width: 66% !important");
+         formulaSugerida = (Column) c.getViewRoot().findComponent("form:datosFormulaNovedad:formulaSugerida");
+         formulaSugerida.setFilterStyle("width: 66% !important");
+         formulaCargue = (Column) c.getViewRoot().findComponent("form:datosFormulaNovedad:formulaCargue");
+         formulaCargue.setFilterStyle("width: 66% !important");
+         RequestContext.getCurrentInstance().update("form:datosFormulaNovedad");
+         bandera = 1;
+      } else if (bandera == 1) {
+         restablecerTabla();
+      }
+   }
 
-    //SALIR
-    /**
-     * Metodo que cierra la sesion y limpia los datos en la pagina
-     */
-    public void salir() {
-        FacesContext c = FacesContext.getCurrentInstance();
-        if (bandera == 1) {
-            altoTabla = "310";
-            formulaCorto = (Column) c.getViewRoot().findComponent("form:datosFormulaNovedad:formulaCorto");
-            formulaCorto.setFilterStyle("display: none; visibility: hidden;");
-            formulaNombre = (Column) c.getViewRoot().findComponent("form:datosFormulaNovedad:formulaNombre");
-            formulaNombre.setFilterStyle("display: none; visibility: hidden;");
-            formulaUsa = (Column) c.getViewRoot().findComponent("form:datosFormulaNovedad:formulaUsa");
-            formulaUsa.setFilterStyle("display: none; visibility: hidden;");
-            formulaGarantiza = (Column) c.getViewRoot().findComponent("form:datosFormulaNovedad:formulaGarantiza");
-            formulaGarantiza.setFilterStyle("display: none; visibility: hidden;");
-            formulaSugerida = (Column) c.getViewRoot().findComponent("form:datosFormulaNovedad:formulaSugerida");
-            formulaSugerida.setFilterStyle("display: none; visibility: hidden;");
-            formulaCargue = (Column) c.getViewRoot().findComponent("form:datosFormulaNovedad:formulaCargue");
-            formulaCargue.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosFormulaNovedad");
-            bandera = 0;
-            filtrarListFormulasNovedades = null;
-            tipoLista = 0;
-        }
-        listFormulasNovedadesBorrar.clear();
-        listFormulasNovedadesCrear.clear();
-        listFormulasNovedadesModificar.clear();
-        index = -1;
-        secRegistro = null;
-        k = 0;
-        listFormulasNovedades = null;
-        guardado = true;
-        formulaActual = null;
-        lovFormulas = null;
-    }
+   public void restablecerTabla() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      altoTabla = "270";
+      formulaCorto = (Column) c.getViewRoot().findComponent("form:datosFormulaNovedad:formulaCorto");
+      formulaCorto.setFilterStyle("display: none; visibility: hidden;");
+      formulaNombre = (Column) c.getViewRoot().findComponent("form:datosFormulaNovedad:formulaNombre");
+      formulaNombre.setFilterStyle("display: none; visibility: hidden;");
+      formulaUsa = (Column) c.getViewRoot().findComponent("form:datosFormulaNovedad:formulaUsa");
+      formulaUsa.setFilterStyle("display: none; visibility: hidden;");
+      formulaGarantiza = (Column) c.getViewRoot().findComponent("form:datosFormulaNovedad:formulaGarantiza");
+      formulaGarantiza.setFilterStyle("display: none; visibility: hidden;");
+      formulaSugerida = (Column) c.getViewRoot().findComponent("form:datosFormulaNovedad:formulaSugerida");
+      formulaSugerida.setFilterStyle("display: none; visibility: hidden;");
+      formulaCargue = (Column) c.getViewRoot().findComponent("form:datosFormulaNovedad:formulaCargue");
+      formulaCargue.setFilterStyle("display: none; visibility: hidden;");
+      RequestContext.getCurrentInstance().update("form:datosFormulaNovedad");
+      bandera = 0;
+      filtrarListFormulasNovedades = null;
+      tipoLista = 0;
+   }
 
-    public void listaValoresBoton() {
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (index >= 0) {
-            if (cualCelda == 0) {
-                RequestContext.getCurrentInstance().update("form:FormulaDialogo");
-                RequestContext.getCurrentInstance().execute("PF('FormulaDialogo').show()");
-                tipoActualizacion = 0;
-            }
-        }
-    }
+   //SALIR
+   /**
+    * Metodo que cierra la sesion y limpia los datos en la pagina
+    */
+   public void salir() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      if (bandera == 1) {
+         restablecerTabla();
+      }
+      listFormulasNovedadesBorrar.clear();
+      listFormulasNovedadesCrear.clear();
+      listFormulasNovedadesModificar.clear();
+      formulaNovedadSeleccionada = null;
+      k = 0;
+      listFormulasNovedades = new ArrayList<FormulasNovedades>();
+      guardado = true;
+      formulaActual = null;
+//      lovFormulas = null;
+   }
 
-    public void asignarIndex(Integer indice, int dlg, int LND) {
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (LND == 0) {
-            index = indice;
-            tipoActualizacion = 0;
-        } else if (LND == 1) {
-            tipoActualizacion = 1;
-        } else if (LND == 2) {
-            tipoActualizacion = 2;
-        }
-        if (dlg == 0) {
+   public void listaValoresBoton() {
+      if (formulaNovedadSeleccionada != null) {
+         if (cualCelda == 0) {
             RequestContext.getCurrentInstance().update("form:FormulaDialogo");
             RequestContext.getCurrentInstance().execute("PF('FormulaDialogo').show()");
-        }
+            tipoActualizacion = 0;
+         }
+      }
+   }
 
-    }
-
-    public void valoresBackupAutocompletar(int tipoNuevo, String Campo) {
-        if (Campo.equals("FORMULA")) {
-            if (tipoNuevo == 1) {
-                formula = nuevoFormulaNovedad.getFormula().getNombrecorto();
-            } else if (tipoNuevo == 2) {
-                formula = duplicarFormulaNovedad.getFormula().getNombrecorto();
-            }
-        }
-    }
-
-    public void autocompletarNuevoyDuplicadoFormulaNovedad(String confirmarCambio, String valorConfirmar, int tipoNuevo) {
-        int coincidencias = 0;
-        int indiceUnicoElemento = 0;
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (confirmarCambio.equalsIgnoreCase("FORMULA")) {
-            if (tipoNuevo == 1) {
-                nuevoFormulaNovedad.getFormula().setNombrecorto(formula);
-            } else if (tipoNuevo == 2) {
-                duplicarFormulaNovedad.getFormula().setNombrecorto(formula);
-            }
-            for (int i = 0; i < lovFormulas.size(); i++) {
-                if (lovFormulas.get(i).getNombrecorto().startsWith(valorConfirmar.toUpperCase())) {
-                    indiceUnicoElemento = i;
-                    coincidencias++;
-                }
-            }
-            if (coincidencias == 1) {
-                if (tipoNuevo == 1) {
-                    nuevoFormulaNovedad.setFormula(lovFormulas.get(indiceUnicoElemento));
-                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoFormulaCorto");
-                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoFormulaDescripcion");
-                } else if (tipoNuevo == 2) {
-                    duplicarFormulaNovedad.setFormula(lovFormulas.get(indiceUnicoElemento));
-                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarFormulaCorto");
-                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarFormulaDescripcion");
-                }
-                lovFormulas.clear();
-                getLovFormulas();
-            } else {
-                RequestContext.getCurrentInstance().update("form:FormulaDialogo");
-                RequestContext.getCurrentInstance().execute("PF('FormulaDialogo').show()");
-                tipoActualizacion = tipoNuevo;
-                if (tipoNuevo == 1) {
-                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoFormulaCorto");
-                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoFormulaDescripcion");
-                } else if (tipoNuevo == 2) {
-                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarFormulaCorto");
-                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarFormulaDescripcion");
-                }
-            }
-        }
-    }
-
-    public void actualizarFormula() {
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (tipoActualizacion == 0) {
-            if (tipoLista == 0) {
-                listFormulasNovedades.get(index).setFormula(formulaSeleccionada);
-                if (!listFormulasNovedadesCrear.contains(listFormulasNovedades.get(index))) {
-                    if (listFormulasNovedadesModificar.isEmpty()) {
-                        listFormulasNovedadesModificar.add(listFormulasNovedades.get(index));
-                    } else if (!listFormulasNovedadesModificar.contains(listFormulasNovedades.get(index))) {
-                        listFormulasNovedadesModificar.add(listFormulasNovedades.get(index));
-                    }
-                }
-            } else {
-                filtrarListFormulasNovedades.get(index).setFormula(formulaSeleccionada);
-                if (!listFormulasNovedadesCrear.contains(filtrarListFormulasNovedades.get(index))) {
-                    if (listFormulasNovedadesModificar.isEmpty()) {
-                        listFormulasNovedadesModificar.add(filtrarListFormulasNovedades.get(index));
-                    } else if (!listFormulasNovedadesModificar.contains(filtrarListFormulasNovedades.get(index))) {
-                        listFormulasNovedadesModificar.add(filtrarListFormulasNovedades.get(index));
-                    }
-                }
-            }
-            if (guardado == true) {
-                guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            }
-            permitirIndex = true;
-            RequestContext.getCurrentInstance().update("form:formulaCorto");
-            RequestContext.getCurrentInstance().update("form:formulaNombre");
-        } else if (tipoActualizacion == 1) {
-            nuevoFormulaNovedad.setFormula(formulaSeleccionada);
-            RequestContext.getCurrentInstance().update("formularioDialogos:nuevoFormulaCorto");
-            RequestContext.getCurrentInstance().update("formularioDialogos:nuevoFormulaDescripcion");
-        } else if (tipoActualizacion == 2) {
-            duplicarFormulaNovedad.setFormula(formulaSeleccionada);
-            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarFormulaCorto");
-            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarFormulaDescripcion");
-        }
-        filtrarLovFormulas = null;
-        formulaSeleccionada = null;
-        aceptar = true;
-        index = -1;
-        secRegistro = null;
-        tipoActualizacion = -1;
-        /*
+   public void asignarIndex(FormulasNovedades fomulaN, int dlg, int LND) {
+      formulaNovedadSeleccionada = fomulaN;
+      tipoActualizacion = LND;
+      if (dlg == 0) {
          RequestContext.getCurrentInstance().update("form:FormulaDialogo");
-         RequestContext.getCurrentInstance().update("form:lovFormula");
-         RequestContext.getCurrentInstance().update("form:aceptarF");*/
-        context.reset("form:lovFormula:globalFilter");
-        RequestContext.getCurrentInstance().execute("PF('lovFormula').clearFilters()");
-        RequestContext.getCurrentInstance().execute("PF('FormulaDialogo').hide()");
-    }
+         RequestContext.getCurrentInstance().execute("PF('FormulaDialogo').show()");
+      }
 
-    public void cancelarCambioFormula() {
-        filtrarLovFormulas = null;
-        formulaSeleccionada = null;
-        aceptar = true;
-        index = -1;
-        secRegistro = null;
-        tipoActualizacion = -1;
-        permitirIndex = true;
-        RequestContext context = RequestContext.getCurrentInstance();
-        context.reset("form:lovFormula:globalFilter");
-        RequestContext.getCurrentInstance().execute("PF('lovFormula').clearFilters()");
-        RequestContext.getCurrentInstance().execute("PF('FormulaDialogo').hide()");
-    }
+   }
 
-    /**
-     * Metodo que activa el boton aceptar de la pantalla y dialogos
-     */
-    public void activarAceptar() {
-        aceptar = false;
-    }
-    //EXPORTAR
+   public void valoresBackupAutocompletar(int tipoNuevo, String Campo) {
+      if (Campo.equals("FORMULA")) {
+         if (tipoNuevo == 1) {
+            formula = nuevoFormulaNovedad.getFormula().getNombrecorto();
+         } else if (tipoNuevo == 2) {
+            formula = duplicarFormulaNovedad.getFormula().getNombrecorto();
+         }
+      }
+   }
+//
+//   public void autocompletarNuevoyDuplicadoFormulaNovedad(String confirmarCambio, String valorConfirmar, int tipoNuevo) {
+//      int coincidencias = 0;
+//      int indiceUnicoElemento = 0;
+//      RequestContext context = RequestContext.getCurrentInstance();
+//      if (confirmarCambio.equalsIgnoreCase("FORMULA")) {
+//         if (tipoNuevo == 1) {
+//            nuevoFormulaNovedad.getFormula().setNombrecorto(formula);
+//         } else if (tipoNuevo == 2) {
+//            duplicarFormulaNovedad.getFormula().setNombrecorto(formula);
+//         }
+//         for (int i = 0; i < lovFormulas.size(); i++) {
+//            if (lovFormulas.get(i).getNombrecorto().startsWith(valorConfirmar.toUpperCase())) {
+//               indiceUnicoElemento = i;
+//               coincidencias++;
+//            }
+//         }
+//         if (coincidencias == 1) {
+//            if (tipoNuevo == 1) {
+//               nuevoFormulaNovedad.setFormula(lovFormulas.get(indiceUnicoElemento));
+//               RequestContext.getCurrentInstance().update("formularioDialogos:nuevoFormulaCorto");
+//               RequestContext.getCurrentInstance().update("formularioDialogos:nuevoFormulaDescripcion");
+//            } else if (tipoNuevo == 2) {
+//               duplicarFormulaNovedad.setFormula(lovFormulas.get(indiceUnicoElemento));
+//               RequestContext.getCurrentInstance().update("formularioDialogos:duplicarFormulaCorto");
+//               RequestContext.getCurrentInstance().update("formularioDialogos:duplicarFormulaDescripcion");
+//            }
+//            lovFormulas.clear();
+//            getLovFormulas();
+//         } else {
+//            RequestContext.getCurrentInstance().update("form:FormulaDialogo");
+//            RequestContext.getCurrentInstance().execute("PF('FormulaDialogo').show()");
+//            tipoActualizacion = tipoNuevo;
+//            if (tipoNuevo == 1) {
+//               RequestContext.getCurrentInstance().update("formularioDialogos:nuevoFormulaCorto");
+//               RequestContext.getCurrentInstance().update("formularioDialogos:nuevoFormulaDescripcion");
+//            } else if (tipoNuevo == 2) {
+//               RequestContext.getCurrentInstance().update("formularioDialogos:duplicarFormulaCorto");
+//               RequestContext.getCurrentInstance().update("formularioDialogos:duplicarFormulaDescripcion");
+//            }
+//         }
+//      }
+//   }
 
-    public String exportXML() {
-        nombreTabla = ":formExportarFormula:datosFormulaNovedadExportar";
-        nombreXML = "FormulaNovedad_XML";
-        return nombreTabla;
-    }
+//   public void actualizarFormula() {
+//      RequestContext context = RequestContext.getCurrentInstance();
+//      if (tipoActualizacion == 0) {
+//            formulaNovedadSeleccionada.setFormula(formulaSeleccionada);
+//            if (!listFormulasNovedadesCrear.contains(formulaNovedadSeleccionada)) {
+//               if (listFormulasNovedadesModificar.isEmpty()) {
+//                  listFormulasNovedadesModificar.add(formulaNovedadSeleccionada);
+//               } else if (!listFormulasNovedadesModificar.contains(formulaNovedadSeleccionada)) {
+//                  listFormulasNovedadesModificar.add(formulaNovedadSeleccionada);
+//               }
+//            }
+//        
+//         if (guardado == true) {
+//            guardado = false;
+//            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+//         }
+//         permitirIndex = true;
+//         RequestContext.getCurrentInstance().update("form:formulaCorto");
+//         RequestContext.getCurrentInstance().update("form:formulaNombre");
+//      } else if (tipoActualizacion == 1) {
+//         nuevoFormulaNovedad.setFormula(formulaSeleccionada);
+//         RequestContext.getCurrentInstance().update("formularioDialogos:nuevoFormulaCorto");
+//         RequestContext.getCurrentInstance().update("formularioDialogos:nuevoFormulaDescripcion");
+//      } else if (tipoActualizacion == 2) {
+//         duplicarFormulaNovedad.setFormula(formulaSeleccionada);
+//         RequestContext.getCurrentInstance().update("formularioDialogos:duplicarFormulaCorto");
+//         RequestContext.getCurrentInstance().update("formularioDialogos:duplicarFormulaDescripcion");
+//      }
+////      filtrarLovFormulas = null;
+////      formulaSeleccionada = null;
+//      aceptar = true;
+//      formulaNovedadSeleccionada = null;
+//      formulaNovedadSeleccionada = null;
+//      tipoActualizacion = -1;
+//      /*
+//         RequestContext.getCurrentInstance().update("form:FormulaDialogo");
+//         RequestContext.getCurrentInstance().update("form:lovFormula");
+//         RequestContext.getCurrentInstance().update("form:aceptarF");*/
+//      context.reset("form:lovFormula:globalFilter");
+//      RequestContext.getCurrentInstance().execute("PF('lovFormula').clearFilters()");
+//      RequestContext.getCurrentInstance().execute("PF('FormulaDialogo').hide()");
+//   }
+   public void cancelarCambioFormula() {
+//      filtrarLovFormulas = null;
+//      formulaSeleccionada = null;
+      aceptar = true;
+      tipoActualizacion = -1;
+      permitirIndex = true;
+      RequestContext context = RequestContext.getCurrentInstance();
+      context.reset("form:lovFormula:globalFilter");
+      RequestContext.getCurrentInstance().execute("PF('lovFormula').clearFilters()");
+      RequestContext.getCurrentInstance().execute("PF('FormulaDialogo').hide()");
+   }
 
-    /**
-     * Metodo que exporta datos a PDF
-     *
-     * @throws IOException Excepcion de In-Out de datos
-     */
-    public void validarExportPDF() throws IOException {
-        exportPDF_NF();
-    }
+   /**
+    * Metodo que activa el boton aceptar de la pantalla y dialogos
+    */
+   public void activarAceptar() {
+      aceptar = false;
+   }
+   //EXPORTAR
 
-    public void exportPDF_NF() throws IOException {
-        DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportarFormula:datosFormulaNovedadExportar");
-        FacesContext context = FacesContext.getCurrentInstance();
-        Exporter exporter = new ExportarPDF();
-        exporter.export(context, tabla, "FormulaNovedad_PDF", false, false, "UTF-8", null, null);
-        context.responseComplete();
-        index = -1;
-        secRegistro = null;
-    }
+   public String exportXML() {
+      nombreTabla = ":formExportarFormula:datosFormulaNovedadExportar";
+      nombreXML = "FormulaNovedad_XML";
+      return nombreTabla;
+   }
 
-    /**
-     * Metodo que exporta datos a XLS
-     *
-     * @throws IOException Excepcion de In-Out de datos
-     */
-    public void validarExportXLS() throws IOException {
-        exportXLS_NF();
-    }
+   /**
+    * Metodo que exporta datos a PDF
+    *
+    * @throws IOException Excepcion de In-Out de datos
+    */
+   public void validarExportPDF() throws IOException {
+      exportPDF_NF();
+   }
 
-    public void exportXLS_NF() throws IOException {
-        DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportarFormula:datosFormulaNovedadExportar");
-        FacesContext context = FacesContext.getCurrentInstance();
-        Exporter exporter = new ExportarXLS();
-        exporter.export(context, tabla, "FormulaNovedad_XLS", false, false, "UTF-8", null, null);
-        context.responseComplete();
-        index = -1;
-        secRegistro = null;
-    }
+   public void exportPDF_NF() throws IOException {
+      DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportarFormula:datosFormulaNovedadExportar");
+      FacesContext context = FacesContext.getCurrentInstance();
+      Exporter exporter = new ExportarPDF();
+      exporter.export(context, tabla, "FormulaNovedad_PDF", false, false, "UTF-8", null, null);
+      context.responseComplete();
+   }
 
-    //EVENTO FILTRAR
-    /**
-     * Evento que cambia la lista reala a la filtrada
-     */
-    public void eventoFiltrar() {
-        if (index >= 0) {
-            if (tipoLista == 0) {
-                tipoLista = 1;
+   /**
+    * Metodo que exporta datos a XLS
+    *
+    * @throws IOException Excepcion de In-Out de datos
+    */
+   public void validarExportXLS() throws IOException {
+      exportXLS_NF();
+   }
+
+   public void exportXLS_NF() throws IOException {
+      DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportarFormula:datosFormulaNovedadExportar");
+      FacesContext context = FacesContext.getCurrentInstance();
+      Exporter exporter = new ExportarXLS();
+      exporter.export(context, tabla, "FormulaNovedad_XLS", false, false, "UTF-8", null, null);
+      context.responseComplete();
+   }
+
+   //EVENTO FILTRAR
+   /**
+    * Evento que cambia la lista reala a la filtrada
+    */
+   public void eventoFiltrar() {
+      if (tipoLista == 0) {
+         tipoLista = 1;
+      }
+      contarRegistros();
+   }
+
+   public void contarRegistros() {
+      RequestContext.getCurrentInstance().update("form:informacionRegistro");
+   }
+   //RASTRO - COMPROBAR SI LA TABLA TIENE RASTRO ACTIVO
+
+   public void verificarRastro() {
+      verificarRastroFormulaNovedad();
+   }
+
+   public void verificarRastroFormulaNovedad() {
+      if (formulaNovedadSeleccionada != null) {
+         int resultado = administrarRastros.obtenerTabla(formulaNovedadSeleccionada.getSecuencia(), "FORMULASNOVEDADES");
+         formulaNovedadSeleccionada = null;
+         if (resultado == 1) {
+            RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
+         } else if (resultado == 2) {
+            nombreTablaRastro = "FormulasNovedades";
+            msnConfirmarRastro = "La tabla FORMULASNOVEDADES tiene rastros para el registro seleccionado, ¿desea continuar?";
+            RequestContext.getCurrentInstance().update("form:msnConfirmarRastro");
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
+         } else if (resultado == 3) {
+            RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
+         } else if (resultado == 4) {
+            RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
+         } else if (resultado == 5) {
+            RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
+         }
+//         } else {
+//            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+//         }
+      } else if (administrarRastros.verificarHistoricosTabla("FORMULASNOVEDADES")) {
+         nombreTablaRastro = "FormulasNovedades";
+         msnConfirmarRastroHistorico = "La tabla FORMULASNOVEDADES tiene rastros historicos, ¿Desea continuar?";
+         RequestContext.getCurrentInstance().update("form:confirmarRastroHistorico");
+         RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
+      }
+   }
+
+   //GETTERS AND SETTERS
+   public List<FormulasNovedades> getListFormulasNovedades() {
+      try {
+         if (listFormulasNovedades.isEmpty()) {
+            if (formulaActual.getSecuencia() != null) {
+               listFormulasNovedades = administrarFormulaNovedad.listFormulasNovedadesParaFormula(formulaActual.getSecuencia());
+               if (listFormulasNovedades == null) {
+                  listFormulasNovedades = new ArrayList<FormulasNovedades>();
+               }
             }
-            RequestContext context = RequestContext.getCurrentInstance();
-            infoRegistro = "Cantidad de registros : " + filtrarListFormulasNovedades.size();
-            RequestContext.getCurrentInstance().update("form:informacionRegistro");
-        }
-    }
-    //RASTRO - COMPROBAR SI LA TABLA TIENE RASTRO ACTIVO
+         }
+         return listFormulasNovedades;
+      } catch (Exception e) {
+         System.out.println("Error...!! getListFormulasNovedades " + e.toString());
+         return null;
+      }
+   }
 
-    public void verificarRastro() {
-        verificarRastroFormulaNovedad();
-        index = -1;
-    }
+   public void setListFormulasNovedades(List<FormulasNovedades> setListFormulasNovedades) {
+      this.listFormulasNovedades = setListFormulasNovedades;
+   }
 
-    public void verificarRastroFormulaNovedad() {
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (listFormulasNovedades != null) {
-            if (secRegistro != null) {
-                int resultado = administrarRastros.obtenerTabla(secRegistro, "FORMULASNOVEDADES");
-                backUpSecRegistro = secRegistro;
-                backUp = secRegistro;
-                secRegistro = null;
-                if (resultado == 1) {
-                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
-                } else if (resultado == 2) {
-                    nombreTablaRastro = "FormulasNovedades";
-                    msnConfirmarRastro = "La tabla FORMULASNOVEDADES tiene rastros para el registro seleccionado, ¿desea continuar?";
-                    RequestContext.getCurrentInstance().update("form:msnConfirmarRastro");
-                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
-                } else if (resultado == 3) {
-                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
-                } else if (resultado == 4) {
-                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
-                } else if (resultado == 5) {
-                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
-                }
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
-            }
-        } else {
-            if (administrarRastros.verificarHistoricosTabla("FORMULASNOVEDADES")) {
-                nombreTablaRastro = "FormulasNovedades";
-                msnConfirmarRastroHistorico = "La tabla FORMULASNOVEDADES tiene rastros historicos, ¿Desea continuar?";
-                RequestContext.getCurrentInstance().update("form:confirmarRastroHistorico");
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-            }
-        }
-        index = -1;
-    }
+   public List<FormulasNovedades> getFiltrarListFormulasNovedades() {
+      return filtrarListFormulasNovedades;
+   }
 
-    //GETTERS AND SETTERS
-    public List<FormulasNovedades> getListFormulasNovedades() {
-        try {
-            if (listFormulasNovedades == null) {
-                if (formulaActual.getSecuencia() != null) {
-                    listFormulasNovedades = administrarFormulaNovedad.listFormulasNovedadesParaFormula(formulaActual.getSecuencia());
-                }
-            }
-            return listFormulasNovedades;
-        } catch (Exception e) {
-            System.out.println("Error...!! getListFormulasNovedades " + e.toString());
-            return null;
-        }
-    }
+   public void setFiltrarListFormulasNovedades(List<FormulasNovedades> setFiltrarListFormulasNovedades) {
+      this.filtrarListFormulasNovedades = setFiltrarListFormulasNovedades;
+   }
 
-    public void setListFormulasNovedades(List<FormulasNovedades> setListFormulasNovedades) {
-        this.listFormulasNovedades = setListFormulasNovedades;
-    }
+   public FormulasNovedades getNuevoFormulaNovedad() {
+      if (nuevoFormulaNovedad.getFormula() == null) {
+         nuevoFormulaNovedad.setFormula(formulaActual);
+      }
+      return nuevoFormulaNovedad;
+   }
 
-    public List<FormulasNovedades> getFiltrarListFormulasNovedades() {
-        return filtrarListFormulasNovedades;
-    }
+   public void setNuevoFormulaNovedad(FormulasNovedades setNuevoFormulaNovedad) {
+      this.nuevoFormulaNovedad = setNuevoFormulaNovedad;
+   }
 
-    public void setFiltrarListFormulasNovedades(List<FormulasNovedades> setFiltrarListFormulasNovedades) {
-        this.filtrarListFormulasNovedades = setFiltrarListFormulasNovedades;
-    }
+   public boolean isAceptar() {
+      return aceptar;
+   }
 
-    public FormulasNovedades getNuevoFormulaNovedad() {
-        return nuevoFormulaNovedad;
-    }
+   public FormulasNovedades getEditarFormulaNovedad() {
+      return editarFormulaNovedad;
+   }
 
-    public void setNuevoFormulaNovedad(FormulasNovedades setNuevoFormulaNovedad) {
-        this.nuevoFormulaNovedad = setNuevoFormulaNovedad;
-    }
+   public void setEditarFormulaNovedad(FormulasNovedades setEditarFormulaNovedad) {
+      this.editarFormulaNovedad = setEditarFormulaNovedad;
+   }
 
-    public boolean isAceptar() {
-        return aceptar;
-    }
+   public FormulasNovedades getDuplicarFormulaNovedad() {
+      return duplicarFormulaNovedad;
+   }
 
-    public FormulasNovedades getEditarFormulaNovedad() {
-        return editarFormulaNovedad;
-    }
+   public void setDuplicarFormulaNovedad(FormulasNovedades setDuplicarFormulaNovedad) {
+      this.duplicarFormulaNovedad = setDuplicarFormulaNovedad;
+   }
 
-    public void setEditarFormulaNovedad(FormulasNovedades setEditarFormulaNovedad) {
-        this.editarFormulaNovedad = setEditarFormulaNovedad;
-    }
+   public List<FormulasNovedades> getListFormulasNovedadesModificar() {
+      return listFormulasNovedadesModificar;
+   }
 
-    public FormulasNovedades getDuplicarFormulaNovedad() {
-        return duplicarFormulaNovedad;
-    }
+   public void setListFormulasNovedadesModificar(List<FormulasNovedades> setListFormulasNovedadesModificar) {
+      this.listFormulasNovedadesModificar = setListFormulasNovedadesModificar;
+   }
 
-    public void setDuplicarFormulaNovedad(FormulasNovedades setDuplicarFormulaNovedad) {
-        this.duplicarFormulaNovedad = setDuplicarFormulaNovedad;
-    }
+   public List<FormulasNovedades> getListFormulasNovedadesCrear() {
+      return listFormulasNovedadesCrear;
+   }
 
-    public BigInteger getSecRegistro() {
-        return secRegistro;
-    }
+   public void setListFormulasNovedadesCrear(List<FormulasNovedades> setListFormulasNovedadesCrear) {
+      this.listFormulasNovedadesCrear = setListFormulasNovedadesCrear;
+   }
 
-    public void setSecRegistro(BigInteger secRegistro) {
-        this.secRegistro = secRegistro;
-    }
+   public List<FormulasNovedades> getListFormulasNovedadesBorrar() {
+      return listFormulasNovedadesBorrar;
+   }
 
-    public BigInteger getBackUpSecRegistro() {
-        return backUpSecRegistro;
-    }
+   public void setListFormulasNovedadesBorrar(List<FormulasNovedades> setListFormulasNovedadesBorrar) {
+      this.listFormulasNovedadesBorrar = setListFormulasNovedadesBorrar;
+   }
 
-    public void setBackUpSecRegistro(BigInteger BackUpSecRegistro) {
-        this.backUpSecRegistro = BackUpSecRegistro;
-    }
+   public String getMsnConfirmarRastro() {
+      return msnConfirmarRastro;
+   }
 
-    public List<FormulasNovedades> getListFormulasNovedadesModificar() {
-        return listFormulasNovedadesModificar;
-    }
+   public void setMsnConfirmarRastro(String msnConfirmarRastro) {
+      this.msnConfirmarRastro = msnConfirmarRastro;
+   }
 
-    public void setListFormulasNovedadesModificar(List<FormulasNovedades> setListFormulasNovedadesModificar) {
-        this.listFormulasNovedadesModificar = setListFormulasNovedadesModificar;
-    }
+   public String getMsnConfirmarRastroHistorico() {
+      return msnConfirmarRastroHistorico;
+   }
 
-    public List<FormulasNovedades> getListFormulasNovedadesCrear() {
-        return listFormulasNovedadesCrear;
-    }
+   public void setMsnConfirmarRastroHistorico(String msnConfirmarRastroHistorico) {
+      this.msnConfirmarRastroHistorico = msnConfirmarRastroHistorico;
+   }
 
-    public void setListFormulasNovedadesCrear(List<FormulasNovedades> setListFormulasNovedadesCrear) {
-        this.listFormulasNovedadesCrear = setListFormulasNovedadesCrear;
-    }
+   public String getNombreTablaRastro() {
+      return nombreTablaRastro;
+   }
 
-    public List<FormulasNovedades> getListFormulasNovedadesBorrar() {
-        return listFormulasNovedadesBorrar;
-    }
+   public void setNombreTablaRastro(String nombreTablaRastro) {
+      this.nombreTablaRastro = nombreTablaRastro;
+   }
 
-    public void setListFormulasNovedadesBorrar(List<FormulasNovedades> setListFormulasNovedadesBorrar) {
-        this.listFormulasNovedadesBorrar = setListFormulasNovedadesBorrar;
-    }
+   public String getNombreXML() {
+      return nombreXML;
+   }
 
-    public String getMsnConfirmarRastro() {
-        return msnConfirmarRastro;
-    }
+   public void setNombreXML(String nombreXML) {
+      this.nombreXML = nombreXML;
+   }
 
-    public void setMsnConfirmarRastro(String msnConfirmarRastro) {
-        this.msnConfirmarRastro = msnConfirmarRastro;
-    }
+   public String getNombreTabla() {
+      return nombreTabla;
+   }
 
-    public String getMsnConfirmarRastroHistorico() {
-        return msnConfirmarRastroHistorico;
-    }
+   public void setNombreTabla(String nombreTabla) {
+      this.nombreTabla = nombreTabla;
+   }
+//
+//   public List<Formulas> getLovFormulas() {
+//      lovFormulas = administrarFormulaNovedad.listFormulas(formulaActual.getSecuencia());
+//
+//      return lovFormulas;
+//   }
+//
+//   public void setLovFormulas(List<Formulas> setLovFormulas) {
+//      this.lovFormulas = setLovFormulas;
+//   }
+//
+//   public List<Formulas> getFiltrarLovFormulas() {
+//      return filtrarLovFormulas;
+//   }
+//
+//   public void setFiltrarLovFormulas(List<Formulas> setFiltrarLovFormulas) {
+//      this.filtrarLovFormulas = setFiltrarLovFormulas;
+//   }
+//
+//   public Formulas getFormulaSeleccionada() {
+//      return formulaSeleccionada;
+//   }
+//
+//   public void setFormulaSeleccionada(Formulas tipoDiaSeleccionado) {
+//      this.formulaSeleccionada = tipoDiaSeleccionado;
+//   }
 
-    public void setMsnConfirmarRastroHistorico(String msnConfirmarRastroHistorico) {
-        this.msnConfirmarRastroHistorico = msnConfirmarRastroHistorico;
-    }
+   public Formulas getFormulaActual() {
+      return formulaActual;
+   }
 
-    public BigInteger getBackUp() {
-        return backUp;
-    }
+   public void setFormulaActual(Formulas formulaActual) {
+      this.formulaActual = formulaActual;
+   }
 
-    public void setBackUp(BigInteger backUp) {
-        this.backUp = backUp;
-    }
+   public FormulasNovedades getFormulaNovedadSeleccionada() {
+      return formulaNovedadSeleccionada;
+   }
 
-    public String getNombreTablaRastro() {
-        return nombreTablaRastro;
-    }
+   public void setFormulaNovedadSeleccionada(FormulasNovedades formulaNovedadSeleccionada) {
+      this.formulaNovedadSeleccionada = formulaNovedadSeleccionada;
+   }
 
-    public void setNombreTablaRastro(String nombreTablaRastro) {
-        this.nombreTablaRastro = nombreTablaRastro;
-    }
+   public boolean isGuardado() {
+      return guardado;
+   }
 
-    public String getNombreXML() {
-        return nombreXML;
-    }
+   public void setGuardado(boolean guardado) {
+      this.guardado = guardado;
+   }
 
-    public void setNombreXML(String nombreXML) {
-        this.nombreXML = nombreXML;
-    }
+   public String getInfoRegistro() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosFormulaNovedad");
+      infoRegistro = String.valueOf(tabla.getRowCount());
+      if (tabla.getRowCount() == 1) {
+         nuevoYBOrrado = true;
+         RequestContext.getCurrentInstance().update("form:insertar");
+      } else {
+         nuevoYBOrrado = false;
+         RequestContext.getCurrentInstance().update("form:insertar");
+      }
+      return infoRegistro;
+   }
 
-    public String getNombreTabla() {
-        return nombreTabla;
-    }
+   public void setInfoRegistro(String infoRegistro) {
+      this.infoRegistro = infoRegistro;
+   }
+//
+//   public String getInfoRegistroFormula() {
+//      getLovFormulas();
+//      if (lovFormulas != null) {
+//         infoRegistroFormula = "Cantidad de registros : " + lovFormulas.size();
+//      } else {
+//         infoRegistroFormula = "Cantidad de registros : 0";
+//      }
+//      return infoRegistroFormula;
+//   }
+//
+//   public void setInfoRegistroFormula(String infoRegistroFormula) {
+//      this.infoRegistroFormula = infoRegistroFormula;
+//   }
 
-    public void setNombreTabla(String nombreTabla) {
-        this.nombreTabla = nombreTabla;
-    }
+   public String getAltoTabla() {
+      return altoTabla;
+   }
 
-    public List<Formulas> getLovFormulas() {
-        lovFormulas = administrarFormulaNovedad.listFormulas(formulaActual.getSecuencia());
+   public void setAltoTabla(String altoTabla) {
+      this.altoTabla = altoTabla;
+   }
 
-        return lovFormulas;
-    }
+   public AdministrarFormulaNovedadInterface getAdministrarFormulaNovedad() {
+      return administrarFormulaNovedad;
+   }
 
-    public void setLovFormulas(List<Formulas> setLovFormulas) {
-        this.lovFormulas = setLovFormulas;
-    }
+   public void setAdministrarFormulaNovedad(AdministrarFormulaNovedadInterface administrarFormulaNovedad) {
+      this.administrarFormulaNovedad = administrarFormulaNovedad;
+   }
 
-    public List<Formulas> getFiltrarLovFormulas() {
-        return filtrarLovFormulas;
-    }
+   public boolean isNuevoYBOrrado() {
+//      System.out.println("isNuevoYBOrrado() : " + nuevoYBOrrado);
+//      System.out.println("listFormulasNovedades : " + listFormulasNovedades);
+      if (listFormulasNovedades != null) {
+         if (listFormulasNovedades.isEmpty()) {
+            nuevoYBOrrado = false;
+         } else {
+            nuevoYBOrrado = true;
+         }
+      } else {
+         nuevoYBOrrado = false;
+      }
+      return nuevoYBOrrado;
+   }
 
-    public void setFiltrarLovFormulas(List<Formulas> setFiltrarLovFormulas) {
-        this.filtrarLovFormulas = setFiltrarLovFormulas;
-    }
-
-    public Formulas getFormulaSeleccionada() {
-        return formulaSeleccionada;
-    }
-
-    public void setFormulaSeleccionada(Formulas tipoDiaSeleccionado) {
-        this.formulaSeleccionada = tipoDiaSeleccionado;
-    }
-
-    public Formulas getFormulaActual() {
-        return formulaActual;
-    }
-
-    public void setFormulaActual(Formulas formulaActual) {
-        this.formulaActual = formulaActual;
-    }
-
-    public FormulasNovedades getFormulaTablaSeleccionada() {
-        getListFormulasNovedades();
-        if (listFormulasNovedades != null) {
-            int tam = listFormulasNovedades.size();
-            if (tam > 0) {
-                formulaTablaSeleccionada = listFormulasNovedades.get(0);
-            }
-        }
-        return formulaTablaSeleccionada;
-    }
-
-    public void setFormulaTablaSeleccionada(FormulasNovedades formulaTablaSeleccionada) {
-        this.formulaTablaSeleccionada = formulaTablaSeleccionada;
-    }
-
-    public boolean isGuardado() {
-        return guardado;
-    }
-
-    public void setGuardado(boolean guardado) {
-        this.guardado = guardado;
-    }
-
-    public String getInfoRegistro() {
-        return infoRegistro;
-    }
-
-    public void setInfoRegistro(String infoRegistro) {
-        this.infoRegistro = infoRegistro;
-    }
-
-    public String getInfoRegistroFormula() {
-        getLovFormulas();
-        if (lovFormulas != null) {
-            infoRegistroFormula = "Cantidad de registros : " + lovFormulas.size();
-        } else {
-            infoRegistroFormula = "Cantidad de registros : 0";
-        }
-        return infoRegistroFormula;
-    }
-
-    public void setInfoRegistroFormula(String infoRegistroFormula) {
-        this.infoRegistroFormula = infoRegistroFormula;
-    }
-
-    public String getAltoTabla() {
-        return altoTabla;
-    }
-
-    public void setAltoTabla(String altoTabla) {
-        this.altoTabla = altoTabla;
-    }
+   public void setNuevoYBOrrado(boolean nuevoYBOrrado) {
+      this.nuevoYBOrrado = nuevoYBOrrado;
+   }
 
 }

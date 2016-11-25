@@ -80,12 +80,15 @@ public class PersistenciaProcesos implements PersistenciaProcesosInterface {
     public List<Procesos> buscarProcesos(EntityManager em) {
         try {
             em.clear();
-            Query query = em.createQuery("SELECT t FROM Procesos t ORDER BY t.codigo ASC");
-            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            Query query = em.createNativeQuery("SELECT * FROM PROCESOS ORDER BY codigo ASC", Procesos.class);
+            System.out.println("buscarProcesos() va a consultar");
+//            Query query = em.createQuery("SELECT t FROM Procesos t ORDER BY t.codigo ASC", Procesos.class);
+//            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             List<Procesos> procesos = query.getResultList();
+//            System.out.println("procesos : " + procesos);
             return procesos;
         } catch (Exception e) {
-            System.out.println("Error buscarProcesos");
+            System.out.println("Error buscarProcesos : " + e);
             return null;
         }
     }
@@ -100,7 +103,7 @@ public class PersistenciaProcesos implements PersistenciaProcesosInterface {
             Procesos procesos = (Procesos) query.getSingleResult();
             return procesos;
         } catch (Exception e) {
-            System.out.println("Error buscarProcesosSecuencia");
+            System.out.println("Error buscarProcesosSecuencia : " + e);
             Procesos procesos = null;
             return procesos;
         }
@@ -116,7 +119,7 @@ public class PersistenciaProcesos implements PersistenciaProcesosInterface {
             Procesos procesos = (Procesos) query.getSingleResult();
             return procesos;
         } catch (Exception e) {
-            System.out.println("Error buscarProcesosSecuencia");
+            System.out.println("Error buscarProcesosSecuencia : " + e);
             Procesos procesos = null;
             return procesos;
         }

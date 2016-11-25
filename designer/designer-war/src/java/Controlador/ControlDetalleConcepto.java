@@ -5153,7 +5153,7 @@ public class ControlDetalleConcepto implements Serializable {
          RequestContext.getCurrentInstance().update("form:detalleFormula");
          //Si ninguno esta seleccionado pregunta por historicos
       } else {
-         RequestContext.getCurrentInstance().execute("verificarRastrosTablas').show()");
+         RequestContext.getCurrentInstance().execute("PF('verificarRastrosTablas').show()");
       }
    }
 

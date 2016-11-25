@@ -1161,8 +1161,8 @@ public class ControlConcepto implements Serializable {
          columnaEnvio.setFilterStyle("width: 85% !important;");
          columnaCodigoAlternativo = (Column) c.getViewRoot().findComponent("form:datosConceptos:columnaCodigoAlternativo");
          columnaCodigoAlternativo.setFilterStyle("width: 85% !important;");
-         RequestContext.getCurrentInstance().update("form:datosConceptos");
          bandera = 1;
+         RequestContext.getCurrentInstance().update("form:datosConceptos");
 
       } else if (bandera == 1) {
          cargarTablaDefault();

@@ -327,7 +327,6 @@ public class ControlGrupoConcepto implements Serializable {
       } else if (pasa3 != 0) {
          RequestContext.getCurrentInstance().execute("PF('validacionNuevoRepetidos').show()");
       }
-
       if (pasa1 == 0 && pasa2 == 0 && pasa3 == 0) {
          return true;
       } else {
