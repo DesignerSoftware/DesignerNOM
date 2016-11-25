@@ -8,7 +8,8 @@ package Controlador;
 import Entidades.Actividades;
 import Entidades.Empleados;
 import Entidades.Inforeportes;
-import Entidades.ParametrosInformes;
+import Entidades.ParametrosReportes;
+import Entidades.ParametrosReportes;
 import InterfaceAdministrar.AdministarReportesInterface;
 import InterfaceAdministrar.AdministrarNReporteBienestarInterface;
 import java.io.File;
@@ -47,7 +48,7 @@ public class ControlNReporteBienestar implements Serializable {
     @EJB
     AdministarReportesInterface administarReportes;
     ///
-    private ParametrosInformes parametroDeInforme;
+    private ParametrosReportes parametroDeReporte;
     private List<Inforeportes> listaIR;
     private List<Inforeportes> filtrarListInforeportesUsuario;
     private List<Inforeportes> listaIRRespaldo;
@@ -61,7 +62,7 @@ public class ControlNReporteBienestar implements Serializable {
     private boolean aceptar;
     private Column codigoIR, reporteIR, tipoIR;
     private int casilla;
-    private ParametrosInformes parametroModificacion;
+    private ParametrosReportes parametroModificacion;
     private int tipoLista;
     private int posicionReporte;
     private String requisitosReporte;
@@ -112,14 +113,14 @@ public class ControlNReporteBienestar implements Serializable {
         cambiosReporte = true;
         listaInfoReportesModificados = new ArrayList<Inforeportes>();
         altoTabla = "185";
-        parametroDeInforme = null;
+        parametroDeReporte = null;
         listaIR = null;
         listaIRRespaldo = new ArrayList<Inforeportes>();
         filtrarListInforeportesUsuario = null;
         bandera = 0;
         aceptar = true;
         casilla = -1;
-        parametroModificacion = new ParametrosInformes();
+        parametroModificacion = new ParametrosReportes();
         tipoLista = 0;
         reporteGenerar = "";
         requisitosReporte = "";
@@ -203,11 +204,11 @@ public class ControlNReporteBienestar implements Serializable {
     public void guardarCambios() {
         try {
             if (cambiosReporte == false) {
-                if (parametroDeInforme != null) {
-                    if (parametroDeInforme.getActividadbienestar().getSecuencia() == null) {
-                        parametroDeInforme.setActividadbienestar(null);
+                if (parametroDeReporte != null) {
+                    if (parametroDeReporte.getActividadbienestar().getSecuencia() == null) {
+                        parametroDeReporte.setActividadbienestar(null);
                     }
-                    administrarNReporteBienestar.modificarParametrosInformes(parametroDeInforme);
+                    administrarNReporteBienestar.modificarParametrosReportes(parametroDeReporte);
                 }
             }
             if (!listaInfoReportesModificados.isEmpty()) {
@@ -238,12 +239,12 @@ public class ControlNReporteBienestar implements Serializable {
         if (permitirIndex) {
             casilla = i;
             casillaInforReporte = -1;
-            emplDesde = parametroDeInforme.getCodigoempleadodesde();
-            fechaDesde = parametroDeInforme.getFechadesde();
-            emplHasta = parametroDeInforme.getCodigoempleadohasta();
-            fechaHasta = parametroDeInforme.getFechahasta();
+            emplDesde = parametroDeReporte.getCodigoempleadodesde();
+            fechaDesde = parametroDeReporte.getFechadesde();
+            emplHasta = parametroDeReporte.getCodigoempleadohasta();
+            fechaHasta = parametroDeReporte.getFechahasta();
             if (casilla == 5) {
-                actividad = parametroDeInforme.getActividadbienestar().getDescripcion();
+                actividad = parametroDeReporte.getActividadbienestar().getDescripcion();
             }
         }
     }
@@ -436,7 +437,7 @@ public class ControlNReporteBienestar implements Serializable {
         listEmpleados = null;
         listaIR = null;
         listActividades = null;
-        parametroDeInforme = null;
+        parametroDeReporte = null;
         parametroModificacion = null;
         listaIRRespaldo = null;
         casilla = -1;
@@ -473,7 +474,7 @@ public class ControlNReporteBienestar implements Serializable {
         casilla = -1;
         listaInfoReportesModificados.clear();
         cambiosReporte = true;
-        getParametroDeInforme();
+        getParametroDeReporte();
         getListaIR();
         if (listaIR != null) {
             infoRegistro = "Cantidad de registros : " + listaIR.size();
@@ -542,8 +543,8 @@ public class ControlNReporteBienestar implements Serializable {
 
     public void actualizarActividad() {
         permitirIndex = true;
-        parametroDeInforme.setActividadbienestar(actividadSeleccionada);
-        parametroModificacion = parametroDeInforme;
+        parametroDeReporte.setActividadbienestar(actividadSeleccionada);
+        parametroModificacion = parametroDeReporte;
         actividadSeleccionada = null;
         aceptar = true;
         filtrarListActividades = null;
@@ -573,8 +574,8 @@ public class ControlNReporteBienestar implements Serializable {
 
     public void actualizarEmplDesde() {
         permitirIndex = true;
-        parametroDeInforme.setCodigoempleadodesde(empleadoSeleccionado.getCodigoempleado());
-        parametroModificacion = parametroDeInforme;
+        parametroDeReporte.setCodigoempleadodesde(empleadoSeleccionado.getCodigoempleado());
+        parametroModificacion = parametroDeReporte;
         empleadoSeleccionado = null;
         aceptar = true;
         filtrarListEmpleados = null;
@@ -605,8 +606,8 @@ public class ControlNReporteBienestar implements Serializable {
 
     public void actualizarEmplHasta() {
         permitirIndex = true;
-        parametroDeInforme.setCodigoempleadohasta(empleadoSeleccionado.getCodigoempleado());
-        parametroModificacion = parametroDeInforme;
+        parametroDeReporte.setCodigoempleadohasta(empleadoSeleccionado.getCodigoempleado());
+        parametroModificacion = parametroDeReporte;
         empleadoSeleccionado = null;
         aceptar = true;
         filtrarListEmpleados = null;
@@ -640,7 +641,7 @@ public class ControlNReporteBienestar implements Serializable {
         int coincidencias = 0;
         if (campoConfirmar.equalsIgnoreCase("ACTIVIDAD")) {
             if (!valorConfirmar.isEmpty()) {
-                parametroDeInforme.getActividadbienestar().setDescripcion(actividad);
+                parametroDeReporte.getActividadbienestar().setDescripcion(actividad);
                 for (int i = 0; i < listActividades.size(); i++) {
                     if (listActividades.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                         indiceUnicoElemento = i;
@@ -648,8 +649,8 @@ public class ControlNReporteBienestar implements Serializable {
                     }
                 }
                 if (coincidencias == 1) {
-                    parametroDeInforme.setActividadbienestar(listActividades.get(indiceUnicoElemento));
-                    parametroModificacion = parametroDeInforme;
+                    parametroDeReporte.setActividadbienestar(listActividades.get(indiceUnicoElemento));
+                    parametroModificacion = parametroDeReporte;
                     listActividades.clear();
                     getListActividades();
                     cambiosReporte = false;
@@ -662,15 +663,15 @@ public class ControlNReporteBienestar implements Serializable {
             } else {
                 listActividades.clear();
                 getListActividades();
-                parametroDeInforme.setActividadbienestar(new Actividades());
-                parametroModificacion = parametroDeInforme;
+                parametroDeReporte.setActividadbienestar(new Actividades());
+                parametroModificacion = parametroDeReporte;
                 cambiosReporte = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         }
         if (campoConfirmar.equalsIgnoreCase("DESDE")) {
             if (!valorConfirmar.isEmpty()) {
-                parametroDeInforme.setCodigoempleadodesde(emplDesde);
+                parametroDeReporte.setCodigoempleadodesde(emplDesde);
                 for (int i = 0; i < listEmpleados.size(); i++) {
                     if (listEmpleados.get(i).getCodigoempleadoSTR().startsWith(valorConfirmar.toUpperCase())) {
                         indiceUnicoElemento = i;
@@ -678,8 +679,8 @@ public class ControlNReporteBienestar implements Serializable {
                     }
                 }
                 if (coincidencias == 1) {
-                    parametroDeInforme.setCodigoempleadodesde(listEmpleados.get(indiceUnicoElemento).getCodigoempleado());
-                    parametroModificacion = parametroDeInforme;
+                    parametroDeReporte.setCodigoempleadodesde(listEmpleados.get(indiceUnicoElemento).getCodigoempleado());
+                    parametroModificacion = parametroDeReporte;
                     listEmpleados.clear();
                     getListEmpleados();
                     cambiosReporte = false;
@@ -690,8 +691,8 @@ public class ControlNReporteBienestar implements Serializable {
                     RequestContext.getCurrentInstance().execute("PF('ActividadDialogo').show()");
                 }
             } else {
-                parametroDeInforme.setCodigoempleadodesde(new BigDecimal("0"));
-                parametroModificacion = parametroDeInforme;
+                parametroDeReporte.setCodigoempleadodesde(new BigDecimal("0"));
+                parametroModificacion = parametroDeReporte;
                 listEmpleados.clear();
                 getListEmpleados();
                 cambiosReporte = false;
@@ -700,7 +701,7 @@ public class ControlNReporteBienestar implements Serializable {
         }
         if (campoConfirmar.equalsIgnoreCase("HASTA")) {
             if (!valorConfirmar.isEmpty()) {
-                parametroDeInforme.setCodigoempleadohasta(emplHasta);
+                parametroDeReporte.setCodigoempleadohasta(emplHasta);
                 for (int i = 0; i < listEmpleados.size(); i++) {
                     if (listEmpleados.get(i).getCodigoempleadoSTR().startsWith(valorConfirmar.toUpperCase())) {
                         indiceUnicoElemento = i;
@@ -708,8 +709,8 @@ public class ControlNReporteBienestar implements Serializable {
                     }
                 }
                 if (coincidencias == 1) {
-                    parametroDeInforme.setCodigoempleadohasta(listEmpleados.get(indiceUnicoElemento).getCodigoempleado());
-                    parametroModificacion = parametroDeInforme;
+                    parametroDeReporte.setCodigoempleadohasta(listEmpleados.get(indiceUnicoElemento).getCodigoempleado());
+                    parametroModificacion = parametroDeReporte;
                     listEmpleados.clear();
                     getListEmpleados();
                     cambiosReporte = false;
@@ -720,8 +721,8 @@ public class ControlNReporteBienestar implements Serializable {
                     RequestContext.getCurrentInstance().execute("PF('ActividadDialogo').show()");
                 }
             } else {
-                parametroDeInforme.setCodigoempleadohasta(new BigDecimal("9999999999999999999999"));
-                parametroModificacion = parametroDeInforme;
+                parametroDeReporte.setCodigoempleadohasta(new BigDecimal("9999999999999999999999"));
+                parametroModificacion = parametroDeReporte;
                 listEmpleados.clear();
                 getListEmpleados();
                 cambiosReporte = false;
@@ -732,15 +733,15 @@ public class ControlNReporteBienestar implements Serializable {
 
     public void refrescarParametros() {
         defaultPropiedadesParametrosReporte();
-        parametroDeInforme = null;
+        parametroDeReporte = null;
         parametroModificacion = null;
         listEmpleados = null;
         listActividades = null;
         listEmpleados = administrarNReporteBienestar.listEmpleados();
         listActividades = administrarNReporteBienestar.listActividades();
-        parametroDeInforme = administrarNReporteBienestar.parametrosDeReporte();
-        if (parametroDeInforme.getActividadbienestar() == null) {
-            parametroDeInforme.setActividadbienestar(new Actividades());
+        parametroDeReporte = administrarNReporteBienestar.parametrosDeReporte();
+        if (parametroDeReporte.getActividadbienestar() == null) {
+            parametroDeReporte.setActividadbienestar(new Actividades());
         }
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("formParametros:fechaDesdeParametroL");
@@ -803,25 +804,25 @@ public class ControlNReporteBienestar implements Serializable {
     }
 
     public void modificarParametroInforme() {
-        if (parametroDeInforme.getCodigoempleadodesde() != null && parametroDeInforme.getCodigoempleadohasta() != null
-                && parametroDeInforme.getFechadesde() != null && parametroDeInforme.getFechahasta() != null) {
-            if (parametroDeInforme.getFechadesde().before(parametroDeInforme.getFechahasta())) {
-                parametroModificacion = parametroDeInforme;
+        if (parametroDeReporte.getCodigoempleadodesde() != null && parametroDeReporte.getCodigoempleadohasta() != null
+                && parametroDeReporte.getFechadesde() != null && parametroDeReporte.getFechahasta() != null) {
+            if (parametroDeReporte.getFechadesde().before(parametroDeReporte.getFechahasta())) {
+                parametroModificacion = parametroDeReporte;
                 cambiosReporte = false;
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             } else {
-                parametroDeInforme.setFechadesde(fechaDesde);
-                parametroDeInforme.setFechahasta(fechaHasta);
+                parametroDeReporte.setFechadesde(fechaDesde);
+                parametroDeReporte.setFechahasta(fechaHasta);
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("formParametros");
                 RequestContext.getCurrentInstance().execute("PF('errorFechas').show()");
             }
         } else {
-            parametroDeInforme.setCodigoempleadodesde(emplDesde);
-            parametroDeInforme.setCodigoempleadohasta(emplHasta);
-            parametroDeInforme.setFechadesde(fechaDesde);
-            parametroDeInforme.setFechahasta(fechaHasta);
+            parametroDeReporte.setCodigoempleadodesde(emplDesde);
+            parametroDeReporte.setCodigoempleadohasta(emplHasta);
+            parametroDeReporte.setFechadesde(fechaDesde);
+            parametroDeReporte.setFechahasta(fechaHasta);
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("formParametros");
             RequestContext.getCurrentInstance().execute("PF('errorRegNew').show()");
@@ -952,25 +953,25 @@ public class ControlNReporteBienestar implements Serializable {
         requisitosReporte = "";
     }
 
-    public ParametrosInformes getParametroDeInforme() {
+    public ParametrosReportes getParametroDeReporte() {
         try {
-            if (parametroDeInforme == null) {
-                parametroDeInforme = new ParametrosInformes();
-                parametroDeInforme = administrarNReporteBienestar.parametrosDeReporte();
+            if (parametroDeReporte == null) {
+                parametroDeReporte = new ParametrosReportes();
+                parametroDeReporte = administrarNReporteBienestar.parametrosDeReporte();
             }
 
-            if (parametroDeInforme.getActividadbienestar() == null) {
-                parametroDeInforme.setActividadbienestar(new Actividades());
+            if (parametroDeReporte.getActividadbienestar() == null) {
+                parametroDeReporte.setActividadbienestar(new Actividades());
             }
-            return parametroDeInforme;
+            return parametroDeReporte;
         } catch (Exception e) {
             System.out.println("Error getParametroDeInforme : " + e);
             return null;
         }
     }
 
-    public void setParametroDeInforme(ParametrosInformes parametroDeInforme) {
-        this.parametroDeInforme = parametroDeInforme;
+    public void setParametroDeReporte(ParametrosReportes parametroDeReporte) {
+        this.parametroDeReporte = parametroDeReporte;
     }
 
     public List<Inforeportes> getListaIR() {
@@ -1015,11 +1016,11 @@ public class ControlNReporteBienestar implements Serializable {
         this.aceptar = aceptar;
     }
 
-    public ParametrosInformes getParametroModificacion() {
+    public ParametrosReportes getParametroModificacion() {
         return parametroModificacion;
     }
 
-    public void setParametroModificacion(ParametrosInformes parametroModificacion) {
+    public void setParametroModificacion(ParametrosReportes parametroModificacion) {
         this.parametroModificacion = parametroModificacion;
     }
 

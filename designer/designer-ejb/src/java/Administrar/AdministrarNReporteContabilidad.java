@@ -5,15 +5,17 @@
 package Administrar;
 
 import Entidades.Empleados;
+import Entidades.Empresas;
 import Entidades.Inforeportes;
-import Entidades.ParametrosInformes;
+import Entidades.ParametrosReportes;
 import Entidades.Procesos;
 import InterfaceAdministrar.AdministrarNReporteContabilidadInterface;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import InterfacePersistencia.PersistenciaActualUsuarioInterface;
 import InterfacePersistencia.PersistenciaEmpleadoInterface;
+import InterfacePersistencia.PersistenciaEmpresasInterface;
 import InterfacePersistencia.PersistenciaInforeportesInterface;
-import InterfacePersistencia.PersistenciaParametrosInformesInterface;
+import InterfacePersistencia.PersistenciaParametrosReportesInterface;
 import InterfacePersistencia.PersistenciaProcesosInterface;
 import java.util.List;
 import javax.ejb.EJB;
@@ -30,18 +32,21 @@ public class AdministrarNReporteContabilidad implements AdministrarNReporteConta
     @EJB
     PersistenciaInforeportesInterface persistenciaInforeportes;
     @EJB
-    PersistenciaParametrosInformesInterface persistenciaParametrosInformes;
+    PersistenciaParametrosReportesInterface persistenciaParametrosReportes;
     @EJB
     PersistenciaActualUsuarioInterface persistenciaActualUsuario;
     @EJB
     PersistenciaProcesosInterface persistenciaProcesos;
     @EJB
+    PersistenciaEmpresasInterface persistenciaEmpresas;
+    @EJB
     PersistenciaEmpleadoInterface persistenciaEmpleado;
     List<Inforeportes> listInforeportes;
-    ParametrosInformes parametroReporte;
+    ParametrosReportes parametroReporte;
     String usuarioActual;
     List<Procesos> listProcesos;
     List<Empleados> listEmpleados;
+    List<Empresas> listEmpresas;
     /**
      * Enterprise JavaBean.<br>
      * Atributo que representa todo lo referente a la conexión del usuario que
@@ -58,10 +63,10 @@ public class AdministrarNReporteContabilidad implements AdministrarNReporteConta
     }
     
     @Override
-    public ParametrosInformes parametrosDeReporte() {
+    public ParametrosReportes parametrosDeReporte() {
         try {
             usuarioActual = persistenciaActualUsuario.actualAliasBD(em);
-            parametroReporte = persistenciaParametrosInformes.buscarParametroInformeUsuario(em, usuarioActual);
+            parametroReporte = persistenciaParametrosReportes.buscarParametroInformeUsuario(em, usuarioActual);
             return parametroReporte;
         } catch (Exception e) {
             System.out.println("Error parametrosDeReporte Administrar" + e);
@@ -81,11 +86,11 @@ public class AdministrarNReporteContabilidad implements AdministrarNReporteConta
     }
 
     @Override
-    public void modificarParametrosInformes(ParametrosInformes parametroInforme) {
+    public void modificarParametrosReportes(ParametrosReportes parametroInforme) {
         try {
-            persistenciaParametrosInformes.editar(em, parametroInforme);
+            persistenciaParametrosReportes.editar(em, parametroInforme);
         } catch (Exception e) {
-            System.out.println("Error modificarParametrosInformes : " + e.toString());
+            System.out.println("Error modificarParametrosReportes : " + e.toString());
         }
     }
 
@@ -119,6 +124,17 @@ public class AdministrarNReporteContabilidad implements AdministrarNReporteConta
             }
         } catch (Exception e) {
             System.out.println("Error guardarCambiosInfoReportes Admi : " + e.toString());
+        }
+    }
+
+    @Override
+    public List<Empresas> listEmpresas() {
+        try {
+            listEmpresas = persistenciaEmpresas.buscarEmpresas(em);
+            return listEmpresas;
+        } catch (Exception e) {
+            System.out.println("Error en listProcesos Administrar: " + e.toString());
+            return null;
         }
     }
 }

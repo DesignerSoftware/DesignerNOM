@@ -7,7 +7,7 @@ package InterfaceAdministrar;
 import Entidades.Actividades;
 import Entidades.Empleados;
 import Entidades.Inforeportes;
-import Entidades.ParametrosInformes;
+import Entidades.ParametrosReportes;
 import java.util.List;
 
 /**
@@ -21,9 +21,9 @@ public interface AdministrarNReporteBienestarInterface {
      * @param idSesion Identificador se la sesion.
      */
     public void obtenerConexion(String idSesion);
-    public ParametrosInformes parametrosDeReporte();
+    public ParametrosReportes parametrosDeReporte();
     public List<Inforeportes> listInforeportesUsuario();
-    public void modificarParametrosInformes(ParametrosInformes parametroInforme);
+    public void modificarParametrosReportes(ParametrosReportes parametroReporte);
     public List<Actividades> listActividades();
     public List<Empleados> listEmpleados();
     public void guardarCambiosInfoReportes(List<Inforeportes> listaIR);

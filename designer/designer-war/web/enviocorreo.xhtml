@@ -62,7 +62,7 @@
                             <p:tooltip for="envioCorreo" value="#{msg['envio']}"/>
                         </fieldset>
                         <p:commandButton id="atras" style="position: absolute; font-size: small; left: 343px; top: 450px; height: 25px; width: 130px;" icon="ui-icon-arrowreturnthick-1-w" 
-                                         value="Atras" action="enviocorreo" actionListener="#{controlEnvioCorreos.salir()}" process="@this"/>
+                                         value="Atras" action="#{controlEnvioCorreos.redirigir()}" process="@this"/>
                     </p:panel>
                 </h:form>
 

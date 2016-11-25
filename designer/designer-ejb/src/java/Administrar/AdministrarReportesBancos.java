@@ -9,7 +9,7 @@ import Entidades.Ciudades;
 import Entidades.Empleados;
 import Entidades.Empresas;
 import Entidades.Inforeportes;
-import Entidades.ParametrosInformes;
+import Entidades.ParametrosReportes;
 import Entidades.Procesos;
 import Entidades.TiposTrabajadores;
 import InterfaceAdministrar.AdministrarReportesBancosInterface;
@@ -20,7 +20,7 @@ import InterfacePersistencia.PersistenciaCiudadesInterface;
 import InterfacePersistencia.PersistenciaEmpleadoInterface;
 import InterfacePersistencia.PersistenciaEmpresasInterface;
 import InterfacePersistencia.PersistenciaInforeportesInterface;
-import InterfacePersistencia.PersistenciaParametrosInformesInterface;
+import InterfacePersistencia.PersistenciaParametrosReportesInterface;
 import InterfacePersistencia.PersistenciaProcesosInterface;
 import InterfacePersistencia.PersistenciaTiposTrabajadoresInterface;
 import java.util.List;
@@ -38,7 +38,7 @@ public class AdministrarReportesBancos implements AdministrarReportesBancosInter
     @EJB
     PersistenciaInforeportesInterface persistenciaInforeportes;
     @EJB
-    PersistenciaParametrosInformesInterface persistenciaParametrosInformes;
+    PersistenciaParametrosReportesInterface persistenciaParametrosReportes;
     @EJB
     PersistenciaActualUsuarioInterface persistenciaActualUsuario;
     @EJB
@@ -55,7 +55,7 @@ public class AdministrarReportesBancos implements AdministrarReportesBancosInter
     PersistenciaCiudadesInterface persistenciaCiudades;
     /////
     List<Inforeportes> listInforeportes;
-    ParametrosInformes parametroReporte;
+    ParametrosReportes parametroReporte;
     String usuarioActual;
     /////////Lista de valores
     List<Empresas> listEmpresas;
@@ -80,10 +80,10 @@ public class AdministrarReportesBancos implements AdministrarReportesBancosInter
     }
     
     @Override
-    public ParametrosInformes parametrosDeReporte() {
+    public ParametrosReportes parametrosDeReporte() {
         try {
             usuarioActual = persistenciaActualUsuario.actualAliasBD(em);
-            parametroReporte = persistenciaParametrosInformes.buscarParametroInformeUsuario(em, usuarioActual);
+            parametroReporte = persistenciaParametrosReportes.buscarParametroInformeUsuario(em, usuarioActual);
             return parametroReporte;
         } catch (Exception e) {
             System.out.println("Error parametrosDeReporte Administrar" + e);
@@ -103,11 +103,11 @@ public class AdministrarReportesBancos implements AdministrarReportesBancosInter
     }
 
     @Override
-    public void modificarParametrosInformes(ParametrosInformes parametroInforme) {
+    public void modificarParametrosReportes(ParametrosReportes parametroInforme) {
         try {
-            persistenciaParametrosInformes.editar(em, parametroInforme);
+            persistenciaParametrosReportes.editar(em, parametroInforme);
         } catch (Exception e) {
-            System.out.println("Error modificarParametrosInformes : " + e.toString());
+            System.out.println("Error modificarParametrosReportes : " + e.toString());
         }
     }
 

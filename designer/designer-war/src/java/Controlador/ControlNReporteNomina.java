@@ -44,11 +44,8 @@ public class ControlNReporteNomina implements Serializable {
     AdministrarNReportesNominaInterface administrarNReportesNomina;
     @EJB
     AdministarReportesInterface administarReportes;
-    @EJB
-    AdministrarInforeportesInterface administrarInforeportes;
 //PARAMETROS REPORTES
     private ParametrosReportes parametroDeReporte;
-    private ParametrosReportes nuevoParametroInforme;
     private ParametrosReportes parametroModificacion;
     //INFOREPORTES
     private List<Inforeportes> listaIR;
@@ -208,7 +205,6 @@ public class ControlNReporteNomina implements Serializable {
             HttpSession ses = (HttpSession) contexto.getExternalContext().getSession(false);
             administarReportes.obtenerConexion(ses.getId());
             administrarNReportesNomina.obtenerConexion(ses.getId());
-            administrarInforeportes.obtenerConexion(ses.getId());
             System.out.println(this.getClass().getName() + " fin de iniciarAdministradores()");
         } catch (Exception e) {
             System.out.println("Error postconstruct controlNReporteNomina" + e);
@@ -558,6 +554,7 @@ public class ControlNReporteNomina implements Serializable {
             }
         } else {
             try {
+                System.out.println("empleadoDesdeParametro: " + empleadoDesdeParametro);
                 if (empleadoDesdeParametro.getStyle().contains(" color: red;")) {
 
                     System.out.println("reeemplazarr " + empleadoDesdeParametro.getStyle().replace(" color: red;", ""));
@@ -823,7 +820,7 @@ public class ControlNReporteNomina implements Serializable {
                     RequestContext.getCurrentInstance().update("formDialogos:verReportePDF");
                     RequestContext.getCurrentInstance().execute("PF('verReportePDF').show()");
                 }
-                //pathReporteGenerado = null;
+                pathReporteGenerado = null;
             }
         } else {
             System.out.println("validar descarga reporte - ingreso al if 1 else");
@@ -1846,15 +1843,13 @@ public class ControlNReporteNomina implements Serializable {
     public void contarRegistrosTipoTrabajador() {
         RequestContext.getCurrentInstance().update("form:infoRegistroTipoTrabajador");
     }
-    
-    
+
     private static abstract class FacesContextWrapper extends FacesContext {
 
         protected static void setCurrentInstance(FacesContext facesContext) {
             FacesContext.setCurrentInstance(facesContext);
         }
     }
-
 
     //GETTER AND SETTER
     public ParametrosReportes getParametroDeInforme() {
@@ -1940,14 +1935,6 @@ public class ControlNReporteNomina implements Serializable {
 
     public void setAceptar(boolean aceptar) {
         this.aceptar = aceptar;
-    }
-
-    public ParametrosReportes getNuevoParametroInforme() {
-        return nuevoParametroInforme;
-    }
-
-    public void setNuevoParametroInforme(ParametrosReportes nuevoParametroInforme) {
-        this.nuevoParametroInforme = nuevoParametroInforme;
     }
 
     public ParametrosReportes getParametroModificacion() {

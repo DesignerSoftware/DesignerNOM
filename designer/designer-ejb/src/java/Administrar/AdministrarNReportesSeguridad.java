@@ -10,7 +10,7 @@ import Entidades.Empresas;
 import Entidades.Estructuras;
 import Entidades.GruposConceptos;
 import Entidades.Inforeportes;
-import Entidades.ParametrosInformes;
+import Entidades.ParametrosReportes;
 import Entidades.SucursalesPila;
 import Entidades.Terceros;
 import Entidades.TiposTrabajadores;
@@ -22,7 +22,7 @@ import InterfacePersistencia.PersistenciaEmpresasInterface;
 import InterfacePersistencia.PersistenciaEstructurasInterface;
 import InterfacePersistencia.PersistenciaGruposConceptosInterface;
 import InterfacePersistencia.PersistenciaInforeportesInterface;
-import InterfacePersistencia.PersistenciaParametrosInformesInterface;
+import InterfacePersistencia.PersistenciaParametrosReportesInterface;
 import InterfacePersistencia.PersistenciaSucursalesPilaInterface;
 import InterfacePersistencia.PersistenciaTercerosInterface;
 import InterfacePersistencia.PersistenciaTiposTrabajadoresInterface;
@@ -45,7 +45,7 @@ public class AdministrarNReportesSeguridad implements AdministrarNReportesSeguri
     @EJB
     PersistenciaInforeportesInterface persistenciaInforeportes;
     @EJB
-    PersistenciaParametrosInformesInterface persistenciaParametrosInformes;
+    PersistenciaParametrosReportesInterface persistenciaParametrosReportes;
     @EJB
     PersistenciaActualUsuarioInterface persistenciaActualUsuario;
     @EJB
@@ -65,7 +65,7 @@ public class AdministrarNReportesSeguridad implements AdministrarNReportesSeguri
 
     private EntityManager em;
     List<Inforeportes> listInforeportes;
-    ParametrosInformes parametroReporte;
+    ParametrosReportes parametroReporte;
     String usuarioActual;
     List<Empresas> listEmpresas;
     List<GruposConceptos> listGruposConceptos;
@@ -81,13 +81,13 @@ public class AdministrarNReportesSeguridad implements AdministrarNReportesSeguri
     }
 
     @Override
-    public ParametrosInformes parametrosDeReporte() {
+    public ParametrosReportes parametrosDeReporte() {
        try {
             if (usuarioActual == null) {
                 usuarioActual = persistenciaActualUsuario.actualAliasBD(em);
             }
             if (parametroReporte == null) {
-                parametroReporte = persistenciaParametrosInformes.buscarParametroInformeUsuario(em, usuarioActual);
+                parametroReporte = persistenciaParametrosReportes.buscarParametroInformeUsuario(em, usuarioActual);
             }
             return parametroReporte;
         } catch (Exception e) {
@@ -130,11 +130,11 @@ public class AdministrarNReportesSeguridad implements AdministrarNReportesSeguri
     }
 
     @Override
-    public void modificarParametrosInformes(ParametrosInformes parametroInforme) {
+    public void modificarParametrosReportes(ParametrosReportes parametroInforme) {
           try {
-            persistenciaParametrosInformes.editar(em, parametroInforme);
+            persistenciaParametrosReportes.editar(em, parametroInforme);
         } catch (Exception e) {
-            System.out.println("Error modificarParametrosInformes : " + e.toString());
+            System.out.println("Error modificarParametrosReportes : " + e.toString());
         }
     }
 

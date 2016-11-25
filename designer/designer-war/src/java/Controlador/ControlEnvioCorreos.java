@@ -138,6 +138,10 @@ public class ControlEnvioCorreos implements Serializable {
         System.out.println("reporteActual: " + reporteActual);
     }
 
+    public String redirigir() {
+        return paginaAnterior;
+    }
+
     public boolean validarCorreo() {
         System.out.println("Controlador.ControlEnvioCorreos.validarCorreo()");
         if (email != null) {
@@ -230,7 +234,7 @@ public class ControlEnvioCorreos implements Serializable {
             }
 
             mostrarMensajes(tipoRespCorreo, mensaje);
-        }else{
+        } else {
             validarEnviaCorreo();
         }
     }

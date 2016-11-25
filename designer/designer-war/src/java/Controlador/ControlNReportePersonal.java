@@ -272,10 +272,9 @@ public class ControlNReportePersonal implements Serializable {
     public void seleccionRegistro() {
         System.out.println(this.getClass().getName() + ".seleccionRegistro()");
         RequestContext context = RequestContext.getCurrentInstance();
+        System.out.println("inforreporteSeleccionado: " + inforreporteSeleccionado);
         // Resalto Parametros Para Reporte
         defaultPropiedadesParametrosReporte();
-        System.out.println("reporteSeleccionado: " + inforreporteSeleccionado);
-        System.out.println("reporteSeleccionado.getFecdesde(): " + inforreporteSeleccionado.getFecdesde());
         if (inforreporteSeleccionado.getFecdesde().equals("SI")) {
             color = "red";
             RequestContext.getCurrentInstance().update("formParametros");
@@ -1555,7 +1554,7 @@ public class ControlNReportePersonal implements Serializable {
         activoBuscarReporte = true;
         activoMostrarTodos = false;
         contarRegistrosReportes();
-        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:infoRegistro");
         RequestContext.getCurrentInstance().update("form:MOSTRARTODOS");
         RequestContext.getCurrentInstance().update("form:BUSCARREPORTE");
         context.reset("form:lovReportesDialogo:globalFilter");
@@ -1646,11 +1645,11 @@ public class ControlNReportePersonal implements Serializable {
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
             altoTabla = "120";
-            codigoIR = (Column) c.getViewRoot().findComponent("form:reportesNomina:codigoIR");
+            codigoIR = (Column) c.getViewRoot().findComponent("form:reportesPersonal:codigoIR");
             codigoIR.setFilterStyle("width: 85% !important");
-            reporteIR = (Column) c.getViewRoot().findComponent("form:reportesNomina:reporteIR");
+            reporteIR = (Column) c.getViewRoot().findComponent("form:reportesPersonal:reporteIR");
             reporteIR.setFilterStyle("width: 85% !important");
-            RequestContext.getCurrentInstance().update("form:reportesNomina");
+            RequestContext.getCurrentInstance().update("form:reportesPersonal");
             bandera = 1;
         } else if (bandera == 1) {
             cerrarFiltrado();
@@ -1662,11 +1661,11 @@ public class ControlNReportePersonal implements Serializable {
         FacesContext c = FacesContext.getCurrentInstance();
         System.out.println("Desactivar");
         altoTabla = "140";
-        codigoIR = (Column) c.getViewRoot().findComponent("form:reportesNomina:codigoIR");
+        codigoIR = (Column) c.getViewRoot().findComponent("form:reportesPersonal:codigoIR");
         codigoIR.setFilterStyle("display: none; visibility: hidden;");
-        reporteIR = (Column) c.getViewRoot().findComponent("form:reportesNomina:reporteIR");
+        reporteIR = (Column) c.getViewRoot().findComponent("form:reportesPersonal:reporteIR");
         reporteIR.setFilterStyle("display: none; visibility: hidden;");
-        RequestContext.getCurrentInstance().update("form:reportesNomina");
+        RequestContext.getCurrentInstance().update("form:reportesPersonal");
         bandera = 0;
         tipoLista = 0;
         filtrarListInforeportesUsuario = null;
@@ -1780,7 +1779,7 @@ public class ControlNReportePersonal implements Serializable {
 
     public void exportarReporte() throws IOException {
         System.out.println(this.getClass().getName() + ".exportarReporte()");
-        if (pathReporteGenerado != null) {
+        if (pathReporteGenerado != null && pathReporteGenerado.startsWith("Error:")) {
             File reporteF = new File(pathReporteGenerado);
             FacesContext ctx = FacesContext.getCurrentInstance();
             FileInputStream fis = new FileInputStream(reporteF);
@@ -1799,6 +1798,10 @@ public class ControlNReportePersonal implements Serializable {
                 out.close();
                 ctx.responseComplete();
             }
+        } else {
+            System.out.println("validar descarga reporte - ingreso al if 1 else");
+            RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
+            RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
         }
     }
 
@@ -1878,7 +1881,7 @@ public class ControlNReportePersonal implements Serializable {
 
     //CONTAR REGISTROS
     public void contarRegistros() {
-        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        RequestContext.getCurrentInstance().update("form:infoRegistro");
     }
 
     public void contarRegistrosReportes() {
@@ -1890,7 +1893,7 @@ public class ControlNReportePersonal implements Serializable {
     }
 
     public void contarRegistrosEmpleadoH() {
-        RequestContext.getCurrentInstance().update("form:infoRegistroHasta");
+        RequestContext.getCurrentInstance().update("form:infoRegistroEmpleadoHasta");
     }
 
     public void contarRegistrosEmpresa() {
@@ -2373,13 +2376,7 @@ public class ControlNReportePersonal implements Serializable {
     }
 
     public Inforeportes getActualInfoReporteTabla() {
-        getListaIR();
-//        if (listaIR != null) {
-//            int tam = listaIR.size();
-//            if (tam > 0) {
-//                actualInfoReporteTabla = listaIR.get(0);
-//            }
-//        }
+        // getListaIR();
         return actualInfoReporteTabla;
     }
 
@@ -2459,7 +2456,7 @@ public class ControlNReportePersonal implements Serializable {
     public String getInfoRegistroEmpresa() {
         FacesContext c = FacesContext.getCurrentInstance();
         tabla = (DataTable) c.getViewRoot().findComponent("form:lovEmpresa");
-        infoRegistroEmpleadoHasta = String.valueOf(tabla.getRowCount());
+        infoRegistroEmpresa = String.valueOf(tabla.getRowCount());
         return infoRegistroEmpresa;
     }
 
@@ -2467,70 +2464,70 @@ public class ControlNReportePersonal implements Serializable {
 
         FacesContext c = FacesContext.getCurrentInstance();
         tabla = (DataTable) c.getViewRoot().findComponent("form:lovEstructura");
-        infoRegistroEmpleadoHasta = String.valueOf(tabla.getRowCount());
+        infoRegistroEstructura = String.valueOf(tabla.getRowCount());
         return infoRegistroEstructura;
     }
 
     public String getInfoRegistroTipoTrabajador() {
         FacesContext c = FacesContext.getCurrentInstance();
         tabla = (DataTable) c.getViewRoot().findComponent("form:lovTipoTrabajador");
-        infoRegistroEmpleadoHasta = String.valueOf(tabla.getRowCount());
+        infoRegistroTipoTrabajador = String.valueOf(tabla.getRowCount());
         return infoRegistroTipoTrabajador;
     }
 
     public String getInfoRegistroEstadoCivil() {
         FacesContext c = FacesContext.getCurrentInstance();
         tabla = (DataTable) c.getViewRoot().findComponent("form:lovEstadoCivil");
-        infoRegistroEmpleadoHasta = String.valueOf(tabla.getRowCount());
+        infoRegistroEstadoCivil = String.valueOf(tabla.getRowCount());
         return infoRegistroEstadoCivil;
     }
 
     public String getInfoRegistroTipoTelefono() {
         FacesContext c = FacesContext.getCurrentInstance();
         tabla = (DataTable) c.getViewRoot().findComponent("form:lovTipoTelefono");
-        infoRegistroEmpleadoHasta = String.valueOf(tabla.getRowCount());
+        infoRegistroTipoTelefono = String.valueOf(tabla.getRowCount());
         return infoRegistroTipoTelefono;
     }
 
     public String getInfoRegistroCiudad() {
         FacesContext c = FacesContext.getCurrentInstance();
         tabla = (DataTable) c.getViewRoot().findComponent("form:lovCiudades");
-        infoRegistroEmpleadoHasta = String.valueOf(tabla.getRowCount());
+        infoRegistroCiudad = String.valueOf(tabla.getRowCount());
         return infoRegistroCiudad;
     }
 
     public String getInfoRegistroDeporte() {
         FacesContext c = FacesContext.getCurrentInstance();
         tabla = (DataTable) c.getViewRoot().findComponent("form:lovDeportes");
-        infoRegistroEmpleadoHasta = String.valueOf(tabla.getRowCount());
+        infoRegistroDeporte = String.valueOf(tabla.getRowCount());
         return infoRegistroDeporte;
     }
 
     public String getInfoRegistroAficion() {
         FacesContext c = FacesContext.getCurrentInstance();
         tabla = (DataTable) c.getViewRoot().findComponent("form:lovAficiones");
-        infoRegistroEmpleadoHasta = String.valueOf(tabla.getRowCount());
+        infoRegistroAficion = String.valueOf(tabla.getRowCount());
         return infoRegistroAficion;
     }
 
     public String getInfoRegistroIdioma() {
         FacesContext c = FacesContext.getCurrentInstance();
         tabla = (DataTable) c.getViewRoot().findComponent("form:lovIdiomas");
-        infoRegistroEmpleadoHasta = String.valueOf(tabla.getRowCount());
+        infoRegistroIdioma = String.valueOf(tabla.getRowCount());
         return infoRegistroIdioma;
     }
 
     public String getInfoRegistroJefe() {
         FacesContext c = FacesContext.getCurrentInstance();
         tabla = (DataTable) c.getViewRoot().findComponent("form:lovJefeD");
-        infoRegistroEmpleadoHasta = String.valueOf(tabla.getRowCount());
+        infoRegistroJefe = String.valueOf(tabla.getRowCount());
         return infoRegistroJefe;
     }
 
     public String getInfoRegistroReportes() {
         FacesContext c = FacesContext.getCurrentInstance();
         tabla = (DataTable) c.getViewRoot().findComponent("form:lovReportesDialogo");
-        infoRegistroEmpleadoHasta = String.valueOf(tabla.getRowCount());
+        infoRegistroReportes = String.valueOf(tabla.getRowCount());
         return infoRegistroReportes;
     }
 

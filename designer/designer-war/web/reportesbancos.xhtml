@@ -12,63 +12,20 @@
     <h:body>
         <ui:composition template="/template.xhtml">
             <ui:define name="body">                  
-                <h:form id="form"> 
-                    
+                <script type="text/javascript">
+                    $(window).load(function () {
+                        $(".loader").fadeOut("slow");
+                    });
+                </script>
+                <div class="loader"></div>
+                <div style="position: static;"></div>
+                <h:form id="form">
+
                     <f:loadBundle basename="Recursos.reportesbancos" var="msg" />
                     <p:growl id="growl" showDetail="true"/>
-                    
+
                     <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal" >  
-
-                        <p:commandButton style="position: absolute; left: 683px; top: 483px; " icon="ui-icon-check" id="ACEPTAR" value="#{msg['aceptar']}"  actionListener="#{controlReportesBancos.dispararDialogoGuardarCambios()}" disabled="#{controlReportesBancos.cambiosReporte}" process="@this" />
-                        <p:commandButton style="position: absolute; left: 775px; top: 483px; " icon="ui-icon-closethick" id="ATRAS" value="#{msg['cancelar']}" action="nomina" actionListener="#{controlReportesBancos.salir()}" process="@this" />
-                        
-                        <p:commandButton style="position: absolute; left: 10px; top: 483px; " id="ENVIOCORREO" value="#{msg['envioporcorreo']}"   process="@this" oncomplete="PF('EnvioCorreoDialogo').show()" actionListener="#{controlReportesBancos.defaultPropiedadesParametrosReporte()}"/>
-
-                        <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
-                            <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
-                            <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                            <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlReportesBancos.guardarYSalir()}" action="nomina" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
-                            <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlReportesBancos.cancelarYSalir()}" action="nomina"  style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
-                            <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
-                        </p:dialog>
-
-                        <p:dialog id="confirmarGuardarSinSalida" header="#{msg['atencion']}" widgetVar="confirmarGuardarSinSalida"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
-                            <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
-                            <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                            <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardarSinSalida').hide();" actionListener="#{controlReportesBancos.guardarCambios()}"  style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
-                            <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardarSinSalida').hide();" actionListener="#{controlReportesBancos.cancelarModificaciones()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
-                            <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardarSinSalida').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
-                        </p:dialog>
-
-                        <fieldset style="position: absolute; left: 10px; top: 220px; width: 835px; height: 247px; border-radius: 10px; ">
-                            <legend style="color: blue;text-align:left"><strong>#{msg['reportes']}</strong></legend>
-
-                            <p:dataTable id="reportesBancos" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="border: 1px;width: 812px;"                           
-                                         value="#{controlReportesBancos.listaIR}" scrollable="true" scrollHeight="#{controlReportesBancos.altoTabla}" scrollWidth="830"
-                                         filteredValue="#{controlReportesBancos.filtrarListInforeportesUsuario}"  selectionMode="single"  emptyMessage="#{msg['vacio']}"
-                                         editable="true" editMode="cell" selection="#{controlReportesBancos.actualInfoReporteTabla}" > 
-                                
-                                <p:ajax event="rowSelect" listener="#{controlReportesBancos.seleccionRegistro()}" process="@this" />
-                                <p:ajax event="rowDblselect" listener="#{controlReportesBancos.requisitosParaReporte()}" process="@this" />
-                                <p:ajax event="filter" listener="#{controlReportesBancos.eventoFiltrar()}"/>
-                                
-                                <p:column style="padding: 0px; text-align: center; width: 50px;" id="codigoIR" headerText="#{msg['codigo']}" width="50" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains"  filterStyle="display: none; visibility: hidden;"  >  
-                                    <h:outputText value="#{info.codigo}"/>
-                                </p:column>
-
-                                <p:column  id="reporteIR" headerText="#{msg['reporte']}" sortBy="#{info.nombre}" filterBy="#{info.nombre}" filterMatchMode="contains"  filterStyle="display: none; visibility: hidden;"  >  
-                                    <h:outputText value="#{info.nombre}"/>
-                                </p:column>
-
-                            </p:dataTable>
-
-                            <p:commandButton style="position: absolute; left: 10px; top: 225px; " id="GENERARREPORTE" value="#{msg['generar']}"   process="@this" actionListener="#{controlReportesBancos.generarReporte()}" />
-                            <p:tooltip  for="GENERARREPORTE" value="#{msg['GENERARREPORTE']}" />
-                            <h:outputText id="informacionRegistro" value="#{controlReportesBancos.infoRegistro}" style="position: absolute; left: 15px; top: 210px; font-weight: bold"/>
-
-                        </fieldset>
-
-                        <p:toolbar style="position: absolute; top: 30px; left: 10px;">  
+                        <p:toolbar styleClass="cssToolbar" style=" position: absolute; top: 40px; left: 20px; height: 24px">  
                             <p:toolbarGroup align="left"> 
                                 <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); " actionListener="#{controlReportesBancos.guardarCambios()}" process="@this" />
                                 <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
@@ -105,7 +62,7 @@
 
                                 <p:commandButton id="duplicar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/duplicar.png) " />  
                                 <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
-                                
+
                                 <p:separator style="position: relative; top: -9px"/>
                                 <p:commandButton id="rastro" value="" disabled="true" style="background-image: url(Imagenes/Iconos/rastro.png) "  process="@this"/>  
                                 <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
@@ -117,37 +74,238 @@
 
                                 <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) " actionListener="#{controlReportesBancos.salir()}" action="nomina"  process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
-
-
                             </p:toolbarGroup>  
                         </p:toolbar>
 
+                        <fieldset style="position: absolute; left: 10px; top: 224px; width: 835px; height: 235px; border-radius: 10px; ">
+                            <legend style="color: blue;text-align:left"><strong>#{msg['reportes']}</strong></legend>
+
+                            <p:dataTable id="reportesBancos" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="border: 1px;width: 812px;"                           
+                                         value="#{controlReportesBancos.listaIR}" scrollable="true" scrollHeight="#{controlReportesBancos.altoTabla}" scrollWidth="830"
+                                         filteredValue="#{controlReportesBancos.filtrarListInforeportesUsuario}"  selectionMode="single" emptyMessage="#{msg['vacio']}"
+                                         editable="true" editMode="cell" selection="#{controlReportesBancos.inforreporteSeleccionado}" > 
+
+                                <p:ajax event="rowSelect" listener="#{controlReportesBancos.seleccionRegistro()}" process="@this" />
+                                <p:ajax event="rowDblselect" listener="#{controlReportesBancos.requisitosParaReporte()}" process="@this" />
+                                <p:ajax event="filter" listener="#{controlReportesBancos.eventoFiltrar()}"/>
+
+                                <p:column style="padding: 0px; text-align: center; width: 50px;" id="codigoIR" headerText="#{msg['codigo']}" width="50" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains"  filterStyle="display: none; visibility: hidden;"  >  
+                                    <h:outputText value="#{info.codigo}"/>
+                                </p:column>
+
+                                <p:column  id="reporteIR" headerText="#{msg['reporte']}" sortBy="#{info.nombre}" filterBy="#{info.nombre}" filterMatchMode="contains"  filterStyle="display: none; visibility: hidden;"  >  
+                                    <h:outputText value="#{info.nombre}"/>
+                                </p:column>
+
+                                <p:column id="columnaGenerarR" width="150" style="padding-left: 5px;padding: 0px; text-align: center" >                                                              
+                                    <f:facet name="header">
+                                        <h:outputText id="GenerarR" value="Generar Archivo"/>
+                                        <p:tooltip for="GenerarR" value="#{msg['generarReporte']}"/>
+                                    </f:facet>
+                                    <p:commandButton id="GENERARREPORTE" value="#{msg['generar']}" process="@this" actionListener="#{controlReportesBancos.generarReporte(info)}"/>
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>
+                            </p:dataTable>
+                            <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlReportesBancos.infoRegistro}" style="position: relative; left: 15px; top: -3px; font-weight: bold"/>
+
+                            <p:commandButton id="BUSCARREPORTE" style="position: relative; left: 430px; top: 0px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/buscardb.png); 
+                                             background-size: 100% 100%; background-repeat: no-repeat; border: none;" value="" process="@this" actionListener="#{controlReportesBancos.mostrarDialogoBuscarReporte()}" disabled="#{controlReportesBancos.activoBuscarReporte}"/>
+                            <p:tooltip  for="BUSCARREPORTE" value="#{msg['buscarReporte']}" />
+
+                            <p:commandButton id="MOSTRARTODOS" style="position: relative; left: 430px; top: 0px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/todosdb.png); 
+                                             background-size: 100% 100%; background-repeat: no-repeat; border: none;" value="" process="@this" actionListener="#{controlReportesBancos.mostrarTodos()}" disabled="#{controlReportesBancos.activoMostrarTodos}"/>
+                            <p:tooltip  for="MOSTRARTODOS" value="#{msg['mostrarTodos']}" />
+                        </fieldset>
+
+                        <p:commandButton id="ACEPTAR" style="position: absolute; left: 673px; top: 483px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); 
+                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=""
+                                         actionListener="#{controlReportesBancos.dispararDialogoGuardarCambios()}" disabled="#{controlReportesBancos.cambiosReporte}" process="@this" />
+
+                        <p:commandButton id="ATRAS" style="position: absolute; left: 765px; top: 483px;height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); 
+                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=" " action="nomina" actionListener="#{controlReportesBancos.salir()}" process="@this" />
+
+                        <p:commandButton id="ENVIOCORREO" icon="ui-icon-extlink" style="position: absolute; left: 512px; top: 483px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
+                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;"  value="envio correo" action="enviocorreo" actionListener="#{controlEnvioCorreos.recibirPagina('enviocorreo', controlReportesBancos.inforreporteSeleccionado.secuencia)}" process="@this" />
+                        <p:tooltip  for="ENVIOCORREO" value="#{msg['envio']}" />
                     </p:panel>
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlReportesBancos.activarCtrlF11()}" process="@this"/> 
+                </h:form>
 
+                <h:form id="formParametros" style="position: absolute; top: 11px; left: 4px">
+                    <fieldset id="parametrosInforme" style="position: absolute; top: 75px; left: 18px; width: 835px; height: 131px; 
+                              border-radius: 3px; padding: 0px; display: table; border-spacing: 5px;">
 
-                    <p:dialog header="#{msg['envioporcorreo']}" widgetVar="EnvioCorreoDialogo" draggable="true" resizable="false" closable="false" id="EnvioCorreoDialogo"  
-                              showEffect="fade" hideEffect="fade" width="460" height="320" modal="true" >
+                        <div id="fila1parametros" style="display: table-row;">
+                            <div id="marcoizquierdo" style="display: inline-block; width: 35%; background-color: white; position: absolute; height: 94%; margin-top: 0px;" >
 
-                        <h:outputText style="position: absolute;top: 10px; left: 10px; text-align: left" value="#{msg['enviarcorreo']}" />
-                        <h:outputText style="position: absolute; top: 70px; left: 10px;font-weight: bold;color: darkblue" value="#{msg['reporte']}"/>
-                        <h:outputText style="position: absolute; top: 90px; left: 10px;font-weight: bold;" value="#{msg['archivoplano']}"/>
+                                <div style="position: absolute; width: 50%">
+                                    <h:outputText value="#{msg['fechadesde']}:" style="top: 2px; position: relative;"/>
+                                    <p:calendar id="fechaDesdeParametroL" autocomplete="off" mask="true" pattern="dd/MM/yyyy" value="#{controlReportesBancos.parametroDeReporte.fechadesde}"
+                                                style="position: absolute; width: 280px; left: 120px; top: 0px;">
+                                        <p:ajax event="click" listener="#{controlReportesBancos.posicionCelda(1)}" process="@this"/>
+                                        <p:ajax event="change" listener="#{controlReportesBancos.modificarParametroInforme()}" process="@this" update="fechaDesdeParametroL"/>
+                                        <p:ajax event="dateSelect" listener="#{controlReportesBancos.modificarParametroInforme()}" process="@this" update="fechaDesdeParametroL"/>
+                                    </p:calendar> 
+                                </div>
 
-                        <fieldset  style="position: absolute; left: 10px; top: 110px; width: 400px; height: 150px; border-radius: 10px; text-align: left">
-                            <legend style="color: blue;text-align: left"><strong>#{msg['envioporcorreo']}</strong></legend>
-                            <strong><h:outputText value="#{msg['de']}" style="position: absolute; left: 10px; top: 25px;"/></strong>
-                            <p:inputText  autocomplete="off"  value="nomina@designer.com.co" style="position: absolute; left: 80px; top: 20px;width: 300px"/>
-                            <strong><h:outputText value="#{msg['para']}" style="position: absolute; left: 10px; top: 60px;"/></strong>
-                            <p:inputText  autocomplete="off"  style="position: absolute; left: 80px; top: 55px;width: 300px"/>
-                            <strong><h:outputText value="#{msg['cc']}" style="position: absolute; left: 10px; top: 95px;"/></strong>
-                            <p:inputText  autocomplete="off"  style="position: absolute; left: 80px; top: 90px;width: 300px"/>
-                            <strong><h:outputText value="#{msg['asunto']}" style="position: absolute; left: 10px; top: 130px;"/></strong>
-                            <p:inputText  autocomplete="off"  style="position: absolute; left: 80px; top: 125px;width: 300px"/>
+                                <div style="position: absolute; width: 50%">
+                                    <h:outputText value="#{msg['empleadodesde']}:" style="top: 27px; position: relative;"/>
+                                    <p:inputText id="empleadoDesdeParametro" autocomplete="off" value="#{controlReportesBancos.parametroDeReporte.codigoempleadodesde}" 
+                                                 style="position: absolute; width: 125px; left: 120px; top: 25px; height: 10px;" onclick="select();">
+                                        <p:ajax event="click" listener="#{controlReportesBancos.posicionCelda(2)}" process="@this"/> 
+                                        <p:ajax event="change" listener="#{controlReportesBancos.autocompletarGeneral('DESDE',controlReportesBancos.parametroDeReporte.codigoempleadodesde)}" update="empleadoDesdeParametro" process="@this"/>
+                                        <p:ajax event="dblclick" listener="#{controlReportesBancos.listasValores(2)}" process="@this"/>
+                                    </p:inputText>
+                                </div>
 
-                        </fieldset>
-                        <p:commandButton icon="ui-icon-mail-closed" id="registroEnvio" style="position: absolute; left: 190px; top: 280px;" value="#{msg['registrodeenvios']}"  onclick="PF('EnvioCorreoDialogo').hide()"  process="@this"/>
-                        <p:commandButton icon="ui-icon-closethick" id="atras" style="position: absolute; left: 360px; top: 280px;" value="#{msg['atras']}" onclick="PF('EnvioCorreoDialogo').hide()"  process="@this"/>
+                                <div style="position: absolute; width: 50%">
+                                    <h:outputText value="#{msg['empresa']}:" style="top: 52px; position: relative;"/>
+                                    <p:inputText id="empresaParametro" autocomplete="off" value="#{controlReportesBancos.parametroDeReporte.empresa.nombre}" 
+                                                 style="position: absolute; top: 50px; left: 120px; height: 15px; width: 125px; height: 10px;" onclick="select();">
+                                        <p:ajax event="click" listener="#{controlReportesBancos.posicionCelda(3)}" process="@this"/> 
+                                        <p:ajax event="change" listener="#{controlReportesBancos.autocompletarGeneral('EMPRESA', controlReportesBancos.parametroDeReporte.empresa.nombre)}" update="empresaParametro" process="@this"/>
+                                        <p:ajax event="dblclick" listener="#{controlReportesBancos.listasValores(3)}" process="@this"/>
+                                    </p:inputText>
+                                </div>
 
+                                <div style="position: absolute; width: 50%">
+                                    <h:outputText value="#{msg['proceso']}:" style="top: 77px; position: relative;"/>
+                                    <p:inputText id="procesoParametro" autocomplete="off" value="#{controlReportesBancos.parametroDeReporte.proceso.descripcion}" 
+                                                 style="position: absolute; width: 125px; left: 120px; top: 75px; height: 10px;" onclick="select();">
+                                        <p:ajax event="click" listener="#{controlReportesBancos.posicionCelda(4)}" process="@this"/> 
+                                        <p:ajax event="change" listener="#{controlReportesBancos.autocompletarGeneral('PROCESO', controlReportesBancos.parametroDeReporte.proceso.descripcion)}" update="procesoParametro" process="@this"/>
+                                        <p:ajax event="dblclick" listener="#{controlReportesBancos.listasValores(4)}" process="@this"/>
+                                    </p:inputText>
+                                </div>
+
+                                <div style="position: absolute; width: 50%">
+                                    <h:outputText value="#{msg['tipocuenta']}:" style="top: 103px; position: relative;"/>
+                                    <p:selectOneMenu id="tipoCuentaParametro" value="#{controlReportesBancos.parametroDeReporte.tipopersonal}" 
+                                                     style="position: absolute; width: 110px; left: 120px; top: 100px; text-transform: uppercase">  
+                                        <f:selectItem itemLabel="#{msg['ahorros']}" itemValue="AHORROS" />  
+                                        <f:selectItem itemLabel="#{msg['corriente']}" itemValue="CORRIENTE" />  
+                                        <f:selectItem itemLabel=" " itemValue="null" />
+                                        <p:ajax event="change" listener="#{controlReportesBancos.modificarParametroInforme()}" process="@this"/>
+                                    </p:selectOneMenu>                            
+                                </div>
+                            </div>
+
+                            <div id="marcoderecho" style="display: inline-block; width: 60%; background-color: white; position: absolute; height: 94%; margin-left: 38%">
+                                <div style="display: block;">
+                                    <h:outputText value="#{msg['fechahasta']}:" style="top: 2px; position: relative; left: 0px;"/>
+                                    <p:calendar id="fechaHastaParametroL" autocomplete="off" mask="true" pattern="dd/MM/yyyy" value="#{controlReportesBancos.parametroDeReporte.fechahasta}"
+                                                style="position: absolute; width: 250px; left: 115px; top: 0px; height: 10px;">
+                                        <p:ajax event="click" listener="#{controlReportesBancos.posicionCelda(5)}" process="@this"/> 
+                                        <p:ajax event="change" listener="#{controlReportesBancos.modificarParametroInforme()}" process="@this" update="fechaHastaParametroL"/>
+                                        <p:ajax event="dateSelect" listener="#{controlReportesBancos.modificarParametroInforme()}" process="@this" update="fechaHastaParametroL"/>
+                                    </p:calendar> 
+                                </div>
+
+                                <div style="display: block;">
+                                    <h:outputText value="#{msg['hasta']}:" style="top: 12px; position: relative; left: 0px;"/>
+                                    <p:inputText id="empleadoHastaParametro" autocomplete="off" value="#{controlReportesBancos.parametroDeReporte.codigoempleadohasta}" 
+                                                 style="position: absolute; top: 25px; left: 115px; height: 15px; width: 125px; height: 10px;" onclick="select();">
+                                        <p:ajax event="click" listener="#{controlReportesBancos.posicionCelda(6)}" process="@this"/> 
+                                        <p:ajax event="change" listener="#{controlReportesBancos.autocompletarGeneral('HASTA',controlReportesBancos.parametroDeReporte.codigoempleadohasta)}" process="@this"/>
+                                        <p:ajax event="dblclick" listener="#{controlReportesBancos.listasValores(6)}" process="@this"/>
+                                    </p:inputText>
+                                </div>
+
+                                <div style="display: block;">
+                                    <h:outputText value="#{msg['numerocuenta']}:" style="top: 23px; position: relative; left: 0px;"/>
+                                    <p:inputText id="numeroCuentaParametro" autocomplete="off" value="#{controlReportesBancos.parametroDeReporte.numerocuentacredi}" 
+                                                 style="position: absolute; top: 50px; left: 115px; height: 15px; width: 280px; height: 10px;" onclick="select();">
+                                        <p:ajax event="click" listener="#{controlReportesBancos.posicionCelda(7)}" process="@this"/> 
+                                        <p:ajax event="change" listener="#{controlReportesBancos.autocompletarGeneral('ESTRUCTURA', controlReportesBancos.parametroDeReporte.localizacion.nombre)}" update="numeroCuentaParametro" process="@this"/>
+                                        <p:ajax event="dblclick" listener="#{controlReportesBancos.listasValores(7)}" process="@this"/>
+                                    </p:inputText>
+                                </div>
+
+                                <div style="display: block;">
+                                    <h:outputText value="#{msg['banco']}:" style="top: 33px; position: relative; left: 0px;"/>
+                                    <p:inputText id="bancoParametro" autocomplete="off" value="#{controlReportesBancos.parametroDeReporte.banco.nombre}" 
+                                                 style="position: absolute; top: 75px; left: 115px; height: 15px; width: 280px; height: 10px;" onclick="select();">
+                                        <p:ajax event="click" listener="#{controlReportesBancos.posicionCelda(8)}" process="@this"/> 
+                                        <p:ajax event="change" listener="#{controlReportesBancos.autocompletarGeneral('BANCO', controlReportesBancos.parametroDeReporte.banco.nombre)}" update="bancoParametro" process="@this"/>
+                                        <p:ajax event="dblclick" listener="#{controlReportesBancos.listasValores(8)}" process="@this"/>
+                                    </p:inputText>
+                                </div>
+                                <div style="display: block;">
+                                    <h:outputText value="#{msg['tipotrabajador']}:" style="top: 43px; position: relative; left: 0px;"/>
+                                    <p:inputText id="tipoTrabajadorParametro" autocomplete="off" value="#{controlReportesBancos.parametroDeReporte.tipotrabajador.nombre}" 
+                                                 style="position: absolute; top: 100px; left: 115px; height: 15px; width: 280px; height: 10px;" onclick="select();">
+                                        <p:ajax event="click" listener="#{controlReportesBancos.posicionCelda(9)}" process="@this"/> 
+                                        <p:ajax event="change" listener="#{controlReportesBancos.autocompletarGeneral('TIPOTRABAJADOR', controlReportesBancos.parametroDeReporte.tipotrabajador.nombre)}" update="tipoTrabajadorParametro" process="@this"/>
+                                        <p:ajax event="dblclick" listener="#{controlReportesBancos.listasValores(9)}" process="@this"/>
+                                    </p:inputText>
+                                </div>
+
+                                <div style="position: absolute; left: 240px; width: 50%; top: 0px;">
+                                    <div style="display: block;">
+                                        <h:outputText value="#{msg['fechacorte']}:" style="top: 0px; position: relative; left: 30px;"/>
+                                        <p:calendar id="fechaCorteParametro" autocomplete="off" mask="true" pattern="dd/MM/yyyy" value="#{controlReportesBancos.parametroDeReporte.fechacorte}"
+                                                    style="position: absolute; width: 250px; left: 123px; top: 0px; height: 10px;">
+                                            <p:ajax event="click" listener="#{controlReportesBancos.posicionCelda(10)}" process="@this"/> 
+                                            <p:ajax event="change" listener="#{controlReportesBancos.modificarParametroInforme()}" process="@this" update="fechaCorteParametro"/>
+                                            <p:ajax event="dateSelect" listener="#{controlReportesBancos.modificarParametroInforme()}" process="@this" update="fechaCorteParametro"/>
+                                        </p:calendar> 
+                                    </div>
+
+                                    <div style="display: block;">
+                                        <h:outputText value="#{msg['ciudad']}:" style="top: 12px; position: relative; left: 30px;"/>
+                                        <p:inputText id="ciudadParametro" autocomplete="off" value="#{controlReportesBancos.parametroDeReporte.ciudad.nombre}" 
+                                                     style="position: absolute; top: 25px; left: 123px; height: 15px; width: 125px; height: 10px;" onclick="select();">
+                                            <p:ajax event="click" listener="#{controlReportesBancos.posicionCelda(11)}" process="@this"/> 
+                                            <p:ajax event="change" listener="#{controlReportesBancos.autocompletarGeneral('CIUDAD', controlReportesBancos.parametroDeReporte.ciudad.nombre)}" update="ciudadParametro" process="@this"/>
+                                            <p:ajax event="dblclick" listener="#{controlReportesBancos.listasValores(11)}" process="@this"/>
+                                        </p:inputText>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset> 
+                    <p:separator id="separator"  style="vertical-align: central; position: absolute; height: 100px; width: 1px; top: 84px; left: 315px"/>
+                </h:form>
+
+                <h:form id="formDialogos">
+                    <p:dialog header="#{msg['reporteR']}" widgetVar="ReportesDialogo" draggable="true" resizable="false" closable="false" id="ReportesDialogo"  
+                              showEffect="fade" hideEffect="fade" width="470" modal="true" >
+                        <p:dataTable id="lovReportesDialogo" var="reportes" value="#{controlReportesBancos.listValInforeportes}" rowKey="#{reportes.secuencia}"
+                                     selection="#{controlReportesBancos.reporteSeleccionadoLOV}" selectionMode="single" widgetVar="lovReportesDialogo" scrollable="true" scrollWidth="445" scrollHeight="240"
+                                     filteredValue="#{controlReportesBancos.filtrarLovInforeportes}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25" >              
+
+                            <p:ajax event="filter" listener="#{controlReportesBancos.contarRegistrosLovReportes()}"/>                            
+                            <p:ajax event="rowSelect" listener="#{controlReportesBancos.activarAceptar()}" update=":formDialogos:aceptarR"/>
+                            <p:ajax event="rowDblselect" listener="#{controlReportesBancos.actualizarSeleccionInforeporte()}" update=":formDialogos:lovReportesDialogo" process="@this" immediate="true" />
+                            <f:facet name="header">  
+                                <h:outputText value="#{msg['buscarR']}"/>   
+                                <p:inputText  autocomplete="off" class="cssFiltroLOV" id="globalFilter" onkeyup="PF('lovReportesDialogo').filter();" value="#{filtrado}" />  
+                            </f:facet>
+                            <p:column style="text-align: center" filterBy="#{reportes.codigo}" filterMatchMode="contains" filterStyle="width: 94%" width="50px;" sortBy="#{reportes.codigo}">
+                                <f:facet name="header" >
+                                    <h:outputText  value="#{msg['codigoR']}" />
+                                </f:facet>
+                                <h:outputText style="text-align: center" value="#{reportes.codigo}" />
+                            </p:column>
+
+                            <p:column filterBy="#{reportes.nombre}" filterMatchMode="contains" filterStyle="width: 94%" sortBy="#{reportes.nombre}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['nombreR']}" />
+                                </f:facet>
+                                <h:outputText value="#{reportes.nombre}" />
+                            </p:column>
+
+                        </p:dataTable>
+                        <div class="cssBotonesLOV">
+                            <h:outputText id="infoRegistroReportes" class="cssinfoRegistroLOV" value="#{msg['infoRegistro']} #{controlReportesBancos.infoRegistroReportes}" />
+                            <p:commandButton id="aceptarR" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlReportesBancos.aceptar}" icon="ui-icon-check"
+                                             actionListener="#{controlReportesBancos.actualizarSeleccionInforeporte()}" update=":formDialogos:lovReportesDialogo" process="@this" 
+                                             />
+                            <p:commandButton id="atrasR" class="cssAtrasLOV" value="#{msg['cancelar']}" 
+                                             actionListener="#{controlReportesBancos.cancelarSeleccionInforeporte()}" update=":formDialogos:lovReportesDialogo" icon="ui-icon-arrowreturnthick-1-w" process="@this" />
+                        </div>
                     </p:dialog>
 
                     <p:dialog header="#{msg['codigoEMP']}" widgetVar="EmpleadoDesdeDialogo" draggable="true" resizable="false" closable="false" id="EmpleadoDesdeDialogo"  
@@ -155,11 +313,14 @@
                         <p:dataTable id="lovEmpleadoDesde" style="width: 400px;" var="empleadoDesde" value="#{controlReportesBancos.listEmpleados}" rowKey="#{empleadoDesde.secuencia}"
                                      selection="#{controlReportesBancos.empleadoSeleccionado}" selectionMode="single" widgetVar="lovEmpleadoDesde" scrollable="true" scrollWidth="416" scrollHeight="250"
                                      filteredValue="#{controlReportesBancos.filtrarListEmpleados}" emptyMessage="#{msg['lovvacio']}">              
-                            <p:ajax event="rowSelect" listener="#{controlReportesBancos.activarAceptar()}" update=":form:aceptarED"/>
+
+                            <p:ajax event="filter" listener="#{controlReportesBancos.contarRegistrosEmpeladoD()}"/>
+                            <p:ajax event="rowSelect" listener="#{controlReportesBancos.activarAceptar()}" update=":formDialogos:aceptarED"/>
                             <p:ajax event="rowDblselect" listener="#{controlReportesBancos.actualizarEmplDesde()}"  process="@this" />
+
                             <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarEMP']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovEmpleadoDesde').filter();" style="width:150px; position: relative; left: 10px;" />  
+                                <h:outputText value="#{msg['buscarEMP']}"/>  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovEmpleadoDesde').filter();"/>  
                             </f:facet>
                             <p:column filterBy="#{empleadoDesde.codigoempleado}" width="80" filterMatchMode="contains" filterStyle="width: 65px">
                                 <f:facet name="header">
@@ -174,11 +335,12 @@
                                 <h:outputText value="#{empleadoDesde.persona.nombreCompleto}" />
                             </p:column>
                         </p:dataTable>
-                        <h:outputText id="infoRegistroEmpleadoDesde" value="#{controlReportesBancos.infoRegistroEmpleadoDesde}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
-                        
-                        <p:commandButton id="aceptarED" style="position: relative; left: 230px;" value="#{msg['aceptar']}" disabled="#{controlReportesBancos.aceptar}" actionListener="#{controlReportesBancos.actualizarEmplDesde()}" process="@this" icon="ui-icon-check"/>
-                        
-                        <p:commandButton id="atrasED" style="position: relative; left: 230px;" value="#{msg['atras']}" actionListener="#{controlReportesBancos.cancelarCambioEmplDesde()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+
+                        <div class="cssBotonesLOV">
+                            <h:outputText id="infoRegistroEmpleadoDesde" value="#{controlReportesBancos.infoRegistroEmpleadoDesde}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarED" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlReportesBancos.aceptar}" actionListener="#{controlReportesBancos.actualizarEmplDesde()}" process="@this" icon="ui-icon-check"/>
+                            <p:commandButton id="atrasED" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlReportesBancos.cancelarCambioEmplDesde()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                        </div>
                     </p:dialog>
 
                     <p:dialog header="#{msg['codigoEMPH']}" widgetVar="EmpleadoHastaDialogo" draggable="true" resizable="false" closable="false" id="EmpleadoHastaDialogo"  
@@ -186,11 +348,14 @@
                         <p:dataTable id="lovEmpleadoHasta" style="width: 400px;" var="empleadoHasta" value="#{controlReportesBancos.listEmpleados}" rowKey="#{empleadoHasta.secuencia}"
                                      selection="#{controlReportesBancos.empleadoSeleccionado}" selectionMode="single" widgetVar="lovEmpleadoHasta" scrollable="true" scrollWidth="416" scrollHeight="250"
                                      filteredValue="#{controlReportesBancos.filtrarListEmpleados}" emptyMessage="#{msg['lovvacio']}">              
-                            <p:ajax event="rowSelect" listener="#{controlReportesBancos.activarAceptar()}" update=":form:aceptarEH"/>
+
+                            <p:ajax event="filter" listener="#{controlReportesBancos.contarRegistrosEmpeladoH()}"/>
+                            <p:ajax event="rowSelect" listener="#{controlReportesBancos.activarAceptar()}" update=":formDialogos:aceptarEH"/>
                             <p:ajax event="rowDblselect" listener="#{controlReportesBancos.actualizarEmplHasta()}"  process="@this" />
+
                             <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarEMPH']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovEmpleadoHasta').filter();" style="width:150px; position: relative; left: 10px;" />  
+                                <h:outputText value="#{msg['buscarEMPH']}"/>  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovEmpleadoHasta').filter();"/>  
                             </f:facet>
                             <p:column filterBy="#{empleadoHasta.codigoempleado}" width="80" filterMatchMode="contains" filterStyle="width: 65px">
                                 <f:facet name="header">
@@ -205,11 +370,11 @@
                                 <h:outputText value="#{empleadoHasta.persona.nombreCompleto}" />
                             </p:column>
                         </p:dataTable>
-                        <h:outputText id="infoRegistroEmpleadoHasta" value="#{controlReportesBancos.infoRegistroEmpleadoHasta}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
-                        
-                        <p:commandButton id="aceptarEH" style="position: relative; left: 230px;" value="#{msg['aceptar']}" disabled="#{controlReportesBancos.aceptar}" actionListener="#{controlReportesBancos.actualizarEmplHasta()}"  process="@this" icon="ui-icon-check"/>
-                        
-                        <p:commandButton id="atrasEH" style="position: relative; left: 230px;" value="#{msg['atras']}" actionListener="#{controlReportesBancos.cancelarCambioEmplHasta()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                        <div class="cssBotonesLOV">
+                            <h:outputText id="infoRegistroEmpleadoHasta" value="#{controlReportesBancos.infoRegistroEmpleadoHasta}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarEH" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlReportesBancos.aceptar}" actionListener="#{controlReportesBancos.actualizarEmplHasta()}"  process="@this" icon="ui-icon-check"/>
+                            <p:commandButton id="atrasEH" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlReportesBancos.cancelarCambioEmplHasta()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                        </div>
                     </p:dialog>
 
                     <p:dialog header="#{msg['empresaE']}" widgetVar="EmpresaDialogo" draggable="true" resizable="false" closable="false" id="EmpresaDialogo"  
@@ -217,11 +382,14 @@
                         <p:dataTable id="lovEmpresa" style="width: 400px;" var="empresa" value="#{controlReportesBancos.listEmpresas}" rowKey="#{empresa.secuencia}"
                                      selection="#{controlReportesBancos.empresaSeleccionada}" selectionMode="single" widgetVar="lovEmpresa" scrollable="true" scrollWidth="416" scrollHeight="250"
                                      filteredValue="#{controlReportesBancos.filtrarListEmpresas}" emptyMessage="#{msg['lovvacio']}">              
-                            <p:ajax event="rowSelect" listener="#{controlReportesBancos.activarAceptar()}" update=":form:aceptarEmp"/>
+
+                            <p:ajax event="filter" listener="#{controlReportesBancos.contarRegistrosEmpresa()}"/>
+                            <p:ajax event="rowSelect" listener="#{controlReportesBancos.activarAceptar()}" update=":formDialogos:aceptarEmp"/>
                             <p:ajax event="rowDblselect" listener="#{controlReportesBancos.actualizarEmpresa()}"  process="@this"  />
+
                             <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarE']}:"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovEmpresa').filter();" style="width:150px; position: relative; left: 10px;" />  
+                                <h:outputText value="#{msg['buscarE']}:"/>  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovEmpresa').filter();"/>  
                             </f:facet>
                             <p:column filterBy="#{empresa.nit}" width="60" filterMatchMode="contains" filterStyle="width: 45px">
                                 <f:facet name="header">
@@ -236,11 +404,12 @@
                                 <h:outputText value="#{empresa.nombre}" />
                             </p:column>
                         </p:dataTable>
-                        <h:outputText id="infoRegistroEmpresa" value="#{controlReportesBancos.infoRegistroEmpresa}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
-                        
-                        <p:commandButton id="aceptarEmp" style="position: relative; left: 230px;" value="#{msg['aceptar']}" disabled="#{controlReportesBancos.aceptar}" actionListener="#{controlReportesBancos.actualizarEmpresa()}" process="@this" icon="ui-icon-check"/>
-                        
-                        <p:commandButton id="atrasEmp" style="position: relative; left: 230px;" value="#{msg['atras']}" actionListener="#{controlReportesBancos.cancelarEmpresa()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+
+                        <div class="cssBotonesLOV">
+                            <h:outputText id="infoRegistroEmpresa" value="#{controlReportesBancos.infoRegistroEmpresa}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarEmp" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlReportesBancos.aceptar}" actionListener="#{controlReportesBancos.actualizarEmpresa()}" process="@this" icon="ui-icon-check"/>
+                            <p:commandButton id="atrasEmp" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlReportesBancos.cancelarEmpresa()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                        </div>
                     </p:dialog>
 
 
@@ -249,11 +418,14 @@
                         <p:dataTable id="lovTipoTrabajador" style="width: 430px;" var="tipo" value="#{controlReportesBancos.listTiposTrabajadores}" rowKey="#{tipo.secuencia}"
                                      selection="#{controlReportesBancos.tipoTSeleccionado}" selectionMode="single" widgetVar="lovTipoTrabajador" scrollable="true" scrollWidth="445" scrollHeight="250"
                                      filteredValue="#{controlReportesBancos.filtrarListTiposTrabajadores}" emptyMessage="#{msg['lovvacio']}">              
-                            <p:ajax event="rowSelect" listener="#{controlReportesBancos.activarAceptar()}" update=":form:aceptarTT"/>
-                            <p:ajax event="rowDblselect" listener="#{controlReportesBancos.actualizarTipoTrabajador()}"  process="@this"  />
+
+                            <p:ajax event="filter" listener="#{controlReportesBancos.contarRegistrosTipoTrabajador()}"/>
+                            <p:ajax event="rowSelect" listener="#{controlReportesBancos.activarAceptar()}" update=":formDialogos:aceptarTT"/>
+                            <p:ajax event="rowDblselect" listener="#{controlReportesBancos.actualizarTipoTrabajador()}" process="@this"/>
+
                             <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarTT']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovTipoTrabajador').filter();" style="width:150px; position: relative; left: 30px;" />  
+                                <h:outputText value="#{msg['buscarTT']}"/>  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovTipoTrabajador').filter();"/>  
                             </f:facet>
                             <p:column filterBy="#{tipo.codigo}" width="60" filterMatchMode="contains" filterStyle="width: 50px">
                                 <f:facet name="header">
@@ -274,12 +446,12 @@
                                 <h:outputText value="#{tipo.tipo}" />
                             </p:column>
                         </p:dataTable>
-                        
-                        <h:outputText id="infoRegistroTipoTrabajador" value="#{controlReportesBancos.infoRegistroTipoTrabajador}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
-                        
-                        <p:commandButton id="aceptarTT" style="position: relative; left: 280px;" value="#{msg['aceptar']}" disabled="#{controlReportesBancos.aceptar}"  actionListener="#{controlReportesBancos.actualizarTipoTrabajador()}" process="@this" icon="ui-icon-check"/>
-                        
-                        <p:commandButton id="atrasTT" style="position: relative; left: 280px;" value="#{msg['atras']}" actionListener="#{controlReportesBancos.cancelarTipoTrabajador()}"  process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+
+                        <div class="cssBotonesLOV">
+                            <h:outputText id="infoRegistroTipoTrabajador" value="#{controlReportesBancos.infoRegistroTipoTrabajador}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarTT" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlReportesBancos.aceptar}"  actionListener="#{controlReportesBancos.actualizarTipoTrabajador()}" process="@this" icon="ui-icon-check"/>
+                            <p:commandButton id="atrasTT" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlReportesBancos.cancelarTipoTrabajador()}"  process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                        </div>
                     </p:dialog>
 
                     <p:dialog header="#{msg['procesosP']}" widgetVar="ProcesoDialogo" draggable="true" resizable="false" closable="false" id="ProcesoDialogo"  
@@ -287,11 +459,14 @@
                         <p:dataTable id="lovProceso" style="width: 400px;" var="proceso" value="#{controlReportesBancos.listProcesos}" rowKey="#{proceso.secuencia}"
                                      selection="#{controlReportesBancos.procesoSeleccionado}" selectionMode="single" widgetVar="lovProceso" scrollable="true" scrollWidth="416" scrollHeight="250"
                                      filteredValue="#{controlReportesBancos.filtrarListProcesos}" emptyMessage="#{msg['lovvacio']}">              
-                            <p:ajax event="rowSelect" listener="#{controlReportesBancos.activarAceptar()}" update=":form:aceptarPro"/>
+
+                            <p:ajax event="filter" listener="#{controlReportesBancos.contarRegistrosProceso()}"/>
+                            <p:ajax event="rowSelect" listener="#{controlReportesBancos.activarAceptar()}" update=":formDialogos:aceptarPro"/>
                             <p:ajax event="rowDblselect" listener="#{controlReportesBancos.actualizarProceso()}"  process="@this" />
+
                             <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarP']}" style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovProceso').filter();" style="width:150px; position: relative; left: 10px;" />  
+                                <h:outputText value="#{msg['buscarP']}"/>  
+                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovProceso').filter();"/>  
                             </f:facet>
                             <p:column filterBy="#{proceso.descripcion}" width="150"  filterMatchMode="contains">
                                 <f:facet name="header">
@@ -306,12 +481,12 @@
                                 <h:outputText  value="#{proceso.codigo}" />
                             </p:column>
                         </p:dataTable>
-                        
-                        <h:outputText id="infoRegistroProceso" value="#{controlReportesBancos.infoRegistroProceso}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
-                        
-                        <p:commandButton id="aceptarPro" style="position: relative; left: 230px;" value="#{msg['aceptar']}" disabled="#{controlReportesBancos.aceptar}" actionListener="#{controlReportesBancos.actualizarProceso()}" process="@this" icon="ui-icon-check"/>
-                        
-                        <p:commandButton id="atrasPro" style="position: relative; left: 230px;" value="#{msg['atras']}" actionListener="#{controlReportesBancos.cancelarProceso()}"  process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+
+                        <div class="cssBotonesLOV">
+                            <h:outputText id="infoRegistroProceso" value="#{controlReportesBancos.infoRegistroProceso}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarPro" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlReportesBancos.aceptar}" actionListener="#{controlReportesBancos.actualizarProceso()}" process="@this" icon="ui-icon-check"/>
+                            <p:commandButton id="atrasPro" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlReportesBancos.cancelarProceso()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                        </div>
                     </p:dialog>
 
                     <p:dialog header="#{msg['bancosB']}" widgetVar="BancoDialogo" draggable="true" resizable="false" closable="false" id="BancoDialogo"  
@@ -319,11 +494,14 @@
                         <p:dataTable id="lovBancos" style="width: 400px;" var="banco" value="#{controlReportesBancos.listBancos}" rowKey="#{banco.secuencia}"
                                      selection="#{controlReportesBancos.bancoSeleccionado}" selectionMode="single" widgetVar="lovBancos" scrollable="true" scrollWidth="416" scrollHeight="250"
                                      filteredValue="#{controlReportesBancos.filtrarListBancos}" emptyMessage="#{msg['lovvacio']}">              
-                            <p:ajax event="rowSelect" listener="#{controlReportesBancos.activarAceptar()}" update=":form:aceptarBan"/>
+
+                            <p:ajax event="filter" listener="#{controlReportesBancos.contarRegistrosBanco()}"/>
+                            <p:ajax event="rowSelect" listener="#{controlReportesBancos.activarAceptar()}" update=":formDialogos:aceptarBan"/>
                             <p:ajax event="rowDblselect" listener="#{controlReportesBancos.actualizarBanco()}"  process="@this"  />
+
                             <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarB']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovBancos').filter();" style="width:150px; position: relative; left: -10px;" />  
+                                <h:outputText value="#{msg['buscarB']}"/>  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovBancos').filter();"/>  
                             </f:facet>
                             <p:column filterBy="#{banco.nombre}" filterMatchMode="contains">
                                 <f:facet name="header">
@@ -332,11 +510,12 @@
                                 <h:outputText  value="#{banco.nombre}" />
                             </p:column>
                         </p:dataTable>
-                        <h:outputText id="infoRegistroBanco" value="#{controlReportesBancos.infoRegistroBanco}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
-                        
-                        <p:commandButton id="aceptarBan" style="position: relative; left: 230px;" value="#{msg['aceptar']}" disabled="#{controlReportesBancos.aceptar}" actionListener="#{controlReportesBancos.actualizarBanco()}" process="@this" icon="ui-icon-check"/>
-                        
-                        <p:commandButton id="atrasBan" style="position: relative; left: 230px;" value="#{msg['atras']}" actionListener="#{controlReportesBancos.cancelarBanco()}"  process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+
+                        <div class="cssBotonesLOV">
+                            <h:outputText id="infoRegistroBanco" value="#{controlReportesBancos.infoRegistroBanco}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarBan" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlReportesBancos.aceptar}" actionListener="#{controlReportesBancos.actualizarBanco()}" process="@this" icon="ui-icon-check"/>
+                            <p:commandButton id="atrasBan" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlReportesBancos.cancelarBanco()}"  process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                        </div>
                     </p:dialog>
 
                     <p:dialog header="#{msg['ciudadesC']}" widgetVar="CiudadDialogo" draggable="true" resizable="false" closable="false" id="CiudadDialogo"  
@@ -344,11 +523,14 @@
                         <p:dataTable id="lovCiudades" style="width: 400px;" var="ciudad" value="#{controlReportesBancos.listCiudades}" rowKey="#{ciudad.secuencia}"
                                      selection="#{controlReportesBancos.ciudadSeleccionada}" selectionMode="single" widgetVar="lovCiudades" scrollable="true" scrollWidth="416" scrollHeight="250"
                                      filteredValue="#{controlReportesBancos.filtrarListCiudades}" emptyMessage="#{msg['lovvacio']}">              
-                            <p:ajax event="rowSelect" listener="#{controlReportesBancos.activarAceptar()}" update=":form:aceptarCiu"/>
+
+                            <p:ajax event="filter" listener="#{controlReportesBancos.contarRegistrosCiudades()}"/>
+                            <p:ajax event="rowSelect" listener="#{controlReportesBancos.activarAceptar()}" update=":formDialogos:aceptarCiu"/>
                             <p:ajax event="rowDblselect" listener="#{controlReportesBancos.actualizarCiudad()}"  process="@this" />
+
                             <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarC']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovCiudades').filter();" style="width:150px; position: relative; left: -10px;" />  
+                                <h:outputText value="#{msg['buscarC']}"/>  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovCiudades').filter();"/>  
                             </f:facet>
                             <p:column filterBy="#{ciudad.nombre}" width="90" filterMatchMode="contains" filterStyle="width: 70px">
                                 <f:facet name="header">
@@ -357,11 +539,12 @@
                                 <h:outputText  value="#{ciudad.nombre}" />
                             </p:column>
                         </p:dataTable>
-                        <h:outputText id="infoRegistroCiudad" value="#{controlReportesBancos.infoRegistroCiudad}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
-                        
-                        <p:commandButton id="aceptarCiu" style="position: relative; left: 230px;" value="#{msg['aceptar']}" disabled="#{controlReportesBancos.aceptar}" actionListener="#{controlReportesBancos.actualizarCiudad()}" process="@this" icon="ui-icon-check"/>
-                        
-                        <p:commandButton id="atrasCiu" style="position: relative; left: 230px;" value="#{msg['atras']}" actionListener="#{controlReportesBancos.cancelarCiudad()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+
+                        <div class="cssBotonesLOV">
+                            <h:outputText id="infoRegistroCiudad" class="cssinfoRegistroLOV" value="#{controlReportesBancos.infoRegistroCiudad}"/>
+                            <p:commandButton id="aceptarCiu" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlReportesBancos.aceptar}" actionListener="#{controlReportesBancos.actualizarCiudad()}" process="@this" icon="ui-icon-check"/>
+                            <p:commandButton id="atrasCiu" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlReportesBancos.cancelarCiudad()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                        </div>
                     </p:dialog>
 
                     <p:dialog id="errorRegNew" header="#{msg['atencion']}" widgetVar="errorRegNew"  resizable="false" draggable="true" modal="true" height="90" width="275"  closable="true">  
@@ -374,166 +557,69 @@
                         <h:outputText value="#{msg['errorFechas']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                </h:form>
-
-                <h:form id="formParametros" style="position: absolute; top: 115px; left: 240px">
-                    <fieldset id="parametrosInforme" style="position: absolute; left: 10px; top: 65px; width: 840px; height: 140px; border-radius: 10px; ">
-                        <legend style="color: blue;text-align:left"><strong>#{msg['parametros']}</strong></legend>
-
-                        <h:outputText value="#{msg['fechadesde']}:" style="position: absolute; top: 20px; left: 20px;"/>
-                        <div id="posicionFechaDesdeParametro" style="position: absolute; top: 13px; left: 135px;">
-                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" value="#{controlReportesBancos.parametroDeInforme.fechadesde}" id="fechaDesdeParametroL">
-                                <p:ajax event="click" listener="#{controlReportesBancos.posicionCelda(1)}" process="@this"/>
-                                <p:ajax event="change" listener="#{controlReportesBancos.modificarParametroInforme()}" process="@this" update="fechaDesdeParametroL"/>
-                                <p:ajax event="dateSelect" listener="#{controlReportesBancos.modificarParametroInforme()}" process="@this" update="fechaDesdeParametroL"/>
-                            </p:calendar> 
-                        </div>
-
-                        <h:outputText value="#{msg['empleadodesde']}:" style="position: absolute; top: 45px; left: 20px;"/>
-                        <p:inputText  autocomplete="off"  value="#{controlReportesBancos.parametroDeInforme.codigoempleadodesde}" id="empleadoDesdeParametro" style="position: absolute; top: 37px; left: 135px;height: 15px;width: 90px;" onclick="select();">
-                            <p:ajax event="click" listener="#{controlReportesBancos.posicionCelda(2)}" process="@this"/> 
-                            <p:ajax event="change" listener="#{controlReportesBancos.autocompletarGeneral('DESDE',controlReportesBancos.parametroDeInforme.codigoempleadodesde)}" update="empleadoDesdeParametro" process="@this"/>
-                            <p:ajax event="dblclick" listener="#{controlReportesBancos.listasValores(2)}" process="@this"/>
-                        </p:inputText>
-
-                        <h:outputText value="#{msg['empresa']}:" style="position: absolute; top: 70px; left: 20px;text-align: center;"/>
-                        <p:inputText  autocomplete="off"  value="#{controlReportesBancos.parametroDeInforme.empresa.nombre}" id="empresaParametro" style="position: absolute; top: 64px; left: 135px;height: 15px;width: 90px;" onclick="select();">
-                            <p:ajax event="click" listener="#{controlReportesBancos.posicionCelda(3)}" process="@this"/> 
-                            <p:ajax event="change" listener="#{controlReportesBancos.autocompletarGeneral('EMPRESA', controlReportesBancos.parametroDeInforme.empresa.nombre)}" update="empresaParametro" process="@this"/>
-                            <p:ajax event="dblclick" listener="#{controlReportesBancos.listasValores(3)}" process="@this"/>
-                        </p:inputText>
-
-                        <h:outputText value="#{msg['proceso']}:" style="position: absolute; top: 95px; left: 20px;"/>
-                        <p:inputText  autocomplete="off"  value="#{controlReportesBancos.parametroDeInforme.proceso.descripcion}" id="procesoParametro" style="position: absolute; top: 90px; left: 135px;height: 15px;width: 90px;" onclick="select();">
-                            <p:ajax event="click" listener="#{controlReportesBancos.posicionCelda(4)}" process="@this"/> 
-                            <p:ajax event="change" listener="#{controlReportesBancos.autocompletarGeneral('PROCESO', controlReportesBancos.parametroDeInforme.proceso.descripcion)}" update="procesoParametro" process="@this"/>
-                            <p:ajax event="dblclick" listener="#{controlReportesBancos.listasValores(4)}" process="@this"/>
-                        </p:inputText>
-
-                        <h:outputText value="#{msg['tipocuenta']}:" style="position: absolute; top: 120px; left: 20px;"/>
-                        <p:selectOneMenu value="#{controlReportesBancos.parametroDeInforme.tipopersonal}" id="tipoCuentaParametro" style="position: absolute; top: 117px; left: 135px;width: 132px;width: 100px;text-transform: uppercase">  
-                            <f:selectItem itemLabel="#{msg['ahorros']}" itemValue="AHORROS" />  
-                            <f:selectItem itemLabel="#{msg['corriente']}" itemValue="CORRIENTE" />  
-                            <f:selectItem itemLabel=" " itemValue="null" />
-                            <p:ajax event="change" listener="#{controlReportesBancos.modificarParametroInforme()}" process="@this"/>
-                        </p:selectOneMenu>                            
-
-                        <p:separator id="separator"  style="vertical-align: central;position: absolute;height: 130px;width: 1px;top: 5px;left: 260px "/>  
-
-                        <h:outputText value="#{msg['hasta']}:" style="position: absolute; top: 20px; left: 280px;"/>
-                        <div id="posicionFechaHastaParametro" style="position: absolute; top: 13px; left: 390px;">
-                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" value="#{controlReportesBancos.parametroDeInforme.fechahasta}" id="fechaHastaParametroL">
-                                <p:ajax event="click" listener="#{controlReportesBancos.posicionCelda(5)}" process="@this"/> 
-                                <p:ajax event="change" listener="#{controlReportesBancos.modificarParametroInforme()}" process="@this" update="fechaHastaParametroL"/>
-                                <p:ajax event="dateSelect" listener="#{controlReportesBancos.modificarParametroInforme()}" process="@this" update="fechaHastaParametroL"/>
-                            </p:calendar> 
-                        </div>
-
-                        <h:outputText value="#{msg['hasta']}:" style="position: absolute; top: 45px; left: 280px;"/>
-                        <p:inputText  autocomplete="off"  value="#{controlReportesBancos.parametroDeInforme.codigoempleadohasta}" id="empleadoHastaParametro" style="position: absolute; top: 37px; left: 390px;height: 15px;width: 90px;" onclick="select();">
-                            <p:ajax event="click" listener="#{controlReportesBancos.posicionCelda(6)}" process="@this"/> 
-                            <p:ajax event="change" listener="#{controlReportesBancos.autocompletarGeneral('HASTA',controlReportesBancos.parametroDeInforme.codigoempleadohasta)}" process="@this"/>
-                            <p:ajax event="dblclick" listener="#{controlReportesBancos.listasValores(6)}" process="@this"/>
-                        </p:inputText>
-
-                        <h:outputText value="#{msg['numerocuenta']}:" style="position: absolute; top: 70px; left: 280px;"/>
-                        <p:inputText  autocomplete="off"  value="#{controlReportesBancos.parametroDeInforme.numerocuentacredi}" id="numeroCuentaParametro" style="position: absolute; top: 65px; left: 390px;height: 15px;width: 180px;" onclick="select();">
-                            <p:ajax event="click" listener="#{controlReportesBancos.posicionCelda(7)}" process="@this"/> 
-                            <p:ajax event="change" listener="#{controlReportesBancos.autocompletarGeneral('ESTRUCTURA', controlReportesBancos.parametroDeInforme.localizacion.nombre)}" update="numeroCuentaParametro" process="@this"/>
-                            <p:ajax event="dblclick" listener="#{controlReportesBancos.listasValores(7)}" process="@this"/>
-                        </p:inputText>
-
-                        <h:outputText value="#{msg['banco']}:" style="position: absolute; top: 95px; left: 280px;"/>
-                        <p:inputText  autocomplete="off"  value="#{controlReportesBancos.parametroDeInforme.banco.nombre}" id="bancoParametro" style="position: absolute; top: 90px; left: 390px;height: 15px;width: 180px;" onclick="select();">
-                            <p:ajax event="click" listener="#{controlReportesBancos.posicionCelda(8)}" process="@this"/> 
-                            <p:ajax event="change" listener="#{controlReportesBancos.autocompletarGeneral('BANCO', controlReportesBancos.parametroDeInforme.banco.nombre)}" update="bancoParametro" process="@this"/>
-                            <p:ajax event="dblclick" listener="#{controlReportesBancos.listasValores(8)}" process="@this"/>
-                        </p:inputText>
-
-                        <h:outputText value="#{msg['tipotrabajador']}:" style="position: absolute; top: 120px; left: 280px;"/>
-                        <p:inputText  autocomplete="off"  value="#{controlReportesBancos.parametroDeInforme.tipotrabajador.nombre}" id="tipoTrabajadorParametro" style="position: absolute; top: 115px; left: 390px;height: 15px;width: 180px;" onclick="select();">
-                            <p:ajax event="click" listener="#{controlReportesBancos.posicionCelda(9)}" process="@this"/> 
-                            <p:ajax event="change" listener="#{controlReportesBancos.autocompletarGeneral('TIPOTRABAJADOR', controlReportesBancos.parametroDeInforme.tipotrabajador.nombre)}" update="tipoTrabajadorParametro" process="@this"/>
-                            <p:ajax event="dblclick" listener="#{controlReportesBancos.listasValores(9)}" process="@this"/>
-                        </p:inputText>
-
-                        <h:outputText value="#{msg['fechacorte']}:" style="position: absolute; top: 20px; left: 590px;"/>
-                        <div id="posicionFechaCorteParametro" style="position: absolute; top: 15px; left: 690px;">
-                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" value="#{controlReportesBancos.parametroDeInforme.fechacorte}" id="fechaCorteParametro">
-                                <p:ajax event="click" listener="#{controlReportesBancos.posicionCelda(10)}" process="@this"/> 
-                                <p:ajax event="change" listener="#{controlReportesBancos.modificarParametroInforme()}" process="@this" update="fechaCorteParametro"/>
-                                <p:ajax event="dateSelect" listener="#{controlReportesBancos.modificarParametroInforme()}" process="@this" update="fechaCorteParametro"/>
-                            </p:calendar> 
-                        </div>
-
-                        <h:outputText value="#{msg['ciudad']}:" style="position: absolute; top: 45px; left: 590px;"/>
-                        <p:inputText  autocomplete="off"  value="#{controlReportesBancos.parametroDeInforme.ciudad.nombre}" id="ciudadParametro" style="position: absolute; top: 40px; left: 690px;height: 15px;" onclick="select();">
-                            <p:ajax event="click" listener="#{controlReportesBancos.posicionCelda(11)}" process="@this"/> 
-                            <p:ajax event="change" listener="#{controlReportesBancos.autocompletarGeneral('CIUDAD', controlReportesBancos.parametroDeInforme.ciudad.nombre)}" update="ciudadParametro" process="@this"/>
-                            <p:ajax event="dblclick" listener="#{controlReportesBancos.listasValores(11)}" process="@this"/>
-                        </p:inputText>
-
-                    </fieldset> 
-                    
-                     <p:dialog id="infoReporteCodigoD" header="#{msg['infoReporteCodigoD']}" widgetVar="infoReporteCodigoD" resizable="false" draggable="true" modal="true" height="93" width="240" >  
-                        <p:inputTextarea value="#{controlReportesBancos.actualInfoReporteTabla.codigo}" style="overflow: auto; width: 200px; height: 50px;" readonly="true"/>
+                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlReportesBancos.guardarYSalir()}" action="nomina" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlReportesBancos.cancelarYSalir()}" action="nomina"  style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
-                    <p:dialog id="infoReporteNombreD" header="#{msg['infoReporteNombreD']}" widgetVar="infoReporteNombreD" resizable="false" draggable="true" modal="true" height="93" width="240" >  
-                        <p:inputTextarea value="#{controlReportesBancos.actualInfoReporteTabla.nombre}" style="overflow: auto; width: 200px; height: 50px;" readonly="true"/>
+                    <p:dialog id="confirmarGuardarSinSalida" header="#{msg['atencion']}" widgetVar="confirmarGuardarSinSalida"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardarSinSalida').hide();" actionListener="#{controlReportesBancos.guardarCambios()}"  style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardarSinSalida').hide();" actionListener="#{controlReportesBancos.cancelarModificaciones()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardarSinSalida').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
-                    
-                    
-                </h:form>
 
-                <h:form id="formDialogos">
-                    
+
                     <p:dialog id="editarFechaDesde" header="#{msg['editarFechaDesde']}" widgetVar="editarFechaDesde" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
-                        <p:inputTextarea value="#{controlReportesBancos.parametroDeInforme.fechadesde}" style="overflow: auto;" readonly="true">
+                        <p:inputTextarea value="#{controlReportesBancos.parametroDeReporte.fechadesde}" style="overflow: auto;" readonly="true">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </p:inputTextarea>
                     </p:dialog>
-                    
+
                     <p:dialog id="empleadoDesde" header="#{msg['empleadoDesde']}" widgetVar="empleadoDesde" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
-                        <p:inputTextarea value="#{controlReportesBancos.parametroDeInforme.codigoempleadodesde}" style="overflow: auto;" readonly="true"/>
+                        <p:inputTextarea value="#{controlReportesBancos.parametroDeReporte.codigoempleadodesde}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-                    
+
                     <p:dialog id="editarFechaHasta" header="#{msg['editarFechaHasta']}" widgetVar="editarFechaHasta" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
-                        <p:inputTextarea value="#{controlReportesBancos.parametroDeInforme.fechahasta}" style="overflow: auto;" readonly="true">
+                        <p:inputTextarea value="#{controlReportesBancos.parametroDeReporte.fechahasta}" style="overflow: auto;" readonly="true">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </p:inputTextarea>
                     </p:dialog>
-                    
+
                     <p:dialog id="empleadoHasta" header="#{msg['empleadoHasta']}" widgetVar="empleadoHasta" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
-                        <p:inputTextarea value="#{controlReportesBancos.parametroDeInforme.codigoempleadohasta}" style="overflow: auto;" readonly="true"/>
+                        <p:inputTextarea value="#{controlReportesBancos.parametroDeReporte.codigoempleadohasta}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-                    
+
                     <p:dialog id="empresa" header="#{msg['Empresa']}" widgetVar="empresa" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
-                        <p:inputTextarea value="#{controlReportesBancos.parametroDeInforme.empresa.nombre}" style="overflow: auto;" readonly="true"/>
+                        <p:inputTextarea value="#{controlReportesBancos.parametroDeReporte.empresa.nombre}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-                    
+
                     <p:dialog id="tipoTrabajador" header="#{msg['tipoTrabajador']}" widgetVar="tipoTrabajador" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
-                        <p:inputTextarea value="#{controlReportesBancos.parametroDeInforme.tipotrabajador.nombre}" style="overflow: auto;" readonly="true"/>
+                        <p:inputTextarea value="#{controlReportesBancos.parametroDeReporte.tipotrabajador.nombre}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-                    
+
                     <p:dialog id="proceso" header="#{msg['Proceso']}" widgetVar="proceso" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
-                        <p:inputTextarea value="#{controlReportesBancos.parametroDeInforme.proceso.descripcion}" style="overflow: auto;" readonly="true"/>
+                        <p:inputTextarea value="#{controlReportesBancos.parametroDeReporte.proceso.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="ciudad" header="#{msg['Ciudad']}" widgetVar="ciudad" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
-                        <p:inputTextarea value="#{controlReportesBancos.parametroDeInforme.ciudad.nombre}" style="overflow: auto;" readonly="true"/>
+                        <p:inputTextarea value="#{controlReportesBancos.parametroDeReporte.ciudad.nombre}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-                    
+
                     <p:dialog id="banco" header="#{msg['Banco']}" widgetVar="banco" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
-                        <p:inputTextarea value="#{controlReportesBancos.parametroDeInforme.banco.nombre}" style="overflow: auto;" readonly="true"/>
+                        <p:inputTextarea value="#{controlReportesBancos.parametroDeReporte.banco.nombre}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-                    
+
                     <p:dialog id="numeroCuenta" header="#{msg['umeroCuenta']}" widgetVar="numeroCuenta" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
-                        <p:inputTextarea value="#{controlReportesBancos.parametroDeInforme.numerocuentacredi}" style="overflow: auto;" readonly="true"/>
+                        <p:inputTextarea value="#{controlReportesBancos.parametroDeReporte.numerocuentacredi}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarFechaCorte" header="#{msg['editarFechaCorte']}" widgetVar="editarFechaCorte" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
-                        <p:inputTextarea value="#{controlReportesBancos.parametroDeInforme.fechacorte}" style="overflow: auto;" readonly="true">
+                        <p:inputTextarea value="#{controlReportesBancos.parametroDeReporte.fechacorte}" style="overflow: auto;" readonly="true">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </p:inputTextarea>
                     </p:dialog>
@@ -544,10 +630,30 @@
                         <p:commandButton id="cancelarReporteSeleccionado" value="#{msg['atras']}" onclick="PF('reporteAGenerar').hide();" actionListener="#{controlReportesBancos.cancelarGenerarReporte()}" style="position: absolute; top: 60px; left: 148px;" process="@this"/>
                     </p:dialog>
 
+                    <p:dialog id="descargarReporte" widgetVar="descargarReporte" header="#{msg['informacion']}" resizable="false" draggable="true" modal="true" height="90" width="330" style="font-size: 12px;" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/descargar.gif" width="50" height="50" style="position: absolute; left: 20px; top: 10px;"  />
+                        <h:outputText value="#{msg['mensajeExitoReporte']}" style="position: absolute; left: 80px; top: 20px; width: 240px; text-align: justify" />
+                        <p:commandButton value="#{msg['descargar']}" icon="ui-icon-download" actionListener="#{controlReportesBancos.exportarReporte()}" style="position: absolute; top: 50px; left: 100px;" process="@this" ajax="false" onclick="PF('descargarReporte').hide();"/>
+                        <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" onclick="PF('descargarReporte').hide();" style="position: absolute; top: 50px; left: 212px;" process="@this" />
+                    </p:dialog> 
+
+                    <p:dialog id="errorGenerandoReporte" header="#{msg['errorReporte']}" widgetVar="errorGenerandoReporte"  resizable="false" draggable="true" modal="true" height="90" width="350" style="font-size: 12px">  
+                        <p:inputTextarea value="#{controlReportesBancos.pathReporteGenerado}" style="position: absolute; left: 10px; top: 20px; width: 300px; height: 70px; overflow: auto;" readonly="true" />
+                    </p:dialog>
+
                     <p:dialog id="requisitosReporte" header="#{msg['requisitosReporte']}" widgetVar="requisitosReporte" resizable="false" draggable="true" modal="true" height="93" width="240" >  
                         <h:outputText value="#{controlReportesBancos.requisitosReporte}" style="overflow: auto; width: 200px; height: 40px"/>
                         <p:commandButton id="cancelarRequisitoReporte" value="#{msg['atras']}" onclick="PF('requisitosReporte').hide();" actionListener="#{controlReportesBancos.cancelarRequisitosReporte()}" style="position: absolute; top: 60px; left: 148px;" process="@this"/>
                     </p:dialog>
+
+                    <p:dialog id="infoReporteCodigoD" header="#{msg['infoReporteCodigoD']}" widgetVar="infoReporteCodigoD" resizable="false" draggable="true" modal="true" height="93" width="240" >  
+                        <p:inputTextarea value="#{controlReportesBancos.inforreporteSeleccionado.codigo}" style="overflow: auto; width: 200px; height: 50px;" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="infoReporteNombreD" header="#{msg['infoReporteNombreD']}" widgetVar="infoReporteNombreD" resizable="false" draggable="true" modal="true" height="93" width="240" >  
+                        <p:inputTextarea value="#{controlReportesBancos.inforreporteSeleccionado.nombre}" style="overflow: auto; width: 200px; height: 50px;" readonly="true"/>
+                    </p:dialog>
+
 
                 </h:form>
             </ui:define>

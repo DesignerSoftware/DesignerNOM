@@ -26,6 +26,7 @@ public interface PersistenciaInforeportesInterface {
      * método recibe la información del parámetro para hacer un 'merge' con la
      * información de la base de datos.
      *
+     * @param em
      * @param inforeportes Inforeporte con los cambios que se van a realizar.
      */
     public void editar(EntityManager em, Inforeportes inforeportes);

@@ -11,7 +11,7 @@ import Entidades.Empresas;
 import Entidades.Estructuras;
 import Entidades.GruposConceptos;
 import Entidades.Inforeportes;
-import Entidades.ParametrosInformes;
+import Entidades.ParametrosReportes;
 import Entidades.Procesos;
 import Entidades.SucursalesPila;
 import Entidades.Terceros;
@@ -29,7 +29,7 @@ public interface AdministrarNReportesSeguridadInterface {
 
     public void obtenerConexion(String idSesion);
 
-    public ParametrosInformes parametrosDeReporte();
+    public ParametrosReportes parametrosDeReporte();
 
     public List<Inforeportes> listInforeportesUsuario();
 
@@ -37,7 +37,7 @@ public interface AdministrarNReportesSeguridadInterface {
 
     public List<GruposConceptos> listGrupos();
 
-    public void modificarParametrosInformes(ParametrosInformes parametroInforme);
+    public void modificarParametrosReportes(ParametrosReportes parametroInforme);
 
     public List<Terceros> listTerceros();
 

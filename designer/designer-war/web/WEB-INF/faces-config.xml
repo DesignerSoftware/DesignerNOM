@@ -6112,7 +6112,7 @@
             <redirect />
         </navigation-case>
     </navigation-rule>
-        
+    
     <navigation-rule>
         <from-view-id>/enviocorreo.xhtml</from-view-id>
         <navigation-case>
@@ -6141,8 +6141,93 @@
     <navigation-rule>
         <from-view-id>/enviocorreo.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>enviocorreo</from-outcome>
+            <from-outcome>nreportenomina</from-outcome>
             <to-view-id>/nreportenomina.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/nreportelaboral.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>enviocorreo</from-outcome>
+            <to-view-id>/enviocorreo.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/enviocorreo.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>nreportelaboral</from-outcome>
+            <to-view-id>/nreportelaboral.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/nreportepersonal.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>enviocorreo</from-outcome>
+            <to-view-id>/enviocorreo.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/enviocorreo.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>nreportepersonal</from-outcome>
+            <to-view-id>/nreportepersonal.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/nreportescontabilidad.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>enviocorreo</from-outcome>
+            <to-view-id>/enviocorreo.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/enviocorreo.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>nreportescontabilidad</from-outcome>
+            <to-view-id>/nreportescontabilidad.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/nreporteseguridad.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>enviocorreo</from-outcome>
+            <to-view-id>/enviocorreo.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/enviocorreo.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>nreporteseguridad</from-outcome>
+            <to-view-id>/nreporteseguridad.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/reportesbancos.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>enviocorreo</from-outcome>
+            <to-view-id>/enviocorreo.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/enviocorreo.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>reportesbancos</from-outcome>
+            <to-view-id>/reportesbancos.xhtml</to-view-id>
             <redirect />
         </navigation-case>
     </navigation-rule>
