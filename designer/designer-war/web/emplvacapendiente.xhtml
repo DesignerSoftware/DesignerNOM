@@ -16,11 +16,6 @@
                <f:loadBundle basename="Recursos.emplvacapendiente" var="msg"/>
                <p:growl id="growl" showDetail="true"/>
                <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">    
-
-                  <h:outputText id="DPro" style="position: absolute; top: 52px; left: 540px; text-align: left; font-weight: bold; width: 150px;" value="D Provisionados: #{controlEmplVacaPendiente.diasProvisionados}"/>
-                  <h:outputText id="DFC" style="position: absolute; top: 52px; left: 700px; text-align: right; font-weight: bold; width: 110px;" value="FC: #{controlEmplVacaPendiente.fechaContratacionText}"/>
-                  <p:tooltip for="DPro" value="#{msg['DPro']}" />
-                  <p:tooltip for="DFC" value="#{msg['DFC']}" style="position: fixed; margin: 0px;"/>
                   <!--<h:outputText value="" style="position: absolute; top: 50px;left: 740px;width: 50px;text-align: center"/>-->
 
                   <p:toolbar styleClass="cssToolbar">  
@@ -79,6 +74,13 @@
                         <p:tooltip  for="salir" value="#{msg['salir']}"/>
                      </p:toolbarGroup>  
                   </p:toolbar>
+
+                  <h:outputText id="DPro" style="position: absolute; top: 52px; left: 540px; text-align: left; font-weight: bold; width: 150px;"
+                                value="D Provisionados: #{controlEmplVacaPendiente.diasProvisionados}"/>
+                  <h:outputText id="DFC" style="position: absolute; top: 52px; left: 700px; text-align: right; font-weight: bold; width: 110px;"
+                                value="FC: #{controlEmplVacaPendiente.fechaContratacionText}"/>
+                  <p:tooltip for="DPro" value="#{msg['DPro']}" />
+                  <p:tooltip for="DFC" value="#{msg['DFC']}" style="position: fixed; margin: 0px;"/>
 
                   <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px">
 

@@ -3623,14 +3623,12 @@ public class ControlCargo implements Serializable {
          cargoSeleccionado = new Cargos();
          filtrarLovCargos = null;
          aceptar = true;
-         RequestContext context = RequestContext.getCurrentInstance();
          contarRegistrosCargos();
          RequestContext.getCurrentInstance().update("form:BuscarCargoDialogo");
          RequestContext.getCurrentInstance().update("form:lovBuscarCargo");
          RequestContext.getCurrentInstance().update("form:aceptarBC");
          RequestContext.getCurrentInstance().execute("PF('BuscarCargoDialogo').show()");
       } else {
-         RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
       }
    }
